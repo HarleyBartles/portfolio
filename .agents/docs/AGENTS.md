@@ -1,15 +1,16 @@
 # `.agents/docs` Guidance
 
-This directory holds repo-local doctrine and workflow guidance.
+This directory holds repo-local non-doctrine guidance such as workflow guides and routing surfaces.
 
 ## Read When
 
 - Use before any brainstorming or design-spec pass: [`guides/INDEX.md`](./guides/INDEX.md) and [`guides/design-spec-guide.md`](./guides/design-spec-guide.md).
-- Use before repo-workflow or publication-state decisions: [`workflow-policy.md`](./workflow-policy.md).
-- Use before deciding where artifacts belong: [`artifact-policy.md`](./artifact-policy.md).
-- Use before deciding what to validate: [`validation-policy.md`](./validation-policy.md).
-- Use before scope or architecture decisions: [`coding-discipline.md`](./coding-discipline.md).
-- Use when you need the navigation contract for docs and indexes: [`mesh-policy.md`](./mesh-policy.md).
+- Use before any doctrine or policy work: [`.agents/doctrine/AGENTS.md`](../doctrine/AGENTS.md).
+- Use before any repo-workflow or publication-state decisions: [`.agents/doctrine/workflow-policy.md`](../doctrine/workflow-policy.md).
+- Use before deciding where artifacts belong: [`.agents/doctrine/artifact-policy.md`](../doctrine/artifact-policy.md).
+- Use before deciding what to validate: [`.agents/doctrine/validation-policy.md`](../doctrine/validation-policy.md).
+- Use before scope or architecture decisions: [`.agents/doctrine/coding-discipline.md`](../doctrine/coding-discipline.md).
+- Use when you need the navigation contract for docs and indexes: [`.agents/doctrine/mesh-policy.md`](../doctrine/mesh-policy.md).
 
 ## Working Rules
 

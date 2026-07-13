@@ -8,10 +8,10 @@ Read the relevant routing and policy docs first:
 
 - `AGENTS.md` for the repo-wide routing surface.
 - `.agents/docs/AGENTS.md` for docs and policy routing.
-- `.agents/docs/mesh-policy.md` for README, AGENTS, and INDEX rules.
-- `.agents/docs/workflow-policy.md` for branch, PR, and ready-state rules.
-- `.agents/docs/validation-policy.md` for the current validation baseline.
-- `.agents/docs/coding-discipline.md` when the diff changes scope or structure.
+- `.agents/doctrine/mesh-policy.md` for README, AGENTS, and INDEX rules.
+- `.agents/doctrine/workflow-policy.md` for branch, PR, and ready-state rules.
+- `.agents/doctrine/validation-policy.md` for the current validation baseline.
+- `.agents/doctrine/coding-discipline.md` when the diff changes scope or structure.
 - The approved plan or design spec that the work claims to satisfy.
 
 ## Review Focus

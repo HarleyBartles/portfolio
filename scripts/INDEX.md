@@ -4,7 +4,10 @@
 
 ## Files
 - [AGENTS.md](AGENTS.md)
+- [ci-preflight.ps1](ci-preflight.ps1)
 - [generate_index_mesh.ps1](generate_index_mesh.ps1)
 - [generate_index_mesh.py](generate_index_mesh.py)
 - [README.md](README.md)
 - [requirements.txt](requirements.txt)
+- [validate_agent_mesh.ps1](validate_agent_mesh.ps1)
+- [validate_agent_mesh.py](validate_agent_mesh.py)

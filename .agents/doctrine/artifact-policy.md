@@ -7,7 +7,8 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - Root `README.md` is for humans.
 - Root `AGENTS.md` is for routing pointers and repo-wide guidance.
 - `INDEX.md` files are generated navigation surfaces.
-- `.agents/docs/` is for durable doctrine and guidance.
+- `.agents/docs/` is for durable non-doctrine guidance such as workflow guides.
+- `.agents/doctrine/` is for durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/guides/` is for workflow guides such as design, planning, and implementation.
 - `.agents/superpowers/plans/` is for repo-resident implementation plans.
 - `.agents/superpowers/specs/` is a local-only scratch space and is ignored by git.

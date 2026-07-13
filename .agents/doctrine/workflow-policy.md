@@ -11,6 +11,7 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 - Keep in-progress work in draft until the task is actually complete.
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
+- Only publish the PR when all work is done and the local preflight has passed so CI is expected to pass.
 - Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.
 - If a task asks for direct `main` work, use it only for that task and keep the proof explicit.
 
@@ -18,6 +19,7 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 
 - A task is not ready just because files changed.
 - Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
+- Before publishing a PR, verify the local preflight and branch state so the published CI run is expected to pass.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
 ## Clean Finish

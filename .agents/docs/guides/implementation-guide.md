@@ -5,9 +5,9 @@ Use this guide when executing an approved plan in the portfolio repository.
 ## Read First
 
 - `AGENTS.md` for repo-wide routing.
-- `.agents/docs/mesh-policy.md` for documentation and mesh rules.
-- `.agents/docs/artifact-policy.md` for artifact placement.
-- `.agents/docs/validation-policy.md` for the expected validation baseline.
+- `.agents/doctrine/mesh-policy.md` for documentation and mesh rules.
+- `.agents/doctrine/artifact-policy.md` for artifact placement.
+- `.agents/doctrine/validation-policy.md` for the expected validation baseline.
 - The approved implementation plan.
 
 ## Execution Rules

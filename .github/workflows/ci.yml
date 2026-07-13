@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  preflight:
+    runs-on: windows-latest
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run repo preflight
+        shell: pwsh
+        run: .\scripts\ci-preflight.ps1 -Check

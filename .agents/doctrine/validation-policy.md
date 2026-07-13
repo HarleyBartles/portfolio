@@ -6,16 +6,21 @@ Use this reference when deciding what to verify for repo-starter work.
 
 For the current portfolio setup work, the minimum validation is:
 
+- `.\scripts\ci-preflight.ps1 -Check`
 - `py -3 scripts/generate_index_mesh.py`
 - `py -3 scripts/generate_index_mesh.py --check`
 - `.\scripts\generate_index_mesh.ps1 -Check`
+- `py -3 scripts/validate_agent_mesh.py --check`
+- `.\scripts\validate_agent_mesh.ps1 -Check`
 - `git diff --check`
 - `git status --short`
 
 ## Validation Rules
 
 - Use the smallest validation set that proves the slice you changed.
+- Use the preflight wrapper when you need the repo's default local-or-CI validation bundle.
 - If a change affects docs or navigation, verify the mesh.
+- If a change affects doctrine or the agents mesh, verify doctrine reachability with the agent mesh validator.
 - If a change affects scripts, verify the script and its wrapper both work.
 - If a change affects future application code, add the exact build/test/typecheck commands to the next layer of guidance when that code exists.
 

@@ -9,7 +9,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 ### Structure: routing files, not doctrine containers
 
 - `AGENTS.md` files must stay lightweight and should point at the relevant docs with `use before` or `use when` language.
-- Doctrine belongs in `.agents/docs/` and repo docs. `AGENTS.md` should point at those docs, not duplicate them.
+- Doctrine belongs in `.agents/doctrine/` and repo docs. `AGENTS.md` should point at those docs, not duplicate them.
 - The root `AGENTS.md` is a thin repo router. It should point at the scoped `AGENTS.md` files and the policy docs that matter for this repo.
 - Scoped `AGENTS.md` files should stay focused on the subtree they govern and should remain easy to read in one pass.
 - If a scoped `AGENTS.md` starts carrying more than a small amount of doctrine, move that doctrine into a repo doc and leave a pointer behind.
@@ -38,7 +38,8 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 `.agents/` is the tracked repo-resident home for agent-facing doctrine, local planning surfaces, and hidden-surface navigation.
 
-- `.agents/docs/` contains repo-local doctrine and guidance docs.
+- `.agents/doctrine/` contains durable doctrine such as policies, contracts, and rule sets.
+- `.agents/docs/` contains repo-local non-doctrine guidance docs.
 - `.agents/docs/guides/` contains the guide entrypoints for design/spec work.
 - `.agents/superpowers/` contains plan surfaces and related planning artifacts.
 - `.agents/plugins/` will hold repo-local plugin posture when the marketplace setup is added.

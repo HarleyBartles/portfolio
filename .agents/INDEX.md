@@ -4,4 +4,5 @@
 
 ## Directories
 - [docs](docs/INDEX.md)
+- [doctrine](doctrine/INDEX.md)
 - [superpowers](superpowers/INDEX.md)

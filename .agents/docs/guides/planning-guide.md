@@ -5,9 +5,9 @@ Use this guide when turning an approved design spec into an implementation plan 
 ## Read First
 
 - `AGENTS.md` for the repo-wide routing points.
-- `.agents/docs/mesh-policy.md` for how the navigation and guidance surfaces fit together.
-- `.agents/docs/artifact-policy.md` for where plans and specs belong.
-- `.agents/docs/validation-policy.md` for the validation baseline.
+- `.agents/doctrine/mesh-policy.md` for how the navigation and guidance surfaces fit together.
+- `.agents/doctrine/artifact-policy.md` for where plans and specs belong.
+- `.agents/doctrine/validation-policy.md` for the validation baseline.
 - The approved design spec you are planning from.
 
 ## What a Good Plan Must Contain
