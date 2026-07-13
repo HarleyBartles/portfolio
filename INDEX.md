@@ -4,6 +4,7 @@
 
 ## Directories
 - [.agents](.agents/INDEX.md)
+- [.github](.github/INDEX.md)
 - [docs](docs/INDEX.md)
 - [scripts](scripts/INDEX.md)
 - [src](src/INDEX.md)
