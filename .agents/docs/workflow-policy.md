@@ -1,0 +1,23 @@
+# Workflow Policy
+
+Use this reference when managing git workflow, claiming completion, or deciding whether a task is ready to hand off.
+
+## Branch and Publication
+
+- Start from the current `main` branch unless a task says otherwise.
+- Use a branch for real work; do not treat direct `main` edits as the default path.
+- Keep in-progress work in draft until the task is actually complete.
+- Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.
+- If a task asks for direct `main` work, use it only for that task and keep the proof explicit.
+
+## Readiness
+
+- A task is not ready just because files changed.
+- Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
+- Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
+
+## Clean Finish
+
+- End with a clean working tree unless the task explicitly leaves a tracked draft behind.
+- Report the exact files changed and the exact validation run.
+- If cleanup is part of the task, perform it explicitly and verify it.

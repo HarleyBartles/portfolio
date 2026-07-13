@@ -4,3 +4,6 @@
 
 ## Directories
 - [plans](plans/INDEX.md)
+
+## Files
+- [AGENTS.md](AGENTS.md)

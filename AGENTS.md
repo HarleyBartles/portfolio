@@ -29,12 +29,13 @@ The site exists to present Harley as a software engineer through:
 
 ## Agent Guidance Surfaces
 
-Read the relevant guidance before taking action:
+Read the scoped routers and the relevant doc before taking action:
 
-- Use before any brainstorming or design-spec pass: [`.agents/docs/guides/INDEX.md`](./.agents/docs/guides/INDEX.md), then [`design-spec-guide.md`](./.agents/docs/guides/design-spec-guide.md) when the task is turning an idea into a planning-ready design spec.
-- Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/INDEX.md`](./.agents/superpowers/INDEX.md) and [`.agents/superpowers/plans/INDEX.md`](./.agents/superpowers/plans/INDEX.md). Follow the `plans/` and local-only spec rules there.
-- Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md), [`.agents/docs/INDEX.md`](./.agents/docs/INDEX.md), and [`.agents/docs/mesh-policy.md`](./.agents/docs/mesh-policy.md) so the surrounding navigation stays current.
-- Use before updating README or index surfaces: [`.agents/docs/mesh-policy.md`](./.agents/docs/mesh-policy.md) and [`scripts/README.md`](./scripts/README.md) for the mesh contract and generator behavior.
+- Use before any docs, policy, or repo-guidance work: [`.agents/docs/AGENTS.md`](./.agents/docs/AGENTS.md).
+- Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
+- Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
+- Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
+- Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/docs/mesh-policy.md`](./.agents/docs/mesh-policy.md).
 - Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py` or `.\scripts\generate_index_mesh.ps1 -Check` and update the relevant `INDEX.md` files in the same change.
 
 ## Documentation Rules

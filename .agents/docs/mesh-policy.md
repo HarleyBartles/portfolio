@@ -4,14 +4,14 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 ## 1. `AGENTS.md` mesh
 
-`AGENTS.md` files are routing surfaces. They tell agents what to read and when, but they should not become the main home for doctrine.
+`AGENTS.md` files are scoped routing surfaces. They tell agents what to read and when, and they should live close to the area they govern.
 
 ### Structure: routing files, not doctrine containers
 
 - `AGENTS.md` files must stay lightweight and should point at the relevant docs with `use before` or `use when` language.
 - Doctrine belongs in `.agents/docs/` and repo docs. `AGENTS.md` should point at those docs, not duplicate them.
-- The root `AGENTS.md` carries the repository identity and the routing pointers that matter for this repo. It should not absorb mesh doctrine that belongs in this document.
-- Scoped `AGENTS.md` files may exist where a subtree needs local routing, but they should remain small and focused.
+- The root `AGENTS.md` is a thin repo router. It should point at the scoped `AGENTS.md` files and the policy docs that matter for this repo.
+- Scoped `AGENTS.md` files should stay focused on the subtree they govern and should remain easy to read in one pass.
 - If a scoped `AGENTS.md` starts carrying more than a small amount of doctrine, move that doctrine into a repo doc and leave a pointer behind.
 
 ### Why this matters
@@ -47,8 +47,9 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 README files are human-facing. They are not a mesh.
 
-- The root `README.md` should explain the repository and point at the navigation surface.
-- README files should not be the only place where agent-facing rules live.
+- The root `README.md` should explain the repository in human terms and point at the navigation mesh.
+- README files must not be used as agent-routing surfaces.
+- README files should not be the only place where important repository rules live, but they also should not carry read-when routing.
 - If a README becomes stale or picks up operative law, repair it or move the rule into the agents mesh.
 
 ## 5. Mesh self-healing
