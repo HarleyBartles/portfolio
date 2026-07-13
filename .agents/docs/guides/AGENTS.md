@@ -7,6 +7,7 @@ This directory holds the task-specific guides for agent workflows.
 - Use before turning an idea into a planning-ready design spec: [`design-spec-guide.md`](./design-spec-guide.md).
 - Use before translating an approved design spec into a plan: [`planning-guide.md`](./planning-guide.md).
 - Use before executing an approved plan: [`implementation-guide.md`](./implementation-guide.md).
+- Use before reviewing a PR, branch, or diff: [`review-guide.md`](./review-guide.md).
 
 ## Working Rules
 

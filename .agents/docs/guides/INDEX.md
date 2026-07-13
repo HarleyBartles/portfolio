@@ -7,3 +7,4 @@
 - [design-spec-guide.md](design-spec-guide.md)
 - [implementation-guide.md](implementation-guide.md)
 - [planning-guide.md](planning-guide.md)
+- [review-guide.md](review-guide.md)
