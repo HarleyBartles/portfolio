@@ -90,10 +90,16 @@ def is_under(path: Path, ancestor: Path) -> bool:
     return path == ancestor or ancestor in path.parents
 
 
+def is_submodule(path: Path) -> bool:
+    return (path / ".git").is_file()
+
+
 def is_gitignored(path: Path) -> bool:
     if path.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return True
     if path.name in ALWAYS_EXCLUDED_FILE_NAMES:
+        return True
+    if is_submodule(path):
         return True
 
     relative_path = path.relative_to(ROOT)

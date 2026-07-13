@@ -35,7 +35,10 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any durable doctrine or policy work: [`.agents/doctrine/AGENTS.md`](./.agents/doctrine/AGENTS.md).
 - Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
 - Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
+- Use before any file mutation when a branch task should stay in a linked worktree: [`scripts/assert_active_worktree.py`](./scripts/assert_active_worktree.py) and [`scripts/assert_active_worktree.ps1`](./scripts/assert_active_worktree.ps1).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
+- Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
+- Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
 - Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py` or `.\scripts\generate_index_mesh.ps1 -Check` and update the relevant `INDEX.md` files in the same change.

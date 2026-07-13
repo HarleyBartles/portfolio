@@ -8,6 +8,7 @@
 - [docs](docs/INDEX.md)
 - [scripts](scripts/INDEX.md)
 - [src](src/INDEX.md)
+- [tests](tests/INDEX.md)
 
 ## Files
 - [.gitignore](.gitignore)

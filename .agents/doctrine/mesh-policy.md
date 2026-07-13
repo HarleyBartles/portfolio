@@ -41,8 +41,9 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - `.agents/doctrine/` contains durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/` contains repo-local non-doctrine guidance docs.
 - `.agents/docs/guides/` contains the guide entrypoints for design/spec work.
+- `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
+- `.agents/skills/` contains derived installed skills and provenance, not source truth.
 - `.agents/superpowers/` contains plan surfaces and related planning artifacts.
-- `.agents/plugins/` will hold repo-local plugin posture when the marketplace setup is added.
 
 ## 4. README files
 

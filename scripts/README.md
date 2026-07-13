@@ -16,6 +16,16 @@ The generator owns every tracked `INDEX.md` file in the repo. It asks git which 
 
 **Use after** structural changes that affect navigation or any new surface that should be discoverable through `INDEX.md`.
 
+### `assert_active_worktree.py` / `assert_active_worktree.ps1`
+
+**Use when** a branch task should only mutate files inside the linked worktree.
+
+- `python scripts/assert_active_worktree.py` - fail if the active checkout is the shared repository root or a submodule
+- `python scripts/assert_active_worktree.py --allow-shared-checkout` - permit intentional main-checkout work
+- `.\scripts\assert_active_worktree.ps1` - PowerShell wrapper with the same `-AllowSharedCheckout` flag
+
+This guard is meant to be run before file mutations so agents do not accidentally write branch work into the shared checkout.
+
 ### `validate_agent_mesh.py` / `validate_agent_mesh.ps1`
 
 **Use when** you need to verify that every doctrine document under `.agents/doctrine/` is referenced from at least one node in the agents mesh.
