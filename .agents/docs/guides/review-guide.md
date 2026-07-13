@@ -19,7 +19,7 @@ Read the relevant routing and policy docs first:
 A good review answers four questions:
 
 1. Does the diff match the requested scope?
-2. Does the diff preserve the repo’s guardrails?
+2. Does the diff preserve the repo's guardrails?
 3. Is the validation sufficient for the slice that changed?
 4. Did the work leave the repository easier for the next agent to understand?
 
@@ -31,9 +31,19 @@ Apply the following lenses as needed:
 - **Hygiene Lens** - are files in the right place, with no stray artifacts or broken routing?
 - **Validation Lens** - does the change have the checks it needs, and were they actually run?
 - **Documentation Lens** - do AGENTS, README, INDEX, and guide surfaces still point at the right things?
-- **Architecture Lens** - if the work adds code later, does it stay within the repository’s documented architecture direction?
+- **Architecture Lens** - if the work adds code later, does it stay within the repository's documented architecture direction?
 
 If the review touches only docs or navigation, keep the architecture lens light and focus on routing, accuracy, and index freshness.
+
+## Review Quality Bar
+
+The review itself should be rigorous enough that the reviewer does not need a second pass to understand the result.
+
+- Target confidence: `9/10`.
+- Minimum pass: `8/10`.
+- If the score is below `8/10`, keep working.
+- If the score is below `9/10` and the gap is easy to close, close it before returning the review.
+- The review does not hand off to another stage, but it should still improve the next action by being explicit about findings, missing validation, and any doc or mesh follow-up.
 
 ## What To Check
 
