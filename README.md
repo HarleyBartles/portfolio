@@ -1,0 +1,56 @@
+# Portfolio
+
+This repository will become Harley Bartles' personal developer portfolio website, eventually deployed to `harleybartles.com`.
+
+The site is intended to present a focused professional presence:
+
+- background and experience;
+- software engineering skills and architectural approach;
+- selected projects, including Wild Bunch as one portfolio piece among others;
+- technical writing and articles;
+- later, small interactive demos when they are actually useful.
+
+## Current Status
+
+This repository has just been initialized.
+
+- No application code has been scaffolded yet.
+- No deployment pipeline exists yet.
+- The repository structure is being kept intentionally small so the site can grow without being over-engineered.
+
+## Architecture Direction
+
+The intended stack is:
+
+- `.NET 10`
+- `ASP.NET Core`
+- `React`
+- `TypeScript`
+- `Vite`
+
+The likely long-term shape is a simple ASP.NET Core host with a React/Vite frontend, organized in a way that keeps the web application straightforward to build, run, and deploy.
+
+This repository is **not** intended to become a large DDD system, a CQRS/event-sourcing experiment, or a microservices landscape. The site should stay easy to understand and easy to evolve.
+
+## Development Philosophy
+
+- Prefer the simplest structure that supports the current need.
+- Avoid speculative abstraction.
+- Add code only when it supports a concrete feature or a necessary foundation.
+- Respect established patterns once they exist.
+- Keep documentation current when the repository shape changes.
+- Treat Wild Bunch as a portfolio project, not as the portfolio site itself.
+
+## Planned Roadmap
+
+1. Build a polished public portfolio website.
+2. Add project showcases, including Wild Bunch.
+3. Add a blog or articles section.
+4. Later, link to a live Wild Bunch deployment at `wild-bunch.harleybartles.com`.
+5. Much later, if multiple portfolio projects need shared authentication, introduce platform auth carefully.
+6. Add small interactive demos or tools only when they serve the portfolio.
+
+## Repository Navigation
+
+- [`INDEX.md`](./INDEX.md) describes the repository root and points to the surrounding workspace indexes.
+- [`AGENTS.md`](./AGENTS.md) defines repository-wide guidance for future agents.
