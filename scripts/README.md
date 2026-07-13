@@ -40,7 +40,7 @@ The validator keeps doctrine discoverable through the routing mesh and is intend
 
 **Use when** you want the repo's default preflight bundle in one command.
 
-- `.\scripts\ci-preflight.ps1` - run the mesh check and doctrine validator
+- `.\scripts\ci-preflight.ps1` - run the mesh check, marketplace installer check, and doctrine validator
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes
 
 This is the preferred single entrypoint for local readiness and CI jobs that should mirror the repo's current setup baseline.

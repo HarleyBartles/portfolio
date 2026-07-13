@@ -35,13 +35,35 @@ class IndexTarget:
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
 
+def is_submodule_root(path: Path) -> bool:
+    return path != ROOT and (path / ".git").is_file()
+
+
+def submodule_root_for(path: Path) -> Path | None:
+    if is_submodule_root(path):
+        return path
+    for ancestor in path.parents:
+        if is_submodule_root(ancestor):
+            return ancestor
+    return None
+
+
+def is_leaf_index_dir(path: Path) -> bool:
+    return path == ROOT / ".agents" / "skills"
+
+
 def collect_candidate_paths(root: Path) -> list[Path]:
     """Collect repo-relative paths that may be ignored by git."""
     candidates: list[Path] = []
     for dirpath, dirnames, filenames in os.walk(root):
         current = Path(dirpath)
         dirnames[:] = sorted(
-            (name for name in dirnames if name not in ALWAYS_EXCLUDED_DIR_NAMES),
+            (
+                name
+                for name in dirnames
+                if name not in ALWAYS_EXCLUDED_DIR_NAMES
+                and not is_submodule_root(current / name)
+            ),
             key=lambda name: (name.casefold(), name),
         )
         for dirname in dirnames:
@@ -90,16 +112,12 @@ def is_under(path: Path, ancestor: Path) -> bool:
     return path == ancestor or ancestor in path.parents
 
 
-def is_submodule(path: Path) -> bool:
-    return (path / ".git").is_file()
-
-
 def is_gitignored(path: Path) -> bool:
     if path.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return True
     if path.name in ALWAYS_EXCLUDED_FILE_NAMES:
         return True
-    if is_submodule(path):
+    if submodule_root_for(path) is not None and not is_submodule_root(path):
         return True
 
     relative_path = path.relative_to(ROOT)
@@ -122,6 +140,8 @@ def is_gitignored(path: Path) -> bool:
 def should_descend(child: Path) -> bool:
     if child.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return False
+    if is_submodule_root(child):
+        return False
     if is_gitignored(child):
         return False
     return True
@@ -130,6 +150,8 @@ def should_descend(child: Path) -> bool:
 def should_index(path: Path) -> bool:
     if path == ROOT:
         return True
+    if is_submodule_root(path):
+        return False
     if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.parts):
         return False
     if is_gitignored(path):
@@ -162,6 +184,9 @@ def render_index(path: Path) -> str:
         if entry.name == "INDEX.md":
             continue
         if entry.is_dir():
+            if is_submodule_root(entry):
+                dirs.append(entry)
+                continue
             if not should_descend(entry):
                 continue
             dirs.append(entry)
@@ -232,10 +257,17 @@ def walk_index_targets() -> list[IndexTarget]:
     targets: list[IndexTarget] = []
     for dirpath, dirnames, _filenames in os.walk(ROOT):
         current = Path(dirpath)
-        dirnames[:] = sorted(
-            (name for name in dirnames if should_descend(current / name)),
-            key=lambda name: (name.casefold(), name),
-        )
+        if is_leaf_index_dir(current):
+            dirnames[:] = []
+        else:
+            dirnames[:] = sorted(
+                (
+                    name
+                    for name in dirnames
+                    if should_descend(current / name) or is_leaf_index_dir(current / name)
+                ),
+                key=lambda name: (name.casefold(), name),
+            )
         if should_index(current):
             targets.append(IndexTarget(path=current / "INDEX.md", lines=render_index(current).splitlines()))
     return targets
@@ -248,14 +280,22 @@ def main() -> int:
 
     targets = walk_index_targets()
     expected_paths = {target.path for target in targets}
-    actual_paths = {
-        path
-        for path in ROOT.rglob("*")
-        if path.is_file()
-        and path.name == "INDEX.md"
-        and not is_gitignored(path)
-        and not any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts)
-    }
+    actual_paths: set[Path] = set()
+    for dirpath, dirnames, _filenames in os.walk(ROOT):
+        current = Path(dirpath)
+        if is_leaf_index_dir(current):
+            dirnames[:] = []
+        else:
+            dirnames[:] = sorted(
+                (
+                    name
+                    for name in dirnames
+                    if should_descend(current / name) or is_leaf_index_dir(current / name)
+                ),
+                key=lambda name: (name.casefold(), name),
+            )
+        if should_index(current):
+            actual_paths.add(current / "INDEX.md")
     unexpected = sorted(path for path in actual_paths if path not in expected_paths)
     missing = sorted(path for path in expected_paths if path not in actual_paths)
 

@@ -14,7 +14,8 @@
 - `.agents/plugins/marketplace-source` is a git submodule pinned to `HarleyBartles/agent-asset-marketplace.git`.
 - `.agents/skills/` is derived output, not source of truth.
 - `.agents/skills/.provenance.json` records the current marketplace submodule SHA and synced plugin list.
-- The default-installed plugin set is exactly: `repo-worker-pack`, `superpowers-plus`, `architecture-pack`, `frontend-pack`, `dotnet-kit`, `testing`.
+- The default-installed plugin set is exactly: `repo-worker-pack`, `superpowers-plus`, `architecture-pack`, `frontend-pack`, `dotnet-kit`.
+- Testing coverage comes from the projected skills inside `dotnet-kit` and `frontend-pack`, not from a standalone `testing` plugin.
 - Wild Bunch-specific plugins do not belong in this repository.
 - The installer script must read the manifest, copy only default-installed skill trees, detect collisions deterministically, and support both `--check` and `--force`.
 - The implementation must not scaffold application code for ASP.NET Core, React, authentication, or deployment.
@@ -58,8 +59,7 @@ Create `.agents/plugins/marketplace.json` with the exact default-installed plugi
     "superpowers-plus",
     "architecture-pack",
     "frontend-pack",
-    "dotnet-kit",
-    "testing"
+    "dotnet-kit"
   ]
 }
 ```

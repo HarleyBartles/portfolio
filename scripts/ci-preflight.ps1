@@ -3,7 +3,7 @@
   Run the repository preflight checks for local and CI use.
 
 .DESCRIPTION
-  Runs the index mesh check and the doctrine mesh validator.
+  Runs the index mesh check, the marketplace skill installer check, and the doctrine mesh validator.
 
 .PARAMETER Check
   Run in validation mode without any write steps.
@@ -23,16 +23,25 @@ Set-StrictMode -Version Latest
 $ScriptDir = (Resolve-Path $PSScriptRoot).Path
 
 $meshScript = Join-Path $ScriptDir 'generate_index_mesh.ps1'
+$skillsScript = Join-Path $ScriptDir 'install_agent_skills.ps1'
 $doctrineScript = Join-Path $ScriptDir 'validate_agent_mesh.ps1'
 
 if (-not (Test-Path $meshScript)) {
     throw "Mesh script not found at $meshScript"
+}
+if (-not (Test-Path $skillsScript)) {
+    throw "Skill installer script not found at $skillsScript"
 }
 if (-not (Test-Path $doctrineScript)) {
     throw "Doctrine validator not found at $doctrineScript"
 }
 
 & $meshScript -Check:$Check
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
+
+& $skillsScript -Check:$Check
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }

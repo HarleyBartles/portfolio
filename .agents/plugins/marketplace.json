@@ -9,8 +9,7 @@
     "superpowers-plus",
     "architecture-pack",
     "frontend-pack",
-    "dotnet-kit",
-    "testing"
+    "dotnet-kit"
   ],
   "excluded_plugins": [
     "wild-bunch-project-pack"
@@ -18,32 +17,27 @@
   "plugins": {
     "repo-worker-pack": {
       "version": "1.0.0",
-      "source_path": "repo-worker-pack/1.0.0",
+      "source_path": "codex-marketplace/plugins/repo-worker-pack",
       "skills_path": "skills"
     },
     "superpowers-plus": {
       "version": "5.1.0",
-      "source_path": "superpowers-plus/5.1.0",
+      "source_path": "codex-marketplace/plugins/superpowers-plus",
       "skills_path": "skills"
     },
     "architecture-pack": {
       "version": "1.0.0",
-      "source_path": "architecture-pack/1.0.0",
+      "source_path": "codex-marketplace/plugins/architecture-pack",
       "skills_path": "skills"
     },
     "frontend-pack": {
       "version": "1.0.0",
-      "source_path": "frontend-pack/1.0.0",
+      "source_path": "codex-marketplace/plugins/frontend-pack",
       "skills_path": "skills"
     },
     "dotnet-kit": {
       "version": "1.0.0",
-      "source_path": "dotnet-kit/1.0.0",
-      "skills_path": "skills"
-    },
-    "testing": {
-      "version": "1.0.0",
-      "source_path": "testing/1.0.0",
+      "source_path": "codex-marketplace/plugins/dotnet-kit",
       "skills_path": "skills"
     }
   }

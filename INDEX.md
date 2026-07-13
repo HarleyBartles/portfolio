@@ -12,5 +12,6 @@
 
 ## Files
 - [.gitignore](.gitignore)
+- [.gitmodules](.gitmodules)
 - [AGENTS.md](AGENTS.md)
 - [README.md](README.md)

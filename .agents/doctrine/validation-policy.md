@@ -7,6 +7,8 @@ Use this reference when deciding what to verify for repo-starter work.
 For the current portfolio setup work, the minimum validation is:
 
 - `.\scripts\ci-preflight.ps1 -Check`
+- `py -3 scripts/install_agent_skills.py --check`
+- `.\scripts\install_agent_skills.ps1 -Check`
 - `py -3 scripts/generate_index_mesh.py`
 - `py -3 scripts/generate_index_mesh.py --check`
 - `.\scripts\generate_index_mesh.ps1 -Check`
@@ -19,6 +21,7 @@ For the current portfolio setup work, the minimum validation is:
 
 - Use the smallest validation set that proves the slice you changed.
 - Use the preflight wrapper when you need the repo's default local-or-CI validation bundle.
+- Use the installer check when you change the marketplace manifest, the submodule source, or the derived skill tree.
 - If a change affects docs or navigation, verify the mesh.
 - If a change affects doctrine or the agents mesh, verify doctrine reachability with the agent mesh validator.
 - If a change affects scripts, verify the script and its wrapper both work.

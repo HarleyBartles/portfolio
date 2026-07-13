@@ -110,21 +110,34 @@ def relative_path(root: Path, path: Path) -> Path:
     return path.relative_to(root)
 
 
+def normalize_text_content(content: str) -> str:
+    lines = content.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    lines = [line.rstrip() for line in lines]
+    while lines and lines[-1] == "":
+        lines.pop()
+    return "\n".join(lines) + "\n"
+
+
+def read_normalized_file(path: Path) -> bytes:
+    raw = path.read_bytes()
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw
+    return normalize_text_content(text).encode("utf-8")
+
+
 def trees_match(source: Path, destination: Path) -> bool:
     if not destination.exists():
         return False
 
-    source_files = sorted(
-        relative_path(source, path) for path in source.rglob("*") if path.is_file()
-    )
-    destination_files = sorted(
-        relative_path(destination, path) for path in destination.rglob("*") if path.is_file()
-    )
+    source_files = sorted(relative_path(source, path) for path in source.rglob("*") if path.is_file())
+    destination_files = sorted(relative_path(destination, path) for path in destination.rglob("*") if path.is_file())
     if source_files != destination_files:
         return False
 
     for rel_path in source_files:
-        if (source / rel_path).read_bytes() != (destination / rel_path).read_bytes():
+        if read_normalized_file(source / rel_path) != read_normalized_file(destination / rel_path):
             return False
     return True
 
@@ -137,7 +150,34 @@ def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
             if not trees_match(source, destination):
                 raise ValueError(f"Destination already exists and differs: {destination}")
             return
-    shutil.copytree(source, destination)
+    destination.mkdir(parents=True, exist_ok=True)
+    for child in sorted(source.iterdir(), key=lambda item: (item.name.casefold(), item.name)):
+        target = destination / child.name
+        if child.is_dir():
+            copy_tree(child, target, force=force)
+            continue
+        target.write_bytes(read_normalized_file(child))
+
+
+def write_provenance(
+    output_root: Path,
+    result: SyncResult,
+    manifest: MarketplaceManifest,
+    *,
+    source_root: Path,
+) -> None:
+    provenance_data = {
+        "schema_version": 1,
+        "source_root": str(source_root),
+        "source_revision": result.source_revision,
+        "default_plugins": list(manifest.default_plugins),
+        "excluded_plugins": list(manifest.excluded_plugins),
+        "copied_skills": list(result.copied_skills),
+    }
+    result.provenance_path.write_text(
+        json.dumps(provenance_data, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 def sync_default_skills(
@@ -178,6 +218,11 @@ def sync_default_skills(
     output_root.mkdir(parents=True, exist_ok=True)
     source_revision = get_git_revision(source_root)
     provenance_path = output_root / ".provenance.json"
+    result = SyncResult(
+        copied_skills=expected_skill_names,
+        provenance_path=provenance_path,
+        source_revision=source_revision,
+    )
     provenance_data = {
         "schema_version": 1,
         "source_root": str(source_root),
@@ -212,11 +257,7 @@ def sync_default_skills(
         if mismatches:
             raise ValueError("Derived skills are stale: " + ", ".join(sorted(set(mismatches))))
 
-        return SyncResult(
-            copied_skills=expected_skill_names,
-            provenance_path=provenance_path,
-            source_revision=source_revision,
-        )
+        return result
 
     for skill_name, source in desired_skill_dirs.items():
         copy_tree(source, output_root / skill_name, force=force)
@@ -231,16 +272,8 @@ def sync_default_skills(
     for path in stale_skill_dirs:
         shutil.rmtree(path)
 
-    provenance_path.write_text(
-        json.dumps(provenance_data, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
-    return SyncResult(
-        copied_skills=expected_skill_names,
-        provenance_path=provenance_path,
-        source_revision=source_revision,
-    )
+    write_provenance(output_root, result, manifest, source_root=source_root)
+    return result
 
 
 def main() -> int:

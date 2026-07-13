@@ -23,6 +23,25 @@ def load_module():
 
 
 class InstallAgentSkillsTests(unittest.TestCase):
+    def test_repo_manifest_matches_real_plugin_surface(self) -> None:
+        module = load_module()
+        manifest = module.load_manifest(ROOT / ".agents" / "plugins" / "marketplace.json")
+
+        self.assertEqual(
+            manifest.default_plugins,
+            [
+                "repo-worker-pack",
+                "superpowers-plus",
+                "architecture-pack",
+                "frontend-pack",
+                "dotnet-kit",
+            ],
+        )
+        self.assertIn("wild-bunch-project-pack", manifest.excluded_plugins)
+        self.assertTrue(
+            (ROOT / ".agents" / "plugins" / "marketplace-source" / manifest.plugins["repo-worker-pack"].source_path / "skills").is_dir()
+        )
+
     def test_sync_copies_default_plugins_and_writes_provenance(self) -> None:
         module = load_module()
 
@@ -39,12 +58,12 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 "plugins": {
                     "repo-worker-pack": {
                         "version": "1.0.0",
-                        "source_path": "repo-worker-pack/1.0.0",
+                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
                         "skills_path": "skills",
                     },
                     "dotnet-kit": {
                         "version": "1.0.0",
-                        "source_path": "dotnet-kit/1.0.0",
+                        "source_path": "codex-marketplace/plugins/dotnet-kit",
                         "skills_path": "skills",
                     },
                 },
@@ -57,7 +76,10 @@ class InstallAgentSkillsTests(unittest.TestCase):
             ]:
                 skill_root = source_root / manifest["plugins"][plugin_name]["source_path"] / "skills" / skill_name
                 skill_root.mkdir(parents=True, exist_ok=True)
-                (skill_root / "SKILL.md").write_text(f"# {skill_name}\n", encoding="utf-8")
+                if skill_name == "boring-loop":
+                    (skill_root / "SKILL.md").write_text(f"# {skill_name}   \n\n", encoding="utf-8")
+                else:
+                    (skill_root / "SKILL.md").write_text(f"# {skill_name}\n", encoding="utf-8")
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
 
@@ -71,6 +93,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             self.assertTrue((output_root / "boring-loop" / "SKILL.md").exists())
             self.assertTrue((output_root / "testing" / "SKILL.md").exists())
             self.assertTrue((output_root / ".provenance.json").exists())
+            self.assertEqual((output_root / "boring-loop" / "SKILL.md").read_text(encoding="utf-8"), "# boring-loop\n")
 
             provenance = json.loads((output_root / ".provenance.json").read_text(encoding="utf-8"))
             self.assertEqual(provenance["source_revision"], "abc123")
@@ -94,13 +117,13 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 "plugins": {
                     "repo-worker-pack": {
                         "version": "1.0.0",
-                        "source_path": "repo-worker-pack/1.0.0",
+                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
                         "skills_path": "skills",
                     }
                 },
             }
 
-            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
+            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
             skill_root.mkdir(parents=True, exist_ok=True)
             (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
             (output_root / "boring-loop").mkdir(parents=True, exist_ok=True)
