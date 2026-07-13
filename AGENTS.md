@@ -33,6 +33,7 @@ Read the scoped routers and the relevant doc before taking action:
 
 - Use before any docs, policy, or repo-guidance work: [`.agents/docs/AGENTS.md`](./.agents/docs/AGENTS.md).
 - Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
+- Use before any worktree, branch, PR, or readiness decision: [`.agents/docs/workflow-policy.md`](./.agents/docs/workflow-policy.md).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/docs/mesh-policy.md`](./.agents/docs/mesh-policy.md).

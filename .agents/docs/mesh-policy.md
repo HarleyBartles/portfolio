@@ -55,6 +55,7 @@ README files are human-facing. They are not a mesh.
 ## 5. Mesh self-healing
 
 - If a worker finds stale or misleading authored mesh law (`AGENTS.md`, `README.md`, or this document), repair it in scope.
+- If a relevant doctrine or policy document is added to the repo, point at it from an appropriate `AGENTS.md` surface in the same change. Do not rely on agents discovering it just because it exists on disk.
 - If a worker finds stale generated `INDEX.md` navigation, repair it by regenerating the whole mesh through `scripts/generate_index_mesh.py`.
 - Do not hand-edit generated `INDEX.md` files.
 
@@ -86,6 +87,7 @@ If a change touches any of the surfaces governed by this policy, update the rele
 - `AGENTS.md`
 - `README.md`
 - `.agents/docs/mesh-policy.md`
+- any newly added or renamed doctrine document that should be discoverable through the mesh
 - the affected `INDEX.md` files
 - `scripts/README.md` or `scripts/AGENTS.md` when tooling behavior changes
 
