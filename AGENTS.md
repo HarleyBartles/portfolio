@@ -27,6 +27,15 @@ The site exists to present Harley as a software engineer through:
 - Keep the repository intentionally simple and easy to navigate.
 - Update documentation when the repository structure changes in a meaningful way.
 
+## Agent Guidance Surfaces
+
+Read the relevant guidance before taking action:
+
+- Use before any brainstorming or design-spec pass: [`.agents/docs/guides/INDEX.md`](./.agents/docs/guides/INDEX.md), then [`design-spec-guide.md`](./.agents/docs/guides/design-spec-guide.md) when the task is turning an idea into a planning-ready design spec.
+- Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/INDEX.md`](./.agents/superpowers/INDEX.md). Follow the `plans/` and `specs/` rules there, and keep plan artifacts repo-resident while respecting the local-only spec area.
+- Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/docs/INDEX.md`](./.agents/docs/INDEX.md) so the surrounding navigation stays current.
+- Use after any structural change that adds, removes, or moves tracked directories: update the relevant `INDEX.md` files in the same change.
+
 ## Documentation Rules
 
 - `README.md` is the human-facing overview.
