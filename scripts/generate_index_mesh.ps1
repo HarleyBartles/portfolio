@@ -44,15 +44,6 @@ if (-not $pythonLauncher) {
     throw "No Python launcher found. Tried: $($pythonLaunchers -join ', ')."
 }
 
-$pathspecCheck = & $pythonLauncher -c "import pathspec" 2>&1
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "pathspec not found; installing from $ScriptDir/requirements.txt"
-    & $pythonLauncher -m pip install -r (Join-Path $ScriptDir 'requirements.txt')
-    if ($LASTEXITCODE -ne 0) {
-        throw "Failed to install pathspec from requirements.txt"
-    }
-}
-
 $arguments = @($PythonScript)
 if ($Check) {
     $arguments += '--check'

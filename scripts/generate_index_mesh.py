@@ -6,16 +6,9 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-
-try:
-    from pathspec import PathSpec
-    from pathspec.patterns.gitwildmatch import GitWildMatchPattern
-
-    HAS_PATHSPEC = True
-except ImportError:
-    HAS_PATHSPEC = False
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,30 +35,55 @@ class IndexTarget:
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
 
-def load_gitignore() -> PathSpec | None:
-    """Load .gitignore if pathspec is available."""
-    if not HAS_PATHSPEC:
-        return None
-
-    gitignore_path = ROOT / ".gitignore"
-    if not gitignore_path.exists():
-        return None
-
-    patterns: list[str] = []
-    with gitignore_path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            line = line.strip()
-            if not line or line.startswith("#"):
+def collect_candidate_paths(root: Path) -> list[Path]:
+    """Collect repo-relative paths that may be ignored by git."""
+    candidates: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        current = Path(dirpath)
+        dirnames[:] = sorted(
+            (name for name in dirnames if name not in ALWAYS_EXCLUDED_DIR_NAMES),
+            key=lambda name: (name.casefold(), name),
+        )
+        for dirname in dirnames:
+            candidates.append(current / dirname)
+        for filename in sorted(filenames, key=lambda name: (name.casefold(), name)):
+            if filename in ALWAYS_EXCLUDED_FILE_NAMES:
                 continue
-            patterns.append(line)
-
-    if not patterns:
-        return None
-
-    return PathSpec.from_lines(GitWildMatchPattern, patterns)
+            candidates.append(current / filename)
+    return candidates
 
 
-GITIGNORE_SPEC = load_gitignore()
+def load_gitignored_paths(root: Path) -> set[str]:
+    """Ask git which repo-relative paths are ignored."""
+    gitignore_path = root / ".gitignore"
+    if not gitignore_path.exists():
+        return set()
+
+    candidates = collect_candidate_paths(root)
+    if not candidates:
+        return set()
+
+    relative_candidates = [path.relative_to(root).as_posix() for path in candidates]
+    input_data = ("\0".join(relative_candidates) + "\0").encode("utf-8")
+    result = subprocess.run(
+        ["git", "check-ignore", "-z", "--stdin"],
+        cwd=root,
+        input=input_data,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode not in {0, 1}:
+        raise RuntimeError(
+            "git check-ignore failed:\n"
+            + result.stderr.decode("utf-8", errors="replace").strip()
+        )
+
+    ignored = {item for item in result.stdout.decode("utf-8", errors="replace").split("\0") if item}
+    return ignored
+
+
+GITIGNORED_PATHS = load_gitignored_paths(ROOT)
 
 
 def is_under(path: Path, ancestor: Path) -> bool:
@@ -78,26 +96,18 @@ def is_gitignored(path: Path) -> bool:
     if path.name in ALWAYS_EXCLUDED_FILE_NAMES:
         return True
 
-    if GITIGNORE_SPEC is None:
-        return False
-
     relative_path = path.relative_to(ROOT)
-    path_str = str(relative_path)
+    path_str = relative_path.as_posix()
 
-    if GITIGNORE_SPEC.match_file(path_str):
-        return True
-
-    if path.is_dir() and GITIGNORE_SPEC.match_file(path_str + "/"):
+    if path_str in GITIGNORED_PATHS:
         return True
 
     for parent in path.parents:
         if parent == ROOT:
             break
         parent_relative = parent.relative_to(ROOT)
-        parent_str = str(parent_relative)
-        if GITIGNORE_SPEC.match_file(parent_str):
-            return True
-        if GITIGNORE_SPEC.match_file(parent_str + "/"):
+        parent_str = parent_relative.as_posix()
+        if parent_str in GITIGNORED_PATHS:
             return True
 
     return False
