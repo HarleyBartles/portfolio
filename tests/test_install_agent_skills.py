@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import json
 import sys
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -23,7 +25,7 @@ def load_module():
 
 
 class InstallAgentSkillsTests(unittest.TestCase):
-    def test_check_mode_skips_worktree_guard(self) -> None:
+    def test_check_mode_succeeds_with_matching_tree(self) -> None:
         module = load_module()
 
         with TemporaryDirectory() as temp_dir:
@@ -34,22 +36,50 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             manifest = {
                 "schema_version": 1,
-                "default_plugins": [],
+                "default_plugins": ["repo-worker-pack"],
                 "excluded_plugins": [],
-                "plugins": {},
+                "plugins": {
+                    "repo-worker-pack": {
+                        "version": "1.0.0",
+                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
+                        "skills_path": "skills",
+                    }
+                },
             }
 
-            module.require_linked_worktree = unittest.mock.Mock()
+            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = unittest.mock.Mock()
 
-            with self.assertRaises(ValueError):
-                module.sync_default_skills(
-                    module.load_manifest_data(manifest),
-                    source_root,
-                    output_root,
-                    check=True,
-                )
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+            module.require_linked_worktree.reset_mock()
 
+            stdout = StringIO()
+            with redirect_stdout(stdout), unittest.mock.patch.object(
+                sys, "argv",
+                [
+                    "install_agent_skills.py",
+                    "--check",
+                    "--manifest",
+                    str(temp / "manifest.json"),
+                    "--source-root",
+                    str(source_root),
+                    "--output-root",
+                    str(output_root),
+                ],
+            ):
+                (temp / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            self.assertIn("OK checked skills: 1 copied from abc123", stdout.getvalue())
             module.require_linked_worktree.assert_not_called()
 
     def test_repo_manifest_matches_real_plugin_surface(self) -> None:
