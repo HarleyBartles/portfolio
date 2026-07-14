@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import configparser
 import os
 import re
 import subprocess
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 
@@ -35,8 +37,37 @@ class IndexTarget:
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
 
+@lru_cache(maxsize=None)
+def load_declared_submodule_paths(root: str) -> frozenset[str]:
+    root_path = Path(root)
+    gitmodules_path = root_path / ".gitmodules"
+    if not gitmodules_path.exists():
+        return frozenset()
+
+    parser = configparser.ConfigParser()
+    parser.read(gitmodules_path, encoding="utf-8")
+
+    paths: set[str] = set()
+    for section in parser.sections():
+        if not section.startswith("submodule "):
+            continue
+        if not parser.has_option(section, "path"):
+            continue
+        paths.add(parser.get(section, "path").replace("\\", "/"))
+    return frozenset(paths)
+
+
+def is_under(path: Path, ancestor: Path) -> bool:
+    return path == ancestor or ancestor in path.parents
+
+
 def is_submodule_root(path: Path) -> bool:
-    return path != ROOT and (path / ".git").is_file()
+    if path == ROOT or not is_under(path, ROOT):
+        return False
+    relative_path = path.relative_to(ROOT).as_posix()
+    if relative_path in load_declared_submodule_paths(str(ROOT)):
+        return True
+    return (path / ".git").is_file()
 
 
 def submodule_root_for(path: Path) -> Path | None:
@@ -106,10 +137,6 @@ def load_gitignored_paths(root: Path) -> set[str]:
 
 
 GITIGNORED_PATHS = load_gitignored_paths(ROOT)
-
-
-def is_under(path: Path, ancestor: Path) -> bool:
-    return path == ancestor or ancestor in path.parents
 
 
 def is_gitignored(path: Path) -> bool:

@@ -56,6 +56,30 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             self.assertEqual(link, "[marketplace-source](marketplace-source/)")
 
+    def test_declared_submodule_is_detected_without_nested_git_file(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            current = root / ".agents" / "plugins"
+            child = current / "marketplace-source"
+            child.mkdir(parents=True)
+            (root / ".gitmodules").write_text(
+                """
+[submodule ".agents/plugins/marketplace-source"]
+	path = .agents/plugins/marketplace-source
+	url = https://example.invalid/repo.git
+""".lstrip(),
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+            module.load_declared_submodule_paths.cache_clear()
+
+            self.assertTrue(module.is_submodule_root(child))
+            self.assertEqual(module.dir_link(current, child), "[marketplace-source](marketplace-source/)")
+
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
 
