@@ -23,6 +23,35 @@ def load_module():
 
 
 class InstallAgentSkillsTests(unittest.TestCase):
+    def test_check_mode_skips_worktree_guard(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source_root = temp / "marketplace-source"
+            output_root = temp / "skills"
+            source_root.mkdir()
+
+            manifest = {
+                "schema_version": 1,
+                "default_plugins": [],
+                "excluded_plugins": [],
+                "plugins": {},
+            }
+
+            module.require_linked_worktree = unittest.mock.Mock()
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+
+            with self.assertRaises(ValueError):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                    check=True,
+                )
+
+            module.require_linked_worktree.assert_not_called()
+
     def test_repo_manifest_matches_real_plugin_surface(self) -> None:
         module = load_module()
         manifest = module.load_manifest(ROOT / ".agents" / "plugins" / "marketplace.json")
@@ -82,6 +111,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
                     (skill_root / "SKILL.md").write_text(f"# {skill_name}\n", encoding="utf-8")
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
 
             result = module.sync_default_skills(
                 module.load_manifest_data(manifest),

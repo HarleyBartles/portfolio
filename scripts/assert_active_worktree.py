@@ -7,6 +7,8 @@ import argparse
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
+import sys
+from typing import Sequence, TextIO
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,40 +43,48 @@ def read_git_paths(repo_root: Path) -> GitPaths:
     )
 
 
-def is_linked_worktree(paths: GitPaths) -> bool:
-    return paths.git_dir != paths.common_dir and not paths.superproject
+def checkout_kind(paths: GitPaths) -> str:
+    if paths.superproject:
+        return "submodule"
+    if paths.git_dir != paths.common_dir:
+        return "linked worktree"
+    return "shared checkout"
 
 
 def assert_active_worktree(repo_root: Path, *, allow_shared_checkout: bool = False) -> GitPaths:
     paths = read_git_paths(repo_root)
-    if allow_shared_checkout:
-        return paths
-    if is_linked_worktree(paths):
+    if allow_shared_checkout or checkout_kind(paths) == "linked worktree":
         return paths
 
-    reason = "shared checkout"
-    if paths.superproject:
-        reason = "submodule"
     raise RuntimeError(
         "This command must run from a linked worktree, not the "
-        f"{reason}. Current git-dir={paths.git_dir!r}, common-dir={paths.common_dir!r}, "
+        f"{checkout_kind(paths)}. Current git-dir={paths.git_dir!r}, common-dir={paths.common_dir!r}, "
         f"superproject={paths.superproject!r}."
     )
 
 
-def main() -> int:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Assert that the current checkout is a linked worktree")
     parser.add_argument(
         "--allow-shared-checkout",
         action="store_true",
         help="Permit the shared checkout for intentional main-branch work",
     )
-    args = parser.parse_args()
+    return parser.parse_args(argv)
 
+
+def main(
+    argv: Sequence[str] | None = None,
+    *,
+    stdout: TextIO | None = None,
+) -> int:
+    args = parse_args(argv)
+    output = stdout or sys.stdout
     paths = assert_active_worktree(ROOT, allow_shared_checkout=args.allow_shared_checkout)
     print(
-        "OK linked worktree: "
-        f"git-dir={paths.git_dir} common-dir={paths.common_dir} superproject={paths.superproject!r}"
+        f"OK {checkout_kind(paths)}: git-dir={paths.git_dir} "
+        f"common-dir={paths.common_dir} superproject={paths.superproject!r}",
+        file=output,
     )
     return 0
 

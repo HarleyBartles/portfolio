@@ -14,14 +14,35 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $ScriptDir = (Resolve-Path $PSScriptRoot).Path
-$python = Join-Path $ScriptDir 'assert_active_worktree.py'
+$PythonScript = Join-Path $ScriptDir 'assert_active_worktree.py'
 
-if (-not (Test-Path $python)) {
-    throw "Worktree guard script not found at $python"
+if (-not (Test-Path $PythonScript)) {
+    throw "Worktree guard script not found at $PythonScript"
 }
 
-$args = @()
-if ($AllowSharedCheckout) { $args += '--allow-shared-checkout' }
+$pythonLaunchers = @('py', 'python', 'python3')
+$pythonLauncher = $null
 
-& py -3 $python @args
+foreach ($launcher in $pythonLaunchers) {
+    try {
+        $null = Get-Command $launcher -ErrorAction Stop
+        $pythonLauncher = $launcher
+        break
+    } catch {
+        # try next launcher
+    }
+}
+
+if (-not $pythonLauncher) {
+    throw "No Python launcher found. Tried: $($pythonLaunchers -join ', ')."
+}
+
+$arguments = @($PythonScript)
+if ($AllowSharedCheckout) { $arguments += '--allow-shared-checkout' }
+
+if ($pythonLauncher -eq 'py') {
+    & $pythonLauncher -3 @arguments
+} else {
+    & $pythonLauncher @arguments
+}
 exit $LASTEXITCODE

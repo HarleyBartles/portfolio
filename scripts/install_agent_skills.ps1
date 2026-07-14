@@ -18,15 +18,36 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $ScriptDir = (Resolve-Path $PSScriptRoot).Path
-$python = Join-Path $ScriptDir 'install_agent_skills.py'
+$PythonScript = Join-Path $ScriptDir 'install_agent_skills.py'
 
-if (-not (Test-Path $python)) {
-    throw "Installer script not found at $python"
+if (-not (Test-Path $PythonScript)) {
+    throw "Installer script not found at $PythonScript"
 }
 
-$args = @()
-if ($Check) { $args += '--check' }
-if ($Force) { $args += '--force' }
+$pythonLaunchers = @('py', 'python', 'python3')
+$pythonLauncher = $null
 
-& py -3 $python @args
+foreach ($launcher in $pythonLaunchers) {
+    try {
+        $null = Get-Command $launcher -ErrorAction Stop
+        $pythonLauncher = $launcher
+        break
+    } catch {
+        # try next launcher
+    }
+}
+
+if (-not $pythonLauncher) {
+    throw "No Python launcher found. Tried: $($pythonLaunchers -join ', ')."
+}
+
+$arguments = @($PythonScript)
+if ($Check) { $arguments += '--check' }
+if ($Force) { $arguments += '--force' }
+
+if ($pythonLauncher -eq 'py') {
+    & $pythonLauncher -3 @arguments
+} else {
+    & $pythonLauncher @arguments
+}
 exit $LASTEXITCODE

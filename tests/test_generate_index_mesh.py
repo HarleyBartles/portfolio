@@ -23,6 +23,25 @@ def load_module():
 
 
 class GenerateIndexMeshTests(unittest.TestCase):
+    def test_check_mode_skips_worktree_guard(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            root.mkdir()
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+
+            with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
+                module, "should_index", return_value=False
+            ), patch.object(sys, "argv", ["generate_index_mesh.py", "--check"]):
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            module.require_linked_worktree.assert_not_called()
+
     def test_leaf_skill_indexes_link_directories_not_missing_child_indexes(self) -> None:
         module = load_module()
 
