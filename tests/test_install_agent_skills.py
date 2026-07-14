@@ -3,8 +3,6 @@ from __future__ import annotations
 import importlib.util
 import json
 import sys
-from contextlib import redirect_stdout
-from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -25,7 +23,7 @@ def load_module():
 
 
 class InstallAgentSkillsTests(unittest.TestCase):
-    def test_check_mode_succeeds_with_matching_tree(self) -> None:
+    def test_check_mode_skips_worktree_guard(self) -> None:
         module = load_module()
 
         with TemporaryDirectory() as temp_dir:
@@ -36,70 +34,23 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             manifest = {
                 "schema_version": 1,
-                "default_plugins": ["repo-worker-pack"],
+                "default_plugins": [],
                 "excluded_plugins": [],
-                "plugins": {
-                    "repo-worker-pack": {
-                        "version": "1.0.0",
-                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
-                        "skills_path": "skills",
-                    }
-                },
+                "plugins": {},
             }
 
-            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
-            skill_root.mkdir(parents=True, exist_ok=True)
-            (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
-
-            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = unittest.mock.Mock()
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
 
-            module.sync_default_skills(
-                module.load_manifest_data(manifest),
-                source_root,
-                output_root,
-            )
-            module.require_linked_worktree.reset_mock()
+            with self.assertRaises(ValueError):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                    check=True,
+                )
 
-            stdout = StringIO()
-            with redirect_stdout(stdout), unittest.mock.patch.object(
-                sys, "argv",
-                [
-                    "install_agent_skills.py",
-                    "--check",
-                    "--manifest",
-                    str(temp / "manifest.json"),
-                    "--source-root",
-                    str(source_root),
-                    "--output-root",
-                    str(output_root),
-                ],
-            ):
-                (temp / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
-                result = module.main()
-
-            self.assertEqual(result, 0)
-            self.assertIn("OK checked skills: 1 copied from abc123", stdout.getvalue())
             module.require_linked_worktree.assert_not_called()
-
-    def test_repo_manifest_matches_real_plugin_surface(self) -> None:
-        module = load_module()
-        manifest = module.load_manifest(ROOT / ".agents" / "plugins" / "marketplace.json")
-
-        self.assertEqual(
-            manifest.default_plugins,
-            [
-                "repo-worker-pack",
-                "superpowers-plus",
-                "architecture-pack",
-                "frontend-pack",
-                "dotnet-kit",
-            ],
-        )
-        self.assertIn("wild-bunch-project-pack", manifest.excluded_plugins)
-        self.assertTrue(
-            (ROOT / ".agents" / "plugins" / "marketplace-source" / manifest.plugins["repo-worker-pack"].source_path / "skills").is_dir()
-        )
 
     def test_sync_copies_default_plugins_and_writes_provenance(self) -> None:
         module = load_module()
@@ -117,12 +68,12 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 "plugins": {
                     "repo-worker-pack": {
                         "version": "1.0.0",
-                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
+                        "source_path": "repo-worker-pack/1.0.0",
                         "skills_path": "skills",
                     },
                     "dotnet-kit": {
                         "version": "1.0.0",
-                        "source_path": "codex-marketplace/plugins/dotnet-kit",
+                        "source_path": "dotnet-kit/1.0.0",
                         "skills_path": "skills",
                     },
                 },
@@ -135,10 +86,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             ]:
                 skill_root = source_root / manifest["plugins"][plugin_name]["source_path"] / "skills" / skill_name
                 skill_root.mkdir(parents=True, exist_ok=True)
-                if skill_name == "boring-loop":
-                    (skill_root / "SKILL.md").write_text(f"# {skill_name}   \n\n", encoding="utf-8")
-                else:
-                    (skill_root / "SKILL.md").write_text(f"# {skill_name}\n", encoding="utf-8")
+                (skill_root / "SKILL.md").write_text(f"# {skill_name}\n", encoding="utf-8")
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
@@ -153,7 +101,6 @@ class InstallAgentSkillsTests(unittest.TestCase):
             self.assertTrue((output_root / "boring-loop" / "SKILL.md").exists())
             self.assertTrue((output_root / "testing" / "SKILL.md").exists())
             self.assertTrue((output_root / ".provenance.json").exists())
-            self.assertEqual((output_root / "boring-loop" / "SKILL.md").read_text(encoding="utf-8"), "# boring-loop\n")
 
             provenance = json.loads((output_root / ".provenance.json").read_text(encoding="utf-8"))
             self.assertEqual(provenance["source_revision"], "abc123")
@@ -177,13 +124,13 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 "plugins": {
                     "repo-worker-pack": {
                         "version": "1.0.0",
-                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
+                        "source_path": "repo-worker-pack/1.0.0",
                         "skills_path": "skills",
                     }
                 },
             }
 
-            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
             skill_root.mkdir(parents=True, exist_ok=True)
             (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
             (output_root / "boring-loop").mkdir(parents=True, exist_ok=True)

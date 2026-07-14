@@ -109,3 +109,5 @@ Agents must clean up their scratch folder when cleaning up their worktree. This 
 ### Implementation details
 
 Reference `repo-worker-base` for implementation details and usage patterns. The scratch folder architecture is designed to complement the worktree system by providing a disposable workspace for temporary outputs that should not be committed to the repository.
+
+

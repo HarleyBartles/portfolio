@@ -9,18 +9,21 @@ if [[ ! -f "$refresh_script" ]]; then
   echo "Refresh script not found at $refresh_script" >&2
   exit 1
 fi
-
 if [[ ! -f "$doctrine_script" ]]; then
   echo "Doctrine validator not found at $doctrine_script" >&2
   exit 1
 fi
 
 check_mode=false
-if [[ ${1:-} == "--check" || ${1:-} == "-Check" ]]; then
-  check_mode=true
-fi
+for arg in "$@"; do
+  case "$arg" in
+    --check|-Check)
+      check_mode=true
+      ;;
+  esac
+done
 
-if $check_mode; then
+if [[ "$check_mode" == true ]]; then
   bash "$refresh_script" --check
   bash "$doctrine_script" --check
 else

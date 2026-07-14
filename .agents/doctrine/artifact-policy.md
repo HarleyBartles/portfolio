@@ -11,7 +11,7 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/doctrine/` is for durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/guides/` is for workflow guides such as design, planning, and implementation.
 - `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
-- `.agents/skills/` is for derived installed skills and their provenance; refresh them through `scripts/refresh_agent_surfaces.py` or `scripts/install_agent_skills.py`, not by hand.
+- `.agents/skills/` is for derived installed skills and their provenance.
 - `.agents/superpowers/plans/` is for repo-resident implementation plans.
 - `.agents/superpowers/specs/` is a local-only scratch space and is ignored by git.
 
@@ -24,5 +24,4 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 ## Change Hygiene
 
 - If a change adds or moves a repo-resident artifact surface, update the mesh and the relevant guidance in the same change.
-- If the question is refresh versus readiness, route refreshes through `scripts/refresh_agent_surfaces.py`, direct helper work through the specific helper, and CI-readiness checks through `.\scripts\ci-preflight.ps1`.
 - If a doc is meant to be local-only, make that explicit in the policy and the ignore rules.

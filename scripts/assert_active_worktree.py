@@ -5,9 +5,9 @@ from __future__ import annotations
 
 import argparse
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
-import sys
 from typing import Sequence, TextIO
 
 
@@ -51,23 +51,24 @@ def checkout_kind(paths: GitPaths) -> str:
     return "shared checkout"
 
 
-def assert_active_worktree(repo_root: Path, *, allow_shared_checkout: bool = False) -> GitPaths:
+def assert_active_worktree(
+    repo_root: Path, *, allow_shared_checkout: bool = False
+) -> GitPaths:
     paths = read_git_paths(repo_root)
-    kind = checkout_kind(paths)
-    if kind == "linked worktree":
-        return paths
-    if allow_shared_checkout and kind == "shared checkout":
+    if allow_shared_checkout or checkout_kind(paths) == "linked worktree":
         return paths
 
     raise RuntimeError(
         "This command must run from a linked worktree, not the "
-        f"{kind}. Current git-dir={paths.git_dir!r}, common-dir={paths.common_dir!r}, "
-        f"superproject={paths.superproject!r}."
+        f"{checkout_kind(paths)}. Current git-dir={paths.git_dir!r}, "
+        f"common-dir={paths.common_dir!r}, superproject={paths.superproject!r}."
     )
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Assert that the current checkout is a linked worktree")
+    parser = argparse.ArgumentParser(
+        description="Assert that the current checkout is a linked worktree"
+    )
     parser.add_argument(
         "--allow-shared-checkout",
         action="store_true",

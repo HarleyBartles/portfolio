@@ -4,12 +4,11 @@
 from __future__ import annotations
 
 import argparse
-import configparser
 import os
 import re
 import subprocess
+import sys
 from dataclasses import dataclass
-from functools import lru_cache
 from pathlib import Path
 
 
@@ -37,50 +36,8 @@ class IndexTarget:
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
 
-@lru_cache(maxsize=None)
-def load_declared_submodule_paths(root: str) -> frozenset[str]:
-    root_path = Path(root)
-    gitmodules_path = root_path / ".gitmodules"
-    if not gitmodules_path.exists():
-        return frozenset()
-
-    parser = configparser.ConfigParser()
-    parser.read(gitmodules_path, encoding="utf-8")
-
-    paths: set[str] = set()
-    for section in parser.sections():
-        if not section.startswith("submodule "):
-            continue
-        if not parser.has_option(section, "path"):
-            continue
-        paths.add(parser.get(section, "path").replace("\\", "/"))
-    return frozenset(paths)
-
-
-def is_under(path: Path, ancestor: Path) -> bool:
-    return path == ancestor or ancestor in path.parents
-
-
-def is_submodule_root(path: Path) -> bool:
-    if path == ROOT or not is_under(path, ROOT):
-        return False
-    relative_path = path.relative_to(ROOT).as_posix()
-    if relative_path in load_declared_submodule_paths(str(ROOT)):
-        return True
+def is_submodule(path: Path) -> bool:
     return (path / ".git").is_file()
-
-
-def submodule_root_for(path: Path) -> Path | None:
-    if is_submodule_root(path):
-        return path
-    for ancestor in path.parents:
-        if is_submodule_root(ancestor):
-            return ancestor
-    return None
-
-
-def is_leaf_index_dir(path: Path) -> bool:
-    return path == ROOT / ".agents" / "skills"
 
 
 def collect_candidate_paths(root: Path) -> list[Path]:
@@ -92,8 +49,7 @@ def collect_candidate_paths(root: Path) -> list[Path]:
             (
                 name
                 for name in dirnames
-                if name not in ALWAYS_EXCLUDED_DIR_NAMES
-                and not is_submodule_root(current / name)
+                if name not in ALWAYS_EXCLUDED_DIR_NAMES and not is_submodule(current / name)
             ),
             key=lambda name: (name.casefold(), name),
         )
@@ -137,6 +93,23 @@ def load_gitignored_paths(root: Path) -> set[str]:
 
 
 GITIGNORED_PATHS = load_gitignored_paths(ROOT)
+TRACKED_PATHS = {
+    path
+    for path in (
+        subprocess.run(
+            ["git", "ls-files", "-z"],
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        ).stdout.decode("utf-8", errors="replace").split("\0")
+    )
+    if path
+}
+
+
+def is_under(path: Path, ancestor: Path) -> bool:
+    return path == ancestor or ancestor in path.parents
 
 
 def is_gitignored(path: Path) -> bool:
@@ -144,7 +117,7 @@ def is_gitignored(path: Path) -> bool:
         return True
     if path.name in ALWAYS_EXCLUDED_FILE_NAMES:
         return True
-    if submodule_root_for(path) is not None and not is_submodule_root(path):
+    if is_submodule(path):
         return True
 
     relative_path = path.relative_to(ROOT)
@@ -156,6 +129,8 @@ def is_gitignored(path: Path) -> bool:
     for parent in path.parents:
         if parent == ROOT:
             break
+        if is_submodule(parent):
+            return True
         parent_relative = parent.relative_to(ROOT)
         parent_str = parent_relative.as_posix()
         if parent_str in GITIGNORED_PATHS:
@@ -164,12 +139,25 @@ def is_gitignored(path: Path) -> bool:
     return False
 
 
+def is_tracked(path: Path) -> bool:
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return False
+    if relative == ".":
+        return True
+    if path.is_file():
+        return relative in TRACKED_PATHS
+    prefix = relative + "/"
+    return any(item == relative or item.startswith(prefix) for item in TRACKED_PATHS)
+
+
 def should_descend(child: Path) -> bool:
     if child.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return False
-    if is_submodule_root(child):
-        return False
     if is_gitignored(child):
+        return False
+    if not is_tracked(child):
         return False
     return True
 
@@ -177,13 +165,21 @@ def should_descend(child: Path) -> bool:
 def should_index(path: Path) -> bool:
     if path == ROOT:
         return True
-    if is_submodule_root(path):
-        return False
     if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.parts):
         return False
     if is_gitignored(path):
         return False
+    if not is_tracked(path):
+        return False
     return True
+
+
+def is_leaf_index_dir(path: Path) -> bool:
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return False
+    return relative in {".agents/skills", ".agents/plugins/marketplace-source"}
 
 
 def rel_link(current: Path, target: Path, label: str | None = None) -> str:
@@ -193,9 +189,6 @@ def rel_link(current: Path, target: Path, label: str | None = None) -> str:
 
 def dir_link(current: Path, child: Path) -> str:
     if is_leaf_index_dir(current):
-        rel = os.path.relpath(child, start=current).replace(os.sep, "/")
-        return f"[{child.name}]({rel}/)"
-    if is_submodule_root(child):
         rel = os.path.relpath(child, start=current).replace(os.sep, "/")
         return f"[{child.name}]({rel}/)"
     index_md = child / "INDEX.md"
@@ -217,9 +210,6 @@ def render_index(path: Path) -> str:
         if entry.name == "INDEX.md":
             continue
         if entry.is_dir():
-            if is_submodule_root(entry):
-                dirs.append(entry)
-                continue
             if not should_descend(entry):
                 continue
             dirs.append(entry)
@@ -286,7 +276,7 @@ def validate_rendered_links(path: Path, rendered: str) -> list[str]:
 
 def require_linked_worktree(repo_root: Path) -> None:
     result = subprocess.run(
-        ["py", "-3", str(repo_root / "scripts" / "assert_active_worktree.py")],
+        [sys.executable, str(repo_root / "scripts" / "assert_active_worktree.py")],
         cwd=repo_root,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -305,15 +295,10 @@ def walk_index_targets() -> list[IndexTarget]:
         current = Path(dirpath)
         if is_leaf_index_dir(current):
             dirnames[:] = []
-        else:
-            dirnames[:] = sorted(
-                (
-                    name
-                    for name in dirnames
-                    if should_descend(current / name) or is_leaf_index_dir(current / name)
-                ),
-                key=lambda name: (name.casefold(), name),
-            )
+        dirnames[:] = sorted(
+            (name for name in dirnames if should_descend(current / name)),
+            key=lambda name: (name.casefold(), name),
+        )
         if should_index(current):
             targets.append(IndexTarget(path=current / "INDEX.md", lines=render_index(current).splitlines()))
     return targets
@@ -329,22 +314,14 @@ def main() -> int:
 
     targets = walk_index_targets()
     expected_paths = {target.path for target in targets}
-    actual_paths: set[Path] = set()
-    for dirpath, dirnames, _filenames in os.walk(ROOT):
-        current = Path(dirpath)
-        if is_leaf_index_dir(current):
-            dirnames[:] = []
-        else:
-            dirnames[:] = sorted(
-                (
-                    name
-                    for name in dirnames
-                    if should_descend(current / name) or is_leaf_index_dir(current / name)
-                ),
-                key=lambda name: (name.casefold(), name),
-            )
-        if should_index(current):
-            actual_paths.add(current / "INDEX.md")
+    actual_paths = {
+        path
+        for path in ROOT.rglob("*")
+        if path.is_file()
+        and path.name == "INDEX.md"
+        and not is_gitignored(path)
+        and not any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts)
+    }
     unexpected = sorted(path for path in actual_paths if path not in expected_paths)
     missing = sorted(path for path in expected_paths if path not in actual_paths)
 

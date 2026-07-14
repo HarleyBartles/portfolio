@@ -1,15 +1,13 @@
 <#
 .SYNOPSIS
-  Refresh or validate the deterministic agent-facing repo surfaces.
+  Refresh deterministic repo surfaces that agent workflows depend on.
 
 .PARAMETER Check
-  Validate the deterministic surfaces without writing.
+  Validate without writing.
 #>
 [CmdletBinding()]
 param(
-    [switch]$Check,
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [string[]]$Arguments
+    [switch]$Check
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,16 +17,34 @@ $ScriptDir = (Resolve-Path $PSScriptRoot).Path
 $PythonScript = Join-Path $ScriptDir 'refresh_agent_surfaces.py'
 
 if (-not (Test-Path $PythonScript)) {
-    throw "Python script not found at $PythonScript"
+    throw "Refresh script not found at $PythonScript"
 }
 
-$commandArgs = @($PythonScript)
+$pythonLaunchers = @('py', 'python', 'python3')
+$pythonLauncher = $null
+
+foreach ($launcher in $pythonLaunchers) {
+    try {
+        $null = Get-Command $launcher -ErrorAction Stop
+        $pythonLauncher = $launcher
+        break
+    } catch {
+        # try next launcher
+    }
+}
+
+if (-not $pythonLauncher) {
+    throw "No Python launcher found. Tried: $($pythonLaunchers -join ', ')."
+}
+
+$arguments = @($PythonScript)
 if ($Check) {
-    $commandArgs += '--check'
-}
-if ($Arguments) {
-    $commandArgs += $Arguments
+    $arguments += '--check'
 }
 
-& py -3 @commandArgs
+if ($pythonLauncher -eq 'py') {
+    & $pythonLauncher -3 @arguments
+} else {
+    & $pythonLauncher @arguments
+}
 exit $LASTEXITCODE

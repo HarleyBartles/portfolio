@@ -23,6 +23,38 @@ def load_module():
 
 
 class GenerateIndexMeshTests(unittest.TestCase):
+    def test_write_mode_is_stable_across_repeated_runs(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            docs = root / "docs"
+            docs.mkdir(parents=True)
+            (root / "README.md").write_text("root\n", encoding="utf-8")
+            (docs / "guide.md").write_text("guide\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+            module.GITIGNORED_PATHS = set()
+            module.TRACKED_PATHS = {"README.md", "docs", "docs/guide.md"}
+
+            with patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                first_result = module.main()
+                first_snapshot = {
+                    path.relative_to(root).as_posix(): path.read_text(encoding="utf-8")
+                    for path in sorted(root.rglob("INDEX.md"))
+                }
+                second_result = module.main()
+                second_snapshot = {
+                    path.relative_to(root).as_posix(): path.read_text(encoding="utf-8")
+                    for path in sorted(root.rglob("INDEX.md"))
+                }
+
+            self.assertEqual(first_result, 0)
+            self.assertEqual(second_result, 0)
+            self.assertEqual(first_snapshot, second_snapshot)
+
     def test_check_mode_skips_worktree_guard(self) -> None:
         module = load_module()
 
@@ -35,8 +67,8 @@ class GenerateIndexMeshTests(unittest.TestCase):
             module.require_linked_worktree = Mock()
 
             with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
-                module, "should_index", return_value=False
-            ), patch.object(sys, "argv", ["generate_index_mesh.py", "--check"]):
+                sys, "argv", ["generate_index_mesh.py", "--check"]
+            ):
                 result = module.main()
 
             self.assertEqual(result, 0)
@@ -57,47 +89,6 @@ class GenerateIndexMeshTests(unittest.TestCase):
             link = module.dir_link(current, child)
 
             self.assertEqual(link, "[boring-loop](boring-loop/)")
-
-    def test_submodule_directories_link_to_directory_not_child_index(self) -> None:
-        module = load_module()
-
-        with TemporaryDirectory() as temp_dir:
-            temp = Path(temp_dir)
-            root = temp / "repo"
-            current = root / ".agents" / "plugins"
-            child = current / "marketplace-source"
-            child.mkdir(parents=True)
-            (child / ".git").write_text("gitdir: ../.git/modules/marketplace-source\n", encoding="utf-8")
-
-            module.ROOT = root
-
-            link = module.dir_link(current, child)
-
-            self.assertEqual(link, "[marketplace-source](marketplace-source/)")
-
-    def test_declared_submodule_is_detected_without_nested_git_file(self) -> None:
-        module = load_module()
-
-        with TemporaryDirectory() as temp_dir:
-            temp = Path(temp_dir)
-            root = temp / "repo"
-            current = root / ".agents" / "plugins"
-            child = current / "marketplace-source"
-            child.mkdir(parents=True)
-            (root / ".gitmodules").write_text(
-                """
-[submodule ".agents/plugins/marketplace-source"]
-	path = .agents/plugins/marketplace-source
-	url = https://example.invalid/repo.git
-""".lstrip(),
-                encoding="utf-8",
-            )
-
-            module.ROOT = root
-            module.load_declared_submodule_paths.cache_clear()
-
-            self.assertTrue(module.is_submodule_root(child))
-            self.assertEqual(module.dir_link(current, child), "[marketplace-source](marketplace-source/)")
 
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
@@ -124,8 +115,8 @@ class GenerateIndexMeshTests(unittest.TestCase):
             module.require_linked_worktree = Mock()
 
             with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
-                module, "should_index", return_value=False
-            ), patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                sys, "argv", ["generate_index_mesh.py"]
+            ):
                 result = module.main()
 
             self.assertEqual(result, 0)

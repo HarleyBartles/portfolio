@@ -35,22 +35,18 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any durable doctrine or policy work: [`.agents/doctrine/AGENTS.md`](./.agents/doctrine/AGENTS.md).
 - Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
 - Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
-- Use before any file mutation when a branch task should stay in a linked worktree: [`scripts/assert_active_worktree.py`](./scripts/assert_active_worktree.py) and [`scripts/assert_active_worktree.ps1`](./scripts/assert_active_worktree.ps1).
-- Use when you need the preferred repo-facing refresh entrypoint for deterministic agent surfaces: [`scripts/refresh_agent_surfaces.py`](./scripts/refresh_agent_surfaces.py), [`scripts/refresh_agent_surfaces.ps1`](./scripts/refresh_agent_surfaces.ps1), and [`scripts/refresh_agent_surfaces.sh`](./scripts/refresh_agent_surfaces.sh).
-- Use when the question is whether the repo is ready for CI or handoff: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
 - Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
 - Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
+- Use before any local-or-CI readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
-- Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py` or `.\scripts\generate_index_mesh.ps1 -Check` and update the relevant `INDEX.md` files in the same change.
+- Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py`, `.\scripts\generate_index_mesh.ps1 -Check`, or `bash ./scripts/generate_index_mesh.sh --check` and update the relevant `INDEX.md` files in the same change.
 
 ## Documentation Rules
 
 - `README.md` is the human-facing overview.
 - `INDEX.md` files are navigation aids for agents and should stay descriptive, not promotional.
 - `INDEX.md` files are generated navigation and should be regenerated through `scripts/generate_index_mesh.py`, not hand-edited.
-- `scripts/refresh_agent_surfaces.py` is the preferred repo-facing refresh command; `scripts/generate_index_mesh.py` and `scripts/install_agent_skills.py` remain the direct deterministic helpers.
-- `scripts/ci-preflight.ps1` and `scripts/ci-preflight.sh` are the readiness wrappers, not the refresh surface.
 - If directories are added, removed, or reorganized, update the relevant index files in the same change.
 - Keep this guidance current as the repository evolves.

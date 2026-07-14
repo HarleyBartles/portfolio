@@ -3,7 +3,7 @@
   Run the repository preflight checks for local and CI use.
 
 .DESCRIPTION
-  Runs the refresh contract check and the doctrine mesh validator.
+  Runs the index mesh check and the doctrine mesh validator.
 
 .PARAMETER Check
   Run in validation mode without any write steps.
@@ -21,6 +21,7 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $ScriptDir = (Resolve-Path $PSScriptRoot).Path
+
 $refreshScript = Join-Path $ScriptDir 'refresh_agent_surfaces.ps1'
 $doctrineScript = Join-Path $ScriptDir 'validate_agent_mesh.ps1'
 

@@ -4,3 +4,4 @@
 
 ## Files
 - [2026-07-13-portfolio-plugin-marketplace-setup.md](2026-07-13-portfolio-plugin-marketplace-setup.md)
+- [2026-07-14-agent-surfaces-refresh-and-script-contract.md](2026-07-14-agent-surfaces-refresh-and-script-contract.md)
