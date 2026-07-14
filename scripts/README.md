@@ -71,12 +71,14 @@ This guard is meant to be run before file mutations so agents do not accidentall
 
 The validator keeps doctrine discoverable through the routing mesh and is intended for local preflight and CI. It remains a separate read-only command and is not folded into the refresh family.
 
-### `ci-preflight.ps1`
+### `ci-preflight.ps1` / `ci-preflight.sh`
 
 **Use when** you want the repo's default readiness/preflight bundle in one command.
 
 - `.\scripts\ci-preflight.ps1` - run the refresh contract first, then the doctrine validator
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes
+- `bash ./scripts/ci-preflight.sh` - Bash wrapper with the same refresh-first readiness contract
+- `bash ./scripts/ci-preflight.sh -Check` - validation mode without writes
 
 This is the preferred readiness wrapper for local preflight and CI jobs that should mirror the repo's current setup baseline. It consumes the same deterministic refresh contract as the repo-facing refresh command, then runs the standalone doctrine validator. It is not the repo-facing refresh surface.
 

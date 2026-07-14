@@ -8,6 +8,7 @@
 - [assert_active_worktree.py](assert_active_worktree.py)
 - [assert_active_worktree.sh](assert_active_worktree.sh)
 - [ci-preflight.ps1](ci-preflight.ps1)
+- [ci-preflight.sh](ci-preflight.sh)
 - [generate_index_mesh.ps1](generate_index_mesh.ps1)
 - [generate_index_mesh.py](generate_index_mesh.py)
 - [generate_index_mesh.sh](generate_index_mesh.sh)

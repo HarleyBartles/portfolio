@@ -51,6 +51,6 @@ Read the scoped routers and the relevant doc before taking action:
 - `INDEX.md` files are navigation aids for agents and should stay descriptive, not promotional.
 - `INDEX.md` files are generated navigation and should be regenerated through `scripts/generate_index_mesh.py`, not hand-edited.
 - `scripts/refresh_agent_surfaces.py` is the preferred repo-facing refresh command; `scripts/generate_index_mesh.py` and `scripts/install_agent_skills.py` remain the direct deterministic helpers.
-- `scripts/ci-preflight.ps1` is the readiness wrapper, not the refresh surface.
+- `scripts/ci-preflight.ps1` and `scripts/ci-preflight.sh` are the readiness wrappers, not the refresh surface.
 - If directories are added, removed, or reorganized, update the relevant index files in the same change.
 - Keep this guidance current as the repository evolves.
