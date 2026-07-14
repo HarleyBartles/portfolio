@@ -21,9 +21,9 @@ if [[ ${1:-} == "--check" || ${1:-} == "-Check" ]]; then
 fi
 
 if $check_mode; then
-  "$refresh_script" --check
-  "$doctrine_script" --check
+  bash "$refresh_script" --check
+  bash "$doctrine_script" --check
 else
-  "$refresh_script"
-  "$doctrine_script"
+  bash "$refresh_script"
+  bash "$doctrine_script"
 fi

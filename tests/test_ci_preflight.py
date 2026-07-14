@@ -195,6 +195,50 @@ class CiPreflightTests(unittest.TestCase):
                 ],
             )
 
+    def test_bash_default_mode_uses_same_readiness_steps(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            scripts_dir = temp / "scripts"
+            scripts_dir.mkdir()
+
+            (scripts_dir / "ci-preflight.sh").write_text(
+                SCRIPT_SH.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            self._write_bash_stub(
+                scripts_dir / "refresh_agent_surfaces.sh",
+                "refresh",
+                exit_code=0,
+            )
+            self._write_bash_stub(
+                scripts_dir / "validate_agent_mesh.sh",
+                "validate",
+                exit_code=0,
+            )
+
+            output_path = temp / "calls.txt"
+            result = subprocess.run(
+                [
+                    "bash",
+                    str(scripts_dir / "ci-preflight.sh"),
+                ],
+                cwd=temp,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                env={**os.environ, "OUTPUT_PATH": str(output_path)},
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 0, msg=result.stderr)
+            self.assertEqual(
+                output_path.read_text(encoding="utf-8").splitlines(),
+                [
+                    "refresh:",
+                    "validate:",
+                ],
+            )
+
     def test_bash_stops_on_first_failure(self) -> None:
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
