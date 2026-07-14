@@ -39,6 +39,23 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             self.assertEqual(link, "[boring-loop](boring-loop/)")
 
+    def test_submodule_directories_link_to_directory_not_child_index(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            current = root / ".agents" / "plugins"
+            child = current / "marketplace-source"
+            child.mkdir(parents=True)
+            (child / ".git").write_text("gitdir: ../.git/modules/marketplace-source\n", encoding="utf-8")
+
+            module.ROOT = root
+
+            link = module.dir_link(current, child)
+
+            self.assertEqual(link, "[marketplace-source](marketplace-source/)")
+
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
 

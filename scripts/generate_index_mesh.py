@@ -168,6 +168,9 @@ def dir_link(current: Path, child: Path) -> str:
     if is_leaf_index_dir(current):
         rel = os.path.relpath(child, start=current).replace(os.sep, "/")
         return f"[{child.name}]({rel}/)"
+    if is_submodule_root(child):
+        rel = os.path.relpath(child, start=current).replace(os.sep, "/")
+        return f"[{child.name}]({rel}/)"
     index_md = child / "INDEX.md"
     if should_index(child):
         rel = os.path.relpath(index_md, start=current).replace(os.sep, "/")
