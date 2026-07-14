@@ -64,7 +64,11 @@ class ValidateAgentMeshTests(unittest.TestCase):
             doctrine = (root / ".agents" / "doctrine").resolve()
             doctrine.mkdir(parents=True)
             (doctrine / "policy.md").write_text("# policy\n", encoding="utf-8")
+            (root / "AGENTS.md").write_text("# root\n", encoding="utf-8")
             (root / "INDEX.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")
+            docs = root / "docs"
+            docs.mkdir()
+            (docs / "AGENTS.md").write_text("[policy](../.agents/doctrine/policy.md)\n", encoding="utf-8")
 
             module.ROOT = root
             module.DOCTRINE_ROOT = doctrine
@@ -72,7 +76,7 @@ class ValidateAgentMeshTests(unittest.TestCase):
             with patch.object(
                 module.subprocess,
                 "run",
-                return_value=Mock(returncode=0, stdout=b"INDEX.md\0", stderr=b""),
+                return_value=Mock(returncode=0, stdout=b"AGENTS.md\0docs/AGENTS.md\0", stderr=b""),
             ):
                 with patch.object(sys, "argv", ["validate_agent_mesh.py", "--check"]):
                     with self.assertRaises(ValueError):

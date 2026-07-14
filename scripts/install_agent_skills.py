@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import configparser
 import dataclasses
 import json
 import shutil
@@ -17,6 +18,13 @@ DEFAULT_MANIFEST_PATH = ROOT / ".agents" / "plugins" / "marketplace.json"
 DEFAULT_SOURCE_ROOT = ROOT / ".agents" / "plugins" / "marketplace-source"
 DEFAULT_OUTPUT_ROOT = ROOT / ".agents" / "skills"
 RESERVED_OUTPUT_NAMES = {"AGENTS.md", "INDEX.md", ".provenance.json"}
+RESERVED_OUTPUT_NAME_KEYS = {name.casefold() for name in RESERVED_OUTPUT_NAMES}
+
+
+@dataclasses.dataclass(frozen=True)
+class MarketplaceSourceSpec:
+    repository: str
+    path: str
 
 
 @dataclasses.dataclass(frozen=True)
@@ -30,6 +38,7 @@ class PluginSpec:
 @dataclasses.dataclass(frozen=True)
 class MarketplaceManifest:
     schema_version: int
+    marketplace_source: MarketplaceSourceSpec
     default_plugins: list[str]
     excluded_plugins: list[str]
     plugins: dict[str, PluginSpec]
@@ -51,11 +60,25 @@ def load_manifest_data(data: dict) -> MarketplaceManifest:
     if schema_version != 1:
         raise ValueError(f"Unsupported marketplace manifest schema: {schema_version!r}")
 
+    marketplace_source_data = data.get("marketplace_source")
+    if not isinstance(marketplace_source_data, dict):
+        raise ValueError("Marketplace manifest marketplace_source entry must be an object")
+
     default_plugins = list(data.get("default_plugins", []))
     excluded_plugins = list(data.get("excluded_plugins", []))
     plugins_data = data.get("plugins", {})
     if not isinstance(plugins_data, dict):
         raise ValueError("Marketplace manifest plugins entry must be an object")
+
+    try:
+        marketplace_source = MarketplaceSourceSpec(
+            repository=str(marketplace_source_data["repository"]),
+            path=str(marketplace_source_data["path"]),
+        )
+    except KeyError as exc:
+        raise ValueError(
+            "Marketplace manifest marketplace_source entry must include repository and path"
+        ) from exc
 
     plugins: dict[str, PluginSpec] = {}
     for name, raw_plugin in plugins_data.items():
@@ -70,6 +93,7 @@ def load_manifest_data(data: dict) -> MarketplaceManifest:
 
     return MarketplaceManifest(
         schema_version=schema_version,
+        marketplace_source=marketplace_source,
         default_plugins=default_plugins,
         excluded_plugins=excluded_plugins,
         plugins=plugins,
@@ -113,6 +137,19 @@ def get_git_status_entries(path: Path) -> list[str]:
     return [line for line in output.splitlines() if line]
 
 
+def load_gitmodules_section(repo_root: Path, submodule_path: str) -> configparser.SectionProxy:
+    gitmodules_path = repo_root / ".gitmodules"
+    if not gitmodules_path.is_file():
+        raise ValueError(f"Git submodule manifest not found: {gitmodules_path}")
+
+    parser = configparser.ConfigParser()
+    parser.read(gitmodules_path, encoding="utf-8")
+    section_name = f'submodule "{submodule_path}"'
+    if not parser.has_section(section_name):
+        raise ValueError(f"Git submodule section not found for {submodule_path!r} in {gitmodules_path}")
+    return parser[section_name]
+
+
 def get_gitlink_revision(repo_root: Path, relative_path: Path) -> str:
     result = subprocess.run(
         ["git", "-C", str(repo_root), "ls-files", "--stage", "-z", "--", relative_path.as_posix()],
@@ -144,6 +181,39 @@ def get_gitlink_revision(repo_root: Path, relative_path: Path) -> str:
         return object_id
 
     raise ValueError(f"Gitlink not found for {relative_path.as_posix()}")
+
+
+def assert_marketplace_source_binding(
+    manifest: MarketplaceManifest, source_root: Path, repo_root: Path
+) -> None:
+    resolved_repo_root = repo_root.resolve()
+    resolved_source_root = source_root.resolve()
+    try:
+        relative_source_root = resolved_source_root.relative_to(resolved_repo_root)
+    except ValueError as exc:
+        raise ValueError(
+            f"Marketplace source root must live inside the repository: {resolved_source_root}"
+        ) from exc
+
+    relative_source_root_text = relative_source_root.as_posix()
+    if manifest.marketplace_source.path != relative_source_root_text:
+        raise ValueError(
+            "Marketplace manifest source path does not match the configured source root:\n"
+            f"- manifest path: {manifest.marketplace_source.path}\n"
+            f"- source root: {relative_source_root_text}"
+        )
+
+    gitmodules = load_gitmodules_section(resolved_repo_root, manifest.marketplace_source.path)
+    actual_path = gitmodules.get("path", "").strip()
+    actual_repository = gitmodules.get("url", "").strip()
+    if actual_path != manifest.marketplace_source.path or actual_repository != manifest.marketplace_source.repository:
+        raise ValueError(
+            "Marketplace manifest source coordinates do not match the git submodule configuration:\n"
+            f"- manifest path: {manifest.marketplace_source.path}\n"
+            f"- gitmodules path: {actual_path}\n"
+            f"- manifest repository: {manifest.marketplace_source.repository}\n"
+            f"- gitmodules repository: {actual_repository}"
+        )
 
 
 def assert_pinned_source_checkout(source_root: Path, repo_root: Path) -> None:
@@ -191,7 +261,10 @@ def validate_plugin_versions(manifest: MarketplaceManifest, source_root: Path) -
     mismatches: list[str] = []
     for plugin in manifest.plugins.values():
         plugin_manifest = read_plugin_manifest(plugin, source_root)
+        actual_name = str(plugin_manifest.get("name"))
         actual_version = str(plugin_manifest.get("version"))
+        if actual_name != plugin.name:
+            mismatches.append(f"{plugin.name} name ({actual_name} != {plugin.name})")
         if actual_version != plugin.version:
             mismatches.append(f"{plugin.name} ({actual_version} != {plugin.version})")
     if mismatches:
@@ -275,8 +348,16 @@ def sync_default_skills(
         raise ValueError("--check and --force cannot be used together")
     if not source_root.exists():
         raise ValueError(f"Marketplace source root not found: {source_root}")
+    canonical_output_root = (ROOT / ".agents" / "skills").resolve()
+    if output_root.resolve() != canonical_output_root:
+        raise ValueError(
+            "Derived skills must be written to the canonical repo-local output root:\n"
+            f"- requested: {output_root.resolve()}\n"
+            f"- expected: {canonical_output_root}"
+        )
     if not check:
         require_linked_worktree(ROOT)
+    assert_marketplace_source_binding(manifest, source_root, ROOT)
     assert_pinned_source_checkout(source_root, ROOT)
 
     missing_plugins = [name for name in manifest.default_plugins if name not in manifest.plugins]
@@ -295,9 +376,12 @@ def sync_default_skills(
     seen_skills: set[str] = set()
     for plugin in expected_plugins:
         for skill_name, skill_source in read_skill_directories(plugin, source_root):
-            if skill_name in seen_skills:
+            normalized_skill_name = skill_name.casefold()
+            if normalized_skill_name in seen_skills:
                 raise ValueError(f"Duplicate skill name in marketplace selection: {skill_name}")
-            seen_skills.add(skill_name)
+            if normalized_skill_name in RESERVED_OUTPUT_NAME_KEYS:
+                raise ValueError(f"Marketplace skill name collides with a reserved output name: {skill_name}")
+            seen_skills.add(normalized_skill_name)
             skill_sources.append((skill_name, skill_source, plugin.name))
 
     expected_skill_names = [skill_name for skill_name, _source, _plugin in skill_sources]
@@ -323,11 +407,15 @@ def sync_default_skills(
 
         if output_root.exists():
             actual_root_entries = sorted(
-                path.name for path in output_root.iterdir() if path.name not in RESERVED_OUTPUT_NAMES
+                path.name
+                for path in output_root.iterdir()
+                if path.name.casefold() not in RESERVED_OUTPUT_NAME_KEYS
             )
         else:
             actual_root_entries = []
-        if actual_root_entries != sorted(expected_skill_names):
+        if sorted(name.casefold() for name in actual_root_entries) != sorted(
+            name.casefold() for name in expected_skill_names
+        ):
             mismatches.append("skill-tree")
 
         if not provenance_path.exists():
@@ -350,9 +438,9 @@ def sync_default_skills(
     for skill_name, source in desired_skill_dirs.items():
         copy_tree(source, output_root / skill_name, force=force)
 
-    expected_root_names = set(expected_skill_names) | RESERVED_OUTPUT_NAMES
+    expected_root_names = {name.casefold() for name in expected_skill_names} | RESERVED_OUTPUT_NAME_KEYS
     stale_root_entries = sorted(
-        path for path in output_root.iterdir() if path.name not in expected_root_names
+        path for path in output_root.iterdir() if path.name.casefold() not in expected_root_names
     )
     for path in stale_root_entries:
         if path.is_dir():

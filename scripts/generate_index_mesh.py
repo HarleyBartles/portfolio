@@ -182,6 +182,10 @@ def is_gitignored(path: Path) -> bool:
     return False
 
 
+def relative_parts(path: Path) -> tuple[str, ...]:
+    return path.relative_to(ROOT).parts
+
+
 def is_tracked(path: Path) -> bool:
     try:
         relative = path.relative_to(ROOT).as_posix()
@@ -210,7 +214,7 @@ def should_descend(child: Path) -> bool:
 def should_index(path: Path) -> bool:
     if path == ROOT:
         return True
-    if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.parts):
+    if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in relative_parts(path)):
         return False
     if is_gitlink(path):
         return False
@@ -270,6 +274,8 @@ def render_index(path: Path) -> str:
             if entry.name in ALWAYS_EXCLUDED_FILE_NAMES:
                 continue
             if is_gitignored(entry):
+                continue
+            if not is_tracked(entry):
                 continue
             files.append(entry)
 
@@ -357,6 +363,21 @@ def walk_index_targets() -> list[IndexTarget]:
     return targets
 
 
+def discover_existing_index_paths(root: Path) -> set[Path]:
+    existing_paths: set[Path] = set()
+    for raw_path in TRACKED_PATHS:
+        if not raw_path.endswith("INDEX.md"):
+            continue
+        relative = Path(raw_path)
+        if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in relative.parts):
+            continue
+        candidate = root / relative
+        if is_gitlink(candidate):
+            continue
+        existing_paths.add(candidate)
+    return existing_paths
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate or validate the repo-wide INDEX.md mesh")
     parser.add_argument("--check", "--validate", dest="check", action="store_true", help="validate without writing")
@@ -367,15 +388,7 @@ def main() -> int:
 
     targets = walk_index_targets()
     expected_paths = {target.path for target in targets}
-    actual_paths = {
-        path
-        for path in ROOT.rglob("*")
-        if path.is_file()
-        and path.name == "INDEX.md"
-        and not is_gitignored(path)
-        and not any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts)
-        and not is_gitlink(path)
-    }
+    actual_paths = discover_existing_index_paths(ROOT)
     unexpected = sorted(path for path in actual_paths if path not in expected_paths)
     missing = sorted(path for path in expected_paths if path not in actual_paths)
 

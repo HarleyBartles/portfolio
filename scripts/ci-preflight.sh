@@ -34,6 +34,10 @@ for arg in "$@"; do
     --check|-Check)
       check_mode=true
       ;;
+    *)
+      echo "Unknown argument: $arg" >&2
+      exit 1
+      ;;
   esac
 done
 

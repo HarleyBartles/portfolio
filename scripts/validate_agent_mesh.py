@@ -52,7 +52,7 @@ def discover_doctrine_docs() -> list[Path]:
     return sorted(docs)
 
 
-def discover_mesh_files() -> list[Path]:
+def discover_tracked_mesh_files() -> set[Path]:
     result = subprocess.run(
         ["git", "ls-files", "-z"],
         cwd=ROOT,
@@ -66,7 +66,7 @@ def discover_mesh_files() -> list[Path]:
             + result.stderr.decode("utf-8", errors="replace").strip()
         )
 
-    files: list[Path] = []
+    files: set[Path] = set()
     for raw_path in result.stdout.decode("utf-8", errors="replace").split("\0"):
         if not raw_path:
             continue
@@ -75,8 +75,31 @@ def discover_mesh_files() -> list[Path]:
         path = ROOT / raw_path
         if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts):
             continue
-        files.append(path)
-    return sorted(files)
+        files.add(path)
+    return files
+
+
+def discover_reachable_mesh_files() -> list[Path]:
+    tracked_mesh_files = discover_tracked_mesh_files()
+    root_agents = ROOT / "AGENTS.md"
+    if root_agents not in tracked_mesh_files:
+        return []
+
+    reachable: set[Path] = set()
+    queue = [root_agents]
+    while queue:
+        mesh_file = queue.pop()
+        if mesh_file in reachable:
+            continue
+        reachable.add(mesh_file)
+        current_text = mesh_file.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+        for _label, raw_target in LINK_PATTERN.findall(current_text):
+            resolved = resolve_link_target(mesh_file, raw_target)
+            if resolved is None or resolved.name != "AGENTS.md":
+                continue
+            if resolved in tracked_mesh_files and resolved not in reachable:
+                queue.append(resolved)
+    return sorted(reachable)
 
 
 def build_reference_map(mesh_files: list[Path]) -> dict[Path, list[Path]]:
@@ -97,7 +120,7 @@ def main() -> int:
     args = parser.parse_args()
 
     docs = discover_doctrine_docs()
-    mesh_files = discover_mesh_files()
+    mesh_files = discover_reachable_mesh_files()
     references = build_reference_map(mesh_files)
 
     missing: list[str] = []

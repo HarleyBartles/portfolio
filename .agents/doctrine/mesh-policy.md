@@ -22,7 +22,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 ### Link direction
 
-`AGENTS.md` files point outward to READMEs, docs, scripts, and other files. Non-`AGENTS.md` files should not point back at `AGENTS.md` as if it were the canonical source of doctrine. The only acceptable exception is a human-facing note that agent law lives in `AGENTS.md`.
+`AGENTS.md` files point outward to docs, scripts, and other agent-readable surfaces. README files are human-facing and should not be used as agent-routing surfaces. Non-`AGENTS.md` files should not point back at `AGENTS.md` as if it were the canonical source of doctrine. The only acceptable exception is a human-facing note that agent law lives in `AGENTS.md`.
 
 ## 2. `INDEX.md` mesh
 

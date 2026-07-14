@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 import unittest
 
@@ -27,6 +28,19 @@ class CiPreflightWrapperTests(unittest.TestCase):
         self.assertIn("refresh_agent_surfaces.sh", text)
         self.assertIn("validate_agent_mesh.sh", text)
         self.assertIn("unittest discover -s tests -v", text)
+
+    def test_bash_wrapper_rejects_unknown_arguments(self) -> None:
+        result = subprocess.run(
+            ["bash", str(ROOT / "scripts" / "ci-preflight.sh"), "--bogus"],
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Unknown argument: --bogus", result.stderr)
 
 
 if __name__ == "__main__":

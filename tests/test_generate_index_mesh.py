@@ -67,6 +67,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
             module.ROOT = root
             module.require_linked_worktree = Mock()
             module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = set()
 
             with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
                 sys, "argv", ["generate_index_mesh.py", "--check"]
@@ -160,6 +161,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             module.ROOT = root
             module.require_linked_worktree = Mock()
+            module.TRACKED_PATHS = set()
 
             with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
                 sys, "argv", ["generate_index_mesh.py"]
@@ -204,6 +206,69 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             self.assertFalse(module.should_descend(target))
             self.assertFalse(module.should_index(target))
+
+    def test_should_index_uses_repo_relative_parts(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "output" / "repo").resolve()
+            child = root / "docs"
+            child.mkdir(parents=True)
+
+            module.ROOT = root
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"docs"}
+
+            self.assertTrue(module.should_index(child))
+
+    def test_render_index_ignores_untracked_files(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            root.mkdir()
+            (root / "README.md").write_text("root\n", encoding="utf-8")
+            (root / "scratch.tmp").write_text("scratch\n", encoding="utf-8")
+            (root / "docs").mkdir()
+            (root / "docs" / "guide.md").write_text("guide\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"README.md", "docs", "docs/guide.md"}
+
+            rendered = module.render_index(root)
+
+            self.assertIn("- [README.md](README.md)", rendered)
+            self.assertIn("- [docs](docs/INDEX.md)", rendered)
+            self.assertNotIn("scratch.tmp", rendered)
+
+    def test_discover_existing_index_paths_uses_tracked_paths_only(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            root.mkdir()
+            (root / "INDEX.md").write_text("# root\n", encoding="utf-8")
+            (root / "docs").mkdir()
+            (root / "docs" / "INDEX.md").write_text("# docs\n", encoding="utf-8")
+            (root / "marketplace-source").mkdir()
+            (root / "marketplace-source" / "INDEX.md").write_text("# submodule\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.TRACKED_PATHS = {"INDEX.md", "docs", "docs/INDEX.md"}
+            module.GITLINK_PATHS = {"marketplace-source"}
+
+            paths = module.discover_existing_index_paths(root)
+
+            self.assertEqual(
+                {path.relative_to(root).as_posix() for path in paths},
+                {"INDEX.md", "docs/INDEX.md"},
+            )
 
 
 if __name__ == "__main__":
