@@ -137,7 +137,7 @@ def relative_path(root: Path, path: Path) -> Path:
 
 
 def trees_match(source: Path, destination: Path) -> bool:
-    if not destination.exists():
+    if not source.is_dir() or not destination.is_dir():
         return False
 
     source_files = sorted(
@@ -157,11 +157,12 @@ def trees_match(source: Path, destination: Path) -> bool:
 
 def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
     if destination.exists():
-        if force:
-            shutil.rmtree(destination)
+        if force or not trees_match(source, destination):
+            if destination.is_dir():
+                shutil.rmtree(destination)
+            else:
+                destination.unlink()
         else:
-            if not trees_match(source, destination):
-                raise ValueError(f"Destination already exists and differs: {destination}")
             return
     shutil.copytree(source, destination)
 
@@ -239,14 +240,12 @@ def sync_default_skills(
                 mismatches.append(skill_name)
 
         if output_root.exists():
-            actual_skill_dirs = sorted(
-                path.name
-                for path in output_root.iterdir()
-                if path.is_dir() and path.name not in RESERVED_OUTPUT_NAMES
+            actual_root_entries = sorted(
+                path.name for path in output_root.iterdir() if path.name not in RESERVED_OUTPUT_NAMES
             )
         else:
-            actual_skill_dirs = []
-        if actual_skill_dirs != sorted(expected_skill_names):
+            actual_root_entries = []
+        if actual_root_entries != sorted(expected_skill_names):
             mismatches.append("skill-tree")
 
         if not provenance_path.exists():
@@ -269,15 +268,15 @@ def sync_default_skills(
     for skill_name, source in desired_skill_dirs.items():
         copy_tree(source, output_root / skill_name, force=force)
 
-    stale_skill_dirs = sorted(
-        path
-        for path in output_root.iterdir()
-        if path.name not in RESERVED_OUTPUT_NAMES
-        and path.is_dir()
-        and path.name not in expected_skill_names
+    expected_root_names = set(expected_skill_names) | RESERVED_OUTPUT_NAMES
+    stale_root_entries = sorted(
+        path for path in output_root.iterdir() if path.name not in expected_root_names
     )
-    for path in stale_skill_dirs:
-        shutil.rmtree(path)
+    for path in stale_root_entries:
+        if path.is_dir():
+            shutil.rmtree(path)
+        else:
+            path.unlink()
 
     provenance_path.write_text(
         json.dumps(provenance_data, indent=2, sort_keys=True) + "\n",

@@ -42,7 +42,7 @@ Add focused tests for the orchestration surface, using the lightest existing tes
 Cover at minimum:
 
 - `--check` reports drift without mutating files;
-- normal execution runs the mesh refresh before the skill refresh;
+- normal execution runs the skill refresh before the mesh refresh;
 - the wrapper entrypoints pass the same mode through to the Python core;
 - the command reports which deterministic surface failed when one step returns non-zero.
 
@@ -55,8 +55,8 @@ Implement `scripts/refresh_agent_surfaces.py` as the portable orchestration core
 The core should:
 
 - accept `--check`;
-- call the mesh check/write path first;
-- call the skill check/write path second;
+- call the skill check/write path first;
+- call the mesh check/write path second;
 - stop on the first failure;
 - emit clear surface-scoped status text;
 - avoid duplicating mesh or skill logic directly.
@@ -248,4 +248,3 @@ Use a commit message that makes the repo setup nature obvious, such as:
 ```bash
 git commit -m "chore: add refresh surface contract"
 ```
-

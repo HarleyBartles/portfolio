@@ -260,6 +260,9 @@ def render_index(path: Path) -> str:
         if entry.name == "INDEX.md":
             continue
         if entry.is_dir():
+            if is_gitlink(entry):
+                dirs.append(entry)
+                continue
             if not should_descend(entry):
                 continue
             dirs.append(entry)

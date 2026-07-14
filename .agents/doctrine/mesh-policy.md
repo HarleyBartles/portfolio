@@ -33,6 +33,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - They must not carry operative law.
 - Stale `INDEX.md` files are fixed by regenerating the whole mesh, not by hand-editing individual files.
 - If whole-mesh regeneration does not produce a valid mesh, fix the generator, the exclusion policy, or the source inputs.
+- Gitlink directories are mesh boundaries: the parent index should link to the gitlink directory, but the generator must not descend into the submodule tree.
 
 ## 3. `.agents/` tree
 

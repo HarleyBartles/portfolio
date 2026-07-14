@@ -110,6 +110,33 @@ class GenerateIndexMeshTests(unittest.TestCase):
             self.assertFalse(module.should_index(child))
             self.assertEqual(module.dir_link(current, child), "[plugins](plugins/)")
 
+    def test_render_index_lists_gitlink_directory_without_descending_into_it(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            current = root / ".agents" / "plugins"
+            gitlink = current / "marketplace-source"
+            current.mkdir(parents=True)
+            gitlink.mkdir()
+            (current / "AGENTS.md").write_text("# plugins\n", encoding="utf-8")
+            (current / "marketplace.json").write_text("{}", encoding="utf-8")
+
+            module.ROOT = root
+            module.GITLINK_PATHS = {".agents/plugins/marketplace-source"}
+            module.GITIGNORED_PATHS = set()
+            module.TRACKED_PATHS = {
+                ".agents/AGENTS.md",
+                ".agents/plugins/AGENTS.md",
+                ".agents/plugins/marketplace.json",
+            }
+
+            rendered = module.render_index(current)
+
+            self.assertIn("- [marketplace-source](marketplace-source/)", rendered)
+            self.assertNotIn("No child entries.", rendered)
+
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
 

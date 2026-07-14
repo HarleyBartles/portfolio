@@ -18,7 +18,7 @@ For the current portfolio setup work, the minimum validation is:
 - `.\scripts\validate_agent_mesh.ps1 -Check`
 - `bash ./scripts/validate_agent_mesh.sh --check`
 - `py -3 -m unittest discover -s tests -v`
-- `git diff --check`
+- `git diff --check origin/main...HEAD -- . ':(exclude).agents/skills/**'`
 - `git status --short`
 
 ## Validation Rules
@@ -29,6 +29,8 @@ For the current portfolio setup work, the minimum validation is:
 - If a change affects doctrine or the agents mesh, verify doctrine reachability with the agent mesh validator.
 - If a change affects scripts, verify the script and its wrapper both work.
 - If a change affects future application code, add the exact build/test/typecheck commands to the next layer of guidance when that code exists.
+- When checking committed branch output, use a branch-range diff check such as `git diff --check origin/main...HEAD -- . ':(exclude).agents/skills/**'`; do not rely on a bare working-tree diff check as proof that the branch is clean.
+- Exact copied skill trees under `.agents/skills/` are validated by `scripts/install_agent_skills.py --check`; exclude them from whitespace diff checks so upstream formatting does not generate false failures.
 
 ## Proof
 

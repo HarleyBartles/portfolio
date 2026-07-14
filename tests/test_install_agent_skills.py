@@ -234,6 +234,105 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             self.assertFalse(output_root.exists())
 
+    def test_sync_write_mode_replaces_changed_skills_and_removes_unexpected_root_files(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+
+            manifest = {
+                "schema_version": 1,
+                "default_plugins": ["repo-worker-pack"],
+                "excluded_plugins": [],
+                "plugins": {
+                    "repo-worker-pack": {
+                        "version": "1.0.0",
+                        "source_path": "repo-worker-pack/1.0.0",
+                        "skills_path": "skills",
+                    },
+                },
+            }
+
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# boring-loop v1\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+
+            (skill_root / "SKILL.md").write_text("# boring-loop v2\n", encoding="utf-8")
+            (output_root / "stray.txt").write_text("unexpected\n", encoding="utf-8")
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+
+            self.assertEqual((output_root / "boring-loop" / "SKILL.md").read_text(encoding="utf-8"), "# boring-loop v2\n")
+            self.assertFalse((output_root / "stray.txt").exists())
+
+    def test_sync_check_mode_detects_unexpected_root_files(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+            output_root.mkdir(parents=True)
+
+            manifest = {
+                "schema_version": 1,
+                "default_plugins": ["repo-worker-pack"],
+                "excluded_plugins": [],
+                "plugins": {
+                    "repo-worker-pack": {
+                        "version": "1.0.0",
+                        "source_path": "repo-worker-pack/1.0.0",
+                        "skills_path": "skills",
+                    },
+                },
+            }
+
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+            (output_root / "boring-loop").mkdir(parents=True, exist_ok=True)
+            (output_root / "boring-loop" / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+            (output_root / "stray.txt").write_text("unexpected\n", encoding="utf-8")
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+
+            with self.assertRaises(ValueError):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                    check=True,
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

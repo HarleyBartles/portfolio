@@ -8,6 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CiPreflightWrapperTests(unittest.TestCase):
+    def test_github_workflow_requires_marketplace_read_token(self) -> None:
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        self.assertIn("AGENT_ASSET_MARKETPLACE_READ_TOKEN", text)
+        self.assertIn("submodules: recursive", text)
+
     def test_powershell_wrapper_routes_to_refresh_and_validation(self) -> None:
         text = (ROOT / "scripts" / "ci-preflight.ps1").read_text(encoding="utf-8")
         self.assertIn("refresh_agent_surfaces.ps1", text)

@@ -12,9 +12,19 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.draft == false
 
     steps:
+      - name: Require marketplace read token
+        shell: pwsh
+        env:
+          MARKETPLACE_READ_TOKEN: ${{ secrets.AGENT_ASSET_MARKETPLACE_READ_TOKEN }}
+        run: |
+          if (-not $env:MARKETPLACE_READ_TOKEN) {
+            throw 'Repository secret AGENT_ASSET_MARKETPLACE_READ_TOKEN is required to fetch .agents/plugins/marketplace-source.'
+          }
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.AGENT_ASSET_MARKETPLACE_READ_TOKEN }}
           submodules: recursive
 
       - name: Run repo preflight
