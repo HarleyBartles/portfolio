@@ -139,6 +139,44 @@ class InstallAgentSkillsTests(unittest.TestCase):
                     check=True,
                 )
 
+    def test_sync_check_mode_does_not_create_output_root(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source_root = temp / "marketplace-source"
+            output_root = temp / "skills"
+            source_root.mkdir()
+
+            manifest = {
+                "schema_version": 1,
+                "default_plugins": ["repo-worker-pack"],
+                "excluded_plugins": [],
+                "plugins": {
+                    "repo-worker-pack": {
+                        "version": "1.0.0",
+                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
+                        "skills_path": "skills",
+                    }
+                },
+            }
+
+            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+
+            with self.assertRaises(ValueError):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                    check=True,
+                )
+
+            self.assertFalse(output_root.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

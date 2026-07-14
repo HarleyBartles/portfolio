@@ -159,6 +159,21 @@ def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
         target.write_bytes(read_normalized_file(child))
 
 
+def require_linked_worktree(repo_root: Path) -> None:
+    result = subprocess.run(
+        ["py", "-3", str(repo_root / "scripts" / "assert_active_worktree.py")],
+        cwd=repo_root,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "This command must run from a linked worktree:\n" + result.stderr.strip()
+        )
+
+
 def write_provenance(
     output_root: Path,
     result: SyncResult,
@@ -192,6 +207,8 @@ def sync_default_skills(
         raise ValueError("--check and --force cannot be used together")
     if not source_root.exists():
         raise ValueError(f"Marketplace source root not found: {source_root}")
+    if not check:
+        require_linked_worktree(ROOT)
 
     missing_plugins = [name for name in manifest.default_plugins if name not in manifest.plugins]
     if missing_plugins:
@@ -215,7 +232,6 @@ def sync_default_skills(
     expected_skill_names = [skill_name for skill_name, _source, _plugin in skill_sources]
     desired_skill_dirs = {skill_name: source for skill_name, source, _plugin in skill_sources}
 
-    output_root.mkdir(parents=True, exist_ok=True)
     source_revision = get_git_revision(source_root)
     provenance_path = output_root / ".provenance.json"
     result = SyncResult(
@@ -239,11 +255,14 @@ def sync_default_skills(
             if not trees_match(source, destination):
                 mismatches.append(skill_name)
 
-        actual_skill_dirs = sorted(
-            path.name
-            for path in output_root.iterdir()
-            if path.is_dir() and path.name not in RESERVED_OUTPUT_NAMES
-        )
+        if output_root.exists():
+            actual_skill_dirs = sorted(
+                path.name
+                for path in output_root.iterdir()
+                if path.is_dir() and path.name not in RESERVED_OUTPUT_NAMES
+            )
+        else:
+            actual_skill_dirs = []
         if actual_skill_dirs != sorted(expected_skill_names):
             mismatches.append("skill-tree")
 
@@ -259,6 +278,7 @@ def sync_default_skills(
 
         return result
 
+    output_root.mkdir(parents=True, exist_ok=True)
     for skill_name, source in desired_skill_dirs.items():
         copy_tree(source, output_root / skill_name, force=force)
 

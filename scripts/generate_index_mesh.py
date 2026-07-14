@@ -165,6 +165,9 @@ def rel_link(current: Path, target: Path, label: str | None = None) -> str:
 
 
 def dir_link(current: Path, child: Path) -> str:
+    if is_leaf_index_dir(current):
+        rel = os.path.relpath(child, start=current).replace(os.sep, "/")
+        return f"[{child.name}]({rel}/)"
     index_md = child / "INDEX.md"
     if should_index(child):
         rel = os.path.relpath(index_md, start=current).replace(os.sep, "/")
@@ -234,9 +237,7 @@ def resolve_link_target(current: Path, target: str) -> Path | None:
     resolved = (current.parent / clean_target).resolve()
     if not is_under(resolved, ROOT):
         return None
-    if target.endswith("/"):
-        return resolved if resolved.is_dir() else None
-    return resolved if resolved.exists() else None
+    return resolved
 
 
 def validate_rendered_links(path: Path, rendered: str) -> list[str]:
@@ -251,6 +252,21 @@ def validate_rendered_links(path: Path, rendered: str) -> list[str]:
         if not raw_target.endswith("/") and not resolved.exists():
             failures.append(f"broken-link: {path.relative_to(ROOT)} -> {raw_target}")
     return failures
+
+
+def require_linked_worktree(repo_root: Path) -> None:
+    result = subprocess.run(
+        ["py", "-3", str(repo_root / "scripts" / "assert_active_worktree.py")],
+        cwd=repo_root,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "This command must run from a linked worktree:\n" + result.stderr.strip()
+        )
 
 
 def walk_index_targets() -> list[IndexTarget]:
@@ -277,6 +293,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate or validate the repo-wide INDEX.md mesh")
     parser.add_argument("--check", "--validate", dest="check", action="store_true", help="validate without writing")
     args = parser.parse_args()
+
+    if not args.check:
+        require_linked_worktree(ROOT)
 
     targets = walk_index_targets()
     expected_paths = {target.path for target in targets}

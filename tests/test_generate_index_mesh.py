@@ -4,6 +4,7 @@ import importlib.util
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import Mock, patch
 import unittest
 
 
@@ -22,6 +23,54 @@ def load_module():
 
 
 class GenerateIndexMeshTests(unittest.TestCase):
+    def test_leaf_skill_indexes_link_directories_not_missing_child_indexes(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            current = root / ".agents" / "skills"
+            child = current / "boring-loop"
+            child.mkdir(parents=True)
+
+            module.ROOT = root
+
+            link = module.dir_link(current, child)
+
+            self.assertEqual(link, "[boring-loop](boring-loop/)")
+
+    def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            root.mkdir()
+
+            module.ROOT = root
+            failures = module.validate_rendered_links(root / "INDEX.md", "- [missing](missing.md)")
+
+            self.assertEqual(failures, ["broken-link: INDEX.md -> missing.md"])
+
+    def test_main_requires_worktree_for_writes(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            root.mkdir()
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+
+            with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
+                module, "should_index", return_value=False
+            ), patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            module.require_linked_worktree.assert_called_once_with(root)
+
     def test_gitignored_directory_is_not_descended_into(self) -> None:
         module = load_module()
 
