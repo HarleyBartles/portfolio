@@ -5,13 +5,13 @@ This folder contains deterministic tooling for the portfolio repository.
 ## Use When
 
 - Use when you need the preferred deterministic refresh entrypoint for agent-facing repo surfaces: [`refresh_agent_surfaces.py`](refresh_agent_surfaces.py), [`refresh_agent_surfaces.ps1`](refresh_agent_surfaces.ps1), and [`refresh_agent_surfaces.sh`](refresh_agent_surfaces.sh).
-- Use before editing or adding scripts in this folder: [`README.md`](README.md) for the script catalog and conventions.
 - Use when you need the canonical helper used by the refresh family for the `INDEX.md` mesh: [`generate_index_mesh.py`](generate_index_mesh.py), [`generate_index_mesh.ps1`](generate_index_mesh.ps1), and [`generate_index_mesh.sh`](generate_index_mesh.sh).
 - Use when you need the canonical helper used by the refresh family for derived repo-local skills: [`install_agent_skills.py`](install_agent_skills.py), [`install_agent_skills.ps1`](install_agent_skills.ps1), and [`install_agent_skills.sh`](install_agent_skills.sh).
 - Use when you need the standalone safety guard for linked-worktree-only mutations: [`assert_active_worktree.py`](assert_active_worktree.py), [`assert_active_worktree.ps1`](assert_active_worktree.ps1), and [`assert_active_worktree.sh`](assert_active_worktree.sh).
 - Use when you need the standalone read-only validator for doctrine reachability: [`validate_agent_mesh.py`](validate_agent_mesh.py), [`validate_agent_mesh.ps1`](validate_agent_mesh.ps1), and [`validate_agent_mesh.sh`](validate_agent_mesh.sh).
 - Use when you need the local-or-CI repo preflight: [`ci-preflight.ps1`](ci-preflight.ps1).
 - Use when you need the repo's readiness wrapper rather than a refresh command: [`ci-preflight.ps1`](ci-preflight.ps1).
+- Before editing or adding scripts in this folder, keep the script catalog in [`README.md`](README.md) human-facing and follow the working rules below.
 
 ## Working Rules
 

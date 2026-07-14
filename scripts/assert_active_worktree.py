@@ -53,12 +53,15 @@ def checkout_kind(paths: GitPaths) -> str:
 
 def assert_active_worktree(repo_root: Path, *, allow_shared_checkout: bool = False) -> GitPaths:
     paths = read_git_paths(repo_root)
-    if allow_shared_checkout or checkout_kind(paths) == "linked worktree":
+    kind = checkout_kind(paths)
+    if kind == "linked worktree":
+        return paths
+    if allow_shared_checkout and kind == "shared checkout":
         return paths
 
     raise RuntimeError(
         "This command must run from a linked worktree, not the "
-        f"{checkout_kind(paths)}. Current git-dir={paths.git_dir!r}, common-dir={paths.common_dir!r}, "
+        f"{kind}. Current git-dir={paths.git_dir!r}, common-dir={paths.common_dir!r}, "
         f"superproject={paths.superproject!r}."
     )
 
