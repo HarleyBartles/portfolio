@@ -6,12 +6,23 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCTRINE_ROOT = ROOT / ".agents" / "doctrine"
-MESH_FILE_NAMES = {"AGENTS.md", "INDEX.md"}
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+ALWAYS_EXCLUDED_DIR_NAMES = {
+    ".git",
+    ".codex",
+    "__pycache__",
+    "bin",
+    "obj",
+    "dist",
+    "output",
+    "node_modules",
+    ".pytest_cache",
+}
 
 
 def is_under(path: Path, ancestor: Path) -> bool:
@@ -35,18 +46,34 @@ def discover_doctrine_docs() -> list[Path]:
         return []
     docs: list[Path] = []
     for path in DOCTRINE_ROOT.rglob("*.md"):
-        if path.name in MESH_FILE_NAMES:
+        if path.name == "INDEX.md":
             continue
         docs.append(path)
     return sorted(docs)
 
 
 def discover_mesh_files() -> list[Path]:
+    result = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "git ls-files failed:\n"
+            + result.stderr.decode("utf-8", errors="replace").strip()
+        )
+
     files: list[Path] = []
-    for path in ROOT.rglob("*.md"):
-        if path.name not in MESH_FILE_NAMES:
+    for raw_path in result.stdout.decode("utf-8", errors="replace").split("\0"):
+        if not raw_path:
             continue
-        if any(part in {".git", ".codex", "__pycache__", "bin", "obj", "dist", "output", "node_modules", ".pytest_cache"} for part in path.relative_to(ROOT).parts):
+        if not raw_path.endswith("AGENTS.md"):
+            continue
+        path = ROOT / raw_path
+        if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts):
             continue
         files.append(path)
     return sorted(files)

@@ -55,7 +55,9 @@ def assert_active_worktree(
     repo_root: Path, *, allow_shared_checkout: bool = False
 ) -> GitPaths:
     paths = read_git_paths(repo_root)
-    if allow_shared_checkout or checkout_kind(paths) == "linked worktree":
+    if checkout_kind(paths) == "linked worktree" or (
+        allow_shared_checkout and checkout_kind(paths) == "shared checkout"
+    ):
         return paths
 
     raise RuntimeError(

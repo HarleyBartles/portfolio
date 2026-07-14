@@ -90,7 +90,7 @@ If a change touches any of the surfaces governed by this policy, update the rele
 
 - `AGENTS.md`
 - `README.md`
-- `.agents/docs/mesh-policy.md`
+- `.agents/doctrine/mesh-policy.md`
 - any newly added or renamed doctrine document that should be discoverable through the mesh
 - the affected `INDEX.md` files
 - `scripts/README.md` or `scripts/AGENTS.md` when tooling behavior changes

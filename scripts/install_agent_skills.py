@@ -92,6 +92,31 @@ def get_git_revision(path: Path) -> str:
     return result.stdout.strip()
 
 
+def get_repo_relative_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def read_plugin_manifest(plugin: PluginSpec, source_root: Path) -> dict:
+    plugin_manifest_path = source_root / plugin.source_path / ".codex-plugin" / "plugin.json"
+    if not plugin_manifest_path.is_file():
+        raise ValueError(f"Plugin manifest not found for {plugin.name!r}: {plugin_manifest_path}")
+    return json.loads(plugin_manifest_path.read_text(encoding="utf-8"))
+
+
+def validate_plugin_versions(manifest: MarketplaceManifest, source_root: Path) -> None:
+    mismatches: list[str] = []
+    for plugin in manifest.plugins.values():
+        plugin_manifest = read_plugin_manifest(plugin, source_root)
+        actual_version = str(plugin_manifest.get("version"))
+        if actual_version != plugin.version:
+            mismatches.append(f"{plugin.name} ({actual_version} != {plugin.version})")
+    if mismatches:
+        raise ValueError("Marketplace plugin versions do not match the manifest:\n" + "\n".join(f"- {item}" for item in mismatches))
+
+
 def read_skill_directories(plugin: PluginSpec, source_root: Path) -> list[tuple[str, Path]]:
     skills_root = source_root / plugin.source_path / plugin.skills_path
     if not skills_root.is_dir():
@@ -175,6 +200,8 @@ def sync_default_skills(
     if missing_plugins:
         raise ValueError("Manifest is missing plugin definitions for: " + ", ".join(missing_plugins))
 
+    validate_plugin_versions(manifest, source_root)
+
     expected_plugins = [
         manifest.plugins[name]
         for name in manifest.default_plugins
@@ -197,7 +224,7 @@ def sync_default_skills(
     provenance_path = output_root / ".provenance.json"
     provenance_data = {
         "schema_version": 1,
-        "source_root": str(source_root),
+        "source_root": get_repo_relative_path(source_root),
         "source_revision": source_revision,
         "default_plugins": list(manifest.default_plugins),
         "excluded_plugins": list(manifest.excluded_plugins),

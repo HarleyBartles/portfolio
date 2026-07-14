@@ -86,6 +86,8 @@ This is the preferred combined refresh entrypoint for deterministic surfaces tha
 
 This is the preferred single entrypoint for local readiness and CI jobs that should mirror the repo's current setup baseline.
 
+The preflight bundle also runs the repository test suite (`python -m unittest discover -s tests -v`) so CI and local readiness check the same core baseline.
+
 ## Conventions
 
 - Keep scripts deterministic.

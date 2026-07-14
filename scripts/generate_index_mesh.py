@@ -36,8 +36,51 @@ class IndexTarget:
 LINK_PATTERN = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
 
-def is_submodule(path: Path) -> bool:
-    return (path / ".git").is_file()
+def load_gitlink_paths(root: Path) -> set[str]:
+    """Ask git which repo-relative paths are submodule gitlinks."""
+    result = subprocess.run(
+        ["git", "ls-files", "--stage", "-z"],
+        cwd=root,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "git ls-files --stage failed:\n"
+            + result.stderr.decode("utf-8", errors="replace").strip()
+        )
+
+    gitlinks: set[str] = set()
+    for record in result.stdout.decode("utf-8", errors="replace").split("\0"):
+        if not record:
+            continue
+        try:
+            metadata, relative_path = record.split("\t", 1)
+        except ValueError:
+            continue
+        mode = metadata.split(" ", 1)[0]
+        if mode == "160000":
+            gitlinks.add(relative_path)
+    return gitlinks
+
+
+GITLINK_PATHS = load_gitlink_paths(ROOT)
+
+
+def is_gitlink(path: Path) -> bool:
+    relative_path = path.relative_to(ROOT).as_posix()
+    if relative_path in GITLINK_PATHS:
+        return True
+
+    for parent in path.parents:
+        if parent == ROOT:
+            break
+        parent_relative = parent.relative_to(ROOT).as_posix()
+        if parent_relative in GITLINK_PATHS:
+            return True
+
+    return False
 
 
 def collect_candidate_paths(root: Path) -> list[Path]:
@@ -49,7 +92,7 @@ def collect_candidate_paths(root: Path) -> list[Path]:
             (
                 name
                 for name in dirnames
-                if name not in ALWAYS_EXCLUDED_DIR_NAMES and not is_submodule(current / name)
+                if name not in ALWAYS_EXCLUDED_DIR_NAMES and not is_gitlink(current / name)
             ),
             key=lambda name: (name.casefold(), name),
         )
@@ -117,7 +160,7 @@ def is_gitignored(path: Path) -> bool:
         return True
     if path.name in ALWAYS_EXCLUDED_FILE_NAMES:
         return True
-    if is_submodule(path):
+    if is_gitlink(path):
         return True
 
     relative_path = path.relative_to(ROOT)
@@ -129,7 +172,7 @@ def is_gitignored(path: Path) -> bool:
     for parent in path.parents:
         if parent == ROOT:
             break
-        if is_submodule(parent):
+        if is_gitlink(parent):
             return True
         parent_relative = parent.relative_to(ROOT)
         parent_str = parent_relative.as_posix()
@@ -155,6 +198,8 @@ def is_tracked(path: Path) -> bool:
 def should_descend(child: Path) -> bool:
     if child.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return False
+    if is_gitlink(child):
+        return False
     if is_gitignored(child):
         return False
     if not is_tracked(child):
@@ -166,6 +211,8 @@ def should_index(path: Path) -> bool:
     if path == ROOT:
         return True
     if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.parts):
+        return False
+    if is_gitlink(path):
         return False
     if is_gitignored(path):
         return False
@@ -188,6 +235,9 @@ def rel_link(current: Path, target: Path, label: str | None = None) -> str:
 
 
 def dir_link(current: Path, child: Path) -> str:
+    if is_gitlink(child):
+        rel = os.path.relpath(child, start=current).replace(os.sep, "/")
+        return f"[{child.name}]({rel}/)"
     if is_leaf_index_dir(current):
         rel = os.path.relpath(child, start=current).replace(os.sep, "/")
         return f"[{child.name}]({rel}/)"
@@ -321,6 +371,7 @@ def main() -> int:
         and path.name == "INDEX.md"
         and not is_gitignored(path)
         and not any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in path.relative_to(ROOT).parts)
+        and not is_gitlink(path)
     }
     unexpected = sorted(path for path in actual_paths if path not in expected_paths)
     missing = sorted(path for path in expected_paths if path not in actual_paths)

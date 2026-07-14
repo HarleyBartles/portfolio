@@ -6,7 +6,7 @@ This directory holds repo-resident planning surfaces and related local-only draf
 
 - Use before writing or reviewing an implementation plan: [`plans/INDEX.md`](./plans/INDEX.md).
 - Use before working with local-only design drafts or specs: [`specs/`](./specs/).
-- Use when you need the artifact-placement rules for plans and specs: [`.agents/docs/artifact-policy.md`](../docs/artifact-policy.md).
+- Use when you need the artifact-placement rules for plans and specs: [`.agents/doctrine/artifact-policy.md`](../doctrine/artifact-policy.md).
 
 ## Working Rules
 

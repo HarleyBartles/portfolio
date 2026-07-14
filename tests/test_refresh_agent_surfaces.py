@@ -23,6 +23,14 @@ def load_module():
 
 
 class RefreshAgentSurfacesTests(unittest.TestCase):
+    def test_default_refresh_order_installs_skills_before_mesh(self) -> None:
+        module = load_module()
+
+        self.assertEqual(
+            [step.name for step in module.REFRESH_STEPS],
+            ["derived skills", "index mesh"],
+        )
+
     def test_check_mode_runs_all_steps_with_check(self) -> None:
         module = load_module()
 

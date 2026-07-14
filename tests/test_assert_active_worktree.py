@@ -37,6 +37,13 @@ class AssertActiveWorktreeTests(unittest.TestCase):
             result = module.assert_active_worktree(ROOT, allow_shared_checkout=True)
         self.assertEqual(result, paths)
 
+    def test_allow_shared_checkout_does_not_bypass_submodule_guard(self) -> None:
+        module = load_module()
+        paths = module.GitPaths(".git", ".git", "C:/repo")
+        with patch.object(module, "read_git_paths", return_value=paths):
+            with self.assertRaises(RuntimeError):
+                module.assert_active_worktree(ROOT, allow_shared_checkout=True)
+
     def test_rejects_shared_checkout(self) -> None:
         module = load_module()
         paths = module.GitPaths(".git", ".git", "")

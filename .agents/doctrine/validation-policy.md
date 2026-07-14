@@ -17,6 +17,7 @@ For the current portfolio setup work, the minimum validation is:
 - `py -3 scripts/validate_agent_mesh.py --check`
 - `.\scripts\validate_agent_mesh.ps1 -Check`
 - `bash ./scripts/validate_agent_mesh.sh --check`
+- `py -3 -m unittest discover -s tests -v`
 - `git diff --check`
 - `git status --short`
 

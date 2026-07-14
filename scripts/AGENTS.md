@@ -5,7 +5,7 @@ This folder contains deterministic tooling for the portfolio repository.
 ## Use When
 
 - Use when you need the preferred deterministic refresh entrypoint for agent-facing repo surfaces: [`refresh_agent_surfaces.py`](refresh_agent_surfaces.py), [`refresh_agent_surfaces.ps1`](refresh_agent_surfaces.ps1), and [`refresh_agent_surfaces.sh`](refresh_agent_surfaces.sh).
-- Use before editing or adding scripts in this folder: [`README.md`](README.md) for the script catalog and conventions.
+- Use before editing or adding scripts in this folder: [`INDEX.md`](INDEX.md) for the script map and `scripts/README.md` for the human-facing catalog.
 - Use when you need the canonical helper used by the refresh family for the `INDEX.md` mesh: [`generate_index_mesh.py`](generate_index_mesh.py), [`generate_index_mesh.ps1`](generate_index_mesh.ps1), and [`generate_index_mesh.sh`](generate_index_mesh.sh).
 - Use when you need the canonical helper used by the refresh family for derived repo-local skills: [`install_agent_skills.py`](install_agent_skills.py), [`install_agent_skills.ps1`](install_agent_skills.ps1), and [`install_agent_skills.sh`](install_agent_skills.sh).
 - Use when you need the standalone safety guard for linked-worktree-only mutations: [`assert_active_worktree.py`](assert_active_worktree.py), [`assert_active_worktree.ps1`](assert_active_worktree.ps1), and [`assert_active_worktree.sh`](assert_active_worktree.sh).

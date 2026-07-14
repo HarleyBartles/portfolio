@@ -23,8 +23,8 @@ class RefreshStep:
 
 
 REFRESH_STEPS: tuple[RefreshStep, ...] = (
-    RefreshStep(name="index mesh", script=ROOT / "scripts" / "generate_index_mesh.py"),
     RefreshStep(name="derived skills", script=ROOT / "scripts" / "install_agent_skills.py"),
+    RefreshStep(name="index mesh", script=ROOT / "scripts" / "generate_index_mesh.py"),
 )
 
 

@@ -5,6 +5,7 @@ import sys
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
+from unittest.mock import Mock, patch
 from tempfile import TemporaryDirectory
 import unittest
 
@@ -33,21 +34,49 @@ class ValidateAgentMeshTests(unittest.TestCase):
             doctrine = root / ".agents" / "doctrine"
             doctrine.mkdir(parents=True)
             (doctrine / "policy.md").write_text("# policy\n", encoding="utf-8")
-            (root / "INDEX.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")
+            (root / "AGENTS.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")
 
             module.ROOT = root
             module.DOCTRINE_ROOT = doctrine
 
             stdout = StringIO()
-            with redirect_stdout(stdout), unittest.mock.patch.object(
-                sys,
-                "argv",
-                ["validate_agent_mesh.py", "--check"],
+            with patch.object(
+                module.subprocess,
+                "run",
+                return_value=Mock(returncode=0, stdout=b"AGENTS.md\0", stderr=b""),
             ):
-                result = module.main()
+                with redirect_stdout(stdout), patch.object(
+                    sys,
+                    "argv",
+                    ["validate_agent_mesh.py", "--check"],
+                ):
+                    result = module.main()
 
             self.assertEqual(result, 0)
             self.assertIn("OK doctrine mesh: 1 doctrine docs referenced from 1 mesh files", stdout.getvalue())
+
+    def test_check_mode_requires_agents_routes_not_index_only_links(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            doctrine = root / ".agents" / "doctrine"
+            doctrine.mkdir(parents=True)
+            (doctrine / "policy.md").write_text("# policy\n", encoding="utf-8")
+            (root / "INDEX.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.DOCTRINE_ROOT = doctrine
+
+            with patch.object(
+                module.subprocess,
+                "run",
+                return_value=Mock(returncode=0, stdout=b"INDEX.md\0", stderr=b""),
+            ):
+                with patch.object(sys, "argv", ["validate_agent_mesh.py", "--check"]):
+                    with self.assertRaises(ValueError):
+                        module.main()
 
 
 if __name__ == "__main__":

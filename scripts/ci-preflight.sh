@@ -4,6 +4,8 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 refresh_script="$script_dir/refresh_agent_surfaces.sh"
 doctrine_script="$script_dir/validate_agent_mesh.sh"
+python_launchers=(python3 python py)
+python_launcher=""
 
 if [[ ! -f "$refresh_script" ]]; then
   echo "Refresh script not found at $refresh_script" >&2
@@ -11,6 +13,18 @@ if [[ ! -f "$refresh_script" ]]; then
 fi
 if [[ ! -f "$doctrine_script" ]]; then
   echo "Doctrine validator not found at $doctrine_script" >&2
+  exit 1
+fi
+
+for launcher in "${python_launchers[@]}"; do
+  if command -v "$launcher" >/dev/null 2>&1; then
+    python_launcher="$launcher"
+    break
+  fi
+done
+
+if [[ -z "$python_launcher" ]]; then
+  echo "No Python launcher found. Tried: ${python_launchers[*]}" >&2
   exit 1
 fi
 
@@ -29,4 +43,10 @@ if [[ "$check_mode" == true ]]; then
 else
   bash "$refresh_script"
   bash "$doctrine_script"
+fi
+
+if [[ "$python_launcher" == "py" ]]; then
+  "$python_launcher" -3 -m unittest discover -s tests -v
+else
+  "$python_launcher" -m unittest discover -s tests -v
 fi

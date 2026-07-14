@@ -2,6 +2,19 @@
 
 This repository is the source for Harley Bartles' personal developer portfolio website.
 
+## Checkout Identity Check
+
+Before any file mutation, record the current checkout once and keep it in mind:
+
+- `git rev-parse --show-toplevel`
+- `git branch --show-current`
+- `git rev-parse --git-dir`
+- `git rev-parse --git-common-dir`
+- `git rev-parse --show-superproject-working-tree`
+
+If this is the shared `main` checkout or a submodule, stop and use the intended worktree/branch instead unless the task explicitly says shared-checkout work is intended.
+Do not repeatedly rediscover the worktree during the same task.
+
 ## Purpose
 
 The site exists to present Harley as a software engineer through:

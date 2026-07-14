@@ -37,6 +37,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
             module.ROOT = root
             module.require_linked_worktree = Mock()
             module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
             module.TRACKED_PATHS = {"README.md", "docs", "docs/guide.md"}
 
             with patch.object(sys, "argv", ["generate_index_mesh.py"]):
@@ -65,6 +66,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             module.ROOT = root
             module.require_linked_worktree = Mock()
+            module.GITLINK_PATHS = set()
 
             with patch.object(module, "walk_index_targets", return_value=[]), patch.object(
                 sys, "argv", ["generate_index_mesh.py", "--check"]
@@ -89,6 +91,24 @@ class GenerateIndexMeshTests(unittest.TestCase):
             link = module.dir_link(current, child)
 
             self.assertEqual(link, "[boring-loop](boring-loop/)")
+
+    def test_gitlink_directory_is_linked_as_directory_only(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            root.mkdir()
+            current = root / ".agents"
+            child = current / "plugins"
+            child.mkdir(parents=True)
+
+            module.ROOT = root
+            module.GITLINK_PATHS = {".agents/plugins"}
+
+            self.assertFalse(module.should_descend(child))
+            self.assertFalse(module.should_index(child))
+            self.assertEqual(module.dir_link(current, child), "[plugins](plugins/)")
 
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
@@ -136,6 +156,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             module.ROOT = root
             module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
 
             self.assertFalse(module.should_descend(ignored))
             self.assertFalse(module.should_index(ignored))
@@ -152,6 +173,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             module.ROOT = root
             module.GITIGNORED_PATHS = {"generated"}
+            module.GITLINK_PATHS = set()
 
             self.assertFalse(module.should_descend(target))
             self.assertFalse(module.should_index(target))

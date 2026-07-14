@@ -53,5 +53,5 @@
   ],
   "schema_version": 1,
   "source_revision": "de2039f2b7127ec98cbd573104645491ac2fc4db",
-  "source_root": "Z:\\_agent-worktrees\\portfolio\\codex-portfolio-planning-continuation\\.agents\\plugins\\marketplace-source"
+  "source_root": ".agents/plugins/marketplace-source"
 }

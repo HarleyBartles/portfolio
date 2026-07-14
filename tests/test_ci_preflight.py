@@ -12,11 +12,13 @@ class CiPreflightWrapperTests(unittest.TestCase):
         text = (ROOT / "scripts" / "ci-preflight.ps1").read_text(encoding="utf-8")
         self.assertIn("refresh_agent_surfaces.ps1", text)
         self.assertIn("validate_agent_mesh.ps1", text)
+        self.assertIn("unittest discover -s tests -v", text)
 
     def test_bash_wrapper_routes_to_refresh_and_validation(self) -> None:
         text = (ROOT / "scripts" / "ci-preflight.sh").read_text(encoding="utf-8")
         self.assertIn("refresh_agent_surfaces.sh", text)
         self.assertIn("validate_agent_mesh.sh", text)
+        self.assertIn("unittest discover -s tests -v", text)
 
 
 if __name__ == "__main__":
