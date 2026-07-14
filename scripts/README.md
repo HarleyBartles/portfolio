@@ -61,7 +61,7 @@ Read-only validator for doctrine reachability through the agents mesh.
 
 ### `ci-preflight.ps1` / `ci-preflight.sh`
 
-Repository preflight bundle for local readiness and CI.
+Repository preflight bundle for local readiness.
 
 - `.\scripts\ci-preflight.ps1` - run the refresh bundle, doctrine validator, and tests
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes

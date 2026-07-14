@@ -12,8 +12,8 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
 - Only publish the PR when all work is done and the local preflight (`scripts/ci-preflight.ps1` or `scripts/ci-preflight.sh`) has passed so CI is expected to pass.
+- GitHub Actions does not need to fetch the marketplace source for this repository; derived skill refresh is a local agent check, not a CI check.
 - For marketplace or derived-skill work, do not publish until the manifest, submodule, derived skills, provenance, and mesh validation all agree.
-- If CI needs a private submodule, document and provision the required read credential before publishing; for this repository the checkout expects `AGENT_ASSET_MARKETPLACE_READ_TOKEN`.
 - Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.
 - If a task asks for direct `main` work, use it only for that task and keep the proof explicit.
 
