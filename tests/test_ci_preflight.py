@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import subprocess
+import sys
 from pathlib import Path
 import unittest
 
@@ -29,6 +30,7 @@ class CiPreflightWrapperTests(unittest.TestCase):
         self.assertIn("validate_agent_mesh.sh", text)
         self.assertIn("unittest discover -s tests -v", text)
 
+    @unittest.skipIf(sys.platform.startswith("win"), "bash wrapper execution is local-only on Windows")
     def test_bash_wrapper_rejects_unknown_arguments(self) -> None:
         result = subprocess.run(
             ["bash", str(ROOT / "scripts" / "ci-preflight.sh"), "--bogus"],
