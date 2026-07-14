@@ -8,10 +8,12 @@ Before any file mutation, record the current checkout once and keep it in mind:
 
 - `git rev-parse --show-toplevel`
 - `git branch --show-current`
+- `git worktree list`
 - `git rev-parse --git-dir`
 - `git rev-parse --git-common-dir`
 - `git rev-parse --show-superproject-working-tree`
 
+Name the worktree and branch to yourself before you start editing, then keep using that same checkout for the rest of the task.
 If this is the shared `main` checkout or a submodule, stop and use the intended worktree/branch instead unless the task explicitly says shared-checkout work is intended.
 Do not repeatedly rediscover the worktree during the same task.
 
@@ -52,7 +54,8 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
 - Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
-- Use before any local-or-CI readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
+- Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
+- Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
 - Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py`, `.\scripts\generate_index_mesh.ps1 -Check`, or `bash ./scripts/generate_index_mesh.sh --check` and update the relevant `INDEX.md` files in the same change.
 

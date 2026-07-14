@@ -28,7 +28,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             docs = root / "docs"
             docs.mkdir(parents=True)
             (root / "README.md").write_text("root\n", encoding="utf-8")
@@ -61,7 +61,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             root.mkdir()
 
             module.ROOT = root
@@ -81,7 +81,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             current = root / ".agents" / "skills"
             child = current / "boring-loop"
             child.mkdir(parents=True)
@@ -97,7 +97,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             root.mkdir()
             current = root / ".agents"
             child = current / "plugins"
@@ -115,7 +115,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             current = root / ".agents" / "plugins"
             gitlink = current / "marketplace-source"
             current.mkdir(parents=True)
@@ -142,7 +142,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             root.mkdir()
 
             module.ROOT = root
@@ -155,7 +155,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             root.mkdir()
 
             module.ROOT = root
@@ -174,7 +174,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
+            root = (temp / "repo").resolve()
             root.mkdir()
             ignored = root / "ignored"
             ignored.mkdir()

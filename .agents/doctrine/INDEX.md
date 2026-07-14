@@ -7,5 +7,6 @@
 - [artifact-policy.md](artifact-policy.md)
 - [coding-discipline.md](coding-discipline.md)
 - [mesh-policy.md](mesh-policy.md)
+- [script-contract-policy.md](script-contract-policy.md)
 - [validation-policy.md](validation-policy.md)
 - [workflow-policy.md](workflow-policy.md)

@@ -8,6 +8,7 @@ This directory holds the repo's durable doctrine: policies, contracts, rule sets
 - Use before deciding where artifacts belong: [`artifact-policy.md`](./artifact-policy.md).
 - Use before deciding what to validate: [`validation-policy.md`](./validation-policy.md).
 - Use before scope or architecture decisions: [`coding-discipline.md`](./coding-discipline.md).
+- Use before any shell-script contract or wrapper design: [`script-contract-policy.md`](./script-contract-policy.md).
 - Use when you need the navigation contract for docs and indexes: [`mesh-policy.md`](./mesh-policy.md).
 
 ## Working Rules

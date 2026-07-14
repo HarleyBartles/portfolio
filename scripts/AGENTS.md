@@ -11,11 +11,13 @@ This folder contains deterministic tooling for the portfolio repository.
 - Use when you need the standalone safety guard for linked-worktree-only mutations: [`assert_active_worktree.py`](assert_active_worktree.py), [`assert_active_worktree.ps1`](assert_active_worktree.ps1), and [`assert_active_worktree.sh`](assert_active_worktree.sh).
 - Use when you need the standalone read-only validator for doctrine reachability: [`validate_agent_mesh.py`](validate_agent_mesh.py), [`validate_agent_mesh.ps1`](validate_agent_mesh.ps1), and [`validate_agent_mesh.sh`](validate_agent_mesh.sh).
 - Use when you need the local repo preflight: [`ci-preflight.ps1`](ci-preflight.ps1) or [`ci-preflight.sh`](ci-preflight.sh).
+- Use before changing shell-script wrappers or script contract rules: [`.agents/doctrine/script-contract-policy.md`](../doctrine/script-contract-policy.md).
 
 ## Working Rules
 
 - Keep scripts small and deterministic.
-- Put the real behavior in Python where possible and keep PowerShell wrappers thin.
+- Keep Bash and PowerShell entrypoints in sync when a script needs cross-platform use.
+- Put the real behavior in Python where possible and keep wrappers thin.
 - Keep `generate_index_mesh.py` and `install_agent_skills.py` directly runnable as the canonical helpers behind the refresh family.
 - Keep `validate_agent_mesh.py` standalone and read-only.
 - Keep `assert_active_worktree.py` standalone as a safety guard; do not fold it into refresh orchestration.

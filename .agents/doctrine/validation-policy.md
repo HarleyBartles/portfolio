@@ -24,7 +24,8 @@ For the current portfolio setup work, the minimum validation is:
 ## Validation Rules
 
 - Use the smallest validation set that proves the slice you changed.
-- Use the preflight wrapper when you need the repo's default local-or-CI validation bundle.
+- Use the preflight wrapper when you need the repo's default readiness bundle.
+- Use the preflight wrapper for local verification; GitHub Actions uses its own published-PR and push checks.
 - If a change affects docs or navigation, verify the mesh.
 - If a change affects doctrine or the agents mesh, verify doctrine reachability with the agent mesh validator.
 - If a change affects scripts, verify the script and its wrapper both work.

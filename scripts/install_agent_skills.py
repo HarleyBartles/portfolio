@@ -92,6 +92,87 @@ def get_git_revision(path: Path) -> str:
     return result.stdout.strip()
 
 
+def run_git_command(repo_root: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), *args],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"git {' '.join(args)} failed for {repo_root}:\n{result.stderr.strip()}"
+        )
+    return result.stdout
+
+
+def get_git_status_entries(path: Path) -> list[str]:
+    output = run_git_command(path, "status", "--porcelain", "--untracked-files=all")
+    return [line for line in output.splitlines() if line]
+
+
+def get_gitlink_revision(repo_root: Path, relative_path: Path) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "ls-files", "--stage", "-z", "--", relative_path.as_posix()],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Unable to read gitlink for {relative_path.as_posix()}:\n{result.stderr.strip()}"
+        )
+
+    for record in result.stdout.split("\0"):
+        if not record:
+            continue
+        try:
+            metadata, _record_path = record.split("\t", 1)
+        except ValueError as exc:
+            raise ValueError(
+                f"Malformed gitlink record for {relative_path.as_posix()}: {record!r}"
+            ) from exc
+        mode, object_id, _stage = metadata.split(" ", 2)
+        if mode != "160000":
+            raise ValueError(
+                f"Expected gitlink mode 160000 for {relative_path.as_posix()}, got {mode}"
+            )
+        return object_id
+
+    raise ValueError(f"Gitlink not found for {relative_path.as_posix()}")
+
+
+def assert_pinned_source_checkout(source_root: Path, repo_root: Path) -> None:
+    resolved_repo_root = repo_root.resolve()
+    resolved_source_root = source_root.resolve()
+    try:
+        relative_source_root = resolved_source_root.relative_to(resolved_repo_root)
+    except ValueError as exc:
+        raise ValueError(
+            f"Marketplace source root must live inside the repository: {resolved_source_root}"
+        ) from exc
+
+    dirty_entries = get_git_status_entries(resolved_source_root)
+    if dirty_entries:
+        raise ValueError(
+            "Marketplace source tree must be clean before syncing derived skills:\n"
+            + "\n".join(f"- {entry}" for entry in dirty_entries)
+        )
+
+    expected_revision = get_gitlink_revision(resolved_repo_root, relative_source_root)
+    actual_revision = get_git_revision(resolved_source_root)
+    if actual_revision != expected_revision:
+        raise ValueError(
+            "Marketplace source HEAD does not match the parent gitlink:\n"
+            f"- source HEAD: {actual_revision}\n"
+            f"- gitlink SHA: {expected_revision}"
+        )
+
+
 def get_repo_relative_path(path: Path) -> str:
     try:
         return path.relative_to(ROOT).as_posix()
@@ -196,6 +277,7 @@ def sync_default_skills(
         raise ValueError(f"Marketplace source root not found: {source_root}")
     if not check:
         require_linked_worktree(ROOT)
+    assert_pinned_source_checkout(source_root, ROOT)
 
     missing_plugins = [name for name in manifest.default_plugins if name not in manifest.plugins]
     if missing_plugins:

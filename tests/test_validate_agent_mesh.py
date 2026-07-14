@@ -30,8 +30,8 @@ class ValidateAgentMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
-            doctrine = root / ".agents" / "doctrine"
+            root = (temp / "repo").resolve()
+            doctrine = (root / ".agents" / "doctrine").resolve()
             doctrine.mkdir(parents=True)
             (doctrine / "policy.md").write_text("# policy\n", encoding="utf-8")
             (root / "AGENTS.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")
@@ -60,8 +60,8 @@ class ValidateAgentMeshTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            root = temp / "repo"
-            doctrine = root / ".agents" / "doctrine"
+            root = (temp / "repo").resolve()
+            doctrine = (root / ".agents" / "doctrine").resolve()
             doctrine.mkdir(parents=True)
             (doctrine / "policy.md").write_text("# policy\n", encoding="utf-8")
             (root / "INDEX.md").write_text("[policy](.agents/doctrine/policy.md)\n", encoding="utf-8")

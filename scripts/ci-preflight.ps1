@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Run the repository preflight checks for local and CI use.
+  Run the repository readiness checks.
 
 .DESCRIPTION
   Runs the index mesh check and the doctrine mesh validator.
