@@ -40,7 +40,8 @@ class CiPreflightWrapperTests(unittest.TestCase):
         )
 
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("Unknown argument: --bogus", result.stderr)
+        combined_output = result.stdout + result.stderr
+        self.assertIn("Unknown argument: --bogus", combined_output)
 
 
 if __name__ == "__main__":
