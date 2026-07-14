@@ -20,8 +20,11 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 ## Readiness
 
 - A task is not ready just because files changed.
+- Before assuming CI will be green, run the repo-facing refresh command so the deterministic agent surfaces are current.
+- Use `.\scripts\ci-preflight.ps1` as the repo's readiness wrapper when the question is "am I ready for CI?"
 - Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
 - Before publishing a PR, verify the local preflight and branch state so the published CI run is expected to pass.
+- Do not rely on hidden state, stale derived skills, or stale generated navigation when deciding to publish or hand off work.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
 ## Clean Finish

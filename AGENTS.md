@@ -37,6 +37,7 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
 - Use before any file mutation when a branch task should stay in a linked worktree: [`scripts/assert_active_worktree.py`](./scripts/assert_active_worktree.py) and [`scripts/assert_active_worktree.ps1`](./scripts/assert_active_worktree.ps1).
 - Use when you need the preferred repo-facing refresh entrypoint for deterministic agent surfaces: [`scripts/refresh_agent_surfaces.py`](./scripts/refresh_agent_surfaces.py), [`scripts/refresh_agent_surfaces.ps1`](./scripts/refresh_agent_surfaces.ps1), and [`scripts/refresh_agent_surfaces.sh`](./scripts/refresh_agent_surfaces.sh).
+- Use when the question is whether the repo is ready for CI or handoff: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
 - Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
 - Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).

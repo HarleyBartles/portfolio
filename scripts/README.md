@@ -15,6 +15,8 @@ This directory contains deterministic tooling for the portfolio repository.
 
 This orchestration surface is the preferred repo-facing refresh command. It keeps the refresh order explicit, stops on the first failing surface, and delegates the actual work to the existing deterministic helpers.
 
+If the question is "am I ready for CI?", use `.\scripts\ci-preflight.ps1` instead of calling the refresh command directly.
+
 ### `generate_index_mesh.py` / `generate_index_mesh.ps1` / `generate_index_mesh.sh`
 
 **Classification:** canonical helper used by the refresh family.
@@ -73,10 +75,10 @@ The validator keeps doctrine discoverable through the routing mesh and is intend
 
 **Use when** you want the repo's default readiness/preflight bundle in one command.
 
-- `.\scripts\ci-preflight.ps1` - run the mesh check, marketplace installer check, and doctrine validator
+- `.\scripts\ci-preflight.ps1` - run the refresh contract first, then the doctrine validator
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes
 
-This is the preferred readiness wrapper for local preflight and CI jobs that should mirror the repo's current setup baseline. It is not the repo-facing refresh surface.
+This is the preferred readiness wrapper for local preflight and CI jobs that should mirror the repo's current setup baseline. It consumes the same deterministic refresh contract as the repo-facing refresh command, then runs the standalone doctrine validator. It is not the repo-facing refresh surface.
 
 ## Conventions
 

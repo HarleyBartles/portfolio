@@ -67,6 +67,9 @@ The `scripts/` tree is the repo-local tooling surface.
 
 - `scripts/README.md` is the human-facing catalog for local tooling.
 - `scripts/AGENTS.md` is the routing file for tooling work.
+- `scripts/refresh_agent_surfaces.py` is the preferred repo-facing command for deterministic agent-surface refreshes.
+- `scripts/generate_index_mesh.py` and `scripts/install_agent_skills.py` remain the direct deterministic helpers when a task should run one surface on purpose.
+- `scripts/ci-preflight.ps1` is the readiness wrapper for the "am I ready for CI?" question; it should consume the refresh contract instead of duplicating it.
 - `scripts/generate_index_mesh.py` owns the generated `INDEX.md` mesh.
 - `scripts/generate_index_mesh.ps1` is the PowerShell entrypoint for Windows users.
 

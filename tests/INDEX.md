@@ -5,6 +5,7 @@
 ## Files
 - [__init__.py](__init__.py)
 - [test_assert_active_worktree.py](test_assert_active_worktree.py)
+- [test_ci_preflight.py](test_ci_preflight.py)
 - [test_generate_index_mesh.py](test_generate_index_mesh.py)
 - [test_install_agent_skills.py](test_install_agent_skills.py)
 - [test_refresh_agent_surfaces.py](test_refresh_agent_surfaces.py)
