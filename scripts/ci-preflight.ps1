@@ -21,10 +21,12 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $ScriptDir = (Resolve-Path $PSScriptRoot).Path
+$RepoRoot = (Resolve-Path (Join-Path $ScriptDir '..')).Path
 
 $meshScript = Join-Path $ScriptDir 'generate_index_mesh.ps1'
 $skillsScript = Join-Path $ScriptDir 'install_agent_skills.ps1'
 $doctrineScript = Join-Path $ScriptDir 'validate_agent_mesh.ps1'
+$marketplaceSource = Join-Path $RepoRoot '.agents\plugins\marketplace-source'
 
 if (-not (Test-Path $meshScript)) {
     throw "Mesh script not found at $meshScript"
@@ -41,9 +43,15 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-& $skillsScript -Check:$Check
-if ($LASTEXITCODE -ne 0) {
-    exit $LASTEXITCODE
+if (Test-Path (Join-Path $marketplaceSource '.git')) {
+    & $skillsScript -Check:$Check
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+} elseif ($env:GITHUB_ACTIONS -eq 'true') {
+    Write-Host 'Skipping marketplace skill installer check in GitHub Actions because the private marketplace submodule is not available in this checkout.'
+} else {
+    throw "Marketplace source checkout not found at $marketplaceSource"
 }
 
 & $doctrineScript -Check:$Check
