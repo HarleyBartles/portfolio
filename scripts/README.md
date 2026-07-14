@@ -78,7 +78,7 @@ The validator keeps doctrine discoverable through the routing mesh and is intend
 - `.\scripts\ci-preflight.ps1` - run the refresh contract first, then the doctrine validator
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes
 - `bash ./scripts/ci-preflight.sh` - Bash wrapper with the same refresh-first readiness contract
-- `bash ./scripts/ci-preflight.sh -Check` - validation mode without writes
+- `bash ./scripts/ci-preflight.sh --check` - validation mode without writes
 
 This is the preferred readiness wrapper for local preflight and CI jobs that should mirror the repo's current setup baseline. It consumes the same deterministic refresh contract as the repo-facing refresh command, then runs the standalone doctrine validator. It is not the repo-facing refresh surface.
 

@@ -9,6 +9,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "ci-preflight.ps1"
+SCRIPT_SH = ROOT / "scripts" / "ci-preflight.sh"
 
 
 class CiPreflightTests(unittest.TestCase):
@@ -149,6 +150,93 @@ class CiPreflightTests(unittest.TestCase):
                 ["refresh:-Check=True"],
             )
 
+    def test_bash_check_mode_runs_refresh_then_validate(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            scripts_dir = temp / "scripts"
+            scripts_dir.mkdir()
+
+            (scripts_dir / "ci-preflight.sh").write_text(
+                SCRIPT_SH.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            self._write_bash_stub(
+                scripts_dir / "refresh_agent_surfaces.sh",
+                "refresh",
+                exit_code=0,
+            )
+            self._write_bash_stub(
+                scripts_dir / "validate_agent_mesh.sh",
+                "validate",
+                exit_code=0,
+            )
+
+            output_path = temp / "calls.txt"
+            result = subprocess.run(
+                [
+                    "bash",
+                    str(scripts_dir / "ci-preflight.sh"),
+                    "--check",
+                ],
+                cwd=temp,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                env={**os.environ, "OUTPUT_PATH": str(output_path)},
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 0, msg=result.stderr)
+            self.assertEqual(
+                output_path.read_text(encoding="utf-8").splitlines(),
+                [
+                    "refresh:--check",
+                    "validate:--check",
+                ],
+            )
+
+    def test_bash_stops_on_first_failure(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            scripts_dir = temp / "scripts"
+            scripts_dir.mkdir()
+
+            (scripts_dir / "ci-preflight.sh").write_text(
+                SCRIPT_SH.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            self._write_bash_stub(
+                scripts_dir / "refresh_agent_surfaces.sh",
+                "refresh",
+                exit_code=7,
+            )
+            self._write_bash_stub(
+                scripts_dir / "validate_agent_mesh.sh",
+                "validate",
+                exit_code=0,
+            )
+
+            output_path = temp / "calls.txt"
+            result = subprocess.run(
+                [
+                    "bash",
+                    str(scripts_dir / "ci-preflight.sh"),
+                    "--check",
+                ],
+                cwd=temp,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                env={**os.environ, "OUTPUT_PATH": str(output_path)},
+                check=False,
+            )
+
+            self.assertEqual(result.returncode, 7, msg=result.stderr)
+            self.assertEqual(
+                output_path.read_text(encoding="utf-8").splitlines(),
+                ["refresh:--check"],
+            )
+
     def _write_stub(self, path: Path, name: str, *, exit_code: int) -> None:
         path.write_text(
             "\n".join(
@@ -159,6 +247,22 @@ class CiPreflightTests(unittest.TestCase):
                     + name
                     + ':'
                     + '-Check=$Check")',
+                    f"exit {exit_code}",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+    def _write_bash_stub(self, path: Path, name: str, *, exit_code: int) -> None:
+        path.write_text(
+            "\n".join(
+                [
+                    "#!/usr/bin/env bash",
+                    "set -euo pipefail",
+                    'printf "%s\\n" "'
+                    + name
+                    + ':${1:-}" >> "$OUTPUT_PATH"',
                     f"exit {exit_code}",
                     "",
                 ]

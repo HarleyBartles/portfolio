@@ -15,7 +15,12 @@ if [[ ! -f "$doctrine_script" ]]; then
   exit 1
 fi
 
-if [[ ${1:-} == "-Check" ]]; then
+check_mode=false
+if [[ ${1:-} == "--check" || ${1:-} == "-Check" ]]; then
+  check_mode=true
+fi
+
+if $check_mode; then
   "$refresh_script" --check
   "$doctrine_script" --check
 else
