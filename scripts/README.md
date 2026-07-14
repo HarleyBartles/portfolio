@@ -4,9 +4,20 @@ This directory contains deterministic tooling for the portfolio repository.
 
 ## Tool Catalog
 
+### `refresh_agent_surfaces.py` / `refresh_agent_surfaces.ps1` / `refresh_agent_surfaces.sh`
+
+**Use when** you want the repo's preferred refresh command for deterministic agent-facing surfaces.
+
+- `python scripts/refresh_agent_surfaces.py` - refresh the index mesh first, then refresh installed agent skills
+- `python scripts/refresh_agent_surfaces.py --check` - validate both surfaces without writing
+- `.\scripts\refresh_agent_surfaces.ps1` - PowerShell wrapper with the same `-Check` flag
+- `bash ./scripts/refresh_agent_surfaces.sh` - Bash wrapper with the same `--check` flag
+
+This orchestration surface is the preferred repo-facing refresh command. It keeps the refresh order explicit, stops on the first failing surface, and delegates the actual work to the existing deterministic helpers.
+
 ### `generate_index_mesh.py` / `generate_index_mesh.ps1`
 
-**Use when** you have added, removed, renamed, or moved tracked files or directories and need to regenerate the repo-wide `INDEX.md` mesh.
+**Use when** you need the direct helper for the repo-wide `INDEX.md` mesh or a task only touches navigation surfaces.
 
 - `python scripts/generate_index_mesh.py` - regenerate the whole `INDEX.md` mesh
 - `python scripts/generate_index_mesh.py --check` - validate the mesh without writing
@@ -14,7 +25,7 @@ This directory contains deterministic tooling for the portfolio repository.
 
 The generator owns every tracked `INDEX.md` file in the repo. It asks git which paths are ignored, skips excluded directories, and writes deterministic navigation pages that show child directories and files.
 
-**Use after** structural changes that affect navigation or any new surface that should be discoverable through `INDEX.md`.
+**Use after** structural changes that affect navigation or any new surface that should be discoverable through `INDEX.md`. For the combined repo refresh path, prefer `refresh_agent_surfaces.py`.
 
 ### `assert_active_worktree.py` / `assert_active_worktree.ps1`
 
@@ -38,12 +49,12 @@ The validator keeps doctrine discoverable through the routing mesh and is intend
 
 ### `ci-preflight.ps1`
 
-**Use when** you want the repo's default preflight bundle in one command.
+**Use when** you want the repo's default readiness/preflight bundle in one command.
 
 - `.\scripts\ci-preflight.ps1` - run the mesh check, marketplace installer check, and doctrine validator
 - `.\scripts\ci-preflight.ps1 -Check` - validation mode without writes
 
-This is the preferred single entrypoint for local readiness and CI jobs that should mirror the repo's current setup baseline.
+This is the preferred readiness wrapper for local preflight and CI jobs that should mirror the repo's current setup baseline. It is not the repo-facing refresh surface.
 
 ## Conventions
 

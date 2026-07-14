@@ -7,3 +7,4 @@
 - [test_assert_active_worktree.py](test_assert_active_worktree.py)
 - [test_generate_index_mesh.py](test_generate_index_mesh.py)
 - [test_install_agent_skills.py](test_install_agent_skills.py)
+- [test_refresh_agent_surfaces.py](test_refresh_agent_surfaces.py)
