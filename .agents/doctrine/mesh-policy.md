@@ -22,7 +22,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 ### Link direction
 
-`AGENTS.md` files point outward to READMEs, docs, scripts, and other files. Non-`AGENTS.md` files should not point back at `AGENTS.md` as if it were the canonical source of doctrine. The only acceptable exception is a human-facing note that agent law lives in `AGENTS.md`.
+`AGENTS.md` files point outward to docs, scripts, and other agent-readable surfaces. README files are human-facing and should not be used as agent-routing surfaces. Non-`AGENTS.md` files should not point back at `AGENTS.md` as if it were the canonical source of doctrine. The only acceptable exception is a human-facing note that agent law lives in `AGENTS.md`.
 
 ## 2. `INDEX.md` mesh
 
@@ -33,6 +33,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - They must not carry operative law.
 - Stale `INDEX.md` files are fixed by regenerating the whole mesh, not by hand-editing individual files.
 - If whole-mesh regeneration does not produce a valid mesh, fix the generator, the exclusion policy, or the source inputs.
+- Gitlink directories are mesh boundaries: the parent index should link to the gitlink directory, but the generator must not descend into the submodule tree.
 
 ## 3. `.agents/` tree
 
@@ -41,8 +42,9 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - `.agents/doctrine/` contains durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/` contains repo-local non-doctrine guidance docs.
 - `.agents/docs/guides/` contains the guide entrypoints for design/spec work.
+- `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
+- `.agents/skills/` contains derived installed skills and provenance, not source truth.
 - `.agents/superpowers/` contains plan surfaces and related planning artifacts.
-- `.agents/plugins/` will hold repo-local plugin posture when the marketplace setup is added.
 
 ## 4. README files
 
@@ -68,6 +70,8 @@ The `scripts/` tree is the repo-local tooling surface.
 - `scripts/AGENTS.md` is the routing file for tooling work.
 - `scripts/generate_index_mesh.py` owns the generated `INDEX.md` mesh.
 - `scripts/generate_index_mesh.ps1` is the PowerShell entrypoint for Windows users.
+- `scripts/ci-preflight.ps1` and `scripts/ci-preflight.sh` are the platform peers for the combined readiness check.
+- `scripts/refresh_agent_surfaces.ps1` and `scripts/refresh_agent_surfaces.sh` are the combined refresh peers that keep generated surfaces deterministic.
 
 ## 7. Handoff quality gate
 
@@ -87,7 +91,7 @@ If a change touches any of the surfaces governed by this policy, update the rele
 
 - `AGENTS.md`
 - `README.md`
-- `.agents/docs/mesh-policy.md`
+- `.agents/doctrine/mesh-policy.md`
 - any newly added or renamed doctrine document that should be discoverable through the mesh
 - the affected `INDEX.md` files
 - `scripts/README.md` or `scripts/AGENTS.md` when tooling behavior changes

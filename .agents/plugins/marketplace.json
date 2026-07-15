@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "marketplace_source": {
+    "repository": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
+    "path": ".agents/plugins/marketplace-source"
+  },
+  "default_plugins": [
+    "repo-worker-pack",
+    "superpowers-plus",
+    "architecture-pack",
+    "frontend-pack",
+    "dotnet-kit"
+  ],
+  "excluded_plugins": [
+    "wild-bunch-project-pack"
+  ],
+  "plugins": {
+    "repo-worker-pack": {
+      "version": "1.0.0",
+      "source_path": "codex-marketplace/plugins/repo-worker-pack",
+      "skills_path": "skills"
+    },
+    "superpowers-plus": {
+      "version": "5.1.0",
+      "source_path": "codex-marketplace/plugins/superpowers-plus",
+      "skills_path": "skills"
+    },
+    "architecture-pack": {
+      "version": "1.0.0",
+      "source_path": "codex-marketplace/plugins/architecture-pack",
+      "skills_path": "skills"
+    },
+    "frontend-pack": {
+      "version": "0.1.0",
+      "source_path": "codex-marketplace/plugins/frontend-pack",
+      "skills_path": "skills"
+    },
+    "dotnet-kit": {
+      "version": "1.0.0",
+      "source_path": "codex-marketplace/plugins/dotnet-kit",
+      "skills_path": "skills"
+    }
+  }
+}

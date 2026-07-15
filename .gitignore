@@ -1,3 +1,4 @@
 .agents/superpowers/specs/
+.agents/superpowers/sdd/
 scripts/__pycache__/
 *.pyc

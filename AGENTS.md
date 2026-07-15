@@ -2,6 +2,21 @@
 
 This repository is the source for Harley Bartles' personal developer portfolio website.
 
+## Checkout Identity Check
+
+Before any file mutation, record the current checkout once and keep it in mind:
+
+- `git rev-parse --show-toplevel`
+- `git branch --show-current`
+- `git worktree list`
+- `git rev-parse --git-dir`
+- `git rev-parse --git-common-dir`
+- `git rev-parse --show-superproject-working-tree`
+
+Name the worktree and branch to yourself before you start editing, then keep using that same checkout for the rest of the task.
+If this is the shared `main` checkout or a submodule, stop and use the intended worktree/branch instead unless the task explicitly says shared-checkout work is intended.
+Do not repeatedly rediscover the worktree during the same task.
+
 ## Purpose
 
 The site exists to present Harley as a software engineer through:
@@ -36,9 +51,13 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
 - Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
+- Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
+- Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
+- Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
+- Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
-- Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py` or `.\scripts\generate_index_mesh.ps1 -Check` and update the relevant `INDEX.md` files in the same change.
+- Use after any structural change that adds, removes, or moves tracked directories: run `.\scripts\generate_index_mesh.ps1` on Windows or `bash ./scripts/generate_index_mesh.sh` on Linux, then commit the generated `INDEX.md` changes in the same change.
 
 ## Documentation Rules
 
