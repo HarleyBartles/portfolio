@@ -9,6 +9,8 @@ import os
 import re
 import subprocess
 import sys
+import stat
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -85,16 +87,29 @@ def is_gitlink(path: Path) -> bool:
     return False
 
 
+def is_link_or_reparse_point(path: Path) -> bool:
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    if stat.S_ISLNK(metadata.st_mode):
+        return True
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return bool(getattr(metadata, "st_file_attributes", 0) & reparse_flag)
+
+
 def collect_candidate_paths(root: Path) -> list[Path]:
     """Collect repo-relative paths that may be ignored by git."""
     candidates: list[Path] = []
-    for dirpath, dirnames, filenames in os.walk(root):
+    for dirpath, dirnames, filenames in os.walk(root, topdown=True, followlinks=False):
         current = Path(dirpath)
         dirnames[:] = sorted(
             (
                 name
                 for name in dirnames
-                if name not in ALWAYS_EXCLUDED_DIR_NAMES and not is_gitlink(current / name)
+                if name not in ALWAYS_EXCLUDED_DIR_NAMES
+                and not is_gitlink(current / name)
+                and not is_link_or_reparse_point(current / name)
             ),
             key=lambda name: (name.casefold(), name),
         )
@@ -216,6 +231,8 @@ def is_tracked(path: Path) -> bool:
 
 
 def should_descend(child: Path) -> bool:
+    if is_link_or_reparse_point(child):
+        return False
     if child.name in ALWAYS_EXCLUDED_DIR_NAMES:
         return False
     if is_gitlink(child):
@@ -230,6 +247,8 @@ def should_descend(child: Path) -> bool:
 def should_index(path: Path) -> bool:
     if path == ROOT:
         return True
+    if is_link_or_reparse_point(path):
+        return False
     if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in relative_parts(path)):
         return False
     if is_gitlink(path):
@@ -449,7 +468,7 @@ def walk_index_targets() -> list[IndexTarget]:
 def discover_existing_index_paths(root: Path) -> set[Path]:
     existing_paths: set[Path] = set()
     for raw_path in TRACKED_PATHS:
-        if not raw_path.endswith("INDEX.md"):
+        if Path(raw_path).name != INDEX_NAME:
             continue
         relative = Path(raw_path)
         if any(part in ALWAYS_EXCLUDED_DIR_NAMES for part in relative.parts):
@@ -459,6 +478,27 @@ def discover_existing_index_paths(root: Path) -> set[Path]:
             continue
         existing_paths.add(candidate)
     return existing_paths
+
+
+def write_text_atomic(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w",
+            encoding="utf-8",
+            newline="\n",
+            delete=False,
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+        ) as handle:
+            handle.write(content)
+            temp_path = Path(handle.name)
+        os.replace(temp_path, path)
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink(missing_ok=True)
 
 
 def prune_empty_directories(paths: list[Path]) -> None:
@@ -511,9 +551,7 @@ def main() -> int:
     written = 0
     for target in targets:
         rendered = "\n".join(target.lines).rstrip() + "\n"
-        target.path.parent.mkdir(parents=True, exist_ok=True)
-        with target.path.open("w", encoding="utf-8", newline="\n") as handle:
-            handle.write(rendered)
+        write_text_atomic(target.path, rendered)
         written += 1
 
     obsolete = sorted(path for path in actual_paths if path not in expected_paths)

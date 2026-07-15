@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -21,6 +23,39 @@ def load_module():
     sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
+
+
+def create_directory_link(link: Path, target: Path) -> None:
+    if sys.platform.startswith("win"):
+        result = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(link), str(target)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise unittest.SkipTest(f"Unable to create test junction: {result.stderr.strip()}")
+        return
+    link.symlink_to(target, target_is_directory=True)
+
+
+def create_file_hardlink(link: Path, target: Path) -> None:
+    if sys.platform.startswith("win"):
+        result = subprocess.run(
+            ["cmd", "/c", "mklink", "/H", str(link), str(target)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise unittest.SkipTest(f"Unable to create test hardlink: {result.stderr.strip()}")
+        return
+    try:
+        os.link(target, link)
+    except OSError as exc:
+        raise unittest.SkipTest(f"Unable to create test hardlink: {exc}") from exc
 
 
 class GenerateIndexMeshTests(unittest.TestCase):
@@ -147,6 +182,33 @@ class GenerateIndexMeshTests(unittest.TestCase):
             self.assertEqual(first_result, 0)
             self.assertEqual(second_result, 0)
             self.assertEqual(first_snapshot, second_snapshot)
+
+    def test_write_mode_does_not_descend_into_linked_directories(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            docs = root / "docs"
+            external_docs = temp / "external-docs"
+            root.mkdir()
+            external_docs.mkdir()
+            (root / "README.md").write_text("root\n", encoding="utf-8")
+            (external_docs / "guide.md").write_text("guide\n", encoding="utf-8")
+            create_directory_link(docs, external_docs)
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"README.md", "docs", "docs/guide.md"}
+
+            with patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            self.assertFalse((external_docs / "INDEX.md").exists())
+            self.assertFalse((docs / "INDEX.md").exists())
 
     def test_check_mode_skips_worktree_guard(self) -> None:
         module = load_module()
@@ -388,7 +450,7 @@ class GenerateIndexMeshTests(unittest.TestCase):
             self.assertFalse((orphan / "INDEX.md").exists())
             self.assertFalse(orphan.exists())
 
-    def test_discover_existing_index_paths_uses_tracked_paths_only(self) -> None:
+    def test_discover_existing_index_paths_ignores_non_index_suffixes(self) -> None:
         module = load_module()
 
         with TemporaryDirectory() as temp_dir:
@@ -396,14 +458,13 @@ class GenerateIndexMeshTests(unittest.TestCase):
             root = (temp / "repo").resolve()
             root.mkdir()
             (root / "INDEX.md").write_text("# root\n", encoding="utf-8")
+            (root / "SEARCH_INDEX.md").write_text("# search\n", encoding="utf-8")
             (root / "docs").mkdir()
             (root / "docs" / "INDEX.md").write_text("# docs\n", encoding="utf-8")
-            (root / "marketplace-source").mkdir()
-            (root / "marketplace-source" / "INDEX.md").write_text("# submodule\n", encoding="utf-8")
 
             module.ROOT = root
-            module.TRACKED_PATHS = {"INDEX.md", "docs", "docs/INDEX.md"}
-            module.GITLINK_PATHS = {"marketplace-source"}
+            module.TRACKED_PATHS = {"INDEX.md", "SEARCH_INDEX.md", "docs", "docs/INDEX.md"}
+            module.GITLINK_PATHS = set()
 
             paths = module.discover_existing_index_paths(root)
 
@@ -411,6 +472,33 @@ class GenerateIndexMeshTests(unittest.TestCase):
                 {path.relative_to(root).as_posix() for path in paths},
                 {"INDEX.md", "docs/INDEX.md"},
             )
+
+    def test_write_mode_replaces_hardlinked_root_index_without_overwriting_target(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            external = temp / "external"
+            root.mkdir()
+            external.mkdir()
+            (root / "README.md").write_text("root\n", encoding="utf-8")
+            sentinel = external / "sentinel.txt"
+            sentinel.write_text("keep me\n", encoding="utf-8")
+            create_file_hardlink(root / "INDEX.md", sentinel)
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"README.md", "INDEX.md"}
+
+            with patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "keep me\n")
+            self.assertIn("# Repository Root", (root / "INDEX.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

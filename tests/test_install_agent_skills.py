@@ -57,6 +57,24 @@ def create_directory_link(link: Path, target: Path) -> None:
     link.symlink_to(target, target_is_directory=True)
 
 
+def create_file_hardlink(link: Path, target: Path) -> None:
+    if sys.platform.startswith("win"):
+        result = subprocess.run(
+            ["cmd", "/c", "mklink", "/H", str(link), str(target)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise unittest.SkipTest(f"Unable to create test hardlink: {result.stderr.strip()}")
+        return
+    try:
+        os.link(target, link)
+    except OSError as exc:
+        raise unittest.SkipTest(f"Unable to create test hardlink: {exc}") from exc
+
+
 class InstallAgentSkillsTests(unittest.TestCase):
     def test_sync_rejects_canonical_output_root_when_it_is_a_directory_link(self) -> None:
         module = load_module()
@@ -363,6 +381,60 @@ class InstallAgentSkillsTests(unittest.TestCase):
             self.assertEqual(provenance["source_root"], ".agents/plugins/marketplace-source")
             self.assertEqual(provenance["default_plugins"], ["repo-worker-pack", "dotnet-kit"])
             self.assertEqual(provenance["copied_skills"], ["boring-loop", "work-mode-router", "testing"])
+
+    def test_sync_write_mode_preserves_hardlinked_provenance_target(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            external = temp / "external"
+            source_root.mkdir(parents=True)
+            output_root.mkdir(parents=True)
+            external.mkdir()
+
+            manifest = {
+                "schema_version": 1,
+                "default_plugins": ["repo-worker-pack"],
+                "excluded_plugins": [],
+                "plugins": {
+                    "repo-worker-pack": {
+                        "version": "1.0.0",
+                        "source_path": "repo-worker-pack/1.0.0",
+                        "skills_path": "skills",
+                    }
+                },
+            }
+            manifest = with_marketplace_source(manifest)
+
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+            sentinel = external / "sentinel.txt"
+            sentinel.write_text("keep me\n", encoding="utf-8")
+            create_file_hardlink(output_root / ".provenance.json", sentinel)
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            result = module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+
+            self.assertEqual(result.copied_skills, ["boring-loop"])
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "keep me\n")
+            self.assertIn("source_revision", (output_root / ".provenance.json").read_text(encoding="utf-8"))
 
     def test_sync_rejects_version_mismatch_between_manifest_and_plugin(self) -> None:
         module = load_module()

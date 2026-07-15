@@ -12,6 +12,7 @@ import shutil
 import stat
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -374,6 +375,27 @@ def resolve_within(root: Path, *parts: str | Path, description: str) -> Path:
     return candidate
 
 
+def write_text_atomic(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w",
+            encoding="utf-8",
+            newline="\n",
+            delete=False,
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+        ) as handle:
+            handle.write(content)
+            temp_path = Path(handle.name)
+        os.replace(temp_path, path)
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink(missing_ok=True)
+
+
 def find_case_variant(root: Path, name: str) -> Path | None:
     target_key = name.casefold()
     for entry in root.iterdir():
@@ -622,10 +644,7 @@ def sync_default_skills(
         else:
             path.unlink()
 
-    provenance_path.write_text(
-        json.dumps(provenance_data, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    write_text_atomic(provenance_path, json.dumps(provenance_data, indent=2, sort_keys=True) + "\n")
 
     return SyncResult(
         copied_skills=expected_skill_names,
