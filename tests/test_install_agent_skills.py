@@ -225,9 +225,10 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            source_root = temp / "marketplace-source"
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
             output_root = temp / ".agents" / "skills"
-            source_root.mkdir()
+            source_root.mkdir(parents=True)
             output_root.mkdir(parents=True)
 
             manifest = {
@@ -270,9 +271,10 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            source_root = temp / "marketplace-source"
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
             output_root = temp / ".agents" / "skills"
-            source_root.mkdir()
+            source_root.mkdir(parents=True)
             output_root.mkdir(parents=True)
 
             manifest = {
@@ -292,6 +294,11 @@ class InstallAgentSkillsTests(unittest.TestCase):
             skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
             skill_root.mkdir(parents=True, exist_ok=True)
             (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
             (output_root / "boring-loop").mkdir(parents=True, exist_ok=True)
             (output_root / "boring-loop" / "SKILL.md").write_text("# stale\n", encoding="utf-8")
 
@@ -300,7 +307,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, "Derived skills are stale"):
                 module.sync_default_skills(
                     module.load_manifest_data(manifest),
                     source_root,
@@ -313,9 +320,10 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
         with TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            source_root = temp / "marketplace-source"
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
             output_root = temp / ".agents" / "skills"
-            source_root.mkdir()
+            source_root.mkdir(parents=True)
 
             manifest = {
                 "schema_version": 1,
@@ -324,23 +332,28 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 "plugins": {
                     "repo-worker-pack": {
                         "version": "1.0.0",
-                        "source_path": "codex-marketplace/plugins/repo-worker-pack",
+                        "source_path": "repo-worker-pack/1.0.0",
                         "skills_path": "skills",
                     }
                 },
             }
             manifest = with_marketplace_source(manifest)
 
-            skill_root = source_root / "codex-marketplace" / "plugins" / "repo-worker-pack" / "skills" / "boring-loop"
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "boring-loop"
             skill_root.mkdir(parents=True, exist_ok=True)
             (skill_root / "SKILL.md").write_text("# boring-loop\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, "Derived skills are stale"):
                 module.sync_default_skills(
                     module.load_manifest_data(manifest),
                     source_root,
@@ -349,6 +362,153 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 )
 
             self.assertFalse(output_root.exists())
+
+    def test_sync_rejects_escaped_plugin_source_path(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+            output_root.mkdir(parents=True)
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": ["repo-worker-pack"],
+                    "excluded_plugins": [],
+                    "plugins": {
+                        "repo-worker-pack": {
+                            "version": "1.0.0",
+                            "source_path": "../outside",
+                            "skills_path": "skills",
+                        }
+                    },
+                }
+            )
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            with self.assertRaisesRegex(ValueError, "escapes the marketplace source root"):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                )
+
+    def test_sync_rejects_escaped_skill_root_path(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+            output_root.mkdir(parents=True)
+
+            plugin_root = source_root / "repo-worker-pack" / "1.0.0"
+            (plugin_root / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (plugin_root / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": ["repo-worker-pack"],
+                    "excluded_plugins": [],
+                    "plugins": {
+                        "repo-worker-pack": {
+                            "version": "1.0.0",
+                            "source_path": "repo-worker-pack/1.0.0",
+                            "skills_path": "../../../outside-skills",
+                        }
+                    },
+                }
+            )
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            with self.assertRaisesRegex(ValueError, "escapes the marketplace source root"):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                )
+
+    def test_sync_write_mode_normalizes_case_variant_root_entries(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+            output_root.mkdir(parents=True)
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": ["repo-worker-pack"],
+                    "excluded_plugins": [],
+                    "plugins": {
+                        "repo-worker-pack": {
+                            "version": "1.0.0",
+                            "source_path": "repo-worker-pack/1.0.0",
+                            "skills_path": "skills",
+                        }
+                    },
+                }
+            )
+
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "testing"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# testing\n", encoding="utf-8")
+            (skill_root.parents[1] / ".codex-plugin").mkdir(parents=True, exist_ok=True)
+            (skill_root.parents[1] / ".codex-plugin" / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+
+            stale_root = output_root / "Testing"
+            stale_root.mkdir(parents=True, exist_ok=True)
+            (stale_root / "SKILL.md").write_text("# stale\n", encoding="utf-8")
+            (output_root / "AGENTS.md").write_text("# agents\n", encoding="utf-8")
+            (output_root / "INDEX.md").write_text("# index\n", encoding="utf-8")
+            (output_root / ".provenance.json").write_text("{}", encoding="utf-8")
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+
+            entries = sorted(path.name for path in output_root.iterdir())
+            self.assertIn("testing", entries)
+            self.assertNotIn("Testing", entries)
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+                check=True,
+            )
 
     def test_sync_write_mode_replaces_changed_skills_and_removes_unexpected_root_files(self) -> None:
         module = load_module()

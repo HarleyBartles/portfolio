@@ -19,6 +19,10 @@ DEFAULT_SOURCE_ROOT = ROOT / ".agents" / "plugins" / "marketplace-source"
 DEFAULT_OUTPUT_ROOT = ROOT / ".agents" / "skills"
 RESERVED_OUTPUT_NAMES = {"AGENTS.md", "INDEX.md", ".provenance.json"}
 RESERVED_OUTPUT_NAME_KEYS = {name.casefold() for name in RESERVED_OUTPUT_NAMES}
+MISSING_SOURCE_REMEDIATION = (
+    "If this is a fresh worktree, initialize the pinned submodule with "
+    "`git submodule update --init --checkout -- .agents/plugins/marketplace-source`."
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -250,8 +254,32 @@ def get_repo_relative_path(path: Path) -> str:
         return str(path)
 
 
+def resolve_within(root: Path, *parts: str | Path, description: str) -> Path:
+    resolved_root = root.resolve()
+    candidate = resolved_root.joinpath(*parts).resolve()
+    try:
+        candidate.relative_to(resolved_root)
+    except ValueError as exc:
+        raise ValueError(f"{description} escapes the marketplace source root: {candidate}") from exc
+    return candidate
+
+
+def find_case_variant(root: Path, name: str) -> Path | None:
+    target_key = name.casefold()
+    for entry in root.iterdir():
+        if entry.name.casefold() == target_key and entry.name != name:
+            return entry
+    return None
+
+
 def read_plugin_manifest(plugin: PluginSpec, source_root: Path) -> dict:
-    plugin_manifest_path = source_root / plugin.source_path / ".codex-plugin" / "plugin.json"
+    plugin_manifest_path = resolve_within(
+        source_root,
+        plugin.source_path,
+        ".codex-plugin",
+        "plugin.json",
+        description=f"Plugin manifest for {plugin.name!r}",
+    )
     if not plugin_manifest_path.is_file():
         raise ValueError(f"Plugin manifest not found for {plugin.name!r}: {plugin_manifest_path}")
     return json.loads(plugin_manifest_path.read_text(encoding="utf-8"))
@@ -272,7 +300,12 @@ def validate_plugin_versions(manifest: MarketplaceManifest, source_root: Path) -
 
 
 def read_skill_directories(plugin: PluginSpec, source_root: Path) -> list[tuple[str, Path]]:
-    skills_root = source_root / plugin.source_path / plugin.skills_path
+    skills_root = resolve_within(
+        source_root,
+        plugin.source_path,
+        plugin.skills_path,
+        description=f"Skill root for plugin {plugin.name!r}",
+    )
     if not skills_root.is_dir():
         raise ValueError(f"Skill root not found for plugin {plugin.name!r}: {skills_root}")
 
@@ -280,9 +313,16 @@ def read_skill_directories(plugin: PluginSpec, source_root: Path) -> list[tuple[
     for child in sorted(skills_root.iterdir(), key=lambda item: (item.name.casefold(), item.name)):
         if not child.is_dir():
             continue
+        resolved_child = child.resolve()
+        try:
+            resolved_child.relative_to(skills_root.resolve())
+        except ValueError as exc:
+            raise ValueError(
+                f"Skill directory for plugin {plugin.name!r} escapes the marketplace source root: {resolved_child}"
+            ) from exc
         if child.name == "INDEX.md":
             continue
-        skills.append((child.name, child))
+        skills.append((child.name, resolved_child))
     return skills
 
 
@@ -347,7 +387,7 @@ def sync_default_skills(
     if check and force:
         raise ValueError("--check and --force cannot be used together")
     if not source_root.exists():
-        raise ValueError(f"Marketplace source root not found: {source_root}")
+        raise ValueError(f"Marketplace source root not found: {source_root}\n{MISSING_SOURCE_REMEDIATION}")
     canonical_output_root = (ROOT / ".agents" / "skills").resolve()
     if output_root.resolve() != canonical_output_root:
         raise ValueError(
@@ -359,7 +399,6 @@ def sync_default_skills(
         require_linked_worktree(ROOT)
     assert_marketplace_source_binding(manifest, source_root, ROOT)
     assert_pinned_source_checkout(source_root, ROOT)
-
     missing_plugins = [name for name in manifest.default_plugins if name not in manifest.plugins]
     if missing_plugins:
         raise ValueError("Manifest is missing plugin definitions for: " + ", ".join(missing_plugins))
@@ -386,6 +425,7 @@ def sync_default_skills(
 
     expected_skill_names = [skill_name for skill_name, _source, _plugin in skill_sources]
     desired_skill_dirs = {skill_name: source for skill_name, source, _plugin in skill_sources}
+    expected_root_names = set(expected_skill_names) | RESERVED_OUTPUT_NAMES
 
     source_revision = get_git_revision(source_root)
     provenance_path = output_root / ".provenance.json"
@@ -406,16 +446,10 @@ def sync_default_skills(
                 mismatches.append(skill_name)
 
         if output_root.exists():
-            actual_root_entries = sorted(
-                path.name
-                for path in output_root.iterdir()
-                if path.name.casefold() not in RESERVED_OUTPUT_NAME_KEYS
-            )
+            actual_root_entries = sorted(path.name for path in output_root.iterdir())
         else:
             actual_root_entries = []
-        if sorted(name.casefold() for name in actual_root_entries) != sorted(
-            name.casefold() for name in expected_skill_names
-        ):
+        if actual_root_entries != sorted(expected_root_names):
             mismatches.append("skill-tree")
 
         if not provenance_path.exists():
@@ -436,11 +470,17 @@ def sync_default_skills(
 
     output_root.mkdir(parents=True, exist_ok=True)
     for skill_name, source in desired_skill_dirs.items():
-        copy_tree(source, output_root / skill_name, force=force)
+        destination = output_root / skill_name
+        case_variant = find_case_variant(output_root, skill_name)
+        if case_variant is not None:
+            if case_variant.is_dir():
+                shutil.rmtree(case_variant)
+            else:
+                case_variant.unlink()
+        copy_tree(source, destination, force=force)
 
-    expected_root_names = {name.casefold() for name in expected_skill_names} | RESERVED_OUTPUT_NAME_KEYS
     stale_root_entries = sorted(
-        path for path in output_root.iterdir() if path.name.casefold() not in expected_root_names
+        path for path in output_root.iterdir() if path.name not in expected_root_names
     )
     for path in stale_root_entries:
         if path.is_dir():

@@ -135,8 +135,31 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             rendered = module.render_index(current)
 
+            self.assertIn("## Repositories", rendered)
             self.assertIn("- [marketplace-source](marketplace-source/)", rendered)
             self.assertNotIn("No child entries.", rendered)
+
+    def test_render_index_includes_location_and_parent_link(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            current = root / "docs"
+            current.mkdir(parents=True)
+            (current / "guide.md").write_text("guide\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"docs", "docs/guide.md"}
+
+            rendered = module.render_index(current)
+
+            self.assertIn("# `docs` Index", rendered)
+            self.assertIn("## Location", rendered)
+            self.assertIn("- Repo path: `docs`", rendered)
+            self.assertIn("- Up: [parent index](../INDEX.md)", rendered)
 
     def test_validate_rendered_links_reports_missing_relative_targets(self) -> None:
         module = load_module()
@@ -242,9 +265,36 @@ class GenerateIndexMeshTests(unittest.TestCase):
 
             rendered = module.render_index(root)
 
+            self.assertIn("# Repository Root", rendered)
+            self.assertIn("## Location", rendered)
             self.assertIn("- [README.md](README.md)", rendered)
             self.assertIn("- [docs](docs/INDEX.md)", rendered)
             self.assertNotIn("scratch.tmp", rendered)
+
+    def test_write_mode_prunes_orphaned_index_only_directory(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = (temp / "repo").resolve()
+            root.mkdir()
+            (root / "README.md").write_text("root\n", encoding="utf-8")
+            orphan = root / "orphan"
+            orphan.mkdir()
+            (orphan / "INDEX.md").write_text("# orphan\n", encoding="utf-8")
+
+            module.ROOT = root
+            module.require_linked_worktree = Mock()
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {"README.md", "orphan/INDEX.md"}
+
+            with patch.object(sys, "argv", ["generate_index_mesh.py"]):
+                result = module.main()
+
+            self.assertEqual(result, 0)
+            self.assertFalse((orphan / "INDEX.md").exists())
+            self.assertFalse(orphan.exists())
 
     def test_discover_existing_index_paths_uses_tracked_paths_only(self) -> None:
         module = load_module()

@@ -18,5 +18,5 @@ Use this routing file before inspecting or refreshing the derived skill tree tha
 ## Working Rules
 
 - Treat this tree as generated output, not the source of truth.
-- Do not hand-edit copied skills unless you are intentionally changing the installed surface and will refresh the source manifest to match.
+- Do not hand-edit copied skills; change the marketplace source and refresh this tree from the manifest instead.
 - Refresh through `scripts/install_agent_skills.py` and regenerate the mesh after any marketplace change.

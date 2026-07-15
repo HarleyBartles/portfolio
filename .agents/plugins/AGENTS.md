@@ -10,6 +10,7 @@ Use this routing file before any work that touches the repo-local plugin marketp
 - Use before editing `scripts/install_agent_skills.py` or `scripts/install_agent_skills.ps1`.
 - Use before checking the derived skills surface with [`.agents/skills/AGENTS.md`](../skills/AGENTS.md).
 - Use before validating the agents mesh or doctrine reachability when marketplace surfaces change.
+- Use when the pinned marketplace source is missing or uninitialized in a fresh worktree: run `git submodule update --init --checkout -- .agents/plugins/marketplace-source` before refreshing derived skills.
 
 ## What Lives Here
 
