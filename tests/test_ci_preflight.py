@@ -18,6 +18,14 @@ class CiPreflightWrapperTests(unittest.TestCase):
         self.assertIn("validate_agent_mesh.ps1 -Check", text)
         self.assertIn("unittest discover -s tests -v", text)
 
+    def test_github_workflow_gates_bash_parity_on_linux(self) -> None:
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        self.assertIn("ubuntu-latest", text)
+        self.assertIn("bash -n", text)
+        self.assertIn("bash ./scripts/generate_index_mesh.sh --check", text)
+        self.assertIn("bash ./scripts/validate_agent_mesh.sh --check", text)
+        self.assertNotIn("bash ./scripts/refresh_agent_surfaces.sh --check", text)
+
     def test_powershell_wrapper_routes_to_refresh_and_validation(self) -> None:
         text = (ROOT / "scripts" / "ci-preflight.ps1").read_text(encoding="utf-8")
         self.assertIn("refresh_agent_surfaces.ps1", text)

@@ -31,3 +31,30 @@ jobs:
       - name: Run tests
         shell: pwsh
         run: py -3 -m unittest discover -s tests -v
+
+  preflight-linux:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Bash syntax
+        shell: bash
+        run: |
+          for script in scripts/*.sh; do
+            bash -n "$script"
+          done
+
+      - name: Run mesh validation
+        shell: bash
+        run: bash ./scripts/generate_index_mesh.sh --check
+
+      - name: Run doctrine validation
+        shell: bash
+        run: bash ./scripts/validate_agent_mesh.sh --check
+
+      - name: Run tests
+        shell: bash
+        run: python3 -m unittest discover -s tests -v

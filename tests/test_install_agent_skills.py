@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -40,7 +42,149 @@ def with_marketplace_source(manifest: dict) -> dict:
     return manifest
 
 
+def create_directory_link(link: Path, target: Path) -> None:
+    if sys.platform.startswith("win"):
+        result = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(link), str(target)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise unittest.SkipTest(f"Unable to create test junction: {result.stderr.strip()}")
+        return
+    link.symlink_to(target, target_is_directory=True)
+
+
 class InstallAgentSkillsTests(unittest.TestCase):
+    def test_sync_rejects_canonical_output_root_when_it_is_a_directory_link(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            root = temp / "repo"
+            module.ROOT = root
+            source_root = root / ".agents" / "plugins" / "marketplace-source"
+            output_root = root / ".agents" / "skills"
+            external_output = temp / "external-skills"
+            source_root.mkdir(parents=True)
+            output_root.parent.mkdir(parents=True, exist_ok=True)
+            external_output.mkdir()
+            sentinel = external_output / "sentinel.txt"
+            sentinel.write_text("do not delete\n", encoding="utf-8")
+            create_directory_link(output_root, external_output)
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": [],
+                    "excluded_plugins": [],
+                    "plugins": {},
+                }
+            )
+
+            module.require_linked_worktree = Mock()
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+
+            with self.assertRaisesRegex(ValueError, "link or reparse point"):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                )
+
+            self.assertTrue(sentinel.exists())
+
+    def test_read_skill_directories_rejects_nested_directory_links(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source_root = temp / "marketplace-source"
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "testing"
+            external = temp / "external"
+            skill_root.mkdir(parents=True)
+            external.mkdir()
+            (external / "payload.txt").write_text("external\n", encoding="utf-8")
+            create_directory_link(skill_root / "linked-content", external)
+
+            plugin = module.PluginSpec(
+                name="repo-worker-pack",
+                version="1.0.0",
+                source_path="repo-worker-pack/1.0.0",
+                skills_path="skills",
+            )
+
+            with self.assertRaisesRegex(ValueError, "link or reparse point"):
+                module.read_skill_directories(plugin, source_root)
+
+    def test_read_skill_directories_rejects_linked_skill_roots(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            source_root = Path(temp_dir) / "marketplace-source"
+            skills_root = source_root / "repo-worker-pack" / "1.0.0" / "skills"
+            real_skill = skills_root / "real-skill"
+            real_skill.mkdir(parents=True)
+            (real_skill / "SKILL.md").write_text("# real\n", encoding="utf-8")
+            create_directory_link(skills_root / "linked-skill", real_skill)
+
+            plugin = module.PluginSpec(
+                name="repo-worker-pack",
+                version="1.0.0",
+                source_path="repo-worker-pack/1.0.0",
+                skills_path="skills",
+            )
+
+            with self.assertRaisesRegex(ValueError, "link or reparse point"):
+                module.read_skill_directories(plugin, source_root)
+
+    @unittest.skipIf(sys.platform.startswith("win"), "POSIX executable bits are not portable on Windows")
+    def test_trees_match_detects_executable_mode_drift(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source = temp / "source"
+            destination = temp / "destination"
+            source.mkdir()
+            destination.mkdir()
+            source_script = source / "run.sh"
+            destination_script = destination / "run.sh"
+            source_script.write_text("#!/usr/bin/env bash\n", encoding="utf-8")
+            destination_script.write_text("#!/usr/bin/env bash\n", encoding="utf-8")
+            source_script.chmod(0o755)
+            destination_script.chmod(0o644)
+
+            self.assertFalse(module.trees_match(source, destination))
+
+    def test_trees_match_detects_empty_directory_drift(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source = temp / "source"
+            destination = temp / "destination"
+            (source / "empty").mkdir(parents=True)
+            destination.mkdir()
+
+            self.assertFalse(module.trees_match(source, destination))
+
+    def test_assert_pinned_source_checkout_reports_uninitialized_submodule(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = (Path(temp_dir) / "repo").resolve()
+            source_root = root / ".agents" / "plugins" / "marketplace-source"
+            source_root.mkdir(parents=True)
+            module.ROOT = root
+
+            with self.assertRaisesRegex(ValueError, "git submodule update --init --checkout"):
+                module.assert_pinned_source_checkout(source_root, root)
+
     def test_check_mode_skips_worktree_guard(self) -> None:
         module = load_module()
 
@@ -678,6 +822,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             source_root.mkdir(parents=True)
 
             module.ROOT = root
+            module.assert_initialized_source_checkout = Mock()
             module.get_git_status_entries = lambda _path: [" M skills/boring-loop/SKILL.md"]  # type: ignore[assignment]
             module.get_gitlink_revision = Mock()
             module.get_git_revision = Mock()
@@ -698,6 +843,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             source_root.mkdir(parents=True)
 
             module.ROOT = root
+            module.assert_initialized_source_checkout = Mock()
             module.get_git_status_entries = lambda _path: []  # type: ignore[assignment]
             module.get_gitlink_revision = lambda _repo_root, _relative_path: "expected-sha"  # type: ignore[assignment]
             module.get_git_revision = lambda _path: "actual-sha"  # type: ignore[assignment]

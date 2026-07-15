@@ -13,7 +13,8 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
 - `.agents/skills/` is for derived installed skills and their provenance.
 - `.agents/superpowers/plans/` is for repo-resident implementation plans.
-- `.agents/superpowers/specs/` is a local-only scratch space and is ignored by git.
+- `.agents/superpowers/specs/` is a local-only design-spec workspace and is ignored by git; create it locally when needed.
+- `.agents/superpowers/sdd/` is a local-only SDD workspace for implementation drafts and receipts and is ignored by git; create it locally when needed.
 
 ## Scratch Files
 

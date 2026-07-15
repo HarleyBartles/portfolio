@@ -57,7 +57,7 @@ Read the scoped routers and the relevant doc before taking action:
 - Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
 - Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
-- Use after any structural change that adds, removes, or moves tracked directories: run `python scripts/generate_index_mesh.py`, `.\scripts\generate_index_mesh.ps1 -Check`, or `bash ./scripts/generate_index_mesh.sh --check` and update the relevant `INDEX.md` files in the same change.
+- Use after any structural change that adds, removes, or moves tracked directories: run `.\scripts\generate_index_mesh.ps1` on Windows or `bash ./scripts/generate_index_mesh.sh` on Linux, then commit the generated `INDEX.md` changes in the same change.
 
 ## Documentation Rules
 

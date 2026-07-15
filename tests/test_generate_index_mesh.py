@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -23,6 +24,97 @@ def load_module():
 
 
 class GenerateIndexMeshTests(unittest.TestCase):
+    def test_render_index_uses_provenance_for_new_derived_skills_only(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = (Path(temp_dir) / "repo").resolve()
+            skills_root = root / ".agents" / "skills"
+            existing = skills_root / "existing-skill"
+            refreshed = skills_root / "newly-refreshed-skill"
+            scratch = skills_root / "scratch"
+            existing.mkdir(parents=True)
+            refreshed.mkdir()
+            scratch.mkdir()
+            (existing / "SKILL.md").write_text("# existing\n", encoding="utf-8")
+            (refreshed / "SKILL.md").write_text("# refreshed\n", encoding="utf-8")
+            (scratch / "notes.txt").write_text("local only\n", encoding="utf-8")
+            (skills_root / ".provenance.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "copied_skills": ["existing-skill", "newly-refreshed-skill"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+            module.GITIGNORED_PATHS = set()
+            module.GITLINK_PATHS = set()
+            module.TRACKED_PATHS = {
+                ".agents/skills/.provenance.json",
+                ".agents/skills/existing-skill/SKILL.md",
+            }
+
+            rendered = module.render_index(skills_root)
+
+            self.assertIn("[existing-skill](existing-skill/)", rendered)
+            self.assertIn("[newly-refreshed-skill](newly-refreshed-skill/)", rendered)
+            self.assertNotIn("scratch", rendered)
+
+    def test_render_index_rejects_parent_path_in_derived_skill_provenance(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = (Path(temp_dir) / "repo").resolve()
+            skills_root = root / ".agents" / "skills"
+            skills_root.mkdir(parents=True)
+            (skills_root / ".provenance.json").write_text(
+                json.dumps({"schema_version": 1, "copied_skills": [".."]}),
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+
+            with self.assertRaisesRegex(ValueError, "Invalid derived skill name"):
+                module.render_index(skills_root)
+
+    def test_render_index_with_only_a_gitlink_does_not_report_no_children(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = (Path(temp_dir) / "repo").resolve()
+            root.mkdir()
+            gitlink = root / "marketplace-source"
+            gitlink.mkdir()
+
+            module.ROOT = root
+            module.GITLINK_PATHS = {"marketplace-source"}
+            module.GITIGNORED_PATHS = set()
+            module.TRACKED_PATHS = {"marketplace-source"}
+
+            rendered = module.render_index(root)
+
+            self.assertIn("## Repositories", rendered)
+            self.assertNotIn("No child entries.", rendered)
+
+    def test_generated_header_routes_to_bash_and_powershell_wrappers(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = (Path(temp_dir) / "repo").resolve()
+            root.mkdir()
+            module.ROOT = root
+            module.GITLINK_PATHS = set()
+            module.GITIGNORED_PATHS = set()
+            module.TRACKED_PATHS = set()
+
+            rendered = module.render_index(root)
+
+            self.assertIn(r".\scripts\generate_index_mesh.ps1", rendered)
+            self.assertIn("bash ./scripts/generate_index_mesh.sh", rendered)
+
     def test_write_mode_is_stable_across_repeated_runs(self) -> None:
         module = load_module()
 

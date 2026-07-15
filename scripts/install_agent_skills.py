@@ -7,7 +7,9 @@ import argparse
 import configparser
 import dataclasses
 import json
+import os
 import shutil
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -230,6 +232,8 @@ def assert_pinned_source_checkout(source_root: Path, repo_root: Path) -> None:
             f"Marketplace source root must live inside the repository: {resolved_source_root}"
         ) from exc
 
+    assert_initialized_source_checkout(resolved_source_root)
+
     dirty_entries = get_git_status_entries(resolved_source_root)
     if dirty_entries:
         raise ValueError(
@@ -247,6 +251,35 @@ def assert_pinned_source_checkout(source_root: Path, repo_root: Path) -> None:
         )
 
 
+def assert_initialized_source_checkout(source_root: Path) -> None:
+    git_marker = source_root / ".git"
+    if not source_root.is_dir() or not git_marker.exists():
+        raise ValueError(
+            f"Marketplace source submodule is not initialized: {source_root}\n"
+            f"{MISSING_SOURCE_REMEDIATION}"
+        )
+    if is_link_or_reparse_point(source_root) or is_link_or_reparse_point(git_marker):
+        raise ValueError(
+            f"Marketplace source checkout metadata must not be a link or reparse point: {git_marker}"
+        )
+
+    try:
+        top_level = run_git_command(source_root, "rev-parse", "--show-toplevel").strip()
+    except RuntimeError as exc:
+        raise ValueError(
+            f"Marketplace source submodule is not initialized: {source_root}\n"
+            f"{MISSING_SOURCE_REMEDIATION}"
+        ) from exc
+
+    if not top_level or Path(top_level).resolve() != source_root.resolve():
+        raise ValueError(
+            "Marketplace source path is not the root of its own initialized git checkout:\n"
+            f"- source root: {source_root.resolve()}\n"
+            f"- detected git root: {top_level or '<none>'}\n"
+            f"{MISSING_SOURCE_REMEDIATION}"
+        )
+
+
 def get_repo_relative_path(path: Path) -> str:
     try:
         return path.relative_to(ROOT).as_posix()
@@ -254,9 +287,86 @@ def get_repo_relative_path(path: Path) -> str:
         return str(path)
 
 
+def lexical_absolute(path: Path) -> Path:
+    return Path(os.path.abspath(path))
+
+
+def is_link_or_reparse_point(path: Path) -> bool:
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    if stat.S_ISLNK(metadata.st_mode):
+        return True
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return bool(getattr(metadata, "st_file_attributes", 0) & reparse_flag)
+
+
+def entry_kind(path: Path) -> str:
+    if is_link_or_reparse_point(path):
+        raise ValueError(f"Filesystem tree contains a link or reparse point: {path}")
+    metadata = path.lstat()
+    if stat.S_ISDIR(metadata.st_mode):
+        return "directory"
+    if stat.S_ISREG(metadata.st_mode):
+        return "file"
+    raise ValueError(f"Filesystem tree contains an unsupported entry type: {path}")
+
+
+def assert_path_contained(
+    root: Path,
+    candidate: Path,
+    *,
+    description: str,
+    escape_root_name: str | None = None,
+) -> None:
+    lexical_root = lexical_absolute(root)
+    lexical_candidate = lexical_absolute(candidate)
+    try:
+        relative = lexical_candidate.relative_to(lexical_root)
+    except ValueError as exc:
+        root_name = escape_root_name or "its lexical root"
+        raise ValueError(f"{description} escapes {root_name}: {lexical_candidate}") from exc
+
+    current = lexical_root
+    for part in relative.parts:
+        current /= part
+        if is_link_or_reparse_point(current):
+            raise ValueError(f"{description} contains a link or reparse point: {current}")
+
+    resolved_root = lexical_root.resolve()
+    resolved_candidate = lexical_candidate.resolve()
+    try:
+        resolved_candidate.relative_to(resolved_root)
+    except ValueError as exc:
+        root_name = escape_root_name or "its resolved root"
+        raise ValueError(f"{description} escapes {root_name}: {resolved_candidate}") from exc
+
+
+def assert_plain_tree(root: Path, *, description: str) -> None:
+    if is_link_or_reparse_point(root):
+        raise ValueError(f"{description} contains a link or reparse point: {root}")
+    if not root.exists():
+        return
+    if entry_kind(root) != "directory":
+        raise ValueError(f"{description} root must be a directory: {root}")
+
+    for current_path, dirnames, filenames in os.walk(root, topdown=True, followlinks=False):
+        current = Path(current_path)
+        for name in [*dirnames, *filenames]:
+            entry_kind(current / name)
+
+
 def resolve_within(root: Path, *parts: str | Path, description: str) -> Path:
+    lexical_candidate = lexical_absolute(root).joinpath(*parts)
+    assert_path_contained(
+        root,
+        lexical_candidate,
+        description=description,
+        escape_root_name="the marketplace source root",
+    )
     resolved_root = root.resolve()
-    candidate = resolved_root.joinpath(*parts).resolve()
+    candidate = lexical_candidate.resolve()
     try:
         candidate.relative_to(resolved_root)
     except ValueError as exc:
@@ -311,6 +421,10 @@ def read_skill_directories(plugin: PluginSpec, source_root: Path) -> list[tuple[
 
     skills: list[tuple[str, Path]] = []
     for child in sorted(skills_root.iterdir(), key=lambda item: (item.name.casefold(), item.name)):
+        if is_link_or_reparse_point(child):
+            raise ValueError(
+                f"Skill root for plugin {plugin.name!r} contains a link or reparse point: {child}"
+            )
         if not child.is_dir():
             continue
         resolved_child = child.resolve()
@@ -322,6 +436,7 @@ def read_skill_directories(plugin: PluginSpec, source_root: Path) -> list[tuple[
             ) from exc
         if child.name == "INDEX.md":
             continue
+        assert_plain_tree(resolved_child, description=f"Skill {child.name!r} for plugin {plugin.name!r}")
         skills.append((child.name, resolved_child))
     return skills
 
@@ -334,19 +449,30 @@ def trees_match(source: Path, destination: Path) -> bool:
     if not source.is_dir() or not destination.is_dir():
         return False
 
-    source_files = sorted(
-        relative_path(source, path) for path in source.rglob("*") if path.is_file()
-    )
-    destination_files = sorted(
-        relative_path(destination, path) for path in destination.rglob("*") if path.is_file()
-    )
-    if source_files != destination_files:
+    source_entries = tree_inventory(source)
+    destination_entries = tree_inventory(destination)
+    if source_entries != destination_entries:
         return False
 
-    for rel_path in source_files:
-        if (source / rel_path).read_bytes() != (destination / rel_path).read_bytes():
+    for rel_path, (kind, _executable_bits) in source_entries.items():
+        if kind == "file" and (source / rel_path).read_bytes() != (destination / rel_path).read_bytes():
             return False
     return True
+
+
+def tree_inventory(root: Path) -> dict[Path, tuple[str, int]]:
+    assert_plain_tree(root, description=f"Tree rooted at {root}")
+    inventory: dict[Path, tuple[str, int]] = {}
+    for current_path, dirnames, filenames in os.walk(root, topdown=True, followlinks=False):
+        current = Path(current_path)
+        for name in sorted(dirnames, key=lambda item: (item.casefold(), item)):
+            path = current / name
+            inventory[relative_path(root, path)] = ("directory", 0)
+        for name in sorted(filenames, key=lambda item: (item.casefold(), item)):
+            path = current / name
+            executable_bits = 0 if os.name == "nt" else stat.S_IMODE(path.stat().st_mode) & 0o111
+            inventory[relative_path(root, path)] = ("file", executable_bits)
+    return inventory
 
 
 def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
@@ -388,13 +514,17 @@ def sync_default_skills(
         raise ValueError("--check and --force cannot be used together")
     if not source_root.exists():
         raise ValueError(f"Marketplace source root not found: {source_root}\n{MISSING_SOURCE_REMEDIATION}")
-    canonical_output_root = (ROOT / ".agents" / "skills").resolve()
-    if output_root.resolve() != canonical_output_root:
+    canonical_output_root = ROOT / ".agents" / "skills"
+    requested_output_root = lexical_absolute(output_root)
+    expected_output_root = lexical_absolute(canonical_output_root)
+    if os.path.normcase(str(requested_output_root)) != os.path.normcase(str(expected_output_root)):
         raise ValueError(
             "Derived skills must be written to the canonical repo-local output root:\n"
-            f"- requested: {output_root.resolve()}\n"
-            f"- expected: {canonical_output_root}"
+            f"- requested: {requested_output_root}\n"
+            f"- expected: {expected_output_root}"
         )
+    assert_path_contained(ROOT, output_root, description="Derived skills output root")
+    assert_plain_tree(output_root, description="Derived skills output tree")
     if not check:
         require_linked_worktree(ROOT)
     assert_marketplace_source_binding(manifest, source_root, ROOT)
@@ -442,6 +572,7 @@ def sync_default_skills(
         mismatches: list[str] = []
         for skill_name, source in desired_skill_dirs.items():
             destination = output_root / skill_name
+            assert_path_contained(output_root, destination, description=f"Derived skill destination {skill_name!r}")
             if not trees_match(source, destination):
                 mismatches.append(skill_name)
 
@@ -471,8 +602,10 @@ def sync_default_skills(
     output_root.mkdir(parents=True, exist_ok=True)
     for skill_name, source in desired_skill_dirs.items():
         destination = output_root / skill_name
+        assert_path_contained(output_root, destination, description=f"Derived skill destination {skill_name!r}")
         case_variant = find_case_variant(output_root, skill_name)
         if case_variant is not None:
+            assert_path_contained(output_root, case_variant, description=f"Case-variant skill destination {case_variant.name!r}")
             if case_variant.is_dir():
                 shutil.rmtree(case_variant)
             else:
@@ -483,6 +616,7 @@ def sync_default_skills(
         path for path in output_root.iterdir() if path.name not in expected_root_names
     )
     for path in stale_root_entries:
+        assert_path_contained(output_root, path, description=f"Stale derived-skills entry {path.name!r}")
         if path.is_dir():
             shutil.rmtree(path)
         else:

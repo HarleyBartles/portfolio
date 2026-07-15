@@ -3,7 +3,7 @@
   Run the repository readiness checks.
 
 .DESCRIPTION
-  Runs the index mesh check and the doctrine mesh validator.
+  Runs the deterministic-surface refresh, doctrine validation, and test suite.
 
 .PARAMETER Check
   Run in validation mode without any write steps.

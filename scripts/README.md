@@ -8,8 +8,8 @@ This directory contains deterministic tooling for the portfolio repository.
 
 Combined refresh entrypoint for deterministic repo surfaces.
 
-- `python scripts/refresh_agent_surfaces.py` - refresh the index mesh and derived skills
-- `python scripts/refresh_agent_surfaces.py --check` - validate the refresh bundle without writing
+- `py -3 scripts/refresh_agent_surfaces.py` on Windows or `python3 scripts/refresh_agent_surfaces.py` on Linux - run the portable core directly
+- Add `--check` to the direct core command to validate without writing
 - `.\scripts\refresh_agent_surfaces.ps1` - PowerShell wrapper
 - `.\scripts\refresh_agent_surfaces.ps1 -Check` - PowerShell validation mode
 - `bash ./scripts/refresh_agent_surfaces.sh` - Bash wrapper
@@ -19,8 +19,8 @@ Combined refresh entrypoint for deterministic repo surfaces.
 
 Generator for the repo-wide `INDEX.md` navigation mesh.
 
-- `python scripts/generate_index_mesh.py` - regenerate the mesh
-- `python scripts/generate_index_mesh.py --check` - validate the mesh without writing
+- `py -3 scripts/generate_index_mesh.py` on Windows or `python3 scripts/generate_index_mesh.py` on Linux - run the portable core directly
+- Add `--check` to the direct core command to validate without writing
 - `.\scripts\generate_index_mesh.ps1` - PowerShell wrapper
 - `.\scripts\generate_index_mesh.ps1 -Check` - PowerShell validation mode
 - `bash ./scripts/generate_index_mesh.sh` - Bash wrapper
@@ -30,8 +30,8 @@ Generator for the repo-wide `INDEX.md` navigation mesh.
 
 Installer for repo-local derived skills copied from the pinned marketplace source.
 
-- `python scripts/install_agent_skills.py` - copy the selected default plugin skills into `.agents/skills/`
-- `python scripts/install_agent_skills.py --check` - validate the derived skills and provenance without writing
+- `py -3 scripts/install_agent_skills.py` on Windows or `python3 scripts/install_agent_skills.py` on Linux - run the portable core directly
+- Add `--check` to the direct core command to validate the derived skills and provenance without writing
 - `.\scripts\install_agent_skills.ps1` - PowerShell wrapper
 - `.\scripts\install_agent_skills.ps1 -Check` - PowerShell validation mode
 - `.\scripts\install_agent_skills.ps1 -Force` - PowerShell replace mode
@@ -42,8 +42,8 @@ Installer for repo-local derived skills copied from the pinned marketplace sourc
 
 Safety guard for linked-worktree-only mutations.
 
-- `python scripts/assert_active_worktree.py` - fail if the active checkout is the shared repository root or a submodule
-- `python scripts/assert_active_worktree.py --allow-shared-checkout` - permit intentional main-checkout work
+- `py -3 scripts/assert_active_worktree.py` on Windows or `python3 scripts/assert_active_worktree.py` on Linux - run the portable core directly
+- Add `--allow-shared-checkout` to permit intentional main-checkout work
 - `.\scripts\assert_active_worktree.ps1` - PowerShell wrapper
 - `.\scripts\assert_active_worktree.ps1 -AllowSharedCheckout` - PowerShell allow-shared-checkout mode
 - `bash ./scripts/assert_active_worktree.sh` - Bash wrapper
@@ -52,8 +52,8 @@ Safety guard for linked-worktree-only mutations.
 
 Read-only validator for doctrine reachability through the agents mesh.
 
-- `python scripts/validate_agent_mesh.py` - validate doctrine reachability without writing
-- `python scripts/validate_agent_mesh.py --check` - same validation mode, explicit check flag
+- `py -3 scripts/validate_agent_mesh.py` on Windows or `python3 scripts/validate_agent_mesh.py` on Linux - run the portable core directly
+- Add `--check` for the explicit validation-mode spelling
 - `.\scripts\validate_agent_mesh.ps1` - PowerShell wrapper
 - `.\scripts\validate_agent_mesh.ps1 -Check` - PowerShell validation mode
 - `bash ./scripts/validate_agent_mesh.sh` - Bash wrapper
@@ -71,5 +71,5 @@ Repository preflight bundle for local readiness.
 ## Conventions
 
 - Keep scripts deterministic.
-- Prefer a thin PowerShell wrapper over duplicating logic in two languages.
+- Provide Bash and PowerShell entrypoints for agent-facing scripts, and prefer thin wrappers over duplicating core logic.
 - If a script has a check mode, the check mode should match the write mode as closely as possible without mutating files.
