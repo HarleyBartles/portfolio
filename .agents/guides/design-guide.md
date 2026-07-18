@@ -11,7 +11,7 @@ Read the live repository surfaces before writing the spec:
 - `INDEX.md` for the repository navigation mesh.
 - `.agents/INDEX.md` for the hidden agent surfaces.
 - `.agents/docs/INDEX.md` for the documentation and guide surface.
-- `.agents/docs/guides/INDEX.md` for the guide surface itself.
+- `.agents/guides/INDEX.md` for the guide surface itself.
 - `.agents/doctrine/INDEX.md` for the doctrine surface.
 - `.agents/superpowers/INDEX.md` for the local Superpowers surfaces.
 

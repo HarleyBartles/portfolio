@@ -41,9 +41,12 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 - `.agents/doctrine/` contains durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/` contains repo-local non-doctrine guidance docs.
-- `.agents/docs/guides/` contains the guide entrypoints for design/spec work.
+- `.agents/guides/` contains the guide entrypoints for design, planning, implementation, and review work.
+- `.agents/docs/runbooks/` is optional and must only exist when a current runbook justifies it.
 - `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
-- `.agents/skills/` contains derived installed skills and provenance, not source truth.
+- `.agents/skills/` contains two explicit lanes: tracked local `port-*` skills are
+  repository-owned source, while other skill directories are marketplace-derived
+  output described by `.provenance.json`.
 - `.agents/superpowers/` contains plan surfaces and related planning artifacts.
 
 ## 4. README files
@@ -59,6 +62,7 @@ README files are human-facing. They are not a mesh.
 
 - If a worker finds stale or misleading authored mesh law (`AGENTS.md`, `README.md`, or this document), repair it in scope.
 - If a relevant doctrine or policy document is added to the repo, point at it from an appropriate `AGENTS.md` surface in the same change. Do not rely on agents discovering it just because it exists on disk.
+- If a guide home changes, remove stale legacy-home routing and regenerate the full mesh in the same change.
 - If a worker finds stale generated `INDEX.md` navigation, repair it by regenerating the whole mesh through `scripts/generate_index_mesh.py`.
 - Do not hand-edit generated `INDEX.md` files.
 

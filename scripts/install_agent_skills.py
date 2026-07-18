@@ -22,6 +22,7 @@ DEFAULT_SOURCE_ROOT = ROOT / ".agents" / "plugins" / "marketplace-source"
 DEFAULT_OUTPUT_ROOT = ROOT / ".agents" / "skills"
 RESERVED_OUTPUT_NAMES = {"AGENTS.md", "INDEX.md", ".provenance.json"}
 RESERVED_OUTPUT_NAME_KEYS = {name.casefold() for name in RESERVED_OUTPUT_NAMES}
+LOCAL_SKILL_PREFIX = "port-"
 MISSING_SOURCE_REMEDIATION = (
     "If this is a fresh worktree, initialize the pinned submodule with "
     "`git submodule update --init --checkout -- .agents/plugins/marketplace-source`."
@@ -509,6 +510,70 @@ def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
     shutil.copytree(source, destination)
 
 
+def tracked_local_skill_names(output_root: Path) -> set[str]:
+    """Return tracked Portfolio-owned skill directories below the output root."""
+    if not output_root.exists():
+        return set()
+    try:
+        relative_root = output_root.relative_to(ROOT).as_posix()
+    except ValueError as exc:
+        raise ValueError(f"Skills output root is outside the repository: {output_root}") from exc
+
+    result = subprocess.run(
+        ["git", "ls-files", "-z", "--", f"{relative_root}/"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "git ls-files failed while checking Portfolio local skill custody:\n"
+            + result.stderr.decode("utf-8", errors="replace").strip()
+        )
+
+    names: set[str] = set()
+    root_path = Path(relative_root)
+    for raw_path in result.stdout.decode("utf-8", errors="replace").split("\0"):
+        if not raw_path:
+            continue
+        relative_path = Path(raw_path)
+        try:
+            skill_path = relative_path.relative_to(root_path)
+        except ValueError:
+            continue
+        if skill_path.parts and skill_path.parts[0].casefold().startswith(LOCAL_SKILL_PREFIX):
+            names.add(skill_path.parts[0])
+    return names
+
+
+def local_skill_names(output_root: Path) -> set[str]:
+    """Return Portfolio-owned skill directories that refresh must preserve."""
+    if not output_root.exists():
+        return set()
+
+    names: set[str] = set()
+    for path in output_root.iterdir():
+        if not path.name.casefold().startswith(LOCAL_SKILL_PREFIX):
+            continue
+        if not path.is_dir():
+            raise ValueError(
+                f"Portfolio local skill must be a directory: {path.name}"
+            )
+        names.add(path.name)
+    if not names:
+        return set()
+    tracked_names = tracked_local_skill_names(output_root)
+    tracked_keys = {name.casefold() for name in tracked_names}
+    untracked = sorted(name for name in names if name.casefold() not in tracked_keys)
+    if untracked:
+        raise ValueError(
+            "Portfolio local skills must be tracked before refresh: "
+            + ", ".join(untracked)
+        )
+    return names
+
+
 def require_linked_worktree(repo_root: Path) -> None:
     result = subprocess.run(
         [sys.executable, str(repo_root / "scripts" / "assert_active_worktree.py")],
@@ -563,6 +628,11 @@ def sync_default_skills(
         if name not in manifest.excluded_plugins
     ]
 
+    preserved_local_skill_names = local_skill_names(output_root)
+    preserved_local_skill_keys = {
+        name.casefold() for name in preserved_local_skill_names
+    }
+
     skill_sources: list[tuple[str, Path, str]] = []
     seen_skills: set[str] = set()
     for plugin in expected_plugins:
@@ -570,6 +640,11 @@ def sync_default_skills(
             normalized_skill_name = skill_name.casefold()
             if normalized_skill_name in seen_skills:
                 raise ValueError(f"Duplicate skill name in marketplace selection: {skill_name}")
+            if normalized_skill_name in preserved_local_skill_keys:
+                raise ValueError(
+                    "Marketplace skill collides with a Portfolio local skill: "
+                    f"{skill_name}"
+                )
             if normalized_skill_name in RESERVED_OUTPUT_NAME_KEYS:
                 raise ValueError(f"Marketplace skill name collides with a reserved output name: {skill_name}")
             seen_skills.add(normalized_skill_name)
@@ -577,7 +652,11 @@ def sync_default_skills(
 
     expected_skill_names = [skill_name for skill_name, _source, _plugin in skill_sources]
     desired_skill_dirs = {skill_name: source for skill_name, source, _plugin in skill_sources}
-    expected_root_names = set(expected_skill_names) | RESERVED_OUTPUT_NAMES
+    expected_root_names = (
+        set(expected_skill_names)
+        | preserved_local_skill_names
+        | RESERVED_OUTPUT_NAMES
+    )
 
     source_revision = get_git_revision(source_root)
     provenance_path = output_root / ".provenance.json"

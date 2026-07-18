@@ -9,9 +9,12 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `INDEX.md` files are generated navigation surfaces.
 - `.agents/docs/` is for durable non-doctrine guidance such as workflow guides.
 - `.agents/doctrine/` is for durable doctrine such as policies, contracts, and rule sets.
-- `.agents/docs/guides/` is for workflow guides such as design, planning, and implementation.
+- `.agents/guides/` is for workflow guides such as design, planning, implementation, and review.
+- `.agents/docs/runbooks/` is the optional home for repeatable Portfolio procedures that are not skills.
 - `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
-- `.agents/skills/` is for derived installed skills and their provenance.
+- `.agents/skills/` has two custody lanes: tracked local `port-*` skills are
+  repository-owned source, while other skill directories are derived installed
+  skills described by `.provenance.json`.
 - `.agents/superpowers/plans/` is for repo-resident implementation plans.
 - `.agents/superpowers/specs/` is a local-only design-spec workspace and is ignored by git; create it locally when needed.
 - `.agents/superpowers/sdd/` is a local-only SDD workspace for implementation drafts and receipts and is ignored by git; create it locally when needed.

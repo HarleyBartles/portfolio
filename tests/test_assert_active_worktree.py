@@ -26,9 +26,28 @@ class AssertActiveWorktreeTests(unittest.TestCase):
     def test_accepts_linked_worktree(self) -> None:
         module = load_module()
         paths = module.GitPaths(".git/worktrees/portfolio", ".git", "")
-        with patch.object(module, "read_git_paths", return_value=paths):
+        with patch.object(module, "read_git_paths", return_value=paths), patch.object(
+            module,
+            "resolve_main_checkout_root",
+            return_value=Path("C:/workspace/repo"),
+        ), patch.object(
+            module,
+            "is_under",
+            return_value=True,
+        ):
             result = module.assert_active_worktree(ROOT)
         self.assertEqual(result, paths)
+
+    def test_rejects_linked_worktree_outside_canonical_root(self) -> None:
+        module = load_module()
+        paths = module.GitPaths(".git/worktrees/portfolio", ".git", "")
+        with patch.object(module, "read_git_paths", return_value=paths), patch.object(
+            module,
+            "resolve_main_checkout_root",
+            return_value=Path("C:/workspace/repo"),
+        ), patch.object(module, "is_under", return_value=False):
+            with self.assertRaisesRegex(RuntimeError, "outside the canonical external worktree root"):
+                module.assert_active_worktree(ROOT)
 
     def test_allow_shared_checkout_bypasses_guard(self) -> None:
         module = load_module()
@@ -65,6 +84,7 @@ class AssertActiveWorktreeTests(unittest.TestCase):
         with patch.object(module, "read_git_paths", return_value=paths):
             result = module.main(["--allow-shared-checkout"], stdout=stdout)
         self.assertEqual(result, 0)
+        self.assertIn("explicit human approval", stdout.getvalue())
         self.assertIn("shared checkout", stdout.getvalue())
 
 

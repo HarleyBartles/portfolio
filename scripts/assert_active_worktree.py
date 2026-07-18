@@ -51,18 +51,43 @@ def checkout_kind(paths: GitPaths) -> str:
     return "shared checkout"
 
 
+def resolve_main_checkout_root(repo_root: Path, common_dir: str) -> Path:
+    common_path = Path(common_dir)
+    if not common_path.is_absolute():
+        common_path = repo_root / common_path
+    common_path = common_path.resolve()
+    return common_path.parents[0]
+
+
+def canonical_worktree_root(main_checkout_root: Path) -> Path:
+    return (main_checkout_root / ".." / "_agent-worktrees" / main_checkout_root.name).resolve()
+
+
+def is_under(path: Path, ancestor: Path) -> bool:
+    return path == ancestor or ancestor in path.parents
+
+
 def assert_active_worktree(
     repo_root: Path, *, allow_shared_checkout: bool = False
 ) -> GitPaths:
     paths = read_git_paths(repo_root)
-    if checkout_kind(paths) == "linked worktree" or (
-        allow_shared_checkout and checkout_kind(paths) == "shared checkout"
-    ):
+    kind = checkout_kind(paths)
+    if kind == "linked worktree":
+        main_checkout_root = resolve_main_checkout_root(repo_root, paths.common_dir)
+        allowed_root = canonical_worktree_root(main_checkout_root)
+        if not is_under(repo_root.resolve(), allowed_root):
+            raise RuntimeError(
+                "This linked worktree is outside the canonical external worktree root. "
+                f"Current checkout={repo_root.resolve()!s}, allowed root={allowed_root!s}, "
+                f"main checkout={main_checkout_root!s}."
+            )
+        return paths
+    if allow_shared_checkout and kind == "shared checkout":
         return paths
 
     raise RuntimeError(
         "This command must run from a linked worktree, not the "
-        f"{checkout_kind(paths)}. Current git-dir={paths.git_dir!r}, "
+        f"{kind}. Current git-dir={paths.git_dir!r}, "
         f"common-dir={paths.common_dir!r}, superproject={paths.superproject!r}."
     )
 
@@ -87,6 +112,12 @@ def main(
     args = parse_args(argv)
     output = stdout or sys.stdout
     paths = assert_active_worktree(ROOT, allow_shared_checkout=args.allow_shared_checkout)
+    if args.allow_shared_checkout and checkout_kind(paths) == "shared checkout":
+        print(
+            "WARNING: shared-checkout mutation override is active. "
+            "Proceed only with explicit human approval for this task.",
+            file=output,
+        )
     print(
         f"OK {checkout_kind(paths)}: git-dir={paths.git_dir} "
         f"common-dir={paths.common_dir} superproject={paths.superproject!r}",

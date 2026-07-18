@@ -6,8 +6,5 @@
 - Repo path: `.agents/docs`
 - Up: [parent index](../INDEX.md)
 
-## Directories
-- [guides](guides/INDEX.md)
-
 ## Files
 - [AGENTS.md](AGENTS.md)

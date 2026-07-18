@@ -40,7 +40,11 @@ Installer for repo-local derived skills copied from the pinned marketplace sourc
 
 ### `assert_active_worktree.py` / `assert_active_worktree.ps1` / `assert_active_worktree.sh`
 
-Safety guard for linked-worktree-only mutations.
+Safety guard for mutations that must run in the canonical sibling worktree root.
+
+- Resolves the main checkout through Git's common directory.
+- Derives the allowed root as `<main-checkout-root>/../_agent-worktrees/<repo-name>`.
+- Does not rely on absolute drive letters or current-worktree parent walking.
 
 - `py -3 scripts/assert_active_worktree.py` on Windows or `python3 scripts/assert_active_worktree.py` on Linux - run the portable core directly
 - Add `--allow-shared-checkout` to permit intentional main-checkout work
