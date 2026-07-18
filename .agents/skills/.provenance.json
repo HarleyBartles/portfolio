@@ -1,12 +1,13 @@
 {
   "copied_skills": [
     "base-doctrine",
-    "boring-loop",
+    "cleanup-custody",
     "connector-safety",
     "context-safety",
     "github-operations",
     "linear-issue-shaping",
     "repo-worker-base",
+    "risk-gates",
     "unslop-plus",
     "using-linear",
     "work-mode-router",
@@ -52,6 +53,6 @@
     "wild-bunch-project-pack"
   ],
   "schema_version": 1,
-  "source_revision": "de2039f2b7127ec98cbd573104645491ac2fc4db",
+  "source_revision": "c7e3273410a73376182d994bee1849a973c323c5",
   "source_root": ".agents/plugins/marketplace-source"
 }
