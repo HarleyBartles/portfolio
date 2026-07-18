@@ -436,6 +436,121 @@ class InstallAgentSkillsTests(unittest.TestCase):
             self.assertEqual(sentinel.read_text(encoding="utf-8"), "keep me\n")
             self.assertIn("source_revision", (output_root / ".provenance.json").read_text(encoding="utf-8"))
 
+    def test_sync_preserves_portfolio_local_skills_outside_marketplace_provenance(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": ["repo-worker-pack"],
+                    "excluded_plugins": [],
+                    "plugins": {
+                        "repo-worker-pack": {
+                            "version": "1.0.0",
+                            "source_path": "repo-worker-pack/1.0.0",
+                            "skills_path": "skills",
+                        }
+                    },
+                }
+            )
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "testing"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# testing\n", encoding="utf-8")
+            plugin_manifest = skill_root.parents[1] / ".codex-plugin"
+            plugin_manifest.mkdir(parents=True, exist_ok=True)
+            (plugin_manifest / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+
+            local_skill = output_root / "port-example"
+            local_skill.mkdir(parents=True)
+            (local_skill / "SKILL.md").write_text("# local\n", encoding="utf-8")
+            (output_root / "AGENTS.md").write_text("# agents\n", encoding="utf-8")
+            (output_root / "INDEX.md").write_text("# index\n", encoding="utf-8")
+            (output_root / "stale-entry.txt").parent.mkdir(parents=True, exist_ok=True)
+            (output_root / "stale-entry.txt").write_text("stale\n", encoding="utf-8")
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+
+            self.assertTrue((local_skill / "SKILL.md").exists())
+            self.assertFalse((output_root / "stale-entry.txt").exists())
+            provenance = json.loads((output_root / ".provenance.json").read_text(encoding="utf-8"))
+            self.assertNotIn("port-example", provenance["copied_skills"])
+
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+                check=True,
+            )
+
+    def test_sync_rejects_marketplace_collision_with_portfolio_local_skill(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            module.ROOT = temp
+            source_root = temp / ".agents" / "plugins" / "marketplace-source"
+            output_root = temp / ".agents" / "skills"
+            source_root.mkdir(parents=True)
+
+            manifest = with_marketplace_source(
+                {
+                    "schema_version": 1,
+                    "default_plugins": ["repo-worker-pack"],
+                    "excluded_plugins": [],
+                    "plugins": {
+                        "repo-worker-pack": {
+                            "version": "1.0.0",
+                            "source_path": "repo-worker-pack/1.0.0",
+                            "skills_path": "skills",
+                        }
+                    },
+                }
+            )
+            skill_root = source_root / "repo-worker-pack" / "1.0.0" / "skills" / "port-example"
+            skill_root.mkdir(parents=True, exist_ok=True)
+            (skill_root / "SKILL.md").write_text("# marketplace\n", encoding="utf-8")
+            plugin_manifest = skill_root.parents[1] / ".codex-plugin"
+            plugin_manifest.mkdir(parents=True, exist_ok=True)
+            (plugin_manifest / "plugin.json").write_text(
+                json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
+                encoding="utf-8",
+            )
+
+            local_skill = output_root / "port-example"
+            local_skill.mkdir(parents=True)
+            (local_skill / "SKILL.md").write_text("# local\n", encoding="utf-8")
+
+            module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
+            module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            stub_pinned_source_checkout(module)
+            stub_marketplace_source_binding(module)
+
+            with self.assertRaisesRegex(ValueError, "collides with a Portfolio local skill"):
+                module.sync_default_skills(
+                    module.load_manifest_data(manifest),
+                    source_root,
+                    output_root,
+                )
+
     def test_sync_rejects_version_mismatch_between_manifest_and_plugin(self) -> None:
         module = load_module()
 

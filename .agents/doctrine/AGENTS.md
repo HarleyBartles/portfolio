@@ -10,6 +10,7 @@ This directory holds the repo's durable doctrine: policies, contracts, rule sets
 - Use before scope or architecture decisions: [`coding-discipline.md`](./coding-discipline.md).
 - Use before any shell-script contract or wrapper design: [`script-contract-policy.md`](./script-contract-policy.md).
 - Use when you need the navigation contract for docs and indexes: [`mesh-policy.md`](./mesh-policy.md).
+- Use before any repository hygiene, layout, or local capability-custody decision: [`repository-hygiene-layout-policy.md`](./repository-hygiene-layout-policy.md).
 
 ## Working Rules
 

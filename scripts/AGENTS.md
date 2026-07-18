@@ -8,7 +8,7 @@ This folder contains deterministic tooling for the portfolio repository.
 - Use before editing or adding scripts in this folder: [`INDEX.md`](INDEX.md) for the script map.
 - Use when you need the canonical helper used by the refresh family for the `INDEX.md` mesh: [`generate_index_mesh.py`](generate_index_mesh.py), [`generate_index_mesh.ps1`](generate_index_mesh.ps1), and [`generate_index_mesh.sh`](generate_index_mesh.sh).
 - Use when you need the canonical helper used by the refresh family for derived repo-local skills: [`install_agent_skills.py`](install_agent_skills.py), [`install_agent_skills.ps1`](install_agent_skills.ps1), and [`install_agent_skills.sh`](install_agent_skills.sh).
-- Use when you need the standalone safety guard for linked-worktree-only mutations: [`assert_active_worktree.py`](assert_active_worktree.py), [`assert_active_worktree.ps1`](assert_active_worktree.ps1), and [`assert_active_worktree.sh`](assert_active_worktree.sh).
+- Use when you need the standalone safety guard for canonical-linked-worktree-only mutations: [`assert_active_worktree.py`](assert_active_worktree.py), [`assert_active_worktree.ps1`](assert_active_worktree.ps1), and [`assert_active_worktree.sh`](assert_active_worktree.sh).
 - Use when you need the standalone read-only validator for doctrine reachability: [`validate_agent_mesh.py`](validate_agent_mesh.py), [`validate_agent_mesh.ps1`](validate_agent_mesh.ps1), and [`validate_agent_mesh.sh`](validate_agent_mesh.sh).
 - Use when you need the local repo preflight: [`ci-preflight.ps1`](ci-preflight.ps1) or [`ci-preflight.sh`](ci-preflight.sh).
 - Use before changing shell-script wrappers or script contract rules: [`.agents/doctrine/script-contract-policy.md`](../.agents/doctrine/script-contract-policy.md).

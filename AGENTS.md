@@ -48,13 +48,14 @@ Read the scoped routers and the relevant doc before taking action:
 
 - Use before any docs, policy, or repo-guidance work: [`.agents/docs/AGENTS.md`](./.agents/docs/AGENTS.md).
 - Use before any durable doctrine or policy work: [`.agents/doctrine/AGENTS.md`](./.agents/doctrine/AGENTS.md).
-- Use before any brainstorming or design-spec pass: [`.agents/docs/guides/AGENTS.md`](./.agents/docs/guides/AGENTS.md).
+- Use before any brainstorming or design-spec pass: [`.agents/guides/AGENTS.md`](./.agents/guides/AGENTS.md).
 - Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
 - Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
 - Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
 - Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
 - Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
 - Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
+- Use before any repository hygiene, layout, or local capability-custody decision: [`.agents/doctrine/repository-hygiene-layout-policy.md`](./.agents/doctrine/repository-hygiene-layout-policy.md).
 - Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
 - Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
 - Use after any structural change that adds, removes, or moves tracked directories: run `.\scripts\generate_index_mesh.ps1` on Windows or `bash ./scripts/generate_index_mesh.sh` on Linux, then commit the generated `INDEX.md` changes in the same change.

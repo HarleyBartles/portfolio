@@ -25,6 +25,51 @@ def load_module():
 
 
 class ValidateAgentMeshTests(unittest.TestCase):
+    def test_finds_broken_links_in_authored_agent_documents(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir).resolve()
+            doctrine = root / ".agents" / "doctrine"
+            doctrine.mkdir(parents=True)
+            (doctrine / "policy.md").write_text(
+                "[missing](missing-policy.md)\n",
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+            module.DOCTRINE_ROOT = doctrine
+
+            broken = module.find_broken_authored_links()
+
+            self.assertEqual(broken, [".agents/doctrine/policy.md -> missing-policy.md"])
+
+    def test_rejects_local_skill_claimed_by_marketplace_provenance(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir).resolve()
+            skills = root / ".agents" / "skills"
+            local_skill = skills / "port-example"
+            local_skill.mkdir(parents=True)
+            (local_skill / "SKILL.md").write_text("# local\n", encoding="utf-8")
+            provenance = skills / ".provenance.json"
+            provenance.write_text(
+                '{"copied_skills": ["port-example"]}\n',
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+            module.SKILLS_ROOT = skills
+            module.PROVENANCE_PATH = provenance
+
+            conflicts = module.find_local_skill_provenance_conflicts()
+
+            self.assertEqual(
+                conflicts,
+                [".agents/skills/port-example is incorrectly listed in marketplace provenance"],
+            )
+
     def test_check_mode_succeeds_when_doctrine_is_referenced(self) -> None:
         module = load_module()
 
