@@ -4,10 +4,10 @@ This directory holds the task-specific stage guides for agent workflows.
 
 ## Read When
 
-- Use before turning an idea into a planning-ready design spec: [`design-spec-guide.md`](./design-spec-guide.md).
+- Use before turning an idea into a planning-ready design spec: [`design-guide.md`](./design-guide.md).
 - Use before translating an approved design spec into a plan: [`planning-guide.md`](./planning-guide.md).
-- Use before executing an approved plan: [`implementation-guide.md`](./implementation-guide.md).
-- Use before reviewing a PR, branch, or diff: [`review-guide.md`](./review-guide.md).
+- Use before executing an approved plan: [`implementing-guide.md`](./implementing-guide.md).
+- Use before reviewing a PR, branch, or diff: [`code-review-guide.md`](./code-review-guide.md).
 
 The generic `repo-worker-base` skill and its matching baseline reference are
 required before each stage. These guides contain only Portfolio-specific

@@ -21,7 +21,7 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `INDEX.md` | Generated traversal and containment navigation | Mesh generator |
 | `.agents/doctrine/` | Binding Portfolio policies, contracts, and invariants | Authored doctrine |
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
-| `.agents/guides/` | Design, planning, implementation, and review stage guides | Authored guidance |
+| `.agents/guides/` | `design-guide.md`, `planning-guide.md`, `implementing-guide.md`, and `code-review-guide.md` stage guides | Authored guidance |
 | `.agents/docs/runbooks/` | Optional repeatable Portfolio procedures | Authored runbooks |
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
 | `.agents/skills/port-*/` | Future Portfolio-owned skills | Tracked local custody |

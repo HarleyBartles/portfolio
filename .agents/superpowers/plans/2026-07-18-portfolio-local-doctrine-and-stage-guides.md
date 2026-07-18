@@ -63,6 +63,9 @@ all links from the earlier shorter filename in the same change.
 
 - Move `.agents/docs/guides/AGENTS.md` to `.agents/guides/AGENTS.md`.
 - Move the four existing stage guides and their index to `.agents/guides/`.
+- Use the canonical guide names `design-guide.md`, `planning-guide.md`,
+  `implementing-guide.md`, and `code-review-guide.md` so the installed
+  `repo-worker-base` and `work-mode-router` contracts resolve locally.
 - Update `.agents/docs/AGENTS.md` to remove the retired guide-home pointers.
 - Update all guide self-references from `.agents/docs/guides/` to
   `.agents/guides/`.

@@ -8,7 +8,7 @@
 
 ## Files
 - [AGENTS.md](AGENTS.md)
-- [design-spec-guide.md](design-spec-guide.md)
-- [implementation-guide.md](implementation-guide.md)
+- [code-review-guide.md](code-review-guide.md)
+- [design-guide.md](design-guide.md)
+- [implementing-guide.md](implementing-guide.md)
 - [planning-guide.md](planning-guide.md)
-- [review-guide.md](review-guide.md)
