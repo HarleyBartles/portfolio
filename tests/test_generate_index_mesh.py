@@ -67,12 +67,15 @@ class GenerateIndexMeshTests(unittest.TestCase):
             skills_root = root / ".agents" / "skills"
             existing = skills_root / "existing-skill"
             refreshed = skills_root / "newly-refreshed-skill"
+            local = skills_root / "port-example"
             scratch = skills_root / "scratch"
             existing.mkdir(parents=True)
             refreshed.mkdir()
+            local.mkdir()
             scratch.mkdir()
             (existing / "SKILL.md").write_text("# existing\n", encoding="utf-8")
             (refreshed / "SKILL.md").write_text("# refreshed\n", encoding="utf-8")
+            (local / "SKILL.md").write_text("# local\n", encoding="utf-8")
             (scratch / "notes.txt").write_text("local only\n", encoding="utf-8")
             (skills_root / ".provenance.json").write_text(
                 json.dumps(
@@ -90,12 +93,14 @@ class GenerateIndexMeshTests(unittest.TestCase):
             module.TRACKED_PATHS = {
                 ".agents/skills/.provenance.json",
                 ".agents/skills/existing-skill/SKILL.md",
+                ".agents/skills/port-example/SKILL.md",
             }
 
             rendered = module.render_index(skills_root)
 
             self.assertIn("[existing-skill](existing-skill/)", rendered)
             self.assertIn("[newly-refreshed-skill](newly-refreshed-skill/)", rendered)
+            self.assertIn("[port-example](port-example/)", rendered)
             self.assertNotIn("scratch", rendered)
 
     def test_render_index_rejects_parent_path_in_derived_skill_provenance(self) -> None:

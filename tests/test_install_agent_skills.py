@@ -423,6 +423,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            module.tracked_local_skill_names = lambda _path: {"port-example"}  # type: ignore[assignment]
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
@@ -480,6 +481,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            module.tracked_local_skill_names = lambda _path: {"port-example"}  # type: ignore[assignment]
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
@@ -541,6 +543,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
+            module.tracked_local_skill_names = lambda _path: {"port-example"}  # type: ignore[assignment]
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
@@ -550,6 +553,19 @@ class InstallAgentSkillsTests(unittest.TestCase):
                     source_root,
                     output_root,
                 )
+
+    def test_local_skill_names_rejects_untracked_portfolio_skill(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            output_root = Path(temp_dir) / ".agents" / "skills"
+            local_skill = output_root / "port-untracked"
+            local_skill.mkdir(parents=True)
+            (local_skill / "SKILL.md").write_text("# local\n", encoding="utf-8")
+            module.tracked_local_skill_names = lambda _path: set()  # type: ignore[assignment]
+
+            with self.assertRaisesRegex(ValueError, "must be tracked.*port-untracked"):
+                module.local_skill_names(output_root)
 
     def test_sync_rejects_version_mismatch_between_manifest_and_plugin(self) -> None:
         module = load_module()

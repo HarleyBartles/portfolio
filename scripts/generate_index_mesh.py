@@ -16,6 +16,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+LOCAL_SKILL_PREFIX = "port-"
 ALWAYS_EXCLUDED_DIR_NAMES = {
     ".git",
     ".codex",
@@ -353,7 +354,11 @@ def render_index(path: Path) -> str:
                 repos.append(entry)
                 continue
             if derived_skill_names is not None:
-                if entry.name in derived_skill_names:
+                is_local_skill = (
+                    entry.name.casefold().startswith(LOCAL_SKILL_PREFIX)
+                    and has_tracked_content(entry)
+                )
+                if entry.name in derived_skill_names or is_local_skill:
                     dirs.append(entry)
                 continue
             if not should_descend(entry):

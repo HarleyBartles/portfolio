@@ -70,6 +70,29 @@ class ValidateAgentMeshTests(unittest.TestCase):
                 [".agents/skills/port-example is incorrectly listed in marketplace provenance"],
             )
 
+    def test_finds_broken_links_in_local_portfolio_skills(self) -> None:
+        module = load_module()
+
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir).resolve()
+            skills = root / ".agents" / "skills"
+            local_skill = skills / "port-example"
+            local_skill.mkdir(parents=True)
+            (local_skill / "SKILL.md").write_text(
+                "[missing](missing-reference.md)\n",
+                encoding="utf-8",
+            )
+
+            module.ROOT = root
+            module.SKILLS_ROOT = skills
+
+            broken = module.find_broken_authored_links()
+
+            self.assertEqual(
+                broken,
+                [".agents/skills/port-example/SKILL.md -> missing-reference.md"],
+            )
+
     def test_check_mode_succeeds_when_doctrine_is_referenced(self) -> None:
         module = load_module()
 

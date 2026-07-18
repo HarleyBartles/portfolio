@@ -70,6 +70,13 @@ def discover_authored_documents() -> list[Path]:
         for path in root.rglob("*.md"):
             if path.name != "INDEX.md":
                 documents.add(path)
+    if SKILLS_ROOT.exists():
+        for skill_root in SKILLS_ROOT.iterdir():
+            if not skill_root.is_dir() or not skill_root.name.casefold().startswith(LOCAL_SKILL_PREFIX):
+                continue
+            for path in skill_root.rglob("*.md"):
+                if path.name != "INDEX.md":
+                    documents.add(path)
     return sorted(path for path in documents if path.exists())
 
 

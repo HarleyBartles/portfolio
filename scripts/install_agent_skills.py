@@ -510,6 +510,43 @@ def copy_tree(source: Path, destination: Path, *, force: bool) -> None:
     shutil.copytree(source, destination)
 
 
+def tracked_local_skill_names(output_root: Path) -> set[str]:
+    """Return tracked Portfolio-owned skill directories below the output root."""
+    if not output_root.exists():
+        return set()
+    try:
+        relative_root = output_root.relative_to(ROOT).as_posix()
+    except ValueError as exc:
+        raise ValueError(f"Skills output root is outside the repository: {output_root}") from exc
+
+    result = subprocess.run(
+        ["git", "ls-files", "-z", "--", f"{relative_root}/"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "git ls-files failed while checking Portfolio local skill custody:\n"
+            + result.stderr.decode("utf-8", errors="replace").strip()
+        )
+
+    names: set[str] = set()
+    root_path = Path(relative_root)
+    for raw_path in result.stdout.decode("utf-8", errors="replace").split("\0"):
+        if not raw_path:
+            continue
+        relative_path = Path(raw_path)
+        try:
+            skill_path = relative_path.relative_to(root_path)
+        except ValueError:
+            continue
+        if skill_path.parts and skill_path.parts[0].casefold().startswith(LOCAL_SKILL_PREFIX):
+            names.add(skill_path.parts[0])
+    return names
+
+
 def local_skill_names(output_root: Path) -> set[str]:
     """Return Portfolio-owned skill directories that refresh must preserve."""
     if not output_root.exists():
@@ -524,6 +561,16 @@ def local_skill_names(output_root: Path) -> set[str]:
                 f"Portfolio local skill must be a directory: {path.name}"
             )
         names.add(path.name)
+    if not names:
+        return set()
+    tracked_names = tracked_local_skill_names(output_root)
+    tracked_keys = {name.casefold() for name in tracked_names}
+    untracked = sorted(name for name in names if name.casefold() not in tracked_keys)
+    if untracked:
+        raise ValueError(
+            "Portfolio local skills must be tracked before refresh: "
+            + ", ".join(untracked)
+        )
     return names
 
 

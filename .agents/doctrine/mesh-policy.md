@@ -44,7 +44,9 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - `.agents/guides/` contains the guide entrypoints for design, planning, implementation, and review work.
 - `.agents/docs/runbooks/` is optional and must only exist when a current runbook justifies it.
 - `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
-- `.agents/skills/` contains derived installed skills and provenance, not source truth.
+- `.agents/skills/` contains two explicit lanes: tracked local `port-*` skills are
+  repository-owned source, while other skill directories are marketplace-derived
+  output described by `.provenance.json`.
 - `.agents/superpowers/` contains plan surfaces and related planning artifacts.
 
 ## 4. README files
