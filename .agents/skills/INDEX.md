@@ -9,9 +9,9 @@
 ## Directories
 - [accessibility-audit](accessibility-audit/)
 - [base-doctrine](base-doctrine/)
-- [boring-loop](boring-loop/)
 - [brainstorming](brainstorming/)
 - [clean-architecture](clean-architecture/)
+- [cleanup-custody](cleanup-custody/)
 - [connector-safety](connector-safety/)
 - [context-safety](context-safety/)
 - [cqrs-event-sourcing](cqrs-event-sourcing/)
@@ -32,6 +32,7 @@
 - [receiving-code-review](receiving-code-review/)
 - [repo-worker-base](repo-worker-base/)
 - [requesting-code-review](requesting-code-review/)
+- [risk-gates](risk-gates/)
 - [subagent-driven-development](subagent-driven-development/)
 - [systematic-debugging](systematic-debugging/)
 - [test-driven-development](test-driven-development/)
