@@ -1,0 +1,66 @@
+@use './tokens';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgb(178 86 50 / 14%), transparent 32rem),
+    var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: var(--line-readable);
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: var(--color-focus);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+main {
+  width: min(100% - (2 * var(--space-4)), var(--layout-max-width));
+  margin-inline: auto;
+}

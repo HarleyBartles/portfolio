@@ -1,9 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { AppProviders } from './app/AppProviders'
+import './styles/global.scss'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <AppProviders />
   </StrictMode>,
 )
