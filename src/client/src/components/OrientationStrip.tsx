@@ -5,6 +5,7 @@ import { ContentLink } from './ContentLink'
 type OrientationArea = {
   id: string
   label: string
+  href: string
   findItem: (items: ContentSummary[]) => ContentSummary | undefined
 }
 
@@ -12,26 +13,31 @@ const orientationAreas = [
   {
     id: 'projects',
     label: 'Projects',
+    href: '/projects',
     findItem: (items) => items.find((item) => item.kind === 'project'),
   },
   {
     id: 'experience',
     label: 'Experience',
+    href: '/experience',
     findItem: (items) => items.find((item) => item.kind === 'experience'),
   },
   {
     id: 'engineering-practice',
     label: 'Engineering Practice',
+    href: '/engineering-practice',
     findItem: (items) => items.find((item) => item.kind === 'practice'),
   },
   {
     id: 'ai-engineering',
     label: 'AI Engineering',
+    href: '/ai-engineering',
     findItem: (items) => items.find((item) => item.kind === 'ai-engineering'),
   },
   {
     id: 'writing-and-notes',
     label: 'Writing and Notes',
+    href: '/writing',
     findItem: (items) => items.find((item) => item.kind === 'writing'),
   },
 ] satisfies OrientationArea[]
@@ -50,7 +56,7 @@ export function OrientationStrip(props: { items: ContentSummary[] }): ReactEleme
         {availableAreas.map((area) => (
           <li className="orientation-card" id={area.id} key={area.id}>
             <h2>
-              <ContentLink item={area.item} label={area.label} />
+              <ContentLink item={area.item} label={area.label} href={area.href} />
             </h2>
             <p>{area.item.summary}</p>
             <span>{area.item.title}</span>

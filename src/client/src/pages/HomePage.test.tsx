@@ -57,6 +57,14 @@ const orientationSummaries = [
   },
 ] satisfies ContentSummary[]
 
+const orientationRoutes = [
+  { label: 'Projects', href: '/projects' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Engineering Practice', href: '/engineering-practice' },
+  { label: 'AI Engineering', href: '/ai-engineering' },
+  { label: 'Writing and Notes', href: '/writing' },
+]
+
 function renderHomePage() {
   render(
     <MemoryRouter>
@@ -78,7 +86,7 @@ describe('HomePage', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Harley Bartles: Full Stack Software Engineer.',
+        name: 'Harley Bartles: Full Stack Software Engineer',
       }),
     ).toBeInTheDocument()
     expect(
@@ -91,14 +99,8 @@ describe('HomePage', () => {
       name: /portfolio orientation/i,
     })
 
-    for (const label of [
-      'Projects',
-      'Experience',
-      'Engineering Practice',
-      'AI Engineering',
-      'Writing and Notes',
-    ]) {
-      expect(within(orientation).getByRole('link', { name: label })).toBeInTheDocument()
+    for (const route of orientationRoutes) {
+      expect(within(orientation).getByRole('link', { name: route.label })).toHaveAttribute('href', route.href)
     }
 
     expect(within(orientation).getByText(/straightforward ASP\.NET Core and React portfolio/i)).toBeInTheDocument()
@@ -116,13 +118,13 @@ describe('HomePage', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Harley Bartles: Full Stack Software Engineer.',
+        name: 'Harley Bartles: Full Stack Software Engineer',
       }),
     ).toBeInTheDocument()
     expect(screen.queryByText('Wild Bunch')).not.toBeInTheDocument()
     expect(await screen.findByRole('link', { name: 'Projects' })).toHaveAttribute(
       'href',
-      '/content/portfolio',
+      '/projects',
     )
   })
 

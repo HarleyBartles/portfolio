@@ -13,7 +13,7 @@ export function HomePage(): ReactElement {
     <SiteLayout>
       <section className="hero" aria-labelledby="homepage-title">
         <p className="eyebrow">Portfolio</p>
-        <h1 id="homepage-title">Harley Bartles: Full Stack Software Engineer.</h1>
+        <h1 id="homepage-title">Harley Bartles: Full Stack Software Engineer</h1>
         <p className="hero-support">
           AI-forward. Stack-agnostic. Experienced across languages, frameworks, and full-stack systems.
         </p>

@@ -7,6 +7,7 @@
 - Up: [parent index](../INDEX.md)
 
 ## Files
+- [AreaPlaceholderPage.tsx](AreaPlaceholderPage.tsx)
 - [ErrorPage.tsx](ErrorPage.tsx)
 - [HomePage.test.tsx](HomePage.test.tsx)
 - [HomePage.tsx](HomePage.tsx)
