@@ -148,13 +148,16 @@ Run npm install in src/client/ and commit the generated lockfile.
 
 Create src/AGENTS.md, src/client/AGENTS.md, src/server/AGENTS.md, and tests/AGENTS.md. Each file must use Read When language and route to the nearest human README, the applicable design/implementation guide, and the source-specific patterns. Do not duplicate root architecture law in these files.
 
-Add only these ignore patterns if they are not already covered:
+Add only these ignore patterns if they are not already covered. Keep the
+`tests/server/` additions limited to narrow test-project build-output ignores:
 
 ~~~gitignore
 src/client/node_modules/
 src/client/dist/
 src/server/bin/
 src/server/obj/
+tests/server/bin/
+tests/server/obj/
 test-results/
 playwright-report/
 ~~~
