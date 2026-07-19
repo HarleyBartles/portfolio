@@ -1,5 +1,3 @@
-# Source
-
 # Application Source
 
 This folder contains the portfolio application source tree:

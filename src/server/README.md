@@ -1,5 +1,3 @@
-# Server
-
 # Server Application
 
 This folder contains the ASP.NET Core `net10.0` host and the read-only content
