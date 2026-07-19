@@ -6,5 +6,7 @@ src/client/node_modules/
 src/client/dist/
 src/server/bin/
 src/server/obj/
+tests/server/bin/
+tests/server/obj/
 test-results/
 playwright-report/
