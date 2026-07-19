@@ -133,4 +133,41 @@ describe('WritingPage routes', () => {
 
     expect(markdownLink).toHaveFocus()
   })
+
+  test('uses the not-found state when a project slug is opened through the writing route', async () => {
+    server.use(
+      http.get('/api/content/navigation', () => HttpResponse.json(writingSummaries)),
+      http.get('/api/content/:slug', ({ params }) => {
+        if (String(params.slug) === 'portfolio') {
+          return HttpResponse.json({
+            summary: {
+              slug: 'portfolio',
+              kind: 'project',
+              title: 'Portfolio Website',
+              status: 'initial implementation',
+              summary:
+                'A straightforward ASP.NET Core and React portfolio built as a public engineering artifact.',
+              tags: ['project', 'portfolio', 'full-stack'],
+              relatedSlugs: [],
+            },
+            markdown: 'This project should not render under the writing route.',
+          } satisfies ContentDocument)
+        }
+
+        const slug = String(params.slug)
+        const document = writingDocuments[slug]
+
+        if (!document) {
+          return HttpResponse.text('Missing content', { status: 404 })
+        }
+
+        return HttpResponse.json(document)
+      }),
+    )
+
+    renderRoute('/writing/portfolio')
+
+    expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Portfolio Website' })).not.toBeInTheDocument()
+  })
 })

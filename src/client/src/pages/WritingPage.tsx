@@ -6,5 +6,5 @@ type WritingPageProps = {
 }
 
 export function WritingPage({ slug }: WritingPageProps): ReactElement {
-  return <ContentPage slug={slug} />
+  return <ContentPage slug={slug} expectedKind="writing" />
 }

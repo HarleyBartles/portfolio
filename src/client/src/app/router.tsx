@@ -42,19 +42,19 @@ export const appRoutes: RouteObject[] = [
       },
       {
         path: 'experience',
-        element: <ContentPage slug="experience" />,
+        element: <ContentPage slug="experience" expectedKind="experience" />,
       },
       {
         path: 'engineering-practice',
-        element: <ContentPage slug="engineering-practice" />,
+        element: <ContentPage slug="engineering-practice" expectedKind="practice" />,
       },
       {
         path: 'ai-engineering',
-        element: <ContentPage slug="ai-engineering" />,
+        element: <ContentPage slug="ai-engineering" expectedKind="ai-engineering" />,
       },
       {
         path: 'learning-and-development',
-        element: <ContentPage slug="learning-and-development" />,
+        element: <ContentPage slug="learning-and-development" expectedKind="learning" />,
       },
       {
         path: 'writing',

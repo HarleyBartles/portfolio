@@ -6,9 +6,11 @@ import { MarkdownContent } from '../components/MarkdownContent'
 import { ProjectStatus } from '../components/ProjectStatus'
 import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
+import type { ContentKind } from '../types/content'
 
 type ContentPageProps = {
   slug: string
+  expectedKind?: ContentKind
 }
 
 function ContentLoadingState(): ReactElement {
@@ -45,7 +47,7 @@ function ContentNotFoundState(): ReactElement {
   )
 }
 
-export function ContentPage({ slug }: ContentPageProps): ReactElement {
+export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElement {
   const contentQuery = useQuery(contentQueries.document(slug))
   const navigationQuery = useQuery(contentQueries.navigation())
 
@@ -67,7 +69,13 @@ export function ContentPage({ slug }: ContentPageProps): ReactElement {
     return <ContentErrorState />
   }
 
+  if (expectedKind !== undefined && document.summary.kind !== expectedKind) {
+    return <ContentNotFoundState />
+  }
+
   const relatedSummaries = navigationQuery.data ?? []
+  const relatedNavigationUnavailable =
+    document.summary.relatedSlugs.length > 0 && navigationQuery.isError
 
   return (
     <SiteLayout>
@@ -79,7 +87,11 @@ export function ContentPage({ slug }: ContentPageProps): ReactElement {
           {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
         </header>
         <MarkdownContent markdown={document.markdown} />
-        <RelatedContent slugs={document.summary.relatedSlugs} summaries={relatedSummaries} />
+        <RelatedContent
+          slugs={document.summary.relatedSlugs}
+          summaries={relatedSummaries}
+          unavailable={relatedNavigationUnavailable}
+        />
       </article>
     </SiteLayout>
   )

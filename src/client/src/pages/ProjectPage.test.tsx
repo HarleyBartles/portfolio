@@ -144,4 +144,40 @@ describe('ProjectPage routes', () => {
     expect(screen.queryByText(/database/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/contact form/i)).not.toBeInTheDocument()
   })
+
+  test('uses the not-found state when a writing slug is opened through the project route', async () => {
+    server.use(
+      http.get('/api/content/navigation', () => HttpResponse.json(projectSummaries)),
+      http.get('/api/content/:slug', ({ params }) => {
+        if (String(params.slug) === 'agent-ready-repositories') {
+          return HttpResponse.json({
+            summary: {
+              slug: 'agent-ready-repositories',
+              kind: 'writing',
+              title: 'Agent-Ready Repositories',
+              status: 'published',
+              summary: 'A note on progressive discovery and repository surfaces that help agents work safely.',
+              tags: ['writing', 'agents', 'repositories'],
+              relatedSlugs: [],
+            },
+            markdown: 'This note should not render under the project route.',
+          } satisfies ContentDocument)
+        }
+
+        const slug = String(params.slug)
+        const document = projectDocuments[slug]
+
+        if (!document) {
+          return HttpResponse.text('Missing content', { status: 404 })
+        }
+
+        return HttpResponse.json(document)
+      }),
+    )
+
+    renderRoute('/projects/agent-ready-repositories')
+
+    expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Agent-Ready Repositories' })).not.toBeInTheDocument()
+  })
 })

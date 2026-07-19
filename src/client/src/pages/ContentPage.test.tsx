@@ -6,7 +6,7 @@ import { describe, expect, test } from 'vitest'
 import { appRoutes } from '../app/router'
 import { createPortfolioQueryClient } from '../app/queryClient'
 import { server } from '../test/server'
-import type { ContentDocument, ContentSummary } from '../types/content'
+import type { ContentDocument, ContentKind, ContentSummary } from '../types/content'
 
 const navigationSummaries = [
   {
@@ -188,5 +188,71 @@ describe('ContentPage routes', () => {
 
     expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument()
     expect(screen.getByText(/portfolio story is not available/i)).toBeInTheDocument()
+  })
+
+  test.each([
+    ['/experience', 'practice'],
+    ['/engineering-practice', 'experience'],
+    ['/ai-engineering', 'learning'],
+    ['/learning-and-development', 'ai-engineering'],
+  ] satisfies Array<[string, ContentKind]>)(
+    'uses the not-found state when %s returns %s content',
+    async (path, actualKind) => {
+      server.use(
+        http.get('/api/content/navigation', () => HttpResponse.json(navigationSummaries)),
+        http.get('/api/content/:slug', ({ params }) => {
+          const slug = String(params.slug)
+          const baseDocument = documentsBySlug[slug]
+
+          if (!baseDocument) {
+            return HttpResponse.text('Missing content', { status: 404 })
+          }
+
+          return HttpResponse.json({
+            ...baseDocument,
+            summary: {
+              ...baseDocument.summary,
+              kind: actualKind,
+            },
+          } satisfies ContentDocument)
+        }),
+      )
+
+      renderRoute(path)
+
+      expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument()
+    },
+  )
+
+  test('keeps the story visible and explains when related navigation fails', async () => {
+    server.use(
+      http.get('/api/content/navigation', () =>
+        HttpResponse.text('Navigation unavailable', {
+          status: 503,
+        }),
+      ),
+      http.get('/api/content/:slug', ({ params }) => {
+        const slug = String(params.slug)
+        const document = documentsBySlug[slug]
+
+        if (!document) {
+          return HttpResponse.text('Missing content', { status: 404 })
+        }
+
+        return HttpResponse.json(document)
+      }),
+    )
+
+    renderRoute('/engineering-practice')
+
+    expect(
+      await screen.findByRole('heading', {
+        level: 1,
+        name: 'Engineering Practice',
+      }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/repository design is part of the practice/i)).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent(/related links are temporarily unavailable/i)
+    expect(screen.queryByRole('navigation', { name: /related content/i })).not.toBeInTheDocument()
   })
 })

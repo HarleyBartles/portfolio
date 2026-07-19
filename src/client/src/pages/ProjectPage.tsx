@@ -6,5 +6,5 @@ type ProjectPageProps = {
 }
 
 export function ProjectPage({ slug }: ProjectPageProps): ReactElement {
-  return <ContentPage slug={slug} />
+  return <ContentPage slug={slug} expectedKind="project" />
 }

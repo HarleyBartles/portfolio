@@ -8,7 +8,10 @@
 
 ## Files
 - [ContentLink.tsx](ContentLink.tsx)
+- [MarkdownContent.tsx](MarkdownContent.tsx)
 - [OrientationStrip.tsx](OrientationStrip.tsx)
+- [ProjectStatus.tsx](ProjectStatus.tsx)
+- [RelatedContent.tsx](RelatedContent.tsx)
 - [SiteFooter.tsx](SiteFooter.tsx)
 - [SiteHeader.tsx](SiteHeader.tsx)
 - [SiteLayout.test.tsx](SiteLayout.test.tsx)

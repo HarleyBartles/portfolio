@@ -8,8 +8,16 @@
 
 ## Files
 - [AreaPlaceholderPage.tsx](AreaPlaceholderPage.tsx)
+- [ContentPage.test.tsx](ContentPage.test.tsx)
+- [ContentPage.tsx](ContentPage.tsx)
 - [ErrorPage.tsx](ErrorPage.tsx)
 - [HomePage.test.tsx](HomePage.test.tsx)
 - [HomePage.tsx](HomePage.tsx)
 - [LoadingPage.tsx](LoadingPage.tsx)
 - [NotFoundPage.tsx](NotFoundPage.tsx)
+- [ProjectIndexPage.tsx](ProjectIndexPage.tsx)
+- [ProjectPage.test.tsx](ProjectPage.test.tsx)
+- [ProjectPage.tsx](ProjectPage.tsx)
+- [WritingIndexPage.tsx](WritingIndexPage.tsx)
+- [WritingPage.test.tsx](WritingPage.test.tsx)
+- [WritingPage.tsx](WritingPage.tsx)
