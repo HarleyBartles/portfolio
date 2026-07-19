@@ -30,7 +30,7 @@ public static class ContentManifestLoader
             throw new InvalidDataException("Manifest must contain an items array.");
         }
 
-        var seenSlugs = new HashSet<string>(StringComparer.Ordinal);
+        var seenSlugs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var items = new List<ContentManifestItem>(manifest.Items.Count);
 
         foreach (var item in manifest.Items)

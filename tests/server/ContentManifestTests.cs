@@ -83,6 +83,26 @@ public sealed class ContentManifestTests
     }
 
     [Fact]
+    public async Task RejectsDuplicateSlugsThatDifferOnlyByCase()
+    {
+        using var fixture = new ContentFixture();
+        fixture.WriteMarkdown("projects/portfolio.md", "Portfolio");
+        fixture.WriteMarkdown("projects/wild-bunch.md", "Wild Bunch");
+        fixture.WriteManifest(new
+        {
+            items = new object[]
+            {
+                ManifestItem("portfolio", "project", "Portfolio", "The portfolio project.", "projects/portfolio.md"),
+                ManifestItem("Portfolio", "project", "Duplicate", "A duplicate slug.", "projects/wild-bunch.md")
+            }
+        });
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(
+            () => ContentManifestLoader.LoadAsync(fixture.ManifestPath));
+        Assert.Contains("duplicate slug", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task RejectsUnsupportedKinds()
     {
         using var fixture = new ContentFixture();
