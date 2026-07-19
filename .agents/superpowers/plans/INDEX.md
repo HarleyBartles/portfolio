@@ -10,3 +10,4 @@
 - [2026-07-13-portfolio-plugin-marketplace-setup.md](2026-07-13-portfolio-plugin-marketplace-setup.md)
 - [2026-07-14-agent-surfaces-refresh-and-script-contract.md](2026-07-14-agent-surfaces-refresh-and-script-contract.md)
 - [2026-07-18-portfolio-local-doctrine-and-stage-guides.md](2026-07-18-portfolio-local-doctrine-and-stage-guides.md)
+- [2026-07-19-portfolio-website-initial-implementation.md](2026-07-19-portfolio-website-initial-implementation.md)
