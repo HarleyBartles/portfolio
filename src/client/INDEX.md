@@ -19,3 +19,4 @@
 - [tsconfig.json](tsconfig.json)
 - [tsconfig.node.json](tsconfig.node.json)
 - [vite.config.ts](vite.config.ts)
+- [vitest.config.ts](vitest.config.ts)
