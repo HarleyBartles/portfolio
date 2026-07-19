@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import type { ContentSummary } from '../types/content'
+import { getContentPath } from '../types/content'
 
 type ContentLinkProps = {
   item: ContentSummary
@@ -7,7 +8,7 @@ type ContentLinkProps = {
   href?: string
 }
 
-export function ContentLink({ item, label, href = `/content/${item.slug}` }: ContentLinkProps): ReactElement {
+export function ContentLink({ item, label, href = getContentPath(item) }: ContentLinkProps): ReactElement {
   return (
     <a className="content-link" href={href}>
       {label}

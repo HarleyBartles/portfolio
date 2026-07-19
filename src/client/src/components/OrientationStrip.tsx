@@ -35,6 +35,12 @@ const orientationAreas = [
     findItem: (items) => items.find((item) => item.kind === 'ai-engineering'),
   },
   {
+    id: 'learning-and-development',
+    label: 'Learning and Development',
+    href: '/learning-and-development',
+    findItem: (items) => items.find((item) => item.kind === 'learning'),
+  },
+  {
     id: 'writing-and-notes',
     label: 'Writing and Notes',
     href: '/writing',

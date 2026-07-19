@@ -1,9 +1,26 @@
-import { createBrowserRouter, type RouteObject } from 'react-router-dom'
+import type { ReactElement } from 'react'
+import { createBrowserRouter, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
 import { ErrorPage } from '../pages/ErrorPage'
-import { AreaPlaceholderPage } from '../pages/AreaPlaceholderPage'
+import { ContentPage } from '../pages/ContentPage'
 import { HomePage } from '../pages/HomePage'
 import { NotFoundPage } from '../pages/NotFoundPage'
+import { ProjectIndexPage } from '../pages/ProjectIndexPage'
+import { ProjectPage } from '../pages/ProjectPage'
+import { WritingIndexPage } from '../pages/WritingIndexPage'
+import { WritingPage } from '../pages/WritingPage'
+
+function ProjectRoutePage(): ReactElement {
+  const { slug } = useParams()
+
+  return slug === undefined ? <NotFoundPage /> : <ProjectPage slug={slug} />
+}
+
+function WritingRoutePage(): ReactElement {
+  const { slug } = useParams()
+
+  return slug === undefined ? <NotFoundPage /> : <WritingPage slug={slug} />
+}
 
 export const appRoutes: RouteObject[] = [
   {
@@ -17,23 +34,35 @@ export const appRoutes: RouteObject[] = [
       },
       {
         path: 'projects',
-        element: <AreaPlaceholderPage title="Projects" />,
+        element: <ProjectIndexPage />,
+      },
+      {
+        path: 'projects/:slug',
+        element: <ProjectRoutePage />,
       },
       {
         path: 'experience',
-        element: <AreaPlaceholderPage title="Experience" />,
+        element: <ContentPage slug="experience" />,
       },
       {
         path: 'engineering-practice',
-        element: <AreaPlaceholderPage title="Engineering Practice" />,
+        element: <ContentPage slug="engineering-practice" />,
       },
       {
         path: 'ai-engineering',
-        element: <AreaPlaceholderPage title="AI Engineering" />,
+        element: <ContentPage slug="ai-engineering" />,
+      },
+      {
+        path: 'learning-and-development',
+        element: <ContentPage slug="learning-and-development" />,
       },
       {
         path: 'writing',
-        element: <AreaPlaceholderPage title="Writing and Notes" />,
+        element: <WritingIndexPage />,
+      },
+      {
+        path: 'writing/:slug',
+        element: <WritingRoutePage />,
       },
       {
         path: '*',

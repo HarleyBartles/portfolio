@@ -4,4 +4,6 @@ The project exists to explore a game-shaped product with state, replayability, f
 
 Harley uses Wild Bunch to show the trade-off side of engineering: when event history, deterministic workflows, and careful boundaries help, and when they add cost. The current state is intentionally described as pre-alpha because the important public fact is the working direction, not a false claim of production readiness.
 
-Wild Bunch is separate from this Portfolio site. When the project is ready for broader public traffic, this story can point visitors toward its public repository and demo surface; until then, the useful narrative is the engineering direction and the trade-offs behind it.
+Wild Bunch is separate from this Portfolio site. The public repository is available on GitHub: [Public repository](https://github.com/HarleyBartles/wild-bunch).
+
+Demo: not published yet. When the project is ready for broader public traffic, this story can point visitors toward the demo surface; until then, the useful narrative is the engineering direction and the trade-offs behind it.

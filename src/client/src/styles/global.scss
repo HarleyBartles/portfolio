@@ -213,6 +213,104 @@ main {
   font-weight: 700;
 }
 
+.content-page,
+.content-index {
+  max-width: 48rem;
+  padding-block: clamp(4rem, 10vw, 7rem);
+}
+
+.content-page-header {
+  margin-bottom: var(--space-8);
+}
+
+.content-page h1,
+.content-index h1 {
+  max-width: 13ch;
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.content-summary {
+  max-width: 40rem;
+  margin: var(--space-5) 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  line-height: 1.45;
+}
+
+.content-status {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin: var(--space-5) 0 0;
+  border: 1px solid rgb(31 36 31 / 20%);
+  background: rgb(255 250 240 / 70%);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-ink);
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.content-status span {
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.markdown-content {
+  font-size: 1.08rem;
+}
+
+.markdown-content h2,
+.related-content h2,
+.content-card h2 {
+  margin: var(--space-8) 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.markdown-content p,
+.content-card p,
+.related-content p {
+  margin: var(--space-4) 0 0;
+  color: var(--color-muted);
+}
+
+.content-card-list,
+.related-content ul {
+  padding: 0;
+  margin: var(--space-6) 0 0;
+  list-style: none;
+}
+
+.content-card-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.content-card,
+.related-content li {
+  border-left: 0.35rem solid var(--color-accent);
+  background: rgb(255 250 240 / 58%);
+  padding: var(--space-5);
+}
+
+.content-card h2,
+.related-content h2 {
+  margin-top: 0;
+}
+
+.related-content {
+  margin-top: var(--space-8);
+  border-top: 1px solid rgb(31 36 31 / 18%);
+  padding-top: var(--space-6);
+}
+
 @media (max-width: 46rem) {
   .site-header {
     align-items: flex-start;
