@@ -1,6 +1,7 @@
 # Portfolio
 
-This repository will become Harley Bartles' personal developer portfolio website, eventually deployed to `harleybartles.com`.
+This repository contains Harley Bartles' personal developer portfolio website,
+eventually deployed to `harleybartles.com`.
 
 The site is intended to present a focused professional presence:
 
@@ -12,11 +13,90 @@ The site is intended to present a focused professional presence:
 
 ## Current Status
 
-This repository has just been initialized.
+The first public application slice is now scaffolded and tested locally.
 
-- No application code has been scaffolded yet.
-- No deployment pipeline exists yet.
-- The repository structure is being kept intentionally small so the site can grow without being over-engineered.
+- `src/server/` contains the ASP.NET Core content API.
+- `src/client/` contains the React, TypeScript, and Vite client.
+- `src/content/` contains the repository-owned Markdown and typed content manifest.
+- GitHub Actions runs all repository hygiene and application checks only on
+  published pull requests and pushes to `main`.
+- Browser coverage runs against the local ASP.NET Core and Vite servers through
+  the Playwright configuration; it does not call Wild Bunch production.
+
+There is no production deployment pipeline yet.
+
+## Local Development
+
+Use two terminals for interactive local development. On Windows, run the API
+in the first terminal:
+
+```powershell
+dotnet run --project src/server/Portfolio.Server.csproj
+```
+
+In the second terminal, install dependencies and keep the Vite server running:
+
+```powershell
+Push-Location src/client
+npm install
+npm run dev
+```
+
+From another shell, run the client validation commands:
+
+```powershell
+Push-Location src/client
+npm test -- --run
+npm run build
+npm run test:e2e
+Pop-Location
+```
+
+The browser command starts the ASP.NET Core API and Vite preview server from
+`playwright.config.ts`; it does not call Wild Bunch production.
+
+On Bash-compatible systems, run the API in the first terminal:
+
+```bash
+dotnet run --project src/server/Portfolio.Server.csproj
+```
+
+In the second terminal, install dependencies and keep the Vite server running:
+
+```bash
+cd src/client
+npm install
+npm run dev
+```
+
+From another shell, run the client validation commands:
+
+```bash
+cd src/client
+npm test -- --run
+npm run build
+npm run test:e2e
+cd ../..
+```
+
+The browser command starts both configured local servers and does not call Wild
+Bunch production.
+
+Repository tooling checks use `py -3` on Windows and `python3` on Bash:
+
+```powershell
+.\scripts\ci-preflight.ps1 -Check
+py -3 -m unittest discover -s tests -v
+```
+
+```bash
+bash ./scripts/ci-preflight.sh --check
+python3 -m unittest discover -s tests -v
+```
+
+The client consumes repository-owned content through the ASP.NET Core API.
+Authentication, database persistence, and the Wild Bunch playthrough flow are
+deferred until a separate requirement justifies them.
 
 ## Architecture Direction
 
