@@ -1,0 +1,78 @@
+{
+  "items": [
+    {
+      "slug": "wild-bunch",
+      "kind": "project",
+      "title": "Wild Bunch",
+      "status": "pre-alpha",
+      "summary": "A work-in-progress project demonstrating deliberate complex architecture.",
+      "path": "projects/wild-bunch.md",
+      "tags": ["project", "architecture"],
+      "relatedSlugs": ["engineering-practice", "ai-engineering"]
+    },
+    {
+      "slug": "portfolio",
+      "kind": "project",
+      "title": "Portfolio Website",
+      "status": "initial implementation",
+      "summary": "A straightforward ASP.NET Core and React portfolio built as a public engineering artifact.",
+      "path": "projects/portfolio.md",
+      "tags": ["project", "portfolio", "full-stack"],
+      "relatedSlugs": ["engineering-practice", "agent-ready-repositories"]
+    },
+    {
+      "slug": "experience",
+      "kind": "experience",
+      "title": "Experience",
+      "summary": "Professional full-stack work framed around scope, responsibility, and progression.",
+      "path": "experience.md",
+      "tags": ["capability", "experience"],
+      "relatedSlugs": ["ai-engineering", "engineering-practice"]
+    },
+    {
+      "slug": "engineering-practice",
+      "kind": "practice",
+      "title": "Engineering Practice",
+      "summary": "How requirements, architecture, tests, reviews, and repository design shape the work.",
+      "path": "engineering-practice.md",
+      "tags": ["capability", "practice"],
+      "relatedSlugs": ["agent-ready-repositories", "wild-bunch"]
+    },
+    {
+      "slug": "ai-engineering",
+      "kind": "ai-engineering",
+      "title": "AI Engineering",
+      "summary": "Practical AI-first engineering with deliberate constraints, review, and tool choice.",
+      "path": "ai-engineering.md",
+      "tags": ["capability", "ai-engineering"],
+      "relatedSlugs": ["model-selection-is-engineering", "experience"]
+    },
+    {
+      "slug": "learning-and-development",
+      "kind": "learning",
+      "title": "Learning and Development",
+      "summary": "Current development toward deeper AI engineering capability through structured practice.",
+      "path": "learning-and-development.md",
+      "tags": ["learning", "ai-engineering"],
+      "relatedSlugs": ["ai-engineering", "engineering-practice"]
+    },
+    {
+      "slug": "agent-ready-repositories",
+      "kind": "writing",
+      "title": "Agent-Ready Repositories",
+      "summary": "A note on progressive discovery, thin routing, and repository surfaces that help agents work safely.",
+      "path": "writing/agent-ready-repositories.md",
+      "tags": ["writing", "agents", "repositories"],
+      "relatedSlugs": ["engineering-practice", "portfolio"]
+    },
+    {
+      "slug": "model-selection-is-engineering",
+      "kind": "writing",
+      "title": "Model Selection Is Engineering",
+      "summary": "A note on choosing AI models and tools by task, risk, feedback speed, and cost.",
+      "path": "writing/model-selection-is-engineering.md",
+      "tags": ["writing", "ai-engineering", "cost"],
+      "relatedSlugs": ["ai-engineering", "learning-and-development"]
+    }
+  ]
+}

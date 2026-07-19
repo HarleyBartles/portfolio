@@ -2,3 +2,11 @@
 .agents/superpowers/sdd/
 scripts/__pycache__/
 *.pyc
+src/client/node_modules/
+src/client/dist/
+src/server/bin/
+src/server/obj/
+tests/server/bin/
+tests/server/obj/
+test-results/
+playwright-report/

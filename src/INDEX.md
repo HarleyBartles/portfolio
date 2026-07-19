@@ -8,7 +8,9 @@
 
 ## Directories
 - [client](client/INDEX.md)
+- [content](content/INDEX.md)
 - [server](server/INDEX.md)
 
 ## Files
+- [AGENTS.md](AGENTS.md)
 - [README.md](README.md)

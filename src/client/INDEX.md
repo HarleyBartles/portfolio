@@ -6,5 +6,20 @@
 - Repo path: `src/client`
 - Up: [parent index](../INDEX.md)
 
+## Directories
+- [e2e](e2e/INDEX.md)
+- [public](public/INDEX.md)
+- [src](src/INDEX.md)
+
 ## Files
+- [AGENTS.md](AGENTS.md)
+- [index.html](index.html)
+- [package-lock.json](package-lock.json)
+- [package.json](package.json)
+- [playwright.config.ts](playwright.config.ts)
 - [README.md](README.md)
+- [tsconfig.app.json](tsconfig.app.json)
+- [tsconfig.json](tsconfig.json)
+- [tsconfig.node.json](tsconfig.node.json)
+- [vite.config.ts](vite.config.ts)
+- [vitest.config.ts](vitest.config.ts)
