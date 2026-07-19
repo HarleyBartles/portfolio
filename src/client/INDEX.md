@@ -7,6 +7,7 @@
 - Up: [parent index](../INDEX.md)
 
 ## Directories
+- [e2e](e2e/INDEX.md)
 - [public](public/INDEX.md)
 - [src](src/INDEX.md)
 
@@ -15,6 +16,7 @@
 - [index.html](index.html)
 - [package-lock.json](package-lock.json)
 - [package.json](package.json)
+- [playwright.config.ts](playwright.config.ts)
 - [README.md](README.md)
 - [tsconfig.app.json](tsconfig.app.json)
 - [tsconfig.json](tsconfig.json)
