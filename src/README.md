@@ -15,7 +15,7 @@ for integrated browser coverage without contacting Wild Bunch production.
 From the repository root, start the API with:
 
 ```powershell
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 Then use a second terminal for interactive client development:
@@ -39,7 +39,7 @@ Pop-Location
 The Bash equivalents are:
 
 ```bash
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 In the second terminal, start the client:

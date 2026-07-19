@@ -1,19 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
-
-const apiBaseUrl = 'http://127.0.0.1:5278'
-
-async function useLocalContentApi(page: Page): Promise<void> {
-  await page.route('**/api/content/**', async (route) => {
-    const requestedUrl = new URL(route.request().url())
-    await route.continue({
-      url: `${apiBaseUrl}${requestedUrl.pathname}${requestedUrl.search}`,
-    })
-  })
-}
-
-test.beforeEach(async ({ page }) => {
-  await useLocalContentApi(page)
-})
+import { expect, test } from '@playwright/test'
 
 test('visitor navigates to Writing and opens a note', async ({ page }) => {
   await page.goto('/')

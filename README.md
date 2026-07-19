@@ -31,7 +31,7 @@ Use two terminals for interactive local development. On Windows, run the API
 in the first terminal:
 
 ```powershell
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 In the second terminal, install dependencies and keep the Vite server running:
@@ -58,7 +58,7 @@ The browser command starts the ASP.NET Core API and Vite preview server from
 On Bash-compatible systems, run the API in the first terminal:
 
 ```bash
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 In the second terminal, install dependencies and keep the Vite server running:

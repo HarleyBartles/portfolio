@@ -9,13 +9,13 @@ API. Content is loaded from the repository-owned Markdown and typed manifest in
 From the repository root, run the server with Windows PowerShell:
 
 ```powershell
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 The Bash equivalent is:
 
 ```bash
-dotnet run --project src/server/Portfolio.Server.csproj
+dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
 ```
 
 The health endpoint is `/health`; navigation and document content are served

@@ -45,6 +45,7 @@ npm run test:e2e
 
 `npm run test:e2e` uses `playwright.config.ts` to start the local ASP.NET Core
 API and Vite preview server, then exercises the public journeys with Chromium.
-It does not call the Wild Bunch deployment. The client consumes content from
-the ASP.NET Core API; authentication, database persistence, and the Wild Bunch
-playthrough flow remain deferred.
+Both Vite modes proxy `/api` to the local ASP.NET Core server at
+`http://127.0.0.1:5278`. It does not call the Wild Bunch deployment. The client
+consumes content from the ASP.NET Core API; authentication, database
+persistence, and the Wild Bunch playthrough flow remain deferred.
