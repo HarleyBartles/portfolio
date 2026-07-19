@@ -11,4 +11,5 @@
 - [server](server/INDEX.md)
 
 ## Files
+- [AGENTS.md](AGENTS.md)
 - [README.md](README.md)

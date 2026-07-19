@@ -17,4 +17,5 @@
 - [.gitignore](.gitignore)
 - [.gitmodules](.gitmodules)
 - [AGENTS.md](AGENTS.md)
+- [Portfolio.sln](Portfolio.sln)
 - [README.md](README.md)

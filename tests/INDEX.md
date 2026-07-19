@@ -6,8 +6,12 @@
 - Repo path: `tests`
 - Up: [parent index](../INDEX.md)
 
+## Directories
+- [server](server/INDEX.md)
+
 ## Files
 - [__init__.py](__init__.py)
+- [AGENTS.md](AGENTS.md)
 - [test_assert_active_worktree.py](test_assert_active_worktree.py)
 - [test_ci_preflight.py](test_ci_preflight.py)
 - [test_generate_index_mesh.py](test_generate_index_mesh.py)
