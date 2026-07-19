@@ -1,7 +1,7 @@
-# Experience
+Harley's professional work spans six-and-a-half years of full-stack software engineering across changing languages, frameworks, and product constraints. The public focus is scope, responsibility, judgment, and progression without overstating a title or exposing private implementation details.
 
-Harley's professional work spans full-stack software engineering across changing languages, frameworks, and product constraints. The public story should focus on scope, responsibility, judgment, and progression rather than overstating titles or exposing private implementation details.
+The work includes senior-level responsibility: shaping requirements, decomposing complex delivery into reviewable slices, improving repository feedback loops, and shipping production-oriented solutions with human accountability.
 
-Where publication is appropriate, the experience narrative can describe AI-first professional practice: shaping requirements, decomposing work for agents, reviewing generated code, improving repository feedback loops, and shipping production-oriented solutions with human accountability.
+AI-forward practice is part of that experience. Harley uses AI tools to accelerate analysis, implementation, testing, and documentation while keeping ownership of source truth, validation, and final review.
 
-The boundary is deliberate. The portfolio can explain the kind of work, the engineering responsibilities, and the lessons learned without naming an employer, sharing internal URLs, revealing private systems, or publishing confidential details.
+Proprietary projects can be discussed through sanitized engineering lessons. This portfolio describes the kind of work, the responsibilities carried, and the habits developed without naming an employer, sharing internal URLs, revealing private systems, or publishing confidential details.
