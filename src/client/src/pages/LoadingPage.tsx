@@ -1,4 +1,6 @@
 import type { ReactElement } from 'react'
+import { AccessibleStatus } from '../components/AccessibleStatus'
+import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
 
 type LoadingPageProps = {
@@ -6,12 +8,10 @@ type LoadingPageProps = {
 }
 
 export function LoadingPage({ shell = true }: LoadingPageProps): ReactElement {
-  const Heading = shell ? 'h1' : 'h2'
   const content = (
-    <section className="state-panel" aria-labelledby="loading-title">
-      <Heading id="loading-title">Preparing the portfolio</Heading>
-      <p role="status">Loading portfolio navigation.</p>
-    </section>
+    <AccessibleStatus id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2}>
+      Loading portfolio navigation.
+    </AccessibleStatus>
   )
 
   if (!shell) {
@@ -20,6 +20,11 @@ export function LoadingPage({ shell = true }: LoadingPageProps): ReactElement {
 
   return (
     <SiteLayout>
+      <DocumentMetadata
+        title="Portfolio Loading | Harley Bartles"
+        description="Portfolio content is loading."
+        canonicalPath="/"
+      />
       {content}
     </SiteLayout>
   )

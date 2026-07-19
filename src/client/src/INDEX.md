@@ -7,6 +7,7 @@
 - Up: [parent index](../INDEX.md)
 
 ## Directories
+- [accessibility](accessibility/INDEX.md)
 - [api](api/INDEX.md)
 - [app](app/INDEX.md)
 - [components](components/INDEX.md)

@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { createBrowserRouter, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
-import { ErrorPage } from '../pages/ErrorPage'
+import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
 import { ContentPage } from '../pages/ContentPage'
 import { HomePage } from '../pages/HomePage'
 import { NotFoundPage } from '../pages/NotFoundPage'
@@ -26,7 +26,7 @@ export const appRoutes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       {
         index: true,

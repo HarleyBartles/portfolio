@@ -7,6 +7,7 @@
 - Up: [parent index](../INDEX.md)
 
 ## Directories
+- [public](public/INDEX.md)
 - [src](src/INDEX.md)
 
 ## Files

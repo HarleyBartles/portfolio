@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
 import { contentQueries } from '../app/queryClient'
+import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
 import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
@@ -11,6 +12,11 @@ export function WritingIndexPage(): ReactElement {
 
   return (
     <SiteLayout>
+      <DocumentMetadata
+        title="Writing and Notes | Harley Bartles"
+        description="Short public notes on engineering practice, AI work, and repository design."
+        canonicalPath="/writing"
+      />
       <section className="content-index" aria-labelledby="writing-index-title">
         <p className="eyebrow">Writing</p>
         <h1 id="writing-index-title">Writing and Notes</h1>

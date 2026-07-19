@@ -2,11 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
+import { AccessibleStatus } from '../components/AccessibleStatus'
+import { DocumentMetadata } from '../components/DocumentMetadata'
 import { MarkdownContent } from '../components/MarkdownContent'
 import { ProjectStatus } from '../components/ProjectStatus'
 import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
 import type { ContentKind } from '../types/content'
+import { getContentPath } from '../types/content'
 
 type ContentPageProps = {
   slug: string
@@ -16,10 +19,14 @@ type ContentPageProps = {
 function ContentLoadingState(): ReactElement {
   return (
     <SiteLayout>
-      <section className="state-panel" aria-labelledby="content-loading-title">
-        <h1 id="content-loading-title">Preparing the portfolio</h1>
-        <p role="status">Loading portfolio content.</p>
-      </section>
+      <DocumentMetadata
+        title="Portfolio Loading | Harley Bartles"
+        description="Portfolio content is loading."
+        canonicalPath="/"
+      />
+      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio">
+        Loading portfolio content.
+      </AccessibleStatus>
     </SiteLayout>
   )
 }
@@ -27,10 +34,18 @@ function ContentLoadingState(): ReactElement {
 function ContentErrorState(): ReactElement {
   return (
     <SiteLayout>
-      <section className="state-panel" aria-labelledby="content-error-title">
-        <h1 id="content-error-title">Portfolio content unavailable</h1>
-        <p role="alert">Could not load this portfolio story. Please refresh or try again later.</p>
-      </section>
+      <DocumentMetadata
+        title="Portfolio Story Unavailable | Harley Bartles"
+        description="This portfolio story could not be loaded."
+        canonicalPath="/"
+      />
+      <AccessibleStatus id="content-error-title" title="Portfolio content unavailable" tone="alert">
+        Could not load this portfolio story. Please refresh or try again later.
+      </AccessibleStatus>
+      <div className="state-actions" aria-label="Recovery navigation">
+        <a href="/">Go to the homepage</a>
+        <a href="/projects">Browse project stories</a>
+      </div>
     </SiteLayout>
   )
 }
@@ -38,6 +53,11 @@ function ContentErrorState(): ReactElement {
 function ContentNotFoundState(): ReactElement {
   return (
     <SiteLayout>
+      <DocumentMetadata
+        title="Page Not Found | Harley Bartles"
+        description="This portfolio story is not available."
+        canonicalPath="/"
+      />
       <section className="state-panel" aria-labelledby="content-not-found-title">
         <h1 id="content-not-found-title">Page not found</h1>
         <p>This portfolio story is not available.</p>
@@ -79,6 +99,11 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
 
   return (
     <SiteLayout>
+      <DocumentMetadata
+        title={`${document.summary.title} | Harley Bartles`}
+        description={document.summary.summary}
+        canonicalPath={getContentPath(document.summary)}
+      />
       <article className="content-page" aria-labelledby="content-page-title">
         <header className="content-page-header">
           <p className="eyebrow">{document.summary.kind}</p>

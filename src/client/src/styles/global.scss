@@ -213,6 +213,21 @@ main {
   font-weight: 700;
 }
 
+.state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.state-actions a {
+  border: 1px solid rgb(31 36 31 / 20%);
+  background: rgb(255 250 240 / 70%);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
 .content-page,
 .content-index {
   max-width: 48rem;

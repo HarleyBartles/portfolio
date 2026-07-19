@@ -7,11 +7,15 @@
 - Up: [parent index](../INDEX.md)
 
 ## Files
+- [AccessibleStatus.tsx](AccessibleStatus.tsx)
 - [ContentLink.tsx](ContentLink.tsx)
+- [DocumentMetadata.test.tsx](DocumentMetadata.test.tsx)
+- [DocumentMetadata.tsx](DocumentMetadata.tsx)
 - [MarkdownContent.tsx](MarkdownContent.tsx)
 - [OrientationStrip.tsx](OrientationStrip.tsx)
 - [ProjectStatus.tsx](ProjectStatus.tsx)
 - [RelatedContent.tsx](RelatedContent.tsx)
+- [RouteErrorBoundary.tsx](RouteErrorBoundary.tsx)
 - [SiteFooter.tsx](SiteFooter.tsx)
 - [SiteHeader.tsx](SiteHeader.tsx)
 - [SiteLayout.test.tsx](SiteLayout.test.tsx)

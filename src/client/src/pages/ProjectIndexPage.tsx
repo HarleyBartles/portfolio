@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
 import { contentQueries } from '../app/queryClient'
+import { DocumentMetadata } from '../components/DocumentMetadata'
 import { ProjectStatus } from '../components/ProjectStatus'
 import { SiteLayout } from '../components/SiteLayout'
 import { getContentPath } from '../types/content'
@@ -12,6 +13,11 @@ export function ProjectIndexPage(): ReactElement {
 
   return (
     <SiteLayout>
+      <DocumentMetadata
+        title="Project Stories | Harley Bartles"
+        description="Selected public engineering project stories from Harley Bartles."
+        canonicalPath="/projects"
+      />
       <section className="content-index" aria-labelledby="project-index-title">
         <p className="eyebrow">Projects</p>
         <h1 id="project-index-title">Project Stories</h1>

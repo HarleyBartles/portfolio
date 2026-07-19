@@ -1,6 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, test } from 'vitest'
+import { AreaPlaceholderPage } from '../pages/AreaPlaceholderPage'
 import { ErrorPage } from '../pages/ErrorPage'
 import { LoadingPage } from '../pages/LoadingPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
@@ -49,5 +50,19 @@ describe('SiteLayout', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(/could not load the portfolio content/i)
     expect(screen.getByRole('heading', { name: /page not found/i })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /return to the homepage/i })).toHaveAttribute('href', '/')
+  })
+
+  test('sets metadata for placeholder pages', () => {
+    render(<AreaPlaceholderPage title="Learning and Development" />)
+
+    expect(document.title).toBe('Learning and Development | Harley Bartles')
+    expect(document.head.querySelector('meta[name="description"]')).toHaveAttribute(
+      'content',
+      'Learning and Development portfolio content is being prepared.',
+    )
+    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://harleybartles.com/',
+    )
   })
 })
