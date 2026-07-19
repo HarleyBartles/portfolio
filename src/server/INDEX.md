@@ -6,6 +6,9 @@
 - Repo path: `src/server`
 - Up: [parent index](../INDEX.md)
 
+## Directories
+- [Content](Content/INDEX.md)
+
 ## Files
 - [AGENTS.md](AGENTS.md)
 - [Portfolio.Server.csproj](Portfolio.Server.csproj)
