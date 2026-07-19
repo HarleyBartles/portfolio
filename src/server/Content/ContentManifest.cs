@@ -6,7 +6,7 @@ public sealed record ContentManifestItem(
     string Slug,
     ContentKind Kind,
     string Title,
-    string? Status,
+    string Status,
     string Summary,
     string Path,
     IReadOnlyList<string> Tags,

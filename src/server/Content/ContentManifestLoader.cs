@@ -43,7 +43,7 @@ public static class ContentManifestLoader
                 throw new InvalidDataException($"Manifest contains duplicate slug '{item.Slug}'.");
             }
 
-            if (!TryParseKind(item.Kind, out var kind))
+            if (!ContentKindJsonConverter.TryParseWireValue(item.Kind, out var kind))
             {
                 throw new InvalidDataException($"Manifest item '{item.Slug}' has unsupported kind '{item.Kind}'.");
             }
@@ -56,11 +56,11 @@ public static class ContentManifestLoader
                 item.Slug,
                 kind,
                 item.Title,
-                string.IsNullOrWhiteSpace(item.Status) ? null : item.Status,
+                string.IsNullOrWhiteSpace(item.Status) ? string.Empty : item.Status,
                 item.Summary,
                 relativePath,
-                item.Tags ?? Array.Empty<string>(),
-                item.RelatedSlugs ?? Array.Empty<string>(),
+                ToReadOnlyList(item.Tags),
+                ToReadOnlyList(item.RelatedSlugs),
                 NormalizeLineEndings(markdown)));
         }
 
@@ -81,19 +81,6 @@ public static class ContentManifestLoader
         {
             throw new InvalidDataException("Manifest item must have non-empty title and summary.");
         }
-    }
-
-    private static bool TryParseKind(string value, out ContentKind kind)
-    {
-        kind = default;
-
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return false;
-        }
-
-        var normalized = value.Replace("-", string.Empty, StringComparison.Ordinal);
-        return Enum.TryParse(normalized, ignoreCase: true, out kind);
     }
 
     private static string ValidateRelativeMarkdownPath(string slug, string path)
@@ -151,6 +138,11 @@ public static class ContentManifestLoader
     {
         return value.Replace("\r\n", "\n", StringComparison.Ordinal)
             .Replace("\r", "\n", StringComparison.Ordinal);
+    }
+
+    private static IReadOnlyList<string> ToReadOnlyList(string[]? values)
+    {
+        return Array.AsReadOnly(values?.ToArray() ?? []);
     }
 
     private sealed record ManifestDocument(List<ManifestItem>? Items);

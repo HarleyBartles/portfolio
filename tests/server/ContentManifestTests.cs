@@ -182,7 +182,9 @@ public sealed class ContentManifestTests
             },
             manifest.Items.Select(item => item.Slug));
         Assert.Equal(2, manifest.Items.Count(item => item.Kind == ContentKind.Project));
-        Assert.Equal(3, manifest.Items.Count(item => item.Kind == ContentKind.Capability));
+        Assert.Single(manifest.Items, item => item.Kind == ContentKind.Experience);
+        Assert.Single(manifest.Items, item => item.Kind == ContentKind.Practice);
+        Assert.Single(manifest.Items, item => item.Kind == ContentKind.AiEngineering);
         Assert.Single(manifest.Items, item => item.Kind == ContentKind.Learning);
         Assert.Equal(2, manifest.Items.Count(item => item.Kind == ContentKind.Writing));
         Assert.All(manifest.Items, item => Assert.NotEmpty(item.Markdown));

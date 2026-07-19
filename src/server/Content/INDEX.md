@@ -7,6 +7,10 @@
 - Up: [parent index](../INDEX.md)
 
 ## Files
-- [ContentKind.cs](ContentKind.cs)
+- [ContentEndpoints.cs](ContentEndpoints.cs)
+- [ContentItem.cs](ContentItem.cs)
 - [ContentManifest.cs](ContentManifest.cs)
 - [ContentManifestLoader.cs](ContentManifestLoader.cs)
+- [ContentOptions.cs](ContentOptions.cs)
+- [FileContentCatalog.cs](FileContentCatalog.cs)
+- [IContentCatalog.cs](IContentCatalog.cs)

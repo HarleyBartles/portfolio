@@ -12,7 +12,9 @@ public sealed class HealthEndpointTests
         using var client = factory.CreateClient();
 
         using var response = await client.GetAsync("/health");
+        var body = await response.Content.ReadAsStringAsync();
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("Healthy", body, StringComparison.OrdinalIgnoreCase);
     }
 }

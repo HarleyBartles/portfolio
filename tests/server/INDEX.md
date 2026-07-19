@@ -7,6 +7,8 @@
 - Up: [parent index](../INDEX.md)
 
 ## Files
+- [ContentEndpointTests.cs](ContentEndpointTests.cs)
 - [ContentManifestTests.cs](ContentManifestTests.cs)
+- [FileContentCatalogTests.cs](FileContentCatalogTests.cs)
 - [HealthEndpointTests.cs](HealthEndpointTests.cs)
 - [Portfolio.Server.Tests.csproj](Portfolio.Server.Tests.csproj)

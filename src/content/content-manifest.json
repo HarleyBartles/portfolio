@@ -22,7 +22,7 @@
     },
     {
       "slug": "experience",
-      "kind": "capability",
+      "kind": "experience",
       "title": "Experience",
       "summary": "Professional full-stack work framed around scope, responsibility, and progression.",
       "path": "experience.md",
@@ -31,7 +31,7 @@
     },
     {
       "slug": "engineering-practice",
-      "kind": "capability",
+      "kind": "practice",
       "title": "Engineering Practice",
       "summary": "How requirements, architecture, tests, reviews, and repository design shape the work.",
       "path": "engineering-practice.md",
@@ -40,7 +40,7 @@
     },
     {
       "slug": "ai-engineering",
-      "kind": "capability",
+      "kind": "ai-engineering",
       "title": "AI Engineering",
       "summary": "Practical AI-first engineering with deliberate constraints, review, and tool choice.",
       "path": "ai-engineering.md",
