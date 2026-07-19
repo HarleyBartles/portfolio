@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /projects/wild-bunch
 
-# Wild Bunch publishes separately at https://wild-bunch.harleybartles.com/.
 Sitemap: https://harleybartles.com/sitemap.xml
