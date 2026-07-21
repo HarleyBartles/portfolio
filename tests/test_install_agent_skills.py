@@ -492,7 +492,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
             )
 
             self.assertTrue((local_skill / "SKILL.md").exists())
-            self.assertFalse((output_root / "stale-entry.txt").exists())
+            self.assertTrue((output_root / "stale-entry.txt").exists())
             provenance = json.loads((output_root / ".provenance.json").read_text(encoding="utf-8"))
             self.assertNotIn("port-example", provenance["copied_skills"])
 
@@ -694,6 +694,9 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
                 encoding="utf-8",
             )
+            retired_source = skill_root.parent / "retired-skill"
+            retired_source.mkdir()
+            (retired_source / "SKILL.md").write_text("# retire me\n", encoding="utf-8")
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
@@ -857,7 +860,7 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 check=True,
             )
 
-    def test_sync_write_mode_replaces_changed_skills_and_removes_unexpected_root_files(self) -> None:
+    def test_sync_write_mode_replaces_changed_skills_and_prunes_source_deleted_skills(self) -> None:
         module = load_module()
 
         with TemporaryDirectory() as temp_dir:
@@ -889,6 +892,9 @@ class InstallAgentSkillsTests(unittest.TestCase):
                 json.dumps({"name": "repo-worker-pack", "version": "1.0.0"}),
                 encoding="utf-8",
             )
+            retired_source = skill_root.parent / "retired-skill"
+            retired_source.mkdir()
+            (retired_source / "SKILL.md").write_text("# retire me\n", encoding="utf-8")
 
             module.get_git_revision = lambda _path: "abc123"  # type: ignore[assignment]
             module.require_linked_worktree = lambda _path: None  # type: ignore[assignment]
@@ -902,6 +908,8 @@ class InstallAgentSkillsTests(unittest.TestCase):
             )
 
             (skill_root / "SKILL.md").write_text("# boring-loop v2\n", encoding="utf-8")
+            (retired_source / "SKILL.md").unlink()
+            retired_source.rmdir()
             (output_root / "stray.txt").write_text("unexpected\n", encoding="utf-8")
 
             module.sync_default_skills(
@@ -911,9 +919,10 @@ class InstallAgentSkillsTests(unittest.TestCase):
             )
 
             self.assertEqual((output_root / "boring-loop" / "SKILL.md").read_text(encoding="utf-8"), "# boring-loop v2\n")
-            self.assertFalse((output_root / "stray.txt").exists())
+            self.assertTrue((output_root / "stray.txt").exists())
+            self.assertFalse((output_root / "retired-skill").exists())
 
-    def test_sync_check_mode_detects_unexpected_root_files(self) -> None:
+    def test_sync_check_mode_allows_unexpected_root_entries(self) -> None:
         module = load_module()
 
         with TemporaryDirectory() as temp_dir:
@@ -955,13 +964,22 @@ class InstallAgentSkillsTests(unittest.TestCase):
             stub_pinned_source_checkout(module)
             stub_marketplace_source_binding(module)
 
-            with self.assertRaises(ValueError):
-                module.sync_default_skills(
-                    module.load_manifest_data(manifest),
-                    source_root,
-                    output_root,
-                    check=True,
-                )
+            module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+            )
+            (output_root / "stray.txt").write_text("unexpected\n", encoding="utf-8")
+
+            result = module.sync_default_skills(
+                module.load_manifest_data(manifest),
+                source_root,
+                output_root,
+                check=True,
+            )
+
+            self.assertEqual(result.copied_skills, ["boring-loop"])
+            self.assertTrue((output_root / "stray.txt").exists())
 
     def test_sync_rejects_duplicate_skill_names(self) -> None:
         module = load_module()

@@ -8,9 +8,11 @@
     "linear-issue-shaping",
     "repo-worker-base",
     "risk-gates",
+    "subagent-model-routing",
     "unslop-plus",
     "using-linear",
     "work-mode-router",
+    "writing-with-clarity",
     "brainstorming",
     "dispatching-parallel-agents",
     "executing-plans",
@@ -26,33 +28,33 @@
     "verification-before-completion",
     "writing-plans",
     "writing-skills",
-    "cqrs-event-sourcing",
+    "clean-architecture",
+    "cqrs",
     "database-design-patterns",
+    "ddd",
     "event-driven-architecture",
-    "accessibility-audit",
+    "event-sourcing",
+    "hexagonal-architecture",
     "feature-sliced-design",
     "interaction-design",
-    "react-performance-optimization",
+    "react",
     "ux-review",
+    "wcag",
+    "web-styling",
     "webapp-testing",
-    "clean-architecture",
-    "ddd",
-    "ef-core",
-    "modern-csharp",
-    "testing",
-    "vertical-slice"
+    "dotnet"
   ],
   "default_plugins": [
     "repo-worker-pack",
     "superpowers-plus",
     "architecture-pack",
     "frontend-pack",
-    "dotnet-kit"
+    "dotnet-pack"
   ],
   "excluded_plugins": [
     "wild-bunch-project-pack"
   ],
   "schema_version": 1,
-  "source_revision": "0404c71aa38b475f5e0e2f94cdcd1006bdc901ab",
+  "source_revision": "e62475b5bd0b89e651a4deee8a5766c76382f554",
   "source_root": ".agents/plugins/marketplace-source"
 }

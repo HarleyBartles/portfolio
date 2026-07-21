@@ -9,7 +9,7 @@
     "superpowers-plus",
     "architecture-pack",
     "frontend-pack",
-    "dotnet-kit"
+    "dotnet-pack"
   ],
   "excluded_plugins": [
     "wild-bunch-project-pack"
@@ -35,9 +35,9 @@
       "source_path": "codex-marketplace/plugins/frontend-pack",
       "skills_path": "skills"
     },
-    "dotnet-kit": {
+    "dotnet-pack": {
       "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/dotnet-kit",
+      "source_path": "codex-marketplace/plugins/dotnet-pack",
       "skills_path": "skills"
     }
   }

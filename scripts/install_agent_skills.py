@@ -397,6 +397,22 @@ def write_text_atomic(path: Path, content: str) -> None:
             temp_path.unlink(missing_ok=True)
 
 
+def load_previous_marketplace_skill_names(provenance_path: Path) -> set[str]:
+    """Load the last marketplace-owned skill names without trusting malformed data."""
+    if not provenance_path.is_file():
+        return set()
+
+    try:
+        data = json.loads(provenance_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return set()
+
+    copied_skills = data.get("copied_skills") if isinstance(data, dict) else None
+    if not isinstance(copied_skills, list):
+        return set()
+    return {name for name in copied_skills if isinstance(name, str)}
+
+
 def find_case_variant(root: Path, name: str) -> Path | None:
     target_key = name.casefold()
     for entry in root.iterdir():
@@ -652,12 +668,7 @@ def sync_default_skills(
 
     expected_skill_names = [skill_name for skill_name, _source, _plugin in skill_sources]
     desired_skill_dirs = {skill_name: source for skill_name, source, _plugin in skill_sources}
-    expected_root_names = (
-        set(expected_skill_names)
-        | preserved_local_skill_names
-        | RESERVED_OUTPUT_NAMES
-    )
-
+    desired_skill_keys = {skill_name.casefold() for skill_name in expected_skill_names}
     source_revision = get_git_revision(source_root)
     provenance_path = output_root / ".provenance.json"
     provenance_data = {
@@ -676,13 +687,6 @@ def sync_default_skills(
             assert_path_contained(output_root, destination, description=f"Derived skill destination {skill_name!r}")
             if not trees_match(source, destination):
                 mismatches.append(skill_name)
-
-        if output_root.exists():
-            actual_root_entries = sorted(path.name for path in output_root.iterdir())
-        else:
-            actual_root_entries = []
-        if actual_root_entries != sorted(expected_root_names):
-            mismatches.append("skill-tree")
 
         if not provenance_path.exists():
             mismatches.append(".provenance.json")
@@ -713,15 +717,26 @@ def sync_default_skills(
                 case_variant.unlink()
         copy_tree(source, destination, force=force)
 
-    stale_root_entries = sorted(
-        path for path in output_root.iterdir() if path.name not in expected_root_names
-    )
-    for path in stale_root_entries:
-        assert_path_contained(output_root, path, description=f"Stale derived-skills entry {path.name!r}")
-        if path.is_dir():
-            shutil.rmtree(path)
+    previous_marketplace_skill_names = load_previous_marketplace_skill_names(provenance_path)
+    for skill_name in sorted(previous_marketplace_skill_names):
+        if skill_name.casefold() in desired_skill_keys:
+            continue
+        if skill_name.casefold().startswith(LOCAL_SKILL_PREFIX):
+            continue
+        stale_path = output_root / skill_name
+        if not stale_path.exists():
+            stale_path = find_case_variant(output_root, skill_name) or stale_path
+        if not stale_path.exists():
+            continue
+        assert_path_contained(
+            output_root,
+            stale_path,
+            description=f"Stale derived-skills entry {stale_path.name!r}",
+        )
+        if stale_path.is_dir():
+            shutil.rmtree(stale_path)
         else:
-            path.unlink()
+            stale_path.unlink()
 
     write_text_atomic(provenance_path, json.dumps(provenance_data, indent=2, sort_keys=True) + "\n")
 

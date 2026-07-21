@@ -14,6 +14,7 @@
 - [tests](tests/INDEX.md)
 
 ## Files
+- [.gitattributes](.gitattributes)
 - [.gitignore](.gitignore)
 - [.gitmodules](.gitmodules)
 - [AGENTS.md](AGENTS.md)
