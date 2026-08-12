@@ -17,12 +17,12 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | Surface | Role | Authority |
 | --- | --- | --- |
 | `README.md` | Human-facing purpose and orientation | Human documentation |
-| `AGENTS.md` | Thin scoped routing using read-when language | Agent router |
+| `AGENTS.md` | Root repo router | Agent router |
+| `.devin/rules/*.md` | Conditional scope triggers for lazy-loaded runbook and doctrine | Agent rules |
 | `INDEX.md` | Generated traversal and containment navigation | Mesh generator |
 | `.agents/doctrine/` | Binding Portfolio policies, contracts, and invariants | Authored doctrine |
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
-| `.agents/runbooks/` | `design.md`, `planning.md`, `implementing.md`, and `code-review.md` stage runbooks | Authored guidance |
-| `.agents/docs/runbooks/` | Optional repeatable Portfolio procedures | Authored runbooks |
+| `.agents/runbooks/` | Stage and topical workflow runbooks | Authored guidance |
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
 | `.agents/skills/port-*/` | Future Portfolio-owned skills | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
@@ -40,8 +40,8 @@ authority.
 - Put a durable invariant, policy, contract, or authority boundary in
   `.agents/doctrine/`.
 - Put stage-specific, non-binding workflow guidance in `.agents/runbooks/`.
-- Put a repeatable Portfolio procedure in `.agents/docs/runbooks/` only when
-  it has a current reader and does not need skill invocation or composition.
+- Put a repeatable Portfolio procedure in `.agents/runbooks/` only when
+  it does not need skill invocation or composition.
 - Put a triggerable, composable Portfolio capability in `.agents/skills/port-*`
   only when a real repeated use case justifies it.
 - Put implementation of a capability in repository code or scripts, not in an
@@ -92,7 +92,7 @@ main. Keep temporary scratch under a similarly main-checkout-relative
 ## Mesh and routing
 
 Every active doctrine document must be reachable from an applicable
-`AGENTS.md`. When a doctrine, guide, runbook, skill lane, or tooling surface is
+`AGENTS.md` or `.devin/rules/*.md` trigger. When a doctrine, guide, runbook, skill lane, or tooling surface is
 added, moved, or removed, update the nearest router and regenerate the mesh in
 the same change.
 
