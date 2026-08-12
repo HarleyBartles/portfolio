@@ -1,8 +1,15 @@
 # Layout and spacing
 
-A strong layout does not fight the content. Spacing is an active material, not leftover canvas.
+Layout and spacing are the structure a visitor feels before reading a word. *Web Design in 4 Minutes* treats spacing as the thing that makes a page look "broken" when it is wrong. *Resilient Web Design* argues the web is not print and has no fixed canvas, so fluid, responsive layout is essential from the start. A premium portfolio's layout should let the content do the work.
 
-Long lines of text are hard to read, so the measure should be constrained. Padding and margins should come from a scale, not ad hoc numbers. A grid, even a simple one, makes the page feel ordered. The reading order should be shaped by the size, position, and spacing of elements. Responsive design should be considered from the first layout, not applied later as a fix.
+## Core lessons from the source
+
+- Spacing is the first fix. When a page looks broken, it is usually a spacing issue. Provide space around and within content. Use a consistent spacing scale, not arbitrary numbers.
+- Constrain the measure. Long lines are hard to read. A `max-width` on the body (around `50em`) keeps paragraphs comfortable.
+- Use a grid. Even a simple grid gives the composition order. Elements should not drift. The grid can be implied as long as the alignment is consistent.
+- Responsive by design. The web has no fixed dimensions. Use fluid grids, flexible images, and media queries. Mobile-first thinking keeps the core content prioritized.
+- Whitespace as material. Generous, intentional whitespace gives each element room to breathe. It is not leftover canvas; it is an active part of the composition.
+- Content order. The reading order should be shaped by size, position, and spacing. The most important message should dominate, with supporting elements arranged around it.
 
 ## $10k vs $500
 

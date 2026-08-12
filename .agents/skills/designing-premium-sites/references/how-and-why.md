@@ -1,8 +1,14 @@
 # How and why
 
-Questions of *how* improve craft, but questions of *why* reveal purpose. A premium portfolio needs both.
+The creative process is a ladder with many rungs. *The Shape of Design* says that How questions - the brush on the canvas - improve craft, while Why questions - stepping back from the easel - reveal purpose. Both are necessary, but Why is usually neglected because How is easier to see and to copy. A premium portfolio is built on documented Why as much as on skilled How.
 
-It is not enough to know which font or animation library to use; you must also know why that choice supports the story the portfolio is telling. Whenever a design choice is made, record the rationale. This prevents later agents from reverting the decision or replacing it with a generic default.
+## Core lessons from the source
+
+- How enables, Why motivates. How questions teach technique; Why questions teach direction. A designer with skill but no purpose is blocked. A designer with purpose but no skill can learn. The best work has both.
+- Ask Why first. Before deciding how a section is built or styled, define why it exists. Why is the foundation for every later choice. If you cannot answer Why, the work risks becoming an imitation of a car alarm: technically correct but meaningless.
+- Step back from the canvas. The painter near the easel works on craft; the painter at a distance judges the whole. Portfolio work needs the same rhythm: execute, then assess against the whole.
+- Record the middle rungs. The finished piece hides the choices that made it. Record the rationale for each non-default choice so later agents can see why the decision was made and do not re-derive it.
+- Build an ownable voice. Imitation is easy; purpose is hard. A premium portfolio sounds like the author, not the trend. Why is what makes a voice ownable.
 
 ## $10k vs $500
 
@@ -11,3 +17,4 @@ It is not enough to know which font or animation library to use; you must also k
 | Chases the latest technique | Can explain why each choice supports the portfolio's argument |
 | Decisions are unrecorded | Rationale is recorded so later agents do not re-derive it |
 | Imitates trends without context | Builds an ownable voice from the author's actual work |
+| Asks only How | Balances How and Why |
