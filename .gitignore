@@ -1,6 +1,5 @@
-.agents/superpowers/specs/
-.agents/superpowers/sdd/
-scripts/__pycache__/
+.agents/specs/
+.agents/sdd/
 *.pyc
 src/client/node_modules/
 src/client/dist/

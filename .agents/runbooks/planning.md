@@ -35,7 +35,8 @@ Use this runbook when turning an approved design spec into an implementation pla
 
 ## Output Shape
 
-- Plans live in `.agents/superpowers/plans/`.
+- Plans live in `.agents/plans/completed/` when they are finished.
+- In-flight plans may be kept in a local-only workspace outside the tracked repo if needed.
 - Plans should be readable as work instructions, not as a design essay.
 - Plans should assume the implementer will verify the live repo before mutating it.
 - Plans should also make it obvious what the implementer should rate their own confidence against before starting.

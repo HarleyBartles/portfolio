@@ -13,7 +13,7 @@ Read the live repository surfaces before writing the spec:
 - `.agents/docs/INDEX.md` for the documentation and guide surface.
 - `.agents/runbooks/INDEX.md` for the runbook surface itself.
 - `.agents/doctrine/INDEX.md` for the doctrine surface.
-- `.agents/superpowers/INDEX.md` for the local Superpowers surfaces.
+- `.agents/plans/INDEX.md` for completed plan surfaces.
 
 If the task depends on a reference implementation pattern, inspect the live reference repo and its actual files before writing the design. Do not rely on memory alone for file names, command names, or source/derived boundaries.
 

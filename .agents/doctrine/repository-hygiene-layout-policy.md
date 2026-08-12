@@ -26,8 +26,9 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
 | `.agents/skills/port-*/` | Future Portfolio-owned skills | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
-| `.agents/superpowers/plans/` | Tracked implementation plans | Authored plans |
-| `.agents/superpowers/specs/` and `sdd/` | Local-only working material | Ignored workspace |
+| `.agents/plans/completed/` | Historical implementation plans | Authored plans |
+| `.agents/specs/completed/` | Historical design specs | Authored specs |
+| `.agents/specs/` and `.agents/sdd/` | Local-only working material | Ignored workspace |
 | `tools/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
 
 `README.md` files are not agent routers. `AGENTS.md` files are not doctrine
