@@ -23,4 +23,4 @@ directory contains two explicit custody lanes.
 - Treat this tree as generated output, not the source of truth.
 - Do not hand-edit marketplace-derived skills; change the marketplace source and refresh this tree from the manifest instead.
 - Do not let marketplace refresh tooling overwrite or prune tracked `port-*` skills.
-- Refresh through `scripts/install_agent_skills.py` and regenerate the mesh after any marketplace change.
+- Refresh through `py -3 .agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py --apply` or `py -3 tools/run.py ci --apply`.
