@@ -10,7 +10,7 @@ Use this policy when managing git workflow, worktrees, scratch, claiming complet
 
 ## Worktree and scratch
 
-For the Git-derived location algorithm, see [worktree-and-scratch-policy.md](./worktree-and-scratch-policy.md).
+For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non-repo-locations-policy.md).
 
 - Use an isolated worktree when a task needs to stay separate from other in-flight work.
 - Keep the worktree aligned to one branch at a time.

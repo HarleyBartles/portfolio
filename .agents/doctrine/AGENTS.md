@@ -10,7 +10,7 @@ This directory holds the repo's durable doctrine: policies, contracts, rule sets
 - Use before scope or architecture decisions: [`coding-discipline.md`](./coding-discipline.md).
 - Use before any shell-script contract or wrapper design: [`script-contract-policy.md`](./script-contract-policy.md).
 - Use when you need the navigation contract for docs and indexes: [`mesh-policy.md`](./mesh-policy.md).
-- Use before any repository hygiene, layout, or local capability-custody decision: [`surface-classification-policy.md`](./surface-classification-policy.md), [`worktree-and-scratch-policy.md`](./worktree-and-scratch-policy.md), and [`marketplace-custody-policy.md`](./marketplace-custody-policy.md).
+- Use before any repository hygiene, layout, or local capability-custody decision: [`surface-classification-policy.md`](./surface-classification-policy.md), [`non-repo-locations-policy.md`](./non-repo-locations-policy.md), and [`marketplace-custody-policy.md`](./marketplace-custody-policy.md).
 - Use before routing through runbooks: [`repo-runbook-policy.md`](./repo-runbook-policy.md) and [`../runbooks/AGENTS.md`](../runbooks/AGENTS.md).
 - Use before considering a plan complete: [`completed-plans.md`](./completed-plans.md).
 

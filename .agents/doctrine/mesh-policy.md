@@ -37,7 +37,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - `.agents/skills/` contains two explicit lanes: tracked local `port-*` skills are
   repository-owned source, while other skill directories are marketplace-derived
   output described by `.provenance.json`.
-- `.agents/plans/` contains completed plan surfaces.
+- `.agents/plans/` contains in-flight, one-shot, and epic plan surfaces; `.agents/plans/completed/` contains completed plan surfaces.
 - `.agents/specs/` contains in-flight spec surfaces; `.agents/specs/completed/` contains historical spec surfaces.
 
 ## 4. README files
