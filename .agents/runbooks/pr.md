@@ -23,7 +23,10 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 - Flip to ready for review only after self-review is complete and `py -3 tools/run.py ci --check` passes.
 - The PR body must include publication proof.
 
-## Draft PR policy
+## Remote CI gate
+
+- This repository currently has no remote CI checks beyond `py -3 tools/run.py ci --check`.
+- If a GitHub Actions workflow is added later, update this runbook to require `gh pr checks` to pass after flipping a PR out of draft.
 
 
 - Open pull requests as **draft**.

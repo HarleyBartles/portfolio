@@ -35,6 +35,8 @@ Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run
 - [Routing pointers](.devin/rules/INDEX.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
 - [Mesh policy](.agents/doctrine/mesh-policy.md)
+- [Workflow and worktree doctrine](.agents/doctrine/workflow-policy.md)
+- [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
 - [Doctrine](.agents/doctrine/INDEX.md)
 - [Runbooks](.agents/runbooks/INDEX.md)
 - [Repo mesh index](.agents/INDEX.md)
