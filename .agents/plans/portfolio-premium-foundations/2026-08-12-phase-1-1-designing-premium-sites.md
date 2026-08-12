@@ -31,14 +31,14 @@
 - Consumes: the master spec at `.agents/specs/2026-08-12-portfolio-premium-epic-spec.md`.
 - Produces: a directory layout that `repo-standards` and the mesh validator expect.
 
-- [ ] **Step 1: Create the directory structure**
+- [x] **Step 1: Create the directory structure**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/designing-premium-sites/assets/authority/reference-source
 New-Item -ItemType Directory -Force -Path .agents/skills/designing-premium-sites/references
 ```
 
-- [ ] **Step 2: Create `CITATIONS.md` with the known sources**
+- [x] **Step 2: Create `CITATIONS.md` with the known sources**
 
 Create `.agents/skills/designing-premium-sites/assets/authority/CITATIONS.md`:
 
@@ -67,14 +67,14 @@ Create `.agents/skills/designing-premium-sites/assets/authority/CITATIONS.md`:
 - Source provenance: downloaded from the canonical site
 ```
 
-- [ ] **Step 3: Stage and commit the scaffold**
+- [x] **Step 3: Stage and commit the scaffold**
 
 ```powershell
 git add .agents/skills/designing-premium-sites/
 git commit -m "feat: scaffold designing-premium-sites skill"
 ```
 
-- [ ] **Step 4: Mark Task 1's boxes `[x]` in the plan file**
+- [x] **Step 4: Mark Task 1's boxes `[x]` in the plan file**
 
 Update `.agents/plans/portfolio-premium-foundations/2026-08-12-phase-1-1-designing-premium-sites.md` so the four checkboxes in Task 1 are `[x]`.
 
@@ -92,7 +92,7 @@ Update `.agents/plans/portfolio-premium-foundations/2026-08-12-phase-1-1-designi
 - Consumes: the URLs and licenses from `CITATIONS.md`.
 - Produces: canonical source copies in the skill's authority directory.
 
-- [ ] **Step 1: Download or copy each authority source into its subdirectory**
+- [x] **Step 1: Download or copy each authority source into its subdirectory**
 
 For each source, download the text and place it under the matching `reference-source/` subdirectory. Prefer plain Markdown or HTML that can be read offline. Do not transform or re-license the source.
 
@@ -100,18 +100,18 @@ For each source, download the text and place it under the matching `reference-so
 - `.agents/skills/designing-premium-sites/assets/authority/reference-source/shape-of-design/`
 - `.agents/skills/designing-premium-sites/assets/authority/reference-source/web-design-in-4-minutes/`
 
-- [ ] **Step 2: Verify and update `CITATIONS.md`**
+- [x] **Step 2: Verify and update `CITATIONS.md`**
 
 Confirm the license for *Web Design in 4 Minutes* from the source and update `CITATIONS.md`.
 
-- [ ] **Step 3: Commit the authority sources**
+- [x] **Step 3: Commit the authority sources**
 
 ```powershell
 git add .agents/skills/designing-premium-sites/assets/authority/
 git commit -m "docs: vendor authority sources for designing-premium-sites"
 ```
 
-- [ ] **Step 4: Mark Task 2's boxes `[x]` in the plan file**
+- [x] **Step 4: Mark Task 2's boxes `[x]` in the plan file**
 
 Update this plan so the three checkboxes in Task 2 are `[x]`.
 
@@ -128,7 +128,7 @@ Update this plan so the three checkboxes in Task 2 are `[x]`.
 - Consumes: the vendored sources in `assets/authority/reference-source/` and the master spec.
 - Produces: the umbrella skill and two reference files that later pattern skills can extend.
 
-- [ ] **Step 1: Use `/writing-skills` to author `SKILL.md`**
+- [x] **Step 1: Use `/writing-skills` to author `SKILL.md`**
 
 Write `.agents/skills/designing-premium-sites/SKILL.md` with these sections:
 
@@ -140,26 +140,26 @@ Write `.agents/skills/designing-premium-sites/SKILL.md` with these sections:
 
 Each section must be concrete enough that a later agent can rate a page against it without improvising the criteria.
 
-- [ ] **Step 2: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 2: Use `/writing-with-clarity` to review the draft**
 
 Run a clarity pass on the `SKILL.md` and the two reference files. Fix any vague adjectives, unsupported claims, or ambiguous signals.
 
-- [ ] **Step 3: Write `references/foundation-principles.md`**
+- [x] **Step 3: Write `references/foundation-principles.md`**
 
 Synthesize the shared ideas from *Resilient Web Design* and *The Shape of Design* into a short reference. Keep only the principles that apply to a premium portfolio: resilience, hierarchy, restraint, and clarity of purpose.
 
-- [ ] **Step 4: Write `references/ten-k-vs-five-hundred.md`**
+- [x] **Step 4: Write `references/ten-k-vs-five-hundred.md`**
 
 Document the `$10k-feel` versus `$500-feel` pattern as a checklist: spacing, type, motion, asset quality, performance, and taste. This reference becomes the taste baseline for the `taste-reviewer` subagent later.
 
-- [ ] **Step 5: Commit the authored skill**
+- [x] **Step 5: Commit the authored skill**
 
 ```powershell
 git add .agents/skills/designing-premium-sites/
 git commit -m "docs: author designing-premium-sites SKILL.md and references"
 ```
 
-- [ ] **Step 6: Mark Task 3's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 3's boxes `[x]` in the plan file**
 
 Update this plan so the five checkboxes in Task 3 are `[x]`.
 
