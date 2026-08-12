@@ -5,7 +5,7 @@ This directory holds repo-local non-doctrine reference material and routing surf
 ## Read When
 
 - Use before any repo-specific runbook or non-doctrine reference work: this router and the relevant local document.
-- Use before any design, planning, implementation, or review pass: [`../guides/AGENTS.md`](../guides/AGENTS.md).
+- Use before any design, planning, implementation, or review pass: [`../runbooks/AGENTS.md`](../runbooks/AGENTS.md).
 - Use before any doctrine or policy work: [`.agents/doctrine/AGENTS.md`](../doctrine/AGENTS.md).
 - Use before any repo-workflow or publication-state decisions: [`.agents/doctrine/workflow-policy.md`](../doctrine/workflow-policy.md).
 - Use before deciding where artifacts belong: [`.agents/doctrine/artifact-policy.md`](../doctrine/artifact-policy.md).

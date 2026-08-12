@@ -74,6 +74,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor entry point and stag
 - [Completed plans rule](.devin/rules/completed-plans.md)
 - [Completed plans doctrine](.agents/doctrine/completed-plans.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
+- [Runbooks router](.agents/runbooks/AGENTS.md)
 - [Repo mesh index](.agents/INDEX.md)
 
 ## Maintenance responsibility
