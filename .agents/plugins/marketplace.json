@@ -1,50 +1,95 @@
 {
-  "schema_version": 1,
-  "marketplace_source": {
-    "repository": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
-    "path": ".agents/plugins/marketplace-source"
+  "name": "portfolio",
+  "interface": {
+    "displayName": "Portfolio"
   },
-  "default_plugins": [
-    "repo-worker-pack",
-    "superpowers-plus",
-    "mcp-usage-pack",
-    "architecture-pack",
-    "frontend-pack",
-    "dotnet-pack"
-  ],
-  "excluded_plugins": [
-    "wild-bunch-project-pack"
-  ],
-  "plugins": {
-    "repo-worker-pack": {
-      "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/repo-worker-pack",
-      "skills_path": "skills"
+  "plugins": [
+    {
+      "name": "repo-worker-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/repo-worker-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     },
-    "superpowers-plus": {
-      "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/superpowers-plus",
-      "skills_path": "skills"
+    {
+      "name": "superpowers-plus",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/superpowers-plus"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Coding"
     },
-    "mcp-usage-pack": {
-      "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/mcp-usage-pack",
-      "skills_path": "skills"
+    {
+      "name": "mcp-usage-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/mcp-usage-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     },
-    "architecture-pack": {
-      "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/architecture-pack",
-      "skills_path": "skills"
+    {
+      "name": "architecture-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/architecture-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     },
-    "frontend-pack": {
-      "version": "0.1.0",
-      "source_path": "codex-marketplace/plugins/frontend-pack",
-      "skills_path": "skills"
+    {
+      "name": "frontend-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/frontend-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     },
-    "dotnet-pack": {
-      "version": "1.0.0",
-      "source_path": "codex-marketplace/plugins/dotnet-pack",
-      "skills_path": "skills"
+    {
+      "name": "dotnet-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/dotnet-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     }
+  ],
+  "repo": {
+    "local_skills": []
   }
 }

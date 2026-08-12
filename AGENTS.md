@@ -1,23 +1,8 @@
-# Repository Guidance
+# Portfolio
 
 This repository is the source for Harley Bartles' personal developer portfolio website.
 
-## Checkout Identity Check
-
-Before any file mutation, record the current checkout once and keep it in mind:
-
-- `git rev-parse --show-toplevel`
-- `git branch --show-current`
-- `git worktree list`
-- `git rev-parse --git-dir`
-- `git rev-parse --git-common-dir`
-- `git rev-parse --show-superproject-working-tree`
-
-Name the worktree and branch to yourself before you start editing, then keep using that same checkout for the rest of the task.
-If this is the shared `main` checkout or a submodule, stop and use the intended worktree/branch instead unless the task explicitly says shared-checkout work is intended.
-Do not repeatedly rediscover the worktree during the same task.
-
-## Purpose
+## Repository purpose
 
 The site exists to present Harley as a software engineer through:
 
@@ -26,44 +11,71 @@ The site exists to present Harley as a software engineer through:
 - technical writing and articles;
 - occasional small demos or tools when they support the portfolio.
 
-## Architectural Principles
+## Source-of-truth split
 
-- Keep the application straightforward.
-- Favor a single maintainable web application over a layered architecture with empty abstractions.
-- Assume `.NET 10`, `ASP.NET Core`, `React`, `TypeScript`, and `Vite` as the long-term stack.
-- Keep authentication out of scope until there is an actual multi-project need.
-- Avoid DDD, CQRS, event sourcing, microservices, and other speculative structures unless a future requirement clearly justifies them.
+- GitHub and the repository tree prove file state, landed assets, and source snapshots.
+- Linear issues coordinate work but do not override the committed repo state.
+- Generated artifacts (the `.agents/skills` tree and `INDEX.md` mesh) are downstream outputs; the marketplace source and `marketplace.json` are the source of truth for those assets.
 
-## Working Style
+## Publication proof
 
-- Start from the live repository state, not from chat assumptions.
-- Preserve existing patterns once they are established.
-- Make the smallest change that supports the current goal.
-- Keep the repository intentionally simple and easy to navigate.
-- Update documentation when the repository structure changes in a meaningful way.
+Repo work is not complete until it is published to GitHub. A valid return must include one of:
 
-## Agent Guidance Surfaces
+1. an open PR URL with branch name and full head SHA;
+2. a verified direct-main commit SHA when direct-main work was explicitly authorized;
+3. a concrete publication blocker.
 
-Read the scoped routers and the relevant doc before taking action:
+## Build and test commands
 
-- Use before any docs, policy, or repo-guidance work: [`.agents/docs/AGENTS.md`](./.agents/docs/AGENTS.md).
-- Use before any durable doctrine or policy work: [`.agents/doctrine/AGENTS.md`](./.agents/doctrine/AGENTS.md).
-- Use before any brainstorming or design-spec pass: [`.agents/guides/AGENTS.md`](./.agents/guides/AGENTS.md).
-- Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
-- Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
-- Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
-- Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
-- Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
-- Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
-- Use before any repository hygiene, layout, or local capability-custody decision: [`.agents/doctrine/repository-hygiene-layout-policy.md`](./.agents/doctrine/repository-hygiene-layout-policy.md).
-- Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
-- Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
-- Use after any structural change that adds, removes, or moves tracked directories: run `.\scripts\generate_index_mesh.ps1` on Windows or `bash ./scripts/generate_index_mesh.sh` on Linux, then commit the generated `INDEX.md` changes in the same change.
+- `py -3 tools/run.py ci --check` runs the full validation pipeline.
+- `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
 
-## Documentation Rules
+## Testing instructions
 
-- `README.md` is the human-facing overview.
-- `INDEX.md` files are navigation aids for agents and should stay descriptive, not promotional.
-- `INDEX.md` files are generated navigation and should be regenerated through `scripts/generate_index_mesh.py`, not hand-edited.
-- If directories are added, removed, or reorganized, update the relevant index files in the same change.
-- Keep this guidance current as the repository evolves.
+Run the canonical validation command before claiming work is complete:
+
+```
+py -3 tools/run.py ci --check
+```
+
+## Code style guidelines
+
+- Follow the conventions in the existing `.NET`, `React`, `TypeScript`, and `Vite` application code.
+- Keep documentation clear and routing surfaces up to date.
+- Regenerate `INDEX.md` files after any structural change.
+
+## Review guidelines
+
+- Open pull requests as draft and keep them in draft while iterating.
+- Flip a PR out of draft only after self-review and after `py -3 tools/run.py ci --check` passes.
+- Address remote CI failures before requesting human review.
+
+## PR instructions
+
+- Open PRs into `main`.
+- Include the branch name, head SHA, and a short test-plan in the PR body.
+- Keep PRs in draft until ready for review.
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor entry point and stage routing.
+
+## Security considerations
+
+- Do not commit secrets, API keys, or credentials.
+- Keep authentication out of scope until a multi-project need justifies it.
+- Review changes that touch `.gitmodules`, submodule commits, or marketplace source pinning.
+
+## Routing pointers
+
+- [Contributing](CONTRIBUTING.md)
+- [Review entry point](REVIEW.md)
+- [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
+- [Completed plans rule](.devin/rules/completed-plans.md)
+- [Completed plans doctrine](.agents/doctrine/completed-plans.md)
+- [Marketplace plugin selection](.agents/plugins/marketplace.json)
+- [Repo mesh index](.agents/INDEX.md)
+
+## Maintenance responsibility
+
+Keep this router and the runbook set aligned with `repo-standards`. Regenerate the `INDEX.md` mesh after any structural change.
