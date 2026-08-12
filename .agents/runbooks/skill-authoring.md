@@ -4,7 +4,7 @@ Use this runbook when authoring a Portfolio-owned skill under `port-*/`.
 
 ## Before you begin
 
-- Read `.agents/doctrine/repository-hygiene-layout-policy.md` for skill custody rules.
+- Read `.agents/doctrine/marketplace-custody-policy.md` and `.agents/doctrine/surface-classification-policy.md` for skill custody and surface rules.
 - Invoke `/using-superpowers-plus` to route to the right skill.
 
 ## Authoring a skill
@@ -16,4 +16,4 @@ Use this runbook when authoring a Portfolio-owned skill under `port-*/`.
 
 ## See also
 
-- `.agents/doctrine/skill-standards-policy.md` if it exists.
+- `.agents/doctrine/repo-runbook-policy.md` for this repo's runbook mappings.
