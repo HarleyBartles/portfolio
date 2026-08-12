@@ -1,28 +1,24 @@
 # Contributing
 
-This file is the repo's contributor entry point.
+This repo follows the `repo-standards` and `repo-worker-base` baselines. For the canonical repo layout and runbook standard, see `.agents/doctrine/repo-runbook-policy.md`.
 
-## Pre-contribution reading
+## Before starting
 
-- Read root [`AGENTS.md`](./AGENTS.md) for source-of-truth and publication rules.
-- Read [`.agents/doctrine/repo-runbook-policy.md`](./.agents/doctrine/repo-runbook-policy.md) for this repo's mapping to the cross-repo runbook standard.
-- Read [`.agents/runbooks/code-style.md`](./.agents/runbooks/code-style.md) for code and writing conventions.
-
-## Required skill invocations
-
-Before starting work, invoke:
-
-- `/using-superpowers-plus` to route to the correct stage skill.
-- `/repo-standards` for repo-shape and runbook routing, when the stage skill or the task requires it.
-- `/repo-worker-base` for worktree, branch, validation, and publication boundaries, when the stage skill or the task requires it.
+- Read root [`AGENTS.md`](./AGENTS.md) for source-of-truth, build, and routing rules.
+- Invoke `/using-superpowers-plus` to route to the correct stage skill.
+- Invoke `/repo-worker-base` for worktree, branch, validation, and publication boundaries.
+- Invoke `/repo-standards` when the task touches repo shape, runbooks, or scaffolds.
 
 ## Stage routing
 
-- Design: `.agents/runbooks/design.md` -> `/brainstorming`
-- Planning: `.agents/runbooks/planning.md` -> `/writing-plans`
-- Implementation: `.agents/runbooks/implementing.md` -> `/executing-plans` or `/subagent-driven-development`
-- Review: `.agents/runbooks/code-review.md` -> `/requesting-code-review`
+- **Design:** read [`.agents/runbooks/design.md`](./.agents/runbooks/design.md), then invoke `/brainstorming`.
+- **Planning:** read [`.agents/runbooks/planning.md`](./.agents/runbooks/planning.md), then invoke `/writing-plans`.
+- **Implementation:** read [`.agents/runbooks/implementing.md`](./.agents/runbooks/implementing.md), then invoke `/executing-plans` or `/subagent-driven-development`.
+- **Review:** read [`.agents/runbooks/code-review.md`](./.agents/runbooks/code-review.md), then invoke `/requesting-code-review`.
 
-## Repo-specific contribution notes
+## Conventions and verification
 
-- <!-- list repo-specific contribution notes here -->
+- [`.agents/runbooks/code-style.md`](./.agents/runbooks/code-style.md) for code and writing conventions.
+- [`.agents/runbooks/testing.md`](./.agents/runbooks/testing.md) for what to verify.
+- [`.agents/runbooks/security.md`](./.agents/runbooks/security.md) for security review guidance.
+- [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the pull-request workflow and publication proof.

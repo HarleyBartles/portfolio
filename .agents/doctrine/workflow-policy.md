@@ -1,11 +1,23 @@
 # Workflow Policy
 
-Use this reference when managing git workflow, claiming completion, or deciding whether a task is ready to hand off.
+Status: active policy
+Owner: Portfolio repository
+Scope: git workflow, worktrees, branches, scratch, publication, and task readiness
+Routed from: `/.devin/rules/agents-doctrine.md`
+Generic baseline: installed `repo-worker-base` and its references
 
-## Worktree, Branch, and Publication
+Use this policy when managing git workflow, worktrees, scratch, claiming completion, or deciding whether a task is ready to hand off.
+
+## Worktree and scratch
+
+For the Git-derived location algorithm, see [worktree-and-scratch-policy.md](./worktree-and-scratch-policy.md).
 
 - Use an isolated worktree when a task needs to stay separate from other in-flight work.
 - Keep the worktree aligned to one branch at a time.
+- Keep temporary scratch under the external scratch root and never commit it.
+
+## Branch and publication
+
 - Start from the current `main` branch unless a task says otherwise.
 - Use a branch for real work; do not treat direct `main` edits as the default path.
 - Keep in-progress work in draft until the task is actually complete.
@@ -25,8 +37,21 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 - Before publishing a PR, verify `py -3 tools/run.py ci --check` and the branch state so the published CI run is expected to pass.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
-## Clean Finish
+## Clean finish
 
 - End with a clean working tree unless the task explicitly leaves a tracked draft behind.
 - Report the exact files changed and the exact validation run.
 - If cleanup is part of the task, perform it explicitly and verify it.
+
+## Local completion gate
+
+The repo is ready for normal website implementation only when:
+
+- `.agents/runbooks/` is the canonical stage-runbook home;
+- no stale `.agents/docs/guides/` routing or compatibility tree remains;
+- all active doctrine is routed and all authored links resolve;
+- local-only and generated custody boundaries are validated;
+- the marketplace gitlink is current and does not receive mesh output;
+- refresh and mesh check modes are churn-free;
+- the platform-appropriate preflight and tests pass;
+- the final PR body and validation evidence are honest.

@@ -16,8 +16,9 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
   repository-owned source, while other skill directories are derived installed
   skills described by `.provenance.json`.
 - `.agents/plans/completed/` holds historical, completed implementation plans.
+- `.agents/specs/` holds in-flight design specs and is tracked.
 - `.agents/specs/completed/` holds historical, completed design specs.
-- `.agents/specs/` and `.agents/sdd/` are local-only working workspaces and are ignored by git; create them locally when needed.
+- `.agents/sdd/` is a local-only SDD workspace and is ignored by git; create it locally when needed.
 
 ## Scratch Files
 

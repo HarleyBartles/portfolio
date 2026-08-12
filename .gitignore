@@ -1,4 +1,3 @@
-.agents/specs/
 .agents/sdd/
 *.pyc
 src/client/node_modules/
