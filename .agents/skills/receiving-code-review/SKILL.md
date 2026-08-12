@@ -1,7 +1,37 @@
 ---
 name: receiving-code-review
-description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+description: Use when receiving code review feedback, before implementing suggestions,
+  especially if feedback seems unclear or technically questionable - requires technical
+  rigor and verification, not performative agreement or blind implementation
+metadata:
+  source-id: receiving-code-review
+  source-path: codex-marketplace/plugins/superpowers-plus/skills/receiving-code-review/SKILL.md
+  provenance-name: Receiving Code Review first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Use when receiving code review feedback, before implementing suggestions,
+    especially if feedback seems unclear or technically questionable - requires technical
+    rigor and verification, not performative agreement or blind implementation
+  use_when:
+  - Use when receiving code review feedback before implementing suggestions.
+  - Use when feedback is unclear or technically questionable.
+  - Use when the suggestion needs verification against codebase reality.
+  do_not_use_when:
+  - Do not use when there is no external feedback to evaluate.
+  - Do not use to dismiss feedback without technical reasoning.
+  - Do not use to implement suggestions blindly.
+  related_skills:
+  - requesting-code-review
+  - iterative-review
+  - executing-plans
+  - subagent-driven-development
+  - finishing-a-development-branch
+license: MIT
 ---
+## Provenance
+
+This skill is a first-party authored derivation of `obra/superpowers` v6.2.0, released under the MIT License. The original upstream snapshot is retained in `codex-marketplace/plugins/superpowers-plus/skills/receiving-code-review/` for reference.
 
 # Code Review Reception
 
@@ -203,11 +233,3 @@ You understand 1,2,3,6. Unclear on 4,5.
 ## GitHub Thread Replies
 
 When replying to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`), not as a top-level PR comment.
-
-## The Bottom Line
-
-**External feedback = suggestions to evaluate, not orders to follow.**
-
-Verify. Question. Then implement.
-
-No performative agreement. Technical rigor always.

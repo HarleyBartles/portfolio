@@ -1,0 +1,13 @@
+schema_version: 1
+reconciled_against: f62571f13047c4c504856483562d09b93883eb897adb2402352466142eac870c
+references:
+  - path: references/scope-notes.md
+    source_sections:
+      - When a roadmap item should become a new epic
+      - How to handle scope changes that invalidate multiple pending plans
+      - When to ask the human a focused question versus escalating through risk-gates
+    load_when:
+      - Use when a roadmap item should be split into a new epic.
+      - Use when a scope change invalidates multiple pending plans.
+      - Use when deciding between asking the human and escalating through risk-gates.
+    content_mode: first_party_synthesis

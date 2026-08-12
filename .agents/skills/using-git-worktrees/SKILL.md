@@ -1,7 +1,38 @@
 ---
 name: using-git-worktrees
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback
+description: Use when starting feature work that needs isolation from current
+  workspace or before executing implementation plans - ensures an isolated
+  workspace exists via native tools or git worktree fallback
+metadata:
+  source-id: using-git-worktrees
+  source-path: codex-marketplace/plugins/superpowers-plus/skills/using-git-worktrees/SKILL.md
+  provenance-name: Using Git Worktrees first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Use when starting feature work that needs isolation from current workspace
+    or before executing implementation plans - ensures an isolated workspace exists
+    via native tools or git worktree fallback
+  use_when:
+  - Use when starting feature work that needs isolation from the current workspace.
+  - Use before executing implementation plans if no isolated workspace exists.
+  - Use when the repo declares or expects a canonical sibling-folder worktree root.
+  do_not_use_when:
+  - Do not use when already in an isolated workspace.
+  - Do not use when the user declines a worktree.
+  - Do not use when native tools already manage isolation.
+  related_skills:
+  - using-superpowers-plus
+  - refreshing-installed-skills
+  - executing-plans
+  - subagent-driven-development
+  - finishing-a-development-branch
+license: MIT
 ---
+
+## Provenance
+
+This skill is a first-party authored derivation of `obra/superpowers` v6.2.0, released under the MIT License. The original upstream snapshot is retained in `codex-marketplace/plugins/superpowers-plus/skills/using-git-worktrees/` for reference.
 
 # Using Git Worktrees
 
@@ -59,6 +90,10 @@ The user has asked for an isolated workspace (Step 0 consent). Do you already ha
 Native tools handle directory placement, branch creation, and cleanup automatically. Using `git worktree add` when you have a native tool creates phantom state your harness can't see or manage.
 
 Only proceed to Step 1b if you have no native worktree tool available.
+
+Use the `new-worktree`/`remove-worktree` scripts bundled with this skill as the Step 1b fallback. If the repo also provides its own worktree helpers (for example, in a `scripts/` directory at the repo root), prefer the repo-specific ones. The bundled scripts are installed at `.agents/skills/using-git-worktrees/scripts/` and place the worktree at the canonical sibling-folder root (`../_agent-worktrees/<repo-name>/<branch>`), automatically refreshing installed skills after creation. If `refreshing-installed-skills` is not available, the script creates the worktree and prints a warning instead of failing.
+
+The bundled `new-worktree` script does not require `--allow-shared-checkout`; a new worktree is an isolated linked worktree, so child skill scripts can write inside it without the flag. Example: `py -3 .agents/skills/using-git-worktrees/scripts/new_worktree.py --apply <branch>`. Preview with `--check <branch>` first.
 
 ### 1b. Git Worktree Fallback
 
@@ -145,6 +180,15 @@ Tests passing (<N> tests, 0 failures)
 Ready to implement <feature-name>
 ```
 
+## Bundled scripts
+
+| Script | Purpose | Safe invocation |
+|---|---|---|
+| `scripts/new_worktree.py` | Create a linked worktree at the canonical sibling root | `py -3 scripts/new_worktree.py --check <branch>` then `py -3 scripts/new_worktree.py --apply <branch>` |
+| `scripts/remove_worktree.py` | Remove a linked worktree | `py -3 scripts/remove_worktree.py --check <branch>` then `py -3 scripts/remove_worktree.py --apply <branch>` |
+
+All scripts support `--help` and classify each flag as `read-only` or `mutating`. `--check` is the default; `--apply` is required for any filesystem or git mutation.
+
 ## Quick Reference
 
 | Situation | Action |
@@ -162,48 +206,43 @@ Ready to implement <feature-name>
 | Permission error on create | Sandbox fallback, work in place |
 | Tests fail during baseline | Report failures + ask |
 | No package.json/Cargo.toml | Skip dependency install |
+| Bundled `new-worktree` script | Use it instead of `git worktree add` |
+| Bundled `remove-worktree` script | Use it to remove a worktree and deinit submodules |
+| Skills need refresh after creation | `new-worktree` auto-runs `refreshing-installed-skills` |
 
-## Common Mistakes
+## Common Rationalizations
 
-### Fighting the harness
+| Excuse | Reality |
+|--------|---------|
+| "I'm obviously not in a worktree — no need to check" | Run Step 0. Harness-created isolation and submodules both fool eyeballing; the detection commands settle it. |
+| "`git worktree add` is quicker than hunting for a native tool" | A native tool (e.g. `EnterWorktree`) owns placement, branching, and cleanup. Bypassing it is the #1 mistake — it creates phantom state your harness can't see or manage. |
+| "The worktree directory is surely ignored already" | Run `git check-ignore`. An unignored worktree directory commits the whole tree into the repo. |
+| "Any directory name works" | Explicit instructions beat an existing project-local directory, which beats the `.worktrees/` default. |
+| "The workspace is fresh — baseline tests can wait" | A dirty baseline makes every later failure ambiguous. Run the tests now; proceeding past failures is your human partner's call. |
 
-- **Problem:** Using `git worktree add` when the platform already provides isolation
-- **Fix:** Step 0 detects existing isolation. Step 1a defers to native tools.
+## Remove a Worktree
 
-### Skipping detection
+When a feature branch is complete, remove the isolated worktree to avoid stale copies.
 
-- **Problem:** Creating a nested worktree inside an existing one
-- **Fix:** Always run Step 0 before creating anything
+1. Run the bundled `remove-worktree` script if available:
+   ```bash
+   bash .agents/skills/using-git-worktrees/scripts/remove-worktree.sh --apply <branch-name>
+   # or on Windows:
+   .agents/skills/using-git-worktrees/scripts/remove-worktree.ps1 --apply <branch-name>
+   ```
 
-### Skipping ignore verification
+   Preview first with `--check <branch-name>`.
+   If the script reports that the directory is locked, **stop immediately**. The git worktree is already deregistered; the locked on-disk folder can be deleted later once no process holds it.
 
-- **Problem:** Worktree contents get tracked, pollute git status
-- **Fix:** Always use `git check-ignore` before creating project-local worktree
+2. If no bundled script is available, use `git worktree remove` directly:
+   ```bash
+   git worktree remove <path-to-worktree>
+   ```
+   Then manually deinitialize submodules if the repo uses them.
 
-### Assuming directory location
-
-- **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: explicit instructions > existing project-local directory > default
-
-### Proceeding with failing tests
-
-- **Problem:** Can't distinguish new bugs from pre-existing issues
-- **Fix:** Report failures, get explicit permission to proceed
+Never remove the main repository checkout with this command.
 
 ## Red Flags
 
-**Never:**
-- Create a worktree when Step 0 detects existing isolation
-- Use `git worktree add` when you have a native worktree tool (e.g., `EnterWorktree`). This is the #1 mistake — if you have it, use it.
-- Skip Step 1a by jumping straight to Step 1b's git commands
-- Create worktree without verifying it's ignored (project-local)
-- Skip baseline test verification
-- Proceed with failing tests without asking
-
-**Always:**
-- Run Step 0 detection first
-- Prefer native tools over git fallback
-- Follow directory priority: explicit instructions > existing project-local directory > default
-- Verify directory is ignored for project-local
-- Auto-detect and run project setup
-- Verify clean test baseline
+Never run `rm -rf`, `rmdir /s /q`, or `Remove-Item -Recurse -Force` on a worktree directory that `remove-worktree` failed to delete.
+A locked directory is usually another process's current working directory or an open file handle; force-deleting it can delete the wrong directory or other repositories.

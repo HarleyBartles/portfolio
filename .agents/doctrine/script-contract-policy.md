@@ -17,6 +17,7 @@ Use this reference when authoring or changing repository scripts.
 
 ## Repository Expectations
 
-- `scripts/AGENTS.md` is the router for tooling changes.
-- `scripts/README.md` is the human catalog for tools, not the routing surface.
+- `tools/run.py` is the canonical task runner.
+- `tools/shared_checkout.py` is the shared worktree and checkout guard.
+- Keep `tools/README.md` as the human catalog for the tool runner if one is needed.
 - The refresh family should stay deterministic and reproducible from a clean checkout.

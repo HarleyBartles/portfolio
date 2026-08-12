@@ -1,60 +1,21 @@
 {
-  "copied_skills": [
-    "base-doctrine",
-    "cleanup-custody",
-    "connector-safety",
-    "context-safety",
-    "github-operations",
-    "linear-issue-shaping",
-    "repo-worker-base",
-    "risk-gates",
-    "subagent-model-routing",
-    "unslop-plus",
-    "using-linear",
-    "work-mode-router",
-    "writing-with-clarity",
-    "brainstorming",
-    "dispatching-parallel-agents",
-    "executing-plans",
-    "finishing-a-development-branch",
-    "inspecting-the-environment",
-    "receiving-code-review",
-    "requesting-code-review",
-    "subagent-driven-development",
-    "systematic-debugging",
-    "test-driven-development",
-    "using-git-worktrees",
-    "using-superpowers",
-    "verification-before-completion",
-    "writing-plans",
-    "writing-skills",
-    "clean-architecture",
-    "cqrs",
-    "database-design-patterns",
-    "ddd",
-    "event-driven-architecture",
-    "event-sourcing",
-    "hexagonal-architecture",
-    "feature-sliced-design",
-    "interaction-design",
-    "react",
-    "ux-review",
-    "wcag",
-    "web-styling",
-    "webapp-testing",
-    "dotnet"
-  ],
-  "default_plugins": [
+  "manifestSha": "48073e0c876934c1eb77b8db9bd1e9a1b625b5bf",
+  "syncedPlugins": [
     "repo-worker-pack",
     "superpowers-plus",
+    "mcp-usage-pack",
     "architecture-pack",
     "frontend-pack",
     "dotnet-pack"
   ],
-  "excluded_plugins": [
-    "wild-bunch-project-pack"
-  ],
-  "schema_version": 1,
-  "source_revision": "e62475b5bd0b89e651a4deee8a5766c76382f554",
-  "source_root": ".agents/plugins/marketplace-source"
+  "syncedSkills": 53,
+  "localSkills": [],
+  "marketplace": {
+    "source": "HarleyBartles/agent-asset-marketplace",
+    "sourcePath": "codex-marketplace/plugins"
+  },
+  "localPlugins": [],
+  "marketplaceFile": ".agents/plugins/marketplace.json",
+  "vendorProfiles": [],
+  "syncedAt": "2026-08-12T12:35:21.024540"
 }

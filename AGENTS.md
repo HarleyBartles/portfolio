@@ -2,22 +2,7 @@
 
 This repository is the source for Harley Bartles' personal developer portfolio website.
 
-## Checkout Identity Check
-
-Before any file mutation, record the current checkout once and keep it in mind:
-
-- `git rev-parse --show-toplevel`
-- `git branch --show-current`
-- `git worktree list`
-- `git rev-parse --git-dir`
-- `git rev-parse --git-common-dir`
-- `git rev-parse --show-superproject-working-tree`
-
-Name the worktree and branch to yourself before you start editing, then keep using that same checkout for the rest of the task.
-If this is the shared `main` checkout or a submodule, stop and use the intended worktree/branch instead unless the task explicitly says shared-checkout work is intended.
-Do not repeatedly rediscover the worktree during the same task.
-
-## Purpose
+## Repository purpose
 
 The site exists to present Harley as a software engineer through:
 
@@ -26,44 +11,37 @@ The site exists to present Harley as a software engineer through:
 - technical writing and articles;
 - occasional small demos or tools when they support the portfolio.
 
-## Architectural Principles
+## Source-of-truth split
 
-- Keep the application straightforward.
-- Favor a single maintainable web application over a layered architecture with empty abstractions.
-- Assume `.NET 10`, `ASP.NET Core`, `React`, `TypeScript`, and `Vite` as the long-term stack.
-- Keep authentication out of scope until there is an actual multi-project need.
-- Avoid DDD, CQRS, event sourcing, microservices, and other speculative structures unless a future requirement clearly justifies them.
+- GitHub and the repository tree prove file state, landed assets, manifests, and validation.
+- Linear issues coordinate work but do not override the committed repo state.
 
-## Working Style
+## Build and test commands
 
-- Start from the live repository state, not from chat assumptions.
-- Preserve existing patterns once they are established.
-- Make the smallest change that supports the current goal.
-- Keep the repository intentionally simple and easy to navigate.
-- Update documentation when the repository structure changes in a meaningful way.
+Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated.
 
-## Agent Guidance Surfaces
+## Routing pointers
 
-Read the scoped routers and the relevant doc before taking action:
+- [Repository purpose](AGENTS.md) — this file
+- [Source-of-truth split](AGENTS.md)
+- [Publication proof](.agents/runbooks/pr.md)
+- [Build and test commands](AGENTS.md)
+- [Testing instructions](.agents/runbooks/testing.md)
+- [Code style guidelines](.agents/runbooks/code-style.md)
+- [Review guidelines](.agents/runbooks/code-review.md)
+- [PR instructions](.agents/runbooks/pr.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security considerations](.agents/runbooks/security.md)
+- [Routing pointers](.devin/rules/INDEX.md)
+- [Marketplace plugin selection](.agents/plugins/marketplace.json)
+- [Mesh policy](.agents/doctrine/mesh-policy.md)
+- [Workflow and worktree doctrine](.agents/doctrine/workflow-policy.md)
+- [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
+- [Doctrine](.agents/doctrine/INDEX.md)
+- [Runbooks](.agents/runbooks/INDEX.md)
+- [Repo mesh index](.agents/INDEX.md)
+- [Maintenance responsibility](AGENTS.md)
 
-- Use before any docs, policy, or repo-guidance work: [`.agents/docs/AGENTS.md`](./.agents/docs/AGENTS.md).
-- Use before any durable doctrine or policy work: [`.agents/doctrine/AGENTS.md`](./.agents/doctrine/AGENTS.md).
-- Use before any brainstorming or design-spec pass: [`.agents/guides/AGENTS.md`](./.agents/guides/AGENTS.md).
-- Use before any worktree, branch, PR, or readiness decision: [`.agents/doctrine/workflow-policy.md`](./.agents/doctrine/workflow-policy.md).
-- Use before any Superpowers planning or plan-writing pass: [`.agents/superpowers/AGENTS.md`](./.agents/superpowers/AGENTS.md).
-- Use before any marketplace or plugin surface work: [`.agents/plugins/AGENTS.md`](./.agents/plugins/AGENTS.md).
-- Use before inspecting or refreshing derived skills: [`.agents/skills/AGENTS.md`](./.agents/skills/AGENTS.md).
-- Use before any scripts/tooling change: [`scripts/AGENTS.md`](./scripts/AGENTS.md).
-- Use before any shell-script contract or wrapper design: [`.agents/doctrine/script-contract-policy.md`](./.agents/doctrine/script-contract-policy.md).
-- Use before any repository hygiene, layout, or local capability-custody decision: [`.agents/doctrine/repository-hygiene-layout-policy.md`](./.agents/doctrine/repository-hygiene-layout-policy.md).
-- Use before any readiness check: [`scripts/ci-preflight.ps1`](./scripts/ci-preflight.ps1) or [`scripts/ci-preflight.sh`](./scripts/ci-preflight.sh).
-- Use before changing or adding hidden agent surfaces: [`.agents/INDEX.md`](./.agents/INDEX.md) and [`.agents/doctrine/mesh-policy.md`](./.agents/doctrine/mesh-policy.md).
-- Use after any structural change that adds, removes, or moves tracked directories: run `.\scripts\generate_index_mesh.ps1` on Windows or `bash ./scripts/generate_index_mesh.sh` on Linux, then commit the generated `INDEX.md` changes in the same change.
+## Maintenance responsibility
 
-## Documentation Rules
-
-- `README.md` is the human-facing overview.
-- `INDEX.md` files are navigation aids for agents and should stay descriptive, not promotional.
-- `INDEX.md` files are generated navigation and should be regenerated through `scripts/generate_index_mesh.py`, not hand-edited.
-- If directories are added, removed, or reorganized, update the relevant index files in the same change.
-- Keep this guidance current as the repository evolves.
+This file is the repository's primary worker router. When repo conventions, marketplace structure, or publication rules change, update this file and the relevant doctrine in the same change.
