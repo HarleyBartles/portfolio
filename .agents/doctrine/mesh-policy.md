@@ -2,27 +2,18 @@
 
 This is the agent-facing contract for the documentation and navigation surfaces in this repository. It is the companion to the binding summary in root `AGENTS.md`. When the two disagree, root `AGENTS.md` wins and this document must be repaired in the same change.
 
-## 1. `AGENTS.md` mesh
+## 1. `AGENTS.md` and `.devin/rules` mesh
 
-`AGENTS.md` files are scoped routing surfaces. They tell agents what to read and when, and they should live close to the area they govern.
-
-### Structure: routing files, not doctrine containers
-
-- `AGENTS.md` files must stay lightweight and should point at the relevant docs with `use before` or `use when` language.
-- Doctrine belongs in `.agents/doctrine/` and repo docs. `AGENTS.md` should point at those docs, not duplicate them.
-- The root `AGENTS.md` is a thin repo router. It should point at the scoped `AGENTS.md` files and the policy docs that matter for this repo.
-- Scoped `AGENTS.md` files should stay focused on the subtree they govern and should remain easy to read in one pass.
-- If a scoped `AGENTS.md` starts carrying more than a small amount of doctrine, move that doctrine into a repo doc and leave a pointer behind.
+- The root `AGENTS.md` is the repo router. It points at doctrine, runbooks, the `.devin/rules` index, and the generated mesh.
+- `.devin/rules/*.md` are conditional scope triggers. They tell the runtime when to load the runbooks and doctrine for a specific working scope, so that guidance is lazy-loaded instead of always-on.
+- Doctrine and runbooks live in `.agents/doctrine/` and `.agents/runbooks/`. Routers and rule triggers should point at them, not duplicate them.
+- If a `.devin/rules` trigger or `AGENTS.md` pointer starts carrying doctrine, move it to the appropriate runbook or doctrine file and leave a pointer.
 
 ### Why this matters
 
-- `AGENTS.md` is injected into agent context automatically.
+- `AGENTS.md` is injected as an always-on rule. Keep it minimal and use `.devin/rules` for scoped guidance.
 - Routing files stay cheap to read, and the underlying doctrine stays in one place.
 - Pointers preserve discoverability without forcing every agent to absorb every rule.
-
-### Link direction
-
-`AGENTS.md` files point outward to docs, scripts, and other agent-readable surfaces. README files are human-facing and should not be used as agent-routing surfaces. Non-`AGENTS.md` files should not point back at `AGENTS.md` as if it were the canonical source of doctrine. The only acceptable exception is a human-facing note that agent law lives in `AGENTS.md`.
 
 ## 2. `INDEX.md` mesh
 
@@ -41,8 +32,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 
 - `.agents/doctrine/` contains durable doctrine such as policies, contracts, and rule sets.
 - `.agents/docs/` contains repo-local non-doctrine guidance docs.
-- `.agents/runbooks/` contains the guide entrypoints for design, planning, implementation, and review work.
-- `.agents/docs/runbooks/` is optional and must only exist when a current runbook justifies it.
+- `.agents/runbooks/` contains the repo-local runbooks for design, planning, implementation, review, and other workflows.
 - `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
 - `.agents/skills/` contains two explicit lanes: tracked local `port-*` skills are
   repository-owned source, while other skill directories are marketplace-derived
@@ -61,9 +51,9 @@ README files are human-facing. They are not a mesh.
 
 ## 5. Mesh self-healing
 
-- If a worker finds stale or misleading authored mesh law (`AGENTS.md`, `README.md`, or this document), repair it in scope.
-- If a relevant doctrine or policy document is added to the repo, point at it from an appropriate `AGENTS.md` surface in the same change. Do not rely on agents discovering it just because it exists on disk.
-- If a guide home changes, remove stale legacy-home routing and regenerate the full mesh in the same change.
+- If a worker finds stale or misleading authored mesh law (`AGENTS.md`, `README.md`, `.devin/rules/*.md`, or this document), repair it in scope.
+- If a relevant doctrine or policy document is added to the repo, point at it from the root `AGENTS.md` or the relevant `.devin/rules` trigger in the same change. Do not rely on agents discovering it just because it exists on disk.
+- If a runbook or rule home changes, remove stale legacy-home routing and regenerate the full mesh in the same change.
 - If a worker finds stale generated `INDEX.md` navigation, repair it by running `py -3 tools/run.py mesh --apply`.
 - Do not hand-edit generated `INDEX.md` files.
 
@@ -95,10 +85,11 @@ This gate exists so planning agents do not inherit avoidable ambiguity.
 If a change touches any of the surfaces governed by this policy, update the relevant docs in the same change:
 
 - `AGENTS.md`
+- `.devin/rules/*.md`
 - `README.md`
 - `.agents/doctrine/mesh-policy.md`
 - any newly added or renamed doctrine document that should be discoverable through the mesh
 - the affected `INDEX.md` files
-- `scripts/README.md` or `scripts/AGENTS.md` when tooling behavior changes
+- `tools/README.md` or `tools/run.py` when tooling behavior changes
 
 The goal is a self-healing mesh: if a file moves, the surrounding navigation and guidance move with it.

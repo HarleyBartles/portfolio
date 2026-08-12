@@ -1,4 +1,4 @@
-# Portfolio
+# Repository Guidance
 
 This repository is the source for Harley Bartles' personal developer portfolio website.
 
@@ -13,70 +13,33 @@ The site exists to present Harley as a software engineer through:
 
 ## Source-of-truth split
 
-- GitHub and the repository tree prove file state, landed assets, and source snapshots.
+- GitHub and the repository tree prove file state, landed assets, manifests, and validation.
 - Linear issues coordinate work but do not override the committed repo state.
-- Generated artifacts (the `.agents/skills` tree and `INDEX.md` mesh) are downstream outputs; the marketplace source and `marketplace.json` are the source of truth for those assets.
-
-## Publication proof
-
-Repo work is not complete until it is published to GitHub. A valid return must include one of:
-
-1. an open PR URL with branch name and full head SHA;
-2. a verified direct-main commit SHA when direct-main work was explicitly authorized;
-3. a concrete publication blocker.
 
 ## Build and test commands
 
-- `py -3 tools/run.py ci --check` runs the full validation pipeline.
-- `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
-
-## Testing instructions
-
-Run the canonical validation command before claiming work is complete:
-
-```
-py -3 tools/run.py ci --check
-```
-
-## Code style guidelines
-
-- Follow the conventions in the existing `.NET`, `React`, `TypeScript`, and `Vite` application code.
-- Keep documentation clear and routing surfaces up to date.
-- Regenerate `INDEX.md` files after any structural change.
-
-## Review guidelines
-
-- Open pull requests as draft and keep them in draft while iterating.
-- Flip a PR out of draft only after self-review and after `py -3 tools/run.py ci --check` passes.
-- Address remote CI failures before requesting human review.
-
-## PR instructions
-
-- Open PRs into `main`.
-- Include the branch name, head SHA, and a short test-plan in the PR body.
-- Keep PRs in draft until ready for review.
-
-## Contributing
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor entry point and stage routing.
-
-## Security considerations
-
-- Do not commit secrets, API keys, or credentials.
-- Keep authentication out of scope until a multi-project need justifies it.
-- Review changes that touch `.gitmodules`, submodule commits, or marketplace source pinning.
+Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated.
 
 ## Routing pointers
 
+- [Repository purpose](AGENTS.md) — this file
+- [Source-of-truth split](AGENTS.md)
+- [Publication proof](.agents/runbooks/pr.md)
+- [Build and test commands](AGENTS.md)
+- [Testing instructions](.agents/runbooks/testing.md)
+- [Code style guidelines](.agents/runbooks/code-style.md)
+- [Review guidelines](.agents/runbooks/code-review.md)
+- [PR instructions](.agents/runbooks/pr.md)
 - [Contributing](CONTRIBUTING.md)
-- [Review entry point](REVIEW.md)
-- [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
-- [Completed plans rule](.devin/rules/completed-plans.md)
-- [Completed plans doctrine](.agents/doctrine/completed-plans.md)
+- [Security considerations](.agents/runbooks/security.md)
+- [Routing pointers](.devin/rules/INDEX.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
-- [Conditional rule triggers](.devin/rules/INDEX.md)
+- [Mesh policy](.agents/doctrine/mesh-policy.md)
+- [Doctrine](.agents/doctrine/INDEX.md)
+- [Runbooks](.agents/runbooks/INDEX.md)
 - [Repo mesh index](.agents/INDEX.md)
+- [Maintenance responsibility](AGENTS.md)
 
 ## Maintenance responsibility
 
-Keep this router and the runbook set aligned with `repo-standards`. Regenerate the `INDEX.md` mesh after any structural change.
+This file is the repository's primary worker router. When repo conventions, marketplace structure, or publication rules change, update this file and the relevant doctrine in the same change.
