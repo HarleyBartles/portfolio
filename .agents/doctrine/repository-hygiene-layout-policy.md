@@ -3,7 +3,7 @@
 Status: active policy
 Owner: Portfolio repository
 Scope: repository-wide agent surfaces, local tooling, worktrees, generated skills, and documentation layout
-Routed from: `/AGENTS.md` and `/.agents/doctrine/AGENTS.md`
+Routed from: `/.devin/rules/agents-doctrine.md`
 Generic baseline: installed `repo-worker-base` and its references
 
 This policy binds the generic worker contract to Portfolio. It owns Portfolio's
@@ -21,14 +21,14 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `INDEX.md` | Generated traversal and containment navigation | Mesh generator |
 | `.agents/doctrine/` | Binding Portfolio policies, contracts, and invariants | Authored doctrine |
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
-| `.agents/guides/` | `design-guide.md`, `planning-guide.md`, `implementing-guide.md`, and `code-review-guide.md` stage guides | Authored guidance |
+| `.agents/runbooks/` | `design.md`, `planning.md`, `implementing.md`, and `code-review.md` stage runbooks | Authored guidance |
 | `.agents/docs/runbooks/` | Optional repeatable Portfolio procedures | Authored runbooks |
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
 | `.agents/skills/port-*/` | Future Portfolio-owned skills | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
 | `.agents/superpowers/plans/` | Tracked implementation plans | Authored plans |
 | `.agents/superpowers/specs/` and `sdd/` | Local-only working material | Ignored workspace |
-| `scripts/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
+| `tools/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
 
 `README.md` files are not agent routers. `AGENTS.md` files are not doctrine
 containers. `INDEX.md` files are not policy. One rule has one canonical
@@ -38,7 +38,7 @@ authority.
 
 - Put a durable invariant, policy, contract, or authority boundary in
   `.agents/doctrine/`.
-- Put stage-specific, non-binding workflow guidance in `.agents/guides/`.
+- Put stage-specific, non-binding workflow guidance in `.agents/runbooks/`.
 - Put a repeatable Portfolio procedure in `.agents/docs/runbooks/` only when
   it has a current reader and does not need skill invocation or composition.
 - Put a triggerable, composable Portfolio capability in `.agents/skills/port-*`
@@ -119,7 +119,7 @@ have been installed and validated here.
 
 The hygiene profile is ready for normal website implementation only when:
 
-- `.agents/guides/` is the canonical stage-guide home;
+- `.agents/runbooks/` is the canonical stage-runbook home;
 - no stale `.agents/docs/guides/` routing or compatibility tree remains;
 - all active doctrine is routed and all authored links resolve;
 - local-only and generated custody boundaries are validated;

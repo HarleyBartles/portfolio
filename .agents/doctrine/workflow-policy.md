@@ -11,7 +11,7 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 - Keep in-progress work in draft until the task is actually complete.
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
-- Only publish the PR when all work is done and the local preflight (`scripts/ci-preflight.ps1` or `scripts/ci-preflight.sh`) has passed so CI is expected to pass.
+- Only publish the PR when all work is done and `py -3 tools/run.py ci --check` has passed so CI is expected to pass.
 - GitHub Actions does not need to fetch the marketplace source for this repository; derived skill refresh is a local agent check, not a CI check.
 - Keep the marketplace-source refresh as a local agent verification step only; CI should not depend on it.
 - For marketplace or derived-skill work, do not publish until the manifest, submodule, derived skills, provenance, and mesh validation all agree.
@@ -22,7 +22,7 @@ Use this reference when managing git workflow, claiming completion, or deciding 
 
 - A task is not ready just because files changed.
 - Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
-- Before publishing a PR, verify the local preflight and branch state so the published CI run is expected to pass.
+- Before publishing a PR, verify `py -3 tools/run.py ci --check` and the branch state so the published CI run is expected to pass.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
 ## Clean Finish
