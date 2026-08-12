@@ -49,9 +49,24 @@ A premium-feel developer portfolio is not about more visual noise. It is about t
 
 ## Reference routes
 
-- For the philosophical foundation shared across the vendored sources, see [`references/foundation-principles.md`](./references/foundation-principles.md).
-- For the concrete `$10k` versus `$500` taste checklist, see [`references/ten-k-vs-five-hundred.md`](./references/ten-k-vs-five-hundred.md).
-- Future pattern skills: `design-tokens`, `typography-for-the-web`, `web-layout`, `motion-patterns`, `asset-custody`, `evaluating-design-references`.
+| Concern | Read this |
+|---|---|
+| Is the site built to last? | [references/resilience.md](./references/resilience.md) |
+| Is the visual order clear? | [references/hierarchy.md](./references/hierarchy.md) |
+| Is the design restrained? | [references/restraint.md](./references/restraint.md) |
+| Does every section have a purpose? | [references/clarity-of-purpose.md](./references/clarity-of-purpose.md) |
+| Is the finish polished? | [references/craft-and-finish.md](./references/craft-and-finish.md) |
+| Am I thinking about how and why? | [references/how-and-why.md](./references/how-and-why.md) |
+| How should constraints shape the work? | [references/constraints-as-creative-material.md](./references/constraints-as-creative-material.md) |
+| Is the typography good? | [references/typography.md](./references/typography.md) |
+| Is the layout and spacing good? | [references/layout-and-spacing.md](./references/layout-and-spacing.md) |
+| Is the colour and contrast good? | [references/colour-and-contrast.md](./references/colour-and-contrast.md) |
+| Is the motion appropriate? | [references/motion.md](./references/motion.md) |
+| Are the assets good? | [references/assets.md](./references/assets.md) |
+| Is it accessible? | [references/accessibility.md](./references/accessibility.md) |
+| Is it fast? | [references/performance.md](./references/performance.md) |
+| Does it have taste? | [references/taste.md](./references/taste.md) |
+| Future pattern skills | `design-tokens`, `typography-for-the-web`, `web-layout`, `motion-patterns`, `asset-custody`, `evaluating-design-references` |
 
 ## Working rules
 
