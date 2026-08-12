@@ -1,7 +1,6 @@
 version: 1
 metadata:
   skill_name: event-sourcing
-  plugin: architecture-pack
   source_category: first_party
 interface:
   display_name: Event Sourcing

@@ -1,13 +1,40 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: Use when encountering any bug, test failure, or unexpected behavior,
+  before proposing fixes
+metadata:
+  source-id: systematic-debugging
+  source-path: codex-marketplace/plugins/superpowers-plus/skills/systematic-debugging/SKILL.md
+  provenance-name: Systematic Debugging first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Use when encountering any bug, test failure, or unexpected behavior, before
+    proposing fixes
+  use_when:
+  - Use when encountering a bug, test failure, or unexpected behavior before proposing
+    fixes.
+  - Use when the root cause is unknown.
+  - Use when use especially when time pressure makes guessing tempting.
+  do_not_use_when:
+  - Do not use when the fix is already verified.
+  - Do not use as a substitute for testing or verification.
+  - Do not use to justify a pre-selected fix.
+  related_skills:
+  - test-driven-development
+  - executing-plans
+  - subagent-driven-development
+  - using-superpowers-plus
+license: MIT
 ---
+
+## Provenance
+
+This skill is a first-party authored derivation of `obra/superpowers` v6.2.0, released under the MIT License. The original upstream snapshot is retained in `codex-marketplace/plugins/superpowers-plus/skills/systematic-debugging/` for reference.
 
 # Systematic Debugging
 
 ## Overview
-
-Random fixes waste time and create new bugs. Quick patches mask underlying issues.
 
 **Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.
 
@@ -176,7 +203,7 @@ You MUST complete each phase before proceeding to the next.
    - Automated test if possible
    - One-off test script if no framework
    - MUST have before fixing
-   - Use the `superpowers:test-driven-development` skill for writing proper failing tests
+   - Use the `/test-driven-development` skill for writing proper failing tests
 
 2. **Implement Single Fix**
    - Address the root cause identified
@@ -188,6 +215,7 @@ You MUST complete each phase before proceeding to the next.
    - Test passes now?
    - No other tests broken?
    - Issue actually resolved?
+   - Use the `/verification-before-completion` skill before claiming success
 
 4. **If Fix Doesn't Work**
    - STOP
@@ -282,15 +310,3 @@ These techniques are part of systematic debugging and available in this director
 - **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
 - **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
-
-**Related skills:**
-- **superpowers:test-driven-development** - For creating failing test case (Phase 4, Step 1)
-- **superpowers:verification-before-completion** - Verify fix worked before claiming success
-
-## Real-World Impact
-
-From debugging sessions:
-- Systematic approach: 15-30 minutes to fix
-- Random fixes approach: 2-3 hours of thrashing
-- First-time fix rate: 95% vs 40%
-- New bugs introduced: Near zero vs common

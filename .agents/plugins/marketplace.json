@@ -7,6 +7,7 @@
   "default_plugins": [
     "repo-worker-pack",
     "superpowers-plus",
+    "mcp-usage-pack",
     "architecture-pack",
     "frontend-pack",
     "dotnet-pack"
@@ -21,8 +22,13 @@
       "skills_path": "skills"
     },
     "superpowers-plus": {
-      "version": "5.1.0",
+      "version": "1.0.0",
       "source_path": "codex-marketplace/plugins/superpowers-plus",
+      "skills_path": "skills"
+    },
+    "mcp-usage-pack": {
+      "version": "1.0.0",
+      "source_path": "codex-marketplace/plugins/mcp-usage-pack",
       "skills_path": "skills"
     },
     "architecture-pack": {

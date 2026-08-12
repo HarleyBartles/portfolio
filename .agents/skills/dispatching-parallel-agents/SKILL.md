@@ -1,7 +1,35 @@
 ---
 name: dispatching-parallel-agents
-description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+description: Use when facing 2+ independent tasks that can be worked on without shared
+  state or sequential dependencies
+metadata:
+  source-id: dispatching-parallel-agents
+  source-path: codex-marketplace/plugins/superpowers-plus/skills/dispatching-parallel-agents/SKILL.md
+  provenance-name: Dispatching Parallel Agents first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Use when facing 2+ independent tasks that can be worked on without shared
+    state or sequential dependencies
+  use_when:
+  - Use when facing 2+ independent tasks or failures that can be worked on without
+    shared state.
+  - Use when multiple test files fail with different root causes.
+  - Use when each problem can be understood without context from the others.
+  do_not_use_when:
+  - Do not use when failures are related or share state.
+  - Do not use when a single agent needs full system context.
+  - Do not use when tasks have sequential dependencies.
+  related_skills:
+  - systematic-debugging
+  - executing-plans
+  - subagent-driven-development
+  - test-driven-development
+license: MIT
 ---
+## Provenance
+
+This skill is a first-party authored derivation of `obra/superpowers` v6.2.0, released under the MIT License. The original upstream snapshot is retained in `codex-marketplace/plugins/superpowers-plus/skills/dispatching-parallel-agents/` for reference.
 
 # Dispatching Parallel Agents
 
@@ -158,15 +186,6 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 
 **Integration:** All fixes independent, no conflicts, full suite green
 
-**Time saved:** 3 problems solved in parallel vs sequentially
-
-## Key Benefits
-
-1. **Parallelization** - Multiple investigations happen simultaneously
-2. **Focus** - Each agent has narrow scope, less context to track
-3. **Independence** - Agents don't interfere with each other
-4. **Speed** - 3 problems solved in time of 1
-
 ## Verification
 
 After agents return:
@@ -174,12 +193,3 @@ After agents return:
 2. **Check for conflicts** - Did agents edit same code?
 3. **Run full suite** - Verify all fixes work together
 4. **Spot check** - Agents can make systematic errors
-
-## Real-World Impact
-
-From debugging session (2025-10-03):
-- 6 failures across 3 files
-- 3 agents dispatched in parallel
-- All investigations completed concurrently
-- All fixes integrated successfully
-- Zero conflicts between agent changes

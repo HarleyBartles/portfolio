@@ -1,13 +1,42 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: Use when about to claim work is complete, fixed, or passing, before committing
+  or creating PRs - requires running verification commands and confirming output before
+  making any success claims; evidence before assertions always
+metadata:
+  source-id: verification-before-completion
+  source-path: codex-marketplace/plugins/superpowers-plus/skills/verification-before-completion/SKILL.md
+  provenance-name: Verification Before Completion first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Use when about to claim work is complete, fixed, or passing, before committing
+    or creating PRs - requires running verification commands and confirming output
+    before making any success claims; evidence before assertions always
+  use_when:
+  - Use when about to claim work is complete, fixed, or passing, before committing
+    or creating PRs.
+  - Use when a verification command can prove the claim.
+  - Use before any completion claim that should be backed by fresh evidence.
+  do_not_use_when:
+  - Do not use when no verification command exists for the claim.
+  - Do not use to override fresh evidence with confidence.
+  - Do not use as a substitute for running the actual verification.
+  related_skills:
+  - executing-plans
+  - subagent-driven-development
+  - requesting-code-review
+  - finishing-a-development-branch
+  - test-driven-development
+license: MIT
 ---
+## Provenance
+
+This skill is a first-party authored derivation of `obra/superpowers` v6.2.0, released under the MIT License. The original upstream snapshot is retained in `codex-marketplace/plugins/superpowers-plus/skills/verification-before-completion/` for reference.
 
 # Verification Before Completion
 
 ## Overview
-
-Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
 
@@ -105,15 +134,6 @@ Skip any step = lying, not verifying
 ❌ Trust agent report
 ```
 
-## Why This Matters
-
-From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
-- Undefined functions shipped - would crash
-- Missing requirements shipped - incomplete features
-- Time wasted on false completion → redirect → rework
-- Violates: "Honesty is a core value. If you lie, you'll be replaced."
-
 ## When To Apply
 
 **ALWAYS before:**
@@ -129,11 +149,3 @@ From 24 failure memories:
 - Paraphrases and synonyms
 - Implications of success
 - ANY communication suggesting completion/correctness
-
-## The Bottom Line
-
-**No shortcuts for verification.**
-
-Run the command. Read the output. THEN claim the result.
-
-This is non-negotiable.

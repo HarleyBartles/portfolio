@@ -1,7 +1,6 @@
 version: 1
 metadata:
   skill_name: web-styling
-  plugin: frontend-pack
   source_category: first_party
 interface:
   display_name: Web Styling
