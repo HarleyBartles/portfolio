@@ -174,7 +174,7 @@ Update this plan so the five checkboxes in Task 3 are `[x]`.
 - Consumes: the new skill tree.
 - Produces: a validated, mesh-discoverable skill.
 
-- [ ] **Step 1: Run the repo standards check on the skill tree**
+- [x] **Step 1: Run the repo standards check on the skill tree**
 
 ```powershell
 py -3 .agents/skills/repo-standards/scripts/repo_standards.py --check
@@ -186,7 +186,7 @@ If the script is not installed in this worktree, run the canonical CI instead:
 py -3 tools/run.py ci --check
 ```
 
-- [ ] **Step 2: Validate the generated agent mesh**
+- [x] **Step 2: Validate the generated agent mesh**
 
 ```powershell
 py -3 .agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py --check
@@ -194,7 +194,7 @@ py -3 .agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py --chec
 
 If the script is not installed, rely on `py -3 tools/run.py ci --check`.
 
-- [ ] **Step 3: Regenerate and verify the repo mesh**
+- [x] **Step 3: Regenerate and verify the repo mesh**
 
 ```powershell
 py -3 tools/run.py ci --apply
@@ -202,14 +202,14 @@ py -3 tools/run.py ci --apply
 
 This will regenerate `INDEX.md` files and run the full canonical check.
 
-- [ ] **Step 4: Stage and commit any generated updates**
+- [x] **Step 4: Stage and commit any generated updates**
 
 ```powershell
 git add .
 git commit -m "chore: regenerate mesh and validate designing-premium-sites skill"
 ```
 
-- [ ] **Step 5: Mark Task 4's boxes `[x]` in the plan file**
+- [x] **Step 5: Mark Task 4's boxes `[x]` in the plan file**
 
 Update this plan so the four checkboxes in Task 4 are `[x]`.
 
