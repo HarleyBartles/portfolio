@@ -56,7 +56,7 @@ Create `.agents/skills/designing-premium-sites/assets/authority/CITATIONS.md`:
 
 - Author: Frank Chimero
 - License: CC BY-NC-SA 3.0
-- Canonical URL: https://shapeofdesign.net/
+- Canonical URL: https://shapeofdesignbook.com/
 - Source provenance: downloaded from the canonical site
 
 ## Web Design in 4 Minutes
@@ -113,7 +113,7 @@ git commit -m "docs: vendor authority sources for designing-premium-sites"
 
 - [x] **Step 4: Mark Task 2's boxes `[x]` in the plan file**
 
-Update this plan so the three checkboxes in Task 2 are `[x]`.
+Update this plan so the four checkboxes in Task 2 are `[x]`.
 
 ---
 
@@ -121,12 +121,25 @@ Update this plan so the three checkboxes in Task 2 are `[x]`.
 
 **Files:**
 - Modify: `.agents/skills/designing-premium-sites/SKILL.md`
-- Create: `.agents/skills/designing-premium-sites/references/foundation-principles.md`
-- Create: `.agents/skills/designing-premium-sites/references/ten-k-vs-five-hundred.md`
+- Create: `.agents/skills/designing-premium-sites/references/accessibility.md`
+- Create: `.agents/skills/designing-premium-sites/references/assets.md`
+- Create: `.agents/skills/designing-premium-sites/references/clarity-of-purpose.md`
+- Create: `.agents/skills/designing-premium-sites/references/colour-and-contrast.md`
+- Create: `.agents/skills/designing-premium-sites/references/constraints-as-creative-material.md`
+- Create: `.agents/skills/designing-premium-sites/references/craft-and-finish.md`
+- Create: `.agents/skills/designing-premium-sites/references/hierarchy.md`
+- Create: `.agents/skills/designing-premium-sites/references/how-and-why.md`
+- Create: `.agents/skills/designing-premium-sites/references/layout-and-spacing.md`
+- Create: `.agents/skills/designing-premium-sites/references/motion.md`
+- Create: `.agents/skills/designing-premium-sites/references/performance.md`
+- Create: `.agents/skills/designing-premium-sites/references/resilience.md`
+- Create: `.agents/skills/designing-premium-sites/references/restraint.md`
+- Create: `.agents/skills/designing-premium-sites/references/taste.md`
+- Create: `.agents/skills/designing-premium-sites/references/typography.md`
 
 **Interfaces:**
 - Consumes: the vendored sources in `assets/authority/reference-source/` and the master spec.
-- Produces: the umbrella skill and two reference files that later pattern skills can extend.
+- Produces: the umbrella skill and 15 facet reference files that later pattern skills can extend.
 
 - [x] **Step 1: Use `/writing-skills` to author `SKILL.md`**
 
@@ -142,15 +155,15 @@ Each section must be concrete enough that a later agent can rate a page against 
 
 - [x] **Step 2: Use `/writing-with-clarity` to review the draft**
 
-Run a clarity pass on the `SKILL.md` and the two reference files. Fix any vague adjectives, unsupported claims, or ambiguous signals.
+Run a clarity pass on the `SKILL.md` and the 15 reference files. Fix any vague adjectives, unsupported claims, or ambiguous signals.
 
-- [x] **Step 3: Write `references/foundation-principles.md`**
+- [x] **Step 3: Write the 15 facet reference files**
 
-Synthesize the shared ideas from *Resilient Web Design* and *The Shape of Design* into a short reference. Keep only the principles that apply to a premium portfolio: resilience, hierarchy, restraint, and clarity of purpose.
+Synthesize the shared ideas from *Resilient Web Design* and *The Shape of Design* into the 15 facet references under `references/`. Keep only the principles that apply to a premium portfolio: resilience, hierarchy, restraint, and clarity of purpose, with one principle per file.
 
-- [x] **Step 4: Write `references/ten-k-vs-five-hundred.md`**
+- [x] **Step 4: Document the `$10k-feel` versus `$500-feel` pattern across the 15 facet files**
 
-Document the `$10k-feel` versus `$500-feel` pattern as a checklist: spacing, type, motion, asset quality, performance, and taste. This reference becomes the taste baseline for the `taste-reviewer` subagent later.
+Record the `$10k-feel` versus `$500-feel` pattern as a per-file table inside each of the 15 facet references. This pattern becomes the taste baseline for the `taste-reviewer` subagent later.
 
 - [x] **Step 5: Commit the authored skill**
 
@@ -161,7 +174,7 @@ git commit -m "docs: author designing-premium-sites SKILL.md and references"
 
 - [x] **Step 6: Mark Task 3's boxes `[x]` in the plan file**
 
-Update this plan so the five checkboxes in Task 3 are `[x]`.
+Update this plan so the six checkboxes in Task 3 are `[x]`.
 
 ---
 
@@ -211,7 +224,7 @@ git commit -m "chore: regenerate mesh and validate designing-premium-sites skill
 
 - [x] **Step 5: Mark Task 4's boxes `[x]` in the plan file**
 
-Update this plan so the four checkboxes in Task 4 are `[x]`.
+Update this plan so the five checkboxes in Task 4 are `[x]`.
 
 ---
 
@@ -220,6 +233,6 @@ Update this plan so the four checkboxes in Task 4 are `[x]`.
 Before marking this plan done:
 
 1. **Spec coverage:** Does every Phase 1 requirement in the master spec have a task? The umbrella skill, authority, citations, references, and validation are all covered.
-2. **Placeholder scan:** No `TBD`, `TODO`, `implement later`, or `fill in details` remain. The `SKILL.md` content will be authored, but the structure and source list are explicit.
+2. **Placeholder scan:** No `TBD`, `TODO`, `implement later`, or `fill in details` remain. The `SKILL.md` content will be authored, but the structure and source list are explicit. *Web Design in 4 Minutes* has no stated license and was vendored with the repository owner's explicit acceptance for attribution-only use.
 3. **Type consistency:** N/A — this plan creates documentation, not code types.
 4. **Plan-readiness rating:** Target `9/10`. The only user-owned gap is the exact license for *Web Design in 4 Minutes*, which is handled as a verification step.

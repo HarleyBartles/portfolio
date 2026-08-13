@@ -20,3 +20,4 @@
 - License: not stated
 - Canonical URL: https://jgthms.com/web-design-in-4-minutes/
 - Source provenance: downloaded from the canonical site
+- Note: This source has no stated license and was included with the repository owner's explicit acceptance for attribution-only use.

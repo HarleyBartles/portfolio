@@ -70,7 +70,7 @@ The next epic, **Premium Portfolio Implementation**, can then begin. It will use
 Skills are unprefixed unless they are a repo-specific override of a marketplace skill (per the `rooms-mostly` pattern).
 
 1. `designing-premium-sites` — the umbrella taste/principles skill.
-   - Vendored authority: `Resilient Web Design` (CC BY-SA 4.0), `The Shape of Design` (CC BY-NC-SA 3.0), `Web Design in 4 Minutes` (license to verify).
+   - Vendored authority: `Resilient Web Design` (CC BY-SA 4.0), `The Shape of Design` (CC BY-NC-SA 3.0), `Web Design in 4 Minutes` (no stated license; user-approved attribution-only vendoring).
    - Synthesized references: the `$10k` vs `$500` design-quality pattern, typography basics, layout principles, motion heuristics, accessibility/performance as quality.
 2. `design-tokens` — how to create, name, and consume design tokens; the Tailwind v4 `@theme` contract.
 3. `typography-for-the-web` — type pairing, hierarchy, font loading, and fallbacks.
@@ -83,6 +83,7 @@ Skills are unprefixed unless they are a repo-specific override of a marketplace 
 
 - Every skill has a `SKILL.md` and the `assets/authority/` / `references/` structure used by `writing-with-clarity`.
 - Every vendored source has a `CITATIONS.md` and compatible license.
+  - Exception: If a source has no stated license, it may be vendored with attribution and a recorded user acceptance when the source is otherwise public and the user explicitly approves.
 - `py -3 tools/run.py ci --check` passes.
 
 ## Phase 2: Subagent profiles
@@ -152,6 +153,7 @@ This is the enforcement layer. Without it, the skills and runbooks are just poli
 | `.agents/docs/research-log.md` | Research findings and decisions | Source |
 | `src/client/package.json` | New dev/prod dependencies | Source |
 | `src/client/vite.config.ts` | Vite plugins for fonts/images/Tailwind | Source |
+| `.agents/doctrine/{non-repo-locations,artifact,mesh,workflow,surface-classification}-policy.md`, `.agents/{skills,doctrine,docs,runbooks}/AGENTS.md` | Stale AGENTS router and doctrine split/rename surfaces | Source |
 | `tools/run.py` or a new `design-preflight` script | Enforce design standards | Source |
 
 ## Source-of-truth boundaries
