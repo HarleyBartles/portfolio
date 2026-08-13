@@ -20,17 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run mesh validation
+      - name: Run repo preflight
         shell: pwsh
-        run: .\scripts\generate_index_mesh.ps1 -Check
-
-      - name: Run doctrine validation
-        shell: pwsh
-        run: .\scripts\validate_agent_mesh.ps1 -Check
-
-      - name: Run tests
-        shell: pwsh
-        run: py -3 -m unittest discover -s tests -v
+        run: py -3 tools/run.py ci --check
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -77,21 +69,13 @@ jobs:
       - name: Validate Bash syntax
         shell: bash
         run: |
-          for script in scripts/*.sh; do
-            bash -n "$script"
+          for script in .agents/skills/generating-agent-mesh/scripts/*.sh .agents/skills/repo-standards/scripts/*.sh .agents/skills/refreshing-installed-skills/scripts/*.sh; do
+            [ -f "$script" ] && bash -n "$script"
           done
 
-      - name: Run mesh validation
+      - name: Run repo preflight
         shell: bash
-        run: bash ./scripts/generate_index_mesh.sh --check
-
-      - name: Run doctrine validation
-        shell: bash
-        run: bash ./scripts/validate_agent_mesh.sh --check
-
-      - name: Run tests
-        shell: bash
-        run: python3 -m unittest discover -s tests -v
+        run: python3 tools/run.py ci --check
 
       - uses: actions/setup-dotnet@v4
         with:
