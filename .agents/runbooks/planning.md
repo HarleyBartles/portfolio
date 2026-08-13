@@ -35,8 +35,8 @@ Use this runbook when turning an approved design spec into an implementation pla
 
 ## Output Shape
 
-- Plans live in `.agents/plans/completed/` when they are finished.
-- In-flight plans may be kept in a local-only workspace outside the tracked repo if needed.
-- Plans should be readable as work instructions, not as a design essay.
+- In-flight plans live in `.agents/plans/` or an epic subfolder such as `.agents/plans/<epic-name>/` while they are being written and executed. They are tracked source files, not off-repo scratch. See `.agents/doctrine/artifact-policy.md` for the canonical plan homes.
+- Completed plans move to `.agents/plans/completed/`. Update any roadmap, index, or spec link that points to the in-flight path to the `../completed/<plan-file>` path.
+- In-flight and completed plans are work instructions, not design essays.
 - Plans should assume the implementer will verify the live repo before mutating it.
 - Plans should also make it obvious what the implementer should rate their own confidence against before starting.
