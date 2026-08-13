@@ -12,19 +12,26 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/runbooks/` is for workflow guides such as design, planning, implementation, and review.
 - `.agents/runbooks/` is the optional home for repeatable Portfolio procedures that are not skills.
 - `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
-- `.agents/skills/` has two custody lanes: tracked local `port-*` skills are
-  repository-owned source, while other skill directories are derived installed
-  skills described by `.provenance.json`.
+- `.agents/skills/` contains repo-owned skills (unprefixed unless they are a repo-specific
+  override or variant of a shared marketplace skill) and marketplace-derived skills
+  described by `.provenance.json`.
+- `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. Completed plans
+  move to `.agents/plans/completed/`.
+- `.agents/plans/<epic-name>/` holds a multi-plan epic roadmap and its plans while the
+  epic is in flight; move completed plans to `.agents/plans/completed/`.
 - `.agents/plans/completed/` holds historical, completed implementation plans.
 - `.agents/specs/` holds in-flight design specs and is tracked.
 - `.agents/specs/completed/` holds historical, completed design specs.
-- `.agents/sdd/` is a local-only SDD workspace and is ignored by git; create it locally when needed.
+- `.agents/sdd/` is a legacy, ignored local-only workspace. New SDD outputs and
+  temporary execution artifacts live outside the repo tree per
+  `.agents/doctrine/non-repo-locations-policy.md`.
 
 ## Scratch Files
 
 - Do not create scratch files at repo root.
 - Do not commit temporary notes, review drafts, or session artifacts in product source folders.
-- If you need local scratch space, keep it outside the repo or in a git-ignored path.
+- Keep temporary scratch in the canonical off-repo `_agent-scratch` workspace described by
+  `.agents/doctrine/non-repo-locations-policy.md`.
 
 ## Change Hygiene
 

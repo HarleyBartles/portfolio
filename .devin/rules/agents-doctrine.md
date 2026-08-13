@@ -17,7 +17,7 @@ When working in this scope:
 - MUST READ `.agents/doctrine/script-contract-policy.md`
 - MUST READ `.agents/doctrine/mesh-policy.md`
 - MUST READ `.agents/doctrine/surface-classification-policy.md`
-- MUST READ `.agents/doctrine/worktree-and-scratch-policy.md`
+- MUST READ `.agents/doctrine/non-repo-locations-policy.md`
 - MUST READ `.agents/doctrine/marketplace-custody-policy.md`
 - MUST INVOKE `/base-doctrine`
 
