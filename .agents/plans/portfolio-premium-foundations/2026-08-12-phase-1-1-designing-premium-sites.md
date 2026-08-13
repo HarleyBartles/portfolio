@@ -148,7 +148,7 @@ Write `.agents/skills/designing-premium-sites/SKILL.md` with these sections:
 - `## Use when`
 - `## Core thesis` — what makes a portfolio feel `$10k` instead of `$500`
 - `## Quality heuristics` — concrete, reviewable signals for typography, layout, motion, assets, accessibility, and performance
-- `## Reference routes` — pointers to the two `references/` files and the future pattern skills
+- `## Reference routes` — pointers to the 15 `references/` facet files and the future pattern skills
 - `## Working rules` — how an agent should apply this skill without over-designing
 
 Each section must be concrete enough that a later agent can rate a page against it without improvising the criteria.
