@@ -86,7 +86,7 @@ Update `.agents/plans/portfolio-premium-foundations/2026-08-12-phase-1-1-designi
 - Modify: `.agents/skills/designing-premium-sites/assets/authority/CITATIONS.md`
 - Create: `.agents/skills/designing-premium-sites/assets/authority/reference-source/resilient-web-design/`
 - Create: `.agents/skills/designing-premium-sites/assets/authority/reference-source/shape-of-design/`
-- Create: `.agents/skills/designing-premium-sites/assets/authority/reference-source/web-design-in-4-minutes/`
+- Create: `.agents/skills/designing-premium-sites/assets/authority/reference-source/web-design-in-4-minutes.md`
 
 **Interfaces:**
 - Consumes: the URLs and licenses from `CITATIONS.md`.
@@ -98,7 +98,7 @@ For each source, download the text and place it under the matching `reference-so
 
 - `.agents/skills/designing-premium-sites/assets/authority/reference-source/resilient-web-design/`
 - `.agents/skills/designing-premium-sites/assets/authority/reference-source/shape-of-design/`
-- `.agents/skills/designing-premium-sites/assets/authority/reference-source/web-design-in-4-minutes/`
+- `.agents/skills/designing-premium-sites/assets/authority/reference-source/web-design-in-4-minutes.md`
 
 - [x] **Step 2: Verify and update `CITATIONS.md`**
 

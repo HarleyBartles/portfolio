@@ -53,9 +53,9 @@ h2 {
 }
 ```
 
-While the layout has greatly improved so far, let's apply more [subtle changes](#color-contrast).
+While the layout has greatly improved so far, let's apply more [subtle changes](#color-and-contrast).
 
-## Color & contrast
+## Color and contrast
 
 Black text on a white background can be harsh on the eyes. Opting for a softer shade of black for body text makes the page more **comfortable** to read.
 
@@ -150,7 +150,7 @@ body {
 
 After enhancing your identity through *text*, how about adding a [thousand words](#images)...
 
-## Spongebob rainbow meme saying 'Images'
+## Images
 
 Graphics and icons can be used either as ornaments to support your content, or actively take part in the message you want to convey.
 
@@ -208,22 +208,6 @@ header a:hover {
 }
 ```
 
-[And voilà](#header)!
+And voilà!
 
-We've designed a decent page in just a few minutes, following basic principles of web design. There's only [one last thing](#share) left to do...
-
-## Learn CSS!
-
-I've written a **44-page pdf** that teaches you how to **build your own webpage** from scratch. 😃
-
-[![CSS in 44 minutes book cover](https://jgthms.com/images/empty.png)](https://jgthms.com/css-in-44-minutes-ebook)
-
-## Share the love!
-
-## Learn how to design with code!
-
-Here are the resources I wrote to help you learn CSS:
-
-Thanks for reading!
-
-[Looks like you've already been here. Jump to the end?](#share)
+We've designed a decent page in just a few minutes, following basic principles of web design. 
