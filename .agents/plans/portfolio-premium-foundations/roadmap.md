@@ -40,13 +40,13 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 4 - Tools, libraries, and MCP servers
 
-- **Status:** pending
-- **Notes:** Tailwind v4, shadcn/ui, `motion`, `lenis`, `lucide`, font/image optimizers, `openai-image` MCP.
+- **Status:** blocked
+- **Notes:** Premature. The site spec and visual direction must come before any tool decisions. The candidate list (Tailwind v4, shadcn/ui, `motion`, `lenis`, `lucide`, font/image optimizers, `openai-image` MCP) is on hold until the design brief exists.
 
 ## 5 - Preflight and taste gates
 
-- **Status:** pending
-- **Notes:** `tools/run.py design-preflight`, unslop design profiles, handoff gates for design specs.
+- **Status:** blocked
+- **Notes:** Cannot define taste gates without a site spec to validate against.
 
 ## Handoff Notes
 
