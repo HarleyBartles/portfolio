@@ -31,9 +31,12 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 3 - Runbooks
 
-- **Status:** executing
-- **Plan file:** [2026-08-19-phase-3-runbooks.md](2026-08-19-phase-3-runbooks.md)
-- **Notes:** `design.md`, `implementing.md`, `code-style.md`, `testing.md`, `asset.md`.
+- **Status:** done
+- **Plan file:** [2026-08-19-phase-3-runbooks.md](../completed/2026-08-19-phase-3-runbooks.md)
+- **Commit:** `6db0be7`
+- **PR:** #11
+- **Rating:** 9/10
+- **Notes:** Merged. Added `.agents/runbooks/asset.md` and routed it through `.agents/runbooks/AGENTS.md` and `.agents/doctrine/repo-runbook-policy.md`; canonical CI passes.
 
 ## 4 - Tools, libraries, and MCP servers
 
