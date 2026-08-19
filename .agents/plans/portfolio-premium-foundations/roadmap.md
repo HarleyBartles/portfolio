@@ -13,10 +13,11 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 1.2 - Skills - pattern skills
 
-- **Status:** ready
-- **Plan file:** [2026-08-13-phase-1-2-pattern-skills.md](2026-08-13-phase-1-2-pattern-skills.md)
+- **Status:** done
+- **Plan file:** [2026-08-13-phase-1-2-pattern-skills.md](../completed/2026-08-13-phase-1-2-pattern-skills.md)
+- **Commit:** `c47b8ce`
 - **Rating:** 9/10
-- **Notes:** Plan ready after handoff-gates plan-readiness. Create the remaining Phase 1 skills: `design-tokens`, `typography-for-the-web`, `web-layout`, `motion-patterns`, `asset-custody`, `evaluating-design-references`.
+- **Notes:** All six pattern skills committed and the mesh regenerated; canonical CI passes.
 
 ## 2 - Subagent profiles
 
