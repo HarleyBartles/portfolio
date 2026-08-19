@@ -22,9 +22,12 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 2 - Subagent profiles
 
-- **Status:** executing
-- **Plan file:** [2026-08-19-phase-2-subagent-profiles.md](2026-08-19-phase-2-subagent-profiles.md)
-- **Notes:** `design-researcher`, `taste-reviewer`, `design-token-auditor`, `motion-reviewer`.
+- **Status:** done
+- **Plan file:** [2026-08-19-phase-2-subagent-profiles.md](../completed/2026-08-19-phase-2-subagent-profiles.md)
+- **Commit:** `a8d863c`
+- **PR:** #10
+- **Rating:** 9/10
+- **Notes:** Merged. Added `.agents/agents/` profiles `design-researcher`, `taste-reviewer`, `design-token-auditor`, and `motion-reviewer`; canonical CI passes.
 
 ## 3 - Runbooks
 
