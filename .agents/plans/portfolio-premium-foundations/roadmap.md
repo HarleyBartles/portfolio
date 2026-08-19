@@ -22,7 +22,8 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 2 - Subagent profiles
 
-- **Status:** pending
+- **Status:** executing
+- **Plan file:** [2026-08-19-phase-2-subagent-profiles.md](2026-08-19-phase-2-subagent-profiles.md)
 - **Notes:** `design-researcher`, `taste-reviewer`, `design-token-auditor`, `motion-reviewer`.
 
 ## 3 - Runbooks
