@@ -57,18 +57,16 @@ GRAPH: dict[str, list[tuple[str, str]]] = {
         ("green", "scope-honesty"),
     ],
     "fast-fix": [("always", "preflight")],
-    "scope-honesty": [("always", "orchestrator-self-review")],
-    "orchestrator-self-review": [("always", "lens-dispatch")],
-    "lens-dispatch": [("always", "normalize-inputs")],
-    "normalize-inputs": [
-        ("after_lens_dispatch", "lens-triage"),
-        ("after_setup", "preflight"),
+    "scope-honesty": [("always", "reviewer-fast")],
+    "reviewer-fast": [
+        ("findings", "lens-triage"),
+        ("clean", "lens-dispatch"),
     ],
     "lens-triage": [
         ("blocked", "blocked"),
         ("findings", "metrics-track"),
-        ("trivial", "final-strong"),
-        ("clean", "final-strong"),
+        ("after_reviewer_fast", "lens-dispatch"),
+        ("after_lens_dispatch", "final-strong"),
     ],
     "metrics-track": [("always", "finding-fix")],
     "finding-fix": [
@@ -77,17 +75,23 @@ GRAPH: dict[str, list[tuple[str, str]]] = {
     ],
     "re-preflight": [
         ("red", "fast-fix"),
+        ("fast_origin", "lens-dispatch"),
         ("green", "reviewer-fixes"),
+    ],
+    "lens-dispatch": [("always", "normalize-inputs")],
+    "normalize-inputs": [
+        ("after_lens_dispatch", "lens-triage"),
+        ("after_setup", "preflight"),
     ],
     "reviewer-fixes": [
         ("blocked", "blocked"),
-        ("new_issue", "metrics-track"),
+        ("regressions", "metrics-track"),
         ("non_trivial", "regression-scan"),
-        ("fixed", "resolved-ledger"),
+        ("reviewer_fixes_clean", "resolved-ledger"),
         ("not_fixed", "finding-fix"),
     ],
     "regression-scan": [
-        ("clean", "resolved-ledger"),
+        ("regression_scan_clean", "resolved-ledger"),
         ("new_issue", "metrics-track"),
     ],
     "resolved-ledger": [
@@ -146,6 +150,19 @@ def _load_metrics(path: Path) -> dict:
         return {}
 
 
+def _lens_log_clean(scratch: Path, lens: str) -> bool:
+    """Return True if the lens's log ends with '<lens>: clean'."""
+    log = scratch / f"review-log-{lens}.md"
+    if not log.exists():
+        return False
+    for line in reversed(log.read_text(encoding="utf-8").splitlines()):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        return stripped == f"{lens}: clean"
+    return False
+
+
 def _unresolved_findings(state: dict) -> list[str]:
     """Return finding_ids of unresolved blocking/important findings."""
     if "rounds_per_finding" in state:
@@ -192,7 +209,7 @@ def _findings_by_node(state: dict) -> dict[str, int]:
 def _contested(state: dict) -> bool:
     """Return True if any unresolved finding is marked as contested."""
     if "rounds_per_finding" in state:
-        return any(f.get("contested") for f in state.get("rounds_per_finding", []))
+        return any(f.get("contested") for f in state.get("rounds_per_finding", []) if not f.get("resolved_at_node"))
     scratch = Path(state.get("scratch_dir", "."))
     blockers = _load_jsonl(scratch / "blockers.jsonl")
     unresolved = set(_unresolved_findings(state))
@@ -215,6 +232,7 @@ def _condition_holds(condition: str, state: dict, ledger: Path, current_node: st
     findings_by_node = _findings_by_node(state)
     ledger_missing = not ledger.exists()
     previous_node = state.get("previous_node", "")
+    scratch = Path(state.get("scratch_dir", "."))
 
     if condition == "always":
         return True
@@ -244,6 +262,8 @@ def _condition_holds(condition: str, state: dict, ledger: Path, current_node: st
         return not unresolved and not ledger_missing
     if condition == "clean":
         return not unresolved
+    if condition == "non_trivial":
+        return _lens_log_clean(scratch, "reviewer-fixes") and state.get("non_trivial_fix", False)
     if condition == "trivial":
         if "rounds_per_finding" in state:
             rounds = state.get("rounds_per_finding", [])
@@ -288,8 +308,26 @@ def _condition_holds(condition: str, state: dict, ledger: Path, current_node: st
         return bool(unresolved)
     if condition == "new_issue":
         return bool(unresolved) or bool(regressions)
-    if condition == "non_trivial":
-        return state.get("non_trivial_fix", False)
+    if condition == "reviewer_fixes_clean":
+        return _lens_log_clean(scratch, "reviewer-fixes") and not regressions
+    if condition == "regression_scan_clean":
+        return not unresolved and not regressions
+    if condition == "after_reviewer_fast":
+        return previous_node == "reviewer-fast" and not unresolved
+    if condition == "after_lens_dispatch":
+        return previous_node == "lens-dispatch" and not unresolved
+    if condition == "fast_origin":
+        findings = _load_jsonl(scratch / "findings.jsonl")
+        resolved_ids = {r["finding_id"] for r in _load_jsonl(scratch / "resolutions.jsonl")}
+        first_unresolved = next(
+            (
+                f
+                for f in findings
+                if f["finding_id"] not in resolved_ids and f.get("severity") in ("blocking", "important")
+            ),
+            None,
+        )
+        return not unresolved or (first_unresolved is not None and first_unresolved.get("lens") == "reviewer-fast")
 
     return False
 
@@ -473,6 +511,14 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps({"node": node, "reason": reason}, ensure_ascii=False))
         else:
             print(f"{node}\n# {reason}")
+            if node not in ("ready", "blocked"):
+                node_path = f".agents/skills/iterative-review/references/node-{node}.md"
+                state_path_for_hint = state_path or Path(args.metrics).with_name("review-state.json")
+                print(f"# recipe: {node_path}")
+                print(
+                    "# authorize: py -3 .agents/skills/iterative-review/scripts/next_node.py "
+                    f"--propose {node} --state {state_path_for_hint}"
+                )
     elif state_path is not None and args.propose == node:
         ok, missing = _artifacts_present(args.propose, state)
         if not ok:
