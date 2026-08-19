@@ -19,6 +19,15 @@ Primary message: "I build agentic engineering workflows and silly comics."
 - The site is fast, accessible, and readable.
 - The Patch Fairytales give people a reason to return.
 
+## Hosting and deployment
+
+This is a static site.
+
+- The client build target is GitHub Pages.
+- The .NET backend in `src/server/` is not the host; it is one of the projects to showcase.
+- Vite builds the client to a `dist/` or `build/` directory that GitHub Pages serves.
+- React Router is configured with a 404 fallback for GitHub Pages if it is used for client-side routing.
+
 ## Pages and navigation
 
 Four top-level nav items, visible on desktop without a hamburger:
@@ -73,6 +82,13 @@ The site displays the finished page with the core lesson and provenance. A "rand
 
 Articles and notes about agentic engineering, design, and tooling. Markdown content in `src/content/writing/`. Each entry has a title, date, summary, and link.
 
+The first pass includes four backdated articles, one every few days from early August:
+
+1. **2026-08-05 - The graph I built to keep a review agent from going in circles** - the iterative-review Mermaid state graph, scope-honesty, and the pitfall of the reviewer reviewing itself.
+2. **2026-08-07 - Context is not the same as state** - why durable files beat conversation memory, drawn from the agentic-learning-lab threads.
+3. **2026-08-12 - Provisioning is not accumulation** - when adding more instructions to the agent makes it worse.
+4. **2026-08-15 - Pass references, not paragraphs** - multi-agent handoffs and the N+1 problem for context loads.
+
 ## About
 
 Short bio, the same tagline, and a clear contact path. No full resume. The site is the resume.
@@ -108,11 +124,12 @@ No scroll-jacking, no ambient loops, no decorative motion that does not clarify 
 
 ## Tools and dependencies
 
-No new CSS framework. Keep the existing SCSS tokens and `global.scss`. The current setup already has a premium feel.
+This is a static Vite + React site.
 
-Deferred for later phases:
-- `lucide-react` for icons;
-- a Vite image optimizer for the fairytale PNGs.
+- No .NET backend for serving the site.
+- No new CSS framework. Keep the existing SCSS tokens and `global.scss`.
+- `lucide-react` for icons (deferred to after v0.1 if not needed immediately).
+- A Vite image optimizer for the fairytale PNGs (deferred).
 
 ## Asset pipeline
 
@@ -120,8 +137,8 @@ Projects need a thumbnail or hero image. For now, each project can ship without 
 
 ## Content pipeline
 
-- **Projects**: JSON or markdown in `src/content/projects/`.
-- **Writing**: markdown in `src/content/writing/`.
+- **Projects**: JSON files in `src/content/projects/`.
+- **Writing**: markdown files in `src/content/writing/`.
 - **Patch Fairytales**: build step copies `page__*.png` and `manifest.json` from `adventures-of-patch` into `public/patch-fairytales/`. A Node or Python script reads the manifests and writes `src/content/fairytales.json`.
 
 ## Accessibility
@@ -143,6 +160,7 @@ Projects need a thumbnail or hero image. For now, each project can ship without 
 - A design system separate from the existing SCSS.
 - A dark mode for launch.
 - A blog with comments.
+- A backend, database, or API for launch.
 
 ## Open questions
 
@@ -151,4 +169,4 @@ Projects need a thumbnail or hero image. For now, each project can ship without 
 
 ## Handoff
 
-Once this design is approved, the next step is a `writing-plans` implementation plan for the homepage and project/fairytale pages.
+Once this design is approved, the next step is a `writing-plans` implementation plan for the homepage, project pages, writing pages, and article content.
