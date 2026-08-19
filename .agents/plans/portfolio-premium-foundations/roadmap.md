@@ -31,7 +31,8 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 ## 3 - Runbooks
 
-- **Status:** pending
+- **Status:** executing
+- **Plan file:** [2026-08-19-phase-3-runbooks.md](2026-08-19-phase-3-runbooks.md)
 - **Notes:** `design.md`, `implementing.md`, `code-style.md`, `testing.md`, `asset.md`.
 
 ## 4 - Tools, libraries, and MCP servers

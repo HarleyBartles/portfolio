@@ -11,6 +11,7 @@ This directory holds the repo's stage and topical runbooks. Use them as the entr
 - Use before testing: [`testing.md`](./testing.md).
 - Use before security review: [`security.md`](./security.md).
 - Use before authoring or refreshing a skill: [`skill-authoring.md`](./skill-authoring.md) and [`marketplace-generation.md`](./marketplace-generation.md).
+- Use before adding or changing assets: [`asset.md`](./asset.md).
 - Use before any repo-workflow or readiness decision: [`.agents/doctrine/workflow-policy.md`](../doctrine/workflow-policy.md).
 
 ## Working Rules
