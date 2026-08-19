@@ -90,6 +90,14 @@
     }
   ],
   "repo": {
-    "local_skills": ["designing-premium-sites"]
+    "local_skills": [
+      "asset-custody",
+      "design-tokens",
+      "designing-premium-sites",
+      "evaluating-design-references",
+      "motion-patterns",
+      "typography-for-the-web",
+      "web-layout"
+    ]
   }
 }

@@ -32,13 +32,13 @@
 - Consumes: the master spec at `.agents/specs/2026-08-12-portfolio-premium-epic-spec.md` and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when creating, naming, or consuming design tokens for the portfolio.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/design-tokens/references
 ```
 
-- [ ] **Step 2: Author `SKILL.md`**
+- [x] **Step 2: Author `SKILL.md`**
 
 Write `.agents/skills/design-tokens/SKILL.md` with these sections:
 
@@ -51,7 +51,7 @@ Write `.agents/skills/design-tokens/SKILL.md` with these sections:
 - `## Reference routes` - pointers to `references/naming.md`, `references/tailwind-v4-theme.md`, `references/consumption.md`, `references/token-types.md`.
 - `## Working rules` - when to add a token, when to delete a token, how to audit a token file for orphans.
 
-- [ ] **Step 3: Write the four reference files**
+- [x] **Step 3: Write the four reference files**
 
 Each reference must be concrete enough for a later agent to apply without inventing criteria:
 
@@ -60,18 +60,18 @@ Each reference must be concrete enough for a later agent to apply without invent
 - `references/consumption.md` - how to use tokens in CSS, JSX, and Tailwind utility classes.
 - `references/token-types.md` - definitions and example values for each token type.
 
-- [ ] **Step 4: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 4: Use `/writing-with-clarity` to review the draft**
 
 Fix vague adjectives, unsupported claims, or ambiguous signals in `SKILL.md` and the four references.
 
-- [ ] **Step 5: Stage and commit the skill**
+- [x] **Step 5: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/design-tokens/
 git commit -m "docs: add design-tokens skill and references"
 ```
 
-- [ ] **Step 6: Mark Task 1's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 1's boxes `[x]` in the plan file**
 
 ---
 
@@ -88,13 +88,13 @@ git commit -m "docs: add design-tokens skill and references"
 - Consumes: the master spec and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when choosing or reviewing fonts, scale, and loading strategy.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/typography-for-the-web/references
 ```
 
-- [ ] **Step 2: Author `SKILL.md`**
+- [x] **Step 2: Author `SKILL.md`**
 
 Write `.agents/skills/typography-for-the-web/SKILL.md` with these sections:
 
@@ -107,23 +107,23 @@ Write `.agents/skills/typography-for-the-web/SKILL.md` with these sections:
 - `## Reference routes` - pointers to the four references.
 - `## Working rules` - when to self-host, when to use a CDN, and how to test font loading.
 
-- [ ] **Step 3: Write the four reference files**
+- [x] **Step 3: Write the four reference files**
 
 - `references/type-pairing.md` - rules for pairing and a short list of safe portfolio pairs.
 - `references/hierarchy.md` - type scale table, line height, and measure rules.
 - `references/font-loading.md` - preloading, display strategies, and subsetting guidance.
 - `references/fallbacks.md` - system font stack and metric-compatible fallbacks.
 
-- [ ] **Step 4: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 4: Use `/writing-with-clarity` to review the draft**
 
-- [ ] **Step 5: Stage and commit the skill**
+- [x] **Step 5: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/typography-for-the-web/
 git commit -m "docs: add typography-for-the-web skill and references"
 ```
 
-- [ ] **Step 6: Mark Task 2's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 2's boxes `[x]` in the plan file**
 
 ---
 
@@ -140,13 +140,13 @@ git commit -m "docs: add typography-for-the-web skill and references"
 - Consumes: the master spec and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when designing or reviewing layout, grids, and composition.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/web-layout/references
 ```
 
-- [ ] **Step 2: Author `SKILL.md`**
+- [x] **Step 2: Author `SKILL.md`**
 
 Write `.agents/skills/web-layout/SKILL.md` with these sections:
 
@@ -159,23 +159,23 @@ Write `.agents/skills/web-layout/SKILL.md` with these sections:
 - `## Reference routes` - pointers to the four references.
 - `## Working rules` - when to break the grid, how to align to a base unit, and how to review a layout for drift.
 
-- [ ] **Step 3: Write the four reference files**
+- [x] **Step 3: Write the four reference files**
 
 - `references/grids.md` - grid types, common patterns, and anti-patterns.
 - `references/whitespace.md` - spacing scale, rhythm, and how to treat negative space.
 - `references/composition.md` - focal points, visual hierarchy, and balance.
 - `references/responsive-patterns.md` - breakpoints, container queries, and adaptive content.
 
-- [ ] **Step 4: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 4: Use `/writing-with-clarity` to review the draft**
 
-- [ ] **Step 5: Stage and commit the skill**
+- [x] **Step 5: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/web-layout/
 git commit -m "docs: add web-layout skill and references"
 ```
 
-- [ ] **Step 6: Mark Task 3's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 3's boxes `[x]` in the plan file**
 
 ---
 
@@ -192,13 +192,13 @@ git commit -m "docs: add web-layout skill and references"
 - Consumes: the master spec and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when adding or reviewing animation, scroll, and transitions.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/motion-patterns/references
 ```
 
-- [ ] **Step 2: Author `SKILL.md`**
+- [x] **Step 2: Author `SKILL.md`**
 
 Write `.agents/skills/motion-patterns/SKILL.md` with these sections:
 
@@ -211,23 +211,23 @@ Write `.agents/skills/motion-patterns/SKILL.md` with these sections:
 - `## Reference routes` - pointers to the four references.
 - `## Working rules` - how to decide if an animation earns its place and how to test motion without a browser theater mode.
 
-- [ ] **Step 3: Write the four reference files**
+- [x] **Step 3: Write the four reference files**
 
 - `references/motion-primitives.md` - timing, easing, and transform rules.
 - `references/scroll-reveals.md` - trigger, distance, and timing rules for scroll-driven motion.
 - `references/view-transitions.md` - same-doc and cross-doc view transition API rules.
 - `references/reduced-motion.md` - how to respect `prefers-reduced-motion` and what the fallback should be.
 
-- [ ] **Step 4: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 4: Use `/writing-with-clarity` to review the draft**
 
-- [ ] **Step 5: Stage and commit the skill**
+- [x] **Step 5: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/motion-patterns/
 git commit -m "docs: add motion-patterns skill and references"
 ```
 
-- [ ] **Step 6: Mark Task 4's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 4's boxes `[x]` in the plan file**
 
 ---
 
@@ -246,18 +246,18 @@ git commit -m "docs: add motion-patterns skill and references"
 - Consumes: the master spec and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when adding, optimizing, or attributing fonts, images, and icons.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/asset-custody/references
 New-Item -ItemType Directory -Force -Path .agents/skills/asset-custody/assets/authority/reference-source
 ```
 
-- [ ] **Step 2: Decide whether any authority sources need vendoring**
+- [x] **Step 2: Decide whether any authority sources need vendoring**
 
 If a public source is referenced for image optimization, icon sizing, or font licensing, record it in `assets/authority/CITATIONS.md`. If no source is vendored, create an empty `CITATIONS.md` with a note that this skill is synthesized.
 
-- [ ] **Step 3: Author `SKILL.md`**
+- [x] **Step 3: Author `SKILL.md`**
 
 Write `.agents/skills/asset-custody/SKILL.md` with these sections:
 
@@ -270,23 +270,23 @@ Write `.agents/skills/asset-custody/SKILL.md` with these sections:
 - `## Reference routes` - pointers to the four references.
 - `## Working rules` - what to check before adding an asset, and how to remove an asset without orphan references.
 
-- [ ] **Step 4: Write the four reference files**
+- [x] **Step 4: Write the four reference files**
 
 - `references/fonts.md` - font custody checklist and format guidance.
 - `references/images.md` - image format, sizing, alt, and licensing checklist.
 - `references/icons.md` - icon set, sizing, and usage rules.
 - `references/optimization.md` - Vite plugins, compression, and bundle-size rules.
 
-- [ ] **Step 5: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 5: Use `/writing-with-clarity` to review the draft**
 
-- [ ] **Step 6: Stage and commit the skill**
+- [x] **Step 6: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/asset-custody/
 git commit -m "docs: add asset-custody skill and references"
 ```
 
-- [ ] **Step 7: Mark Task 5's boxes `[x]` in the plan file**
+- [x] **Step 7: Mark Task 5's boxes `[x]` in the plan file**
 
 ---
 
@@ -302,13 +302,13 @@ git commit -m "docs: add asset-custody skill and references"
 - Consumes: the master spec and the `designing-premium-sites` umbrella skill.
 - Produces: a skill that agents invoke when deciding whether a public portfolio, Dribbble shot, or reference repo is worth adopting.
 
-- [ ] **Step 1: Scaffold the skill directory**
+- [x] **Step 1: Scaffold the skill directory**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .agents/skills/evaluating-design-references/references
 ```
 
-- [ ] **Step 2: Author `SKILL.md`**
+- [x] **Step 2: Author `SKILL.md`**
 
 Write `.agents/skills/evaluating-design-references/SKILL.md` with these sections:
 
@@ -320,22 +320,22 @@ Write `.agents/skills/evaluating-design-references/SKILL.md` with these sections
 - `## Reference routes` - pointers to the three references.
 - `## Working rules` - how to write a one-paragraph recommendation and when to reject a reference.
 
-- [ ] **Step 3: Write the three reference files**
+- [x] **Step 3: Write the three reference files**
 
 - `references/quality-signals.md` - concrete signals for credibility and craft.
 - `references/adoption-checklist.md` - the exact steps to translate a reference into a portfolio pattern.
 - `references/avoiding-copying.md` - red flags and how to synthesize instead of clone.
 
-- [ ] **Step 4: Use `/writing-with-clarity` to review the draft**
+- [x] **Step 4: Use `/writing-with-clarity` to review the draft**
 
-- [ ] **Step 5: Stage and commit the skill**
+- [x] **Step 5: Stage and commit the skill**
 
 ```powershell
 git add .agents/skills/evaluating-design-references/
 git commit -m "docs: add evaluating-design-references skill and references"
 ```
 
-- [ ] **Step 6: Mark Task 6's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 6's boxes `[x]` in the plan file**
 
 ---
 
@@ -348,7 +348,7 @@ git commit -m "docs: add evaluating-design-references skill and references"
 - Consumes: the new skill trees.
 - Produces: a validated, mesh-discoverable skill tree.
 
-- [ ] **Step 1: Run the repo standards check on the skill tree**
+- [x] **Step 1: Run the repo standards check on the skill tree**
 
 ```powershell
 py -3 .agents/skills/repo-standards/scripts/repo_standards.py --check
@@ -360,7 +360,7 @@ If the script is not installed in this worktree, run the canonical CI instead:
 py -3 tools/run.py ci --check
 ```
 
-- [ ] **Step 2: Validate the generated agent mesh**
+- [x] **Step 2: Validate the generated agent mesh**
 
 ```powershell
 py -3 .agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py --check
@@ -368,7 +368,7 @@ py -3 .agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py --chec
 
 If the script is not installed, rely on `py -3 tools/run.py ci --check`.
 
-- [ ] **Step 3: Regenerate and verify the repo mesh**
+- [x] **Step 3: Regenerate and verify the repo mesh**
 
 ```powershell
 py -3 tools/run.py ci --apply
@@ -376,18 +376,18 @@ py -3 tools/run.py ci --apply
 
 This will regenerate `INDEX.md` files and run the full canonical check.
 
-- [ ] **Step 4: Move the completed plan file**
+- [x] **Step 4: Move the completed plan file**
 
 After validation passes, move this plan file from `.agents/plans/portfolio-premium-foundations/` to `.agents/plans/completed/` and update the roadmap to `done`.
 
-- [ ] **Step 5: Stage and commit any generated updates**
+- [x] **Step 5: Stage and commit any generated updates**
 
 ```powershell
 git add .
 git commit -m "chore: regenerate mesh and validate pattern skills"
 ```
 
-- [ ] **Step 6: Mark Task 7's boxes `[x]` in the plan file**
+- [x] **Step 6: Mark Task 7's boxes `[x]` in the plan file**
 
 ---
 
