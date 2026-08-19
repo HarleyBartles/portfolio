@@ -15,9 +15,10 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 
 - **Status:** done
 - **Plan file:** [2026-08-13-phase-1-2-pattern-skills.md](../completed/2026-08-13-phase-1-2-pattern-skills.md)
-- **Commit:** `c47b8ce`
+- **Commit:** `800e685`
+- **PR:** #9
 - **Rating:** 9/10
-- **Notes:** All six pattern skills committed and the mesh regenerated; canonical CI passes.
+- **Notes:** Merged into main at `800e685`. All six pattern skills and the refreshed `marketplace-source` `be69c861` mesh landed; canonical CI passes.
 
 ## 2 - Subagent profiles
 
