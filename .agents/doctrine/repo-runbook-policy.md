@@ -19,7 +19,7 @@ This repo follows the `repo-standards` skill. Invoke `/using-superpowers-plus` f
 
 ## Additional repo-specific runbooks
 
-- <!-- list repo-specific runbooks here -->
+- `asset.md` at `.agents/runbooks/asset.md` for font, image, icon, and optimization guidance.
 
 ## Root contributor and review surfaces
 
