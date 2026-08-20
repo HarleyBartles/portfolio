@@ -55,7 +55,7 @@ def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
 def _mesh_generate_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
-        ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py",
+        "tools/generate_index_mesh.py",
         f"--{mode}",
     ]
     if mode == "apply" and allow_shared:
@@ -73,6 +73,14 @@ def _mesh_validate_cmd() -> list[str]:
 
 def _tests_cmd() -> list[str]:
     return [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]
+
+
+def _link_hygiene_check_cmd() -> list[str]:
+    return [sys.executable, "tools/check_link_hygiene.py"]
+
+
+def _refresh_seo_files_cmd() -> list[str]:
+    return [sys.executable, "tools/refresh_seo_files.py"]
 
 
 def _repo_standards_apply(ctx: Ctx) -> None:
@@ -108,12 +116,14 @@ def _ci_apply(ctx: Ctx) -> None:
     _repo_standards_apply(ctx)
     _skills_apply(ctx)
     _mesh_apply(ctx)
+    _run(_refresh_seo_files_cmd(), ctx)
 
 
 def _ci_check(ctx: Ctx) -> None:
     _repo_standards_check(ctx)
     _skills_check(ctx)
     _mesh_check(ctx)
+    _run(_link_hygiene_check_cmd(), ctx)
     if any((ROOT / "tests").rglob("test*.py")):
         _run(_tests_cmd(), ctx)
     else:

@@ -56,4 +56,5 @@ The engineers I admire aren't the ones who mock the vibe. They're the ones who u
 
 ---
 
-*I wrote the first draft of this piece, then shaped it for clarity with the help of the [writing-with-clarity](https://github.com/HarleyBartles/portfolio/blob/main/.agents/skills/writing-with-clarity/SKILL.md) skill and the [unslop writing profile](https://github.com/HarleyBartles/portfolio/blob/main/.agents/skills/unslop-profiles/profiles/writing.md).*
+*I wrote the first draft of this piece, then shaped it for clarity with the help of the [writing-with-clarity](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/repo-worker-pack/skills/writing-with-clarity/SKILL.md) skill and the [unslop writing profile](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/repo-worker-pack/skills/unslop-profiles/profiles/writing.md).*
+

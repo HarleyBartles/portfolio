@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /projects/wild-bunch
 
-Sitemap: https://harleybartles.com/sitemap.xml
+Sitemap: https://harleybartles.github.io/portfolio/sitemap.xml

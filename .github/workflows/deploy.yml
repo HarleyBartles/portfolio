@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Link hygiene
+        run: python3 tools/check_link_hygiene.py
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:

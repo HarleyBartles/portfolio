@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if command -v py >/dev/null 2>&1; then
+  py -3 tools/check_link_hygiene.py
+else
+  python3 tools/check_link_hygiene.py
+fi
