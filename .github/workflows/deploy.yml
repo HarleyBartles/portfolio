@@ -36,6 +36,10 @@ jobs:
         working-directory: src/client
         run: npm run build
 
+      - name: Add SPA 404 fallback
+        working-directory: src/client
+        run: cp dist/index.html dist/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
