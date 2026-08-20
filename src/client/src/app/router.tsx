@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
 import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
-import { ContentPage } from '../pages/ContentPage'
+import { AboutPage } from '../pages/AboutPage'
 import { HomePage } from '../pages/HomePage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProjectIndexPage } from '../pages/ProjectIndexPage'
@@ -41,28 +41,16 @@ export const appRoutes: RouteObject[] = [
         element: <ProjectRoutePage />,
       },
       {
-        path: 'experience',
-        element: <ContentPage slug="experience" expectedKind="experience" />,
-      },
-      {
-        path: 'engineering-practice',
-        element: <ContentPage slug="engineering-practice" expectedKind="practice" />,
-      },
-      {
-        path: 'ai-engineering',
-        element: <ContentPage slug="ai-engineering" expectedKind="ai-engineering" />,
-      },
-      {
-        path: 'learning-and-development',
-        element: <ContentPage slug="learning-and-development" expectedKind="learning" />,
-      },
-      {
         path: 'writing',
         element: <WritingIndexPage />,
       },
       {
         path: 'writing/:slug',
         element: <WritingRoutePage />,
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
       },
       {
         path: '*',
@@ -72,4 +60,6 @@ export const appRoutes: RouteObject[] = [
   },
 ]
 
-export const router = createBrowserRouter(appRoutes)
+export const router = createBrowserRouter(appRoutes, {
+  basename: import.meta.env.BASE_URL,
+})

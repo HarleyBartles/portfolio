@@ -1,32 +1,108 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
-import { OrientationStrip } from '../components/OrientationStrip'
 import { SiteLayout } from '../components/SiteLayout'
+import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
+
+function formatDate(value: string | undefined): string | null {
+  if (value === undefined) {
+    return null
+  }
+
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return null
+  }
+
+  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
+}
 
 export function HomePage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
 
+  if (navigationQuery.isLoading) {
+    return (
+      <SiteLayout>
+        <LoadingPage shell={false} />
+      </SiteLayout>
+    )
+  }
+
+  if (navigationQuery.isError) {
+    return (
+      <SiteLayout>
+        <ErrorPage shell={false} />
+      </SiteLayout>
+    )
+  }
+
+  const items = navigationQuery.data ?? []
+  const projects = items.filter((item) => item.kind === 'project')
+  const featuredProject = projects[0]
+  const writing = items
+    .filter((item) => item.kind === 'writing')
+    .toSorted((a, b) => {
+      const aDate = a.date ?? ''
+      const bDate = b.date ?? ''
+      return aDate.localeCompare(bDate)
+    })
+    .toReversed()
+    .slice(0, 4)
+
   return (
     <SiteLayout>
       <DocumentMetadata
-        title="Harley Bartles | Full Stack Software Engineer"
-        description="Portfolio of Harley Bartles, a full stack software engineer focused on AI-forward, stack-agnostic delivery."
+        title="Harley Bartles | Agentic Engineering"
+        description="I build agentic engineering workflows and silly comics."
         canonicalPath="/"
       />
       <section className="hero" aria-labelledby="homepage-title">
         <p className="eyebrow">Portfolio</p>
-        <h1 id="homepage-title">Harley Bartles: Full Stack Software Engineer</h1>
-        <p className="hero-support">
-          AI-forward. Stack-agnostic. Experienced across languages, frameworks, and full-stack systems.
+        <h1 id="homepage-title">Harley Bartles</h1>
+        <p className="hero-support">I build agentic engineering workflows and silly comics.</p>
+        <p>
+          <Link to="/projects" className="hero-cta">
+            See the work
+          </Link>
         </p>
       </section>
-      {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
-      {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
-      {navigationQuery.isSuccess ? <OrientationStrip items={navigationQuery.data} /> : null}
+
+      {featuredProject !== undefined ? (
+        <section className="featured-project" aria-labelledby="featured-project-title">
+          <p className="eyebrow">Featured project</p>
+          <h2 id="featured-project-title">
+            <Link to={getContentPath(featuredProject)}>{featuredProject.title}</Link>
+          </h2>
+          <p>{featuredProject.summary}</p>
+          <p className="content-status">
+            <span>Status</span>
+            {featuredProject.status}
+          </p>
+        </section>
+      ) : null}
+
+      <section className="latest-writing" aria-labelledby="latest-writing-title">
+        <p className="eyebrow">Writing</p>
+        <h2 id="latest-writing-title">Latest notes</h2>
+        <ul className="content-card-list">
+          {writing.map((item) => (
+            <li className="content-card" key={item.slug}>
+              <h3>
+                <Link to={getContentPath(item)}>{item.title}</Link>
+              </h3>
+              {formatDate(item.date) !== null ? (
+                <p className="article-date">{formatDate(item.date)}</p>
+              ) : null}
+              <p>{item.summary}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </SiteLayout>
   )
 }
