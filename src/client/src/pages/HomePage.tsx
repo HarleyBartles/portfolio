@@ -75,34 +75,36 @@ export function HomePage(): ReactElement {
         </p>
       </section>
 
-      {featuredWriting !== undefined ? (
-        <section className="featured-project" aria-labelledby="featured-writing-title">
-          <p className="eyebrow">Featured note</p>
-          <h2 id="featured-writing-title">
-            <Link to={getContentPath(featuredWriting)}>{featuredWriting.title}</Link>
-          </h2>
-          {formatDate(featuredWriting.date) !== null ? (
-            <p className="article-date">{formatDate(featuredWriting.date)}</p>
-          ) : null}
-          <p>{featuredWriting.summary}</p>
-        </section>
-      ) : null}
+      <section className="home-spotlight" aria-label="Featured work">
+        {featuredWriting !== undefined ? (
+          <article className="home-card" aria-labelledby="featured-writing-title">
+            <p className="eyebrow">Featured note</p>
+            <h2 id="featured-writing-title">
+              <Link to={getContentPath(featuredWriting)}>{featuredWriting.title}</Link>
+            </h2>
+            {formatDate(featuredWriting.date) !== null ? (
+              <p className="article-date">{formatDate(featuredWriting.date)}</p>
+            ) : null}
+            <p>{featuredWriting.summary}</p>
+          </article>
+        ) : null}
 
-      {featuredProject !== undefined ? (
-        <section className="featured-project" aria-labelledby="featured-project-title">
-          <p className="eyebrow">Featured project</p>
-          <h2 id="featured-project-title">
-            <Link to={getContentPath(featuredProject)}>{featuredProject.title}</Link>
-          </h2>
-          <p>{featuredProject.summary}</p>
-          <p className="content-status">
-            <span>Status</span>
-            {featuredProject.status}
-          </p>
-        </section>
-      ) : null}
+        {featuredProject !== undefined ? (
+          <article className="home-card" aria-labelledby="featured-project-title">
+            <p className="eyebrow">Featured project</p>
+            <h2 id="featured-project-title">
+              <Link to={getContentPath(featuredProject)}>{featuredProject.title}</Link>
+            </h2>
+            <p>{featuredProject.summary}</p>
+            <p className="content-status">
+              <span>Status</span>
+              {featuredProject.status}
+            </p>
+          </article>
+        ) : null}
+      </section>
 
-      <section className="latest-writing" aria-labelledby="latest-writing-title">
+      <section className="latest-writing home-writing" aria-labelledby="latest-writing-title">
         <p className="eyebrow">Writing</p>
         <h2 id="latest-writing-title">Latest notes</h2>
         <ul className="content-card-list">
@@ -118,6 +120,11 @@ export function HomePage(): ReactElement {
             </li>
           ))}
         </ul>
+        <div className="home-actions">
+          <Link to="/writing" className="home-cta">
+            Browse all notes
+          </Link>
+        </div>
       </section>
     </SiteLayout>
   )
