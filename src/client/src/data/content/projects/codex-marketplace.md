@@ -1,9 +1,7 @@
-codex-marketplace is a public agent-asset marketplace. It holds skills, runbooks, and reference material that I use across multiple repositories.
+Agent Asset Marketplace is a public repository where I keep agent skills packaged as Codex plugins. The actual repo name is `agent-asset-marketplace`; the `codex-marketplace/` tree inside it holds the vendored plugin bundles.
 
-The repository started because I was copying the same skills into different projects and watching them drift. The marketplace keeps one source of truth for the shared assets and a manifest that records which version each consumer is pinned to. When a skill changes, the marketplace updates the source and consumers can pull the new revision on their own schedule.
+The marketplace currently offers 17 plugins with 74 bundled skill entries. Some skills appear in more than one plugin - `feature-sliced-design`, `release-engineering`, `risk-gates`, and `unslop-profiles` are each vendored by two different bundles - so the count of unique skill names is 70. The skills are not one-off prompts; each one has a SKILL.md, authority references, a verification section, and a clear scope of when to use it and when not to use it.
 
-There are 53 skills and runbooks in the marketplace today. They are not one-off prompts. Each one has a SKILL.md, authority references, a verification section, and a clear scope of when to use it and when not to use it. The marketplace also tracks provenance, so a consumer repo knows exactly which upstream revision it last synced.
+The repo also installs copies of the plugins it consumes for its own operation, currently `repo-worker-pack`, `superpowers-plus`, and `mcp-usage-pack`. Those installed copies live under `.agents/skills/` and are not additional marketplace inventory. The canonical vendored assets are under `codex-marketplace/plugins/`, with the plugin root list in `codex-marketplace/plugin-roots.json` and the aggregate manifest in `codex-marketplace/manifest.json`.
 
-The build and publication pipeline is intentional. Shared assets stay in the marketplace. Repo-owned skills stay in the repo. The boundary is enforced through a plugin manifest and a CI step that refreshes the consumer's local copy from the pinned marketplace revision. This is the shape that lets me distribute agentic engineering patterns across projects without turning every repo into a copy of every other repo.
-
-The repository is public: [github.com/HarleyBartles/codex-marketplace](https://github.com/HarleyBartles/codex-marketplace).
+The repository is public: [github.com/HarleyBartles/agent-asset-marketplace](https://github.com/HarleyBartles/agent-asset-marketplace).

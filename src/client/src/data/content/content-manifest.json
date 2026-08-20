@@ -3,9 +3,9 @@
     {
       "slug": "codex-marketplace",
       "kind": "project",
-      "title": "codex-marketplace",
+      "title": "Agent Asset Marketplace",
       "status": "live",
-      "summary": "An agent-asset marketplace. 53 skills and runbooks, one source of truth, distributed to multiple repos.",
+      "summary": "A public Codex plugin marketplace. 17 plugins, 74 bundled skill entries, with clear boundaries between vended plugin source and installed copies.",
       "path": "projects/codex-marketplace.md",
       "tags": ["project", "agentic-engineering", "skills"],
       "relatedSlugs": []
