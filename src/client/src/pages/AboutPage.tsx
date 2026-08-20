@@ -10,7 +10,7 @@ export function AboutPage(): ReactElement {
         description="About Harley Bartles, agentic engineering, and how to get in touch."
         canonicalPath="/about"
       />
-      <section className="about-page" aria-labelledby="about-title">
+      <section className="content-page about-page" aria-labelledby="about-title">
         <p className="eyebrow">About</p>
         <h1 id="about-title">Harley Bartles</h1>
         <p className="hero-support">I build agentic engineering workflows and silly comics.</p>

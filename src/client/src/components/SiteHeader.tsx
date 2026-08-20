@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const primaryLinks = [
   { to: '/projects', label: 'Projects' },
@@ -10,14 +10,14 @@ const primaryLinks = [
 export function SiteHeader(): ReactElement {
   return (
     <header className="site-header">
-      <Link to="/" className="site-mark" aria-label="Harley Bartles">
+      <NavLink to="/" className="site-mark" aria-label="Harley Bartles">
         HB
-      </Link>
+      </NavLink>
       <nav aria-label="Primary">
         <ul>
           {primaryLinks.map((link) => (
             <li key={link.to}>
-              <Link to={link.to}>{link.label}</Link>
+              <NavLink to={link.to}>{link.label}</NavLink>
             </li>
           ))}
         </ul>

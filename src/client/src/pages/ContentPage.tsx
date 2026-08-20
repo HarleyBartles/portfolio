@@ -109,6 +109,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         <header className="content-page-header">
           <p className="eyebrow">{document.summary.kind}</p>
           <h1 id="content-page-title">{document.summary.title}</h1>
+          {document.summary.kind === 'writing' && document.summary.date !== undefined ? (
+            <p className="content-date">{document.summary.date}</p>
+          ) : null}
           <p className="content-summary">{document.summary.summary}</p>
           {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
         </header>

@@ -16,15 +16,35 @@ function stripFrontmatter(markdown: string): string {
   return match !== null ? markdown.slice(match[0].length) : markdown
 }
 
-const markdownByPath: Record<string, string> = {
-  'projects/codex-marketplace.md': stripFrontmatter(codexMarketplace),
-  'projects/agentic-learning-lab.md': stripFrontmatter(agenticLearningLab),
-  'projects/wild-bunch.md': stripFrontmatter(wildBunch),
-  'projects/adventures-of-patch.md': stripFrontmatter(adventuresOfPatch),
-  'writing/2026-08-05-graph-iterative-review.md': stripFrontmatter(graphIterativeReview),
-  'writing/2026-08-07-context-is-not-state.md': stripFrontmatter(contextIsNotState),
-  'writing/2026-08-12-provisioning-is-not-accumulation.md': stripFrontmatter(provisioningIsNotAccumulation),
-  'writing/2026-08-15-pass-references-not-paragraphs.md': stripFrontmatter(passReferencesNotParagraphs),
+function stripLeadingTitle(markdown: string, title: string): string {
+  const firstHeading = markdown.match(/^\s*#\s+(.+)\r?\n?/)
+
+  if (firstHeading !== null && firstHeading[1].trim().toLowerCase() === title.trim().toLowerCase()) {
+    return markdown.slice(firstHeading[0].length).trimStart()
+  }
+
+  return markdown
+}
+
+function prepareMarkdown(raw: string, summary: ContentSummary): string {
+  const withoutFrontmatter = stripFrontmatter(raw)
+
+  if (summary.kind === 'writing') {
+    return stripLeadingTitle(withoutFrontmatter, summary.title)
+  }
+
+  return withoutFrontmatter
+}
+
+const rawByPath: Record<string, string> = {
+  'projects/codex-marketplace.md': codexMarketplace,
+  'projects/agentic-learning-lab.md': agenticLearningLab,
+  'projects/wild-bunch.md': wildBunch,
+  'projects/adventures-of-patch.md': adventuresOfPatch,
+  'writing/2026-08-05-graph-iterative-review.md': graphIterativeReview,
+  'writing/2026-08-07-context-is-not-state.md': contextIsNotState,
+  'writing/2026-08-12-provisioning-is-not-accumulation.md': provisioningIsNotAccumulation,
+  'writing/2026-08-15-pass-references-not-paragraphs.md': passReferencesNotParagraphs,
 }
 
 function itemToSummary(item: unknown): ContentSummary {
@@ -46,8 +66,8 @@ export const navigation: ContentSummary[] = manifest.items.map(itemToSummary)
 export const documentsBySlug: Record<string, ContentDocument> = Object.fromEntries(
   manifest.items.map((item) => {
     const summary = itemToSummary(item)
-    const raw = markdownByPath[String((item as Record<string, unknown>).path)]
-    const markdown = raw === undefined ? '' : raw
+    const raw = rawByPath[String((item as Record<string, unknown>).path)]
+    const markdown = raw === undefined ? '' : prepareMarkdown(raw, summary)
     return [summary.slug, { summary, markdown }]
   }),
 )

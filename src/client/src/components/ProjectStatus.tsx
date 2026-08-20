@@ -11,8 +11,10 @@ export function ProjectStatus({ status }: ProjectStatusProps): ReactElement | nu
     return null
   }
 
+  const statusClass = `status-${normalizedStatus.toLowerCase().replace(/\s+/g, '-')}`
+
   return (
-    <p className="content-status">
+    <p className={`content-status ${statusClass}`}>
       <span>Status</span>
       {normalizedStatus}
     </p>
