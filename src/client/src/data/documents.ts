@@ -6,6 +6,7 @@ import agenticLearningLab from './content/projects/agentic-learning-lab.md?raw'
 import wildBunch from './content/projects/wild-bunch.md?raw'
 import adventuresOfPatch from './content/projects/adventures-of-patch.md?raw'
 
+import agenticVsVibeCoding from './content/writing/2026-08-01-agentic-engineering-vs-vibe-coding.md?raw'
 import graphIterativeReview from './content/writing/2026-08-05-graph-iterative-review.md?raw'
 import contextIsNotState from './content/writing/2026-08-07-context-is-not-state.md?raw'
 import provisioningIsNotAccumulation from './content/writing/2026-08-12-provisioning-is-not-accumulation.md?raw'
@@ -41,6 +42,7 @@ const rawByPath: Record<string, string> = {
   'projects/agentic-learning-lab.md': agenticLearningLab,
   'projects/wild-bunch.md': wildBunch,
   'projects/adventures-of-patch.md': adventuresOfPatch,
+  'writing/2026-08-01-agentic-engineering-vs-vibe-coding.md': agenticVsVibeCoding,
   'writing/2026-08-05-graph-iterative-review.md': graphIterativeReview,
   'writing/2026-08-07-context-is-not-state.md': contextIsNotState,
   'writing/2026-08-12-provisioning-is-not-accumulation.md': provisioningIsNotAccumulation,
