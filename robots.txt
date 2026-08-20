@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /projects/wild-bunch
+
+Sitemap: https://harleybartles.com/sitemap.xml
