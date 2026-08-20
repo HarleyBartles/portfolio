@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, test } from 'vitest'
-import { AreaPlaceholderPage } from '../pages/AreaPlaceholderPage'
+import { MemoryRouter } from 'react-router-dom'
 import { ErrorPage } from '../pages/ErrorPage'
 import { LoadingPage } from '../pages/LoadingPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
@@ -12,9 +12,11 @@ describe('SiteLayout', () => {
     const user = userEvent.setup()
 
     render(
-      <SiteLayout>
-        <h1>Portfolio content</h1>
-      </SiteLayout>,
+      <MemoryRouter>
+        <SiteLayout>
+          <h1>Portfolio content</h1>
+        </SiteLayout>
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
@@ -23,14 +25,9 @@ describe('SiteLayout', () => {
 
     const navigation = screen.getByRole('navigation', { name: /primary/i })
     const navLinks = within(navigation).getAllByRole('link')
-    expect(navLinks.map((link) => link.textContent)).toEqual([
-      'Projects',
-      'Experience',
-      'Engineering Practice',
-      'AI Engineering',
-      'Writing and Notes',
-    ])
+    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'About'])
 
+    await user.tab()
     await user.tab()
     expect(navLinks[0]).toHaveFocus()
     await user.tab()
@@ -39,30 +36,16 @@ describe('SiteLayout', () => {
 
   test('renders direct loading, error, and not-found surfaces', () => {
     render(
-      <>
+      <MemoryRouter>
         <LoadingPage />
         <ErrorPage />
         <NotFoundPage />
-      </>,
+      </MemoryRouter>,
     )
 
     expect(screen.getByRole('status')).toHaveTextContent(/loading portfolio navigation/i)
     expect(screen.getByRole('alert')).toHaveTextContent(/could not load the portfolio content/i)
     expect(screen.getByRole('heading', { name: /page not found/i })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /return to the homepage/i })).toHaveAttribute('href', '/')
-  })
-
-  test('sets metadata for placeholder pages', () => {
-    render(<AreaPlaceholderPage title="Learning and Development" />)
-
-    expect(document.title).toBe('Learning and Development | Harley Bartles')
-    expect(document.head.querySelector('meta[name="description"]')).toHaveAttribute(
-      'content',
-      'Learning and Development portfolio content is being prepared.',
-    )
-    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute(
-      'href',
-      'https://harleybartles.com/',
-    )
   })
 })

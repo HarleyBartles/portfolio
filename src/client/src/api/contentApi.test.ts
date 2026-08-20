@@ -1,64 +1,31 @@
-import { HttpResponse, http } from 'msw'
 import { describe, expect, test } from 'vitest'
-import { server } from '../test/server'
-import { getContent, getNavigation } from './contentApi'
-import type { ContentDocument, ContentSummary } from '../types/content'
-
-const wildBunchSummary = {
-  slug: 'wild-bunch',
-  kind: 'project',
-  title: 'Wild Bunch',
-  status: 'active',
-  summary: 'A cooperative planning game.',
-  tags: ['React', 'ASP.NET Core'],
-  relatedSlugs: ['portfolio'],
-} satisfies ContentSummary
-
-const wildBunchDocument = {
-  summary: wildBunchSummary,
-  markdown: '# Wild Bunch\n\nProject notes.',
-} satisfies ContentDocument
+import { getContent, getNavigation, ApiRequestError } from './contentApi'
 
 describe('content API client', () => {
-  test('retrieves typed navigation summaries from the server API', async () => {
-    server.use(
-      http.get('/api/content/navigation', () => HttpResponse.json([wildBunchSummary])),
-    )
+  test('retrieves navigation summaries from the static content manifest', async () => {
+    const navigation = await getNavigation()
+    const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')
 
-    await expect(getNavigation()).resolves.toEqual([wildBunchSummary])
+    expect(wildBunch).toBeDefined()
+    expect(wildBunch?.kind).toBe('project')
+    expect(wildBunch?.title).toBe('Wild Bunch')
   })
 
-  test('retrieves a typed content document by slug from the server API', async () => {
-    server.use(
-      http.get('/api/content/:slug', ({ params }) => {
-        expect(params.slug).toBe('wild-bunch')
+  test('retrieves a content document by slug from the static content set', async () => {
+    const document = await getContent('wild-bunch')
 
-        return HttpResponse.json(wildBunchDocument)
-      }),
-    )
-
-    await expect(getContent('wild-bunch')).resolves.toEqual(wildBunchDocument)
+    expect(document.summary.slug).toBe('wild-bunch')
+    expect(document.summary.kind).toBe('project')
+    expect(document.markdown).toContain('pre-alpha')
   })
 
-  test('converts HTTP failures into endpoint and status errors without server path leakage', async () => {
-    server.use(
-      http.get('/api/content/:slug', () =>
-        HttpResponse.text('Failed to read Z:\\portfolio\\src\\content\\content-manifest.json', {
-          status: 500,
-        }),
-      ),
-    )
-
-    await expect(getContent('wild-bunch')).rejects.toMatchObject({
-      endpoint: '/api/content/wild-bunch',
-      status: 500,
+  test('converts missing slug into a 404 endpoint error without server path leakage', async () => {
+    await expect(getContent('not-real')).rejects.toBeInstanceOf(ApiRequestError)
+    await expect(getContent('not-real')).rejects.toMatchObject({
+      endpoint: '/api/content/not-real',
+      status: 404,
     })
-
-    await expect(getContent('wild-bunch')).rejects.toThrow(
-      'Request to /api/content/wild-bunch failed with status 500.',
-    )
-
-    await expect(getContent('wild-bunch')).rejects.not.toThrow('Z:\\portfolio')
-    await expect(getContent('wild-bunch')).rejects.not.toThrow('content-manifest.json')
+    await expect(getContent('not-real')).rejects.toThrow('404')
+    await expect(getContent('not-real')).rejects.not.toThrow('content-manifest.json')
   })
 })
