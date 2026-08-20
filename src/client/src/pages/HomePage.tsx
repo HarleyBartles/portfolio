@@ -44,7 +44,7 @@ export function HomePage(): ReactElement {
   const items = navigationQuery.data ?? []
   const projects = items.filter((item) => item.kind === 'project')
   const featuredProject = projects[0]
-  const writing = items
+  const allWriting = items
     .filter((item) => item.kind === 'writing')
     .toSorted((a, b) => {
       const aDate = a.date ?? ''
@@ -52,6 +52,9 @@ export function HomePage(): ReactElement {
       return aDate.localeCompare(bDate)
     })
     .toReversed()
+  const featuredWriting = allWriting.find((item) => item.featured) ?? undefined
+  const latestWriting = allWriting
+    .filter((item) => item.slug !== featuredWriting?.slug)
     .slice(0, 4)
 
   return (
@@ -72,6 +75,19 @@ export function HomePage(): ReactElement {
         </p>
       </section>
 
+      {featuredWriting !== undefined ? (
+        <section className="featured-project" aria-labelledby="featured-writing-title">
+          <p className="eyebrow">Featured note</p>
+          <h2 id="featured-writing-title">
+            <Link to={getContentPath(featuredWriting)}>{featuredWriting.title}</Link>
+          </h2>
+          {formatDate(featuredWriting.date) !== null ? (
+            <p className="article-date">{formatDate(featuredWriting.date)}</p>
+          ) : null}
+          <p>{featuredWriting.summary}</p>
+        </section>
+      ) : null}
+
       {featuredProject !== undefined ? (
         <section className="featured-project" aria-labelledby="featured-project-title">
           <p className="eyebrow">Featured project</p>
@@ -90,7 +106,7 @@ export function HomePage(): ReactElement {
         <p className="eyebrow">Writing</p>
         <h2 id="latest-writing-title">Latest notes</h2>
         <ul className="content-card-list">
-          {writing.map((item) => (
+          {latestWriting.map((item) => (
             <li className="content-card" key={item.slug}>
               <h3>
                 <Link to={getContentPath(item)}>{item.title}</Link>

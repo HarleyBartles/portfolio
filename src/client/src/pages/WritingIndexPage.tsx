@@ -31,6 +31,12 @@ export function WritingIndexPage(): ReactElement {
             <ul className="content-card-list">
               {navigationQuery.data
                 .filter((item) => item.kind === 'writing')
+                .toSorted((a, b) => {
+                  const aDate = a.date ?? ''
+                  const bDate = b.date ?? ''
+                  return aDate.localeCompare(bDate)
+                })
+                .toReversed()
                 .map((item) => (
                   <li className="content-card" key={item.slug}>
                     <h2>

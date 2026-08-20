@@ -13,6 +13,7 @@ export type ContentSummary = {
   status: string
   summary: string
   date?: string
+  featured: boolean
   tags: string[]
   relatedSlugs: string[]
 }

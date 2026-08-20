@@ -95,6 +95,15 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   }
 
   const relatedSummaries = navigationQuery.data ?? []
+  const fallbackSlugs =
+    document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
+      ? relatedSummaries
+          .filter((item) => item.kind === 'writing' && item.slug !== document.summary.slug)
+          .slice(0, 3)
+          .map((item) => item.slug)
+      : []
+  const slugsToShow =
+    document.summary.relatedSlugs.length > 0 ? document.summary.relatedSlugs : fallbackSlugs
   const relatedNavigationUnavailable =
     document.summary.relatedSlugs.length > 0 && navigationQuery.isError
 
@@ -117,7 +126,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         </header>
         <MarkdownContent markdown={document.markdown} />
         <RelatedContent
-          slugs={document.summary.relatedSlugs}
+          slugs={slugsToShow}
           summaries={relatedSummaries}
           unavailable={relatedNavigationUnavailable}
         />

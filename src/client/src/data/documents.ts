@@ -58,6 +58,7 @@ function itemToSummary(item: unknown): ContentSummary {
     status: String(source.status),
     summary: String(source.summary),
     date: source.date === undefined ? undefined : String(source.date),
+    featured: source.featured === true,
     tags: Array.isArray(source.tags) ? source.tags.map(String) : [],
     relatedSlugs: Array.isArray(source.relatedSlugs) ? source.relatedSlugs.map(String) : [],
   }
