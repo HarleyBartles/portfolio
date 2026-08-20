@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
@@ -33,8 +34,9 @@ export function WritingIndexPage(): ReactElement {
                 .map((item) => (
                   <li className="content-card" key={item.slug}>
                     <h2>
-                      <a href={getContentPath(item)}>{item.title}</a>
+                      <Link to={getContentPath(item)}>{item.title}</Link>
                     </h2>
+                    {item.date !== undefined ? <p className="article-date">{item.date}</p> : null}
                     <p>{item.summary}</p>
                   </li>
                 ))}

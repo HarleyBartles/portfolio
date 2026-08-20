@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { ProjectStatus } from '../components/ProjectStatus'
@@ -34,7 +35,7 @@ export function ProjectIndexPage(): ReactElement {
                 .map((item) => (
                   <li className="content-card" key={item.slug}>
                     <h2>
-                      <a href={getContentPath(item)}>{item.title}</a>
+                      <Link to={getContentPath(item)}>{item.title}</Link>
                     </h2>
                     <p>{item.summary}</p>
                     <ProjectStatus status={item.status} />

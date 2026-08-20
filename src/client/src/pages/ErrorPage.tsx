@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { AccessibleStatus } from '../components/AccessibleStatus'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
@@ -33,8 +34,8 @@ export function ErrorPage({ message, shell = true }: ErrorPageProps): ReactEleme
       />
       {content}
       <div className="state-actions" aria-label="Recovery navigation">
-        <a href="/">Go to the homepage</a>
-        <a href="/projects">Browse project stories</a>
+        <Link to="/">Go to the homepage</Link>
+        <Link to="/projects">Browse project stories</Link>
       </div>
     </SiteLayout>
   )

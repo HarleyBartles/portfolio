@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
 import { AccessibleStatus } from '../components/AccessibleStatus'
@@ -43,8 +44,8 @@ function ContentErrorState(): ReactElement {
         Could not load this portfolio story. Please refresh or try again later.
       </AccessibleStatus>
       <div className="state-actions" aria-label="Recovery navigation">
-        <a href="/">Go to the homepage</a>
-        <a href="/projects">Browse project stories</a>
+        <Link to="/">Go to the homepage</Link>
+        <Link to="/projects">Browse project stories</Link>
       </div>
     </SiteLayout>
   )
@@ -61,7 +62,7 @@ function ContentNotFoundState(): ReactElement {
       <section className="state-panel" aria-labelledby="content-not-found-title">
         <h1 id="content-not-found-title">Page not found</h1>
         <p>This portfolio story is not available.</p>
-        <a href="/">Return to the homepage</a>
+        <Link to="/">Return to the homepage</Link>
       </section>
     </SiteLayout>
   )

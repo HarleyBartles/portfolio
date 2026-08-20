@@ -1,7 +1,5 @@
 import type { ContentDocument, ContentSummary } from '../types/content'
-
-const navigationEndpoint = '/api/content/navigation'
-const contentEndpoint = (slug: string) => `/api/content/${encodeURIComponent(slug)}`
+import { documentsBySlug, navigation } from '../data/documents'
 
 export class ApiRequestError extends Error {
   readonly endpoint: string
@@ -15,24 +13,16 @@ export class ApiRequestError extends Error {
   }
 }
 
-async function fetchJson<T>(endpoint: string): Promise<T> {
-  const response = await fetch(endpoint, {
-    headers: {
-      Accept: 'application/json',
-    },
-  })
-
-  if (!response.ok) {
-    throw new ApiRequestError(endpoint, response.status)
-  }
-
-  return response.json() as Promise<T>
-}
-
 export function getNavigation(): Promise<ContentSummary[]> {
-  return fetchJson<ContentSummary[]>(navigationEndpoint)
+  return Promise.resolve(navigation)
 }
 
 export function getContent(slug: string): Promise<ContentDocument> {
-  return fetchJson<ContentDocument>(contentEndpoint(slug))
+  const document = documentsBySlug[slug]
+
+  if (document === undefined) {
+    return Promise.reject(new ApiRequestError(`/api/content/${encodeURIComponent(slug)}`, 404))
+  }
+
+  return Promise.resolve(document)
 }

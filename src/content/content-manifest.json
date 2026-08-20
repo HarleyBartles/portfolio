@@ -1,78 +1,88 @@
 {
   "items": [
     {
+      "slug": "codex-marketplace",
+      "kind": "project",
+      "title": "codex-marketplace",
+      "status": "live",
+      "summary": "An agent-asset marketplace. 53 skills and runbooks, one source of truth, distributed to multiple repos.",
+      "path": "projects/codex-marketplace.md",
+      "tags": ["project", "agentic-engineering", "skills"],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "agentic-learning-lab",
+      "kind": "project",
+      "title": "Agentic Learning Lab",
+      "status": "incomplete",
+      "summary": "A curriculum for teaching non-coders to direct agents. Incomplete but improving week by week.",
+      "path": "projects/agentic-learning-lab.md",
+      "tags": ["project", "agentic-engineering", "curriculum"],
+      "relatedSlugs": []
+    },
+    {
       "slug": "wild-bunch",
       "kind": "project",
       "title": "Wild Bunch",
       "status": "pre-alpha",
-      "summary": "A work-in-progress project demonstrating deliberate complex architecture.",
+      "summary": "A deliberately complex game-shaped .NET project. Real architecture, real bugs, real trade-offs.",
       "path": "projects/wild-bunch.md",
-      "tags": ["project", "architecture"],
-      "relatedSlugs": ["engineering-practice", "ai-engineering"]
+      "tags": ["project", "dotnet", "ddd"],
+      "relatedSlugs": []
     },
     {
-      "slug": "portfolio",
+      "slug": "adventures-of-patch",
       "kind": "project",
-      "title": "Portfolio Website",
-      "status": "initial implementation",
-      "summary": "A straightforward ASP.NET Core and React portfolio built as a public engineering artifact.",
-      "path": "projects/portfolio.md",
-      "tags": ["project", "portfolio", "full-stack"],
-      "relatedSlugs": ["engineering-practice", "agent-ready-repositories"]
+      "title": "Adventures of Patch",
+      "status": "live",
+      "summary": "A repeatable visual and narrative production pipeline that turns out one-page comics.",
+      "path": "projects/adventures-of-patch.md",
+      "tags": ["project", "comics", "automation"],
+      "relatedSlugs": []
     },
     {
-      "slug": "experience",
-      "kind": "experience",
-      "title": "Experience",
-      "summary": "Professional full-stack work framed around scope, responsibility, and progression.",
-      "path": "experience.md",
-      "tags": ["capability", "experience"],
-      "relatedSlugs": ["ai-engineering", "engineering-practice"]
-    },
-    {
-      "slug": "engineering-practice",
-      "kind": "practice",
-      "title": "Engineering Practice",
-      "summary": "How requirements, architecture, tests, reviews, and repository design shape the work.",
-      "path": "engineering-practice.md",
-      "tags": ["capability", "practice"],
-      "relatedSlugs": ["agent-ready-repositories", "wild-bunch"]
-    },
-    {
-      "slug": "ai-engineering",
-      "kind": "ai-engineering",
-      "title": "AI Engineering",
-      "summary": "Practical AI-first engineering with deliberate constraints, review, and tool choice.",
-      "path": "ai-engineering.md",
-      "tags": ["capability", "ai-engineering"],
-      "relatedSlugs": ["model-selection-is-engineering", "experience"]
-    },
-    {
-      "slug": "learning-and-development",
-      "kind": "learning",
-      "title": "Learning and Development",
-      "summary": "Current development toward deeper AI engineering capability through structured practice.",
-      "path": "learning-and-development.md",
-      "tags": ["learning", "ai-engineering"],
-      "relatedSlugs": ["ai-engineering", "engineering-practice"]
-    },
-    {
-      "slug": "agent-ready-repositories",
+      "slug": "graph-iterative-review",
       "kind": "writing",
-      "title": "Agent-Ready Repositories",
-      "summary": "A note on progressive discovery, thin routing, and repository surfaces that help agents work safely.",
-      "path": "writing/agent-ready-repositories.md",
-      "tags": ["writing", "agents", "repositories"],
-      "relatedSlugs": ["engineering-practice", "portfolio"]
+      "title": "The graph I built to keep a review agent from going in circles",
+      "date": "2026-08-05",
+      "status": "published",
+      "summary": "Why a state graph beat a checklist for agentic review, and the pitfall of the reviewer reviewing itself.",
+      "path": "writing/2026-08-05-graph-iterative-review.md",
+      "tags": ["writing", "agentic-engineering", "review"],
+      "relatedSlugs": []
     },
     {
-      "slug": "model-selection-is-engineering",
+      "slug": "context-is-not-state",
       "kind": "writing",
-      "title": "Model Selection Is Engineering",
-      "summary": "A note on choosing AI models and tools by task, risk, feedback speed, and cost.",
-      "path": "writing/model-selection-is-engineering.md",
-      "tags": ["writing", "ai-engineering", "cost"],
-      "relatedSlugs": ["ai-engineering", "learning-and-development"]
+      "title": "Context is not the same as state",
+      "date": "2026-08-07",
+      "status": "published",
+      "summary": "Files are state. Conversation is context. Agentic systems need both, but durable truth lives in files.",
+      "path": "writing/2026-08-07-context-is-not-state.md",
+      "tags": ["writing", "agentic-engineering", "context"],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "provisioning-is-not-accumulation",
+      "kind": "writing",
+      "title": "Provisioning is not accumulation",
+      "date": "2026-08-12",
+      "status": "published",
+      "summary": "More instructions do not make a better agent. Give the right knowledge at the right scope at the right time.",
+      "path": "writing/2026-08-12-provisioning-is-not-accumulation.md",
+      "tags": ["writing", "agentic-engineering", "provisioning"],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "pass-references-not-paragraphs",
+      "kind": "writing",
+      "title": "Pass references, not paragraphs",
+      "date": "2026-08-15",
+      "status": "published",
+      "summary": "Multi-agent handoffs are a context-materialisation problem. Pass durable references when you can.",
+      "path": "writing/2026-08-15-pass-references-not-paragraphs.md",
+      "tags": ["writing", "agentic-engineering", "context"],
+      "relatedSlugs": []
     }
   ]
 }
