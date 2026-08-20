@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import type { ContentSummary } from '../types/content'
 import { getContentPath } from '../types/content'
 
@@ -40,7 +41,7 @@ export function RelatedContent({
       <ul>
         {relatedItems.map((item) => (
           <li key={item.slug}>
-            <a href={getContentPath(item)}>{item.title}</a>
+            <Link to={getContentPath(item)}>{item.title}</Link>
             <p>{item.summary}</p>
           </li>
         ))}

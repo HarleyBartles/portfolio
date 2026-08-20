@@ -1,6 +1,6 @@
 import { useEffect, type ReactElement } from 'react'
 
-const portfolioOrigin = 'https://harleybartles.com'
+const portfolioOrigin = 'https://harleybartles.github.io'
 
 type DocumentMetadataProps = {
   title: string
@@ -53,7 +53,9 @@ function normalizeCanonicalPath(canonicalPath: string): string {
 }
 
 export function buildCanonicalUrl(canonicalPath: string): string {
-  return new URL(normalizeCanonicalPath(canonicalPath), portfolioOrigin).toString()
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+  const path = normalizeCanonicalPath(canonicalPath).replace(/^\//, '')
+  return `${portfolioOrigin}${base}${path === '' ? '' : `/${path}`}`
 }
 
 export function DocumentMetadata({

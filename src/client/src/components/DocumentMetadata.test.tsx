@@ -34,7 +34,7 @@ describe('DocumentMetadata', () => {
       'content',
       'Selected public engineering project stories from Harley Bartles.',
     )
-    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.com/projects')
+    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io/projects')
   })
 
   test('normalizes canonical paths without exposing server paths or query details', () => {
@@ -46,7 +46,7 @@ describe('DocumentMetadata', () => {
       />,
     )
 
-    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.com/')
+    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io')
     expect(readCanonical()?.getAttribute('href')).not.toContain('Z:')
     expect(readCanonical()?.getAttribute('href')).not.toContain('trace')
   })

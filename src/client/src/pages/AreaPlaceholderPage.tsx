@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
 
@@ -18,7 +19,7 @@ export function AreaPlaceholderPage({ title }: AreaPlaceholderPageProps): ReactE
         <h1 id="area-placeholder-title">{title}</h1>
         <p>This section is being prepared.</p>
         <p>The homepage summary is the current public placeholder until deeper content is published.</p>
-        <a href="/">Return to the homepage</a>
+        <Link to="/">Return to the homepage</Link>
       </section>
     </SiteLayout>
   )

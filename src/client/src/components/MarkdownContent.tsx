@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 
 type MarkdownContentProps = {
@@ -10,17 +11,21 @@ function isExternalHttpLink(href: string | undefined): boolean {
 }
 
 function MarkdownLink(props: ComponentPropsWithoutRef<'a'>): ReactElement {
-  const external = isExternalHttpLink(props.href)
+  const href = props.href ?? ''
 
-  return (
-    <a
-      href={props.href}
-      rel={external ? 'noreferrer noopener' : undefined}
-      target={external ? '_blank' : undefined}
-    >
-      {props.children}
-    </a>
-  )
+  if (href.startsWith('/')) {
+    return <Link to={href}>{props.children}</Link>
+  }
+
+  if (isExternalHttpLink(href)) {
+    return (
+      <a href={href} rel="noreferrer noopener" target="_blank">
+        {props.children}
+      </a>
+    )
+  }
+
+  return <a href={href}>{props.children}</a>
 }
 
 function MarkdownImage(props: ComponentPropsWithoutRef<'img'>): ReactElement {
