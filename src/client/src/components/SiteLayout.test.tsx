@@ -25,7 +25,7 @@ describe('SiteLayout', () => {
 
     const navigation = screen.getByRole('navigation', { name: /primary/i })
     const navLinks = within(navigation).getAllByRole('link')
-    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'About'])
+    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Fairytales', 'About'])
 
     await user.tab()
     await user.tab()

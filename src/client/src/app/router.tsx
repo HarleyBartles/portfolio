@@ -3,6 +3,8 @@ import { createBrowserRouter, useParams, type RouteObject } from 'react-router-d
 import App from '../App'
 import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
 import { AboutPage } from '../pages/AboutPage'
+import { FairytalesIndexPage } from '../pages/FairytalesIndexPage'
+import { FairytalesPage } from '../pages/FairytalesPage'
 import { HomePage } from '../pages/HomePage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProjectIndexPage } from '../pages/ProjectIndexPage'
@@ -20,6 +22,12 @@ function WritingRoutePage(): ReactElement {
   const { slug } = useParams()
 
   return slug === undefined ? <NotFoundPage /> : <WritingPage slug={slug} />
+}
+
+function FairytalesRoutePage(): ReactElement {
+  const { slug } = useParams()
+
+  return slug === undefined ? <NotFoundPage /> : <FairytalesPage slug={slug} />
 }
 
 export const appRoutes: RouteObject[] = [
@@ -47,6 +55,14 @@ export const appRoutes: RouteObject[] = [
       {
         path: 'writing/:slug',
         element: <WritingRoutePage />,
+      },
+      {
+        path: 'fairytales',
+        element: <FairytalesIndexPage />,
+      },
+      {
+        path: 'fairytales/:slug',
+        element: <FairytalesRoutePage />,
       },
       {
         path: 'about',

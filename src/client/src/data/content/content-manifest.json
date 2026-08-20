@@ -34,11 +34,11 @@
       "slug": "adventures-of-patch",
       "kind": "project",
       "title": "Adventures of Patch",
-      "status": "live",
-      "summary": "A repeatable visual and narrative production pipeline that turns out one-page comics.",
+      "status": "pre-alpha",
+      "summary": "A visual and narrative pipeline for making agentic engineering digestible. Two one-page Patch Fairytales are published; one multi-page Adventure exists only as a pre-repo proof of concept.",
       "path": "projects/adventures-of-patch.md",
       "tags": ["project", "comics", "automation"],
-      "relatedSlugs": []
+      "relatedSlugs": ["goldilocks", "sorcerers-apprentice"]
     },
     {
       "slug": "agentic-engineering-vs-vibe-coding",
@@ -95,6 +95,26 @@
       "path": "writing/2026-08-15-pass-references-not-paragraphs.md",
       "tags": ["writing", "agentic-engineering", "context"],
       "relatedSlugs": []
+    },
+    {
+      "slug": "goldilocks",
+      "kind": "fairytales",
+      "title": "Goldilocks — The Right Amount of Guidance",
+      "status": "published",
+      "summary": "Good agent guidance is not maximum context, but enough relevant context for a confident next decision.",
+      "path": "fairytales/goldilocks.md",
+      "tags": ["fairytales", "agentic-engineering", "guidance"],
+      "relatedSlugs": ["sorcerers-apprentice"]
+    },
+    {
+      "slug": "sorcerers-apprentice",
+      "kind": "fairytales",
+      "title": "The Sorcerer's Apprentice — Delegation Without Boundaries",
+      "status": "published",
+      "summary": "Delegation needs a boundary, not just permission.",
+      "path": "fairytales/sorcerers-apprentice.md",
+      "tags": ["fairytales", "agentic-engineering", "delegation"],
+      "relatedSlugs": ["goldilocks"]
     }
   ]
 }

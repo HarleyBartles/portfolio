@@ -5,6 +5,7 @@ export type ContentKind =
   | 'ai-engineering'
   | 'learning'
   | 'writing'
+  | 'fairytales'
 
 export type ContentSummary = {
   slug: string
@@ -30,6 +31,10 @@ export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): str
 
   if (item.kind === 'writing') {
     return `/writing/${item.slug}`
+  }
+
+  if (item.kind === 'fairytales') {
+    return `/fairytales/${item.slug}`
   }
 
   return `/${item.slug}`

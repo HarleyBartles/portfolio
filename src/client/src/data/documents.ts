@@ -12,6 +12,9 @@ import contextIsNotState from './content/writing/2026-08-07-context-is-not-state
 import provisioningIsNotAccumulation from './content/writing/2026-08-12-provisioning-is-not-accumulation.md?raw'
 import passReferencesNotParagraphs from './content/writing/2026-08-15-pass-references-not-paragraphs.md?raw'
 
+import goldilocks from './content/fairytales/goldilocks.md?raw'
+import sorcerersApprentice from './content/fairytales/sorcerers-apprentice.md?raw'
+
 function stripFrontmatter(markdown: string): string {
   const match = markdown.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/)
   return match !== null ? markdown.slice(match[0].length) : markdown
@@ -47,6 +50,8 @@ const rawByPath: Record<string, string> = {
   'writing/2026-08-07-context-is-not-state.md': contextIsNotState,
   'writing/2026-08-12-provisioning-is-not-accumulation.md': provisioningIsNotAccumulation,
   'writing/2026-08-15-pass-references-not-paragraphs.md': passReferencesNotParagraphs,
+  'fairytales/goldilocks.md': goldilocks,
+  'fairytales/sorcerers-apprentice.md': sorcerersApprentice,
 }
 
 function itemToSummary(item: unknown): ContentSummary {
