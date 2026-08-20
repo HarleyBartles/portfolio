@@ -36,11 +36,17 @@ That is where agentic engineering lives. It is not about replacing the engineer.
 
 ## Why the craft still wins
 
-I am not a vibe coder. I am a software engineer, and I work at Access, one of the larger enterprise software houses in the UK. It is now an AI-first business. That context is why I feel calm about this rather than threatened.
-
-I have spent enough time inside real systems to know what they look like after the demo is over. I have shipped code that had to run for a decade, code that had to satisfy auditors, code that had to keep working while the team around it changed. That work is not glamorous, but it is the thing that separates a working prototype from a business that can sleep at night. The agentic tools we are building now will make that work faster, but they will not remove the need for someone who knows what to look for.
+I am not a vibe coder. I am a software engineer, and I work at [Access](https://www.theaccessgroup.com/en-gb/), which is now an AI-first engineering business. That context is why I feel calm about this rather than threatened. I have spent enough time inside real systems to know what they look like after the demo is over. I have shipped code that had to run for a decade, code that had to satisfy auditors, code that had to keep working while the team around it changed. That work is not glamorous, but it is the thing that separates a working prototype from a business that can sleep at night. The agentic tools we are building now will make that work faster, but they will not remove the need for someone who knows what to look for.
 
 The advantage of an engineering background in this new world is not that I can write more code. It is that I know where the code can lie. I know how a clean state hides a race, how a helpful abstraction leaks across a boundary, how a simple feature becomes a support burden. I know that the cheapest code to fix is the code you did not write. These are not insights a model can prompt into existence. They come from being bitten repeatedly by the same kinds of bugs.
+
+## The other side of the coin
+
+I want to be fair to the people who are worried about all of this, because I am one of them sometimes. If getting an AI to do the work becomes the default path, what incentive is there for the next generation to learn the hard, slow, concrete parts of the craft? Are we setting ourselves up for a market where the engineers who can genuinely check the machine become scarce, expensive, and overstretched? It is hard to convince someone to study distributed systems, security, or performance when a prompt can produce something that looks good enough in half an afternoon.
+
+And if fewer people learn those depths, who keeps the checks when the AI hands us something that is wrong in a way only a human can spot? The review becomes a formality. The human in the loop becomes a bottleneck they would rather automate away. I am not sure that is a future I want to inherit.
+
+Then there is the deeper question. If the acceleration keeps going, is there a future where we can completely trust the AI to do the work unsupervised? Maybe. I do not know. I am not convinced we are there yet, and I am not sure I want to bet our infrastructure on the hope that we will be. Vibe coding might be the final form of software engineering for some problems. For the ones that matter, I think the final form still includes a human who knows what to distrust.
 
 ## The generous thing to do
 
