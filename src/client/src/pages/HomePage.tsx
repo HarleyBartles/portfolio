@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
+import { Reveal } from '../components/Reveal'
 import { SiteLayout } from '../components/SiteLayout'
 import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
@@ -64,19 +65,22 @@ export function HomePage(): ReactElement {
         description="I build agentic engineering workflows and silly comics."
         canonicalPath="/"
       />
-      <section className="hero" aria-labelledby="homepage-title">
-        <p className="eyebrow">Portfolio</p>
-        <h1 id="homepage-title">Harley Bartles</h1>
-        <p className="hero-support">I build agentic engineering workflows and silly comics.</p>
-        <p>
-          <Link to="/projects" className="hero-cta">
-            See the work
-          </Link>
-        </p>
-      </section>
+      <Reveal>
+        <section className="hero" aria-labelledby="homepage-title">
+          <p className="eyebrow">Portfolio</p>
+          <h1 id="homepage-title">Harley Bartles</h1>
+          <p className="hero-support">I build agentic engineering workflows and silly comics.</p>
+          <p>
+            <Link to="/projects" className="hero-cta">
+              See the work
+            </Link>
+          </p>
+        </section>
+      </Reveal>
 
-      <section className="home-spotlight" aria-label="Featured work">
-        {featuredWriting !== undefined ? (
+      <Reveal delay={0.1}>
+        <section className="home-spotlight" aria-label="Featured work">
+          {featuredWriting !== undefined ? (
           <article className="home-card" aria-labelledby="featured-writing-title">
             <p className="eyebrow">Featured note</p>
             <h2 id="featured-writing-title">
@@ -102,10 +106,12 @@ export function HomePage(): ReactElement {
             </p>
           </article>
         ) : null}
-      </section>
+        </section>
+      </Reveal>
 
-      <section className="latest-writing home-writing" aria-labelledby="latest-writing-title">
-        <p className="eyebrow">Writing</p>
+      <Reveal delay={0.2}>
+        <section className="latest-writing home-writing" aria-labelledby="latest-writing-title">
+          <p className="eyebrow">Writing</p>
         <h2 id="latest-writing-title">Latest notes</h2>
         <ul className="content-card-list">
           {latestWriting.map((item) => (
@@ -126,6 +132,7 @@ export function HomePage(): ReactElement {
           </Link>
         </div>
       </section>
+      </Reveal>
     </SiteLayout>
   )
 }
