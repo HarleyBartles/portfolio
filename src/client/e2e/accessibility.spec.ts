@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+import { homeFeatureCatalog } from '../src/features/home/featureCatalog'
 
 
 const routes = [
@@ -18,6 +19,20 @@ const viewports = [
   { name: 'mobile', width: 390, height: 844 },
 ] as const
 
+async function expectNoAutomatedViolations(page: Page): Promise<void> {
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze()
+
+  expect(
+    results.violations.map((violation) => ({
+      id: violation.id,
+      impact: violation.impact,
+      targets: violation.nodes.flatMap((node) => node.target),
+    })),
+  ).toEqual([])
+}
+
 for (const viewport of viewports) {
   test.describe(`${viewport.name} WCAG 2.2 AA`, () => {
     test.use({ viewport })
@@ -28,17 +43,17 @@ for (const viewport of viewports) {
         await expect(page.getByRole('heading', { level: route.readyLevel, name: route.readyHeading })).toBeVisible()
         await page.evaluate(() => document.fonts.ready)
 
-        const results = await new AxeBuilder({ page })
-          .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-          .analyze()
+        const featureVisits = route.name === 'home' ? homeFeatureCatalog.length : 1
+        for (let featureIndex = 0; featureIndex < featureVisits; featureIndex += 1) {
+          await expectNoAutomatedViolations(page)
+          if (featureIndex === featureVisits - 1) continue
 
-        expect(
-          results.violations.map((violation) => ({
-            id: violation.id,
-            impact: violation.impact,
-            targets: violation.nodes.flatMap((node) => node.target),
-          })),
-        ).toEqual([])
+          const featureRegion = page.getByRole('region', { name: 'Work worth bringing forward' })
+          const leadHeading = featureRegion.getByRole('heading', { level: 2 }).nth(1)
+          const currentLead = await leadHeading.textContent()
+          await featureRegion.getByRole('button', { name: 'Next feature' }).click()
+          await expect(leadHeading).not.toHaveText(currentLead ?? '')
+        }
       })
     }
   })

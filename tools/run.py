@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import os
 import shutil
 import subprocess
 import sys
@@ -131,10 +130,7 @@ def _ci_apply(ctx: Ctx) -> None:
 
 def _precommit_check(ctx: Ctx) -> None:
     _repo_standards_check(ctx)
-    if os.environ.get("GITHUB_ACTIONS") == "true":
-        print("[tools/run] hosted CI uses committed skills; skipping local marketplace refresh check")
-    else:
-        _skills_check(ctx)
+    _skills_check(ctx)
     _mesh_check(ctx)
     _run(_link_hygiene_check_cmd(), ctx)
     _run(_portfolio_quality_check_cmd(), ctx)

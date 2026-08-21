@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -47,7 +48,10 @@ class PreCommitHookTests(unittest.TestCase):
 
             tracked = repo / "tracked.txt"
             tracked.write_text("initial\n", encoding="utf-8")
-            run_git(repo, "add", "tracked.txt")
+            generated = repo / "docs/INDEX.md"
+            generated.parent.mkdir()
+            generated.write_text("initial\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt", "docs/INDEX.md")
             self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
 
             hook = repo / ".git/hooks/pre-commit"
@@ -59,6 +63,9 @@ class PreCommitHookTests(unittest.TestCase):
             fake_bin.mkdir()
             fake_runner = """#!/usr/bin/env sh
 case "$*" in
+  *"ci --apply"*)
+    cp tracked.txt docs/INDEX.md
+    ;;
   *"precommit --check"*)
     if grep -q BROKEN tracked.txt; then
       echo "staged check saw BROKEN" >&2
@@ -89,6 +96,68 @@ exit 0
             self.assertEqual(untracked.read_text(encoding="utf-8"), "keep me\n")
             staged = run_git(repo, "show", ":tracked.txt")
             self.assertEqual(staged.stdout, "BROKEN staged content\n")
+            generated_from_staged = run_git(repo, "show", ":docs/INDEX.md")
+            self.assertEqual(generated_from_staged.stdout, "BROKEN staged content\n")
+
+    def test_hook_preserves_patch_when_unstaged_restore_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_root = Path(temporary)
+            repo = temporary_root / "repo"
+            repo.mkdir()
+            self.assertEqual(run_git(repo, "init").returncode, 0)
+            run_git(repo, "config", "user.name", "Hook Test")
+            run_git(repo, "config", "user.email", "hook-test@example.invalid")
+
+            tracked = repo / "tracked.txt"
+            tracked.write_text("initial\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt")
+            self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
+
+            hook = repo / ".git/hooks/pre-commit"
+            hook.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            hook.chmod(0o755)
+
+            fake_bin = temporary_root / "fake-bin"
+            fake_bin.mkdir()
+            fake_runner = """#!/usr/bin/env sh
+case "$*" in
+  *"precommit --check"*)
+    printf 'gate mutation\n' > tracked.txt
+    ;;
+esac
+exit 0
+"""
+            for executable in ("py", "python3", "python"):
+                path = fake_bin / executable
+                path.write_text(fake_runner, encoding="utf-8", newline="\n")
+                path.chmod(0o755)
+
+            tracked.write_text("staged content\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt")
+            tracked.write_text("unstaged content\n", encoding="utf-8")
+            draft = repo / "draft.txt"
+            draft.write_text("keep me\n", encoding="utf-8")
+
+            env = os.environ.copy()
+            env["PATH"] = f"{fake_bin}{os.pathsep}{env['PATH']}"
+            result = run_git(repo, "commit", "-m", "restore must fail safely", env=env)
+
+            self.assertNotEqual(result.returncode, 0)
+            match = re.search(r"unstaged patch could not be restored from (.+)", result.stderr)
+            if match is None:
+                self.fail(result.stderr)
+            raw_patch_path = match.group(1).strip()
+            patch_path = Path(raw_patch_path)
+            if os.name == "nt" and raw_patch_path.startswith("/tmp/"):
+                patch_path = Path(tempfile.gettempdir()) / patch_path.name
+            try:
+                self.assertTrue(patch_path.is_file(), result.stderr)
+                self.assertIn("unstaged content", patch_path.read_text(encoding="utf-8"))
+                self.assertEqual(draft.read_text(encoding="utf-8"), "keep me\n")
+                self.assertEqual(run_git(repo, "show", ":tracked.txt").stdout, "staged content\n")
+            finally:
+                patch_path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

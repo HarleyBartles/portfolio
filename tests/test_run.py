@@ -38,11 +38,12 @@ class CanonicalRunnerTests(unittest.TestCase):
 
     @patch.dict("os.environ", {"GITHUB_ACTIONS": "true"})
     @patch.object(run, "_run")
-    def test_hosted_gate_skips_local_marketplace_refresh(self, run_command) -> None:
+    def test_gate_checks_public_marketplace_source_and_derived_projection(self, run_command) -> None:
         run._precommit_check(self.context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
-        self.assertNotIn(run._skills_cmd("check", False), commands)
+        self.assertIn(run._repo_standards_cmd("check", False), commands)
+        self.assertIn(run._skills_cmd("check", False), commands)
         self.assertIn(run._mesh_validate_cmd(), commands)
 
     @patch.object(run, "_run")
