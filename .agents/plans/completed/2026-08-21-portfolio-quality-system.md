@@ -172,11 +172,12 @@
 - [x] **Step 5: Push the exact branch head, open a PR using the evidence template, and verify the remote head SHA, mergeability, and required CI checks.** PR #14 was merged only after the exact head passed the hosted `Portfolio quality gate` and independent review reported no material findings.
 - [x] **Step 6: Configure and verify `main` protection.** `main` requires pull requests, strict success from the observed `Portfolio quality gate`, resolved review conversations, and stale-review dismissal; enforcement includes administrators, while force pushes and branch deletion are disabled.
 - [x] **Step 7: Verify `origin/main`, the Pages deployment, and the post-deploy smoke job at the merged SHA.** The merged feature SHA, hosted run, deployed routes, protection settings, and clean implementation tree are recorded below.
-- [ ] **Step 8: Publish the administrative closeout through protected main.** Create a clean closeout branch from `origin/main`, mark Task 6 complete, move this plan to `completed/`, regenerate the mesh, and merge a second green PR. Re-verify final `origin/main`, Pages smoke, and clean local trees. The terminal merge evidence belongs in GitHub and the final handoff because committing it would require a recursive third closeout PR.
+- [x] **Step 8: Publish the administrative closeout through protected main.** Clean closeout branch `codex/portfolio-quality-system-closeout` was created from the verified merge, draft PR #15 was opened, and this final commit marks Task 6 complete, moves the plan to `completed/`, and regenerates the mesh. PR #15 will be marked ready and merged only after its final exact head passes the protected gate. The terminal merge and re-verification evidence belongs in GitHub and the final handoff because committing it would require a recursive third closeout PR.
 
 ## Publication evidence
 
 - Feature PR: <https://github.com/HarleyBartles/portfolio/pull/14>
+- Protected closeout PR: <https://github.com/HarleyBartles/portfolio/pull/15>
 - Reviewed feature head: `5b64262f7c1901c11f30ea125ae173bb4d8d6b7d`
 - Squash merge on `main`: `d89291bb5b5f607ac6d7330e43b5c9b199da570d`
 - Pull-request quality run: <https://github.com/HarleyBartles/portfolio/actions/runs/32471281840>
