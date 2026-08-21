@@ -1,35 +1,33 @@
 import { expect, test } from '@playwright/test'
 
-test('visitor loads the homepage and sees the exact identity statement', async ({ page }) => {
+test('homepage establishes professional identity and an authored editorial hierarchy', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page).toHaveTitle('Harley Bartles | Full Stack Software Engineer')
-  await expect(
-    page.getByRole('heading', {
-      level: 1,
-      name: 'Harley Bartles: Full Stack Software Engineer',
-    }),
-  ).toBeVisible()
-  await expect(
-    page.getByText(
-      'AI-forward. Stack-agnostic. Experienced across languages, frameworks, and full-stack systems.',
-      { exact: true },
-    ),
-  ).toBeVisible()
+  await expect(page).toHaveTitle('Harley Bartles | Senior Software Engineer')
+  await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
+  await expect(page.getByText('I build reliable agentic systems.', { exact: true })).toBeVisible()
+  await expect(page.locator('.hero').getByText(/silly comics/i)).toBeVisible()
+
+  const selected = page.getByRole('region', { name: 'Work worth bringing forward' })
+  await expect(selected.getByRole('button', { name: 'Previous feature' })).toBeVisible()
+  await expect(selected.getByRole('button', { name: 'Shuffle features' })).toBeVisible()
+  await expect(selected.getByRole('button', { name: 'Next feature' })).toBeVisible()
+
+  const lead = selected.locator('.feature-lead h2')
+  const initialTitle = await lead.textContent()
+  await selected.getByRole('button', { name: 'Next feature' }).click()
+  await expect(lead).not.toHaveText(initialTitle ?? '')
 })
 
-test('visitor navigates from the orientation strip to Wild Bunch', async ({ page }) => {
+test('homepage keeps project proof visible outside the shuffled lead', async ({ page }) => {
   await page.goto('/')
 
-  const orientation = page.getByRole('navigation', { name: 'Portfolio orientation' })
-  await expect(orientation.getByRole('link', { name: 'Projects' })).toBeVisible()
-  await orientation.getByRole('link', { name: 'Projects' }).click()
+  const caseStudies = page.getByRole('region', { name: 'Systems with edges' })
+  await expect(caseStudies.getByRole('link', { name: 'Agent Asset Marketplace' })).toBeVisible()
+  await expect(caseStudies.getByRole('link', { name: 'Wild Bunch' })).toBeVisible()
+  await expect(caseStudies.getByRole('link', { name: 'Agentic Learning Lab' })).toBeVisible()
 
-  await expect(page).toHaveURL('/projects')
-  await expect(page.getByRole('heading', { level: 1, name: 'Project Stories' })).toBeVisible()
-  await page.getByRole('link', { name: 'Wild Bunch' }).click()
-
-  await expect(page).toHaveURL('/projects/wild-bunch')
+  await caseStudies.getByRole('link', { name: 'Wild Bunch' }).click()
+  await expect(page).toHaveURL(/\/projects\/wild-bunch\/?$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
-  await expect(page.getByText(/Status\s*pre-alpha/)).toBeVisible()
 })

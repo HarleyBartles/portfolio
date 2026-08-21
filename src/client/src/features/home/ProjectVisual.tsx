@@ -1,0 +1,90 @@
+import type { ReactElement } from 'react'
+
+export type ProjectVisualSlug =
+  | 'codex-marketplace'
+  | 'agentic-learning-lab'
+  | 'adventures-of-patch'
+  | 'wild-bunch'
+  | 'agentic-engineering-vs-vibe-coding'
+  | 'context-is-not-state'
+
+type ProjectVisualProps = {
+  slug: ProjectVisualSlug
+  eager?: boolean
+}
+
+function assetPath(path: string): string {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+}
+
+export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): ReactElement {
+  if (slug === 'adventures-of-patch') {
+    return (
+      <picture className="project-visual project-visual--patch">
+        <source media="(max-width: 44rem)" srcSet={assetPath('/media/patch/patch-role-kits-640.webp')} />
+        <img
+          src={assetPath('/media/patch/patch-role-kits-1200.webp')}
+          alt="Patch appears as a detective, cowboy, chef, and mechanic in four overlapping role-kit cards."
+          width="1200"
+          height="720"
+          loading={eager ? 'eager' : 'lazy'}
+          fetchPriority={eager ? 'high' : 'auto'}
+        />
+      </picture>
+    )
+  }
+
+  if (slug === 'agentic-learning-lab') {
+    return (
+      <figure className="project-visual project-visual--learning">
+        <img
+          src={assetPath('/media/learning-lab/venue-plan.png')}
+          alt="A simple venue floor plan used as the bounded project artifact in Learning Lab 02."
+          width="500"
+          height="350"
+          loading={eager ? 'eager' : 'lazy'}
+        />
+        <figcaption>Lab 02 / bounded workspace artifact</figcaption>
+      </figure>
+    )
+  }
+
+  if (slug === 'codex-marketplace') {
+    return (
+      <figure className="project-visual project-visual--marketplace" role="img" aria-label="A plugin constellation showing 17 plugins and 74 bundled skill entries.">
+        <div className="marketplace-nodes" aria-hidden="true">
+          {['RW', 'SP', 'FE', 'API', 'SEC', 'DATA', 'MCP', 'PLAN', 'DOTNET'].map((label) => <span key={label}>{label}</span>)}
+        </div>
+        <figcaption><strong>17</strong> plugins <i>/</i> <strong>74</strong> skill entries</figcaption>
+      </figure>
+    )
+  }
+
+  if (slug === 'wild-bunch') {
+    return (
+      <figure className="project-visual project-visual--wild-bunch" role="img" aria-label="Reserved frame for a future Wild Bunch gameplay capture.">
+        <div className="capture-frame" aria-hidden="true">
+          <span className="capture-horizon" />
+          <span className="capture-building capture-building--one" />
+          <span className="capture-building capture-building--two" />
+          <span className="capture-player" />
+        </div>
+        <figcaption>Gameplay capture brief <span>16:9 town scene · player visible · real UI state</span></figcaption>
+      </figure>
+    )
+  }
+
+  if (slug === 'context-is-not-state') {
+    return (
+      <figure className="project-visual project-visual--diagram" role="img" aria-label="Context flows into a decision, while durable state is written to a file.">
+        <span>CONTEXT</span><b aria-hidden="true">→</b><span>DECISION</span><i aria-hidden="true">/</i><span>STATE</span><b aria-hidden="true">→</b><span>FILE</span>
+      </figure>
+    )
+  }
+
+  return (
+    <figure className="project-visual project-visual--essay" role="img" aria-label="An editorial contrast between agentic engineering and vibe coding.">
+      <span>VIBE</span><i>is not the enemy of</i><strong>CRAFT</strong>
+    </figure>
+  )
+}

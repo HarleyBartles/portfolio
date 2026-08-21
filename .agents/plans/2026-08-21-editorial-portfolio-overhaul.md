@@ -82,8 +82,8 @@
 ### Task 3: Editorial feature deck and homepage narrative
 
 **Files:**
-- Create: `src/client/src/features/home/featureDeck.ts`
-- Create: `src/client/src/features/home/featureDeck.test.ts`
+- Create: `src/client/src/features/home/featureOrder.ts`
+- Create: `src/client/src/features/home/featureOrder.test.ts`
 - Create: `src/client/src/features/home/FeatureDeck.tsx`
 - Create: `src/client/src/features/home/FeatureDeck.test.tsx`
 - Create: `src/client/src/features/home/ProjectVisual.tsx`
@@ -99,12 +99,12 @@
 - `FeatureDeck({ items, initialOrder? })` renders one lead, two supports, and Previous/Next/Shuffle buttons; selection changes are announced through a polite live region.
 - `ProjectVisual({ slug, eager? })` maps known project slugs to the Patch picture, Learning Lab picture, Marketplace system graphic, or Wild Bunch capture brief.
 
-- [ ] **Step 1: Add failing pure tests for non-mutating shuffle and deterministic injection, then component tests for three visible stories, no autoplay, button-based hierarchy changes, and accessible labels.**
-- [ ] **Step 2: Run `npm test -- --run src/features/home/featureDeck.test.ts src/features/home/FeatureDeck.test.tsx` and observe the missing-module failures.**
-- [ ] **Step 3: Implement the pure order helper, feature deck, and project visuals. Rebuild the homepage hero, professional thesis, curated deck with exactly one Patch candidate, selected case studies, three evidence-backed working principles, and featured/latest writing. Essential content renders visible by default.**
-- [ ] **Step 4: Complete the 4 px spacing scale including `--space-5`, darken the small-text copper, add semantic media/color/motion tokens, constrain reading measure, remove accidental chrome underlines, and implement the 12-column wide composition with narrow/mobile fallbacks.**
-- [ ] **Step 5: Update Playwright homepage expectations and run the unit tests plus `npm run test:e2e -- e2e/homepage.spec.ts`.**
-- [ ] **Step 6: Mark Task 3 checkboxes complete and commit with `feat: build randomized editorial feature deck`.**
+- [x] **Step 1: Add failing pure tests for non-mutating shuffle and deterministic injection, then component tests for three visible stories, no autoplay, button-based hierarchy changes, and accessible labels.**
+- [x] **Step 2: Run `npm test -- --run src/features/home/featureOrder.test.ts src/features/home/FeatureDeck.test.tsx` and observe the missing-module failures.**
+- [x] **Step 3: Implement the pure order helper, feature deck, and project visuals. Rebuild the homepage hero, professional thesis, curated deck with exactly one Patch candidate, selected case studies, three evidence-backed working principles, and featured/latest writing. Essential content renders visible by default.**
+- [x] **Step 4: Complete the 4 px spacing scale including `--space-5`, darken the small-text copper, add semantic media/color/motion tokens, constrain reading measure, remove accidental chrome underlines, and implement the 12-column wide composition with narrow/mobile fallbacks.**
+- [x] **Step 5: Update Playwright homepage expectations and run the unit tests plus `npm run test:e2e -- e2e/homepage.spec.ts`.**
+- [x] **Step 6: Mark Task 3 checkboxes complete and commit with `feat: build randomized editorial feature deck`.**
 
 ### Task 4: Art-directed index and content pages
 

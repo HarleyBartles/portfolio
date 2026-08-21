@@ -3,136 +3,170 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
-import { Reveal } from '../components/Reveal'
 import { SiteLayout } from '../components/SiteLayout'
+import { FeatureDeck, type FeatureItem } from '../features/home/FeatureDeck'
+import { ProjectVisual } from '../features/home/ProjectVisual'
+import type { ContentSummary } from '../types/content'
 import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 
 function formatDate(value: string | undefined): string | null {
-  if (value === undefined) {
-    return null
-  }
-
-  const date = new Date(value)
-
-  if (Number.isNaN(date.getTime())) {
-    return null
-  }
-
+  if (value === undefined) return null
+  const date = new Date(`${value}T12:00:00Z`)
+  if (Number.isNaN(date.getTime())) return null
   return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+function findItem(items: readonly ContentSummary[], slug: string): ContentSummary | undefined {
+  return items.find((item) => item.slug === slug)
+}
+
+function buildFeature(
+  items: readonly ContentSummary[],
+  slug: string,
+  eyebrow: string,
+  visual: FeatureItem['visual'],
+  title?: string,
+): FeatureItem | null {
+  const item = findItem(items, slug)
+  if (item === undefined) return null
+  return {
+    id: slug,
+    eyebrow,
+    title: title ?? item.title,
+    summary: item.summary,
+    to: getContentPath(item),
+    visual,
+    meta: item.kind === 'writing' ? formatDate(item.date) ?? undefined : item.status,
+  }
 }
 
 export function HomePage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
 
   if (navigationQuery.isLoading) {
-    return (
-      <SiteLayout>
-        <LoadingPage shell={false} />
-      </SiteLayout>
-    )
+    return <SiteLayout><LoadingPage shell={false} /></SiteLayout>
   }
 
   if (navigationQuery.isError) {
-    return (
-      <SiteLayout>
-        <ErrorPage shell={false} />
-      </SiteLayout>
-    )
+    return <SiteLayout><ErrorPage shell={false} /></SiteLayout>
   }
 
   const items = navigationQuery.data ?? []
-  const projects = items.filter((item) => item.kind === 'project')
-  const featuredProject = projects[0]
-  const allWriting = items
+  const features = [
+    buildFeature(items, 'codex-marketplace', 'Public system', 'codex-marketplace'),
+    buildFeature(items, 'adventures-of-patch', 'Visual pipeline', 'adventures-of-patch', 'Patch can be anything'),
+    buildFeature(items, 'agentic-engineering-vs-vibe-coding', 'Featured essay', 'agentic-engineering-vs-vibe-coding'),
+    buildFeature(items, 'wild-bunch', 'Project story', 'wild-bunch'),
+    buildFeature(items, 'context-is-not-state', 'Field note', 'context-is-not-state'),
+  ].filter((item): item is FeatureItem => item !== null)
+  const projects = ['codex-marketplace', 'wild-bunch', 'agentic-learning-lab']
+    .map((slug) => findItem(items, slug))
+    .filter((item): item is ContentSummary => item !== undefined)
+  const writing = items
     .filter((item) => item.kind === 'writing')
-    .toSorted((a, b) => {
-      const aDate = a.date ?? ''
-      const bDate = b.date ?? ''
-      return aDate.localeCompare(bDate)
-    })
-    .toReversed()
-  const featuredWriting = allWriting.find((item) => item.featured) ?? undefined
-  const latestWriting = allWriting
-    .filter((item) => item.slug !== featuredWriting?.slug)
-    .slice(0, 4)
+    .toSorted((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
+  const featuredEssay = findItem(items, 'agentic-engineering-vs-vibe-coding')
+  const recentWriting = writing.filter((item) => item.slug !== featuredEssay?.slug).slice(0, 3)
 
   return (
     <SiteLayout>
       <DocumentMetadata
-        title="Harley Bartles | Agentic Engineering"
-        description="I build agentic engineering workflows and silly comics."
+        title="Harley Bartles | Senior Software Engineer"
+        description="Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations."
         canonicalPath="/"
       />
-      <Reveal>
-        <section className="hero" aria-labelledby="homepage-title">
-          <p className="eyebrow">Portfolio</p>
-          <h1 id="homepage-title">Harley Bartles</h1>
-          <p className="hero-support">I build agentic engineering workflows and silly comics.</p>
-          <p>
-            <Link to="/projects" className="hero-cta">
-              See the work
-            </Link>
-          </p>
-        </section>
-      </Reveal>
 
-      <Reveal delay={0.1}>
-        <section className="home-spotlight" aria-label="Featured work">
-          {featuredWriting !== undefined ? (
-          <article className="home-card" aria-labelledby="featured-writing-title">
-            <p className="eyebrow">Featured note</p>
-            <h2 id="featured-writing-title">
-              <Link to={getContentPath(featuredWriting)}>{featuredWriting.title}</Link>
-            </h2>
-            {formatDate(featuredWriting.date) !== null ? (
-              <p className="article-date">{formatDate(featuredWriting.date)}</p>
-            ) : null}
-            <p>{featuredWriting.summary}</p>
-          </article>
-        ) : null}
-
-        {featuredProject !== undefined ? (
-          <article className="home-card" aria-labelledby="featured-project-title">
-            <p className="eyebrow">Featured project</p>
-            <h2 id="featured-project-title">
-              <Link to={getContentPath(featuredProject)}>{featuredProject.title}</Link>
-            </h2>
-            <p>{featuredProject.summary}</p>
-            <p className="content-status">
-              <span>Status</span>
-              {featuredProject.status}
-            </p>
-          </article>
-        ) : null}
-        </section>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <section className="latest-writing home-writing" aria-labelledby="latest-writing-title">
-          <p className="eyebrow">Writing</p>
-        <h2 id="latest-writing-title">Latest notes</h2>
-        <ul className="content-card-list">
-          {latestWriting.map((item) => (
-            <li className="content-card" key={item.slug}>
-              <h3>
-                <Link to={getContentPath(item)}>{item.title}</Link>
-              </h3>
-              {formatDate(item.date) !== null ? (
-                <p className="article-date">{formatDate(item.date)}</p>
-              ) : null}
-              <p>{item.summary}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="home-actions">
-          <Link to="/writing" className="home-cta">
-            Browse all notes
-          </Link>
+      <section className="hero" aria-labelledby="homepage-title">
+        <p className="eyebrow">Senior software engineer / agentic systems</p>
+        <div className="hero-grid">
+          <div>
+            <h1 id="homepage-title">Harley Bartles</h1>
+            <p className="hero-thesis">I build reliable agentic systems.</p>
+          </div>
+          <div className="hero-aside">
+            <p>I make workflows, repositories, and tools that help people ship—then turn some of the lessons into silly comics.</p>
+            <div className="hero-actions">
+              <a href="#selected-work" className="button-link">View selected work</a>
+              <Link to="/about#contact" className="text-link">Work with me <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
         </div>
       </section>
-      </Reveal>
+
+      <section className="feature-section" id="selected-work" aria-labelledby="feature-title">
+        <header className="section-heading">
+          <p className="eyebrow">Selected / shuffled on arrival</p>
+          <h2 id="feature-title">Work worth bringing forward</h2>
+          <p>Prominence changes. The proof stays available.</p>
+        </header>
+        <FeatureDeck items={features} />
+      </section>
+
+      <section className="case-studies" aria-labelledby="case-study-title">
+        <header className="section-heading section-heading--split">
+          <div>
+            <p className="eyebrow">Case studies</p>
+            <h2 id="case-study-title">Systems with edges</h2>
+          </div>
+          <p>Public work is most useful when you can see what it does, what it costs, and where it is unfinished.</p>
+        </header>
+        <div className="case-study-grid">
+          {projects.map((project, index) => (
+            <article className="case-study" key={project.slug}>
+              <ProjectVisual slug={project.slug as 'codex-marketplace' | 'wild-bunch' | 'agentic-learning-lab'} />
+              <div className="case-study-copy">
+                <p className="eyebrow">0{index + 1} / {project.status}</p>
+                <h3><Link to={getContentPath(project)}>{project.title}</Link></h3>
+                <p>{project.summary}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <Link to="/projects" className="text-link section-link">All project stories <span aria-hidden="true">→</span></Link>
+      </section>
+
+      <section className="working-principles" aria-labelledby="principles-title">
+        <header className="section-heading">
+          <p className="eyebrow">Working principles</p>
+          <h2 id="principles-title">How the work stays honest</h2>
+        </header>
+        <ol>
+          <li><span>01</span><h3>Requirements before architecture</h3><p>Start with the problem and constraints. Let patterns earn their place.</p><Link to="/projects/wild-bunch">See it under pressure</Link></li>
+          <li><span>02</span><h3>Bounded agent leverage</h3><p>Give agents useful authority, a clear stop condition, and a route back to evidence.</p><Link to="/fairytales/sorcerers-apprentice">See the fairytale</Link></li>
+          <li><span>03</span><h3>Evidence before claims</h3><p>Source truth, validation, and review remain human responsibilities.</p><Link to="/writing/context-is-not-state">Read the field note</Link></li>
+        </ol>
+      </section>
+
+      <section className="home-writing" aria-labelledby="latest-writing-title">
+        <header className="section-heading section-heading--split">
+          <div><p className="eyebrow">Field notes</p><h2 id="latest-writing-title">Judgment, written down</h2></div>
+          <p>Notes from building agentic workflows, repositories, and review systems in public.</p>
+        </header>
+        <div className="home-writing-grid">
+          {featuredEssay === undefined ? null : (
+            <article className="featured-essay">
+              <p className="eyebrow">Featured essay / {formatDate(featuredEssay.date)}</p>
+              <h3><Link to={getContentPath(featuredEssay)}>{featuredEssay.title}</Link></h3>
+              <p>{featuredEssay.summary}</p>
+            </article>
+          )}
+          <ol className="recent-notes">
+            {recentWriting.map((item, index) => (
+              <li key={item.slug}><span>0{index + 1}</span><div><p className="article-date">{formatDate(item.date)}</p><h3><Link to={getContentPath(item)}>{item.title}</Link></h3></div></li>
+            ))}
+          </ol>
+        </div>
+        <Link to="/writing" className="text-link section-link">Browse all field notes <span aria-hidden="true">→</span></Link>
+      </section>
+
+      <section className="home-close" aria-labelledby="home-close-title">
+        <p className="eyebrow">The practical bit</p>
+        <h2 id="home-close-title">Yes, this is also a portfolio.</h2>
+        <p>The work makes the argument elsewhere. About is where I make it explicit.</p>
+        <Link to="/about" className="button-link">Experience, working style, contact</Link>
+      </section>
     </SiteLayout>
   )
 }
