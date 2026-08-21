@@ -10,9 +10,13 @@ const primaryLinks = [
 
 export function SiteHeader(): ReactElement {
   return (
-    <header className="site-header">
-      <NavLink to="/" className="site-mark" aria-label="Harley Bartles">
-        HB
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <header className="site-header">
+      <NavLink to="/" className="site-mark" aria-label="Harley Bartles — home">
+        <img src={`${import.meta.env.BASE_URL}brand/hb-mark.svg`} alt="" width="52" height="52" />
       </NavLink>
       <nav aria-label="Primary">
         <ul>
@@ -24,5 +28,6 @@ export function SiteHeader(): ReactElement {
         </ul>
       </nav>
     </header>
+    </>
   )
 }

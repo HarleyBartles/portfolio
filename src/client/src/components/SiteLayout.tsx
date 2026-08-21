@@ -6,7 +6,7 @@ export function SiteLayout(props: { children: ReactNode }): ReactElement {
   return (
     <div className="site-shell">
       <SiteHeader />
-      <main>{props.children}</main>
+      <main id="main-content">{props.children}</main>
       <SiteFooter />
     </div>
   )

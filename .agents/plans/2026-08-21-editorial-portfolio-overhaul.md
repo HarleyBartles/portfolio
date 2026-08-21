@@ -56,8 +56,7 @@
 - Create: `src/client/public/brand/social-card.png`
 - Create: `src/client/public/media/patch/patch-role-kits-640.webp`
 - Create: `src/client/public/media/patch/patch-role-kits-1200.webp`
-- Create: `src/client/public/media/learning-lab/venue-plan-640.webp`
-- Create: `src/client/public/media/learning-lab/venue-plan-1200.webp`
+- Create: `src/client/public/media/learning-lab/venue-plan.png` (retain the already optimized 1.3 KB source rather than upscaling it)
 - Create: `src/client/public/fairytales/goldilocks/page-640.webp`
 - Create: `src/client/public/fairytales/goldilocks/page-1200.webp`
 - Create: `src/client/public/fairytales/sorcerers-apprentice/page-640.webp`
@@ -74,11 +73,11 @@
 - Patch `<picture>` consumers use 640 and 1200 px WebP sources with a 1200:720 intrinsic ratio.
 - Fairytale Markdown points to 1200 px WebP images and follows each image with a scene transcript.
 
-- [ ] **Step 1: Update the header unit test first to require the designed SVG image and a skip link; run it and observe failure against the text/CSS mark.**
-- [ ] **Step 2: Create the SVG mark and social card. Use Pillow to compose the four exact Patch role-kit hero sources and optimize the venue plan and published fairytale pages at the named sizes. Record source paths, ownership, transformations, output dimensions, byte sizes, date, and alt text in `docs/asset-custody.md`.**
-- [ ] **Step 3: Update the header and fairytale Markdown, including useful scene-by-scene transcripts, then remove the old PNGs.**
-- [ ] **Step 4: Run the header test and `npm run build`; verify no added image exceeds 400 KB and no Markdown/public reference points at the removed PNG names.**
-- [ ] **Step 5: Mark Task 2 checkboxes complete and commit with `feat: add designed brand and owned editorial media`.**
+- [x] **Step 1: Update the header unit test first to require the designed SVG image and a skip link; run it and observe failure against the text/CSS mark.**
+- [x] **Step 2: Create the SVG mark and social card. Use Pillow to compose the four exact Patch role-kit hero sources and optimize the venue plan and published fairytale pages at the named sizes. Record source paths, ownership, transformations, output dimensions, byte sizes, date, and alt text in `docs/asset-custody.md`.**
+- [x] **Step 3: Update the header and fairytale Markdown, including useful scene-by-scene transcripts, then remove the old PNGs.**
+- [x] **Step 4: Run the header test and `npm run build`; verify no added image exceeds 400 KB and no Markdown/public reference points at the removed PNG names.**
+- [x] **Step 5: Mark Task 2 checkboxes complete and commit with `feat: add designed brand and owned editorial media`.**
 
 ### Task 3: Editorial feature deck and homepage narrative
 
