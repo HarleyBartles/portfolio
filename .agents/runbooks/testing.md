@@ -20,6 +20,13 @@ Use this runbook when deciding what to verify for a change.
 - If a change touches the `tools/` runner, verify it still runs on both `ci --apply` and `ci --check`.
 - The site is static GitHub Pages output. Do not add .NET or other backend checks unless a later approved architecture introduces a real runtime service.
 
+## Browser quality contracts
+
+- `src/client/e2e/fonts.spec.ts` proves the production preview needs no third-party font host and that Fraunces, Source Serif 4, and Fira Code are available from same-origin assets.
+- `src/client/e2e/accessibility.spec.ts` runs automated WCAG A/AA checks across the golden routes at desktop and mobile sizes. Do not disable a rule or exclude a component to make a product defect disappear. Automated scans supplement, rather than replace, keyboard, zoom, focus, and reading-order review.
+- `src/client/e2e/visual-regression.spec.ts` protects only the site's signature compositions. Its random source, motion preference, font readiness, viewport, and snapshot paths are deliberately deterministic. Update a baseline only after visually inspecting the changed image and recording the intentional design change in the PR.
+- Run a new or changed screenshot test twice without `--update-snapshots` before trusting its baseline.
+
 ## Windows and Bash
 
 - On Windows, use `py -3 tools/run.py ...`.

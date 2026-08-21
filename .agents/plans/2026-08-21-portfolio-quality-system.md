@@ -128,11 +128,11 @@
 - Consumes: stable homepage, writing index, representative article, project, fairytale, About, 404, and reduced-motion routes.
 - Produces: self-hosted Fraunces, Source Serif 4, and Fira Code; automated axe checks; narrow screenshot baselines at desktop and mobile.
 
-- [ ] **Step 1: Verify and install the Fontsource packages and `@axe-core/playwright`.** Record package versions and licenses; remove the Google Fonts network links and unused `jest-axe` packages. Import only the weights/styles used by the design and keep the existing fallback stacks.
-- [ ] **Step 2: Prove font determinism.** Build, open the production preview with network access disabled, and assert `document.fonts.check()` succeeds for all three families. The check must fail before local font imports and pass afterward.
-- [ ] **Step 3: Add axe coverage.** Run axe on the golden routes at desktop and mobile, disable no rules globally, and assert zero serious or critical violations plus zero document-title/html-lang failures. Fix product defects rather than excluding components.
-- [ ] **Step 4: Add stable screenshot coverage.** Seed `Math.random` before navigation, disable animations through Playwright, wait for `document.fonts.ready`, and snapshot only the homepage masthead/feature deck, writing index lead, About professional panel, and a representative mobile article header. Use a platform-neutral snapshot path and commit the approved images.
-- [ ] **Step 5: Run the font, axe, and screenshot tests twice to prove stability; run the full client suite, mark Task 4 complete, and commit `test: add accessible visual baselines`.**
+- [x] **Step 1: Verify and install the Fontsource packages and `@axe-core/playwright`.** Record package versions and licenses; remove the Google Fonts network links and unused `jest-axe` packages. Import only the weights/styles used by the design and keep the existing fallback stacks.
+- [x] **Step 2: Prove font determinism.** Build, open the production preview with network access disabled, and assert `document.fonts.check()` succeeds for all three families. The check must fail before local font imports and pass afterward.
+- [x] **Step 3: Add axe coverage.** Run axe on the golden routes at desktop and mobile, disable no rules globally, and assert zero serious or critical violations plus zero document-title/html-lang failures. Fix product defects rather than excluding components.
+- [x] **Step 4: Add stable screenshot coverage.** Seed `Math.random` before navigation, disable animations through Playwright, wait for `document.fonts.ready`, and snapshot only the homepage masthead/feature deck, writing index lead, About professional panel, and a representative mobile article header. Use a platform-neutral snapshot path and commit the approved images.
+- [x] **Step 5: Run the font, axe, and screenshot tests twice to prove stability; run the full client suite, mark Task 4 complete, and commit `test: add accessible visual baselines`.**
 
 ### Task 5: One gated deployment and public-route smoke proof
 
