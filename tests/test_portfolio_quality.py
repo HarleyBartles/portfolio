@@ -153,6 +153,17 @@ class PortfolioQualityTests(unittest.TestCase):
 
         self.assertTrue(any("must use POSIX separators" in finding for finding in findings))
 
+    def test_manifest_paths_must_be_canonical_vite_glob_keys(self) -> None:
+        for noncanonical_path in ("./projects/example-project.md", "projects//example-project.md"):
+            with self.subTest(path=noncanonical_path):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    fixture.items[0]["path"] = noncanonical_path
+                    fixture.write_manifest()
+
+                findings = self.validate(mutate)
+
+                self.assertTrue(any("must be a canonical POSIX path" in finding for finding in findings))
+
     def test_privacy_scan_rejects_contact_literals_and_private_paths(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             source = fixture.root / "src/client/src/example.ts"
@@ -189,6 +200,23 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("missing from docs/asset-custody.md" in finding for finding in findings))
+
+    def test_asset_custody_rejects_stale_records_and_covers_source_imports(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            imported = fixture.root / "src/client/src/media/imported.png"
+            imported.parent.mkdir(parents=True, exist_ok=True)
+            imported.write_bytes(b"source-import")
+            custody = fixture.docs / "asset-custody.md"
+            custody.write_text(
+                custody.read_text(encoding="utf-8")
+                + "- Public file: `src/client/public/media/missing.png`\n",
+                encoding="utf-8",
+            )
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("src/client/src/media/imported.png" in finding for finding in findings))
+        self.assertTrue(any("custody record points to a missing asset" in finding for finding in findings))
 
 
 if __name__ == "__main__":

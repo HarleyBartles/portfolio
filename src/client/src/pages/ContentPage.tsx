@@ -28,7 +28,7 @@ function ContentLoadingState(): ReactElement {
         description="Portfolio content is loading."
         canonicalPath="/"
       />
-      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio">
+      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio" routeLoading>
         Loading portfolio content.
       </AccessibleStatus>
     </SiteLayout>

@@ -9,7 +9,7 @@ type LoadingPageProps = {
 
 export function LoadingPage({ shell = true }: LoadingPageProps): ReactElement {
   const content = (
-    <AccessibleStatus id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2}>
+    <AccessibleStatus id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2} routeLoading>
       Loading portfolio navigation.
     </AccessibleStatus>
   )

@@ -4,14 +4,14 @@ import { homeFeatureCatalog } from '../src/features/home/featureCatalog'
 
 
 const routes = [
-  { name: 'home', path: './', readyHeading: 'Harley Bartles', readyLevel: 1 },
-  { name: 'projects', path: 'projects', readyHeading: 'Agent Asset Marketplace', readyLevel: 2 },
-  { name: 'project story', path: 'projects/adventures-of-patch', readyHeading: 'Adventures of Patch', readyLevel: 1 },
-  { name: 'writing', path: 'writing', readyHeading: 'Agentic engineering and the kindness of vibe coding', readyLevel: 2 },
-  { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding', readyHeading: 'Agentic engineering and the kindness of vibe coding', readyLevel: 1 },
-  { name: 'fairytale', path: 'fairytales/goldilocks', readyHeading: 'Goldilocks — The Right Amount of Guidance', readyLevel: 1 },
-  { name: 'about', path: 'about', readyHeading: 'This is the part where I ask you to hire me.', readyLevel: 1 },
-  { name: 'unknown route', path: 'not-a-real-route', readyHeading: 'Page not found', readyLevel: 1 },
+  { name: 'home', path: './' },
+  { name: 'projects', path: 'projects' },
+  { name: 'project story', path: 'projects/adventures-of-patch' },
+  { name: 'writing', path: 'writing' },
+  { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },
+  { name: 'fairytale', path: 'fairytales/goldilocks' },
+  { name: 'about', path: 'about' },
+  { name: 'unknown route', path: 'not-a-real-route' },
 ] as const
 
 const viewports = [
@@ -40,7 +40,10 @@ for (const viewport of viewports) {
     for (const route of routes) {
       test(`${route.name} has no automated A or AA violations`, async ({ page }) => {
         await page.goto(route.path)
-        await expect(page.getByRole('heading', { level: route.readyLevel, name: route.readyHeading })).toBeVisible()
+        const pageHeading = page.locator('main h1').first()
+        await expect(pageHeading).toBeVisible()
+        await expect(page.locator('[data-route-loading]')).toHaveCount(0)
+        await expect(pageHeading).toBeVisible()
         await page.evaluate(() => document.fonts.ready)
 
         const featureVisits = route.name === 'home' ? homeFeatureCatalog.length : 1

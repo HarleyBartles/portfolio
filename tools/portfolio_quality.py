@@ -30,7 +30,7 @@ SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?:\+44[\s().-]*7|\b07)(?:[\s().-]*\d){9}\b")
 PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
-CUSTODY_PUBLIC_PATH_RE = re.compile(r"`(src/client/public/[^`\r\n]+)`")
+CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 
 
 @dataclass(frozen=True)
@@ -116,6 +116,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             )
         else:
             pure_path = PurePosixPath(relative_path)
+            if relative_path != pure_path.as_posix():
+                findings.append(
+                    _finding(MANIFEST_PATH, f"'{slug}' Markdown path must be a canonical POSIX path: '{relative_path}'")
+                )
+                continue
             unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
             resolved_path = (content_root / Path(*pure_path.parts)).resolve()
             if unsafe or not resolved_path.is_relative_to(content_root):
@@ -194,21 +199,31 @@ def _validate_privacy(root: Path, findings: list[Finding]) -> None:
 
 
 def _validate_assets(root: Path, findings: list[Finding]) -> None:
-    public_root = root / PUBLIC_ROOT
     custody_path = root / CUSTODY_PATH
     custody = custody_path.read_text(encoding="utf-8") if custody_path.is_file() else ""
-    custody_paths = set(CUSTODY_PUBLIC_PATH_RE.findall(custody))
+    custody_paths = {
+        path
+        for path in CUSTODY_ASSET_PATH_RE.findall(custody)
+        if Path(path).suffix.lower() in PUBLIC_ASSET_SUFFIXES
+    }
+    asset_paths: set[str] = set()
 
-    for path in public_root.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in PUBLIC_ASSET_SUFFIXES:
-            continue
-        relative = path.relative_to(root)
-        if relative.as_posix() not in custody_paths:
-            findings.append(_finding(relative, "public asset is missing from docs/asset-custody.md"))
-        if path.suffix.lower() in RASTER_IMAGE_SUFFIXES and path.stat().st_size > MAX_IMAGE_BYTES:
-            findings.append(
-                _finding(relative, f"image is {path.stat().st_size} bytes and exceeds {MAX_IMAGE_BYTES} bytes")
-            )
+    for asset_root in (root / PUBLIC_ROOT, root / PRODUCTION_ROOT):
+        for path in asset_root.rglob("*"):
+            if not path.is_file() or path.suffix.lower() not in PUBLIC_ASSET_SUFFIXES:
+                continue
+            relative = path.relative_to(root)
+            relative_text = relative.as_posix()
+            asset_paths.add(relative_text)
+            if relative_text not in custody_paths:
+                findings.append(_finding(relative, "asset is missing from docs/asset-custody.md"))
+            if path.suffix.lower() in RASTER_IMAGE_SUFFIXES and path.stat().st_size > MAX_IMAGE_BYTES:
+                findings.append(
+                    _finding(relative, f"image is {path.stat().st_size} bytes and exceeds {MAX_IMAGE_BYTES} bytes")
+                )
+
+    for stale_path in sorted(custody_paths - asset_paths):
+        findings.append(_finding(Path(stale_path), "custody record points to a missing asset"))
 
 
 def validate_portfolio(root: Path) -> list[Finding]:
