@@ -25,7 +25,7 @@ export function AboutPage(): ReactElement {
           </div>
         </header>
 
-        <section className="about-proof" aria-labelledby="about-proof-title">
+        <section className="about-proof" aria-labelledby="about-proof-title" data-visual-contract="about-professional-proof">
           <div className="section-heading section-heading--split">
             <div><p className="eyebrow">Why I am useful</p><h2 id="about-proof-title">Engineering judgment, with receipts.</h2></div>
             <p>I care about the gap between an impressive prototype and a system somebody can safely own.</p>

@@ -39,7 +39,7 @@ Out of scope for this spec:
 
 ## Current baseline
 
-The client is `src/client/`, a Vite + React 19 + TypeScript 6 SPA. It uses SCSS tokens in `src/client/src/styles/_tokens.scss`, `styled-components`, `react-markdown`, `@tanstack/react-query`, `react-router-dom`, Vitest, and Playwright. The .NET server in `src/server/` serves a content manifest and markdown files from `src/content/`.
+The application is `src/client/`, a Vite + React 19 + TypeScript 6 static site. It uses SCSS tokens in `src/client/src/styles/_tokens.scss`, `styled-components`, `react-markdown`, `@tanstack/react-query`, `react-router-dom`, Vitest, and Playwright. Repository-owned Markdown and the content manifest live under `src/client/src/data/content/`; the production build emits direct-route documents for GitHub Pages. There is no runtime site backend.
 
 ## Proposed foundation phases
 

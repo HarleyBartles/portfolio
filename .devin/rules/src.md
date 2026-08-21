@@ -4,12 +4,10 @@ trigger: glob
 globs:
   - "src/**"
   - "!src/client/**"
-  - "!src/server/**"
-  - "!src/content/**"
 ---
 ## Scope
 
-`src/**` excluding `src/client/`, `src/server/`, and `src/content/`.
+`src/**` excluding the client-specific subtree routed by `src/client/README.md` and the repository runbooks.
 
 When working in this scope:
 

@@ -1,8 +1,104 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+# Regenerate owned mechanical surfaces, then prove the staged product slice.
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+AFTER_STATUS=""
+UNSTAGED_PATCH=$(mktemp)
+UNTRACKED_STASHED=0
+WORKTREE_RESET=0
+PATCH_RESTORE_FAILED=0
+
+restore_worktree() {
+  local exit_code=$?
+  trap - EXIT
+  if [ "$WORKTREE_RESET" -eq 1 ]; then
+    if ! git apply --binary --whitespace=nowarn "$UNSTAGED_PATCH"; then
+      echo "pre-commit: validation finished but the unstaged patch could not be restored from $UNSTAGED_PATCH" >&2
+      exit_code=1
+      PATCH_RESTORE_FAILED=1
+    fi
+  fi
+  if [ "$UNTRACKED_STASHED" -eq 1 ]; then
+    if ! git stash pop --quiet; then
+      echo "pre-commit: validation finished but untracked files could not be restored; recover them from git stash" >&2
+      exit_code=1
+    fi
+  fi
+  rm -f "$AFTER_STATUS"
+  if [ "$PATCH_RESTORE_FAILED" -eq 0 ]; then
+    rm -f "$UNSTAGED_PATCH"
+  fi
+  exit "$exit_code"
+}
+
+trap restore_worktree EXIT
+
+# The public marketplace source is a build input. Never derive staged skills
+# from submodule bytes that are absent from the staged gitlink.
+if ! SUBMODULE_STATUS=$(git submodule status --recursive); then
+  echo "pre-commit: could not inspect required submodule source" >&2
+  exit 1
+fi
+SUBMODULE_HEAD_DRIFT=$(printf '%s\n' "$SUBMODULE_STATUS" | grep -E '^[+-U]' || true)
+SUBMODULE_WORKTREE_DRIFT=$(git submodule foreach --quiet --recursive '
+  actual=$(git rev-parse HEAD) || exit 1
+  dirty=$(git status --porcelain --untracked-files=all) || exit 1
+  if [ "$actual" != "$sha1" ] || [ -n "$dirty" ]; then
+    printf "%s\n" "$displaypath"
+  fi
+')
+if [ -n "$SUBMODULE_HEAD_DRIFT" ] || [ -n "$SUBMODULE_WORKTREE_DRIFT" ]; then
+  echo "pre-commit: submodule source does not match the staged gitlink or has uncommitted files:" >&2
+  printf '%s\n%s\n' "$SUBMODULE_HEAD_DRIFT" "$SUBMODULE_WORKTREE_DRIFT" >&2
+  echo "pre-commit: commit/stage the intended submodule state or restore it before regenerating derived skills" >&2
+  exit 1
+fi
+
+# Materialize the index in the working tree before regeneration. Every generated
+# file and every validation command must observe the snapshot Git will commit,
+# never an unstaged repair layered over it.
+git diff --binary --no-ext-diff --full-index -- > "$UNSTAGED_PATCH"
+if [ -s "$UNSTAGED_PATCH" ]; then
+  git checkout -- .
+  WORKTREE_RESET=1
+fi
+
+if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+  git stash push --quiet --keep-index --include-untracked -m "portfolio pre-commit untracked snapshot $$"
+  UNTRACKED_STASHED=1
+fi
 
 if command -v py >/dev/null 2>&1; then
-  py -3 tools/check_link_hygiene.py
+  PYTHON=(py -3)
+elif command -v python3 >/dev/null 2>&1; then
+  PYTHON=(python3)
+elif command -v python >/dev/null 2>&1; then
+  PYTHON=(python)
 else
-  python3 tools/check_link_hygiene.py
+  echo "py, python3, or python not found" >&2
+  exit 1
 fi
+
+"${PYTHON[@]}" tools/run.py ci --apply --allow-shared-checkout
+
+git add -A -- .agents/skills/ 2>/dev/null || true
+git add -- ':(glob)**/INDEX.md' 2>/dev/null || true
+git add -- ':(glob)**/INDEX.json' 2>/dev/null || true
+git add -- ':(glob)**/.provenance.json' 2>/dev/null || true
+git add -- .agents/plugins/marketplace.json 2>/dev/null || true
+git add -- codex-marketplace/plugin-roots.json 2>/dev/null || true
+git add -- codex-marketplace/manifest.json 2>/dev/null || true
+
+AFTER_STATUS=$(mktemp)
+git status --porcelain --untracked-files=all > "$AFTER_STATUS"
+UNSTAGED=$(awk 'substr($0,2,1) != " "' "$AFTER_STATUS")
+if [ -n "$UNSTAGED" ]; then
+  echo "pre-commit: regeneration produced unstaged changes outside its staging allow-list:" >&2
+  echo "$UNSTAGED" >&2
+  exit 1
+fi
+
+"${PYTHON[@]}" tools/run.py precommit --check

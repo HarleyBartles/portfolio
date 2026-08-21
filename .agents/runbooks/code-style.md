@@ -5,11 +5,11 @@ Use this runbook for code and writing conventions in the portfolio repo.
 ## Read first
 
 - `.agents/doctrine/coding-discipline.md` for scope and architecture direction.
-- The language-specific files you are touching, e.g. `src/client/package.json`, `src/server/Portfolio.Server.csproj`.
+- The language-specific files you are touching, for example `src/client/package.json` or `tools/run.py`.
 
 ## Conventions
 
-- Follow the existing `.NET`, `ASP.NET Core`, `React`, `TypeScript`, and `Vite` patterns.
+- Follow the existing Python, React, TypeScript, Vite, and SCSS patterns that apply to the files you change.
 - Keep documentation clear and routing surfaces up to date.
 - Regenerate `INDEX.md` files after any structural change.
 - Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.

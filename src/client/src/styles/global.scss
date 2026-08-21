@@ -1,3 +1,4 @@
+@use './fonts';
 @use './tokens';
 
 * {
@@ -225,6 +226,10 @@ main,
 
 .hero-grid > :first-child {
   grid-column: span 8;
+}
+
+.hero-grid > * {
+  min-width: 0;
 }
 
 .hero-aside {
@@ -487,8 +492,8 @@ main,
 }
 
 @keyframes feature-enter {
-  from { opacity: 0.55; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(8px); }
+  to { transform: translateY(0); }
 }
 
 .project-visual {
@@ -622,11 +627,11 @@ main,
   display: flex;
   justify-content: space-between;
   margin-top: var(--space-4);
-  color: var(--color-accent);
+  color: var(--color-ink);
 }
 
 .project-visual--wild-bunch figcaption span {
-  color: var(--color-muted);
+  color: var(--color-ink);
   font-weight: 400;
 }
 
@@ -1206,6 +1211,11 @@ main,
   justify-content: center;
   border-top: 0;
   padding: clamp(var(--space-8), 7vw, var(--space-16));
+}
+
+.editorial-card--featured .editorial-meta,
+.editorial-card--featured .editorial-card-copy > p:not(.eyebrow, .editorial-meta, .content-status) {
+  color: var(--color-ink-secondary);
 }
 
 .editorial-card--featured .editorial-card-copy h2 {

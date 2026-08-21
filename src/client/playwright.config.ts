@@ -1,32 +1,27 @@
 import { defineConfig, devices } from '@playwright/test'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const clientRoot = fileURLToPath(new URL('.', import.meta.url))
-const repositoryRoot = path.resolve(clientRoot, '..', '..')
-const serverProject = path.join(repositoryRoot, 'src', 'server', 'Portfolio.Server.csproj')
-const contentRoot = path.join(repositoryRoot, 'src', 'content')
 
 const clientPort = 4173
-const serverPort = 5278
 const clientOrigin = `http://127.0.0.1:${clientPort}`
 const clientBaseUrl = `${clientOrigin}/portfolio/`
-const serverBaseUrl = `http://127.0.0.1:${serverPort}`
-
-function quoteShellArgument(value: string): string {
-  return `"${value.replaceAll('"', '\\"')}"`
-}
 
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
   workers: 1,
+  retries: process.env.CI ? 1 : 0,
+  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
+  snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   timeout: 30_000,
   expect: {
     timeout: 5_000,
+    toHaveScreenshot: {
+      animations: 'disabled',
+      maxDiffPixelRatio: 0.01,
+    },
   },
   use: {
     baseURL: clientBaseUrl,
+    screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
   projects: [
@@ -36,19 +31,6 @@ export default defineConfig({
     },
   ],
   webServer: [
-    {
-      command: [
-        'dotnet run',
-        '--no-launch-profile',
-        `--project ${quoteShellArgument(serverProject)}`,
-        '--',
-        `--urls ${serverBaseUrl}`,
-        `--Content:ContentRoot=${quoteShellArgument(contentRoot)}`,
-      ].join(' '),
-      url: `${serverBaseUrl}/health`,
-      timeout: 120_000,
-      reuseExistingServer: false,
-    },
     {
       command: 'npm run build && npm run preview:test',
       url: clientOrigin,

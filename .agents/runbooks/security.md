@@ -10,8 +10,9 @@ Use this runbook for security review and safe-handling guidance.
 
 ## Review lenses
 
-- Verify no credentials or internal URLs are added to public content under `src/content/`.
-- Verify the `.NET` server does not expose unsafe endpoints or debug surfaces.
+- Verify no credentials, private filesystem paths, or internal URLs are added to public content under `src/client/src/data/content/`.
+- Treat `src/client/dist/` as the complete deployable product: verify it contains no source maps, private paths, credentials, or runtime-only configuration.
+- Keep contact delivery disabled unless a reviewed, abuse-resistant external form endpoint is intentionally configured; never publish a personal email address or telephone number as a shortcut.
 - Verify dependency or toolchain changes do not introduce unnecessary trust boundaries.
 
 ## See also

@@ -65,7 +65,11 @@ export function EditorialIndexCard({ item, index, featured = false }: EditorialI
   const hasVisual = item.kind === 'project' || item.kind === 'fairytales'
 
   return (
-    <article className={`editorial-card editorial-card--${item.kind}${featured ? ' editorial-card--featured' : ''}`} aria-labelledby={titleId}>
+    <article
+      className={`editorial-card editorial-card--${item.kind}${featured ? ' editorial-card--featured' : ''}`}
+      aria-labelledby={titleId}
+      data-visual-contract={featured ? 'writing-editorial-lead' : undefined}
+    >
       {hasVisual ? (
         <Link to={getContentPath(item)} className="editorial-card-visual" aria-label={`View ${item.title}`}>
           <CardMedia item={item} />

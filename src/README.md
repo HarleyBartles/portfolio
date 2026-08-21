@@ -1,68 +1,24 @@
-# Application Source
+# Application source
 
-This folder contains the portfolio application source tree:
+`client/` is the complete portfolio application: React, TypeScript, Vite, and repository-owned Markdown. Vite compiles it to static files for GitHub Pages. There is no site backend, API, database, or server project in this source tree.
 
-- `server/` is the ASP.NET Core host and read-only content API.
-- `client/` is the React, TypeScript, and Vite browser application.
-- `../content/` is the repository-owned Markdown and typed metadata source.
+Content lives under `client/src/data/content/` and is indexed by `content-manifest.json`. Browser tests exercise the production Vite preview and generated direct-route documents without contacting an application service.
 
-The client reads content through the ASP.NET Core API rather than embedding
-content in React state. The Playwright configuration starts both local servers
-for integrated browser coverage without contacting Wild Bunch production.
+## Local commands
 
-## Local Commands
-
-From the repository root, start the API with:
+From the repository root, install once and start interactive development:
 
 ```powershell
-dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
+npm ci --prefix src/client
+npm --prefix src/client run dev
 ```
 
-Then use a second terminal for interactive client development:
+The repository owns one complete validation command:
 
 ```powershell
-Push-Location src/client
-npm install
-npm run dev
+py -3 tools/run.py ci --check
 ```
 
-From another shell, run the client validation commands:
+On Bash-based systems, use `python3` in place of `py -3`.
 
-```powershell
-Push-Location src/client
-npm test -- --run
-npm run build
-npm run test:e2e
-Pop-Location
-```
-
-The Bash equivalents are:
-
-```bash
-dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
-```
-
-In the second terminal, start the client:
-
-```bash
-cd src/client
-npm install
-npm run dev
-```
-
-From another shell, run the client validation commands:
-
-```bash
-cd src/client
-npm test -- --run
-npm run build
-npm run test:e2e
-cd ../..
-```
-
-The Playwright configuration starts its own local ASP.NET Core and Vite
-preview servers for `npm run test:e2e`.
-
-Authentication, database persistence, and the Wild Bunch playthrough flow are
-deferred scope. This source tree intentionally does not introduce those
-boundaries before a concrete requirement exists.
+Do not add a runtime backend speculatively. Projects described by the portfolio may use server-side technology; that is showcase content, not hosting architecture for this site.

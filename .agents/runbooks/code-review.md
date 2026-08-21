@@ -13,6 +13,7 @@ Read the relevant routing and policy docs first:
 - `.agents/doctrine/validation-policy.md` for the current validation baseline.
 - `.agents/doctrine/coding-discipline.md` when the diff changes scope or structure.
 - The approved plan or design spec that the work claims to satisfy.
+- `.agents/doctrine/portfolio-design-policy.md` and the relevant `docs/design-decisions.md` entries for visitor-facing work.
 
 ## Review Focus
 
@@ -32,6 +33,8 @@ Apply the following lenses as needed:
 - **Validation Lens** - does the change have the checks it needs, and were they actually run?
 - **Documentation Lens** - do AGENTS, README, INDEX, and runbook surfaces still point at the right things?
 - **Architecture Lens** - if the work adds code later, does it stay within the repository's documented architecture direction?
+- **Editorial Lens** - is the reading order authored, typography legible, imagery specific, and motion purposeful across desktop and narrow layouts?
+- **Trust Lens** - are public claims, statuses, contact behaviour, external links, asset custody, and privacy supported by evidence?
 
 If the review touches only docs or navigation, keep the architecture lens light and focus on routing, accuracy, and index freshness.
 
@@ -54,6 +57,9 @@ The review itself should be rigorous enough that the reviewer does not need a se
 - No temporary or scratch files were committed.
 - Validation commands match the change size.
 - Any deferred work is explicit and narrow.
+- Visual changes include evidence at 1440 and 390 CSS pixels plus explicit checks at 768, 320, keyboard-only, reduced motion, and 200% zoom.
+- A visual-baseline update explains the intentional design change; screenshot equality is not used as a substitute for design judgement.
+- A changed protected default follows the portfolio design policy's change protocol and updates the decision ledger.
 
 ## Review Output
 

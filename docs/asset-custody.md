@@ -2,6 +2,37 @@
 
 This record covers visual assets copied or derived from Harley Bartles' own repositories for the public portfolio. The portfolio stores the optimized public derivatives; the named sibling repositories retain the source files and their pipeline history.
 
+## Typography
+
+The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm packages. Every face uses `font-display: swap`; fallback stacks remain in `src/client/src/styles/_tokens.scss`. The packages retain their licence files and attribution metadata in `node_modules`, and the exact resolved versions are locked in `src/client/package-lock.json`.
+
+### Fraunces
+
+- Dependency: `@fontsource-variable/fraunces` 5.3.0; upstream font version v38.
+- Files used: `fraunces-latin-wght-normal.woff2` and `fraunces-latin-wght-italic.woff2`.
+- Source: Google Fonts / The Fraunces Project Authors, `github.com/undercasetype/Fraunces`.
+- Licence: SIL Open Font License 1.1; public web embedding and redistribution permitted under the licence.
+- Use and fallback: display headings; Georgia then generic serif.
+- Added: 2026-08-21.
+
+### Source Serif 4
+
+- Dependency: `@fontsource-variable/source-serif-4` 5.3.0; upstream font version v14.
+- Files used: `source-serif-4-latin-wght-normal.woff2` and `source-serif-4-latin-wght-italic.woff2`.
+- Source and attribution: Google Fonts; metadata attribution is Google Inc.
+- Licence: SIL Open Font License 1.1.
+- Use and fallback: body and long-form reading; Iowan Old Style then generic serif.
+- Added: 2026-08-21.
+
+### Fira Code
+
+- Dependency: `@fontsource-variable/fira-code` 5.3.0; upstream font version v27.
+- File used: `fira-code-latin-wght-normal.woff2`.
+- Source: Google Fonts / The Fira Code Project Authors, `github.com/tonsky/FiraCode`.
+- Licence: SIL Open Font License 1.1.
+- Use and fallback: folios, dates, status, and controls; Cascadia Code, SFMono-Regular, then generic monospace.
+- Added: 2026-08-21.
+
 ## Brand
 
 ### HB mark

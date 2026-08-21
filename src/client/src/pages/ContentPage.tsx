@@ -28,7 +28,7 @@ function ContentLoadingState(): ReactElement {
         description="Portfolio content is loading."
         canonicalPath="/"
       />
-      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio">
+      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio" routeLoading>
         Loading portfolio content.
       </AccessibleStatus>
     </SiteLayout>
@@ -131,7 +131,10 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         canonicalPath={getContentPath(document.summary)}
       />
       <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
-        <header className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}>
+        <header
+          className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}
+          data-visual-contract="content-page-header"
+        >
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
             <h1 id="content-page-title">{document.summary.title}</h1>

@@ -51,7 +51,7 @@ export const appRoutes: RouteObject[] = [
     element: <App />,
     errorElement: <RouteErrorBoundary />,
     hydrateFallbackElement: (
-      <p className="route-loading" role="status">
+      <p className="route-loading" role="status" data-route-loading>
         Preparing the portfolio…
       </p>
     ),

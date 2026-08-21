@@ -6,6 +6,7 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 
 - Read root [`AGENTS.md`](../../AGENTS.md).
 - Read [`.devin/rules/tools.md`](../../.devin/rules/tools.md) for validation commands.
+- For visitor-facing changes, read [the portfolio design policy](../doctrine/portfolio-design-policy.md).
 - Invoke `/repo-worker-base`.
 
 ## When to use
@@ -22,11 +23,14 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 - Keep the PR in draft while iterating and running local validation.
 - Flip to ready for review only after self-review is complete and `py -3 tools/run.py ci --check` passes.
 - The PR body must include publication proof.
+- Use `.github/pull_request_template.md`; do not delete its design, accessibility, performance, factual, custody, or visual-evidence prompts when they apply.
 
 ## Remote CI gate
 
-- This repository currently has no remote CI checks beyond `py -3 tools/run.py ci --check`.
-- If a GitHub Actions workflow is added later, update this runbook to require `gh pr checks` to pass after flipping a PR out of draft.
+- The `Portfolio / Portfolio quality gate` check must pass after a PR is flipped out of draft. It runs the same canonical `ci --check` command used locally.
+- A merge to `main` reuses the quality-gated `dist` output as the Pages artifact; deployment must never rebuild with a weaker command list.
+- `Portfolio / Verify public routes` is post-deploy evidence. It verifies real HTTP status, content type, titles, canonicals, generic GitHub-error absence, and the custom 404 against the published URL.
+- Use `gh pr checks` and the Actions run URLs as hosted proof. Local green proves only the checkout being tested.
 
 
 - Open pull requests as **draft**.
