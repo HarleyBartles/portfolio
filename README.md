@@ -11,32 +11,22 @@ The site is intended to present a focused professional presence:
 - technical writing and articles;
 - later, small interactive demos when they are actually useful.
 
-## Current Status
+## Current status
 
-The first public application slice is now scaffolded and tested locally.
+The public site is a static React and Vite application deployed to GitHub
+Pages. Repository-owned Markdown and the typed content manifest live under
+`src/client/src/data/content/`, and the production build generates a static
+entry document for every public route.
 
-- `src/server/` contains the ASP.NET Core content API.
-- `src/client/` contains the React, TypeScript, and Vite client.
-- `src/content/` contains the repository-owned Markdown and typed content manifest.
-- GitHub Actions runs all repository hygiene and application checks only on
-  published pull requests and pushes to `main`.
-- Browser coverage runs against the local ASP.NET Core and Vite servers through
-  the Playwright configuration; it does not call Wild Bunch production.
-
-There is no production deployment pipeline yet.
+GitHub Actions runs the canonical quality gate on ready pull requests and
+pushes to `main`. A separate Pages workflow publishes the built client.
 
 ## Local Development
 
-Use two terminals for interactive local development. On Windows, run the API
-in the first terminal:
+Install dependencies and start Vite from `src/client/`:
 
 ```powershell
-dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
-```
-
-In the second terminal, install dependencies and keep the Vite server running:
-
-```powershell
+git config core.hooksPath .githooks
 Push-Location src/client
 npm install
 npm run dev
@@ -52,18 +42,10 @@ npm run test:e2e
 Pop-Location
 ```
 
-The browser command starts the ASP.NET Core API and Vite preview server from
-`playwright.config.ts`; it does not call Wild Bunch production.
-
-On Bash-compatible systems, run the API in the first terminal:
+The Bash-compatible commands are:
 
 ```bash
-dotnet run --project src/server/Portfolio.Server.csproj -- --urls http://127.0.0.1:5278
-```
-
-In the second terminal, install dependencies and keep the Vite server running:
-
-```bash
+git config core.hooksPath .githooks
 cd src/client
 npm install
 npm run dev
@@ -79,36 +61,26 @@ npm run test:e2e
 cd ../..
 ```
 
-The browser command starts both configured local servers and does not call Wild
-Bunch production.
-
-Repository tooling checks use `py -3` on Windows and `python3` on Bash:
+The Playwright command builds the production client and starts only the Vite
+preview server. Repository tooling checks use `py -3` on Windows and
+`python3` on Bash:
 
 ```powershell
-.\scripts\ci-preflight.ps1 -Check
-py -3 -m unittest discover -s tests -v
+py -3 tools/run.py ci --check
 ```
 
 ```bash
-bash ./scripts/ci-preflight.sh --check
-python3 -m unittest discover -s tests -v
+python3 tools/run.py ci --check
 ```
 
-The client consumes repository-owned content through the ASP.NET Core API.
-Authentication, database persistence, and the Wild Bunch playthrough flow are
-deferred until a separate requirement justifies them.
+The client imports repository-owned content into lazy Vite chunks. The site has
+no runtime backend, authentication, or database.
 
 ## Architecture Direction
 
-The intended stack is:
-
-- `.NET 10`
-- `ASP.NET Core`
-- `React`
-- `TypeScript`
-- `Vite`
-
-The likely long-term shape is a simple ASP.NET Core host with a React/Vite frontend, organized in a way that keeps the web application straightforward to build, run, and deploy.
+The intended stack is React, TypeScript, Vite, SCSS, Vitest, and Playwright,
+published as static GitHub Pages files. Add a runtime service only when a
+concrete requirement cannot be satisfied safely by the static architecture.
 
 This repository is **not** intended to become a large DDD system, a CQRS/event-sourcing experiment, or a microservices landscape. The site should stay easy to understand and easy to evolve.
 

@@ -46,5 +46,20 @@ test('homepage reflows for zoom and small screens while respecting keyboard and 
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused()
 
   await page.setViewportSize({ width: 320, height: 800 })
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
+  const overflowingElements = await page.evaluate(() => {
+    const viewportWidth = document.documentElement.clientWidth
+    return [...document.querySelectorAll<HTMLElement>('body *')]
+      .filter((element) => element.getBoundingClientRect().right > viewportWidth + 0.5)
+      .map((element) => ({
+        className: element.className,
+        clientWidth: viewportWidth,
+        gridColumns: getComputedStyle(document.querySelector('.hero-grid')!).gridTemplateColumns,
+        innerWidth: window.innerWidth,
+        left: Math.round(element.getBoundingClientRect().left),
+        right: Math.round(element.getBoundingClientRect().right),
+        tagName: element.tagName,
+        text: element.textContent?.trim().slice(0, 80),
+      }))
+  })
+  expect(overflowingElements).toEqual([])
 })

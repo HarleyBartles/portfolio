@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -83,6 +84,10 @@ def _refresh_seo_files_cmd() -> list[str]:
     return [sys.executable, "tools/refresh_seo_files.py"]
 
 
+def _client_cmd(*args: str) -> list[str]:
+    return [shutil.which("npm") or "npm", "--prefix", "src/client", *args]
+
+
 def _repo_standards_apply(ctx: Ctx) -> None:
     _run(_repo_standards_cmd("apply", ctx.allow_shared), ctx)
     _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
@@ -119,7 +124,7 @@ def _ci_apply(ctx: Ctx) -> None:
     _run(_refresh_seo_files_cmd(), ctx)
 
 
-def _ci_check(ctx: Ctx) -> None:
+def _precommit_check(ctx: Ctx) -> None:
     _repo_standards_check(ctx)
     _skills_check(ctx)
     _mesh_check(ctx)
@@ -128,6 +133,13 @@ def _ci_check(ctx: Ctx) -> None:
         _run(_tests_cmd(), ctx)
     else:
         print("[tools/run] no Python tests under tests/; skipping test step")
+    _run(_client_cmd("test", "--", "--run"), ctx)
+    _run(_client_cmd("run", "build"), ctx)
+
+
+def _ci_check(ctx: Ctx) -> None:
+    _precommit_check(ctx)
+    _run(_client_cmd("run", "test:e2e"), ctx)
 
 
 def _all_apply(ctx: Ctx) -> None:
@@ -145,6 +157,7 @@ TARGETS = {
     },
     "skills": {"apply": _skills_apply, "check": _skills_check},
     "mesh": {"apply": _mesh_apply, "check": _mesh_check},
+    "precommit": {"apply": _ci_apply, "check": _precommit_check},
     "ci": {"apply": _ci_apply, "check": _ci_check},
     "all": {"apply": _all_apply, "check": _all_check},
 }

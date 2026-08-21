@@ -19,6 +19,7 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 
 ## Conventions and verification
 
+- Configure the tracked local hook once per clone with `git config core.hooksPath .githooks`; it runs the fast product gate before each commit.
 - [`.agents/runbooks/code-style.md`](./.agents/runbooks/code-style.md) for code and writing conventions.
 - [`.agents/runbooks/testing.md`](./.agents/runbooks/testing.md) for what to verify.
 - [`.agents/runbooks/security.md`](./.agents/runbooks/security.md) for security review guidance.

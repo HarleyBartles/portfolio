@@ -11,7 +11,7 @@ Use this reference when deciding scope boundaries or making structural changes.
 
 ## Architecture Direction
 
-- Assume `.NET 10`, `ASP.NET Core`, `React`, `TypeScript`, and `Vite` as the long-term stack.
+- Assume React, TypeScript, Vite, SCSS, Vitest, and Playwright as the live stack. The deployed site is static GitHub Pages output; do not introduce a runtime backend speculatively.
 - Keep the repository simple and easy to navigate.
 - Avoid DDD, CQRS, event sourcing, microservices, and other speculative abstractions unless a future requirement clearly justifies them.
 - Prefer a single maintainable application over a large layer cake with empty projects.

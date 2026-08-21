@@ -5,6 +5,7 @@ Use this reference when deciding what to verify for repo-starter work.
 ## Canonical validation command
 
 - `py -3 tools/run.py ci --check` is the repo's canonical pre-commit and CI verification command.
+- The tracked pre-commit hook uses `py -3 tools/run.py precommit --check`, the fast product gate. Full CI adds Playwright browser journeys.
 
 ## Validation principles
 
@@ -16,6 +17,7 @@ Use this reference when deciding what to verify for repo-starter work.
 - Exact copied skill trees under `.agents/skills/` are validated by `tools/run.py skills --check`; exclude them from whitespace diff checks so upstream formatting does not generate false failures.
 - Automated gates protect objective contracts: executable behaviour, route integrity, accessibility, privacy, asset custody, and budgets. They do not freeze exact prose, CSS classes, component structure, or every visual value.
 - Approved visual baselines protect stable, representative surfaces from accidental drift. Updating a baseline is allowed when the pull request explains and reviews the new design.
+- The deployed product is static GitHub Pages output. Validation follows the live React/Vite architecture and must not retain a server toolchain after the runtime server has been removed.
 
 ## Proof
 

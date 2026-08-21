@@ -6,7 +6,7 @@
 
 **Architecture:** Keep `py -3 tools/run.py ci --check` as the one canonical gate and expand it to orchestrate repository, Python, .NET, client unit, production-build, and Playwright checks. Put subjective direction in an active portfolio design policy and append-only decision ledger; encode only objective, costly-to-rediscover contracts in tests and scripts. Make deployment consume the same validated artifact, then prove the public routes after GitHub Pages publishes it.
 
-**Tech Stack:** Python 3.13, .NET 10/xUnit, React 19, TypeScript 6, Vite 8, Vitest, Playwright, axe-core, GitHub Actions, GitHub Pages.
+**Tech Stack:** Python 3.13, React 19, TypeScript 6, Vite 8, Vitest, Playwright, axe-core, GitHub Actions, GitHub Pages.
 
 **Execution Strategy:** `executing-plans` — the canonical runner, client scripts, workflows, and documentation are coupled and should be changed sequentially in one worktree. Multi-agent execution is unavailable for this task.
 
@@ -22,6 +22,7 @@
 - Keep initial entry JavaScript at or below 350 KiB uncompressed and CSS at or below 40 KiB uncompressed.
 - Run code behavior changes test-first and observe the intended red result before implementation.
 - Work on `codex/portfolio-quality-system`, based on `origin/main` at `ed10a1c724f8c65a04e8e72071a3c53783439ccd`; publish through reviewed pull requests, not direct-main commits.
+- The deployed product is a static GitHub Pages site. Remove the stale ASP.NET Core host, server tests, solution, server-starting Playwright configuration, and documentation rather than adding them to the quality gate.
 
 ---
 
@@ -58,21 +59,29 @@
 - Modify: `tools/run.py`
 - Modify: `.githooks/pre-commit`
 - Modify: `.github/workflows/ci.yml`
-- Modify: `tests/server/ContentManifestTests.cs`
+- Modify: `src/client/playwright.config.ts`
+- Modify: `README.md`
+- Modify: `src/client/README.md`
+- Modify: `.devin/rules/src.md`
+- Modify: `.devin/rules/tests.md`
+- Delete: `.devin/rules/src-server.md`
+- Delete: `.devin/rules/src-content.md`
+- Delete: `Portfolio.sln`
+- Delete: `src/server/`
+- Delete: `tests/server/`
 - Modify: `.agents/runbooks/testing.md`
 - Modify: `.agents/doctrine/validation-policy.md`
 
 **Interfaces:**
-- Consumes: existing repo-standard, skills, mesh, link-hygiene, .NET, Vitest, Vite, and Playwright commands.
+- Consumes: existing repo-standard, skills, mesh, link-hygiene, Vitest, Vite, and Playwright commands.
 - Produces: `tools/run.py precommit --check` for the fast local gate and `tools/run.py ci --check` for the complete gate. Both run from any valid Git worktree.
 
-- [ ] **Step 1: Add failing Python runner tests.** Patch `subprocess.run`, invoke the orchestration functions, and assert the fast lane contains repository checks, Python tests, .NET tests, Vitest, and production build while the complete lane additionally contains Playwright. The tests must fail because the current runner never schedules frontend or .NET commands.
-- [ ] **Step 2: Run `py -3 -m unittest tests.test_run -v` and observe the missing-command failures.**
-- [ ] **Step 3: Add a failing .NET regression test for worktree root discovery.** Represent both a `.git` directory and a `.git` pointer file; the root finder must accept either when `Portfolio.sln` and the content manifest are present. Run `dotnet test tests/server --configuration Release` and observe the pointer-file case fail against the current implementation.
-- [ ] **Step 4: Implement explicit command builders and lanes.** Keep `--apply` limited to mechanical regeneration. Make `precommit --check` run repo/skills/mesh/link checks, Python tests, `dotnet test Portfolio.sln --configuration Release`, `npm test -- --run`, and `npm run build`; make `ci --check` call that lane and then `npm run test:e2e`. Preserve fail-fast exit codes and verbose command printing.
-- [ ] **Step 5: Fix repository-root discovery without weakening assertions.** Locate an ancestor containing `Portfolio.sln` plus `src/client/src/data/content/content-manifest.json`; do not require `.git` to be a directory.
-- [ ] **Step 6: Point the tracked hook and hosted CI at the runner.** The hook invokes `precommit --check`; CI installs .NET, Node, client dependencies, and Chromium once, then runs `py -3 tools/run.py ci --check`. Remove duplicate hand-maintained command lists.
-- [ ] **Step 7: Run the runner tests, server tests, `precommit --check`, and `ci --check`; mark Task 2 complete and commit `build: make canonical validation prove the product`.**
+- [x] **Step 1: Add failing Python runner tests.** Patch the command executor, invoke the orchestration functions, and assert the fast lane contains repository checks, Python tests, Vitest, and production build while the complete lane additionally contains Playwright. The tests must fail because the current runner never schedules frontend commands.
+- [x] **Step 2: Run `py -3 -m unittest tests.test_run -v` and observe the missing-command failures.**
+- [x] **Step 3: Implement explicit command builders and lanes.** Keep `--apply` limited to mechanical regeneration. Make `precommit --check` run repo/skills/mesh/link checks, Python tests, `npm test -- --run`, and `npm run build`; make `ci --check` call that lane and then `npm run test:e2e`. Preserve fail-fast exit codes and verbose command printing.
+- [x] **Step 4: Remove the stale backend architecture.** Delete the solution, server, and server tests; remove the unused ASP.NET web server from Playwright; rewrite live README and Devin routing surfaces to describe repository-owned client content and static Pages deployment. Preserve historical completed specs and plans as records.
+- [x] **Step 5: Point the tracked hook and hosted CI at the runner.** The hook invokes `precommit --check`; CI installs Node, client dependencies, and Chromium once, then runs `python3 tools/run.py ci --check`. Remove .NET setup and duplicate hand-maintained command lists.
+- [x] **Step 6: Run runner tests, `precommit --check`, and `ci --check`; mark Task 2 complete and commit `build: make canonical validation prove the product`.**
 
 ### Task 3: Objective portfolio contracts and build budgets
 
@@ -170,7 +179,7 @@
 - Every behavior-changing task contains an explicit red/green cycle. Human prose and GitHub settings are reviewed through reachability, workflow evidence, and live API state rather than brittle source-text assertions.
 - The canonical CI gate is never intentionally run against an un-staged temporary implementation state at a commit boundary.
 - The plan preserves redesign freedom by testing outcomes and budgets, not exact copy, DOM classes, component boundaries, or the current color values.
-- The baseline .NET worktree failure, incomplete canonical runner, privacy/asset/budget gaps, remote-font nondeterminism, duplicate CI command lists, and missing post-deploy proof all have named owners.
+- The stale backend, incomplete canonical runner, privacy/asset/budget gaps, remote-font nondeterminism, duplicate CI command lists, and missing post-deploy proof all have named owners.
 - No task consumes a later task's output and no implementation placeholder remains.
 
 **Plan-readiness: 9.3/10.**
