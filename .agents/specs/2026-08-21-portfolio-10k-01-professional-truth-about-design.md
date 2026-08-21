@@ -6,9 +6,9 @@
 
 **Written-spec approval:** 21 August 2026
 
-**Amended:** 21 August 2026 — Brand Addition scope corrected after Harley's
-clarification; the approved claim strength and career-transition narrative are
-preserved below.
+**Amended:** 21 August 2026 — Brand Addition scope and internal progression
+corrected after Harley's clarification; the approved claim strength,
+career-history boundary, and transition narrative are preserved below.
 
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
 
@@ -206,13 +206,24 @@ explain decisions and delivery rather than render a technology wall.
 
 ### Brand Addition
 
-Compress July 2005 to January 2019 into a progression from commercial and team
-roles into the formal title Web Manager. Describe that final position
-accurately as a hybrid business systems analysis and proto-development role,
-not as a professional software developer role. Harley defined requirements,
-coordinated external developers, held platform and delivery responsibility,
-had limited hands-on code exposure, and helped migrate and maintain more than
-100 multilingual, multicurrency stores.
+Begin the public career narrative at Brand Addition in July 2005. Earlier jobs
+and an intermittent four-year period as a professional actor are not relevant
+to the hiring case and must not be forced into the chronology or used as
+colour. Within Brand Addition, compress the regular progression from commercial
+roles through team management rather than reciting every title.
+
+Make the move from Team Manager to the formal title Web Manager legible. While
+managing a team, Harley identified a web change the team needed and worked with
+the Ecommerce Director to specify and deliver it. That work led directly to an
+offer to move into Web Manager. This is early evidence of the requirements and
+delivery judgement developed further in the role, not a claim that Harley
+personally implemented that first change.
+
+Describe Web Manager accurately as a hybrid business systems analysis and
+proto-development role, not as a professional software developer role. Harley
+defined requirements, coordinated external developers, held platform and
+delivery responsibility, had limited hands-on code exposure, and helped migrate
+and maintain more than 100 multilingual, multicurrency stores.
 
 This period explains commercial judgement, client awareness, leadership, and
 the deliberate transition into software engineering. Harley left after taking

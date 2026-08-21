@@ -6,9 +6,10 @@
 
 **Approved:** 21 August 2026
 
-**Corrected:** 21 August 2026 — Brand Addition scope amended after Harley
-clarified the boundary between platform responsibility, external development,
-and his limited hands-on code exposure.
+**Corrected:** 21 August 2026 — Brand Addition scope and internal progression
+amended after Harley clarified the boundary between platform responsibility,
+external development, limited hands-on code exposure, and the move from Team
+Manager to Web Manager.
 
 **Repository baseline:** `e0af0fda29de6ee2b0e244f951b7aa5af1b6202a`
 
@@ -202,9 +203,18 @@ architectural decisions, not turn the technologies into a logo wall.
 
 ### Brand Addition — commercial and technical progression
 
-**July 2005–January 2019.** The useful story is progression through order
-administration, account work, and team management into Web Manager—not an
-exhaustive recital of every title on About.
+**July 2005–January 2019.** The public career narrative begins here. Earlier
+jobs and an intermittent four-year period as a professional actor do not
+support the portfolio's hiring case and should be omitted rather than stretched
+into a professional through-line. The useful Brand Addition story is
+progression through order administration, account work, and team management
+into Web Manager—not an exhaustive recital of every title on About.
+
+The move from Team Manager to Web Manager was earned through a concrete piece
+of work. Harley identified a web change his team needed and worked with the
+Ecommerce Director to specify and deliver it. That work led directly to an
+offer to move into Web Manager. It demonstrates early requirements and delivery
+judgement without implying that Harley personally implemented the change.
 
 As Web Manager from May 2015 to January 2019, Harley worked in what was
 effectively a hybrid business systems analysis and proto-development role. He
