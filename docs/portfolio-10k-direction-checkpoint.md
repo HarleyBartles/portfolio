@@ -1,8 +1,10 @@
 # Portfolio £10k Direction Checkpoint
 
-**Status:** Discovery checkpoint for human review
+**Status:** Approved roadmap input
 
 **Recorded:** 21 August 2026
+
+**Approved:** 21 August 2026
 
 **Repository baseline:** `e0af0fda29de6ee2b0e244f951b7aa5af1b6202a`
 
@@ -419,9 +421,8 @@ The checkpoint intentionally leaves these questions open:
 
 ## Next handoff
 
-After Harley reviews and corrects this checkpoint, use it with the active
-portfolio design policy to write the next approved design spec. Run the spec
-through the repository's design readiness gate, then use
-`/working-with-epics` to create a sequenced roadmap of independently executable
-plans. The roadmap should reference this document rather than re-inventing the
-career facts, evidence hierarchy, confidentiality boundary, or anti-goals.
+Use this checkpoint with the active portfolio design policy and the current
+epic roadmap. Each roadmap phase receives its own design spec and readiness
+review before an implementation plan is written just in time. The roadmap and
+phase specs should reference this document rather than re-inventing the career
+facts, evidence hierarchy, confidentiality boundary, or anti-goals.
