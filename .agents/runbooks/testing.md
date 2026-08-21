@@ -27,6 +27,11 @@ Use this runbook when deciding what to verify for a change.
 - `src/client/e2e/visual-regression.spec.ts` protects only the site's signature compositions. Its random source, motion preference, font readiness, viewport, and snapshot paths are deliberately deterministic. Update a baseline only after visually inspecting the changed image and recording the intentional design change in the PR.
 - Run a new or changed screenshot test twice without `--update-snapshots` before trusting its baseline.
 
+## Public-route proof
+
+- `py -3 tools/check_public_routes.py --origin https://harleybartles.github.io/portfolio` checks every manifest-derived route and index against the deployed site, including status, HTML content type, title, canonical URL, generic GitHub error detection, and the custom 404 response.
+- Local canonical CI proves the source and built artifact. Only the post-deploy `Verify public routes` job proves that GitHub Pages serves that artifact correctly; do not substitute one claim for the other.
+
 ## Windows and Bash
 
 - On Windows, use `py -3 tools/run.py ...`.

@@ -148,12 +148,12 @@
 - Consumes: the content manifest, built Pages artifact, and deployed origin.
 - Produces: `expected_public_routes(manifest) -> list[str]` and a CLI that verifies final HTTP 200, HTML content type, a nonempty title, and route-correct canonical URL for every public route.
 
-- [ ] **Step 1: Add failing route-smoke tests.** Use a local HTTP fixture to prove all manifest-derived routes plus `/`, `/about`, `/projects`, `/writing`, `/fairytales`, and an unknown 404 fallback are requested; reject a GitHub 404 body masquerading as HTML, wrong canonical, redirect loop, or non-200 known route.
-- [ ] **Step 2: Run `py -3 -m unittest tests.test_public_routes -v` and observe import failure for the missing checker.**
-- [ ] **Step 3: Implement the route checker.** Accept `--origin`, `--manifest`, and retry options, report each failing URL, retry only transient network/5xx failures, and never treat the SPA fallback as proof for a known route.
-- [ ] **Step 4: Make CI the artifact owner.** On pull requests and pushes, install dependencies once, run the canonical complete gate, upload Playwright reports on failure, and upload the built Pages artifact only after validation. Make deployment download/use that validated artifact rather than rebuilding with a weaker command list.
-- [ ] **Step 5: Add post-deploy smoke.** After `actions/deploy-pages`, run the checker against `https://harleybartles.github.io/portfolio`; fail the workflow if any known direct route lacks route-correct HTML.
-- [ ] **Step 6: Document local versus hosted proof, run scoped Python tests plus canonical CI, mark Task 5 complete, and commit `ci: gate deployment and smoke public routes`.**
+- [x] **Step 1: Add failing route-smoke tests.** Use a local HTTP fixture to prove all manifest-derived routes plus `/`, `/about`, `/projects`, `/writing`, `/fairytales`, and an unknown 404 fallback are requested; reject a GitHub 404 body masquerading as HTML, wrong canonical, redirect loop, or non-200 known route.
+- [x] **Step 2: Run `py -3 -m unittest tests.test_public_routes -v` and observe import failure for the missing checker.**
+- [x] **Step 3: Implement the route checker.** Accept `--origin`, `--manifest`, and retry options, report each failing URL, retry only transient network/5xx failures, and never treat the SPA fallback as proof for a known route.
+- [x] **Step 4: Make CI the artifact owner.** On pull requests and pushes, install dependencies once, run the canonical complete gate, upload Playwright reports on failure, and upload the built Pages artifact only after validation. Make deployment download/use that validated artifact rather than rebuilding with a weaker command list.
+- [x] **Step 5: Add post-deploy smoke.** After `actions/deploy-pages`, run the checker against `https://harleybartles.github.io/portfolio`; fail the workflow if any known direct route lacks route-correct HTML.
+- [x] **Step 6: Document local versus hosted proof, run scoped Python tests plus canonical CI, mark Task 5 complete, and commit `ci: gate deployment and smoke public routes`.**
 
 ### Task 6: Review, publication, and protected main
 

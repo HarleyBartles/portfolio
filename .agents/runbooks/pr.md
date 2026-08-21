@@ -27,8 +27,10 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 
 ## Remote CI gate
 
-- This repository currently has no remote CI checks beyond `py -3 tools/run.py ci --check`.
-- If a GitHub Actions workflow is added later, update this runbook to require `gh pr checks` to pass after flipping a PR out of draft.
+- The `Portfolio / Portfolio quality gate` check must pass after a PR is flipped out of draft. It runs the same canonical `ci --check` command used locally.
+- A merge to `main` reuses the quality-gated `dist` output as the Pages artifact; deployment must never rebuild with a weaker command list.
+- `Portfolio / Verify public routes` is post-deploy evidence. It verifies real HTTP status, content type, titles, canonicals, generic GitHub-error absence, and the custom 404 against the published URL.
+- Use `gh pr checks` and the Actions run URLs as hosted proof. Local green proves only the checkout being tested.
 
 
 - Open pull requests as **draft**.
