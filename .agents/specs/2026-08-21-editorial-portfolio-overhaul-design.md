@@ -66,7 +66,7 @@ The remainder of the homepage contains:
 
 ## Patch artwork
 
-The Patch homepage/project artwork is derived from the checked-in pipeline outputs in the sibling `Z:\adventures-of-patch` repository. It combines the detective, cowboy, chef, and mechanic role-kit hero images into one flowing composition whose immediate message is "Patch can become anything the adventure needs."
+The Patch homepage/project artwork is derived from checked-in pipeline outputs in Harley's sibling `adventures-of-patch` repository. It combines the detective, cowboy, chef, and mechanic role-kit hero images into one flowing composition whose immediate message is "Patch can become anything the adventure needs."
 
 The portfolio stores optimized WebP derivatives only. The custody record names the exact sibling-repo source files, records that Harley owns both repositories, lists the output dimensions and compression, and supplies descriptive alt text. The feature image is a media asset, not a text container.
 

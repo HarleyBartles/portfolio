@@ -25,7 +25,7 @@ This record covers visual assets copied or derived from Harley Bartles' own repo
 - Public files:
   - `src/client/public/media/patch/patch-role-kits-640.webp` — `640 × 384`, 48,616 bytes.
   - `src/client/public/media/patch/patch-role-kits-1200.webp` — `1200 × 720`, 110,482 bytes.
-- Source repository: `Z:\adventures-of-patch` (owned by Harley Bartles).
+- Source repository: sibling `adventures-of-patch` repository (owned by Harley Bartles).
 - Exact sources:
   - `build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png`
   - `build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png`
@@ -60,7 +60,7 @@ This record covers visual assets copied or derived from Harley Bartles' own repo
 ## Agentic Learning Lab venue plan
 
 - Public file: `src/client/public/media/learning-lab/venue-plan.png` — `500 × 350`, 1,322 bytes.
-- Source repository: `Z:\agentic-learning-lab` (owned by Harley Bartles).
+- Source repository: sibling `agentic-learning-lab` repository (owned by Harley Bartles).
 - Exact source: `labs/02-give-the-cloud-agent-the-project/project/source/venue-plan.png`.
 - Transformation: copied byte-for-byte. The source PNG is already much smaller than a WebP derivative and should not be upscaled merely to satisfy a nominal responsive width.
 - Added: 2026-08-21.

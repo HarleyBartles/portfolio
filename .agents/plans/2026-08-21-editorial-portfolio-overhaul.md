@@ -167,9 +167,9 @@
 - Canonical validation remains `py -3 tools/run.py ci --check`.
 - Publication proof is the verified remote `main` commit SHA and successful GitHub Pages deployment URL.
 
-- [ ] **Step 1: Run `npm test -- --run`, `npm run build`, and `npm run test:e2e` from `src/client`. Fix failures from product behavior, not by weakening intended assertions.**
-- [ ] **Step 2: Start the built site and inspect at 1440 px, 768 px, 390 px, 320 px, reduced motion, keyboard-only interaction, and 200% zoom. Check route entry status locally and final asset/bundle sizes.**
-- [ ] **Step 3: Review the complete diff against the design spec, scan for plaintext email/phone/private paths, run `py -3 tools/run.py ci --apply`, stage the final tree, and run `py -3 tools/run.py ci --check` on that staged tree.**
+- [x] **Step 1: Run `npm test -- --run`, `npm run build`, and `npm run test:e2e` from `src/client`. Fix failures from product behavior, not by weakening intended assertions.**
+- [x] **Step 2: Start the built site and inspect at 1440 px, 768 px, 390 px, 320 px, reduced motion, keyboard-only interaction, and 200% zoom. Check route entry status locally and final asset/bundle sizes.**
+- [x] **Step 3: Review the complete diff against the design spec, scan for plaintext email/phone/private paths, run `py -3 tools/run.py ci --apply`, stage the final tree, and run `py -3 tools/run.py ci --check` on that staged tree.**
 - [ ] **Step 4: Mark all plan boxes complete, archive the plan and spec, regenerate the mesh, re-stage, re-run canonical CI, and commit the final closeout.**
 - [ ] **Step 5: Push `main`, verify `origin/main` matches the local full SHA, monitor the Pages deployment, and verify the homepage plus representative direct project/article/fairytale routes return a final HTTP 200.**
 
