@@ -80,6 +80,10 @@ def _link_hygiene_check_cmd() -> list[str]:
     return [sys.executable, "tools/check_link_hygiene.py"]
 
 
+def _portfolio_quality_check_cmd() -> list[str]:
+    return [sys.executable, "tools/check_portfolio_quality.py"]
+
+
 def _refresh_seo_files_cmd() -> list[str]:
     return [sys.executable, "tools/refresh_seo_files.py"]
 
@@ -129,6 +133,7 @@ def _precommit_check(ctx: Ctx) -> None:
     _skills_check(ctx)
     _mesh_check(ctx)
     _run(_link_hygiene_check_cmd(), ctx)
+    _run(_portfolio_quality_check_cmd(), ctx)
     if any((ROOT / "tests").rglob("test*.py")):
         _run(_tests_cmd(), ctx)
     else:

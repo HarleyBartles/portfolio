@@ -4,42 +4,17 @@ import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
-import { FeatureDeck, type FeatureItem } from '../features/home/FeatureDeck'
+import { FeatureDeck } from '../features/home/FeatureDeck'
+import { buildHomeFeatures } from '../features/home/featureCatalog'
 import { ProjectVisual } from '../features/home/ProjectVisual'
 import type { ContentSummary } from '../types/content'
 import { getContentPath } from '../types/content'
+import { formatContentDate, sortWriting } from '../utils/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 
-function formatDate(value: string | undefined): string | null {
-  if (value === undefined) return null
-  const date = new Date(`${value}T12:00:00Z`)
-  if (Number.isNaN(date.getTime())) return null
-  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
-}
-
 function findItem(items: readonly ContentSummary[], slug: string): ContentSummary | undefined {
   return items.find((item) => item.slug === slug)
-}
-
-function buildFeature(
-  items: readonly ContentSummary[],
-  slug: string,
-  eyebrow: string,
-  visual: FeatureItem['visual'],
-  title?: string,
-): FeatureItem | null {
-  const item = findItem(items, slug)
-  if (item === undefined) return null
-  return {
-    id: slug,
-    eyebrow,
-    title: title ?? item.title,
-    summary: item.summary,
-    to: getContentPath(item),
-    visual,
-    meta: item.kind === 'writing' ? formatDate(item.date) ?? undefined : item.status,
-  }
 }
 
 export function HomePage(): ReactElement {
@@ -54,19 +29,11 @@ export function HomePage(): ReactElement {
   }
 
   const items = navigationQuery.data ?? []
-  const features = [
-    buildFeature(items, 'codex-marketplace', 'Public system', 'codex-marketplace'),
-    buildFeature(items, 'adventures-of-patch', 'Visual pipeline', 'adventures-of-patch', 'Patch can be anything'),
-    buildFeature(items, 'agentic-engineering-vs-vibe-coding', 'Featured essay', 'agentic-engineering-vs-vibe-coding'),
-    buildFeature(items, 'wild-bunch', 'Project story', 'wild-bunch'),
-    buildFeature(items, 'context-is-not-state', 'Field note', 'context-is-not-state'),
-  ].filter((item): item is FeatureItem => item !== null)
+  const features = buildHomeFeatures(items)
   const projects = ['codex-marketplace', 'wild-bunch', 'agentic-learning-lab']
     .map((slug) => findItem(items, slug))
     .filter((item): item is ContentSummary => item !== undefined)
-  const writing = items
-    .filter((item) => item.kind === 'writing')
-    .toSorted((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
+  const writing = sortWriting(items)
   const featuredEssay = findItem(items, 'agentic-engineering-vs-vibe-coding')
   const recentWriting = writing.filter((item) => item.slug !== featuredEssay?.slug).slice(0, 3)
 
@@ -147,14 +114,14 @@ export function HomePage(): ReactElement {
         <div className="home-writing-grid">
           {featuredEssay === undefined ? null : (
             <article className="featured-essay">
-              <p className="eyebrow">Featured essay / {formatDate(featuredEssay.date)}</p>
+              <p className="eyebrow">Featured essay / {formatContentDate(featuredEssay.date)}</p>
               <h3><Link to={getContentPath(featuredEssay)}>{featuredEssay.title}</Link></h3>
               <p>{featuredEssay.summary}</p>
             </article>
           )}
           <ol className="recent-notes">
             {recentWriting.map((item, index) => (
-              <li key={item.slug}><span>0{index + 1}</span><div><p className="article-date">{formatDate(item.date)}</p><h3><Link to={getContentPath(item)}>{item.title}</Link></h3></div></li>
+              <li key={item.slug}><span>0{index + 1}</span><div><p className="article-date">{formatContentDate(item.date)}</p><h3><Link to={getContentPath(item)}>{item.title}</Link></h3></div></li>
             ))}
           </ol>
         </div>

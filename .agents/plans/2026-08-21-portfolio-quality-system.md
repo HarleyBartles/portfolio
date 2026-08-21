@@ -102,13 +102,13 @@
 - Consumes: `content-manifest.json`, authored Markdown, `public/` assets, build `dist/`, and the homepage feature catalogue.
 - Produces: `validate_portfolio(root: Path) -> list[Finding]`, a CLI returning non-zero for findings, `checkBuildBudget(distRoot, limits)`, and `homeFeatures` as the single typed feature pool.
 
-- [ ] **Step 1: Add failing Python contract tests with temporary fixtures.** Independently prove detection of duplicate slugs, invalid kinds/statuses/dates/reading minutes, missing content files, missing/unknown related slugs, unsafe `mailto:`/`tel:`/personal-address literals, unrecorded public assets, and images over 409600 bytes. Include clean fixtures that return no findings.
-- [ ] **Step 2: Run `py -3 -m unittest tests.test_portfolio_quality -v` and observe import failure for the missing validator.**
-- [ ] **Step 3: Implement the validator and thin CLI.** Scope privacy scanning to authored production surfaces, use explicit allowlists for documented public URLs, report every finding with a relative path, and keep parsing logic importable for tests.
-- [ ] **Step 4: Add failing build-budget tests.** Given a temporary Vite manifest/assets directory, prove the checker rejects an initial JS entry over 358400 bytes or CSS over 40960 bytes and ignores lazy chunks. Run the scoped Vitest file and observe failure for the missing checker.
-- [ ] **Step 5: Implement and wire the build-budget checker.** Enable Vite's build manifest, call the checker at the end of `npm run build`, and print measured entry sizes plus budgets.
-- [ ] **Step 6: Add a failing typed catalogue test.** Assert unique slugs, every slug resolves through the manifest, and exactly one feature has `visual: 'patch'`. Extract the existing homepage pool to `featureCatalog.ts`, then make the test green without snapshotting its exact copy or order.
-- [ ] **Step 7: Add the portfolio validator to both runner lanes, update custody records where required, run all scoped tests and `npm run build`, mark Task 3 complete, and commit `test: enforce portfolio content and budget contracts`.**
+- [x] **Step 1: Add failing Python contract tests with temporary fixtures.** Independently prove detection of duplicate slugs, invalid kinds/statuses/dates/reading minutes, missing content files, missing/unknown related slugs, unsafe `mailto:`/`tel:`/personal-address literals, unrecorded public assets, and images over 409600 bytes. Include clean fixtures that return no findings.
+- [x] **Step 2: Run `py -3 -m unittest tests.test_portfolio_quality -v` and observe import failure for the missing validator.**
+- [x] **Step 3: Implement the validator and thin CLI.** Scope privacy scanning to authored production surfaces, use explicit allowlists for documented public URLs, report every finding with a relative path, and keep parsing logic importable for tests.
+- [x] **Step 4: Add failing build-budget tests.** Given a temporary Vite manifest/assets directory, prove the checker rejects an initial JS entry over 358400 bytes or CSS over 40960 bytes and ignores lazy chunks. Run the scoped Vitest file and observe failure for the missing checker.
+- [x] **Step 5: Implement and wire the build-budget checker.** Enable Vite's build manifest, call the checker at the end of `npm run build`, and print measured entry sizes plus budgets.
+- [x] **Step 6: Add a failing typed catalogue test.** Assert unique slugs, every slug resolves through the manifest, and exactly one feature has `visual: 'adventures-of-patch'`. Extract the existing homepage pool to `featureCatalog.ts`, then make the test green without snapshotting its exact copy or order.
+- [x] **Step 7: Add the portfolio validator to both runner lanes, update custody records where required, run all scoped tests and `npm run build`, mark Task 3 complete, and commit `test: enforce portfolio content and budget contracts`.**
 
 ### Task 4: Deterministic fonts, accessibility, and visual baselines
 

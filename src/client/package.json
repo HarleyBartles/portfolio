@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/generate-route-documents.mjs",
+    "build": "tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/check-build-budget.mjs",
     "preview:test": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",

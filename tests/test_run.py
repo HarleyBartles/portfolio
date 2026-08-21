@@ -31,6 +31,7 @@ class CanonicalRunnerTests(unittest.TestCase):
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._link_hygiene_check_cmd(), commands)
+        self.assertIn(run._portfolio_quality_check_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_cmd("test", "--", "--run"), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
