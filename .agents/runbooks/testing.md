@@ -12,6 +12,7 @@ Use this runbook when deciding what to verify for a change.
 - `py -3 tools/run.py ci --check` runs the full validation pipeline.
 - `py -3 tools/run.py precommit --check` runs repository checks, Python tests, client unit tests, and a production build without the slower browser journeys.
 - `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
+- The canonical command also checks the local marketplace-to-derived-skill projection outside GitHub Actions. Hosted Actions intentionally validates the committed skill and mesh surfaces without fetching marketplace source, as required by workflow policy.
 
 ## Scoped validation
 

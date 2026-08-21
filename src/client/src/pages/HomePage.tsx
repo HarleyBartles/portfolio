@@ -45,7 +45,7 @@ export function HomePage(): ReactElement {
         canonicalPath="/"
       />
 
-      <section className="hero" aria-labelledby="homepage-title">
+      <section className="hero" aria-labelledby="homepage-title" data-visual-contract="homepage-masthead">
         <p className="eyebrow">Senior software engineer / agentic systems</p>
         <div className="hero-grid">
           <div>
@@ -62,7 +62,7 @@ export function HomePage(): ReactElement {
         </div>
       </section>
 
-      <section className="feature-section" id="selected-work" aria-labelledby="feature-title">
+      <section className="feature-section" id="selected-work" aria-labelledby="feature-title" data-visual-contract="homepage-feature-deck">
         <header className="section-heading">
           <p className="eyebrow">Selected / shuffled on arrival</p>
           <h2 id="feature-title">Work worth bringing forward</h2>

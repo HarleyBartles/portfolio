@@ -36,6 +36,15 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._client_cmd("test", "--", "--run"), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
 
+    @patch.dict("os.environ", {"GITHUB_ACTIONS": "true"})
+    @patch.object(run, "_run")
+    def test_hosted_gate_skips_local_marketplace_refresh(self, run_command) -> None:
+        run._precommit_check(self.context)
+
+        commands = [entry.args[0] for entry in run_command.call_args_list]
+        self.assertNotIn(run._skills_cmd("check", False), commands)
+        self.assertIn(run._mesh_validate_cmd(), commands)
+
     @patch.object(run, "_run")
     @patch.object(run, "_precommit_check")
     def test_complete_ci_adds_browser_journeys_after_fast_gate(

@@ -7,7 +7,30 @@ cd "$REPO_ROOT"
 
 AFTER_STATUS=""
 BEFORE_STATUS=$(mktemp)
-trap 'rm -f "$BEFORE_STATUS" "$AFTER_STATUS"' EXIT
+UNSTAGED_PATCH=$(mktemp)
+UNTRACKED_STASHED=0
+WORKTREE_RESET=0
+
+restore_worktree() {
+  local exit_code=$?
+  trap - EXIT
+  if [ "$WORKTREE_RESET" -eq 1 ]; then
+    if ! git apply --binary --whitespace=nowarn "$UNSTAGED_PATCH"; then
+      echo "pre-commit: validation finished but the unstaged patch could not be restored from $UNSTAGED_PATCH" >&2
+      exit_code=1
+    fi
+  fi
+  if [ "$UNTRACKED_STASHED" -eq 1 ]; then
+    if ! git stash pop --quiet; then
+      echo "pre-commit: validation finished but untracked files could not be restored; recover them from git stash" >&2
+      exit_code=1
+    fi
+  fi
+  rm -f "$BEFORE_STATUS" "$AFTER_STATUS" "$UNSTAGED_PATCH"
+  exit "$exit_code"
+}
+
+trap restore_worktree EXIT
 git status --porcelain --untracked-files=all > "$BEFORE_STATUS"
 
 if command -v py >/dev/null 2>&1; then
@@ -38,6 +61,20 @@ if [ -n "$UNSTAGED" ]; then
   echo "pre-commit: regeneration produced unstaged changes outside its staging allow-list:" >&2
   echo "$UNSTAGED" >&2
   exit 1
+fi
+
+# A hook must prove what Git will commit, not an unstaged repair layered over it.
+# Preserve the index-to-worktree patch so overlapping staged/unstaged edits can be
+# restored without a stash merge. Stash only genuinely untracked paths.
+git diff --binary --no-ext-diff --full-index -- > "$UNSTAGED_PATCH"
+if [ -s "$UNSTAGED_PATCH" ]; then
+  git checkout -- .
+  WORKTREE_RESET=1
+fi
+
+if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+  git stash push --quiet --keep-index --include-untracked -m "portfolio pre-commit untracked snapshot $$"
+  UNTRACKED_STASHED=1
 fi
 
 "${PYTHON[@]}" tools/run.py precommit --check

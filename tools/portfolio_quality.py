@@ -30,6 +30,7 @@ SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?:\+44[\s().-]*7|\b07)(?:[\s().-]*\d){9}\b")
 PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
+CUSTODY_PUBLIC_PATH_RE = re.compile(r"`(src/client/public/[^`\r\n]+)`")
 
 
 @dataclass(frozen=True)
@@ -45,19 +46,29 @@ def _finding(path: Path, message: str) -> Finding:
     return Finding(path=path, message=message)
 
 
-def _load_manifest(root: Path, findings: list[Finding]) -> list[dict[str, Any]]:
+def _load_manifest(root: Path, findings: list[Finding]) -> list[dict[str, Any]] | None:
     manifest_path = root / MANIFEST_PATH
     try:
         raw = json.loads(manifest_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         findings.append(_finding(MANIFEST_PATH, f"cannot load manifest: {exc}"))
-        return []
+        return None
 
     items = raw.get("items") if isinstance(raw, dict) else None
     if not isinstance(items, list):
         findings.append(_finding(MANIFEST_PATH, "manifest must contain an items array"))
-        return []
-    return [item for item in items if isinstance(item, dict)]
+        return None
+
+    if not items:
+        findings.append(_finding(MANIFEST_PATH, "items array must not be empty"))
+
+    valid_items: list[dict[str, Any]] = []
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            findings.append(_finding(MANIFEST_PATH, f"item {index + 1} must be an object"))
+            continue
+        valid_items.append(item)
+    return valid_items
 
 
 def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[Finding]) -> None:
@@ -99,6 +110,10 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
         relative_path = item.get("path")
         if not isinstance(relative_path, str):
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires a Markdown path"))
+        elif "\\" in relative_path:
+            findings.append(
+                _finding(MANIFEST_PATH, f"'{slug}' Markdown path must use POSIX separators: '{relative_path}'")
+            )
         else:
             pure_path = PurePosixPath(relative_path)
             unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
@@ -182,12 +197,13 @@ def _validate_assets(root: Path, findings: list[Finding]) -> None:
     public_root = root / PUBLIC_ROOT
     custody_path = root / CUSTODY_PATH
     custody = custody_path.read_text(encoding="utf-8") if custody_path.is_file() else ""
+    custody_paths = set(CUSTODY_PUBLIC_PATH_RE.findall(custody))
 
     for path in public_root.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in PUBLIC_ASSET_SUFFIXES:
             continue
         relative = path.relative_to(root)
-        if relative.as_posix() not in custody:
+        if relative.as_posix() not in custody_paths:
             findings.append(_finding(relative, "public asset is missing from docs/asset-custody.md"))
         if path.suffix.lower() in RASTER_IMAGE_SUFFIXES and path.stat().st_size > MAX_IMAGE_BYTES:
             findings.append(
@@ -200,7 +216,7 @@ def validate_portfolio(root: Path) -> list[Finding]:
 
     findings: list[Finding] = []
     items = _load_manifest(root, findings)
-    if items:
+    if items is not None:
         _validate_manifest(root, items, findings)
     _validate_privacy(root, findings)
     _validate_assets(root, findings)

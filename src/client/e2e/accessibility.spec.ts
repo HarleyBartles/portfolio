@@ -3,14 +3,14 @@ import { expect, test } from '@playwright/test'
 
 
 const routes = [
-  { name: 'home', path: './' },
-  { name: 'projects', path: 'projects' },
-  { name: 'project story', path: 'projects/adventures-of-patch' },
-  { name: 'writing', path: 'writing' },
-  { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },
-  { name: 'fairytale', path: 'fairytales/goldilocks' },
-  { name: 'about', path: 'about' },
-  { name: 'unknown route', path: 'not-a-real-route' },
+  { name: 'home', path: './', readyHeading: 'Harley Bartles', readyLevel: 1 },
+  { name: 'projects', path: 'projects', readyHeading: 'Agent Asset Marketplace', readyLevel: 2 },
+  { name: 'project story', path: 'projects/adventures-of-patch', readyHeading: 'Adventures of Patch', readyLevel: 1 },
+  { name: 'writing', path: 'writing', readyHeading: 'Agentic engineering and the kindness of vibe coding', readyLevel: 2 },
+  { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding', readyHeading: 'Agentic engineering and the kindness of vibe coding', readyLevel: 1 },
+  { name: 'fairytale', path: 'fairytales/goldilocks', readyHeading: 'Goldilocks — The Right Amount of Guidance', readyLevel: 1 },
+  { name: 'about', path: 'about', readyHeading: 'This is the part where I ask you to hire me.', readyLevel: 1 },
+  { name: 'unknown route', path: 'not-a-real-route', readyHeading: 'Page not found', readyLevel: 1 },
 ] as const
 
 const viewports = [
@@ -25,6 +25,7 @@ for (const viewport of viewports) {
     for (const route of routes) {
       test(`${route.name} has no automated A or AA violations`, async ({ page }) => {
         await page.goto(route.path)
+        await expect(page.getByRole('heading', { level: route.readyLevel, name: route.readyHeading })).toBeVisible()
         await page.evaluate(() => document.fonts.ready)
 
         const results = await new AxeBuilder({ page })

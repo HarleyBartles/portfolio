@@ -112,6 +112,25 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("invalid ISO date" in finding for finding in findings))
         self.assertTrue(any("positive integer" in finding for finding in findings))
 
+    def test_manifest_rejects_non_object_entries_and_an_empty_catalog(self) -> None:
+        def non_objects(fixture: PortfolioFixture) -> None:
+            fixture.items = [None, "not-an-item"]  # type: ignore[list-item]
+            fixture.write_manifest()
+
+        malformed_findings = self.validate(non_objects)
+
+        self.assertTrue(any("item 1 must be an object" in finding for finding in malformed_findings))
+        self.assertTrue(any("item 2 must be an object" in finding for finding in malformed_findings))
+
+        def empty(fixture: PortfolioFixture) -> None:
+            fixture.items = []
+            fixture.write_manifest()
+
+        empty_findings = self.validate(empty)
+
+        self.assertTrue(any("items array must not be empty" in finding for finding in empty_findings))
+        self.assertTrue(any("not listed in the manifest" in finding for finding in empty_findings))
+
     def test_manifest_rejects_missing_and_orphaned_markdown(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             fixture.items[0]["path"] = "projects/missing.md"
@@ -124,6 +143,15 @@ class PortfolioQualityTests(unittest.TestCase):
 
         self.assertTrue(any("content file does not exist" in finding for finding in findings))
         self.assertTrue(any("not listed in the manifest" in finding for finding in findings))
+
+    def test_manifest_paths_must_use_posix_separators(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            fixture.items[0]["path"] = "projects\\example-project.md"
+            fixture.write_manifest()
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("must use POSIX separators" in finding for finding in findings))
 
     def test_privacy_scan_rejects_contact_literals_and_private_paths(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
@@ -148,6 +176,18 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("exceeds 409600 bytes" in finding for finding in findings))
+        self.assertTrue(any("missing from docs/asset-custody.md" in finding for finding in findings))
+
+    def test_asset_custody_requires_an_exact_backticked_public_path(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            custody = fixture.docs / "asset-custody.md"
+            custody.write_text(
+                "- Public file: `src/client/public/media/example.webp.backup`\n",
+                encoding="utf-8",
+            )
+
+        findings = self.validate(mutate)
+
         self.assertTrue(any("missing from docs/asset-custody.md" in finding for finding in findings))
 
 

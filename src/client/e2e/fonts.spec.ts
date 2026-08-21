@@ -1,26 +1,47 @@
 import { expect, test } from '@playwright/test'
 
+const appOrigin = 'http://127.0.0.1:4173'
+const expectedFonts = [
+  { family: 'Fraunces', assetName: /fraunces-latin-wght-normal-[^/]+\.woff2$/ },
+  { family: 'Source Serif 4', assetName: /source-serif-4-latin-wght-normal-[^/]+\.woff2$/ },
+  { family: 'Fira Code', assetName: /fira-code-latin-wght-normal-[^/]+\.woff2$/ },
+] as const
 
 test('production typography is self-hosted and available without a font CDN', async ({ page }) => {
-  const fontCdnRequests: string[] = []
-  page.on('request', (request) => {
-    if (/fonts\.(?:googleapis|gstatic)\.com/.test(request.url())) fontCdnRequests.push(request.url())
-  })
+  const externalRequests: string[] = []
+  const successfulFontResponses: string[] = []
 
-  await page.goto('./')
-  const fontState = await page.evaluate(async () => {
-    await document.fonts.ready
-    return {
-      display: document.fonts.check('400 16px "Fraunces"'),
-      body: document.fonts.check('400 16px "Source Serif 4"'),
-      code: document.fonts.check('400 16px "Fira Code"'),
-      fontOrigins: performance.getEntriesByType('resource')
-        .map((entry) => new URL(entry.name).origin)
-        .filter((origin, index, origins) => origins.indexOf(origin) === index),
+  await page.route('**/*', async (route) => {
+    const url = new URL(route.request().url())
+    if ((url.protocol === 'http:' || url.protocol === 'https:') && url.origin !== appOrigin) {
+      externalRequests.push(url.href)
+      await route.abort('blockedbyclient')
+      return
+    }
+    await route.continue()
+  })
+  page.on('response', (response) => {
+    if (response.request().resourceType() === 'font' && response.status() === 200) {
+      successfulFontResponses.push(response.url())
     }
   })
 
-  expect(fontCdnRequests).toEqual([])
-  expect(fontState).toMatchObject({ display: true, body: true, code: true })
-  expect(fontState.fontOrigins).toEqual([new URL(page.url()).origin])
+  await page.goto('./')
+  await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
+  const loadedFaces = await page.evaluate(async (families) => {
+    await Promise.all(families.map((family) => document.fonts.load(`400 16px "${family}"`)))
+    await document.fonts.ready
+    return Array.from(document.fonts).map((face) => ({
+      family: face.family.replace(/^['"]|['"]$/g, ''),
+      status: face.status,
+    }))
+  }, expectedFonts.map(({ family }) => family))
+
+  expect(externalRequests).toEqual([])
+  for (const expected of expectedFonts) {
+    expect(loadedFaces).toContainEqual({ family: expected.family, status: 'loaded' })
+    expect(successfulFontResponses.some((url) => expected.assetName.test(new URL(url).pathname))).toBe(true)
+  }
+  expect(new Set(successfulFontResponses).size).toBeGreaterThanOrEqual(expectedFonts.length)
+  expect(successfulFontResponses.every((url) => new URL(url).origin === appOrigin)).toBe(true)
 })

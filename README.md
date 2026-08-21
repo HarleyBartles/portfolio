@@ -19,7 +19,8 @@ Pages. Repository-owned Markdown and the typed content manifest live under
 entry document for every public route.
 
 GitHub Actions runs the canonical quality gate on ready pull requests and
-pushes to `main`. A separate Pages workflow publishes the built client.
+pushes to `main`. On `main`, the same workflow publishes the exact client
+artifact that passed the gate and then verifies every public route.
 
 ## Local Development
 
