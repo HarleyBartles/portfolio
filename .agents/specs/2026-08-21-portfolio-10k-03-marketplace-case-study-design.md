@@ -1,8 +1,9 @@
 # Portfolio £10k Phase 3: Marketplace Flagship and Case-Study System Design
 
-**Status:** Ready for written-spec approval
+**Status:** Approved
 
 **Approved design dialogue:** 21 August 2026
+**Approved written specification:** 21 August 2026
 
 **Spec-readiness:** 9/10
 
