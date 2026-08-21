@@ -5,6 +5,7 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 ## Before starting
 
 - Read root [`AGENTS.md`](./AGENTS.md) for source-of-truth, build, and routing rules.
+- Read [the portfolio design policy](./.agents/doctrine/portfolio-design-policy.md) before changing any visitor-facing presentation, content hierarchy, motion, imagery, typography, claim, or contact behaviour.
 - Invoke `/using-superpowers-plus` to route to the correct stage skill.
 - Invoke `/repo-worker-base` for worktree, branch, validation, and publication boundaries.
 - Invoke `/repo-standards` when the task touches repo shape, runbooks, or scaffolds.
@@ -22,3 +23,4 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 - [`.agents/runbooks/testing.md`](./.agents/runbooks/testing.md) for what to verify.
 - [`.agents/runbooks/security.md`](./.agents/runbooks/security.md) for security review guidance.
 - [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the pull-request workflow and publication proof.
+- [`docs/design-decisions.md`](./docs/design-decisions.md) for the rationale ledger and reconsideration triggers behind material design choices.

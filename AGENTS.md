@@ -20,6 +20,10 @@ The site exists to present Harley as a software engineer through:
 
 Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated.
 
+## Design quality
+
+Before changing presentation, content hierarchy, motion, imagery, typography, public claims, or contact behaviour, read [the active portfolio design policy](.agents/doctrine/portfolio-design-policy.md). Completed design specs provide history; the active policy and [design decision ledger](docs/design-decisions.md) govern current work and its intentional evolution.
+
 ## Routing pointers
 
 - [Repository purpose](AGENTS.md) — this file
@@ -32,6 +36,8 @@ Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run
 - [PR instructions](.agents/runbooks/pr.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security considerations](.agents/runbooks/security.md)
+- [Portfolio design policy](.agents/doctrine/portfolio-design-policy.md)
+- [Design decision ledger](docs/design-decisions.md)
 - [Routing pointers](.devin/rules/INDEX.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
 - [Mesh policy](.agents/doctrine/mesh-policy.md)

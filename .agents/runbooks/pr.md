@@ -6,6 +6,7 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 
 - Read root [`AGENTS.md`](../../AGENTS.md).
 - Read [`.devin/rules/tools.md`](../../.devin/rules/tools.md) for validation commands.
+- For visitor-facing changes, read [the portfolio design policy](../doctrine/portfolio-design-policy.md).
 - Invoke `/repo-worker-base`.
 
 ## When to use
@@ -22,6 +23,7 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 - Keep the PR in draft while iterating and running local validation.
 - Flip to ready for review only after self-review is complete and `py -3 tools/run.py ci --check` passes.
 - The PR body must include publication proof.
+- Use `.github/pull_request_template.md`; do not delete its design, accessibility, performance, factual, custody, or visual-evidence prompts when they apply.
 
 ## Remote CI gate
 

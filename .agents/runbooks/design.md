@@ -14,6 +14,8 @@ Read the live repository surfaces before writing the spec:
 - `.agents/runbooks/INDEX.md` for the runbook surface itself.
 - `.agents/doctrine/INDEX.md` for the doctrine surface.
 - `.agents/plans/INDEX.md` for completed plan surfaces.
+- `.agents/doctrine/portfolio-design-policy.md` for the active audience, invariants, protected defaults, and change protocol.
+- `docs/design-decisions.md` for existing rationale and reconsideration triggers.
 
 If the task depends on a reference implementation pattern, inspect the live reference repo and its actual files before writing the design. Do not rely on memory alone for file names, command names, or source/derived boundaries.
 
@@ -55,6 +57,8 @@ The first portfolio setup spec showed the following must be explicit if you want
 - Separate source, derived, and navigation surfaces clearly.
 - If a future implementer would have to ask, "Where does this file belong?" or "Which command do I run?", the spec is too vague.
 - If a detail is cheap to verify from the live repo, verify it now rather than leaving it for the planner.
+- Treat protected defaults as intentional starting points, not an aesthetic freeze. A material departure must explain the stronger outcome and add a dated entry to `docs/design-decisions.md`.
+- Do not turn exact prose, classes, or current colour values into tests. Specify the observable accessibility, privacy, route, performance, custody, or visual-review outcome that matters.
 
 ## Handoff Quality Gate
 

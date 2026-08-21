@@ -44,12 +44,12 @@
 - Consumes: the completed editorial overhaul spec and current site as evidence, not as an immutable implementation.
 - Produces: one active policy reachable from `AGENTS.md`, one append-only rationale ledger, and one PR evidence template.
 
-- [ ] **Step 1: Write the active design policy.** Define purpose, audience, design invariants, protected defaults, evidence expectations, anti-patterns, and an explicit change protocol: a future change may replace a default when its PR explains the stronger outcome, updates the decision ledger, and updates objective guards where the contract changed.
-- [ ] **Step 2: Seed the decision ledger.** Record dated decisions for the editorial field-journal direction, About-as-hiring-boundary, no-autoplay randomized feature deck, Patch's supporting role, honest status language, privacy-preserving contact seam, and owned-asset custody. Each entry records context, decision, consequence, and reconsideration trigger.
-- [ ] **Step 3: Add the PR evidence template.** Require purpose and audience impact, relevant principle or intentional departure, desktop/mobile screenshots for visual changes, accessibility and performance evidence, factual/custody checks, and an explicit visual-baseline update explanation.
-- [ ] **Step 4: Route every worker and reviewer to the active policy.** Update the named docs without duplicating implementation details; make the design runbook require a ledger entry for a material direction change and make review check coherent hierarchy, typography, motion, responsive behavior, factual honesty, and privacy.
-- [ ] **Step 5: Regenerate and verify the documentation mesh.** Run `py -3 tools/run.py mesh --apply`, stage all Task 1 files, then run `py -3 tools/run.py ci --check`.
-- [ ] **Step 6: Mark Task 1 complete and commit `docs: codify portfolio design quality`.**
+- [x] **Step 1: Write the active design policy.** Define purpose, audience, design invariants, protected defaults, evidence expectations, anti-patterns, and an explicit change protocol: a future change may replace a default when its PR explains the stronger outcome, updates the decision ledger, and updates objective guards where the contract changed.
+- [x] **Step 2: Seed the decision ledger.** Record dated decisions for the editorial field-journal direction, About-as-hiring-boundary, no-autoplay randomized feature deck, Patch's supporting role, honest status language, privacy-preserving contact seam, and owned-asset custody. Each entry records context, decision, consequence, and reconsideration trigger.
+- [x] **Step 3: Add the PR evidence template.** Require purpose and audience impact, relevant principle or intentional departure, desktop/mobile screenshots for visual changes, accessibility and performance evidence, factual/custody checks, and an explicit visual-baseline update explanation.
+- [x] **Step 4: Route every worker and reviewer to the active policy.** Update the named docs without duplicating implementation details; make the design runbook require a ledger entry for a material direction change and make review check coherent hierarchy, typography, motion, responsive behavior, factual honesty, and privacy.
+- [x] **Step 5: Regenerate and verify the documentation mesh.** Run `py -3 tools/run.py mesh --apply`, stage all Task 1 files, then run `py -3 tools/run.py ci --check`.
+- [x] **Step 6: Mark Task 1 complete and commit `docs: codify portfolio design quality`.**
 
 ### Task 2: Trustworthy canonical runner and portable pre-commit gate
 
