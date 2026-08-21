@@ -6,6 +6,10 @@
 
 **Written-spec approval:** 21 August 2026
 
+**Amended:** 21 August 2026 — Brand Addition scope corrected after Harley's
+clarification; the approved claim strength and career-transition narrative are
+preserved below.
+
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
 
 **Design baseline:** `bd07d8a09581bdde40cddff4e880db426a50cd82`
@@ -203,10 +207,21 @@ explain decisions and delivery rather than render a technology wall.
 ### Brand Addition
 
 Compress July 2005 to January 2019 into a progression from commercial and team
-roles into Web Manager. Preserve the proof that Harley developed a bespoke
-multi-site transactional platform and helped migrate and maintain more than
-100 multilingual, multicurrency stores. This period explains commercial
-judgement, client awareness, leadership, and delivery responsibility.
+roles into the formal title Web Manager. Describe that final position
+accurately as a hybrid business systems analysis and proto-development role,
+not as a professional software developer role. Harley defined requirements,
+coordinated external developers, held platform and delivery responsibility,
+had limited hands-on code exposure, and helped migrate and maintain more than
+100 multilingual, multicurrency stores.
+
+This period explains commercial judgement, client awareness, leadership, and
+the deliberate transition into software engineering. Harley left after taking
+the role as far toward professional software development as the company
+structure allowed, then established his full-time engineering career at
+Barbican. Do not claim he personally developed and implemented the platform.
+Do not spotlight
+the short January-to-February 2019 transition or reproduce LinkedIn's
+`Unemployed at this time` entry.
 
 ### Level 6 AI Engineer apprenticeship
 

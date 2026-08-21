@@ -6,6 +6,10 @@
 
 **Approved:** 21 August 2026
 
+**Corrected:** 21 August 2026 — Brand Addition scope amended after Harley
+clarified the boundary between platform responsibility, external development,
+and his limited hands-on code exposure.
+
 **Repository baseline:** `e0af0fda29de6ee2b0e244f951b7aa5af1b6202a`
 
 This document preserves the product, positioning, evidence, and editorial
@@ -202,12 +206,19 @@ architectural decisions, not turn the technologies into a logo wall.
 administration, account work, and team management into Web Manager—not an
 exhaustive recital of every title on About.
 
-As Web Manager from May 2015 to January 2019, Harley developed and implemented
-a bespoke multi-site transactional web platform and helped migrate and
-maintain more than 100 multilingual, multicurrency stores for international
-blue-chip clients. This history supplies commercial judgement, client
-awareness, delivery responsibility, and leadership context that a developer-
-only chronology would miss.
+As Web Manager from May 2015 to January 2019, Harley worked in what was
+effectively a hybrid business systems analysis and proto-development role. He
+defined requirements, coordinated external developers, held platform and
+delivery responsibility, gained limited hands-on code exposure, and helped
+migrate and maintain more than 100 multilingual, multicurrency stores for
+international blue-chip clients. Do not claim that he personally developed
+and implemented the platform.
+
+Harley left after taking the role as far toward professional software
+development as the company structure allowed, then deliberately established
+his full-time software engineering career at Barbican. This history supplies
+commercial judgement, client awareness, leadership, and the bridge into
+engineering that a developer-only chronology would miss.
 
 The separate January 2019 “unemployed at this time” LinkedIn entry is not part
 of the website narrative. Older media, performing-arts, and school education
