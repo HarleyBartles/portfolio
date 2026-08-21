@@ -80,7 +80,7 @@ records the implementation plan's readiness or final handoff rating.
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Professional truth and About narrative | pending | `.agents/specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md` | — | — | — | — | Design dialogue approved; written Phase 1 spec is ready for human review at 9/10. Establish the reusable fact source and explicit senior hiring narrative before other pages consume it. |
+| 1 | Professional truth and About narrative | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | — | — | — | — | Written spec approved by Harley on 21 August 2026; spec-readiness 9/10. Establish the reusable fact source and explicit senior hiring narrative before other pages consume it. |
 | 2 | CV and contact conversion | pending | `.agents/specs/2026-08-21-portfolio-10k-02-cv-contact-design.md` | — | — | — | Replace the two most conspicuous unfinished hiring states with a real CV and privacy-preserving contact route. |
 | 3 | Marketplace flagship and case-study system | pending | `.agents/specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md` | — | — | — | Prove frontier agentic practice and establish the case-study anatomy through one concrete project, not speculative abstraction. |
 | 4 | Wild Bunch architectural proof | pending | `.agents/specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md` | — | — | — | Demonstrate complex architecture when earned; depends on the case-study system and Harley-supplied gameplay captures. |

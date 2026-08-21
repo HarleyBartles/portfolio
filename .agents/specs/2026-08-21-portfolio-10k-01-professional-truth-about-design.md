@@ -1,8 +1,10 @@
 # Portfolio £10k Phase 1 — Professional Truth and About Narrative Design
 
-**Status:** Ready for human review
+**Status:** Approved
 
 **Approved design dialogue:** 21 August 2026
+
+**Written-spec approval:** 21 August 2026
 
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
 
