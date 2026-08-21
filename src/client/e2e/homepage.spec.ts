@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('homepage establishes professional identity and an authored editorial hierarchy', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
 
   await expect(page).toHaveTitle('Harley Bartles | Senior Software Engineer')
   await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
@@ -20,7 +20,7 @@ test('homepage establishes professional identity and an authored editorial hiera
 })
 
 test('homepage keeps project proof visible outside the shuffled lead', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
 
   const caseStudies = page.getByRole('region', { name: 'Systems with edges' })
   await expect(caseStudies.getByRole('link', { name: 'Agent Asset Marketplace' })).toBeVisible()

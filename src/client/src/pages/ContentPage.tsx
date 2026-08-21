@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
 import { AccessibleStatus } from '../components/AccessibleStatus'
+import { ContentNavigation } from '../components/ContentNavigation'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { MarkdownContent } from '../components/MarkdownContent'
 import { ProjectStatus } from '../components/ProjectStatus'
 import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
+import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
+import { formatContentDate, sortWriting } from '../utils/content'
 
 type ContentPageProps = {
   slug: string
@@ -106,6 +109,19 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     document.summary.relatedSlugs.length > 0 ? document.summary.relatedSlugs : fallbackSlugs
   const relatedNavigationUnavailable =
     document.summary.relatedSlugs.length > 0 && navigationQuery.isError
+  const kindItems = document.summary.kind === 'writing'
+    ? sortWriting(relatedSummaries)
+    : relatedSummaries.filter((item) => item.kind === document.summary.kind)
+  const projectVisualSlugs = new Set<ProjectVisualSlug>([
+    'codex-marketplace',
+    'agentic-learning-lab',
+    'adventures-of-patch',
+    'wild-bunch',
+  ])
+  const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
+    ? document.summary.slug as ProjectVisualSlug
+    : null
+  const formattedDate = formatContentDate(document.summary.date)
 
   return (
     <SiteLayout>
@@ -114,22 +130,33 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         description={document.summary.summary}
         canonicalPath={getContentPath(document.summary)}
       />
-      <article className="content-page" aria-labelledby="content-page-title">
-        <header className="content-page-header">
-          <p className="eyebrow">{document.summary.kind}</p>
-          <h1 id="content-page-title">{document.summary.title}</h1>
-          {document.summary.kind === 'writing' && document.summary.date !== undefined ? (
-            <p className="content-date">{document.summary.date}</p>
-          ) : null}
-          <p className="content-summary">{document.summary.summary}</p>
-          {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
+      <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
+        <header className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}>
+          <div className="content-page-intro">
+            <p className="eyebrow">{document.summary.kind}</p>
+            <h1 id="content-page-title">{document.summary.title}</h1>
+            {document.summary.kind === 'writing' && formattedDate !== null ? (
+              <p className="editorial-meta content-date">
+                <span>{formattedDate}</span>
+                {document.summary.readingMinutes === undefined ? null : <span>{document.summary.readingMinutes} min read</span>}
+              </p>
+            ) : null}
+            <p className="content-summary">{document.summary.summary}</p>
+            {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
+          </div>
+          {projectVisualSlug === null ? null : (
+            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} /></div>
+          )}
         </header>
-        <MarkdownContent markdown={document.markdown} />
-        <RelatedContent
-          slugs={slugsToShow}
-          summaries={relatedSummaries}
-          unavailable={relatedNavigationUnavailable}
-        />
+        <div className="content-page-body"><MarkdownContent markdown={document.markdown} /></div>
+        {document.summary.kind === 'writing' ? null : (
+          <RelatedContent
+            slugs={slugsToShow}
+            summaries={relatedSummaries}
+            unavailable={relatedNavigationUnavailable}
+          />
+        )}
+        <ContentNavigation items={kindItems} currentSlug={document.summary.slug} />
       </article>
     </SiteLayout>
   )

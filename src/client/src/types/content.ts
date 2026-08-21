@@ -14,6 +14,7 @@ export type ContentSummary = {
   status: string
   summary: string
   date?: string
+  readingMinutes?: number
   featured: boolean
   tags: string[]
   relatedSlugs: string[]

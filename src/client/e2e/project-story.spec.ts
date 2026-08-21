@@ -1,33 +1,23 @@
 import { expect, test } from '@playwright/test'
 
-test('visitor reads a project story and follows a related-content link', async ({ page }) => {
-  await page.goto('/projects/wild-bunch')
+test('visitor opens a direct project route with visual and case-study proof', async ({ page }) => {
+  const response = await page.goto('./projects/wild-bunch/')
 
+  expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
-  await expect(
-    page.getByText(
-      'Wild Bunch is an active, buggy, pre-alpha project. It is a place to make real architecture decisions under real pressure rather than present a polished demo as if it were finished.',
-      { exact: true },
-    ),
-  ).toBeVisible()
-
-  const repositoryLink = page.getByRole('link', { name: 'Public repository' })
-  await expect(repositoryLink).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch')
-
-  const relatedContent = page.getByRole('navigation', { name: 'Related content' })
-  await expect(relatedContent).toBeVisible()
-  await relatedContent.getByRole('link', { name: 'Engineering Practice' }).click()
-
-  await expect(page).toHaveURL('/engineering-practice')
-  await expect(page.getByRole('heading', { level: 1, name: 'Engineering Practice' })).toBeVisible()
-  await expect(page.getByText(/requirements and constraints/i)).toBeVisible()
+  await expect(page.getByRole('img', { name: 'Reserved frame for a future Wild Bunch gameplay capture.' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Why it exists' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'What works now' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Decisions and trade-offs' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'What remains' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Public repository' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch')
 })
 
 test('visitor receives a useful page state when a content slug is missing', async ({ page }) => {
-  await page.goto('/projects/missing-story')
+  await page.goto('./projects/missing-story')
 
   await expect(page).toHaveTitle('Page Not Found | Harley Bartles')
   await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
   await expect(page.getByText('This portfolio story is not available.', { exact: true })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Return to the homepage' })).toHaveAttribute('href', '/')
+  await expect(page.getByRole('link', { name: 'Return to the homepage' })).toHaveAttribute('href', '/portfolio/')
 })

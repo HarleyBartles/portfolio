@@ -35,7 +35,19 @@ function MarkdownImage(props: ComponentPropsWithoutRef<'img'>): ReactElement {
       ? `${base}${props.src.slice(1)}`
       : props.src
 
-  return <img {...props} src={src} />
+  const fairytaleMatch = src?.match(/\/fairytales\/(goldilocks|sorcerers-apprentice)\/page-1200\.webp$/)
+
+  if (fairytaleMatch !== null && fairytaleMatch !== undefined) {
+    const source640 = src?.replace('page-1200.webp', 'page-640.webp')
+    return (
+      <picture className="fairytale-page">
+        <source media="(max-width: 44rem)" srcSet={source640} />
+        <img {...props} src={src} width="1200" height="675" decoding="async" />
+      </picture>
+    )
+  }
+
+  return <img {...props} src={src} loading="lazy" decoding="async" />
 }
 
 export function MarkdownContent({ markdown }: MarkdownContentProps): ReactElement {

@@ -1,9 +1,29 @@
-Wild Bunch is an active, buggy, pre-alpha project. It is a place to make real architecture decisions under real pressure rather than present a polished demo as if it were finished.
+## Why it exists
 
-The project exists to explore a game-shaped product with state, replayability, failure modes, and enough behavior to justify architecture that would be excessive in a simple portfolio site. Complex patterns are not badges here. They are choices that need to pay rent through better reasoning, recovery, testing, and future change.
+Wild Bunch is an active, buggy, pre-alpha project: a place to make real architecture decisions under pressure instead of presenting a polished demo as if it were finished.
 
-Harley uses Wild Bunch to show the trade-off side of engineering: when event history, deterministic workflows, and careful boundaries help, and when they add cost. The current state is intentionally described as pre-alpha because the important public fact is the working direction, not a false claim of production readiness.
+The project explores a game-shaped product with state, replayability, failure modes, and enough behaviour to justify architecture that would be excessive in a simple portfolio site.
 
-Wild Bunch is separate from this Portfolio site. The public repository is available on GitHub: [Public repository](https://github.com/HarleyBartles/wild-bunch).
+## My role
 
-Demo: not published yet. When the project is ready for broader public traffic, this story can point visitors toward the demo surface; until then, the useful narrative is the engineering direction and the trade-offs behind it.
+I use Wild Bunch to test the trade-off side of engineering. I am responsible for choosing where deterministic workflows, event history, and careful boundaries pay for their cost—and for removing complexity when they do not.
+
+## What works now
+
+The public repository shows the project in motion: its current application structure, tests, domain boundaries, and an honest pre-alpha history. The game is playable enough to expose architectural pressure, but it is not ready for broad public traffic.
+
+## Decisions and trade-offs
+
+Complex patterns are not badges here. They have to earn their place through clearer reasoning, safer recovery, better testing, or easier future change. That makes the unfinished edges useful evidence: they show what the design handles well and where it still creates friction.
+
+Wild Bunch is deliberately separate from this smaller portfolio application. The contrast demonstrates that architecture should follow the problem rather than a house style.
+
+## What remains
+
+The project still needs the bug-fixing, balancing, and presentation work implied by a pre-alpha label. A public demo will follow when the experience can support visitors without caveats doing all the explanatory work.
+
+The reserved image above should become a real gameplay capture: one recognisable encounter, readable UI state, and enough environmental context to make the game feel tangible.
+
+## Inspect the work
+
+[Public repository](https://github.com/HarleyBartles/wild-bunch)

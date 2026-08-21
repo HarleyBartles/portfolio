@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
-import { ProjectStatus } from '../components/ProjectStatus'
+import { EditorialIndexCard } from '../components/EditorialIndexCard'
 import { SiteLayout } from '../components/SiteLayout'
-import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 
 export function ProjectIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
+  const projects = navigationQuery.data?.filter((item) => item.kind === 'project') ?? []
 
   return (
     <SiteLayout>
@@ -19,30 +18,18 @@ export function ProjectIndexPage(): ReactElement {
         description="Selected public engineering project stories from Harley Bartles."
         canonicalPath="/projects"
       />
-      <section className="content-index" aria-labelledby="project-index-title">
-        <p className="eyebrow">Projects</p>
-        <h1 id="project-index-title">Project Stories</h1>
-        <p className="content-summary">
-          Selected public work, framed by what each project is for and the trade-offs behind it.
-        </p>
+      <section className="content-index project-index" aria-labelledby="project-index-title">
+        <header className="index-intro">
+          <p className="eyebrow">Projects / proof with rough edges intact</p>
+          <h1 id="project-index-title">Project Stories</h1>
+          <p className="content-summary">Public systems, teaching work, experiments, and visual pipelines—framed by what each one is for, what works now, and what it costs.</p>
+        </header>
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess ? (
-          <nav aria-label="Project stories">
-            <ul className="content-card-list">
-              {navigationQuery.data
-                .filter((item) => item.kind === 'project')
-                .map((item) => (
-                  <li className="content-card" key={item.slug}>
-                    <h2>
-                      <Link to={getContentPath(item)}>{item.title}</Link>
-                    </h2>
-                    <p>{item.summary}</p>
-                    <ProjectStatus status={item.status} />
-                  </li>
-                ))}
-            </ul>
-          </nav>
+          <div className="editorial-index-grid editorial-index-grid--projects">
+            {projects.map((item, index) => <EditorialIndexCard item={item} index={index} key={item.slug} />)}
+          </div>
         ) : null}
       </section>
     </SiteLayout>

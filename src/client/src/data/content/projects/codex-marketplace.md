@@ -1,7 +1,27 @@
-Agent Asset Marketplace is a public repository where I keep agent skills packaged as Codex plugins. The actual repo name is `agent-asset-marketplace`; the `codex-marketplace/` tree inside it holds the vendored plugin bundles.
+## Why it exists
 
-The marketplace currently offers 17 plugins with 74 bundled skill entries. Some skills appear in more than one plugin - `feature-sliced-design`, `release-engineering`, `risk-gates`, and `unslop-profiles` are each vendored by two different bundles - so the count of unique skill names is 70. The skills are not one-off prompts; each one has a SKILL.md, authority references, a verification section, and a clear scope of when to use it and when not to use it.
+Agent Asset Marketplace packages reusable agent skills as installable Codex plugins. It turns operational knowledge into inspectable assets with clear scope, authority, and verification—not one-off prompts copied between chats.
 
-The repo also installs copies of the plugins it consumes for its own operation, currently `repo-worker-pack`, `superpowers-plus`, and `mcp-usage-pack`. Those installed copies live under `.agents/skills/` and are not additional marketplace inventory. The canonical vendored assets are under `codex-marketplace/plugins/`, with the plugin root list in `codex-marketplace/plugin-roots.json` and the aggregate manifest in `codex-marketplace/manifest.json`.
+## My role
 
-The repository is public: [github.com/HarleyBartles/agent-asset-marketplace](https://github.com/HarleyBartles/agent-asset-marketplace).
+I maintain the marketplace structure, package skills, define custody boundaries, and keep the public inventory mechanically verifiable.
+
+## What works now
+
+The marketplace currently offers 17 plugins with 74 bundled skill entries and 70 unique skill names. Every skill has a `SKILL.md`, authority references, verification guidance, and a defined boundary for when it should and should not be used.
+
+Canonical vendored assets live under `codex-marketplace/plugins/`; `codex-marketplace/plugin-roots.json` records plugin roots and `codex-marketplace/manifest.json` provides the aggregate inventory.
+
+## Decisions and trade-offs
+
+The repository also installs the plugins it consumes for its own operation. Those copies live under `.agents/skills/` and are not counted as marketplace inventory. Keeping installed copies distinct from vendored source prevents a convenient local state from becoming a false publication claim.
+
+Some skills appear in more than one bundle, so total entries and unique names are reported separately rather than compressed into one flattering number.
+
+## What remains
+
+The valuable work is continued curation: making package boundaries clearer, verification stronger, and discovery easier without allowing the catalogue to become accumulation for its own sake.
+
+## Inspect the work
+
+[Public repository](https://github.com/HarleyBartles/agent-asset-marketplace)

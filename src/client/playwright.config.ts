@@ -9,7 +9,8 @@ const contentRoot = path.join(repositoryRoot, 'src', 'content')
 
 const clientPort = 4173
 const serverPort = 5278
-const clientBaseUrl = `http://127.0.0.1:${clientPort}`
+const clientOrigin = `http://127.0.0.1:${clientPort}`
+const clientBaseUrl = `${clientOrigin}/portfolio/`
 const serverBaseUrl = `http://127.0.0.1:${serverPort}`
 
 function quoteShellArgument(value: string): string {
@@ -50,7 +51,7 @@ export default defineConfig({
     },
     {
       command: 'npm run build && npm run preview:test',
-      url: clientBaseUrl,
+      url: clientOrigin,
       timeout: 120_000,
       reuseExistingServer: false,
     },

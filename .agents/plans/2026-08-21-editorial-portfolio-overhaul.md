@@ -128,11 +128,11 @@
 - `prepareMarkdown` strips a duplicate leading H1 for every content kind.
 - `MarkdownImage` emits responsive WebP `srcSet` for known fairytale paths with explicit lazy loading.
 
-- [ ] **Step 1: Add or update failing browser expectations for visual thumbnails, human-readable dates, the Wild Bunch capture brief, direct project/article loading, fairytale transcripts, and previous/next article navigation.**
-- [ ] **Step 2: Add focused unit coverage for stripping duplicate fairytale H1s and content-navigation boundaries; run and observe failures.**
-- [ ] **Step 3: Implement the featured-writing/index-list split, distinct project visuals, fairytale thumbnails, media-aware case-study headers, consistent dates, narrow prose, and previous/next navigation. Rewrite project Markdown into concise purpose/proof/decision/current-state sections without inventing facts.**
-- [ ] **Step 4: Run unit tests, the affected Playwright files, and `npm run build`.**
-- [ ] **Step 5: Mark Task 4 checkboxes complete and commit with `feat: art direct portfolio indexes and stories`.**
+- [x] **Step 1: Add or update failing browser expectations for visual thumbnails, human-readable dates, the Wild Bunch capture brief, direct project/article loading, fairytale transcripts, and previous/next article navigation.**
+- [x] **Step 2: Add focused unit coverage for stripping duplicate fairytale H1s and content-navigation boundaries; run and observe failures.**
+- [x] **Step 3: Implement the featured-writing/index-list split, distinct project visuals, fairytale thumbnails, media-aware case-study headers, consistent dates, narrow prose, and previous/next navigation. Rewrite project Markdown into concise purpose/proof/decision/current-state sections without inventing facts.**
+- [x] **Step 4: Run unit tests, the affected Playwright files, and `npm run build`.**
+- [x] **Step 5: Mark Task 4 checkboxes complete and commit with `feat: art direct portfolio indexes and stories`.**
 
 ### Task 5: Explicit About page and honest contact seam
 

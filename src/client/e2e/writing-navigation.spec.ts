@@ -1,23 +1,31 @@
 import { expect, test } from '@playwright/test'
 
-test('visitor navigates to Writing and opens a note', async ({ page }) => {
-  await page.goto('/')
+test('writing index presents a featured essay and consistent human dates', async ({ page }) => {
+  await page.goto('./writing/')
 
-  const orientation = page.getByRole('navigation', { name: 'Portfolio orientation' })
-  await orientation.getByRole('link', { name: 'Writing and Notes' }).click()
-
-  await expect(page).toHaveURL('/writing')
   await expect(page.getByRole('heading', { level: 1, name: 'Writing and Notes' })).toBeVisible()
-  await page.getByRole('link', { name: 'Agent-Ready Repositories' }).click()
+  const featured = page.getByRole('article', { name: /agentic engineering and the kindness of vibe coding/i })
+  await expect(featured).toBeVisible()
+  await expect(featured.getByText('1 August 2026', { exact: true })).toBeVisible()
+  await expect(featured.getByText('6 min read', { exact: true })).toBeVisible()
+})
 
-  await expect(page).toHaveURL('/writing/agent-ready-repositories')
-  await expect(
-    page.getByRole('heading', { level: 1, name: 'Agent-Ready Repositories' }),
-  ).toBeVisible()
-  await expect(
-    page.getByText(
-      'Agent-ready repositories are not repositories with enormous prompts pasted everywhere. They are repositories with progressive discovery: start from a small always-on router, then lead workers to the exact local guidance, policy, tests, and scripts that matter for the current task.',
-      { exact: true },
-    ),
-  ).toBeVisible()
+test('visitor opens a direct article route and moves through previous and next notes', async ({ page }) => {
+  const response = await page.goto('./writing/context-is-not-state/')
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', { level: 1, name: 'Context is not the same as state' })).toBeVisible()
+  const storyNavigation = page.getByRole('navigation', { name: 'More writing' })
+  await expect(storyNavigation.getByRole('link', { name: /previous/i })).toBeVisible()
+  await expect(storyNavigation.getByRole('link', { name: /next/i })).toBeVisible()
+})
+
+test('fairytale index and detail expose imagery plus a readable transcript', async ({ page }) => {
+  await page.goto('./fairytales/')
+
+  await expect(page.getByRole('img', { name: /too much, too little, and just enough guidance/i })).toBeVisible()
+  await page.getByRole('link', { name: 'Goldilocks — The Right Amount of Guidance' }).first().click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Goldilocks — The Right Amount of Guidance' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Visual transcript' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 })

@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata } from '../components/DocumentMetadata'
+import { EditorialIndexCard } from '../components/EditorialIndexCard'
 import { SiteLayout } from '../components/SiteLayout'
-import { getContentPath } from '../types/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 
 export function FairytalesIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
+  const fairytales = navigationQuery.data?.filter((item) => item.kind === 'fairytales') ?? []
 
   return (
     <SiteLayout>
@@ -18,29 +18,20 @@ export function FairytalesIndexPage(): ReactElement {
         description="One-page visual lessons on agentic engineering, told through Patch."
         canonicalPath="/fairytales"
       />
-      <section className="content-index" aria-labelledby="fairytales-index-title">
-        <p className="eyebrow">Patch Fairytales</p>
-        <h1 id="fairytales-index-title">Patch Fairytales</h1>
-        <p className="content-summary">
-          One-page visual lessons on agentic engineering, told through Patch.
-        </p>
+      <section className="content-index fairytale-index" aria-labelledby="fairytales-index-title">
+        <header className="index-intro index-intro--split">
+          <div>
+            <p className="eyebrow">Patch Fairytales / one-page lessons</p>
+            <h1 id="fairytales-index-title">Small stories for difficult ideas</h1>
+          </div>
+          <p className="content-summary">Agentic engineering principles, turned into visual stories that are easier to remember and argue with.</p>
+        </header>
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess ? (
-          <nav aria-label="Patch Fairytales">
-            <ul className="content-card-list">
-              {navigationQuery.data
-                .filter((item) => item.kind === 'fairytales')
-                .map((item) => (
-                  <li className="content-card" key={item.slug}>
-                    <h2>
-                      <Link to={getContentPath(item)}>{item.title}</Link>
-                    </h2>
-                    <p>{item.summary}</p>
-                  </li>
-                ))}
-            </ul>
-          </nav>
+          <div className="editorial-index-grid editorial-index-grid--fairytales">
+            {fairytales.map((item, index) => <EditorialIndexCard item={item} index={index} key={item.slug} />)}
+          </div>
         ) : null}
       </section>
     </SiteLayout>
