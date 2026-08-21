@@ -14,8 +14,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: portfolio-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'pages' }}
@@ -57,10 +55,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v5
-
       - name: Upload validated Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
@@ -72,6 +66,9 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: quality
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
     environment:
