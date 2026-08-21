@@ -1,0 +1,235 @@
+# Portfolio £10k Quality — Roadmap
+
+This is the live control document for the next portfolio-quality epic. It turns
+the approved [direction checkpoint](../../../docs/portfolio-10k-direction-checkpoint.md)
+into consecutive, independently reviewable releases without pretending the
+implementation details can be planned months in advance.
+
+**Created:** 21 August 2026
+
+**Status:** Draft for human review
+
+**Starting main:** `1663f8ead33c3854c93f3bd46978811b6c968708`
+
+**Input readiness:** 9/10 for epic decomposition. The outcome, audience,
+evidence model, constraints, anti-goals, and quality bar are settled. Remaining
+choices are bounded and assigned to phase design specs.
+
+**Roadmap readiness:** 9/10 for human review. Phase outcomes and dependencies
+are bounded without pre-empting the granular design work owned by each spec.
+
+## Epic outcome
+
+Move the portfolio from a strong editorial foundation toward a £10k-quality
+hiring instrument for senior full-stack roles: professionally explicit,
+evidence-rich, visually specific, technically finished, and honest under close
+engineering scrutiny.
+
+The active [portfolio design policy](../../doctrine/portfolio-design-policy.md)
+continues to govern every phase. This roadmap sequences change; it does not
+replace the policy, the [design-decision ledger](../../../docs/design-decisions.md),
+or live repository evidence.
+
+## Artifact contract
+
+This epic intentionally adapts the default `/working-with-epics` sequence.
+
+### Design wave
+
+1. Brainstorm each phase as a bounded product and engineering problem.
+2. Write the named design spec under `.agents/specs/`.
+3. Define exact outcomes, non-goals, source-of-truth boundaries, content and
+   asset inputs, affected file families, accessibility and performance
+   expectations, validation, and user-owned decisions.
+4. Run spec self-review and the `handoff-gates` spec-readiness lane. The minimum
+   is 8/10 and the target is 9/10.
+5. Obtain Harley's approval and record the approved spec link and rating here.
+
+Complete the design wave for all retained phases before beginning the
+implementation wave unless Harley explicitly changes the sequence. Specs are
+solid design artefacts, but they are not immutable contracts.
+
+### Implementation wave
+
+For each next phase:
+
+1. Inspect current repository and relevant external source truth.
+2. Compare that evidence with the approved spec.
+3. Update and re-approve the spec when divergence changes the design; record
+   the reason in Handoff Notes.
+4. Use `/writing-plans` to create the implementation plan just in time. Do not
+   manufacture all implementation plans upfront.
+5. Run plan-readiness, execute, review, merge, and record the plan, commit, PR,
+   rating, and learning here before moving on.
+
+A later agent may refine implementation detail from current truth. It may not
+silently invent a missing product decision. If a spec cannot support planning
+at 8/10 or higher, return to design and ask one focused question.
+
+## Status and table conventions
+
+`Status` tracks the implementation-plan lifecycle and uses the required epic
+values: `pending`, `writing`, `ready`, `executing`, `done`, or `blocked`.
+
+Until a spec exists, its cell contains the intended source path as plain code.
+After human approval, replace it with a link and record the spec-readiness
+rating in Notes. Plan files remain `—` until written just in time. `Rating`
+records the implementation plan's readiness or final handoff rating.
+
+## Plan sequence
+
+| # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Professional truth and About narrative | pending | `.agents/specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md` | — | — | — | — | Establish the reusable fact source and the explicit senior hiring narrative before other pages consume it. |
+| 2 | CV and contact conversion | pending | `.agents/specs/2026-08-21-portfolio-10k-02-cv-contact-design.md` | — | — | — | Replace the two most conspicuous unfinished hiring states with a real CV and privacy-preserving contact route. |
+| 3 | Marketplace flagship and case-study system | pending | `.agents/specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md` | — | — | — | Prove frontier agentic practice and establish the case-study anatomy through one concrete project, not speculative abstraction. |
+| 4 | Wild Bunch architectural proof | pending | `.agents/specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md` | — | — | — | Demonstrate complex architecture when earned; depends on the case-study system and Harley-supplied gameplay captures. |
+| 5 | Adventures of Patch pipeline story | pending | `.agents/specs/2026-08-21-portfolio-10k-05-patch-pipeline-case-study-design.md` | — | — | — | Turn owned role kits and pipeline stages into evidence of controlled creative production without letting Patch dominate the identity. |
+| 6 | Agentic Learning Lab leadership proof | pending | `.agents/specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md` | — | — | — | Make teaching, delegation, learner safety, and practical agent adoption visually inspectable. |
+| 7 | Writing authority and breadth | pending | `.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md` | — | — | — | Deepen two flagship essays and add one broader full-stack or product-engineering argument; optimise authority, not volume. |
+| 8 | Homepage evidence choreography | pending | `.agents/specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md` | — | — | — | Recompose around final professional and project evidence, preserving the manual feature deck while removing repetition and pitch clutter. |
+| 9 | Discovery and sharing finish | pending | `.agents/specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md` | — | — | — | Define the custom-domain, route metadata, social artwork, canonical, and RSS experience after content routes stabilise. |
+| 10 | Direct-route first-paint finish | pending | `.agents/specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md` | — | — | — | Remove the visible preparation flash without adding a runtime backend or weakening static deep-route guarantees. |
+| 11 | Interactive proof value gate | pending | `.agents/specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md` | — | — | — | Select one evidence-bearing interaction only if it beats a static case study; an explicit no-build decision is a valid outcome. |
+| 12 | Launch audit and measurement decision | pending | `.agents/specs/2026-08-21-portfolio-10k-12-launch-audit-design.md` | — | — | — | Close placeholders and dead ends, perform the complete editorial/accessibility/performance review, and decide whether any privacy-conscious analytics earn their cost. |
+
+## Phase boundaries
+
+### 1. Professional truth and About narrative
+
+Create one durable source for employment dates, qualification state, public-
+safe claims, and role language. Use it to replace stale duration copy and turn
+About into the authored professional narrative described by the checkpoint.
+Keep CV production, contact delivery, and homepage recomposition out of this
+phase.
+
+### 2. CV and contact conversion
+
+Produce the conventional hiring artefact and a working, abuse-conscious contact
+journey without publishing personal contact literals or adding a runtime
+backend to this repository. Decide availability and location wording here. If
+provider choice is externally blocked, preserve a meaningful contained release
+and record the activation dependency rather than blocking unrelated phases.
+
+### 3. Marketplace flagship and case-study system
+
+Design the reusable anatomy of a senior-level case study through Agent Asset
+Marketplace: problem, role, constraints, decisions, evidence, present state,
+and learning. Add project-native diagrams or artefacts with custody. The system
+must remain flexible enough for later projects to receive distinct art
+direction rather than identical templates.
+
+### 4. Wild Bunch architectural proof
+
+Show why this domain earns DDD and complex architecture, what Harley decided,
+and what visitors can inspect. Real gameplay captures replace the current
+placeholder; the spec must include an exact capture brief and a fallback if the
+assets are not yet available. Do not position DDD as Harley's whole identity.
+
+### 5. Adventures of Patch pipeline story
+
+Use role kits, scene assets, pipeline stages, and finished work to explain a
+controlled creative system. Design a legible pipeline composition rather than
+shrinking a text-heavy finished page into a meaningless thumbnail. Preserve
+Patch as a supporting signature across the wider site.
+
+### 6. Agentic Learning Lab leadership proof
+
+Make the curriculum, exercises, learner journey, guardrails, and practical
+outcomes concrete. The case study should prove leadership and communication,
+not merely that a repository of teaching files exists.
+
+### 7. Writing authority and breadth
+
+Choose two existing essays for full editorial treatment and define one new
+piece that broadens the current agent-workflow concentration. The phase owns
+article argument, supporting diagrams or pull quotes, reading and navigation
+finish, and author review. It does not create a search or taxonomy system
+without archive-scale evidence.
+
+### 8. Homepage evidence choreography
+
+Only after the professional narrative, flagship projects, and writing are
+substantially stable, redesign the homepage journey around the strongest
+evidence. Retain useful randomness and manual motion, eliminate adjacent
+duplicate stories, and make the senior full-stack proposition clear within the
+first viewport without turning the page into a generic sales funnel.
+
+### 9. Discovery and sharing finish
+
+Finish how pages are found, shared, and identified: `harleybartles.com`, static
+route metadata, canonical URLs, route-appropriate social artwork, and RSS. The
+spec must distinguish repository work from DNS or platform actions requiring
+Harley's authority and must preserve GitHub Pages static delivery.
+
+### 10. Direct-route first-paint finish
+
+Investigate and remove the brief “Preparing the portfolio” state seen on direct
+content visits. Treat the observed symptom as a finding to reproduce, not a
+preselected implementation. Preserve lazy loading, route status, accessibility,
+and the bundle budget.
+
+### 11. Interactive proof value gate
+
+Compare the Marketplace explorer, Patch pipeline visualisation, Learning Lab
+exercise, Wild Bunch replay/event viewer, and a no-build option against hiring
+value, evidence depth, accessibility, maintenance, and performance. Design and
+plan one only if it materially strengthens the argument. Restraint counts as a
+successful phase outcome when no candidate earns the complexity.
+
+### 12. Launch audit and measurement decision
+
+Audit the complete hiring journey and every public route against the agreed
+£10k bar. Resolve remaining placeholders, dead ends, factual drift, visual
+inconsistency, accessibility defects, performance regressions, and custody
+gaps. Decide which concrete questions—if any—justify privacy-conscious
+analytics. This phase validates the whole, rather than introducing a second
+visual redesign.
+
+## Dependency logic
+
+- Phase 1 is the source for professional claims used everywhere else.
+- Phase 2 depends on Phase 1's facts but may be bypassed temporarily if an
+  external contact-provider decision is blocked.
+- Phase 3 establishes the case-study system consumed by Phases 4–6.
+- Phases 4–6 may be re-ordered after Phase 3 if asset readiness changes, but
+  the reason must be recorded in Handoff Notes.
+- Phase 7 precedes the homepage so the final editorial hierarchy uses real
+  flagship material.
+- Phase 8 depends on the stable outputs of Phases 1 and 3–7.
+- Phase 9 follows route and content stabilisation; Phase 10 may move earlier if
+  investigation proves it blocks trustworthy content review.
+- Phase 11 is conditional and must not hold Phase 12 hostage after a justified
+  no-build decision.
+- Phase 12 is the only whole-site closeout phase.
+
+## Epic-wide constraints
+
+- The site remains a static React/Vite GitHub Pages application unless a later
+  approved requirement demonstrates that static delivery cannot satisfy it.
+- Every public claim is user-supplied, repository-proven, or source-backed and
+  appropriate for publication.
+- No phase publishes proprietary employer information, plaintext personal
+  contact details, invented metrics, screenshots, or maturity.
+- Visual assets require project relevance, ownership evidence, responsive
+  treatment, useful alt intent, and custody records.
+- Motion communicates hierarchy or state, never autoplays, and respects
+  reduced motion.
+- Objective guards may evolve with approved behaviour; brittle assertions
+  about exact prose, component names, or incidental styling are not the goal.
+- Each implementation phase should be independently mergeable and should
+  leave the public site more useful than it found it.
+
+## Handoff Notes
+
+- Roadmap source: approved Portfolio £10k Direction Checkpoint, merged through
+  [PR #16](https://github.com/HarleyBartles/portfolio/pull/16) at
+  `1663f8ead33c3854c93f3bd46978811b6c968708`.
+- User-approved workflow variation: write and approve a granular design spec
+  for every retained roadmap phase before writing implementation plans; write
+  those plans just in time from the spec plus current repository truth.
+- Imagery is owned by the case study whose argument it supports. There is no
+  detached “add pictures” phase.
+- The interactive artefact is a value gate, not a promise to add novelty.
+- If a phase spec reveals multiple independent deliverables, split the roadmap
+  item before plan-writing and record the reason here.
