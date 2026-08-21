@@ -36,5 +36,9 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
-  await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot('article-mobile-header.png')
+  // FreeType and DirectWrite rasterise this display-heavy crop differently even
+  // when its geometry is identical. Keep reviewed baselines instead of weakening
+  // the global visual tolerance.
+  const snapshot = process.platform === 'linux' ? 'article-mobile-header-linux.png' : 'article-mobile-header.png'
+  await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot(snapshot)
 })
