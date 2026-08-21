@@ -1,5 +1,5 @@
 import type { ContentDocument, ContentSummary } from '../types/content'
-import { documentsBySlug, navigation } from '../data/documents'
+import { loadDocument, navigation } from '../data/documents'
 
 export class ApiRequestError extends Error {
   readonly endpoint: string
@@ -18,11 +18,11 @@ export function getNavigation(): Promise<ContentSummary[]> {
 }
 
 export function getContent(slug: string): Promise<ContentDocument> {
-  const document = documentsBySlug[slug]
+  const summary = navigation.find((item) => item.slug === slug)
 
-  if (document === undefined) {
+  if (summary === undefined) {
     return Promise.reject(new ApiRequestError(`/api/content/${encodeURIComponent(slug)}`, 404))
   }
 
-  return Promise.resolve(document)
+  return loadDocument(summary)
 }

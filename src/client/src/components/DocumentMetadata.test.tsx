@@ -13,10 +13,16 @@ function readCanonical(): HTMLLinkElement | null {
   return document.head.querySelector('link[rel="canonical"]')
 }
 
+function readProperty(property: string): HTMLMetaElement | null {
+  return document.head.querySelector(`meta[property="${property}"]`)
+}
+
 describe('DocumentMetadata', () => {
   afterEach(() => {
     document.title = 'Portfolio'
-    readMeta('description')?.remove()
+    document.head
+      .querySelectorAll('meta[name="description"], meta[name^="twitter:"], meta[property^="og:"]')
+      .forEach((element) => element.remove())
     readCanonical()?.remove()
   })
 
@@ -34,7 +40,24 @@ describe('DocumentMetadata', () => {
       'content',
       'Selected public engineering project stories from Harley Bartles.',
     )
-    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io/projects')
+    expect(readCanonical()).toHaveAttribute(
+      'href',
+      'https://harleybartles.github.io/portfolio/projects',
+    )
+    expect(readProperty('og:title')).toHaveAttribute('content', 'Project Stories | Harley Bartles')
+    expect(readProperty('og:description')).toHaveAttribute(
+      'content',
+      'Selected public engineering project stories from Harley Bartles.',
+    )
+    expect(readProperty('og:url')).toHaveAttribute(
+      'content',
+      'https://harleybartles.github.io/portfolio/projects',
+    )
+    expect(readProperty('og:image')).toHaveAttribute(
+      'content',
+      'https://harleybartles.github.io/portfolio/brand/social-card.png',
+    )
+    expect(readMeta('twitter:card')).toHaveAttribute('content', 'summary_large_image')
   })
 
   test('normalizes canonical paths without exposing server paths or query details', () => {
@@ -46,7 +69,7 @@ describe('DocumentMetadata', () => {
       />,
     )
 
-    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io')
+    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io/portfolio')
     expect(readCanonical()?.getAttribute('href')).not.toContain('Z:')
     expect(readCanonical()?.getAttribute('href')).not.toContain('trace')
   })

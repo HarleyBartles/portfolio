@@ -43,11 +43,11 @@
 - `buildRouteDocuments({ distRoot, manifestPath, baseUrl, origin }): void` writes route `index.html` documents and `404.html`.
 - `DocumentMetadata` updates description, canonical, Open Graph, and Twitter fields during client navigation; generated HTML supplies the same fields before hydration.
 
-- [ ] **Step 1: Add failing unit tests.** Prove a content request loads one known document and rejects an unknown slug; prove route generation writes `/projects/index.html`, one article route, route-specific canonical/OG tags, and a fallback `404.html`; prove metadata updates canonical, Open Graph, and Twitter fields.
-- [ ] **Step 2: Run `npm test -- --run src/api/contentApi.test.ts scripts/generate-route-documents.test.ts src/components/DocumentMetadata.test.tsx` from `src/client` and observe failures caused by the missing lazy loader, generator, and metadata fields.**
-- [ ] **Step 3: Implement the lazy glob loader, route-document generator, metadata tags, favicon/manifest head links, and build-script integration. Remove the deploy workflow's post-build `cp dist/index.html dist/404.html` workaround because the generator owns known routes and the fallback.**
-- [ ] **Step 4: Run the scoped unit tests and `npm run build`. Inspect `dist/projects/index.html` and `dist/writing/agentic-engineering-vs-vibe-coding/index.html`; both must contain their own canonical metadata.**
-- [ ] **Step 5: Mark Task 1 checkboxes complete in this file and commit with `fix: serve portfolio deep links as static routes`.**
+- [x] **Step 1: Add failing unit tests.** Prove a content request loads one known document and rejects an unknown slug; prove route generation writes `/projects/index.html`, one article route, route-specific canonical/OG tags, and a fallback `404.html`; prove metadata updates canonical, Open Graph, and Twitter fields.
+- [x] **Step 2: Run `npm test -- --run src/api/contentApi.test.ts scripts/generate-route-documents.test.ts src/components/DocumentMetadata.test.tsx` from `src/client` and observe failures caused by the missing lazy loader, generator, and metadata fields.**
+- [x] **Step 3: Implement the lazy glob loader, route-document generator, metadata tags, favicon/manifest head links, and build-script integration. Remove the deploy workflow's post-build `cp dist/index.html dist/404.html` workaround because the generator owns known routes and the fallback.**
+- [x] **Step 4: Run the scoped unit tests and `npm run build`. Inspect `dist/projects/index.html` and `dist/writing/agentic-engineering-vs-vibe-coding/index.html`; both must contain their own canonical metadata.**
+- [x] **Step 5: Mark Task 1 checkboxes complete in this file and commit with `fix: serve portfolio deep links as static routes`.**
 
 ### Task 2: Brand and visual asset custody
 

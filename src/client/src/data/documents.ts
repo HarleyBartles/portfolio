@@ -1,19 +1,10 @@
 import type { ContentDocument, ContentSummary } from '../types/content'
 import manifest from './content/content-manifest.json'
 
-import codexMarketplace from './content/projects/codex-marketplace.md?raw'
-import agenticLearningLab from './content/projects/agentic-learning-lab.md?raw'
-import wildBunch from './content/projects/wild-bunch.md?raw'
-import adventuresOfPatch from './content/projects/adventures-of-patch.md?raw'
-
-import agenticVsVibeCoding from './content/writing/2026-08-01-agentic-engineering-vs-vibe-coding.md?raw'
-import graphIterativeReview from './content/writing/2026-08-05-graph-iterative-review.md?raw'
-import contextIsNotState from './content/writing/2026-08-07-context-is-not-state.md?raw'
-import provisioningIsNotAccumulation from './content/writing/2026-08-12-provisioning-is-not-accumulation.md?raw'
-import passReferencesNotParagraphs from './content/writing/2026-08-15-pass-references-not-paragraphs.md?raw'
-
-import goldilocks from './content/fairytales/goldilocks.md?raw'
-import sorcerersApprentice from './content/fairytales/sorcerers-apprentice.md?raw'
+const markdownLoaders = import.meta.glob('./content/**/*.md', {
+  query: '?raw',
+  import: 'default',
+}) as Record<string, () => Promise<string>>
 
 function stripFrontmatter(markdown: string): string {
   const match = markdown.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/)
@@ -30,28 +21,9 @@ function stripLeadingTitle(markdown: string, title: string): string {
   return markdown
 }
 
-function prepareMarkdown(raw: string, summary: ContentSummary): string {
+export function prepareMarkdown(raw: string, summary: ContentSummary): string {
   const withoutFrontmatter = stripFrontmatter(raw)
-
-  if (summary.kind === 'writing') {
-    return stripLeadingTitle(withoutFrontmatter, summary.title)
-  }
-
-  return withoutFrontmatter
-}
-
-const rawByPath: Record<string, string> = {
-  'projects/codex-marketplace.md': codexMarketplace,
-  'projects/agentic-learning-lab.md': agenticLearningLab,
-  'projects/wild-bunch.md': wildBunch,
-  'projects/adventures-of-patch.md': adventuresOfPatch,
-  'writing/2026-08-01-agentic-engineering-vs-vibe-coding.md': agenticVsVibeCoding,
-  'writing/2026-08-05-graph-iterative-review.md': graphIterativeReview,
-  'writing/2026-08-07-context-is-not-state.md': contextIsNotState,
-  'writing/2026-08-12-provisioning-is-not-accumulation.md': provisioningIsNotAccumulation,
-  'writing/2026-08-15-pass-references-not-paragraphs.md': passReferencesNotParagraphs,
-  'fairytales/goldilocks.md': goldilocks,
-  'fairytales/sorcerers-apprentice.md': sorcerersApprentice,
+  return stripLeadingTitle(withoutFrontmatter, summary.title)
 }
 
 function itemToSummary(item: unknown): ContentSummary {
@@ -71,11 +43,19 @@ function itemToSummary(item: unknown): ContentSummary {
 
 export const navigation: ContentSummary[] = manifest.items.map(itemToSummary)
 
-export const documentsBySlug: Record<string, ContentDocument> = Object.fromEntries(
-  manifest.items.map((item) => {
-    const summary = itemToSummary(item)
-    const raw = rawByPath[String((item as Record<string, unknown>).path)]
-    const markdown = raw === undefined ? '' : prepareMarkdown(raw, summary)
-    return [summary.slug, { summary, markdown }]
-  }),
+const manifestItemBySlug = new Map(
+  manifest.items.map((item) => [String(item.slug), item as Record<string, unknown>]),
 )
+
+export async function loadDocument(summary: ContentSummary): Promise<ContentDocument> {
+  const manifestItem = manifestItemBySlug.get(summary.slug)
+  const sourcePath = manifestItem === undefined ? '' : String(manifestItem.path)
+  const loader = markdownLoaders[`./content/${sourcePath}`]
+
+  if (loader === undefined) {
+    return { summary, markdown: '' }
+  }
+
+  const raw = await loader()
+  return { summary, markdown: prepareMarkdown(raw, summary) }
+}

@@ -1,6 +1,8 @@
 import { useEffect, type ReactElement } from 'react'
 
 const portfolioOrigin = 'https://harleybartles.github.io'
+const portfolioBasePath = '/portfolio'
+const socialImageUrl = `${portfolioOrigin}${portfolioBasePath}/brand/social-card.png`
 
 type DocumentMetadataProps = {
   title: string
@@ -17,6 +19,20 @@ function getOrCreateMeta(name: string): HTMLMetaElement {
 
   const meta = document.createElement('meta')
   meta.setAttribute('name', name)
+  document.head.append(meta)
+
+  return meta
+}
+
+function getOrCreateProperty(property: string): HTMLMetaElement {
+  const existing = document.head.querySelector<HTMLMetaElement>(`meta[property="${property}"]`)
+
+  if (existing !== null) {
+    return existing
+  }
+
+  const meta = document.createElement('meta')
+  meta.setAttribute('property', property)
   document.head.append(meta)
 
   return meta
@@ -53,9 +69,8 @@ function normalizeCanonicalPath(canonicalPath: string): string {
 }
 
 export function buildCanonicalUrl(canonicalPath: string): string {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   const path = normalizeCanonicalPath(canonicalPath).replace(/^\//, '')
-  return `${portfolioOrigin}${base}${path === '' ? '' : `/${path}`}`
+  return `${portfolioOrigin}${portfolioBasePath}${path === '' ? '' : `/${path}`}`
 }
 
 export function DocumentMetadata({
@@ -64,9 +79,19 @@ export function DocumentMetadata({
   canonicalPath,
 }: DocumentMetadataProps): ReactElement {
   useEffect(() => {
+    const canonical = buildCanonicalUrl(canonicalPath)
     document.title = title
     getOrCreateMeta('description').setAttribute('content', description)
-    getOrCreateCanonical().setAttribute('href', buildCanonicalUrl(canonicalPath))
+    getOrCreateCanonical().setAttribute('href', canonical)
+    getOrCreateProperty('og:title').setAttribute('content', title)
+    getOrCreateProperty('og:description').setAttribute('content', description)
+    getOrCreateProperty('og:type').setAttribute('content', canonicalPath.startsWith('/writing/') ? 'article' : 'website')
+    getOrCreateProperty('og:url').setAttribute('content', canonical)
+    getOrCreateProperty('og:image').setAttribute('content', socialImageUrl)
+    getOrCreateMeta('twitter:card').setAttribute('content', 'summary_large_image')
+    getOrCreateMeta('twitter:title').setAttribute('content', title)
+    getOrCreateMeta('twitter:description').setAttribute('content', description)
+    getOrCreateMeta('twitter:image').setAttribute('content', socialImageUrl)
   }, [canonicalPath, description, title])
 
   return <></>

@@ -2,32 +2,47 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
 import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
-import { AboutPage } from '../pages/AboutPage'
-import { FairytalesIndexPage } from '../pages/FairytalesIndexPage'
-import { FairytalesPage } from '../pages/FairytalesPage'
-import { HomePage } from '../pages/HomePage'
-import { NotFoundPage } from '../pages/NotFoundPage'
-import { ProjectIndexPage } from '../pages/ProjectIndexPage'
-import { ProjectPage } from '../pages/ProjectPage'
-import { WritingIndexPage } from '../pages/WritingIndexPage'
-import { WritingPage } from '../pages/WritingPage'
 
-function ProjectRoutePage(): ReactElement {
-  const { slug } = useParams()
+async function loadProjectRoute(): Promise<{ Component: () => ReactElement }> {
+  const [{ ProjectPage }, { NotFoundPage }] = await Promise.all([
+    import('../pages/ProjectPage'),
+    import('../pages/NotFoundPage'),
+  ])
 
-  return slug === undefined ? <NotFoundPage /> : <ProjectPage slug={slug} />
+  return {
+    Component: function ProjectRoutePage(): ReactElement {
+      const { slug } = useParams()
+      return slug === undefined ? <NotFoundPage /> : <ProjectPage slug={slug} />
+    },
+  }
 }
 
-function WritingRoutePage(): ReactElement {
-  const { slug } = useParams()
+async function loadWritingRoute(): Promise<{ Component: () => ReactElement }> {
+  const [{ WritingPage }, { NotFoundPage }] = await Promise.all([
+    import('../pages/WritingPage'),
+    import('../pages/NotFoundPage'),
+  ])
 
-  return slug === undefined ? <NotFoundPage /> : <WritingPage slug={slug} />
+  return {
+    Component: function WritingRoutePage(): ReactElement {
+      const { slug } = useParams()
+      return slug === undefined ? <NotFoundPage /> : <WritingPage slug={slug} />
+    },
+  }
 }
 
-function FairytalesRoutePage(): ReactElement {
-  const { slug } = useParams()
+async function loadFairytaleRoute(): Promise<{ Component: () => ReactElement }> {
+  const [{ FairytalesPage }, { NotFoundPage }] = await Promise.all([
+    import('../pages/FairytalesPage'),
+    import('../pages/NotFoundPage'),
+  ])
 
-  return slug === undefined ? <NotFoundPage /> : <FairytalesPage slug={slug} />
+  return {
+    Component: function FairytaleRoutePage(): ReactElement {
+      const { slug } = useParams()
+      return slug === undefined ? <NotFoundPage /> : <FairytalesPage slug={slug} />
+    },
+  }
 }
 
 export const appRoutes: RouteObject[] = [
@@ -38,39 +53,45 @@ export const appRoutes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <HomePage />,
+        lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }),
       },
       {
         path: 'projects',
-        element: <ProjectIndexPage />,
+        lazy: async () => ({
+          Component: (await import('../pages/ProjectIndexPage')).ProjectIndexPage,
+        }),
       },
       {
         path: 'projects/:slug',
-        element: <ProjectRoutePage />,
+        lazy: loadProjectRoute,
       },
       {
         path: 'writing',
-        element: <WritingIndexPage />,
+        lazy: async () => ({
+          Component: (await import('../pages/WritingIndexPage')).WritingIndexPage,
+        }),
       },
       {
         path: 'writing/:slug',
-        element: <WritingRoutePage />,
+        lazy: loadWritingRoute,
       },
       {
         path: 'fairytales',
-        element: <FairytalesIndexPage />,
+        lazy: async () => ({
+          Component: (await import('../pages/FairytalesIndexPage')).FairytalesIndexPage,
+        }),
       },
       {
         path: 'fairytales/:slug',
-        element: <FairytalesRoutePage />,
+        lazy: loadFairytaleRoute,
       },
       {
         path: 'about',
-        element: <AboutPage />,
+        lazy: async () => ({ Component: (await import('../pages/AboutPage')).AboutPage }),
       },
       {
         path: '*',
-        element: <NotFoundPage />,
+        lazy: async () => ({ Component: (await import('../pages/NotFoundPage')).NotFoundPage }),
       },
     ],
   },
