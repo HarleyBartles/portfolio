@@ -1,8 +1,10 @@
 # Portfolio £10k Phase 4: Wild Bunch Architectural Proof Design
 
-**Status:** Design dialogue approved; written specification awaiting approval
+**Status:** Approved
 
 **Approved design dialogue:** 21 August 2026
+
+**Approved written specification:** 21 August 2026
 
 **Spec-readiness:** 9/10
 
