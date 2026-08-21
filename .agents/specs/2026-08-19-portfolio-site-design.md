@@ -24,7 +24,7 @@ Primary message: "I build agentic engineering workflows and silly comics."
 This is a static site.
 
 - The client build target is GitHub Pages.
-- The .NET backend in `src/server/` is not the host; it is one of the projects to showcase.
+- The portfolio has no runtime backend. Server-side technologies may appear only as evidence inside project stories such as Wild Bunch.
 - Vite builds the client to a `dist/` or `build/` directory that GitHub Pages serves.
 - React Router is configured with a 404 fallback for GitHub Pages if it is used for client-side routing.
 

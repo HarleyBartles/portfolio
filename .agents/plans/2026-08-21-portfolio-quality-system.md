@@ -4,7 +4,7 @@
 
 **Goal:** Make the portfolio's current editorial quality durable through active design doctrine, executable product contracts, complete local/hosted validation, visual baselines, and protected publication workflow.
 
-**Architecture:** Keep `py -3 tools/run.py ci --check` as the one canonical gate and expand it to orchestrate repository, Python, .NET, client unit, production-build, and Playwright checks. Put subjective direction in an active portfolio design policy and append-only decision ledger; encode only objective, costly-to-rediscover contracts in tests and scripts. Make deployment consume the same validated artifact, then prove the public routes after GitHub Pages publishes it.
+**Architecture:** Keep `py -3 tools/run.py ci --check` as the one canonical gate and expand it to orchestrate repository, Python, client unit, production-build, and Playwright checks. Remove the stale .NET host and its validation surfaces because the product is static GitHub Pages output. Put subjective direction in an active portfolio design policy and append-only decision ledger; encode only objective, costly-to-rediscover contracts in tests and scripts. Make deployment consume the same validated artifact, then prove the public routes after GitHub Pages publishes it.
 
 **Tech Stack:** Python 3.13, React 19, TypeScript 6, Vite 8, Vitest, Playwright, axe-core, GitHub Actions, GitHub Pages.
 
