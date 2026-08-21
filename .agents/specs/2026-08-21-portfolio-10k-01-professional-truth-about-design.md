@@ -6,9 +6,10 @@
 
 **Written-spec approval:** 21 August 2026
 
-**Amended:** 21 August 2026 — Brand Addition scope and internal progression
-corrected after Harley's clarification; the approved claim strength,
-career-history boundary, and transition narrative are preserved below.
+**Amended:** 21 August 2026 — Brand Addition scope, internal progression, and
+the separate acting aside corrected after Harley's clarification; the approved
+claim strength, career-history boundary, and transition narrative are
+preserved below.
 
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
 
@@ -91,7 +92,10 @@ The page hierarchy is:
    what he has production experience with, and how he learns into new stacks.
 8. **Working style and next challenge.** Connect proportionate architecture,
    evidence, security, testing, and the positive reason for moving.
-9. **Phase 2 boundary.** Keep CV and contact states honest until they work.
+9. **In a previous life.** End the authored narrative with one restrained
+   personality aside about Harley's earlier acting career and a verified IMDb
+   link, outside the career chronology.
+10. **Phase 2 boundary.** Keep CV and contact states honest until they work.
 
 Final prose may be refined during implementation. The planner may not change
 the approved ordering, public boundary, or claim strength without returning to
@@ -206,11 +210,10 @@ explain decisions and delivery rather than render a technology wall.
 
 ### Brand Addition
 
-Begin the public career narrative at Brand Addition in July 2005. Earlier jobs
-and an intermittent four-year period as a professional actor are not relevant
-to the hiring case and must not be forced into the chronology or used as
-colour. Within Brand Addition, compress the regular progression from commercial
-roles through team management rather than reciting every title.
+Begin the public professional chronology at Brand Addition in July 2005.
+Earlier jobs are not relevant to the hiring case and must not be forced into
+the chronology. Within Brand Addition, compress the regular progression from
+commercial roles through team management rather than reciting every title.
 
 Make the move from Team Manager to the formal title Web Manager legible. While
 managing a team, Harley identified a web change the team needed and worked with
@@ -230,9 +233,22 @@ the deliberate transition into software engineering. Harley left after taking
 the role as far toward professional software development as the company
 structure allowed, then established his full-time engineering career at
 Barbican. Do not claim he personally developed and implemented the platform.
-Do not spotlight
-the short January-to-February 2019 transition or reproduce LinkedIn's
-`Unemployed at this time` entry.
+Do not spotlight the short January-to-February 2019 transition or reproduce
+LinkedIn's `Unemployed at this time` entry.
+
+### In a previous life
+
+Treat Harley's intermittent four-year career as a professional actor as an
+earlier life again, distinct from both the software-engineering chronology and
+the Brand Addition career that preceded it. It is personality and reader
+interest, not evidence for engineering seniority.
+
+Include one compact editorial aside on About under the principle `In a previous
+life`. It may mention television work and the role in series three of
+*Shameless*, then link to
+[IMDb: Harley Bartles](https://www.imdb.com/name/nm2179685/). Do not create a
+timeline entry, list the full filmography, present IMDb as a primary
+professional-network link, or carry the aside into the two-page CV.
 
 ### Level 6 AI Engineer apprenticeship
 
