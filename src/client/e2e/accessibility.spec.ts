@@ -51,7 +51,8 @@ for (const viewport of viewports) {
           await expectNoAutomatedViolations(page)
           if (featureIndex === featureVisits - 1) continue
 
-          const featureRegion = page.getByRole('region', { name: 'Work worth bringing forward' })
+          const featureRegion = page.locator('[data-visual-contract="homepage-feature-deck"]')
+          await expect(featureRegion).toHaveAccessibleName(/\S/)
           const leadHeading = featureRegion.getByRole('heading', { level: 2 }).nth(1)
           const currentLead = await leadHeading.textContent()
           await featureRegion.getByRole('button', { name: 'Next feature' }).click()
