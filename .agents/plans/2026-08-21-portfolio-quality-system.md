@@ -165,13 +165,14 @@
 - Consumes: the complete implementation, GitHub check runs, Pages deployment, and repository settings.
 - Produces: merged PR publication proof, verified public-route proof, and main-branch protection requiring the canonical CI context.
 
-- [ ] **Step 1: Inspect the complete diff against every Global Constraint and the design policy.** Verify no copied marketplace sources, generated caches, private addresses, oversized media, or unrelated refactors are present.
-- [ ] **Step 2: Run the visual review at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and 200% zoom.** Record screenshots in the PR; do not treat screenshot equality as the only design review.
-- [ ] **Step 3: Run fresh full verification on the staged tree.** Execute `py -3 tools/run.py ci --apply`, stage all changes, then `py -3 tools/run.py ci --check --verbose`; review `git diff --cached --check` and the staged file list.
-- [ ] **Step 4: Request code review, resolve findings, archive this plan, regenerate the mesh, re-stage, and rerun the canonical gate.** Commit the closeout without bypassing the pre-commit hook.
+- [x] **Step 1: Inspect the complete diff against every Global Constraint and the design policy.** Verify no copied marketplace sources, generated caches, private addresses, oversized media, or unrelated refactors are present.
+- [x] **Step 2: Run the visual review at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and 200% zoom.** Keep screenshot evidence ready for the PR; do not treat screenshot equality as the only design review.
+- [x] **Step 3: Run fresh full verification on the staged tree.** Execute `py -3 tools/run.py ci --apply`, stage all changes, then `py -3 tools/run.py ci --check --verbose`; review `git diff --cached --check` and the staged file list.
+- [x] **Step 4: Request code review, resolve every material finding, re-stage, and rerun the canonical gate.** Commit the reviewed feature branch without bypassing the pre-commit hook; keep this plan active until hosted publication proof exists.
 - [ ] **Step 5: Push the exact branch head, open a PR using the evidence template, and verify the remote head SHA, mergeability, and required CI checks.** Merge only after checks are green and review has no unresolved material finding.
 - [ ] **Step 6: Configure and verify `main` protection.** Require pull requests and the actual canonical CI check name observed on the merged workflow; block force pushes and branch deletion. Do not invent a check context before GitHub reports it.
 - [ ] **Step 7: Verify `origin/main`, the Pages deployment, and the post-deploy smoke job at the merged SHA.** Record the PR URL, full SHA, workflow URLs, protected-branch settings, clean local tree, and any external blocker.
+- [ ] **Step 8: Publish the administrative closeout through protected main.** Create a clean closeout branch from `origin/main`, mark Task 6 complete, move this plan to `completed/`, regenerate the mesh, and merge a second green PR. Re-verify final `origin/main`, Pages smoke, and clean local trees.
 
 ## Plan self-review
 
