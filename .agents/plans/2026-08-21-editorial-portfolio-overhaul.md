@@ -149,11 +149,11 @@
 - When `endpoint` is absent or not HTTPS, About does not render an active submit control and names GitHub as the current fallback without exposing private contact details.
 - `AboutPage` reads `import.meta.env.VITE_CONTACT_FORM_ENDPOINT` only as configuration; no address or phone appears in source or rendered HTML.
 
-- [ ] **Step 1: Add failing component tests for required fields, HTTPS-only endpoint validation, successful submission, failed submission, honeypot presence, and disconnected fallback.**
-- [ ] **Step 2: Run `npm test -- --run src/components/ContactForm.test.tsx` and observe failure against the missing component.**
-- [ ] **Step 3: Implement the contact component and rebuild About around direct professional copy: 6.5 years of full-stack practice, senior responsibility, working principles, Level 6 AI Engineering apprenticeship, useful problem types, honest CV note, and contact section. Replace the generic build-credit footer with a quieter authored close.**
-- [ ] **Step 4: Run contact tests and About/home browser coverage. Confirm the disconnected deployment state makes no false delivery claim.**
-- [ ] **Step 5: Mark Task 5 checkboxes complete and commit with `feat: make the about page explicitly professional`.**
+- [x] **Step 1: Add failing component tests for required fields, HTTPS-only endpoint validation, successful submission, failed submission, honeypot presence, and disconnected fallback.**
+- [x] **Step 2: Run `npm test -- --run src/components/ContactForm.test.tsx` and observe failure against the missing component.**
+- [x] **Step 3: Implement the contact component and rebuild About around direct professional copy: 6.5 years of full-stack practice, senior responsibility, working principles, Level 6 AI Engineering apprenticeship, useful problem types, honest CV note, and contact section. Replace the generic build-credit footer with a quieter authored close.**
+- [x] **Step 4: Run contact tests and About/home browser coverage. Confirm the disconnected deployment state makes no false delivery claim.**
+- [x] **Step 5: Mark Task 5 checkboxes complete and commit with `feat: make the about page explicitly professional`.**
 
 ### Task 6: Full verification, visual review, and direct-main publication
 
