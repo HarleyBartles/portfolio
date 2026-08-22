@@ -300,19 +300,21 @@
 - Consumes: the fake Playwright endpoint from Task 4, generated PDF from Task 5, and visible CV/About contracts from Task 3.
 - Produces: direct-route, intercepted-submission, download, axe, stable visual, responsive, keyboard, reduced-motion, zoom, and rendered-PDF evidence without external delivery.
 
-- [ ] **Step 1: Write browser coverage for the integrated contracts.** Update About's old disconnected-only expectation to the fake configured form, availability/notice, and both CV actions. Create `cv.spec.ts` to open `/cv/` directly, assert its title/canonical-facing content, exactly two page regions in order, formal-title/education boundaries, working About/PDF links, and a PDF response whose bytes begin `%PDF`. Intercept `https://forms.example.test/contact`, submit the form, and assert its method, `Accept` header, and four-key `FormData` payload without allowing a real request. Add `/cv` to both desktop and mobile axe route arrays. Add a CV-sheet screenshot and the changed About conversion area to visual regression using reviewed `data-visual-contract` regions.
+- [x] **Step 1: Write browser coverage for the integrated contracts.** Update About's old disconnected-only expectation to the fake configured form, availability/notice, and both CV actions. Create `cv.spec.ts` to open `/cv/` directly, assert its title/canonical-facing content, exactly two page regions in order, formal-title/education boundaries, working About/PDF links, and a PDF response whose bytes begin `%PDF`. Intercept `https://forms.example.test/contact`, submit the form, and assert its method, `Accept` header, and four-key `FormData` payload without allowing a real request. Add `/cv` to both desktop and mobile axe route arrays. Add a CV-sheet screenshot and the changed About conversion area to visual regression using reviewed `data-visual-contract` regions.
 
-- [ ] **Step 2: Run behavioural browser tests before creating visual baselines.**
+- [x] **Step 2: Run behavioural browser tests before creating visual baselines.**
 
   Run: `npm --prefix src/client exec playwright test e2e/about.spec.ts e2e/cv.spec.ts e2e/accessibility.spec.ts`
 
   Expected: direct route, fake endpoint, PDF response, and axe contracts pass without a real external request.
 
-- [ ] **Step 3: Create reviewed visual baselines and prove they are stable.** First run `npm --prefix src/client exec playwright test e2e/visual-regression.spec.ts` without `--update-snapshots` to produce inspectable candidate screenshots. Inspect the new wide and narrow CV/About images, then create baselines for only the intended composed regions with `npm --prefix src/client exec playwright test e2e/visual-regression.spec.ts --update-snapshots`. Run the same visual-regression command twice more without `--update-snapshots`. Keep platform-specific snapshots only where a reviewed rasterisation difference is real; do not relax global tolerance.
+- [x] **Step 3: Create reviewed visual baselines and prove they are stable.** First run `npm --prefix src/client exec playwright test e2e/visual-regression.spec.ts` without `--update-snapshots` to produce inspectable candidate screenshots. Inspect the new wide and narrow CV/About images, then create baselines for only the intended composed regions with `npm --prefix src/client exec playwright test e2e/visual-regression.spec.ts --update-snapshots`. Run the same visual-regression command twice more without `--update-snapshots`. Keep platform-specific snapshots only where a reviewed rasterisation difference is real; do not relax global tolerance.
 
 - [ ] **Step 4: Perform the required manual HTML review.** At 1440, 768, 390, and 320 CSS pixels verify hierarchy, readable measures, no horizontal page scroll, visible focus, and usable controls. Navigate with keyboard only; enable reduced motion; use actual 200% browser zoom. Record any factual/copy/visual issue before proceeding rather than changing baselines to hide it.
 
-- [ ] **Step 5: Render and inspect the generated PDF outside the repository tree.** Use the bundled PDF tooling or Poppler to confirm two pages and render both to external scratch PNGs:
+  Status: completed at 1440, 768, 390, and 320 CSS pixels with keyboard and reduced-motion checks; a new 195 CSS-pixel Playwright contract confirms reflow and keyboard reachability after removing the global `320px` minimum width. The active runtime cannot drive native browser zoom UI, so this is not recorded as an actual 200% zoom receipt.
+
+- [x] **Step 5: Render and inspect the generated PDF outside the repository tree.** Use the bundled PDF tooling or Poppler to confirm two pages and render both to external scratch PNGs:
 
   ```powershell
   New-Item -ItemType Directory -Force Z:\_agent-scratch\portfolio\codex\portfolio-10k-phase-2-cv-contact\pdf-review | Out-Null
@@ -322,7 +324,7 @@
 
   Inspect every rendered page for clipped/overlapping/orphaned text, margins, hierarchy, links/dates, readable contrast, and absence of site chrome. Confirm selectable text and clickable links in a PDF viewer. Keep only scratch review images outside the repository.
 
-- [ ] **Step 6: Re-run the focused browser suite after any visual correction.**
+- [x] **Step 6: Re-run the focused browser suite after any visual correction.**
 
   Run: `npm --prefix src/client exec playwright test e2e/about.spec.ts e2e/cv.spec.ts e2e/accessibility.spec.ts e2e/visual-regression.spec.ts`
 

@@ -14,8 +14,12 @@ describe('professional profile', () => {
     expect(professionalProfile.currentRole.scopeStarted.precision).toBe('approximate')
   })
 
-  test('retains public qualification wording and chronology boundaries', () => {
-    expect(professionalProfile.apprenticeship.levelStatement).toBe("bachelor's-degree-level programme")
+  test('retains apprenticeship facts and chronology boundaries', () => {
+    expect(professionalProfile.apprenticeship.title).toBe('AI Engineer Level 6 Apprenticeship')
+    expect(professionalProfile.apprenticeship.standard).toBe('Machine Learning Engineer, ST1398 v1.0')
+    expect(professionalProfile.education[0]?.detail).toBe(
+      "Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).",
+    )
     expect(professionalProfile.career[0].id).toBe('brand-addition')
     expect(professionalProfile.career.at(-1)?.id).toBe('access')
   })

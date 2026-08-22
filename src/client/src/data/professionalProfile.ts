@@ -66,7 +66,6 @@ export type ProfessionalProfile = {
     provider: string
     periodLabel: string
     standard: string
-    levelStatement: string
     summary: string
     references: readonly { label: string; href: string }[]
   }
@@ -172,8 +171,7 @@ export const professionalProfile: ProfessionalProfile = {
     provider: 'QA',
     periodLabel: 'February 2026 – January 2028',
     standard: 'Machine Learning Engineer, ST1398 v1.0',
-    levelStatement: "bachelor's-degree-level programme",
-    summary: 'In progress: structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
+    summary: 'Structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
     references: [
       { label: 'QA AI Engineer Level 6 Apprenticeship', href: 'https://www.qa.com/apprenticeships/ai/ai-engineer-level-6/' },
       { label: 'Skills England Machine Learning Engineer standard', href: 'https://skillsengland.education.gov.uk/apprenticeship-standards/st1398-v1-0' },
@@ -186,7 +184,7 @@ export const professionalProfile: ProfessionalProfile = {
       provider: 'QA',
       title: 'AI Engineer Level 6 Apprenticeship',
       periodLabel: 'February 2026 – January 2028',
-      detail: "Machine Learning Engineer, ST1398 v1.0. Bachelor's-degree level; in progress, not a bachelor's degree.",
+      detail: "Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).",
     },
     {
       id: 'mancat-access-he',

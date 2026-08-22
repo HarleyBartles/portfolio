@@ -6,7 +6,8 @@ async function openStable(page: Page, path: string): Promise<void> {
   await page.addInitScript(() => {
     Math.random = () => 0.314159
   })
-  await page.goto(path)
+  await page.goto(path, { waitUntil: 'networkidle' })
+  await expect(page.locator('main')).toBeVisible()
   await page.evaluate(async () => document.fonts.ready)
 }
 
@@ -30,6 +31,34 @@ test('about page keeps the professional proof panel', async ({ page }) => {
   await openStable(page, './about')
 
   await expect(page.locator('[data-visual-contract="about-professional-proof"]')).toHaveScreenshot('about-professional-proof.png')
+})
+
+test('about page keeps the CV conversion area', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './about')
+
+  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion.png')
+})
+
+test('CV keeps its first A4 sheet hierarchy on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './cv')
+
+  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet.png')
+})
+
+test('about page keeps the CV conversion area usable on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './about')
+
+  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion-mobile.png')
+})
+
+test('CV keeps its first sheet readable on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './cv')
+
+  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet-mobile.png')
 })
 
 test('article header keeps its hierarchy on mobile', async ({ page }) => {

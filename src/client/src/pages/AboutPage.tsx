@@ -66,7 +66,7 @@ export function AboutPage(): ReactElement {
           <div className="about-story__rail"><p className="eyebrow">Formal AI depth</p><p>{professionalProfile.apprenticeship.periodLabel}</p></div>
           <div className="about-story__content">
             <h2 id="study-title">{professionalProfile.apprenticeship.title}, in progress.</h2>
-            <p>{professionalProfile.apprenticeship.provider}&rsquo;s {professionalProfile.apprenticeship.standard} is a {professionalProfile.apprenticeship.levelStatement}, not a bachelor&rsquo;s degree.</p>
+            <p>A bachelor&rsquo;s degree-level qualification, delivered by {professionalProfile.apprenticeship.provider} against the Machine Learning Engineer standard (ST1398 v1.0).</p>
             <p>{professionalProfile.apprenticeship.summary}</p>
           </div>
         </section>
