@@ -27,4 +27,27 @@ describe('professional profile', () => {
       'https://skillsengland.education.gov.uk/apprenticeship-standards/st1398-v1-0',
     ])
   })
+
+  test('provides the approved CV facts without title, availability, or qualification drift', () => {
+    expect(professionalProfile.publicLinks.linkedin.href).toBe('https://www.linkedin.com/in/harley-bartles-92326110/')
+    expect(professionalProfile.availability.fullLabel).toBe(
+      'Remote-first. Open to occasional UK-wide office travel, or Manchester hybrid up to one day per week.',
+    )
+    expect(professionalProfile.noticePeriod).toBe("Four weeks' notice")
+    expect(professionalProfile.career.find((stage) => stage.id === 'brand-addition')?.periodLabel).toBe(
+      'July 2005 – January 2019',
+    )
+    expect(professionalProfile.education.map(({ level }) => level)).toEqual([
+      'Higher education — in progress',
+      'Further education',
+      'Further education',
+      'Secondary education',
+    ])
+    expect(professionalProfile.independentWork.map(({ id }) => id)).toEqual([
+      'agent-asset-marketplace',
+      'wild-bunch',
+      'agentic-learning-lab',
+    ])
+    expect(professionalProfile.independentWork[0]?.path).toBe('/projects/codex-marketplace')
+  })
 })

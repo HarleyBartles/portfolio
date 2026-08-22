@@ -73,7 +73,7 @@
 - Consumes: existing `CareerStage`, `CapabilityGroup`, and apprenticeship records.
 - Produces: `professionalProfile.availability`, `noticePeriod`, `education`, `publicLinks.github`, `publicLinks.linkedin`, `publicLinks.portfolio`, and `independentWork` for every downstream Phase 2 surface.
 
-- [ ] **Step 1: Write the failing data assertions.** Add focused assertions before production changes for the exact LinkedIn URL `https://www.linkedin.com/in/harley-bartles-92326110/`, the full remote-first sentence, `Four weeks' notice`, Brand Addition's `July 2005 – January 2019` period, the three education groups, and selected-work IDs `agent-asset-marketplace`, `wild-bunch`, and `agentic-learning-lab`.
+- [x] **Step 1: Write the failing data assertions.** Add focused assertions before production changes for the exact LinkedIn URL `https://www.linkedin.com/in/harley-bartles-92326110/`, the full remote-first sentence, `Four weeks' notice`, Brand Addition's `July 2005 – January 2019` period, the three education groups, and selected-work IDs `agent-asset-marketplace`, `wild-bunch`, and `agentic-learning-lab`.
 
   ```ts
   expect(professionalProfile.availability.fullLabel).toBe(
@@ -88,21 +88,21 @@
   ])
   ```
 
-- [ ] **Step 2: Run the data test to verify the new contract fails.**
+- [x] **Step 2: Run the data test to verify the new contract fails.**
 
   Run: `npm --prefix src/client test -- src/data/professionalProfile.test.ts`
 
   Expected: failure because the new fields and corrected date do not yet exist.
 
-- [ ] **Step 3: Add the smallest typed profile extensions.** Define `Availability`, `EducationRecord`, `PublicProfessionalLink`, and `IndependentWork` types next to the existing data types. Add public GitHub, canonical LinkedIn, and portfolio links; add short/full availability labels and notice; add the exact approved education records; add concise selected-work labels, evidence, and `/projects/<slug>` paths. Correct Brand Addition's stored period to `July 2005 – January 2019`; preserve the continuous Barbican/Arch and Access facts.
+- [x] **Step 3: Add the smallest typed profile extensions.** Define `Availability`, `EducationRecord`, `PublicProfessionalLink`, and `IndependentWork` types next to the existing data types. Add public GitHub, canonical LinkedIn, and portfolio links; add short/full availability labels and notice; add the exact approved education records; add concise selected-work labels, evidence, and paths: Agent Asset Marketplace `/projects/codex-marketplace`, Wild Bunch `/projects/wild-bunch`, and Agentic Learning Lab `/projects/agentic-learning-lab`. Correct Brand Addition's stored period to `July 2005 – January 2019`; preserve the continuous Barbican/Arch and Access facts.
 
-- [ ] **Step 4: Verify the focused data suite is green.**
+- [x] **Step 4: Verify the focused data suite is green.**
 
   Run: `npm --prefix src/client test -- src/data/professionalProfile.test.ts`
 
   Expected: all profile tests pass and no assertion accepts a title, date, qualification, or availability broadening.
 
-- [ ] **Step 5: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
+- [x] **Step 5: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
 
 ### Task 2: Finish Formspree contact behaviour without adding a transport layer
 
