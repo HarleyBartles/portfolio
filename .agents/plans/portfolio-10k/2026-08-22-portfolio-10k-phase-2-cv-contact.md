@@ -198,9 +198,9 @@
 - Consumes: the `/cv` React route from Task 3 and existing five-route lists.
 - Produces: static `dist/cv/index.html` metadata, `/cv` in sitemap/link/public-route checks, and an isolated fake HTTPS endpoint available only to Playwright's web-server build.
 
-- [ ] **Step 1: Write failing route-authority tests.** Extend the Node generator test to read `dist/cv/index.html` and require `CV | Harley Bartles` metadata plus canonical `https://harleybartles.github.io/portfolio/cv`. Update `test_public_routes.py` expected route/request lists to include `/cv`. Create `tests/test_seo_routes.py` asserting both `refresh_seo_files.build_routes()` and `check_link_hygiene.build_routes()` contain `/cv` exactly once.
+- [x] **Step 1: Write failing route-authority tests.** Extend the Node generator test to read `dist/cv/index.html` and require `CV | Harley Bartles` metadata plus canonical `https://harleybartles.github.io/portfolio/cv`. Update `test_public_routes.py` expected route/request lists to include `/cv`. Create `tests/test_seo_routes.py` asserting both `refresh_seo_files.build_routes()` and `check_link_hygiene.build_routes()` contain `/cv` exactly once.
 
-- [ ] **Step 2: Run the focused route tests to prove all four authorities currently omit `/cv`.**
+- [x] **Step 2: Run the focused route tests to prove all four authorities currently omit `/cv`.**
 
   Run: `npm --prefix src/client test -- scripts/generate-route-documents.test.ts`
 
@@ -208,9 +208,9 @@
 
   Expected: metadata/route-list failures for `/cv` before the explicit additions.
 
-- [ ] **Step 3: Add direct static-route entries and the test-only endpoint.** Add `/cv` with title `CV | Harley Bartles` and an evidence-led description to `INDEX_METADATA`; append `/cv` to the three Python `INDEX_ROUTES` constants. In `playwright.config.ts`, keep `webServer.command` unchanged and supply `env: { VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact' }` so only Playwright builds are configured. Do not expose a real endpoint or alter production source configuration.
+- [x] **Step 3: Add direct static-route entries and the test-only endpoint.** Add `/cv` with title `CV | Harley Bartles` and an evidence-led description to `INDEX_METADATA`; append `/cv` to the three Python `INDEX_ROUTES` constants. In `playwright.config.ts`, keep `webServer.command` unchanged and supply `env: { VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact' }` so only Playwright builds are configured. Do not expose a real endpoint or alter production source configuration.
 
-- [ ] **Step 4: Verify focused static-route and Python route tests pass.**
+- [x] **Step 4: Verify focused static-route and Python route tests pass.**
 
   Run: `npm --prefix src/client test -- scripts/generate-route-documents.test.ts`
 
@@ -218,7 +218,7 @@
 
   Expected: `/cv` appears once in each known-route contract, and its generated document has the canonical metadata.
 
-- [ ] **Step 5: Mark this task's checklist boxes complete in this plan after the passing commands are recorded.**
+- [x] **Step 5: Mark this task's checklist boxes complete in this plan after the passing commands are recorded.**
 
 ### Task 5: Generate and validate the deployment PDF, configuration boundary, and main-branch artifact
 

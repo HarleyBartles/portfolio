@@ -16,7 +16,7 @@ from typing import Any, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
-INDEX_ROUTES = ("/", "/about", "/fairytales", "/projects", "/writing")
+INDEX_ROUTES = ("/", "/about", "/cv", "/fairytales", "/projects", "/writing")
 KIND_ROOT = {"project": "projects", "writing": "writing", "fairytales": "fairytales"}
 UNKNOWN_ROUTE = "/__portfolio-route-smoke__"
 USER_AGENT = "portfolio-public-route-check/1.0"
