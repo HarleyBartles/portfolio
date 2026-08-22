@@ -86,7 +86,7 @@ export function CvPage(): ReactElement {
           </section>
         </section>
 
-        <section className="cv-sheet" data-cv-page="2" aria-labelledby="cv-foundations-title">
+        <section className="cv-sheet" data-cv-page="2" aria-label="CV page 2">
           <section className="cv-section cv-section--employment" aria-labelledby="cv-barbican-title">
             <p className="eyebrow">Employment / {barbicanArch.periodLabel}</p>
             <h2 id="cv-barbican-title">{barbicanArch.heading}</h2>

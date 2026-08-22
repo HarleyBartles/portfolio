@@ -66,6 +66,7 @@ export type ProfessionalProfile = {
     provider: string
     periodLabel: string
     standard: string
+    qualificationLabel: string
     summary: string
     references: readonly { label: string; href: string }[]
   }
@@ -83,6 +84,7 @@ export type ProfessionalProfile = {
 }
 
 const engineeringStart = new Date('2019-02-06T00:00:00Z')
+const apprenticeshipQualificationLabel = "Bachelor's degree-level qualification"
 
 export function getCompletedEngineeringYears(referenceDate: Date): number {
   let years = referenceDate.getUTCFullYear() - engineeringStart.getUTCFullYear()
@@ -171,6 +173,7 @@ export const professionalProfile: ProfessionalProfile = {
     provider: 'QA',
     periodLabel: 'February 2026 – January 2028',
     standard: 'Machine Learning Engineer, ST1398 v1.0',
+    qualificationLabel: apprenticeshipQualificationLabel,
     summary: 'Structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
     references: [
       { label: 'QA AI Engineer Level 6 Apprenticeship', href: 'https://www.qa.com/apprenticeships/ai/ai-engineer-level-6/' },
@@ -184,7 +187,7 @@ export const professionalProfile: ProfessionalProfile = {
       provider: 'QA',
       title: 'AI Engineer Level 6 Apprenticeship',
       periodLabel: 'February 2026 – January 2028',
-      detail: "Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).",
+      detail: `${apprenticeshipQualificationLabel} (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).`,
     },
     {
       id: 'mancat-access-he',

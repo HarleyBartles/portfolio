@@ -9,6 +9,7 @@ export const MAX_CV_PDF_BYTES = 512 * 1024
 
 const DEFAULT_PREVIEW_URL = 'http://127.0.0.1:4173'
 const EXPECTED_PAGE_REGIONS = ['1', '2']
+const LOCALHOST_URL_PATTERN = /https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?(?:[/?#]|$)/i
 
 function formatPageRegions(pageRegions) {
   return `[${pageRegions.map((pageRegion) => JSON.stringify(pageRegion)).join(', ')}]`
@@ -23,8 +24,12 @@ export function assertCvPdf(pdfPath, maxBytes = MAX_CV_PDF_BYTES) {
   if (pdfBytes === 0) {
     throw new Error('CV PDF is empty')
   }
-  if (!readFileSync(pdfPath).subarray(0, 4).equals(Buffer.from('%PDF'))) {
+  const pdfContents = readFileSync(pdfPath)
+  if (!pdfContents.subarray(0, 4).equals(Buffer.from('%PDF'))) {
     throw new Error('CV PDF does not start with %PDF')
+  }
+  if (LOCALHOST_URL_PATTERN.test(pdfContents.toString('latin1'))) {
+    throw new Error('CV PDF contains a localhost link target')
   }
   if (pdfBytes > maxBytes) {
     throw new Error(`CV PDF is ${pdfBytes} bytes; budget is ${maxBytes} bytes`)
@@ -84,14 +89,39 @@ async function stopPreviewProcess(previewProcess) {
   await exited
 }
 
+async function rewritePreviewLinksForPdf(page, previewUrl) {
+  const previewOrigin = new URL(previewUrl).origin
+  const linkTargets = await page.evaluate((localOrigin) => {
+    const canonical = document.querySelector('link[rel="canonical"]')?.href
+    if (canonical === undefined) {
+      throw new Error('CV PDF requires a canonical URL before links can be rewritten')
+    }
+
+    const publicOrigin = new URL(canonical).origin
+    for (const link of document.querySelectorAll('a[href]')) {
+      const target = new URL(link.href)
+      if (target.origin === localOrigin) {
+        link.href = `${publicOrigin}${target.pathname}${target.search}${target.hash}`
+      }
+    }
+
+    return Array.from(document.querySelectorAll('a[href]'), (link) => link.href)
+  }, previewOrigin)
+
+  if (linkTargets.some((linkTarget) => LOCALHOST_URL_PATTERN.test(linkTarget))) {
+    throw new Error('CV PDF still contains a localhost link target after link rewriting')
+  }
+}
+
 export async function generateCvPdf({
   clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   pdfPath = path.join(clientRoot, 'dist', 'harley-bartles-cv.pdf'),
   previewUrl = DEFAULT_PREVIEW_URL,
-  startPreview = startPreviewProcess,
-  waitForPreview = waitForPreviewServer,
-  launchBrowser = () => chromium.launch(),
-  stopPreview = stopPreviewProcess,
+    startPreview = startPreviewProcess,
+    waitForPreview = waitForPreviewServer,
+    launchBrowser = () => chromium.launch(),
+    stopPreview = stopPreviewProcess,
+    rewriteLinksForPdf = rewritePreviewLinksForPdf,
 } = {}) {
   let previewProcess
   let browser
@@ -115,6 +145,7 @@ export async function generateCvPdf({
       )
     }
 
+    await rewriteLinksForPdf(page, previewUrl)
     await page.emulateMedia({ media: 'print' })
     await page.pdf({
       path: pdfPath,

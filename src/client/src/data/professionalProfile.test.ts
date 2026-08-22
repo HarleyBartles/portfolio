@@ -17,6 +17,7 @@ describe('professional profile', () => {
   test('retains apprenticeship facts and chronology boundaries', () => {
     expect(professionalProfile.apprenticeship.title).toBe('AI Engineer Level 6 Apprenticeship')
     expect(professionalProfile.apprenticeship.standard).toBe('Machine Learning Engineer, ST1398 v1.0')
+    expect(professionalProfile.apprenticeship.qualificationLabel).toBe("Bachelor's degree-level qualification")
     expect(professionalProfile.education[0]?.detail).toBe(
       "Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).",
     )

@@ -52,6 +52,12 @@ describe('assertCvPdf', () => {
 
     expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF is 524289 bytes; budget is 524288 bytes')
   })
+
+  test('rejects a PDF containing a localhost link target', async () => {
+    const pdfPath = await temporaryPdf(Buffer.from('%PDF\n/URI (http://127.0.0.1:4173/portfolio/about#contact)'))
+
+    expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF contains a localhost link target')
+  })
 })
 
 describe('generateCvPdf', () => {
@@ -61,6 +67,7 @@ describe('generateCvPdf', () => {
     const startPreview = vi.fn(async () => preview)
     const waitForPreview = vi.fn(async () => {})
     const stopPreview = vi.fn(async () => {})
+    const rewriteLinksForPdf = vi.fn(async () => {})
     const { browser, page } = browserFixture(['1', '2'])
 
     await generateCvPdf({
@@ -69,10 +76,12 @@ describe('generateCvPdf', () => {
       waitForPreview,
       launchBrowser: vi.fn(async () => browser),
       stopPreview,
+      rewriteLinksForPdf,
     })
 
     expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4173/portfolio/cv/', { waitUntil: 'networkidle' })
     expect(page.evaluate).toHaveBeenCalledOnce()
+    expect(rewriteLinksForPdf).toHaveBeenCalledWith(page, 'http://127.0.0.1:4173')
     expect(page.emulateMedia).toHaveBeenCalledWith({ media: 'print' })
     expect(page.pdf).toHaveBeenCalledWith(expect.objectContaining({
       format: 'A4',

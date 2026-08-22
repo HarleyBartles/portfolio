@@ -56,5 +56,5 @@ test('replaces About’s future-CV boundary with finished conversion actions', (
     pdfHref,
   )
   expect(within(conversion).getByText(/Four weeks' notice/)).toBeVisible()
-  expect(screen.getByText('A bachelor’s degree-level qualification, delivered by QA against the Machine Learning Engineer standard (ST1398 v1.0).')).toBeVisible()
+  expect(screen.getByText("A bachelor's degree-level qualification, delivered by QA against the Machine Learning Engineer standard (ST1398 v1.0).")).toBeVisible()
 })
