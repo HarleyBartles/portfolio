@@ -1906,3 +1906,222 @@ main,
     transform: none;
   }
 }
+
+/* Phase 1: About is the site's explicit professional reading surface. */
+.about-story,
+.about-career,
+.about-laboratory,
+.about-capabilities,
+.about-aside {
+  border-top: 1px solid var(--color-ink);
+  padding-block: clamp(var(--space-12), 8vw, var(--space-20));
+}
+
+.about-story {
+  display: grid;
+  grid-template-columns: minmax(10rem, 3fr) minmax(0, 7fr);
+  gap: clamp(var(--space-8), 6vw, var(--space-20));
+}
+
+.about-story__rail {
+  align-self: start;
+  border-top: 1px solid var(--color-ink);
+  color: var(--color-muted);
+  font-family: var(--font-code);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  padding-top: var(--space-4);
+}
+
+.about-story__rail .eyebrow {
+  color: var(--color-accent);
+}
+
+.about-story__content {
+  max-width: var(--measure-reading);
+}
+
+.about-story__content h2,
+.about-career h2,
+.about-laboratory h2,
+.about-capabilities h2,
+.about-aside h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 4.2rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.about-story__content p,
+.about-laboratory > div:last-child p,
+.about-aside > p:not(.eyebrow) {
+  color: var(--color-muted);
+  font-size: 1.08rem;
+}
+
+.about-story__content p:first-of-type {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.3vw, 1.85rem);
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+}
+
+.about-career .section-heading,
+.about-capabilities .section-heading {
+  margin-bottom: var(--space-12);
+}
+
+.career-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.career-timeline__stage {
+  border-top: 1px solid var(--color-ink);
+  padding-block: var(--space-10);
+  scroll-margin-top: var(--space-8);
+}
+
+.career-timeline__stage:last-child {
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.career-timeline__stage section {
+  display: grid;
+  grid-template-columns: minmax(10rem, 3fr) minmax(0, 7fr);
+  gap: clamp(var(--space-8), 6vw, var(--space-20));
+}
+
+.career-timeline__rail .eyebrow {
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.career-timeline__content {
+  max-width: var(--measure-reading);
+}
+
+.career-timeline__content h2 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.career-timeline__content p {
+  color: var(--color-muted);
+}
+
+.career-timeline__content dl {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.career-timeline__content dl div {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.career-timeline__content dt {
+  color: var(--color-accent);
+  font-family: var(--font-code);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.career-timeline__content dd {
+  margin: 0;
+}
+
+.about-laboratory {
+  background: var(--color-teal-deep);
+  color: var(--color-surface);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(var(--space-8), 7vw, var(--space-20));
+  padding-inline: clamp(var(--space-6), 7vw, var(--space-16));
+}
+
+.about-laboratory .eyebrow,
+.about-laboratory h2,
+.about-laboratory > div:last-child p {
+  color: var(--color-surface);
+}
+
+.about-laboratory > div:last-child {
+  align-self: end;
+  max-width: var(--measure-reading);
+}
+
+.capability-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.capability-list section {
+  padding: var(--space-8);
+}
+
+.capability-list section + section {
+  border-left: 1px solid var(--color-ink);
+}
+
+.capability-list .eyebrow {
+  color: var(--color-accent);
+}
+
+.capability-list h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0;
+}
+
+.capability-list ul {
+  color: var(--color-muted);
+  margin: var(--space-6) 0 0;
+  padding-left: 1.1rem;
+}
+
+.capability-list li + li {
+  margin-top: var(--space-3);
+}
+
+.about-aside {
+  max-width: var(--measure-reading);
+}
+
+.about-aside .text-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 48rem) {
+  .about-story,
+  .career-timeline__stage section,
+  .about-laboratory {
+    grid-template-columns: 1fr;
+  }
+
+  .about-story__rail {
+    max-width: 20rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .capability-list {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-list section + section {
+    border-top: 1px solid var(--color-ink);
+    border-left: 0;
+  }
+}

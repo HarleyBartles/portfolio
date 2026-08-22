@@ -1,6 +1,5 @@
 export type ContentKind =
   | 'project'
-  | 'experience'
   | 'practice'
   | 'ai-engineering'
   | 'learning'
