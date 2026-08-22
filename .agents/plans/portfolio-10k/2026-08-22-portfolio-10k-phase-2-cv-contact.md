@@ -158,29 +158,29 @@
 - Consumes: the typed public profile contract from Task 1, `DocumentMetadata`, `SiteLayout`, React Router `Link`, and the existing Vite base URL.
 - Produces: lazy `/cv`, exactly two ordered `data-cv-page` regions, About links to the web CV and `harley-bartles-cv.pdf`, and a stable `data-visual-contract="about-cv-conversion"` review target.
 
-- [ ] **Step 1: Write the failing CV/route component test.** Render `CvPage` inside `MemoryRouter` and assert two regions in `[data-cv-page="1"]`, `[data-cv-page="2"]` order, the professional headline and formal `Software Engineer` title, remote-first/notice copy, all three education levels, selected independent work, the About-return and PDF-download links, and no email/phone, acting, salary, or `mailto:`/`tel:` output. Add an About assertion that the old future-CV notice is gone and the two new actions are present.
+- [x] **Step 1: Write the failing CV/route component test.** Render `CvPage` inside `MemoryRouter` and assert two regions in `[data-cv-page="1"]`, `[data-cv-page="2"]` order, the professional headline and formal `Software Engineer` title, remote-first/notice copy, all three education levels, selected independent work, the About-return and PDF-download links, and no email/phone, acting, salary, or `mailto:`/`tel:` output. Add an About assertion that the old future-CV notice is gone and the two new actions are present.
 
-- [ ] **Step 2: Run the CV test to verify it fails before the route exists.**
+- [x] **Step 2: Run the CV test to verify it fails before the route exists.**
 
   Run: `npm --prefix src/client test -- src/pages/CvPage.test.tsx`
 
   Expected: module or assertion failure because `CvPage`, page regions, and conversion links have not been implemented.
 
-- [ ] **Step 3: Implement the two explicit page regions from profile data.** Add a lazy `path: 'cv'` route and compose `CvPage` inside `SiteLayout` with `DocumentMetadata` canonical `/cv`. Use only profile data for facts and ordered semantic headings/lists:
+- [x] **Step 3: Implement the two explicit page regions from profile data.** Add a lazy `path: 'cv'` route and compose `CvPage` inside `SiteLayout` with `DocumentMetadata` canonical `/cv`. Use only profile data for facts and ordered semantic headings/lists:
   - Page 1: identity/contact routes (portfolio, LinkedIn, GitHub, and About contact), approved headline/availability/notice; evidence-led profile; capability groups; then the largest chronology allocation for The Access Group, preserving Recruitment CRM, Screening, early-greenfield Access Checks, sole-engineer responsibility, .NET 8/Azure Functions API, React/.NET portal, and bounded Playwright-and-LLM public-site checks.
   - Page 2: the continuous Barbican Insurance Group/Arch Capital Group period and acquisition context; compressed Brand Addition progression including the Team Manager-to-Web Manager transition and external-developer boundary; exactly the three selected independent-work entries; then all approved education groups and wording, including the in-progress Level 6 distinction without claiming a degree.
 
   Use `data-cv-page="1"` and `data-cv-page="2"` only on the two paper regions. Add a screen-only action nav with a `Link` back to `/about` and an anchor to `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`. Replace About's phase-boundary note with the same two meaningful CV actions, full availability, and notice copy; do not add `/cv` to `SiteHeader`.
 
-- [ ] **Step 4: Add narrow screen styling before print styling.** Use existing CSS tokens to create a legible stacked desktop/narrow `cv-page` and `cv-sheet` composition with no card-grid, logo, portrait, skill bar, or motion. At 320 CSS pixels keep sheets fluid (`max-width: 100%`) and avoid horizontal page overflow; retain semantic source order and visible focus styles.
+- [x] **Step 4: Add narrow screen styling before print styling.** Use existing CSS tokens to create a legible stacked desktop/narrow `cv-page` and `cv-sheet` composition with no card-grid, logo, portrait, skill bar, or motion. At 320 CSS pixels keep sheets fluid (`max-width: 100%`) and avoid horizontal page overflow; retain semantic source order and visible focus styles.
 
-- [ ] **Step 5: Verify the focused component tests are green.**
+- [x] **Step 5: Verify the focused component tests are green.**
 
   Run: `npm --prefix src/client test -- src/pages/CvPage.test.tsx src/data/professionalProfile.test.ts`
 
   Expected: two explicit page regions and all factual/prohibited-output assertions pass.
 
-- [ ] **Step 6: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
+- [x] **Step 6: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
 
 ### Task 4: Register `/cv` in static route, SEO, and browser-fixture authorities
 
