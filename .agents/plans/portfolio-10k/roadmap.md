@@ -86,7 +86,7 @@ records the implementation plan's readiness or final handoff rating.
 | 4 | Wild Bunch architectural proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Demonstrate complex architecture when earned; depends on the case-study system. The implementation agent gathers final gameplay captures from the approved deterministic recipe. |
 | 5 | Adventures of Patch pipeline story | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-05-patch-pipeline-case-study-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Turn the project origin, published work, in-flight worlds, governed pipeline, and private story lab into evidence of controlled creative production. |
 | 6 | Agentic Learning Lab leadership proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Make curriculum architecture, cognitive grades, mentoring, learner safety, and practical agent adoption visually inspectable. |
-| 7 | Writing authority and breadth | pending | `.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md` | — | — | — | Deepen two flagship essays and add one broader full-stack or product-engineering argument; optimise authority, not volume. |
+| 7 | Writing authority and breadth | pending | [draft spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | — | — | — | 9/10 | Design dialogue approved 22 August 2026; written specification awaits approval. Deliver a five-essay launch floor: two core-engineering arguments, three distinct agentic arguments, an evidence-gated Graph/Context choice, curated continuation paths, and homepage-feature-ready metadata. |
 | 8 | Homepage evidence choreography | pending | `.agents/specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md` | — | — | — | Recompose around final professional and project evidence, preserving the manual feature deck while removing repetition and pitch clutter. |
 | 9 | Discovery and sharing finish | pending | `.agents/specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md` | — | — | — | Define the custom-domain, route metadata, social artwork, canonical, and RSS experience after content routes stabilise. |
 | 10 | Direct-route first-paint finish | pending | `.agents/specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md` | — | — | — | Remove the visible preparation flash without adding a runtime backend or weakening static deep-route guarantees. |
@@ -160,11 +160,23 @@ not merely that a repository of teaching files exists.
 
 ### 7. Writing authority and breadth
 
-Choose two existing essays for full editorial treatment and define one new
-piece that broadens the current agent-workflow concentration. The phase owns
-article argument, supporting diagrams or pull quotes, reading and navigation
-finish, and author review. It does not create a search or taxonomy system
-without archive-scale evidence.
+Deliver five fully groomed, author-approved essays rather than preserving the
+current mix of one finished article and four placeholders. The launch roster
+contains two core-engineering arguments and three agentic-engineering arguments
+with distinct responsibilities: professional position, environment design,
+process governance, end-to-end API ownership, and evidence-led testing.
+
+The review-graph article proceeds only when refreshed public default-branch
+evidence can support it at JIT time. `Context is not the same as state` is the
+pre-approved Plan B and absorbs the strongest material from `Pass references,
+not paragraphs` if needed.
+
+The phase owns article argument, principal figures, editorial datelines,
+reading finish, source and asset custody, two curated continuation choices per
+essay, author review, and the metadata that makes every published essay
+eligible for a homepage feature. It does not choose or render the Phase 8
+homepage feature, create a search or taxonomy system without archive-scale
+evidence, or make editorial dates into publication receipts.
 
 ### 8. Homepage evidence choreography
 
