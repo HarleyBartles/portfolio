@@ -236,15 +236,15 @@
 - Consumes: generated `dist/cv/index.html` from Task 4, the existing `@playwright/test` Chromium installation, and the two page-region attributes from Task 3.
 - Produces: `dist/harley-bartles-cv.pdf`, `assertCvPdf(pdfPath, maxBytes)` build validation, documented local configuration, and a main-branch artifact rebuilt with `secrets.VITE_CONTACT_FORM_ENDPOINT` only after canonical tests.
 
-- [ ] **Step 1: Write failing PDF and budget tests.** Add a pure `assertCvPdf` contract test using temporary files: accept a non-empty `%PDF` file at 512 KiB, reject a non-PDF signature, and reject 512 KiB plus one byte. Extend `checkBuildBudget` expected result with `pdfBytes` and add the same missing/oversized/signature cases. Write the generator test around an injected preview/browser seam so it requires exactly two ordered `[data-cv-page]` elements and closes resources on both success and failure.
+- [x] **Step 1: Write failing PDF and budget tests.** Add a pure `assertCvPdf` contract test using temporary files: accept a non-empty `%PDF` file at 512 KiB, reject a non-PDF signature, and reject 512 KiB plus one byte. Extend `checkBuildBudget` expected result with `pdfBytes` and add the same missing/oversized/signature cases. Write the generator test around an injected preview/browser seam so it requires exactly two ordered `[data-cv-page]` elements and closes resources on both success and failure.
 
-- [ ] **Step 2: Run the focused script tests to verify the new helpers do not exist.**
+- [x] **Step 2: Run the focused script tests to verify the new helpers do not exist.**
 
   Run: `npm --prefix src/client test -- scripts/generate-cv-pdf.test.ts scripts/check-build-budget.test.ts`
 
   Expected: import or assertion failure for `assertCvPdf`, `pdfBytes`, and the generator lifecycle contract.
 
-- [ ] **Step 3: Implement the PDF generator and budget contract.** In `generate-cv-pdf.mjs`, start `npm run preview:test` as a child process, wait by polling its local URL rather than sleeping, open `/portfolio/cv/` with `chromium.launch()`, await the route and `document.fonts.ready`, and assert page-region values equal `['1', '2']`. Emulate print media and call:
+- [x] **Step 3: Implement the PDF generator and budget contract.** In `generate-cv-pdf.mjs`, start `npm run preview:test` as a child process, wait by polling its local URL rather than sleeping, open `/portfolio/cv/` with `chromium.launch()`, await the route and `document.fonts.ready`, and assert page-region values equal `['1', '2']`. Emulate print media and call:
 
   ```js
   await page.pdf({
@@ -259,9 +259,9 @@
 
   Use `try`/`finally` to close page/browser and terminate/await the preview process on every path. Export and use `assertCvPdf` to require a `%PDF` prefix and a size at or below `512 * 1024`. Add `maxCvPdfBytes` to `DEFAULT_BUDGETS`, validate `dist/harley-bartles-cv.pdf`, and return `pdfBytes` with JS/CSS values.
 
-- [ ] **Step 4: Put the generator in the correct build and configuration sequence.** Change `build` to exactly `tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs`. Add `src/client/.env.local` to root `.gitignore` and create `src/client/.env.example` containing only `VITE_CONTACT_FORM_ENDPOINT=`. In CI, after `Run canonical quality gate`, add a `main`-only build step with `env.VITE_CONTACT_FORM_ENDPOINT: ${{ secrets.VITE_CONTACT_FORM_ENDPOINT }}` and `npm --prefix src/client run build`, then upload that rebuilt `dist` artifact. Tests still use the fake endpoint from Task 4 and no CI test submits to Formspree.
+- [x] **Step 4: Put the generator in the correct build and configuration sequence.** Change `build` to exactly `tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs`. Add `src/client/.env.local` to root `.gitignore` and create `src/client/.env.example` containing only `VITE_CONTACT_FORM_ENDPOINT=`. In CI, after `Run canonical quality gate`, add a `main`-only build step with `env.VITE_CONTACT_FORM_ENDPOINT: ${{ secrets.VITE_CONTACT_FORM_ENDPOINT }}` and `npm --prefix src/client run build`, then upload that rebuilt `dist` artifact. Tests still use the fake endpoint from Task 4 and no CI test submits to Formspree.
 
-- [ ] **Step 5: Install Chromium only if the local Playwright cache is absent, then verify scripts and build.** Before the first command that creates the derived PDF, run the PDF-skill artifact marker required by the active runtime exactly once:
+- [x] **Step 5: Install Chromium only if the local Playwright cache is absent, then verify scripts and build.** Before the first command that creates the derived PDF, run the PDF-skill artifact marker required by the active runtime exactly once:
 
   ```powershell
   node container_tools/mark_artifact_operation_started.mjs --operation-kind create --expected-output-count 1 --output-format pdf
@@ -277,15 +277,15 @@
 
   Expected: the focused tests pass; build leaves a non-empty `src/client/dist/harley-bartles-cv.pdf` with a `%PDF` prefix and no more than 524,288 bytes.
 
-- [ ] **Step 6: Add print CSS tied to the generated artifact.** Add `@page { size: A4; margin: 0; }` and print rules that hide `.site-header`, `.site-footer`, `.skip-link`, and `.cv-screen-controls`; set each `[data-cv-page]` to one A4 `210mm × 297mm` sheet with controlled inner margins and `break-after: page` except the final sheet. Keep external URLs readable, links clickable, warm-paper/ink/copper contrast strong, and normal site chrome absent from print.
+- [x] **Step 6: Add print CSS tied to the generated artifact.** Add `@page { size: A4; margin: 0; }` and print rules that hide `.site-header`, `.site-footer`, `.skip-link`, and `.cv-screen-controls`; set each `[data-cv-page]` to one A4 `210mm × 297mm` sheet with controlled inner margins and `break-after: page` except the final sheet. Keep external URLs readable, links clickable, warm-paper/ink/copper contrast strong, and normal site chrome absent from print.
 
-- [ ] **Step 7: Re-run the production build after print styling.**
+- [x] **Step 7: Re-run the production build after print styling.**
 
   Run: `npm --prefix src/client run build`
 
   Expected: no generator leak, two-page candidate PDF generated, and build-budget output includes `pdfBytes` under 524,288.
 
-- [ ] **Step 8: Mark this task's checklist boxes complete in this plan after the passing commands are recorded.**
+- [x] **Step 8: Mark this task's checklist boxes complete in this plan after the passing commands are recorded.**
 
 ### Task 6: Add browser, visual, accessibility, and PDF-inspection proof
 

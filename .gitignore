@@ -2,5 +2,6 @@
 *.pyc
 src/client/node_modules/
 src/client/dist/
+src/client/.env.local
 test-results/
 playwright-report/
