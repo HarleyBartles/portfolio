@@ -3,12 +3,14 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 // @ts-expect-error The production build utility is intentionally plain ESM for direct Node execution.
-import { assertCvPdf, generateCvPdf } from './generate-cv-pdf.mjs'
+import { assertCvPdf, generateCvPdf, rewritePreviewLinksForPdf } from './generate-cv-pdf.mjs'
 
 const temporaryRoots: string[] = []
 
 afterEach(async () => {
   await Promise.all(temporaryRoots.splice(0).map((root) => rm(root, { recursive: true, force: true })))
+  document.head.innerHTML = ''
+  document.body.innerHTML = ''
 })
 
 async function temporaryPdf(contents: Uint8Array): Promise<string> {
@@ -61,6 +63,21 @@ describe('assertCvPdf', () => {
 })
 
 describe('generateCvPdf', () => {
+  test('rewrites preview-server links to the canonical public origin before printing', async () => {
+    document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.github.io/portfolio/cv">'
+    document.body.innerHTML = '<a href="http://127.0.0.1:4173/portfolio/about#contact">Contact</a>'
+    const page = {
+      evaluate: vi.fn(async (callback: (origin: string) => string[], origin: string) => callback(origin)),
+    }
+
+    await rewritePreviewLinksForPdf(page, 'http://127.0.0.1:4173')
+
+    expect(document.querySelector('a')).toHaveAttribute(
+      'href',
+      'https://harleybartles.github.io/portfolio/about#contact',
+    )
+  })
+
   test('requires two ordered CV pages and closes every resource after success', async () => {
     const pdfPath = await temporaryPdf(Buffer.alloc(0))
     const preview = { name: 'preview' }

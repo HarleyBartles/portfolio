@@ -89,7 +89,7 @@ async function stopPreviewProcess(previewProcess) {
   await exited
 }
 
-async function rewritePreviewLinksForPdf(page, previewUrl) {
+export async function rewritePreviewLinksForPdf(page, previewUrl) {
   const previewOrigin = new URL(previewUrl).origin
   const linkTargets = await page.evaluate((localOrigin) => {
     const canonical = document.querySelector('link[rel="canonical"]')?.href
