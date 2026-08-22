@@ -7,7 +7,7 @@ implementation details can be planned months in advance.
 
 **Created:** 21 August 2026
 
-**Status:** Approved; design wave complete; implementation wave pending
+**Status:** Approved; design wave complete; implementation wave in progress (Phase 1 draft PR #19)
 
 **Starting main:** `bd07d8a09581bdde40cddff4e880db426a50cd82`
 
@@ -171,7 +171,7 @@ exists, then plan-readiness or final handoff readiness as the phase advances.
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Professional truth and About narrative | ready | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-1-professional-truth.md) | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. JIT plan written from `9d10f9b` current truth and rated 9/10 on 22 August 2026; execution pending. |
+| 1 | Professional truth and About narrative | executing | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-1-professional-truth.md) | [`afa4437`](https://github.com/HarleyBartles/portfolio/commit/afa4437e1e468be5975a72adc6753077d6e22abf), [`aa10cc2`](https://github.com/HarleyBartles/portfolio/commit/aa10cc27cbb22fb219095f5543c57f7fb006b246) | [#19](https://github.com/HarleyBartles/portfolio/pull/19) | 9/10 | Canonical CI passed on `3a5aa4f` (25 Python tests, 34 client tests, production build, 31 Playwright journeys). Independent local review repaired then re-reviewed with no actionable findings. Draft PR open; hosted checks are deferred by policy, and Cloud Sol creative review is unavailable in this runtime. |
 | 2 | CV and contact conversion | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-02-cv-contact-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Replace the two most conspicuous unfinished hiring states with a real CV and privacy-preserving contact route. |
 | 3 | Marketplace flagship and case-study system | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Prove frontier agentic practice and establish the case-study anatomy through one concrete project, not speculative abstraction. |
 | 4 | Wild Bunch architectural proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Demonstrate complex architecture when earned; depends on the case-study system. The implementation agent gathers final gameplay captures from the approved deterministic recipe. |
