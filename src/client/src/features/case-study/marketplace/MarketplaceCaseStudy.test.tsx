@@ -13,5 +13,7 @@ describe('MarketplaceCaseStudy', () => {
     expect(screen.getByText('Repository audit · 21 August 2026')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Marketplace repository' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/agent-asset-marketplace')
     expect(screen.getByText('Curation over accumulation')).toBeVisible()
+    expect(screen.getByText('Source separate from installed copies')).toBeVisible()
+    expect(screen.getByText(/Wild Bunch — game-studio/)).toBeVisible()
   })
 })
