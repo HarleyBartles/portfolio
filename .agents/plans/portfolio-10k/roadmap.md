@@ -32,7 +32,7 @@ or live repository evidence.
 
 ## Artifact contract
 
-This epic intentionally adapts the default `/working-with-epics` sequence.
+This epic intentionally adapts the default `/writing-roadmaps` sequence.
 
 ### Design wave
 

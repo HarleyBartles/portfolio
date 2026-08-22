@@ -144,6 +144,18 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("content file does not exist" in finding for finding in findings))
         self.assertTrue(any("not listed in the manifest" in finding for finding in findings))
 
+    def test_manifest_ignores_generated_content_indexes_but_rejects_orphaned_markdown(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            (fixture.content / "INDEX.md").write_text("# Content index\n", encoding="utf-8")
+            (fixture.content / "writing/INDEX.md").write_text("# Writing index\n", encoding="utf-8")
+            orphan = fixture.content / "writing/orphan.md"
+            orphan.write_text("# Orphan\n", encoding="utf-8")
+
+        findings = self.validate(mutate)
+
+        self.assertFalse(any("INDEX.md" in finding for finding in findings))
+        self.assertTrue(any("writing/orphan.md" in finding for finding in findings))
+
     def test_manifest_paths_must_use_posix_separators(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             fixture.items[0]["path"] = "projects\\example-project.md"
