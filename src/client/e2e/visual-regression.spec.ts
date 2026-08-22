@@ -11,6 +11,12 @@ async function openStable(page: Page, path: string): Promise<void> {
   await page.evaluate(async () => document.fonts.ready)
 }
 
+function visualSnapshot(name: string): string {
+  // FreeType and DirectWrite rasterise the same bundled fonts differently.
+  // Keep platform-reviewed baselines instead of weakening the visual tolerance.
+  return process.platform === 'linux' ? name.replace('.png', '-linux.png') : name
+}
+
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
@@ -37,37 +43,33 @@ test('about page keeps the CV conversion area', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './about')
 
-  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion.png')
+  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot(visualSnapshot('about-cv-conversion.png'))
 })
 
 test('CV keeps its first A4 sheet hierarchy on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './cv')
 
-  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet.png')
+  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot(visualSnapshot('cv-first-sheet.png'))
 })
 
 test('about page keeps the CV conversion area usable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './about')
 
-  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion-mobile.png')
+  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot(visualSnapshot('about-cv-conversion-mobile.png'))
 })
 
 test('CV keeps its first sheet readable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './cv')
 
-  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet-mobile.png')
+  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot(visualSnapshot('cv-first-sheet-mobile.png'))
 })
 
 test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
-  // FreeType and DirectWrite rasterise this display-heavy crop differently even
-  // when its geometry is identical. Keep reviewed baselines instead of weakening
-  // the global visual tolerance.
-  const snapshot = process.platform === 'linux' ? 'article-mobile-header-linux.png' : 'article-mobile-header.png'
-  await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot(snapshot)
+  await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot(visualSnapshot('article-mobile-header.png'))
 })
