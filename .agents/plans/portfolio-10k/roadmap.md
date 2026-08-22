@@ -88,7 +88,7 @@ records the implementation plan's readiness or final handoff rating.
 | 6 | Agentic Learning Lab leadership proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Make curriculum architecture, cognitive grades, mentoring, learner safety, and practical agent adoption visually inspectable. |
 | 7 | Writing authority and breadth | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Deliver a five-essay launch floor: two core-engineering arguments, three distinct agentic arguments, an evidence-gated Graph/Context choice, curated continuation paths, and homepage-feature-ready metadata. |
 | 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Build a progressively enhanced editorial front page, a complete four-project deck, one Patch fairytale interlude, one essay feature, and a quiet professional route without feed, repetition, autoplay, or pitch clutter. |
-| 9 | Discovery and sharing finish | pending | `.agents/specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md` | — | — | — | Define the custom-domain, route metadata, social artwork, canonical, and RSS experience after content routes stabilise. |
+| 9 | Discovery and sharing finish | pending | [draft spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Design dialogue approved 22 August 2026; written specification awaits approval. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
 | 10 | Direct-route first-paint finish | pending | `.agents/specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md` | — | — | — | Remove the visible preparation flash without adding a runtime backend or weakening static deep-route guarantees. |
 | 11 | Interactive proof value gate | pending | `.agents/specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md` | — | — | — | Select one evidence-bearing interaction only if it beats a static case study; an explicit no-build decision is a valid outcome. |
 | 12 | Launch audit and measurement decision | pending | `.agents/specs/2026-08-21-portfolio-10k-12-launch-audit-design.md` | — | — | — | Close placeholders and dead ends, perform the complete editorial/accessibility/performance review, and decide whether any privacy-conscious analytics earn their cost. |
@@ -189,9 +189,10 @@ first viewport without turning the page into a generic sales funnel.
 ### 9. Discovery and sharing finish
 
 Finish how pages are found, shared, and identified: `harleybartles.com`, static
-route metadata, canonical URLs, route-appropriate social artwork, and RSS. The
-spec must distinguish repository work from DNS or platform actions requiring
-Harley's authority and must preserve GitHub Pages static delivery.
+route metadata, canonical URLs, route-appropriate social artwork, deterministic
+discovery files, and restrained sharing. Record RSS as deliberately deferred.
+The spec must distinguish repository work from DNS or platform actions
+requiring Harley's authority and must preserve GitHub Pages static delivery.
 
 ### 10. Direct-route first-paint finish
 
