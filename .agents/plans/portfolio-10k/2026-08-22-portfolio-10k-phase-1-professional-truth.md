@@ -271,7 +271,7 @@
 
   Inspected `/about` at 1440, 768, 390, and 320 CSS pixels. The 768px arrangement intentionally collapses the new reading layouts to one column; 390px and 320px deliberately wrap the thesis without clipping or hidden content. The visual suite ran with reduced motion enabled, and live keyboard traversal reached Skip to content, the home mark, then primary navigation in source order. The accessibility suite passed at desktop and mobile sizes. The 768px review supplies the equivalent narrow layout pressure for the 200% zoom reading check; no content, focus path, private contact literal, unapproved claim, or unowned visual asset was introduced.
 
-- [ ] **Step 6: Stage the completed Phase 1 tree and run canonical verification**
+- [x] **Step 6: Stage the completed Phase 1 tree and run canonical verification**
 
   ```powershell
   git add src/client/src/components/OrientationStrip.tsx src/client/src/components/OrientationStrip.test.tsx src/client/src/types/content.ts src/client/e2e/about.spec.ts src/client/e2e/visual-regression.spec.ts src/client/e2e/visual-regression.spec.ts-snapshots/about-professional-proof.png
@@ -280,7 +280,7 @@
 
   Expected: PASS on the staged final tree. If generated navigation changes are required, run `py -3 tools/run.py ci --apply`, stage its generated outputs, and rerun the check.
 
-- [ ] **Step 7: Commit and mark the plan complete**
+- [x] **Step 7: Commit and mark the plan complete**
 
   ```powershell
   git commit -m "feat: establish professional truth on about"
