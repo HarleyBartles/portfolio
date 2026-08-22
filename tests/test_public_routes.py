@@ -78,6 +78,7 @@ class PublicRouteTests(unittest.TestCase):
             [
                 '/',
                 '/about',
+                '/cv',
                 '/fairytales',
                 '/projects',
                 '/writing',
@@ -99,6 +100,7 @@ class PublicRouteTests(unittest.TestCase):
             {
                 '/portfolio/',
                 '/portfolio/about',
+                '/portfolio/cv',
                 '/portfolio/fairytales',
                 '/portfolio/projects',
                 '/portfolio/writing',

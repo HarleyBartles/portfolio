@@ -20,7 +20,7 @@ BASE_URL = "/portfolio/"
 
 PLURAL = {"project": "projects"}
 
-INDEX_ROUTES = {"/", "/projects", "/writing", "/fairytales", "/about"}
+INDEX_ROUTES = {"/", "/projects", "/writing", "/fairytales", "/about", "/cv"}
 
 ANCHOR_RE = re.compile(r'<a\s[^>]*?\bhref\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|\{\s*["\']([^"\']*)["\']\s*\})', re.IGNORECASE)
 LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)]+)\)')

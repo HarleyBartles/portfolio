@@ -18,17 +18,31 @@ describe('ContactForm', () => {
         'href',
         'https://github.com/HarleyBartles',
       )
+      expect(screen.getByRole('link', { name: 'LinkedIn: Harley Bartles' })).toHaveAttribute(
+        'href',
+        'https://www.linkedin.com/in/harley-bartles-92326110/',
+      )
       expect(screen.queryByRole('button', { name: /send message/i })).not.toBeInTheDocument()
     },
   )
 
-  test('renders required fields and a bot honeypot only for an HTTPS endpoint', () => {
+  test('renders bounded required fields, privacy notice, and a Formspree honeypot only for an HTTPS endpoint', () => {
     const { container } = render(<ContactForm endpoint="https://forms.example.test/contact" />)
 
     expect(screen.getByLabelText('Name')).toBeRequired()
+    expect(screen.getByLabelText('Name')).toHaveAttribute('maxlength', '100')
     expect(screen.getByLabelText('Reply email')).toBeRequired()
+    expect(screen.getByLabelText('Reply email')).toHaveAttribute('maxlength', '254')
     expect(screen.getByLabelText('Message')).toBeRequired()
-    expect(container.querySelector('input[name="company_website"]')).toBeInTheDocument()
+    expect(screen.getByLabelText('Message')).toHaveAttribute('maxlength', '5000')
+    const honeypot = container.querySelector('input[name="_gotcha"]')
+    expect(honeypot).toBeInTheDocument()
+    expect(honeypot).toHaveAttribute('tabindex', '-1')
+    expect(honeypot?.parentElement).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByRole('link', { name: /privacy policy/i })).toHaveAttribute(
+      'href',
+      'https://formspree.io/legal/privacy-policy/',
+    )
     expect(screen.getByRole('button', { name: 'Send message' })).toBeEnabled()
   })
 
@@ -49,10 +63,40 @@ describe('ContactForm', () => {
     )
     const request = fetchMock.mock.calls[0]?.[1] as RequestInit
     const body = request.body as FormData
+    expect([...body.keys()].sort()).toEqual(['_gotcha', 'email', 'message', 'name'])
     expect(body.get('name')).toBe('Ada Lovelace')
     expect(body.get('email')).toBe('ada@example.test')
     expect(body.get('message')).toContain('reliable agent workflow')
+    expect(body.get('_gotcha')).toBe('')
     expect(screen.getByRole('status')).toHaveTextContent(/message sent/i)
+    expect(screen.getByLabelText('Name')).toHaveValue('')
+    expect(screen.getByLabelText('Reply email')).toHaveValue('')
+    expect(screen.getByLabelText('Message')).toHaveValue('')
+  })
+
+  test('disables only the submit control and prevents duplicate delivery while sending', async () => {
+    let resolveDelivery: ((response: Response) => void) | undefined
+    const fetchMock = vi.fn().mockImplementation(
+      () => new Promise<Response>((resolve) => { resolveDelivery = resolve }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+    render(<ContactForm endpoint="https://forms.example.test/contact" />)
+
+    await userEvent.type(screen.getByLabelText('Name'), 'Dorothy Vaughan')
+    await userEvent.type(screen.getByLabelText('Reply email'), 'dorothy@example.test')
+    await userEvent.type(screen.getByLabelText('Message'), 'I would like to discuss dependable systems.')
+    await userEvent.click(screen.getByRole('button', { name: 'Send message' }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
+    expect(screen.getByRole('button', { name: 'Sending…' })).toBeDisabled()
+    expect(screen.getByLabelText('Name')).toBeEnabled()
+    expect(screen.getByLabelText('Reply email')).toBeEnabled()
+    expect(screen.getByLabelText('Message')).toBeEnabled()
+    await userEvent.click(screen.getByRole('button', { name: 'Sending…' }))
+    expect(fetchMock).toHaveBeenCalledOnce()
+
+    resolveDelivery?.(new Response(null, { status: 204 }))
+    expect(await screen.findByRole('status')).toHaveTextContent(/message sent/i)
   })
 
   test('keeps the visitor in control when delivery fails', async () => {
@@ -66,5 +110,8 @@ describe('ContactForm', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/could not send/i)
     expect(screen.getByRole('button', { name: 'Try again' })).toBeEnabled()
+    expect(screen.getByLabelText('Name')).toHaveValue('Grace Hopper')
+    expect(screen.getByLabelText('Reply email')).toHaveValue('grace@example.test')
+    expect(screen.getByLabelText('Message')).toHaveValue('Can we talk about the project?')
   })
 })

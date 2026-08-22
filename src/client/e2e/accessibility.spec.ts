@@ -11,6 +11,7 @@ const routes = [
   { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },
   { name: 'fairytale', path: 'fairytales/goldilocks' },
   { name: 'about', path: 'about' },
+  { name: 'CV', path: 'cv' },
   { name: 'unknown route', path: 'not-a-real-route' },
 ] as const
 

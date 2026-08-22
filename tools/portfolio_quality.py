@@ -162,6 +162,8 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' cannot relate to itself"))
 
     for markdown_path in content_root.rglob("*.md"):
+        if markdown_path.name == "INDEX.md":
+            continue
         if markdown_path.resolve() not in manifest_paths:
             relative = markdown_path.relative_to(root)
             findings.append(_finding(relative, "Markdown file is not listed in the manifest"))
