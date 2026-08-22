@@ -37,6 +37,7 @@ function itemToSummary(item: unknown): ContentSummary {
     date: source.date === undefined ? undefined : String(source.date),
     readingMinutes:
       typeof source.readingMinutes === 'number' ? source.readingMinutes : undefined,
+    presentation: source.presentation as ContentSummary['presentation'],
     featured: source.featured === true,
     tags: Array.isArray(source.tags) ? source.tags.map(String) : [],
     relatedSlugs: Array.isArray(source.relatedSlugs) ? source.relatedSlugs.map(String) : [],
@@ -50,6 +51,10 @@ const manifestItemBySlug = new Map(
 )
 
 export async function loadDocument(summary: ContentSummary): Promise<ContentDocument> {
+  if (summary.presentation !== undefined) {
+    return { summary, markdown: undefined }
+  }
+
   const manifestItem = manifestItemBySlug.get(summary.slug)
   const sourcePath = manifestItem === undefined ? '' : String(manifestItem.path)
   const loader = markdownLoaders[`./content/${sourcePath}`]

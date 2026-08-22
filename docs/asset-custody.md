@@ -97,6 +97,20 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Added: 2026-08-21.
 - Alt text: "A simple venue floor plan used as the bounded project artifact in Learning Lab 02."
 
+## Marketplace case-study icons
+
+- Public file: `src/client/public/media/marketplace/repo-worker-pack.svg`.
+- Public file: `src/client/public/media/marketplace/superpowers-plus.svg`.
+- Public file: `src/client/public/media/marketplace/mcp-usage-pack.svg`.
+- Public file: `src/client/public/media/marketplace/frontend-pack.svg`.
+- Public file: `src/client/public/media/marketplace/architecture-pack.svg`.
+- Public file: `src/client/public/media/marketplace/dotnet-pack.svg`.
+- Exact sources: the corresponding `assets/icon.svg` files (and `superpowers-plus/assets/superpowers-small.svg`) in `HarleyBartles/agent-asset-marketplace`, revision `52866dfb13b257c8d7d98fbb6155f96a7a8ca07e`.
+- Rights and provenance: first-party Marketplace plugin assets, except `superpowers-plus`, whose source bundle preserves its transparent upstream derivative provenance. Each bundle is MIT licensed; copied byte-for-byte with no transformation.
+- Sizes: 545, 1,734, 545, 643, 732, and 277 bytes respectively; SVG remains appropriate for these small interface marks.
+- Fallback: every icon has an adjacent text plugin label in the case study; no meaning depends on an image loading.
+- Added: 2026-08-22.
+
 ## Removal rule
 
 Before removing or replacing one of these files, search the client source, Markdown, generated route documents, and metadata for its path. Remove every consumer, run the client build and browser suite, and update this record in the same change.
