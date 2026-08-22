@@ -6,6 +6,11 @@
 
 **Approved:** 21 August 2026
 
+**Corrected:** 21 August 2026 — Brand Addition scope, internal progression, and
+the separate acting aside amended after Harley clarified the boundary between
+platform responsibility, external development, limited hands-on code exposure,
+and the move from Team Manager to Web Manager.
+
 **Repository baseline:** `e0af0fda29de6ee2b0e244f951b7aa5af1b6202a`
 
 This document preserves the product, positioning, evidence, and editorial
@@ -198,21 +203,51 @@ architectural decisions, not turn the technologies into a logo wall.
 
 ### Brand Addition — commercial and technical progression
 
-**July 2005–January 2019.** The useful story is progression through order
-administration, account work, and team management into Web Manager—not an
-exhaustive recital of every title on About.
+**July 2005–January 2019.** The public professional chronology begins here.
+Earlier jobs do not support the portfolio's hiring case and should be omitted
+rather than stretched into a professional through-line. The useful Brand
+Addition story is progression through order administration, account work, and
+team management into Web Manager—not an exhaustive recital of every title on
+About.
 
-As Web Manager from May 2015 to January 2019, Harley developed and implemented
-a bespoke multi-site transactional web platform and helped migrate and
-maintain more than 100 multilingual, multicurrency stores for international
-blue-chip clients. This history supplies commercial judgement, client
-awareness, delivery responsibility, and leadership context that a developer-
-only chronology would miss.
+The move from Team Manager to Web Manager was earned through a concrete piece
+of work. Harley identified a web change his team needed and worked with the
+Ecommerce Director to specify and deliver it. That work led directly to an
+offer to move into Web Manager. It demonstrates early requirements and delivery
+judgement without implying that Harley personally implemented the change.
+
+As Web Manager from May 2015 to January 2019, Harley worked in what was
+effectively a hybrid business systems analysis and proto-development role. He
+defined requirements, coordinated external developers, held platform and
+delivery responsibility, gained limited hands-on code exposure, and helped
+migrate and maintain more than 100 multilingual, multicurrency stores for
+international blue-chip clients. Do not claim that he personally developed
+and implemented the platform.
+
+Harley left after taking the role as far toward professional software
+development as the company structure allowed, then deliberately established
+his full-time software engineering career at Barbican. This history supplies
+commercial judgement, client awareness, leadership, and the bridge into
+engineering that a developer-only chronology would miss.
+
+### In a previous life — acting
+
+Before the Brand Addition career, Harley worked intermittently as a
+professional actor for four years. This is not part of the professional
+chronology or evidence for engineering seniority. It is a distinctive piece of
+personality that can earn a busy reader's attention and make the subject behind
+the work more memorable.
+
+About should include one restrained `In a previous life` aside mentioning the
+television work and the role in series three of *Shameless*, with a link to the
+verified [IMDb profile](https://www.imdb.com/name/nm2179685/). Do not turn it
+into a filmography, place it in the career rail, promote IMDb alongside
+primary professional-network links, or include it in the two-page CV.
 
 The separate January 2019 “unemployed at this time” LinkedIn entry is not part
-of the website narrative. Older media, performing-arts, and school education
-may appear in the detailed CV if useful, but should not compete with current
-engineering evidence on About.
+of the website narrative. Older media and performing-arts qualifications,
+alongside secondary education, may appear in the detailed CV if useful, but
+should not compete with current engineering evidence on About.
 
 The canonical public LinkedIn destination is
 [Harley Bartles on LinkedIn](https://www.linkedin.com/in/harley-bartles-92326110/),
@@ -247,8 +282,9 @@ becomes direct. It should eventually contain:
 6. the independent-project evidence map;
 7. a working style built around proportionate architecture, honest unknowns,
    and evidence before claims;
-8. a real downloadable CV and secondary LinkedIn link; and
-9. a working privacy-preserving contact route.
+8. one `In a previous life` acting aside with the verified IMDb link;
+9. a real downloadable CV and secondary LinkedIn link; and
+10. a working privacy-preserving contact route.
 
 The page should not become a LinkedIn replica. It should select the facts that
 explain how Harley became the engineer the projects now demonstrate.
