@@ -46,6 +46,7 @@ describe('route document generator', () => {
     })
 
     const projects = await readFile(path.join(distRoot, 'projects', 'index.html'), 'utf8')
+    const cv = await readFile(path.join(distRoot, 'cv', 'index.html'), 'utf8')
     const article = await readFile(
       path.join(distRoot, 'writing', 'agentic-engineering-vs-vibe-coding', 'index.html'),
       'utf8',
@@ -56,6 +57,8 @@ describe('route document generator', () => {
     expect(projects).toContain('https://harleybartles.github.io/portfolio/projects')
     expect(projects.match(/rel="canonical"/g)).toHaveLength(1)
     expect(projects.match(/property="og:title"/g)).toHaveLength(1)
+    expect(cv).toContain('<title>CV | Harley Bartles</title>')
+    expect(cv).toContain('https://harleybartles.github.io/portfolio/cv')
     expect(article).toContain('A specific article summary.')
     expect(article).toContain('property="og:type" content="article"')
     expect(article.match(/property="og:type"/g)).toHaveLength(1)

@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 import { CareerTimeline } from '../components/CareerTimeline'
 import { ContactForm } from '../components/ContactForm'
 import { DocumentMetadata } from '../components/DocumentMetadata'
@@ -6,6 +7,7 @@ import { SiteLayout } from '../components/SiteLayout'
 import { getEngineeringExperienceLabel, professionalProfile } from '../data/professionalProfile'
 
 const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT
+const cvPdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 
 export function AboutPage(): ReactElement {
   const experienceLabel = getEngineeringExperienceLabel(new Date())
@@ -64,7 +66,7 @@ export function AboutPage(): ReactElement {
           <div className="about-story__rail"><p className="eyebrow">Formal AI depth</p><p>{professionalProfile.apprenticeship.periodLabel}</p></div>
           <div className="about-story__content">
             <h2 id="study-title">{professionalProfile.apprenticeship.title}, in progress.</h2>
-            <p>{professionalProfile.apprenticeship.provider}&rsquo;s {professionalProfile.apprenticeship.standard} is a {professionalProfile.apprenticeship.levelStatement}, not a bachelor&rsquo;s degree.</p>
+            <p>A {professionalProfile.apprenticeship.qualificationLabel.toLowerCase()}, delivered by {professionalProfile.apprenticeship.provider} against the Machine Learning Engineer standard (ST1398 v1.0).</p>
             <p>{professionalProfile.apprenticeship.summary}</p>
           </div>
         </section>
@@ -109,10 +111,19 @@ export function AboutPage(): ReactElement {
           <a className="text-link" href={professionalProfile.publicLinks.imdb.href} rel="noreferrer" target="_blank">{professionalProfile.publicLinks.imdb.label} <span aria-hidden="true">↗</span></a>
         </aside>
 
-        <aside className="cv-note" aria-labelledby="cv-title">
-          <p className="eyebrow">CV / Phase 2 boundary</p>
-          <h2 id="cv-title">A conventional CV download is coming.</h2>
-          <p>I will publish it when the employment chronology and claims have been checked for public release. Until then, the project stories, repositories, and writing here are the evidence I am comfortable asking you to assess.</p>
+        <aside className="cv-note" aria-labelledby="cv-title" data-visual-contract="about-cv-conversion">
+          <div>
+            <p className="eyebrow">CV / hiring details</p>
+            <h2 id="cv-title">A conventional CV, ready to read or print.</h2>
+          </div>
+          <div>
+            <p>{professionalProfile.availability.fullLabel} {professionalProfile.noticePeriod}.</p>
+            <p>The web version keeps the chronology accessible; the PDF is the same two-page hiring document in a conventional print format.</p>
+            <div className="cv-note-actions">
+              <Link className="text-link" to="/cv">Read the web CV</Link>
+              <a className="button-link" href={cvPdfHref}>Download PDF</a>
+            </div>
+          </div>
         </aside>
 
         <section className="about-contact" id="contact" aria-labelledby="contact-title">

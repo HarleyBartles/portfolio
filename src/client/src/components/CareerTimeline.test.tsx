@@ -11,7 +11,7 @@ describe('CareerTimeline', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(professionalProfile.career.length)
     expect(screen.getByRole('heading', { level: 2, name: 'Brand Addition' })).toBeVisible()
     expect(screen.getByRole('heading', { level: 2, name: 'The Access Group' })).toBeVisible()
-    expect(screen.getByText('July 2005 – February 2019')).toBeVisible()
+    expect(screen.getByText('July 2005 – January 2019')).toBeVisible()
     expect(screen.getByText('September 2021 – present')).toBeVisible()
     expect(container.querySelector('[data-career-stage="brand-addition"]')).toBeInTheDocument()
     expect(container.querySelector('[data-career-stage="access"]')).toBeInTheDocument()

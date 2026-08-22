@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-test('about page makes the professional proposition explicit without false contact delivery', async ({ page }) => {
+test('about page makes the professional proposition and configured conversion routes explicit', async ({ page }) => {
   const response = await page.goto('./about/')
 
   expect(response?.status()).toBe(200)
@@ -9,14 +9,19 @@ test('about page makes the professional proposition explicit without false conta
   await expect(page.getByText(/^\d+\+ years$/)).toBeVisible()
   await expect(page.locator('[data-visual-contract="about-professional-proof"]').getByText('Software Engineer', { exact: true })).toBeVisible()
   await expect(page.getByRole('region', { name: /from a recruiter-facing control surface/i }).getByText('The sole engineer responsible for designing, delivering, operating, and supporting Access Checks.')).toBeVisible()
-  await expect(page.getByText("bachelor's-degree-level programme")).toBeVisible()
+  await expect(page.getByText(/a bachelor's degree-level qualification/i)).toBeVisible()
   await expect(page.getByRole('link', { name: 'IMDb: Harley Bartles' })).toBeVisible()
+  await expect(page.getByText('Remote-first. Open to occasional UK-wide office travel, or Manchester hybrid up to one day per week.')).toBeVisible()
+  await expect(page.getByText("Four weeks' notice")).toBeVisible()
+  const cvConversion = page.locator('[data-visual-contract="about-cv-conversion"]')
+  await expect(cvConversion.getByRole('link', { name: 'Read the web CV' })).toHaveAttribute('href', '/portfolio/cv')
+  await expect(cvConversion.getByRole('link', { name: 'Download PDF' })).toHaveAttribute('href', '/portfolio/harley-bartles-cv.pdf')
   await expect(page.getByRole('heading', { level: 2, name: 'Have a useful problem?' })).toBeVisible()
-  await expect(page.getByText(/contact delivery is not connected yet/i)).toBeVisible()
-  await expect(page.getByRole('link', { name: 'GitHub profile' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Send message' })).toHaveCount(0)
+  await expect(page.getByText(/sent to Formspree for delivery/i)).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Send message' })).toBeVisible()
+  await expect(page.getByText(/contact delivery is not connected yet/i)).toHaveCount(0)
   await expect(page.locator('a[href^="mailto:"], a[href^="tel:"]')).toHaveCount(0)
-  await expect(page.getByText(/bachelor's degree/i)).toHaveCount(0)
+  await expect(page.getByText(/bachelor's degree-level qualification/i)).toHaveCount(1)
   await expect(page.getByText(/technical owner/i)).toHaveCount(0)
 })
 

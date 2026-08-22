@@ -24,6 +24,32 @@ export type CapabilityGroup = {
   items: readonly string[]
 }
 
+export type Availability = {
+  shortLabel: string
+  fullLabel: string
+}
+
+export type EducationRecord = {
+  id: string
+  level: string
+  provider?: string
+  title: string
+  periodLabel?: string
+  detail?: string
+}
+
+export type PublicProfessionalLink = {
+  label: string
+  href: string
+}
+
+export type IndependentWork = {
+  id: string
+  title: string
+  summary: string
+  path: string
+}
+
 export type ProfessionalProfile = {
   engineeringStarted: PublicDate
   currentRole: {
@@ -40,17 +66,25 @@ export type ProfessionalProfile = {
     provider: string
     periodLabel: string
     standard: string
-    levelStatement: string
+    qualificationLabel: string
     summary: string
     references: readonly { label: string; href: string }[]
   }
+  availability: Availability
+  noticePeriod: string
+  education: readonly EducationRecord[]
   capabilities: readonly CapabilityGroup[]
   publicLinks: {
-    imdb: { label: string; href: string }
+    github: PublicProfessionalLink
+    linkedin: PublicProfessionalLink
+    portfolio: PublicProfessionalLink
+    imdb: PublicProfessionalLink
   }
+  independentWork: readonly IndependentWork[]
 }
 
 const engineeringStart = new Date('2019-02-06T00:00:00Z')
+const apprenticeshipQualificationLabel = "Bachelor's degree-level qualification"
 
 export function getCompletedEngineeringYears(referenceDate: Date): number {
   let years = referenceDate.getUTCFullYear() - engineeringStart.getUTCFullYear()
@@ -91,10 +125,15 @@ export const professionalProfile: ProfessionalProfile = {
     },
     scopeLabel: 'The sole engineer responsible for designing, delivering, operating, and supporting Access Checks.',
   },
+  availability: {
+    shortLabel: 'Manchester, UK · Remote-first',
+    fullLabel: 'Remote-first. Open to occasional UK-wide office travel, or Manchester hybrid up to one day per week.',
+  },
+  noticePeriod: "Four weeks' notice",
   career: [
     {
       id: 'brand-addition',
-      periodLabel: 'July 2005 – February 2019',
+      periodLabel: 'July 2005 – January 2019',
       heading: 'Brand Addition',
       formalTitle: 'Web Manager',
       summary: 'A progression through commercial roles and team management into a hybrid business-systems and proto-development role.',
@@ -134,13 +173,42 @@ export const professionalProfile: ProfessionalProfile = {
     provider: 'QA',
     periodLabel: 'February 2026 – January 2028',
     standard: 'Machine Learning Engineer, ST1398 v1.0',
-    levelStatement: "bachelor's-degree-level programme",
-    summary: 'In progress: structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
+    qualificationLabel: apprenticeshipQualificationLabel,
+    summary: 'Structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
     references: [
       { label: 'QA AI Engineer Level 6 Apprenticeship', href: 'https://www.qa.com/apprenticeships/ai/ai-engineer-level-6/' },
       { label: 'Skills England Machine Learning Engineer standard', href: 'https://skillsengland.education.gov.uk/apprenticeship-standards/st1398-v1-0' },
     ],
   },
+  education: [
+    {
+      id: 'qa-ai-engineer-apprenticeship',
+      level: 'Higher education — in progress',
+      provider: 'QA',
+      title: 'AI Engineer Level 6 Apprenticeship',
+      periodLabel: 'February 2026 – January 2028',
+      detail: `${apprenticeshipQualificationLabel} (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).`,
+    },
+    {
+      id: 'mancat-access-he',
+      level: 'Further education',
+      provider: 'ManCAT, Moston Campus',
+      title: 'Access to H.E. Certificate — Media, Theatre, English',
+      periodLabel: '2002 – 2003',
+    },
+    {
+      id: 'shena-simon-performing-arts',
+      level: 'Further education',
+      provider: 'Shena Simon F.E. College',
+      title: 'BTEC Level 3 — Performing Arts (Music)',
+      periodLabel: '1997 – 1999',
+    },
+    {
+      id: 'secondary-education',
+      level: 'Secondary education',
+      title: 'Seven GCSEs',
+    },
+  ],
   capabilities: [
     {
       id: 'ready-now',
@@ -168,9 +236,41 @@ export const professionalProfile: ProfessionalProfile = {
     },
   ],
   publicLinks: {
+    github: {
+      label: 'GitHub: HarleyBartles',
+      href: 'https://github.com/HarleyBartles',
+    },
+    linkedin: {
+      label: 'LinkedIn: Harley Bartles',
+      href: 'https://www.linkedin.com/in/harley-bartles-92326110/',
+    },
+    portfolio: {
+      label: 'Portfolio: harleybartles.github.io',
+      href: 'https://harleybartles.github.io/portfolio/',
+    },
     imdb: {
       label: 'IMDb: Harley Bartles',
       href: 'https://www.imdb.com/name/nm2179685/',
     },
   },
+  independentWork: [
+    {
+      id: 'agent-asset-marketplace',
+      title: 'Agent Asset Marketplace',
+      summary: 'A public distribution system for reusable agent capabilities, with provenance and governance kept visible.',
+      path: '/projects/codex-marketplace',
+    },
+    {
+      id: 'wild-bunch',
+      title: 'Wild Bunch',
+      summary: 'A pre-alpha .NET game project used to make deterministic architecture and diagnostic trade-offs inspectable.',
+      path: '/projects/wild-bunch',
+    },
+    {
+      id: 'agentic-learning-lab',
+      title: 'Agentic Learning Lab',
+      summary: 'A developing curriculum for helping non-coders direct agents with practical judgement and safe boundaries.',
+      path: '/projects/agentic-learning-lab',
+    },
+  ],
 }

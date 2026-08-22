@@ -34,6 +34,9 @@ export default defineConfig({
     {
       command: 'npm run build && npm run preview:test',
       url: clientOrigin,
+      env: {
+        VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact',
+      },
       timeout: 120_000,
       reuseExistingServer: false,
     },

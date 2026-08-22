@@ -28,6 +28,11 @@ const INDEX_METADATA = [
     title: 'About and Work With Me | Harley Bartles',
     description: 'Experience, working style, and contact information for Harley Bartles.',
   },
+  {
+    route: '/cv',
+    title: 'CV | Harley Bartles',
+    description: 'A concise professional CV with verified experience, education, and public work from Harley Bartles.',
+  },
 ]
 
 const KIND_ROUTE = {
