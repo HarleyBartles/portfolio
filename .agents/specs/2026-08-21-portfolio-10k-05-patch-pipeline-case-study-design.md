@@ -330,10 +330,9 @@ Replace the current manifest summary with:
 > Visual stories that turn agentic-engineering practice into memorable,
 > inspectable lessons—built through a controlled creative pipeline.
 
-Replace the misleading `pre-alpha` project status with a status that describes
-the active body of work rather than one product release. The implementation
-plan should choose the shortest vocabulary already supported by the project
-system; preferred public wording is `active project` or `ongoing`.
+Replace the misleading `pre-alpha` project status with `active project`. This
+describes a body of work containing published artefacts, in-flight production,
+and source material rather than implying one product-release maturity level.
 
 Use the central thesis exactly:
 

@@ -93,6 +93,24 @@ records the implementation plan's readiness or final handoff rating.
 | 11 | Interactive proof value gate | pending | `.agents/specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md` | — | — | — | Select one evidence-bearing interaction only if it beats a static case study; an explicit no-build decision is a valid outcome. |
 | 12 | Launch audit and measurement decision | pending | `.agents/specs/2026-08-21-portfolio-10k-12-launch-audit-design.md` | — | — | — | Close placeholders and dead ends, perform the complete editorial/accessibility/performance review, and decide whether any privacy-conscious analytics earn their cost. |
 
+## Case-study proof responsibilities
+
+Reinforcement across case studies is expected. Evidence before adjectives,
+proportionate complexity, accountable human authority, and honest maturity are
+portfolio-wide values. A case study earns its place only when it applies those
+values to a distinct senior-level decision and consequence.
+
+| Case study | Distinct senior proof | Legitimate reinforcement | Duplication failure to avoid |
+| --- | --- | --- | --- |
+| Agent Asset Marketplace | Boundary-setting and operational governance for reusable worker capabilities: what is shared, selected, or kept local. | Provenance, evidence, maintainability, and resistance to unnecessary accumulation. | A generic agentic-workflow explainer or a catalogue whose inventory substitutes for judgement. |
+| Wild Bunch | Architectural depth under product constraints: determinism, replay, diagnosis, and domain boundaries that repay their complexity. | Testing, evidence, trade-offs, and engineer-directed agent implementation. | A pattern inventory or another generic defence of AI-assisted authorship. |
+| Adventures of Patch | Controlled creative production and memorable technical communication through framing, custody, QA, and acceptance gates. | Human judgement, evidence receipts, production pipelines, and honest work states. | A generic lesson catalogue or a second curriculum case study distinguished only by imagery. |
+| Agentic Learning Lab | Mentoring and capability transfer through curriculum architecture, learner safety, cognitive progression, and bounded experimentation. | Safe authority, verification, agent-assisted construction, and honest maturity. | A repository tour or another Patch-style teaching showcase without evidence of learner-system design. |
+
+Phase 8 must preserve these distinctions in homepage choreography and project
+previews. If a case study's implemented argument collapses into another row,
+strengthen, merge, or remove it rather than preserving it for catalogue volume.
+
 ## Phase boundaries
 
 ### 1. Professional truth and About narrative

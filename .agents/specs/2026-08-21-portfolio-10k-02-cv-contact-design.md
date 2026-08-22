@@ -555,5 +555,6 @@ Phase 2 is ready for close review when:
   21 August 2026.
 - Spec-readiness rated 9/10 after the source, build, deployment, privacy,
   failure-state, and validation seams were checked against the live repository.
-- Implementation planning remains deliberately deferred until Harley approves
-  this written spec.
+- The written specification is approved. Implementation planning remains
+  deliberately deferred to the implementation wave and will be written just
+  in time from this spec plus refreshed repository truth.
