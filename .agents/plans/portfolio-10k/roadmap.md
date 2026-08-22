@@ -9,14 +9,14 @@ implementation details can be planned months in advance.
 
 **Status:** Approved; design wave complete; implementation wave pending
 
-**Starting main:** `1663f8ead33c3854c93f3bd46978811b6c968708`
+**Starting main:** `bd07d8a09581bdde40cddff4e880db426a50cd82`
 
-**Input readiness:** 9/10 for epic decomposition. The outcome, audience,
-evidence model, constraints, anti-goals, and quality bar are settled. Remaining
-choices are bounded and assigned to phase design specs.
+**Design-wave completeness:** 12/12 written phase specifications approved at
+9/10 spec-readiness.
 
-**Roadmap readiness:** 9/10 for human review. Phase outcomes and dependencies
-are bounded without pre-empting the granular design work owned by each spec.
+**Implementation-handoff readiness:** 9/10. Phase outcomes, dependencies,
+current-truth checks, model routing, human taste gates, and stop conditions are
+bounded without manufacturing implementation plans before their time.
 
 ## Epic outcome
 
@@ -164,13 +164,14 @@ values: `pending`, `writing`, `ready`, `executing`, `done`, or `blocked`.
 Until a spec exists, its cell contains the intended source path as plain code.
 After human approval, replace it with a link and record the spec-readiness
 rating in Notes. Plan files remain `—` until written just in time. `Rating`
-records the implementation plan's readiness or final handoff rating.
+records the current stage's latest handoff rating: spec-readiness before a plan
+exists, then plan-readiness or final handoff readiness as the phase advances.
 
 ## Plan sequence
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Professional truth and About narrative | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | — | — | — | — | Written spec approved by Harley on 21 August 2026; spec-readiness 9/10. Establish the reusable fact source and explicit senior hiring narrative before other pages consume it. |
+| 1 | Professional truth and About narrative | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Establish the reusable fact source and explicit senior hiring narrative before other pages consume it. |
 | 2 | CV and contact conversion | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-02-cv-contact-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Replace the two most conspicuous unfinished hiring states with a real CV and privacy-preserving contact route. |
 | 3 | Marketplace flagship and case-study system | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Prove frontier agentic practice and establish the case-study anatomy through one concrete project, not speculative abstraction. |
 | 4 | Wild Bunch architectural proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Demonstrate complex architecture when earned; depends on the case-study system. The implementation agent gathers final gameplay captures from the approved deterministic recipe. |

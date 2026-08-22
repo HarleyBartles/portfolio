@@ -1094,8 +1094,7 @@ Harley approved:
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval; implementation planning remains
-dependency-gated.**
+**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
 
 The specification defines:
 
@@ -1114,7 +1113,7 @@ The specification defines:
 - design-led and automated acceptance criteria; and
 - the required protected-default decision receipts.
 
-No unresolved design decision blocks written approval. The missing point is
+No unresolved design decision blocked approval. The missing point is
 intentional: a safe implementation plan cannot be written until Phases 1 and
 3–7 have landed and their actual types, routes, previews, assets, and metadata
 can be re-inspected. That dependency does not weaken the design specification;

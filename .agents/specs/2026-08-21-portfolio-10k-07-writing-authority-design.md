@@ -1016,8 +1016,7 @@ The 22 August 2026 design dialogue approved:
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval and later JIT implementation
-planning.**
+**Rating: 9/10 — approved and ready for later JIT implementation planning.**
 
 The specification has:
 
@@ -1034,5 +1033,5 @@ The specification has:
 
 The remaining uncertainty is intentionally deferred to the JIT evidence gate:
 whether the review graph has become publicly implemented and trustworthy. That
-uncertainty has a complete Plan B and does not block written approval of this
-design.
+uncertainty has a complete Plan B, did not block approval, and does not block
+JIT planning when the evidence gate is reached.

@@ -251,8 +251,7 @@ The reviewer answers:
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval; implementation planning remains
-dependency-gated.**
+**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
 
 The goal, authority, fallback states, non-goals, likely seams, validation, and
 quality gate are explicit. Exact component names and the best adoption

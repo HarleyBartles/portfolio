@@ -996,8 +996,7 @@ Harley approved:
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval; implementation planning remains
-dependency-gated.**
+**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
 
 The specification defines:
 
@@ -1016,7 +1015,7 @@ The specification defines:
 - separate repository and external evidence claims; and
 - acceptance criteria suitable for JIT planning.
 
-No unresolved product decision blocks written approval. The remaining
+No unresolved product decision blocked approval. The remaining
 uncertainties are intentionally operational: exact DNS targets and provider
 state must be re-read at activation time, and exact route counts and asset paths
 must be re-read after Phases 1–8 land. Those constraints strengthen the handoff

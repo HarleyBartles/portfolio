@@ -135,8 +135,8 @@ public proof on their own.
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval and for a bounded post-Phase-10
-evidence re-check; no feature implementation is authorised.**
+**Rating: 9/10 — approved for a bounded post-Phase-10 evidence re-check; no
+feature implementation is authorised.**
 
 The comparison method, current evidence, no-build outcome, reconsideration
 triggers, and closeout proof are explicit. The only intentionally live input is

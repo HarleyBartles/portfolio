@@ -280,8 +280,7 @@ state not observed, or manual judgement not independently reviewed.
 
 ## Readiness assessment
 
-**Rating: 9/10 — ready for written approval; implementation planning remains
-dependency-gated.**
+**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
 
 The frozen baseline, audit scope, defect thresholds, measurement decision,
 evidence artefact, verification sequence, non-goals, and human launch gate are
