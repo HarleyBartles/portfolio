@@ -1,10 +1,10 @@
 # Portfolio £10k Phase 8: Homepage Evidence Choreography Design
 
-**Status:** Draft for written approval
+**Status:** Approved
 
 **Approved design dialogue:** 22 August 2026
 
-**Approved written specification:** Pending
+**Approved written specification:** 22 August 2026
 
 **Spec-readiness:** 9/10
 
