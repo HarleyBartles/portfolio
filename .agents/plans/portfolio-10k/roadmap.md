@@ -7,7 +7,7 @@ implementation details can be planned months in advance.
 
 **Created:** 21 August 2026
 
-**Status:** Approved; design wave in progress
+**Status:** Approved; design wave complete; implementation wave pending
 
 **Starting main:** `1663f8ead33c3854c93f3bd46978811b6c968708`
 
@@ -108,6 +108,49 @@ Preferred model routing for this epic:
 - SWE-1.7 or GLM-5.2 may execute an approved bounded plan, but must not invent
   presentation decisions and must stop at marked taste gates.
 
+### Cloud Sol creative-review layer
+
+Cloud Sol with its GitHub connector is an always-available frontier review
+surface for creative-bearing work, independent of the local seat's usage cap.
+Use it after a coherent draft exists and before final human approval whenever a
+phase changes public copy, editorial structure, case-study argument, art
+direction, visual hierarchy, interaction language, or another surface where
+taste materially affects the £10k result.
+
+Give Cloud Sol the exact GitHub branch or PR, the approved phase spec, the
+relevant design policy and decisions, and a narrow review charter. Ask it to
+inspect the live GitHub diff and improve or challenge:
+
+- voice, clarity, rhythm, specificity, and originality;
+- hierarchy, progressive disclosure, cognitive load, and calls to action;
+- repetition across homepage, case studies, articles, About, CV, and contact;
+- fidelity to the phase's unique senior-proof responsibility;
+- accidental generic portfolio, sales, AI-slop, or over-claiming language; and
+- consistency with accessibility, factual, confidentiality, custody, and
+  protected-design boundaries visible in GitHub.
+
+Cloud Sol may propose exact copy or bounded presentation revisions and, when
+explicitly tasked, may commit those improvements through GitHub for review. It
+then reviews the revised diff. Its role is a creative critic and improver, not a
+new product owner. It must not invent facts, relax acceptance criteria, infer
+private context, or turn a review into an unapproved redesign. Suggestions that
+change public meaning, product scope, privacy, attribution, or a protected
+default return to Harley. Revisions that stay inside the approved intent remain
+subject to repository validation and the ordinary technical review lane.
+
+The GitHub connector proves only the repository state it can inspect. Upstream
+local repositories, private Linear material, deployed behaviour, asset source
+files, and Harley's uncommitted context remain unavailable unless separately
+and safely evidenced. Record the reviewed commit, review charter, material
+findings accepted or rejected, limitations, and revision commit in the phase
+handoff.
+
+This layer supplements rather than replaces Terra technical review, automated
+checks, manual browser inspection, or Harley's final taste and factual approval.
+For SWE-1.7 or GLM-5.2 implementation, it is the preferred frontier taste
+backstop; for Terra implementation, it remains a useful independent-context
+creative review.
+
 A fresh-context Terra review provides contextual independence, not model-family
 diversity. Every handoff reports evidence coverage, tools used, limitations,
 unrun checks, and decisions still owned by Harley; a clean reviewer or CI result
@@ -136,9 +179,9 @@ records the implementation plan's readiness or final handoff rating.
 | 7 | Writing authority and breadth | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Deliver a five-essay launch floor: two core-engineering arguments, three distinct agentic arguments, an evidence-gated Graph/Context choice, curated continuation paths, and homepage-feature-ready metadata. |
 | 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Build a progressively enhanced editorial front page, a complete four-project deck, one Patch fairytale interlude, one essay feature, and a quiet professional route without feed, repetition, autoplay, or pitch clutter. |
 | 9 | Discovery and sharing finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
-| 10 | Direct-route first-paint finish | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
-| 11 | Interactive proof value gate | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. No-build is selected for v1, subject to one evidence re-check after Phases 1–10; a changed decision returns to design. |
-| 12 | Launch audit and measurement decision | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. Whole-site launch audit and bounded defect closure, with a dated evidence report and no analytics at launch. |
+| 10 | Direct-route first-paint finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
+| 11 | Interactive proof value gate | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. No-build is selected for v1, subject to one evidence re-check after Phases 1–10; a changed decision returns to design. |
+| 12 | Launch audit and measurement decision | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Whole-site launch audit and bounded defect closure, with a dated evidence report and no analytics at launch. |
 
 ## Case-study proof responsibilities
 
@@ -318,5 +361,8 @@ introducing a second redesign.
   item before plan-writing and record the reason here.
 - Design dialogue for Phases 10–12 was approved as one consolidated packet on
   22 August 2026. Each outcome remains a separate specification and handoff
-  gate; written-spec approval is intentionally recorded only after the files
-  themselves are reviewed.
+  gate; Harley approved all three written specifications on 22 August 2026.
+- The design wave completed on 22 August 2026 with all twelve phase specs at
+  9/10 readiness. The implementation wave uses Terra for JIT planning and
+  bounded execution, with Cloud Sol as the always-available creative-review
+  layer and Harley retaining final taste and factual authority.

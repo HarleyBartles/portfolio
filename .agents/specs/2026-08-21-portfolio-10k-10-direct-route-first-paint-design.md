@@ -1,8 +1,10 @@
 # Portfolio £10k Phase 10: Direct-route First-paint Finish Design
 
-**Status:** Design approved; written specification awaiting approval
+**Status:** Approved
 
 **Approved design dialogue:** 22 August 2026
+
+**Approved written specification:** 22 August 2026
 
 **Spec-readiness:** 9/10
 
