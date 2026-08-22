@@ -1572,6 +1572,11 @@ main,
   color: var(--color-muted);
 }
 
+.contact-privacy {
+  flex-basis: 100%;
+  font-size: 0.92rem;
+}
+
 .contact-submit p[role='alert'] {
   color: var(--color-accent);
 }

@@ -115,7 +115,7 @@
 - Consumes: `professionalProfile.publicLinks` from Task 1 and an optional `VITE_CONTACT_FORM_ENDPOINT` prop.
 - Produces: a configured form that sends only the four approved fields, or an accessible disconnected fallback with LinkedIn and GitHub; no caller receives delivery state.
 
-- [ ] **Step 1: Write failing ContactForm tests for the full public contract.** Cover:
+- [x] **Step 1: Write failing ContactForm tests for the full public contract.** Cover:
   - `maxLength` values 100, 254, and 5000 plus required/autocomplete fields;
   - `_gotcha` being visually hidden, `aria-hidden`, out of tab order, and included in the submitted `FormData`;
   - a `FormData` key set exactly equal to `['_gotcha', 'email', 'message', 'name']`;
@@ -123,13 +123,13 @@
   - a pending promise showing `Sending…`, disabling only the submit button, and accepting one fetch despite two click attempts;
   - HTTP-success reset plus `role="status"`; and failed or rejected fetch retaining typed values, restoring `Try again`, and exposing only a `role="alert"` message.
 
-- [ ] **Step 2: Run the ContactForm test to verify it fails for the new requirements.**
+- [x] **Step 2: Run the ContactForm test to verify it fails for the new requirements.**
 
   Run: `npm --prefix src/client test -- src/components/ContactForm.test.tsx`
 
   Expected: failure for `company_website`, missing length/privacy/fallback conditions, and missing duplicate-submit evidence.
 
-- [ ] **Step 3: Make the minimal component and style change.** Keep the existing `useState` state machine and `fetch` call. Replace the honeypot with:
+- [x] **Step 3: Make the minimal component and style change.** Keep the existing `useState` state machine and `fetch` call. Replace the honeypot with:
 
   ```tsx
   <input id="contact-gotcha" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
@@ -137,13 +137,13 @@
 
   Add `maxLength={100}`, `maxLength={254}`, and `maxLength={5000}` to name, email, and message. Guard `handleSubmit` when already submitting, reset only after `response.ok`, and change the sent copy to a thank-you without a response-time promise. Render the required Formspree privacy-policy link and sensitive-information warning adjacent to the submit control. Use profile-owned LinkedIn and GitHub links in disconnected mode; do not add `mailto:` or `tel:` output. Preserve visible labels, focus treatment, enabled text fields while submitting, and existing error styling.
 
-- [ ] **Step 4: Verify the focused component suite is green.**
+- [x] **Step 4: Verify the focused component suite is green.**
 
   Run: `npm --prefix src/client test -- src/components/ContactForm.test.tsx`
 
   Expected: every configuration, payload, pending, success, and failure test passes without a real network request.
 
-- [ ] **Step 5: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
+- [x] **Step 5: Mark this task's checklist boxes complete in this plan after the passing command is recorded.**
 
 ### Task 3: Build the semantic two-page CV and the finished About conversion surface
 
