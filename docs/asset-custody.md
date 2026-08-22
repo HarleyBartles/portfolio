@@ -105,7 +105,7 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Public file: `src/client/public/media/marketplace/frontend-pack.svg`.
 - Public file: `src/client/public/media/marketplace/architecture-pack.svg`.
 - Public file: `src/client/public/media/marketplace/dotnet-pack.svg`.
-- Exact sources: the corresponding `assets/icon.svg` files (and `superpowers-plus/assets/superpowers-small.svg`) in `HarleyBartles/agent-asset-marketplace`, revision `52866dfb13b257c8d7d98fbb6155f96a7a8ca07e`.
+- Exact sources: `codex-marketplace/plugins/repo-worker-pack/assets/icon.svg`, `superpowers-plus/assets/superpowers-small.svg`, `mcp-usage-pack/assets/icon.svg`, `frontend-pack/assets/icon.svg`, `architecture-pack/assets/icon.svg`, and `dotnet-pack/assets/icon.svg` in `HarleyBartles/agent-asset-marketplace`, revision `52866dfb13b257c8d7d98fbb6155f96a7a8ca07e`.
 - Rights and provenance: first-party Marketplace plugin assets, except `superpowers-plus`, whose source bundle preserves its transparent upstream derivative provenance. Each bundle is MIT licensed; copied byte-for-byte with no transformation.
 - Sizes: 545, 1,734, 545, 643, 732, and 277 bytes respectively; SVG remains appropriate for these small interface marks.
 - Fallback: every icon has an adjacent text plugin label in the case study; no meaning depends on an image loading.
