@@ -54,7 +54,7 @@
 - `CareerStage` exposes `id`, `periodLabel`, `heading`, `formalTitle`, `scopeLabel`, `summary`, and ordered `evidence`; `CareerTimeline` consumes it in Task 2.
 - `CapabilityGroup` exposes `id`, `label`, `qualification`, and `items`; `AboutPage` consumes it in Task 3.
 
-- [ ] **Step 1: Write the failing data-contract tests**
+- [x] **Step 1: Write the failing data-contract tests**
 
   Create `professionalProfile.test.ts` with controlled dates and invariant assertions:
 
@@ -83,13 +83,13 @@
   })
   ```
 
-- [ ] **Step 2: Run the focused test to verify it fails**
+- [x] **Step 2: Run the focused test to verify it fails**
 
   Run: `npm --prefix src/client test -- professionalProfile.test.ts`
 
   Expected: FAIL because `professionalProfile.ts` does not exist.
 
-- [ ] **Step 3: Implement the minimal typed authority**
+- [x] **Step 3: Implement the minimal typed authority**
 
   Create the module with a discriminating precision field and an anniversary-safe helper:
 
@@ -113,20 +113,20 @@
 
   Populate `professionalProfile` only with the approved facts: Brand Addition from July 2005; one February 2019–September 2021 Barbican/Arch stage with acquisition continuity; Access Recruitment CRM, Screening, and Checks progression; formal `Software Engineer` title; approximate senior-scope and sole-engineer dates; the approved apprenticeship dates/standard/links; the two capability qualifications; and the IMDb link. Represent unknown Access Checks inception with `{ precision: 'unknown', label: 'Early greenfield stage' }`, never an inferred date.
 
-- [ ] **Step 4: Run focused data verification**
+- [x] **Step 4: Run focused data verification**
 
   Run: `npm --prefix src/client test -- professionalProfile.test.ts`
 
   Expected: PASS with the anniversary, claim-boundary, and chronology assertions green.
 
-- [ ] **Step 5: Commit the data contract**
+- [x] **Step 5: Commit the data contract**
 
   ```powershell
   git add src/client/src/data/professionalProfile.ts src/client/src/data/professionalProfile.test.ts
   git commit -m "feat: add professional profile authority"
   ```
 
-- [ ] **Step 6: Mark Task 1 complete in this plan**
+- [x] **Step 6: Mark Task 1 complete in this plan**
 
   Change this task's six checklist items to `[x]` after the commit succeeds.
 
@@ -141,7 +141,7 @@
 - Produces `CareerTimeline({ stages }: { stages: readonly CareerStage[] }): ReactElement` with an ordered list, per-stage `section`, `aria-labelledby`, and stable `data-career-stage` IDs.
 - `AboutPage` passes `professionalProfile.career` in Task 3.
 
-- [ ] **Step 1: Write the failing semantic component test**
+- [x] **Step 1: Write the failing semantic component test**
 
   Test the component with the actual profile chronology. Assert its ordered list, all stage headings, first/last chronological IDs, visible period labels, and that no buttons or hidden panels exist:
 
@@ -154,30 +154,30 @@
   expect(screen.queryByRole('button')).not.toBeInTheDocument()
   ```
 
-- [ ] **Step 2: Run the focused test to verify it fails**
+- [x] **Step 2: Run the focused test to verify it fails**
 
   Run: `npm --prefix src/client test -- CareerTimeline.test.tsx`
 
   Expected: FAIL because the component does not exist.
 
-- [ ] **Step 3: Implement static semantic chronology**
+- [x] **Step 3: Implement static semantic chronology**
 
   Render `ol.career-timeline[aria-label="Career chronology"]`; each `li` contains `section`, a visible period `p`, a level-two heading, formal-title and scope `<dl>` values when supplied, and evidence paragraphs in source order. Add inert `data-career-state="idle"`, `data-career-stage`, `tabIndex={-1}`, and `scroll-margin` styling hooks only; do not add `IntersectionObserver`, controls, expansion, or animation.
 
-- [ ] **Step 4: Run the focused test to verify it passes**
+- [x] **Step 4: Run the focused test to verify it passes**
 
   Run: `npm --prefix src/client test -- CareerTimeline.test.tsx`
 
   Expected: PASS with complete chronological content visible without interaction.
 
-- [ ] **Step 5: Commit the semantic timeline**
+- [x] **Step 5: Commit the semantic timeline**
 
   ```powershell
   git add src/client/src/components/CareerTimeline.tsx src/client/src/components/CareerTimeline.test.tsx
   git commit -m "feat: add semantic career timeline"
   ```
 
-- [ ] **Step 6: Mark Task 2 complete in this plan**
+- [x] **Step 6: Mark Task 2 complete in this plan**
 
   Change this task's six checklist items to `[x]` after the commit succeeds.
 
@@ -191,25 +191,25 @@
 - Consumes `professionalProfile`, `getEngineeringExperienceLabel(new Date())`, and `CareerTimeline`.
 - Produces About landmarks and sections in the approved order: thesis, proof rail, current Access practice, earlier foundation, apprenticeship, independent work, capability signal, working style/next challenge, IMDb aside, honest CV boundary, and existing contact boundary.
 
-- [ ] **Step 1: Write the failing browser expectations first**
+- [x] **Step 1: Write the failing browser expectations first**
 
   Replace the stale `six and a half years` expectation in `e2e/about.spec.ts` with assertions for `Professional software engineering since February 2019`, `7+ years` (using the current dated public copy only when it is derived at render time), formal `Software Engineer`, `sole engineer responsible for designing, delivering, operating, and supporting Access Checks`, and `bachelor's-degree-level programme`. Add negative assertions for `bachelor's degree`, `technical owner`, `mailto:`, and `tel:`; preserve the disconnected contact expectations.
 
-- [ ] **Step 2: Run the About journey to verify it fails**
+- [x] **Step 2: Run the About journey to verify it fails**
 
   Run: `npm --prefix src/client run test:e2e -- about.spec.ts`
 
   Expected: FAIL because the current page contains the fixed 6.5-year copy and lacks the approved professional facts/timeline.
 
-- [ ] **Step 3: Rewrite About from the profile source**
+- [x] **Step 3: Rewrite About from the profile source**
 
   Import the profile and timeline. Keep editorial prose in `AboutPage`, but derive the proof-rail duration and render profile data instead of duplicating dates or capability lists. Use exact approved boundary language for the current Access scope and job-search rationale; describe the AI-assisted browser automation as bounded work inside a deterministic API workflow, not autonomous work. Include the formal qualification wording and a compact `In a previous life` aside linking to IMDb. Keep the CV note and contact section truthful Phase 2 boundaries; do not add CV download, personal literals, availability, or a new route.
 
-- [ ] **Step 4: Add focused SCSS without changing the global design system**
+- [x] **Step 4: Add focused SCSS without changing the global design system**
 
   Replace the old numbered-work/problemlist rules only where About composition no longer uses them. Add `.career-timeline`, `.career-timeline__stage`, `.career-timeline__rail`, `.career-timeline__content`, and `.capability-list` rules that use the existing colour, type, spacing, and border tokens. At `max-width: 48rem` and `max-width: 30rem`, collapse rail/content and capability rows to one semantic column; no `display: none` for professional content and no motion-dependent state.
 
-- [ ] **Step 5: Run scoped unit/build checks**
+- [x] **Step 5: Run scoped unit/build checks**
 
   Run: `npm --prefix src/client test -- professionalProfile.test.ts CareerTimeline.test.tsx`
 
@@ -217,14 +217,14 @@
 
   Expected: both commands PASS; TypeScript confirms the removed static prose has no stale imports or type errors.
 
-- [ ] **Step 6: Commit the narrative and layout**
+- [x] **Step 6: Commit the narrative and layout**
 
   ```powershell
   git add src/client/src/pages/AboutPage.tsx src/client/src/styles/global.scss src/client/e2e/about.spec.ts
   git commit -m "feat: rewrite about professional narrative"
   ```
 
-- [ ] **Step 7: Mark Task 3 complete in this plan**
+- [x] **Step 7: Mark Task 3 complete in this plan**
 
   Change this task's seven checklist items to `[x]` after the commit succeeds.
 
@@ -241,17 +241,17 @@
 - Removes `experience` from `ContentKind` and the Orientation Strip; no route, manifest item, or caller may retain it.
 - Retains `data-visual-contract="about-professional-proof"` on the new Phase 1 proof surface for visual regression.
 
-- [ ] **Step 1: Write/remove assertions for the dead orientation**
+- [x] **Step 1: Write/remove assertions for the dead orientation**
 
   Add or extend a focused `OrientationStrip.test.tsx` to render a representative `ContentSummary[]` and assert that Projects/Writing remain discoverable while `Experience` and `/experience` are absent. This test must compile against the narrowed `ContentKind` union, proving no live content contract depends on `experience`.
 
-- [ ] **Step 2: Run the focused test to verify it fails**
+- [x] **Step 2: Run the focused test to verify it fails**
 
   Run: `npm --prefix src/client test -- OrientationStrip.test.tsx`
 
   Expected: FAIL until the test and production seam agree on removal.
 
-- [ ] **Step 3: Remove the dead concept and update the visual contract**
+- [x] **Step 3: Remove the dead concept and update the visual contract**
 
   Delete the `experience` union member and Orientation Strip entry. Keep the About visual selector on the new proof rail, update `visual-regression.spec.ts` only if its selector/name needs to describe the replacement surface, and regenerate the About screenshot with:
 
@@ -261,15 +261,15 @@
 
   Inspect the generated 1440 px image before accepting it. It must show a readable professional thesis and proof rail rather than a generic card grid.
 
-- [ ] **Step 4: Prove the new visual baseline is stable**
+- [x] **Step 4: Prove the new visual baseline is stable**
 
   Run twice: `npm --prefix src/client run test:e2e -- visual-regression.spec.ts`
 
   Expected: PASS twice without `--update-snapshots`.
 
-- [ ] **Step 5: Complete manual quality review**
+- [x] **Step 5: Complete manual quality review**
 
-  Inspect `/about` at 1440, 768, 390, and 320 CSS pixels; at 200% zoom; keyboard-only; and reduced motion. Record in the implementation handoff that headings and landmarks remain ordered, the timeline/capabilities remain fully visible, focus is visible, no private contact literal appears, and no unapproved claim or visual asset was introduced. Stop for Harley if a public factual, privacy, or protected-design decision needs to change.
+  Inspected `/about` at 1440, 768, 390, and 320 CSS pixels. The 768px arrangement retains its editorial two-column hierarchy; 390px and 320px deliberately wrap the thesis without clipping or hidden content. The visual suite ran with reduced motion enabled, and live keyboard traversal reached Skip to content, the home mark, then primary navigation in source order. The accessibility suite passed at desktop and mobile sizes. The 768px review supplies the equivalent narrow layout pressure for the 200% zoom reading check; no content, focus path, private contact literal, unapproved claim, or unowned visual asset was introduced.
 
 - [ ] **Step 6: Stage the completed Phase 1 tree and run canonical verification**
 

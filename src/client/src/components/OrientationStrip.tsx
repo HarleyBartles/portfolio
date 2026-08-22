@@ -17,12 +17,6 @@ const orientationAreas = [
     findItem: (items) => items.find((item) => item.kind === 'project'),
   },
   {
-    id: 'experience',
-    label: 'Experience',
-    href: '/experience',
-    findItem: (items) => items.find((item) => item.kind === 'experience'),
-  },
-  {
     id: 'engineering-practice',
     label: 'Engineering Practice',
     href: '/engineering-practice',
