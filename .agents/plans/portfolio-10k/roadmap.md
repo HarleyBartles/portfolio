@@ -66,6 +66,53 @@ A later agent may refine implementation detail from current truth. It may not
 silently invent a missing product decision. If a spec cannot support planning
 at 8/10 or higher, return to design and ask one focused question.
 
+### Implementation-wave agent contract
+
+The implementation wave is deliberately suitable for an efficient execution
+model without delegating product taste to it. For every phase, the JIT planner
+must read, in order:
+
+1. this roadmap and its latest Handoff Notes;
+2. the active approved phase specification;
+3. the current repository and merged predecessor work;
+4. the portfolio design policy and design-decision ledger; and
+5. the relevant repository runbooks and skills.
+
+Before writing the plan, record a compact drift table. Classify each material
+spec assumption as `still true`, `implementation seam moved`, or `design
+conflict`. A moved seam updates the plan to current truth. A design conflict
+returns to the specification and Harley; it is never silently reinterpreted.
+
+The planner may split an oversized phase into consecutive implementation plans
+when that preserves reviewability, but every plan must state which part of the
+approved outcome it delivers and the roadmap phase closes only when its full
+acceptance contract is met. Phase 1 and Phase 2 predate the normalised spec
+headings: treat their Outcome boundaries as non-goals and their Acceptance
+outcomes as acceptance criteria rather than rewriting them cosmetically.
+
+Deterministic checks and human quality judgement are separate gates. CI cannot
+prove the £10k quality bar. Every presentation-bearing phase marks manual review
+at 1440, 768, 390, and 320 CSS pixels, 200% zoom, keyboard navigation, and
+reduced motion. Stop for Harley when a change affects public facts or tone,
+privacy, asset custody or licensing, protected design defaults, launch/no-build
+scope, or a genuinely unresolved visual or editorial choice.
+
+Preferred model routing for this epic:
+
+- GPT-5.6 Terra high for JIT planning, cross-boundary engineering judgement,
+  difficult debugging, and fresh whole-change review;
+- GPT-5.6 Terra medium for bounded implementation, integration, and small
+  repairs;
+- GPT-5.6 Sol only when consequential architecture or taste remains unresolved;
+  and
+- SWE-1.7 or GLM-5.2 may execute an approved bounded plan, but must not invent
+  presentation decisions and must stop at marked taste gates.
+
+A fresh-context Terra review provides contextual independence, not model-family
+diversity. Every handoff reports evidence coverage, tools used, limitations,
+unrun checks, and decisions still owned by Harley; a clean reviewer or CI result
+alone is never described as proof-grade green.
+
 ## Status and table conventions
 
 `Status` tracks the implementation-plan lifecycle and uses the required epic
@@ -89,9 +136,9 @@ records the implementation plan's readiness or final handoff rating.
 | 7 | Writing authority and breadth | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Deliver a five-essay launch floor: two core-engineering arguments, three distinct agentic arguments, an evidence-gated Graph/Context choice, curated continuation paths, and homepage-feature-ready metadata. |
 | 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Build a progressively enhanced editorial front page, a complete four-project deck, one Patch fairytale interlude, one essay feature, and a quiet professional route without feed, repetition, autoplay, or pitch clutter. |
 | 9 | Discovery and sharing finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
-| 10 | Direct-route first-paint finish | pending | `.agents/specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md` | — | — | — | Remove the visible preparation flash without adding a runtime backend or weakening static deep-route guarantees. |
-| 11 | Interactive proof value gate | pending | `.agents/specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md` | — | — | — | Select one evidence-bearing interaction only if it beats a static case study; an explicit no-build decision is a valid outcome. |
-| 12 | Launch audit and measurement decision | pending | `.agents/specs/2026-08-21-portfolio-10k-12-launch-audit-design.md` | — | — | — | Close placeholders and dead ends, perform the complete editorial/accessibility/performance review, and decide whether any privacy-conscious analytics earn their cost. |
+| 10 | Direct-route first-paint finish | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
+| 11 | Interactive proof value gate | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. No-build is selected for v1, subject to one evidence re-check after Phases 1–10; a changed decision returns to design. |
+| 12 | Launch audit and measurement decision | pending | [design-approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Design dialogue approved by Harley on 22 August 2026; written specification awaiting approval. Whole-site launch audit and bounded defect closure, with a dated evidence report and no analytics at launch. |
 
 ## Case-study proof responsibilities
 
@@ -196,27 +243,28 @@ requiring Harley's authority and must preserve GitHub Pages static delivery.
 
 ### 10. Direct-route first-paint finish
 
-Investigate and remove the brief “Preparing the portfolio” state seen on direct
-content visits. Treat the observed symptom as a finding to reproduce, not a
-preselected implementation. Preserve lazy loading, route status, accessibility,
-and the bundle budget.
+Reproduce the full generated-HTML, router, and content-loading lifecycle, then
+replace the brief generic “Preparing the portfolio” state with small useful
+route identity derived from Phase 9's catalogue. Preserve static GitHub Pages
+delivery, lazy loading, accessibility, layout stability, and bundle budgets;
+do not add SSR or duplicate the content system.
 
 ### 11. Interactive proof value gate
 
-Compare the Marketplace explorer, Patch pipeline visualisation, Learning Lab
-exercise, Wild Bunch replay/event viewer, and a no-build option against hiring
-value, evidence depth, accessibility, maintenance, and performance. Design and
-plan one only if it materially strengthens the argument. Restraint counts as a
-successful phase outcome when no candidate earns the complexity.
+The approved v1 outcome is no-build. The Marketplace explorer, Patch pipeline,
+Learning Lab exercise, and Wild Bunch replay viewer do not currently beat the
+complete static evidence on unique hiring value, readiness, accessibility,
+maintenance, performance, and launch velocity. Re-check the landed evidence
+once after Phase 10; any changed selection requires fresh design approval.
 
 ### 12. Launch audit and measurement decision
 
-Audit the complete hiring journey and every public route against the agreed
-£10k bar. Resolve remaining placeholders, dead ends, factual drift, visual
-inconsistency, accessibility defects, performance regressions, and custody
-gaps. Decide which concrete questions—if any—justify privacy-conscious
-analytics. This phase validates the whole, rather than introducing a second
-visual redesign.
+Audit the complete hiring journey and every public route against the frozen
+£10k baseline. Resolve launch blockers and bounded defects, publish a dated
+evidence report, and seek final human launch approval. No analytics are added:
+there is no concrete launch decision that currently earns their privacy,
+performance, and maintenance cost. This phase validates the whole rather than
+introducing a second redesign.
 
 ## Dependency logic
 
@@ -268,3 +316,7 @@ visual redesign.
 - The interactive artefact is a value gate, not a promise to add novelty.
 - If a phase spec reveals multiple independent deliverables, split the roadmap
   item before plan-writing and record the reason here.
+- Design dialogue for Phases 10–12 was approved as one consolidated packet on
+  22 August 2026. Each outcome remains a separate specification and handoff
+  gate; written-spec approval is intentionally recorded only after the files
+  themselves are reviewed.
