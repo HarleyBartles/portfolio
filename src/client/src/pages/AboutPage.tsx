@@ -36,7 +36,7 @@ export function AboutPage(): ReactElement {
           </div>
           <dl className="about-facts">
             <div><dt>{experienceLabel}</dt><dd>{professionalProfile.engineeringStarted.label}.</dd></div>
-            <div><dt>{professionalProfile.currentRole.formalTitle}</dt><dd>Formal title at {professionalProfile.currentRole.employer}; effective senior scope from approximately mid-2025.</dd></div>
+            <div><dt>{professionalProfile.currentRole.formalTitle}</dt><dd>Formal title at {professionalProfile.currentRole.employer}; {professionalProfile.currentRole.scopeStarted.label.toLocaleLowerCase()}.</dd></div>
             <div><dt>Current scope</dt><dd>{professionalProfile.currentRole.scopeLabel}</dd></div>
           </dl>
         </section>

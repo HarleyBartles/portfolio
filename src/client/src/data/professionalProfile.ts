@@ -9,6 +9,7 @@ export type PublicDate = {
 export type CareerStage = {
   id: string
   periodLabel: string
+  started?: PublicDate
   heading: string
   formalTitle?: string
   scopeLabel?: string
@@ -41,6 +42,7 @@ export type ProfessionalProfile = {
     standard: string
     levelStatement: string
     summary: string
+    references: readonly { label: string; href: string }[]
   }
   capabilities: readonly CapabilityGroup[]
   publicLinks: {
@@ -115,6 +117,7 @@ export const professionalProfile: ProfessionalProfile = {
     {
       id: 'access',
       periodLabel: 'September 2021 – present',
+      started: { precision: 'unknown', label: 'Early greenfield stage' },
       heading: 'The Access Group',
       formalTitle: 'Software Engineer',
       scopeLabel: 'Current responsibility: sole engineer for Access Checks.',
@@ -133,6 +136,10 @@ export const professionalProfile: ProfessionalProfile = {
     standard: 'Machine Learning Engineer, ST1398 v1.0',
     levelStatement: "bachelor's-degree-level programme",
     summary: 'In progress: structured study in machine learning, generative AI, model development, deployment, monitoring, ethics, and security underneath the agent layer.',
+    references: [
+      { label: 'QA AI Engineer Level 6 Apprenticeship', href: 'https://www.qa.com/apprenticeships/ai/ai-engineer-level-6/' },
+      { label: 'Skills England Machine Learning Engineer standard', href: 'https://skillsengland.education.gov.uk/apprenticeship-standards/st1398-v1-0' },
+    ],
   },
   capabilities: [
     {

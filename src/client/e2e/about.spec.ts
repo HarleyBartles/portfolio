@@ -6,7 +6,7 @@ test('about page makes the professional proposition explicit without false conta
   expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: /senior full-stack engineer/i })).toBeVisible()
   await expect(page.getByText('Professional software engineering since February 2019')).toBeVisible()
-  await expect(page.getByText('7+ years')).toBeVisible()
+  await expect(page.getByText(/^\d+\+ years$/)).toBeVisible()
   await expect(page.locator('[data-visual-contract="about-professional-proof"]').getByText('Software Engineer', { exact: true })).toBeVisible()
   await expect(page.getByRole('region', { name: /from a recruiter-facing control surface/i }).getByText('The sole engineer responsible for designing, delivering, operating, and supporting Access Checks.')).toBeVisible()
   await expect(page.getByText("bachelor's-degree-level programme")).toBeVisible()

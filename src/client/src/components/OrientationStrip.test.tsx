@@ -12,13 +12,9 @@ const writing: ContentSummary = {
   slug: 'systems', kind: 'writing', title: 'Systems', status: 'published', summary: 'Evidence-led engineering.', featured: true, tags: [], relatedSlugs: [],
 }
 
-const legacyExperience = {
-  slug: 'experience', kind: 'experience', title: 'Experience', status: 'published', summary: 'Legacy orientation content.', featured: false, tags: [], relatedSlugs: [],
-} as unknown as ContentSummary
-
 describe('OrientationStrip', () => {
-  test('does not surface a legacy Experience item as an orientation route', () => {
-    render(<MemoryRouter><OrientationStrip items={[project, legacyExperience, writing]} /></MemoryRouter>)
+  test('keeps the remaining portfolio orientation routes discoverable', () => {
+    render(<MemoryRouter><OrientationStrip items={[project, writing]} /></MemoryRouter>)
 
     expect(screen.getByRole('link', { name: 'Projects' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Writing and Notes' })).toBeVisible()

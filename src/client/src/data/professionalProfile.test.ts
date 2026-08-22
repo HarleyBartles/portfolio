@@ -19,4 +19,12 @@ describe('professional profile', () => {
     expect(professionalProfile.career[0].id).toBe('brand-addition')
     expect(professionalProfile.career.at(-1)?.id).toBe('access')
   })
+
+  test('records the unknown Access Checks inception and authoritative apprenticeship references', () => {
+    expect(professionalProfile.career.at(-1)?.started).toEqual({ precision: 'unknown', label: 'Early greenfield stage' })
+    expect(professionalProfile.apprenticeship.references.map((reference) => reference.href)).toEqual([
+      'https://www.qa.com/apprenticeships/ai/ai-engineer-level-6/',
+      'https://skillsengland.education.gov.uk/apprenticeship-standards/st1398-v1-0',
+    ])
+  })
 })

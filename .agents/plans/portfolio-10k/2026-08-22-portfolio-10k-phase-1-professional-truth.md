@@ -269,7 +269,7 @@
 
 - [x] **Step 5: Complete manual quality review**
 
-  Inspected `/about` at 1440, 768, 390, and 320 CSS pixels. The 768px arrangement retains its editorial two-column hierarchy; 390px and 320px deliberately wrap the thesis without clipping or hidden content. The visual suite ran with reduced motion enabled, and live keyboard traversal reached Skip to content, the home mark, then primary navigation in source order. The accessibility suite passed at desktop and mobile sizes. The 768px review supplies the equivalent narrow layout pressure for the 200% zoom reading check; no content, focus path, private contact literal, unapproved claim, or unowned visual asset was introduced.
+  Inspected `/about` at 1440, 768, 390, and 320 CSS pixels. The 768px arrangement intentionally collapses the new reading layouts to one column; 390px and 320px deliberately wrap the thesis without clipping or hidden content. The visual suite ran with reduced motion enabled, and live keyboard traversal reached Skip to content, the home mark, then primary navigation in source order. The accessibility suite passed at desktop and mobile sizes. The 768px review supplies the equivalent narrow layout pressure for the 200% zoom reading check; no content, focus path, private contact literal, unapproved claim, or unowned visual asset was introduced.
 
 - [ ] **Step 6: Stage the completed Phase 1 tree and run canonical verification**
 
