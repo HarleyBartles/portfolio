@@ -38,14 +38,18 @@ export function assertCvPdf(pdfPath, maxBytes = MAX_CV_PDF_BYTES) {
   return pdfBytes
 }
 
-function startPreviewProcess(clientRoot) {
-  const command = process.platform === 'win32' ? (process.env.ComSpec ?? 'cmd.exe') : 'npm'
-  const previewArguments = process.platform === 'win32'
+export function startPreviewProcess(
+  clientRoot,
+  { platform = process.platform, spawnProcess = spawn } = {},
+) {
+  const command = platform === 'win32' ? (process.env.ComSpec ?? 'cmd.exe') : 'npm'
+  const previewArguments = platform === 'win32'
     ? ['/d', '/s', '/c', 'npm.cmd run preview:test']
     : ['run', 'preview:test']
 
-  return spawn(command, previewArguments, {
+  return spawnProcess(command, previewArguments, {
     cwd: clientRoot,
+    detached: platform !== 'win32',
     stdio: 'inherit',
   })
 }
@@ -73,19 +77,26 @@ async function waitForPreviewServer(previewUrl, previewProcess, timeoutMs = 30_0
   throw new Error(`CV PDF preview did not become ready within ${timeoutMs}ms`)
 }
 
-async function stopPreviewProcess(previewProcess) {
+export async function stopPreviewProcess(
+  previewProcess,
+  { platform = process.platform, spawnProcess = spawn, terminateProcess = process.kill } = {},
+) {
   if (previewProcess === undefined || previewProcess.exitCode !== null) {
     return
   }
 
-  if (process.platform === 'win32' && previewProcess.pid !== undefined) {
-    const cleanup = spawn('taskkill.exe', ['/pid', String(previewProcess.pid), '/t', '/f'], { stdio: 'ignore' })
+  if (platform === 'win32' && previewProcess.pid !== undefined) {
+    const cleanup = spawnProcess('taskkill.exe', ['/pid', String(previewProcess.pid), '/t', '/f'], { stdio: 'ignore' })
     await once(cleanup, 'exit')
     return
   }
 
   const exited = once(previewProcess, 'exit')
-  previewProcess.kill()
+  if (previewProcess.pid !== undefined) {
+    terminateProcess(-previewProcess.pid, 'SIGTERM')
+  } else {
+    previewProcess.kill('SIGTERM')
+  }
   await exited
 }
 

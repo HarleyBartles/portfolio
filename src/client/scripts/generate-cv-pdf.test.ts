@@ -1,9 +1,16 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
+import { EventEmitter } from 'node:events'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 // @ts-expect-error The production build utility is intentionally plain ESM for direct Node execution.
-import { assertCvPdf, generateCvPdf, rewritePreviewLinksForPdf } from './generate-cv-pdf.mjs'
+import {
+  assertCvPdf,
+  generateCvPdf,
+  rewritePreviewLinksForPdf,
+  startPreviewProcess,
+  stopPreviewProcess,
+} from './generate-cv-pdf.mjs'
 
 const temporaryRoots: string[] = []
 
@@ -63,6 +70,41 @@ describe('assertCvPdf', () => {
 })
 
 describe('generateCvPdf', () => {
+  test('starts the POSIX preview in its own process group', () => {
+    const preview = { exitCode: null, pid: 1234 }
+    const spawnProcess = vi.fn(() => preview)
+
+    expect(startPreviewProcess('/client', { platform: 'linux', spawnProcess })).toBe(preview)
+
+    expect(spawnProcess).toHaveBeenCalledWith('npm', ['run', 'preview:test'], {
+      cwd: '/client',
+      detached: true,
+      stdio: 'inherit',
+    })
+  })
+
+  test('stops the POSIX preview process group so Vite cannot outlive the PDF generator', async () => {
+    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
+    const terminateProcess = vi.fn(() => queueMicrotask(() => preview.emit('exit', null)))
+
+    await stopPreviewProcess(preview, { platform: 'linux', terminateProcess })
+
+    expect(terminateProcess).toHaveBeenCalledWith(-1234, 'SIGTERM')
+  })
+
+  test('stops the Windows preview process tree', async () => {
+    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
+    const cleanup = new EventEmitter()
+    const spawnProcess = vi.fn(() => {
+      queueMicrotask(() => cleanup.emit('exit', 0))
+      return cleanup
+    })
+
+    await stopPreviewProcess(preview, { platform: 'win32', spawnProcess })
+
+    expect(spawnProcess).toHaveBeenCalledWith('taskkill.exe', ['/pid', '1234', '/t', '/f'], { stdio: 'ignore' })
+  })
+
   test('rewrites preview-server links to the canonical public origin before printing', async () => {
     document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.github.io/portfolio/cv">'
     document.body.innerHTML = '<a href="http://127.0.0.1:4173/portfolio/about#contact">Contact</a>'
