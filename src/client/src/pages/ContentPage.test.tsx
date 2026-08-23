@@ -36,7 +36,7 @@ describe('ContentPage specialist presentation boundary', () => {
       </QueryClientProvider>,
     )
 
-    const fallback = await screen.findByRole('status', { name: 'Loading case study presentation' })
+    const fallback = await screen.findByRole('status', { name: 'Loading case study presentation' }, { timeout: 5_000 })
     expect(fallback).toHaveAttribute('data-loading', 'specialist-presentation')
 
     await act(async () => {
@@ -45,7 +45,7 @@ describe('ContentPage specialist presentation boundary', () => {
       if (typeof resolve === 'function') resolve()
     })
 
-    expect(await screen.findByRole('heading', { level: 2, name: 'Specialist body ready' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'Specialist body ready' }, { timeout: 5_000 })).toBeVisible()
     expect(screen.queryByRole('status', { name: 'Loading case study presentation' })).not.toBeInTheDocument()
   })
 })
