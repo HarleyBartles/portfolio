@@ -108,6 +108,36 @@ Phase 6 will not:
 - replace the public Agentic Learning Lab repository as the authoritative
   curriculum source.
 
+## Binding execution model
+
+This binding, prospective execution model governs implementation,
+continuation, or rework begun after 23 August 2026. It does not claim who
+planned, implemented, reviewed, or accepted earlier work.
+
+GPT-5.6 Sol is the sole main phase orchestrator. Sol reads the roadmap, this
+approved phase specification, current repository truth, the portfolio design
+policy, design-decision ledger, and relevant runbooks; writes the JIT
+implementation plan; selects `/subagent-driven-development`; and maintains the
+whole-plan view, task sequencing, integration, evidence, handoff readiness,
+and completion drive.
+
+Every implementation, research, repair, task-review, re-review, and
+final-review subagent uses GPT-5.6 Terra. Generic escalation must not create a
+Sol child: the Sol main agent narrows or replans the work and redispatches
+Terra.
+
+Terra may draft creative work, but Sol personally reviews every material
+creative output: public copy, creative writing, visual style, art direction,
+hierarchy, imagery and capture framing, and interaction tone. Sol assesses
+taste, humanness, restraint, specificity, and AI-slop risk against the £10k
+portfolio bar; may veto; and must dispatch Terra iteration until the output
+passes before handoff readiness.
+
+This creative gate precedes and does not replace any named Harley approval or
+factual, privacy, custody, accessibility, deployed-proof, or protected-default
+gate. It is an additional delivery gate, not a substitute for human decisions
+or other evidence.
+
 ## Evidence and authority
 
 ### Evidence precedence

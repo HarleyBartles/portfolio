@@ -66,11 +66,15 @@ A later agent may refine implementation detail from current truth. It may not
 silently invent a missing product decision. If a spec cannot support planning
 at 8/10 or higher, return to design and ask one focused question.
 
-### Implementation-wave agent contract
+### Binding execution model
 
-The implementation wave is deliberately suitable for an efficient execution
-model without delegating product taste to it. For every phase, the JIT planner
-must read, in order:
+This binding, prospective execution model governs every JIT implementation
+plan and all implementation, continuation, or rework begun after 23 August
+2026. It does not claim that earlier planning, implementation, review, or
+acceptance used this model.
+
+GPT-5.6 Sol is the sole main phase orchestrator. For every phase, Sol must
+read, in order:
 
 1. this roadmap and its latest Handoff Notes;
 2. the active approved phase specification;
@@ -78,78 +82,43 @@ must read, in order:
 4. the portfolio design policy and design-decision ledger; and
 5. the relevant repository runbooks and skills.
 
+Sol writes the JIT implementation plan; no other agent assumes that phase
+orchestration role.
+
 Before writing the plan, record a compact drift table. Classify each material
 spec assumption as `still true`, `implementation seam moved`, or `design
 conflict`. A moved seam updates the plan to current truth. A design conflict
 returns to the specification and Harley; it is never silently reinterpreted.
 
-The planner may split an oversized phase into consecutive implementation plans
+Sol may split an oversized phase into consecutive implementation plans
 when that preserves reviewability, but every plan must state which part of the
 approved outcome it delivers and the roadmap phase closes only when its full
 acceptance contract is met. Phase 1 and Phase 2 predate the normalised spec
 headings: treat their Outcome boundaries as non-goals and their Acceptance
 outcomes as acceptance criteria rather than rewriting them cosmetically.
 
-Deterministic checks and human quality judgement are separate gates. CI cannot
-prove the £10k quality bar. Every presentation-bearing phase marks manual review
-at 1440, 768, 390, and 320 CSS pixels, 200% zoom, keyboard navigation, and
-reduced motion. Stop for Harley when a change affects public facts or tone,
-privacy, asset custody or licensing, protected design defaults, launch/no-build
-scope, or a genuinely unresolved visual or editorial choice.
+Sol selects `/subagent-driven-development` and maintains the whole-plan view,
+task sequencing, integration, evidence, handoff readiness, and completion
+drive. Every implementation, research, repair, task-review, re-review, and
+final-review subagent must use GPT-5.6 Terra. Generic escalation must not
+create a Sol child: the Sol main agent narrows or replans the work and
+redispatches Terra.
 
-Preferred model routing for this epic:
+Terra may draft creative work, but Sol personally reviews every material
+creative output: public copy, creative writing, visual style, art direction,
+hierarchy, imagery and capture framing, and interaction tone. Sol assesses
+taste, humanness, restraint, specificity, and AI-slop risk against the £10k
+portfolio bar. Sol may veto and must dispatch Terra iteration until the output
+passes before handoff readiness.
 
-- GPT-5.6 Terra high for JIT planning, cross-boundary engineering judgement,
-  difficult debugging, and fresh whole-change review;
-- GPT-5.6 Terra medium for bounded implementation, integration, and small
-  repairs;
-- GPT-5.6 Sol only when consequential architecture or taste remains unresolved;
-  and
-- SWE-1.7 or GLM-5.2 may execute an approved bounded plan, but must not invent
-  presentation decisions and must stop at marked taste gates.
-
-### Cloud Sol creative-review layer
-
-Cloud Sol with its GitHub connector is an always-available frontier review
-surface for creative-bearing work, independent of the local seat's usage cap.
-Use it after a coherent draft exists and before final human approval whenever a
-phase changes public copy, editorial structure, case-study argument, art
-direction, visual hierarchy, interaction language, or another surface where
-taste materially affects the £10k result.
-
-Give Cloud Sol the exact GitHub branch or PR, the approved phase spec, the
-relevant design policy and decisions, and a narrow review charter. Ask it to
-inspect the live GitHub diff and improve or challenge:
-
-- voice, clarity, rhythm, specificity, and originality;
-- hierarchy, progressive disclosure, cognitive load, and calls to action;
-- repetition across homepage, case studies, articles, About, CV, and contact;
-- fidelity to the phase's unique senior-proof responsibility;
-- accidental generic portfolio, sales, AI-slop, or over-claiming language; and
-- consistency with accessibility, factual, confidentiality, custody, and
-  protected-design boundaries visible in GitHub.
-
-Cloud Sol may propose exact copy or bounded presentation revisions and, when
-explicitly tasked, may commit those improvements through GitHub for review. It
-then reviews the revised diff. Its role is a creative critic and improver, not a
-new product owner. It must not invent facts, relax acceptance criteria, infer
-private context, or turn a review into an unapproved redesign. Suggestions that
-change public meaning, product scope, privacy, attribution, or a protected
-default return to Harley. Revisions that stay inside the approved intent remain
-subject to repository validation and the ordinary technical review lane.
-
-The GitHub connector proves only the repository state it can inspect. Upstream
-local repositories, private Linear material, deployed behaviour, asset source
-files, and Harley's uncommitted context remain unavailable unless separately
-and safely evidenced. Record the reviewed commit, review charter, material
-findings accepted or rejected, limitations, and revision commit in the phase
-handoff.
-
-This layer supplements rather than replaces Terra technical review, automated
-checks, manual browser inspection, or Harley's final taste and factual approval.
-For SWE-1.7 or GLM-5.2 implementation, it is the preferred frontier taste
-backstop; for Terra implementation, it remains a useful independent-context
-creative review.
+This creative gate precedes and does not replace any named Harley approval or
+factual, privacy, custody, accessibility, deployed-proof, or protected-default
+gate. Deterministic checks and human quality judgement remain separate gates;
+CI cannot prove the £10k quality bar. Every presentation-bearing phase marks
+manual review at 1440, 768, 390, and 320 CSS pixels, 200% zoom, keyboard
+navigation, and reduced motion. Stop for Harley when a change affects public
+facts or tone, privacy, asset custody or licensing, protected design defaults,
+launch/no-build scope, or a genuinely unresolved visual or editorial choice.
 
 A fresh-context Terra review provides contextual independence, not model-family
 diversity. Every handoff reports evidence coverage, tools used, limitations,
@@ -364,6 +333,5 @@ introducing a second redesign.
   22 August 2026. Each outcome remains a separate specification and handoff
   gate; Harley approved all three written specifications on 22 August 2026.
 - The design wave completed on 22 August 2026 with all twelve phase specs at
-  9/10 readiness. The implementation wave uses Terra for JIT planning and
-  bounded execution, with Cloud Sol as the always-available creative-review
-  layer and Harley retaining final taste and factual authority.
+  9/10 readiness. The binding prospective execution model is recorded above;
+  it does not rewrite the history of that design wave.

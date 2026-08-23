@@ -1,6 +1,6 @@
 # Marketplace Flagship and Case-Study System Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `/executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `/subagent-driven-development` for every task begun after the execution-model decision recorded on 23 August 2026. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the Marketplace inventory page with a source-backed, accessible case study that establishes a composable presentation seam for later flagship projects.
 
@@ -8,7 +8,7 @@
 
 **Tech Stack:** React 19, TypeScript, React Router, TanStack Query, Sass, Vite, Vitest, Playwright, Python `unittest`.
 
-**Execution Strategy:** `executing-plans` — the validator, content seam, specialist presentation, and browser evidence are dependency-ordered and share one narrow route.
+**Execution Strategy:** Tasks 1–5 were substantially executed before the epic-wide model decision recorded on 23 August 2026. Task 6 and any continuation or rework use `/subagent-driven-development`: a GPT-5.6 Sol main agent writes the JIT plan and remains the phase orchestrator; every implementation, research, repair, and review subagent uses GPT-5.6 Terra. This records the forward contract without rewriting earlier execution history.
 
 ## Global Constraints
 
@@ -252,9 +252,45 @@
 
 - [ ] **Step 6: Commit, publish, and update the roadmap only with verified evidence.**
 
-  Commit focused source plus generated surfaces, push the Phase 3 branch, open a draft PR, and verify its exact head/check state in GitHub. Request the independent creative-review layer with the approved spec, design policy, decision ledger, and a narrow public-copy/hierarchy charter. After verified merge, replace the roadmap placeholders with the commit, PR, final handoff rating, review limitations, and manual evidence; then move this plan to `.agents/plans/completed/` through the completion runbook.
+  Commit focused source plus generated surfaces, push the Phase 3 branch, open a draft PR, and verify its exact head/check state in GitHub. The GPT-5.6 Sol orchestrator must personally review the material public copy, composition, hierarchy, style, taste, humanness, restraint, and AI-slop risk against the £10k portfolio bar. Sol may veto a creative output and must dispatch GPT-5.6 Terra revision work until it passes. After verified merge, replace the roadmap placeholders with the commit, PR, final handoff rating, review limitations, and manual evidence; then move this plan to `.agents/plans/completed/` through the completion runbook.
 
 - [ ] **Step 7: Mark this task complete in this plan.**
+
+### Task 6: Normalize the execution model across the £10k epic
+
+**Files:**
+- Modify: `.agents/plans/portfolio-10k/roadmap.md`
+- Modify: all twelve approved `.agents/specs/2026-08-21-portfolio-10k-*-design.md` phase specifications
+- Modify: this plan only to mark Task 6 complete
+- Modify: generated `INDEX.md` surfaces only through `py -3 tools/run.py mesh --apply` if the generator reports drift
+
+**Consumes:** Harley's 23 August 2026 execution-model decision; the approved twelve-phase roadmap and phase specifications; the current subagent-driven-development and handoff contracts.
+
+**Produces:** One binding, prospective execution contract that a future phase orchestrator can follow without inferring models, responsibilities, creative authority, or escalation behaviour.
+
+- [x] **Step 1: Replace the roadmap's legacy model routing with the binding orchestration contract.**
+
+  State that GPT-5.6 Sol is the main phase orchestrator. Sol reads the roadmap, approved phase spec, current repository truth, design policy, decision ledger, and runbooks; writes the JIT implementation plan; selects `/subagent-driven-development`; maintains the whole-plan view, task sequencing, integration, evidence, handoff readiness, and completion drive. Every implementation, research, repair, task-review, re-review, and final-review subagent must use GPT-5.6 Terra. Generic escalation guidance must not create a Sol child: the Sol main agent narrows or replans the work and redispatches Terra.
+
+- [x] **Step 2: Add the same binding execution-model section to all twelve phase specifications.**
+
+  Put the section near the phase boundary, after `Outcome boundaries` in Phases 1–2 and after `Non-goals` in Phases 3–12. Make it govern implementation, continuation, or rework begun after 23 August 2026 without claiming that completed work used this model. Preserve every product requirement, source-of-truth boundary, dependency gate, and explicit Harley approval.
+
+- [x] **Step 3: Make the Sol creative gate explicit and non-delegable.**
+
+  Terra may draft creative work, but the Sol orchestrator personally reviews every material creative output, including public copy, creative writing, visual style, art direction, hierarchy, imagery and capture framing, and interaction tone. Sol assesses taste, humanness, restraint, specificity, and AI-slop risk against the £10k portfolio bar; it may veto and must dispatch Terra iteration until the output passes before handoff readiness. This gate precedes and does not replace any named Harley approval or factual, privacy, custody, accessibility, deployed-proof, or protected-default gate.
+
+- [x] **Step 4: Preserve history and remove contradictory future routing.**
+
+  Do not imply that GPT-5.6 Sol or Terra performed work where repository evidence does not prove it. Keep public project-story uses of `agent`, `model`, `review`, and `creative writing` unchanged when they describe the subject rather than portfolio delivery. Remove or rewrite the roadmap's former Terra-planner, SWE-1.7/GLM, Cloud Sol, and optional creative-review routing so there is one future execution model.
+
+- [ ] **Step 5: Regenerate and validate the documentation surface.**
+
+  Run `py -3 tools/run.py mesh --apply`, stage the intended source and generated surfaces, then run `py -3 tools/run.py ci --check`. Confirm the working tree contains no unrelated edits and the PR body accurately describes the expanded documentation scope and exact final head.
+
+- [ ] **Step 6: Complete the task through SDD review.**
+
+  The Terra implementer writes a report with changed files and validation evidence. A fresh Terra task reviewer checks all twelve specs and the roadmap for coverage, consistency, historical honesty, preserved human gates, and prose quality. The Sol orchestrator resolves any findings through Terra iteration, performs the final creative review itself, and marks this task complete only when the contract is unambiguous and handoff-ready.
 
 ## Plan-readiness self-review
 
