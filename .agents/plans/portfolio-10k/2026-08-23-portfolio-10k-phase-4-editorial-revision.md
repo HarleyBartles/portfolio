@@ -162,6 +162,8 @@
 
 - [x] **Step 7: Mark Task 1 boxes complete and commit.** Commit the tests and implementation together with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
 
+  **Independent Task 1 review:** A fresh-context Terra reviewer inspected `b8c641b..ac82d7c` against the corrective spec and pinned Wild Bunch revision. Specification/factual compliance passed with no findings; prose/editorial quality passed with no findings. The reviewer explicitly confirmed precise CQRS, aggregate/repository/Unit of Work and React Testing Library terminology, bounded determinism/replay/developer-control claims, and a coherent non-defensive five-movement narrative. Report: scratch `task-1-review.md`.
+
 ### Task 2: Recompose the page around the shorter story
 
 **Files:**
