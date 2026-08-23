@@ -133,11 +133,11 @@
 
 **Produces:** Responsive, legible product-screenshot derivatives with exact provenance, dimensions, bytes, and development-skeleton framing.
 
-- [ ] **Step 1: Write failing custody/image tests.** Require every evidence image derivative to exist under `public/media/wild-bunch`, have positive intrinsic width/height matching decoded metadata, stay within the repo-wide asset ceiling, and appear as an exact backticked path in custody. Require each capture record to state source revision and the `Ranger Vale`/zero UUID/Standard/Boring/Dustwell recipe. These image-bearing fixtures exercise the contracts that become mandatory when this task adds `images`; Task 1's valid interim snapshot intentionally has no deployed-image entries. Run the focused Python suite and observe failure.
+- [x] **Step 1: Write failing custody/image tests.** Require every evidence image derivative to exist under `public/media/wild-bunch`, have positive intrinsic width/height matching decoded metadata, stay within the repo-wide asset ceiling, and appear as an exact backticked path in custody. Require each capture record to state source revision and the `Ranger Vale`/zero UUID/Standard/Boring/Dustwell recipe. These image-bearing fixtures exercise the contracts that become mandatory when this task adds `images`; Task 1's valid interim snapshot intentionally has no deployed-image entries. Run the focused Python suite and observe failure.
 
-- [ ] **Step 2: Verify the capture receipt and screen the five raw captures again.** Match each raw file to the SHA-256 and 1440×1100 metadata in `wild-bunch-capture-receipt.md`; stop or recapture if any hash/state cannot be proved. Reject any session ID, hidden culprit, localhost chrome, local path, credential, or broken-control UI. Confirm each image is the development build, not manufactured or retouched evidence.
+- [x] **Step 2: Verify the capture receipt and screen the five raw captures again.** Match each raw file to the SHA-256 and 1440×1100 metadata in `wild-bunch-capture-receipt.md`; stop or recapture if any hash/state cannot be proved. Reject any session ID, hidden culprit, localhost chrome, local path, credential, or broken-control UI. Confirm each image is the development build, not manufactured or retouched evidence.
 
-- [ ] **Step 3: Add a reproducible derivative tool and generate assets.** Add pinned dev dependency `sharp` and `process-wild-bunch-captures.mjs` with `--apply --source-dir <dir>` and `--check` modes. The apply mode owns the fixed source names/hashes, derivative widths/formats/quality, no-upscale rule, metadata stripping, and output paths; check mode decodes committed outputs and compares their dimensions/format/bytes to `wild-bunch-evidence.json` without needing raw scratch inputs. Add `media:wild-bunch:apply` and `media:wild-bunch:check` package scripts and run:
+- [x] **Step 3: Add a reproducible derivative tool and generate assets.** Add pinned dev dependency `sharp` and `process-wild-bunch-captures.mjs` with `--apply --source-dir <dir>` and `--check` modes. The apply mode owns the fixed source names/hashes, derivative widths/formats/quality, no-upscale rule, metadata stripping, and output paths; check mode decodes committed outputs and compares their dimensions/format/bytes to `wild-bunch-evidence.json` without needing raw scratch inputs. Add `media:wild-bunch:apply` and `media:wild-bunch:check` package scripts and run:
 
   ```powershell
   npm.cmd --prefix src/client install
@@ -147,11 +147,11 @@
 
   Preserve meaningful product context and legibility; resize without upscaling; encode AVIF plus WebP fallback; strip metadata. Aim for hero derivatives at or below ~250 KB and support derivatives at or below ~180 KB at principal widths. If legibility requires an exception, record the measured reason; do not destroy evidence to hit a nominal budget.
 
-- [ ] **Step 4: Write custody and evidence metadata.** One custody record per source capture may enumerate both format/width derivatives. Ownership basis is Harley's screenshot of his running repository at the pinned revision; make no independent sprite-licensing claim. Alt intent and visible captions must say current development build or working skeleton where relevant.
+- [x] **Step 4: Write custody and evidence metadata.** One custody record per source capture may enumerate both format/width derivatives. Ownership basis is Harley's screenshot of his running repository at the pinned revision; make no independent sprite-licensing claim. Alt intent and visible captions must say current development build or working skeleton where relevant.
 
-- [ ] **Step 5: Prove and inspect assets.** Run the focused Python suite and `npm.cmd --prefix src/client run media:wild-bunch:check`, then visually inspect representative 1200/960 and 720/640 outputs. Expected: PASS and legible evidence without privacy leakage. Add the media check to the existing client `build` script so canonical CI revalidates committed metadata.
+- [x] **Step 5: Prove and inspect assets.** Run the focused Python suite and `npm.cmd --prefix src/client run media:wild-bunch:check`, then visually inspect representative 1200/960 and 720/640 outputs. Expected: PASS and legible evidence without privacy leakage. Add the media check to the existing client `build` script so canonical CI revalidates committed metadata.
 
-- [ ] **Step 6: Commit this task and mark its plan boxes complete.** Commit the canonical derivatives, evidence metadata, custody record, tests, and any canonical mesh output.
+- [x] **Step 6: Commit this task and mark its plan boxes complete.** Commit the canonical derivatives, evidence metadata, custody record, tests, and any canonical mesh output.
 
 ### Task 3: Compose the text-first Wild Bunch architecture case study
 

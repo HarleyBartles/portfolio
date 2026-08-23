@@ -111,6 +111,46 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Fallback: every icon has an adjacent text plugin label in the case study; no meaning depends on an image loading.
 - Added: 2026-08-22.
 
+## Wild Bunch development-build captures
+
+These are derivative screenshots of Harley Bartles' running Wild Bunch repository at revision `2a9814d094148bb789766a27d316095fecce5a60`, captured on 2026-08-23. They are evidence of a playable current development build / working skeleton, not final game design, approved art direction, public-demo readiness, or a claim to independently license any included sprite work. The receipt-verified run used `Ranger Vale`, world seed `00000000-0000-0000-0000-000000000000`, `Standard` difficulty, explicitly selected `Boring` entropy, and player-chosen `Dustwell`.
+
+### Dustwell town hub
+
+- Raw source: Harley's unretouched `wild-bunch-dustwell-town-1440.png`, PNG `1440 × 1100`, 778,555 bytes, SHA-256 `1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147`.
+- Public derivatives: `src/client/public/media/wild-bunch/dustwell-town-720.avif` (`720 × 550`, 6,790 bytes); `src/client/public/media/wild-bunch/dustwell-town-720.webp` (`720 × 550`, 11,020 bytes); `src/client/public/media/wild-bunch/dustwell-town-1200.avif` (`1200 × 917`, 14,095 bytes); `src/client/public/media/wild-bunch/dustwell-town-1200.webp` (`1200 × 917`, 25,362 bytes).
+- Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 25,362 bytes, below the 250 KB hero target.
+- Alt intent: current development build showing Ranger Vale's Dustwell hub and ordinary town actions. Caption framing: current development build / working skeleton, not final game art.
+
+### Generated trail map
+
+- Raw source: Harley's unretouched `wild-bunch-trail-map-1440.png`, PNG `1440 × 1100`, 264,087 bytes, SHA-256 `ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4`.
+- Public derivatives: `src/client/public/media/wild-bunch/trail-map-720.avif` (`720 × 550`, 10,698 bytes); `src/client/public/media/wild-bunch/trail-map-720.webp` (`720 × 550`, 16,834 bytes); `src/client/public/media/wild-bunch/trail-map-1200.avif` (`1200 × 917`, 21,459 bytes); `src/client/public/media/wild-bunch/trail-map-1200.webp` (`1200 × 917`, 35,858 bytes).
+- Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 35,858 bytes, below the 180 KB support target.
+- Alt intent: current development build showing named towns, connecting trails, and ride-day distances before Dustwell is selected. Caption framing: current development build / working skeleton.
+
+### Ordered session audit
+
+- Raw source: Harley's unretouched `wild-bunch-session-audit-1440.png`, PNG `1440 × 1100`, 158,427 bytes, SHA-256 `785341cca40132a83752eae645d9aa137629f69b14e7854767698633d02919ac`.
+- Public derivatives: `src/client/public/media/wild-bunch/session-audit-720.avif` (`720 × 550`, 10,266 bytes); `src/client/public/media/wild-bunch/session-audit-720.webp` (`720 × 550`, 14,832 bytes); `src/client/public/media/wild-bunch/session-audit-1200.avif` (`1200 × 917`, 22,310 bytes); `src/client/public/media/wild-bunch/session-audit-1200.webp` (`1200 × 917`, 33,516 bytes).
+- Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 33,516 bytes, below the 180 KB support target.
+- Alt intent: current development build showing the screened ordered audit after setup and investigation. Caption framing: current development build / working skeleton; no session identifier is published.
+
+### Sheriff Office wanted notice
+
+- Raw source: Harley's unretouched `wild-bunch-wanted-notice-1440.png`, PNG `1440 × 1100`, 312,404 bytes, SHA-256 `59cde4de536fad07fcb855b11a33ea0e3149d57f7287b28c8b35c57b58da991f`.
+- Public derivatives: `src/client/public/media/wild-bunch/wanted-notice-640.avif` (`640 × 489`, 10,363 bytes); `src/client/public/media/wild-bunch/wanted-notice-640.webp` (`640 × 489`, 14,502 bytes); `src/client/public/media/wild-bunch/wanted-notice-960.avif` (`960 × 733`, 18,691 bytes); `src/client/public/media/wild-bunch/wanted-notice-960.webp` (`960 × 733`, 26,230 bytes).
+- Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 26,230 bytes, below the 180 KB support target.
+- Alt intent: current development build showing a populated player-facing wanted notice without a hidden culprit answer. Caption framing: current development build / working skeleton.
+
+### Player-known case file
+
+- Raw source: Harley's unretouched `wild-bunch-case-file-1440.png`, PNG `1440 × 1100`, 138,324 bytes, SHA-256 `9f1111d63d647c1e513bdc2f110629c10c961587e98d4fb9fcff1980356ee67a`.
+- Public derivatives: `src/client/public/media/wild-bunch/case-file-640.avif` (`640 × 489`, 12,751 bytes); `src/client/public/media/wild-bunch/case-file-640.webp` (`640 × 489`, 17,406 bytes); `src/client/public/media/wild-bunch/case-file-960.avif` (`960 × 733`, 23,968 bytes); `src/client/public/media/wild-bunch/case-file-960.webp` (`960 × 733`, 32,240 bytes).
+- Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 32,240 bytes, below the 180 KB support target.
+- Alt intent: current development build showing player-known clues, records, and evidence without a hidden culprit answer. Caption framing: current development build / working skeleton.
+- Added: 2026-08-23. The measured derivatives all meet the stated byte targets; no legibility exception is recorded.
+
 ## Removal rule
 
 Before removing or replacing one of these files, search the client source, Markdown, generated route documents, and metadata for its path. Remove every consumer, run the client build and browser suite, and update this record in the same change.

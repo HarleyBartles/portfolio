@@ -40,6 +40,7 @@ EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECAS
 PHONE_RE = re.compile(r"(?:\+44[\s().-]*7|\b07)(?:[\s().-]*\d){9}\b")
 PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 PRIVATE_EVIDENCE_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/|\bworktree\b|\bbranch\b)", re.IGNORECASE)
 WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
@@ -496,6 +497,31 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
                 or height <= 0
             ):
                 findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} requires a positive width and height"))
+            capture = image.get("capture")
+            if capture not in {"dustwell-town", "trail-map", "session-audit", "wanted-notice", "case-file"}:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must name a screened capture"))
+            if image.get("format") not in {"avif", "webp"}:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must use AVIF or WebP"))
+            if not isinstance(image.get("sourceFile"), str) or not image["sourceFile"].endswith("-1440.png"):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must retain its raw source filename"))
+            source_hash = image.get("sourceSha256")
+            if not isinstance(source_hash, str) or SHA256_RE.fullmatch(source_hash) is None:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must retain a SHA-256 source hash"))
+            if image.get("sourceWidth") != 1440 or image.get("sourceHeight") != 1100:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must retain 1440 by 1100 raw dimensions"))
+            bytes_count = image.get("bytes")
+            if not isinstance(bytes_count, int) or isinstance(bytes_count, bool) or bytes_count <= 0:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} requires a positive byte count"))
+            for field, required_text in (("altIntent", "current development build"), ("caption", "working skeleton")):
+                value = image.get(field)
+                if not isinstance(value, str) or required_text not in value.lower():
+                    findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} {field} must preserve development-skeleton framing"))
+            if isinstance(path, str) and path.startswith("src/client/public/media/wild-bunch/"):
+                asset_path = root / path
+                if not asset_path.is_file():
+                    findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} derivative is missing from the public tree"))
+                elif isinstance(bytes_count, int) and not isinstance(bytes_count, bool) and asset_path.stat().st_size != bytes_count:
+                    findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} byte count does not match the committed derivative"))
 
     for text in _wild_bunch_strings(evidence):
         if (

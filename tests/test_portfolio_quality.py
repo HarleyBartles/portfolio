@@ -9,6 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CLIENT_ROOT = ROOT / "src/client"
+WILD_BUNCH_MEDIA_ROOT = CLIENT_ROOT / "public/media/wild-bunch"
+WILD_BUNCH_MEDIA_SCRIPT = CLIENT_ROOT / "scripts/process-wild-bunch-captures.mjs"
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -556,6 +559,56 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("representative evidence" in finding and "pinned revision" in finding for finding in findings))
         self.assertTrue(any("image 1 requires a positive width and height" in finding for finding in findings))
         self.assertTrue(any("image 1 path must be a public custody path" in finding for finding in findings))
+
+    def test_wild_bunch_commits_the_screened_responsive_derivative_inventory(self) -> None:
+        evidence_path = ROOT / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        images = evidence["images"]
+
+        expected = {
+            (capture, width, image_format)
+            for capture, widths in {
+                "dustwell-town": (720, 1200),
+                "trail-map": (720, 1200),
+                "session-audit": (720, 1200),
+                "wanted-notice": (640, 960),
+                "case-file": (640, 960),
+            }.items()
+            for width in widths
+            for image_format in ("avif", "webp")
+        }
+        actual = {
+            (image.get("capture"), image.get("width"), image.get("format"))
+            for image in images
+        }
+
+        self.assertEqual(actual, expected)
+        self.assertEqual(len(images), len(expected))
+        for image in images:
+            path = ROOT / image["path"]
+            self.assertTrue(path.is_file(), image["path"])
+            self.assertEqual(path.parent, WILD_BUNCH_MEDIA_ROOT)
+            self.assertEqual(path.suffix, f".{image['format']}")
+            self.assertEqual(path.stat().st_size, image["bytes"])
+            self.assertLessEqual(path.stat().st_size, 400 * 1024)
+            self.assertGreater(image["width"], 0)
+            self.assertGreater(image["height"], 0)
+            self.assertTrue(image["altIntent"].startswith("Current development build"))
+            self.assertIn("working skeleton", image["caption"])
+
+        self.assertEqual(validate_portfolio(ROOT), [])
+
+    def test_wild_bunch_media_apply_requires_a_source_directory(self) -> None:
+        result = subprocess.run(
+            ["node", str(WILD_BUNCH_MEDIA_SCRIPT), "--apply"],
+            cwd=CLIENT_ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("--source-dir", result.stdout + result.stderr)
 
     def test_wild_bunch_presentation_preserves_the_single_body_source_contract(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
