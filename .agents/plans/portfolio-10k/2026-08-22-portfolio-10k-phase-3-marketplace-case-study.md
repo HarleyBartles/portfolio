@@ -288,7 +288,7 @@
 
   Run `py -3 tools/run.py mesh --apply`, stage the intended source and generated surfaces, then run `py -3 tools/run.py ci --check`. Confirm the working tree contains no unrelated edits and the PR body accurately describes the expanded documentation scope and exact final head.
 
-- [ ] **Step 6: Complete the task through SDD review.**
+- [x] **Step 6: Complete the task through SDD review.**
 
   The Terra implementer writes a report with changed files and validation evidence. A fresh Terra task reviewer checks all twelve specs and the roadmap for coverage, consistency, historical honesty, preserved human gates, and prose quality. The Sol orchestrator resolves any findings through Terra iteration, performs the final creative review itself, and marks this task complete only when the contract is unambiguous and handoff-ready.
 

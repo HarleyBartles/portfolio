@@ -99,9 +99,9 @@ outcomes as acceptance criteria rather than rewriting them cosmetically.
 
 Sol selects `/subagent-driven-development` and maintains the whole-plan view,
 task sequencing, integration, evidence, handoff readiness, and completion
-drive. Every implementation, research, repair, task-review, re-review, and
-final-review subagent must use GPT-5.6 Terra. Generic escalation must not
-create a Sol child: the Sol main agent narrows or replans the work and
+drive. Every subagent must use GPT-5.6 Terra. This includes implementation,
+research, repair, task-review, re-review, and final-review subagents. Generic
+escalation must not create a Sol child: the Sol main agent narrows or replans the work and
 redispatches Terra.
 
 Terra may draft creative work, but Sol personally reviews every material
