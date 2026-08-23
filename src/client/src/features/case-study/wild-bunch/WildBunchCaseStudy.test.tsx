@@ -22,9 +22,21 @@ describe('WildBunchCaseStudy', () => {
     const caseStudy = screen.getByRole('region', { name: 'Wild Bunch case study' })
     const determinism = screen.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
     const eventFlow = screen.getByRole('figure', { name: 'Ordered event history from action to reconstruction' })
+    const movements = caseStudy.querySelectorAll('.wild-bunch-story-movement')
+    const sourceNote = caseStudy.querySelectorAll('.wild-bunch-source-note')
 
     expect(caseStudy).toHaveClass('wild-bunch-case-study--composed')
     expect(caseStudy).toHaveAttribute('data-visual-contract', 'wild-bunch-evidence-ledger')
+    expect(movements).toHaveLength(5)
+    expect(Array.from(movements).map((movement) => movement.getAttribute('data-story-movement'))).toEqual([
+      'origin',
+      'determinism',
+      'event-history',
+      'knowledge-boundary',
+      'trade-off',
+    ])
+    expect(sourceNote).toHaveLength(1)
+    expect(sourceNote[0]).toHaveAttribute('data-story-close', 'source-note')
     expect(determinism).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
     expect(eventFlow).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
     expect(determinism.querySelectorAll('[class*="connector"]')).toHaveLength(0)
