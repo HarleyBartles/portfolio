@@ -134,7 +134,7 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/Delaunay candidates become a minimum spanning tree/i)).toBeVisible()
     expect(screen.getByText(/same seed, difficulty, policy, and ordered actions/i)).toBeVisible()
     expect(screen.getByText(/full-stream equality can prove or falsify/i)).toBeVisible()
-    expect(screen.getByText(/force the next salted action once/i)).toBeVisible()
+    expect(screen.getByText(/fix a salt source or set a one-use next action/i)).toBeVisible()
   })
 
   test('connects determinism, replay, and containment to their architectural payoffs', () => {

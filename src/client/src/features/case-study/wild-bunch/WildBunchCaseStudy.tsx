@@ -70,7 +70,7 @@ export function WildBunchCaseStudy(): ReactElement {
 
         <CaseStudySection title="The player and the developer should not see the same game">
           <p>The player should receive only clues, warrants, and suspect information that play has earned. The case file and wanted notice are shaped projections; the technical audit is a separate development surface. A screen is not a secrecy boundary, so the read model has to be safe even when someone can inspect a response.</p>
-          <p>Exact reconstruction also makes diagnosis practical. In the development environment, a tool can prepare a session and force the next salted action once; the ordinary command consumes that intervention, and replay keeps the reason visible. It is useful control without making privileged diagnosis part of the player contract.</p>
+          <p>Exact reconstruction also makes diagnosis practical. In the development environment, a tool can fix a salt source or set a one-use next action; the ordinary command consumes the latter, and replay keeps the reason visible. It is useful control without making privileged diagnosis part of the player contract.</p>
           <p><a href={developerToolingEvidenceUrl}>Pinned developer-tooling evidence</a></p>
           <WildBunchProductEvidence />
         </CaseStudySection>
