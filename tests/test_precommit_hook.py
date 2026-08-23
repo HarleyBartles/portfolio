@@ -36,6 +36,76 @@ def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subpro
 
 
 class PreCommitHookTests(unittest.TestCase):
+    def test_hook_commands_resolve_the_linked_worktree(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_root = Path(temporary)
+            repo = temporary_root / "repo"
+            repo.mkdir()
+            self.assertEqual(run_git(repo, "init").returncode, 0)
+            run_git(repo, "config", "user.name", "Hook Test")
+            run_git(repo, "config", "user.email", "hook-test@example.invalid")
+            tracked = repo / "tracked.txt"
+            tracked.write_text("main\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt")
+            self.assertEqual(run_git(repo, "commit", "-m", "main").returncode, 0)
+
+            worktree = temporary_root / "topic"
+            self.assertEqual(run_git(repo, "worktree", "add", "-b", "topic", worktree.as_posix()).returncode, 0)
+            tracked_in_worktree = worktree / "tracked.txt"
+            tracked_in_worktree.write_text("topic\n", encoding="utf-8")
+            run_git(worktree, "add", "tracked.txt")
+            self.assertEqual(run_git(worktree, "commit", "-m", "topic").returncode, 0)
+            topic_head = run_git(worktree, "rev-parse", "HEAD").stdout.strip()
+
+            nested_repo = temporary_root / "nested-repo"
+            nested_repo.mkdir()
+            self.assertEqual(run_git(nested_repo, "init").returncode, 0)
+            run_git(nested_repo, "config", "user.name", "Hook Test")
+            run_git(nested_repo, "config", "user.email", "hook-test@example.invalid")
+            nested_file = nested_repo / "nested.txt"
+            nested_file.write_text("nested\n", encoding="utf-8")
+            run_git(nested_repo, "add", "nested.txt")
+            self.assertEqual(run_git(nested_repo, "commit", "-m", "nested").returncode, 0)
+            nested_head = run_git(nested_repo, "rev-parse", "HEAD").stdout.strip()
+
+            run_git(repo, "config", "core.hooksPath", ".githooks")
+            hook = worktree / ".githooks/pre-commit"
+            hook.parent.mkdir()
+            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            hook.chmod(0o755)
+            fake_bin = temporary_root / "fake-bin"
+            fake_bin.mkdir()
+            fake_runner = """#!/usr/bin/env sh
+case "$*" in
+  *"precommit --check"*)
+    git rev-parse --show-toplevel > "$OBSERVED_ROOT"
+    git -C "$NESTED_REPO" rev-parse HEAD > "$OBSERVED_HEAD"
+    ;;
+esac
+exit 0
+"""
+            for executable in ("py", "python3", "python"):
+                path = fake_bin / executable
+                path.write_text(fake_runner, encoding="utf-8", newline="\n")
+                path.chmod(0o755)
+
+            tracked_in_worktree.write_text("ready\n", encoding="utf-8")
+            run_git(worktree, "add", "tracked.txt")
+            observed_root = temporary_root / "observed-root.txt"
+            observed_head = temporary_root / "observed-head.txt"
+            env = os.environ.copy()
+            env["PATH"] = f"{fake_bin}{os.pathsep}{env['PATH']}"
+            env["OBSERVED_ROOT"] = str(observed_root)
+            env["OBSERVED_HEAD"] = str(observed_head)
+            env["NESTED_REPO"] = str(nested_repo)
+
+            result = run_git(worktree, "commit", "-m", "ready", env=env)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(Path(observed_root.read_text(encoding="utf-8").strip()).resolve(), worktree.resolve())
+            self.assertNotEqual(topic_head, nested_head)
+            self.assertEqual(observed_head.read_text(encoding="utf-8").strip(), nested_head)
+
     def assert_hook_rejects_uncommitted_submodule_source(self, state: str) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             temporary_root = Path(temporary)

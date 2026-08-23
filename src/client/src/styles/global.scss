@@ -2160,6 +2160,21 @@ main,
 }
 
 @media (max-width: 30rem) {
+  .marketplace-nodes {
+    min-width: 0;
+    grid-template-columns: 1fr;
+    transform: none;
+  }
+
+  .marketplace-nodes span {
+    overflow-wrap: anywhere;
+  }
+
+  .project-visual--marketplace figcaption {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
   .site-header {
     flex-direction: column;
   }
@@ -2267,6 +2282,7 @@ main,
 }
 
 /* Phase 1: About is the site's explicit professional reading surface. */
+
 .about-story,
 .about-career,
 .about-laboratory,

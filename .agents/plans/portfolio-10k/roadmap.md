@@ -66,11 +66,15 @@ A later agent may refine implementation detail from current truth. It may not
 silently invent a missing product decision. If a spec cannot support planning
 at 8/10 or higher, return to design and ask one focused question.
 
-### Implementation-wave agent contract
+### Binding execution model
 
-The implementation wave is deliberately suitable for an efficient execution
-model without delegating product taste to it. For every phase, the JIT planner
-must read, in order:
+This binding, prospective execution model governs every JIT implementation
+plan and all implementation, continuation, or rework begun after 23 August
+2026. It does not claim that earlier planning, implementation, review, or
+acceptance used this model.
+
+GPT-5.6 Sol is the sole main phase orchestrator. For every phase, Sol must
+read, in order:
 
 1. this roadmap and its latest Handoff Notes;
 2. the active approved phase specification;
@@ -78,78 +82,82 @@ must read, in order:
 4. the portfolio design policy and design-decision ledger; and
 5. the relevant repository runbooks and skills.
 
+Sol writes the JIT implementation plan; no other agent assumes that phase
+orchestration role.
+
 Before writing the plan, record a compact drift table. Classify each material
 spec assumption as `still true`, `implementation seam moved`, or `design
 conflict`. A moved seam updates the plan to current truth. A design conflict
 returns to the specification and Harley; it is never silently reinterpreted.
 
-The planner may split an oversized phase into consecutive implementation plans
+Sol may split an oversized phase into consecutive implementation plans
 when that preserves reviewability, but every plan must state which part of the
 approved outcome it delivers and the roadmap phase closes only when its full
 acceptance contract is met. Phase 1 and Phase 2 predate the normalised spec
 headings: treat their Outcome boundaries as non-goals and their Acceptance
 outcomes as acceptance criteria rather than rewriting them cosmetically.
 
-Deterministic checks and human quality judgement are separate gates. CI cannot
-prove the £10k quality bar. Every presentation-bearing phase marks manual review
-at 1440, 768, 390, and 320 CSS pixels, 200% zoom, keyboard navigation, and
-reduced motion. Stop for Harley when a change affects public facts or tone,
-privacy, asset custody or licensing, protected design defaults, launch/no-build
-scope, or a genuinely unresolved visual or editorial choice.
+Sol selects `/subagent-driven-development` and maintains the whole-plan view,
+task sequencing, integration, evidence, handoff readiness, and completion
+drive. Every subagent must use GPT-5.6 Terra. This includes implementation,
+research, repair, task-review, re-review, and final-review subagents. Only the
+main GPT-5.6 Sol orchestrator may create subagents: Terra workers cannot
+delegate or create children. A Terra worker may propose decomposition or a
+fresh-context review to Sol; Sol alone decides dispatch, role and reasoning
+effort, sequencing, budget, concurrency, and reconciliation, and records that
+decision in the plan or ledger. Keep the topology shallow: Sol -> Terra only;
+Terra -> Terra descendants are prohibited. Generic escalation must not create a
+Sol child: the Sol main agent narrows or replans the work and redispatches
+Terra.
 
-Preferred model routing for this epic:
+Before Terra begins material creative work, Sol records a phase-specific
+creative-review brief in the JIT plan. Sol derives it from the approved phase
+outcome, non-goals, protected defaults, design policy, decision ledger, and
+current repository truth. The brief names the audience, intended response,
+constraints and protected defaults, factual and privacy boundaries,
+distinctive design intent, failure modes, observable acceptance signals, and
+evidence surface.
 
-- GPT-5.6 Terra high for JIT planning, cross-boundary engineering judgement,
-  difficult debugging, and fresh whole-change review;
-- GPT-5.6 Terra medium for bounded implementation, integration, and small
-  repairs;
-- GPT-5.6 Sol only when consequential architecture or taste remains unresolved;
-  and
-- SWE-1.7 or GLM-5.2 may execute an approved bounded plan, but must not invent
-  presentation decisions and must stop at marked taste gates.
+The JIT plan records Sol's selected review lenses. Sol must use
+`/writing-with-clarity` and the matching `/unslop-profiles` profile for
+material prose, creative writing, documentation, plans, and handoffs, plus
+the relevant artifact-specific skills and doctrine lenses. Model reputation or
+an unsupported claim that Sol has better taste is never acceptance evidence.
 
-### Cloud Sol creative-review layer
+Terra may draft creative work, but Sol personally reviews every material
+creative output: public copy, creative writing, visual style, art direction,
+hierarchy, imagery and capture framing, and interaction tone. Sol assesses
+taste, humanness, restraint, specificity, and AI-slop risk against the £10k
+portfolio bar.
 
-Cloud Sol with its GitHub connector is an always-available frontier review
-surface for creative-bearing work, independent of the local seat's usage cap.
-Use it after a coherent draft exists and before final human approval whenever a
-phase changes public copy, editorial structure, case-study argument, art
-direction, visual hierarchy, interaction language, or another surface where
-taste materially affects the £10k result.
+Sol inspects the actual rendered or readable artifact, not Terra's
+self-description, and records `pass` or `veto`, the artifact and evidence
+reviewed, every criterion result, limitations, and unresolved human gates. A
+veto becomes a bounded Terra revision brief naming the failed criterion or
+emergent defect, observed evidence, intended effect, preserved constraints,
+and re-review evidence. It constrains badness and preserves intent without
+prescribing the creative answer or collapsing the result into formula.
 
-Give Cloud Sol the exact GitHub branch or PR, the approved phase spec, the
-relevant design policy and decisions, and a narrow review charter. Ask it to
-inspect the live GitHub diff and improve or challenge:
+The rubric is a floor and diagnostic aid, never an exhaustive formula or taste
+scorecard; satisfying its listed criteria does not force a pass. Sol may veto
+technically compliant work that is lifeless, generic, overwritten, derivative,
+predictable, or off-tone, but must identify the artifact evidence, observed
+defect, and intended effect. Unarticulated dislike is insufficient.
 
-- voice, clarity, rhythm, specificity, and originality;
-- hierarchy, progressive disclosure, cognitive load, and calls to action;
-- repetition across homepage, case studies, articles, About, CV, and contact;
-- fidelity to the phase's unique senior-proof responsibility;
-- accidental generic portfolio, sales, AI-slop, or over-claiming language; and
-- consistency with accessibility, factual, confidentiality, custody, and
-  protected-design boundaries visible in GitHub.
+This process supports consistent, inspectable review and evidence-backed
+decisions. It does not mechanically prove taste, humanness, originality, or
+£10k quality. CI, profile conformance, or model identity cannot substitute for
+Sol's review or a named Harley gate.
 
-Cloud Sol may propose exact copy or bounded presentation revisions and, when
-explicitly tasked, may commit those improvements through GitHub for review. It
-then reviews the revised diff. Its role is a creative critic and improver, not a
-new product owner. It must not invent facts, relax acceptance criteria, infer
-private context, or turn a review into an unapproved redesign. Suggestions that
-change public meaning, product scope, privacy, attribution, or a protected
-default return to Harley. Revisions that stay inside the approved intent remain
-subject to repository validation and the ordinary technical review lane.
-
-The GitHub connector proves only the repository state it can inspect. Upstream
-local repositories, private Linear material, deployed behaviour, asset source
-files, and Harley's uncommitted context remain unavailable unless separately
-and safely evidenced. Record the reviewed commit, review charter, material
-findings accepted or rejected, limitations, and revision commit in the phase
-handoff.
-
-This layer supplements rather than replaces Terra technical review, automated
-checks, manual browser inspection, or Harley's final taste and factual approval.
-For SWE-1.7 or GLM-5.2 implementation, it is the preferred frontier taste
-backstop; for Terra implementation, it remains a useful independent-context
-creative review.
+This creative gate precedes and does not replace any named Harley approval or
+factual, privacy, custody, accessibility, deployed-proof, or protected-default
+gate. Deterministic checks and human quality judgement remain separate gates.
+Iteration stops only on a recorded pass or a genuine Harley-owned decision.
+Every presentation-bearing phase marks manual review at 1440, 768, 390, and
+320 CSS pixels, 200% zoom, keyboard navigation, and reduced motion. Stop for
+Harley when a change affects public facts or tone, privacy, asset custody or
+licensing, protected design defaults, launch/no-build scope, or a genuinely
+unresolved visual or editorial choice.
 
 A fresh-context Terra review provides contextual independence, not model-family
 diversity. Every handoff reports evidence coverage, tools used, limitations,
@@ -172,8 +180,8 @@ exists, then plan-readiness or final handoff readiness as the phase advances.
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Professional truth and About narrative | done | [approved spec](../../specs/2026-08-21-portfolio-10k-01-professional-truth-about-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-1-professional-truth.md) | [`cd5b73b`](https://github.com/HarleyBartles/portfolio/commit/cd5b73b2ea402f8e6a2a8fe175e9569536bbd376) | [#19](https://github.com/HarleyBartles/portfolio/pull/19) | 9/10 | Local canonical validation passed on the final PR head; the hosted Portfolio quality gate then passed before PR #19 merged to `main` on 22 August 2026. |
-| 2 | CV and contact conversion | executing | [approved spec](../../specs/2026-08-21-portfolio-10k-02-cv-contact-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-2-cv-contact.md) | [`3425308`](https://github.com/HarleyBartles/portfolio/commit/3425308a5c4cea0b88218a97319a6fefbc016495) | — | 9/10 | Implementation is committed and locally canonically validated. The plan builds the CV, generated PDF, configured Formspree path, and honest disconnected state; live Formspree activation remains external because repository secret metadata has no endpoint entry. Actual native browser-zoom UI remains unverified in this runtime. |
-| 3 | Marketplace flagship and case-study system | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Prove frontier agentic practice and establish the case-study anatomy through one concrete project, not speculative abstraction. |
+| 2 | CV and contact conversion | done | [approved spec](../../specs/2026-08-21-portfolio-10k-02-cv-contact-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-2-cv-contact.md) | [`f8b76a7`](https://github.com/HarleyBartles/portfolio/commit/f8b76a74d9900574eb645ecefece85800f14b791) | [#20](https://github.com/HarleyBartles/portfolio/pull/20) | 9/10 | PR #20 merged on 22 August 2026 after the hosted Linux Portfolio quality gate passed. Formspree and GitHub secret configuration were completed externally; controlled live delivery remains the post-merge proof step. |
+| 3 | Marketplace flagship and case-study system | ready | [approved spec](../../specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md) | [JIT implementation plan](2026-08-22-portfolio-10k-phase-3-marketplace-case-study.md) | — | — | 9/10 | JIT plan written from merged `main` at `f8b76a7`. The Marketplace gitlink already equals the approved evidence revision `52866df…`; implementation verifies it rather than creating a redundant update. |
 | 4 | Wild Bunch architectural proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md) | — | — | — | 9/10 | Written spec approved by Harley on 21 August 2026. Demonstrate complex architecture when earned; depends on the case-study system. The implementation agent gathers final gameplay captures from the approved deterministic recipe. |
 | 5 | Adventures of Patch pipeline story | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-05-patch-pipeline-case-study-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Turn the project origin, published work, in-flight worlds, governed pipeline, and private story lab into evidence of controlled creative production. |
 | 6 | Agentic Learning Lab leadership proof | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Make curriculum architecture, cognitive grades, mentoring, learner safety, and practical agent adoption visually inspectable. |
@@ -364,6 +372,5 @@ introducing a second redesign.
   22 August 2026. Each outcome remains a separate specification and handoff
   gate; Harley approved all three written specifications on 22 August 2026.
 - The design wave completed on 22 August 2026 with all twelve phase specs at
-  9/10 readiness. The implementation wave uses Terra for JIT planning and
-  bounded execution, with Cloud Sol as the always-available creative-review
-  layer and Harley retaining final taste and factual authority.
+  9/10 readiness. The binding prospective execution model is recorded above;
+  it does not rewrite the history of that design wave.

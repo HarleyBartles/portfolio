@@ -51,11 +51,11 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
 
   if (slug === 'codex-marketplace') {
     return (
-      <figure className="project-visual project-visual--marketplace" role="img" aria-label="A plugin constellation showing 17 plugins and 74 bundled skill entries.">
-        <div className="marketplace-nodes" aria-hidden="true">
-          {['RW', 'SP', 'FE', 'API', 'SEC', 'DATA', 'MCP', 'PLAN', 'DOTNET'].map((label) => <span key={label}>{label}</span>)}
+      <figure className="project-visual project-visual--marketplace" aria-label="Marketplace baseline plugins with selected and local repository boundaries.">
+        <div className="marketplace-nodes">
+          <span>repo-worker-pack</span><span>superpowers-plus</span><span>mcp-usage-pack</span>
         </div>
-        <figcaption><strong>17</strong> plugins <i>/</i> <strong>74</strong> skill entries</figcaption>
+        <figcaption><strong>17</strong> plugins <i>/</i> <strong>74</strong> entries <small>selected + local</small></figcaption>
       </figure>
     )
   }

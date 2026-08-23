@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path, PurePosixPath
@@ -14,6 +15,8 @@ CONTENT_ROOT = Path("src/client/src/data/content")
 MANIFEST_PATH = CONTENT_ROOT / "content-manifest.json"
 PUBLIC_ROOT = Path("src/client/public")
 CUSTODY_PATH = Path("docs/asset-custody.md")
+MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
+MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 PRODUCTION_ROOT = Path("src/client/src")
 PRODUCTION_TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".scss", ".ts", ".tsx"}
 PUBLIC_ASSET_SUFFIXES = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
@@ -30,6 +33,9 @@ SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?:\+44[\s().-]*7|\b07)(?:[\s().-]*\d){9}\b")
 PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
+SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+PRIVATE_EVIDENCE_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/|\bworktree\b|\bbranch\b)", re.IGNORECASE)
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 
 
@@ -108,27 +114,38 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires a nonempty {field}"))
 
         relative_path = item.get("path")
-        if not isinstance(relative_path, str):
-            findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires a Markdown path"))
-        elif "\\" in relative_path:
-            findings.append(
-                _finding(MANIFEST_PATH, f"'{slug}' Markdown path must use POSIX separators: '{relative_path}'")
-            )
-        else:
-            pure_path = PurePosixPath(relative_path)
-            if relative_path != pure_path.as_posix():
+        presentation = item.get("presentation")
+        has_path = isinstance(relative_path, str)
+        has_presentation = isinstance(presentation, str)
+        if has_path == has_presentation:
+            findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
+
+        if has_presentation:
+            if presentation != "marketplace-case-study":
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
+            elif kind != "project":
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
+
+        if has_path:
+            if "\\" in relative_path:
                 findings.append(
-                    _finding(MANIFEST_PATH, f"'{slug}' Markdown path must be a canonical POSIX path: '{relative_path}'")
+                    _finding(MANIFEST_PATH, f"'{slug}' Markdown path must use POSIX separators: '{relative_path}'")
                 )
-                continue
-            unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
-            resolved_path = (content_root / Path(*pure_path.parts)).resolve()
-            if unsafe or not resolved_path.is_relative_to(content_root):
-                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unsafe Markdown path '{relative_path}'"))
             else:
-                manifest_paths.add(resolved_path)
-                if not resolved_path.is_file():
-                    findings.append(_finding(Path(relative_path), "content file does not exist"))
+                pure_path = PurePosixPath(relative_path)
+                if relative_path != pure_path.as_posix():
+                    findings.append(
+                        _finding(MANIFEST_PATH, f"'{slug}' Markdown path must be a canonical POSIX path: '{relative_path}'")
+                    )
+                else:
+                    unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
+                    resolved_path = (content_root / Path(*pure_path.parts)).resolve()
+                    if unsafe or not resolved_path.is_relative_to(content_root):
+                        findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unsafe Markdown path '{relative_path}'"))
+                    else:
+                        manifest_paths.add(resolved_path)
+                        if not resolved_path.is_file():
+                            findings.append(_finding(Path(relative_path), "content file does not exist"))
 
         if kind == "writing":
             date_value = item.get("date")
@@ -167,6 +184,150 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
         if markdown_path.resolve() not in manifest_paths:
             relative = markdown_path.relative_to(root)
             findings.append(_finding(relative, "Markdown file is not listed in the manifest"))
+
+    if any(item.get("presentation") == "marketplace-case-study" for item in items):
+        _validate_marketplace_evidence(root, findings)
+
+
+def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        findings.append(_finding(path, f"cannot load {label}: {exc}"))
+        return None
+
+
+def _marketplace_inventory(root: Path, findings: list[Finding]) -> tuple[list[str], int, int] | None:
+    marketplace_root = root / MARKETPLACE_ROOT
+    manifest = _read_json(marketplace_root / "manifest.json", findings, "Marketplace manifest")
+    plugins = manifest.get("plugins") if isinstance(manifest, dict) else None
+    if not isinstance(plugins, list):
+        findings.append(_finding(MARKETPLACE_ROOT / "manifest.json", "Marketplace manifest must contain a plugins array"))
+        return None
+
+    names = [entry.get("name") for entry in plugins if isinstance(entry, dict)]
+    if len(names) != len(plugins) or not all(isinstance(name, str) and name for name in names):
+        findings.append(_finding(MARKETPLACE_ROOT / "manifest.json", "Marketplace plugins must have names"))
+        return None
+
+    entry_count = 0
+    canonical_names: set[str] = set()
+    for plugin_name in names:
+        bundle_path = marketplace_root / "plugins" / plugin_name / "references/bundle-manifest.json"
+        bundle = _read_json(bundle_path, findings, f"Marketplace bundle for {plugin_name}")
+        entries = bundle.get("entries") if isinstance(bundle, dict) else None
+        if not isinstance(entries, list):
+            findings.append(_finding(bundle_path.relative_to(root), "Marketplace bundle must contain an entries array"))
+            continue
+        canonical_entries = [entry.get("canonical_name") for entry in entries if isinstance(entry, dict)]
+        if len(canonical_entries) != len(entries) or not all(isinstance(name, str) and name for name in canonical_entries):
+            findings.append(_finding(bundle_path.relative_to(root), "Marketplace entries must have canonical_name values"))
+            continue
+        entry_count += len(canonical_entries)
+        canonical_names.update(canonical_entries)
+    return sorted(names), entry_count, len(canonical_names)
+
+
+def _validate_marketplace_evidence(root: Path, findings: list[Finding]) -> None:
+    evidence = _read_json(root / MARKETPLACE_EVIDENCE_PATH, findings, "Marketplace evidence")
+    if not isinstance(evidence, dict):
+        return
+    inventory = _marketplace_inventory(root, findings)
+    if inventory is None:
+        return
+    plugin_names, entry_count, unique_skill_count = inventory
+
+    observed_at = evidence.get("observedAt")
+    if not isinstance(observed_at, str) or ISO_DATE_RE.fullmatch(observed_at) is None:
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "invalid observedAt; use ISO date format"))
+
+    marketplace_root = root / MARKETPLACE_ROOT
+    try:
+        tree_entry = subprocess.check_output(
+            ["git", "ls-tree", "HEAD", MARKETPLACE_ROOT.as_posix()], cwd=root, text=True, stderr=subprocess.DEVNULL
+        ).strip()
+        checked_out_revision = tree_entry.split()[2] if tree_entry.startswith("160000 commit ") else ""
+        if SHA_RE.fullmatch(checked_out_revision) is None:
+            raise subprocess.CalledProcessError(1, "git ls-tree")
+    except (OSError, subprocess.CalledProcessError):
+        try:
+            checked_out_revision = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=marketplace_root, text=True, stderr=subprocess.DEVNULL
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "cannot resolve Marketplace revision"))
+            checked_out_revision = None
+    evidence_revision = evidence.get("marketplaceRevision")
+    if not isinstance(evidence_revision, str) or SHA_RE.fullmatch(evidence_revision) is None:
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision must be a 40-character commit"))
+    elif checked_out_revision is not None and evidence_revision != checked_out_revision:
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision does not match Marketplace revision"))
+
+    evidence_inventory = evidence.get("inventory")
+    expected_counts = {"pluginCount": len(plugin_names), "entryCount": entry_count, "uniqueSkillCount": unique_skill_count}
+    if not isinstance(evidence_inventory, dict):
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "inventory must be an object"))
+    else:
+        for field, expected in expected_counts.items():
+            if evidence_inventory.get(field) != expected:
+                label = {"pluginCount": "plugin count", "entryCount": "entry count", "uniqueSkillCount": "unique skill count"}[field]
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"inventory {label} does not match Marketplace {label}"))
+
+    evidence_plugins = evidence.get("plugins")
+    if not isinstance(evidence_plugins, list) or sorted(evidence_plugins) != plugin_names:
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "plugin names do not match Marketplace inventory"))
+
+    consumers = evidence.get("consumers")
+    if not isinstance(consumers, list) or not consumers:
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "consumers must be a nonempty array"))
+        return
+    consumer_names: set[str] = set()
+    for index, consumer in enumerate(consumers, start=1):
+        label = f"consumer {index}"
+        if not isinstance(consumer, dict):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} must be an object"))
+            continue
+        name = consumer.get("name")
+        if not isinstance(name, str) or not name:
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} requires a name"))
+        elif name.casefold() in consumer_names:
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"duplicate consumer name '{name}'"))
+        else:
+            consumer_names.add(name.casefold())
+        url = consumer.get("url")
+        if not isinstance(url, str) or not url.startswith("https://"):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} URL must use HTTPS"))
+        commit = consumer.get("commit")
+        if not isinstance(commit, str) or SHA_RE.fullmatch(commit) is None:
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} commit must be a 40-character commit"))
+        consumer_revision = consumer.get("marketplaceRevision")
+        if consumer_revision is not None and (not isinstance(consumer_revision, str) or SHA_RE.fullmatch(consumer_revision) is None):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} marketplaceRevision must be a 40-character commit"))
+        for field in ("plugins", "localPlugins"):
+            value = consumer.get(field)
+            if not isinstance(value, list) or not all(isinstance(entry, str) and entry for entry in value):
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} {field} must be a string array"))
+            elif len(value) != len(set(value)):
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} {field} must not contain duplicates"))
+        local_skills = consumer.get("localSkills")
+        local_skill_count = consumer.get("localSkillCount")
+        has_local_skills = isinstance(local_skills, list) and all(isinstance(entry, str) and entry for entry in local_skills)
+        has_local_skill_count = isinstance(local_skill_count, int) and not isinstance(local_skill_count, bool) and local_skill_count >= 0
+        if has_local_skills == has_local_skill_count:
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} requires exactly one local skill boundary"))
+        elif has_local_skills and len(local_skills) != len(set(local_skills)):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} localSkills must not contain duplicates"))
+        installed_skill_count = consumer.get("installedSkillCount")
+        if not isinstance(installed_skill_count, int) or isinstance(installed_skill_count, bool) or installed_skill_count <= 0:
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} installedSkillCount must be a positive integer"))
+        used_plugins = consumer.get("plugins")
+        if isinstance(used_plugins, list):
+            for plugin_name in used_plugins:
+                if isinstance(plugin_name, str) and plugin_name not in plugin_names:
+                    findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} references unknown Marketplace plugin '{plugin_name}'"))
+        for value in consumer.values():
+            if isinstance(value, str) and PRIVATE_EVIDENCE_RE.search(value):
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} contains a private local coordinate"))
 
 
 def _production_text_files(root: Path) -> list[Path]:

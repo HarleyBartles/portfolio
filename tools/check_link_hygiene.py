@@ -78,7 +78,11 @@ def check_jsx_anchors(errors: list[str]) -> None:
 
 
 def _content_md_paths(manifest: dict) -> set[Path]:
-    return {CONTENT_DIR / item["path"] for item in manifest["items"] if item["path"].endswith(".md")}
+    return {
+        CONTENT_DIR / item["path"]
+        for item in manifest["items"]
+        if isinstance(item.get("path"), str) and item["path"].endswith(".md")
+    }
 
 
 def check_markdown_links(manifest: dict, routes: set[str], errors: list[str]) -> None:

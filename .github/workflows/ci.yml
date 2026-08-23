@@ -67,10 +67,47 @@ jobs:
         with:
           path: src/client/dist
 
+  visual-regression:
+    name: Visual regression
+    runs-on: windows-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          cache: npm
+          cache-dependency-path: src/client/package-lock.json
+
+      - name: Install client dependencies
+        run: npm ci --prefix src/client
+
+      - name: Install Chromium
+        run: npx --prefix src/client playwright install chromium
+
+      - name: Run visual regression
+        run: npm --prefix src/client run test:e2e:visual
+
+      - name: Upload visual Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-visual-report-windows
+          path: src/client/playwright-report
+          if-no-files-found: ignore
+          retention-days: 14
+
   deploy:
     name: Deploy validated artifact
     if: github.ref == 'refs/heads/main'
-    needs: quality
+    needs:
+      - quality
+      - visual-regression
     runs-on: ubuntu-latest
     permissions:
       pages: write

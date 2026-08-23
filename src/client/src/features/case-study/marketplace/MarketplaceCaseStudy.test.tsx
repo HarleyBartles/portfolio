@@ -1,0 +1,27 @@
+import { render, screen } from '@testing-library/react'
+import { describe, expect, test } from 'vitest'
+import { MarketplaceCaseStudy } from './MarketplaceCaseStudy'
+
+describe('MarketplaceCaseStudy', () => {
+  test('tells the approved operating model and dated audit story in source order', () => {
+    render(<MarketplaceCaseStudy />)
+
+    expect(screen.getByText('Shared where reuse earns it. Local where context matters.')).toBeVisible()
+    expect(screen.getByRole('heading', { name: 'Baseline' })).toBeVisible()
+    expect(screen.getByRole('heading', { name: 'Selected' })).toBeVisible()
+    expect(screen.getByRole('heading', { name: 'Local' })).toBeVisible()
+    expect(screen.getByText('Repository audit · 21 August 2026')).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Marketplace repository' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/agent-asset-marketplace')
+    expect(screen.getByRole('link', { name: 'Inspect the public source' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/agent-asset-marketplace')
+    expect(screen.getByRole('link', { name: 'Read the repo-standards skill' })).toHaveAttribute('href', expect.stringContaining('/codex-marketplace/plugins/repo-worker-pack/skills/repo-standards/SKILL.md'))
+    expect(screen.getByText(/first-party operating model/i)).toBeVisible()
+    expect(screen.getByText('Curation over accumulation')).toBeVisible()
+    expect(screen.getByText('Source separate from installed copies')).toBeVisible()
+    expect(screen.getByText('Wild Bunch')).toBeVisible()
+    expect(screen.getByText(/no mcp-usage-pack selection/i)).toBeVisible()
+
+    const map = screen.getByRole('figure', { name: /Selective distribution map/ })
+    const model = screen.getByRole('region', { name: 'Three-layer operating model' })
+    expect(map.compareDocumentPosition(model) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  })
+})

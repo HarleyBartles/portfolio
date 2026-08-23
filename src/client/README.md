@@ -25,6 +25,7 @@ From another shell, run the client validation commands:
 npm test -- --run
 npm run build
 npm run test:e2e
+npm run test:e2e:visual
 ```
 
 The same interactive commands on Bash are:
@@ -40,8 +41,16 @@ The same validation commands on Bash are:
 npm test -- --run
 npm run build
 npm run test:e2e
+npm run test:e2e:visual
 ```
 
 `npm run test:e2e` uses `playwright.config.ts` to build and start the Vite
 preview server, then exercises the public journeys with Chromium. Content is
 compiled from `src/data/content/`; the deployed site has no runtime backend.
+
+`npm run test:e2e:visual` is the canonical pixel-baseline check. Windows is
+the sole renderer for those baselines: local Windows validation and the required
+GitHub Actions Windows job compare the same approved files. Linux still runs the
+remaining canonical CI journeys and reports this visual suite as intentionally
+skipped. Author and review a new visual baseline once on Windows; do not create
+platform-specific duplicates.

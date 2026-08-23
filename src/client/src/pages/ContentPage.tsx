@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { ReactElement } from 'react'
+import { Suspense, type ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
@@ -11,6 +11,7 @@ import { ProjectStatus } from '../components/ProjectStatus'
 import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
+import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
 import { formatContentDate, sortWriting } from '../utils/content'
@@ -97,6 +98,13 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     return <ContentNotFoundState />
   }
 
+  const Presentation = document.summary.presentation === undefined
+    ? undefined
+    : getProjectPresentation(document.summary.presentation)
+  if (document.summary.presentation !== undefined && Presentation === undefined) {
+    return <ContentErrorState />
+  }
+
   const relatedSummaries = navigationQuery.data ?? []
   const fallbackSlugs =
     document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
@@ -133,7 +141,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
         <header
           className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}
-          data-visual-contract="content-page-header"
+          data-visual-contract={document.summary.presentation === 'marketplace-case-study' ? 'marketplace-case-study-hero' : 'content-page-header'}
         >
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
@@ -151,7 +159,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} /></div>
           )}
         </header>
-        <div className="content-page-body"><MarkdownContent markdown={document.markdown} /></div>
+        <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
+          {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={null}><Presentation /></Suspense>}
+        </div>
         {document.summary.kind === 'writing' ? null : (
           <RelatedContent
             slugs={slugsToShow}

@@ -1,0 +1,81 @@
+{
+  "observedAt": "2026-08-21",
+  "marketplaceRevision": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+  "inventory": {
+    "pluginCount": 17,
+    "entryCount": 74,
+    "uniqueSkillCount": 70
+  },
+  "plugins": [
+    "agentic-evaluation",
+    "agentic-workflows",
+    "api-contracts-pack",
+    "architecture-pack",
+    "data-platform-pack",
+    "dotnet-pack",
+    "engineering-pack",
+    "feature-sliced-design",
+    "frontend-pack",
+    "language-patterns-pack",
+    "mcp-usage-pack",
+    "planning-pack",
+    "repo-worker-pack",
+    "research-pack",
+    "security-pack",
+    "superpowers-plus",
+    "unslop-plus"
+  ],
+  "consumers": [
+    {
+      "name": "Agent Asset Marketplace",
+      "url": "https://github.com/HarleyBartles/agent-asset-marketplace",
+      "commit": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+      "marketplaceRevision": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+      "plugins": ["repo-worker-pack", "superpowers-plus", "mcp-usage-pack"],
+      "installedSkillCount": 39,
+      "localPlugins": [],
+      "localSkillCount": 0
+    },
+    {
+      "name": "Adventures of Patch",
+      "url": "https://github.com/HarleyBartles/adventures-of-patch",
+      "commit": "01c2f4656afb76b3c7ac7559a6841bc201f0fd7a",
+      "marketplaceRevision": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+      "plugins": ["repo-worker-pack", "superpowers-plus", "mcp-usage-pack"],
+      "installedSkillCount": 39,
+      "localPlugins": [],
+      "localSkillCount": 4
+    },
+    {
+      "name": "Portfolio",
+      "url": "https://github.com/HarleyBartles/portfolio",
+      "commit": "bd07d8a09581bdde40cddff4e880db426a50cd82",
+      "marketplaceRevision": "be69c861acc608c0aaff5817d0f39f585f6bbd5c",
+      "plugins": ["repo-worker-pack", "superpowers-plus", "mcp-usage-pack", "frontend-pack"],
+      "installedSkillCount": 45,
+      "localPlugins": [],
+      "localSkillCount": 7
+    },
+    {
+      "name": "Rooms Mostly",
+      "url": "https://github.com/HarleyBartles/rooms-mostly",
+      "commit": "164c49123bbb938583583c8b41f100761fbd3fc7",
+      "marketplaceRevision": "48073e0c876934c1eb77b8db9bd1e9a1b625b5bf",
+      "plugins": ["repo-worker-pack", "superpowers-plus", "mcp-usage-pack"],
+      "installedSkillCount": 39,
+      "localPlugins": [],
+      "localSkillCount": 5
+    },
+    {
+      "name": "Wild Bunch",
+      "url": "https://github.com/HarleyBartles/wild-bunch",
+      "commit": "2a9814d094148bb789766a27d316095fecce5a60",
+      "marketplaceRevision": "d4b1711cae8f9dc6be5ff9f39525f703f4eae355",
+      "plugins": ["repo-worker-pack", "superpowers-plus", "dotnet-pack", "architecture-pack", "frontend-pack"],
+      "installedSkillCount": 56,
+      "localPlugins": ["game-studio"],
+      "localSkillCount": 4,
+      "note": "Its audited selection predates the current three-plugin baseline."
+    }
+  ]
+}

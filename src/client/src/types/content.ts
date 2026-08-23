@@ -6,6 +6,8 @@ export type ContentKind =
   | 'writing'
   | 'fairytales'
 
+export type ProjectPresentation = 'marketplace-case-study'
+
 export type ContentSummary = {
   slug: string
   kind: ContentKind
@@ -14,6 +16,7 @@ export type ContentSummary = {
   summary: string
   date?: string
   readingMinutes?: number
+  presentation?: ProjectPresentation
   featured: boolean
   tags: string[]
   relatedSlugs: string[]
@@ -21,7 +24,7 @@ export type ContentSummary = {
 
 export type ContentDocument = {
   summary: ContentSummary
-  markdown: string
+  markdown?: string
 }
 
 export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): string {
