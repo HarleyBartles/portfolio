@@ -34,9 +34,9 @@
       "slug": "adventures-of-patch",
       "kind": "project",
       "title": "Adventures of Patch",
-      "status": "pre-alpha",
-      "summary": "A visual and narrative pipeline for making agentic engineering digestible. Two one-page Patch Fairytales are published; one multi-page Adventure exists only as a pre-repo proof of concept.",
-      "path": "projects/adventures-of-patch.md",
+      "status": "active project",
+      "summary": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
+      "presentation": "patch-pipeline-case-study",
       "tags": ["project", "comics", "automation"],
       "relatedSlugs": ["goldilocks", "sorcerers-apprentice"]
     },

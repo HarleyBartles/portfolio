@@ -125,11 +125,11 @@
 - Consumes: Task 1 exact source revisions, custody paths, measured derivatives, and the approved public-safe Linear observations.
 - Produces: one public-safe data contract and validated manifest consumed by Tasks 3-5.
 
-- [ ] **Step 1: Write failing Python tests for every new rejection path.** Build minimal valid Patch evidence in the test fixture, then mutate one field per test. Require failures for a short source SHA, mutable branch URL, unsupported status, published record without public artefact path, in-flight record without `remaining`, future item with a date/progress/link, Linear URL or `PATCH-` identifier, drive/local/signed/credential-like data, media without dimensions/custody, and a generated pose without accepted source state. Run `py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v`; expected: the new Patch cases fail because no validator exists.
+- [x] **Step 1: Write failing Python tests for every new rejection path.** Build minimal valid Patch evidence in the test fixture, then mutate one field per test. Require failures for a short source SHA, mutable branch URL, unsupported status, published record without public artefact path, in-flight record without `remaining`, future item with a date/progress/link, Linear URL or `PATCH-` identifier, drive/local/signed/credential-like data, media without dimensions/custody, and a generated pose without accepted source state. Run `py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v`; expected: the new Patch cases fail because no validator exists.
 
-- [ ] **Step 2: Implement the narrow validator.** Add `validate_patch_evidence(repo_root, manifest)` beside the Marketplace and Wild Bunch validators. Validate ISO observation date, HTTPS public repository URL, 40-character lowercase revisions, allowed source types, exact status vocabulary, public artefact paths for `published`, `currentEvidence` plus `remaining` for in-flight states, no link/date/progress on story seeds, deployed media dimensions, and matching custody text. Reject case-insensitive `linear.app`, `PATCH-\d+`, Windows/Unix local paths, localhost, signed query parameters, tokens, and connector IDs.
+- [x] **Step 2: Implement the narrow validator.** Add `validate_patch_evidence(repo_root, manifest)` beside the Marketplace and Wild Bunch validators. Validate ISO observation date, HTTPS public repository URL, 40-character lowercase revisions, allowed source types, exact status vocabulary, public artefact paths for `published`, `currentEvidence` plus `remaining` for in-flight states, no link/date/progress on story seeds, deployed media dimensions, and matching custody text. Reject case-insensitive `linear.app`, `PATCH-\d+`, Windows/Unix local paths, localhost, signed query parameters, tokens, and connector IDs.
 
-- [ ] **Step 3: Author the evidence snapshot.** Use this top-level shape:
+- [x] **Step 3: Author the evidence snapshot.** Use this top-level shape:
 
   ```json
   {
@@ -146,11 +146,11 @@
 
   Give every pipeline stage `input`, `decision`, `output`, and `stopCondition`. Include Club DB, Goldilocks, Sorcerer's Apprentice, and Introducing Patch as published; Lawful Heist, Tournament, and Identity Emporium with exact approved statuses and remaining work; seven fairytale lessons; and only Test Goblin, The Tiny Change That Wasn't, Review Dragon, and Hall of Mirrors as archived questions. Store no private link or identifier.
 
-- [ ] **Step 4: Convert the manifest to the specialist source.** Change status to `active project`, use the no-em-dash approved summary, replace `path` with `presentation: "patch-pipeline-case-study"`, retain relevant tags/related slugs, and delete `adventures-of-patch.md` in the same slice. Extend existing exclusive-or tests so path plus presentation and neither path nor presentation both fail.
+- [x] **Step 4: Convert the manifest to the specialist source.** Change status to `active project`, use the no-em-dash approved summary, replace `path` with `presentation: "patch-pipeline-case-study"`, retain relevant tags/related slugs, and delete `adventures-of-patch.md` in the same slice. Extend existing exclusive-or tests so path plus presentation and neither path nor presentation both fail.
 
-- [ ] **Step 5: Regenerate and verify deterministic content surfaces.** Run `py -3 tools/run.py ci --apply` only for owned mechanical outputs, inspect route-document and INDEX changes, then run the Python suite and relevant content tests. Expected: the new evidence and manifest contract pass, unrelated Markdown projects remain valid, and no generated file refers to the deleted Markdown path.
+- [x] **Step 5: Regenerate and verify deterministic content surfaces.** Run `py -3 tools/run.py ci --apply` only for owned mechanical outputs, inspect route-document and INDEX changes, then run the Python suite and relevant content tests. Expected: the new evidence and manifest contract pass, unrelated Markdown projects remain valid, and no generated file refers to the deleted Markdown path.
 
-- [ ] **Step 6: Mark Task 2 boxes complete and commit.** Stage only the authored snapshot, validator/tests, manifest conversion, deleted Markdown body, and inspected generated output. Commit `feat: validate the Patch production record` after `git diff --cached --check` passes.
+- [x] **Step 6: Mark Task 2 boxes complete and commit.** Stage only the authored snapshot, validator/tests, manifest conversion, deleted Markdown body, and inspected generated output. Commit `feat: validate the Patch production record` after `git diff --cached --check` passes.
 
 ### Task 3: Register the specialist body and build its semantic production model
 

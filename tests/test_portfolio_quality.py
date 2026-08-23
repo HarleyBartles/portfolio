@@ -166,6 +166,121 @@ class PortfolioFixture:
         evidence_path.parent.mkdir(parents=True, exist_ok=True)
         evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
+    def write_patch_evidence(self) -> None:
+        revision = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
+        asset_path = "src/client/public/media/patch/patch-example.avif"
+        asset = self.root / asset_path
+        asset.parent.mkdir(parents=True, exist_ok=True)
+        asset.write_bytes(b"RIFF-owned-patch-image")
+        custody_path = self.docs / "asset-custody.md"
+        custody_path.write_text(
+            custody_path.read_text(encoding="utf-8") + f"- Public file: `{asset_path}`\n",
+            encoding="utf-8",
+        )
+        evidence = {
+            "observedAt": "2026-08-24",
+            "repositoryUrl": "https://github.com/HarleyBartles/adventures-of-patch",
+            "sourceRevision": revision,
+            "pipeline": [
+                {
+                    "id": identifier,
+                    "name": name,
+                    "input": "A public-safe input.",
+                    "decision": "A human gate.",
+                    "output": "A bounded output.",
+                    "stopCondition": "The gate does not clear.",
+                }
+                for identifier, name in (
+                    ("seed", "Seed"),
+                    ("frame", "Frame"),
+                    ("visual-preproduction", "Visual pre-production"),
+                    ("image-generation-and-qa", "Image generation and QA"),
+                    ("deterministic-compilation", "Deterministic compilation"),
+                    ("published-artefact-and-receipt", "Published artefact and receipt"),
+                )
+            ],
+            "published": [
+                {
+                    "title": "Club DB",
+                    "status": "published",
+                    "publicArtefactUrl": (
+                        "https://github.com/HarleyBartles/adventures-of-patch/blob/"
+                        f"{revision}/published/adventures/club-db.pptx"
+                    ),
+                },
+                {
+                    "title": "Goldilocks",
+                    "status": "published",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/goldilocks/page.png",
+                },
+                {
+                    "title": "The Sorcerer's Apprentice",
+                    "status": "published",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/sorcerers-apprentice/page.png",
+                },
+                {
+                    "title": "Introducing Patch",
+                    "status": "published",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/misc/introducing-patch/page.png",
+                },
+            ],
+            "inFlight": [
+                {
+                    "title": "Lawful Heist",
+                    "status": "advanced-visual-preproduction",
+                    "lesson": "Lawful authority can cross a protected boundary without an invisible bypass.",
+                    "currentEvidence": "Approved specialist reference sheets.",
+                    "remaining": "Comic adaptation and deck plan remain incomplete.",
+                },
+                {
+                    "title": "Tournament of Reasonable Defaults",
+                    "status": "visual-development",
+                    "lesson": "Stakeholder consultation prevents false deliverables.",
+                    "currentEvidence": "Reference material is present.",
+                    "remaining": "Revised scene planning and deck work remain.",
+                },
+                {
+                    "title": "Identity Emporium",
+                    "status": "legacy-reference",
+                    "lesson": "A costume is not an identity.",
+                    "currentEvidence": "World proof is present.",
+                    "remaining": "Asset and deck readiness remain incomplete.",
+                },
+            ],
+            "storyLab": {
+                "fairytaleLessons": [
+                    "Preserve escalation signal.",
+                    "Agreement is not evidence.",
+                    "Leave purposeful recovery breadcrumbs.",
+                    "Build resilience before predictable pressure.",
+                    "Let temporary authority expire.",
+                    "Verify identity, provenance, and authority.",
+                    "Distinguish technical capability from authorisation.",
+                ],
+                "adventureQuestions": [
+                    {"title": "Test Goblin", "lesson": "Rank executable test scenarios."},
+                    {"title": "The Tiny Change That Wasn't", "lesson": "Map blast radius."},
+                    {"title": "Review Dragon", "lesson": "Shape reviewer handoff."},
+                    {"title": "Hall of Mirrors", "lesson": "Bound the next hypothesis."},
+                ],
+            },
+            "media": [
+                {
+                    "path": asset_path,
+                    "width": 1,
+                    "height": 1,
+                    "bytes": len(b"RIFF-owned-patch-image"),
+                    "custody": "Patch example custody.",
+                    "sourceType": "repository-evidence",
+                    "sourceStatus": "accepted",
+                    "sourceRevision": revision,
+                }
+            ],
+        }
+        evidence_path = self.root / "src/client/src/data/case-studies/patch-evidence.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
 
 class PortfolioQualityTests(unittest.TestCase):
     def validate(self, mutate=None) -> list[str]:
@@ -618,6 +733,65 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("exactly one body source" in finding for finding in findings))
+
+    def test_patch_evidence_rejects_invalid_production_claims_and_private_coordinates(self) -> None:
+        mutations = {
+            "short source revision": (
+                lambda evidence: evidence.__setitem__("sourceRevision", "short"),
+                "sourceRevision must be a 40-character commit",
+            ),
+            "mutable public artefact URL": (lambda evidence: evidence["published"][0].__setitem__(
+                "publicArtefactUrl",
+                "https://github.com/HarleyBartles/adventures-of-patch/blob/main/published/adventures/club-db.pptx",
+            ), "must use the pinned source revision"),
+            "unsupported status": (lambda evidence: evidence["inFlight"][0].__setitem__("status", "live"), "unsupported status 'live'"),
+            "published record without public artefact": (lambda evidence: evidence["published"][0].pop("publicArtefactUrl"), "published record 1 requires a publicArtefactUrl"),
+            "in-flight record without remaining work": (lambda evidence: evidence["inFlight"][0].pop("remaining"), "in-flight record 1 requires remaining"),
+            "future item with a date": (lambda evidence: evidence["storyLab"]["fairytaleLessons"].append(
+                {"lesson": "A future lesson.", "date": "2026-09-01"}
+            ), "future-work item must not contain date"),
+            "Linear identifier": (lambda evidence: evidence["pipeline"][0].__setitem__("decision", "PATCH-42 decides it."), "private coordinate or credential"),
+            "private coordinate": (lambda evidence: evidence["pipeline"][0].__setitem__("output", "Z:/private/output"), "private coordinate or credential"),
+            "signed URL": (lambda evidence: evidence["pipeline"][0].__setitem__(
+                "input", "https://example.test/file?signature=private"
+            ), "private coordinate or credential"),
+            "credential": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "token=private"), "private coordinate or credential"),
+            "connector identifier": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "connector_id=private"), "private coordinate or credential"),
+            "media without dimensions and custody": (lambda evidence: evidence["media"][0].update(
+                {"width": 0, "height": 0, "custody": ""}
+            ), "requires positive intrinsic dimensions"),
+            "generated pose without accepted source": (lambda evidence: evidence["media"][0].update(
+                {"sourceType": "generated-pose", "sourceStatus": "candidate"}
+            ), "generated pose requires accepted sourceStatus"),
+        }
+
+        for label, (mutate_evidence, expected_finding) in mutations.items():
+            with self.subTest(label=label):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    del fixture.items[0]["path"]
+                    fixture.items[0]["presentation"] = "patch-pipeline-case-study"
+                    fixture.items[0]["status"] = "active project"
+                    fixture.write_manifest()
+                    (fixture.content / "projects/example-project.md").unlink()
+                    fixture.write_patch_evidence()
+                    evidence_path = fixture.root / "src/client/src/data/case-studies/patch-evidence.json"
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    mutate_evidence(evidence)
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                findings = self.validate(mutate)
+                self.assertTrue(any(expected_finding in finding for finding in findings), findings)
+
+    def test_patch_evidence_accepts_the_public_safe_contract(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "patch-pipeline-case-study"
+            fixture.items[0]["status"] = "active project"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            fixture.write_patch_evidence()
+
+        self.assertEqual([], self.validate(mutate))
 
     def test_privacy_scan_rejects_contact_literals_and_private_paths(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

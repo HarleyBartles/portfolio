@@ -20,9 +20,12 @@ CUSTODY_PATH = Path("docs/asset-custody.md")
 MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
+PATCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/patch-evidence.json")
 WILD_BUNCH_REVISION = "2a9814d094148bb789766a27d316095fecce5a60"
 WILD_BUNCH_REPOSITORY_URL = "https://github.com/HarleyBartles/wild-bunch"
 WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd"
+PATCH_SOURCE_REVISION = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
+PATCH_REPOSITORY_URL = "https://github.com/HarleyBartles/adventures-of-patch"
 PRODUCTION_ROOT = Path("src/client/src")
 PRODUCTION_TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".scss", ".ts", ".tsx"}
 PUBLIC_ASSET_SUFFIXES = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
@@ -30,7 +33,7 @@ RASTER_IMAGE_SUFFIXES = PUBLIC_ASSET_SUFFIXES - {".svg"}
 MAX_IMAGE_BYTES = 400 * 1024
 
 STATUS_BY_KIND = {
-    "project": {"incomplete", "live", "pre-alpha"},
+    "project": {"active project", "incomplete", "live", "pre-alpha"},
     "writing": {"published"},
     "fairytales": {"published"},
 }
@@ -47,6 +50,22 @@ WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
     r"(?:\blocalhost\b|\b(?:password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]|\b(?:server|host|data source|user id|uid)\s*=|\bsession[-_ ]?(?:id|[0-9a-f]{8,})\b)",
     re.IGNORECASE,
 )
+PATCH_PRIVATE_COORDINATE_RE = re.compile(
+    r"(?:\blinear\.app\b|\bPATCH-\d+\b|\b[A-Za-z]:[\\/]|/(?:Users|home)/|"
+    r"\blocalhost\b|[?&](?:signature|sig|token|x-amz-signature)=[^&#\s]+|"
+    r"\b(?:password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]|\bconnector[_ -]?id\s*[=:])",
+    re.IGNORECASE,
+)
+PATCH_STATUSES = {
+    "published",
+    "advanced-visual-preproduction",
+    "visual-development",
+    "legacy-reference",
+    "story-seed",
+    "archived-source-material",
+}
+PATCH_SOURCE_TYPES = {"repository-evidence", "public-artefact", "user-supplied-professional-project-context", "generated-pose"}
+PATCH_SOURCE_STATES = {"accepted", "published", "advanced_visual_preproduction", "visual_development", "legacy_reference"}
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 DECORATIVE_EMOJI_RE = re.compile(r"[\u2600-\u27BF\U0001F1E6-\U0001FAFF]")
 # Add a path only when the emoji itself is necessary to the quoted material or medium.
@@ -135,7 +154,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "wild-bunch-case-study"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
             elif kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
@@ -203,6 +222,8 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
         _validate_marketplace_evidence(root, findings)
     if any(item.get("presentation") == "wild-bunch-case-study" for item in items):
         _validate_wild_bunch_evidence(root, findings)
+    if any(item.get("presentation") == "patch-pipeline-case-study" for item in items):
+        _validate_patch_evidence(root, findings)
 
 
 def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
@@ -533,6 +554,177 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
             or _is_forbidden_wild_bunch_url(text)
         ):
             findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "contains a private local coordinate or secret"))
+            break
+
+
+def _patch_strings(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [text for nested in value.values() for text in _patch_strings(nested)]
+    if isinstance(value, list):
+        return [text for nested in value for text in _patch_strings(nested)]
+    return []
+
+
+def _is_pinned_patch_url(value: Any, revision: str) -> bool:
+    if not isinstance(value, str):
+        return False
+    prefix = f"{PATCH_REPOSITORY_URL}/blob/{revision}/"
+    if not value.startswith(prefix):
+        return False
+    parsed = urlparse(value)
+    return parsed.query == "" and parsed.fragment == "" and bool(parsed.path.removeprefix(urlparse(prefix).path))
+
+
+def _require_patch_string(evidence: dict[str, Any], field: str, findings: list[Finding], message: str) -> None:
+    value = evidence.get(field)
+    if not isinstance(value, str) or not value.strip():
+        findings.append(_finding(PATCH_EVIDENCE_PATH, message))
+
+
+def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
+    evidence = _read_json(root / PATCH_EVIDENCE_PATH, findings, "Patch evidence")
+    if not isinstance(evidence, dict):
+        return
+
+    observed_at = evidence.get("observedAt")
+    try:
+        valid_date = isinstance(observed_at, str) and date.fromisoformat(observed_at).isoformat() == observed_at
+    except ValueError:
+        valid_date = False
+    if not valid_date:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "invalid observedAt; use ISO date format"))
+    elif observed_at != "2026-08-24":
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "observedAt must be '2026-08-24'"))
+
+    revision = evidence.get("sourceRevision")
+    if not isinstance(revision, str) or SHA_RE.fullmatch(revision) is None:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "sourceRevision must be a 40-character commit"))
+    elif revision != PATCH_SOURCE_REVISION:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "sourceRevision must match the approved evidence revision"))
+
+    if evidence.get("repositoryUrl") != PATCH_REPOSITORY_URL:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "repositoryUrl must match the approved HTTPS public repository URL"))
+
+    pipeline = evidence.get("pipeline")
+    expected_stages = (
+        ("seed", "Seed"),
+        ("frame", "Frame"),
+        ("visual-preproduction", "Visual pre-production"),
+        ("image-generation-and-qa", "Image generation and QA"),
+        ("deterministic-compilation", "Deterministic compilation"),
+        ("published-artefact-and-receipt", "Published artefact and receipt"),
+    )
+    pipeline_ids = [entry.get("id") if isinstance(entry, dict) else None for entry in pipeline] if isinstance(pipeline, list) else []
+    pipeline_names = [entry.get("name") if isinstance(entry, dict) else None for entry in pipeline] if isinstance(pipeline, list) else []
+    if not isinstance(pipeline, list) or pipeline_ids != [stage[0] for stage in expected_stages] or pipeline_names != [stage[1] for stage in expected_stages]:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "pipeline must contain the six ordered production stages"))
+    else:
+        for index, stage in enumerate(pipeline, start=1):
+            for field in ("input", "decision", "output", "stopCondition"):
+                _require_patch_string(stage, field, findings, f"pipeline stage {index} requires {field}")
+
+    def validate_records(field: str, in_flight: bool) -> None:
+        records = evidence.get(field)
+        if not isinstance(records, list) or not records:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, f"{field} must be a nonempty array"))
+            return
+        for index, record in enumerate(records, start=1):
+            label = "in-flight" if in_flight else "published"
+            if not isinstance(record, dict):
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"{label} record {index} must be an object"))
+                continue
+            _require_patch_string(record, "title", findings, f"{label} record {index} requires a title")
+            status = record.get("status")
+            if status not in PATCH_STATUSES:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"{label} record {index} has unsupported status {status!r}"))
+            if not in_flight:
+                if status != "published":
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"published record {index} must use status 'published'"))
+                url = record.get("publicArtefactUrl")
+                if not isinstance(url, str) or not url:
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"published record {index} requires a publicArtefactUrl"))
+                elif not isinstance(revision, str) or not _is_pinned_patch_url(url, revision):
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"published record {index} publicArtefactUrl must use the pinned source revision"))
+            elif status not in {"advanced-visual-preproduction", "visual-development", "legacy-reference"}:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"in-flight record {index} has unsupported in-flight status {status!r}"))
+            if in_flight:
+                _require_patch_string(record, "lesson", findings, f"in-flight record {index} requires lesson")
+                _require_patch_string(record, "currentEvidence", findings, f"in-flight record {index} requires currentEvidence")
+                _require_patch_string(record, "remaining", findings, f"in-flight record {index} requires remaining")
+
+    validate_records("published", in_flight=False)
+    validate_records("inFlight", in_flight=True)
+    published = evidence.get("published")
+    if not isinstance(published, list) or [record.get("title") if isinstance(record, dict) else None for record in published] != [
+        "Club DB", "Goldilocks", "The Sorcerer's Apprentice", "Introducing Patch",
+    ]:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "published must contain the four approved artefacts in order"))
+    in_flight = evidence.get("inFlight")
+    if not isinstance(in_flight, list) or [record.get("title") if isinstance(record, dict) else None for record in in_flight] != [
+        "Lawful Heist", "Tournament of Reasonable Defaults", "Identity Emporium",
+    ]:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "inFlight must contain the three approved worlds in order"))
+
+    story_lab = evidence.get("storyLab")
+    if not isinstance(story_lab, dict):
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab must be an object"))
+    else:
+        lessons = story_lab.get("fairytaleLessons")
+        questions = story_lab.get("adventureQuestions")
+        if not isinstance(lessons, list) or len(lessons) != 7:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab fairytaleLessons must contain seven lessons"))
+        if not isinstance(questions, list) or [entry.get("title") if isinstance(entry, dict) else None for entry in questions] != [
+            "Test Goblin", "The Tiny Change That Wasn't", "Review Dragon", "Hall of Mirrors",
+        ]:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab adventureQuestions must contain only the four approved archived questions"))
+        for collection in (lessons if isinstance(lessons, list) else [], questions if isinstance(questions, list) else []):
+            for entry in collection:
+                if isinstance(entry, dict) and any(field in entry for field in ("date", "progress", "link", "url")):
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, "future-work item must not contain date, progress, or link"))
+
+    media = evidence.get("media")
+    custody = (root / CUSTODY_PATH).read_text(encoding="utf-8") if (root / CUSTODY_PATH).is_file() else ""
+    if not isinstance(media, list) or not media:
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "media must be a nonempty array"))
+    else:
+        for index, item in enumerate(media, start=1):
+            if not isinstance(item, dict):
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} must be an object"))
+                continue
+            path = item.get("path")
+            if not isinstance(path, str) or not path.startswith("src/client/public/media/patch/"):
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path must be a Patch public custody path"))
+            elif f"`{path}`" not in custody:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path is missing from docs/asset-custody.md"))
+            width, height = item.get("width"), item.get("height")
+            if not all(isinstance(value, int) and not isinstance(value, bool) and value > 0 for value in (width, height)):
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} requires positive intrinsic dimensions"))
+            bytes_count = item.get("bytes")
+            if not isinstance(bytes_count, int) or isinstance(bytes_count, bool) or bytes_count <= 0:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} requires a positive byte count"))
+            _require_patch_string(item, "custody", findings, f"media record {index} requires custody")
+            source_type = item.get("sourceType")
+            if source_type not in PATCH_SOURCE_TYPES:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} has unsupported sourceType {source_type!r}"))
+            if item.get("sourceStatus") not in PATCH_SOURCE_STATES:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} has unsupported sourceStatus {item.get('sourceStatus')!r}"))
+            source_revision = item.get("sourceRevision")
+            if not isinstance(source_revision, str) or SHA_RE.fullmatch(source_revision) is None or source_revision != PATCH_SOURCE_REVISION:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} must retain the approved source revision"))
+            if source_type == "generated-pose" and item.get("sourceStatus") != "accepted":
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} generated pose requires accepted sourceStatus"))
+            if isinstance(path, str) and path.startswith("src/client/public/media/patch/"):
+                asset_path = root / path
+                if not asset_path.is_file():
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} derivative is missing from the public tree"))
+                elif isinstance(bytes_count, int) and not isinstance(bytes_count, bool) and asset_path.stat().st_size != bytes_count:
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} byte count does not match the committed derivative"))
+
+    for text in _patch_strings(evidence):
+        if PATCH_PRIVATE_COORDINATE_RE.search(text):
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "contains a private coordinate or credential"))
             break
 
 
