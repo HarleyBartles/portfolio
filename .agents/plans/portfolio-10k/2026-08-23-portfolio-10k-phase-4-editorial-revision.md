@@ -63,18 +63,23 @@
 
 ---
 
-### Task 1: Lock the amended editorial contract with failing tests
+### Task 1: Lock the amended editorial contract and rewrite the article
 
 **Files:**
 - Modify: `.agents/specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md`
 - Modify: `.agents/plans/portfolio-10k/roadmap.md`
 - Modify: `src/client/src/features/case-study/wild-bunch/WildBunchCaseStudy.test.tsx`
 - Modify: `src/client/e2e/project-story.spec.ts`
+- Modify: `src/client/src/features/case-study/wild-bunch/WildBunchCaseStudy.tsx`
+- Modify only if copy duplication remains: `src/client/src/features/case-study/wild-bunch/WildBunchDeterminismFigure.tsx`
+- Modify only if copy duplication remains: `src/client/src/features/case-study/wild-bunch/WildBunchEventFlow.tsx`
+- Modify captions: `src/client/src/features/case-study/wild-bunch/WildBunchProductEvidence.tsx`
+- Modify tests: adjacent Wild Bunch `*.test.tsx`
 - Retain/regenerate: canonical `INDEX.md` mesh files produced during setup
 
 **Interfaces:**
 - Consumes: merged PR #22 specialist presentation and the 23 August Harley editorial correction.
-- Produces: executable public-copy and source-order assertions for Task 2, plus the current roadmap link to this plan.
+- Produces: a red-to-green public-copy contract and a shorter specialist body whose pattern claims, evidence links, figures, and captions Task 2 can compose visually.
 
 - [ ] **Step 1: Record the design and roadmap amendment.** Keep the spec changes narrow to editorial emphasis, exact terminology, consolidation authority, and closing posture. Set roadmap Phase 4 to `executing`, link this plan, retain the original merged PR #22 as prior iteration evidence, and state that the phase remains open until the corrective acceptance contract passes.
 
@@ -103,9 +108,9 @@
 
   Expected: FAIL on rejected introduction/dossier/ledger copy, not on test setup or unrelated routes.
 
-- [ ] **Step 5: Mark Task 1 boxes complete and commit.** Stage the spec, roadmap, plan, failing tests, and inspected canonical generated indexes. Commit with `test: define Wild Bunch editorial quality contract`. The failing tests are intentional and must be named in the commit/plan state.
+- [ ] **Step 5: Record the red evidence without committing it.** The repository hook correctly rejects a red tree. Keep the failing tests in the working tree, record their exact failures in the task report, and continue directly into the rewrite below. Commit only the green red-to-green slice.
 
-### Task 2: Rewrite the article around Harley's reasoning
+#### Task 1 implementation: Rewrite the article around Harley's reasoning
 
 **Files:**
 - Modify: `src/client/src/features/case-study/wild-bunch/WildBunchCaseStudy.tsx`
@@ -153,9 +158,9 @@
 
 - [ ] **Step 6: Sol copy gate.** Read the complete rendered text in order. Record pass/veto for human voice, paragraph purpose, narrative propulsion, architecture precision, non-defensive honesty, consequence-led terminology, repetition, and ending. Veto if the copy can be rearranged without losing its argument, if a pattern precedes its pressure, or if status language outweighs desire/decision/learning.
 
-- [ ] **Step 7: Mark Task 2 boxes complete and commit.** Commit with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
+- [ ] **Step 7: Mark Task 1 boxes complete and commit.** Commit the tests and implementation together with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
 
-### Task 3: Recompose the page around the shorter story
+### Task 2: Recompose the page around the shorter story
 
 **Files:**
 - Modify: `src/client/src/features/case-study/wild-bunch/WildBunchCaseStudy.tsx`
@@ -165,8 +170,8 @@
 - Modify: `docs/design-decisions.md`
 
 **Interfaces:**
-- Consumes: Task 2 final source order, semantic figures, capture dimensions, existing portfolio tokens.
-- Produces: the final authored responsive composition and focused visual contracts for Task 4.
+- Consumes: Task 1 final source order, semantic figures, capture dimensions, existing portfolio tokens.
+- Produces: the final authored responsive composition and focused visual contracts for Task 3.
 
 - [ ] **Step 1: Add a failing structural/visual contract where useful.** Assert the specialist body exposes named movement hooks (`wild-bunch-story-movement`) and one source-note close; no decision-card grid or capability-ledger class remains. Keep figures ordered and relationship semantics independent of layout.
 
@@ -182,9 +187,9 @@
 
 - [ ] **Step 7: Sol visual/creative gate.** Record pass/veto for hierarchy, game-first recognition, reading momentum, evidence adjacency, whitespace purpose, caption restraint, field-journal continuity, and mobile/zoom finish. Compare against the rejected deployed page, not merely the current test baseline.
 
-- [ ] **Step 8: Mark Task 3 boxes complete and commit.** Commit with `style: compose Wild Bunch as an authored field note` after focused visual and browser checks pass.
+- [ ] **Step 8: Mark Task 2 boxes complete and commit.** Commit with `style: compose Wild Bunch as an authored field note` after focused visual and browser checks pass.
 
-### Task 4: Complete review, canonical verification, and draft PR publication
+### Task 3: Complete review, canonical verification, and draft PR publication
 
 **Files:**
 - Modify: `.agents/plans/portfolio-10k/2026-08-23-portfolio-10k-phase-4-editorial-revision.md`
@@ -193,7 +198,7 @@
 - Modify only for evidenced defects: files owned by Tasks 1–3
 
 **Interfaces:**
-- Consumes: Tasks 1–3 committed outputs and review evidence.
+- Consumes: Tasks 1–2 committed outputs and review evidence.
 - Produces: a self-reviewed draft PR for the still-open Phase 4 roadmap item.
 
 - [ ] **Step 1: Run independent Terra reviews.** Dispatch fresh-context bounded reviews for (a) requirements/factual terminology and copy, (b) React/test quality and accessibility/responsiveness, and (c) £10k editorial/visual quality. Each reviewer returns findings with exact evidence and does not edit. Reconcile findings against source and rendered truth; dispatch bounded repairs to the owning implementation task.
