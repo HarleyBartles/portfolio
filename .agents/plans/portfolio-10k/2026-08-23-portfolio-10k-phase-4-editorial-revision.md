@@ -81,9 +81,9 @@
 - Consumes: merged PR #22 specialist presentation and the 23 August Harley editorial correction.
 - Produces: a red-to-green public-copy contract and a shorter specialist body whose pattern claims, evidence links, figures, and captions Task 2 can compose visually.
 
-- [ ] **Step 1: Record the design and roadmap amendment.** Keep the spec changes narrow to editorial emphasis, exact terminology, consolidation authority, and closing posture. Set roadmap Phase 4 to `executing`, link this plan, retain the original merged PR #22 as prior iteration evidence, and state that the phase remains open until the corrective acceptance contract passes.
+- [x] **Step 1: Record the design and roadmap amendment.** Keep the spec changes narrow to editorial emphasis, exact terminology, consolidation authority, and closing posture. Set roadmap Phase 4 to `executing`, link this plan, retain the original merged PR #22 as prior iteration evidence, and state that the phase remains open until the corrective acceptance contract passes.
 
-- [ ] **Step 2: Replace tests that canonise the rejected copy.** Remove assertions requiring the three-paragraph development-build introduction, `CQRS-style`, the prominent three-column capability ledger, exactly three supporting-pattern bullets, and five decision cards. Add assertions that:
+- [x] **Step 2: Replace tests that canonise the rejected copy.** Remove assertions requiring the three-paragraph development-build introduction, `CQRS-style`, the prominent three-column capability ledger, exactly three supporting-pattern bullets, and five decision cards. Add assertions that:
 
   ```tsx
   expect(screen.queryByRole('region', { name: 'Development-build position' })).not.toBeInTheDocument()
@@ -97,9 +97,9 @@
 
   Assert the origin follows the thesis without an intervening disclaimer region; determinism, event history, player knowledge, engineering control, and the source note remain in meaningful order; one concise visual-state note exists; and the public close contains the pinned repository invitation but no `Built, in motion, beyond pre-alpha` heading.
 
-- [ ] **Step 3: Add browser-level editorial regression checks.** In `project-story.spec.ts`, assert no `Development-build position` region, no `CQRS-style`, no `aggregate-scoped repositories`, a visible `React Testing Library` label, and no prominent capability ledger. Retain status, evidence links, image loading, keyboard, narrow-width, and semantic figure checks.
+- [x] **Step 3: Add browser-level editorial regression checks.** In `project-story.spec.ts`, assert no `Development-build position` region, no `CQRS-style`, no `aggregate-scoped repositories`, a visible `React Testing Library` label, and no prominent capability ledger. Retain status, evidence links, image loading, keyboard, narrow-width, and semantic figure checks.
 
-- [ ] **Step 4: Run the focused tests and confirm the intended red state.** Run:
+- [x] **Step 4: Run the focused tests and confirm the intended red state.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study/wild-bunch/WildBunchCaseStudy.test.tsx
@@ -108,7 +108,7 @@
 
   Expected: FAIL on rejected introduction/dossier/ledger copy, not on test setup or unrelated routes.
 
-- [ ] **Step 5: Record the red evidence without committing it.** The repository hook correctly rejects a red tree. Keep the failing tests in the working tree, record their exact failures in the task report, and continue directly into the rewrite below. Commit only the green red-to-green slice.
+- [x] **Step 5: Record the red evidence without committing it.** The repository hook correctly rejects a red tree. Keep the failing tests in the working tree, record their exact failures in the task report, and continue directly into the rewrite below. Commit only the green red-to-green slice.
 
 #### Task 1 implementation: Rewrite the article around Harley's reasoning
 
@@ -123,9 +123,9 @@
 - Consumes: Task 1 editorial assertions, creative brief, pinned evidence URLs, existing semantic figures and captures.
 - Produces: a shorter specialist body whose pattern claims, evidence links, figures, and captions Task 3 can compose visually.
 
-- [ ] **Step 1: Have Terra produce a bounded architecture-fact brief.** Read the pinned Wild Bunch files or equivalent live checkout at revision `2a9814d...` for command/query handlers, `IGameSessionRepository`, projection read repositories, `IGameSessionUnitOfWork`, replay, dev action injection, map generation, and persisted town layout. Return exact responsibilities, tensions, and safe public formulations; do not draft portfolio prose or edit files.
+- [x] **Step 1: Have Terra produce a bounded architecture-fact brief.** Read the pinned Wild Bunch files or equivalent live checkout at revision `2a9814d...` for command/query handlers, `IGameSessionRepository`, projection read repositories, `IGameSessionUnitOfWork`, replay, dev action injection, map generation, and persisted town layout. Return exact responsibilities, tensions, and safe public formulations; do not draft portfolio prose or edit files.
 
-- [ ] **Step 2: Draft five connected movements in source order.** Replace the rejected ten-part catalogue with:
+- [x] **Step 2: Draft five connected movements in source order.** Replace the rejected ten-part catalogue with:
 
   1. **The game I wanted to return to** — childhood origin becomes the desire to preserve surprise without surrendering reproducibility.
   2. **Making chance reproducible** — UUID bit budget, neighbouring seed worlds, deterministic shuffle, Delaunay/MST/alternate-edge/repair generation, and persisted town layouts flow as one discovery.
@@ -135,7 +135,7 @@
 
   Follow with one concise source note/invitation. Keep first person natural; do not manufacture private internal monologue beyond Harley's supplied needs and inspected decisions.
 
-- [ ] **Step 3: Repair the scannable technical snapshot without interrupting the story.** Retain a compact orientation aside after the first movement. Use direct formulations:
+- [x] **Step 3: Repair the scannable technical snapshot without interrupting the story.** Retain a compact orientation aside after the first movement. Use direct formulations:
 
   ```text
   Architecture — DDD around GameSession; CQRS command/query separation; Onion dependency direction; event sourcing, projections, snapshots, optimistic concurrency and upcasting.
@@ -145,9 +145,9 @@
 
   Keep backend/web dependencies only where they orient a hiring manager; remove any dependency that does not help interpret the proof.
 
-- [ ] **Step 4: Make captions prove one thing each.** Replace repeated `Current development build / working skeleton` prefixes with evidence-specific captions: Dustwell establishes a playable town surface; the map shows topology and travel distance; audit shows ordered typed events; wanted/case images show player-safe knowledge. Preserve concise alt descriptions and the single global visual-state note.
+- [x] **Step 4: Make captions prove one thing each.** Replace repeated `Current development build / working skeleton` prefixes with evidence-specific captions: Dustwell establishes a playable town surface; the map shows topology and travel distance; audit shows ordered typed events; wanted/case images show player-safe knowledge. Preserve concise alt descriptions and the single global visual-state note.
 
-- [ ] **Step 5: Run focused tests to green.** Run:
+- [x] **Step 5: Run focused tests to green.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study/wild-bunch src/features/case-study/projectPresentations.test.tsx
@@ -157,6 +157,8 @@
   Expected: PASS. Search production source for `CQRS-style`, `aggregate-scoped repositories`, bare `Testing Library`, repeated `working skeleton`, localhost, hidden-truth identifiers, and unsupported production claims.
 
 - [ ] **Step 6: Sol copy gate.** Read the complete rendered text in order. Record pass/veto for human voice, paragraph purpose, narrative propulsion, architecture precision, non-defensive honesty, consequence-led terminology, repetition, and ending. Veto if the copy can be rearranged without losing its argument, if a pattern precedes its pressure, or if status language outweighs desire/decision/learning.
+
+  Sol creative pass/veto remains pending; Task 1 does not claim it.
 
 - [ ] **Step 7: Mark Task 1 boxes complete and commit.** Commit the tests and implementation together with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
 

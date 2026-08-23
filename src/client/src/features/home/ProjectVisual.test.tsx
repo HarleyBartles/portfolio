@@ -19,7 +19,7 @@ describe('ProjectVisual', () => {
 
     const visual = screen.getByLabelText('Wild Bunch Dustwell development-build preview')
     const image = screen.getByRole('img', {
-      name: /current development build: ranger vale in the dustwell town hub/i,
+      name: /ranger vale in the dustwell town hub/i,
     })
 
     expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-development-build-preview')
@@ -30,7 +30,7 @@ describe('ProjectVisual', () => {
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(visual.querySelectorAll('picture source')).toHaveLength(4)
-    expect(visual).toHaveTextContent(/current development build \/ working skeleton/i)
+    expect(visual).toHaveTextContent(/Dustwell establishes a playable town surface/i)
   })
 
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {

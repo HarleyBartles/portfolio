@@ -35,7 +35,12 @@ test('visitor opens the Wild Bunch route with its exact thesis, status, and insp
     await expect(page.getByRole('link', { name: linkName })).toBeFocused()
   }
 
-  await expect(page.getByText(/Current development build \/ working skeleton/).first()).toBeVisible()
+  await expect(page.getByText(/^These captures show the current development build:/)).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Development-build position' })).toHaveCount(0)
+  await expect(page.getByText(/CQRS-style/i)).toHaveCount(0)
+  await expect(page.getByText(/aggregate-scoped repositories/i)).toHaveCount(0)
+  await expect(page.getByText(/React Testing Library/i)).toBeVisible()
+  await expect(page.locator('.wild-bunch-capability-ledger')).toHaveCount(0)
   await expect(page.getByRole('figure', { name: 'Generated trail-map development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Session-audit development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Wanted-notice development-build evidence' })).toBeVisible()
