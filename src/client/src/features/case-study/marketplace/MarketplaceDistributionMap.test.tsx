@@ -24,9 +24,9 @@ describe('MarketplaceDistributionMap', () => {
   })
 
   test('does not publish the editorially excluded consumer identity in Marketplace evidence or presentation', () => {
-    render(<MarketplaceDistributionMap />)
+    const { container } = render(<MarketplaceDistributionMap />)
 
     expect(JSON.stringify(marketplaceEvidence)).not.toMatch(/rooms[ -]?mostly/i)
-    expect(screen.queryByText(/rooms mostly/i)).not.toBeInTheDocument()
+    expect(container.innerHTML).not.toMatch(/rooms[ -]?mostly/i)
   })
 })
