@@ -89,22 +89,61 @@ implementation plan; selects `/subagent-driven-development`; and maintains the
 whole-plan view, task sequencing, integration, evidence, handoff readiness,
 and completion drive.
 
-Every subagent must use GPT-5.6 Terra. This includes implementation, research,
-repair, task-review, re-review, and final-review subagents. Generic escalation must not create a
+Every subagent must use GPT-5.6 Terra. This includes implementation,
+research, repair, task-review, re-review, and final-review subagents. Only the
+main GPT-5.6 Sol orchestrator may create subagents: Terra workers cannot
+delegate or create children. A Terra worker may propose decomposition or a
+fresh-context review to Sol; Sol alone decides dispatch, role and reasoning
+effort, sequencing, budget, concurrency, and reconciliation, and records that
+decision in the plan or ledger. Keep the topology shallow: Sol -> Terra only;
+Terra -> Terra descendants are prohibited. Generic escalation must not create a
 Sol child: the Sol main agent narrows or replans the work and redispatches
 Terra.
+
+Before Terra begins material creative work, Sol records a phase-specific
+creative-review brief in the JIT plan. Sol derives it from the approved phase
+outcome, non-goals, protected defaults, design policy, decision ledger, and
+current repository truth. The brief names the audience, intended response,
+constraints and protected defaults, factual and privacy boundaries,
+distinctive design intent, failure modes, observable acceptance signals, and
+evidence surface.
+
+The JIT plan records Sol's selected review lenses. Sol must use
+`/writing-with-clarity` and the matching `/unslop-profiles` profile for
+material prose, creative writing, documentation, plans, and handoffs, plus
+the relevant artifact-specific skills and doctrine lenses. Model reputation or
+an unsupported claim that Sol has better taste is never acceptance evidence.
 
 Terra may draft creative work, but Sol personally reviews every material
 creative output: public copy, creative writing, visual style, art direction,
 hierarchy, imagery and capture framing, and interaction tone. Sol assesses
 taste, humanness, restraint, specificity, and AI-slop risk against the £10k
-portfolio bar; may veto; and must dispatch Terra iteration until the output
-passes before handoff readiness.
+portfolio bar.
+
+Sol inspects the actual rendered or readable artifact, not Terra's
+self-description, and records `pass` or `veto`, the artifact and evidence
+reviewed, every criterion result, limitations, and unresolved human gates. A
+veto becomes a bounded Terra revision brief naming the failed criterion or
+emergent defect, observed evidence, intended effect, preserved constraints,
+and re-review evidence. It constrains badness and preserves intent without
+prescribing the creative answer or collapsing the result into formula.
+
+The rubric is a floor and diagnostic aid, never an exhaustive formula or taste
+scorecard; satisfying its listed criteria does not force a pass. Sol may veto
+technically compliant work that is lifeless, generic, overwritten, derivative,
+predictable, or off-tone, but must identify the artifact evidence, observed
+defect, and intended effect. Unarticulated dislike is insufficient.
+
+This process supports consistent, inspectable review and evidence-backed
+decisions. It does not mechanically prove taste, humanness, originality, or
+£10k quality. CI, profile conformance, or model identity cannot substitute for
+Sol's review or a named Harley gate.
 
 This creative gate precedes and does not replace any named Harley approval or
 factual, privacy, custody, accessibility, deployed-proof, or protected-default
-gate. It is an additional delivery gate, not a substitute for human decisions
-or other evidence.
+gate. Iteration stops only on a recorded pass or a genuine Harley-owned
+decision.
+
 
 ## Approved narrative
 

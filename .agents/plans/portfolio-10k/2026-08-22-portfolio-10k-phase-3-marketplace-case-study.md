@@ -292,6 +292,42 @@
 
   The Terra implementer writes a report with changed files and validation evidence. A fresh Terra task reviewer checks all twelve specs and the roadmap for coverage, consistency, historical honesty, preserved human gates, and prose quality. The Sol orchestrator resolves any findings through Terra iteration, performs the final creative review itself, and marks this task complete only when the contract is unambiguous and handoff-ready.
 
+### Task 7: Make the Sol creative gate evidence-led and repeatable
+
+**Files:**
+- Modify: `.agents/plans/portfolio-10k/roadmap.md`
+- Modify: all twelve approved `.agents/specs/2026-08-21-portfolio-10k-*-design.md` phase specifications
+- Modify: this plan only to track Task 7
+- Modify: generated `INDEX.md` surfaces only through `py -3 tools/run.py mesh --apply` if the generator reports drift
+
+**Consumes:** Harley's 23 August 2026 clarification that model capability alone is not a quality standard; the binding Sol/Terra execution model; `/writing-with-clarity`; `/unslop-profiles`; the portfolio design policy and design-decision ledger; artifact-specific portfolio skills and approved phase criteria.
+
+**Produces:** A creative-review protocol whose inputs, lenses, acceptance criteria, evidence, and pass-or-veto decision are inspectable and repeatable without pretending that taste is an automated fact.
+
+- [x] **Step 1: Require an explicit creative review brief in every JIT plan.**
+
+  Before Terra begins material creative work, Sol derives a short rubric from the approved phase outcome, non-goals, protected defaults, design policy, decision ledger, and current repository truth. The rubric names the audience, intended response, factual and privacy boundaries, distinctive design intent, failure modes, observable acceptance signals, and evidence surface. It must be specific enough to tell Terra what to change after a veto.
+
+- [x] **Step 2: Bind Sol to documented review lenses.**
+
+  Sol must use `/writing-with-clarity` and the matching `/unslop-profiles` profile for material prose, creative writing, documentation, plans, and handoffs. It must also select the artifact-specific skills and doctrine that govern the output: for example `/designing-premium-sites`, `/frontend-ux`, `/web-layout`, `/typography-for-the-web`, `/motion-patterns`, `/asset-custody`, and `/wcag` when their surfaces are materially involved. The JIT plan records the selected lenses; model reputation or an unsupported statement that Sol has “better taste” is never acceptance evidence.
+
+- [x] **Step 3: Make each Sol verdict concrete.**
+
+  Sol reviews the rendered or readable artifact, not Terra's self-description. It records `pass` or `veto`, cites the artifact and evidence inspected, evaluates each rubric criterion, and names any unresolved judgement or human-owned gate. A veto becomes a bounded Terra revision brief with the failed criterion or emergent creative defect, observed evidence, intended effect, preserved constraints, and re-review evidence. The brief constrains badness and preserves intent without prescribing the creative answer. Iteration stops only on a recorded pass or a genuine Harley-owned decision.
+
+- [x] **Step 4: State the honest proof boundary.**
+
+  The contract may claim a consistent, inspectable review process and evidence-backed decisions. It must not claim that taste, originality, humanness, or the £10k bar is mechanically proved. The rubric is a floor and diagnostic aid, not an exhaustive formula or scorecard: satisfying every listed criterion does not force a pass. Sol may veto technically compliant work that is lifeless, generic, overwritten, derivative, predictable, or off-tone, but must cite the observed problem; unarticulated dislike is not review evidence. CI, profile conformance, or a model identity cannot substitute for Sol's review or a named Harley gate.
+
+- [x] **Step 5: Keep subagent creation as non-delegable Sol authority.**
+
+  Only the main GPT-5.6 Sol orchestrator may create subagents. Terra workers may propose decomposition or a fresh-context worker, but may not spawn, resume, or delegate to child agents. A proposal names the scope, reason, dependencies, suggested role and reasoning effort, and expected evidence; Sol decides whether to dispatch it, controls sequencing, concurrency, and reconciliation, and records the resulting branch in the JIT plan or SDD ledger. Keep the execution tree shallow and explicit (`Sol -> Terra`); prohibit recursive `Sol -> Terra -> Terra` delegation. Any child output reaches Sol directly and cannot be laundered through an unrecorded worker-level review chain.
+
+- [ ] **Step 6: Normalise, review, validate, and publish the refinement.**
+
+  Keep the creative-review protocol identical across all twelve specs and aligned with the roadmap. Use a Terra implementer and a fresh Terra task reviewer. Sol then performs the final clarity, anti-slop, and creative review. Run `py -3 tools/run.py mesh --apply`, the identical-section hash check, `git diff --check`, and `py -3 tools/run.py ci --check`; update PR #21's body and exact final head before marking the task complete.
+
 ## Plan-readiness self-review
 
 - **Spec coverage:** Tasks 1–2 cover static evidence, central inventory, and exclusive presentation routing; Task 3 covers the approved narrative, map semantics, trace, decisions, assets, and custody; Task 4 covers the distinctive responsive composition and compact preview; Task 5 covers route, visual, accessibility, manual, canonical, creative-review, and publication evidence.
