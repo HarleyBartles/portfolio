@@ -161,7 +161,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
           </div>
           {projectVisualSlug === null ? null : (
-            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager /></div>
+            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch'} /></div>
           )}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>

@@ -39,4 +39,26 @@ describe('Wild Bunch project route', () => {
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(article?.querySelectorAll('[data-visual-contract="wild-bunch-development-build-preview"]')).toHaveLength(1)
   })
+
+  test('leaves an ordinary project route visual lazy', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/projects/adventures-of-patch'],
+    })
+    routers.push(router)
+
+    render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' })
+    const image = screen.getByRole('img', {
+      name: /patch appears as a detective, cowboy, chef, and mechanic/i,
+    })
+
+    expect(image).toHaveAttribute('loading', 'lazy')
+    expect(image).toHaveAttribute('fetchpriority', 'auto')
+  })
 })
