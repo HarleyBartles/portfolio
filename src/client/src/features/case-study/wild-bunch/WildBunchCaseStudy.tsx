@@ -124,7 +124,7 @@ export function WildBunchCaseStudy(): ReactElement {
 
         <div className="wild-bunch-source-note" data-story-close="source-note">
           <CaseStudySection title="Inspect the evidence">
-            <p>These captures come from the current development build: a scrappy, buggy pre-alpha with a lot of heart and exactly the architecture it deserves. The source snapshot pins every architectural claim above to the version I inspected.</p>
+            <p>These captures record the current development build, not a final game-art direction. The source snapshot pins every architectural claim above to the version I inspected.</p>
             <CaseStudyEvidence auditDate="21 August 2026" href={pinnedRepositoryUrl} label="Wild Bunch source snapshot (pinned revision)" />
           </CaseStudySection>
         </div>
