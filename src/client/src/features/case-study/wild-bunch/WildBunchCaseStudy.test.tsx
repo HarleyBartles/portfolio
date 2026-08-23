@@ -54,7 +54,6 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/Amstrad CPC 464/i)).toBeVisible()
     expect(screen.getByText(/Locomotive BASIC/i)).toBeVisible()
 
-    expect(screen.getByRole('link', { name: 'Wild Bunch repository' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch')
     expect(screen.getByRole('link', { name: 'Historical Wild Bunch archive' })).toHaveAttribute('href', 'https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd')
     expect(screen.getByRole('link', { name: 'Pinned resolver evidence' })).toHaveAttribute(
       'href',
@@ -103,6 +102,27 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/DDD keeps the game rules and invariants with the session that owns them/i)).toBeVisible()
     expect(screen.getByText(/CQRS keeps state-changing commands separate from player, audit, and projection reads/i)).toBeVisible()
     expect(screen.getByText(/Onion direction keeps those rules independent of HTTP, EF\/PostgreSQL, and Phaser/i)).toBeVisible()
+  })
+
+  test('links detailed public claims to their pinned evidence snapshot', () => {
+    renderCaseStudy()
+
+    expect(screen.getByRole('link', { name: 'Pinned graph-generation evidence' })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.GameContent.Tests/TrailGraphGeneratorTests.cs',
+    )
+    expect(screen.getByRole('link', { name: 'Pinned persisted-world evidence' })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/World/WorldSnapshot.cs',
+    )
+    expect(screen.getByRole('link', { name: 'Pinned developer-tooling evidence' })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/dev/DevOverlay.tsx',
+    )
+    expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/wild-bunch/tree/2a9814d094148bb789766a27d316095fecce5a60',
+    )
   })
 
   test('shows exactly three supporting patterns, five decisions, and the explicit simpler-build trade-off', () => {

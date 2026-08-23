@@ -7,6 +7,7 @@ const routes = [
   { name: 'home', path: './' },
   { name: 'projects', path: 'projects' },
   { name: 'project story', path: 'projects/adventures-of-patch' },
+  { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
   { name: 'writing', path: 'writing' },
   { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },
   { name: 'fairytale', path: 'fairytales/goldilocks' },
@@ -44,6 +45,7 @@ for (const viewport of viewports) {
         const pageHeading = page.locator('main h1').first()
         await expect(pageHeading).toBeVisible()
         await expect(page.locator('[data-route-loading]')).toHaveCount(0)
+        await expect(page.locator('[data-loading="specialist-presentation"]')).toHaveCount(0)
         await expect(pageHeading).toBeVisible()
         await page.evaluate(() => document.fonts.ready)
 

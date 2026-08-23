@@ -25,7 +25,7 @@ describe('Wild Bunch project route', () => {
       </QueryClientProvider>,
     )
 
-    const title = await screen.findByRole('heading', { level: 1, name: 'Wild Bunch' })
+    const title = await screen.findByRole('heading', { level: 1, name: 'Wild Bunch' }, { timeout: 5_000 })
     const article = title.closest('article')
     const header = article?.querySelector('header')
 

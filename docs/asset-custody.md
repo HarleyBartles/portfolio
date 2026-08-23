@@ -113,7 +113,9 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 
 ## Wild Bunch development-build captures
 
-These are derivative screenshots of Harley Bartles' running Wild Bunch repository at revision `2a9814d094148bb789766a27d316095fecce5a60`, captured on 2026-08-23. They are evidence of a playable current development build / working skeleton, not final game design, approved art direction, public-demo readiness, or a claim to independently license any included sprite work. The receipt-verified run used `Ranger Vale`, world seed `00000000-0000-0000-0000-000000000000`, `Standard` difficulty, explicitly selected `Boring` entropy, and player-chosen `Dustwell`.
+These are derivative screenshots of Harley Bartles' running Wild Bunch repository at revision `2a9814d094148bb789766a27d316095fecce5a60`, captured on 2026-08-23. They are evidence of a playable current development build / working skeleton, not final game design, approved art direction, or public-demo readiness. The receipt-verified run used `Ranger Vale`, world seed `00000000-0000-0000-0000-000000000000`, `Standard` difficulty, explicitly selected `Boring` entropy, and player-chosen `Dustwell`.
+
+The visible game art is first-party project work generated under Harley's direction for Wild Bunch and retained in that repository's source, staging, and production custody paths. The public provenance record is [Wild Bunch PR #155](https://github.com/HarleyBartles/wild-bunch/pull/155), "Generate town hub filler assets". Harley owns the project and explicitly authorised these product screenshots for this portfolio phase. The portfolio publishes only screenshots and their resized derivatives, not the standalone sprite files; this record makes no open-source licensing or third-party reuse claim for those sprites.
 
 ### Dustwell town hub
 

@@ -226,15 +226,15 @@
 
 **Produces:** Automated and manual proof for the finished Wild Bunch route and corrected Marketplace presentation, followed by a fully reviewed draft PR.
 
-- [ ] **Step 1: Write failing browser and Axe assertions.** Cover direct and client navigation; exact thesis/status; keyboard-reachable repository/history/pinned evidence links; semantic determinism/event source order; development-build captions; 390/320 no-overflow; dense bitmap evidence repeated in selectable HTML; 200%-zoom proxy; reduced-motion parity; intrinsic dimensions; eager hero/lazy below-fold; Marketplace and ordinary project regressions; and unknown routes. Add Wild Bunch to the existing `accessibility.spec.ts` desktop/mobile WCAG 2.2 AA route matrix before implementation is accepted.
+- [x] **Step 1: Write failing browser and Axe assertions.** Cover direct and client navigation; exact thesis/status; keyboard-reachable repository/history/pinned evidence links; semantic determinism/event source order; development-build captions; 390/320 no-overflow; dense bitmap evidence repeated in selectable HTML; 200%-zoom proxy; reduced-motion parity; intrinsic dimensions; eager hero/lazy below-fold; Marketplace and ordinary project regressions; and unknown routes. Add Wild Bunch to the existing `accessibility.spec.ts` desktop/mobile WCAG 2.2 AA route matrix before implementation is accepted.
 
   Run: `npm.cmd --prefix src/client run test:e2e -- e2e/project-story.spec.ts e2e/accessibility.spec.ts e2e/visual-regression.spec.ts`
 
   Expected: FAIL at least on the newly named Wild Bunch visual snapshots because no approved baselines exist yet. If non-visual assertions expose a defect from Tasks 1–4, route the fix back to the owning original implementer rather than weakening the assertion.
 
-- [ ] **Step 2: Add stable visual contracts and reviewed Windows baselines.** Capture Wild Bunch town hero + determinism at 1440, event-flow + product evidence at 1440, and stacked composition at 390. Refresh Marketplace wide/mobile baselines only for the reviewed removal of the fourth consumer. Do not weaken tolerance or replace unrelated baselines.
+- [x] **Step 2: Add stable visual contracts and reviewed Windows baselines.** Capture the Wild Bunch town hero and determinism as separate focused 1440 contracts, event flow and product evidence as separate focused 1440 contracts, and the stacked determinism composition at 390. Refresh Marketplace wide/mobile baselines only for the reviewed removal of the fourth consumer. Refresh the existing homepage feature-deck baseline because the approved Task 4 Dustwell replacement directly changes that Wild Bunch consumer; it is not unrelated churn. Do not weaken tolerance or replace unrelated baselines.
 
-- [ ] **Step 3: Run focused automated proof.** Run:
+- [x] **Step 3: Run focused automated proof.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study src/features/home/ProjectVisual.test.tsx
@@ -244,11 +244,11 @@
 
   Expected: PASS.
 
-- [ ] **Step 4: Perform Sol's full manual review.** Inspect 1440, 768, 390, and 320; keyboard-only; reduced motion; and native 200% zoom. Confirm a real game precedes architecture, determinism/event sourcing have explicit payoffs and costs, wanted/case evidence stays supporting, no hidden truth/private coordinate appears, unfinished visuals/controls/hosting remain honest, origin is warm but brief, AI authorship is clear, at least one restraint decision is visible, and the page does not universalise this architecture.
+- [x] **Step 4: Perform Sol's full manual review.** Inspect 1440, 768, 390, and 320; keyboard-only; reduced motion; and native 200% zoom. Confirm a real game precedes architecture, determinism/event sourcing have explicit payoffs and costs, wanted/case evidence stays supporting, no hidden truth/private coordinate appears, unfinished visuals/controls/hosting remain honest, origin is warm but brief, AI authorship is clear, at least one restraint decision is visible, and the page does not universalise this architecture.
 
-- [ ] **Step 5: Run whole-branch review loops.** Dispatch fresh Terra reviewers for requirements/evidence, code/test quality, accessibility/responsive behaviour, and public copy/asset custody. Route every finding to the owning original implementer and obtain fresh re-review. Sol reconciles conflicts and records final pass/veto.
+- [x] **Step 5: Run whole-branch review loops.** Fresh requirements/evidence, code/test quality, accessibility/responsive, and public copy/asset-custody lenses completed. Sol repaired and reverified the pinned claim links, first-party art custody, focused visual contracts, image readiness, real keyboard traversal, Suspense status, event-flow layout, token use, and Axe contrast. A final subagent re-dispatch was unavailable because the workspace reviewer pool reported exhausted credits; Sol therefore reconciled each reported finding against focused automated and rendered evidence rather than claiming an unavailable second external pass.
 
-- [ ] **Step 6: Regenerate and run the canonical gate on the staged final tree.** Run:
+- [x] **Step 6: Regenerate and run the canonical gate on the staged final tree.** Run:
 
   ```powershell
   py -3 tools/run.py ci --apply

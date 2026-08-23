@@ -17,6 +17,10 @@ const repositoryUrl = 'https://github.com/HarleyBartles/wild-bunch'
 const historicalReferenceUrl = 'https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd'
 const revision = '2a9814d094148bb789766a27d316095fecce5a60'
 const sourceRoot = `${repositoryUrl}/blob/${revision}`
+const pinnedRepositoryUrl = `${repositoryUrl}/tree/${revision}`
+const graphEvidenceUrl = `${sourceRoot}/tests/WildBunch.GameContent.Tests/TrailGraphGeneratorTests.cs`
+const persistedWorldEvidenceUrl = `${sourceRoot}/src/WildBunch.Domain/World/WorldSnapshot.cs`
+const developerToolingEvidenceUrl = `${sourceRoot}/src/WildBunch.Web/src/dev/DevOverlay.tsx`
 
 export function WildBunchCaseStudy(): ReactElement {
   return (
@@ -61,6 +65,7 @@ export function WildBunchCaseStudy(): ReactElement {
           <p>I wanted a seed to be a reproducible world contract, not a bag of every setting. At this revision the v17 codec directly packs 33 of 128 UUID bits, leaves 95 reserved, and derives town names through a deterministic shuffle of a 40-name pool rather than spending a field on each name.</p>
           <p>Trying to encode every town would have made that contract larger without making the world more legible. The design taught me that constrained combinations can produce more meaningful variation than encoding every town: the generator moves from Delaunay candidates through a minimum spanning tree, adds and filters alternate trails, then repairs navigation cases that would leave a town stranded. Palettes, slots, and their combinations vary a small number of world choices while visible route lengths remain meaningful travel information.</p>
           <p>I also chose to make a generated layout become session state. Generation plus persistence becomes one product promise when a player revisits a town: each town carries its stored layout forward through snapshots and replay, so leaving Dustwell and returning is a return to the same place rather than another roll.</p>
+          <p><a href={graphEvidenceUrl}>Pinned graph-generation evidence</a> · <a href={persistedWorldEvidenceUrl}>Pinned persisted-world evidence</a></p>
           <WildBunchDeterminismFigure />
           <WildBunchTrailMapEvidence />
           <p>The fixed all-zero seed gives me a canonical deterministic check, and Randomize seed is a first-class setup option for choosing a different repeatable base world. Difficulty, entropy policy, and the player-selected start remain downstream session choices rather than direct v17 payload fields. In Boring mode, the same seed, difficulty, policy, and ordered actions provide a repeatable route for tests, replay, and a bad-scenario investigation; it does not say every entropy mode or game surface is already deterministic. Non-Boring expansion is still transitional, and unfinished developer actions do not earn a public capability claim.</p>
@@ -75,6 +80,7 @@ export function WildBunchCaseStudy(): ReactElement {
           <WildBunchEventFlow />
           <WildBunchAuditEvidence />
           <p>Developer diagnosis belongs beside that record, not inside the player contract. At this revision, access is gated by the development environment rather than a public authorisation system. A development-only path can prepare a session, optionally inject a typed force-once next action, and let the normal command consume it exactly once; the intervention remains explainable on replay. If public hosting, authenticated support access, retained sessions, and operational workflows are added later, the same boundary could help reconstruct a hard-to-reproduce report without exposing privileged controls to a player.</p>
+          <p><a href={developerToolingEvidenceUrl}>Pinned developer-tooling evidence</a></p>
           <p><a href={`${sourceRoot}/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs`}>Pinned replay-equality evidence</a></p>
         </CaseStudySection>
 
@@ -126,7 +132,7 @@ export function WildBunchCaseStudy(): ReactElement {
             <h3>Beyond pre-alpha</h3>
             <p>Public accounts and sessions, production hosting, player-facing seed sharing, balance, and a supportable public demo are not current promises.</p>
           </section>
-          <CaseStudyEvidence auditDate="21 August 2026" href={repositoryUrl} label="Wild Bunch repository" />
+          <CaseStudyEvidence auditDate="21 August 2026" href={pinnedRepositoryUrl} label="Wild Bunch source snapshot (pinned revision)" />
         </section>
       </section>
     </CaseStudyBody>
