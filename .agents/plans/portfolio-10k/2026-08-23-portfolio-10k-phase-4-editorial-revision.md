@@ -177,21 +177,27 @@
 - Consumes: Task 1 final source order, semantic figures, capture dimensions, existing portfolio tokens.
 - Produces: the final authored responsive composition and focused visual contracts for Task 3.
 
-- [ ] **Step 1: Add a failing structural/visual contract where useful.** Assert the specialist body exposes named movement hooks (`wild-bunch-story-movement`) and one source-note close; no decision-card grid or capability-ledger class remains. Keep figures ordered and relationship semantics independent of layout.
+- [x] **Step 1: Add a failing structural/visual contract where useful.** Assert the specialist body exposes named movement hooks (`wild-bunch-story-movement`) and one source-note close; no decision-card grid or capability-ledger class remains. Keep figures ordered and relationship semantics independent of layout.
 
-- [ ] **Step 2: Replace the repetitive page rhythm.** Use the existing warm field-journal system to create deliberate alternation: readable prose blocks; wide proof moments where a semantic figure and capture belong together; a compact technical field note; and a quiet source-note ending. Remove the five-card wall, three-column status ledger, oversized dossier treatment, and CSS that strands a narrow reading column beside unused canvas. Do not introduce new fonts, colours, animation, dependencies, or themed decoration.
+- [x] **Step 2: Replace the repetitive page rhythm.** Use the existing warm field-journal system to create deliberate alternation: readable prose blocks; wide proof moments where a semantic figure and capture belong together; a compact technical field note; and a quiet source-note ending. Remove the five-card wall, three-column status ledger, oversized dossier treatment, and CSS that strands a narrow reading column beside unused canvas. Do not introduce new fonts, colours, animation, dependencies, or themed decoration.
 
-- [ ] **Step 3: Tune hierarchy and spacing at all contract widths.** At 1440 and 768, use wide space for evidence/prose relationships instead of empty remainder. At 390 and 320, preserve semantic order, comfortable measure, figure labels, caption legibility, and no horizontal overflow. At 200% zoom, retain the same content and usable link/focus order.
+- [x] **Step 3: Tune hierarchy and spacing at all contract widths.** At 1440 and 768, use wide space for evidence/prose relationships instead of empty remainder. At 390 and 320, preserve semantic order, comfortable measure, figure labels, caption legibility, and no horizontal overflow. At 200% zoom, retain the same content and usable link/focus order.
 
-- [ ] **Step 4: Record the editorial design decision.** Add a dated ledger entry: human reasoning is the Wild Bunch case-study spine; status is established once; architecture inventories and duplicated proof cards are rejected; technical evidence is introduced at the moment it pays off.
+- [x] **Step 4: Record the editorial design decision.** Add a dated ledger entry: human reasoning is the Wild Bunch case-study spine; status is established once; architecture inventories and duplicated proof cards are rejected; technical evidence is introduced at the moment it pays off.
 
-- [ ] **Step 5: Build and inspect before updating snapshots.** Run `npm.cmd --prefix src/client run build`, serve the production preview, and inspect 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and native 200% zoom. Fix content/layout defects before baselines.
+- [x] **Step 5: Build and inspect before updating snapshots.** Run `npm.cmd --prefix src/client run build`, serve the production preview, and inspect 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and native 200% zoom. Fix content/layout defects before baselines.
 
-- [ ] **Step 6: Update only affected Windows baselines.** Keep the existing focused town hero unless source pixels changed. Update determinism, event flow, product evidence, or a new editorial-movement visual contract only when the reviewed composition changes that exact region. Do not refresh unrelated Marketplace/homepage snapshots.
+- [x] **Step 6: Update only affected Windows baselines.** Keep the existing focused town hero unless source pixels changed. Update determinism, event flow, product evidence, or a new editorial-movement visual contract only when the reviewed composition changes that exact region. Do not refresh unrelated Marketplace/homepage snapshots.
 
-- [ ] **Step 7: Sol visual/creative gate.** Record pass/veto for hierarchy, game-first recognition, reading momentum, evidence adjacency, whitespace purpose, caption restraint, field-journal continuity, and mobile/zoom finish. Compare against the rejected deployed page, not merely the current test baseline.
+- [x] **Step 7: Sol visual/creative gate.** Record pass/veto for hierarchy, game-first recognition, reading momentum, evidence adjacency, whitespace purpose, caption restraint, field-journal continuity, and mobile/zoom finish. Compare against the rejected deployed page, not merely the current test baseline.
 
-- [ ] **Step 8: Mark Task 2 boxes complete and commit.** Commit with `style: compose Wild Bunch as an authored field note` after focused visual and browser checks pass.
+  **Sol visual gate:** Pass. Sol inspected the production rendering at 1440, 768, 390, 320 and native 200% zoom, plus fresh scrolled 1440 captures with every lazy image loaded. The game remains the first recognition cue; the three evidence-heavy movements use the right canvas for an actual claim/proof relationship; the wide map and audit become purposeful pauses; the dossier stays subordinate; and the trade-off/source close return to a quiet reading measure. The page is 9,550px tall at 1440 (down from roughly 10,346px after the copy pass) with `scrollWidth === clientWidth`, while mobile and zoom preserve order and legibility. This clears the earlier veto: whitespace now marks turns in reasoning instead of exposing an unused template column.
+
+- [x] **Step 8: Mark Task 2 boxes complete and commit.** Commit with `style: compose Wild Bunch as an authored field note` after focused visual and browser checks pass.
+
+  Implementation commit: `5ae789796acb675777d992dee2c44174b7d12db1`. Focused structure passed 8/8; project-story passed 7/7; accessibility passed 20/20; focused Wild Bunch visual contracts passed twice after the bounded Windows baseline update; pre-commit passed 45 Python tests, 76 Vitest tests and the production build. The hero baseline changed only because Task 1 changed its rendered source caption; no unrelated baseline was refreshed.
+
+  **Independent Task 2 review:** A fresh-context Terra reviewer passed both specification/implementation/test/accessibility compliance and visual/editorial quality with no findings. The reviewer independently re-ran the structural contract (8/8), project story (7/7), Wild Bunch visuals (3/3) and accessibility (20/20). It confirmed that the blank lower panels in the unscrolled full-page capture were a lazy-loading capture artefact; scrolled captures and the image-ready visual contracts prove the rendered evidence itself is legible. Report: scratch `task-2-review.md`.
 
 ### Task 3: Complete review, canonical verification, and draft PR publication
 
@@ -205,9 +211,11 @@
 - Consumes: Tasks 1–2 committed outputs and review evidence.
 - Produces: a self-reviewed draft PR for the still-open Phase 4 roadmap item.
 
-- [ ] **Step 1: Run independent Terra reviews.** Dispatch fresh-context bounded reviews for (a) requirements/factual terminology and copy, (b) React/test quality and accessibility/responsiveness, and (c) £10k editorial/visual quality. Each reviewer returns findings with exact evidence and does not edit. Reconcile findings against source and rendered truth; dispatch bounded repairs to the owning implementation task.
+- [x] **Step 1: Run independent Terra reviews.** Dispatch fresh-context bounded reviews for (a) requirements/factual terminology and copy, (b) React/test quality and accessibility/responsiveness, and (c) £10k editorial/visual quality. Each reviewer returns findings with exact evidence and does not edit. Reconcile findings against source and rendered truth; dispatch bounded repairs to the owning implementation task.
 
-- [ ] **Step 2: Run focused automated proof.** Run:
+  **Final review evidence:** Requirements/factual/copy passed with no findings. React/test/accessibility passed after an outcome-specific 390px Primary-navigation geometry assertion was added. The visual reviewer initially misread the supplied 390px capture as a 3+1 navigation wrap; live geometry showed all four links at the same y, the CSS experiment prompted by that finding was reverted, and the full visual suite returned green without baseline churn. Its valid second finding was accepted: Sol replaced the self-diminishing final phrase with a precise development-build/final-game-art boundary. Re-review passed the £10k creative gate with a £10k–£12k estimate and no remaining findings. Reports: scratch `final-factual-review.md`, `final-code-review.md`, and `final-visual-review.md`.
+
+- [x] **Step 2: Run focused automated proof.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study src/features/home/ProjectVisual.test.tsx
@@ -217,9 +225,13 @@
 
   Expected: PASS with Windows visual comparisons using the existing tolerance.
 
-- [ ] **Step 3: Run final manual proof.** Re-read the whole page without source context, then inspect 1440, 768, 390, 320, keyboard-only, reduced motion, and native 200% zoom. Confirm the first five minutes establish Harley's motive and competence, architecture terms are precise, no disclaimer stack returns, each image/figure pays for its space, and the close invites inspection rather than forgiveness.
+  **Result:** PASS — 9 files / 20 focused Vitest tests; 39 combined Playwright checks (20 accessibility, 7 project-story, 12 visual); 28 portfolio-quality unittests. After the final source-note/test repair, visual contracts passed 12/12 without baseline changes, project-story passed 7/7 with the new 390px geometry contract, and accessibility remained 20/20.
 
-- [ ] **Step 4: Regenerate, stage, and run the canonical gate.** Run:
+- [x] **Step 3: Run final manual proof.** Re-read the whole page without source context, then inspect 1440, 768, 390, 320, keyboard-only, reduced motion, and native 200% zoom. Confirm the first five minutes establish Harley's motive and competence, architecture terms are precise, no disclaimer stack returns, each image/figure pays for its space, and the close invites inspection rather than forgiveness.
+
+  **Sol manual proof:** PASS. The personal motive and deterministic/salted-randomness pressure lead before pattern names. CQRS, DDD, GameSession aggregate, command/read repositories, Unit of Work, Onion direction and React Testing Library remain precise. At 1440/768/390/320 and native 200% zoom, the article preserves order, comfortable measure, focus traversal, caption legibility and no horizontal overflow. Every lazy evidence image was scrolled into view and loaded at its intrinsic derivative width. The close now invites inspection with one precise visual-maturity boundary, not an apology.
+
+- [x] **Step 4: Regenerate, stage, and run the canonical gate.** Run:
 
   ```powershell
   py -3 tools/run.py ci --apply
@@ -230,7 +242,11 @@
 
   Expected: PASS. Inspect every generated delta; keep canonical mesh files and reject only outputs proven unrelated or non-canonical.
 
-- [ ] **Step 5: Record completion evidence and commit.** Mark all plan boxes accurately, record Sol pass/veto outcomes, review repairs, manual viewport evidence, commands and limitations. Set roadmap Phase 4 to `executing` until hosted PR evidence and Harley acceptance; do not mark the phase `done` merely because the corrective PR exists. Commit with `docs: record Wild Bunch editorial revision evidence`.
+  **Result:** PASS. `ci --apply` reported 42 canonical index meshes current and produced no new generated delta; the generator-owned INDEX files created earlier in the branch remain committed. After explicit staging, `ci --check` passed 45 Python tests, 76 Vitest tests, the production build and all 51 Playwright tests. `git diff --cached --check` passed. No generated output was discarded.
+
+- [x] **Step 5: Record completion evidence and commit.** Mark all plan boxes accurately, record Sol pass/veto outcomes, review repairs, manual viewport evidence, commands and limitations. Set roadmap Phase 4 to `executing` until hosted PR evidence and Harley acceptance; do not mark the phase `done` merely because the corrective PR exists. Commit with `docs: record Wild Bunch editorial revision evidence`.
+
+  **Closeout posture:** The implementation, Sol copy/visual gates, independent reviews, focused tests, manual review and canonical local gate are complete. Phase 4 deliberately remains `executing`: hosted exact-SHA checks and Harley's acceptance are still outstanding human/publication evidence, not limitations to disguise.
 
 - [ ] **Step 6: Publish a draft PR.** Push `codex/portfolio-10k-phase-4-editorial-revision`, open a draft PR into `main`, and follow `.agents/runbooks/pr.md`. The PR body must link PR #22 as the merged first iteration, explain why Phase 4 remained open, summarize the editorial correction, name the unchanged pinned/capture boundaries, include test/manual/creative-review evidence, and state any limitations without repeating them as promotional copy.
 
