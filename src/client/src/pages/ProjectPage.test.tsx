@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 describe('Wild Bunch project route', () => {
-  test('keeps one Dustwell preview in the route header under its visual contract', async () => {
+  test('keeps one eager Dustwell preview in the route header under its visual contract', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/projects/wild-bunch'],
@@ -31,7 +31,12 @@ describe('Wild Bunch project route', () => {
 
     expect(header).not.toBeNull()
     expect(header).toHaveAttribute('data-visual-contract', 'wild-bunch-case-study-hero')
-    expect(within(header as HTMLElement).getByLabelText('Wild Bunch Dustwell development-build preview')).toBeVisible()
+    const visual = within(header as HTMLElement).getByLabelText('Wild Bunch Dustwell development-build preview')
+    const image = within(visual).getByRole('img')
+
+    expect(visual).toBeVisible()
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(article?.querySelectorAll('[data-visual-contract="wild-bunch-development-build-preview"]')).toHaveLength(1)
   })
 })
