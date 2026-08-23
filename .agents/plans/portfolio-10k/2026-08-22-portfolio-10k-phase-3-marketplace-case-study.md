@@ -365,7 +365,7 @@
 
   Update the client README and testing runbook: Windows is the sole pixel-baseline renderer; local Windows canonical CI and the required hosted Windows job compare the same files; Linux runs the rest of canonical CI and reports the visual suite as intentionally skipped; new baselines are authored and reviewed once on Windows. Run the focused contract test red then green, `py -3 tools/run.py mesh --apply`, `git diff --check`, the focused Windows visual script without snapshot updates, and `py -3 tools/run.py ci --check`. Use a fresh direct Terra reviewer before publication.
 
-- [ ] **Step 6: Prove both hosted gates on GitHub.**
+- [x] **Step 6: Prove both hosted gates on GitHub.**
 
   Push the reviewed commit and update PR #21's body and exact head. Both `Portfolio quality gate` on Ubuntu and the Windows visual-regression job must pass on that head. Record both run URLs and results; do not describe the repair as hosted-green from local validation alone.
 
