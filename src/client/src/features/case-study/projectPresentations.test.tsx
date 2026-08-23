@@ -21,6 +21,6 @@ describe('project presentations', () => {
 
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><Suspense fallback={null}><WildBunchCaseStudy /></Suspense></MemoryRouter>)
     expect(await screen.findByText('Every complexity pays rent.')).toBeVisible()
-    expect(await screen.findByRole('heading', { level: 2, name: 'The first language' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The game I wanted to return to' })).toBeVisible()
   })
 })

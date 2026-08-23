@@ -1,6 +1,6 @@
 # Portfolio £10k Phase 4: Wild Bunch Architectural Proof Design
 
-**Status:** Approved
+**Status:** Approved; post-merge editorial amendment approved 23 August 2026
 
 **Approved design dialogue:** 21 August 2026
 
@@ -322,6 +322,38 @@ Avoid “enterprise-grade,” “production-ready,” “perfect replay,” “A
 “over-engineered on purpose,” and “built to scale.” They either overstate the
 evidence or make earned complexity sound indiscriminate.
 
+### Post-merge editorial correction — 23 August 2026
+
+The first implementation reached production through PR #22 but did not satisfy
+the approved human, stream-of-reasoning reading experience. Harley rejected it
+as the Phase 4 exit because repeated pre-alpha and unfinished-build caveats
+made the article sound defensive, compressed architecture terminology reduced
+precision, and the number of repeated proof structures obscured the personal
+engineering story.
+
+The corrective implementation must therefore:
+
+- state the public `pre-alpha` status once in the route header and let one
+  concise evidence note establish the development-build visual boundary;
+- remove repeated “working skeleton,” “not finished,” “not a promise,” and
+  equivalent defensive formulations from the body and individual captions;
+- make Harley's needs, decisions, discoveries, costs, and changed understanding
+  the article's narrative spine;
+- use pattern names only after the reader understands the pressure they solve;
+- describe the implemented command/query split as CQRS without implying that a
+  framework, separate service, or separate physical database is required;
+- describe persistence concretely: one command repository loads and stages the
+  `GameSession` aggregate, read repositories serve projections, and a Unit of
+  Work commits staged command-side changes;
+- name React Testing Library precisely and keep tools, test types, and proof
+  methods in grammatically coherent groups; and
+- remove or merge duplicated dossier, decision-card, trade-off, disclaimer, and
+  capability-ledger material until every retained section has one distinct job.
+
+This amendment changes editorial emphasis and terminology, not the pinned
+evidence boundary, maturity state, asset custody, deterministic capture recipe,
+architecture facts, accessibility contract, or visual design policy.
+
 ## Scannable technical snapshot
 
 Provide one compact, text-first system dossier for a hiring manager who wants
@@ -329,13 +361,15 @@ to know what Harley can work with immediately:
 
 - **Backend:** C#, .NET 10, ASP.NET Core Minimal APIs, Entity Framework Core,
   Npgsql, and PostgreSQL;
-- **Architecture:** DDD, Onion dependency direction, custom CQRS-style
-  handlers, aggregate-scoped repositories, Unit of Work, event sourcing,
-  projections, snapshots, optimistic concurrency, and event upcasting;
+- **Architecture:** DDD around the `GameSession` aggregate, Onion dependency
+  direction, CQRS command/query separation, a command repository plus
+  projection read repositories, a first-class Unit of Work, event sourcing,
+  snapshots, optimistic concurrency, and event upcasting;
 - **Web:** TypeScript, React 18, Vite, TanStack Query and Router,
   styled-components, and Phaser 3 as a bounded rendering/input adapter; and
-- **Evidence:** xUnit, ASP.NET integration tests, Vitest, Testing Library,
-  replay-equality tests, architecture guardrails, and manual browser proof.
+- **Evidence:** xUnit unit and ASP.NET integration suites; Vitest with React
+  Testing Library; replay-equality and architecture guardrail tests; and manual
+  browser proof.
 
 This is a scannable orientation aid, not a logo cloud or a claim of identical
 depth in every dependency. It should sit near the first architectural section
@@ -395,7 +429,7 @@ examples. These are candidates, not a mandate to put every pattern on the page:
 
 | Pattern or decision | How it pays rent | Recommended page weight |
 | --- | --- | --- |
-| Onion dependency direction, aggregate-scoped repositories, and a first-class Unit of Work | Keeps the domain independent of EF and HTTP while letting archive-old/create-new preserve the one-active-playthrough invariant in one transaction. | Supporting decision. |
+| Onion dependency direction, the `GameSession` command repository, projection read repositories, and a first-class Unit of Work | Keeps the domain independent of EF and HTTP while letting archive-old/create-new preserve the one-active-playthrough invariant in one transaction. | Supporting decision. |
 | Optimistic concurrency with the command retry boundary | Makes hosted-session commands safe to retry against a changed event stream instead of silently overwriting another action. | Supporting detail inside event history. |
 | Snapshots as disposable shortcut caches | Keeps the event stream conceptually authoritative; a stale or missing snapshot can fall back to full replay. | Primary deep proof. |
 | Fail-closed event upcasters and one persisted-payload load funnel | Lets immutable history evolve without bypassing version checks or silently accepting a future or malformed shape. | Primary deep proof or source-linked evidence note. |
@@ -415,8 +449,10 @@ names never appear without their payoff.
 
 ### Capability-state contract
 
-The page includes a restrained `Built / In motion / Beyond pre-alpha` ledger.
-At the approved snapshot:
+The authored evidence snapshot retains `Built / In motion / Beyond pre-alpha`
+as its factual taxonomy. The public page may express those boundaries in the
+narrative and close with one concise source note rather than render the whole
+taxonomy as a second summary. At the approved snapshot:
 
 **Built and demonstrable** includes seeded session setup, the generated town
 graph, route distances, town rendering, persistent per-session town placement,
@@ -514,11 +550,15 @@ Use the shared decision primitive for at least:
 Each decision records the capability gained and the cost accepted. Do not add
 a generic technology-logo strip.
 
-### 10. Present state — `Built, in motion, beyond pre-alpha`
+### 10. Present state — source note and invitation
 
-Close with the capability-state ledger, the dated repository evidence, source
-links, current pre-alpha language, and the public repository link. The ending
-should invite inspection of the work rather than ask the reader to excuse it.
+Close with a concise dated source note and inspection invitation. Preserve the
+implemented, transitional, and planned capability data in the authored evidence
+snapshot, but do not repeat it as a prominent three-column public ledger when
+the same boundaries have already been expressed in the story. The ending
+should leave the reader with Harley's engineering judgement, then offer the
+pinned repository for inspection; it must not ask the reader to excuse the
+project.
 
 ## Visual and interaction contract
 

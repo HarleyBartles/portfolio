@@ -75,14 +75,14 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
           <source srcSet={assetPath('/media/wild-bunch/dustwell-town-720.webp')} type="image/webp" />
           <img
             src={assetPath('/media/wild-bunch/dustwell-town-720.webp')}
-            alt="Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible."
+            alt="Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible."
             width="720"
             height="550"
             loading={eager ? 'eager' : 'lazy'}
             fetchPriority={eager ? 'high' : 'auto'}
           />
         </picture>
-        <figcaption>Current development build / working skeleton <span>Dustwell town hub · not final game art</span></figcaption>
+        <figcaption>Dustwell establishes a playable town surface.</figcaption>
       </figure>
     )
   }

@@ -5,7 +5,7 @@ import * as productEvidence from './WildBunchProductEvidence'
 import { WildBunchCaseStudy } from './WildBunchCaseStudy'
 
 describe('Wild Bunch product evidence contract', () => {
-  test('uses responsive development-build evidence with captions and loading boundaries', () => {
+  test('uses responsive evidence-specific captions and loading boundaries', () => {
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><WildBunchCaseStudy /></MemoryRouter>)
 
     const trail = screen.getByRole('figure', { name: 'Generated trail-map development-build evidence' })
@@ -28,7 +28,6 @@ describe('Wild Bunch product evidence contract', () => {
       expect(image).toHaveAttribute('width', String(compact.width))
       expect(image).toHaveAttribute('height', String(compact.height))
       expect(image).toHaveAttribute('src', `/media/wild-bunch/${name}-${compact.width}.webp`)
-      expect(within(evidence).getByText(/Current development build \/ working skeleton/i)).toBeVisible()
       const sources = Array.from(evidence.querySelectorAll('picture source'))
       expect(sources.map((source) => ({ srcSet: source.getAttribute('srcset'), type: source.getAttribute('type') }))).toEqual([
         { srcSet: `/media/wild-bunch/${name}-${wide.width}.avif`, type: 'image/avif' },
@@ -38,10 +37,10 @@ describe('Wild Bunch product evidence contract', () => {
       ])
     }
 
-    expect(within(trail).getByText(/names, topology, and route distances/i)).toBeVisible()
-    expect(within(audit).getByText(/ordered event history/i)).toBeVisible()
-    expect(within(wanted).getByText(/player-safe investigation evidence/i)).toBeVisible()
-    expect(within(caseFile).getByText(/player-known case-file surface/i)).toBeVisible()
+    expect(within(trail).getByText(/topology and travel distance/i)).toBeVisible()
+    expect(within(audit).getByText(/ordered typed events/i)).toBeVisible()
+    expect(within(wanted).getByText(/player-safe knowledge/i)).toBeVisible()
+    expect(within(caseFile).getByText(/player-safe knowledge/i)).toBeVisible()
   })
 
   test('builds each public capture path through the configured Vite base', () => {

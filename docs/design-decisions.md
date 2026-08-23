@@ -91,3 +91,13 @@ This append-only ledger records why material portfolio design choices exist and 
 **Consequence:** The page recognises as real game evidence before it explains the system, without turning into a themed saloon interface or implying a finished art direction. Captions and alt text retain the development-skeleton boundary.
 
 **Reconsider when:** Wild Bunch has an actual, reviewed visual-design direction mature enough to replace these development-build captures while preserving their evidence and accessibility value.
+
+## 2026-08-23 — Wild Bunch is an authored field note
+
+**Context:** The revised Wild Bunch story had a clear five-movement argument, but the wide route still rendered as a long narrow CMS column beside unused canvas.
+
+**Decision:** Make human reasoning the case-study spine and establish status once. Use the wide canvas only where deterministic, event, and player-safe product evidence pays off beside its argument or as a full proof moment; keep the technical dossier compact and close with one quiet source note.
+
+**Consequence:** Architecture inventories, duplicated proof-card walls, and capability ledgers are rejected. The semantic source order remains readable at narrow widths while the desktop composition gives evidence a deliberate relationship to the claim it supports.
+
+**Reconsider when:** Review shows a proof relationship obscures reading momentum, captions, focus order, or the comfortable prose measure at supported viewport and zoom contracts.

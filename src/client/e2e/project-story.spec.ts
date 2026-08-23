@@ -35,7 +35,12 @@ test('visitor opens the Wild Bunch route with its exact thesis, status, and insp
     await expect(page.getByRole('link', { name: linkName })).toBeFocused()
   }
 
-  await expect(page.getByText(/Current development build \/ working skeleton/).first()).toBeVisible()
+  await expect(page.getByText(/^These captures record the current development build/)).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Development-build position' })).toHaveCount(0)
+  await expect(page.getByText(/CQRS-style/i)).toHaveCount(0)
+  await expect(page.getByText(/aggregate-scoped repositories/i)).toHaveCount(0)
+  await expect(page.getByText(/React Testing Library/i)).toBeVisible()
+  await expect(page.locator('.wild-bunch-capability-ledger')).toHaveCount(0)
   await expect(page.getByRole('figure', { name: 'Generated trail-map development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Session-audit development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Wanted-notice development-build evidence' })).toBeVisible()
@@ -77,6 +82,21 @@ test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced mot
     await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
     await expect(page.getByText('Every complexity pays rent.', { exact: true })).toBeVisible()
     await expectNoHorizontalOverflow(page)
+
+    if (width === 390) {
+      const primaryNavigation = page.getByRole('navigation', { name: 'Primary' })
+      const [projects, writing, fairytales, about] = await Promise.all(
+        ['Projects', 'Writing', 'Fairytales', 'About'].map((name) => primaryNavigation.getByRole('link', { name, exact: true }).boundingBox()),
+      )
+
+      expect(projects).not.toBeNull()
+      expect(writing).not.toBeNull()
+      expect(fairytales).not.toBeNull()
+      expect(about).not.toBeNull()
+      expect(Math.abs(projects!.y - writing!.y)).toBeLessThan(1)
+      expect(Math.abs(projects!.y - fairytales!.y)).toBeLessThan(1)
+      expect(Math.abs(projects!.y - about!.y)).toBeLessThan(1)
+    }
   }
 })
 
