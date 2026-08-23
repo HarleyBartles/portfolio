@@ -73,7 +73,7 @@ describe('WildBunchCaseStudy', () => {
     expect(within(dossier as HTMLElement).getByText('Evidence')).toBeVisible()
     expect(within(dossier as HTMLElement).getByText(/xUnit unit and ASP.NET integration suites; Vitest with React Testing Library/i)).toBeVisible()
 
-    expect(screen.getByText(/CQRS separates state-changing commands from projection reads/i)).toBeVisible()
+    expect(screen.getByText(/CQRS separates commands that may change that session from queries over its projections/i)).toBeVisible()
     expect(screen.queryByText(/CQRS-style/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/aggregate-scoped repositories/i)).not.toBeInTheDocument()
     expect(screen.getByText(/React Testing Library/i)).toBeVisible()
@@ -83,8 +83,8 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/I did not hand-write Wild Bunch's code/i)).toBeVisible()
     expect(screen.getByText(/setting its constraints, directing agents through the work, reviewing the result/i)).toBeVisible()
     expect(screen.getByRole('link', { name: 'Read the agentic-engineering essay' })).toHaveAttribute('href', '/portfolio/writing/agentic-engineering-vs-vibe-coding')
-    expect(screen.getByText(/aggregate holds the rules that decide whether a command is legal/i)).toBeVisible()
-    expect(screen.getByText(/Onion direction keeps those rules independent of HTTP, EF\/PostgreSQL, and Phaser/i)).toBeVisible()
+    expect(screen.getByText(/GameSession decides whether it is legal and emits a typed fact/i)).toBeVisible()
+    expect(screen.getByText(/Onion direction keeps the rules.*independent of HTTP, EF\/PostgreSQL and Phaser/i)).toBeVisible()
   })
 
   test('links detailed public claims to their pinned evidence snapshot', () => {
@@ -115,14 +115,14 @@ describe('WildBunchCaseStudy', () => {
     expect(document.querySelector('.wild-bunch-decisions')).toBeNull()
     expect(document.querySelector('.wild-bunch-capability-ledger')).toBeNull()
     expect(screen.getByText(/React and Phaser stay at the rendering and input boundary/i)).toBeVisible()
-    expect(screen.getByText(/manual client stays manual for now/i)).toBeVisible()
-    expect(screen.getByText(/if a layer stops earning its keep, removing it is the better engineering decision/i)).toBeVisible()
+    expect(screen.getByText(/typed client stays handwritten/i)).toBeVisible()
+    expect(screen.getByText(/if a layer stops earning its keep, I should remove it/i)).toBeVisible()
   })
 
   test('separates player-safe knowledge without publishing private diagnostic truth', () => {
     renderCaseStudy()
 
-    expect(screen.getByText(/player should receive only clues, warrants, and suspect information that play has earned/i)).toBeVisible()
+    expect(screen.getByText(/player should receive only clues, warrants and suspect information that play has earned/i)).toBeVisible()
     expect(screen.queryByText(/trueCulpritId/i)).not.toBeInTheDocument()
 
     expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })).toBeVisible()
@@ -131,20 +131,20 @@ describe('WildBunchCaseStudy', () => {
   test('states the source-backed map, replay, entropy, and development-access limits', () => {
     renderCaseStudy()
 
-    expect(screen.getByText(/Delaunay candidates become a minimum spanning tree/i)).toBeVisible()
-    expect(screen.getByText(/same seed, difficulty, policy, and ordered actions/i)).toBeVisible()
-    expect(screen.getByText(/full-stream equality can prove or falsify/i)).toBeVisible()
-    expect(screen.getByText(/fix a salt source or set a one-use next action/i)).toBeVisible()
+    expect(screen.getByText(/starts with Delaunay candidates, takes a minimum spanning tree/i)).toBeVisible()
+    expect(screen.getByText(/same seed.*difficulty.*entropy policy.*same ordered choices/i)).toBeVisible()
+    expect(screen.getByText(/Full-stream equality tests rebuild a session from its events/i)).toBeVisible()
+    expect(screen.getByText(/fix a salt source or prepare a one-use next action/i)).toBeVisible()
   })
 
   test('connects determinism, replay, and containment to their architectural payoffs', () => {
     renderCaseStudy()
 
-    expect(screen.getByText(/33 of 128 bits and reserves 95/i)).toBeVisible()
-    expect(screen.getByText(/returning is a return to the same place, not another roll/i)).toBeVisible()
-    expect(screen.getByText(/reconstruct what the game accepted, in order/i)).toBeVisible()
+    expect(screen.getByText(/uses 33 of them and deliberately reserves 95/i)).toBeVisible()
+    expect(screen.getByText(/revisit is therefore a return to the same place/i)).toBeVisible()
+    expect(screen.getByText(/which legal decisions brought them there/i)).toBeVisible()
     expect(screen.getAllByText(/command repository loads and stages the GameSession aggregate/i)).toHaveLength(2)
-    expect(screen.getByText(/read model has to be safe even when someone can inspect a response/i)).toBeVisible()
+    expect(screen.getByText(/read model itself has to respect the knowledge boundary/i)).toBeVisible()
     expect(screen.getByText(/React and Phaser stay at the rendering and input boundary/i)).toBeVisible()
   })
 })

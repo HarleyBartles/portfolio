@@ -35,7 +35,7 @@ test('visitor opens the Wild Bunch route with its exact thesis, status, and insp
     await expect(page.getByRole('link', { name: linkName })).toBeFocused()
   }
 
-  await expect(page.getByText(/^These captures show the current development build:/)).toBeVisible()
+  await expect(page.getByText(/^These captures come from the current development build:/)).toBeVisible()
   await expect(page.getByRole('region', { name: 'Development-build position' })).toHaveCount(0)
   await expect(page.getByText(/CQRS-style/i)).toHaveCount(0)
   await expect(page.getByText(/aggregate-scoped repositories/i)).toHaveCount(0)

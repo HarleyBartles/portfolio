@@ -156,11 +156,11 @@
 
   Expected: PASS. Search production source for `CQRS-style`, `aggregate-scoped repositories`, bare `Testing Library`, repeated `working skeleton`, localhost, hidden-truth identifiers, and unsupported production claims.
 
-- [ ] **Step 6: Sol copy gate.** Read the complete rendered text in order. Record pass/veto for human voice, paragraph purpose, narrative propulsion, architecture precision, non-defensive honesty, consequence-led terminology, repetition, and ending. Veto if the copy can be rearranged without losing its argument, if a pattern precedes its pressure, or if status language outweighs desire/decision/learning.
+- [x] **Step 6: Sol copy gate.** Read the complete rendered text in order. Record pass/veto for human voice, paragraph purpose, narrative propulsion, architecture precision, non-defensive honesty, consequence-led terminology, repetition, and ending. Veto if the copy can be rearranged without losing its argument, if a pattern precedes its pressure, or if status language outweighs desire/decision/learning.
 
-  Sol creative pass/veto remains pending; Task 1 does not claim it.
+  **Sol pass after substantive rewrite:** Sol replaced the provisional Terra cadence and personally edited the complete public article. The opening now moves from CPC/Locomotive BASIC into deterministic play and salted excitement; the seed section connects the bit budget, deterministic name policy, graph construction and persisted town identity; event sourcing grows out of the need to keep an exact playthrough; DDD, CQRS, repository, Unit of Work and Onion terms follow their pressures; and replay plus deterministic development intervention lands as practical diagnosis. The technical dossier was moved below the explanation so it no longer asks pattern names to carry the argument. Rendered review found one `development build` note, no `working skeleton`, no `CQRS-style`, no `aggregate-scoped repositories`, and precise `React Testing Library` wording. Copy gate: pass. Visual composition remains vetoed for Task 2 because the current wide layout strands the reading column and proof panels against unused canvas.
 
-- [ ] **Step 7: Mark Task 1 boxes complete and commit.** Commit the tests and implementation together with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
+- [x] **Step 7: Mark Task 1 boxes complete and commit.** Commit the tests and implementation together with `feat: tell Wild Bunch through architectural reasoning` only after the focused green evidence and Sol copy pass are recorded in the plan.
 
 ### Task 2: Recompose the page around the shorter story
 
