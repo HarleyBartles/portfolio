@@ -216,30 +216,6 @@
   padding-left: var(--space-6);
 }
 
-.project-visual--wild-bunch {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  background: var(--color-ink);
-}
-
-.project-visual--wild-bunch picture {
-  min-height: 0;
-}
-
-.project-visual--wild-bunch figcaption {
-  position: static;
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  color: var(--color-surface);
-}
-
-.project-visual--wild-bunch figcaption span {
-  color: rgb(255 250 240 / 72%);
-  font-weight: 400;
-}
-
 @media (min-width: 60rem) {
   .wild-bunch-determinism-figure ol {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -271,7 +247,4 @@
     padding-left: 0;
   }
 
-  .project-visual--wild-bunch figcaption {
-    flex-direction: column;
-  }
 }

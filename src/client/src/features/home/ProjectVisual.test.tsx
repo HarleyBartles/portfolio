@@ -32,4 +32,15 @@ describe('ProjectVisual', () => {
     expect(visual.querySelectorAll('picture source')).toHaveLength(4)
     expect(visual).toHaveTextContent(/current development build \/ working skeleton/i)
   })
+
+  test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {
+    render(<ProjectVisual slug="wild-bunch" />)
+
+    const visual = screen.getByLabelText('Wild Bunch Dustwell development-build preview')
+    const caption = visual.querySelector('figcaption')
+
+    expect(getComputedStyle(visual).display).toBe('grid')
+    expect(caption).not.toBeNull()
+    expect(getComputedStyle(caption as HTMLElement).position).toBe('static')
+  })
 })
