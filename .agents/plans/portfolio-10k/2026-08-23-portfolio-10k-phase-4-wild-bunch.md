@@ -259,9 +259,9 @@
 
   Expected: PASS. Inspect every generated delta and commit canonical outputs; do not discard them merely because a generator created them.
 
-- [ ] **Step 7: Commit and publish a draft PR.** Verify a clean worktree, focused history, no accidental scratch files, exact remote head, and draft state. Include Phase 3 correction, capture recipe, source revision, raw/processed evidence, Sol review record, wide/narrow screenshots, validation commands, limitations, and the explicit statement that game visuals are development skeletons rather than final design. Do not mark ready for review.
+- [x] **Step 7: Commit and publish a draft PR.** Published [draft PR #22](https://github.com/HarleyBartles/portfolio/pull/22) from `codex/portfolio-10k-phase-4-wild-bunch` into `main`, with the Phase 3 correction, capture recipe, source revision, evidence custody, review record, wide/narrow screenshots, validation, limitations, and explicit development-skeleton framing. The worktree remains available for review iteration.
 
-- [ ] **Step 8: Verify hosted PR facts and stop at the human gate.** Confirm the PR URL, draft flag, remote SHA, and whatever checks actually ran. Do not call draft CI green if policy did not run it. Hand off as “ready for Harley to flip out of draft,” with any hosted checks that require that flip named as pending.
+- [x] **Step 8: Verify hosted PR facts and stop at the human gate.** GitHub reported PR #22 as draft against `main` with the expected head branch and remote SHA. As designed for draft PRs, Portfolio quality gate, Deploy validated artifact, and Verify public routes were all skipped; no hosted-green claim is made. The PR is ready for Harley to flip out of draft, after which those hosted checks remain required.
 
 ## Plan readiness
 
