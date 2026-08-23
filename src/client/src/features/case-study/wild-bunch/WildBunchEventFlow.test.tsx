@@ -17,6 +17,13 @@ describe('Wild Bunch event flow contract', () => {
       expect.stringContaining('Projection'),
       expect.stringContaining('Reconstruction'),
     ])
+    for (const stage of within(figure).getAllByRole('listitem')) {
+      const content = stage.querySelector('.wild-bunch-event-flow-content')
+
+      expect(content).not.toBeNull()
+      expect(within(content as HTMLElement).getByRole('heading', { level: 3 })).toBeVisible()
+      expect(content?.querySelector('p')).not.toBeNull()
+    }
     expect(within(figure).getByText(/No message broker sits between these steps/i)).toBeVisible()
     expect(within(figure).getByText(/snapshots are shortcut caches; ordered events remain the recovery route/i)).toBeVisible()
   })

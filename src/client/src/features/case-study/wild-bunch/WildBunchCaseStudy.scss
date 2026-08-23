@@ -129,6 +129,7 @@
   display: grid;
   grid-template-columns: 2.25rem minmax(0, 1fr);
   gap: var(--space-3);
+  align-items: start;
 }
 
 .wild-bunch-event-flow li::before {
@@ -138,6 +139,24 @@
   font-family: var(--font-code);
   font-size: .8rem;
   font-weight: 700;
+}
+
+.wild-bunch-event-flow-content {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.wild-bunch-event-flow-content h3 {
+  margin: 0;
+  color: var(--wild-bunch-color-faded-gold);
+  font-family: var(--font-code);
+  font-size: .8rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.wild-bunch-event-flow-content p {
+  margin: var(--space-2) 0 0;
 }
 
 .wild-bunch-evidence {

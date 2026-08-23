@@ -888,6 +888,19 @@ main,
   max-width: none;
 }
 
+.specialist-presentation-loading {
+  display: grid;
+  min-block-size: clamp(14rem, 32vw, 24rem);
+  align-content: center;
+  border-top: 1px solid var(--color-rule);
+}
+
+.specialist-presentation-loading [role='status'] {
+  margin: 0;
+  color: var(--color-muted);
+  font-family: var(--font-code);
+}
+
 .content-page--fairytales .markdown-content > :not(.fairytale-page) {
   max-width: var(--measure-reading);
   margin-right: auto;

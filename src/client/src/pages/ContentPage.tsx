@@ -72,6 +72,14 @@ function ContentNotFoundState(): ReactElement {
   )
 }
 
+function SpecialistPresentationLoading(): ReactElement {
+  return (
+    <section className="specialist-presentation-loading">
+      <p role="status" aria-label="Loading case study presentation" data-loading="specialist-presentation">Loading case study presentation</p>
+    </section>
+  )
+}
+
 export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElement {
   const contentQuery = useQuery(contentQueries.document(slug))
   const navigationQuery = useQuery(contentQueries.navigation())
@@ -165,7 +173,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           )}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
-          {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={null}><Presentation /></Suspense>}
+          {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
         </div>
         {document.summary.kind === 'writing' ? null : (
           <RelatedContent
