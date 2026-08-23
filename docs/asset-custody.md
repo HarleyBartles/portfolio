@@ -65,6 +65,56 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Transformation: near-white source backgrounds were removed; the four character renders were placed on overlapping editorial cards with a restrained workflow line, then exported as quality-86 WebP at the two display widths.
 - Added: 2026-08-21.
 - Alt text: "Patch appears as a detective, cowboy, chef, and mechanic in four overlapping role-kit cards."
+- Continued use: retained for the existing homepage/project visual consumer in `src/client/src/features/home/ProjectVisual.tsx`. Task 4 owns its replacement and may remove these two files only after that consumer changes.
+
+## Adventures of Patch evidence derivatives
+
+All records below are first-party source material from `HarleyBartles/adventures-of-patch` revision `0240a8657aae5b580c1a7a0d31e0be7a68b27f4e`, processed on 2026-08-24 by `src/client/scripts/process-patch-assets.mjs`. Sharp 0.34.5 uses no-upscale resizing, AVIF quality 52/effort 6/4:2:0 or WebP quality 78/effort 6/smart subsampling, and emits no retained metadata. `src/client/public/media/patch/patch-derivatives.json` is the exact per-output receipt for path, dimensions, source checksum, encoding, and measured bytes. Rights basis for every family is Harley Bartles' first-party project work, authorised for this portfolio. Semantic HTML provides every caption and explanatory label, so the images have no essential explanatory text fallback.
+
+Exact public paths: `src/client/public/media/patch/patch-hero-720.avif`, `src/client/public/media/patch/patch-hero-720.webp`, `src/client/public/media/patch/patch-hero-1440.avif`, `src/client/public/media/patch/patch-hero-1440.webp`, `src/client/public/media/patch/patch-introducing-page-640.avif`, `src/client/public/media/patch/patch-introducing-page-640.webp`, `src/client/public/media/patch/patch-introducing-page-1200.avif`, `src/client/public/media/patch/patch-introducing-page-1200.webp`, `src/client/public/media/patch/patch-goldilocks-640.avif`, `src/client/public/media/patch/patch-goldilocks-640.webp`, `src/client/public/media/patch/patch-goldilocks-1200.avif`, `src/client/public/media/patch/patch-goldilocks-1200.webp`, `src/client/public/media/patch/patch-sorcerers-apprentice-640.avif`, `src/client/public/media/patch/patch-sorcerers-apprentice-640.webp`, `src/client/public/media/patch/patch-sorcerers-apprentice-1200.avif`, `src/client/public/media/patch/patch-sorcerers-apprentice-1200.webp`, `src/client/public/media/patch/patch-clubDb-slide-2-1200.avif`, `src/client/public/media/patch/patch-clubDb-slide-2-1200.webp`, `src/client/public/media/patch/patch-clubDb-slide-4-1200.avif`, `src/client/public/media/patch/patch-clubDb-slide-4-1200.webp`, `src/client/public/media/patch/patch-clubDb-slide-14-1200.avif`, `src/client/public/media/patch/patch-clubDb-slide-14-1200.webp`, `src/client/public/media/patch/patch-heist-1200.avif`, `src/client/public/media/patch/patch-heist-1200.webp`, `src/client/public/media/patch/patch-tournament-1200.avif`, `src/client/public/media/patch/patch-tournament-1200.webp`, `src/client/public/media/patch/patch-identity-1200.avif`, and `src/client/public/media/patch/patch-identity-1200.webp`.
+
+### Introducing Patch base
+
+- Source/status/checksum: `published/misc/introducing-patch/source_images/page_base_desktop__v1.png`; accepted source image; SHA-256 `1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d`.
+- Public derivatives: `patch-hero-720.avif` (`720 × 403`, 6,218 bytes), `patch-hero-720.webp` (`720 × 403`, 10,998 bytes), `patch-hero-1440.avif` (`1440 × 806`, 12,247 bytes), and `patch-hero-1440.webp` (`1440 × 806`, 26,590 bytes). Byte-budget class: hero. Transform: mobile-safe Patch crop with intrinsic dimensions.
+- Alt intent: Patch in the approved cream base with open space for adjacent HTML route context.
+
+### Finished Introducing Patch page
+
+- Source/status/checksum: `published/misc/introducing-patch/page__v1.png`; published one-pager; SHA-256 `0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a`.
+- Public derivatives: `patch-introducing-page-640.avif` (`640 × 358`, 9,843 bytes), `patch-introducing-page-640.webp` (`640 × 358`, 15,070 bytes), `patch-introducing-page-1200.avif` (`1200 × 672`, 20,383 bytes), and `patch-introducing-page-1200.webp` (`1200 × 672`, 36,102 bytes). Byte-budget class: page. Transform: no-upscale responsive resize.
+- Alt intent: finished Introducing Patch one-pager, used as published evidence rather than the route hero.
+
+### Published Fairytale pages
+
+- Goldilocks source/status/checksum: `published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png`; published; SHA-256 `3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c`. Derivatives: `patch-goldilocks-640.avif` (`640 × 360`, 23,148 bytes), `patch-goldilocks-640.webp` (`640 × 360`, 31,616 bytes), `patch-goldilocks-1200.avif` (`1200 × 675`, 56,684 bytes), and `patch-goldilocks-1200.webp` (`1200 × 675`, 84,952 bytes). Byte-budget class: page.
+- Sorcerer's Apprentice source/status/checksum: `published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png`; published; SHA-256 `10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b`. Derivatives: `patch-sorcerers-apprentice-640.avif` (`640 × 360`, 38,945 bytes), `patch-sorcerers-apprentice-640.webp` (`640 × 360`, 49,790 bytes), `patch-sorcerers-apprentice-1200.avif` (`1200 × 675`, 99,476 bytes), and `patch-sorcerers-apprentice-1200.webp` (`1200 × 675`, 133,940 bytes). Byte-budget class: page.
+- Transform/alt intent: no-upscale responsive page resize; each concise alt describes its specific agentic lesson and the page remains the published artefact.
+
+### Club DB origin slides
+
+- Source/status/checksum: `published/adventures/club_db_bouncer_queue_v6_canonical.pptx`; legacy reference; PPTX SHA-256 `7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee`.
+- Intermediates: selected slides 2, 4, and 14 only, rendered read-only with bundled presentation runtime `26.819.11345`, `container_tools/render_slides.py`, into off-repo scratch. Rendered PNG SHA-256 values: slide 2 `227e181b6b90a05eea0d5f5bc1c6f951764815238b5a8263a8a1658f396fbe81`; slide 4 `a09250e6fa420c7dc631d151dd4cb2078e7a9fda04a0a7ead3e74bda36733d42`; slide 14 `ce74abb7d011265bbcaa1959ec7d4f65e218f6bedf8ca2e636d5a927a80f64d3`. These PNGs are scratch-only source intermediates, never deployed.
+- Public derivatives: `patch-clubDb-slide-2-1200.avif` (`1200 × 675`, 49,764 bytes) and `.webp` (82,238 bytes); slide 4 AVIF (58,352 bytes) and WebP (95,018 bytes); slide 14 AVIF (65,908 bytes) and WebP (103,818 bytes). Byte-budget class: support. Transform: no-upscale resize from the selected rendered frame.
+- Alt intent: respectively, the accountable incident/root cause, Patch's original framing, and the signs-versus-enforcement lesson. These frames show historical origin evidence, not current production quality.
+
+### Lawful Heist
+
+- Source/status/checksum: `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png`; advanced visual pre-production; SHA-256 `b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab`.
+- Public derivatives: `patch-heist-1200.avif` (`1200 × 900`, 74,131 bytes) and `patch-heist-1200.webp` (`1200 × 900`, 117,480 bytes). Byte-budget class: support. Transform: no-upscale resize.
+- Alt intent: the Receipt pitch-folder proof panel, explicitly framed as visual pre-production rather than deck art.
+
+### Tournament
+
+- Source/status/checksum: `build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png`; visual development; SHA-256 `74cd76abe10c3d7db2a399f64906141b0e7c657fed4c02d7cc787c67867a1802`.
+- Public derivatives: `patch-tournament-1200.avif` (`1200 × 900`, 125,029 bytes) and `patch-tournament-1200.webp` (`1200 × 900`, 202,048 bytes). Byte-budget class: support. Transform: no-upscale resize.
+- Alt intent: Patch asking for route clarification at the stakeholder check booth, not a finished deck.
+
+### Identity Emporium
+
+- Source/status/checksum: `build/environments/identity-emporium/reference_sheets/world_proof__v1.png`; legacy reference; SHA-256 `8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b`.
+- Public derivatives: `patch-identity-1200.avif` (`1200 × 960`, 95,269 bytes) and `patch-identity-1200.webp` (`1200 × 960`, 166,626 bytes). Byte-budget class: support. Transform: no-upscale resize.
+- Alt intent: Patch and the shopkeeper at the Identity Emporium counter, labelled as substantial visual exploration with incomplete asset and deck readiness.
 
 ## Patch Fairytales
 
