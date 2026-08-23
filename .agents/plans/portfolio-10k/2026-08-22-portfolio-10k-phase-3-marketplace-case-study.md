@@ -328,6 +328,47 @@
 
   Keep the creative-review protocol identical across all twelve specs and aligned with the roadmap. Use a Terra implementer and a fresh Terra task reviewer. Sol then performs the final clarity, anti-slop, and creative review. Run `py -3 tools/run.py mesh --apply`, the identical-section hash check, `git diff --check`, and `py -3 tools/run.py ci --check`; update PR #21's body and exact final head before marking the task complete.
 
+### Task 8: Make visual regression portable without dual-platform baselines
+
+**Files:**
+- Modify: `.github/workflows/ci.yml`
+- Modify: `src/client/e2e/visual-regression.spec.ts`
+- Modify: `src/client/package.json`
+- Modify: `src/client/README.md`
+- Modify: `.agents/runbooks/testing.md`
+- Add or modify: a focused repository test that locks the CI renderer contract
+- Delete: the five existing `*-linux.png` files under `src/client/e2e/visual-regression.spec.ts-snapshots/`
+- Modify: generated `INDEX.md` surfaces only through `py -3 tools/run.py mesh --apply`
+- Modify: this plan only to track Task 8
+
+**Consumes:** Failed GitHub Actions run `32625049309` at PR head `1cd551dab1e20b9d4b9ae516d084de98f04eeddf`; the Windows-local development environment; the existing strict Playwright screenshot tolerance and approved generic baselines.
+
+**Produces:** One canonical Windows pixel renderer shared by local development and a required hosted visual job, while Ubuntu continues to prove every non-pixel functional, accessibility, build, privacy, custody, and route contract. Future visual changes use one reviewed baseline set and never need a failed Linux run to manufacture a second set.
+
+- [x] **Step 1: Record the root cause and reject the narrow snapshot import.**
+
+  The hosted quality gate passed 33 Python and 58 Vitest tests, built successfully, and reached Playwright. Its primary failure was the automatic Linux suffix applied to every `visualSnapshot()` call even when no Linux baseline existed. Importing three Linux files would repair this PR but preserve a recurring failure-download-commit loop. The later retried About `ERR_CONNECTION_REFUSED` was a preview-shutdown symptom and must not drive an About or retry change.
+
+- [x] **Step 2: Lock the intended CI topology with a failing test first.**
+
+  Add a focused repository test that fails on the current workflow and proves: Ubuntu remains the canonical broad `quality` job; a required `windows-latest` visual job runs only the visual-regression Playwright spec through a named package script; deployment depends on both jobs; and the visual spec explicitly skips pixel assertions on non-Windows hosts. Keep the test structural and exact enough to reject a return to implicit platform suffixing or an unrequired Windows job.
+
+- [x] **Step 3: Make Windows the explicit canonical pixel renderer.**
+
+  Add `test:e2e:visual` to `src/client/package.json`. Add a `windows-latest` workflow job with the same checkout, pinned Node, dependency install, and Chromium install contracts, then run only that script. Upload its Playwright report on failure with a distinct artifact name. Keep the Ubuntu quality job and canonical `python3 tools/run.py ci --check --verbose` unchanged so Linux still exercises all non-visual Playwright journeys. Gate deployment on both `quality` and the Windows visual job.
+
+- [x] **Step 4: Remove the platform fork from the test surface.**
+
+  Mark the visual-regression suite skipped when `process.platform !== 'win32'`, remove `visualSnapshot()` and use the generic approved names directly. Delete the five now-unused Linux-specific baselines. Do not change the global `0.01` screenshot tolerance, regenerate or update generic snapshots, mask content, or weaken what the Windows visual job compares.
+
+- [x] **Step 5: Document and validate the durable contract.**
+
+  Update the client README and testing runbook: Windows is the sole pixel-baseline renderer; local Windows canonical CI and the required hosted Windows job compare the same files; Linux runs the rest of canonical CI and reports the visual suite as intentionally skipped; new baselines are authored and reviewed once on Windows. Run the focused contract test red then green, `py -3 tools/run.py mesh --apply`, `git diff --check`, the focused Windows visual script without snapshot updates, and `py -3 tools/run.py ci --check`. Use a fresh direct Terra reviewer before publication.
+
+- [ ] **Step 6: Prove both hosted gates on GitHub.**
+
+  Push the reviewed commit and update PR #21's body and exact head. Both `Portfolio quality gate` on Ubuntu and the Windows visual-regression job must pass on that head. Record both run URLs and results; do not describe the repair as hosted-green from local validation alone.
+
 ## Plan-readiness self-review
 
 - **Spec coverage:** Tasks 1–2 cover static evidence, central inventory, and exclusive presentation routing; Task 3 covers the approved narrative, map semantics, trace, decisions, assets, and custody; Task 4 covers the distinctive responsive composition and compact preview; Task 5 covers route, visual, accessibility, manual, canonical, creative-review, and publication evidence.

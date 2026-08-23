@@ -25,7 +25,7 @@ Use this runbook when deciding what to verify for a change.
 
 - `src/client/e2e/fonts.spec.ts` proves the production preview needs no third-party font host and that Fraunces, Source Serif 4, and Fira Code are available from same-origin assets.
 - `src/client/e2e/accessibility.spec.ts` runs automated WCAG A/AA checks across the golden routes at desktop and mobile sizes. Do not disable a rule or exclude a component to make a product defect disappear. Automated scans supplement, rather than replace, keyboard, zoom, focus, and reading-order review.
-- `src/client/e2e/visual-regression.spec.ts` protects only the site's signature compositions. Its random source, motion preference, font readiness, viewport, and snapshot paths are deliberately deterministic. Update a baseline only after visually inspecting the changed image and recording the intentional design change in the PR.
+- `src/client/e2e/visual-regression.spec.ts` protects only the site's signature compositions. Its random source, motion preference, font readiness, viewport, and snapshot paths are deliberately deterministic. Windows is the sole pixel-baseline renderer: local Windows validation and the required GitHub Actions Windows job compare the same approved files. Linux runs the remaining canonical CI journeys and reports this visual suite as intentionally skipped. Author and review each new baseline once on Windows; do not create platform-specific duplicates.
 - Run a new or changed screenshot test twice without `--update-snapshots` before trusting its baseline.
 
 ## Public-route proof
