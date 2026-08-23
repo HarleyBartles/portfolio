@@ -324,7 +324,7 @@
 
   Only the main GPT-5.6 Sol orchestrator may create subagents. Terra workers may propose decomposition or a fresh-context worker, but may not spawn, resume, or delegate to child agents. A proposal names the scope, reason, dependencies, suggested role and reasoning effort, and expected evidence; Sol decides whether to dispatch it, controls sequencing, concurrency, and reconciliation, and records the resulting branch in the JIT plan or SDD ledger. Keep the execution tree shallow and explicit (`Sol -> Terra`); prohibit recursive `Sol -> Terra -> Terra` delegation. Any child output reaches Sol directly and cannot be laundered through an unrecorded worker-level review chain.
 
-- [ ] **Step 6: Normalise, review, validate, and publish the refinement.**
+- [x] **Step 6: Normalise, review, validate, and publish the refinement.**
 
   Keep the creative-review protocol identical across all twelve specs and aligned with the roadmap. Use a Terra implementer and a fresh Terra task reviewer. Sol then performs the final clarity, anti-slop, and creative review. Run `py -3 tools/run.py mesh --apply`, the identical-section hash check, `git diff --check`, and `py -3 tools/run.py ci --check`; update PR #21's body and exact final head before marking the task complete.
 
