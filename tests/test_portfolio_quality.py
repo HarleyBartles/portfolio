@@ -131,6 +131,38 @@ class PortfolioFixture:
         evidence_path.parent.mkdir(parents=True, exist_ok=True)
         evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
+    def write_wild_bunch_evidence(self, revision: str = "2a9814d094148bb789766a27d316095fecce5a60") -> None:
+        evidence = {
+            "observedAt": "2026-08-21",
+            "revision": revision,
+            "repositoryUrl": "https://github.com/HarleyBartles/wild-bunch",
+            "historicalReferenceUrl": "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd",
+            "status": "pre-alpha",
+            "captureRecipe": {
+                "playerName": "Ranger Vale",
+                "worldSeed": "00000000-0000-0000-0000-000000000000",
+                "difficulty": "Standard",
+                "entropy": "Boring",
+                "startingTown": "Dustwell",
+            },
+            "capabilities": {
+                "implemented": ["Seeded session setup"],
+                "transitional": ["Visual polish"],
+                "planned": ["Public accounts and sessions"],
+            },
+            "representativeEvidence": [
+                {
+                    "claim": "Aggregate and typed events",
+                    "sourceUrl": f"https://github.com/HarleyBartles/wild-bunch/blob/{revision}/src/WildBunch.Domain/Game/GameSession.cs",
+                    "testUrl": f"https://github.com/HarleyBartles/wild-bunch/blob/{revision}/tests/WildBunch.Domain.Tests/Events/GameSessionEventSourcingTests.cs",
+                }
+            ],
+            "images": [],
+        }
+        evidence_path = self.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
 
 class PortfolioQualityTests(unittest.TestCase):
     def validate(self, mutate=None) -> list[str]:
@@ -342,6 +374,121 @@ class PortfolioQualityTests(unittest.TestCase):
             fixture.write_marketplace_evidence()
 
         self.assertEqual([], self.validate(mutate))
+
+    def test_wild_bunch_evidence_is_required_and_must_be_valid_json(self) -> None:
+        def missing(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+
+        missing_findings = self.validate(missing)
+        self.assertTrue(any("cannot load Wild Bunch evidence" in finding for finding in missing_findings))
+
+        def malformed(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+            evidence_path.parent.mkdir(parents=True, exist_ok=True)
+            evidence_path.write_text("{", encoding="utf-8")
+
+        malformed_findings = self.validate(malformed)
+        self.assertTrue(any("cannot load Wild Bunch evidence" in finding for finding in malformed_findings))
+
+    def test_wild_bunch_evidence_rejects_invalid_public_coordinates_and_capture_recipe(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            fixture.write_wild_bunch_evidence("main")
+            evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["observedAt"] = "21 August 2026"
+            evidence["repositoryUrl"] = "http://localhost:5173?password=secret"
+            evidence["historicalReferenceUrl"] = "http://Z:/private/worktree/branch"
+            evidence["status"] = "live"
+            evidence["captureRecipe"] = {
+                "playerName": "Codex Rider",
+                "worldSeed": "session-123",
+                "difficulty": "Hard",
+                "entropy": "Random",
+                "startingTown": "Elsewhere",
+            }
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("invalid observedAt" in finding for finding in findings))
+        self.assertTrue(any("repositoryUrl must use HTTPS" in finding for finding in findings))
+        self.assertTrue(any("historicalReferenceUrl must use HTTPS" in finding for finding in findings))
+        self.assertTrue(any("revision must be a 40-character commit" in finding for finding in findings))
+        self.assertTrue(any("status must be 'pre-alpha'" in finding for finding in findings))
+        self.assertTrue(any("captureRecipe playerName" in finding for finding in findings))
+        self.assertTrue(any("captureRecipe worldSeed" in finding for finding in findings))
+        self.assertTrue(any("captureRecipe difficulty" in finding for finding in findings))
+        self.assertTrue(any("captureRecipe entropy" in finding for finding in findings))
+        self.assertTrue(any("captureRecipe startingTown" in finding for finding in findings))
+        self.assertTrue(any("private local coordinate" in finding for finding in findings))
+
+    def test_wild_bunch_evidence_rejects_every_private_coordinate_class(self) -> None:
+        forbidden_coordinates = (
+            "Z:/private/capture",
+            "http://localhost:5173",
+            "password=not-for-publication",
+            "Host=private;Database=wild-bunch",
+            "codex/portfolio-10k-phase-4-wild-bunch branch",
+            "session-0123456789abcdef",
+        )
+
+        for coordinate in forbidden_coordinates:
+            with self.subTest(coordinate=coordinate):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    del fixture.items[0]["path"]
+                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.write_manifest()
+                    (fixture.content / "projects/example-project.md").unlink()
+                    fixture.write_wild_bunch_evidence()
+                    evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    evidence["auditNote"] = coordinate
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                findings = self.validate(mutate)
+                self.assertTrue(any("private local coordinate or secret" in finding for finding in findings))
+
+    def test_wild_bunch_evidence_rejects_empty_capabilities_unpinned_links_and_malformed_images(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            fixture.write_wild_bunch_evidence()
+            evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["capabilities"] = {"implemented": [], "transitional": [], "planned": []}
+            evidence["representativeEvidence"][0]["sourceUrl"] = "https://github.com/HarleyBartles/wild-bunch/blob/main/src/WildBunch.Domain/Game/GameSession.cs"
+            evidence["images"] = [{"path": "http://localhost/wild-bunch.png", "width": 0}]
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(mutate)
+
+        for category in ("implemented", "transitional", "planned"):
+            self.assertTrue(any(f"capabilities {category}" in finding for finding in findings))
+        self.assertTrue(any("representative evidence" in finding and "pinned revision" in finding for finding in findings))
+        self.assertTrue(any("image 1 requires a positive width and height" in finding for finding in findings))
+        self.assertTrue(any("image 1 path must be a public custody path" in finding for finding in findings))
+
+    def test_wild_bunch_presentation_preserves_the_single_body_source_contract(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("exactly one body source" in finding for finding in findings))
 
     def test_privacy_scan_rejects_contact_literals_and_private_paths(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

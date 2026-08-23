@@ -16,7 +16,13 @@ describe('content API client', () => {
 
     expect(document.summary.slug).toBe('wild-bunch')
     expect(document.summary.kind).toBe('project')
-    expect(document.markdown).toContain('pre-alpha')
+    expect(document.summary.presentation).toBe('wild-bunch-case-study')
+    expect(document.markdown).toBeUndefined()
+
+    await expect(getContent('agentic-learning-lab')).resolves.toMatchObject({
+      summary: { slug: 'agentic-learning-lab' },
+      markdown: expect.any(String),
+    })
   })
 
   test('converts missing slug into a 404 endpoint error without server path leakage', async () => {

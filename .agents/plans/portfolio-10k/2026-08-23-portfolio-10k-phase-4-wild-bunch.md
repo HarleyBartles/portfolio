@@ -96,25 +96,25 @@
 
 **Produces:** One authored, dated Wild Bunch evidence source and one registry-backed specialist body source while Marketplace and ordinary Markdown routes remain intact.
 
-- [ ] **Step 1: Extend the fixture and write failing Python tests.** Cover missing/malformed evidence; invalid ISO date; non-HTTPS repository/history URLs; non-40-character or branch revision; wrong status; changed capture player/UUID/difficulty/entropy/town; empty implemented/transitional/planned categories; local paths, localhost, credentials, connection strings, branch/worktree labels, or session IDs; representative links not pinned to the evidence revision; and missing image dimensions/custody paths. Assert `wild-bunch-case-study` preserves the manifest path/presentation exclusive-or.
+- [x] **Step 1: Extend the fixture and write failing Python tests.** Cover missing/malformed evidence; invalid ISO date; non-HTTPS repository/history URLs; non-40-character or branch revision; wrong status; changed capture player/UUID/difficulty/entropy/town; empty implemented/transitional/planned categories; local paths, localhost, credentials, connection strings, branch/worktree labels, or session IDs; representative links not pinned to the evidence revision; and missing image dimensions/custody paths. Assert `wild-bunch-case-study` preserves the manifest path/presentation exclusive-or.
 
   Run: `py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v`
 
   Expected: FAIL because the validator knows only Marketplace specialist evidence.
 
-- [ ] **Step 2: Add the authored snapshot and minimum validator.** Record `observedAt: "2026-08-21"`, exact revision, public repo/history URLs, `pre-alpha`, the exact capture recipe plus `startingTown: "Dustwell"`, the three capability-state lists, and the audit's revision-pinned source/test evidence. Validate shape and forbidden-coordinate rules without fetching Wild Bunch. The validator must reject malformed image entries when present, but the live snapshot does not name deployable derivatives until Task 2 creates and measures them.
+- [x] **Step 2: Add the authored snapshot and minimum validator.** Record `observedAt: "2026-08-21"`, exact revision, public repo/history URLs, `pre-alpha`, the exact capture recipe plus `startingTown: "Dustwell"`, the three capability-state lists, and the audit's revision-pinned source/test evidence. Validate shape and forbidden-coordinate rules without fetching Wild Bunch. The validator must reject malformed image entries when present, but the live snapshot does not name deployable derivatives until Task 2 creates and measures them.
 
-- [ ] **Step 3: Write failing TypeScript seam tests.** Assert Wild Bunch can load with `presentation: 'wild-bunch-case-study'` and empty Markdown, Marketplace still resolves, an ordinary Markdown project still loads Markdown, and unknown presentation identifiers fail closed.
+- [x] **Step 3: Write failing TypeScript seam tests.** Assert Wild Bunch can load with `presentation: 'wild-bunch-case-study'` and empty Markdown, Marketplace still resolves, an ordinary Markdown project still loads Markdown, and unknown presentation identifiers fail closed.
 
   Run: `npm.cmd --prefix src/client test -- src/data/documents.test.ts src/api/contentApi.test.ts src/features/case-study/projectPresentations.test.tsx`
 
   Expected: FAIL because the union/registry does not include Wild Bunch.
 
-- [ ] **Step 4: Convert the canonical body source.** Add the Wild Bunch discriminator to the narrow union and lazy registry; update the manifest summary to the approved exact text; replace `path` with `presentation`; retain status/title; add only relevant related links supported by existing content; delete `wild-bunch.md` in the same change. Create a minimal semantic `WildBunchCaseStudy` placeholder so the registry and build stay valid; Task 3 replaces its contents rather than creating a second body.
+- [x] **Step 4: Convert the canonical body source.** Add the Wild Bunch discriminator to the narrow union and lazy registry; update the manifest summary to the approved exact text; replace `path` with `presentation`; retain status/title; add only relevant related links supported by existing content; delete `wild-bunch.md` in the same change. Create a minimal semantic `WildBunchCaseStudy` placeholder so the registry and build stay valid; Task 3 replaces its contents rather than creating a second body.
 
-- [ ] **Step 5: Prove the contracts.** Run both focused commands above. Expected: PASS. Run `py -3 tools/run.py mesh --apply` and retain any canonical index changes.
+- [x] **Step 5: Prove the contracts.** Run both focused commands above. Expected: PASS. Run `py -3 tools/run.py mesh --apply` and retain any canonical index changes.
 
-- [ ] **Step 6: Commit this task and mark its plan boxes complete.** Use a focused commit; stage only this task plus canonical generated indexes. Do not stage scratch captures or unrelated setup residue.
+- [x] **Step 6: Commit this task and mark its plan boxes complete.** Use a focused commit; stage only this task plus canonical generated indexes. Do not stage scratch captures or unrelated setup residue.
 
 ### Task 2: Process and document honest development-build imagery
 

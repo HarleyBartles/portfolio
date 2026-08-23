@@ -25,10 +25,10 @@
       "kind": "project",
       "title": "Wild Bunch",
       "status": "pre-alpha",
-      "summary": "A deliberately complex game-shaped .NET project. Real architecture, real bugs, real trade-offs.",
-      "path": "projects/wild-bunch.md",
+      "summary": "A modern re-creation of a childhood Western game, built around controlled determinism, exact replay, and architecture that earns its keep.",
+      "presentation": "wild-bunch-case-study",
       "tags": ["project", "dotnet", "ddd"],
-      "relatedSlugs": []
+      "relatedSlugs": ["agentic-engineering-vs-vibe-coding"]
     },
     {
       "slug": "adventures-of-patch",

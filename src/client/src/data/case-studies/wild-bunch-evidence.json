@@ -1,0 +1,61 @@
+{
+  "observedAt": "2026-08-21",
+  "revision": "2a9814d094148bb789766a27d316095fecce5a60",
+  "repositoryUrl": "https://github.com/HarleyBartles/wild-bunch",
+  "historicalReferenceUrl": "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd",
+  "status": "pre-alpha",
+  "captureRecipe": {
+    "playerName": "Ranger Vale",
+    "worldSeed": "00000000-0000-0000-0000-000000000000",
+    "difficulty": "Standard",
+    "entropy": "Boring",
+    "startingTown": "Dustwell"
+  },
+  "capabilities": {
+    "implemented": [
+      "Seeded session setup, generated town graph, and route distances.",
+      "Town rendering, persistent per-session town placement, and travel.",
+      "Case-file generation, wanted notices, typed event history, projections, persistence, replay, and the developer audit surface."
+    ],
+    "transitional": [
+      "Visual polish, town tiling, and broader gameplay.",
+      "Entropy behaviour beyond the deterministic path, layout-inspection reliability, and some developer-control integrations."
+    ],
+    "planned": [
+      "Public accounts and sessions, production hosting, player-facing seed sharing, game balance, and a supportable public demo."
+    ]
+  },
+  "representativeEvidence": [
+    {
+      "claim": "Aggregate and typed-event behaviour",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/Game/GameSession.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Domain.Tests/Events/GameSessionEventSourcingTests.cs"
+    },
+    {
+      "claim": "Generated world and stable graph",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/World/WorldSnapshot.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.GameContent.Tests/TrailGraphGeneratorTests.cs"
+    },
+    {
+      "claim": "Deterministic entropy and salts",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.GameContent/NewGame/EntropyPolicy.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/TestInfrastructure/BoringScenarioBuilderTests.cs"
+    },
+    {
+      "claim": "Append, replay, and evolution",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Persistence/Versioning/PayloadUpcasterRegistry.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs"
+    },
+    {
+      "claim": "Player-safe investigation views",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Application/Projections/CaseFileViewProjection.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/Acceptance/WantedPosterAcceptanceTests.cs"
+    },
+    {
+      "claim": "Inspectable developer tooling",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/dev/DevOverlay.tsx",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/tests/DevOverlay.test.tsx"
+    }
+  ],
+  "images": []
+}

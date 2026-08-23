@@ -17,6 +17,10 @@ PUBLIC_ROOT = Path("src/client/public")
 CUSTODY_PATH = Path("docs/asset-custody.md")
 MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
+WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
+WILD_BUNCH_REVISION = "2a9814d094148bb789766a27d316095fecce5a60"
+WILD_BUNCH_REPOSITORY_URL = "https://github.com/HarleyBartles/wild-bunch"
+WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd"
 PRODUCTION_ROOT = Path("src/client/src")
 PRODUCTION_TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".scss", ".ts", ".tsx"}
 PUBLIC_ASSET_SUFFIXES = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
@@ -36,6 +40,10 @@ PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 PRIVATE_EVIDENCE_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/|\bworktree\b|\bbranch\b)", re.IGNORECASE)
+WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
+    r"(?:\blocalhost\b|\b(?:password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]|\b(?:server|host|data source|user id|uid)\s*=|\bsession[-_ ]?(?:id|[0-9a-f]{8,})\b)",
+    re.IGNORECASE,
+)
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 
 
@@ -121,7 +129,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation != "marketplace-case-study":
+            if presentation not in {"marketplace-case-study", "wild-bunch-case-study"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
             elif kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
@@ -187,6 +195,8 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
 
     if any(item.get("presentation") == "marketplace-case-study" for item in items):
         _validate_marketplace_evidence(root, findings)
+    if any(item.get("presentation") == "wild-bunch-case-study" for item in items):
+        _validate_wild_bunch_evidence(root, findings)
 
 
 def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
@@ -328,6 +338,115 @@ def _validate_marketplace_evidence(root: Path, findings: list[Finding]) -> None:
         for value in consumer.values():
             if isinstance(value, str) and PRIVATE_EVIDENCE_RE.search(value):
                 findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} contains a private local coordinate"))
+
+
+def _wild_bunch_strings(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [text for nested in value.values() for text in _wild_bunch_strings(nested)]
+    if isinstance(value, list):
+        return [text for nested in value for text in _wild_bunch_strings(nested)]
+    return []
+
+
+def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
+    evidence = _read_json(root / WILD_BUNCH_EVIDENCE_PATH, findings, "Wild Bunch evidence")
+    if not isinstance(evidence, dict):
+        return
+
+    observed_at = evidence.get("observedAt")
+    if not isinstance(observed_at, str) or ISO_DATE_RE.fullmatch(observed_at) is None:
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "invalid observedAt; use ISO date format"))
+
+    revision = evidence.get("revision")
+    if not isinstance(revision, str) or SHA_RE.fullmatch(revision) is None:
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "revision must be a 40-character commit"))
+    elif revision != WILD_BUNCH_REVISION:
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "revision must match the approved evidence revision"))
+
+    for field, expected in (
+        ("repositoryUrl", WILD_BUNCH_REPOSITORY_URL),
+        ("historicalReferenceUrl", WILD_BUNCH_HISTORICAL_REFERENCE_URL),
+    ):
+        value = evidence.get(field)
+        if not isinstance(value, str) or not value.startswith("https://"):
+            findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"{field} must use HTTPS"))
+        elif value != expected:
+            findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"{field} must match the approved public URL"))
+
+    if evidence.get("status") != "pre-alpha":
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "status must be 'pre-alpha'"))
+
+    recipe = evidence.get("captureRecipe")
+    expected_recipe = {
+        "playerName": "Ranger Vale",
+        "worldSeed": "00000000-0000-0000-0000-000000000000",
+        "difficulty": "Standard",
+        "entropy": "Boring",
+        "startingTown": "Dustwell",
+    }
+    if not isinstance(recipe, dict):
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "captureRecipe must be an object"))
+    else:
+        for field, expected in expected_recipe.items():
+            if recipe.get(field) != expected:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"captureRecipe {field} must be '{expected}'"))
+
+    capabilities = evidence.get("capabilities")
+    if not isinstance(capabilities, dict):
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "capabilities must be an object"))
+    else:
+        for category in ("implemented", "transitional", "planned"):
+            entries = capabilities.get(category)
+            if not isinstance(entries, list) or not entries or not all(isinstance(entry, str) and entry.strip() for entry in entries):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"capabilities {category} must be a nonempty string array"))
+
+    representative_evidence = evidence.get("representativeEvidence")
+    if not isinstance(representative_evidence, list) or not representative_evidence:
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "representativeEvidence must be a nonempty array"))
+    else:
+        pinned_prefix = f"{WILD_BUNCH_REPOSITORY_URL}/blob/{WILD_BUNCH_REVISION}/"
+        for index, entry in enumerate(representative_evidence, start=1):
+            if not isinstance(entry, dict):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"representative evidence {index} must be an object"))
+                continue
+            if not isinstance(entry.get("claim"), str) or not entry["claim"].strip():
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"representative evidence {index} requires a claim"))
+            for field in ("sourceUrl", "testUrl"):
+                value = entry.get(field)
+                if not isinstance(value, str) or not value.startswith(pinned_prefix):
+                    findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"representative evidence {index} {field} must use the pinned revision"))
+
+    images = evidence.get("images")
+    if not isinstance(images, list):
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "images must be an array"))
+    else:
+        custody = (root / CUSTODY_PATH).read_text(encoding="utf-8") if (root / CUSTODY_PATH).is_file() else ""
+        for index, image in enumerate(images, start=1):
+            if not isinstance(image, dict):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must be an object"))
+                continue
+            path = image.get("path")
+            if not isinstance(path, str) or not path.startswith("src/client/public/media/wild-bunch/"):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} path must be a public custody path"))
+            elif f"`{path}`" not in custody:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} path is missing from docs/asset-custody.md"))
+            width, height = image.get("width"), image.get("height")
+            if (
+                not isinstance(width, int)
+                or isinstance(width, bool)
+                or width <= 0
+                or not isinstance(height, int)
+                or isinstance(height, bool)
+                or height <= 0
+            ):
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} requires a positive width and height"))
+
+    for text in _wild_bunch_strings(evidence):
+        if PRIVATE_EVIDENCE_RE.search(text) or WILD_BUNCH_FORBIDDEN_COORDINATE_RE.search(text):
+            findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "contains a private local coordinate or secret"))
+            break
 
 
 def _production_text_files(root: Path) -> list[Path]:

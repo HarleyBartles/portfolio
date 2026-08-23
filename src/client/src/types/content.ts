@@ -6,7 +6,7 @@ export type ContentKind =
   | 'writing'
   | 'fairytales'
 
-export type ProjectPresentation = 'marketplace-case-study'
+export type ProjectPresentation = 'marketplace-case-study' | 'wild-bunch-case-study'
 
 export type ContentSummary = {
   slug: string
