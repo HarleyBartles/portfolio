@@ -1,9 +1,9 @@
 ---
-title: Goldilocks — The Right Amount of Guidance
+title: Goldilocks - The Right Amount of Guidance
 summary: Good agent guidance is not maximum context, but enough relevant context for a confident next decision.
 ---
 
-# Goldilocks — The Right Amount of Guidance
+# Goldilocks - The Right Amount of Guidance
 
 Good agent guidance is not maximum context, but enough relevant context for a confident next decision.
 

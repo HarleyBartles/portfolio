@@ -1,9 +1,9 @@
 ---
-title: The Sorcerer's Apprentice — Delegation Without Boundaries
+title: The Sorcerer's Apprentice - Delegation Without Boundaries
 summary: Delegation needs a boundary, not just permission.
 ---
 
-# The Sorcerer's Apprentice — Delegation Without Boundaries
+# The Sorcerer's Apprentice - Delegation Without Boundaries
 
 Delegation needs a boundary, not just permission.
 

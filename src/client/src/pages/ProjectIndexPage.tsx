@@ -22,7 +22,7 @@ export function ProjectIndexPage(): ReactElement {
         <header className="index-intro">
           <p className="eyebrow">Projects / proof with rough edges intact</p>
           <h1 id="project-index-title">Project Stories</h1>
-          <p className="content-summary">Public systems, teaching work, experiments, and visual pipelines—framed by what each one is for, what works now, and what it costs.</p>
+          <p className="content-summary">Public systems, teaching work, experiments, and visual pipelines, framed by what each one is for, what works now, and what it costs.</p>
         </header>
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}

@@ -41,7 +41,7 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Source: hand-authored for this portfolio on 2026-08-21.
 - Rights: Harley Bartles' original portfolio identity.
 - Format and dimensions: vector SVG, `64 × 64` view box.
-- Fallback: the home link retains the accessible name `Harley Bartles — home` when the image cannot load.
+- Fallback: the home link retains the accessible name `Harley Bartles, home` when the image cannot load.
 
 ### Social card
 
@@ -122,14 +122,14 @@ The visible game art is first-party project work generated under Harley's direct
 - Raw source: Harley's unretouched `wild-bunch-dustwell-town-1440.png`, PNG `1440 × 1100`, 778,555 bytes, SHA-256 `1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147`.
 - Public derivatives: `src/client/public/media/wild-bunch/dustwell-town-720.avif` (`720 × 550`, 6,790 bytes); `src/client/public/media/wild-bunch/dustwell-town-720.webp` (`720 × 550`, 11,020 bytes); `src/client/public/media/wild-bunch/dustwell-town-1200.avif` (`1200 × 917`, 14,095 bytes); `src/client/public/media/wild-bunch/dustwell-town-1200.webp` (`1200 × 917`, 25,362 bytes).
 - Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 25,362 bytes, below the 250 KB hero target.
-- Alt intent: current development build showing Ranger Vale's Dustwell hub and ordinary town actions. Caption framing: current development build / working skeleton, not final game art.
+- Alt intent: current development build showing Ranger Vale in Dustwell, one generated town in the seeded map-world, with ordinary town actions visible. Caption framing: this is the generated town captured for the recorded seed, not a hand-built showcase town or final game art.
 
 ### Generated trail map
 
 - Raw source: Harley's unretouched `wild-bunch-trail-map-1440.png`, PNG `1440 × 1100`, 264,087 bytes, SHA-256 `ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4`.
 - Public derivatives: `src/client/public/media/wild-bunch/trail-map-720.avif` (`720 × 550`, 10,698 bytes); `src/client/public/media/wild-bunch/trail-map-720.webp` (`720 × 550`, 16,834 bytes); `src/client/public/media/wild-bunch/trail-map-1200.avif` (`1200 × 917`, 21,459 bytes); `src/client/public/media/wild-bunch/trail-map-1200.webp` (`1200 × 917`, 35,858 bytes).
 - Transformation: fixed-width Sharp resize without upscaling, then AVIF quality 52 or WebP quality 78; metadata stripped. The larger derivative is 35,858 bytes, below the 180 KB support target.
-- Alt intent: current development build showing named towns, connecting trails, and ride-day distances before Dustwell is selected. Caption framing: current development build / working skeleton.
+- Alt intent: current development build showing five named towns, connecting trails, and ride-day distances. Caption framing: generated topology and travel distance before the player chooses a town; current development build / working skeleton.
 
 ### Ordered session audit
 

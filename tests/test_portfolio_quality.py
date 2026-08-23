@@ -634,6 +634,19 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("phone number literal" in finding for finding in findings))
         self.assertTrue(any("private filesystem path" in finding for finding in findings))
 
+    def test_public_voice_scan_rejects_em_dashes_and_decorative_emoji(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            source = fixture.root / "src/client/src/example.ts"
+            source.write_text(
+                "export const copy = 'A finished thought—then an AI tail. 🚀'\n",
+                encoding="utf-8",
+            )
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("em dash" in finding for finding in findings))
+        self.assertTrue(any("decorative emoji" in finding for finding in findings))
+
     def test_assets_require_custody_and_stay_under_the_image_budget(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             asset = fixture.public / "media/unrecorded.png"

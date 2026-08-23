@@ -15,27 +15,29 @@ async function tabToLink(page: import('@playwright/test').Page, linkName: string
   throw new Error(`Keyboard traversal did not reach ${linkName}`)
 }
 
-test('visitor opens the Wild Bunch route with its exact thesis, status, and inspectable evidence', async ({ page }) => {
+test('visitor opens the Wild Bunch route with its Western hook, status, and inspectable evidence', async ({ page }) => {
   const response = await page.goto(wildBunchPath)
 
   expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
   await expect(page.locator('.content-status')).toHaveText(/Status\s*pre-alpha/)
-  await expect(page.getByText('Every complexity pays rent.', { exact: true })).toBeVisible()
-  await expect(page.getByLabel('Wild Bunch Dustwell development-build preview')).toBeVisible()
+  await expect(page.getByText(/wrong name on the crime: yours/i)).toBeVisible()
+  await expect(page.getByLabel('Wild Bunch generated-town development-build preview')).toBeVisible()
 
   const repository = page.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })
   const history = page.getByRole('link', { name: 'Historical Wild Bunch archive' })
   const pinnedReplay = page.getByRole('link', { name: 'Pinned replay-equality evidence' })
+  const runGame = page.getByRole('link', { name: 'Clone and run Wild Bunch' })
   await expect(repository).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch/tree/2a9814d094148bb789766a27d316095fecce5a60')
   await expect(history).toHaveAttribute('href', /worldofspectrum\.org/)
   await expect(pinnedReplay).toHaveAttribute('href', /2a9814d094148bb789766a27d316095fecce5a60/)
+  await expect(runGame).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch#run-the-pre-alpha-locally')
   for (const linkName of ['Historical Wild Bunch archive', 'Pinned replay-equality evidence', 'Wild Bunch source snapshot (pinned revision)']) {
     await tabToLink(page, linkName)
     await expect(page.getByRole('link', { name: linkName })).toBeFocused()
   }
 
-  await expect(page.getByText(/^These captures record the current development build/)).toBeVisible()
+  await expect(page.getByText(/^These captures document the current playable build/)).toBeVisible()
   await expect(page.getByRole('region', { name: 'Development-build position' })).toHaveCount(0)
   await expect(page.getByText(/CQRS-style/i)).toHaveCount(0)
   await expect(page.getByText(/aggregate-scoped repositories/i)).toHaveCount(0)
@@ -74,13 +76,30 @@ test('visitor reaches the Wild Bunch story through client navigation and receive
   await expect(eventFlow).toContainText('No message broker sits between these steps.')
 })
 
+test('Wild Bunch architecture figures retain their designed internal spacing', async ({ page }) => {
+  await page.goto(wildBunchPath)
+
+  for (const figureName of [
+    'Controlled determinism from a compact world contract',
+    'Ordered event history from action to reconstruction',
+  ]) {
+    const figure = page.getByRole('figure', { name: figureName })
+    const padding = await figure.evaluate((element) => {
+      const style = getComputedStyle(element)
+      return [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(Number.parseFloat)
+    })
+
+    expect(padding.every((value) => value >= 24)).toBe(true)
+  }
+})
+
 test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const width of [390, 320, 360]) {
     await page.setViewportSize({ width, height: 844 })
     await page.goto(wildBunchPath)
     await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
-    await expect(page.getByText('Every complexity pays rent.', { exact: true })).toBeVisible()
+    await expect(page.getByText(/wrong name on the crime: yours/i)).toBeVisible()
     await expectNoHorizontalOverflow(page)
 
     if (width === 390) {
@@ -103,7 +122,7 @@ test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced mot
 test('Wild Bunch evidence exposes intrinsic image dimensions with one eager route-header hero and lazy body captures', async ({ page }) => {
   await page.goto(wildBunchPath)
 
-  const hero = page.getByLabel('Wild Bunch Dustwell development-build preview').getByRole('img')
+  const hero = page.getByLabel('Wild Bunch generated-town development-build preview').getByRole('img')
   await expect(hero).toHaveAttribute('width', '720')
   await expect(hero).toHaveAttribute('height', '550')
   await expect(hero).toHaveAttribute('loading', 'eager')

@@ -26,7 +26,7 @@ describe('SiteLayout', () => {
 
     const skipLink = screen.getByRole('link', { name: 'Skip to content' })
     expect(skipLink).toHaveAttribute('href', '#main-content')
-    const siteMark = screen.getByRole('link', { name: 'Harley Bartles — home' })
+    const siteMark = screen.getByRole('link', { name: 'Harley Bartles, home' })
     const markImage = siteMark.querySelector('img')
     expect(markImage).toHaveAttribute('src', '/brand/hb-mark.svg')
     expect(markImage).toHaveAttribute('alt', '')

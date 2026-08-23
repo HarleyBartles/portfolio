@@ -58,7 +58,7 @@ export function MarketplaceCaseStudy(): ReactElement {
           <p className="eyebrow">A dated, inspectable snapshot</p>
           <h2 id="marketplace-evidence-title">Used, pinned, and still evolving</h2>
           <CaseStudyEvidence auditDate="21 August 2026" href={repositoryUrl} label="Marketplace repository" />
-          <p>The public audit records selected consumers and their pins without fetching those repositories at runtime. Different revisions are deliberate, inspectable state—not evidence of live telemetry or automatic synchronisation.</p>
+          <p>The public audit records selected consumers and their pins without fetching those repositories at runtime. Different revisions are deliberate, inspectable state, not evidence of live telemetry or automatic synchronisation.</p>
           <p>The Marketplace is active and permanently iterative. Its present shape is evidence of a maintained system, not a claim that distribution is finished or universally adopted.</p>
         </section>
       </section>
