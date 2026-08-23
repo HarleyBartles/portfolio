@@ -26,7 +26,6 @@ const selectedPlugins = [
 const consumers = [
   ['Portfolio', 'seven local design skills and repository doctrine'],
   ['Adventures of Patch', 'four local project skills and runbooks'],
-  ['Rooms Mostly', 'five local skills and repository context'],
 ] as const
 
 export function MarketplaceDistributionMap(): ReactElement {

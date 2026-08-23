@@ -1,0 +1,344 @@
+{
+  "observedAt": "2026-08-21",
+  "revision": "2a9814d094148bb789766a27d316095fecce5a60",
+  "repositoryUrl": "https://github.com/HarleyBartles/wild-bunch",
+  "historicalReferenceUrl": "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd",
+  "status": "pre-alpha",
+  "captureRecipe": {
+    "playerName": "Ranger Vale",
+    "worldSeed": "00000000-0000-0000-0000-000000000000",
+    "difficulty": "Standard",
+    "entropy": "Boring",
+    "startingTown": "Dustwell"
+  },
+  "capabilities": {
+    "implemented": [
+      "Seeded session setup, generated town graph, and route distances.",
+      "Town rendering, persistent per-session town placement, and travel.",
+      "Case-file generation, wanted notices, typed event history, and projections.",
+      "PostgreSQL-backed persistence",
+      "Replay and the developer audit surface."
+    ],
+    "transitional": [
+      "Visual polish, town tiling, and broader gameplay.",
+      "Entropy behaviour beyond the deterministic path, layout-inspection reliability, and some developer-control integrations."
+    ],
+    "planned": [
+      "Public accounts and sessions, production hosting, player-facing seed sharing, game balance, and a supportable public demo."
+    ]
+  },
+  "representativeEvidence": [
+    {
+      "claim": "Aggregate and typed-event behaviour",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/Game/GameSession.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Domain.Tests/Events/GameSessionEventSourcingTests.cs"
+    },
+    {
+      "claim": "Generated world and stable graph",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/World/WorldSnapshot.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.GameContent.Tests/TrailGraphGeneratorTests.cs"
+    },
+    {
+      "claim": "Deterministic entropy and salts",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.GameContent/NewGame/EntropyPolicy.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/TestInfrastructure/BoringScenarioBuilderTests.cs"
+    },
+    {
+      "claim": "Append, replay, and evolution",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Persistence/Versioning/PayloadUpcasterRegistry.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs"
+    },
+    {
+      "claim": "Player-safe investigation views",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Application/Projections/CaseFileViewProjection.cs",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.Integration.Tests/Acceptance/WantedPosterAcceptanceTests.cs"
+    },
+    {
+      "claim": "Inspectable developer tooling",
+      "sourceUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/dev/DevOverlay.tsx",
+      "testUrl": "https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/tests/DevOverlay.test.tsx"
+    }
+  ],
+  "images": [
+    {
+      "capture": "dustwell-town",
+      "sourceFile": "wild-bunch-dustwell-town-1440.png",
+      "sourceSha256": "1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/dustwell-town-720.avif",
+      "width": 720,
+      "height": 550,
+      "format": "avif",
+      "altIntent": "Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible.",
+      "caption": "Current development build / working skeleton: Dustwell town hub after the recorded run starts; product context is retained without presenting this as final game art.",
+      "bytes": 6790
+    },
+    {
+      "capture": "dustwell-town",
+      "sourceFile": "wild-bunch-dustwell-town-1440.png",
+      "sourceSha256": "1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/dustwell-town-720.webp",
+      "width": 720,
+      "height": 550,
+      "format": "webp",
+      "altIntent": "Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible.",
+      "caption": "Current development build / working skeleton: Dustwell town hub after the recorded run starts; product context is retained without presenting this as final game art.",
+      "bytes": 11020
+    },
+    {
+      "capture": "dustwell-town",
+      "sourceFile": "wild-bunch-dustwell-town-1440.png",
+      "sourceSha256": "1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/dustwell-town-1200.avif",
+      "width": 1200,
+      "height": 917,
+      "format": "avif",
+      "altIntent": "Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible.",
+      "caption": "Current development build / working skeleton: Dustwell town hub after the recorded run starts; product context is retained without presenting this as final game art.",
+      "bytes": 14095
+    },
+    {
+      "capture": "dustwell-town",
+      "sourceFile": "wild-bunch-dustwell-town-1440.png",
+      "sourceSha256": "1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/dustwell-town-1200.webp",
+      "width": 1200,
+      "height": 917,
+      "format": "webp",
+      "altIntent": "Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible.",
+      "caption": "Current development build / working skeleton: Dustwell town hub after the recorded run starts; product context is retained without presenting this as final game art.",
+      "bytes": 25362
+    },
+    {
+      "capture": "trail-map",
+      "sourceFile": "wild-bunch-trail-map-1440.png",
+      "sourceSha256": "ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/trail-map-720.avif",
+      "width": 720,
+      "height": 550,
+      "format": "avif",
+      "altIntent": "Current development build: the generated starting-town trail map with named towns, connecting trails, and ride-day distances before Dustwell is chosen.",
+      "caption": "Current development build / working skeleton: generated trail-map evidence before the player chooses Dustwell, retained for its readable names, topology, and route distances.",
+      "bytes": 10698
+    },
+    {
+      "capture": "trail-map",
+      "sourceFile": "wild-bunch-trail-map-1440.png",
+      "sourceSha256": "ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/trail-map-720.webp",
+      "width": 720,
+      "height": 550,
+      "format": "webp",
+      "altIntent": "Current development build: the generated starting-town trail map with named towns, connecting trails, and ride-day distances before Dustwell is chosen.",
+      "caption": "Current development build / working skeleton: generated trail-map evidence before the player chooses Dustwell, retained for its readable names, topology, and route distances.",
+      "bytes": 16834
+    },
+    {
+      "capture": "trail-map",
+      "sourceFile": "wild-bunch-trail-map-1440.png",
+      "sourceSha256": "ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/trail-map-1200.avif",
+      "width": 1200,
+      "height": 917,
+      "format": "avif",
+      "altIntent": "Current development build: the generated starting-town trail map with named towns, connecting trails, and ride-day distances before Dustwell is chosen.",
+      "caption": "Current development build / working skeleton: generated trail-map evidence before the player chooses Dustwell, retained for its readable names, topology, and route distances.",
+      "bytes": 21459
+    },
+    {
+      "capture": "trail-map",
+      "sourceFile": "wild-bunch-trail-map-1440.png",
+      "sourceSha256": "ca31e664919d8b5a2f49c33e2a27ff4082b08e4c7c25e12458fdde426ae6c4b4",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/trail-map-1200.webp",
+      "width": 1200,
+      "height": 917,
+      "format": "webp",
+      "altIntent": "Current development build: the generated starting-town trail map with named towns, connecting trails, and ride-day distances before Dustwell is chosen.",
+      "caption": "Current development build / working skeleton: generated trail-map evidence before the player chooses Dustwell, retained for its readable names, topology, and route distances.",
+      "bytes": 35858
+    },
+    {
+      "capture": "session-audit",
+      "sourceFile": "wild-bunch-session-audit-1440.png",
+      "sourceSha256": "785341cca40132a83752eae645d9aa137629f69b14e7854767698633d02919ac",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/session-audit-720.avif",
+      "width": 720,
+      "height": 550,
+      "format": "avif",
+      "altIntent": "Current development build: expanded ordered session audit showing setup, generated world and case file, town selection, game start, town action, and investigation events.",
+      "caption": "Current development build / working skeleton: the expanded session audit records the ordered event history after the screened investigation path, without publishing a session identifier.",
+      "bytes": 10266
+    },
+    {
+      "capture": "session-audit",
+      "sourceFile": "wild-bunch-session-audit-1440.png",
+      "sourceSha256": "785341cca40132a83752eae645d9aa137629f69b14e7854767698633d02919ac",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/session-audit-720.webp",
+      "width": 720,
+      "height": 550,
+      "format": "webp",
+      "altIntent": "Current development build: expanded ordered session audit showing setup, generated world and case file, town selection, game start, town action, and investigation events.",
+      "caption": "Current development build / working skeleton: the expanded session audit records the ordered event history after the screened investigation path, without publishing a session identifier.",
+      "bytes": 14832
+    },
+    {
+      "capture": "session-audit",
+      "sourceFile": "wild-bunch-session-audit-1440.png",
+      "sourceSha256": "785341cca40132a83752eae645d9aa137629f69b14e7854767698633d02919ac",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/session-audit-1200.avif",
+      "width": 1200,
+      "height": 917,
+      "format": "avif",
+      "altIntent": "Current development build: expanded ordered session audit showing setup, generated world and case file, town selection, game start, town action, and investigation events.",
+      "caption": "Current development build / working skeleton: the expanded session audit records the ordered event history after the screened investigation path, without publishing a session identifier.",
+      "bytes": 22310
+    },
+    {
+      "capture": "session-audit",
+      "sourceFile": "wild-bunch-session-audit-1440.png",
+      "sourceSha256": "785341cca40132a83752eae645d9aa137629f69b14e7854767698633d02919ac",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/session-audit-1200.webp",
+      "width": 1200,
+      "height": 917,
+      "format": "webp",
+      "altIntent": "Current development build: expanded ordered session audit showing setup, generated world and case file, town selection, game start, town action, and investigation events.",
+      "caption": "Current development build / working skeleton: the expanded session audit records the ordered event history after the screened investigation path, without publishing a session identifier.",
+      "bytes": 33516
+    },
+    {
+      "capture": "wanted-notice",
+      "sourceFile": "wild-bunch-wanted-notice-1440.png",
+      "sourceSha256": "59cde4de536fad07fcb855b11a33ea0e3149d57f7287b28c8b35c57b58da991f",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/wanted-notice-640.avif",
+      "width": 640,
+      "height": 489,
+      "format": "avif",
+      "altIntent": "Current development build: a populated Sheriff Office wanted notice with player-facing clues and no hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a populated wanted notice reached through the ordinary Sheriff Office action, retained as player-safe investigation evidence.",
+      "bytes": 10363
+    },
+    {
+      "capture": "wanted-notice",
+      "sourceFile": "wild-bunch-wanted-notice-1440.png",
+      "sourceSha256": "59cde4de536fad07fcb855b11a33ea0e3149d57f7287b28c8b35c57b58da991f",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/wanted-notice-640.webp",
+      "width": 640,
+      "height": 489,
+      "format": "webp",
+      "altIntent": "Current development build: a populated Sheriff Office wanted notice with player-facing clues and no hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a populated wanted notice reached through the ordinary Sheriff Office action, retained as player-safe investigation evidence.",
+      "bytes": 14502
+    },
+    {
+      "capture": "wanted-notice",
+      "sourceFile": "wild-bunch-wanted-notice-1440.png",
+      "sourceSha256": "59cde4de536fad07fcb855b11a33ea0e3149d57f7287b28c8b35c57b58da991f",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/wanted-notice-960.avif",
+      "width": 960,
+      "height": 733,
+      "format": "avif",
+      "altIntent": "Current development build: a populated Sheriff Office wanted notice with player-facing clues and no hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a populated wanted notice reached through the ordinary Sheriff Office action, retained as player-safe investigation evidence.",
+      "bytes": 18691
+    },
+    {
+      "capture": "wanted-notice",
+      "sourceFile": "wild-bunch-wanted-notice-1440.png",
+      "sourceSha256": "59cde4de536fad07fcb855b11a33ea0e3149d57f7287b28c8b35c57b58da991f",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/wanted-notice-960.webp",
+      "width": 960,
+      "height": 733,
+      "format": "webp",
+      "altIntent": "Current development build: a populated Sheriff Office wanted notice with player-facing clues and no hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a populated wanted notice reached through the ordinary Sheriff Office action, retained as player-safe investigation evidence.",
+      "bytes": 26230
+    },
+    {
+      "capture": "case-file",
+      "sourceFile": "wild-bunch-case-file-1440.png",
+      "sourceSha256": "9f1111d63d647c1e513bdc2f110629c10c961587e98d4fb9fcff1980356ee67a",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/case-file-640.avif",
+      "width": 640,
+      "height": 489,
+      "format": "avif",
+      "altIntent": "Current development build: the player-known case file showing earned clues, named records, loose leads, and evidence items without a hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a player-known case-file surface after reading a poster, retained without exposing hidden investigation truth.",
+      "bytes": 12751
+    },
+    {
+      "capture": "case-file",
+      "sourceFile": "wild-bunch-case-file-1440.png",
+      "sourceSha256": "9f1111d63d647c1e513bdc2f110629c10c961587e98d4fb9fcff1980356ee67a",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/case-file-640.webp",
+      "width": 640,
+      "height": 489,
+      "format": "webp",
+      "altIntent": "Current development build: the player-known case file showing earned clues, named records, loose leads, and evidence items without a hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a player-known case-file surface after reading a poster, retained without exposing hidden investigation truth.",
+      "bytes": 17406
+    },
+    {
+      "capture": "case-file",
+      "sourceFile": "wild-bunch-case-file-1440.png",
+      "sourceSha256": "9f1111d63d647c1e513bdc2f110629c10c961587e98d4fb9fcff1980356ee67a",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/case-file-960.avif",
+      "width": 960,
+      "height": 733,
+      "format": "avif",
+      "altIntent": "Current development build: the player-known case file showing earned clues, named records, loose leads, and evidence items without a hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a player-known case-file surface after reading a poster, retained without exposing hidden investigation truth.",
+      "bytes": 23968
+    },
+    {
+      "capture": "case-file",
+      "sourceFile": "wild-bunch-case-file-1440.png",
+      "sourceSha256": "9f1111d63d647c1e513bdc2f110629c10c961587e98d4fb9fcff1980356ee67a",
+      "sourceWidth": 1440,
+      "sourceHeight": 1100,
+      "path": "src/client/public/media/wild-bunch/case-file-960.webp",
+      "width": 960,
+      "height": 733,
+      "format": "webp",
+      "altIntent": "Current development build: the player-known case file showing earned clues, named records, loose leads, and evidence items without a hidden culprit answer.",
+      "caption": "Current development build / working skeleton: a player-known case-file surface after reading a poster, retained without exposing hidden investigation truth.",
+      "bytes": 32240
+    }
+  ]
+}

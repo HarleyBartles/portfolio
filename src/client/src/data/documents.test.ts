@@ -20,8 +20,9 @@ describe('prepareMarkdown', () => {
 })
 
 describe('loadDocument', () => {
-  test('preserves a project presentation discriminator without looking for Markdown', async () => {
+  test('preserves specialist project presentation discriminators without looking for Markdown', async () => {
     const marketplace = navigation.find((item) => item.slug === 'codex-marketplace')
+    const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')
 
     expect(marketplace).toBeDefined()
     expect(marketplace?.presentation).toBe('marketplace-case-study')
@@ -29,14 +30,21 @@ describe('loadDocument', () => {
       summary: { presentation: 'marketplace-case-study' },
       markdown: undefined,
     })
+
+    expect(wildBunch).toBeDefined()
+    expect(wildBunch?.presentation).toBe('wild-bunch-case-study')
+    await expect(loadDocument(wildBunch!)).resolves.toMatchObject({
+      summary: { presentation: 'wild-bunch-case-study' },
+      markdown: undefined,
+    })
   })
 
   test('continues to load ordinary Markdown documents', async () => {
-    const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')
+    const learningLab = navigation.find((item) => item.slug === 'agentic-learning-lab')
 
-    await expect(loadDocument(wildBunch!)).resolves.toMatchObject({
-      summary: { slug: 'wild-bunch' },
-      markdown: expect.stringContaining('pre-alpha'),
+    await expect(loadDocument(learningLab!)).resolves.toMatchObject({
+      summary: { slug: 'agentic-learning-lab' },
+      markdown: expect.any(String),
     })
   })
 })
