@@ -284,7 +284,7 @@
 
   Do not imply that GPT-5.6 Sol or Terra performed work where repository evidence does not prove it. Keep public project-story uses of `agent`, `model`, `review`, and `creative writing` unchanged when they describe the subject rather than portfolio delivery. Remove or rewrite the roadmap's former Terra-planner, SWE-1.7/GLM, Cloud Sol, and optional creative-review routing so there is one future execution model.
 
-- [ ] **Step 5: Regenerate and validate the documentation surface.**
+- [x] **Step 5: Regenerate and validate the documentation surface.**
 
   Run `py -3 tools/run.py mesh --apply`, stage the intended source and generated surfaces, then run `py -3 tools/run.py ci --check`. Confirm the working tree contains no unrelated edits and the PR body accurately describes the expanded documentation scope and exact final head.
 
