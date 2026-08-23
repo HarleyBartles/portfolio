@@ -248,9 +248,13 @@
 
   **Closeout posture:** The implementation, Sol copy/visual gates, independent reviews, focused tests, manual review and canonical local gate are complete. Phase 4 deliberately remains `executing`: hosted exact-SHA checks and Harley's acceptance are still outstanding human/publication evidence, not limitations to disguise.
 
-- [ ] **Step 6: Publish a draft PR.** Push `codex/portfolio-10k-phase-4-editorial-revision`, open a draft PR into `main`, and follow `.agents/runbooks/pr.md`. The PR body must link PR #22 as the merged first iteration, explain why Phase 4 remained open, summarize the editorial correction, name the unchanged pinned/capture boundaries, include test/manual/creative-review evidence, and state any limitations without repeating them as promotional copy.
+- [x] **Step 6: Publish a draft PR.** Push `codex/portfolio-10k-phase-4-editorial-revision`, open a draft PR into `main`, and follow `.agents/runbooks/pr.md`. The PR body must link PR #22 as the merged first iteration, explain why Phase 4 remained open, summarize the editorial correction, name the unchanged pinned/capture boundaries, include test/manual/creative-review evidence, and state any limitations without repeating them as promotional copy.
 
-- [ ] **Step 7: Verify GitHub truth and stop at the human gate.** Confirm draft state, base/head branches, exact remote SHA, diff, PR body, and hosted check status. Stop only when the draft PR is self-reviewed and ready for Harley to flip out of draft. Phase 4 closes only after Harley accepts the result and required hosted checks/merge proof are recorded.
+  **Publication:** Draft [PR #23](https://github.com/HarleyBartles/portfolio/pull/23) opened into `main` from `codex/portfolio-10k-phase-4-editorial-revision`. Its body retains every applicable repository-template prompt, links merged PR #22, records the Phase 3 Rooms Mostly correction, names pinned revision/capture boundaries, and includes focused, canonical, manual and creative-review evidence.
+
+- [x] **Step 7: Verify GitHub truth and stop at the human gate.** Confirm draft state, base/head branches, exact remote SHA, diff, PR body, and hosted check status. Stop only when the draft PR is self-reviewed and ready for Harley to flip out of draft. Phase 4 closes only after Harley accepts the result and required hosted checks/merge proof are recorded.
+
+  **GitHub proof:** GitHub reports PR #23 open, draft, mergeable, base `main`, and the expected head branch. The initially published remote head exactly matched local `47dc18ff9e4b27b1de236389df48975f73279296`; this documentation-only closeout commit is pushed and re-verified below the plan rather than pretending a commit can name its own SHA. All four hosted jobs are correctly `skipping` under the draft-PR policy. The remaining gate belongs to Harley: review/accept the result and flip the PR ready, after which exact-SHA hosted CI and merge/deploy proof can close Phase 4.
 
 ## Plan readiness
 
