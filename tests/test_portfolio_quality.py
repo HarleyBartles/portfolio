@@ -433,6 +433,32 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("captureRecipe startingTown" in finding for finding in findings))
         self.assertTrue(any("private local coordinate" in finding for finding in findings))
 
+    def test_wild_bunch_snapshot_names_postgresql_backed_persistence(self) -> None:
+        evidence_path = ROOT / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+
+        self.assertIn("PostgreSQL-backed persistence", evidence["capabilities"]["implemented"])
+
+    def test_wild_bunch_evidence_rejects_invalid_or_changed_observation_dates(self) -> None:
+        for observed_at, expected_finding in (
+            ("2026-02-30", "invalid observedAt"),
+            ("2026-08-22", "observedAt must be '2026-08-21'"),
+        ):
+            with self.subTest(observed_at=observed_at):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    del fixture.items[0]["path"]
+                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.write_manifest()
+                    (fixture.content / "projects/example-project.md").unlink()
+                    fixture.write_wild_bunch_evidence()
+                    evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    evidence["observedAt"] = observed_at
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                findings = self.validate(mutate)
+                self.assertTrue(any(expected_finding in finding for finding in findings))
+
     def test_wild_bunch_evidence_rejects_every_private_coordinate_class(self) -> None:
         forbidden_coordinates = (
             "Z:/private/capture",
@@ -441,6 +467,9 @@ class PortfolioQualityTests(unittest.TestCase):
             "Host=private;Database=wild-bunch",
             "codex/portfolio-10k-phase-4-wild-bunch branch",
             "session-0123456789abcdef",
+            "https://user:pass@github.com/HarleyBartles/wild-bunch",
+            "http://127.0.0.1:5173",
+            "file:///Z:/private/capture",
         )
 
         for coordinate in forbidden_coordinates:
@@ -458,6 +487,25 @@ class PortfolioQualityTests(unittest.TestCase):
 
                 findings = self.validate(mutate)
                 self.assertTrue(any("private local coordinate or secret" in finding for finding in findings))
+
+    def test_wild_bunch_evidence_rejects_a_pathless_pinned_representative_link(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            fixture.write_wild_bunch_evidence()
+            evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["representativeEvidence"][0]["sourceUrl"] = (
+                "https://github.com/HarleyBartles/wild-bunch/blob/"
+                "2a9814d094148bb789766a27d316095fecce5a60/"
+            )
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(mutate)
+
+        self.assertTrue(any("representative evidence 1 sourceUrl must use a canonical pinned repository path" in finding for finding in findings))
 
     def test_wild_bunch_evidence_rejects_empty_capabilities_unpinned_links_and_malformed_images(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

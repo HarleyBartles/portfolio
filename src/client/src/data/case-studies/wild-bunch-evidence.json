@@ -15,7 +15,9 @@
     "implemented": [
       "Seeded session setup, generated town graph, and route distances.",
       "Town rendering, persistent per-session town placement, and travel.",
-      "Case-file generation, wanted notices, typed event history, projections, persistence, replay, and the developer audit surface."
+      "Case-file generation, wanted notices, typed event history, and projections.",
+      "PostgreSQL-backed persistence",
+      "Replay and the developer audit surface."
     ],
     "transitional": [
       "Visual polish, town tiling, and broader gameplay.",

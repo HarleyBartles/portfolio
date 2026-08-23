@@ -7,8 +7,10 @@ import re
 import subprocess
 from dataclasses import dataclass
 from datetime import date
+from ipaddress import ip_address
 from pathlib import Path, PurePosixPath
 from typing import Any
+from urllib.parse import urlparse
 
 
 CONTENT_ROOT = Path("src/client/src/data/content")
@@ -350,14 +352,54 @@ def _wild_bunch_strings(value: Any) -> list[str]:
     return []
 
 
+def _is_forbidden_wild_bunch_url(value: str) -> bool:
+    try:
+        parsed = urlparse(value)
+        hostname = parsed.hostname
+    except ValueError:
+        return True
+
+    if not parsed.scheme:
+        return False
+    if parsed.scheme != "https" or parsed.username is not None or parsed.password is not None:
+        return True
+    if hostname is None:
+        return True
+    hostname = hostname.casefold()
+    if hostname == "localhost" or hostname.endswith(".localhost"):
+        return True
+    try:
+        return ip_address(hostname).is_loopback
+    except ValueError:
+        return False
+
+
+def _is_canonical_wild_bunch_evidence_link(value: Any) -> bool:
+    if not isinstance(value, str) or _is_forbidden_wild_bunch_url(value):
+        return False
+    parsed = urlparse(value)
+    prefix = f"/HarleyBartles/wild-bunch/blob/{WILD_BUNCH_REVISION}/"
+    if parsed.netloc != "github.com" or not parsed.path.startswith(prefix) or parsed.query or parsed.fragment:
+        return False
+    relative_path = parsed.path.removeprefix(prefix)
+    pure_path = PurePosixPath(relative_path)
+    return bool(relative_path) and relative_path == pure_path.as_posix() and not pure_path.is_absolute() and ".." not in pure_path.parts
+
+
 def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
     evidence = _read_json(root / WILD_BUNCH_EVIDENCE_PATH, findings, "Wild Bunch evidence")
     if not isinstance(evidence, dict):
         return
 
     observed_at = evidence.get("observedAt")
-    if not isinstance(observed_at, str) or ISO_DATE_RE.fullmatch(observed_at) is None:
+    try:
+        is_canonical_date = isinstance(observed_at, str) and date.fromisoformat(observed_at).isoformat() == observed_at
+    except ValueError:
+        is_canonical_date = False
+    if not is_canonical_date:
         findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "invalid observedAt; use ISO date format"))
+    elif observed_at != "2026-08-21":
+        findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "observedAt must be '2026-08-21'"))
 
     revision = evidence.get("revision")
     if not isinstance(revision, str) or SHA_RE.fullmatch(revision) is None:
@@ -417,6 +459,8 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
                 value = entry.get(field)
                 if not isinstance(value, str) or not value.startswith(pinned_prefix):
                     findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"representative evidence {index} {field} must use the pinned revision"))
+                elif not _is_canonical_wild_bunch_evidence_link(value):
+                    findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"representative evidence {index} {field} must use a canonical pinned repository path"))
 
     images = evidence.get("images")
     if not isinstance(images, list):
@@ -444,7 +488,11 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
                 findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} requires a positive width and height"))
 
     for text in _wild_bunch_strings(evidence):
-        if PRIVATE_EVIDENCE_RE.search(text) or WILD_BUNCH_FORBIDDEN_COORDINATE_RE.search(text):
+        if (
+            PRIVATE_EVIDENCE_RE.search(text)
+            or WILD_BUNCH_FORBIDDEN_COORDINATE_RE.search(text)
+            or _is_forbidden_wild_bunch_url(text)
+        ):
             findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "contains a private local coordinate or secret"))
             break
 
