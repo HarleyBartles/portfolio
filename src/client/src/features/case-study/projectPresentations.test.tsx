@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { getProjectPresentation } from './projectPresentations'
 
@@ -18,7 +19,8 @@ describe('project presentations', () => {
     render(<Suspense fallback={null}><MarketplaceCaseStudy /></Suspense>)
     expect(await screen.findByText('Shared where reuse earns it. Local where context matters.')).toBeVisible()
 
-    render(<Suspense fallback={null}><WildBunchCaseStudy /></Suspense>)
+    render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><Suspense fallback={null}><WildBunchCaseStudy /></Suspense></MemoryRouter>)
     expect(await screen.findByText('Every complexity pays rent.')).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The first language' })).toBeVisible()
   })
 })
