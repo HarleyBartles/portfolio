@@ -45,11 +45,11 @@
 
 **Produces:** A committed evidence object and a validator that understands the Marketplace presentation and exclusive body-source contract.
 
-- [ ] **Step 1: Extend the Python fixture so a project can be presentation-backed.**
+- [x] **Step 1: Extend the Python fixture so a project can be presentation-backed.**
 
   Update `PortfolioFixture.write()` to create only manifest items with a string `path`; this lets a fixture represent a valid code-backed project. Add fixture helpers for the Marketplace submodule tree and evidence file so each negative case is isolated.
 
-- [ ] **Step 2: Write failing quality tests.**
+- [x] **Step 2: Write failing quality tests.**
 
   Add focused tests that assert findings for: both `path` and `presentation`; neither source; an unknown presentation; presentation on non-project content; a missing or malformed evidence file; invalid date, non-HTTPS URL, short SHA, duplicate consumer/plugin names, private path or worktree/branch text; unknown selected Marketplace plugin; and evidence/submodule revision or inventory-count drift. Include a passing fixture with explicitly named local skills and plugins.
 
@@ -57,25 +57,25 @@
 
   Expected: FAIL because the existing validator requires every item to have Markdown and knows no Marketplace evidence schema.
 
-- [ ] **Step 3: Implement the minimum validator seams.**
+- [x] **Step 3: Implement the minimum validator seams.**
 
   Add constants for the approved presentation identifier, evidence path, Marketplace gitlink, and central inventory paths. In `_validate_manifest`, enforce the path/presentation exclusive-or and only permit `marketplace-case-study` on a project. Preserve the canonical-POSIX and orphan-Markdown checks for Markdown-backed entries. Add a Marketplace-specific validator that reads the static evidence, rejects private/local coordinates, verifies its revision against the gitlink, reads the aggregate manifest and 17 enabled bundle manifests, and checks 17 plugins, 74 entries, and 70 unique canonical skill names.
 
-- [ ] **Step 4: Add the audited static evidence.**
+- [x] **Step 4: Add the audited static evidence.**
 
   Create `marketplace-evidence.json` with `observedAt: "2026-08-21"`, the target SHA, `17`, `74`, and `70`, central plugin names, and the five approved consumer entries. Use public repository URLs and full public SHAs only. Include Wild Bunch’s historical-selection note and no `mcp-usage-pack` selection; do not add Agentic Learning Lab.
 
-- [ ] **Step 5: Convert the Marketplace manifest item at the data boundary.**
+- [x] **Step 5: Convert the Marketplace manifest item at the data boundary.**
 
   Replace the current summary with the approved public summary, remove `path`, add `presentation: "marketplace-case-study"`, and set `relatedSlugs` to `provisioning-is-not-accumulation`, `context-is-not-state`, and `pass-references-not-paragraphs` in that order. Do not delete the Markdown file until Task 2 has the runtime fallback covered.
 
-- [ ] **Step 6: Prove the data contract.**
+- [x] **Step 6: Prove the data contract.**
 
   Run: `py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v`
 
   Expected: PASS, including all presentation and evidence failures.
 
-- [ ] **Step 7: Mark this task complete in this plan.**
+- [x] **Step 7: Mark this task complete in this plan.**
 
 ### Task 2: Add the discriminated presentation route without disturbing Markdown content
 
@@ -92,7 +92,7 @@
 
 **Produces:** `ProjectPresentation` as a narrow union; an exhaustive `projectPresentations` registry; and a route that chooses a registered body once while Markdown continues unchanged.
 
-- [ ] **Step 1: Write failing TypeScript tests for the source split.**
+- [x] **Step 1: Write failing TypeScript tests for the source split.**
 
   In `documents.test.ts`, construct a `ContentSummary` with `presentation: 'marketplace-case-study'` and assert `loadDocument()` returns its summary with `markdown: ''` without looking for a loader. In `contentApi.test.ts`, assert `getContent('codex-marketplace')` returns the presentation summary while `getContent('wild-bunch')` still returns its Markdown body.
 
@@ -100,25 +100,25 @@
 
   Expected: FAIL because `ContentSummary` has no presentation field and the Marketplace manifest still assumes a Markdown loader.
 
-- [ ] **Step 2: Add the narrow shared type and loader behaviour.**
+- [x] **Step 2: Add the narrow shared type and loader behaviour.**
 
   Define `export type ProjectPresentation = 'marketplace-case-study'` and optional `presentation?: ProjectPresentation` on `ContentSummary`. Parse it in `itemToSummary`. Make `loadDocument()` return `{ summary, markdown: '' }` when a known presentation is present; keep the current glob lookup and `prepareMarkdown()` path for ordinary items.
 
-- [ ] **Step 3: Create the single exhaustive registry seam.**
+- [x] **Step 3: Create the single exhaustive registry seam.**
 
   In `projectPresentations.tsx`, export `projectPresentations: Record<ProjectPresentation, ComponentType>` and initially map `'marketplace-case-study'` to the specialist component created in Task 3. The registry must be the only presentation-to-component switch.
 
-- [ ] **Step 4: Render the registry once in `ContentPage`.**
+- [x] **Step 4: Render the registry once in `ContentPage`.**
 
   Keep the current query, error, metadata, header, related-content, and navigation responsibilities. Derive a `PresentationBody` from `document.summary.presentation`; render it inside `.content-page-body` when present, otherwise render `MarkdownContent`. Do not add slug checks or route-specific branching outside the registry.
 
-- [ ] **Step 5: Delete the superseded Marketplace Markdown source and prove both paths.**
+- [x] **Step 5: Delete the superseded Marketplace Markdown source and prove both paths.**
 
   Delete `projects/codex-marketplace.md` only after the registry renders. Run: `npm.cmd test -- documents.test.ts api/contentApi.test.ts`
 
   Expected: PASS; Marketplace has an empty Markdown payload and ordinary project Markdown remains intact.
 
-- [ ] **Step 6: Mark this task complete in this plan.**
+- [x] **Step 6: Mark this task complete in this plan.**
 
 ### Task 3: Build composable case-study primitives and the Marketplace dossier
 
@@ -138,35 +138,35 @@
 
 **Produces:** Small reusable primitives plus one specific Marketplace narrative and a semantic static distribution map.
 
-- [ ] **Step 1: Copy the six reviewed project-native SVGs into portfolio custody.**
+- [x] **Step 1: Copy the six reviewed project-native SVGs into portfolio custody.**
 
   Copy only the source paths named by the approved spec from `codex-marketplace/plugins/` at `52866df…`. Retain their visual identity; do not redraw branding. Record each public path, exact source path/repository/SHA, lineage or licence basis (including `superpowers-plus` derivative provenance), view box, bytes, transformation, date, and text-label fallback intent in `docs/asset-custody.md`.
 
-- [ ] **Step 2: Write failing component tests for the reusable primitives and case-study body.**
+- [x] **Step 2: Write failing component tests for the reusable primitives and case-study body.**
 
   Assert that sections own their heading relationship, evidence exposes the audit label/status/link, and each decision includes explicit reason and consequence. For `MarketplaceCaseStudy`, assert the exact thesis, the three operating-model headings in Baseline/Selected/Local source order, `Repository audit · 21 August 2026`, live state, public repository link, the five decisions, and the ordered related-essay links.
 
   For `MarketplaceDistributionMap`, assert a labelled `figure`, ordered groups/nested lists, text labels for all required plugins and consumers, a screen-reader explanation of differing pins, and Wild Bunch with `dotnet-pack`, `architecture-pack`, and `frontend-pack` but no `mcp-usage-pack`.
 
-- [ ] **Step 3: Implement the narrow primitives.**
+- [x] **Step 3: Implement the narrow primitives.**
 
   Make `CaseStudyBody` own the full-width/reading-measure boundary. Make `CaseStudySection` accept an explicit title and children. Make `CaseStudyEvidence` take audit date, status, and ordinary external link props. Make `CaseStudyDecision` render decision, reason, and consequence as semantic labelled content. Do not add a JSON block renderer, context, global state, or CMS abstraction.
 
-- [ ] **Step 4: Implement the specialist narrative in approved reading order.**
+- [x] **Step 4: Implement the specialist narrative in approved reading order.**
 
   Compose: `When repeated instruction becomes infrastructure`; the static distribution map; Baseline/Selected/Local; the six-step `repo-standards` trace; five decisions; and evidence/present-state closing. State the first-party pivot with transparent `superpowers-plus` lineage, pins/provenance as inspectable differences, and continuous iteration without perfection claims. Keep the visible repository link ahead of the closing evidence without treating it as the primary CTA.
 
-- [ ] **Step 5: Implement the map as content before decoration.**
+- [x] **Step 5: Implement the map as content before decoration.**
 
   Use a labelled figure with ordered semantic source, core-plugin, selected-plugin, and consumer groups. Place local labels inside consumer boundaries. Keep text labels as the meaning; SVG icons are supplemental images with decorative `alt=""` when the adjacent label supplies the name. Restrict connectors to CSS pseudo-elements or `aria-hidden` SVG; no motion and no hover-dependent relationship.
 
-- [ ] **Step 6: Prove the component contract.**
+- [x] **Step 6: Prove the component contract.**
 
   Run: `npm.cmd test -- features/case-study`
 
   Expected: PASS with semantic headings, source order, truthful Wild Bunch selection, accessible text labels, trace, and decision evidence covered.
 
-- [ ] **Step 7: Add the ledger decision and mark this task complete.**
+- [x] **Step 7: Add the ledger decision and mark this task complete.**
 
   Add a dated `docs/design-decisions.md` entry explaining the composable case-study seam, its consequence (later case studies can vary in art direction and reading order), and a reconsideration trigger. Mark this task’s boxes complete.
 
@@ -182,25 +182,25 @@
 
 **Produces:** A full-width editorial system map, responsive stacked reading order, and a concise Marketplace preview that shares core-three identity without duplicating the dossier.
 
-- [ ] **Step 1: Write the failing preview test.**
+- [x] **Step 1: Write the failing preview test.**
 
   Assert the Marketplace `ProjectVisual` exposes text for `repo-worker-pack`, `superpowers-plus`, and `mcp-usage-pack`, a restrained selected/local indication, and the verified 17-plugin/74-entry inventory context. Assert it no longer renders the arbitrary nine abbreviation labels.
 
-- [ ] **Step 2: Implement the compact preview.**
+- [x] **Step 2: Implement the compact preview.**
 
   Replace the tile constellation with the three core identities and a simple selected/local branch cue. Keep it a self-contained `figure` with an accurate accessible name. Do not embed the full consumer map in cards, project indexes, or the homepage.
 
-- [ ] **Step 3: Style the shared body and full map from semantic source order.**
+- [x] **Step 3: Style the shared body and full map from semantic source order.**
 
   Add scoped Sass for wide `MarketplaceDistributionMap` composition: deep-teal source surface, warm-paper consumer regions, copper connectors, display focal statement, serif explanation, and code-like evidence labels. At narrow widths switch to an ordered stack with no horizontal scrolling or miniature scaled desktop diagram. Preserve visible focus and source order; use no motion.
 
-- [ ] **Step 4: Check responsive layout locally before visual baselines.**
+- [x] **Step 4: Check responsive layout locally before visual baselines.**
 
   Run: `npm.cmd run build`
 
   Expected: PASS, including route documents, generated CV PDF, and bundle budget. Inspect `/projects/codex-marketplace` at 1440, 768, 390, and 320 CSS pixels; resolve clipping or horizontal overflow before recording snapshots.
 
-- [ ] **Step 5: Prove the preview and mark this task complete.**
+- [x] **Step 5: Prove the preview and mark this task complete.**
 
   Run: `npm.cmd test -- features/home/ProjectVisual.test.tsx features/case-study`
 
@@ -219,25 +219,25 @@
 
 **Produces:** Direct-route and navigation proof, reviewed 1440/390 visual baselines, and a closed roadmap record.
 
-- [ ] **Step 1: Write failing browser assertions.**
+- [x] **Step 1: Write failing browser assertions.**
 
   Extend `project-story.spec.ts` to visit `/projects/codex-marketplace` directly and via an in-app project link. Assert the exact thesis, visible public repository link, keyboard-reachable evidence links, semantic figure, the three operating-model headings, and truthful Wild Bunch selection. Add 390px and 320px checks for `document.documentElement.scrollWidth <= clientWidth` and ordered map labels. Exercise reduced motion without changing content.
 
-- [ ] **Step 2: Add stable visual contracts and capture reviewed baselines.**
+- [x] **Step 2: Add stable visual contracts and capture reviewed baselines.**
 
   Add `data-visual-contract` hooks only to the Marketplace hero/map and narrow operating-model surface. Capture reviewed baselines at 1440 and 390 after fonts load and reduced motion is set. Use the established platform-specific baseline helper if Linux and Windows rasterise the bundled fonts differently; do not relax global tolerance.
 
-- [ ] **Step 3: Run focused browser tests.**
+- [x] **Step 3: Run focused browser tests.**
 
   Run: `npm.cmd run test:e2e -- e2e/project-story.spec.ts e2e/visual-regression.spec.ts`
 
   Expected: PASS with direct navigation, keyboard/evidence, narrow no-overflow, source order, and Marketplace visual checks.
 
-- [ ] **Step 4: Perform the required human-quality review.**
+- [x] **Step 4: Perform the required human-quality review.**
 
   Inspect the finished route at 1440, 768, 390, and 320 CSS pixels; keyboard-only; reduced motion; and 200% native zoom. Record PR screenshots before/after the new flagship. Confirm the thesis arrives before counts, the diagram reads as selective distribution rather than catalogue inventory, boundaries are not colour-only, Wild Bunch’s historical selection is honest, and the page remains credible with external links unavailable.
 
-- [ ] **Step 5: Regenerate and validate only after all source changes are staged.**
+- [x] **Step 5: Regenerate and validate only after all source changes are staged.**
 
   Run:
 

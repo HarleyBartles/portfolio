@@ -9,6 +9,8 @@ async function openStable(page: Page, path: string): Promise<void> {
   await page.goto(path, { waitUntil: 'networkidle' })
   await expect(page.locator('main')).toBeVisible()
   await page.evaluate(async () => document.fonts.ready)
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+  await page.locator('.skip-link').evaluate((element) => element.setAttribute('hidden', ''))
 }
 
 function visualSnapshot(name: string): string {
@@ -72,4 +74,15 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
   await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot(visualSnapshot('article-mobile-header.png'))
+})
+
+test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/codex-marketplace')
+  await expect(page.locator('[data-visual-contract="marketplace-case-study-hero"]')).toHaveScreenshot(visualSnapshot('marketplace-case-study-hero.png'))
+  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot(visualSnapshot('marketplace-distribution-map.png'))
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/codex-marketplace')
+  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot(visualSnapshot('marketplace-distribution-map-mobile.png'))
 })

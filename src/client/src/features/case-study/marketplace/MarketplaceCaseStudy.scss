@@ -1,0 +1,233 @@
+.content-page-body--presentation {
+  max-width: none;
+}
+
+.case-study-body {
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
+.marketplace-case-study {
+  display: grid;
+  gap: clamp(var(--space-12), 9vw, var(--space-20));
+}
+
+.marketplace-case-study > section:not(.marketplace-case-study__model, .marketplace-case-study__decisions) {
+  max-width: var(--measure-reading);
+}
+
+.case-study-thesis {
+  max-width: 18ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.marketplace-case-study h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: .98;
+}
+
+.marketplace-case-study__model {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid var(--color-ink);
+}
+
+.marketplace-case-study__model > div {
+  padding: var(--space-7);
+}
+
+.marketplace-case-study__model > div + div {
+  border-left: 1px solid var(--color-ink);
+}
+
+.marketplace-case-study__model h2,
+.marketplace-case-study__model p {
+  margin-top: 0;
+}
+
+.case-study-trace {
+  padding-left: 1.4rem;
+}
+
+.case-study-trace li {
+  padding: var(--space-3) 0 var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.marketplace-decisions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--color-border);
+}
+
+.marketplace-decisions-grid > div {
+  background: var(--color-surface);
+  padding: var(--space-7);
+}
+
+.marketplace-decisions-grid h3 {
+  margin-top: 0;
+}
+
+.marketplace-map {
+  margin: 0;
+  background: var(--color-teal-deep);
+  padding: clamp(var(--space-5), 5vw, var(--space-10));
+  color: var(--color-surface);
+}
+
+.marketplace-map figcaption {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 52rem;
+  margin-bottom: var(--space-8);
+}
+
+.marketplace-map figcaption strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: .9;
+}
+
+.marketplace-map__flow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.marketplace-map__flow > li {
+  min-width: 0;
+  background: var(--color-surface);
+  padding: var(--space-6);
+  color: var(--color-ink);
+}
+
+.marketplace-map__source {
+  grid-column: span 4;
+  display: grid;
+  align-content: center;
+  gap: var(--space-4);
+  background: var(--color-accent) !important;
+}
+
+.marketplace-map__source strong {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.marketplace-map__plugins {
+  grid-column: span 8;
+}
+
+.marketplace-map__plugins--selected {
+  grid-column: 3 / span 8;
+}
+
+.marketplace-map__plugins ul,
+.marketplace-map__consumers ul {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.marketplace-map__plugins ul {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.marketplace-map__plugins li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-width: 0;
+  font-family: var(--font-code);
+  font-size: .8rem;
+}
+
+.marketplace-map__plugins li span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.marketplace-map__plugins img {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+}
+
+.marketplace-map__consumers {
+  grid-column: 1 / -1;
+}
+
+.marketplace-map__consumers ul {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.marketplace-map__consumers li {
+  display: grid;
+  gap: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+}
+
+.marketplace-map__consumers code {
+  width: fit-content;
+  background: var(--color-accent-soft);
+  padding: .1rem .3rem;
+  color: var(--color-ink);
+  font-size: .72rem;
+}
+
+.marketplace-map__consumers span {
+  color: var(--color-muted);
+  font-size: .92rem;
+}
+
+@media (max-width: 44rem) {
+  .content-page-header--visual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketplace-nodes {
+    grid-template-columns: 1fr;
+    transform: none;
+  }
+
+  .project-visual--marketplace figcaption {
+    flex-wrap: wrap;
+  }
+
+  .marketplace-case-study__model,
+  .marketplace-decisions-grid,
+  .marketplace-map__flow,
+  .marketplace-map__plugins ul,
+  .marketplace-map__consumers ul {
+    grid-template-columns: 1fr;
+  }
+
+  .marketplace-case-study__model > div + div {
+    border-top: 1px solid var(--color-ink);
+    border-left: 0;
+  }
+
+  .marketplace-map {
+    margin-inline: calc(-1 * var(--space-4));
+  }
+
+  .marketplace-map__source,
+  .marketplace-map__plugins,
+  .marketplace-map__plugins--selected,
+  .marketplace-map__consumers {
+    grid-column: 1;
+  }
+}

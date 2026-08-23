@@ -5,6 +5,10 @@ set -euo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
+# Git exports repository-local variables to hooks. Clear them after resolving
+# this worktree so nested Git commands can honour their own working directory.
+unset $(git rev-parse --local-env-vars)
+
 AFTER_STATUS=""
 UNSTAGED_PATCH=$(mktemp)
 UNTRACKED_STASHED=0
