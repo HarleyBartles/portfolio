@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto'
+import { execFile } from 'node:child_process'
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { promisify } from 'node:util'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
@@ -8,6 +10,7 @@ import sharp from 'sharp'
 const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch')
 const manifestPath = path.join(outputRoot, 'patch-derivatives.json')
+const execFileAsync = promisify(execFile)
 
 export const PATCH_SOURCE_REVISION = '0240a8657aae5b580c1a7a0d31e0be7a68b27f4e'
 
@@ -56,7 +59,7 @@ export const PATCH_DERIVATIVES = {
     byteBudgetClass: 'support',
   },
   heist: {
-    sourcePath: 'workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png',
+    sourcePath: 'lawful-heist/receipt-folder/07_receipt_joined.png',
     sourceStatus: 'advanced_visual_preproduction',
     widths: [1200],
     formats,
@@ -80,6 +83,27 @@ export const PATCH_DERIVATIVES = {
 
 function fail(message) {
   throw new Error(message)
+}
+
+export function assertApprovedSourceState({ revision, dirty, isWorktree = true, rootMatches = true }) {
+  if (!isWorktree || !rootMatches) fail('ADVENTURES_PATCH_SOURCE_ROOT must resolve to its clean Git worktree root.')
+  if (revision !== PATCH_SOURCE_REVISION) fail(`ADVENTURES_PATCH_SOURCE_ROOT must be at ${PATCH_SOURCE_REVISION}, got ${revision}.`)
+  if (dirty) fail('ADVENTURES_PATCH_SOURCE_ROOT must be clean before Patch assets are applied or checked.')
+}
+
+export function assertDerivativeReceipt(expected, actual) {
+  const actualByPath = new Map(actual.map((entry) => [entry.path, entry]))
+  if (actualByPath.size !== actual.length) fail('Patch derivative receipt contains duplicate paths.')
+  for (const entry of expected) {
+    const received = actualByPath.get(entry.path)
+    if (!received) fail(`Patch derivative receipt is missing ${entry.path}.`)
+    for (const [field, value] of Object.entries(entry)) {
+      if (JSON.stringify(received[field]) !== JSON.stringify(value)) fail(`Patch derivative receipt drifted for ${entry.path}: ${field}.`)
+    }
+  }
+  for (const entry of actual) {
+    if (!expected.some((candidate) => candidate.path === entry.path)) fail(`Patch derivative receipt has extra ${entry.path}.`)
+  }
 }
 
 function heightFor(source, width) {
@@ -114,12 +138,37 @@ export function buildDerivativeManifest(sourceManifest) {
   })
 }
 
-function requireSourceRoot() {
-  const sourceRoot = process.env.ADVENTURES_PATCH_SOURCE_ROOT
+function requireSourceRoot(sourceRoot = process.env.ADVENTURES_PATCH_SOURCE_ROOT) {
   if (!sourceRoot || !path.isAbsolute(sourceRoot)) {
     fail('ADVENTURES_PATCH_SOURCE_ROOT must be an absolute source path; sibling layouts are never guessed.')
   }
   return sourceRoot
+}
+
+async function sourceWorktreeState(sourceRoot) {
+  const root = requireSourceRoot(sourceRoot)
+  try {
+    const [inside, topLevel, revision, porcelain] = await Promise.all([
+      execFileAsync('git', ['-C', root, 'rev-parse', '--is-inside-work-tree'], { encoding: 'utf8' }),
+      execFileAsync('git', ['-C', root, 'rev-parse', '--show-toplevel'], { encoding: 'utf8' }),
+      execFileAsync('git', ['-C', root, 'rev-parse', 'HEAD'], { encoding: 'utf8' }),
+      execFileAsync('git', ['-C', root, 'status', '--porcelain=v1'], { encoding: 'utf8' }),
+    ])
+    return {
+      isWorktree: inside.stdout.trim() === 'true',
+      rootMatches: path.resolve(topLevel.stdout.trim()) === path.resolve(root),
+      revision: revision.stdout.trim(),
+      dirty: porcelain.stdout.trim().length > 0,
+    }
+  } catch (error) {
+    fail(`Cannot verify ADVENTURES_PATCH_SOURCE_ROOT as a Git worktree: ${error.message}`)
+  }
+}
+
+async function verifySourceRoot(sourceRoot) {
+  const state = await sourceWorktreeState(sourceRoot)
+  assertApprovedSourceState(state)
+  return requireSourceRoot(sourceRoot)
 }
 
 async function sourceInfo(filePath) {
@@ -134,45 +183,63 @@ async function sourceInfo(filePath) {
   }
 }
 
-function sourceFile(sourceRoot, family, clubDbDirectory) {
+function sourceFile(sourceRoot, family, clubDbDirectory, heistSource) {
+  if (family === 'heist') {
+    if (!heistSource || !path.isAbsolute(heistSource)) fail('--heist-source must be an absolute Lawful Heist source path.')
+    return heistSource
+  }
   if (family !== 'clubDb') return path.join(sourceRoot, PATCH_DERIVATIVES[family].sourcePath)
   if (!clubDbDirectory || !path.isAbsolute(clubDbDirectory)) fail('--club-db-dir must be an absolute scratch directory containing rendered Club DB slides.')
   return clubDbDirectory
 }
 
-async function apply({ clubDbDirectory }) {
-  const sourceRoot = requireSourceRoot()
-  await mkdir(outputRoot, { recursive: true })
+async function loadSourceInputs({ sourceRoot: suppliedSourceRoot, clubDbDirectory, heistSource }) {
+  const sourceRoot = await verifySourceRoot(suppliedSourceRoot)
   const sourceManifest = {}
   const sourceInfoByFamily = {}
 
   for (const family of Object.keys(PATCH_DERIVATIVES)) {
     if (family === 'clubDb') {
-      const firstSlide = await sourceInfo(path.join(sourceFile(sourceRoot, family, clubDbDirectory), 'slide-2.png'))
+      const firstSlide = await sourceInfo(path.join(sourceFile(sourceRoot, family, clubDbDirectory, heistSource), 'slide-2.png'))
       sourceManifest[family] = firstSlide
       sourceInfoByFamily[family] = new Map([[2, firstSlide]])
       for (const slide of PATCH_DERIVATIVES.clubDb.slides.slice(1)) {
-        sourceInfoByFamily[family].set(slide, await sourceInfo(path.join(sourceFile(sourceRoot, family, clubDbDirectory), `slide-${slide}.png`)))
+        sourceInfoByFamily[family].set(slide, await sourceInfo(path.join(sourceFile(sourceRoot, family, clubDbDirectory, heistSource), `slide-${slide}.png`)))
       }
     } else {
-      const info = await sourceInfo(sourceFile(sourceRoot, family, clubDbDirectory))
+      const info = await sourceInfo(sourceFile(sourceRoot, family, clubDbDirectory, heistSource))
       sourceManifest[family] = info
       sourceInfoByFamily[family] = info
     }
   }
+  return { sourceManifest, sourceInfoByFamily }
+}
+
+async function renderDerivative(entry, info) {
+  return sharp(info.buffer)
+    .rotate()
+    .resize(entry.crop
+      ? { width: entry.width, height: entry.height, fit: 'cover', withoutEnlargement: true, position: 'attention' }
+      : { width: entry.width, withoutEnlargement: true })
+    .toFormat(entry.format, entry.encoding)
+    .toBuffer()
+}
+
+function entryInfo(entry, sourceInfoByFamily) {
+  return entry.family === 'clubDb' ? sourceInfoByFamily.clubDb.get(entry.slide) : sourceInfoByFamily[entry.family]
+}
+
+async function apply(options) {
+  const { sourceManifest, sourceInfoByFamily } = await loadSourceInputs(options)
+  await mkdir(outputRoot, { recursive: true })
 
   const measured = []
   for (const entry of buildDerivativeManifest(sourceManifest)) {
-    const info = entry.family === 'clubDb' ? sourceInfoByFamily.clubDb.get(entry.slide) : sourceInfoByFamily[entry.family]
+    const info = entryInfo(entry, sourceInfoByFamily)
     const destination = path.join(clientRoot, entry.path.replace(/^src\/client\//, ''))
-    await sharp(info.buffer)
-      .rotate()
-      .resize(entry.crop
-        ? { width: entry.width, height: entry.height, fit: 'cover', withoutEnlargement: true, position: 'attention' }
-        : { width: entry.width, withoutEnlargement: true })
-      .toFormat(entry.format, entry.encoding)
-      .toFile(destination)
-    const [metadata, fileStats] = await Promise.all([sharp(destination).metadata(), stat(destination)])
+    const generated = await renderDerivative(entry, info)
+    await writeFile(destination, generated)
+    const [metadata, fileStats] = await Promise.all([sharp(generated).metadata(), stat(destination)])
     if (metadata.width !== entry.width || metadata.height !== entry.height) fail(`Generated Patch derivative dimensions drifted: ${entry.path}`)
     measured.push({ ...entry, sourceSha256: info.sha256, bytes: fileStats.size })
   }
@@ -181,16 +248,37 @@ async function apply({ clubDbDirectory }) {
   return measured
 }
 
+async function check(options) {
+  const { sourceManifest, sourceInfoByFamily } = await loadSourceInputs(options)
+  const receipt = JSON.parse(await readFile(manifestPath, 'utf8').catch((error) => fail(`Cannot read Patch derivative receipt: ${error.message}`)))
+  if (receipt.sourceRevision !== PATCH_SOURCE_REVISION || !Array.isArray(receipt.images)) fail('Patch derivative receipt is stale or malformed.')
+  const expected = buildDerivativeManifest(sourceManifest).map((entry) => ({ ...entry, sourceSha256: entryInfo(entry, sourceInfoByFamily).sha256 }))
+  assertDerivativeReceipt(expected, receipt.images)
+  for (const entry of receipt.images) {
+    const destination = path.join(clientRoot, entry.path.replace(/^src\/client\//, ''))
+    const [actual, metadata, fileStats, generated] = await Promise.all([
+      readFile(destination).catch((error) => fail(`Patch derivative is missing: ${entry.path}: ${error.message}`)),
+      sharp(destination).metadata().catch((error) => fail(`Cannot inspect Patch derivative ${entry.path}: ${error.message}`)),
+      stat(destination).catch((error) => fail(`Cannot stat Patch derivative ${entry.path}: ${error.message}`)),
+      renderDerivative(entry, entryInfo(entry, sourceInfoByFamily)),
+    ])
+    if (metadata.width !== entry.width || metadata.height !== entry.height || fileStats.size !== entry.bytes) fail(`Patch derivative dimensions or bytes drifted: ${entry.path}`)
+    if (!actual.equals(generated)) fail(`Patch derivative output is stale: ${entry.path}`)
+  }
+}
+
 function parseArgs(argv) {
-  if (argv[0] !== '--apply') fail('Use --apply with ADVENTURES_PATCH_SOURCE_ROOT and --club-db-dir.')
+  if (!['--apply', '--check'].includes(argv[0])) fail('Use --apply or --check with ADVENTURES_PATCH_SOURCE_ROOT, --club-db-dir, and --heist-source.')
   const clubDbIndex = argv.indexOf('--club-db-dir')
-  return { clubDbDirectory: clubDbIndex === -1 ? undefined : argv[clubDbIndex + 1] }
+  const heistIndex = argv.indexOf('--heist-source')
+  return { mode: argv[0].slice(2), clubDbDirectory: clubDbIndex === -1 ? undefined : argv[clubDbIndex + 1], heistSource: heistIndex === -1 ? undefined : argv[heistIndex + 1] }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
-    await apply(parseArgs(process.argv.slice(2)))
-    console.log('Patch derivatives generated with measured custody metadata.')
+    const options = parseArgs(process.argv.slice(2))
+    await (options.mode === 'apply' ? apply(options) : check(options))
+    console.log(options.mode === 'apply' ? 'Patch derivatives generated with measured custody metadata.' : 'Patch derivatives and receipt are current.')
   } catch (error) {
     console.error(`Patch asset processing failed: ${error.message}`)
     process.exitCode = 1

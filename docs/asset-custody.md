@@ -100,7 +100,7 @@ Exact public paths: `src/client/public/media/patch/patch-hero-720.avif`, `src/cl
 
 ### Lawful Heist
 
-- Source/status/checksum: `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png`; advanced visual pre-production; SHA-256 `b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab`.
+- Source/status/checksum: `lawful-heist/receipt-folder/07_receipt_joined.png`; advanced visual pre-production; SHA-256 `b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab`. The processor receives its exact source through an explicit local `--heist-source` input and does not publish a workshop location.
 - Public derivatives: `patch-heist-1200.avif` (`1200 × 900`, 74,131 bytes) and `patch-heist-1200.webp` (`1200 × 900`, 117,480 bytes). Byte-budget class: support. Transform: no-upscale resize.
 - Alt intent: the Receipt pitch-folder proof panel, explicitly framed as visual pre-production rather than deck art.
 

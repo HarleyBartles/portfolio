@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import {
   PATCH_DERIVATIVES,
   PATCH_SOURCE_REVISION,
+  assertApprovedSourceState,
+  assertDerivativeReceipt,
   buildDerivativeManifest,
 } from './process-patch-assets.mjs'
 
@@ -36,5 +38,19 @@ describe('Patch asset processor', () => {
       expect(output.encoding).toEqual(expect.objectContaining({ quality: expect.any(Number) }))
       expect(output.byteBudgetClass).toMatch(/^(hero|page|support)$/)
     }
+  })
+
+  it('rejects a dirty or revision-mismatched Adventures worktree', () => {
+    expect(() => assertApprovedSourceState({ revision: 'different', dirty: false })).toThrow(PATCH_SOURCE_REVISION)
+    expect(() => assertApprovedSourceState({ revision: PATCH_SOURCE_REVISION, dirty: true })).toThrow('clean')
+  })
+
+  it('accepts a current receipt and rejects missing, extra, and stale entries without writing files', () => {
+    const expected = [{ path: 'src/client/public/media/patch/example.avif', width: 720, height: 405, bytes: 12, sourceSha256: 'source' }]
+
+    expect(() => assertDerivativeReceipt(expected, expected)).not.toThrow()
+    expect(() => assertDerivativeReceipt(expected, [])).toThrow('missing')
+    expect(() => assertDerivativeReceipt(expected, [...expected, { ...expected[0], path: 'src/client/public/media/patch/extra.avif' }])).toThrow('extra')
+    expect(() => assertDerivativeReceipt(expected, [{ ...expected[0], bytes: 13 }])).toThrow('drifted')
   })
 })
