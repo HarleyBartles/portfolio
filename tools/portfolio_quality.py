@@ -126,27 +126,26 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             elif kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
-        if not has_path:
-            continue
-        if "\\" in relative_path:
-            findings.append(
-                _finding(MANIFEST_PATH, f"'{slug}' Markdown path must use POSIX separators: '{relative_path}'")
-            )
-        else:
-            pure_path = PurePosixPath(relative_path)
-            if relative_path != pure_path.as_posix():
+        if has_path:
+            if "\\" in relative_path:
                 findings.append(
-                    _finding(MANIFEST_PATH, f"'{slug}' Markdown path must be a canonical POSIX path: '{relative_path}'")
+                    _finding(MANIFEST_PATH, f"'{slug}' Markdown path must use POSIX separators: '{relative_path}'")
                 )
-                continue
-            unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
-            resolved_path = (content_root / Path(*pure_path.parts)).resolve()
-            if unsafe or not resolved_path.is_relative_to(content_root):
-                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unsafe Markdown path '{relative_path}'"))
             else:
-                manifest_paths.add(resolved_path)
-                if not resolved_path.is_file():
-                    findings.append(_finding(Path(relative_path), "content file does not exist"))
+                pure_path = PurePosixPath(relative_path)
+                if relative_path != pure_path.as_posix():
+                    findings.append(
+                        _finding(MANIFEST_PATH, f"'{slug}' Markdown path must be a canonical POSIX path: '{relative_path}'")
+                    )
+                else:
+                    unsafe = pure_path.is_absolute() or ".." in pure_path.parts or pure_path.suffix != ".md"
+                    resolved_path = (content_root / Path(*pure_path.parts)).resolve()
+                    if unsafe or not resolved_path.is_relative_to(content_root):
+                        findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unsafe Markdown path '{relative_path}'"))
+                    else:
+                        manifest_paths.add(resolved_path)
+                        if not resolved_path.is_file():
+                            findings.append(_finding(Path(relative_path), "content file does not exist"))
 
         if kind == "writing":
             date_value = item.get("date")

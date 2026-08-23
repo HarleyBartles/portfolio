@@ -268,6 +268,19 @@ class PortfolioQualityTests(unittest.TestCase):
         non_project = self.validate(non_project_presentation)
         self.assertTrue(any("only supported for project content" in finding for finding in non_project))
 
+    def test_presentation_entries_still_validate_shared_metadata(self) -> None:
+        for field in ("tags", "relatedSlugs"):
+            with self.subTest(field=field):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    del fixture.items[0]["path"]
+                    fixture.items[0]["presentation"] = "marketplace-case-study"
+                    fixture.items[0][field] = "not-an-array"
+                    fixture.write_manifest()
+
+                findings = self.validate(mutate)
+
+                self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
+
     def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
