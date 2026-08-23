@@ -129,6 +129,11 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
     ? document.summary.slug as ProjectVisualSlug
     : null
+  const visualContract = document.summary.presentation === 'marketplace-case-study'
+    ? 'marketplace-case-study-hero'
+    : document.summary.presentation === 'wild-bunch-case-study'
+      ? 'wild-bunch-case-study-hero'
+      : 'content-page-header'
   const formattedDate = formatContentDate(document.summary.date)
 
   return (
@@ -141,7 +146,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
         <header
           className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}
-          data-visual-contract={document.summary.presentation === 'marketplace-case-study' ? 'marketplace-case-study-hero' : 'content-page-header'}
+          data-visual-contract={visualContract}
         >
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>

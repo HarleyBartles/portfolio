@@ -62,14 +62,26 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
 
   if (slug === 'wild-bunch') {
     return (
-      <figure className="project-visual project-visual--wild-bunch" role="img" aria-label="Reserved frame for a future Wild Bunch gameplay capture.">
-        <div className="capture-frame" aria-hidden="true">
-          <span className="capture-horizon" />
-          <span className="capture-building capture-building--one" />
-          <span className="capture-building capture-building--two" />
-          <span className="capture-player" />
-        </div>
-        <figcaption>Gameplay capture brief <span>16:9 town scene · player visible · real UI state</span></figcaption>
+      <figure
+        aria-label="Wild Bunch Dustwell development-build preview"
+        className="project-visual project-visual--wild-bunch"
+        data-visual-contract="wild-bunch-development-build-preview"
+      >
+        <picture>
+          <source media="(min-width: 960px)" srcSet={assetPath('/media/wild-bunch/dustwell-town-1200.avif')} type="image/avif" />
+          <source media="(min-width: 960px)" srcSet={assetPath('/media/wild-bunch/dustwell-town-1200.webp')} type="image/webp" />
+          <source srcSet={assetPath('/media/wild-bunch/dustwell-town-720.avif')} type="image/avif" />
+          <source srcSet={assetPath('/media/wild-bunch/dustwell-town-720.webp')} type="image/webp" />
+          <img
+            src={assetPath('/media/wild-bunch/dustwell-town-720.webp')}
+            alt="Current development build: Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible."
+            width="720"
+            height="550"
+            loading={eager ? 'eager' : 'lazy'}
+            fetchPriority={eager ? 'high' : 'auto'}
+          />
+        </picture>
+        <figcaption>Current development build / working skeleton <span>Dustwell town hub · not final game art</span></figcaption>
       </figure>
     )
   }

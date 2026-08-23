@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 
 export function WildBunchEventFlow(): ReactElement {
   return (
-    <figure aria-label="Ordered event history from action to reconstruction" className="wild-bunch-event-flow">
+    <figure aria-label="Ordered event history from action to reconstruction" className="wild-bunch-event-flow" data-relationship="ordered-semantic-stages">
       <figcaption>
         <strong>The event stream is the receipt.</strong> Each stage names a different responsibility, so a visible audit can point back to the facts that changed the session.
       </figcaption>

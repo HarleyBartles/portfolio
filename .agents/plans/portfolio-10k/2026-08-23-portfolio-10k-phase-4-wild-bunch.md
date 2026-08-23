@@ -196,23 +196,23 @@
 
 **Produces:** A restrained Wild Bunch register inside the portfolio field journal, plus a real development-build preview on the homepage, project index, and route header.
 
-- [ ] **Step 1: Write failing preview/composition tests.** Assert the reserved-frame language is gone; the Wild Bunch preview uses responsive real imagery with accurate dimensions/loading; route header exposes a Wild Bunch visual contract; and no required relationship depends on decorative connectors or hover.
+- [x] **Step 1: Write failing preview/composition tests.** Assert the reserved-frame language is gone; the Wild Bunch preview uses responsive real imagery with accurate dimensions/loading; route header exposes a Wild Bunch visual contract; and no required relationship depends on decorative connectors or hover.
 
   Run: `npm.cmd --prefix src/client test -- src/features/home/ProjectVisual.test.tsx src/features/case-study/wild-bunch`
 
   Expected: FAIL because `ProjectVisual` still exposes the reserved frame and the specialist body does not import the new scoped visual treatment.
 
-- [ ] **Step 2: Replace the reserved preview.** Use a close crop/derivative of Dustwell that still reads as a game. The accessible description and caption call it the current development build/working visual skeleton, never a final art direction. Preserve eager loading only where the homepage lead requests it.
+- [x] **Step 2: Replace the reserved preview.** Use a close crop/derivative of Dustwell that still reads as a game. The accessible description and caption call it the current development build/working visual skeleton, never a final art direction. Preserve eager loading only where the homepage lead requests it.
 
-- [ ] **Step 3: Style from semantic source order.** Import `WildBunchCaseStudy.scss` from the specialist body. Use warm-paper editorial space, dark captures, restrained copper/faded-gold details, existing typography/tokens, and controlled reading measures. Wide determinism may become three stages; narrow remains the same ordered vertical sequence. Event flow stays legible without miniature desktop scaling. Gallery images keep useful product context. Remove the obsolete fake `.project-visual--wild-bunch` reserved-frame rules from `global.scss`; preserve only genuinely shared project-visual layout there.
+- [x] **Step 3: Style from semantic source order.** Import `WildBunchCaseStudy.scss` from the specialist body. Use warm-paper editorial space, dark captures, restrained copper/faded-gold details, existing typography/tokens, and controlled reading measures. Wide determinism may become three stages; narrow remains the same ordered vertical sequence. Event flow stays legible without miniature desktop scaling. Gallery images keep useful product context. Remove the obsolete fake `.project-visual--wild-bunch` reserved-frame rules from `global.scss`; preserve only genuinely shared project-visual layout there.
 
-- [ ] **Step 4: Record the design decision.** Add a dated ledger entry for real development-build evidence over generic/generated architecture decoration, the distinct-but-related Wild Bunch register, and the trigger to reconsider captures when the game's actual visual design matures.
+- [x] **Step 4: Record the design decision.** Add a dated ledger entry for real development-build evidence over generic/generated architecture decoration, the distinct-but-related Wild Bunch register, and the trigger to reconsider captures when the game's actual visual design matures.
 
-- [ ] **Step 5: Build and inspect before baselines.** Run `npm.cmd --prefix src/client run build`; inspect the route at 1440, 768, 390, and 320 CSS pixels for hierarchy, legibility, focus, source order, image loading, and overflow. Correct issues before snapshot work.
+- [x] **Step 5: Build and inspect before baselines.** Run `npm.cmd --prefix src/client run build`; inspect the route at 1440, 768, 390, and 320 CSS pixels for hierarchy, legibility, focus, source order, image loading, and overflow. Correct issues before snapshot work.
 
-- [ ] **Step 6: Sol creative review gate.** Sol personally inspects 1440, 768, 390, and 320 renders and records pass/veto for game-first recognition, field-journal continuity, non-thematic restraint, screenshot framing, hierarchy, human tone, and development-skeleton honesty.
+- [x] **Step 6: Sol creative review gate.** Sol personally inspects 1440, 768, 390, and 320 renders and records pass/veto for game-first recognition, field-journal continuity, non-thematic restraint, screenshot framing, hierarchy, human tone, and development-skeleton honesty.
 
-- [ ] **Step 7: Commit this task and mark its plan boxes complete.**
+- [x] **Step 7: Commit this task and mark its plan boxes complete.**
 
 ### Task 5: Add browser, accessibility, visual, and branch-closeout evidence
 

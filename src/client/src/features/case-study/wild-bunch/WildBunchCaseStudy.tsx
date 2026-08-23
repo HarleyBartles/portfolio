@@ -11,6 +11,7 @@ import {
   WildBunchProductEvidence,
   WildBunchTrailMapEvidence,
 } from './WildBunchProductEvidence'
+import './WildBunchCaseStudy.scss'
 
 const repositoryUrl = 'https://github.com/HarleyBartles/wild-bunch'
 const historicalReferenceUrl = 'https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd'
@@ -20,11 +21,17 @@ const sourceRoot = `${repositoryUrl}/blob/${revision}`
 export function WildBunchCaseStudy(): ReactElement {
   return (
     <CaseStudyBody>
-      <section className="case-study wild-bunch-case-study" aria-label="Wild Bunch case study">
+      <section
+        aria-label="Wild Bunch case study"
+        className="case-study wild-bunch-case-study wild-bunch-case-study--composed"
+        data-visual-contract="wild-bunch-evidence-ledger"
+      >
         <p className="case-study-thesis">Every complexity pays rent.</p>
-        <p>This is a playable development build: a pre-alpha game that can create a seeded session, render towns and trails, travel, surface player-known investigation work, and expose ordered developer events.</p>
-        <p>I test the architecture against real state, bugs, and trade-offs rather than treating it as a promise of a finished game.</p>
-        <p>Its visuals are a working skeleton, not a finished game design or art direction.</p>
+        <section aria-label="Development-build position" className="wild-bunch-case-study__introduction">
+          <p>This is a playable development build: a pre-alpha game that can create a seeded session, render towns and trails, travel, surface player-known investigation work, and expose ordered developer events.</p>
+          <p>I test the architecture against real state, bugs, and trade-offs rather than treating it as a promise of a finished game.</p>
+          <p>Its visuals are a working skeleton, not a finished game design or art direction.</p>
+        </section>
         <CaseStudySection title="The first language">
           <p>Firebird Software published the original in 1984. I played its later Amstrad CPC 464 version as a child, and Locomotive BASIC on that machine was my first programming language.</p>
           <p>This is my re-creation, in my own direction. It keeps the premise that stayed with me while making new design and architecture choices; it is neither the original game's architecture nor a source-code lineage claim.</p>

@@ -13,4 +13,23 @@ describe('ProjectVisual', () => {
     expect(screen.getByText('17')).toBeVisible()
     expect(screen.getByText('74')).toBeVisible()
   })
+
+  test('uses a responsive Dustwell development-build preview instead of a reserved frame', () => {
+    render(<ProjectVisual slug="wild-bunch" eager />)
+
+    const visual = screen.getByLabelText('Wild Bunch Dustwell development-build preview')
+    const image = screen.getByRole('img', {
+      name: /current development build: ranger vale in the dustwell town hub/i,
+    })
+
+    expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-development-build-preview')
+    expect(visual).not.toHaveTextContent(/reserved frame|gameplay capture brief/i)
+    expect(image).toHaveAttribute('src', '/media/wild-bunch/dustwell-town-720.webp')
+    expect(image).toHaveAttribute('width', '720')
+    expect(image).toHaveAttribute('height', '550')
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(visual.querySelectorAll('picture source')).toHaveLength(4)
+    expect(visual).toHaveTextContent(/current development build \/ working skeleton/i)
+  })
 })

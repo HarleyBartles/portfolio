@@ -16,6 +16,33 @@ function follows(first: HTMLElement, second: HTMLElement) {
 }
 
 describe('WildBunchCaseStudy', () => {
+  test('declares an evidence-led composition whose essential relationships remain semantic', () => {
+    renderCaseStudy()
+
+    const caseStudy = screen.getByRole('region', { name: 'Wild Bunch case study' })
+    const determinism = screen.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
+    const eventFlow = screen.getByRole('figure', { name: 'Ordered event history from action to reconstruction' })
+
+    expect(caseStudy).toHaveClass('wild-bunch-case-study--composed')
+    expect(caseStudy).toHaveAttribute('data-visual-contract', 'wild-bunch-evidence-ledger')
+    expect(determinism).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
+    expect(eventFlow).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
+    expect(determinism.querySelectorAll('[class*="connector"]')).toHaveLength(0)
+    expect(eventFlow.querySelectorAll('[class*="connector"]')).toHaveLength(0)
+  })
+
+  test('groups the development-build position into one source-ordered introductory beat', () => {
+    renderCaseStudy()
+
+    const introduction = screen.getByRole('region', { name: 'Development-build position' })
+
+    expect(introduction).toHaveClass('wild-bunch-case-study__introduction')
+    expect(introduction.children).toHaveLength(3)
+    expect(introduction.children[0]).toHaveTextContent(/This is a playable development build/i)
+    expect(introduction.children[1]).toHaveTextContent(/I test the architecture against real state, bugs, and trade-offs/i)
+    expect(introduction.children[2]).toHaveTextContent(/Its visuals are a working skeleton, not a finished game design or art direction/i)
+  })
+
   test('tells the approved first-person architecture story in reading order', () => {
     renderCaseStudy()
 

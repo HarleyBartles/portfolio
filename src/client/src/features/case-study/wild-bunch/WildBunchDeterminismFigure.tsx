@@ -4,7 +4,7 @@ const canonicalWorldSeed = '00000000-0000-0000-0000-000000000000'
 
 export function WildBunchDeterminismFigure(): ReactElement {
   return (
-    <figure aria-label="Controlled determinism from a compact world contract" className="wild-bunch-determinism-figure">
+    <figure aria-label="Controlled determinism from a compact world contract" className="wild-bunch-determinism-figure" data-relationship="ordered-semantic-stages">
       <figcaption>
         <strong>Controlled determinism, in order.</strong> The UUID describes the world contract; the choices around a playthrough stay legible at their own boundary.
       </figcaption>
