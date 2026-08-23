@@ -212,6 +212,7 @@
 - Modify: `src/client/e2e/project-story.spec.ts`
 - Modify: `src/client/e2e/visual-regression.spec.ts`
 - Create: reviewed snapshots under `src/client/e2e/visual-regression.spec.ts-snapshots/`
+- Modify: `.githooks/pre-commit` and `tests/test_precommit_hook.py` if the staged-tree gate cannot resolve the linked worktree's Marketplace submodule
 - Modify: the generated snapshot `INDEX.md` through `py -3 tools/run.py ci --apply`
 - Modify: `.agents/plans/portfolio-10k/roadmap.md` with final commit, PR, rating, and evidence notes after merge
 
