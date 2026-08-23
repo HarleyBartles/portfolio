@@ -10,7 +10,7 @@ from datetime import date
 from ipaddress import ip_address
 from pathlib import Path, PurePosixPath
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 
 CONTENT_ROOT = Path("src/client/src/data/content")
@@ -382,8 +382,18 @@ def _is_canonical_wild_bunch_evidence_link(value: Any) -> bool:
     if parsed.netloc != "github.com" or not parsed.path.startswith(prefix) or parsed.query or parsed.fragment:
         return False
     relative_path = parsed.path.removeprefix(prefix)
+    decoded_path = unquote(relative_path)
+    if decoded_path != relative_path or "%" in decoded_path:
+        return False
     pure_path = PurePosixPath(relative_path)
-    return bool(relative_path) and relative_path == pure_path.as_posix() and not pure_path.is_absolute() and ".." not in pure_path.parts
+    return (
+        bool(relative_path)
+        and relative_path != "."
+        and relative_path == pure_path.as_posix()
+        and not pure_path.is_absolute()
+        and "." not in pure_path.parts
+        and ".." not in pure_path.parts
+    )
 
 
 def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:

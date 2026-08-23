@@ -469,6 +469,8 @@ class PortfolioQualityTests(unittest.TestCase):
             "session-0123456789abcdef",
             "https://user:pass@github.com/HarleyBartles/wild-bunch",
             "http://127.0.0.1:5173",
+            "https://audit.localhost/evidence",
+            "https://[::1]/evidence",
             "file:///Z:/private/capture",
         )
 
@@ -506,6 +508,32 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("representative evidence 1 sourceUrl must use a canonical pinned repository path" in finding for finding in findings))
+
+    def test_wild_bunch_evidence_rejects_encoded_representative_path_ambiguity(self) -> None:
+        encoded_paths = (
+            "src/%2e%2e/private.cs",
+            "src/%252e%252e/private.cs",
+            "src%2fprivate.cs",
+        )
+
+        for encoded_path in encoded_paths:
+            with self.subTest(encoded_path=encoded_path):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    del fixture.items[0]["path"]
+                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.write_manifest()
+                    (fixture.content / "projects/example-project.md").unlink()
+                    fixture.write_wild_bunch_evidence()
+                    evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    evidence["representativeEvidence"][0]["sourceUrl"] = (
+                        "https://github.com/HarleyBartles/wild-bunch/blob/"
+                        f"2a9814d094148bb789766a27d316095fecce5a60/{encoded_path}"
+                    )
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                findings = self.validate(mutate)
+                self.assertTrue(any("representative evidence 1 sourceUrl must use a canonical pinned repository path" in finding for finding in findings))
 
     def test_wild_bunch_evidence_rejects_empty_capabilities_unpinned_links_and_malformed_images(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
