@@ -250,11 +250,11 @@
 
   Expected: PASS. The canonical check covers Python validator tests, Vitest, TypeScript/Vite build, Playwright, routes, links, privacy, custody, and budgets. Do not run it earlier on an intentionally incomplete tree.
 
-- [ ] **Step 6: Commit, publish, and update the roadmap only with verified evidence.**
+- [x] **Step 6: Commit, publish, and update the roadmap only with verified evidence.**
 
-  Commit focused source plus generated surfaces, push the Phase 3 branch, open a draft PR, and verify its exact head/check state in GitHub. The GPT-5.6 Sol orchestrator must personally review the material public copy, composition, hierarchy, style, taste, humanness, restraint, and AI-slop risk against the £10k portfolio bar. Sol may veto a creative output and must dispatch GPT-5.6 Terra revision work until it passes. After verified merge, replace the roadmap placeholders with the commit, PR, final handoff rating, review limitations, and manual evidence; then move this plan to `.agents/plans/completed/` through the completion runbook.
+  PR #21 merged at `2026-08-23T07:55:27Z`; its squash commit is `fdc4dc01f590cfc1af29861a843232aaa72eed32` and merged branch head is `ca09f1d41d9d00bb0e5869783ec0be4286241d5f`. The post-merge run at `https://github.com/HarleyBartles/portfolio/actions/runs/32626870954` ran on the exact squash commit and passed Portfolio quality gate, Visual regression, Deploy validated artifact, and Verify public routes. The merged PR body remains historical: it listed five consumers, including an editorially irrelevant repository. This follow-on corrects the prospective Marketplace evidence and presentation on the Phase 4 branch; it does not rewrite the merged PR record.
 
-- [ ] **Step 7: Mark this task complete in this plan.**
+- [x] **Step 7: Mark this task complete in this plan.**
 
 ### Task 6: Normalize the execution model across the £10k epic
 
