@@ -9,6 +9,11 @@
   gap: clamp(var(--space-16), 9vw, var(--space-24));
 }
 
+.learning-lab-system {
+  display: grid;
+  gap: clamp(var(--space-16), 9vw, var(--space-24));
+}
+
 .learning-lab-image,
 .learning-lab-image img {
   display: block;

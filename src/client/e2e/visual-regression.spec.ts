@@ -42,6 +42,27 @@ async function waitForLawfulHeistStyles(page: Page): Promise<void> {
   await expect.poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(24, 33, 28)')
 }
 
+async function waitForLearningLabStyles(page: Page): Promise<void> {
+  const safety = page.locator('.learning-lab-safety')
+  await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(22, 63, 66)')
+}
+
+async function clipBetween(page: Page, firstSelector: string, lastSelector: string) {
+  await page.evaluate(() => scrollTo(0, 0))
+  const [first, last] = await Promise.all([
+    page.locator(firstSelector).boundingBox(),
+    page.locator(lastSelector).boundingBox(),
+  ])
+  expect(first).not.toBeNull()
+  expect(last).not.toBeNull()
+  return {
+    x: Math.min(first!.x, last!.x),
+    y: first!.y,
+    width: Math.max(first!.x + first!.width, last!.x + last!.width) - Math.min(first!.x, last!.x),
+    height: last!.y + last!.height - first!.y,
+  }
+}
+
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
@@ -178,6 +199,36 @@ test('Adventures of Patch keeps its evidence boundary and controlled-production 
 
   await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot('patch-evidence-boundary.png')
   await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot('patch-controlled-production.png')
+})
+
+test('Learning Lab keeps its engineering proposition, curriculum atlas and lab system on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 2000 })
+  await openStable(page, './projects/agentic-learning-lab')
+  await waitForLearningLabStyles(page)
+
+  const hero = page.locator('[data-visual-contract="learning-lab-case-study-hero"]')
+  const origin = page.locator('.learning-lab-origin')
+  await waitForImages(hero)
+  await expect(page).toHaveScreenshot('learning-lab-hero-origin.png', {
+    clip: await clipBetween(page, '[data-visual-contract="learning-lab-case-study-hero"]', '.learning-lab-origin'),
+  })
+
+  await expect(page.locator('[data-visual-contract="learning-lab-atlas"]')).toHaveScreenshot('learning-lab-curriculum-atlas.png')
+
+  const representatives = page.locator('.representative-labs')
+  await waitForImages(representatives)
+  await expect(page.locator('[data-visual-contract="learning-lab-system"]')).toHaveScreenshot('learning-lab-lab-system.png')
+  await expect(origin).toBeAttached()
+})
+
+test('Learning Lab keeps the complete annotated field manual on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/agentic-learning-lab')
+  await waitForLearningLabStyles(page)
+
+  const article = page.locator('article.content-page')
+  await waitForImages(article)
+  await expect(article).toHaveScreenshot('learning-lab-composition-mobile.png')
 })
 
 test('Adventures of Patch keeps the complete authored composition on mobile', async ({ page }) => {

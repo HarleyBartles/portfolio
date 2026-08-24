@@ -2,6 +2,29 @@ import { expect, test } from '@playwright/test'
 
 const wildBunchPath = './projects/wild-bunch/'
 const patchPath = './projects/adventures-of-patch/'
+const learningLabPath = './projects/agentic-learning-lab/'
+
+const learningLabModules = [
+  'From chatbot to worker',
+  'Give the cloud agent the project',
+  'The project has a home',
+  'Repositories, save points, and safe breakage',
+  'Model, harness, context, tools, and behaviour',
+  'What does the model know?',
+  'Tools, operating knowledge, and domain provisioning',
+  'What did we just create? Local work and connected systems',
+  'Source of truth and verification',
+  'Build a real agentic project',
+  'Agent self-introspection and local review',
+  'Autonomous human-in-the-loop workflows',
+  'Specialist sub-agents and orchestration',
+  'Harnesses, portability, and agent observability',
+  'The 20-Agent Bonfire and context transport',
+  'Selective provisioning, context, and evaluation',
+  'Trust boundaries and connected autonomy',
+  'Concurrent agents and isolation',
+  'Epilogue: show how this was built',
+] as const
 
 async function expectNoHorizontalOverflow(page: import('@playwright/test').Page): Promise<void> {
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
@@ -296,6 +319,115 @@ test('Adventures of Patch remains complete at narrow and zoom-proxy widths with 
     ]) {
       await expect(page.getByRole('heading', { level: 2, name: heading })).toBeAttached()
     }
+  }
+})
+
+test('visitor opens the Learning Lab as an honest engineering-led curriculum case study', async ({ page }) => {
+  const response = await page.goto(learningLabPath)
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', { level: 1, name: 'Agentic Learning Lab' })).toBeVisible()
+  await expect(page.locator('.content-status')).toHaveText(/Status\s*incomplete/i)
+  await expect(page.getByText(/The learner is not the agent's hands/)).toBeVisible()
+  await expect(page.getByText(/I was a software engineer before I became an agentic engineer/)).toBeVisible()
+
+  const loop = page.getByRole('figure', { name: 'The Learning Lab direction and verification loop' })
+  await expect(loop.locator('li strong')).toHaveText([
+    'Direct',
+    'Agent works',
+    'Inspect',
+    'Verify',
+    'Question',
+    'Explain observable work',
+    'Redirect',
+  ])
+
+  await expect(page.locator('.learning-atlas__module-copy strong')).toHaveText(learningLabModules)
+  await expect(page.locator('.learning-atlas__module-copy small')).toHaveCount(19)
+  await expect(page.locator('.learning-atlas__module-copy small', { hasText: 'Mature lab' })).toHaveCount(10)
+  await expect(page.locator('.learning-atlas__module-copy small', { hasText: 'Roadmap module' })).toHaveCount(9)
+  await expect(page.getByRole('heading', { name: 'Agentic Engineering 101: Zero to Hero' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Advanced Agentic Engineering: Mastering Agents' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Beyond the Agent: Engineering Agent Systems' })).toBeVisible()
+  await expect(page.locator('.lab-promotion > ol > li')).toHaveCount(6)
+  await expect(page.locator('.lab-anatomy__layers > section')).toHaveCount(3)
+  await expect(page.locator('.representative-lab')).toHaveCount(3)
+  expect(await page.locator('.representative-lab').evaluateAll((items) => items.map((item) => item.getAttribute('data-lab')))).toEqual(['3', '5', '7'])
+
+  await expect(page.getByText(/I'm going to teach my brother a few things about using agentic AI/)).toHaveCount(1)
+  await expect(page.getByText(/a love letter to my brother/)).toHaveCount(1)
+  await expect(page.getByText(/First live delivery planned for late August 2026/)).toBeVisible()
+  await expect(page.getByRole('link', { name: /View the public repository/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Inspect the integrity run/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /CC BY 4.0 curriculum licence/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /MIT tooling licence/ })).toBeVisible()
+  await expect(page.getByText(/tested with real learners/i)).toHaveCount(0)
+})
+
+test('visitor reaches the Learning Lab through client navigation with its semantic evidence intact', async ({ page }) => {
+  await page.goto('./projects/')
+  await page.getByRole('link', { name: 'Agentic Learning Lab', exact: true }).click()
+
+  await expect(page).toHaveURL(/\/projects\/agentic-learning-lab\/?$/)
+  await expect(page.getByRole('heading', { name: 'How a module earns maturity' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Three views of the same session' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'The judgment lives in the mechanics' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Safe enough to learn by breaking things' })).toBeVisible()
+})
+
+test('Learning Lab links and narrow layouts preserve an accessible complete argument', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto(learningLabPath)
+
+  for (const linkName of [
+    'Inspect the pinned curriculum snapshot (opens in a new tab)',
+    'View the public repository (opens in a new tab)',
+    'Inspect the integrity run (opens in a new tab)',
+    'CC BY 4.0 curriculum licence (opens in a new tab)',
+    'MIT tooling licence (opens in a new tab)',
+  ]) {
+    await tabToLink(page, linkName)
+    const link = page.getByRole('link', { name: linkName })
+    await expect(link).toBeFocused()
+    await expect(link).toHaveAttribute('target', '_blank')
+    await expect(link).toHaveAttribute('rel', /noopener/)
+  }
+
+  for (const width of [390, 320, 360]) {
+    await page.setViewportSize({ width, height: 844 })
+    await expectNoHorizontalOverflow(page)
+    await expect(page.locator('.content-status')).toContainText('incomplete')
+    await expect(page.locator('.learning-atlas__module-copy strong')).toHaveCount(19)
+    for (const course of [
+      'Agentic Engineering 101: Zero to Hero',
+      'Advanced Agentic Engineering: Mastering Agents',
+      'Beyond the Agent: Engineering Agent Systems',
+    ]) await expect(page.getByRole('heading', { name: course })).toBeAttached()
+  }
+
+  await page.addStyleTag({ content: 'img { display: none !important; }' })
+  await expect(page.getByText(/The learner is not the agent's hands/)).toBeAttached()
+  await expect(page.locator('.representative-lab')).toHaveCount(3)
+  await expect(page.getByText(/What is the blast radius/)).toBeAttached()
+})
+
+test('Learning Lab exposes intrinsic responsive media with one eager hero', async ({ page }) => {
+  await page.goto(learningLabPath)
+
+  const hero = page.locator('[data-visual-contract="learning-lab-case-study-hero"] img')
+  await expect(hero).toHaveAttribute('width', '720')
+  await expect(hero).toHaveAttribute('height', '450')
+  await expect(hero).toHaveAttribute('loading', 'eager')
+  await expect(hero).toHaveAttribute('fetchpriority', 'high')
+  await expect(page.locator('main img[loading="eager"]')).toHaveCount(1)
+
+  const bodyImages = page.locator('.learning-lab-case-study img')
+  await expect(bodyImages).toHaveCount(2)
+  for (const image of await bodyImages.all()) {
+    await expect(image).toHaveAttribute('loading', 'lazy')
+    await expect(image).toHaveAttribute('decoding', 'async')
+    await expect(image).toHaveAttribute('width', '720')
+    await expect(image).toHaveAttribute('height', /^(461|540)$/)
   }
 })
 

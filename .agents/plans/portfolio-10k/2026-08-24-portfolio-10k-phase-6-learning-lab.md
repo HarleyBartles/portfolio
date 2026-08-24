@@ -361,11 +361,11 @@
 - Consumes: Sol-approved Task 4 route.
 - Produces: direct/client-navigation proof, semantic and responsive contracts, desktop/mobile axe coverage and four Windows-canonical signature baselines.
 
-- [ ] **Step 1: Write browser contracts before capturing pixels.** Add direct and project-index navigation tests for `/projects/agentic-learning-lab`. Require route title/status, learner proposition, seven-stage loop, three course names/outcomes, nineteen unique labels in source order, ten mature and nine roadmap labels, promotion flow, cutaway regions, Labs 3/5/7, one founding prompt, one love-letter phrase, delivery wording, source/integrity/licence links and absence of the stale learner-testing claim.
+- [x] **Step 1: Write browser contracts before capturing pixels.** Add direct and project-index navigation tests for `/projects/agentic-learning-lab`. Require route title/status, learner proposition, seven-stage loop, three course names/outcomes, nineteen unique labels in source order, ten mature and nine roadmap labels, promotion flow, cutaway regions, Labs 3/5/7, one founding prompt, one love-letter phrase, delivery wording, source/integrity/licence links and absence of the stale learner-testing claim.
 
-- [ ] **Step 2: Add interaction and layout outcomes.** Verify every external link opens in a new context with its accessible announcement and visible keyboard focus. At 390, 320 and the existing 360-pixel automated zoom proxy, assert `scrollWidth <= clientWidth`, all module titles remain reachable, no disclosure hides course boundaries, and no status depends on colour. With images disabled, the complete engineering and mentoring argument must remain available in semantic HTML.
+- [x] **Step 2: Add interaction and layout outcomes.** Verify every external link opens in a new context with its accessible announcement and visible keyboard focus. At 390, 320 and the existing 360-pixel automated zoom proxy, assert `scrollWidth <= clientWidth`, all module titles remain reachable, no disclosure hides course boundaries, and no status depends on colour. With images disabled, the complete engineering and mentoring argument must remain available in semantic HTML.
 
-- [ ] **Step 3: Add wide and narrow axe coverage.** Add the Learning Lab route to `accessibility.spec.ts`'s desktop and mobile matrix. Run:
+- [x] **Step 3: Add wide and narrow axe coverage.** Add the Learning Lab route to `accessibility.spec.ts`'s desktop and mobile matrix. Run:
 
   ```powershell
   npm.cmd --prefix src/client run test:e2e -- e2e/accessibility.spec.ts --grep "Agentic Learning Lab"
@@ -373,7 +373,7 @@
 
   Expected: desktop and mobile WCAG 2.2 A/AA scans pass with no exclusions.
 
-- [ ] **Step 4: Add the four approved visual contracts.** Capture:
+- [x] **Step 4: Add the four approved visual contracts.** Capture:
   - `learning-lab-hero-origin.png` from hero, learning loop and origin at 1440;
   - `learning-lab-curriculum-atlas.png` from the complete atlas at 1440;
   - `learning-lab-lab-system.png` from promotion, cutaway and representative proof at 1440; and
@@ -381,15 +381,17 @@
 
   Author on Windows once. Run the unchanged focused test twice without `--update-snapshots`. Do not broaden tolerance or create Linux variants.
 
-- [ ] **Step 5: Re-run manual review against browser evidence.** Review 1440, 768, 390, 320, keyboard-only, reduced motion and native 200% zoom. Answer every question in the spec's manual-quality-review section, including whether the route proves designed learner conditions, course/maturity distinctions, adaptive mentoring, safe authority and honest present state. Record limitations and the current delivery fact in this plan.
+- [x] **Step 5: Re-run manual review against browser evidence.** Review 1440, 768, 390, 320, keyboard-only, reduced motion and native 200% zoom. Answer every question in the spec's manual-quality-review section, including whether the route proves designed learner conditions, course/maturity distinctions, adaptive mentoring, safe authority and honest present state. Record limitations and the current delivery fact in this plan.
 
-- [ ] **Step 6: Commit reviewed browser proof.** Run focused project-story, accessibility and visual commands, stage the browser tests, approved baselines and generated snapshot index, then run `git diff --cached --check`. Commit:
+  Manual review: **pass**. The case study proves designed learning pressure, course and maturity distinctions, adaptive authority, bounded breakage and a dated present state without claiming completed learner delivery. Direct and client navigation, 1440/768/390/360/320 layouts, keyboard focus, reduced motion, image-disabled reading and 200%-zoom proxy all retain the argument. Current delivery fact remains “First live delivery planned for late August 2026.” The principal limitation is deliberate: this phase proves curriculum architecture and facilitation judgment, not learner outcomes that don't yet exist.
+
+- [x] **Step 6: Commit reviewed browser proof.** Run focused project-story, accessibility and visual commands, stage the browser tests, approved baselines and generated snapshot index, then run `git diff --cached --check`. Commit:
 
   ```powershell
   git commit -m "test: prove the Learning Lab case study"
   ```
 
-- [ ] **Step 7: Mark Task 5 complete.** Set Task 5's checklist boxes to `[x]`, stage this plan and include that state in Task 6's closeout commit.
+- [x] **Step 7: Mark Task 5 complete.** Set Task 5's checklist boxes to `[x]`, stage this plan and include that state in Task 6's closeout commit.
 
 ---
 

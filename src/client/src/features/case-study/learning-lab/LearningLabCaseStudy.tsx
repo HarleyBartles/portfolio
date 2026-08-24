@@ -30,11 +30,13 @@ export function LearningLabCaseStudy() {
 
         <CurriculumAtlas />
 
-        <LabPromotionFlow />
+        <div className="learning-lab-system" data-visual-contract="learning-lab-system">
+          <LabPromotionFlow />
 
-        <LabAnatomy />
+          <LabAnatomy />
 
-        <RepresentativeLabs />
+          <RepresentativeLabs />
+        </div>
 
         <section className="learning-lab-safety" aria-labelledby="learning-lab-safety-title">
           <LearningLabImage id="safe-breakage-rig" />
