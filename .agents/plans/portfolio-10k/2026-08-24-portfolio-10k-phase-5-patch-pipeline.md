@@ -340,7 +340,9 @@
 
   **State:** Phase 5 remains `executing`. Local implementation, evidence custody, article/visual review, independent review repairs and canonical proof are complete. Draft PR identity, hosted checks on the eventual exact head, and Harley's review/merge decision remain.
 
-- [ ] **Step 6: Publish the draft PR and prove remote identity.** Push `codex/portfolio-10k-phase-5-patch-pipeline`, open a draft PR into `main` using the repository template, and include source revision, public/private boundary, asset custody, image selection, tests, manual viewports, Sol creative review, independent reviews, and explicit non-goals. Verify base/head, exact remote SHA, diff, body, and draft state with GitHub.
+- [x] **Step 6: Publish the draft PR and prove remote identity.** Push `codex/portfolio-10k-phase-5-patch-pipeline`, open a draft PR into `main` using the repository template, and include source revision, public/private boundary, asset custody, image selection, tests, manual viewports, Sol creative review, independent reviews, and explicit non-goals. Verify base/head, exact remote SHA, diff, body, and draft state with GitHub.
+
+  **Publication proof:** Draft PR [#25](https://github.com/HarleyBartles/portfolio/pull/25) was opened into `main`. GitHub confirmed base `main`, head branch `codex/portfolio-10k-phase-5-patch-pipeline`, open draft state, complete template body and remote implementation head `d49386596f70f0903a024117e008c388323b825a`. This plan-record commit follows as publication bookkeeping; the PR head and body must be refreshed and reverified before ready-for-review CI.
 
 - [ ] **Step 7: Mark ready only after local and hosted preconditions.** If repository policy requires hosted checks only after ready state, flip the self-reviewed draft ready, then watch Portfolio quality gate and Visual regression on the exact head. Do not merge. Stop at Harley's review/merge gate with the PR URL, full SHA, hosted results, and any genuine residual limitation.
 
