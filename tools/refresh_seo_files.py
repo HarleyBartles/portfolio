@@ -14,7 +14,7 @@ PUBLIC = ROOT / "src" / "client" / "public"
 ORIGIN = "https://harleybartles.github.io"
 BASE_URL = "/portfolio/"
 
-INDEX_ROUTES = ["/", "/projects", "/writing", "/fairytales", "/about", "/cv"]
+INDEX_ROUTES = ["/", "/projects", "/writing", "/patch", "/about", "/cv"]
 
 PLURAL = {
     "project": "projects",

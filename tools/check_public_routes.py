@@ -16,8 +16,13 @@ from typing import Any, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
-INDEX_ROUTES = ("/", "/about", "/cv", "/fairytales", "/projects", "/writing")
-KIND_ROOT = {"project": "projects", "writing": "writing", "fairytales": "fairytales"}
+INDEX_ROUTES = ("/", "/about", "/cv", "/fairytales", "/patch", "/projects", "/writing")
+KIND_ROOT = {"project": "projects", "writing": "writing", "patch": "patch"}
+LEGACY_ROUTE_CANONICALS = {
+    "/fairytales": "/patch",
+    "/fairytales/goldilocks": "/patch/goldilocks",
+    "/fairytales/sorcerers-apprentice": "/patch/sorcerers-apprentice",
+}
 UNKNOWN_ROUTE = "/__portfolio-route-smoke__"
 USER_AGENT = "portfolio-public-route-check/1.0"
 
@@ -65,7 +70,8 @@ def expected_public_routes(manifest: Mapping[str, Any]) -> list[str]:
         slug = item.get("slug")
         if root is not None and isinstance(slug, str) and slug:
             content_routes.append(f"/{root}/{slug}")
-    return [*INDEX_ROUTES, *sorted(set(content_routes))]
+    legacy_routes = [route for route, canonical in LEGACY_ROUTE_CANONICALS.items() if canonical == "/patch" or canonical in content_routes]
+    return [*INDEX_ROUTES, *sorted(set(content_routes + legacy_routes) - set(INDEX_ROUTES))]
 
 
 def _request_url(origin: str, route: str) -> str:
@@ -165,7 +171,8 @@ def check_public_routes(
             qualifier = " redirect response" if 300 <= result.status < 400 else ""
             findings.append(f"{route}: HTTP {result.status}{qualifier}; known routes must return 200")
             continue
-        findings.extend(_inspect_html(route, result, _canonical_url(origin, route), unknown=False))
+        canonical_route = LEGACY_ROUTE_CANONICALS.get(route, route)
+        findings.extend(_inspect_html(route, result, _canonical_url(origin, canonical_route), unknown=False))
 
     unknown_url = _request_url(origin, UNKNOWN_ROUTE)
     try:

@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { createBrowserRouter, useParams, type RouteObject } from 'react-router-dom'
+import { createBrowserRouter, Navigate, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
 import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
 
@@ -31,18 +31,23 @@ async function loadWritingRoute(): Promise<{ Component: () => ReactElement }> {
   }
 }
 
-async function loadFairytaleRoute(): Promise<{ Component: () => ReactElement }> {
-  const [{ FairytalesPage }, { NotFoundPage }] = await Promise.all([
-    import('../pages/FairytalesPage'),
+async function loadPatchRoute(): Promise<{ Component: () => ReactElement }> {
+  const [{ PatchPage }, { NotFoundPage }] = await Promise.all([
+    import('../pages/PatchPage'),
     import('../pages/NotFoundPage'),
   ])
 
   return {
-    Component: function FairytaleRoutePage(): ReactElement {
+    Component: function PatchRoutePage(): ReactElement {
       const { slug } = useParams()
-      return slug === undefined ? <NotFoundPage /> : <FairytalesPage slug={slug} />
+      return slug === undefined ? <NotFoundPage /> : <PatchPage slug={slug} />
     },
   }
+}
+
+function LegacyFairytaleRedirect(): ReactElement {
+  const { slug } = useParams()
+  return <Navigate to={slug === undefined ? '/patch' : `/patch/${slug}`} replace />
 }
 
 export const appRoutes: RouteObject[] = [
@@ -81,14 +86,22 @@ export const appRoutes: RouteObject[] = [
         lazy: loadWritingRoute,
       },
       {
-        path: 'fairytales',
+        path: 'patch',
         lazy: async () => ({
-          Component: (await import('../pages/FairytalesIndexPage')).FairytalesIndexPage,
+          Component: (await import('../pages/PatchIndexPage')).PatchIndexPage,
         }),
       },
       {
+        path: 'patch/:slug',
+        lazy: loadPatchRoute,
+      },
+      {
+        path: 'fairytales',
+        element: <LegacyFairytaleRedirect />,
+      },
+      {
         path: 'fairytales/:slug',
-        lazy: loadFairytaleRoute,
+        element: <LegacyFairytaleRedirect />,
       },
       {
         path: 'about',

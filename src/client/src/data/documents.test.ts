@@ -6,7 +6,7 @@ describe('prepareMarkdown', () => {
   test('removes a duplicate leading title from a fairytale before the page header renders', () => {
     const summary: ContentSummary = {
       slug: 'goldilocks',
-      kind: 'fairytales',
+      kind: 'patch',
       title: 'Goldilocks',
       status: 'published',
       featured: false,

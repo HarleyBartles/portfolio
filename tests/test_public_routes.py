@@ -57,15 +57,21 @@ class PublicRouteTests(unittest.TestCase):
             'items': [
                 {'kind': 'project', 'slug': 'proof-project'},
                 {'kind': 'writing', 'slug': 'useful-note'},
-                {'kind': 'fairytales', 'slug': 'small-story'},
+                {'kind': 'patch', 'slug': 'goldilocks'},
             ]
         }
 
     def valid_responses(self, origin: str) -> dict[str, list[tuple[int, str, bytes, dict[str, str]]]]:
         responses = {}
+        legacy_canonicals = {
+            '/fairytales': '/patch',
+            '/fairytales/goldilocks': '/patch/goldilocks',
+            '/fairytales/sorcerers-apprentice': '/patch/sorcerers-apprentice',
+        }
         for route in expected_public_routes(self.manifest):
             request_path = '/portfolio/' if route == '/' else f'/portfolio{route}'
-            canonical = origin if route == '/' else f'{origin}{route}'
+            canonical_route = legacy_canonicals.get(route, route)
+            canonical = origin if canonical_route == '/' else f'{origin}{canonical_route}'
             responses[request_path] = [(200, 'text/html; charset=utf-8', page(f'{route} title', canonical), {})]
         responses['/portfolio/__portfolio-route-smoke__'] = [
             (404, 'text/html; charset=utf-8', page('Page Not Found | Harley Bartles', origin), {})
@@ -80,9 +86,11 @@ class PublicRouteTests(unittest.TestCase):
                 '/about',
                 '/cv',
                 '/fairytales',
+                '/patch',
                 '/projects',
                 '/writing',
-                '/fairytales/small-story',
+                '/fairytales/goldilocks',
+                '/patch/goldilocks',
                 '/projects/proof-project',
                 '/writing/useful-note',
             ],
@@ -102,9 +110,11 @@ class PublicRouteTests(unittest.TestCase):
                 '/portfolio/about',
                 '/portfolio/cv',
                 '/portfolio/fairytales',
+                '/portfolio/patch',
                 '/portfolio/projects',
                 '/portfolio/writing',
-                '/portfolio/fairytales/small-story',
+                '/portfolio/fairytales/goldilocks',
+                '/portfolio/patch/goldilocks',
                 '/portfolio/projects/proof-project',
                 '/portfolio/writing/useful-note',
                 '/portfolio/__portfolio-route-smoke__',

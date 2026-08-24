@@ -20,7 +20,8 @@ BASE_URL = "/portfolio/"
 
 PLURAL = {"project": "projects"}
 
-INDEX_ROUTES = {"/", "/projects", "/writing", "/fairytales", "/about", "/cv"}
+INDEX_ROUTES = {"/", "/projects", "/writing", "/patch", "/about", "/cv"}
+COMPATIBILITY_ROUTES = {"/fairytales", "/fairytales/goldilocks", "/fairytales/sorcerers-apprentice"}
 
 ANCHOR_RE = re.compile(r'<a\s[^>]*?\bhref\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|\{\s*["\']([^"\']*)["\']\s*\})', re.IGNORECASE)
 ANCHOR_TAG_RE = re.compile(r'<a\b[^>]*>', re.IGNORECASE | re.DOTALL)
@@ -142,7 +143,7 @@ def check_markdown_links(manifest: dict, routes: set[str], errors: list[str]) ->
                     )
                 continue
 
-            if url not in routes and url not in INDEX_ROUTES:
+            if url not in routes and url not in INDEX_ROUTES and url not in COMPATIBILITY_ROUTES:
                 errors.append(
                     f"{path.relative_to(ROOT)}: link '{url}' does not resolve to a known route"
                 )

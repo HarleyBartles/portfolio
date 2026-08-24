@@ -101,7 +101,7 @@ export function HomePage(): ReactElement {
         </header>
         <ol>
           <li><span>01</span><h3>Requirements before architecture</h3><p>Start with the problem and constraints. Let patterns earn their place.</p><Link to="/projects/wild-bunch">See it under pressure</Link></li>
-          <li><span>02</span><h3>Bounded agent leverage</h3><p>Give agents useful authority, a clear stop condition, and a route back to evidence.</p><Link to="/fairytales/sorcerers-apprentice">See the fairytale</Link></li>
+          <li><span>02</span><h3>Bounded agent leverage</h3><p>Give agents useful authority, a clear stop condition, and a route back to evidence.</p><Link to="/patch/sorcerers-apprentice">See the fairytale</Link></li>
           <li><span>03</span><h3>Evidence before claims</h3><p>Source truth, validation, and review remain human responsibilities.</p><Link to="/writing/context-is-not-state">Read the field note</Link></li>
         </ol>
       </section>

@@ -38,7 +38,7 @@ MAX_IMAGE_BYTES = 400 * 1024
 STATUS_BY_KIND = {
     "project": {"active project", "incomplete", "live", "pre-alpha"},
     "writing": {"published"},
-    "fairytales": {"published"},
+    "patch": {"published", "visual development", "advanced visual pre-production"},
 }
 ALL_STATUSES = set().union(*STATUS_BY_KIND.values())
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -201,9 +201,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif kind != "project":
+            elif presentation == "patch-identity-emporium" and kind != "patch":
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
+            elif presentation != "patch-identity-emporium" and kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
         if has_path:
