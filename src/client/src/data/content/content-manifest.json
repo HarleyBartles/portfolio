@@ -140,6 +140,16 @@
       "presentation": "patch-tournament",
       "tags": ["patch", "agentic-engineering", "requirements", "acceptance-criteria"],
       "relatedSlugs": ["identity-emporium", "adventures-of-patch"]
+    },
+    {
+      "slug": "lawful-heist",
+      "kind": "patch",
+      "title": "The Lawful Heist Crew",
+      "status": "advanced visual pre-production",
+      "summary": "Six specialists turn a lawful vault override into a plan whose execution should be almost offensively boring.",
+      "presentation": "patch-lawful-heist",
+      "tags": ["patch", "agentic-engineering", "authority", "audit", "recovery"],
+      "relatedSlugs": ["tournament-of-reasonable-defaults", "identity-emporium", "adventures-of-patch"]
     }
   ]
 }

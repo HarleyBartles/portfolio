@@ -183,9 +183,9 @@
 - Consumes: Task 2 evidence paths through `PatchShowcasePicture`; the approved crew/copy contract; existing `patch` manifest, specialist presentation and index seams.
 - Produces: manifest presentation `patch-lawful-heist`, lazy-loaded `LawfulHeistPage`, linked Patch index entry, semantic six-profile story and generated static route metadata.
 
-- [ ] **Step 1: Write failing route and presentation tests.** Require a `Lawful Heist` manifest item with the expected public title, advanced visual pre-production status and presentation. Require the Patch index entry to link to `/portfolio/patch/lawful-heist`; require the route to render the title, opening standfirst, six profiles in the approved order, development status, completed folder and engineering case-study link. Register `patch-lawful-heist` in the specialist presentation test.
+- [x] **Step 1: Write failing route and presentation tests.** Require a `Lawful Heist` manifest item with the expected public title, advanced visual pre-production status and presentation. Require the Patch index entry to link to `/portfolio/patch/lawful-heist`; require the route to render the title, opening standfirst, six profiles in the approved order, development status, completed folder and engineering case-study link. Register `patch-lawful-heist` in the specialist presentation test.
 
-- [ ] **Step 2: Write the focused page test before the component.** Require exactly six `article` elements with these headings and responsibilities:
+- [x] **Step 2: Write the focused page test before the component.** Require exactly six `article` elements with these headings and responsibilities:
 
   ```ts
   expect(profiles.map((profile) => within(profile).getByRole('heading', { level: 2 }).textContent)).toEqual([
@@ -199,9 +199,9 @@
   expect(profiles[5]).toHaveTextContent("It's logged")
   ```
 
-  Also require fourteen meaningful images across opening folder, six portraits, six markers and completed folder, while permitting decorative markers to use empty alt only when adjacent HTML repeats their whole meaning.
+  Also require fifteen meaningful images across the opening folder, five portraits, six markers, the Rollback and Receipt narrative scenes, and the completed folder. Receipt's narrative scene replaces his portrait in the reading flow. Permit decorative markers to use empty alt only when adjacent HTML repeats their whole meaning.
 
-- [ ] **Step 3: Run focused tests and observe failure.** Run:
+- [x] **Step 3: Run focused tests and observe failure.** Run:
 
   ```powershell
   npm --prefix src/client test -- --run src/features/patch-showcase/LawfulHeistPage.test.tsx src/pages/PatchRoutes.test.tsx src/features/case-study/projectPresentations.test.tsx scripts/generate-route-documents.test.ts
@@ -209,7 +209,7 @@
 
   Expected: FAIL because the route, presentation and component do not exist.
 
-- [ ] **Step 4: Implement the manifest and presentation seam.** Register:
+- [x] **Step 4: Implement the manifest and presentation seam.** Register:
 
   ```json
   {
@@ -226,13 +226,13 @@
 
   Add the lazy presentation import and make `PatchIndexPage` resolve the existing world titled `Lawful Heist` to this item without changing the evidence title stored in `patch-evidence.json`.
 
-- [ ] **Step 5: Build `LawfulHeistPage` in semantic order.** Use a local immutable crew data structure for the six names, responsibilities, portraits, marker paths, quotes and connective copy. Treat each section as a brief recruitment scene, grounded in the specialist-zone and character frame bibles, rather than a static profile. The canonical portraits and markers remain the visual backbone; prose carries missing pitch action, and colour-block geometry or small editorial labels may evoke a domain without claiming rendered location evidence. Use the accepted Rollback lockdown scene as the sole full-bleed narrative panel before or within his oversized recruitment section, with HTML carrying the Plan A and shutter context. Use the Receipt alcove scene instead of his portrait in the reading flow, contained asymmetrically inside the page canvas so its quiet scale reflects his role. Render the opening folder before the recruitments and the completed folder afterward. Keep the working lines from the spec only where they sound natural in the continuous page; edit surrounding prose for cadence rather than forcing every supplied line into equal-length panels.
+- [x] **Step 5: Build `LawfulHeistPage` in semantic order.** Use a local immutable crew data structure for the six names, responsibilities, portraits, marker paths, quotes and connective copy. Treat each section as a brief recruitment scene, grounded in the specialist-zone and character frame bibles, rather than a static profile. The canonical portraits and markers remain the visual backbone; prose carries missing pitch action, and colour-block geometry or small editorial labels may evoke a domain without claiming rendered location evidence. Use the accepted Rollback lockdown scene as the sole full-bleed narrative panel before or within his oversized recruitment section, with HTML carrying the Plan A and shutter context. Use the Receipt alcove scene instead of his portrait in the reading flow, contained asymmetrically inside the page canvas so its quiet scale reflects his role. Render the opening folder before the recruitments and the completed folder afterward. Keep the working lines from the spec only where they sound natural in the continuous page; edit surrounding prose for cadence rather than forcing every supplied line into equal-length panels.
 
-- [ ] **Step 6: Compose a comic-book dossier sequence, not a profile grid.** In `LawfulHeistPage.scss`, use the existing spacing tokens, warm paper and typography as the portfolio frame. Reflect the planned adventure's comic-book energy with asymmetric panel spans, decisive colour fields, full-bleed imagery where the source background supports it, and short white editorial insets placed at an image edge. An occasional oval text block may suggest speech through shape and placement, without a tail or literal speech-bubble styling. Give each profile one underlying grid with portrait, prose and small marker inset, then vary the geometry only when it improves character, handoff or reading order. Give Rollback a larger image span and enough vertical room for his canonical upper-limit agent scale to dominate without clipping or breaking proportionality; keep his dog-tag marker quiet. At narrow widths collapse to the DOM order with no CSS `order`. Keep prose near `48rem`, align wider evidence to the existing page canvas and avoid arbitrary unused columns. No new global CSS is needed.
+- [x] **Step 6: Compose a comic-book dossier sequence, not a profile grid.** In `LawfulHeistPage.scss`, use the existing spacing tokens, warm paper and typography as the portfolio frame. Reflect the planned adventure's comic-book energy with asymmetric panel spans, decisive colour fields, full-bleed imagery where the source background supports it, and short white editorial insets placed at an image edge. An occasional oval text block may suggest speech through shape and placement, without a tail or literal speech-bubble styling. Give each profile one underlying grid with portrait, prose and small marker inset, then vary the geometry only when it improves character, handoff or reading order. Give Rollback a larger image span and enough vertical room for his canonical upper-limit agent scale to dominate without clipping or breaking proportionality; keep his dog-tag marker quiet. At narrow widths collapse to the DOM order with no CSS `order`. Keep prose near `48rem`, align wider evidence to the existing page canvas and avoid arbitrary unused columns. No new global CSS is needed.
 
-- [ ] **Step 7: Complete accessibility and static-route coverage.** Add the Heist route to the desktop/mobile axe matrix. Extend route-document tests with a Patch manifest fixture and assert `/patch/lawful-heist`, title, summary and canonical URL. Use semantic headings, visible links and reviewed alt text. Add `decoding="async"` to `PatchShowcasePicture` for below-fold evidence; expose an `eager` option only for the opening folder if measured first-paint review justifies it.
+- [x] **Step 7: Complete accessibility and static-route coverage.** Add the Heist route to the desktop/mobile axe matrix. Extend route-document tests with a Patch manifest fixture and assert `/patch/lawful-heist`, title, summary and canonical URL. Use semantic headings, visible links and reviewed alt text. Add `decoding="async"` to `PatchShowcasePicture` for below-fold evidence; expose an `eager` option only for the opening folder if measured first-paint review justifies it.
 
-- [ ] **Step 8: Run focused tests and edit the whole page aloud.** Run the Task 3 focused Vitest command. Then scan all public copy with:
+- [x] **Step 8: Run focused tests and edit the whole page aloud.** Run the Task 3 focused Vitest command. Then scan all public copy with:
 
   ```powershell
   rg -n "—|I keep returning to|the thing I keep returning to|That's not|It isn't just|I don't need to|at its core|what matters is|the real story|this is where|the bottom line|it is worth noting" src/client/src/features/patch-showcase/LawfulHeistPage.tsx
@@ -240,13 +240,13 @@
 
   Read the rendered source copy as one coherent piece. Fix mechanical panel symmetry, repeated sentence skeletons, orphan transitions and qualifications that do not add meaning.
 
-- [ ] **Step 9: Regenerate and commit the route slice.** Run `py -3 tools/run.py ci --apply`, stage all source, test, sitemap and mesh outputs, rerun focused tests and `git diff --cached --check`, then commit:
+- [x] **Step 9: Regenerate and commit the route slice.** Run `py -3 tools/run.py ci --apply`, stage all source, test, sitemap and mesh outputs, rerun focused tests and `git diff --cached --check`, then commit:
 
   ```powershell
   git commit -m "feat: publish the Lawful Heist Crew story"
   ```
 
-- [ ] **Step 10: Mark Task 3 complete.** Set Task 3's checklist boxes to `[x]`, stage the plan file and include that state in the review commit.
+- [x] **Step 10: Mark Task 3 complete.** Set Task 3's checklist boxes to `[x]`, stage the plan file and include that state in the review commit.
 
 ### Task 4: Rendered-page taste, accessibility and performance review
 

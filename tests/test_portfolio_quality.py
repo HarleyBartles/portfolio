@@ -440,23 +440,25 @@ class PortfolioQualityTests(unittest.TestCase):
                 self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
 
     def test_patch_showcase_accepts_authored_presentations(self) -> None:
-        def mutate(fixture: PortfolioFixture) -> None:
-            source = fixture.content / str(fixture.items[0]["path"])
-            source.unlink()
-            fixture.items[0].update({
-                "slug": "identity-emporium",
-                "kind": "patch",
-                "title": "Identity Emporium",
-                "status": "visual development",
-                "summary": "Preparation shaped by the work.",
-                "presentation": "patch-identity-emporium",
-            })
-            del fixture.items[0]["path"]
-            fixture.write_manifest()
+        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-lawful-heist"):
+            with self.subTest(presentation=presentation):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    source = fixture.content / str(fixture.items[0]["path"])
+                    source.unlink()
+                    fixture.items[0].update({
+                        "slug": "patch-story",
+                        "kind": "patch",
+                        "title": "Patch Story",
+                        "status": "visual development",
+                        "summary": "A shaped visual story.",
+                        "presentation": presentation,
+                    })
+                    del fixture.items[0]["path"]
+                    fixture.write_manifest()
 
-        findings = self.validate(mutate)
+                findings = self.validate(mutate)
 
-        self.assertEqual(findings, [])
+                self.assertEqual(findings, [])
 
     def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

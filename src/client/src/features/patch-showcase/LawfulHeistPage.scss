@@ -1,0 +1,439 @@
+.lawful-heist {
+  --heist-ink: #18211c;
+  --heist-paper: #f4ead2;
+  --heist-blue: #406a78;
+  --heist-red: #9a3932;
+  --heist-gold: #d4a43b;
+  --heist-green: #496a54;
+  --patch-teal: #0d7476;
+  --patch-teal-deep: #153f42;
+  display: grid;
+  gap: clamp(var(--space-16), 9vw, var(--space-24));
+  padding-block: var(--space-12) var(--space-20);
+}
+
+.lawful-heist figure,
+.lawful-heist blockquote {
+  margin: 0;
+}
+
+.lawful-heist picture,
+.lawful-heist img {
+  display: block;
+  width: 100%;
+}
+
+.lawful-heist img {
+  height: auto;
+}
+
+.lawful-heist__lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+  gap: var(--space-6) var(--space-12);
+  align-items: end;
+  max-width: 68rem;
+}
+
+.lawful-heist__lead .patch-status {
+  grid-column: 1 / -1;
+  color: var(--patch-teal);
+  font-family: var(--font-code);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lawful-heist__lead > p:nth-child(2) {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3.4vw, 3rem);
+  line-height: 1.16;
+}
+
+.lawful-heist__lead > p:last-child {
+  max-width: 24rem;
+  margin: 0;
+  padding: var(--space-6);
+  color: var(--color-surface);
+  background: var(--heist-ink);
+  font-family: var(--font-code);
+  font-size: 0.92rem;
+}
+
+.lawful-heist__folder {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(73 50 20 / 35%);
+  background: var(--heist-paper);
+  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 10%);
+}
+
+.lawful-heist__folder figcaption,
+.heist-recruit__scene figcaption {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--space-5);
+  max-width: 22rem;
+  padding: var(--space-4) var(--space-5);
+  color: var(--heist-ink);
+  background: rgb(255 255 255 / 94%);
+  font-family: var(--font-code);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.lawful-heist__crew {
+  display: grid;
+  gap: clamp(var(--space-16), 10vw, var(--space-24));
+}
+
+.heist-recruit {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: center;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--heist-ink);
+}
+
+.heist-recruit__header {
+  grid-column: 1 / span 5;
+  align-self: start;
+}
+
+.heist-recruit__number,
+.heist-recruit__responsibility {
+  margin: 0;
+  font-family: var(--font-code);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heist-recruit__number {
+  color: var(--patch-teal);
+}
+
+.heist-recruit__responsibility {
+  margin-top: var(--space-5);
+  color: var(--color-muted);
+}
+
+.heist-recruit h2 {
+  max-width: 9ch;
+  margin: var(--space-2) 0 var(--space-5);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  line-height: 0.88;
+}
+
+.heist-recruit blockquote {
+  max-width: 26rem;
+  padding: var(--space-4) var(--space-5);
+  border-radius: 50%;
+  color: var(--heist-ink);
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(24 33 28 / 24%);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.heist-recruit blockquote p {
+  margin: 0;
+}
+
+.heist-recruit__portrait {
+  grid-column: 6 / span 5;
+  align-self: stretch;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.heist-recruit__portrait picture,
+.heist-recruit__portrait img {
+  height: 100%;
+}
+
+.heist-recruit__portrait img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.heist-recruit__story {
+  grid-column: 2 / span 6;
+  max-width: 43rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+}
+
+.heist-recruit__story p + p {
+  margin-top: var(--space-5);
+}
+
+.heist-recruit__marker {
+  grid-column: 10 / span 3;
+  grid-row: 1 / span 2;
+  align-self: end;
+  transform: rotate(2deg);
+}
+
+.heist-recruit--silk .heist-recruit__header,
+.heist-recruit--klause .heist-recruit__header {
+  grid-column: 7 / span 6;
+}
+
+.heist-recruit--silk .heist-recruit__portrait,
+.heist-recruit--klause .heist-recruit__portrait {
+  grid-column: 1 / span 5;
+  grid-row: 1 / span 2;
+}
+
+.heist-recruit--silk .heist-recruit__story,
+.heist-recruit--klause .heist-recruit__story {
+  grid-column: 6 / span 5;
+}
+
+.heist-recruit--silk .heist-recruit__marker,
+.heist-recruit--klause .heist-recruit__marker {
+  grid-column: 10 / span 3;
+  grid-row: 2;
+}
+
+.heist-recruit--writ {
+  padding: var(--space-8);
+  color: var(--color-surface);
+  background: var(--heist-blue);
+  border-top: 0;
+}
+
+.heist-recruit--writ .heist-recruit__number,
+.heist-recruit--writ .heist-recruit__responsibility {
+  color: var(--color-surface);
+}
+
+.heist-recruit--rollback {
+  gap: 0;
+  padding: 0;
+  color: var(--color-surface);
+  background: var(--heist-ink);
+  border-top: 0;
+}
+
+.heist-recruit--rollback .heist-recruit__header {
+  grid-column: 1 / span 5;
+  padding: clamp(var(--space-8), 7vw, var(--space-16));
+}
+
+.heist-recruit--rollback .heist-recruit__number,
+.heist-recruit--rollback .heist-recruit__responsibility {
+  color: #f2c35b;
+}
+
+.heist-recruit--rollback .heist-recruit__scene {
+  grid-column: 5 / -1;
+  grid-row: 1;
+  align-self: stretch;
+  min-height: clamp(32rem, 58vw, 52rem);
+}
+
+.heist-recruit--rollback .heist-recruit__scene picture,
+.heist-recruit--rollback .heist-recruit__scene img {
+  height: 100%;
+}
+
+.heist-recruit--rollback .heist-recruit__scene img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heist-recruit--rollback .heist-recruit__story {
+  grid-column: 2 / span 6;
+  padding: var(--space-10) 0 var(--space-12);
+}
+
+.heist-recruit--rollback .heist-recruit__portrait {
+  grid-column: 8 / span 4;
+  min-height: 34rem;
+  margin-top: calc(-1 * var(--space-16));
+  z-index: 1;
+}
+
+.heist-recruit--rollback .heist-recruit__marker {
+  grid-column: 11 / span 2;
+  grid-row: 2;
+  padding: var(--space-4);
+}
+
+.heist-recruit--receipt {
+  align-items: end;
+  background: linear-gradient(90deg, transparent 0 18%, rgb(212 164 59 / 18%) 18% 100%);
+}
+
+.heist-recruit--receipt .heist-recruit__header {
+  grid-column: 1 / span 4;
+  padding-bottom: var(--space-8);
+}
+
+.heist-recruit--receipt .heist-recruit__scene {
+  grid-column: 4 / -1;
+  grid-row: 1;
+  margin-left: var(--space-8);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 10%);
+}
+
+.heist-recruit--receipt .heist-recruit__story {
+  grid-column: 3 / span 6;
+}
+
+.heist-recruit--receipt .heist-recruit__marker {
+  grid-column: 9 / span 3;
+  grid-row: 2;
+}
+
+.lawful-heist__assembled {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.55fr) minmax(0, 1.45fr);
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.lawful-heist__assembled > div {
+  max-width: 30rem;
+}
+
+.lawful-heist__assembled h2 {
+  margin: var(--space-3) 0 var(--space-5);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  line-height: 0.98;
+}
+
+.lawful-heist__folder--complete figcaption {
+  inset: auto var(--space-5) var(--space-5) auto;
+}
+
+.lawful-heist__case-study-link {
+  max-width: 48rem;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--heist-ink);
+}
+
+.lawful-heist__case-study-link a {
+  color: var(--patch-teal-deep);
+  font-weight: 700;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 54rem) {
+  .lawful-heist__lead,
+  .lawful-heist__assembled {
+    grid-template-columns: 1fr;
+  }
+
+  .heist-recruit__header,
+  .heist-recruit--silk .heist-recruit__header,
+  .heist-recruit--klause .heist-recruit__header {
+    grid-column: 1 / span 6;
+  }
+
+  .heist-recruit__portrait,
+  .heist-recruit--silk .heist-recruit__portrait,
+  .heist-recruit--klause .heist-recruit__portrait {
+    grid-column: 7 / -1;
+    grid-row: 1;
+  }
+
+  .heist-recruit__story,
+  .heist-recruit--silk .heist-recruit__story,
+  .heist-recruit--klause .heist-recruit__story {
+    grid-column: 1 / span 8;
+  }
+
+  .heist-recruit__marker,
+  .heist-recruit--silk .heist-recruit__marker,
+  .heist-recruit--klause .heist-recruit__marker {
+    grid-column: 9 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 42rem) {
+  .lawful-heist__folder figcaption,
+  .heist-recruit__scene figcaption {
+    position: static;
+    max-width: none;
+  }
+
+  .heist-recruit {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .heist-recruit__header,
+  .heist-recruit--silk .heist-recruit__header,
+  .heist-recruit--klause .heist-recruit__header,
+  .heist-recruit__story,
+  .heist-recruit--silk .heist-recruit__story,
+  .heist-recruit--klause .heist-recruit__story {
+    grid-column: 1 / -1;
+  }
+
+  .heist-recruit__portrait,
+  .heist-recruit--silk .heist-recruit__portrait,
+  .heist-recruit--klause .heist-recruit__portrait {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .heist-recruit__marker,
+  .heist-recruit--silk .heist-recruit__marker,
+  .heist-recruit--klause .heist-recruit__marker {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  .heist-recruit--writ {
+    padding: var(--space-6);
+  }
+
+  .heist-recruit--rollback .heist-recruit__header,
+  .heist-recruit--rollback .heist-recruit__scene,
+  .heist-recruit--rollback .heist-recruit__story,
+  .heist-recruit--receipt .heist-recruit__header,
+  .heist-recruit--receipt .heist-recruit__scene,
+  .heist-recruit--receipt .heist-recruit__story {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .heist-recruit--rollback .heist-recruit__scene {
+    min-height: 24rem;
+  }
+
+  .heist-recruit--rollback .heist-recruit__portrait {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 20rem;
+    margin: 0;
+  }
+
+  .heist-recruit--rollback .heist-recruit__marker,
+  .heist-recruit--receipt .heist-recruit__marker {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  .heist-recruit--receipt .heist-recruit__scene {
+    margin-left: 0;
+  }
+
+  .heist-recruit--receipt {
+    background: linear-gradient(180deg, transparent 0 10%, rgb(212 164 59 / 18%) 10% 100%);
+  }
+}

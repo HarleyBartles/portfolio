@@ -22,6 +22,7 @@ export function PatchIndexPage(): ReactElement {
   const fairytales = patchStories.filter((item) => item.slug === 'goldilocks' || item.slug === 'sorcerers-apprentice')
   const identity = patchStories.find((item) => item.slug === 'identity-emporium')
   const tournament = patchStories.find((item) => item.slug === 'tournament-of-reasonable-defaults')
+  const heist = patchStories.find((item) => item.slug === 'lawful-heist')
   const worlds = getInFlightWorlds()
 
   return (
@@ -66,7 +67,8 @@ export function PatchIndexPage(): ReactElement {
                     <h3>
                       {world.title === 'Identity Emporium' && identity !== undefined ? <Link to="/patch/identity-emporium">{world.title}</Link> : null}
                       {world.title === 'Tournament of Reasonable Defaults' && tournament !== undefined ? <Link to="/patch/tournament-of-reasonable-defaults">{world.title}</Link> : null}
-                      {world.title !== 'Identity Emporium' && world.title !== 'Tournament of Reasonable Defaults' ? world.title : null}
+                      {world.title === 'Lawful Heist' && heist !== undefined ? <Link to="/patch/lawful-heist">{world.title}</Link> : null}
+                      {world.title !== 'Identity Emporium' && world.title !== 'Tournament of Reasonable Defaults' && world.title !== 'Lawful Heist' ? world.title : null}
                     </h3>
                     <p>{world.lesson}</p>
                     <p className="patch-index__evidence">{world.currentEvidence}</p>

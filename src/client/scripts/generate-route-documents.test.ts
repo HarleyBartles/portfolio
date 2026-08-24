@@ -34,6 +34,12 @@ describe('route document generator', () => {
             title: 'Agentic engineering and the kindness of vibe coding',
             summary: 'A specific article summary.',
           },
+          {
+            slug: 'lawful-heist',
+            kind: 'patch',
+            title: 'The Lawful Heist Crew',
+            summary: 'Six specialists make a lawful override routine.',
+          },
         ],
       }),
     )
@@ -52,6 +58,7 @@ describe('route document generator', () => {
       'utf8',
     )
     const fallback = await readFile(path.join(distRoot, '404.html'), 'utf8')
+    const lawfulHeist = await readFile(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'), 'utf8')
 
     expect(projects).toContain('<title>Project Stories | Harley Bartles</title>')
     expect(projects).toContain('https://harleybartles.github.io/portfolio/projects')
@@ -65,6 +72,9 @@ describe('route document generator', () => {
     expect(article).toContain(
       'https://harleybartles.github.io/portfolio/writing/agentic-engineering-vs-vibe-coding',
     )
+    expect(lawfulHeist).toContain('<title>The Lawful Heist Crew | Harley Bartles</title>')
+    expect(lawfulHeist).toContain('Six specialists make a lawful override routine.')
+    expect(lawfulHeist).toContain('https://harleybartles.github.io/portfolio/patch/lawful-heist')
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
   })
 })
