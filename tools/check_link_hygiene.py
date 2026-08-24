@@ -23,6 +23,7 @@ PLURAL = {"project": "projects"}
 INDEX_ROUTES = {"/", "/projects", "/writing", "/fairytales", "/about", "/cv"}
 
 ANCHOR_RE = re.compile(r'<a\s[^>]*?\bhref\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|\{\s*["\']([^"\']*)["\']\s*\})', re.IGNORECASE)
+ANCHOR_TAG_RE = re.compile(r'<a\b[^>]*>', re.IGNORECASE | re.DOTALL)
 LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)]+)\)')
 ABSOLUTE_LOCAL_RE = re.compile(r'^/[a-zA-Z0-9_/.-]')
 
@@ -64,17 +65,50 @@ def check_related_slugs(manifest: dict, errors: list[str]) -> None:
                 )
 
 
-def check_jsx_anchors(errors: list[str]) -> None:
-    for path in SRC_CLIENT.rglob("*.tsx"):
+def check_jsx_anchors(errors: list[str], source_root: Path = SRC_CLIENT) -> None:
+    for path in source_root.rglob("*.tsx"):
+        if path.name == "ExternalLink.tsx":
+            continue
         if path.name == "MarkdownContent.tsx":
             continue
         text = path.read_text(encoding="utf-8")
+        for tag in ANCHOR_TAG_RE.findall(text):
+            if re.search(r'\btarget\s*=\s*["\']_blank["\']', tag, re.IGNORECASE):
+                errors.append(
+                    f"{path.relative_to(ROOT) if path.is_relative_to(ROOT) else path.name}: raw new-tab anchor bypasses the accessible ExternalLink component"
+                )
+            if re.search(r'\bhref\s*=\s*["\']https?://', tag, re.IGNORECASE):
+                errors.append(
+                    f"{path.relative_to(ROOT) if path.is_relative_to(ROOT) else path.name}: raw external anchor bypasses the accessible ExternalLink component"
+                )
         for match in ANCHOR_RE.finditer(text):
             href = next(g for g in match.groups() if g is not None)
             if href.startswith("/") and not href.startswith("//"):
                 errors.append(
                     f"{path.relative_to(ROOT)}: <a href=\"{href}\"> uses a root-relative href; use react-router Link instead"
                 )
+
+
+def check_external_link_contract(errors: list[str], source_root: Path = SRC_CLIENT) -> None:
+    component = source_root / "components" / "ExternalLink.tsx"
+    if not component.is_file():
+        errors.append("src/client/src/components/ExternalLink.tsx: accessible external-link component is missing")
+        return
+
+    text = component.read_text(encoding="utf-8")
+    required_fragments = {
+        'target="_blank"': "open external destinations in a new tab",
+        "noopener": "protect the opener context",
+        "noreferrer": "avoid leaking the portfolio URL",
+        "external-link__icon": "show a visible external-link icon",
+        "opens in a new tab": "announce the new browsing context",
+        'aria-hidden="true"': "hide the decorative icon from assistive technology",
+    }
+    for fragment, purpose in required_fragments.items():
+        if fragment not in text:
+            errors.append(
+                f"src/client/src/components/ExternalLink.tsx: must {purpose} ({fragment!r} missing)"
+            )
 
 
 def _content_md_paths(manifest: dict) -> set[Path]:
@@ -171,6 +205,7 @@ def main() -> int:
 
     check_related_slugs(manifest, errors)
     check_jsx_anchors(errors)
+    check_external_link_contract(errors)
     check_markdown_links(manifest, routes, errors)
     check_seo_files(routes, errors)
 

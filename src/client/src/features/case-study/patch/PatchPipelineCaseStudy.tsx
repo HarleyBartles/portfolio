@@ -1,5 +1,6 @@
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
+import { ExternalLink } from '../../../components/ExternalLink'
 import { PatchEvidenceGallery, getPatchAssetPath } from './PatchEvidenceGallery'
 import { PatchProductionFlow } from './PatchProductionFlow'
 import { PatchStoryLab } from './PatchStoryLab'
@@ -107,7 +108,7 @@ export function PatchPipelineCaseStudy() {
             <h2 id="patch-close-title">Controlled creative production</h2>
             <p>Generative imagery gives this project range. I remain responsible for the lesson, frame, visual direction, rejection reasons and acceptance bar. The tooling preserves those decisions through source custody, status, image QA, deterministic composition and the receipt that says what actually shipped.</p>
             <p>The extra work buys me material I can revise without losing provenance, explanations I can trust in front of a technical audience, and an honest line between an exciting image and a published artefact.</p>
-            <a className="patch-source-link" href={pinnedRepositoryUrl}>Open the public Adventures of Patch repository</a>
+            <ExternalLink className="patch-source-link" href={pinnedRepositoryUrl}>Open the public Adventures of Patch repository</ExternalLink>
           </div>
         </section>
       </section>

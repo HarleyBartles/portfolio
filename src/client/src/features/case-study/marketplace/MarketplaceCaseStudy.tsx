@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { ExternalLink } from '../../../components/ExternalLink'
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyDecision } from '../CaseStudyDecision'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
@@ -20,7 +21,7 @@ export function MarketplaceCaseStudy(): ReactElement {
           <p>Useful agent guidance kept recurring across repositories: how to shape a worktree, verify a handoff, or inspect an external tool without pretending that every project works the same way.</p>
           <p>The first version aggregated useful third-party material. That made discovery easier, but copying everything into every repository produced noise while centralising every instruction erased the local exceptions that made it trustworthy.</p>
           <p>The pivot was a first-party operating model: maintain a small shared baseline, select specialist plugins deliberately, and leave project knowledge local. Derived work such as <code>superpowers-plus</code> keeps its lineage visible rather than presenting upstream ideas as original authorship.</p>
-          <p><a href={repositoryUrl}>Inspect the public source</a></p>
+          <p><ExternalLink href={repositoryUrl}>Inspect the public source</ExternalLink></p>
         </CaseStudySection>
 
         <MarketplaceDistributionMap />
@@ -34,13 +35,13 @@ export function MarketplaceCaseStudy(): ReactElement {
         <CaseStudySection title="One skill, a local overlay, and a checkable workflow">
           <ol className="case-study-trace">
             <li>Repeated repository-shape and runbook instructions reveal a shared need.</li>
-            <li>The maintained <a href={repoStandardsUrl}>repo-standards skill</a> captures the portable baseline.</li>
+            <li>The maintained <ExternalLink href={repoStandardsUrl}>repo-standards skill</ExternalLink> captures the portable baseline.</li>
             <li><code>repo-worker-pack</code> distributes that authored source.</li>
             <li>A consumer installs a generated copy under <code>.agents/skills/</code>.</li>
             <li>Local doctrine, runbooks, commands, and exceptions remain with the repository.</li>
             <li>Deterministic <code>check</code> and <code>apply</code> validation detects drift without pretending the local overlay is centrally owned.</li>
           </ol>
-          <p><a href={repoStandardsUrl}>Read the repo-standards skill</a></p>
+          <p><ExternalLink href={repoStandardsUrl}>Read the repo-standards skill</ExternalLink></p>
         </CaseStudySection>
 
         <section className="marketplace-case-study__decisions" aria-labelledby="marketplace-decisions-title">

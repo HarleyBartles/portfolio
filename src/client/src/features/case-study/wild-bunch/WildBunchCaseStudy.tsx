@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import { ExternalLink } from '../../../components/ExternalLink'
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
 import { CaseStudySection } from '../CaseStudySection'
@@ -37,7 +38,7 @@ export function WildBunchCaseStudy(): ReactElement {
             <p>Forty years later, I'm not trying to reconstruct the software I played. My memory's incomplete and probably wrong in places, but that's useful: I want to recreate the experience it left behind. Five towns felt like a whole dangerous frontier. Every journey carried possibility, and somewhere behind me the law was getting closer.</p>
             <p>Playing the original now wouldn't make me five again, and a faithful port wouldn't make an adult feel that scale. My version has to become a different game. I can keep the false accusation, the pursuit and the search for the real killer, then build outward until the world produces the uncertainty, consequence and excitement I remember.</p>
             <p>That meant beginning with something deterministic, then threading salted randomness through play. The deterministic base had to carry replayability on its own: one starting world should remain knowable, while another seed should produce a different world that's just as stable. Surprise could come from moving between those worlds and varying what happened inside them without losing the ability to explain either.</p>
-            <p><a href={historicalReferenceUrl}>Historical Wild Bunch archive</a></p>
+            <p><ExternalLink href={historicalReferenceUrl}>Historical Wild Bunch archive</ExternalLink></p>
           </CaseStudySection>
         </div>
 
@@ -48,7 +49,7 @@ export function WildBunchCaseStudy(): ReactElement {
               <p>The seed is UUID-shaped because 128 bits are familiar to store, copy and pass around, but I didn't want 128 bits of arbitrary noise. The v17 codec currently uses 33 of them and deliberately reserves 95. It spends bits on choices that need to survive as part of the world contract, then gets more variation from deterministic policies. Town names, for example, come from shuffling a pool of 40 names rather than assigning an encoded field to every town.</p>
               <p>The map follows the same idea. It starts with Delaunay candidates, takes a minimum spanning tree so every town is connected, adds useful alternate trails, filters awkward parallels and corridors, then repairs cases that would strand a town or leave it under-connected. A compact recipe produces meaningful route distances and more than one way through the map. Every road remains reproducible without being encoded separately.</p>
               <p>Town layout closes a subtler gap. Dustwell, shown above, is one generated town in this seed's map-world. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay. When the player leaves and returns, it's the same place.</p>
-              <p><a href={graphEvidenceUrl}>Pinned graph-generation evidence</a> · <a href={persistedWorldEvidenceUrl}>Pinned persisted-world evidence</a></p>
+              <p><ExternalLink href={graphEvidenceUrl}>Pinned graph-generation evidence</ExternalLink> · <ExternalLink href={persistedWorldEvidenceUrl}>Pinned persisted-world evidence</ExternalLink></p>
             </div>
             <div className="wild-bunch-story-movement__proof wild-bunch-story-movement__proof--determinism">
               <WildBunchDeterminismFigure />
@@ -59,7 +60,7 @@ export function WildBunchCaseStudy(): ReactElement {
             <div className="wild-bunch-story-movement__afterword">
               <p>The seed describes the base world; it doesn't swallow the whole playthrough. Difficulty, entropy policy, named salts and player choices remain legible inputs of their own. Under the Boring policy, the same seed, difficulty, entropy policy and ordered choices take the same path. Other policies can salt state changes to make a run less predictable while preserving the source of that variation.</p>
               <p>That separation gave me two useful layers of replayability. I can compare stable worlds before introducing variable play, and I can make the variable parts repeat when a test or investigation needs them to. Determinism lets me put surprise back where I found it without giving up an explanation.</p>
-              <p><a href={`${sourceRoot}/src/WildBunch.GameContent/NewGame/SeedWorldResolver.cs`}>Pinned resolver evidence</a></p>
+              <p><ExternalLink href={`${sourceRoot}/src/WildBunch.GameContent/NewGame/SeedWorldResolver.cs`}>Pinned resolver evidence</ExternalLink></p>
             </div>
           </CaseStudySection>
         </div>
@@ -80,7 +81,7 @@ export function WildBunchCaseStudy(): ReactElement {
               <WildBunchAuditEvidence />
             </div>
             <div className="wild-bunch-story-movement__afterword">
-              <p><a href={`${sourceRoot}/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs`}>Pinned replay-equality evidence</a></p>
+              <p><ExternalLink href={`${sourceRoot}/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs`}>Pinned replay-equality evidence</ExternalLink></p>
             </div>
             <aside className="wild-bunch-dossier" aria-label="Text-first technical dossier">
             <h3>Under the bonnet</h3>
@@ -105,7 +106,7 @@ export function WildBunchCaseStudy(): ReactElement {
               <p>Hiding the culprit in a React component would hide nothing from somebody inspecting the response. The read model itself has to respect the knowledge boundary. CQRS pays rent here because the player query and the diagnostic query can answer different questions without either becoming the command model.</p>
               <p>The same boundary keeps development control out of player actions. Developer commands and queries have their own surface. When reproducing a bug, I can fix a salt source or prepare a one-use next action, then let the ordinary player-facing command consume it. Exact replay gets me back to the reported state; deterministic preparation makes the next apparently random step repeatable as well.</p>
               <p>That control is already useful during development. With many hosted sessions, a difficult report could arrive with an exact accepted history, be reconstructed away from the player's live session, and have its next uncertain decision exercised deliberately. Otherwise I have a screenshot, a mutable row and a hope that somebody can make the bug happen twice.</p>
-              <p><a href={developerToolingEvidenceUrl}>Pinned developer-tooling evidence</a></p>
+              <p><ExternalLink href={developerToolingEvidenceUrl}>Pinned developer-tooling evidence</ExternalLink></p>
             </div>
             <div className="wild-bunch-story-movement__proof wild-bunch-story-movement__proof--product">
               <WildBunchProductEvidence />
@@ -135,7 +136,7 @@ export function WildBunchCaseStudy(): ReactElement {
         <div className="wild-bunch-source-note" data-story-close="source-note">
           <CaseStudySection title="Inspect it. Run it.">
             <p>These captures document the current playable build, including its temporary development art. The source snapshot pins every architectural claim above to the version I inspected.</p>
-            <p>The game isn't hosted yet. It's a hobby project, and it grows when I have time. You can still play the pre-alpha: <a href={localSetupUrl}>Clone and run Wild Bunch</a>. You'll need .NET 10, the frontend toolchain and local PostgreSQL. The repository scripts handle most of the database work, but PostgreSQL is the likely bit of friction.</p>
+            <p>The game isn't hosted yet. It's a hobby project, and it grows when I have time. You can still play the pre-alpha: <ExternalLink href={localSetupUrl}>Clone and run Wild Bunch</ExternalLink>. You'll need .NET 10, the frontend toolchain and local PostgreSQL. The repository scripts handle most of the database work, but PostgreSQL is the likely bit of friction.</p>
             <CaseStudyEvidence auditDate="21 August 2026" href={pinnedRepositoryUrl} label="Wild Bunch source snapshot (pinned revision)" />
           </CaseStudySection>
         </div>

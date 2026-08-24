@@ -311,7 +311,21 @@
 }
 
 .patch-published-gallery a {
+  position: relative;
   display: block;
+}
+
+.patch-published-gallery a .external-link__icon {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  box-sizing: content-box;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid currentColor;
+  background: color-mix(in srgb, var(--patch-cream) 92%, transparent);
 }
 
 .patch-published-gallery a:focus-visible,

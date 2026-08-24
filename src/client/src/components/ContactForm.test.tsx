@@ -18,7 +18,7 @@ describe('ContactForm', () => {
         'href',
         'https://github.com/HarleyBartles',
       )
-      expect(screen.getByRole('link', { name: 'LinkedIn: Harley Bartles' })).toHaveAttribute(
+      expect(screen.getByRole('link', { name: 'LinkedIn: Harley Bartles (opens in a new tab)' })).toHaveAttribute(
         'href',
         'https://www.linkedin.com/in/harley-bartles-92326110/',
       )

@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test'
 
-const appOrigin = 'http://127.0.0.1:4173'
 const expectedFonts = [
   { family: 'Fraunces', assetName: /fraunces-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Serif 4', assetName: /source-serif-4-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Fira Code', assetName: /fira-code-latin-wght-normal-[^/]+\.woff2$/ },
 ] as const
 
-test('production typography is self-hosted and available without a font CDN', async ({ page }) => {
+test('production typography is self-hosted and available without a font CDN', async ({ page }, testInfo) => {
+  const appOrigin = new URL(testInfo.project.use.baseURL as string).origin
   const externalRequests: string[] = []
   const successfulFontResponses: string[] = []
 

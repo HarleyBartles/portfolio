@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { CareerTimeline } from '../components/CareerTimeline'
 import { ContactForm } from '../components/ContactForm'
+import { ExternalLink } from '../components/ExternalLink'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
 import { getEngineeringExperienceLabel, professionalProfile } from '../data/professionalProfile'
@@ -108,7 +109,7 @@ export function AboutPage(): ReactElement {
           <p className="eyebrow">In a previous life</p>
           <h2 id="previous-life-title">There was an intermittent four-year acting career, too.</h2>
           <p>It included television work and a role in series three of <em>Shameless</em>. It belongs here as a small human aside, not as a second professional chronology.</p>
-          <a className="text-link" href={professionalProfile.publicLinks.imdb.href} rel="noreferrer" target="_blank">{professionalProfile.publicLinks.imdb.label} <span aria-hidden="true">↗</span></a>
+          <ExternalLink className="text-link" href={professionalProfile.publicLinks.imdb.href}>{professionalProfile.publicLinks.imdb.label}</ExternalLink>
         </aside>
 
         <aside className="cv-note" aria-labelledby="cv-title" data-visual-contract="about-cv-conversion">

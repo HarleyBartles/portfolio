@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { DocumentMetadata } from '../components/DocumentMetadata'
+import { ExternalLink } from '../components/ExternalLink'
 import { SiteLayout } from '../components/SiteLayout'
 import { professionalProfile, type CareerStage } from '../data/professionalProfile'
 
@@ -14,10 +15,6 @@ function careerStage(id: string): CareerStage {
   }
 
   return stage
-}
-
-function ExternalLink({ href, children }: { href: string; children: string }): ReactElement {
-  return <a href={href} rel="noreferrer noopener" target="_blank">{children}</a>
 }
 
 export function CvPage(): ReactElement {
@@ -50,7 +47,7 @@ export function CvPage(): ReactElement {
               <p>{professionalProfile.availability.shortLabel} · {professionalProfile.noticePeriod}</p>
               <p>{professionalProfile.availability.fullLabel}</p>
               <ul className="cv-links" aria-label="Professional links">
-                <li><ExternalLink href={portfolio.href}>{portfolio.label}</ExternalLink></li>
+                <li><Link to="/">{portfolio.label}</Link></li>
                 <li><ExternalLink href={linkedin.href}>{linkedin.label}</ExternalLink></li>
                 <li><ExternalLink href={github.href}>{github.label}</ExternalLink></li>
                 <li><Link to="/about#contact">Portfolio contact route</Link></li>

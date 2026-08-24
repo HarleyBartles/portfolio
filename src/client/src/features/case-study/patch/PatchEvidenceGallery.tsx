@@ -1,3 +1,4 @@
+import { ExternalLink } from '../../../components/ExternalLink'
 import { getPatchMediaByPath, getPublishedEvidence, type PatchEvidenceMedia } from './patchEvidence'
 
 export function getPatchAssetPath(path: string, baseUrl = import.meta.env.BASE_URL): string {
@@ -18,7 +19,7 @@ export function PatchEvidenceGallery() {
 
         return (
           <figure key={artefact.title}>
-            <a href={artefact.publicArtefactUrl} aria-label={`Open ${artefact.title} in the public repository`}>
+            <ExternalLink href={artefact.publicArtefactUrl} aria-label={`Open ${artefact.title} in the public repository`}>
               <picture>
                 <source media="(min-width: 45rem)" srcSet={getPatchAssetPath(media.path)} type="image/avif" />
                 <source media="(min-width: 45rem)" srcSet={getPatchAssetPath(wideWebp.path)} type="image/webp" />
@@ -26,7 +27,7 @@ export function PatchEvidenceGallery() {
                 <source srcSet={getPatchAssetPath(narrowWebp.path)} type="image/webp" />
                 <img src={getPatchAssetPath(narrowWebp.path)} width={narrowWebp.width} height={narrowWebp.height} alt={alt} loading="lazy" />
               </picture>
-            </a>
+            </ExternalLink>
             <figcaption><strong>{captionLabel}</strong>{captionDetail === undefined ? '.' : `. ${captionDetail}`}</figcaption>
           </figure>
         )

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ExternalLink } from '../../../components/ExternalLink'
 import { getInFlightWorlds, getPatchMediaByPath, getPublishedArtefacts } from './patchEvidence'
 import { getPatchAssetPath } from './PatchEvidenceGallery'
 
@@ -37,7 +38,7 @@ export function PatchPublishedWork({ children }: { children?: ReactNode }) {
         <h2 id="patch-published-artefacts-title">What has earned an artefact</h2>
         <p>Four pieces have cleared their own publication bar. Club DB is the origin deck. Goldilocks and The Sorcerer&apos;s Apprentice use the shallower fairytale format: one visual page, one operational lesson, one useful action. Introducing Patch explains the character who carries the work.</p>
         <ul className="patch-published-links" aria-label="Published Patch artefacts">
-          {getPublishedArtefacts().map((artefact) => <li key={artefact.title}><a href={artefact.publicArtefactUrl}>{artefact.title}</a></li>)}
+          {getPublishedArtefacts().map((artefact) => <li key={artefact.title}><ExternalLink href={artefact.publicArtefactUrl}>{artefact.title}</ExternalLink></li>)}
         </ul>
       </div>
       {children}

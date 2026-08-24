@@ -33,7 +33,11 @@ test('visitor opens the Wild Bunch route with its Western hook, status, and insp
   await expect(history).toHaveAttribute('href', /worldofspectrum\.org/)
   await expect(pinnedReplay).toHaveAttribute('href', /2a9814d094148bb789766a27d316095fecce5a60/)
   await expect(runGame).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch#run-the-pre-alpha-locally')
-  for (const linkName of ['Historical Wild Bunch archive', 'Pinned replay-equality evidence', 'Wild Bunch source snapshot (pinned revision)']) {
+  for (const linkName of [
+    'Historical Wild Bunch archive (opens in a new tab)',
+    'Pinned replay-equality evidence (opens in a new tab)',
+    'Wild Bunch source snapshot (pinned revision) (opens in a new tab)',
+  ]) {
     await tabToLink(page, linkName)
     await expect(page.getByRole('link', { name: linkName })).toBeFocused()
   }
@@ -152,7 +156,12 @@ test('visitor opens Adventures of Patch with its production claim and inspectabl
   const published = page.getByRole('region', { name: 'What has earned an artefact' })
   const publishedLinks = published.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link')
   await expect(publishedLinks).toHaveCount(4)
-  for (const linkName of ['Club DB', 'Goldilocks', "The Sorcerer's Apprentice", 'Introducing Patch']) {
+  for (const linkName of [
+    'Club DB (opens in a new tab)',
+    'Goldilocks (opens in a new tab)',
+    "The Sorcerer's Apprentice (opens in a new tab)",
+    'Introducing Patch (opens in a new tab)',
+  ]) {
     await tabToLink(page, linkName)
     const focusedLink = page.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link', { name: linkName, exact: true })
     await expect(focusedLink).toBeFocused()

@@ -86,9 +86,13 @@
 - Consumes: GitHub proof for PR #24, Adventures revision `0240a865...`, the exact source paths named in the drift table, existing Sharp dependency and media-budget contract.
 - Produces: a main-aligned Phase 5 branch, completed Phase 4 record, deterministic responsive Patch derivative families, and custody entries consumed by Tasks 2-5.
 
-- [ ] **Step 1: Verify the merge before rewriting history.** Run `gh pr view 24 --json state,mergedAt,mergeCommit,headRefOid,url`, `git fetch origin`, and `git rev-parse origin/main`. Expected: `MERGED`, a non-null merge commit, and `origin/main` containing the recovery changes. Fast-forward the shared checkout with `git merge --ff-only origin/main`, then rebase this clean Phase 5 branch onto `origin/main`. If GitHub still reports `OPEN`, leave Phase 4 `executing` and continue source inventory without a false closeout claim.
+- [x] **Step 1: Verify the merge before rewriting history.** Run `gh pr view 24 --json state,mergedAt,mergeCommit,headRefOid,url`, `git fetch origin`, and `git rev-parse origin/main`. Expected: `MERGED`, a non-null merge commit, and `origin/main` containing the recovery changes. Fast-forward the shared checkout with `git merge --ff-only origin/main`, then rebase this clean Phase 5 branch onto `origin/main`. If GitHub still reports `OPEN`, leave Phase 4 `executing` and continue source inventory without a false closeout claim.
 
-- [ ] **Step 2: Record honest Phase 4 closeout only on proof.** When Step 1 is green, update the roadmap with PR #23 and follow-up #24, exact merge SHA, hosted run `32672182157`, local 46 Python / 77 Vitest / 52 Playwright proof, and the locked-folder limitation. Move the final Phase 4 plan through the documented completion path and rewrite roadmap/index links. Do not delete the locked on-disk folder again; it is already deregistered and awaits the owning Windows process releasing it.
+  **Proof:** GitHub reports PR #24 merged at `2026-08-24T05:00:34Z` as merge commit `454b684caf8e3bda3fccda9ab9ca0e96dca47a4a`; `origin/main` and the shared checkout both resolve to that commit. This Phase 5 branch was rebased onto it before publication work continued.
+
+- [x] **Step 2: Record honest Phase 4 closeout only on proof.** When Step 1 is green, update the roadmap with PR #23 and follow-up #24, exact merge SHA, hosted run `32672182157`, local 46 Python / 77 Vitest / 52 Playwright proof, and the locked-folder limitation. Move the final Phase 4 plan through the documented completion path and rewrite roadmap/index links. Do not delete the locked on-disk folder again; it is already deregistered and awaits the owning Windows process releasing it.
+
+  **Proof:** PR #23 merged as `97b9b78e96f867d100c3bef6a156e36557d12bc8`; follow-up PR #24 merged as `454b684caf8e3bda3fccda9ab9ca0e96dca47a4a`. Hosted run `32672182157` passed on PR #24 head `34dfcdf34a7914134b7ccf1ab8c6f04aa8b0c83a`. The completed plan is archived and the roadmap records the local 46 Python / 77 Vitest / 52 Playwright proof and the deregistered locked-folder limitation.
 
 - [x] **Step 3: Write the failing asset-processing tests.** Add tests that call exported pure helpers with a fixture manifest and assert fixed derivative definitions for:
 
@@ -232,7 +236,7 @@
 
 - [x] **Step 9: Sol prose gate.** Read the full rendered article aloud. Search for em dashes, decorative emoji, formal contraction expansions, stock reversal frames, repeated sentence skeletons, private identifiers, apology language, and status repetition. Record pass/veto in this plan. A veto brief must name the exact paragraph, observed defect, intended effect, and preserved facts before a bounded Terra revision.
 
-  **Sol prose gate, PASS (2026-08-24):** Read as one rendered article at wide and narrow widths. The edit removed machine-status slugs, ambiguous `open source base` wording, repeated status qualifications, one redundant `still remain`, and the awkward `successor story` construction. Searches found no em dashes, decorative emoji, private identifiers, formal first-person expansions, apology language, or stock AI-tell phrases. The one explicit model-versus-production-system contrast remains because it states the case study's central acceptance boundary directly.
+  **Sol prose gate, PASS (2026-08-24):** Read as one rendered article at wide and narrow widths. The edit removed machine-status slugs, ambiguous `open source base` wording, repeated status qualifications, apology language, and familiar model-shaped reversal frames. A final human-voice pass added the missing origin: Patch began with a database incident and a memorable Club DB explanation for colleagues. It then replaced `I don't need to X. I need to Y`, the paraphrased model-versus-production-system reversal, and other smuggled variants with direct claims. Searches found no em dashes, decorative emoji, private identifiers, formal first-person expansions, or stock reflective scaffolding.
 
 - [x] **Step 10: Run focused component/build proof and commit.** Run `npm.cmd --prefix src/client test -- src/features/case-study/patch src/features/case-study/projectPresentations.test.tsx src/features/home/ProjectVisual.test.tsx src/pages/ContentPage.test.tsx` and `npm.cmd --prefix src/client run build`. Expected: PASS with no budget regression. Mark Task 4 complete and commit `feat: tell the Adventures of Patch production story` only after Sol's prose gate passes.
 
@@ -277,13 +281,15 @@
 
 - [x] **Step 6: Add only reviewed Windows baselines.** Capture focused contracts for hero/origin at 1440, pipeline/published work at 1440, three worlds/story lab at 1440, and complete stacked composition at 390. Update only `patch-*` snapshots. Run the focused visual suite twice to prove stable pixels at the existing tolerance.
 
-  **Proof:** Seven new `patch-*` Windows baselines cover the named compositions. The focused visual suite passed 4/4 twice without updating snapshots or changing tolerance.
+  **Proof:** Five new `patch-*` Windows baselines cover the named compositions through six visual contracts. After the final prose edit, the focused visual suite passed 6/6 twice without updating snapshots or changing tolerance.
 
 - [x] **Step 7: Repair bounded defects and re-run the owning gate.** Route factual/copy defects to Task 4, source/custody defects to Task 1, data/privacy defects to Task 2, and semantic component defects to Task 3. Do not patch symptoms in tests. Record each accepted repair and Sol re-review in the plan.
 
-  **Accepted repairs:** Manual review removed the generic body-width constraint and narrow hero flex collapse. Independent review then caught inherited desktop hero grid columns; the repair resets Patch to one full-width grid and adds browser geometry proof, and the same reviewer returned PASS on the exact finding. The 320-pixel title was tightened, the mobile image now uses its full intrinsic composition, the E2E preview race was fixed at its build/server boundary, and the visual helper now scrolls each lazy image before capture. Sol re-inspected every affected viewport and baseline.
+  **Accepted repairs:** Manual review removed the generic body-width constraint and narrow hero flex collapse. Independent review then caught inherited desktop hero grid columns; the repair resets Patch to one full-width grid and adds browser geometry proof, and the same reviewer returned PASS on the exact finding. The 320-pixel title was tightened, the mobile image now uses its full intrinsic composition, the E2E preview race was fixed at its build/server boundary, and the visual helper now scrolls each lazy image before capture. Final review then hardened Heist custody against the exact pinned Git blob, rendered Club DB derivatives directly from the verified PPTX, shortened the mobile project snapshot, and removed familiar AI-shaped contrast frames from the article. The final scope also established one accessible external-link contract across the portfolio: off-site destinations, including Harley's GitHub properties, open in a protected new tab with a visible icon and spoken context notice, while internal links retain ordinary navigation. Sol re-inspected every affected viewport and baseline.
 
-- [ ] **Step 8: Commit reviewed browser proof.** Mark Task 5 complete and commit `test: prove the Patch case study experience` after focused project-story, accessibility, and visual suites pass and every baseline has a named reason.
+- [x] **Step 8: Commit reviewed browser proof.** Mark Task 5 complete and commit `test: prove the Patch case study experience` after focused project-story, accessibility, and visual suites pass and every baseline has a named reason.
+
+  **Commit:** `ba0bb04`. The commit gate passed 48 Python tests, 90 client tests, the production build, bundle budgets, mesh, link, privacy, custody, and voice checks after repairing two stale repository contracts exposed by the full suite. Follow-up repair commits `9711622`, `2cc63ec`, and `d86ee92` hardened evidence custody, isolated the browser preview lifecycle, and completed the human-voice pass.
 
 ### Task 6: Independent review, canonical verification, and PR publication
 
@@ -297,9 +303,11 @@
 - Consumes: committed Tasks 1-5, Sol gates, exact evidence/custody state, and focused test proof.
 - Produces: a self-reviewed, locally and remotely verified Phase 5 PR ready for Harley's review and merge decision.
 
-- [ ] **Step 1: Dispatch three fresh-context Terra reviews.** Review (a) spec/factual/privacy/source-custody compliance, (b) React/test/accessibility/performance quality, and (c) £10k editorial/visual quality. Reviewers inspect source plus actual rendered evidence, return findings with exact paths and proof, make no edits, and may not delegate. Sol reconciles every finding against repo, GitHub, Linear, and pixels before repair.
+- [x] **Step 1: Dispatch three fresh-context Terra reviews.** Review (a) spec/factual/privacy/source-custody compliance, (b) React/test/accessibility/performance quality, and (c) £10k editorial/visual quality. Reviewers inspect source plus actual rendered evidence, return findings with exact paths and proof, make no edits, and may not delegate. Sol reconciles every finding against repo, GitHub, Linear, and pixels before repair.
 
-- [ ] **Step 2: Run focused automated proof after repairs.** Run:
+  **Review evidence:** The code review passed with no findings after 14 focused units, 12 project journeys, 20 accessibility scans, 16 visual checks and 31 quality tests. The taste review rated the route £9,300/£10k and raised one bounded mobile-density finding. The factual/custody review found that Heist's exact unpublished Git source and Club DB's PPTX derivation weren't yet proven strongly enough. Commits `9711622` and `2cc63ec` repaired those findings and the preview lifecycle; the original reviewer returned PASS on the exact custody and mobile concerns. Reports are retained in the off-repo task workspace.
+
+- [x] **Step 2: Run focused automated proof after repairs.** Run:
 
   ```powershell
   py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v
@@ -309,9 +317,13 @@
 
   Expected: PASS on Windows-canonical pixels with no unrelated baseline updates.
 
-- [ ] **Step 3: Re-run Sol's complete article and visual review.** Read the article in one uninterrupted pass, then inspect 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Verify every sentence pays dues, paragraph flow is coherent, contractions sound human, images prove their adjacent claim, status qualifications occur once where needed, and the ending lands on controlled creative production rather than project administration.
+  **Proof:** 31/31 portfolio-quality tests, 37/37 focused Vitest checks and 50/50 focused project-story, accessibility and Windows visual checks pass after the final repairs. The five affected Patch baselines were reviewed, then the Patch visual subset passed 6/6 twice without updates.
 
-- [ ] **Step 4: Regenerate, stage, and run the canonical gate.** Run:
+- [x] **Step 3: Re-run Sol's complete article and visual review.** Read the article in one uninterrupted pass, then inspect 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Verify every sentence pays dues, paragraph flow is coherent, contractions sound human, images prove their adjacent claim, status qualifications occur once where needed, and the ending lands on controlled creative production rather than project administration.
+
+  **Sol final gate, PASS:** The complete current article was read in source and rendered order after the last copy change. The origin now explains why Patch became a character, the first deck leads naturally into the production requirements it created, the public-record section closes the evidence boundary without administrative drift, and the ending assigns creative judgement to Harley in direct language. Full and focused captures at 1440, 390 and 320 remain balanced; fresh 768 and 720-by-500 high-density browser checks show zero horizontal overflow and all 22 headings present. The 50-test browser run covers keyboard focus, reduced motion, 360-pixel zoom-proxy reflow, intrinsic media, accessibility and every reviewed Windows composition. Native browser-chrome zoom remains unavailable in this runtime and isn't claimed.
+
+- [x] **Step 4: Regenerate, stage, and run the canonical gate.** Run:
 
   ```powershell
   py -3 tools/run.py ci --apply
@@ -322,7 +334,11 @@
 
   Expected: all canonical Python, Vitest, TypeScript, Vite, Playwright, accessibility, route, privacy, custody, media, bundle, and Windows visual gates pass on the staged tree. Inspect every generated delta before commit.
 
-- [ ] **Step 5: Record completion evidence and commit.** Mark plan boxes accurately, record exact commands/counts, source revision, image families, custody, Sol pass/veto decisions, independent findings/repairs, viewport evidence, limitations, and any Harley-owned gate. Set Phase 5 to `executing` until hosted exact-SHA proof and Harley acceptance exist. Commit `docs: record Patch pipeline review evidence`.
+  **Canonical proof:** The first complete pass exposed a stale `4173` origin in the font-isolation test and an unstable build-plus-preview ownership boundary. The repair derives the trusted origin from Playwright's configured base URL and uses `scripts/run-e2e.mjs` to build once with the controlled contact endpoint before Playwright owns the `4174` preview process. The external-link addition then extended static hygiene, component tests, route-wide browser behavior and accessible-name assertions. A fresh canonical apply/stage/check passed 51 Python tests, 94 Vitest checks, TypeScript, Vite, route generation, CV PDF generation, link/privacy/custody/media/bundle gates and all 63 Playwright checks. Final budgets are entry JS `325520/358400`, CSS `40581/40960` and PDF `268289/524288` bytes. The three affected Patch baselines were inspected, and the downstream worlds/story-lab pair passed twice without update mode after accepting its one-pixel positioning shift. `git diff --cached --check` passes.
+
+- [x] **Step 5: Record completion evidence and commit.** Mark plan boxes accurately, record exact commands/counts, source revision, image families, custody, Sol pass/veto decisions, independent findings/repairs, viewport evidence, limitations, and any Harley-owned gate. Set Phase 5 to `executing` until hosted exact-SHA proof and Harley acceptance exist. Commit `docs: record Patch pipeline review evidence`.
+
+  **State:** Phase 5 remains `executing`. Local implementation, evidence custody, article/visual review, independent review repairs and canonical proof are complete. Draft PR identity, hosted checks on the eventual exact head, and Harley's review/merge decision remain.
 
 - [ ] **Step 6: Publish the draft PR and prove remote identity.** Push `codex/portfolio-10k-phase-5-patch-pipeline`, open a draft PR into `main` using the repository template, and include source revision, public/private boundary, asset custody, image selection, tests, manual viewports, Sol creative review, independent reviews, and explicit non-goals. Verify base/head, exact remote SHA, diff, body, and draft state with GitHub.
 

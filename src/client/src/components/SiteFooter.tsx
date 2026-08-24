@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import { ExternalLink } from './ExternalLink'
 
 export function SiteFooter(): ReactElement {
   return (
@@ -7,7 +8,7 @@ export function SiteFooter(): ReactElement {
       <div className="footer-primary">
         <p>Independent notes, working systems, and occasional Patch misadventures.</p>
         <ul className="footer-links" aria-label="Footer links">
-          <li><a href="https://github.com/HarleyBartles" rel="noreferrer noopener" target="_blank">GitHub</a></li>
+          <li><ExternalLink href="https://github.com/HarleyBartles">GitHub</ExternalLink></li>
           <li><Link to="/projects">Projects</Link></li>
           <li><Link to="/writing">Writing</Link></li>
           <li><Link to="/about">About</Link></li>
