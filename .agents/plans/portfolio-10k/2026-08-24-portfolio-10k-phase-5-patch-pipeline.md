@@ -488,8 +488,8 @@ The final judging image should preserve Patch's bronze and gold. If the availabl
 
 ### Task 10: Final Phase 5 review and publication
 
-- [ ] **Step 1: Run the complete canonical gate.** Run `py -3 tools/run.py ci --apply`, inspect generated files, stage the complete intended tree, then run `py -3 tools/run.py ci --check` on that staged tree. Record exact Python, Vitest, Playwright, bundle, route, custody, privacy, accessibility, and visual results.
-- [ ] **Step 2: Review the complete Patch area and case study together.** Verify their jobs are distinct, navigation is coherent, old links resolve, external links follow the accessible new-tab policy, copy remains human, and no page repeats the same evidence without a new purpose.
+- [x] **Step 1: Run the complete canonical gate.** Run `py -3 tools/run.py ci --apply`, inspect generated files, stage the complete intended tree, then run `py -3 tools/run.py ci --check` on that staged tree. Record exact Python, Vitest, Playwright, bundle, route, custody, privacy, accessibility, and visual results.
+- [x] **Step 2: Review the complete Patch area and case study together.** Verify their jobs are distinct, navigation is coherent, old links resolve, external links follow the accessible new-tab policy, copy remains human, and no page repeats the same evidence without a new purpose.
 - [ ] **Step 3: Refresh PR #25 and stop at Harley's gate.** Mark Task 10's boxes `[x]`, commit the final evidence record without bypassing hooks, push the exact reviewed SHA, update the PR body and screenshots, mark ready only when local and hosted checks prove that SHA, and stop for Harley's visual review and merge decision.
 
 ## Plan readiness
