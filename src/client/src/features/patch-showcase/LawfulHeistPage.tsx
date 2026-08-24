@@ -14,7 +14,7 @@ const crew = [
     markerAlt: 'Index assent marker made from a folded blueprint and yellow catalogue note.',
     quote: 'The route exists. Now Silk needs to prove it isn’t a loophole.',
     paragraphs: [
-      'Index starts with the record. He traces where the route came from, what it claims to permit and which evidence will survive being handed to the next specialist.',
+      'Index starts with the record. She traces where the route came from, what it claims to permit and which evidence will survive being handed to the next specialist.',
       'Patch leaves with a route that can be cited instead of remembered. That gives the whole crew a shared thing to test.',
     ],
   },
