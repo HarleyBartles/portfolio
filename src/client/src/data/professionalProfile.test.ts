@@ -43,7 +43,7 @@ describe('professional profile', () => {
       'July 2005 – January 2019',
     )
     expect(professionalProfile.education.map(({ level }) => level)).toEqual([
-      'Higher education — in progress',
+      'Higher education - in progress',
       'Further education',
       'Further education',
       'Secondary education',

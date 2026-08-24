@@ -37,8 +37,8 @@ describe('Wild Bunch product evidence contract', () => {
       ])
     }
 
-    expect(within(trail).getByText(/topology and travel distance/i)).toBeVisible()
-    expect(within(audit).getByText(/ordered typed events/i)).toBeVisible()
+    expect(within(trail).getByText('The generated topology and travel distances are visible before the player chooses a town.')).toBeVisible()
+    expect(within(audit).getByText(/typed events in order/i)).toBeVisible()
     expect(within(wanted).getByText(/player-safe knowledge/i)).toBeVisible()
     expect(within(caseFile).getByText(/player-safe knowledge/i)).toBeVisible()
   })

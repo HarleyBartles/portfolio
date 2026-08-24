@@ -19,6 +19,11 @@ async function waitForImages(region: ReturnType<Page['locator']>): Promise<void>
   await expect.poll(() => region.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true)
 }
 
+async function waitForWildBunchStyles(page: Page): Promise<void> {
+  const figure = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
+  await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(23, 60, 63)')
+}
+
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
@@ -90,6 +95,7 @@ test('Marketplace keeps its authored distribution composition at wide and narrow
 test('Wild Bunch keeps its town hero and controlled-determinism evidence on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/wild-bunch')
+  await waitForWildBunchStyles(page)
 
   const hero = page.locator('[data-visual-contract="wild-bunch-case-study-hero"]')
   await waitForImages(hero)
@@ -102,6 +108,7 @@ test('Wild Bunch keeps its town hero and controlled-determinism evidence on desk
 test('Wild Bunch keeps event history and product evidence legible on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/wild-bunch')
+  await waitForWildBunchStyles(page)
 
   const eventFlow = page.getByRole('figure', { name: 'Ordered event history from action to reconstruction' })
   await expect(eventFlow).toHaveScreenshot('wild-bunch-event-flow.png')
@@ -114,6 +121,7 @@ test('Wild Bunch keeps event history and product evidence legible on desktop', a
 test('Wild Bunch keeps its stacked composition legible on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './projects/wild-bunch')
+  await waitForWildBunchStyles(page)
 
   const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism-mobile.png')

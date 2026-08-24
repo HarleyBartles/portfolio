@@ -31,7 +31,7 @@ describe('Wild Bunch project route', () => {
 
     expect(header).not.toBeNull()
     expect(header).toHaveAttribute('data-visual-contract', 'wild-bunch-case-study-hero')
-    const visual = within(header as HTMLElement).getByLabelText('Wild Bunch Dustwell development-build preview')
+    const visual = within(header as HTMLElement).getByLabelText('Wild Bunch generated-town development-build preview')
     const image = within(visual).getByRole('img')
 
     expect(visual).toBeVisible()

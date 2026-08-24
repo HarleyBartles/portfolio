@@ -17,15 +17,15 @@ describe('Wild Bunch determinism figure contract', () => {
     expect(within(stages[0]).getByText(/95 reserved bits/i)).toBeVisible()
 
     expect(within(stages[1]).getByText('Separate downstream choices')).toBeVisible()
-    expect(within(stages[1]).getByText(/Difficulty, entropy \/ salt policy, and the player-selected starting town and actions/i)).toBeVisible()
-    expect(within(stages[1]).getByText(/None of these choices occupies a UUID field/i)).toBeVisible()
+    expect(within(stages[1]).getByText(/Difficulty, entropy policy, starting town and player actions remain separate inputs/i)).toBeVisible()
+    expect(within(stages[1]).getByText(/None occupies a UUID field/i)).toBeVisible()
 
     expect(within(stages[2]).getByText('Deterministic derivation')).toBeVisible()
     expect(within(stages[2]).getByText(/deterministic shuffle of the 40-name pool/i)).toBeVisible()
-    expect(within(stages[2]).getByText(/connected world graph, route distances, town identity, and stored town layout/i)).toBeVisible()
+    expect(within(stages[2]).getByText(/connected world graph, route distances, town identities and stored layouts/i)).toBeVisible()
 
     expect(within(stages[3]).getByText('Observable outcomes')).toBeVisible()
-    expect(within(stages[3]).getByText(/Boring is the bounded same seed, difficulty, policy, and ordered player-action contract/i)).toBeVisible()
-    expect(within(stages[3]).getByText(/tests, replay, and diagnosis/i)).toBeVisible()
+    expect(within(stages[3]).getByText(/Under Boring, the same seed, difficulty and ordered player actions produce the same outcome/i)).toBeVisible()
+    expect(within(stages[3]).getByText(/Tests, replay and diagnosis/i)).toBeVisible()
   })
 })

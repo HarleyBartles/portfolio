@@ -150,7 +150,7 @@ export const professionalProfile: ProfessionalProfile = {
       summary: 'One continuous engineering period, with the acquisition as context rather than a break in the chronology.',
       evidence: [
         'Built delivery judgement across .NET Core, React, Redux, layered and onion architecture, DDD, CQRS, SignalR, TeamCity, Octopus Deploy, and TFS.',
-        'The lasting evidence is a practical understanding of architecture, integration, and delivery—not a technology wall.',
+        'The lasting evidence is a practical understanding of architecture, integration, and delivery, not a technology wall.',
       ],
     },
     {
@@ -183,7 +183,7 @@ export const professionalProfile: ProfessionalProfile = {
   education: [
     {
       id: 'qa-ai-engineer-apprenticeship',
-      level: 'Higher education — in progress',
+      level: 'Higher education - in progress',
       provider: 'QA',
       title: 'AI Engineer Level 6 Apprenticeship',
       periodLabel: 'February 2026 – January 2028',
@@ -193,14 +193,14 @@ export const professionalProfile: ProfessionalProfile = {
       id: 'mancat-access-he',
       level: 'Further education',
       provider: 'ManCAT, Moston Campus',
-      title: 'Access to H.E. Certificate — Media, Theatre, English',
+      title: 'Access to H.E. Certificate - Media, Theatre, English',
       periodLabel: '2002 – 2003',
     },
     {
       id: 'shena-simon-performing-arts',
       level: 'Further education',
       provider: 'Shena Simon F.E. College',
-      title: 'BTEC Level 3 — Performing Arts (Music)',
+      title: 'BTEC Level 3 - Performing Arts (Music)',
       periodLabel: '1997 – 1999',
     },
     {

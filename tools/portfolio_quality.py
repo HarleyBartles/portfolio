@@ -48,6 +48,9 @@ WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
     re.IGNORECASE,
 )
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
+DECORATIVE_EMOJI_RE = re.compile(r"[\u2600-\u27BF\U0001F1E6-\U0001FAFF]")
+# Add a path only when the emoji itself is necessary to the quoted material or medium.
+PUBLIC_VOICE_EMOJI_EXEMPT_PATHS: frozenset[Path] = frozenset()
 
 
 @dataclass(frozen=True)
@@ -564,6 +567,18 @@ def _validate_privacy(root: Path, findings: list[Finding]) -> None:
             findings.append(_finding(relative, "production source contains a private filesystem path"))
 
 
+def _validate_public_voice(root: Path, findings: list[Finding]) -> None:
+    for path in _production_text_files(root):
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        relative = path.relative_to(root)
+        if "—" in text:
+            findings.append(_finding(relative, "Harley-authored public source contains an em dash"))
+        if relative not in PUBLIC_VOICE_EMOJI_EXEMPT_PATHS and DECORATIVE_EMOJI_RE.search(text):
+            findings.append(_finding(relative, "Harley-authored public source contains decorative emoji"))
+
+
 def _validate_assets(root: Path, findings: list[Finding]) -> None:
     custody_path = root / CUSTODY_PATH
     custody = custody_path.read_text(encoding="utf-8") if custody_path.is_file() else ""
@@ -600,5 +615,6 @@ def validate_portfolio(root: Path) -> list[Finding]:
     if items is not None:
         _validate_manifest(root, items, findings)
     _validate_privacy(root, findings)
+    _validate_public_voice(root, findings)
     _validate_assets(root, findings)
     return findings

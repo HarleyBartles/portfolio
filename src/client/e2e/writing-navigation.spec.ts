@@ -24,8 +24,8 @@ test('fairytale index and detail expose imagery plus a readable transcript', asy
   await page.goto('./fairytales/')
 
   await expect(page.getByRole('img', { name: /too much, too little, and just enough guidance/i })).toBeVisible()
-  await page.getByRole('link', { name: 'Goldilocks — The Right Amount of Guidance' }).first().click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Goldilocks — The Right Amount of Guidance' })).toBeVisible()
+  await page.getByRole('link', { name: 'Goldilocks - The Right Amount of Guidance' }).first().click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Goldilocks - The Right Amount of Guidance' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Visual transcript' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 })

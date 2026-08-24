@@ -25,7 +25,7 @@
       "kind": "project",
       "title": "Wild Bunch",
       "status": "pre-alpha",
-      "summary": "A modern re-creation of a childhood Western game, built around controlled determinism, exact replay, and architecture that earns its keep.",
+      "summary": "A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on.",
       "presentation": "wild-bunch-case-study",
       "tags": ["project", "dotnet", "ddd"],
       "relatedSlugs": ["agentic-engineering-vs-vibe-coding"]
@@ -104,7 +104,7 @@
     {
       "slug": "goldilocks",
       "kind": "fairytales",
-      "title": "Goldilocks — The Right Amount of Guidance",
+      "title": "Goldilocks - The Right Amount of Guidance",
       "status": "published",
       "summary": "Good agent guidance is not maximum context, but enough relevant context for a confident next decision.",
       "path": "fairytales/goldilocks.md",
@@ -114,7 +114,7 @@
     {
       "slug": "sorcerers-apprentice",
       "kind": "fairytales",
-      "title": "The Sorcerer's Apprentice — Delegation Without Boundaries",
+      "title": "The Sorcerer's Apprentice - Delegation Without Boundaries",
       "status": "published",
       "summary": "Delegation needs a boundary, not just permission.",
       "path": "fairytales/sorcerers-apprentice.md",

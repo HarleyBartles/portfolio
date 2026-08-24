@@ -6,7 +6,7 @@ export function WildBunchDeterminismFigure(): ReactElement {
   return (
     <figure aria-label="Controlled determinism from a compact world contract" className="wild-bunch-determinism-figure" data-relationship="ordered-semantic-stages">
       <figcaption>
-        <strong>Controlled determinism, in order.</strong> The UUID describes the world contract; the choices around a playthrough stay legible at their own boundary.
+        <strong>Controlled determinism, in order.</strong> The UUID defines the starting world. Difficulty, entropy and player choices remain separate inputs.
       </figcaption>
       <ol>
         <li>
@@ -16,15 +16,15 @@ export function WildBunchDeterminismFigure(): ReactElement {
         </li>
         <li>
           <h3>Separate downstream choices</h3>
-          <p>Difficulty, entropy / salt policy, and the player-selected starting town and actions are downstream inputs. None of these choices occupies a UUID field.</p>
+          <p>Difficulty, entropy policy, starting town and player actions remain separate inputs. None occupies a UUID field.</p>
         </li>
         <li>
           <h3>Deterministic derivation</h3>
-          <p>Town names come from a deterministic shuffle of the 40-name pool. The compact recipe becomes a connected world graph, route distances, town identity, and stored town layout.</p>
+          <p>Town names come from a deterministic shuffle of the 40-name pool. Deterministic policies turn the compact recipe into a connected world graph, route distances, town identities and stored layouts.</p>
         </li>
         <li>
           <h3>Observable outcomes</h3>
-          <p>Boring is the bounded same seed, difficulty, policy, and ordered player-action contract. That gives tests, replay, and diagnosis a stable scenario without claiming every entropy mode is complete.</p>
+          <p>Under Boring, the same seed, difficulty and ordered player actions produce the same outcome. Tests, replay and diagnosis get a stable scenario.</p>
         </li>
       </ol>
     </figure>

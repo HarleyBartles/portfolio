@@ -64,7 +64,7 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
   if (slug === 'wild-bunch') {
     return (
       <figure
-        aria-label="Wild Bunch Dustwell development-build preview"
+        aria-label="Wild Bunch generated-town development-build preview"
         className="project-visual project-visual--wild-bunch"
         data-visual-contract="wild-bunch-development-build-preview"
       >
@@ -75,14 +75,14 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
           <source srcSet={assetPath('/media/wild-bunch/dustwell-town-720.webp')} type="image/webp" />
           <img
             src={assetPath('/media/wild-bunch/dustwell-town-720.webp')}
-            alt="Ranger Vale in the Dustwell town hub, with the town map and ordinary Store, Sheriff Office, Saloon, and trail actions visible."
+            alt="Ranger Vale in Dustwell, one generated town in the seeded map-world, with its map and ordinary Store, Sheriff Office, Saloon, and trail actions visible."
             width="720"
             height="550"
             loading={eager ? 'eager' : 'lazy'}
             fetchPriority={eager ? 'high' : 'auto'}
           />
         </picture>
-        <figcaption>Dustwell establishes a playable town surface.</figcaption>
+        <figcaption>Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns.</figcaption>
       </figure>
     )
   }

@@ -22,7 +22,7 @@ test('composes a two-page CV from the approved professional facts', () => {
   expect(screen.getByText('Software Engineer', { exact: true })).toBeVisible()
   expect(screen.getByText('Remote-first. Open to occasional UK-wide office travel, or Manchester hybrid up to one day per week.')).toBeVisible()
   expect(screen.getByText(/Four weeks' notice/)).toBeVisible()
-  expect(screen.getByText('Higher education — in progress')).toBeVisible()
+  expect(screen.getByText('Higher education - in progress')).toBeVisible()
   expect(screen.getByText("Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).")).toBeVisible()
   expect(screen.getAllByText('Further education')).toHaveLength(2)
   expect(screen.getByText('Secondary education')).toBeVisible()

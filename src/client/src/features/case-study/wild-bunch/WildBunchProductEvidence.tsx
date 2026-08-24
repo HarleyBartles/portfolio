@@ -40,7 +40,7 @@ export function WildBunchTrailMapEvidence(): ReactElement {
   return (
     <ResponsiveCapture
       alt="Generated starting-town trail map with named towns, connecting trails, and ride-day distances."
-      caption="The map makes the generated topology and travel distance inspectable before the player chooses Dustwell."
+      caption="The generated topology and travel distances are visible before the player chooses a town."
       compact={{ width: 720, height: 550 }}
       figureLabel="Generated trail-map development-build evidence"
       name="trail-map"
@@ -53,7 +53,7 @@ export function WildBunchAuditEvidence(): ReactElement {
   return (
     <ResponsiveCapture
       alt="Expanded developer session audit showing an ordered history of setup, world, town, and investigation events."
-      caption="The audit makes ordered typed events inspectable without publishing a private run reference."
+      caption="The audit exposes typed events in order without publishing a private run reference."
       compact={{ width: 720, height: 550 }}
       figureLabel="Session-audit development-build evidence"
       name="session-audit"

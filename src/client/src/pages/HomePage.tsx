@@ -53,7 +53,7 @@ export function HomePage(): ReactElement {
             <p className="hero-thesis">I build reliable agentic systems.</p>
           </div>
           <div className="hero-aside">
-            <p>I make workflows, repositories, and tools that help people ship—then turn some of the lessons into silly comics.</p>
+            <p>I make workflows, repositories, and tools that help people ship, then turn some of the lessons into silly comics.</p>
             <div className="hero-actions">
               <a href="#selected-work" className="button-link">View selected work</a>
               <Link to="/about#contact" className="text-link">Work with me <span aria-hidden="true">↗</span></Link>

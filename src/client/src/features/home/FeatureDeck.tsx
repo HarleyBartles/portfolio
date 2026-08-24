@@ -71,7 +71,7 @@ export function FeatureDeck({ items, initialOrder, random = Math.random }: Featu
 
       <div className="feature-controls" aria-label="Feature controls">
         <button type="button" onClick={() => setLead(activeIndex - 1)} aria-label="Previous feature"><span aria-hidden="true">←</span> Previous</button>
-        <button type="button" onClick={shuffle} aria-label="Shuffle features">Shuffle <span aria-hidden="true">✦</span></button>
+        <button type="button" onClick={shuffle} aria-label="Shuffle features">Shuffle</button>
         <button type="button" onClick={() => setLead(activeIndex + 1)} aria-label="Next feature">Next <span aria-hidden="true">→</span></button>
       </div>
       <p className="visually-hidden" role="status" aria-live="polite">{announcement}</p>

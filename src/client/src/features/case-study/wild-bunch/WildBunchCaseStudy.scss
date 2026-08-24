@@ -77,7 +77,7 @@
 .wild-bunch-determinism-figure,
 .wild-bunch-event-flow {
   margin: 0;
-  padding: clamp(var(--space-6), 4vw, var(--space-9));
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
   background: var(--color-teal-deep);
   color: var(--color-surface);
 }
@@ -85,7 +85,7 @@
 .wild-bunch-determinism-figure figcaption,
 .wild-bunch-event-flow figcaption {
   max-width: 52rem;
-  margin-bottom: var(--space-7);
+  margin-bottom: var(--space-8);
 }
 
 .wild-bunch-determinism-figure figcaption strong,

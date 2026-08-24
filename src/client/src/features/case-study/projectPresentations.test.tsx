@@ -17,10 +17,10 @@ describe('project presentations', () => {
     }
 
     render(<Suspense fallback={null}><MarketplaceCaseStudy /></Suspense>)
-    expect(await screen.findByText('Shared where reuse earns it. Local where context matters.')).toBeVisible()
+    expect(await screen.findByText('Shared where reuse earns it. Local where context matters.', undefined, { timeout: 5_000 })).toBeVisible()
 
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><Suspense fallback={null}><WildBunchCaseStudy /></Suspense></MemoryRouter>)
-    expect(await screen.findByText('Every complexity pays rent.')).toBeVisible()
-    expect(await screen.findByRole('heading', { level: 2, name: 'The game I wanted to return to' })).toBeVisible()
+    expect(await screen.findByText(/wrong name on the crime: yours/i, undefined, { timeout: 5_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The game I wanted to return to' }, { timeout: 5_000 })).toBeVisible()
   })
 })

@@ -14,12 +14,12 @@ describe('ProjectVisual', () => {
     expect(screen.getByText('74')).toBeVisible()
   })
 
-  test('uses a responsive Dustwell development-build preview instead of a reserved frame', () => {
+  test('uses a responsive generated-town development-build preview instead of a reserved frame', () => {
     render(<ProjectVisual slug="wild-bunch" eager />)
 
-    const visual = screen.getByLabelText('Wild Bunch Dustwell development-build preview')
+    const visual = screen.getByLabelText('Wild Bunch generated-town development-build preview')
     const image = screen.getByRole('img', {
-      name: /ranger vale in the dustwell town hub/i,
+      name: /dustwell, one generated town in the seeded map-world/i,
     })
 
     expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-development-build-preview')
@@ -30,13 +30,13 @@ describe('ProjectVisual', () => {
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(visual.querySelectorAll('picture source')).toHaveLength(4)
-    expect(visual).toHaveTextContent(/Dustwell establishes a playable town surface/i)
+    expect(visual).toHaveTextContent(/Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns/i)
   })
 
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {
     render(<ProjectVisual slug="wild-bunch" />)
 
-    const visual = screen.getByLabelText('Wild Bunch Dustwell development-build preview')
+    const visual = screen.getByLabelText('Wild Bunch generated-town development-build preview')
     const caption = visual.querySelector('figcaption')
 
     expect(getComputedStyle(visual).display).toBe('grid')
