@@ -2,17 +2,17 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `/subagent-driven-development` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn Adventures of Patch into an image-rich specialist case study that proves Harley can frame memorable agentic-engineering lessons and run the controlled creative production system that makes them inspectable, repeatable, and honest.
+**Goal:** Separate Adventures of Patch into a public story showcase and a focused engineering case study, preserving the strongest adventure work while proving the controlled creative production system behind it.
 
-**Architecture:** Keep the Phase 3 specialist presentation registry and static Vite delivery. Add one authored, dated Patch evidence snapshot, a narrowly scoped lazy specialist body, responsive derivatives copied from the public Adventures repository at one exact revision, and semantic React compositions for the origin, production flow, published catalogue, three in-flight worlds, story lab, public-proof boundary, and close. Extend the existing portfolio-quality validator so private planning data, unsupported statuses, uncustodied imagery, and speculative release claims fail before build.
+**Architecture:** Keep the Phase 3 specialist presentation registry and static Vite delivery. The existing `/projects/adventures-of-patch` route becomes the engineering case study: origin, framing, production gates, source custody, acceptance authority, and a concise route into the work. A new `/patch` area becomes the public home for one-page fairytales and larger adventures, with dedicated authored presentations under `/patch/:slug`; old `/fairytales` routes remain compatibility redirects. The dated Patch evidence snapshot and responsive derivatives remain shared proof rather than being copied into two competing sources.
 
 **Tech Stack:** React 18, TypeScript, Sass, Vitest, React Testing Library, Playwright, Sharp, Python portfolio-quality checks, PowerPoint read-only rendering for selected Club DB evidence, generated route documents, and generated INDEX mesh.
 
-**Execution Strategy:** `subagent-driven-development` - Sol owns the complete plan, task sequencing, integration, public copy, visual judgement, source custody, manual inspection, and acceptance. GPT-5.6 Terra receives bounded implementation, research, repair, and review tasks and may not delegate.
+**Execution Strategy:** `executing-plans` - the remaining work is sequential and editorially coupled. Sol owns implementation, public copy, visual judgement, source custody, manual inspection, and acceptance. Do not delegate prose or visual composition.
 
 ## Global Constraints
 
-- Execute only roadmap Phase 5, Adventures of Patch pipeline story. Do not finish an adventure, build a deck, add a pipeline application, or pre-empt Phase 11's interactive-proof gate.
+- Execute only roadmap Phase 5, Adventures of Patch showcase and pipeline story. Do not build a deck, add a pipeline application, or pre-empt Phase 11's interactive-proof gate.
 - Base public repository claims and source custody on Adventures of Patch public `main` revision `0240a8657aae5b580c1a7a0d31e0be7a68b27f4e` unless a later public main revision is deliberately re-audited and recorded before asset import.
 - Linear is private authoring evidence. Public source, data, markup, links, screenshots, captions, and build output must contain no Linear URL, issue identifier, UUID, signed asset URL, connector output, or private planning detail.
 - Use the approved central claim without the specification's now-banned em dash: `The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.`
@@ -29,7 +29,7 @@
 - Preserve semantic source order, visible focus, WCAG 2.2 A/AA outcomes, reduced-motion parity, 320 CSS-pixel reflow, 200% zoom usability, intrinsic image dimensions, lazy below-fold media, and existing performance budgets.
 - Windows remains canonical for visual regression. Do not loosen screenshot tolerances, accept Linux-only pixels, or refresh unrelated baselines.
 - Inspect setup and generator output. Commit canonically generated files; discard an output only after its owning generator proves it unexpected or non-canonical.
-- Before each implementation task, dispatch one bounded Terra worker with only that task and the committed plan. After each task, dispatch a fresh-context Terra requirements/code review. Sol personally edits and accepts all material public prose and visual composition.
+- Keep implementation and editorial judgement with Sol. Independent review remains required before ready-for-review publication, but reviewers do not author public prose or visual composition.
 
 ## Current-truth drift table
 
@@ -344,10 +344,151 @@
 
   **Publication proof:** Draft PR [#25](https://github.com/HarleyBartles/portfolio/pull/25) was opened into `main`. GitHub confirmed base `main`, head branch `codex/portfolio-10k-phase-5-patch-pipeline`, open draft state, complete template body and remote implementation head `d49386596f70f0903a024117e008c388323b825a`. This plan-record commit follows as publication bookkeeping; the PR head and body must be refreshed and reverified before ready-for-review CI.
 
-- [ ] **Step 7: Mark ready only after local and hosted preconditions.** If repository policy requires hosted checks only after ready state, flip the self-reviewed draft ready, then watch Portfolio quality gate and Visual regression on the exact head. Do not merge. Stop at Harley's review/merge gate with the PR URL, full SHA, hosted results, and any genuine residual limitation.
+- [x] **Step 7: Pause the ready transition when the information architecture changed.** Harley's review established that the adventure lessons have enough weight for dedicated pages and that the case study had become too long. Keep PR #25 in draft, preserve the reviewed implementation, and continue with the approved split below before requesting hosted review.
+
+### Approved 24 August pivot: showcase the work, case-study the system
+
+The previous composition treated a published deck as the strongest public artefact and placed unpublished adventure evidence inside the engineering case study. Harley reopened that decision after Identity Emporium and Tournament proved that the accepted assets and resolved lessons can support stronger portfolio-native editorial pages. The portfolio page may be the finished public artefact even when the source repository has no assembled deck. Public copy must still state the underlying adventure's development status honestly.
+
+The new information architecture is:
+
+- `/patch` is the Adventures of Patch showcase, replacing Fairytales in primary navigation;
+- `/patch/goldilocks` and `/patch/sorcerers-apprentice` retain the existing one-page fairytales;
+- `/patch/identity-emporium` receives the complete reviewed Identity Emporium argument and visual composition before it leaves the case study;
+- Tournament of Reasonable Defaults and Lawful Heist appear honestly in the showcase index without fake links until their dedicated editorial pages clear their own review;
+- `/projects/adventures-of-patch` remains the engineering case study and links into `/patch` rather than carrying the full catalogue, in-flight worlds, and idea library;
+- `/fairytales` and its two existing detail routes remain compatibility redirects so published links do not break.
+
+The transfer must preserve the current Identity Emporium language and evidence exactly on its first move. Its approved contract is:
+
+- `Preparation should guide judgement without becoming a script. Bot takes the costume too literally, Bit rushes past preparation, and Patch starts with the task before choosing how to work.`
+- Bot: `Preparation mistaken for a script`, `All the gear, no idea`, `Misreads the work`.
+- Bit: `Straight to work, underprepared`, `No get-up, can't get down to work`, `Starts too soon`.
+- Patch: `Preparation shaped by the task`, `Prepared for the job`, `Ready to work`.
+- Preserve the Emporium scene, Bot lassoing the chicken, Bit carrying his ordinary toolbox, the four normalized Patch role kits, their current scale relationships, white image frames, captions, alt text, desktop composition, and mobile full-width / two-column / two-by-two grammar.
+
+### Task 7: Establish the Adventures of Patch showcase and transfer Identity Emporium
+
+**Files:**
+- Modify: `src/client/src/types/content.ts`
+- Modify: `src/client/src/data/content/content-manifest.json`
+- Modify: `src/client/src/app/router.tsx`
+- Replace: `src/client/src/pages/FairytalesIndexPage.tsx` with `src/client/src/pages/PatchIndexPage.tsx`
+- Replace: `src/client/src/pages/FairytalesPage.tsx` with `src/client/src/pages/PatchPage.tsx`
+- Modify: `src/client/src/components/SiteHeader.tsx`
+- Modify: `src/client/src/components/EditorialIndexCard.tsx`
+- Modify: `src/client/src/components/ContentNavigation.tsx`
+- Create: `src/client/src/features/patch-showcase/IdentityEmporiumPage.tsx`
+- Create: `src/client/src/features/patch-showcase/PatchShowcaseEvidence.tsx`
+- Create: `src/client/src/features/patch-showcase/PatchShowcase.scss`
+- Modify: `src/client/src/features/case-study/projectPresentations.ts`
+- Modify: `src/client/src/features/case-study/patch/PatchWorkLedger.tsx`
+- Modify: `src/client/src/features/case-study/patch/PatchPipelineCaseStudy.scss`
+- Modify: `tools/check_public_routes.py`
+- Modify: `tools/check_link_hygiene.py`
+- Modify: `tools/refresh_seo_files.py`
+- Modify: `src/client/scripts/generate-route-documents.mjs`
+- Test: `src/client/src/pages/PatchIndexPage.test.tsx`
+- Test: `src/client/src/features/patch-showcase/IdentityEmporiumPage.test.tsx`
+- Test: `src/client/src/pages/ContentPage.test.tsx`
+- Test: `tests/test_public_routes.py`
+
+**Interfaces:**
+- Consumes: the existing `patch-evidence.json`, `getPatchMediaByPath`, `getPatchAssetPath`, external-link contract, accepted Patch derivatives, and current Identity Emporium markup and CSS.
+- Produces: `ContentKind` value `patch`; canonical `/patch` and `/patch/:slug` routes; compatibility redirects from `/fairytales`; one dedicated `patch-identity-emporium` presentation; an index that distinguishes one-page fairytales from larger adventures without equating deck publication with portfolio value.
+
+- [ ] **Step 1: Write failing route, navigation, index, and presentation tests.** Require the primary header link `Patch` to resolve to `/patch`; `/patch` to render `Adventures of Patch`, a one-page fairytales group, and a larger adventures group; Goldilocks and Sorcerer's Apprentice to resolve under `/patch/:slug`; Identity Emporium to resolve as a dedicated authored page; old fairytale URLs to redirect without rendering duplicate canonical bodies; Tournament and Lawful Heist to render as honest unlinked index entries until dedicated pages exist; and unknown Patch slugs to use the normal not-found route.
+
+- [ ] **Step 2: Add the Patch content kind and route family.** Replace the narrow `fairytales` kind with `patch`, update `getContentPath`, manifest records, content queries, card labels, related-content grouping, route generation, SEO generation, static route checks, and link hygiene. Keep source Markdown content intact unless its owning manifest path changes. Add explicit compatibility routes for `/fairytales`, `/fairytales/goldilocks`, and `/fairytales/sorcerers-apprentice` that navigate to their `/patch` equivalents with `replace` semantics.
+
+- [ ] **Step 3: Build the showcase index.** Use the established editorial index grammar rather than a dashboard grid. Group Goldilocks and Sorcerer's Apprentice under `One-page fairytales`. Group Identity Emporium, Tournament of Reasonable Defaults, and Lawful Heist under `Larger adventures`. Link only records with a portfolio page. For the remaining two, show their current evidence and status as ordinary text, with no disabled control, `coming soon`, progress value, or release promise.
+
+- [ ] **Step 4: Transfer Identity Emporium without editorial loss.** Move `IdentityEmporiumEvidence` and its exact approved public copy into `IdentityEmporiumPage`. Extract only the shared evidence-picture helper needed by the new area. Preserve all wording, image order, scale, frame treatment, captions, alt text, responsive composition, and existing tests on the first transfer. Remove the full Identity composition from `PatchWorkLedger` only after the dedicated route passes its focused tests.
+
+- [ ] **Step 5: Give Identity Emporium a restrained page frame.** Add only the orientation and reading structure its new home requires: title, current visual-development status, the existing lesson, the transferred evidence, a short link back to the engineering case study, and ordinary Patch-area navigation. Do not rewrite the approved argument in this task. Do not generate new art.
+
+- [ ] **Step 6: Regenerate deterministic route surfaces and verify the slice.** Run `py -3 tools/run.py ci --apply`, inspect every generated route document, sitemap, robots, and INDEX change, then run focused Vitest, Python route checks, link hygiene, build, and Playwright journeys for `/patch`, the three live Patch detail routes, all compatibility redirects, and the unchanged project case-study route.
+
+- [ ] **Step 7: Review and commit the transfer.** Inspect `/patch` and `/patch/identity-emporium` at 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Compare Identity against the current case-study rendering before removal. Mark Task 7's boxes `[x]`, stage the complete reviewed slice, rerun its focused checks on the staged tree, and commit `feat: establish the Adventures of Patch showcase` only when no accepted Emporium content or visual relationship has been lost.
+
+### Task 8: Thin the Patch case study back to the engineering story
+
+**Files:**
+- Modify: `src/client/src/features/case-study/patch/PatchPipelineCaseStudy.tsx`
+- Modify: `src/client/src/features/case-study/patch/PatchWorkLedger.tsx`
+- Modify: `src/client/src/features/case-study/patch/PatchStoryLab.tsx`
+- Modify: `src/client/src/features/case-study/patch/PatchEvidenceGallery.tsx`
+- Modify: `src/client/src/features/case-study/patch/PatchPipelineCaseStudy.scss`
+- Modify: `src/client/src/features/case-study/patch/PatchPipelineCaseStudy.test.tsx`
+- Modify: `src/client/e2e/project-story.spec.ts`
+- Modify: `src/client/e2e/visual-regression.spec.ts`
+- Modify: `docs/design-decisions.md`
+
+**Interfaces:**
+- Consumes: the live `/patch` showcase, the existing accountable origin, frame test, six-stage production flow, custody boundary, source-repository link, and shared case-study hierarchy.
+- Produces: a shorter engineering case study with one clear route into the finished showcase; no duplicate Identity, Tournament, Heist, published-gallery, or story-lab treatment.
+
+- [ ] **Step 1: Write the failing case-study boundary tests.** Require the database incident, Club DB origin, frame questions, six production stages, generation-versus-acceptance distinction, deterministic compilation, public/private evidence boundary, repository link, and a visible internal link to `/patch`. Reject the transferred Identity text, Tournament and Heist profiles, four-item published gallery, and future-plan lists from the project route.
+
+- [ ] **Step 2: Remove the showcase movements and repair the reading order.** Keep the story-first opening, Club DB origin, framing judgement, production system, and controlled-production close. Replace `What has earned an artefact`, `Three worlds in motion`, and `What Patch might teach next` with one concise bridge into the Adventures of Patch showcase. Renumber surviving movements and remove imports, wrappers, selectors, and CSS that have no remaining case-study consumer.
+
+- [ ] **Step 3: Edit the complete article as one piece.** Read from the database disappearance through the final engineering consequence. Make every paragraph serve origin, system design, quality control, source custody, or acceptance authority. Preserve natural contractions and Harley's direct voice. Remove repetition caused by the old catalogue structure, banned AI-shaped contrasts, em dashes, decorative emoji, and status qualifications already carried by the showcase.
+
+- [ ] **Step 4: Record the information-architecture decision.** Add a dated design-ledger entry explaining why the showcase and engineering case study now have separate jobs, why a portfolio-native page can be the public artefact without an upstream deck, how honest development states remain visible, and when the split should be reconsidered.
+
+- [ ] **Step 5: Verify the shortened case study.** Run focused component and project-story tests, inspect the complete page at 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom, then update only Patch baselines whose changed composition has been reviewed. Confirm the page now ends before fatigue while the engineering argument remains complete.
+
+- [ ] **Step 6: Commit the case-study closeout.** Mark Task 8's boxes `[x]`, stage the complete reviewed slice, rerun its focused checks on the staged tree, and commit `refactor: separate Patch stories from the production case study` after prose review, visual review, and `git diff --check` pass.
+
+### Task 9: Build the Tournament of Reasonable Defaults page after case-study closeout
+
+**Files:**
+- Create: `src/client/src/features/patch-showcase/TournamentPage.tsx`
+- Create or modify: focused Tournament styles under `src/client/src/features/patch-showcase/`
+- Modify: `src/client/src/data/content/content-manifest.json`
+- Modify: `src/client/src/data/case-studies/patch-evidence.json`
+- Modify: `src/client/scripts/process-patch-assets.mjs`
+- Modify: `src/client/scripts/process-patch-assets.test.ts`
+- Modify: `docs/asset-custody.md`
+- Test: `src/client/src/features/patch-showcase/TournamentPage.test.tsx`
+- Test: `src/client/e2e/project-story.spec.ts`
+- Test: `src/client/e2e/visual-regression.spec.ts`
+
+**Interfaces:**
+- Consumes: the approved Tournament event contract below and existing accepted source families in `Z:/adventures-of-patch/build/adventures/Tournament` at a freshly verified public revision.
+- Produces: `/patch/tournament-of-reasonable-defaults`, a four-event editorial progression assembled from accepted assets, with essential explanations in HTML and an honest visual-development state.
+
+#### Persisted Tournament content contract
+
+The tournament is held by stakeholders. Bit and Bot fail in predictable ways that fit their personalities. Patch first identifies each task's fallacy. He refuses false execution in the first two events, produces useful decision-ready work in the third, and consults the stakeholders before executing the final event. The humour lives in Bit and Bot's plausible failures; the engineering argument is the progression from noticing ambiguity to resolving it with the decision owner.
+
+1. **Seven-Day Sprint.** Task: produce a report covering `the last 7 days`. Bit uses today plus six prior days. Bot uses the seven complete prior days. Both produce plausible reports, but neither can prove the intended boundary. Patch looks beyond the apparently ordinary start line, sees the course branch into several valid seven-day routes, and does not start. No medals. Lesson: `A clear start can hide an undefined finish.`
+2. **Industry Standard High Jump.** Task: `Clear the industry standard.` Bit jumps the event A-board containing the words `industry standards`. Bot correctly approaches the high-jump apparatus, then stops at the first plausible bar associated with the phrase and jumps it. Patch asks which industry standard they are meant to clear and does not jump. No medals. Lesson: `Name the standard before asking an agent to clear it.`
+3. **Maze of Reasonable Defaults.** Task: `Get to the exit with the prize.` Bit reaches the exit quickly with anything he can defend as the prize. Bot explores until he finds the first genuine prize, then stops without discovering that three other prizes are equally plausible. Patch maps the maze, identifies every plausible prize, reaches the exit with the map, and presents a plan that makes retrieval trivial once the stakeholder identifies the intended prize. Patch earns bronze for useful decision-ready work without claiming completion. Lesson: `The first valid answer can still conceal an unresolved choice.`
+4. **The Long Course.** Task: `Cross the finish line.` Bit races off path, crosses hazard tape, and falls into a hole. Bot reaches the first line he can plausibly identify, a road marking across the route, and declares completion. Patch walks back to the stakeholder dugout, clarifies which line counts and what counts as crossing it, then runs the agreed course and wins gold. Lesson: `Completion becomes valid when the finish line and acceptance condition are agreed.`
+
+The final judging image should preserve Patch's bronze and gold. If the available assets support Bit and Bot's cheerful homemade medals, use them as the closing joke without making them essential to the lesson. Do not generate new visuals to satisfy copy that the current assets cannot support. Change the argument or omit the gag first.
+
+- [ ] **Step 1: Reverify source truth and select the smallest sufficient asset set.** Inspect public `main`, manifests, sidecars, source pixels, and custody for the four environment families, character failure poses, stakeholder booth, judging, and medal assets. Record the exact revision. Select images that visibly support each event; do not imply a failure mode that exists only in prose.
+
+- [ ] **Step 2: Write failing event-order and lesson tests.** Require four events in the approved order, the exact task and lesson for each, Bit/Bot/Patch outcomes, no medal in events one and two, bronze in event three, gold in event four, visible development status, and no claim that an upstream deck is complete.
+
+- [ ] **Step 3: Add responsive derivatives and custody.** Extend the canonical Patch asset processor, generate AVIF and WebP derivatives with intrinsic dimensions, record source hashes and transformations, and commit the canonical outputs. Essential task wording, outcomes, and lessons remain HTML.
+
+- [ ] **Step 4: Compose and edit the Tournament page.** Use each event as a visual reveal with one clear task, failure pattern, Patch response, and lesson. Preserve the progression across all four events. Avoid four interchangeable cards, repeated three-column matrices, or a long wall of character-by-character prose.
+
+- [ ] **Step 5: Verify the complete story.** Review at 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Confirm every image cashes the adjacent claim, raster text is non-essential, the humour survives, and the page reads as one escalating argument.
+
+- [ ] **Step 6: Commit and return to the remaining adventure.** Mark Task 9's boxes `[x]`, stage the complete reviewed slice, rerun its focused checks on the staged tree, and commit `feat: publish the Tournament of Reasonable Defaults story` after focused proof. Lawful Heist remains a human-led shaping task: inspect its assets, ask Harley for the intended adventure story, agree its lesson, then write a separate plan amendment before building its page.
+
+### Task 10: Final Phase 5 review and publication
+
+- [ ] **Step 1: Run the complete canonical gate.** Run `py -3 tools/run.py ci --apply`, inspect generated files, stage the complete intended tree, then run `py -3 tools/run.py ci --check` on that staged tree. Record exact Python, Vitest, Playwright, bundle, route, custody, privacy, accessibility, and visual results.
+- [ ] **Step 2: Review the complete Patch area and case study together.** Verify their jobs are distinct, navigation is coherent, old links resolve, external links follow the accessible new-tab policy, copy remains human, and no page repeats the same evidence without a new purpose.
+- [ ] **Step 3: Refresh PR #25 and stop at Harley's gate.** Mark Task 10's boxes `[x]`, commit the final evidence record without bypassing hooks, push the exact reviewed SHA, update the PR body and screenshots, mark ready only when local and hosted checks prove that SHA, and stop for Harley's visual review and merge decision.
 
 ## Plan readiness
 
 **Rating:** 9/10.
 
-The plan starts from the current portfolio and Adventures repositories, full linked Linear evidence, and inspected source pixels. It names the exact public revision and initial asset families, converts the route through the established specialist seam, fixes the newer voice-policy conflict, separates source custody, authored data, semantic UI, visual composition, browser proof, and publication, and gives every task a failing-first test cycle, exact commands, review ownership, task-tracking step, and commit boundary. Existing accepted imagery is sufficient, so no hidden generation or Harley acceptance dependency blocks the first implementation pass. The remaining uncertainty is legitimate copy and responsive composition judgement, governed by Sol's explicit pass/veto gates and one bounded Harley gate only if new Patch art becomes demonstrably necessary.
+The plan now records both the completed first implementation and the approved information-architecture pivot. The next slice has exact route, component, data, migration, compatibility, validation, review, and commit boundaries. Identity Emporium has an explicit lossless-transfer contract. Tournament's full four-event canon is durable and executable after the shorter case study closes. Lawful Heist remains correctly gated on Harley's intended story rather than being guessed from assets. Remaining uncertainty is ordinary responsive composition and editorial judgement, owned by Sol's explicit prose and visual gates.
