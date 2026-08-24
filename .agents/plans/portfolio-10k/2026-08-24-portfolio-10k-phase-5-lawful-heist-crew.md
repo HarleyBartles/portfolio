@@ -326,7 +326,9 @@
 
   **Evidence:** Draft PR [#26](https://github.com/HarleyBartles/portfolio/pull/26) opened into `main` from `codex/portfolio-10k-phase-5-lawful-heist`. GitHub reported the published head as `b85a1a7c8050911c03a2134ebb2902333925804f` before this publication-record commit.
 
-- [ ] **Step 6: Flip ready and prove hosted checks.** After self-review and local canonical green, mark the PR ready. Monitor `Portfolio / Portfolio quality gate` and the Windows visual job when applicable. Repair failures on the same branch and re-run local evidence before pushing.
+- [x] **Step 6: Flip ready and prove hosted checks.** After self-review and local canonical green, mark the PR ready. Monitor `Portfolio / Portfolio quality gate` and the Windows visual job when applicable. Repair failures on the same branch and re-run local evidence before pushing.
+
+  **Evidence:** PR [#26](https://github.com/HarleyBartles/portfolio/pull/26) was marked ready at published head `2b07c8f866c11240155328ff009627c223f8fb49`. GitHub's [Portfolio quality gate](https://github.com/HarleyBartles/portfolio/actions/runs/32747970612/job/97497915412) passed in 2m40s and [Visual regression](https://github.com/HarleyBartles/portfolio/actions/runs/32747970612/job/97497915138) passed in 1m46s. The deploy and public-route jobs correctly skipped on the PR branch. This evidence commit requires the same two checks to pass again on its final head before handoff.
 
 - [ ] **Step 7: Give Harley the review surface.** Start or retain the production preview at a stable local URL, provide the direct `/portfolio/patch/lawful-heist/` link and the PR URL, and stop at Harley's visual and merge decision. Keep Phase 5 `executing` until the PR merges and post-deploy public-route proof passes.
 
