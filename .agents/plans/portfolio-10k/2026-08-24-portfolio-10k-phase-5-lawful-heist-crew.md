@@ -322,7 +322,9 @@
   git commit -m "docs: record Lawful Heist verification"
   ```
 
-- [ ] **Step 5: Push and open a draft PR.** Push `codex/portfolio-10k-phase-5-lawful-heist` and open a draft PR into `main` using the repository template. Include purpose, design rationale, custody, accessibility, performance, exact commands, before/after 1440 and 390 evidence, and the full head SHA. Do not include private local source paths in the public PR body.
+- [x] **Step 5: Push and open a draft PR.** Push `codex/portfolio-10k-phase-5-lawful-heist` and open a draft PR into `main` using the repository template. Include purpose, design rationale, custody, accessibility, performance, exact commands, before/after 1440 and 390 evidence, and the full head SHA. Do not include private local source paths in the public PR body.
+
+  **Evidence:** Draft PR [#26](https://github.com/HarleyBartles/portfolio/pull/26) opened into `main` from `codex/portfolio-10k-phase-5-lawful-heist`. GitHub reported the published head as `b85a1a7c8050911c03a2134ebb2902333925804f` before this publication-record commit.
 
 - [ ] **Step 6: Flip ready and prove hosted checks.** After self-review and local canonical green, mark the PR ready. Monitor `Portfolio / Portfolio quality gate` and the Windows visual job when applicable. Repair failures on the same branch and re-run local evidence before pushing.
 
