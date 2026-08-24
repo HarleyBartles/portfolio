@@ -1,13 +1,14 @@
 import { expect, test } from '@playwright/test'
 
 const wildBunchPath = './projects/wild-bunch/'
+const patchPath = './projects/adventures-of-patch/'
 
 async function expectNoHorizontalOverflow(page: import('@playwright/test').Page): Promise<void> {
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
 }
 
 async function tabToLink(page: import('@playwright/test').Page, linkName: string): Promise<void> {
-  const link = page.getByRole('link', { name: linkName })
+  const link = page.getByRole('link', { name: linkName, exact: true })
   for (let press = 0; press < 30; press += 1) {
     await page.keyboard.press('Tab')
     if (await link.evaluate((element) => element === document.activeElement)) return
@@ -134,6 +135,128 @@ test('Wild Bunch evidence exposes intrinsic image dimensions with one eager rout
     await expect(capture).toHaveAttribute('loading', 'lazy')
     await expect(capture).toHaveAttribute('width', /^(640|720)$/)
     await expect(capture).toHaveAttribute('height', /^(489|550)$/)
+  }
+})
+
+test('visitor opens Adventures of Patch with its production claim and inspectable public evidence', async ({ page }) => {
+  const response = await page.goto(patchPath)
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
+  await expect(page.locator('.content-status')).toHaveText(/Status\s*active project/i)
+  await expect(page.getByText('The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.')).toBeVisible()
+
+  const publicRepository = page.getByRole('link', { name: 'Open the public Adventures of Patch repository' })
+  await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/0240a8657aae5b580c1a7a0d31e0be7a68b27f4e')
+
+  const published = page.getByRole('region', { name: 'What has earned an artefact' })
+  const publishedLinks = published.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link')
+  await expect(publishedLinks).toHaveCount(4)
+  for (const linkName of ['Club DB', 'Goldilocks', "The Sorcerer's Apprentice", 'Introducing Patch']) {
+    await tabToLink(page, linkName)
+    const focusedLink = page.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link', { name: linkName, exact: true })
+    await expect(focusedLink).toBeFocused()
+    expect(await focusedLink.evaluate((element) => {
+      const style = getComputedStyle(element)
+      return style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0
+    })).toBe(true)
+  }
+
+  const storyLab = page.getByRole('region', { name: 'What Patch might teach next' })
+  await expect(storyLab.getByRole('link')).toHaveCount(0)
+  await expect(storyLab.getByRole('button')).toHaveCount(0)
+  await expect(page.locator('button:disabled')).toHaveCount(0)
+  await expect(page.locator('main')).not.toContainText(/PATCH-\d+|https?:\/\/linear\.app|[A-Z]:\\|localhost/i)
+})
+
+test('visitor reaches Adventures of Patch through client navigation and receives the ordered production system', async ({ page }) => {
+  await page.goto('./projects/')
+  await page.getByRole('link', { name: 'Adventures of Patch', exact: true }).click()
+
+  await expect(page).toHaveURL(/\/projects\/adventures-of-patch\/?$/)
+  const flow = page.getByRole('list', { name: 'Patch production flow' })
+  await expect(flow.locator(':scope > li > h3')).toHaveText([
+    'Seed',
+    'Frame',
+    'Visual pre-production',
+    'Image generation and QA',
+    'Deterministic compilation',
+    'Published artefact and receipt',
+  ])
+  await expect(flow.locator(':scope > li')).toHaveCount(6)
+  for (const stage of await flow.locator(':scope > li').all()) {
+    await expect(stage.getByText('Stop condition')).toBeVisible()
+  }
+})
+
+test('Adventures of Patch exposes intrinsic media dimensions with one eager hero and lazy evidence', async ({ page }) => {
+  await page.goto(patchPath)
+
+  const heroRegion = page.locator('[data-visual-contract="patch-case-study-hero"]')
+  const hero = heroRegion.getByRole('img')
+  await expect(hero).toHaveAttribute('width', '720')
+  await expect(hero).toHaveAttribute('height', '403')
+  await expect(hero).toHaveAttribute('loading', 'eager')
+  await expect(hero).toHaveAttribute('fetchpriority', 'high')
+  await expect(page.locator('main img[loading="eager"]')).toHaveCount(1)
+
+  const desktopComposition = await heroRegion.evaluate((header) => {
+    const visual = header.querySelector('.content-page-visual')!.getBoundingClientRect()
+    const intro = header.querySelector('.content-page-intro')!.getBoundingClientRect()
+    const bounds = header.getBoundingClientRect()
+    return {
+      visualWidthDelta: Math.abs(visual.width - bounds.width),
+      introStart: (intro.x - bounds.x) / bounds.width,
+    }
+  })
+  expect(desktopComposition.visualWidthDelta).toBeLessThanOrEqual(2)
+  expect(desktopComposition.introStart).toBeGreaterThan(0.44)
+
+  const evidence = page.locator('.patch-case-study img')
+  await expect(evidence).toHaveCount(9)
+  for (const image of await evidence.all()) {
+    await expect(image).toHaveAttribute('loading', 'lazy')
+    await expect(image).toHaveAttribute('width', /^\d+$/)
+    await expect(image).toHaveAttribute('height', /^\d+$/)
+  }
+  await expect(page.locator('.patch-case-study figcaption')).toHaveCount(9)
+})
+
+test('Adventures of Patch remains complete at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  const response = await page.goto(patchPath)
+  expect(response?.status()).toBe(200)
+  await page.evaluate(() => document.fonts.ready)
+
+  for (const width of [390, 320, 360]) {
+    await page.setViewportSize({ width, height: 844 })
+
+    const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+    const heroImage = hero.getByRole('img')
+    await expect(hero.getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
+    await expect(hero.getByText(/controlled creative pipeline/i)).toBeVisible()
+    await expect(heroImage).toBeVisible()
+    await expectNoHorizontalOverflow(page)
+
+    const geometry = await heroImage.evaluate((image) => {
+      const box = image.getBoundingClientRect()
+      return {
+        objectFit: getComputedStyle(image).objectFit,
+        renderedRatio: box.width / box.height,
+        intrinsicRatio: (image as HTMLImageElement).naturalWidth / (image as HTMLImageElement).naturalHeight,
+      }
+    })
+    expect(geometry.objectFit).toBe('contain')
+    expect(Math.abs(geometry.renderedRatio - geometry.intrinsicRatio)).toBeLessThan(0.02)
+
+    for (const heading of [
+      'The day the database disappeared',
+      'The production system is the project',
+      'Three worlds in motion',
+      'Controlled creative production',
+    ]) {
+      await expect(page.getByRole('heading', { level: 2, name: heading })).toBeAttached()
+    }
   }
 })
 

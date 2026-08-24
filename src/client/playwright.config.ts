@@ -32,7 +32,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npm run build && npm run preview:test',
+      command: 'npm run preview:test',
       url: clientOrigin,
       env: {
         VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact',

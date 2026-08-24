@@ -251,11 +251,13 @@
 - Consumes: Task 4 complete production rendering and semantic contracts.
 - Produces: browser-level behavioural proof, reviewed Windows baselines, manual review receipts, and bounded repairs for Task 6.
 
-- [ ] **Step 1: Add failing browser contracts before baseline capture.** Assert direct and client navigation, exact central claim, active status, public repository link, keyboard-reachable published links, no future-work links/disabled controls, six ordered stages with stop conditions, intrinsic hero/media dimensions, one eager hero, lazy below-fold images, captions, no private identifiers, and stable unknown/ordinary project routes.
+- [x] **Step 1: Add failing browser contracts before baseline capture.** Assert direct and client navigation, exact central claim, active status, public repository link, keyboard-reachable published links, no future-work links/disabled controls, six ordered stages with stop conditions, intrinsic hero/media dimensions, one eager hero, lazy below-fold images, captions, no private identifiers, and stable unknown/ordinary project routes.
 
-- [ ] **Step 2: Add responsive and accessibility outcomes.** At 390 and 320, assert `scrollWidth === clientWidth`, hero content visible, all major headings reachable, and no clipped Patch face/antennae/bag on the actual image bounds. At a 200% zoom proxy and native manual zoom, verify state distinctions do not depend on raster text or colour. Use keyboard-only traversal for public links and visible focus. Keep reduced motion from changing content or state.
+- [x] **Step 2: Add responsive and accessibility outcomes.** At 390 and 320, assert `scrollWidth === clientWidth`, hero content visible, all major headings reachable, and no clipped Patch face/antennae/bag on the actual image bounds. At a 200% zoom proxy and native manual zoom, verify state distinctions do not depend on raster text or colour. Use keyboard-only traversal for public links and visible focus. Keep reduced motion from changing content or state.
 
-- [ ] **Step 3: Run focused Playwright without updating snapshots.** Run:
+  **Proof and limitation:** Automated reflow covers 390, 360, and 320 CSS pixels, including the 360-pixel 200% reflow proxy, visible focus, reduced motion, zero horizontal overflow, and image aspect preservation. A separate Chromium audit at a 720-by-500 CSS-pixel viewport with device scale factor 2 confirmed zero overflow, all headings present, all ten images loaded, and reduced-motion parity. This environment did not expose Chromium's native UI zoom control, so the receipt does not mislabel the proxy or high-density rendering as native zoom.
+
+- [x] **Step 3: Run focused Playwright without updating snapshots.** Run:
 
   ```powershell
   npm.cmd --prefix src/client run test:e2e -- e2e/project-story.spec.ts e2e/accessibility.spec.ts
@@ -263,13 +265,23 @@
 
   Expected: PASS. Diagnose real failures before visual baselines; do not add sleeps or broaden timeouts to hide a race.
 
-- [ ] **Step 4: Inspect production rendering manually.** Review 1440, 768, 390, 320, keyboard-only, reduced motion, and native 200% zoom. Scroll every lazy image into view. Record whether the hero explains Patch, origin accountability is clear, old work is treated fairly, the pipeline pays rent, statuses remain distinct, images stay purposeful, future links feel intentionally absent, and the page remains part of the wider portfolio.
+  **Proof:** 32/32 focused project-story and accessibility tests pass. The build-before-server contract was moved into `test:e2e`, then Playwright starts only the stable preview server, removing the observed port race without sleeps or broader timeouts.
 
-- [ ] **Step 5: Sol visual gate.** Inspect full-page and focused captures, not only screenshot diffs. Record pass/veto for hierarchy, image job, evidence legibility, source order, Patch continuity, portfolio fit, whitespace purpose, caption economy, responsive art direction, and finish. If any deployed source has visual drift or a misleading status, veto it even when tests pass.
+- [x] **Step 4: Inspect production rendering manually.** Review 1440, 768, 390, 320, keyboard-only, reduced motion, and native 200% zoom. Scroll every lazy image into view. Record whether the hero explains Patch, origin accountability is clear, old work is treated fairly, the pipeline pays rent, statuses remain distinct, images stay purposeful, future links feel intentionally absent, and the page remains part of the wider portfolio.
 
-- [ ] **Step 6: Add only reviewed Windows baselines.** Capture focused contracts for hero/origin at 1440, pipeline/published work at 1440, three worlds/story lab at 1440, and complete stacked composition at 390. Update only `patch-*` snapshots. Run the focused visual suite twice to prove stable pixels at the existing tolerance.
+  **Receipt:** Full-page and focused captures were inspected at 1440, 768, 390, and 320. Every lazy image was scrolled into view. The hero states Patch's teaching purpose immediately; the database incident assigns responsibility to Harley's environment; Club DB is useful historical evidence rather than a joke; every pipeline stop has a visible engineering reason; published, in-flight, legacy-reference, and story-seed states remain distinct; the unlinked story lab reads as deliberate; and the shared type, paper, ink, copper, spacing, related-content, and footer systems keep the route inside the portfolio.
 
-- [ ] **Step 7: Repair bounded defects and re-run the owning gate.** Route factual/copy defects to Task 4, source/custody defects to Task 1, data/privacy defects to Task 2, and semantic component defects to Task 3. Do not patch symptoms in tests. Record each accepted repair and Sol re-review in the plan.
+- [x] **Step 5: Sol visual gate.** Inspect full-page and focused captures, not only screenshot diffs. Record pass/veto for hierarchy, image job, evidence legibility, source order, Patch continuity, portfolio fit, whitespace purpose, caption economy, responsive art direction, and finish. If any deployed source has visual drift or a misleading status, veto it even when tests pass.
+
+  **Sol visual gate, PASS (2026-08-24):** The wide hero now uses the full visual field, with Patch carrying the left half and live HTML carrying the right. Origin, production, published work, worlds, notebook, and close each have a different editorial rhythm without losing continuity. Captions stay subordinate, status distinctions remain readable without colour, narrow source order is coherent, and the mobile hero preserves Patch's face, antennae, and bag rather than cropping them. The route is image-rich without becoming a Patch microsite.
+
+- [x] **Step 6: Add only reviewed Windows baselines.** Capture focused contracts for hero/origin at 1440, pipeline/published work at 1440, three worlds/story lab at 1440, and complete stacked composition at 390. Update only `patch-*` snapshots. Run the focused visual suite twice to prove stable pixels at the existing tolerance.
+
+  **Proof:** Seven new `patch-*` Windows baselines cover the named compositions. The focused visual suite passed 4/4 twice without updating snapshots or changing tolerance.
+
+- [x] **Step 7: Repair bounded defects and re-run the owning gate.** Route factual/copy defects to Task 4, source/custody defects to Task 1, data/privacy defects to Task 2, and semantic component defects to Task 3. Do not patch symptoms in tests. Record each accepted repair and Sol re-review in the plan.
+
+  **Accepted repairs:** Manual review removed the generic body-width constraint and narrow hero flex collapse. Independent review then caught inherited desktop hero grid columns; the repair resets Patch to one full-width grid and adds browser geometry proof, and the same reviewer returned PASS on the exact finding. The 320-pixel title was tightened, the mobile image now uses its full intrinsic composition, the E2E preview race was fixed at its build/server boundary, and the visual helper now scrolls each lazy image before capture. Sol re-inspected every affected viewport and baseline.
 
 - [ ] **Step 8: Commit reviewed browser proof.** Mark Task 5 complete and commit `test: prove the Patch case study experience` after focused project-story, accessibility, and visual suites pass and every baseline has a named reason.
 

@@ -112,7 +112,7 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertEqual(["quality", "visual-regression"], sequence_values(deploy, "needs", 4))
 
         self.assertEqual(
-            "playwright test e2e/visual-regression.spec.ts",
+            "npm run build && playwright test e2e/visual-regression.spec.ts",
             package["scripts"].get("test:e2e:visual"),
         )
         self.assertIn("test.skip(process.platform !== 'win32'", visual_spec)

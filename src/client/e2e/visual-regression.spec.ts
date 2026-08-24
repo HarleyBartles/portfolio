@@ -15,13 +15,21 @@ async function openStable(page: Page, path: string): Promise<void> {
 }
 
 async function waitForImages(region: ReturnType<Page['locator']>): Promise<void> {
+  for (const image of await region.locator('img').all()) {
+    await image.scrollIntoViewIfNeeded()
+    await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
+  }
   await region.scrollIntoViewIfNeeded()
-  await expect.poll(() => region.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true)
 }
 
 async function waitForWildBunchStyles(page: Page): Promise<void> {
   const figure = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(23, 60, 63)')
+}
+
+async function waitForPatchStyles(page: Page): Promise<void> {
+  const production = page.getByRole('region', { name: 'The production system is the project' })
+  await expect.poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(21, 63, 66)')
 }
 
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
@@ -125,4 +133,53 @@ test('Wild Bunch keeps its stacked composition legible on mobile', async ({ page
 
   const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism-mobile.png')
+})
+
+test('Adventures of Patch keeps its hero and accountable origin on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+  await waitForImages(hero)
+  await expect(hero).toHaveScreenshot('patch-hero.png')
+
+  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  await waitForImages(origin)
+  await expect(origin).toHaveScreenshot('patch-origin.png')
+})
+
+test('Adventures of Patch keeps its production system and published evidence legible on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const production = page.getByRole('region', { name: 'The production system is the project' })
+  await expect(production).toHaveScreenshot('patch-production-system.png')
+
+  const published = page.getByRole('region', { name: 'What has earned an artefact' })
+  await waitForImages(published)
+  await expect(published).toHaveScreenshot('patch-published-evidence.png')
+})
+
+test('Adventures of Patch keeps active worlds and the story lab distinct on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const worlds = page.getByRole('region', { name: 'Three worlds in motion' })
+  await waitForImages(worlds)
+  await expect(worlds).toHaveScreenshot('patch-worlds.png')
+
+  await expect(page.getByRole('region', { name: 'What Patch might teach next' })).toHaveScreenshot('patch-story-lab.png')
+})
+
+test('Adventures of Patch keeps the complete authored composition on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const projectPage = page.locator('article.content-page')
+  await waitForImages(projectPage)
+  await expect(projectPage).toHaveScreenshot('patch-composition-mobile.png')
 })

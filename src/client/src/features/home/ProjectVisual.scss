@@ -19,6 +19,9 @@
   position: relative;
   isolation: isolate;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
   min-height: clamp(32rem, 52vw, 43rem);
   padding: 0;
   overflow: hidden;
@@ -66,6 +69,7 @@
   }
 
   .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+    min-width: 0;
     width: auto;
     margin: 0 0 var(--space-6);
     padding: 0;
@@ -73,11 +77,21 @@
 
   .content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
     max-width: none;
-    font-size: clamp(3rem, 17vw, 4.8rem);
+    font-size: clamp(2.8rem, 14.5vw, 3.6rem);
   }
 
   .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
+    width: calc(100% + (2 * var(--space-6)));
     margin-inline: calc(var(--space-6) * -1);
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch,
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch img {
+    height: auto;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch img {
+    object-fit: contain;
   }
 }
 
