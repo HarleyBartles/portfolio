@@ -55,17 +55,24 @@ function IdentityEmporiumEvidence() {
   return (
     <figure className="identity-evidence" aria-label="Identity Emporium combines role and domain">
       <div className="identity-evidence__logic" aria-label="Cowboy example outcomes">
-        <div><span>One bot</span><strong>Right kit, wrong domain</strong><small>Cowboy kit, office</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
-        <div><span>The other bot</span><strong>Right domain, wrong kit</strong><small>Robot methods, ranch</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
-        <div><span>Patch</span><strong>Right kit, right domain</strong><small>Cowboy kit, ranch</small><span className="identity-evidence__outcome">Works</span></div>
+        <div><span>Bot</span><strong>Right kit, wrong domain</strong><small>All the gear, no idea</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
+        <div><span>Bit</span><strong>Right domain, wrong kit</strong><small>No get-up, can&apos;t get down to work</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
+        <div><span>Patch</span><strong>Right kit, right domain</strong><small>Prepared for the job</small><span className="identity-evidence__outcome">Works</span></div>
       </div>
       <div className="identity-evidence__source-pair">
         <div>
           <EvidencePicture path="src/client/public/media/patch/patch-identity-1200.avif" alt="Patch receives a mission role kit from the Identity Emporium shopkeeper." />
           <p>The Emporium supplies the role</p>
         </div>
-        <div>
-          <EvidencePicture path="src/client/public/media/patch/patch-identity-bot-role-kit-1200.avif" alt="Approved Bit and Bot role-kit sheet showing mechanic, detective, cowboy and chef variants." />
+        <div className="identity-evidence__failure-panel">
+          <div className="identity-evidence__failure-pair">
+            <div>
+              <EvidencePicture path="src/client/public/media/patch/patch-identity-bot-failure-480.avif" alt="Bot in a cowboy role kit trying to lasso a fleeing chicken." />
+            </div>
+            <div>
+              <EvidencePicture path="src/client/public/media/patch/patch-identity-bit-action-480.avif" alt="Bit carrying a toolbox in his usual robot configuration." />
+            </div>
+          </div>
           <p>Bit and Bot expose the two failure modes</p>
         </div>
       </div>

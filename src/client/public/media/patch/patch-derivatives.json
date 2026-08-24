@@ -694,12 +694,12 @@
       "outputSha256": "d3243f14dcf9be5eca5608d4775128fdda22343a7436a645f2571015d70ce458"
     },
     {
-      "family": "identityBotRoleKit",
-      "sourcePath": "build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png",
+      "family": "identityBotFailure",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "accepted",
-      "width": 1200,
-      "height": 788,
+      "width": 480,
+      "height": 384,
       "format": "avif",
       "encoding": {
         "quality": 52,
@@ -707,19 +707,24 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "support",
-      "path": "src/client/public/media/patch/patch-identity-bot-role-kit-1200.avif",
-      "sourceGitObjectId": "d1057faa0c487fbbfd354dd1cab082e9835e54e0",
-      "sourceSha256": "b6c676adeee34f37fe98f5a06c460f2cf2fe9459606723b7fa466d306b3b2b09",
-      "bytes": 51663,
-      "outputSha256": "3ca9dd263ea0752ce0b6a1c1198b2eaa451e6f73ae6c28d2e35cdd24c44f4fae"
+      "cropFrame": {
+        "width": 480,
+        "height": 384,
+        "position": "center"
+      },
+      "path": "src/client/public/media/patch/patch-identity-bot-failure-480.avif",
+      "sourceGitObjectId": "715c2dc5e3a82510cf48628c9da362cc606f8fc3",
+      "sourceSha256": "99f23e0e54148a4fa0f6cc6455c5d2c4adf0783093d2c791e1810a0cb694d4e0",
+      "bytes": 19951,
+      "outputSha256": "0c5744caa55852509bcc2c20f286b4548d6ead52cef2d1aaa8d38f155940c127"
     },
     {
-      "family": "identityBotRoleKit",
-      "sourcePath": "build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png",
+      "family": "identityBotFailure",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "accepted",
-      "width": 1200,
-      "height": 788,
+      "width": 480,
+      "height": 384,
       "format": "webp",
       "encoding": {
         "quality": 78,
@@ -727,19 +732,24 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "support",
-      "path": "src/client/public/media/patch/patch-identity-bot-role-kit-1200.webp",
-      "sourceGitObjectId": "d1057faa0c487fbbfd354dd1cab082e9835e54e0",
-      "sourceSha256": "b6c676adeee34f37fe98f5a06c460f2cf2fe9459606723b7fa466d306b3b2b09",
-      "bytes": 71082,
-      "outputSha256": "3171a3bae3092128343d257100d4b52d48ea63dbba37d6b9352db82b113b9b12"
+      "cropFrame": {
+        "width": 480,
+        "height": 384,
+        "position": "center"
+      },
+      "path": "src/client/public/media/patch/patch-identity-bot-failure-480.webp",
+      "sourceGitObjectId": "715c2dc5e3a82510cf48628c9da362cc606f8fc3",
+      "sourceSha256": "99f23e0e54148a4fa0f6cc6455c5d2c4adf0783093d2c791e1810a0cb694d4e0",
+      "bytes": 27580,
+      "outputSha256": "bb6a5d2b3fd266fdcb83eca7225273dcc84200a223b4baac03ec871fbc43f709"
     },
     {
-      "family": "identityCowboy",
-      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "family": "identityBitAction",
+      "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
-      "sourceStatus": "visual_development",
+      "sourceStatus": "accepted",
       "width": 480,
-      "height": 480,
+      "height": 600,
       "format": "avif",
       "encoding": {
         "quality": 52,
@@ -747,11 +757,55 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bit-action-480.avif",
+      "sourceGitObjectId": "d5bc58b5ebcc8c4d05b1e109724003cfaccacc09",
+      "sourceSha256": "0d86b9efdca4d85450348975d47cd26d629a2a3be0ea99caa3d25aa11eabdfc4",
+      "bytes": 13710,
+      "outputSha256": "6709d60862a6f4574301e14c9932419f12ef29dc97d0970f13079061c6397e81"
+    },
+    {
+      "family": "identityBitAction",
+      "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bit-action-480.webp",
+      "sourceGitObjectId": "d5bc58b5ebcc8c4d05b1e109724003cfaccacc09",
+      "sourceSha256": "0d86b9efdca4d85450348975d47cd26d629a2a3be0ea99caa3d25aa11eabdfc4",
+      "bytes": 20156,
+      "outputSha256": "fb181fb08ff2e7128bc81719fe3f287a8d10f3c6f8017f28854c294a1f28af29"
+    },
+    {
+      "family": "identityCowboy",
+      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-cowboy-480.avif",
       "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
       "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
-      "bytes": 9015,
-      "outputSha256": "2754798c681dccaf925e1390f5e84ef428c22024b521576b75cd5042fe420b50"
+      "bytes": 11244,
+      "outputSha256": "c7f45c426fd20afa82db3d512477cfe437f0aae829bad9d7f488d5472f54eceb"
     },
     {
       "family": "identityCowboy",
@@ -759,7 +813,7 @@
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "visual_development",
       "width": 480,
-      "height": 480,
+      "height": 600,
       "format": "webp",
       "encoding": {
         "quality": 78,
@@ -767,11 +821,15 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-cowboy-480.webp",
       "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
       "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
-      "bytes": 15152,
-      "outputSha256": "38f98afe22046c2d152b2d1d605102369c1beb5d5d7e3d7f01c59e244cd721e8"
+      "bytes": 19202,
+      "outputSha256": "069c6611b9895c5aecb246cdd5394158dd0551f14b1737b271eaa9e50ccdc56a"
     },
     {
       "family": "identityDetective",
@@ -779,7 +837,7 @@
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "visual_development",
       "width": 480,
-      "height": 640,
+      "height": 600,
       "format": "avif",
       "encoding": {
         "quality": 52,
@@ -787,11 +845,15 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-detective-480.avif",
       "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
       "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
-      "bytes": 13922,
-      "outputSha256": "f75d61bf96c231f1bdead7dac8de96db6060d5142c849d3319c10266bdf358c4"
+      "bytes": 15642,
+      "outputSha256": "8cc49bdbd39b0a809b465e07a88afe1af63fe394d2542173126485691aa887a0"
     },
     {
       "family": "identityDetective",
@@ -799,7 +861,7 @@
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "visual_development",
       "width": 480,
-      "height": 640,
+      "height": 600,
       "format": "webp",
       "encoding": {
         "quality": 78,
@@ -807,11 +869,15 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-detective-480.webp",
       "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
       "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
-      "bytes": 22602,
-      "outputSha256": "fafed191b4df1811b959dba73de17127c747ebd521ecdd1948da95b90a46fef2"
+      "bytes": 25768,
+      "outputSha256": "c9d4bde0030f725f01c1d5dd9beb65e6e80fbdf64b063b8ee29aa8e6ad521b1f"
     },
     {
       "family": "identityMechanic",
@@ -827,11 +893,15 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-mechanic-480.avif",
       "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
       "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
-      "bytes": 11232,
-      "outputSha256": "c8fc269ad04172f26baf94b715581fcf04ee6dd41abfca0b3e248823db610f29"
+      "bytes": 12265,
+      "outputSha256": "f65332e8cc6e134c57386761c24c67d3860bd84bf7de6804a1a1053923576d8e"
     },
     {
       "family": "identityMechanic",
@@ -847,11 +917,15 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-mechanic-480.webp",
       "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
       "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
-      "bytes": 18106,
-      "outputSha256": "aee73b6fab2e9db85262e40a367f3e4e2cc4a6b84224e6448f11f679e4106c20"
+      "bytes": 20244,
+      "outputSha256": "65aee307db1f8932a83e3052979ccf098a076266692ea6e9404abef43842f745"
     },
     {
       "family": "identityChef",
@@ -867,11 +941,15 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-chef-480.avif",
       "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
       "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
-      "bytes": 11335,
-      "outputSha256": "f7e0ab249931fe2ae79ec2f2b69a8e5c7e6ace134ce8e859c75fb434780e8d94"
+      "bytes": 11311,
+      "outputSha256": "7214978b7b96b48e59535fb3f3591b99de38647befb4e0e1494001cde5002c79"
     },
     {
       "family": "identityChef",
@@ -887,11 +965,15 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
       "path": "src/client/public/media/patch/patch-identity-chef-480.webp",
       "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
       "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
-      "bytes": 19008,
-      "outputSha256": "0372bc11dee0fb0f2fb636fc435b08ecdca117526bcfd61542ceb4d596cf875f"
+      "bytes": 18946,
+      "outputSha256": "22fc979ff4f36e44546fa7e174bb37c258b74e5b648a2361e8d733e30fa3bc1f"
     }
   ]
 }

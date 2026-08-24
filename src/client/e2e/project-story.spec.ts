@@ -222,13 +222,58 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
   expect(desktopComposition.introStart).toBeGreaterThan(0.44)
 
   const evidence = page.locator('.patch-case-study img')
-  await expect(evidence).toHaveCount(14)
+  await expect(evidence).toHaveCount(15)
   for (const image of await evidence.all()) {
     await expect(image).toHaveAttribute('loading', 'lazy')
     await expect(image).toHaveAttribute('width', /^\d+$/)
     await expect(image).toHaveAttribute('height', /^\d+$/)
   }
   await expect(page.locator('.patch-case-study figcaption')).toHaveCount(9)
+})
+
+test('Identity Emporium role kits share one deliberate image frame', async ({ page }) => {
+  await page.goto(patchPath)
+
+  const frames = page.locator('.identity-evidence__roles picture')
+  const failureFrames = page.locator('.identity-evidence__failure-pair picture')
+  await expect(frames).toHaveCount(4)
+  await expect(failureFrames).toHaveCount(2)
+
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+
+    const geometry = await frames.evaluateAll((elements) => elements.map((element) => {
+      const bounds = element.getBoundingClientRect()
+      const imageBounds = element.querySelector('img')?.getBoundingClientRect()
+
+      return {
+        backgroundColor: getComputedStyle(element).backgroundColor,
+        height: bounds.height,
+        imageContained: imageBounds !== undefined
+          && imageBounds.left >= bounds.left
+          && imageBounds.right <= bounds.right
+          && imageBounds.top >= bounds.top
+          && imageBounds.bottom <= bounds.bottom,
+        width: bounds.width,
+      }
+    }))
+
+    expect(new Set(geometry.map(({ backgroundColor }) => backgroundColor))).toEqual(new Set(['rgb(255, 255, 255)']))
+    expect(Math.max(...geometry.map(({ width: frameWidth }) => frameWidth)) - Math.min(...geometry.map(({ width: frameWidth }) => frameWidth))).toBeLessThanOrEqual(1)
+    expect(Math.max(...geometry.map(({ height }) => height)) - Math.min(...geometry.map(({ height }) => height))).toBeLessThanOrEqual(1)
+    expect(geometry.every(({ imageContained }) => imageContained)).toBe(true)
+    for (const frame of geometry) {
+      expect(frame.width / frame.height).toBeCloseTo(4 / 5, 2)
+    }
+
+    const failureGeometry = await failureFrames.evaluateAll((elements) => elements.map((element) => ({
+      backgroundColor: getComputedStyle(element).backgroundColor,
+      height: element.getBoundingClientRect().height,
+      width: element.getBoundingClientRect().width,
+    })))
+    expect(new Set(failureGeometry.map(({ backgroundColor }) => backgroundColor))).toEqual(new Set(['rgb(255, 255, 255)']))
+    expect(Math.max(...failureGeometry.map(({ height }) => height)) - Math.min(...failureGeometry.map(({ height }) => height))).toBeLessThanOrEqual(2)
+  }
 })
 
 test('Adventures of Patch remains complete at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {

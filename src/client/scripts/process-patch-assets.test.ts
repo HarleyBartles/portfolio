@@ -21,7 +21,8 @@ const fixtureManifest = {
   heist: { width: 1600, height: 900 },
   tournament: { width: 1600, height: 900 },
   identity: { width: 1600, height: 900 },
-  identityBotRoleKit: { width: 1536, height: 1008 },
+  identityBotFailure: { width: 1400, height: 1114 },
+  identityBitAction: { width: 1124, height: 1448 },
   identityCowboy: { width: 1254, height: 1254 },
   identityDetective: { width: 1086, height: 1448 },
   identityMechanic: { width: 1122, height: 1402 },
@@ -36,8 +37,16 @@ describe('Patch asset processor', () => {
     expect(PATCH_DERIVATIVES.introducingPagePortrait.sourcePath).toBe('published/misc/introducing-patch/page__v1-mobile.png')
     expect(PATCH_DERIVATIVES.goldilocksPortrait.sourcePath).toBe('published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png')
     expect(PATCH_DERIVATIVES.identity.sourceStatus).toBe('legacy_reference')
-    expect(PATCH_DERIVATIVES.identityBotRoleKit.sourceStatus).toBe('accepted')
+    expect(PATCH_DERIVATIVES.identityBotFailure.sourcePath).toContain('cowboy_alt_chicken_chase')
+    expect(PATCH_DERIVATIVES.identityBotFailure.cropFrame).toEqual({ width: 480, height: 384, position: 'center' })
+    expect(PATCH_DERIVATIVES.identityBitAction.sourcePath).toContain('bit_action')
     expect(PATCH_DERIVATIVES.identityCowboy.sourcePath).toContain('cowboy-role-kit')
+    expect([
+      PATCH_DERIVATIVES.identityCowboy,
+      PATCH_DERIVATIVES.identityDetective,
+      PATCH_DERIVATIVES.identityMechanic,
+      PATCH_DERIVATIVES.identityChef,
+    ].map(({ frame }) => frame)).toEqual(Array(4).fill({ width: 480, height: 600 }))
     expect(PATCH_DERIVATIVES.heist.sourcePath).toBeUndefined()
   })
 

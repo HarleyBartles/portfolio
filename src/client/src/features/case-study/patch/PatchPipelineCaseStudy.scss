@@ -398,7 +398,7 @@
 
 .identity-evidence__source-pair {
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  grid-template-columns: 0.74fr 1.26fr;
   gap: 1px;
   background: rgb(73 50 20 / 25%);
 }
@@ -411,16 +411,65 @@
 }
 
 .identity-evidence__source-pair picture {
-  display: grid;
-  place-items: center;
-  min-height: clamp(12rem, 24vw, 20rem);
-  padding: var(--space-3);
-  background: var(--patch-cream);
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  height: clamp(14rem, 24vw, 20rem);
+  overflow: hidden;
+  background: #fff;
 }
 
 .identity-evidence__source-pair img {
-  max-height: clamp(12rem, 24vw, 20rem);
+  position: absolute;
+  inset: var(--space-4);
+  width: calc(100% - (2 * var(--space-4)));
+  height: calc(100% - (2 * var(--space-4)));
+  max-width: 100%;
+  max-height: none;
   object-fit: contain;
+}
+
+.identity-evidence__source-pair > div:first-child img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identity-evidence__failure-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  height: 100%;
+  min-width: 0;
+}
+
+.identity-evidence__failure-pair > div {
+  display: grid;
+  min-width: 0;
+  background: #fff;
+}
+
+.identity-evidence__failure-pair > div + div {
+  border-left: 1px solid var(--color-border);
+}
+
+.identity-evidence__failure-pair picture {
+  height: 100%;
+}
+
+.identity-evidence__failure-pair img {
+  object-position: center bottom;
+}
+
+.identity-evidence__failure-pair > div:first-child img {
+  object-fit: contain;
+}
+
+.identity-evidence__failure-pair > div:last-child img {
+  inset: auto auto var(--space-4) 50%;
+  width: 90%;
+  height: 80%;
+  transform: translateX(-50%);
 }
 
 .identity-evidence__source-pair p {
@@ -444,21 +493,28 @@
 
 .identity-evidence__roles li {
   display: grid;
-  grid-template-rows: minmax(10rem, 1fr) auto;
+  grid-template-rows: auto auto;
   min-width: 0;
   background: var(--color-surface);
 }
 
 .identity-evidence__roles picture {
-  display: grid;
-  place-items: end center;
-  padding: var(--space-3);
-  background: var(--patch-cream);
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  aspect-ratio: 4 / 5;
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
 }
 
 .identity-evidence__roles img {
-  height: 100%;
-  max-height: 16rem;
+  position: absolute;
+  inset: var(--space-3);
+  width: calc(100% - (2 * var(--space-3)));
+  height: calc(100% - (2 * var(--space-3)));
+  max-width: none;
+  max-height: none;
   object-fit: contain;
 }
 
@@ -647,6 +703,21 @@
   .identity-evidence__logic,
   .identity-evidence__source-pair {
     grid-template-columns: 1fr;
+  }
+
+  .identity-evidence__source-pair > div:first-child picture {
+    height: auto;
+    aspect-ratio: 5 / 4;
+  }
+
+  .identity-evidence__failure-pair {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    height: clamp(10rem, 44vw, 12rem);
+  }
+
+  .identity-evidence__failure-pair > div:last-child img {
+    width: 100%;
+    height: 90%;
   }
 
   .identity-evidence__logic > div {

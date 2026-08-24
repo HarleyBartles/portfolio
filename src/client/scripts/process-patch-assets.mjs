@@ -42,11 +42,12 @@ export const PATCH_DERIVATIVES = {
   heist: { sourceStatus: 'advanced_visual_preproduction', widths: [1200], formats, byteBudgetClass: 'support', sourceIdentity: PATCH_HEIST_SOURCE_IDENTITY },
   tournament: { sourcePath: 'build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png', sourceStatus: 'visual_development', widths: [1200], formats, byteBudgetClass: 'support' },
   identity: { sourcePath: 'build/environments/identity-emporium/reference_sheets/world_proof__v1.png', sourceStatus: 'legacy_reference', widths: [1200], formats, byteBudgetClass: 'support' },
-  identityBotRoleKit: { sourcePath: 'build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png', sourceStatus: 'accepted', widths: [1200], formats, byteBudgetClass: 'support' },
-  identityCowboy: { sourcePath: 'build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
-  identityDetective: { sourcePath: 'build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
-  identityMechanic: { sourcePath: 'build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
-  identityChef: { sourcePath: 'build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
+  identityBotFailure: { sourcePath: 'build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png', sourceStatus: 'accepted', widths: [480], formats, byteBudgetClass: 'support', cropFrame: { width: 480, height: 384, position: 'center' } },
+  identityBitAction: { sourcePath: 'build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png', sourceStatus: 'accepted', widths: [480], formats, byteBudgetClass: 'support' },
+  identityCowboy: { sourcePath: 'build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support', frame: { width: 480, height: 600 } },
+  identityDetective: { sourcePath: 'build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support', frame: { width: 480, height: 600 } },
+  identityMechanic: { sourcePath: 'build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support', frame: { width: 480, height: 600 } },
+  identityChef: { sourcePath: 'build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support', frame: { width: 480, height: 600 } },
 }
 
 function fail(message) { throw new Error(message) }
@@ -105,10 +106,12 @@ export function buildDerivativeManifest(sourceManifest) {
       sourceRevision: PATCH_SOURCE_REVISION,
       sourceStatus: definition.sourceStatus,
       width,
-      height: heightFor(source, width),
+      height: definition.frame?.height ?? definition.cropFrame?.height ?? heightFor(source, width),
       format,
       encoding: encoding[format],
       byteBudgetClass: definition.byteBudgetClass,
+      ...(definition.frame ? { frame: definition.frame } : {}),
+      ...(definition.cropFrame ? { cropFrame: definition.cropFrame } : {}),
       path: `src/client/public/media/patch/${outputStem(family, slide)}-${width}.${format}`,
       ...(definition.crop ? { crop: definition.crop } : {}),
     }))))
@@ -200,6 +203,28 @@ async function loadSourceInputs({ sourceRoot: suppliedSourceRoot, heistSource },
 }
 
 async function renderDerivative(entry, info) {
+  if (entry.cropFrame) {
+    return sharp(info.buffer)
+      .rotate()
+      .resize({ width: entry.cropFrame.width, height: entry.cropFrame.height, fit: 'cover', position: entry.cropFrame.position })
+      .toFormat(entry.format, entry.encoding)
+      .toBuffer()
+  }
+  if (entry.frame) {
+    const inset = 32
+    const subject = await sharp(info.buffer)
+      .rotate()
+      .trim({ background: '#fff', threshold: 10 })
+      .resize({ width: entry.frame.width - (inset * 2), height: entry.frame.height - (inset * 2), fit: 'inside' })
+      .png()
+      .toBuffer({ resolveWithObject: true })
+    const left = Math.round((entry.frame.width - subject.info.width) / 2)
+    const top = entry.frame.height - inset - subject.info.height
+    return sharp({ create: { width: entry.frame.width, height: entry.frame.height, channels: 3, background: '#fff' } })
+      .composite([{ input: subject.data, left, top }])
+      .toFormat(entry.format, entry.encoding)
+      .toBuffer()
+  }
   return sharp(info.buffer).rotate().resize(entry.crop ? { width: entry.width, height: entry.height, fit: 'cover', withoutEnlargement: true, position: 'attention' } : { width: entry.width, withoutEnlargement: true }).toFormat(entry.format, entry.encoding).toBuffer()
 }
 
