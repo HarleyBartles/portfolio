@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = ROOT / ".github/workflows/ci.yml"
 PACKAGE_PATH = ROOT / "src/client/package.json"
+PYTHON_REQUIREMENTS_PATH = ROOT / "requirements.txt"
 VISUAL_SPEC_PATH = ROOT / "src/client/e2e/visual-regression.spec.ts"
 PLAYWRIGHT_CONFIG_PATH = ROOT / "src/client/playwright.config.ts"
 
@@ -79,6 +80,15 @@ def step_run_commands(job: str) -> list[str]:
 
 
 class VisualCiContractTests(unittest.TestCase):
+    def test_linux_quality_job_installs_declared_python_dependencies(self) -> None:
+        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        jobs = mapping_block(workflow, "jobs", 0)
+        quality = mapping_block(jobs, "quality", 2)
+
+        self.assertTrue(PYTHON_REQUIREMENTS_PATH.is_file())
+        self.assertIn("Pillow==12.2.0", PYTHON_REQUIREMENTS_PATH.read_text(encoding="utf-8").splitlines())
+        self.assertIn("python3 -m pip install --requirement requirements.txt", step_run_commands(quality))
+
     def test_windows_is_the_required_canonical_visual_renderer(self) -> None:
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         package = json.loads(PACKAGE_PATH.read_text(encoding="utf-8"))

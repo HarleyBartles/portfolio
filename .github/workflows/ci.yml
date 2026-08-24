@@ -43,6 +43,9 @@ jobs:
       - name: Install Chromium
         run: npx --prefix src/client playwright install --with-deps chromium
 
+      - name: Install Python dependencies
+        run: python3 -m pip install --requirement requirements.txt
+
       - name: Run canonical quality gate
         run: python3 tools/run.py ci --check --verbose
 
