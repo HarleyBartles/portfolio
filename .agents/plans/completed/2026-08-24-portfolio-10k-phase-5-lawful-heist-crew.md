@@ -330,9 +330,13 @@
 
   **Evidence:** PR [#26](https://github.com/HarleyBartles/portfolio/pull/26) was marked ready at published head `2b07c8f866c11240155328ff009627c223f8fb49`. GitHub's [Portfolio quality gate](https://github.com/HarleyBartles/portfolio/actions/runs/32747970612/job/97497915412) passed in 2m40s and [Visual regression](https://github.com/HarleyBartles/portfolio/actions/runs/32747970612/job/97497915138) passed in 1m46s. The deploy and public-route jobs correctly skipped on the PR branch. This evidence commit requires the same two checks to pass again on its final head before handoff.
 
-- [ ] **Step 7: Give Harley the review surface.** Start or retain the production preview at a stable local URL, provide the direct `/portfolio/patch/lawful-heist/` link and the PR URL, and stop at Harley's visual and merge decision. Keep Phase 5 `executing` until the PR merges and post-deploy public-route proof passes.
+- [x] **Step 7: Give Harley the review surface.** Start or retain the production preview at a stable local URL, provide the direct `/portfolio/patch/lawful-heist/` link and the PR URL, and stop at Harley's visual and merge decision. Keep Phase 5 `executing` until the PR merges and post-deploy public-route proof passes.
 
-- [ ] **Step 8: Close Phase 5 only after merge proof.** After Harley reports merge, verify GitHub's merge commit, fast-forward shared `main`, verify the deployed exact route and post-deploy check, archive this plan to `.agents/plans/completed/`, repair roadmap and generated index links, commit/publish any required closeout PR, then remove the worktree through the repository helper. Do not start Phase 6 before this proof.
+  **Evidence:** Harley reviewed the production preview and accepted the page at the merge gate. PR #26 was ready for review at exact head `32157f070c0a71b69f5e156ac30e1bab229ac074` before merge.
+
+- [x] **Step 8: Close Phase 5 only after merge proof.** After Harley reports merge, verify GitHub's merge commit, fast-forward shared `main`, verify the deployed exact route and post-deploy check, archive this plan to `.agents/plans/completed/`, repair roadmap and generated index links, commit/publish any required closeout PR, then remove the worktree through the repository helper. Do not start Phase 6 before this proof.
+
+  **Evidence:** PR #26 merged at `2026-08-24T17:48:28Z` as `67b02764076d117c161befeb74605076e183c677`. Post-merge run [32758747612](https://github.com/HarleyBartles/portfolio/actions/runs/32758747612) passed the Portfolio quality gate, Windows visual regression, Pages deployment and public-route verification on that exact merge commit. The shared checkout was fast-forwarded to the same commit. This plan and the Phase 5 foundation plan are archived through the closeout branch before Phase 6 planning begins.
 
 ## Plan self-review record
 
