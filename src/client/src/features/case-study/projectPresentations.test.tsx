@@ -36,6 +36,6 @@ describe('project presentations', () => {
     expect(await screen.findByRole('heading', { level: 2, name: 'Index' }, { timeout: 5_000 })).toBeVisible()
 
     render(<Suspense fallback={null}><LearningLabCaseStudy /></Suspense>)
-    expect(await screen.findByRole('heading', { level: 2, name: 'Engineering judgement, made teachable' }, { timeout: 5_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 5_000 })).toBeVisible()
   })
 })

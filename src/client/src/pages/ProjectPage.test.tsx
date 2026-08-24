@@ -57,7 +57,7 @@ describe('Project route visuals', () => {
     const article = title.closest('article')
     expect(article?.querySelector('header')).toHaveAttribute('data-visual-contract', 'learning-lab-case-study-hero')
     expect(article?.querySelectorAll('[data-visual-contract="learning-lab-loop"]')).toHaveLength(1)
-    expect(await screen.findByRole('heading', { level: 2, name: 'Engineering judgement, made teachable' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()
     expect(screen.queryByRole('img', { name: /venue floor plan/i })).not.toBeInTheDocument()
   })
 })

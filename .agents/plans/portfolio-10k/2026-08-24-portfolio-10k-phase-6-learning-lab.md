@@ -249,15 +249,15 @@
 - Consumes: Task 2 specialist skeleton and typed evidence selectors.
 - Produces: complete nine-movement case study; semantic promotion flow; facilitator/learner/worker cutaway; Labs 3, 5 and 7 proof; safety and authorship close; derived delivery copy.
 
-- [ ] **Step 1: Write failing promotion-flow tests.** Require this ordered sequence: `Roadmap module`, `Learning pressure and dependencies`, `Facilitator choreography`, `Learner cards and progressive disclosure`, `Bounded worker environment and safety controls`, `Mature lab with recovery and handoff`. Every stage exposes the question it answers and one output; useful stages expose a stop condition. Assert `mature` is not described as finished forever.
+- [x] **Step 1: Write failing promotion-flow tests.** Require this ordered sequence: `Roadmap module`, `Learning pressure and dependencies`, `Facilitator choreography`, `Learner cards and progressive disclosure`, `Bounded worker environment and safety controls`, `Mature lab with recovery and handoff`. Every stage exposes the question it answers and one output; useful stages expose a stop condition. Assert `mature` is not described as finished forever.
 
-- [ ] **Step 2: Write failing lab-cutaway tests.** Require visible `Facilitator`, `Learner` and `Worker environment` regions in source order. Require rationale/setup/observations/fallbacks/deferments, one revealed learner card with questions and judgment, and only scoped mission/project state plus applicable instructions/tools/permissions for the worker. Render `Facilitator choreography is not worker context` as visible text, while distinguishing workspace scope from permission enforcement.
+- [x] **Step 2: Write failing lab-cutaway tests.** Require visible `Facilitator`, `Learner` and `Worker environment` regions in source order. Require rationale/setup/observations/fallbacks/deferments, one revealed learner card with questions and judgment, and only scoped mission/project state plus applicable instructions/tools/permissions for the worker. Render `Facilitator choreography is not worker context` as visible text, while distinguishing workspace scope from permission enforcement.
 
-- [ ] **Step 3: Write failing representative-lab tests.** Require Labs 3, 5 and 7 in order. Each caselet must expose learner problem, designed pressure, safe experiment, earned model and mentoring/systems consequence. Require `tears in the rain` once; the complete behaviour equation once; and the software engineering, creative writing and technical drawing authority progression. Lab 4 appears as the page-wide safety argument, never a fourth equal caselet.
+- [x] **Step 3: Write failing representative-lab tests.** Require Labs 3, 5 and 7 in order. Each caselet must expose learner problem, designed pressure, safe experiment, earned model and mentoring/systems consequence. Require `tears in the rain` once; the complete behaviour equation once; and the software engineering, creative writing and technical drawing authority progression. Lab 4 appears as the page-wide safety argument, never a fourth equal caselet.
 
-- [ ] **Step 4: Write failing narrative-boundary tests.** Require the founding fragment once, `a love letter to my brother` once, the learner-not-hands thesis, non-programmer proposition, delivery status, source revision, integrity link, repository link and both licence links. Require `I was a software engineer before I became an agentic engineer.` once, `The method built the method` once and the cloud/local correction. Reject `tested with real learners`, testimonials, credentials, completion rates, universal teaching claims, `expert` or `cutting edge` positioning, direct teaching-credential disclaimers, learner identity details, roadmap delivery promises and chain-of-thought language.
+- [x] **Step 4: Write failing narrative-boundary tests.** Require the founding fragment once, `a love letter to my brother` once, the learner-not-hands thesis, non-programmer proposition, delivery status, source revision, integrity link, repository link and both licence links. Require `I was a software engineer before I became an agentic engineer.` once, `The method built the method` once and the cloud/local correction. Reject `tested with real learners`, testimonials, credentials, completion rates, universal teaching claims, `expert` or `cutting edge` positioning, direct teaching-credential disclaimers, learner identity details, roadmap delivery promises and chain-of-thought language.
 
-- [ ] **Step 5: Implement the complete reading order.** Compose:
+- [x] **Step 5: Implement the complete reading order.** Compose:
   1. route-owned hero and learning loop;
   2. `Experience made transferable` software-engineering lineage and bounded origin;
   3. `Three cognitive courses` atlas;
@@ -270,11 +270,11 @@
 
   Use the page's single `.case-study-callout` for `What is the blast radius, and do I have a recovery path?`, inside the safety section rather than at the opening. Prove the traditional-engineering lineage through the selected labs after stating it once: durable project state in Lab 3; controlled diagnosis and inspected change sets in Lab 5; provisioned authority and earned deference to learner expertise in Lab 7; bounded failure and recovery beneath the page through Lab 4. Do not add a second explanatory inventory.
 
-- [ ] **Step 6: Derive delivery wording from one discriminated fact.** Add a pure helper that renders `First live delivery planned for late August 2026.` for the current state and derives `Delivery began in <month year>.` only from a real `startedOn`. Test both branches. Do not inspect the browser clock to select a branch.
+- [x] **Step 6: Derive delivery wording from one discriminated fact.** Add a pure helper that renders `First live delivery planned for late August 2026.` for the current state and derives `Delivery began in <month year>.` only from a real `startedOn`. Test both branches. Do not inspect the browser clock to select a branch.
 
-- [ ] **Step 7: Sol prose gate.** Read the full article aloud in one pass. Apply `/writing-with-clarity` and the writing unslop profile. Search the whole public corpus for em dashes, decorative emoji, stock reversal frames, `I keep returning to` and semantic variants, repeated paragraph skeletons, expanded contractions, apology language, unsupported learner claims and duplicated status qualifications. Confirm the engineering-lineage thesis appears once, then becomes visible through concrete lab mechanics rather than sales copy. Record `pass` or a bounded veto under this step with the exact paragraph, defect, intended effect and preserved facts.
+- [x] **Step 7: Sol prose gate.** Read the full article aloud in one pass. Apply `/writing-with-clarity` and the writing unslop profile. Search the whole public corpus for em dashes, decorative emoji, stock reversal frames, `I keep returning to` and semantic variants, repeated paragraph skeletons, expanded contractions, apology language, unsupported learner claims and duplicated status qualifications. Confirm the engineering-lineage thesis appears once, then becomes visible through concrete lab mechanics rather than sales copy. Record `pass` or a bounded veto under this step with the exact paragraph, defect, intended effect and preserved facts.
 
-- [ ] **Step 8: Run focused tests and commit.** Run:
+- [x] **Step 8: Run focused tests and commit.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study/learning-lab src/features/case-study/projectPresentations.test.tsx src/features/home/ProjectVisual.test.tsx
@@ -287,7 +287,9 @@
   git commit -m "feat: tell the Learning Lab leadership story"
   ```
 
-- [ ] **Step 9: Mark Task 3 complete.** Set Task 3's checklist boxes to `[x]`, stage this plan and include that state in Task 4's commit.
+- [x] **Step 9: Mark Task 3 complete.** Set Task 3's checklist boxes to `[x]`, stage this plan and include that state in Task 4's commit.
+
+**Sol prose gate: pass.** Read as one article after composition. The lineage appears once, then Labs 3, 5 and 7 carry it through durable state, controlled diagnosis and correctly placed authority. The site-wide public-copy scan found no em dashes, decorative emoji, repeated reflection phrases or unsupported learner outcomes in this work. Existing prose uses a few ordinary negative constructions, but no repeated stock reversal frame. Contractions, paragraph joins, delivery language and the single-use origin phrases read naturally. No paragraph was vetoed.
 
 ---
 
