@@ -1,6 +1,6 @@
 # Portfolio £10k Phase 5: The Lawful Heist Crew Design
 
-**Status:** Approved direction, written-spec review gate
+**Status:** Approved by Harley Bartles on 24 August 2026
 
 **Roadmap item:** Phase 5, Adventures of Patch showcase and pipeline story
 
@@ -146,20 +146,20 @@ Receipt does not need a conventional recruitment exchange. He can reveal that th
 
 ### Source assets
 
-The inspected source revision is Adventures of Patch `0240a8657aae5b580c1a7a0d31e0be7a68b27f4e`. At that revision the relevant material lives under:
+The original design inspection used Adventures of Patch `0240a8657aae5b580c1a7a0d31e0be7a68b27f4e`. The approved asset-promotion PR then merged to Adventures of Patch `main` as `13bf77adc63cf5c8f49363cedd5dd392822b8375`. At that revision the six approved character portraits live under:
 
-`workbench/issue_48_override_heist_style_framework_v0_3/`
+`build/characters/heist-crew/reference_sheets/`
+
+Use `index_hero__v1.png`, `silk_hero__v1.png`, `writ_hero__v1.png`, `klause_hero__v1.png`, `rollback_hero__v1.png` and `receipt_hero__v1.png` from that canonical character home.
 
 The selected opening and closing folder sources are:
 
 - `style-sheets/heist_pitch_folder/01_clean_folder_and_recruitment_list.png`
 - `style-sheets/heist_pitch_folder/07_receipt_joined.png`
 
-The selected portraits are the six `*-approved-hero.png` files under the `index`, `silk`, `writ`, `klause`, `rollback` and `receipt` style-sheet folders.
+The pitch-folder images remain adventure-specific continuity sources under `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/`. The joined images `02_index_joined.png` through `07_receipt_joined.png` are references for the individual markers. The whole cumulative board should not be repeated after every profile.
 
-The joined folder images `02_index_joined.png` through `07_receipt_joined.png` are continuity references for the individual markers. The whole cumulative board should not be repeated after every profile.
-
-A separate Adventures of Patch task may promote these sources into a first-class character location. Before implementation, re-read the source repository at its then-current `main`, resolve any `git mv` path changes, and record the exact consumed revision. A path move must not change the selected visual identity or silently substitute a different asset.
+Before implementation, verify that Adventures of Patch `main` still contains those exact sources and record the exact consumed revision. A later path move must not change the selected visual identity or silently substitute a different asset.
 
 ### Purpose-built assent markers
 
