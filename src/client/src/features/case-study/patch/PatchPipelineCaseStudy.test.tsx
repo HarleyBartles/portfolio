@@ -3,20 +3,25 @@ import { describe, expect, test } from 'vitest'
 import { PatchPipelineCaseStudy } from './PatchPipelineCaseStudy'
 
 describe('PatchPipelineCaseStudy', () => {
-  test('keeps the accountable origin and controlled production story in source order', () => {
+  test('keeps the complete approved outline in semantic source order', () => {
     render(<PatchPipelineCaseStudy />)
 
     expect(screen.getByText('The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.')).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'An accountable origin' })).toBeVisible()
+    expect(screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)).toEqual([
+      'An accountable origin',
+      'The first deck',
+      'The frame gate',
+      'Patch production flow',
+      'Published artefacts',
+      'Evidence gallery',
+      'In-flight worlds',
+      'Story lab',
+      'Public proof, private workshop',
+      'Controlled production',
+    ])
     expect(screen.getByText(/environment in which an agent could delete a development database/i)).toBeVisible()
     expect(screen.getByText(/one day/i)).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'The frame gate' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Patch production flow' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Published artefacts' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'In-flight worlds' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Story lab' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Public proof, private workshop' })).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Controlled production' })).toBeVisible()
+    expect(within(screen.getByRole('region', { name: 'Published artefacts' })).getByRole('region', { name: 'Evidence gallery' })).toBeVisible()
   })
 
   test('keeps published, in-flight, and story-lab boundaries public-safe', () => {

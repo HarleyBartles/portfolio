@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react'
 import { getInFlightWorlds, getPublishedArtefacts } from './patchEvidence'
 
-export function PatchWorkLedger() {
+export function PatchWorkLedger({ children }: { children?: ReactNode }) {
   return (
     <>
       <section aria-labelledby="patch-published-artefacts-title">
@@ -8,6 +9,7 @@ export function PatchWorkLedger() {
         <ul>
           {getPublishedArtefacts().map((artefact) => <li key={artefact.title}><a href={artefact.publicArtefactUrl}>{artefact.title}</a> <span>({artefact.status})</span></li>)}
         </ul>
+        {children}
       </section>
       <section aria-labelledby="patch-in-flight-worlds-title">
         <h2 id="patch-in-flight-worlds-title">In-flight worlds</h2>
