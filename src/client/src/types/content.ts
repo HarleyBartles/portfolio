@@ -4,9 +4,9 @@ export type ContentKind =
   | 'ai-engineering'
   | 'learning'
   | 'writing'
-  | 'fairytales'
+  | 'patch'
 
-export type ProjectPresentation = 'marketplace-case-study' | 'wild-bunch-case-study'
+export type ContentPresentation = 'marketplace-case-study' | 'wild-bunch-case-study' | 'patch-pipeline-case-study' | 'patch-identity-emporium' | 'patch-tournament'
 
 export type ContentSummary = {
   slug: string
@@ -16,7 +16,7 @@ export type ContentSummary = {
   summary: string
   date?: string
   readingMinutes?: number
-  presentation?: ProjectPresentation
+  presentation?: ContentPresentation
   featured: boolean
   tags: string[]
   relatedSlugs: string[]
@@ -36,8 +36,8 @@ export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): str
     return `/writing/${item.slug}`
   }
 
-  if (item.kind === 'fairytales') {
-    return `/fairytales/${item.slug}`
+  if (item.kind === 'patch') {
+    return `/patch/${item.slug}`
   }
 
   return `/${item.slug}`

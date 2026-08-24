@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const primaryLinks = [
   { to: '/projects', label: 'Projects' },
   { to: '/writing', label: 'Writing' },
-  { to: '/fairytales', label: 'Fairytales' },
+  { to: '/patch', label: 'Patch' },
   { to: '/about', label: 'About' },
 ]
 

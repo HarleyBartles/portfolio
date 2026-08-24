@@ -34,11 +34,11 @@
       "slug": "adventures-of-patch",
       "kind": "project",
       "title": "Adventures of Patch",
-      "status": "pre-alpha",
-      "summary": "A visual and narrative pipeline for making agentic engineering digestible. Two one-page Patch Fairytales are published; one multi-page Adventure exists only as a pre-repo proof of concept.",
-      "path": "projects/adventures-of-patch.md",
+      "status": "active project",
+      "summary": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
+      "presentation": "patch-pipeline-case-study",
       "tags": ["project", "comics", "automation"],
-      "relatedSlugs": ["goldilocks", "sorcerers-apprentice"]
+      "relatedSlugs": ["goldilocks", "sorcerers-apprentice", "identity-emporium"]
     },
     {
       "slug": "agentic-engineering-vs-vibe-coding",
@@ -103,23 +103,43 @@
     },
     {
       "slug": "goldilocks",
-      "kind": "fairytales",
+      "kind": "patch",
       "title": "Goldilocks - The Right Amount of Guidance",
       "status": "published",
       "summary": "Good agent guidance is not maximum context, but enough relevant context for a confident next decision.",
       "path": "fairytales/goldilocks.md",
-      "tags": ["fairytales", "agentic-engineering", "guidance"],
-      "relatedSlugs": ["sorcerers-apprentice"]
+      "tags": ["patch", "fairytales", "agentic-engineering", "guidance"],
+      "relatedSlugs": ["sorcerers-apprentice", "identity-emporium"]
     },
     {
       "slug": "sorcerers-apprentice",
-      "kind": "fairytales",
+      "kind": "patch",
       "title": "The Sorcerer's Apprentice - Delegation Without Boundaries",
       "status": "published",
       "summary": "Delegation needs a boundary, not just permission.",
       "path": "fairytales/sorcerers-apprentice.md",
-      "tags": ["fairytales", "agentic-engineering", "delegation"],
-      "relatedSlugs": ["goldilocks"]
+      "tags": ["patch", "fairytales", "agentic-engineering", "delegation"],
+      "relatedSlugs": ["goldilocks", "identity-emporium"]
+    },
+    {
+      "slug": "identity-emporium",
+      "kind": "patch",
+      "title": "Identity Emporium",
+      "status": "visual development",
+      "summary": "Preparation should guide judgement without becoming a script. Bot takes the costume too literally, Bit rushes past preparation, and Patch starts with the task before choosing how to work.",
+      "presentation": "patch-identity-emporium",
+      "tags": ["patch", "agentic-engineering", "preparation"],
+      "relatedSlugs": ["goldilocks", "sorcerers-apprentice", "adventures-of-patch"]
+    },
+    {
+      "slug": "tournament-of-reasonable-defaults",
+      "kind": "patch",
+      "title": "Tournament of Reasonable Defaults",
+      "status": "visual development",
+      "summary": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
+      "presentation": "patch-tournament",
+      "tags": ["patch", "agentic-engineering", "requirements", "acceptance-criteria"],
+      "relatedSlugs": ["identity-emporium", "adventures-of-patch"]
     }
   ]
 }

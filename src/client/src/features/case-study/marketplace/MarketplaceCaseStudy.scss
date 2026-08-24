@@ -12,17 +12,8 @@
   gap: clamp(var(--space-12), 9vw, var(--space-20));
 }
 
-.marketplace-case-study > section:not(.marketplace-case-study__model, .marketplace-case-study__decisions) {
+.marketplace-case-study > section:not(.marketplace-case-study__model, .marketplace-case-study__decisions, .case-study-lead) {
   max-width: var(--measure-reading);
-}
-
-.case-study-thesis {
-  max-width: 18ch;
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: .9;
-  letter-spacing: -.06em;
 }
 
 .marketplace-case-study h2 {

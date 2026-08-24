@@ -111,3 +111,33 @@ This append-only ledger records why material portfolio design choices exist and 
 **Consequence:** Copy review must catch shifts into formal essay or documentation voice even when the sentences are grammatically correct. This is an authorship judgement, not a mechanical contraction lint rule.
 
 **Reconsider when:** Harley deliberately establishes a different voice for a named surface or an expanded form demonstrably reads more naturally in context.
+
+## 2026-08-24 — Patch imagery follows the production record
+
+**Context:** Adventures of Patch has enough first-party imagery to support an image-rich case study, but volume alone can turn a portfolio route into a Patch microsite or bury the engineering argument beneath decorative character art.
+
+**Decision:** Give each image one evidential job and arrange the case study from the database incident through the first deck, the current production system, published work and active worlds. Keep the public repository as inspectable proof while describing private planning only at the level needed to explain the workflow.
+
+**Consequence:** Patch can recur throughout the page without becoming decoration. The images advance the origin-to-production story, the public links resolve to pinned evidence, and workshop details that don't strengthen the public engineering case stay private.
+
+**Reconsider when:** Images obscure the adjacent engineering evidence, repeat a job already done, or make the wider portfolio feel like a supporting site for Adventures of Patch.
+
+## 2026-08-24 — Patch stories and the engineering case study have separate jobs
+
+**Context:** The Patch case study accumulated published fairytales, adventure worlds, future plans and production evidence. Stronger adventure material made the page longer while giving each story less room to explain its lesson.
+
+**Decision:** Make `/patch` the public home for one-page fairytales and larger adventures. Give substantial adventures their own authored pages, including stories assembled directly for this portfolio when their evidence is ready. Keep `/projects/adventures-of-patch` focused on the database incident, editorial judgement, production controls, source custody and acceptance authority.
+
+**Consequence:** A portfolio-native story can be the public artefact even when no upstream deck exists. Development states remain visible in the showcase, and the engineering case study can make one coherent argument without repeating the catalogue.
+
+**Reconsider when:** The showcase no longer has enough distinct stories to justify primary navigation, or separating a story from its production evidence makes either page harder to understand.
+
+## 2026-08-24 — Tournament progresses from ambiguity to agreement
+
+**Context:** The Tournament source contains strong environment, character and stakeholder scenes, but no finished deck and no accepted celebration scene that proves the medal outcome.
+
+**Decision:** Build the portfolio story as four distinct editorial reveals. Each event states the task in HTML, lets the accepted image expose its ambiguity, records Bit and Bot's plausible failures, then shows how Patch moves from refusal to decision-ready work and finally agreed execution. Keep medal outcomes in HTML and exclude generic awards art that cannot identify the recipient.
+
+**Consequence:** The page uses the strongest available evidence without inventing a missing scene. Its composition escalates with the argument instead of repeating a card or three-column character template four times.
+
+**Reconsider when:** Accepted source art changes an event's canon, or a later celebration scene proves the bronze, gold and homemade-medal close clearly enough to strengthen the final movement.

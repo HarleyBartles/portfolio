@@ -19,9 +19,9 @@ const INDEX_METADATA = [
     description: 'Notes on engineering practice, agentic systems, and repository design.',
   },
   {
-    route: '/fairytales',
-    title: 'Patch Fairytales | Harley Bartles',
-    description: 'One-page visual lessons on agentic engineering, told through Patch.',
+    route: '/patch',
+    title: 'Adventures of Patch | Harley Bartles',
+    description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.',
   },
   {
     route: '/about',
@@ -38,8 +38,14 @@ const INDEX_METADATA = [
 const KIND_ROUTE = {
   project: 'projects',
   writing: 'writing',
-  fairytales: 'fairytales',
+  patch: 'patch',
 }
+
+const LEGACY_ROUTES = [
+  { route: '/fairytales', canonicalRoute: '/patch', title: 'Adventures of Patch | Harley Bartles', description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.' },
+  { route: '/fairytales/goldilocks', canonicalRoute: '/patch/goldilocks', slug: 'goldilocks' },
+  { route: '/fairytales/sorcerers-apprentice', canonicalRoute: '/patch/sorcerers-apprentice', slug: 'sorcerers-apprentice' },
+]
 
 function escapeHtml(value) {
   return String(value)
@@ -56,7 +62,7 @@ function canonicalUrl(origin, baseUrl, route) {
 }
 
 function renderMetadata(template, metadata, origin, baseUrl) {
-  const canonical = canonicalUrl(origin, baseUrl, metadata.route)
+  const canonical = canonicalUrl(origin, baseUrl, metadata.canonicalRoute ?? metadata.route)
   const socialImage = canonicalUrl(origin, baseUrl, '/brand/social-card.png')
   const socialTags = [
     `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
@@ -108,7 +114,13 @@ export async function buildRouteDocuments({ distRoot, manifestPath, baseUrl, ori
     readFile(manifestPath, 'utf8'),
   ])
   const manifest = JSON.parse(manifestText)
-  const entries = [...INDEX_METADATA, ...contentMetadata(manifest)]
+  const contentEntries = contentMetadata(manifest)
+  const legacyEntries = LEGACY_ROUTES.flatMap((legacy) => {
+    if (legacy.slug === undefined) return [legacy]
+    const source = manifest.items.find((item) => item.slug === legacy.slug)
+    return source === undefined ? [] : [{ ...legacy, title: `${source.title} | Harley Bartles`, description: source.summary }]
+  })
+  const entries = [...INDEX_METADATA, ...contentEntries, ...legacyEntries]
 
   for (const metadata of entries) {
     const html = renderMetadata(template, metadata, origin, baseUrl)

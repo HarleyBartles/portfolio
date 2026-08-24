@@ -54,8 +54,8 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/Amstrad CPC 464/i)).toBeVisible()
     expect(screen.getByText(/Locomotive BASIC/i)).toBeVisible()
 
-    expect(screen.getByRole('link', { name: 'Historical Wild Bunch archive' })).toHaveAttribute('href', 'https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd')
-    expect(screen.getByRole('link', { name: 'Pinned resolver evidence' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Historical Wild Bunch archive (opens in a new tab)' })).toHaveAttribute('href', 'https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd')
+    expect(screen.getByRole('link', { name: 'Pinned resolver evidence (opens in a new tab)' })).toHaveAttribute(
       'href',
       'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.GameContent/NewGame/SeedWorldResolver.cs',
     )
@@ -76,6 +76,21 @@ describe('WildBunchCaseStudy', () => {
     expect(follows(future, sourceNote)).toBe(true)
     expect(screen.getAllByText(/current playable build/i)).toHaveLength(1)
     expect(screen.queryByRole('heading', { level: 2, name: 'Built, in motion, beyond pre-alpha' })).not.toBeInTheDocument()
+  })
+
+  test('uses the shared case-study hierarchy where prose has no paired evidence surface', () => {
+    renderCaseStudy()
+
+    ;[
+      'The game I wanted to return to',
+      'Choosing the complicated version',
+      'Where the trail leads next',
+      'Inspect it. Run it.',
+    ].forEach((name) => {
+      const heading = screen.getByRole('heading', { level: 2, name })
+      expect(heading.closest('.case-study-lead')).not.toBeNull()
+      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+    })
   })
 
   test('keeps the technical and authorship claims inspectable rather than promotional', () => {
@@ -106,19 +121,19 @@ describe('WildBunchCaseStudy', () => {
   test('links detailed public claims to their pinned evidence snapshot', () => {
     renderCaseStudy()
 
-    expect(screen.getByRole('link', { name: 'Pinned graph-generation evidence' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Pinned graph-generation evidence (opens in a new tab)' })).toHaveAttribute(
       'href',
       'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/tests/WildBunch.GameContent.Tests/TrailGraphGeneratorTests.cs',
     )
-    expect(screen.getByRole('link', { name: 'Pinned persisted-world evidence' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Pinned persisted-world evidence (opens in a new tab)' })).toHaveAttribute(
       'href',
       'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Domain/World/WorldSnapshot.cs',
     )
-    expect(screen.getByRole('link', { name: 'Pinned developer-tooling evidence' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Pinned developer-tooling evidence (opens in a new tab)' })).toHaveAttribute(
       'href',
       'https://github.com/HarleyBartles/wild-bunch/blob/2a9814d094148bb789766a27d316095fecce5a60/src/WildBunch.Web/src/dev/DevOverlay.tsx',
     )
-    expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision) (opens in a new tab)' })).toHaveAttribute(
       'href',
       'https://github.com/HarleyBartles/wild-bunch/tree/2a9814d094148bb789766a27d316095fecce5a60',
     )
@@ -141,7 +156,7 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.getByText(/player should see only the clues, warrants and suspect information they've earned/i)).toBeVisible()
     expect(screen.queryByText(/trueCulpritId/i)).not.toBeInTheDocument()
 
-    expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision) (opens in a new tab)' })).toBeVisible()
   })
 
   test('states the source-backed map, replay, entropy, and development-access limits', () => {
@@ -173,6 +188,6 @@ describe('WildBunchCaseStudy', () => {
 
     expect(screen.getByText(/The game isn't hosted yet. It's a hobby project, and it grows when I have time/i)).toBeVisible()
     expect(screen.getByText(/PostgreSQL is the likely bit of friction/i)).toBeVisible()
-    expect(screen.getByRole('link', { name: 'Clone and run Wild Bunch' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch#run-the-pre-alpha-locally')
+    expect(screen.getByRole('link', { name: 'Clone and run Wild Bunch (opens in a new tab)' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/wild-bunch#run-the-pre-alpha-locally')
   })
 })

@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import { ExternalLink } from './ExternalLink'
 
 type MarkdownContentProps = {
   markdown: string
@@ -18,11 +19,7 @@ function MarkdownLink(props: ComponentPropsWithoutRef<'a'>): ReactElement {
   }
 
   if (isExternalHttpLink(href)) {
-    return (
-      <a href={href} rel="noreferrer noopener" target="_blank">
-        {props.children}
-      </a>
-    )
+    return <ExternalLink href={href}>{props.children}</ExternalLink>
   }
 
   return <a href={href}>{props.children}</a>

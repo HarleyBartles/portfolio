@@ -15,13 +15,26 @@ async function openStable(page: Page, path: string): Promise<void> {
 }
 
 async function waitForImages(region: ReturnType<Page['locator']>): Promise<void> {
+  for (const image of await region.locator('img').all()) {
+    await image.scrollIntoViewIfNeeded()
+    await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
+  }
   await region.scrollIntoViewIfNeeded()
-  await expect.poll(() => region.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true)
 }
 
 async function waitForWildBunchStyles(page: Page): Promise<void> {
   const figure = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(23, 60, 63)')
+}
+
+async function waitForPatchStyles(page: Page): Promise<void> {
+  const production = page.getByRole('region', { name: 'The production system is the project' })
+  await expect.poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(21, 63, 66)')
+}
+
+async function waitForTournamentStyles(page: Page): Promise<void> {
+  const event = page.locator('.tournament-event').first()
+  await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
@@ -125,4 +138,98 @@ test('Wild Bunch keeps its stacked composition legible on mobile', async ({ page
 
   const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism-mobile.png')
+})
+
+test('Adventures of Patch keeps its hero and accountable origin on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+  await waitForImages(hero)
+  await expect(hero).toHaveScreenshot('patch-hero.png')
+
+  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  await waitForImages(origin)
+  await expect(origin).toHaveScreenshot('patch-origin.png')
+})
+
+test('Adventures of Patch keeps its production system and showcase handoff legible on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const production = page.getByRole('region', { name: 'The production system is the project' })
+  await expect(production).toHaveScreenshot('patch-production-system.png')
+
+  const handoff = page.getByRole('region', { name: 'The stories have their own home' })
+  await expect(handoff).toHaveScreenshot('patch-showcase-handoff.png')
+})
+
+test('Adventures of Patch keeps its evidence boundary and controlled-production close distinct on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot('patch-evidence-boundary.png')
+  await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot('patch-controlled-production.png')
+})
+
+test('Adventures of Patch keeps the complete authored composition on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const projectPage = page.locator('article.content-page')
+  await waitForImages(projectPage)
+  await expect(projectPage).toHaveScreenshot('patch-composition-mobile.png')
+})
+
+test('Adventures of Patch leads with its origin story before the compact mobile snapshot', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
+  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  const [snapshotBox, originBox] = await Promise.all([snapshot.boundingBox(), origin.boundingBox()])
+
+  expect(snapshotBox).not.toBeNull()
+  expect(originBox).not.toBeNull()
+  expect(snapshotBox?.height).toBeLessThanOrEqual(650)
+  expect(snapshotBox?.y).toBeGreaterThanOrEqual((originBox?.y ?? 0) + (originBox?.height ?? 0))
+})
+
+test('Tournament keeps its opening ambiguity and stakeholder consultation legible on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './patch/tournament-of-reasonable-defaults')
+  await waitForTournamentStyles(page)
+
+  const opening = page.locator('.tournament-event--seven-day')
+  await waitForImages(opening)
+  await expect(opening).toHaveScreenshot('patch-tournament-seven-day.png')
+
+  const consultation = page.locator('.tournament-event__consultation')
+  await waitForImages(consultation)
+  await expect(consultation).toHaveScreenshot('patch-tournament-consultation.png')
+})
+
+test('Tournament keeps the complete four-event progression on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './patch/tournament-of-reasonable-defaults')
+  await waitForTournamentStyles(page)
+
+  const story = page.locator('article.content-page')
+  await waitForImages(story)
+  await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
+})
+
+test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
+  await expect(snapshot).toBeVisible()
+  expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
 })

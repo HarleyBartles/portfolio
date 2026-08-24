@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { ExternalLink } from '../../../components/ExternalLink'
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyDecision } from '../CaseStudyDecision'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
@@ -13,15 +14,15 @@ export function MarketplaceCaseStudy(): ReactElement {
   return (
     <CaseStudyBody>
       <section className="case-study marketplace-case-study" aria-label="Marketplace case study">
-        <p className="case-study-thesis">Shared where reuse earns it. Local where context matters.</p>
-
-        <CaseStudySection title="When repeated instruction becomes infrastructure">
+        <CaseStudySection title="When repeated instruction becomes infrastructure" layout="lead">
           <p className="eyebrow">Problem and pivot</p>
           <p>Useful agent guidance kept recurring across repositories: how to shape a worktree, verify a handoff, or inspect an external tool without pretending that every project works the same way.</p>
           <p>The first version aggregated useful third-party material. That made discovery easier, but copying everything into every repository produced noise while centralising every instruction erased the local exceptions that made it trustworthy.</p>
           <p>The pivot was a first-party operating model: maintain a small shared baseline, select specialist plugins deliberately, and leave project knowledge local. Derived work such as <code>superpowers-plus</code> keeps its lineage visible rather than presenting upstream ideas as original authorship.</p>
-          <p><a href={repositoryUrl}>Inspect the public source</a></p>
+          <p><ExternalLink href={repositoryUrl}>Inspect the public source</ExternalLink></p>
         </CaseStudySection>
+
+        <p className="case-study-callout">Shared where reuse earns it. Local where context matters.</p>
 
         <MarketplaceDistributionMap />
 
@@ -31,16 +32,16 @@ export function MarketplaceCaseStudy(): ReactElement {
           <div><p className="eyebrow">03 · retained</p><h2>Local</h2><p>Repository-specific doctrine, commands, skills, and plugins stay beside the work whose exceptions they explain.</p></div>
         </section>
 
-        <CaseStudySection title="One skill, a local overlay, and a checkable workflow">
+        <CaseStudySection title="One skill, a local overlay, and a checkable workflow" layout="lead">
           <ol className="case-study-trace">
             <li>Repeated repository-shape and runbook instructions reveal a shared need.</li>
-            <li>The maintained <a href={repoStandardsUrl}>repo-standards skill</a> captures the portable baseline.</li>
+            <li>The maintained <ExternalLink href={repoStandardsUrl}>repo-standards skill</ExternalLink> captures the portable baseline.</li>
             <li><code>repo-worker-pack</code> distributes that authored source.</li>
             <li>A consumer installs a generated copy under <code>.agents/skills/</code>.</li>
             <li>Local doctrine, runbooks, commands, and exceptions remain with the repository.</li>
             <li>Deterministic <code>check</code> and <code>apply</code> validation detects drift without pretending the local overlay is centrally owned.</li>
           </ol>
-          <p><a href={repoStandardsUrl}>Read the repo-standards skill</a></p>
+          <p><ExternalLink href={repoStandardsUrl}>Read the repo-standards skill</ExternalLink></p>
         </CaseStudySection>
 
         <section className="marketplace-case-study__decisions" aria-labelledby="marketplace-decisions-title">
@@ -54,12 +55,16 @@ export function MarketplaceCaseStudy(): ReactElement {
           </div>
         </section>
 
-        <section className="marketplace-case-study__evidence" aria-labelledby="marketplace-evidence-title">
-          <p className="eyebrow">A dated, inspectable snapshot</p>
-          <h2 id="marketplace-evidence-title">Used, pinned, and still evolving</h2>
-          <CaseStudyEvidence auditDate="21 August 2026" href={repositoryUrl} label="Marketplace repository" />
-          <p>The public audit records selected consumers and their pins without fetching those repositories at runtime. Different revisions are deliberate, inspectable state, not evidence of live telemetry or automatic synchronisation.</p>
-          <p>The Marketplace is active and permanently iterative. Its present shape is evidence of a maintained system, not a claim that distribution is finished or universally adopted.</p>
+        <section className="marketplace-case-study__evidence case-study-lead" aria-labelledby="marketplace-evidence-title">
+          <div className="case-study-lead__heading">
+            <p className="eyebrow">A dated, inspectable snapshot</p>
+            <h2 id="marketplace-evidence-title">Used, pinned, and still evolving</h2>
+          </div>
+          <div className="case-study-lead__body">
+            <CaseStudyEvidence auditDate="21 August 2026" href={repositoryUrl} label="Marketplace repository" />
+            <p>The public audit records selected consumers and their pins without fetching those repositories at runtime. Different revisions are deliberate, inspectable state, not evidence of live telemetry or automatic synchronisation.</p>
+            <p>The Marketplace is active and permanently iterative. Its present shape is evidence of a maintained system, not a claim that distribution is finished or universally adopted.</p>
+          </div>
         </section>
       </section>
     </CaseStudyBody>

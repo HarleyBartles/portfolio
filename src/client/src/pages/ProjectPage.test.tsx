@@ -11,7 +11,7 @@ afterEach(() => {
   routers.splice(0).forEach((router) => router.dispose())
 })
 
-describe('Wild Bunch project route', () => {
+describe('Project route visuals', () => {
   test('keeps one eager Dustwell preview in the route header under its visual contract', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
@@ -43,7 +43,7 @@ describe('Wild Bunch project route', () => {
   test('leaves an ordinary project route visual lazy', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
-      initialEntries: ['/portfolio/projects/adventures-of-patch'],
+      initialEntries: ['/portfolio/projects/agentic-learning-lab'],
     })
     routers.push(router)
 
@@ -53,12 +53,12 @@ describe('Wild Bunch project route', () => {
       </QueryClientProvider>,
     )
 
-    await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' })
+    await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' })
     const image = screen.getByRole('img', {
-      name: /patch appears as a detective, cowboy, chef, and mechanic/i,
+      name: /venue floor plan used as the bounded project artifact/i,
     })
 
     expect(image).toHaveAttribute('loading', 'lazy')
-    expect(image).toHaveAttribute('fetchpriority', 'auto')
+    expect(image).not.toHaveAttribute('fetchpriority', 'high')
   })
 })

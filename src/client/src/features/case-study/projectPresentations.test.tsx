@@ -8,11 +8,13 @@ describe('project presentations', () => {
   test('resolves specialist bodies and rejects unknown presentations', async () => {
     const MarketplaceCaseStudy = getProjectPresentation('marketplace-case-study')
     const WildBunchCaseStudy = getProjectPresentation('wild-bunch-case-study')
+    const PatchPipelineCaseStudy = getProjectPresentation('patch-pipeline-case-study')
 
     expect(MarketplaceCaseStudy).toBeDefined()
     expect(WildBunchCaseStudy).toBeDefined()
+    expect(PatchPipelineCaseStudy).toBeDefined()
     expect(getProjectPresentation('not-a-presentation')).toBeUndefined()
-    if (MarketplaceCaseStudy === undefined || WildBunchCaseStudy === undefined) {
+    if (MarketplaceCaseStudy === undefined || WildBunchCaseStudy === undefined || PatchPipelineCaseStudy === undefined) {
       throw new Error('Specialist project presentations should be registered')
     }
 
@@ -22,5 +24,8 @@ describe('project presentations', () => {
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><Suspense fallback={null}><WildBunchCaseStudy /></Suspense></MemoryRouter>)
     expect(await screen.findByText(/wrong name on the crime: yours/i, undefined, { timeout: 5_000 })).toBeVisible()
     expect(await screen.findByRole('heading', { level: 2, name: 'The game I wanted to return to' }, { timeout: 5_000 })).toBeVisible()
+
+    render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/adventures-of-patch']}><Suspense fallback={null}><PatchPipelineCaseStudy /></Suspense></MemoryRouter>)
+    expect(await screen.findByRole('heading', { level: 2, name: 'The day the database disappeared' }, { timeout: 5_000 })).toBeVisible()
   })
 })

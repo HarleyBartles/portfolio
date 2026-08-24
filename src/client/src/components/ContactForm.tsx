@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ReactElement } from 'react'
 import { professionalProfile } from '../data/professionalProfile'
+import { ExternalLink } from './ExternalLink'
 
 type ContactFormProps = {
   endpoint?: string
@@ -30,13 +31,13 @@ export function ContactForm({ endpoint }: ContactFormProps): ReactElement {
         <p>
           I will not publish a personal address or pretend a form goes somewhere when it does not.
           For now, the honest routes are my{' '}
-          <a href={github.href} rel="noreferrer noopener" target="_blank">
+          <ExternalLink href={github.href}>
             GitHub profile
-          </a>{' '}
+          </ExternalLink>{' '}
           and{' '}
-          <a href={linkedin.href} rel="noreferrer noopener" target="_blank">
+          <ExternalLink href={linkedin.href}>
             {linkedin.label}
-          </a>.
+          </ExternalLink>.
         </p>
       </aside>
     )
@@ -92,7 +93,7 @@ export function ContactForm({ endpoint }: ContactFormProps): ReactElement {
         </button>
         <p className="contact-privacy">
           Your name, reply email, and message are sent to Formspree for delivery. I use them only to reply. Formspree processes submissions under its{' '}
-          <a href="https://formspree.io/legal/privacy-policy/" rel="noreferrer noopener" target="_blank">privacy policy</a>.
+          <ExternalLink href="https://formspree.io/legal/privacy-policy/">privacy policy</ExternalLink>.
           {' '}Do not send sensitive personal information.
         </p>
         {submissionState === 'sent' ? <p role="status">Message sent. Thank you.</p> : null}

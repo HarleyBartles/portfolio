@@ -8,7 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = ROOT / ".github/workflows/ci.yml"
 PACKAGE_PATH = ROOT / "src/client/package.json"
+PYTHON_REQUIREMENTS_PATH = ROOT / "requirements.txt"
 VISUAL_SPEC_PATH = ROOT / "src/client/e2e/visual-regression.spec.ts"
+PLAYWRIGHT_CONFIG_PATH = ROOT / "src/client/playwright.config.ts"
 
 
 JOB_PREDICATE = "github.event_name != 'pull_request' || github.event.pull_request.draft == false"
@@ -78,10 +80,20 @@ def step_run_commands(job: str) -> list[str]:
 
 
 class VisualCiContractTests(unittest.TestCase):
+    def test_linux_quality_job_installs_declared_python_dependencies(self) -> None:
+        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        jobs = mapping_block(workflow, "jobs", 0)
+        quality = mapping_block(jobs, "quality", 2)
+
+        self.assertTrue(PYTHON_REQUIREMENTS_PATH.is_file())
+        self.assertIn("Pillow==12.2.0", PYTHON_REQUIREMENTS_PATH.read_text(encoding="utf-8").splitlines())
+        self.assertIn("python3 -m pip install --requirement requirements.txt", step_run_commands(quality))
+
     def test_windows_is_the_required_canonical_visual_renderer(self) -> None:
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         package = json.loads(PACKAGE_PATH.read_text(encoding="utf-8"))
         visual_spec = VISUAL_SPEC_PATH.read_text(encoding="utf-8")
+        playwright_config = PLAYWRIGHT_CONFIG_PATH.read_text(encoding="utf-8")
 
         triggers = mapping_block(workflow, "on", 0)
         pull_request = mapping_block(triggers, "pull_request", 2)
@@ -112,9 +124,12 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertEqual(["quality", "visual-regression"], sequence_values(deploy, "needs", 4))
 
         self.assertEqual(
-            "playwright test e2e/visual-regression.spec.ts",
+            "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts",
             package["scripts"].get("test:e2e:visual"),
         )
+        self.assertEqual("node scripts/run-e2e.mjs", package["scripts"].get("test:e2e"))
+        self.assertIn("command: 'npm run preview:e2e'", playwright_config)
+        self.assertNotIn("npm run build && npm run preview:e2e", playwright_config)
         self.assertIn("test.skip(process.platform !== 'win32'", visual_spec)
         self.assertNotIn("visualSnapshot", visual_spec)
         self.assertNotIn("-linux.png", visual_spec)

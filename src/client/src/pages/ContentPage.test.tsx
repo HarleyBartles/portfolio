@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, test, vi } from 'vitest'
@@ -14,7 +14,11 @@ vi.mock('../features/case-study/projectPresentations', async () => {
   }))
 
   return {
-    getProjectPresentation: (presentation: string) => presentation === 'wild-bunch-case-study' ? DeferredWildBunch : undefined,
+    getProjectPresentation: (presentation: string) => presentation === 'wild-bunch-case-study'
+      ? DeferredWildBunch
+      : presentation === 'patch-pipeline-case-study'
+        ? () => React.createElement('p', undefined, 'Patch specialist body')
+        : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
       default: () => React.createElement('h2', undefined, 'Specialist body ready'),
     }),
@@ -47,5 +51,29 @@ describe('ContentPage specialist presentation boundary', () => {
 
     expect(await screen.findByRole('heading', { level: 2, name: 'Specialist body ready' }, { timeout: 5_000 })).toBeVisible()
     expect(screen.queryByRole('status', { name: 'Loading case study presentation' })).not.toBeInTheDocument()
+  })
+
+  test('art directs the Patch header while keeping route copy as selectable HTML', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/projects/adventures-of-patch'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' }, { timeout: 5_000 })
+    const header = container.querySelector('[data-visual-contract="patch-case-study-hero"]') as HTMLElement
+    expect(header).toHaveAttribute('data-visual-contract', 'patch-case-study-hero')
+    expect(within(header).getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
+    expect(within(header).getByText(/controlled creative pipeline/i)).toBeVisible()
+    expect(within(header).getByText('active project')).toBeVisible()
+    const image = within(header).getByRole('img', { name: /Patch carries an index card and folded map/i })
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()
   })
 })

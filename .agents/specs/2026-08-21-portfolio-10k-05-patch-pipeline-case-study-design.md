@@ -963,6 +963,22 @@ Phase 5 is ready for implementation planning when:
 
 ## Approved design dialogue record
 
+### Approved scope pivot, 24 August 2026
+
+Harley's rendered-page review established that the strongest adventure lessons and accepted visual assets deserve portfolio-native editorial pages. A published upstream deck is one possible artefact, not the only evidence that can earn public presentation. The portfolio may assemble a finished public lesson from accepted source material while describing the underlying adventure's development state honestly.
+
+The approved split is:
+
+- rename the public Fairytales area to Adventures of Patch;
+- place both one-page fairytales and larger adventures in that area;
+- give substantial adventures dedicated pages as their lessons and assets clear review;
+- transfer the complete reviewed Identity Emporium composition without loss;
+- preserve the agreed Tournament event canon in the Phase 5 implementation plan;
+- keep the project route focused on the database origin, framing method, production pipeline, custody, QA, and acceptance authority; and
+- link the engineering case study to the showcase instead of duplicating its complete catalogue and adventure arguments.
+
+Existing `/fairytales` links remain supported through compatibility redirects. Tournament and Lawful Heist must not receive shallow placeholder pages merely to make the index look complete.
+
 Harley approved the Phase 5 direction on 22 August 2026:
 
 - the first deck as Patch's origin and the production system as what the

@@ -33,6 +33,21 @@ describe('ProjectVisual', () => {
     expect(visual).toHaveTextContent(/Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns/i)
   })
 
+  test('uses the Introducing Patch composition for the project preview and route hero', () => {
+    render(<ProjectVisual slug="adventures-of-patch" eager />)
+
+    const image = screen.getByRole('img', { name: /Patch carries an index card and folded map/i })
+    const picture = image.closest('picture')
+
+    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-720.webp')
+    expect(image).toHaveAttribute('width', '720')
+    expect(image).toHaveAttribute('height', '403')
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(picture?.querySelectorAll('source')).toHaveLength(4)
+    expect(picture).not.toHaveTextContent(/detective|cowboy|chef|mechanic/i)
+  })
+
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {
     render(<ProjectVisual slug="wild-bunch" />)
 

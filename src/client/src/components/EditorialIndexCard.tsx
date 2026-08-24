@@ -19,7 +19,7 @@ const projectVisuals = new Set<ProjectVisualSlug>([
   'wild-bunch',
 ])
 
-const fairytaleMedia: Record<string, { alt: string; folder: string }> = {
+const patchStoryMedia: Record<string, { alt: string; folder: string }> = {
   goldilocks: {
     alt: 'Three scenes compare too much, too little, and just enough guidance for Patch.',
     folder: 'goldilocks',
@@ -39,8 +39,8 @@ function CardMedia({ item }: { item: ContentSummary }): ReactElement | null {
     return <ProjectVisual slug={item.slug as ProjectVisualSlug} />
   }
 
-  if (item.kind === 'fairytales') {
-    const media = fairytaleMedia[item.slug]
+  if (item.kind === 'patch') {
+    const media = patchStoryMedia[item.slug]
     if (media === undefined) return null
     return (
       <picture className="editorial-card-media fairytale-thumbnail">
@@ -62,7 +62,7 @@ function CardMedia({ item }: { item: ContentSummary }): ReactElement | null {
 export function EditorialIndexCard({ item, index, featured = false }: EditorialIndexCardProps): ReactElement {
   const titleId = `${item.kind}-${item.slug}-title`
   const date = formatContentDate(item.date)
-  const hasVisual = item.kind === 'project' || item.kind === 'fairytales'
+  const hasVisual = item.kind === 'project' || (item.kind === 'patch' && patchStoryMedia[item.slug] !== undefined)
 
   return (
     <article
@@ -76,7 +76,7 @@ export function EditorialIndexCard({ item, index, featured = false }: EditorialI
         </Link>
       ) : null}
       <div className="editorial-card-copy">
-        <p className="eyebrow">{String(index + 1).padStart(2, '0')} / {item.kind === 'fairytales' ? 'Patch fairytale' : item.kind}</p>
+        <p className="eyebrow">{String(index + 1).padStart(2, '0')} / {item.kind === 'patch' ? 'Patch story' : item.kind}</p>
         <h2 id={titleId}><Link to={getContentPath(item)}>{item.title}</Link></h2>
         {date === null ? null : (
           <p className="editorial-meta">

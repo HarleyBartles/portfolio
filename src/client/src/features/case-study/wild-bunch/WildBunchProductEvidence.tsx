@@ -31,7 +31,7 @@ function ResponsiveCapture({ figureLabel, alt, caption, name, wide, compact }: C
           width={compact.width}
         />
       </picture>
-      <figcaption>{caption}</figcaption>
+      <figcaption className="case-study-media-caption">{caption}</figcaption>
     </figure>
   )
 }

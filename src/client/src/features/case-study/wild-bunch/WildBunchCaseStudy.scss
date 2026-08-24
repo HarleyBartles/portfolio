@@ -32,7 +32,6 @@
 }
 
 .wild-bunch-source-note {
-  max-width: var(--measure-reading);
   padding-top: var(--space-8);
   border-top: 1px solid var(--color-border);
 }
@@ -188,14 +187,6 @@
 
 .wild-bunch-evidence img {
   height: auto;
-}
-
-.wild-bunch-evidence figcaption {
-  padding: var(--space-5) var(--space-6);
-  color: var(--color-surface);
-  font-family: var(--font-code);
-  font-size: .78rem;
-  line-height: 1.5;
 }
 
 .wild-bunch-product-evidence {

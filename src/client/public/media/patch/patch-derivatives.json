@@ -1,0 +1,1259 @@
+{
+  "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+  "images": [
+    {
+      "family": "hero",
+      "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 720,
+      "height": 403,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "hero",
+      "path": "src/client/public/media/patch/patch-hero-720.avif",
+      "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
+      "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
+      "bytes": 6218,
+      "outputSha256": "5999c4fab6dda4056ed3df0818a678a036e5918234da9a0a9068855aa978782f"
+    },
+    {
+      "family": "hero",
+      "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 720,
+      "height": 403,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "hero",
+      "path": "src/client/public/media/patch/patch-hero-720.webp",
+      "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
+      "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
+      "bytes": 10998,
+      "outputSha256": "7dd7b216285f2378ac503c1cca3cf1bf27ec65980fccc3be2a3c1faf3542244e"
+    },
+    {
+      "family": "hero",
+      "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 1440,
+      "height": 806,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "hero",
+      "path": "src/client/public/media/patch/patch-hero-1440.avif",
+      "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
+      "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
+      "bytes": 12247,
+      "outputSha256": "709795a199818eb5cf8c5345cfd02a11b9b4c884c3cd6105b22846f87a41f453"
+    },
+    {
+      "family": "hero",
+      "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 1440,
+      "height": 806,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "hero",
+      "path": "src/client/public/media/patch/patch-hero-1440.webp",
+      "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
+      "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
+      "bytes": 26590,
+      "outputSha256": "6752b212bb8d613f2be4e530deff30afbe02201d8906767e2607afdf36ca8e23"
+    },
+    {
+      "family": "introducingPage",
+      "sourcePath": "published/misc/introducing-patch/page__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 358,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-640.avif",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
+      "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
+      "bytes": 9843,
+      "outputSha256": "f717d1ed1ac75fc3bc95912a19d690bd9ba755beb6e5a3c0a761ea0067dc7152"
+    },
+    {
+      "family": "introducingPage",
+      "sourcePath": "published/misc/introducing-patch/page__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 358,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-640.webp",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
+      "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
+      "bytes": 15070,
+      "outputSha256": "87095de4807be663560506a228e9c1030c0c003a80c38f34ccc6c6d4e913106d"
+    },
+    {
+      "family": "introducingPage",
+      "sourcePath": "published/misc/introducing-patch/page__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 672,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-1200.avif",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
+      "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
+      "bytes": 20383,
+      "outputSha256": "f70aeb5ed4733d0e54817f478c1a72041aa16c16139c4a6c56d9b3163b876c71"
+    },
+    {
+      "family": "introducingPage",
+      "sourcePath": "published/misc/introducing-patch/page__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 672,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-1200.webp",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
+      "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
+      "bytes": 36102,
+      "outputSha256": "020af1657a7887e167f7438194315f3f784a24c3c398fd9592bf7085f47f1480"
+    },
+    {
+      "family": "introducingPagePortrait",
+      "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-portrait-640.avif",
+      "sourceGitObjectId": "efe1932a065e0edebbc1c6cc7e88a9bdbbd05efc",
+      "sourceSha256": "0e0ab3fc0818671aea27b0b060671ff48d3517bb63ea51d3eb392af6080d97bb",
+      "bytes": 21989,
+      "outputSha256": "b63bb067599c853c1eb05eb24e43874c6ed9f68f4ed0647e120fca6e3b508c3b"
+    },
+    {
+      "family": "introducingPagePortrait",
+      "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-portrait-640.webp",
+      "sourceGitObjectId": "efe1932a065e0edebbc1c6cc7e88a9bdbbd05efc",
+      "sourceSha256": "0e0ab3fc0818671aea27b0b060671ff48d3517bb63ea51d3eb392af6080d97bb",
+      "bytes": 35038,
+      "outputSha256": "340e8972e8ce49281dbe7884bbf7d844ae5dd028a629b0110b48d6d245ce9534"
+    },
+    {
+      "family": "goldilocks",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 360,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-640.avif",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
+      "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
+      "bytes": 23148,
+      "outputSha256": "ab6399e66ecc616f8f2a85c2f616230705c2dca58560e630a31354af01f8b767"
+    },
+    {
+      "family": "goldilocks",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 360,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-640.webp",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
+      "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
+      "bytes": 31616,
+      "outputSha256": "55aa03bc565a45a343c524f1ce1c0ab86b2bef24aef5e501e0d773cd6f81569a"
+    },
+    {
+      "family": "goldilocks",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-1200.avif",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
+      "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
+      "bytes": 56684,
+      "outputSha256": "003d6f233e2b2ee7475d09d6f5fe2e8499d4777204ebe58192b0c75b02162368"
+    },
+    {
+      "family": "goldilocks",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-1200.webp",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
+      "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
+      "bytes": 84952,
+      "outputSha256": "ff79b73a927ff28735299a09ea1395c40289459487e44a8c84ff4f4bfe79bdd7"
+    },
+    {
+      "family": "goldilocksPortrait",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-portrait-640.avif",
+      "sourceGitObjectId": "666568cd5226150331287a5742e3036d9cf2976b",
+      "sourceSha256": "9facb864843f01ecbac48a12ac911496f55b6e02cd532f7908787a6686395f60",
+      "bytes": 58714,
+      "outputSha256": "f6df9cd61d3a437c5180c0ef2a0f0fbfe795fed6c3a5817a431fab137609202d"
+    },
+    {
+      "family": "goldilocksPortrait",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-portrait-640.webp",
+      "sourceGitObjectId": "666568cd5226150331287a5742e3036d9cf2976b",
+      "sourceSha256": "9facb864843f01ecbac48a12ac911496f55b6e02cd532f7908787a6686395f60",
+      "bytes": 81702,
+      "outputSha256": "b34346cafe0c2580f22ad7de78740195b2b6999cb0945301718cf992103363af"
+    },
+    {
+      "family": "sorcerersApprentice",
+      "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 360,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-sorcerers-apprentice-640.avif",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
+      "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
+      "bytes": 38945,
+      "outputSha256": "d0672b46764b329d61d0cda6a4a6c0ca6f85fcc774c1efda704b6121d6fb1ecc"
+    },
+    {
+      "family": "sorcerersApprentice",
+      "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 360,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-sorcerers-apprentice-640.webp",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
+      "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
+      "bytes": 49790,
+      "outputSha256": "7fbd996242eb1cb25c7f8df6e49ab9239a43499cc09289dfb2a1330540fb8b7c"
+    },
+    {
+      "family": "sorcerersApprentice",
+      "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-sorcerers-apprentice-1200.avif",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
+      "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
+      "bytes": 99476,
+      "outputSha256": "28a9d1cdc0d41b7df86393ce732097afee6a6a59ef39cc69b0beafcaf6fe466f"
+    },
+    {
+      "family": "sorcerersApprentice",
+      "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-sorcerers-apprentice-1200.webp",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
+      "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
+      "bytes": 133940,
+      "outputSha256": "aeed223bb5c9a27f4580204a839cb38afeeabac3213cb71e03d4f0fc07a04e15"
+    },
+    {
+      "family": "clubDb",
+      "slide": 2,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-2-1200.avif",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 51979,
+      "outputSha256": "b84662bb4424f0e2997b6a38df9ab465cb97703b743b1cef517991ef4f5e3f76"
+    },
+    {
+      "family": "clubDb",
+      "slide": 2,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-2-1200.webp",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 85852,
+      "outputSha256": "cbc653e974dbc96ea37bebe62a4229360d5c3b386f9eaa65f7d390fdf7959309"
+    },
+    {
+      "family": "clubDb",
+      "slide": 4,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-4-1200.avif",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 61389,
+      "outputSha256": "f20bc843cd9ef209b25782be68d9441fe8cefe76d34b7e9808bb28551d8a1132"
+    },
+    {
+      "family": "clubDb",
+      "slide": 4,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-4-1200.webp",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 99772,
+      "outputSha256": "775435c4ed216351ac7f4d860c1f145a53d863156a9171f453955e5b901543cd"
+    },
+    {
+      "family": "clubDb",
+      "slide": 14,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-14-1200.avif",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 70224,
+      "outputSha256": "c837d74f2edf092487353e0e706c4c29eeb46d6e9240981cb58ddf027578239b"
+    },
+    {
+      "family": "clubDb",
+      "slide": 14,
+      "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-clubDb-slide-14-1200.webp",
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 111920,
+      "outputSha256": "0d6851f26d219baa3fb2fe47b349b24e25ec21edea9cdfe0324fd5407e0d6026"
+    },
+    {
+      "family": "heist",
+      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "advanced_visual_preproduction",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-1200.avif",
+      "sourceGitObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
+      "sourceSha256": "b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab",
+      "bytes": 74131,
+      "outputSha256": "53e9bc7684d25a09a9ff1d411e6b78a4aae55300c832c60b334320cd1e9209cf"
+    },
+    {
+      "family": "heist",
+      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "advanced_visual_preproduction",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-1200.webp",
+      "sourceGitObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
+      "sourceSha256": "b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab",
+      "bytes": 117480,
+      "outputSha256": "8c9f7ea53f2ef68762ef70406eddfc2f1c6f54c0c14e00fe5dece1dd560279d4"
+    },
+    {
+      "family": "tournament",
+      "sourcePath": "build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-1200.avif",
+      "sourceGitObjectId": "4b223ce51e9d75a6bf1cc5c81b376ba960a0e936",
+      "sourceSha256": "74cd76abe10c3d7db2a399f64906141b0e7c657fed4c02d7cc787c67867a1802",
+      "bytes": 125029,
+      "outputSha256": "a413a70fd002782deaa502a963ee4990bd24d053273aadaf0063df8b1d2168c8"
+    },
+    {
+      "family": "tournament",
+      "sourcePath": "build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-1200.webp",
+      "sourceGitObjectId": "4b223ce51e9d75a6bf1cc5c81b376ba960a0e936",
+      "sourceSha256": "74cd76abe10c3d7db2a399f64906141b0e7c657fed4c02d7cc787c67867a1802",
+      "bytes": 202048,
+      "outputSha256": "e10ac365eb32ec39266072a9293a9b34e3fe0b2a0f8dcbe3490b445e0194824e"
+    },
+    {
+      "family": "tournamentSevenDay",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 800,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-seven-day-1200.avif",
+      "sourceGitObjectId": "4660006a04628ea9b606d16c3dc556a9fa367251",
+      "sourceSha256": "887c304c2ad078580dfb1af14d0b37c6ce8f16dec2ef324ddf8c0fcb0ea93c9a",
+      "bytes": 148938,
+      "outputSha256": "495da4441b04659f612b4d6652e1e2305f9b8544837bf1f8324a6616a2863298"
+    },
+    {
+      "family": "tournamentSevenDay",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-seven-day-1200.webp",
+      "sourceGitObjectId": "4660006a04628ea9b606d16c3dc556a9fa367251",
+      "sourceSha256": "887c304c2ad078580dfb1af14d0b37c6ce8f16dec2ef324ddf8c0fcb0ea93c9a",
+      "bytes": 214204,
+      "outputSha256": "cdd458a47ec234bcd97062cb8d77a80a6080ae240608174872102e9109b3c57d"
+    },
+    {
+      "family": "tournamentHighJump",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-high-jump-1200.avif",
+      "sourceGitObjectId": "fef8389101c8ae0be032d770e6f913911ba66188",
+      "sourceSha256": "90289a19eadcaa4f1021dd65af0803360fb18b43aa4310e608e8a1ca307c4851",
+      "bytes": 114123,
+      "outputSha256": "b1e79459f29ed661131383aedaad87eec080390e4c7626aa0bdf7e9406d46777"
+    },
+    {
+      "family": "tournamentHighJump",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-high-jump-1200.webp",
+      "sourceGitObjectId": "fef8389101c8ae0be032d770e6f913911ba66188",
+      "sourceSha256": "90289a19eadcaa4f1021dd65af0803360fb18b43aa4310e608e8a1ca307c4851",
+      "bytes": 172488,
+      "outputSha256": "09c8674d47ddad1d98b5aad97e362b251ba8c072f6543015221f5b601ba3b84b"
+    },
+    {
+      "family": "tournamentMaze",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1120,
+      "height": 840,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-1120.avif",
+      "sourceGitObjectId": "b5440c053a68cc9c7ccd4f4f19b22d98f0bb63c5",
+      "sourceSha256": "7f5856fa59e71a35a6d97565055801b4b6dae18f7a4f53e810233e7ca1e4f737",
+      "bytes": 258575,
+      "outputSha256": "00eba764a475723248ff1ff6cc5ddc783900d2a71d46b0081b6eb2c9d57228c1"
+    },
+    {
+      "family": "tournamentMaze",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1120,
+      "height": 840,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-1120.webp",
+      "sourceGitObjectId": "b5440c053a68cc9c7ccd4f4f19b22d98f0bb63c5",
+      "sourceSha256": "7f5856fa59e71a35a6d97565055801b4b6dae18f7a4f53e810233e7ca1e4f737",
+      "bytes": 370906,
+      "outputSha256": "a8561bfd3828ceb844503d521f4fcb9d0ccb2c609977226064b1240cd4e375a3"
+    },
+    {
+      "family": "tournamentMazeMap",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-map-1200.avif",
+      "sourceGitObjectId": "63dea0a2b4365e0b9f3798e925ea54fa2a6e9605",
+      "sourceSha256": "6dcd2073c9f75726defe0e9830419d492d05dbcf24ab346fe21ddd4650a7d9f9",
+      "bytes": 161335,
+      "outputSha256": "10e3a8e7c57a7d6089dbffca4ece91455552c39e8fb51bd81ecd3e9367595ff1"
+    },
+    {
+      "family": "tournamentMazeMap",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-map-1200.webp",
+      "sourceGitObjectId": "63dea0a2b4365e0b9f3798e925ea54fa2a6e9605",
+      "sourceSha256": "6dcd2073c9f75726defe0e9830419d492d05dbcf24ab346fe21ddd4650a7d9f9",
+      "bytes": 227736,
+      "outputSha256": "a36313b8fa882d14db60919768715fd7de0ee42777d4257d5724c0eed6542e49"
+    },
+    {
+      "family": "tournamentBitHazard",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bit-hazard-560.avif",
+      "sourceGitObjectId": "c463bd30fb5d7d6097c6e7e34e5c561e2c4cd8cd",
+      "sourceSha256": "956b1addeba6d4c8c8eb739e9d243b15dc7d4730b84ff1413cdc8e14f8ea07e2",
+      "bytes": 19467,
+      "outputSha256": "ed4e67f178e122bd8d8337f0eb676aed9725bf489b92568f83d49a898de84f03"
+    },
+    {
+      "family": "tournamentBitHazard",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bit-hazard-560.webp",
+      "sourceGitObjectId": "c463bd30fb5d7d6097c6e7e34e5c561e2c4cd8cd",
+      "sourceSha256": "956b1addeba6d4c8c8eb739e9d243b15dc7d4730b84ff1413cdc8e14f8ea07e2",
+      "bytes": 31342,
+      "outputSha256": "ebb65acdf502483544bfd75ecdbe4dc050d592fd17687cf7cc7cf2db7e7bdcbe"
+    },
+    {
+      "family": "tournamentBotWrongLine",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bot-wrong-line-560.avif",
+      "sourceGitObjectId": "3d7070f84b70e0434b1d7b14d494504ca5c33a9c",
+      "sourceSha256": "72d3f43f4aa8b12fcddd4bf64f6df5002baf1cb589fbc5a0ae7e6c6c59339235",
+      "bytes": 19175,
+      "outputSha256": "be20c28b03e6120da5e68f5a95b343c3f00b02d304e88552f6a12a01233a89a2"
+    },
+    {
+      "family": "tournamentBotWrongLine",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bot-wrong-line-560.webp",
+      "sourceGitObjectId": "3d7070f84b70e0434b1d7b14d494504ca5c33a9c",
+      "sourceSha256": "72d3f43f4aa8b12fcddd4bf64f6df5002baf1cb589fbc5a0ae7e6c6c59339235",
+      "bytes": 30574,
+      "outputSha256": "db53d1aa9bd14e8dd70f81c0975741b81b8849cf90bdcbbca3dc905d9ae476de"
+    },
+    {
+      "family": "tournamentLongCourse",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-long-course-1200.avif",
+      "sourceGitObjectId": "253e50fa21852098d918a751bd48830736c22914",
+      "sourceSha256": "7b2c8341338435c1e89001df3339cbdcfb99c3774d931084724328e5303ad232",
+      "bytes": 76899,
+      "outputSha256": "c187f30dd12aadb9188bcb2469a5337b726dd9926c3fe6b55e3718374d7489ea"
+    },
+    {
+      "family": "tournamentLongCourse",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-long-course-1200.webp",
+      "sourceGitObjectId": "253e50fa21852098d918a751bd48830736c22914",
+      "sourceSha256": "7b2c8341338435c1e89001df3339cbdcfb99c3774d931084724328e5303ad232",
+      "bytes": 116700,
+      "outputSha256": "48f920db293108d739640aff7ccdf1a47bb914464655c6813fa2d06d1e9ddb8b"
+    },
+    {
+      "family": "identity",
+      "sourcePath": "build/environments/identity-emporium/reference_sheets/world_proof__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 960,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-1200.avif",
+      "sourceGitObjectId": "2833182bc399c9aacfc5a5df58627b56bdf311e7",
+      "sourceSha256": "8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b",
+      "bytes": 95269,
+      "outputSha256": "c72db87c48c20c515bcca323e760dd03404f8989a98e64cafabd93732b0f4e01"
+    },
+    {
+      "family": "identity",
+      "sourcePath": "build/environments/identity-emporium/reference_sheets/world_proof__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "legacy_reference",
+      "width": 1200,
+      "height": 960,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-1200.webp",
+      "sourceGitObjectId": "2833182bc399c9aacfc5a5df58627b56bdf311e7",
+      "sourceSha256": "8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b",
+      "bytes": 166626,
+      "outputSha256": "d3243f14dcf9be5eca5608d4775128fdda22343a7436a645f2571015d70ce458"
+    },
+    {
+      "family": "identityBotFailure",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 480,
+      "height": 384,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "cropFrame": {
+        "width": 480,
+        "height": 384,
+        "position": "center"
+      },
+      "path": "src/client/public/media/patch/patch-identity-bot-failure-480.avif",
+      "sourceGitObjectId": "715c2dc5e3a82510cf48628c9da362cc606f8fc3",
+      "sourceSha256": "99f23e0e54148a4fa0f6cc6455c5d2c4adf0783093d2c791e1810a0cb694d4e0",
+      "bytes": 19951,
+      "outputSha256": "0c5744caa55852509bcc2c20f286b4548d6ead52cef2d1aaa8d38f155940c127"
+    },
+    {
+      "family": "identityBotFailure",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 480,
+      "height": 384,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "cropFrame": {
+        "width": 480,
+        "height": 384,
+        "position": "center"
+      },
+      "path": "src/client/public/media/patch/patch-identity-bot-failure-480.webp",
+      "sourceGitObjectId": "715c2dc5e3a82510cf48628c9da362cc606f8fc3",
+      "sourceSha256": "99f23e0e54148a4fa0f6cc6455c5d2c4adf0783093d2c791e1810a0cb694d4e0",
+      "bytes": 27580,
+      "outputSha256": "bb6a5d2b3fd266fdcb83eca7225273dcc84200a223b4baac03ec871fbc43f709"
+    },
+    {
+      "family": "identityBitAction",
+      "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bit-action-480.avif",
+      "sourceGitObjectId": "d5bc58b5ebcc8c4d05b1e109724003cfaccacc09",
+      "sourceSha256": "0d86b9efdca4d85450348975d47cd26d629a2a3be0ea99caa3d25aa11eabdfc4",
+      "bytes": 13710,
+      "outputSha256": "6709d60862a6f4574301e14c9932419f12ef29dc97d0970f13079061c6397e81"
+    },
+    {
+      "family": "identityBitAction",
+      "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bit-action-480.webp",
+      "sourceGitObjectId": "d5bc58b5ebcc8c4d05b1e109724003cfaccacc09",
+      "sourceSha256": "0d86b9efdca4d85450348975d47cd26d629a2a3be0ea99caa3d25aa11eabdfc4",
+      "bytes": 20156,
+      "outputSha256": "fb181fb08ff2e7128bc81719fe3f287a8d10f3c6f8017f28854c294a1f28af29"
+    },
+    {
+      "family": "identityCowboy",
+      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-cowboy-480.avif",
+      "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
+      "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
+      "bytes": 11244,
+      "outputSha256": "c7f45c426fd20afa82db3d512477cfe437f0aae829bad9d7f488d5472f54eceb"
+    },
+    {
+      "family": "identityCowboy",
+      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-cowboy-480.webp",
+      "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
+      "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
+      "bytes": 19202,
+      "outputSha256": "069c6611b9895c5aecb246cdd5394158dd0551f14b1737b271eaa9e50ccdc56a"
+    },
+    {
+      "family": "identityDetective",
+      "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-detective-480.avif",
+      "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
+      "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
+      "bytes": 15642,
+      "outputSha256": "8cc49bdbd39b0a809b465e07a88afe1af63fe394d2542173126485691aa887a0"
+    },
+    {
+      "family": "identityDetective",
+      "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-detective-480.webp",
+      "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
+      "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
+      "bytes": 25768,
+      "outputSha256": "c9d4bde0030f725f01c1d5dd9beb65e6e80fbdf64b063b8ee29aa8e6ad521b1f"
+    },
+    {
+      "family": "identityMechanic",
+      "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-mechanic-480.avif",
+      "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
+      "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
+      "bytes": 12265,
+      "outputSha256": "f65332e8cc6e134c57386761c24c67d3860bd84bf7de6804a1a1053923576d8e"
+    },
+    {
+      "family": "identityMechanic",
+      "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-mechanic-480.webp",
+      "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
+      "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
+      "bytes": 20244,
+      "outputSha256": "65aee307db1f8932a83e3052979ccf098a076266692ea6e9404abef43842f745"
+    },
+    {
+      "family": "identityChef",
+      "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-chef-480.avif",
+      "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
+      "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
+      "bytes": 11311,
+      "outputSha256": "7214978b7b96b48e59535fb3f3591b99de38647befb4e0e1494001cde5002c79"
+    },
+    {
+      "family": "identityChef",
+      "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "frame": {
+        "width": 480,
+        "height": 600
+      },
+      "path": "src/client/public/media/patch/patch-identity-chef-480.webp",
+      "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
+      "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
+      "bytes": 18946,
+      "outputSha256": "22fc979ff4f36e44546fa7e174bb37c258b74e5b648a2361e8d733e30fa3bc1f"
+    }
+  ]
+}

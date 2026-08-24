@@ -18,7 +18,7 @@ export function ContentNavigation({ items, currentSlug }: ContentNavigationProps
 
   if (previous === undefined && next === undefined) return null
 
-  const kindLabel = items[currentIndex].kind === 'fairytales' ? 'fairytales' : items[currentIndex].kind
+  const kindLabel = items[currentIndex].kind === 'patch' ? 'Patch stories' : items[currentIndex].kind
 
   return (
     <nav className="content-navigation" aria-label={`More ${kindLabel}`}>

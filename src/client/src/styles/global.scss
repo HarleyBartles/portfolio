@@ -40,6 +40,20 @@ a {
   text-underline-offset: 0.18em;
 }
 
+a .external-link__icon {
+  display: inline-block;
+  width: 0.78em;
+  height: 0.78em;
+  margin-inline-start: 0.24em;
+  overflow: visible;
+  vertical-align: 0.08em;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+}
+
 button {
   color: inherit;
 }

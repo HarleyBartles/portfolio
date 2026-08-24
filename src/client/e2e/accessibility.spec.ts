@@ -7,6 +7,7 @@ const routes = [
   { name: 'home', path: './' },
   { name: 'projects', path: 'projects' },
   { name: 'project story', path: 'projects/adventures-of-patch' },
+  { name: 'Tournament adventure', path: 'patch/tournament-of-reasonable-defaults' },
   { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
   { name: 'writing', path: 'writing' },
   { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },

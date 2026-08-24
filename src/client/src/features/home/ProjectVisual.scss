@@ -4,6 +4,97 @@
   background: var(--color-ink);
 }
 
+.project-visual--patch,
+.project-visual--patch img {
+  width: 100%;
+  height: 100%;
+}
+
+.project-visual--patch img {
+  display: block;
+  object-fit: cover;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+  min-height: clamp(32rem, 52vw, 43rem);
+  padding: 0;
+  overflow: hidden;
+  background: #f8f3e8;
+  border: 1px solid var(--color-border);
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual,
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+  grid-area: 1 / 1;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
+  min-width: 0;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+  z-index: 1;
+  align-self: center;
+  justify-self: end;
+  width: min(46%, 35rem);
+  margin-right: clamp(var(--space-6), 6vw, var(--space-20));
+  padding: var(--space-8) 0;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
+  max-width: 10ch;
+  color: #18252a;
+  font-size: clamp(3.2rem, 6vw, 6.4rem);
+  line-height: 0.92;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-summary {
+  max-width: 32rem;
+  color: #344247;
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+}
+
+@media (max-width: 44rem) {
+  .content-page-header[data-visual-contract="patch-case-study-hero"] {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: var(--space-8) var(--space-6) 0;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+    min-width: 0;
+    width: auto;
+    margin: 0 0 var(--space-6);
+    padding: 0;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
+    max-width: none;
+    font-size: clamp(2.8rem, 14.5vw, 3.6rem);
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
+    width: calc(100% + (2 * var(--space-6)));
+    margin-inline: calc(var(--space-6) * -1);
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch,
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch img {
+    height: auto;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual--patch img {
+    object-fit: contain;
+  }
+}
+
 .project-visual--wild-bunch picture {
   min-height: 0;
 }

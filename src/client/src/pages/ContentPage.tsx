@@ -139,6 +139,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     : null
   const visualContract = document.summary.presentation === 'marketplace-case-study'
     ? 'marketplace-case-study-hero'
+    : document.summary.presentation === 'patch-pipeline-case-study'
+      ? 'patch-case-study-hero'
     : document.summary.presentation === 'wild-bunch-case-study'
       ? 'wild-bunch-case-study-hero'
       : 'content-page-header'
@@ -169,7 +171,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
           </div>
           {projectVisualSlug === null ? null : (
-            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch'} /></div>
+            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch'} /></div>
           )}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>

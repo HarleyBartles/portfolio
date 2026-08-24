@@ -21,13 +21,16 @@ function assetPath(path: string): string {
 export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): ReactElement {
   if (slug === 'adventures-of-patch') {
     return (
-      <picture className="project-visual project-visual--patch">
-        <source media="(max-width: 44rem)" srcSet={assetPath('/media/patch/patch-role-kits-640.webp')} />
+      <picture className="project-visual project-visual--patch" data-visual-contract="adventures-of-patch-preview">
+        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.avif')} type="image/avif" />
+        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.webp')} type="image/webp" />
+        <source srcSet={assetPath('/media/patch/patch-hero-720.avif')} type="image/avif" />
+        <source srcSet={assetPath('/media/patch/patch-hero-720.webp')} type="image/webp" />
         <img
-          src={assetPath('/media/patch/patch-role-kits-1200.webp')}
-          alt="Patch appears as a detective, cowboy, chef, and mechanic in four overlapping role-kit cards."
-          width="1200"
-          height="720"
+          src={assetPath('/media/patch/patch-hero-720.webp')}
+          alt="Patch carries an index card and folded map, ready to turn an engineering lesson into a story."
+          width="720"
+          height="403"
           loading={eager ? 'eager' : 'lazy'}
           fetchPriority={eager ? 'high' : 'auto'}
         />
