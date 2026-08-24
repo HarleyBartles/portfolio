@@ -78,6 +78,21 @@ describe('WildBunchCaseStudy', () => {
     expect(screen.queryByRole('heading', { level: 2, name: 'Built, in motion, beyond pre-alpha' })).not.toBeInTheDocument()
   })
 
+  test('uses the shared case-study hierarchy where prose has no paired evidence surface', () => {
+    renderCaseStudy()
+
+    ;[
+      'The game I wanted to return to',
+      'Choosing the complicated version',
+      'Where the trail leads next',
+      'Inspect it. Run it.',
+    ].forEach((name) => {
+      const heading = screen.getByRole('heading', { level: 2, name })
+      expect(heading.closest('.case-study-lead')).not.toBeNull()
+      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+    })
+  })
+
   test('keeps the technical and authorship claims inspectable rather than promotional', () => {
     renderCaseStudy()
 

@@ -24,4 +24,21 @@ describe('PatchEvidenceGallery', () => {
   test('preserves the deployment base path for public derivatives', () => {
     expect(getPatchAssetPath('src/client/public/media/patch/example.avif', '/portfolio/')).toBe('/portfolio/media/patch/example.avif')
   })
+
+  test('uses available portrait artefacts at mobile widths without inventing one for Sorcerer’s Apprentice', () => {
+    render(<PatchEvidenceGallery />)
+
+    const figures = within(screen.getByRole('region', { name: 'Evidence gallery' })).getAllByRole('figure')
+    const portraitSources = (figure: HTMLElement) => Array.from(figure.querySelectorAll('source[media="(max-width: 44.99rem)"]')).map((source) => source.getAttribute('srcset'))
+
+    expect(portraitSources(figures[1])).toEqual(expect.arrayContaining([
+      expect.stringContaining('patch-goldilocks-portrait-640.avif'),
+      expect.stringContaining('patch-goldilocks-portrait-640.webp'),
+    ]))
+    expect(portraitSources(figures[2])).toEqual([])
+    expect(portraitSources(figures[3])).toEqual(expect.arrayContaining([
+      expect.stringContaining('patch-introducing-page-portrait-640.avif'),
+      expect.stringContaining('patch-introducing-page-portrait-640.webp'),
+    ]))
+  })
 })

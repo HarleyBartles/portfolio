@@ -32,7 +32,7 @@ export function WildBunchCaseStudy(): ReactElement {
         data-visual-contract="wild-bunch-evidence-ledger"
       >
         <div className="wild-bunch-story-movement wild-bunch-story-movement--origin" data-story-movement="origin">
-          <CaseStudySection title="The game I wanted to return to">
+          <CaseStudySection title="The game I wanted to return to" layout="lead">
             <p>By the time the sheriff arrived, a dying man had handed you his Colt .45 and described the outlaw who shot him. It was enough to put the wrong name on the crime: yours. The original Wild Bunch sent you across five frontier towns to find the real killer and bring him to justice while a Pinkerton agent followed your trail. Between clues, you could collect other bounties, buy supplies, drink, gamble and try to stay one town ahead of the law.</p>
             <p>That small, mostly text-drawn frontier first found me on an Amstrad CPC 464 when I was five, and it felt enormous. Firebird Software published the original in 1984. I played the later CPC version on the same machine where Locomotive BASIC became my first programming language.</p>
             <p>Forty years later, I'm not trying to reconstruct the software I played. My memory's incomplete and probably wrong in places, but that's useful: I want to recreate the experience it left behind. Five towns felt like a whole dangerous frontier. Every journey carried possibility, and somewhere behind me the law was getting closer.</p>
@@ -115,7 +115,7 @@ export function WildBunchCaseStudy(): ReactElement {
         </div>
 
         <div className="wild-bunch-story-movement wild-bunch-story-movement--trade-off" data-story-movement="trade-off">
-          <CaseStudySection title="Choosing the complicated version">
+          <CaseStudySection title="Choosing the complicated version" layout="lead">
             <p>Yes, I could have made this much more simply. Mutable state plus ordinary random calls would mean fewer concepts, fewer serializers and fewer ways for persistence changes to go wrong. For a small local remake, that could be the better trade.</p>
             <p>It would also give up the qualities I chose this project to investigate: stable worlds with genuine variation, exact playthrough reconstruction, player-safe knowledge, conflict-aware writes and developer interventions that remain outside the player contract. I accepted event schemas, projection parity, storage evolution, invariant tests and a larger debugging surface because I can point to what each one buys.</p>
             <p>I use these patterns professionally in enterprise software, so familiarity was part of the decision. I know where each tends to pay rent, what it costs and when to leave it alone. Other designs could deliver the same qualities. My judgement was to choose the subset this game could justify.</p>
@@ -125,7 +125,7 @@ export function WildBunchCaseStudy(): ReactElement {
             <p>If a layer stops earning its keep, I should remove it and keep the original bargain.</p>
           </CaseStudySection>
 
-          <CaseStudySection title="Where the trail leads next">
+          <CaseStudySection title="Where the trail leads next" layout="lead">
             <p>The playable build already makes travel more than a scene change. You unfold the generated map, choose a connected town, see the distance and expected days, then set out mounted or on foot. On the road, supplies run down, the horse is tested, the player can change pace and encounters can intervene. Arrival and the journey that produced it become part of the session history. It's still a scrappy surface, but the trail is already game space.</p>
             <p>My turn on Wild Bunch is to make each town a place where decisions accumulate. Money, condition, supplies, time and reputation should all shape the next destination. The saloon can grow from gossip and suspect encounters into somewhere to eat, drink and gamble, poker first, perhaps other games of chance later. The telegraph office can move beyond clue leads: a clerk might sell a tip about the lawman's whereabouts, take a bribe or pass false information. More town services should create more ways to prepare, investigate, recover and get into trouble.</p>
             <p>The Pinkerton agent can pull those systems into one chase. I don't want him to materialise as a random road encounter or know the player's location by magic. He should travel the same world on his own clock, following rumours shaped by what the player did, how publicly they did it and what a town remembers after they leave. A helpful town might muddy the trail; a notorious afternoon in the saloon might sharpen it; a telegraph clerk might reveal where the law was last seen, or be persuaded to send it the wrong way.</p>
@@ -134,7 +134,7 @@ export function WildBunchCaseStudy(): ReactElement {
         </div>
 
         <div className="wild-bunch-source-note" data-story-close="source-note">
-          <CaseStudySection title="Inspect it. Run it.">
+          <CaseStudySection title="Inspect it. Run it." layout="lead">
             <p>These captures document the current playable build, including its temporary development art. The source snapshot pins every architectural claim above to the version I inspected.</p>
             <p>The game isn't hosted yet. It's a hobby project, and it grows when I have time. You can still play the pre-alpha: <ExternalLink href={localSetupUrl}>Clone and run Wild Bunch</ExternalLink>. You'll need .NET 10, the frontend toolchain and local PostgreSQL. The repository scripts handle most of the database work, but PostgreSQL is the likely bit of friction.</p>
             <CaseStudyEvidence auditDate="21 August 2026" href={pinnedRepositoryUrl} label="Wild Bunch source snapshot (pinned revision)" />

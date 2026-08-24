@@ -26,6 +26,6 @@ describe('project presentations', () => {
     expect(await screen.findByRole('heading', { level: 2, name: 'The game I wanted to return to' }, { timeout: 5_000 })).toBeVisible()
 
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/adventures-of-patch']}><Suspense fallback={null}><PatchPipelineCaseStudy /></Suspense></MemoryRouter>)
-    expect(await screen.findByText('The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.', undefined, { timeout: 5_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The day the database disappeared' }, { timeout: 5_000 })).toBeVisible()
   })
 })

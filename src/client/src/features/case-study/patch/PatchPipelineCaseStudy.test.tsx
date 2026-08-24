@@ -6,7 +6,6 @@ describe('PatchPipelineCaseStudy', () => {
   test('keeps the complete approved outline in semantic source order', () => {
     render(<PatchPipelineCaseStudy />)
 
-    expect(screen.getByText('The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.')).toBeVisible()
     expect(screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)).toEqual([
       'The day the database disappeared',
       'The first deck',
@@ -23,7 +22,7 @@ describe('PatchPipelineCaseStudy', () => {
     expect(within(screen.getByRole('region', { name: 'What has earned an artefact' })).getByRole('region', { name: 'Evidence gallery' })).toBeVisible()
   })
 
-  test('opens with a compact project snapshot and a complete authored case', () => {
+  test('keeps a compact project snapshot inside the complete authored case', () => {
     render(<PatchPipelineCaseStudy />)
 
     const snapshot = screen.getByRole('region', { name: 'Project snapshot' })
@@ -42,6 +41,25 @@ describe('PatchPipelineCaseStudy', () => {
     expect(document.body.textContent).not.toMatch(/—|coming soon|content factory|production studio/i)
   })
 
+  test('uses the shared wide-screen lead hierarchy before full-width systems', () => {
+    render(<PatchPipelineCaseStudy />)
+
+    const splitHeadings = [
+      'The production system is the project',
+      'What has earned an artefact',
+      'Three worlds in motion',
+      'What Patch might teach next',
+      'What reaches the public record',
+      'Controlled creative production',
+    ]
+
+    splitHeadings.forEach((name) => {
+      const heading = screen.getByRole('heading', { level: 2, name })
+      expect(heading.closest('.case-study-lead')).not.toBeNull()
+      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+    })
+  })
+
   test('keeps published, in-flight, and story-lab boundaries public-safe', () => {
     render(<PatchPipelineCaseStudy />)
 
@@ -52,7 +70,7 @@ describe('PatchPipelineCaseStudy', () => {
     expect(within(within(published).getByRole('region', { name: 'Evidence gallery' })).getAllByRole('link')).toHaveLength(4)
 
     const inFlight = screen.getByRole('region', { name: 'Three worlds in motion' })
-    const statuses = ['Advanced visual pre-production', 'Visual development', 'Legacy reference']
+    const statuses = ['Advanced visual pre-production', 'Visual development', 'Visual development']
     ;['Lawful Heist', 'Tournament of Reasonable Defaults', 'Identity Emporium'].forEach((world, index) => {
       const article = within(inFlight).getByRole('article', { name: world })
       expect(article.querySelector('.patch-world__lesson')).toBeVisible()
@@ -60,11 +78,26 @@ describe('PatchPipelineCaseStudy', () => {
       expect(within(article).getByText('What remains.')).toBeVisible()
       expect(within(article).getByText(statuses[index])).toBeVisible()
     })
+    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/four substantial Patch role kits/i)
+    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/Bit and Bot/i)
+    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/role and domain have to agree/i)
+    const identityEvidence = within(inFlight).getByRole('figure', { name: /Identity Emporium combines role and domain/i })
+    expect(within(identityEvidence).getAllByRole('img')).toHaveLength(6)
+    expect(identityEvidence).toHaveTextContent(/right kit, wrong domain/i)
+    expect(identityEvidence).toHaveTextContent(/right domain, wrong kit/i)
+    ;['Cowboy', 'Detective', 'Mechanic', 'Chef'].forEach((role) => expect(identityEvidence).toHaveTextContent(role))
 
     const storyLab = screen.getByRole('region', { name: 'What Patch might teach next' })
-    expect(within(storyLab).getByRole('list', { name: 'Fairytale lessons' })).toHaveTextContent('Preserve escalation signal.')
-    expect(within(storyLab).getByRole('list', { name: 'Fairytale lessons' }).querySelectorAll('li')).toHaveLength(7)
-    expect(within(storyLab).getByRole('list', { name: 'Archived adventure questions' }).querySelectorAll('li')).toHaveLength(4)
+    const fairytalePlans = within(storyLab).getByRole('list', { name: 'Fairytale plans' })
+    expect(fairytalePlans).toHaveTextContent('The Boy Who Cried Wolf')
+    expect(fairytalePlans).toHaveTextContent('Preserve escalation signal.')
+    expect(fairytalePlans.querySelectorAll('li')).toHaveLength(7)
+    expect(fairytalePlans.querySelectorAll('li strong')).toHaveLength(7)
+    expect(fairytalePlans.querySelectorAll('li span')).toHaveLength(7)
+    const adventurePlans = within(storyLab).getByRole('list', { name: 'Adventure plans' })
+    expect(adventurePlans.querySelectorAll('li')).toHaveLength(4)
+    expect(adventurePlans.querySelectorAll('li strong')).toHaveLength(4)
+    expect(adventurePlans.querySelectorAll('li span')).toHaveLength(4)
     expect(within(storyLab).queryAllByRole('link')).toHaveLength(0)
 
     expect(screen.queryByText(/PATCH-\d+/i)).not.toBeInTheDocument()

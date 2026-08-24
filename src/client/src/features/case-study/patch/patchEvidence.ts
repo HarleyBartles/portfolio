@@ -45,8 +45,8 @@ export type PatchInFlightWorld = Readonly<{
 }>
 
 export type PatchStoryLab = Readonly<{
-  fairytaleLessons: readonly string[]
-  adventureQuestions: readonly Readonly<{ title: string; lesson: string }>[]
+  fairytalePlans: readonly Readonly<{ title: string; lesson: string }>[]
+  adventurePlans: readonly Readonly<{ title: string; lesson: string }>[]
 }>
 
 export type PatchEvidenceMedia = Readonly<{
@@ -73,6 +73,7 @@ type PatchEvidenceSnapshot = Readonly<{
 
 type PublishedEvidenceRelation = Readonly<{
   mediaPath: string
+  portraitMediaPath?: string
   captionLabel: string
   captionDetail?: string
   alt: string
@@ -81,6 +82,7 @@ type PublishedEvidenceRelation = Readonly<{
 export type PatchPublishedEvidence = Readonly<{
   artefact: PatchPublishedArtefact
   media: PatchEvidenceMedia
+  portraitMedia?: PatchEvidenceMedia
   captionLabel: string
   captionDetail?: string
   alt: string
@@ -95,6 +97,7 @@ const publishedEvidenceRelations: Readonly<Record<string, PublishedEvidenceRelat
   },
   Goldilocks: {
     mediaPath: 'src/client/public/media/patch/patch-goldilocks-1200.avif',
+    portraitMediaPath: 'src/client/public/media/patch/patch-goldilocks-portrait-640.avif',
     captionLabel: 'Goldilocks and the Right Amount of Guidance',
     captionDetail: 'Enough relevant context supports the next confident decision; more context isn’t automatically better.',
     alt: 'Goldilocks fairytale contrasting too much guidance, too little guidance, and a just-right organised workspace for Patch.',
@@ -107,6 +110,7 @@ const publishedEvidenceRelations: Readonly<Record<string, PublishedEvidenceRelat
   },
   'Introducing Patch': {
     mediaPath: 'src/client/public/media/patch/patch-introducing-page-1200.avif',
+    portraitMediaPath: 'src/client/public/media/patch/patch-introducing-page-portrait-640.avif',
     captionLabel: 'Introducing Patch',
     captionDetail: 'The finished one-page introduction is a published artefact; a separate base image supplies the route hero.',
     alt: 'Introducing Patch page with the character holding an index card and map beside a concise explanation of his role.',
@@ -152,12 +156,13 @@ export function getPublishedEvidence(): readonly PatchPublishedEvidence[] {
   return patchEvidence.published.map((artefact) => {
     const relation = publishedEvidenceRelations[artefact.title]
     const media = relation === undefined ? undefined : patchMediaByPath.get(relation.mediaPath)
+    const portraitMedia = relation?.portraitMediaPath === undefined ? undefined : patchMediaByPath.get(relation.portraitMediaPath)
 
-    if (relation === undefined || media === undefined) {
+    if (relation === undefined || media === undefined || (relation.portraitMediaPath !== undefined && portraitMedia === undefined)) {
       throw new Error(`Patch published evidence relation is missing for ${artefact.title}.`)
     }
 
-    return freeze({ artefact, media, captionLabel: relation.captionLabel, captionDetail: relation.captionDetail, alt: relation.alt })
+    return freeze({ artefact, media, portraitMedia, captionLabel: relation.captionLabel, captionDetail: relation.captionDetail, alt: relation.alt })
   })
 }
 

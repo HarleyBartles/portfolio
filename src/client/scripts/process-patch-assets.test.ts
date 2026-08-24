@@ -13,12 +13,19 @@ import {
 const fixtureManifest = {
   hero: { width: 2400, height: 1350 },
   introducingPage: { width: 2400, height: 1350 },
+  introducingPagePortrait: { width: 1080, height: 1920 },
   goldilocks: { width: 2400, height: 1350 },
+  goldilocksPortrait: { width: 1080, height: 1920 },
   sorcerersApprentice: { width: 2400, height: 1350 },
   clubDb: { width: 1600, height: 900 },
   heist: { width: 1600, height: 900 },
   tournament: { width: 1600, height: 900 },
   identity: { width: 1600, height: 900 },
+  identityBotRoleKit: { width: 1536, height: 1008 },
+  identityCowboy: { width: 1254, height: 1254 },
+  identityDetective: { width: 1086, height: 1448 },
+  identityMechanic: { width: 1122, height: 1402 },
+  identityChef: { width: 1122, height: 1402 },
 }
 
 describe('Patch asset processor', () => {
@@ -26,7 +33,11 @@ describe('Patch asset processor', () => {
     expect(PATCH_DERIVATIVES.hero.widths).toEqual([720, 1440])
     expect(PATCH_DERIVATIVES.hero.formats).toEqual(['avif', 'webp'])
     expect(PATCH_DERIVATIVES.clubDb.slides).toEqual([2, 4, 14])
+    expect(PATCH_DERIVATIVES.introducingPagePortrait.sourcePath).toBe('published/misc/introducing-patch/page__v1-mobile.png')
+    expect(PATCH_DERIVATIVES.goldilocksPortrait.sourcePath).toBe('published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png')
     expect(PATCH_DERIVATIVES.identity.sourceStatus).toBe('legacy_reference')
+    expect(PATCH_DERIVATIVES.identityBotRoleKit.sourceStatus).toBe('accepted')
+    expect(PATCH_DERIVATIVES.identityCowboy.sourcePath).toContain('cowboy-role-kit')
     expect(PATCH_DERIVATIVES.heist.sourcePath).toBeUndefined()
   })
 

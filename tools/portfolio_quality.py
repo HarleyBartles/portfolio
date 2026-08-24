@@ -72,7 +72,7 @@ PATCH_SOURCE_STATES = {"accepted", "published", "advanced_visual_preproduction",
 PATCH_IN_FLIGHT_STATUSES = {
     "Lawful Heist": "advanced-visual-preproduction",
     "Tournament of Reasonable Defaults": "visual-development",
-    "Identity Emporium": "legacy-reference",
+    "Identity Emporium": "visual-development",
 }
 PATCH_PUBLISHED_PATHS = {
     "Club DB": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
@@ -80,12 +80,16 @@ PATCH_PUBLISHED_PATHS = {
     "The Sorcerer's Apprentice": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
     "Introducing Patch": "published/misc/introducing-patch/page__v1.png",
 }
-PATCH_FAIRYTALE_LESSONS = [
-    "Preserve escalation signal.", "Agreement can't stand in for evidence.", "Leave purposeful recovery breadcrumbs.",
-    "Build resilience before predictable pressure.", "Let temporary authority expire.",
-    "Verify identity, provenance, and authority.", "Distinguish technical capability from authorisation.",
+PATCH_FAIRYTALE_PLANS = [
+    ("The Boy Who Cried Wolf", "Preserve escalation signal."),
+    ("The Emperor's New Clothes", "Agreement can't stand in for evidence."),
+    ("Hansel and Gretel", "Leave purposeful recovery breadcrumbs."),
+    ("The Three Little Pigs", "Build resilience before predictable pressure."),
+    ("Cinderella", "Let temporary authority expire."),
+    ("Little Red Riding Hood", "Verify identity, provenance, and authority."),
+    ("Jack and the Beanstalk", "Distinguish technical capability from authorisation."),
 ]
-PATCH_ADVENTURE_QUESTIONS = [
+PATCH_ADVENTURE_PLANS = [
     ("Test Goblin", "Turn failure-mode suspicion into ranked, executable test scenarios."),
     ("The Tiny Change That Wasn't", "Map consumers, tests, migrations, documentation, and operations before treating a small diff as a small blast radius."),
     ("Review Dragon", "Shape completed work into a reviewer handoff with intent, risk, evidence, gaps, and requested attention."),
@@ -94,12 +98,19 @@ PATCH_ADVENTURE_QUESTIONS = [
 PATCH_CUSTODY_BY_FAMILY = {
     "hero": "Introducing Patch source base, mobile-safe crop.",
     "introducingPage": "Published Introducing Patch page derivative.",
+    "introducingPagePortrait": "Published Introducing Patch portrait page derivative.",
     "goldilocks": "Published Goldilocks page derivative.",
+    "goldilocksPortrait": "Published Goldilocks portrait page derivative.",
     "sorcerersApprentice": "Published Sorcerer's Apprentice page derivative.",
     "clubDb": None,
     "heist": "Lawful Heist verified Git-blob derivative.",
     "tournament": "Tournament route-check derivative.",
     "identity": "Identity Emporium world-proof derivative.",
+    "identityBotRoleKit": "Approved Bit and Bot role-kit sheet derivative.",
+    "identityCowboy": "Patch cowboy role-kit hero derivative.",
+    "identityDetective": "Patch detective role-kit hero derivative.",
+    "identityMechanic": "Patch mechanic role-kit hero derivative.",
+    "identityChef": "Patch chef role-kit hero derivative.",
 }
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 DECORATIVE_EMOJI_RE = re.compile(r"[\u2600-\u27BF\U0001F1E6-\U0001FAFF]")
@@ -726,15 +737,17 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
     if not isinstance(story_lab, dict):
         findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab must be an object"))
     else:
-        lessons = story_lab.get("fairytaleLessons")
-        questions = story_lab.get("adventureQuestions")
-        if lessons != PATCH_FAIRYTALE_LESSONS:
-            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab fairytaleLessons must match the seven approved lessons"))
-        if not isinstance(questions, list) or [
-            (entry.get("title"), entry.get("lesson")) if isinstance(entry, dict) else None for entry in questions
-        ] != PATCH_ADVENTURE_QUESTIONS:
-            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab adventureQuestions must match the four approved title and lesson pairs"))
-        for collection in (lessons if isinstance(lessons, list) else [], questions if isinstance(questions, list) else []):
+        fairytale_plans = story_lab.get("fairytalePlans")
+        adventure_plans = story_lab.get("adventurePlans")
+        if not isinstance(fairytale_plans, list) or [
+            (entry.get("title"), entry.get("lesson")) if isinstance(entry, dict) else None for entry in fairytale_plans
+        ] != PATCH_FAIRYTALE_PLANS:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab fairytalePlans must match the seven approved title and lesson pairs"))
+        if not isinstance(adventure_plans, list) or [
+            (entry.get("title"), entry.get("lesson")) if isinstance(entry, dict) else None for entry in adventure_plans
+        ] != PATCH_ADVENTURE_PLANS:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab adventurePlans must match the four approved title and lesson pairs"))
+        for collection in (fairytale_plans if isinstance(fairytale_plans, list) else [], adventure_plans if isinstance(adventure_plans, list) else []):
             for entry in collection:
                 if isinstance(entry, dict) and any(field in entry for field in ("date", "progress", "link", "url")):
                     findings.append(_finding(PATCH_EVIDENCE_PATH, "future-work item must not contain date, progress, or link"))

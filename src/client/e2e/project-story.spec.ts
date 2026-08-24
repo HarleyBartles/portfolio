@@ -148,7 +148,7 @@ test('visitor opens Adventures of Patch with its production claim and inspectabl
   expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
   await expect(page.locator('.content-status')).toHaveText(/Status\s*active project/i)
-  await expect(page.getByText('The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.')).toBeVisible()
+  await expect(page.getByText('Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.')).toBeVisible()
 
   const publicRepository = page.getByRole('link', { name: 'Open the public Adventures of Patch repository' })
   await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/0240a8657aae5b580c1a7a0d31e0be7a68b27f4e')
@@ -222,7 +222,7 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
   expect(desktopComposition.introStart).toBeGreaterThan(0.44)
 
   const evidence = page.locator('.patch-case-study img')
-  await expect(evidence).toHaveCount(9)
+  await expect(evidence).toHaveCount(14)
   for (const image of await evidence.all()) {
     await expect(image).toHaveAttribute('loading', 'lazy')
     await expect(image).toHaveAttribute('width', /^\d+$/)
@@ -308,4 +308,74 @@ test('visitor receives a useful page state when a content slug is missing', asyn
   await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
   await expect(page.getByText('This portfolio story is not available.', { exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Return to the homepage' })).toHaveAttribute('href', '/portfolio/')
+})
+
+test('sibling case studies share one evidence-caption treatment', async ({ page }) => {
+  const captionSignature = async (selector: string) => {
+    await page.locator(selector).first().waitFor({ state: 'visible' })
+    return page.locator(selector).evaluateAll((captions) => captions.map((caption) => {
+      const style = getComputedStyle(caption)
+      return {
+        backgroundColor: style.backgroundColor,
+        color: style.color,
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize,
+        lineHeight: style.lineHeight,
+        padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
+      }
+    }))
+  }
+
+  await page.goto(wildBunchPath)
+  const wildBunchCaptions = await captionSignature('.wild-bunch-evidence figcaption')
+
+  await page.goto(patchPath)
+  const patchCaptions = await captionSignature('.patch-evidence-figure figcaption, .patch-world figcaption, .patch-published-gallery figcaption')
+
+  expect(wildBunchCaptions.length).toBeGreaterThan(0)
+  expect(patchCaptions.length).toBeGreaterThan(0)
+  expect(new Set(wildBunchCaptions.map(JSON.stringify)).size).toBe(1)
+  expect(new Set(patchCaptions.map(JSON.stringify)).size).toBe(1)
+  expect(patchCaptions[0]).toEqual(wildBunchCaptions[0])
+})
+
+test('case-study insets punctuate the body without becoming opening furniture', async ({ page }) => {
+  const calloutSignature = async () => page.locator('.case-study-callout').evaluate((callout) => {
+    const style = getComputedStyle(callout)
+    return {
+      borderLeftWidth: style.borderLeftWidth,
+      fontFamily: style.fontFamily,
+      paddingLeft: style.paddingLeft,
+    }
+  })
+
+  await page.goto('./projects/codex-marketplace/')
+  await expect(page.locator('.case-study-callout')).toHaveCount(1)
+  await expect(page.locator('.marketplace-case-study > .case-study-callout')).toHaveCount(1)
+  expect(await page.locator('.case-study-callout').evaluate((callout) => callout.previousElementSibling?.tagName)).toBe('SECTION')
+  const marketplaceCallout = await calloutSignature()
+
+  await page.goto(patchPath)
+  await expect(page.locator('.case-study-callout')).toHaveCount(1)
+  await expect(page.locator('.patch-case-study > .case-study-callout')).toHaveCount(1)
+  expect(await page.locator('.case-study-callout').evaluate((callout) => callout.previousElementSibling?.className)).toBe('patch-movement patch-first-deck')
+  const patchCallout = await calloutSignature()
+
+  expect(patchCallout).toEqual(marketplaceCallout)
+  await expect(page.locator('.patch-case-study > .patch-thesis')).toHaveCount(0)
+})
+
+test('Adventures of Patch earns attention with the database story before project state', async ({ page }) => {
+  await page.goto(patchPath)
+  await page.getByRole('heading', { name: 'The day the database disappeared', exact: true }).waitFor({ state: 'visible' })
+
+  const movements = await page.locator('.patch-case-study > section').evaluateAll((sections) => sections.map((section) => section.className))
+
+  expect(movements.slice(0, 4)).toEqual([
+    'patch-movement patch-origin',
+    'patch-movement patch-first-deck',
+    'patch-snapshot',
+    'patch-movement patch-frame-gate',
+  ])
+  await expect(page.locator('.patch-case-study > .patch-thesis')).toHaveCount(0)
 })

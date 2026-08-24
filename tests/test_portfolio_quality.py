@@ -243,23 +243,23 @@ class PortfolioFixture:
                 },
                 {
                     "title": "Identity Emporium",
-                    "status": "legacy-reference",
+                    "status": "visual-development",
                     "lesson": "Identity requires more than a costume.",
                     "currentEvidence": "World proof is present.",
                     "remaining": "Asset and deck readiness remain incomplete.",
                 },
             ],
             "storyLab": {
-                "fairytaleLessons": [
-                    "Preserve escalation signal.",
-                    "Agreement can't stand in for evidence.",
-                    "Leave purposeful recovery breadcrumbs.",
-                    "Build resilience before predictable pressure.",
-                    "Let temporary authority expire.",
-                    "Verify identity, provenance, and authority.",
-                    "Distinguish technical capability from authorisation.",
+                "fairytalePlans": [
+                    {"title": "The Boy Who Cried Wolf", "lesson": "Preserve escalation signal."},
+                    {"title": "The Emperor's New Clothes", "lesson": "Agreement can't stand in for evidence."},
+                    {"title": "Hansel and Gretel", "lesson": "Leave purposeful recovery breadcrumbs."},
+                    {"title": "The Three Little Pigs", "lesson": "Build resilience before predictable pressure."},
+                    {"title": "Cinderella", "lesson": "Let temporary authority expire."},
+                    {"title": "Little Red Riding Hood", "lesson": "Verify identity, provenance, and authority."},
+                    {"title": "Jack and the Beanstalk", "lesson": "Distinguish technical capability from authorisation."},
                 ],
-                "adventureQuestions": [
+                "adventurePlans": [
                     {"title": "Test Goblin", "lesson": "Turn failure-mode suspicion into ranked, executable test scenarios."},
                     {"title": "The Tiny Change That Wasn't", "lesson": "Map consumers, tests, migrations, documentation, and operations before treating a small diff as a small blast radius."},
                     {"title": "Review Dragon", "lesson": "Shape completed work into a reviewer handoff with intent, risk, evidence, gaps, and requested attention."},
@@ -755,8 +755,8 @@ class PortfolioQualityTests(unittest.TestCase):
             "unsupported status": (lambda evidence: evidence["inFlight"][0].__setitem__("status", "live"), "unsupported status 'live'"),
             "published record without public artefact": (lambda evidence: evidence["published"][0].pop("publicArtefactUrl"), "published record 1 requires a publicArtefactUrl"),
             "in-flight record without remaining work": (lambda evidence: evidence["inFlight"][0].pop("remaining"), "in-flight record 1 requires remaining"),
-            "future item with a date": (lambda evidence: evidence["storyLab"]["fairytaleLessons"].append(
-                {"lesson": "A future lesson.", "date": "2026-09-01"}
+            "future item with a date": (lambda evidence: evidence["storyLab"]["fairytalePlans"].append(
+                {"title": "A future fairytale", "lesson": "A future lesson.", "date": "2026-09-01"}
             ), "future-work item must not contain date"),
             "Linear identifier": (lambda evidence: evidence["pipeline"][0].__setitem__("decision", "PATCH-42 decides it."), "private coordinate or credential"),
             "private coordinate": (lambda evidence: evidence["pipeline"][0].__setitem__("output", "Z:/private/output"), "private coordinate or credential"),
@@ -774,8 +774,8 @@ class PortfolioQualityTests(unittest.TestCase):
             "false media dimension": (lambda evidence: evidence["media"][0].__setitem__("width", 2), "does not match derivative receipt"),
             "mismatched media custody": (lambda evidence: evidence["media"][0].__setitem__("custody", "unrelated custody"), "custody must match derivative sourcePath"),
             "duplicate media": (lambda evidence: evidence["media"].append(dict(evidence["media"][0])), "complete unique derivative receipt inventory"),
-            "swapped fairytale lesson": (lambda evidence: evidence["storyLab"]["fairytaleLessons"].reverse(), "must match the seven approved lessons"),
-            "swapped question lesson": (lambda evidence: evidence["storyLab"]["adventureQuestions"][0].__setitem__("lesson", "wrong"), "must match the four approved title and lesson pairs"),
+            "swapped fairytale lesson": (lambda evidence: evidence["storyLab"]["fairytalePlans"].reverse(), "must match the seven approved title and lesson pairs"),
+            "swapped adventure lesson": (lambda evidence: evidence["storyLab"]["adventurePlans"][0].__setitem__("lesson", "wrong"), "must match the four approved title and lesson pairs"),
             "swapped published path": (lambda evidence: evidence["published"][0].__setitem__("publicArtefactUrl", evidence["published"][1]["publicArtefactUrl"]), "must match the four approved title and path pairs"),
             "generated pose without accepted source": (lambda evidence: evidence["media"][0].update(
                 {"sourceType": "generated-pose", "sourceStatus": "candidate"}

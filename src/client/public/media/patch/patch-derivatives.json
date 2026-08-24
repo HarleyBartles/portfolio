@@ -166,6 +166,46 @@
       "outputSha256": "020af1657a7887e167f7438194315f3f784a24c3c398fd9592bf7085f47f1480"
     },
     {
+      "family": "introducingPagePortrait",
+      "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-portrait-640.avif",
+      "sourceGitObjectId": "efe1932a065e0edebbc1c6cc7e88a9bdbbd05efc",
+      "sourceSha256": "0e0ab3fc0818671aea27b0b060671ff48d3517bb63ea51d3eb392af6080d97bb",
+      "bytes": 21989,
+      "outputSha256": "b63bb067599c853c1eb05eb24e43874c6ed9f68f4ed0647e120fca6e3b508c3b"
+    },
+    {
+      "family": "introducingPagePortrait",
+      "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-introducing-page-portrait-640.webp",
+      "sourceGitObjectId": "efe1932a065e0edebbc1c6cc7e88a9bdbbd05efc",
+      "sourceSha256": "0e0ab3fc0818671aea27b0b060671ff48d3517bb63ea51d3eb392af6080d97bb",
+      "bytes": 35038,
+      "outputSha256": "340e8972e8ce49281dbe7884bbf7d844ae5dd028a629b0110b48d6d245ce9534"
+    },
+    {
       "family": "goldilocks",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
@@ -244,6 +284,46 @@
       "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
       "bytes": 84952,
       "outputSha256": "ff79b73a927ff28735299a09ea1395c40289459487e44a8c84ff4f4bfe79bdd7"
+    },
+    {
+      "family": "goldilocksPortrait",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-portrait-640.avif",
+      "sourceGitObjectId": "666568cd5226150331287a5742e3036d9cf2976b",
+      "sourceSha256": "9facb864843f01ecbac48a12ac911496f55b6e02cd532f7908787a6686395f60",
+      "bytes": 58714,
+      "outputSha256": "f6df9cd61d3a437c5180c0ef2a0f0fbfe795fed6c3a5817a431fab137609202d"
+    },
+    {
+      "family": "goldilocksPortrait",
+      "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "published",
+      "width": 640,
+      "height": 1138,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "page",
+      "path": "src/client/public/media/patch/patch-goldilocks-portrait-640.webp",
+      "sourceGitObjectId": "666568cd5226150331287a5742e3036d9cf2976b",
+      "sourceSha256": "9facb864843f01ecbac48a12ac911496f55b6e02cd532f7908787a6686395f60",
+      "bytes": 81702,
+      "outputSha256": "b34346cafe0c2580f22ad7de78740195b2b6999cb0945301718cf992103363af"
     },
     {
       "family": "sorcerersApprentice",
@@ -612,6 +692,206 @@
       "sourceSha256": "8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b",
       "bytes": 166626,
       "outputSha256": "d3243f14dcf9be5eca5608d4775128fdda22343a7436a645f2571015d70ce458"
+    },
+    {
+      "family": "identityBotRoleKit",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 788,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bot-role-kit-1200.avif",
+      "sourceGitObjectId": "d1057faa0c487fbbfd354dd1cab082e9835e54e0",
+      "sourceSha256": "b6c676adeee34f37fe98f5a06c460f2cf2fe9459606723b7fa466d306b3b2b09",
+      "bytes": 51663,
+      "outputSha256": "3ca9dd263ea0752ce0b6a1c1198b2eaa451e6f73ae6c28d2e35cdd24c44f4fae"
+    },
+    {
+      "family": "identityBotRoleKit",
+      "sourcePath": "build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 788,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-bot-role-kit-1200.webp",
+      "sourceGitObjectId": "d1057faa0c487fbbfd354dd1cab082e9835e54e0",
+      "sourceSha256": "b6c676adeee34f37fe98f5a06c460f2cf2fe9459606723b7fa466d306b3b2b09",
+      "bytes": 71082,
+      "outputSha256": "3171a3bae3092128343d257100d4b52d48ea63dbba37d6b9352db82b113b9b12"
+    },
+    {
+      "family": "identityCowboy",
+      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 480,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-cowboy-480.avif",
+      "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
+      "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
+      "bytes": 9015,
+      "outputSha256": "2754798c681dccaf925e1390f5e84ef428c22024b521576b75cd5042fe420b50"
+    },
+    {
+      "family": "identityCowboy",
+      "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-cowboy-480.webp",
+      "sourceGitObjectId": "3b8f014e5e4c480300ffdc85bd33c060d593fc6a",
+      "sourceSha256": "5f1f8970d5745f683e65bb4960055ecd29b19a59211ce8478d03a1ef1e1d8120",
+      "bytes": 15152,
+      "outputSha256": "38f98afe22046c2d152b2d1d605102369c1beb5d5d7e3d7f01c59e244cd721e8"
+    },
+    {
+      "family": "identityDetective",
+      "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 640,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-detective-480.avif",
+      "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
+      "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
+      "bytes": 13922,
+      "outputSha256": "f75d61bf96c231f1bdead7dac8de96db6060d5142c849d3319c10266bdf358c4"
+    },
+    {
+      "family": "identityDetective",
+      "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 640,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-detective-480.webp",
+      "sourceGitObjectId": "070004d0977809df579c7a9f949f32ac3af85745",
+      "sourceSha256": "15511c89b88946519c4be73a33a03c2206a62842877725254b58f1e6ffd6120c",
+      "bytes": 22602,
+      "outputSha256": "fafed191b4df1811b959dba73de17127c747ebd521ecdd1948da95b90a46fef2"
+    },
+    {
+      "family": "identityMechanic",
+      "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-mechanic-480.avif",
+      "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
+      "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
+      "bytes": 11232,
+      "outputSha256": "c8fc269ad04172f26baf94b715581fcf04ee6dd41abfca0b3e248823db610f29"
+    },
+    {
+      "family": "identityMechanic",
+      "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-mechanic-480.webp",
+      "sourceGitObjectId": "0aaedc226d52211650798420e231fad4db87439c",
+      "sourceSha256": "1a83c11a8e7302ebef6cdae136d52304ed6da898eb285674a2ea12201ca65843",
+      "bytes": 18106,
+      "outputSha256": "aee73b6fab2e9db85262e40a367f3e4e2cc4a6b84224e6448f11f679e4106c20"
+    },
+    {
+      "family": "identityChef",
+      "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-chef-480.avif",
+      "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
+      "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
+      "bytes": 11335,
+      "outputSha256": "f7e0ab249931fe2ae79ec2f2b69a8e5c7e6ace134ce8e859c75fb434780e8d94"
+    },
+    {
+      "family": "identityChef",
+      "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 480,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-identity-chef-480.webp",
+      "sourceGitObjectId": "51d074eebdd6dae45266ecc351a8d19f1cd14169",
+      "sourceSha256": "5ec51f9d9b84b354fa8a1690b793eb312fac1e27df254f90f7c783a0ba107904",
+      "bytes": 19008,
+      "outputSha256": "0372bc11dee0fb0f2fb636fc435b08ecdca117526bcfd61542ceb4d596cf875f"
     }
   ]
 }

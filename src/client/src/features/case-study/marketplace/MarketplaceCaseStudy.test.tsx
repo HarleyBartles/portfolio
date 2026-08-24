@@ -24,4 +24,18 @@ describe('MarketplaceCaseStudy', () => {
     const model = screen.getByRole('region', { name: 'Three-layer operating model' })
     expect(map.compareDocumentPosition(model) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
+
+  test('uses the shared case-study hierarchy for prose-led sections', () => {
+    render(<MarketplaceCaseStudy />)
+
+    ;[
+      'When repeated instruction becomes infrastructure',
+      'One skill, a local overlay, and a checkable workflow',
+      'Used, pinned, and still evolving',
+    ].forEach((name) => {
+      const heading = screen.getByRole('heading', { level: 2, name })
+      expect(heading.closest('.case-study-lead')).not.toBeNull()
+      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+    })
+  })
 })

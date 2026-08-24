@@ -184,7 +184,7 @@ test('Adventures of Patch keeps the complete authored composition on mobile', as
   await expect(projectPage).toHaveScreenshot('patch-composition-mobile.png')
 })
 
-test('Adventures of Patch keeps the mobile snapshot within one viewport before the origin', async ({ page }) => {
+test('Adventures of Patch leads with its origin story before the compact mobile snapshot', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
@@ -196,7 +196,7 @@ test('Adventures of Patch keeps the mobile snapshot within one viewport before t
   expect(snapshotBox).not.toBeNull()
   expect(originBox).not.toBeNull()
   expect(snapshotBox?.height).toBeLessThanOrEqual(650)
-  expect(originBox?.y).toBeGreaterThanOrEqual((snapshotBox?.y ?? 0) + (snapshotBox?.height ?? 0))
+  expect(snapshotBox?.y).toBeGreaterThanOrEqual((originBox?.y ?? 0) + (originBox?.height ?? 0))
 })
 
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {

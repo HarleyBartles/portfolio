@@ -34,12 +34,19 @@ const encoding = {
 export const PATCH_DERIVATIVES = {
   hero: { sourcePath: 'published/misc/introducing-patch/source_images/page_base_desktop__v1.png', sourceStatus: 'accepted', widths: [720, 1440], formats, byteBudgetClass: 'hero', crop: 'mobile_safe_patch' },
   introducingPage: { sourcePath: 'published/misc/introducing-patch/page__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
+  introducingPagePortrait: { sourcePath: 'published/misc/introducing-patch/page__v1-mobile.png', sourceStatus: 'published', widths: [640], formats, byteBudgetClass: 'page' },
   goldilocks: { sourcePath: 'published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
+  goldilocksPortrait: { sourcePath: 'published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png', sourceStatus: 'published', widths: [640], formats, byteBudgetClass: 'page' },
   sorcerersApprentice: { sourcePath: 'published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
   clubDb: { sourcePath: 'published/adventures/club_db_bouncer_queue_v6_canonical.pptx', sourceStatus: 'legacy_reference', slides: [2, 4, 14], widths: [1200], formats, byteBudgetClass: 'support' },
   heist: { sourceStatus: 'advanced_visual_preproduction', widths: [1200], formats, byteBudgetClass: 'support', sourceIdentity: PATCH_HEIST_SOURCE_IDENTITY },
   tournament: { sourcePath: 'build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png', sourceStatus: 'visual_development', widths: [1200], formats, byteBudgetClass: 'support' },
   identity: { sourcePath: 'build/environments/identity-emporium/reference_sheets/world_proof__v1.png', sourceStatus: 'legacy_reference', widths: [1200], formats, byteBudgetClass: 'support' },
+  identityBotRoleKit: { sourcePath: 'build/characters/bit-bot/bot-role-kit/compiled_asset_sheets/sheet__v1.png', sourceStatus: 'accepted', widths: [1200], formats, byteBudgetClass: 'support' },
+  identityCowboy: { sourcePath: 'build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
+  identityDetective: { sourcePath: 'build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
+  identityMechanic: { sourcePath: 'build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
+  identityChef: { sourcePath: 'build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png', sourceStatus: 'visual_development', widths: [480], formats, byteBudgetClass: 'support' },
 }
 
 function fail(message) { throw new Error(message) }

@@ -20,7 +20,7 @@ const worldMedia = {
     key: 'identity',
     path: 'src/client/public/media/patch/patch-identity-1200.avif',
     alt: 'Patch shows a mission card to the Identity Emporium shopkeeper beside role costumes and task tools.',
-    caption: 'The Emporium and shopkeeper establish the world; asset and deck work remain.',
+    caption: 'The Emporium supplies the role kit. Patch succeeds when he carries it into the matching domain; the same structure spans cowboy, chef, detective and mechanic.',
   },
 } as const
 
@@ -30,16 +30,67 @@ const statusLabels = {
   'legacy-reference': 'Legacy reference',
 } as const
 
+function EvidencePicture({ path, alt }: { path: string; alt: string }) {
+  const avif = getPatchMediaByPath(path)
+  const webp = getPatchMediaByPath(path.replace(/\.avif$/, '.webp'))
+  if (avif === undefined || webp === undefined) throw new Error(`Patch evidence is missing for ${path}.`)
+
+  return (
+    <picture>
+      <source srcSet={getPatchAssetPath(avif.path)} type="image/avif" />
+      <source srcSet={getPatchAssetPath(webp.path)} type="image/webp" />
+      <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={alt} loading="lazy" />
+    </picture>
+  )
+}
+
+const identityRoles = [
+  { name: 'Cowboy', path: 'src/client/public/media/patch/patch-identity-cowboy-480.avif', alt: 'Patch wearing the cowboy role kit with hat, waistcoat, boots and lasso.' },
+  { name: 'Detective', path: 'src/client/public/media/patch/patch-identity-detective-480.avif', alt: 'Patch wearing the detective role kit with deerstalker, coat and magnifying glass.' },
+  { name: 'Mechanic', path: 'src/client/public/media/patch/patch-identity-mechanic-480.avif', alt: 'Patch wearing the mechanic role kit and holding a wrench.' },
+  { name: 'Chef', path: 'src/client/public/media/patch/patch-identity-chef-480.avif', alt: 'Patch wearing the chef role kit with apron and chef hat.' },
+] as const
+
+function IdentityEmporiumEvidence() {
+  return (
+    <figure className="identity-evidence" aria-label="Identity Emporium combines role and domain">
+      <div className="identity-evidence__logic" aria-label="Cowboy example outcomes">
+        <div><span>One bot</span><strong>Right kit, wrong domain</strong><small>Cowboy kit, office</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
+        <div><span>The other bot</span><strong>Right domain, wrong kit</strong><small>Robot methods, ranch</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
+        <div><span>Patch</span><strong>Right kit, right domain</strong><small>Cowboy kit, ranch</small><span className="identity-evidence__outcome">Works</span></div>
+      </div>
+      <div className="identity-evidence__source-pair">
+        <div>
+          <EvidencePicture path="src/client/public/media/patch/patch-identity-1200.avif" alt="Patch receives a mission role kit from the Identity Emporium shopkeeper." />
+          <p>The Emporium supplies the role</p>
+        </div>
+        <div>
+          <EvidencePicture path="src/client/public/media/patch/patch-identity-bot-role-kit-1200.avif" alt="Approved Bit and Bot role-kit sheet showing mechanic, detective, cowboy and chef variants." />
+          <p>Bit and Bot expose the two failure modes</p>
+        </div>
+      </div>
+      <ul className="identity-evidence__roles" aria-label="Patch role kits">
+        {identityRoles.map((role) => <li key={role.name}><EvidencePicture path={role.path} alt={role.alt} /><span>{role.name}</span></li>)}
+      </ul>
+      <figcaption className="case-study-media-caption">The cowboy example carries the argument. The same role-and-domain pairing extends through detective, mechanic and chef.</figcaption>
+    </figure>
+  )
+}
+
 export function PatchPublishedWork({ children }: { children?: ReactNode }) {
   return (
     <section className="patch-movement patch-published" aria-labelledby="patch-published-artefacts-title">
-      <div className="patch-movement__copy">
-        <p className="patch-section-number" aria-hidden="true">05</p>
-        <h2 id="patch-published-artefacts-title">What has earned an artefact</h2>
-        <p>Four pieces have cleared their own publication bar. Club DB is the origin deck. Goldilocks and The Sorcerer&apos;s Apprentice use the shallower fairytale format: one visual page, one operational lesson, one useful action. Introducing Patch explains the character who carries the work.</p>
-        <ul className="patch-published-links" aria-label="Published Patch artefacts">
-          {getPublishedArtefacts().map((artefact) => <li key={artefact.title}><ExternalLink href={artefact.publicArtefactUrl}>{artefact.title}</ExternalLink></li>)}
-        </ul>
+      <div className="patch-movement__copy case-study-lead">
+        <div className="case-study-lead__heading">
+          <p className="patch-section-number" aria-hidden="true">05</p>
+          <h2 id="patch-published-artefacts-title">What has earned an artefact</h2>
+        </div>
+        <div className="case-study-lead__body">
+          <p>Four pieces have cleared their own publication bar. Club DB is the origin deck. Goldilocks and The Sorcerer&apos;s Apprentice use the shallower fairytale format: one visual page, one operational lesson, one useful action. Introducing Patch explains the character who carries the work.</p>
+          <ul className="patch-published-links" aria-label="Published Patch artefacts">
+            {getPublishedArtefacts().map((artefact) => <li key={artefact.title}><ExternalLink href={artefact.publicArtefactUrl}>{artefact.title}</ExternalLink></li>)}
+          </ul>
+        </div>
       </div>
       {children}
     </section>
@@ -49,10 +100,14 @@ export function PatchPublishedWork({ children }: { children?: ReactNode }) {
 export function PatchInFlightWorlds() {
   return (
     <section className="patch-movement patch-worlds" aria-labelledby="patch-in-flight-worlds-title">
-      <div className="patch-movement__copy patch-worlds__intro">
-        <p className="patch-section-number" aria-hidden="true">06</p>
-        <h2 id="patch-in-flight-worlds-title">Three worlds in motion</h2>
-        <p>The three developed worlds have reached different points for different reasons. I keep those states visible because a finished-looking image can outrun the work around it.</p>
+      <div className="patch-movement__copy patch-worlds__intro case-study-lead">
+        <div className="case-study-lead__heading">
+          <p className="patch-section-number" aria-hidden="true">06</p>
+          <h2 id="patch-in-flight-worlds-title">Three worlds in motion</h2>
+        </div>
+        <div className="case-study-lead__body">
+          <p>The three developed worlds have reached different points for different reasons. I keep those states visible because a finished-looking image can outrun the work around it.</p>
+        </div>
       </div>
       <div className="patch-worlds__sequence">
         {getInFlightWorlds().map((world) => {
@@ -71,14 +126,16 @@ export function PatchInFlightWorlds() {
                 <p><strong>Current evidence.</strong> {world.currentEvidence}</p>
                 <p><strong>What remains.</strong> {world.remaining}</p>
               </div>
-              <figure>
-                <picture>
-                  <source srcSet={getPatchAssetPath(avif.path)} type="image/avif" />
-                  <source srcSet={getPatchAssetPath(webp.path)} type="image/webp" />
-                  <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={visual.alt} loading="lazy" />
-                </picture>
-                <figcaption>{visual.caption}</figcaption>
-              </figure>
+              {world.title === 'Identity Emporium' ? <IdentityEmporiumEvidence /> : (
+                <figure>
+                  <picture>
+                    <source srcSet={getPatchAssetPath(avif.path)} type="image/avif" />
+                    <source srcSet={getPatchAssetPath(webp.path)} type="image/webp" />
+                    <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={visual.alt} loading="lazy" />
+                  </picture>
+                  <figcaption className="case-study-media-caption">{visual.caption}</figcaption>
+                </figure>
+              )}
             </article>
           )
         })}
