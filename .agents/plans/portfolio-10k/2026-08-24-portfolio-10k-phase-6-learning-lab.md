@@ -96,9 +96,9 @@
 - Consumes: Agentic Learning Lab `origin/main` at `315442bd2661bbc99a0834e57ff5f500b549326c`, GitHub integrity run `32619166005`, the approved personal-origin fact and the existing manifest validation seam.
 - Produces: `learning-lab-evidence.json`; presentation identifier `learning-lab-case-study`; `validate_learning_lab_evidence(root, evidence, findings, today)`; one explicit delivery-state authority; no stale Markdown fallback.
 
-- [ ] **Step 1: Write failing fixture support and manifest tests.** Extend `PortfolioFixture` with `write_learning_lab_evidence()` and add tests that convert the fixture project to `presentation: "learning-lab-case-study"`. Require the manifest to accept that presentation for project content, reject it for other kinds, require the evidence file, and reject simultaneous Markdown plus presentation. Update `ContentPresentation` tests to include the already-live `patch-lawful-heist` value as well as the new value.
+- [x] **Step 1: Write failing fixture support and manifest tests.** Extend `PortfolioFixture` with `write_learning_lab_evidence()` and add tests that convert the fixture project to `presentation: "learning-lab-case-study"`. Require the manifest to accept that presentation for project content, reject it for other kinds, require the evidence file, and reject simultaneous Markdown plus presentation. Update `ContentPresentation` tests to include the already-live `patch-lawful-heist` value as well as the new value.
 
-- [ ] **Step 2: Write the failing evidence-validation matrix.** Add focused Python tests for:
+- [x] **Step 2: Write the failing evidence-validation matrix.** Add focused Python tests for:
   - missing or malformed evidence JSON;
   - non-ISO `observedAt` and non-40-character source SHA;
   - duplicate module identifiers and one identifier assigned to two courses;
@@ -121,7 +121,7 @@
 
   Expected: the new Learning Lab cases fail because the validator and accepted presentation do not exist.
 
-- [ ] **Step 3: Author the exact evidence snapshot.** Use this top-level contract:
+- [x] **Step 3: Author the exact evidence snapshot.** Use this top-level contract:
 
   ```json
   {
@@ -148,11 +148,11 @@
 
   Fill `courses` with the exact titles, outcomes and ordered identifiers from the drift table: Course 1 contains `1` through `10`, all `mature-lab`; Course 2 contains `11`, `12`, `13`, `14`, `14A`, `15`, all `roadmap-module`; Course 3 contains `16`, `17`, `18`, all `roadmap-module`. Preserve every approved module title exactly. Record source paths for `README.md`, `docs/curriculum-shape.md`, Labs 3, 4, 5 and 7 README files, the Lab 3 scoped `AGENTS.md`, `LICENSE.md`, both licence texts and `tests/test_repo_integrity.py`.
 
-- [ ] **Step 4: Implement the narrow validator with an injectable date.** Add `LEARNING_LAB_EVIDENCE_PATH`, allowed states, exact identifier/course membership and `validate_learning_lab_evidence`. Change `validate_portfolio(root, today: date | None = None)` to resolve `today or date.today()` once and pass it into this validator. Validate the discriminated delivery union rather than inferring state. Lexically compare a validated `YYYY-MM` target with `today.strftime('%Y-%m')`; report stale planned status after the target month without inventing a start date. Identify the exact failing field in every finding.
+- [x] **Step 4: Implement the narrow validator with an injectable date.** Add `LEARNING_LAB_EVIDENCE_PATH`, allowed states, exact identifier/course membership and `validate_learning_lab_evidence`. Change `validate_portfolio(root, today: date | None = None)` to resolve `today or date.today()` once and pass it into this validator. Validate the discriminated delivery union rather than inferring state. Lexically compare a validated `YYYY-MM` target with `today.strftime('%Y-%m')`; report stale planned status after the target month without inventing a start date. Identify the exact failing field in every finding.
 
-- [ ] **Step 5: Convert the content source and remove the stale claim.** In `content-manifest.json`, replace `path` with `presentation: "learning-lab-case-study"`. Keep status `incomplete`, use a concise source-backed summary about a facilitator-led curriculum for non-programmers, and do not claim weekly improvement. Delete the Markdown file so `tested with real learners` cannot survive as hidden fallback content. Update document/API tests to expect a presentation and `markdown: undefined`; use a writing item to retain ordinary-Markdown coverage.
+- [x] **Step 5: Convert the content source and remove the stale claim.** In `content-manifest.json`, replace `path` with `presentation: "learning-lab-case-study"`. Keep status `incomplete`, use a concise source-backed summary about a facilitator-led curriculum for non-programmers, and do not claim weekly improvement. Delete the Markdown file so `tested with real learners` cannot survive as hidden fallback content. Update document/API tests to expect a presentation and `markdown: undefined`; use a writing item to retain ordinary-Markdown coverage.
 
-- [ ] **Step 6: Make the focused gate pass.** Run:
+- [x] **Step 6: Make the focused gate pass.** Run:
 
   ```powershell
   py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v
@@ -161,13 +161,13 @@
 
   Expected: all focused Python and Vitest checks pass, including deterministic planned/started delivery cases.
 
-- [ ] **Step 7: Regenerate and commit the evidence slice.** Run `py -3 tools/run.py ci --apply`, inspect route and mesh output, stage only the intended Task 1 files and generated surfaces, then run `git diff --cached --check`. Commit:
+- [x] **Step 7: Regenerate and commit the evidence slice.** Run `py -3 tools/run.py ci --apply`, inspect route and mesh output, stage only the intended Task 1 files and generated surfaces, then run `git diff --cached --check`. Commit:
 
   ```powershell
   git commit -m "feat: pin the Learning Lab evidence contract"
   ```
 
-- [ ] **Step 8: Mark Task 1 complete.** Set Task 1's checklist boxes to `[x]`, stage this plan and include that state in the next task commit.
+- [x] **Step 8: Mark Task 1 complete.** Set Task 1's checklist boxes to `[x]`, stage this plan and include that state in the next task commit.
 
 ---
 
@@ -194,13 +194,13 @@
 - Consumes: validated Task 1 evidence, the existing lazy presentation registry, `CaseStudyBody`, `CaseStudySection`, the shared project route header and ProjectVisual preview seam.
 - Produces: typed selectors; `LearningLoop`; `CurriculumAtlas`; registered `LearningLabCaseStudy`; aligned route-header, homepage and project-index visual vocabulary; visual contracts `learning-lab-case-study-hero`, `learning-lab-loop` and `learning-lab-atlas`.
 
-- [ ] **Step 1: Write the failing typed-evidence tests.** Require immutable access to the source revision, inspected date, delivery union, three courses, ten mature labs, nine roadmap entries, nineteen unique labels and `14A` in Course 2 immediately after `14`. Reject test fixtures that would make a component invent labels or counts.
+- [x] **Step 1: Write the failing typed-evidence tests.** Require immutable access to the source revision, inspected date, delivery union, three courses, ten mature labs, nine roadmap entries, nineteen unique labels and `14A` in Course 2 immediately after `14`. Reject test fixtures that would make a component invent labels or counts.
 
-- [ ] **Step 2: Write the failing learning-loop tests.** Require one ordered semantic sequence containing `Direct`, `Agent works`, `Inspect`, `Verify`, `Question`, `Explain observable work` and `Redirect`. Mark human-owned and agent-performed stages with visible text and structural classes. Assert explanation never carries `proof`, `accept`, or self-approval language. Decorative connectors must be `aria-hidden`.
+- [x] **Step 2: Write the failing learning-loop tests.** Require one ordered semantic sequence containing `Direct`, `Agent works`, `Inspect`, `Verify`, `Question`, `Explain observable work` and `Redirect`. Mark human-owned and agent-performed stages with visible text and structural classes. Assert explanation never carries `proof`, `accept`, or self-approval language. Decorative connectors must be `aria-hidden`.
 
-- [ ] **Step 3: Write the failing atlas tests.** Require exactly three course regions, each with a heading, cognitive outcome and ordered module list. Assert every evidence identifier appears once, `14A` belongs to Course 2 after `14`, ten `Mature lab` labels and nine `Roadmap module` labels are visible, and the snapshot date plus pinned source link are present. Reject percentage, progress, velocity, completion-date and credential language.
+- [x] **Step 3: Write the failing atlas tests.** Require exactly three course regions, each with a heading, cognitive outcome and ordered module list. Assert every evidence identifier appears once, `14A` belongs to Course 2 after `14`, ten `Mature lab` labels and nine `Roadmap module` labels are visible, and the snapshot date plus pinned source link are present. Reject percentage, progress, velocity, completion-date and credential language.
 
-- [ ] **Step 4: Register the specialist route before implementation.** Add the lazy `learning-lab-case-study` import to `projectPresentations.ts` and extend its test to render the route under `Suspense` and `MemoryRouter`. Add `learning-lab-case-study` to the route-header visual-contract mapping and its deferred-presentation test seam. Run:
+- [x] **Step 4: Register the specialist route before implementation.** Add the lazy `learning-lab-case-study` import to `projectPresentations.ts` and extend its test to render the route under `Suspense` and `MemoryRouter`. Add `learning-lab-case-study` to the route-header visual-contract mapping and its deferred-presentation test seam. Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study/projectPresentations.test.tsx src/pages/ContentPage.test.tsx
@@ -208,13 +208,13 @@
 
   Expected: FAIL because the specialist module and Learning Lab header treatment do not exist.
 
-- [ ] **Step 5: Implement typed evidence access and semantic visuals.** Import the JSON once in `learningLabEvidence.ts`, define narrow types for course, module state, licence and delivery, and expose read-only selectors. `LearningLoop` renders the route-header and preview visual from one component. `CurriculumAtlas` renders semantic course folios with no focusable static cards and no horizontal-scroller dependency.
+- [x] **Step 5: Implement typed evidence access and semantic visuals.** Import the JSON once in `learningLabEvidence.ts`, define narrow types for course, module state, licence and delivery, and expose read-only selectors. `LearningLoop` renders the route-header and preview visual from one component. `CurriculumAtlas` renders semantic course folios with no focusable static cards and no horizontal-scroller dependency.
 
-- [ ] **Step 6: Establish the specialist skeleton and hero.** `LearningLabCaseStudy` initially composes the engineering-lineage thesis, bounded origin and atlas after the route-owned hero. Use the exact founding-prompt fragment and the love-letter phrase once in ordinary selectable HTML. Replace the venue-plan branch in `ProjectVisual` with `LearningLoop`; do not retain the venue plan as case-study evidence. In `ContentPage`, assign `learning-lab-case-study-hero` and keep all route title, summary, status and evidence date as HTML.
+- [x] **Step 6: Establish the specialist skeleton and hero.** `LearningLabCaseStudy` initially composes the engineering-lineage thesis, bounded origin and atlas after the route-owned hero. Use the exact founding-prompt fragment and the love-letter phrase once in ordinary selectable HTML. Replace the venue-plan branch in `ProjectVisual` with `LearningLoop`; do not retain the venue plan as case-study evidence. In `ContentPage`, assign `learning-lab-case-study-hero` and keep all route title, summary, status and evidence date as HTML.
 
-- [ ] **Step 7: Apply the field-manual hierarchy.** Use the existing page canvas and tokens. The loop should read at feature-card and route-header sizes without two separate copies. Course folios use distinct bands and source order, with Course 1 allowed more room for ten modules. Avoid equal pricing columns, badge grids and unused desktop columns. At 390 and 320 pixels, stack courses and preserve attached identifiers/titles.
+- [x] **Step 7: Apply the field-manual hierarchy.** Use the existing page canvas and tokens. The loop should read at feature-card and route-header sizes without two separate copies. Course folios use distinct bands and source order, with Course 1 allowed more room for ten modules. Avoid equal pricing columns, badge grids and unused desktop columns. At 390 and 320 pixels, stack courses and preserve attached identifiers/titles.
 
-- [ ] **Step 8: Run focused semantic proof and commit.** Run:
+- [x] **Step 8: Run focused semantic proof and commit.** Run:
 
   ```powershell
   npm.cmd --prefix src/client test -- src/features/case-study/learning-lab src/features/case-study/projectPresentations.test.tsx src/features/home/ProjectVisual.test.tsx src/pages/ContentPage.test.tsx
@@ -227,7 +227,7 @@
   git commit -m "feat: map the Learning Lab curriculum"
   ```
 
-- [ ] **Step 9: Mark Task 2 complete.** Set Task 2's checklist boxes to `[x]`, stage this plan and include that state in Task 3's commit.
+- [x] **Step 9: Mark Task 2 complete.** Set Task 2's checklist boxes to `[x]`, stage this plan and include that state in Task 3's commit.
 
 ---
 

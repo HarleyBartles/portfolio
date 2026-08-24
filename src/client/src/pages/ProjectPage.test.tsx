@@ -40,7 +40,7 @@ describe('Project route visuals', () => {
     expect(article?.querySelectorAll('[data-visual-contract="wild-bunch-development-build-preview"]')).toHaveLength(1)
   })
 
-  test('leaves an ordinary project route visual lazy', async () => {
+  test('renders the Learning Lab specialist route with its semantic loop', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/projects/agentic-learning-lab'],
@@ -53,12 +53,11 @@ describe('Project route visuals', () => {
       </QueryClientProvider>,
     )
 
-    await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' })
-    const image = screen.getByRole('img', {
-      name: /venue floor plan used as the bounded project artifact/i,
-    })
-
-    expect(image).toHaveAttribute('loading', 'lazy')
-    expect(image).not.toHaveAttribute('fetchpriority', 'high')
+    const title = await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' })
+    const article = title.closest('article')
+    expect(article?.querySelector('header')).toHaveAttribute('data-visual-contract', 'learning-lab-case-study-hero')
+    expect(article?.querySelectorAll('[data-visual-contract="learning-lab-loop"]')).toHaveLength(1)
+    expect(await screen.findByRole('heading', { level: 2, name: 'Engineering judgement, made teachable' })).toBeVisible()
+    expect(screen.queryByRole('img', { name: /venue floor plan/i })).not.toBeInTheDocument()
   })
 })

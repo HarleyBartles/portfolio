@@ -15,8 +15,8 @@
       "kind": "project",
       "title": "Agentic Learning Lab",
       "status": "incomplete",
-      "summary": "A curriculum for teaching non-coders to direct agents. Incomplete but improving week by week.",
-      "path": "projects/agentic-learning-lab.md",
+      "summary": "A facilitator-led curriculum that helps non-programmers direct, inspect, verify and recover agent work through bounded practical labs.",
+      "presentation": "learning-lab-case-study",
       "tags": ["project", "agentic-engineering", "curriculum"],
       "relatedSlugs": []
     },

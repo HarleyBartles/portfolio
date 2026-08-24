@@ -143,6 +143,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       ? 'patch-case-study-hero'
     : document.summary.presentation === 'wild-bunch-case-study'
       ? 'wild-bunch-case-study-hero'
+    : document.summary.presentation === 'learning-lab-case-study'
+      ? 'learning-lab-case-study-hero'
       : 'content-page-header'
   const formattedDate = formatContentDate(document.summary.date)
 

@@ -23,12 +23,33 @@ MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
 PATCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/patch-evidence.json")
+LEARNING_LAB_EVIDENCE_PATH = Path("src/client/src/data/case-studies/learning-lab-evidence.json")
 PATCH_DERIVATIVE_RECEIPT_PATH = Path("src/client/public/media/patch/patch-derivatives.json")
 WILD_BUNCH_REVISION = "2a9814d094148bb789766a27d316095fecce5a60"
 WILD_BUNCH_REPOSITORY_URL = "https://github.com/HarleyBartles/wild-bunch"
 WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd"
 PATCH_SOURCE_REVISION = "13bf77adc63cf5c8f49363cedd5dd392822b8375"
 PATCH_REPOSITORY_URL = "https://github.com/HarleyBartles/adventures-of-patch"
+LEARNING_LAB_REPOSITORY_URL = "https://github.com/HarleyBartles/agentic-learning-lab"
+LEARNING_LAB_MODULES = {
+    "course-1": [str(number) for number in range(1, 11)],
+    "course-2": ["11", "12", "13", "14", "14A", "15"],
+    "course-3": ["16", "17", "18"],
+}
+LEARNING_LAB_MODULE_STATES = {"mature-lab", "roadmap-module"}
+LEARNING_LAB_PROOF_PATHS = {
+    "curriculum": "README.md",
+    "curriculumShape": "docs/curriculum-shape.md",
+    "lab3": "labs/03-project-has-a-home/README.md",
+    "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
+    "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",
+    "lab5": "labs/05-model-harness-context-tools-and-behaviour/README.md",
+    "lab7": "labs/07-tools-operating-knowledge-and-domain-provisioning/README.md",
+    "licencePolicy": "LICENSE.md",
+    "curriculumLicence": "LICENSES/CC-BY-4.0.txt",
+    "toolingLicence": "LICENSES/MIT.txt",
+    "integrity": "tests/test_repo_integrity.py",
+}
 PRODUCTION_ROOT = Path("src/client/src")
 PRODUCTION_TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".scss", ".ts", ".tsx"}
 PUBLIC_ASSET_SUFFIXES = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"}
@@ -179,7 +200,7 @@ def _load_manifest(root: Path, findings: list[Finding]) -> list[dict[str, Any]] 
     return valid_items
 
 
-def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[Finding]) -> None:
+def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[Finding], today: date) -> None:
     content_root = (root / CONTENT_ROOT).resolve()
     seen: dict[str, str] = {}
     manifest_paths: set[Path] = set()
@@ -223,7 +244,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium", "patch-tournament", "patch-lawful-heist"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-lawful-heist"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
             elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "patch":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
@@ -295,6 +316,8 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
         _validate_wild_bunch_evidence(root, findings)
     if any(item.get("presentation") == "patch-pipeline-case-study" for item in items):
         _validate_patch_evidence(root, findings)
+    if any(item.get("presentation") == "learning-lab-case-study" for item in items):
+        _validate_learning_lab_evidence(root, findings, today)
 
 
 def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
@@ -303,6 +326,174 @@ def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
     except (OSError, json.JSONDecodeError) as exc:
         findings.append(_finding(path, f"cannot load {label}: {exc}"))
         return None
+
+
+def _is_https_url(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    parsed = urlparse(value)
+    return parsed.scheme == "https" and bool(parsed.netloc) and parsed.username is None and parsed.password is None
+
+
+def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: date) -> None:
+    evidence = _read_json(root / LEARNING_LAB_EVIDENCE_PATH, findings, "Learning Lab evidence")
+    if not isinstance(evidence, dict):
+        if evidence is not None:
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "Learning Lab evidence must be an object"))
+        return
+
+    observed_at = evidence.get("observedAt")
+    try:
+        if not isinstance(observed_at, str) or date.fromisoformat(observed_at).isoformat() != observed_at:
+            raise ValueError
+    except ValueError:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "observedAt must be an ISO date"))
+
+    source_revision = evidence.get("sourceRevision")
+    if not isinstance(source_revision, str) or SHA_RE.fullmatch(source_revision) is None:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "sourceRevision must be a 40-character commit"))
+
+    if evidence.get("repositoryUrl") != LEARNING_LAB_REPOSITORY_URL:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "repositoryUrl must match the public Learning Lab repository"))
+    if not _is_https_url(evidence.get("integrityRunUrl")):
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "integrityRunUrl must use HTTPS"))
+
+    courses = evidence.get("courses")
+    seen_module_ids: set[str] = set()
+    mature_count = 0
+    if not isinstance(courses, list) or len(courses) != 3:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "courses must contain the three curriculum courses"))
+    else:
+        course_ids = [course.get("id") for course in courses if isinstance(course, dict)]
+        if course_ids != list(LEARNING_LAB_MODULES):
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "course ids must be course-1, course-2, course-3 in order"))
+
+        for course in courses:
+            if not isinstance(course, dict):
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "each course must be an object"))
+                continue
+            course_id = course.get("id")
+            for field in ("title", "outcome"):
+                if not isinstance(course.get(field), str) or not course[field].strip():
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"{course_id} requires a nonempty {field}"))
+            modules = course.get("modules")
+            expected_ids = LEARNING_LAB_MODULES.get(str(course_id), [])
+            actual_ids = [module.get("id") for module in modules if isinstance(module, dict)] if isinstance(modules, list) else []
+            if actual_ids != expected_ids:
+                findings.append(_finding(
+                    LEARNING_LAB_EVIDENCE_PATH,
+                    f"{course_id} modules must be {', '.join(expected_ids)}",
+                ))
+            if not isinstance(modules, list):
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"{course_id} modules must be an array"))
+                continue
+            for module in modules:
+                if not isinstance(module, dict):
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"{course_id} modules must be objects"))
+                    continue
+                module_id = module.get("id")
+                if isinstance(module_id, str):
+                    if module_id in seen_module_ids:
+                        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "module identifiers must be unique"))
+                    seen_module_ids.add(module_id)
+                if not isinstance(module.get("title"), str) or not module["title"].strip():
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"module {module_id} requires a nonempty title"))
+                state = module.get("state")
+                if state not in LEARNING_LAB_MODULE_STATES:
+                    findings.append(_finding(
+                        LEARNING_LAB_EVIDENCE_PATH,
+                        f"module {module_id} state must be mature-lab or roadmap-module",
+                    ))
+                if state == "mature-lab":
+                    mature_count += 1
+
+    declared_mature_count = evidence.get("matureLabCount")
+    if declared_mature_count != mature_count:
+        findings.append(_finding(
+            LEARNING_LAB_EVIDENCE_PATH,
+            f"matureLabCount must match the {mature_count} mature-lab modules",
+        ))
+
+    delivery = evidence.get("delivery")
+    if not isinstance(delivery, dict):
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "delivery must be an object"))
+    else:
+        delivery_status = delivery.get("status")
+        if delivery_status == "planned":
+            target = delivery.get("target")
+            try:
+                if not isinstance(target, str) or date.fromisoformat(f"{target}-01").strftime("%Y-%m") != target:
+                    raise ValueError
+            except ValueError:
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery target must be YYYY-MM"))
+            else:
+                if target < today.strftime("%Y-%m"):
+                    findings.append(_finding(
+                        LEARNING_LAB_EVIDENCE_PATH,
+                        f"delivery planned state is stale after {target}",
+                    ))
+            if not isinstance(delivery.get("display"), str) or not delivery["display"].strip():
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery requires display text"))
+            if "startedOn" in delivery:
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery must not include startedOn"))
+        elif delivery_status == "started":
+            started_on = delivery.get("startedOn")
+            try:
+                if not isinstance(started_on, str):
+                    raise TypeError
+                parsed_started_on = date.fromisoformat(started_on)
+                if parsed_started_on.isoformat() != started_on:
+                    raise ValueError
+            except TypeError:
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "started delivery requires startedOn"))
+            except ValueError:
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "startedOn must be an ISO date"))
+            else:
+                if parsed_started_on > today:
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "startedOn must not be in the future"))
+        else:
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "delivery status must be planned or started"))
+
+    licensing = evidence.get("licensing")
+    if not isinstance(licensing, dict):
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "licensing must be an object"))
+    elif licensing.get("freelyLicensed") is True:
+        curriculum = licensing.get("curriculum")
+        tooling = licensing.get("tooling")
+        if licensing.get("policyPath") != "LICENSE.md":
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "freelyLicensed requires policyPath LICENSE.md"))
+        if not isinstance(curriculum, dict) or curriculum.get("spdx") != "CC-BY-4.0":
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "freelyLicensed requires curriculum SPDX CC-BY-4.0"))
+        if not isinstance(tooling, dict) or tooling.get("spdx") != "MIT":
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "freelyLicensed requires tooling SPDX MIT"))
+        if (
+            not isinstance(curriculum, dict)
+            or curriculum.get("path") != "LICENSES/CC-BY-4.0.txt"
+            or not isinstance(tooling, dict)
+            or tooling.get("path") != "LICENSES/MIT.txt"
+        ):
+            findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "freelyLicensed requires both licence text paths"))
+        if (
+            not isinstance(curriculum, dict)
+            or not _is_https_url(curriculum.get("url"))
+            or not isinstance(tooling, dict)
+            or not _is_https_url(tooling.get("url"))
+        ):
+            findings.append(_finding(
+                LEARNING_LAB_EVIDENCE_PATH,
+                "freelyLicensed requires HTTPS curriculum and tooling licence links",
+            ))
+
+    proof = evidence.get("proof")
+    if not isinstance(proof, dict):
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "proof must be an object"))
+    else:
+        for label, expected_path in LEARNING_LAB_PROOF_PATHS.items():
+            if proof.get(label) != expected_path:
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"proof {label} must be {expected_path}"))
+
+    if "tested with real learners" in json.dumps(evidence).casefold():
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "must not claim tested with real learners"))
 
 
 def _marketplace_inventory(root: Path, findings: list[Finding]) -> tuple[list[str], int, int] | None:
@@ -922,13 +1113,14 @@ def _validate_assets(root: Path, findings: list[Finding]) -> None:
         findings.append(_finding(Path(stale_path), "custody record points to a missing asset"))
 
 
-def validate_portfolio(root: Path) -> list[Finding]:
+def validate_portfolio(root: Path, today: date | None = None) -> list[Finding]:
     """Return every objective portfolio-quality finding under ``root``."""
 
     findings: list[Finding] = []
+    effective_today = today or date.today()
     items = _load_manifest(root, findings)
     if items is not None:
-        _validate_manifest(root, items, findings)
+        _validate_manifest(root, items, findings, effective_today)
     _validate_privacy(root, findings)
     _validate_public_voice(root, findings)
     _validate_assets(root, findings)

@@ -18,6 +18,8 @@ vi.mock('../features/case-study/projectPresentations', async () => {
       ? DeferredWildBunch
       : presentation === 'patch-pipeline-case-study'
         ? () => React.createElement('p', undefined, 'Patch specialist body')
+        : presentation === 'learning-lab-case-study'
+          ? () => React.createElement('p', undefined, 'Learning Lab specialist body')
         : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
       default: () => React.createElement('h2', undefined, 'Specialist body ready'),
@@ -75,5 +77,24 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()
+  })
+
+  test('assigns the Learning Lab field-manual hero contract', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/projects/agentic-learning-lab'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' }, { timeout: 5_000 })
+    const header = container.querySelector('[data-visual-contract="learning-lab-case-study-hero"]') as HTMLElement
+    expect(within(header).getByText('Direct')).toBeVisible()
+    expect(within(header).getByText('Redirect')).toBeVisible()
+    expect(await screen.findByText('Learning Lab specialist body')).toBeVisible()
   })
 })

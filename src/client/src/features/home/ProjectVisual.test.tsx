@@ -3,6 +3,16 @@ import { describe, expect, test } from 'vitest'
 import { ProjectVisual } from './ProjectVisual'
 
 describe('ProjectVisual', () => {
+  test('uses the shared semantic learning loop instead of the venue-plan prop', () => {
+    const { container } = render(<ProjectVisual slug="agentic-learning-lab" />)
+
+    expect(container.querySelector('[data-visual-contract="learning-lab-loop"]')).not.toBeNull()
+    expect(screen.getByText('Direct')).toBeVisible()
+    expect(screen.getByText('Redirect')).toBeVisible()
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
+    expect(container).not.toHaveTextContent(/venue plan/i)
+  })
+
   test('summarises the Marketplace core with selected and local boundaries', () => {
     render(<ProjectVisual slug="codex-marketplace" />)
 

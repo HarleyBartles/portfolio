@@ -4,6 +4,70 @@
   background: var(--color-ink);
 }
 
+.learning-loop {
+  display: grid;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: clamp(var(--space-5), 3vw, var(--space-8));
+  background: #163f42;
+  color: #fffaf0;
+}
+
+.learning-loop__stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  align-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: rgb(255 250 240 / 24%);
+}
+
+.learning-loop__stage {
+  position: relative;
+  display: grid;
+  min-height: 7.5rem;
+  padding: var(--space-4);
+  background: #163f42;
+}
+
+.learning-loop__stage--agent { background: #a24f32; }
+.learning-loop__index, .learning-loop__stage small { font-family: var(--font-code); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.learning-loop__index { color: #efbd77; }
+.learning-loop__stage strong { align-self: end; font-family: var(--font-display); font-size: clamp(1rem, 1.7vw, 1.4rem); line-height: 1; }
+.learning-loop__stage small { margin-top: var(--space-2); color: rgb(255 250 240 / 72%); }
+.learning-loop__stage--agent .learning-loop__index,
+.learning-loop__stage--agent small { color: #fffaf0; }
+.learning-loop__connector { position: absolute; z-index: 1; right: -0.5rem; top: 50%; color: #efbd77; }
+.learning-loop__stage:nth-child(5) { grid-column: 2; }
+
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(var(--space-8), 5vw, var(--space-16));
+  align-items: stretch;
+  padding: clamp(var(--space-8), 6vw, var(--space-16));
+  background: #efe7d8;
+  border: 1px solid var(--color-border);
+}
+
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] .content-page-intro { align-self: center; }
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] .content-page-visual { min-width: 0; }
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] h1 { max-width: 8ch; }
+
+@media (max-width: 64rem) {
+  .learning-loop__stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .learning-loop__stage:nth-child(5) { grid-column: auto; }
+}
+
+@media (max-width: 44rem) {
+  .content-page-header[data-visual-contract="learning-lab-case-study-hero"] { grid-template-columns: 1fr; padding: var(--space-7); }
+  .content-page-header[data-visual-contract="learning-lab-case-study-hero"] h1 { max-width: none; }
+  .learning-loop__stage { min-height: 6.5rem; }
+}
+
 .project-visual--patch,
 .project-visual--patch img {
   width: 100%;

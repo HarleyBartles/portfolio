@@ -1,0 +1,81 @@
+{
+  "observedAt": "2026-08-24",
+  "repositoryUrl": "https://github.com/HarleyBartles/agentic-learning-lab",
+  "sourceRevision": "315442bd2661bbc99a0834e57ff5f500b549326c",
+  "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005",
+  "matureLabCount": 10,
+  "delivery": {
+    "status": "planned",
+    "target": "2026-08",
+    "display": "late August 2026"
+  },
+  "licensing": {
+    "freelyLicensed": true,
+    "policyPath": "LICENSE.md",
+    "curriculum": {
+      "spdx": "CC-BY-4.0",
+      "path": "LICENSES/CC-BY-4.0.txt",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "tooling": {
+      "spdx": "MIT",
+      "path": "LICENSES/MIT.txt",
+      "url": "https://opensource.org/license/mit"
+    }
+  },
+  "courses": [
+    {
+      "id": "course-1",
+      "title": "Agentic Engineering 101: Zero to Hero",
+      "outcome": "Direct, understand, provision, navigate, verify, and safely operate useful agent work.",
+      "modules": [
+        { "id": "1", "title": "From chatbot to worker", "state": "mature-lab" },
+        { "id": "2", "title": "Give the cloud agent the project", "state": "mature-lab" },
+        { "id": "3", "title": "The project has a home", "state": "mature-lab" },
+        { "id": "4", "title": "Repositories, save points, and safe breakage", "state": "mature-lab" },
+        { "id": "5", "title": "Model, harness, context, tools, and behaviour", "state": "mature-lab" },
+        { "id": "6", "title": "What does the model know?", "state": "mature-lab" },
+        { "id": "7", "title": "Tools, operating knowledge, and domain provisioning", "state": "mature-lab" },
+        { "id": "8", "title": "What did we just create? Local work and connected systems", "state": "mature-lab" },
+        { "id": "9", "title": "Source of truth and verification", "state": "mature-lab" },
+        { "id": "10", "title": "Build a real agentic project", "state": "mature-lab" }
+      ]
+    },
+    {
+      "id": "course-2",
+      "title": "Advanced Agentic Engineering: Mastering Agents",
+      "outcome": "Design agent behaviour, workflow, context, delegation, evaluation, and autonomy.",
+      "modules": [
+        { "id": "11", "title": "Agent self-introspection and local review", "state": "roadmap-module" },
+        { "id": "12", "title": "Autonomous human-in-the-loop workflows", "state": "roadmap-module" },
+        { "id": "13", "title": "Specialist sub-agents and orchestration", "state": "roadmap-module" },
+        { "id": "14", "title": "Harnesses, portability, and agent observability", "state": "roadmap-module" },
+        { "id": "14A", "title": "The 20-Agent Bonfire and context transport", "state": "roadmap-module" },
+        { "id": "15", "title": "Selective provisioning, context, and evaluation", "state": "roadmap-module" }
+      ]
+    },
+    {
+      "id": "course-3",
+      "title": "Beyond the Agent: Engineering Agent Systems",
+      "outcome": "Design trust, coordination, concurrency, integration, provenance, and operational behaviour around agents.",
+      "modules": [
+        { "id": "16", "title": "Trust boundaries and connected autonomy", "state": "roadmap-module" },
+        { "id": "17", "title": "Concurrent agents and isolation", "state": "roadmap-module" },
+        { "id": "18", "title": "Epilogue: show how this was built", "state": "roadmap-module" }
+      ]
+    }
+  ],
+  "proof": {
+    "curriculum": "README.md",
+    "curriculumShape": "docs/curriculum-shape.md",
+    "lab3": "labs/03-project-has-a-home/README.md",
+    "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
+    "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",
+    "lab5": "labs/05-model-harness-context-tools-and-behaviour/README.md",
+    "lab7": "labs/07-tools-operating-knowledge-and-domain-provisioning/README.md",
+    "licencePolicy": "LICENSE.md",
+    "curriculumLicence": "LICENSES/CC-BY-4.0.txt",
+    "toolingLicence": "LICENSES/MIT.txt",
+    "integrity": "tests/test_repo_integrity.py"
+  }
+}

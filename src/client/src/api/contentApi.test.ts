@@ -20,8 +20,8 @@ describe('content API client', () => {
     expect(document.markdown).toBeUndefined()
 
     await expect(getContent('agentic-learning-lab')).resolves.toMatchObject({
-      summary: { slug: 'agentic-learning-lab' },
-      markdown: expect.any(String),
+      summary: { slug: 'agentic-learning-lab', presentation: 'learning-lab-case-study' },
+      markdown: undefined,
     })
   })
 
