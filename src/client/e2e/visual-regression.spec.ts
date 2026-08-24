@@ -149,7 +149,7 @@ test('Adventures of Patch keeps its hero and accountable origin on desktop', asy
   await expect(origin).toHaveScreenshot('patch-origin.png')
 })
 
-test('Adventures of Patch keeps its production system and published evidence legible on desktop', async ({ page }) => {
+test('Adventures of Patch keeps its production system and showcase handoff legible on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
@@ -157,21 +157,17 @@ test('Adventures of Patch keeps its production system and published evidence leg
   const production = page.getByRole('region', { name: 'The production system is the project' })
   await expect(production).toHaveScreenshot('patch-production-system.png')
 
-  const published = page.getByRole('region', { name: 'What has earned an artefact' })
-  await waitForImages(published)
-  await expect(published).toHaveScreenshot('patch-published-evidence.png')
+  const handoff = page.getByRole('region', { name: 'The stories have their own home' })
+  await expect(handoff).toHaveScreenshot('patch-showcase-handoff.png')
 })
 
-test('Adventures of Patch keeps active worlds and the story lab distinct on desktop', async ({ page }) => {
+test('Adventures of Patch keeps its evidence boundary and controlled-production close distinct on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
 
-  const worlds = page.getByRole('region', { name: 'Three worlds in motion' })
-  await waitForImages(worlds)
-  await expect(worlds).toHaveScreenshot('patch-worlds.png')
-
-  await expect(page.getByRole('region', { name: 'What Patch might teach next' })).toHaveScreenshot('patch-story-lab.png')
+  await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot('patch-evidence-boundary.png')
+  await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot('patch-controlled-production.png')
 })
 
 test('Adventures of Patch keeps the complete authored composition on mobile', async ({ page }) => {

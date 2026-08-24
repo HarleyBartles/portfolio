@@ -1,38 +1,39 @@
 import { render, screen, within } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { PatchPipelineCaseStudy } from './PatchPipelineCaseStudy'
 
+function renderCaseStudy() {
+  render(<MemoryRouter><PatchPipelineCaseStudy /></MemoryRouter>)
+}
+
 describe('PatchPipelineCaseStudy', () => {
   test('keeps the complete approved outline in semantic source order', () => {
-    render(<PatchPipelineCaseStudy />)
+    renderCaseStudy()
 
     expect(screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent)).toEqual([
       'The day the database disappeared',
       'The first deck',
       'A story has to earn production',
       'The production system is the project',
-      'What has earned an artefact',
-      'Three worlds in motion',
-      'What Patch might teach next',
+      'The stories have their own home',
       'What reaches the public record',
       'Controlled creative production',
     ])
     expect(screen.getByText((_, element) => element?.tagName === 'P' && element.textContent?.includes('deleting a development database was a reasonable available action') === true)).toBeVisible()
     expect(screen.getByText(/made Club DB in a day/i)).toBeVisible()
-    expect(within(screen.getByRole('region', { name: 'What has earned an artefact' })).getByRole('region', { name: 'Evidence gallery' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Explore the Adventures of Patch' })).toHaveAttribute('href', '/patch')
+    expect(screen.queryByRole('heading', { name: 'Three worlds in motion' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'What Patch might teach next' })).not.toBeInTheDocument()
   })
 
   test('keeps a compact project snapshot inside the complete authored case', () => {
-    render(<PatchPipelineCaseStudy />)
+    renderCaseStudy()
 
     const snapshot = screen.getByRole('region', { name: 'Project snapshot' })
-    ;['Teaching', 'Production', 'Formats', 'Planning and delivery', 'Current state'].forEach((label) => {
+    ;['Teaching', 'Production', 'Formats', 'Evidence'].forEach((label) => {
       expect(within(snapshot).getByText(label)).toBeVisible()
     })
-    expect(snapshot).toHaveTextContent(/one published origin deck/i)
-    expect(snapshot).toHaveTextContent('two published fairytales')
-    expect(snapshot).toHaveTextContent('three materially developed adventure worlds')
-    expect(snapshot).toHaveTextContent('one gated idea library')
 
     expect(screen.getByText(/I gave an agent an environment/i)).toBeVisible()
     expect(screen.getByText(/I made Club DB in a day/i)).toBeVisible()
@@ -42,13 +43,11 @@ describe('PatchPipelineCaseStudy', () => {
   })
 
   test('uses the shared wide-screen lead hierarchy before full-width systems', () => {
-    render(<PatchPipelineCaseStudy />)
+    renderCaseStudy()
 
     const splitHeadings = [
       'The production system is the project',
-      'What has earned an artefact',
-      'Three worlds in motion',
-      'What Patch might teach next',
+      'The stories have their own home',
       'What reaches the public record',
       'Controlled creative production',
     ]
@@ -60,41 +59,14 @@ describe('PatchPipelineCaseStudy', () => {
     })
   })
 
-  test('keeps published, in-flight, and story-lab boundaries public-safe', () => {
-    render(<PatchPipelineCaseStudy />)
+  test('keeps the engineering article free of duplicated showcase catalogues', () => {
+    renderCaseStudy()
 
-    const published = screen.getByRole('region', { name: 'What has earned an artefact' })
-    const publishedLinks = within(within(published).getByRole('list', { name: 'Published Patch artefacts' })).getAllByRole('link')
-    expect(publishedLinks).toHaveLength(4)
-    publishedLinks.forEach((link) => expect(link).toHaveAttribute('href', expect.stringMatching(/^https:\/\//)))
-    expect(within(within(published).getByRole('region', { name: 'Evidence gallery' })).getAllByRole('link')).toHaveLength(4)
-
-    const inFlight = screen.getByRole('region', { name: 'Three worlds in motion' })
-    const statuses = ['Advanced visual pre-production', 'Visual development', 'Visual development']
-    ;['Lawful Heist', 'Tournament of Reasonable Defaults', 'Identity Emporium'].forEach((world, index) => {
-      const article = within(inFlight).getByRole('article', { name: world })
-      expect(article.querySelector('.patch-world__lesson')).toBeVisible()
-      expect(within(article).getByText('Current evidence.')).toBeVisible()
-      expect(within(article).getByText('What remains.')).toBeVisible()
-      expect(within(article).getByText(statuses[index])).toBeVisible()
-    })
-    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/one of four jobs/i)
-    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/preparation should guide judgement without becoming a script/i)
-    expect(within(inFlight).getByRole('article', { name: 'Identity Emporium' })).toHaveTextContent(/Bit gets straight to work/i)
-    expect(within(inFlight).queryByRole('figure', { name: /Identity Emporium compares three approaches to preparation/i })).not.toBeInTheDocument()
-
-    const storyLab = screen.getByRole('region', { name: 'What Patch might teach next' })
-    const fairytalePlans = within(storyLab).getByRole('list', { name: 'Fairytale plans' })
-    expect(fairytalePlans).toHaveTextContent('The Boy Who Cried Wolf')
-    expect(fairytalePlans).toHaveTextContent('Preserve escalation signal.')
-    expect(fairytalePlans.querySelectorAll('li')).toHaveLength(7)
-    expect(fairytalePlans.querySelectorAll('li strong')).toHaveLength(7)
-    expect(fairytalePlans.querySelectorAll('li span')).toHaveLength(7)
-    const adventurePlans = within(storyLab).getByRole('list', { name: 'Adventure plans' })
-    expect(adventurePlans.querySelectorAll('li')).toHaveLength(4)
-    expect(adventurePlans.querySelectorAll('li strong')).toHaveLength(4)
-    expect(adventurePlans.querySelectorAll('li span')).toHaveLength(4)
-    expect(within(storyLab).queryAllByRole('link')).toHaveLength(0)
+    expect(screen.queryByText('Lawful Heist')).not.toBeInTheDocument()
+    expect(screen.queryByText('Tournament of Reasonable Defaults')).not.toBeInTheDocument()
+    expect(screen.queryByText('Identity Emporium')).not.toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: 'Evidence gallery' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('list', { name: 'Fairytale plans' })).not.toBeInTheDocument()
 
     expect(screen.queryByText(/PATCH-\d+/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/\d+%/)).not.toBeInTheDocument()

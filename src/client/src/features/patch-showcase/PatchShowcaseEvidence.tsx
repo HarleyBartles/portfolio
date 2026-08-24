@@ -1,5 +1,4 @@
-import { getPatchAssetPath } from '../case-study/patch/PatchEvidenceGallery'
-import { getPatchMediaByPath } from '../case-study/patch/patchEvidence'
+import { getPatchAssetPath, getPatchMediaByPath } from '../case-study/patch/patchEvidence'
 
 export function PatchShowcasePicture({ path, alt }: { path: string; alt: string }) {
   const avif = getPatchMediaByPath(path)

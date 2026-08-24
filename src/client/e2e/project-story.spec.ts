@@ -109,16 +109,16 @@ test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced mot
 
     if (width === 390) {
       const primaryNavigation = page.getByRole('navigation', { name: 'Primary' })
-      const [projects, writing, fairytales, about] = await Promise.all(
-        ['Projects', 'Writing', 'Fairytales', 'About'].map((name) => primaryNavigation.getByRole('link', { name, exact: true }).boundingBox()),
+      const [projects, writing, patch, about] = await Promise.all(
+        ['Projects', 'Writing', 'Patch', 'About'].map((name) => primaryNavigation.getByRole('link', { name, exact: true }).boundingBox()),
       )
 
       expect(projects).not.toBeNull()
       expect(writing).not.toBeNull()
-      expect(fairytales).not.toBeNull()
+      expect(patch).not.toBeNull()
       expect(about).not.toBeNull()
       expect(Math.abs(projects!.y - writing!.y)).toBeLessThan(1)
-      expect(Math.abs(projects!.y - fairytales!.y)).toBeLessThan(1)
+      expect(Math.abs(projects!.y - patch!.y)).toBeLessThan(1)
       expect(Math.abs(projects!.y - about!.y)).toBeLessThan(1)
     }
   }
@@ -142,7 +142,7 @@ test('Wild Bunch evidence exposes intrinsic image dimensions with one eager rout
   }
 })
 
-test('visitor opens Adventures of Patch with its production claim and inspectable public evidence', async ({ page }) => {
+test('visitor opens Adventures of Patch with its production claim and a clear route to the stories', async ({ page }) => {
   const response = await page.goto(patchPath)
 
   expect(response?.status()).toBe(200)
@@ -153,27 +153,12 @@ test('visitor opens Adventures of Patch with its production claim and inspectabl
   const publicRepository = page.getByRole('link', { name: 'Open the public Adventures of Patch repository' })
   await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/0240a8657aae5b580c1a7a0d31e0be7a68b27f4e')
 
-  const published = page.getByRole('region', { name: 'What has earned an artefact' })
-  const publishedLinks = published.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link')
-  await expect(publishedLinks).toHaveCount(4)
-  for (const linkName of [
-    'Club DB (opens in a new tab)',
-    'Goldilocks (opens in a new tab)',
-    "The Sorcerer's Apprentice (opens in a new tab)",
-    'Introducing Patch (opens in a new tab)',
-  ]) {
-    await tabToLink(page, linkName)
-    const focusedLink = page.getByRole('list', { name: 'Published Patch artefacts' }).getByRole('link', { name: linkName, exact: true })
-    await expect(focusedLink).toBeFocused()
-    expect(await focusedLink.evaluate((element) => {
-      const style = getComputedStyle(element)
-      return style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0
-    })).toBe(true)
-  }
-
-  const storyLab = page.getByRole('region', { name: 'What Patch might teach next' })
-  await expect(storyLab.getByRole('link')).toHaveCount(0)
-  await expect(storyLab.getByRole('button')).toHaveCount(0)
+  const showcaseLink = page.getByRole('link', { name: 'Explore the Adventures of Patch' })
+  await expect(showcaseLink).toHaveAttribute('href', '/portfolio/patch')
+  await showcaseLink.focus()
+  await expect(showcaseLink).toBeFocused()
+  await expect(page.getByRole('heading', { name: 'Three worlds in motion' })).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'What Patch might teach next' })).toHaveCount(0)
   await expect(page.locator('button:disabled')).toHaveCount(0)
   await expect(page.locator('main')).not.toContainText(/PATCH-\d+|https?:\/\/linear\.app|[A-Z]:\\|localhost/i)
 })
@@ -222,17 +207,17 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
   expect(desktopComposition.introStart).toBeGreaterThan(0.44)
 
   const evidence = page.locator('.patch-case-study img')
-  await expect(evidence).toHaveCount(15)
+  await expect(evidence).toHaveCount(2)
   for (const image of await evidence.all()) {
     await expect(image).toHaveAttribute('loading', 'lazy')
     await expect(image).toHaveAttribute('width', /^\d+$/)
     await expect(image).toHaveAttribute('height', /^\d+$/)
   }
-  await expect(page.locator('.patch-case-study figcaption')).toHaveCount(9)
+  await expect(page.locator('.patch-case-study figcaption')).toHaveCount(2)
 })
 
 test('Identity Emporium role kits share one deliberate image frame', async ({ page }) => {
-  await page.goto(patchPath)
+  await page.goto('./patch/identity-emporium')
 
   const frames = page.locator('.identity-evidence__roles picture')
   const failureFrames = page.locator('.identity-evidence__failure-pair picture')
@@ -306,7 +291,7 @@ test('Adventures of Patch remains complete at narrow and zoom-proxy widths with 
     for (const heading of [
       'The day the database disappeared',
       'The production system is the project',
-      'Three worlds in motion',
+      'The stories have their own home',
       'Controlled creative production',
     ]) {
       await expect(page.getByRole('heading', { level: 2, name: heading })).toBeAttached()

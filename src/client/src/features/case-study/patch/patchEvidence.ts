@@ -128,6 +128,10 @@ function freeze<T>(value: T): Readonly<T> {
 const patchEvidence = freeze(evidence) as PatchEvidenceSnapshot
 const patchMediaByPath = new Map(patchEvidence.media.map((media) => [media.path, media]))
 
+export function getPatchAssetPath(path: string, baseUrl = import.meta.env.BASE_URL): string {
+  return `${baseUrl}${path.replace(/^src\/client\/public\/?/, '')}`
+}
+
 export function getPatchPipeline(): readonly PatchPipelineStage[] {
   return patchEvidence.pipeline
 }

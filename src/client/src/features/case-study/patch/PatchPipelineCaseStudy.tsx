@@ -1,11 +1,9 @@
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
 import { ExternalLink } from '../../../components/ExternalLink'
-import { PatchEvidenceGallery, getPatchAssetPath } from './PatchEvidenceGallery'
+import { Link } from 'react-router-dom'
 import { PatchProductionFlow } from './PatchProductionFlow'
-import { PatchStoryLab } from './PatchStoryLab'
-import { getPatchMediaByPath, getPatchRepositoryEvidence } from './patchEvidence'
-import { PatchWorkLedger } from './PatchWorkLedger'
+import { getPatchAssetPath, getPatchMediaByPath, getPatchRepositoryEvidence } from './patchEvidence'
 import './PatchPipelineCaseStudy.scss'
 
 const frameQuestions = [
@@ -70,8 +68,7 @@ export function PatchPipelineCaseStudy() {
             <div><dt>Teaching</dt><dd>Agentic engineering, testing, authority, evidence, recovery, review and stakeholder decisions.</dd></div>
             <div><dt>Production</dt><dd>Story frames, visual bibles, character and environment packs, image QA, deterministic builders, manifests, sidecars and receipts.</dd></div>
             <div><dt>Formats</dt><dd>Multi-slide Adventures, one-page Fairytales and supporting character or world artefacts.</dd></div>
-            <div><dt>Planning and delivery</dt><dd>Linear shapes the work. GitHub proves what lands. Python builders, presentation tooling and repository validation make the route repeatable.</dd></div>
-            <div><dt>Current state</dt><dd>One published origin deck, two published fairytales, three materially developed adventure worlds and one gated idea library.</dd></div>
+            <div><dt>Evidence</dt><dd>Manifests, source revisions, acceptance records, sidecars and deterministic build receipts.</dd></div>
           </dl>
         </section>
 
@@ -88,13 +85,24 @@ export function PatchPipelineCaseStudy() {
         </section>
 
         <PatchProductionFlow />
-        <PatchWorkLedger><PatchEvidenceGallery /></PatchWorkLedger>
-        <PatchStoryLab />
+        <section className="patch-movement patch-showcase-bridge" aria-labelledby="patch-showcase-bridge-title">
+          <div className="patch-movement__copy case-study-lead">
+            <div className="case-study-lead__heading">
+              <p className="patch-section-number" aria-hidden="true">05</p>
+              <h2 id="patch-showcase-bridge-title">The stories have their own home</h2>
+            </div>
+            <div className="case-study-lead__body">
+              <p>The pipeline produces work in two shapes. One-page fairytales carry a single operational lesson. Larger adventures have room for personality, failure modes and the consequence of a good intervention.</p>
+              <p>The Adventures of Patch area gives each story the space its evidence has earned, including work assembled directly for this portfolio. This case study stays with the engineering that turns an idea into accepted, traceable work.</p>
+              <Link className="patch-showcase-link" to="/patch">Explore the Adventures of Patch</Link>
+            </div>
+          </div>
+        </section>
 
         <section className="patch-movement patch-boundary" aria-labelledby="patch-boundary-title">
           <div className="patch-movement__copy case-study-lead">
             <div className="case-study-lead__heading">
-              <p className="patch-section-number" aria-hidden="true">08</p>
+              <p className="patch-section-number" aria-hidden="true">06</p>
               <h2 id="patch-boundary-title">What reaches the public record</h2>
             </div>
             <div className="case-study-lead__body">
@@ -108,7 +116,7 @@ export function PatchPipelineCaseStudy() {
         <section className="patch-movement patch-close" aria-labelledby="patch-close-title">
           <div className="patch-movement__copy case-study-lead">
             <div className="case-study-lead__heading">
-              <p className="patch-section-number" aria-hidden="true">09</p>
+              <p className="patch-section-number" aria-hidden="true">07</p>
               <h2 id="patch-close-title">Controlled creative production</h2>
             </div>
             <div className="case-study-lead__body">
