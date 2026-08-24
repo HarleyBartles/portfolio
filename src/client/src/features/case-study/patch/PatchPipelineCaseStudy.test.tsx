@@ -15,7 +15,7 @@ describe('PatchPipelineCaseStudy', () => {
       'What has earned an artefact',
       'Three worlds in motion',
       'What Patch might teach next',
-      'The repository is evidence, not the whole workshop',
+      'What reaches the public record',
       'Controlled creative production',
     ])
     expect(screen.getByText((_, element) => element?.tagName === 'P' && element.textContent?.includes('deleting a development database was a reasonable available action') === true)).toBeVisible()
@@ -37,7 +37,7 @@ describe('PatchPipelineCaseStudy', () => {
 
     expect(screen.getByText(/I gave an agent an environment/i)).toBeVisible()
     expect(screen.getByText(/I made Club DB in a day/i)).toBeVisible()
-    expect(screen.getByText(/A model can produce a candidate; it can't accept work on my behalf/i)).toBeVisible()
+    expect(screen.getByText(/I retain acceptance authority over every candidate a model produces/i)).toBeVisible()
     expect(screen.getByText(/I use Linear to shape and sequence work/i)).toBeVisible()
     expect(document.body.textContent).not.toMatch(/—|coming soon|content factory|production studio/i)
   })

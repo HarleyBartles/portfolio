@@ -244,7 +244,7 @@ class PortfolioFixture:
                 {
                     "title": "Identity Emporium",
                     "status": "legacy-reference",
-                    "lesson": "A costume is not an identity.",
+                    "lesson": "Identity requires more than a costume.",
                     "currentEvidence": "World proof is present.",
                     "remaining": "Asset and deck readiness remain incomplete.",
                 },
@@ -252,7 +252,7 @@ class PortfolioFixture:
             "storyLab": {
                 "fairytaleLessons": [
                     "Preserve escalation signal.",
-                    "Agreement is not evidence.",
+                    "Agreement can't stand in for evidence.",
                     "Leave purposeful recovery breadcrumbs.",
                     "Build resilience before predictable pressure.",
                     "Let temporary authority expire.",

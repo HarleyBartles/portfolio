@@ -4,7 +4,7 @@
   "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
   "pipeline": [
     {"id": "seed", "name": "Seed", "input": "A candidate lesson.", "decision": "Keep only a lesson worth testing.", "output": "A bounded story seed.", "stopCondition": "The lesson cannot yet support a useful practice."},
-    {"id": "frame", "name": "Frame", "input": "A bounded story seed.", "decision": "Prove task, failure, Patch action, changed outcome, and audience action.", "output": "A teachable story frame.", "stopCondition": "The metaphor decorates rather than explains the mechanism."},
+    {"id": "frame", "name": "Frame", "input": "A bounded story seed.", "decision": "Prove task, failure, Patch action, changed outcome, and audience action.", "output": "A teachable story frame.", "stopCondition": "The metaphor fails to explain the mechanism."},
     {"id": "visual-preproduction", "name": "Visual pre-production", "input": "A teachable story frame.", "decision": "Set world, cast, props, continuity, panel grammar, and production order.", "output": "A reviewed visual plan.", "stopCondition": "The continuity and production choices remain unresolved."},
     {"id": "image-generation-and-qa", "name": "Image generation and QA", "input": "A reviewed visual plan.", "decision": "Inspect candidates and accept only evidence that clears its lane.", "output": "Accepted visual evidence.", "stopCondition": "Character, continuity, or image QA does not clear."},
     {"id": "deterministic-compilation", "name": "Deterministic compilation", "input": "Accepted visual evidence.", "decision": "Build text, layout, captions, and licence material reproducibly.", "output": "An inspectable artefact.", "stopCondition": "The assembled artefact does not preserve the accepted evidence."},
@@ -19,12 +19,12 @@
   "inFlight": [
     {"title": "Lawful Heist", "status": "advanced-visual-preproduction", "lesson": "Lawful authority can cross a protected boundary without an invisible bypass.", "currentEvidence": "Six specialists have approved hero, style, and anti-pattern sheets, with a continuity-object sequence.", "remaining": "Comic adaptation, vault and keycard system, safehouse environments, body-slide art, and deck plan remain incomplete."},
     {"title": "Tournament of Reasonable Defaults", "status": "visual-development", "lesson": "Stakeholder analysis and consultation prevent false deliverables.", "currentEvidence": "Character, stakeholder, environment, official, prop, and setup-image packages are present.", "remaining": "Revised scene planning, deck plan, body-image plan, accepted scene art, presentation file, sidecar, QA, and receipts remain."},
-    {"title": "Identity Emporium", "status": "legacy-reference", "lesson": "A costume is not an identity.", "currentEvidence": "A Patch-in-world proof and reference material for the Emporium and shopkeeper are present.", "remaining": "The visual material remains legacy reference rather than asset-ready or deck-ready canon."}
+    {"title": "Identity Emporium", "status": "legacy-reference", "lesson": "Identity requires more than a costume.", "currentEvidence": "A Patch-in-world proof and reference material for the Emporium and shopkeeper are present.", "remaining": "The visual material remains legacy reference. Asset-ready and deck-ready canon haven't been established."}
   ],
   "storyLab": {
     "fairytaleLessons": [
       "Preserve escalation signal.",
-      "Agreement is not evidence.",
+      "Agreement can't stand in for evidence.",
       "Leave purposeful recovery breadcrumbs.",
       "Build resilience before predictable pressure.",
       "Let temporary authority expire.",

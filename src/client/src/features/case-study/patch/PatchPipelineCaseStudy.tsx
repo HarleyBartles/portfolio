@@ -57,8 +57,9 @@ export function PatchPipelineCaseStudy() {
           <div className="patch-movement__copy">
             <p className="patch-section-number" aria-hidden="true">01</p>
             <h2 id="patch-origin-title">The day the database disappeared</h2>
-            <p>I gave an agent an environment in which deleting a development database was a reasonable available action. It deleted the database. The data wasn&apos;t business-critical and I rebuilt it, but the useful part of the incident wasn&apos;t the recovery. The agent had followed the affordances and authority I&apos;d designed.</p>
-            <p>Calling it rogue would&apos;ve let the system designer off the hook. I asked the same agent to help design layers of enforcement around the database instead. Those controls became the Club DB bouncers, checks that changed the available actions rather than adding another instruction. Patch was the character I made to carry that explanation.</p>
+            <p>Patch began with a missing database and a lesson I needed people to remember. A little teal character outside a nightclub, with the safety controls working as bouncers, made it memorable.</p>
+            <p>I gave an agent an environment in which deleting a development database was a reasonable available action. It deleted the database. The data wasn&apos;t business-critical, and I rebuilt it quickly. The incident mattered because the agent had followed the affordances and authority I&apos;d designed.</p>
+            <p>Calling it rogue would&apos;ve let the system designer off the hook. I asked the same agent to help design layers of enforcement around the database. Those controls became the Club DB bouncers, checks whose job was to change the available actions. Patch was the character I made to carry that explanation.</p>
           </div>
           <PatchEvidenceFigure path="src/client/public/media/patch/patch-clubDb-slide-2-1200.avif" alt="Club DB slide showing Patch at a workstation after the database deletion, with the root cause traced to a disposable-looking working folder." caption="The original incident and root cause, rendered from slide 2 of the published Club DB deck." />
         </section>
@@ -67,8 +68,8 @@ export function PatchPipelineCaseStudy() {
           <div className="patch-movement__copy">
             <p className="patch-section-number" aria-hidden="true">02</p>
             <h2 id="patch-first-deck-title">The first deck</h2>
-            <p>I made Club DB in a day because I needed the explanation to be useful straight away. It shows what happened, why instructions weren&apos;t enough and how layered enforcement changed the action space.</p>
-            <p>It also shows the limits of the process I had then. Some text fights the background, Patch changes between frames and generated artefacts got through. I don&apos;t need to disown the deck. I need the current pipeline to catch what it missed.</p>
+            <p>I made Club DB in a day because I needed the explanation to be useful to colleagues straight away. It shows what happened, why instructions weren&apos;t enough and how layered enforcement changed the action space.</p>
+            <p>It also shows the limits of the process I had then. Some text fights the background, Patch changes between frames and generated artefacts got through. I kept the useful deck and turned its misses into requirements for the current pipeline.</p>
             <p>A sign can describe a rule. Enforcement makes the unsafe action unavailable or costly. That distinction still runs through the project.</p>
           </div>
           <PatchEvidenceFigure path="src/client/public/media/patch/patch-clubDb-slide-14-1200.avif" alt="Club DB slide contrasting a warning sign with a bouncer who enforces the rule at the door." caption="Slide 14 closes the original argument: signs advise; bouncers enforce." />
@@ -78,7 +79,7 @@ export function PatchPipelineCaseStudy() {
           <div className="patch-movement__copy">
             <p className="patch-section-number" aria-hidden="true">03</p>
             <h2 id="patch-frame-gate-title">A story has to earn production</h2>
-            <p>I gate ideas before visual production. A candidate has to answer six questions clearly enough that the metaphor teaches the engineering mechanism instead of decorating it.</p>
+            <p>I gate ideas before visual production. A candidate has to answer six questions clearly enough for the metaphor to teach the engineering mechanism.</p>
           </div>
           <ol className="patch-frame-gate__questions">
             {frameQuestions.map((question) => <li key={question}>{question}</li>)}
@@ -93,7 +94,7 @@ export function PatchPipelineCaseStudy() {
         <section className="patch-movement patch-boundary" aria-labelledby="patch-boundary-title">
           <div className="patch-movement__copy">
             <p className="patch-section-number" aria-hidden="true">08</p>
-            <h2 id="patch-boundary-title">The repository is evidence, not the whole workshop</h2>
+            <h2 id="patch-boundary-title">What reaches the public record</h2>
             <p>I use Linear to shape and sequence work, GitHub to prove what has landed, and the published catalogue to mark what&apos;s ready for an audience. The planning surface contains provisional thinking; the public repository carries the smaller set I&apos;m prepared to call evidence.</p>
             <p>Manifests and sidecars record source, status and acceptance. Deterministic receipts record the transforms that produced each public file. That boundary keeps private workshop material private and makes every public claim inspectable at one exact revision.</p>
             <CaseStudyEvidence auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
@@ -104,8 +105,8 @@ export function PatchPipelineCaseStudy() {
           <div className="patch-movement__copy">
             <p className="patch-section-number" aria-hidden="true">09</p>
             <h2 id="patch-close-title">Controlled creative production</h2>
-            <p>Generative imagery gives this project range, but the model isn&apos;t the production system. I choose the lesson, frame, visual direction, rejection reasons and acceptance bar. The tooling preserves those decisions through source custody, status, image QA, deterministic composition and the receipt that says what actually shipped.</p>
-            <p>This costs more than asking for a finished comic and keeping whatever arrives. It buys me work I can revise without losing provenance, explanations I can trust in front of a technical audience, and an honest line between an exciting image and a published artefact.</p>
+            <p>Generative imagery gives this project range. I remain responsible for the lesson, frame, visual direction, rejection reasons and acceptance bar. The tooling preserves those decisions through source custody, status, image QA, deterministic composition and the receipt that says what actually shipped.</p>
+            <p>The extra work buys me material I can revise without losing provenance, explanations I can trust in front of a technical audience, and an honest line between an exciting image and a published artefact.</p>
             <a className="patch-source-link" href={pinnedRepositoryUrl}>Open the public Adventures of Patch repository</a>
           </div>
         </section>

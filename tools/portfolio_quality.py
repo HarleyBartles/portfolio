@@ -81,7 +81,7 @@ PATCH_PUBLISHED_PATHS = {
     "Introducing Patch": "published/misc/introducing-patch/page__v1.png",
 }
 PATCH_FAIRYTALE_LESSONS = [
-    "Preserve escalation signal.", "Agreement is not evidence.", "Leave purposeful recovery breadcrumbs.",
+    "Preserve escalation signal.", "Agreement can't stand in for evidence.", "Leave purposeful recovery breadcrumbs.",
     "Build resilience before predictable pressure.", "Let temporary authority expire.",
     "Verify identity, provenance, and authority.", "Distinguish technical capability from authorisation.",
 ]
