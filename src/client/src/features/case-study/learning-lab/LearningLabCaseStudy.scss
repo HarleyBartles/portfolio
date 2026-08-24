@@ -1,8 +1,23 @@
+.content-page-body--presentation {
+  max-width: none;
+}
+
 .learning-lab-case-study {
   --learning-copper: #a24f32;
   --learning-teal: #0d5d60;
   display: grid;
   gap: clamp(var(--space-16), 9vw, var(--space-24));
+}
+
+.learning-lab-image,
+.learning-lab-image img {
+  display: block;
+  width: 100%;
+}
+
+.learning-lab-image img {
+  height: 100%;
+  object-fit: cover;
 }
 
 .learning-lab-thesis {
@@ -167,7 +182,42 @@
 .representative-lab dt { font-family: var(--font-code); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
 .representative-lab dd { margin: 0; }
 
-.learning-lab-safety { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: center; padding: clamp(var(--space-8), 6vw, var(--space-16)); background: #163f42; color: #fffaf0; }
+.representative-lab[data-lab="7"] {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+}
+
+.representative-lab[data-lab="7"] .learning-lab-image {
+  grid-area: 1 / 1 / 2 / -1;
+  min-height: clamp(27rem, 48vw, 43rem);
+}
+
+.representative-lab[data-lab="7"] header {
+  z-index: 1;
+  grid-area: 1 / 1 / 2 / 7;
+  align-self: end;
+  margin: 0 0 clamp(var(--space-6), 5vw, var(--space-12));
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  border-top: 0;
+  background: #163f42;
+  color: #fffaf0;
+}
+
+.representative-lab[data-lab="7"] header p { color: #efbd77; }
+
+.representative-lab[data-lab="7"] dl {
+  z-index: 1;
+  grid-area: 2 / 5 / 3 / -1;
+  margin-top: calc(var(--space-10) * -1);
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  background: var(--color-surface);
+}
+
+.learning-lab-safety { position: relative; isolation: isolate; display: grid; min-height: clamp(34rem, 54vw, 48rem); overflow: hidden; background: #163f42; color: #fffaf0; }
+.learning-lab-safety > * { grid-area: 1 / 1; }
+.learning-lab-safety .learning-lab-image,
+.learning-lab-safety .learning-lab-image img { height: 100%; }
+.learning-lab-safety__copy { z-index: 1; align-self: center; width: min(48%, 35rem); margin-left: clamp(var(--space-6), 5vw, var(--space-12)); padding: clamp(var(--space-6), 4vw, var(--space-10)); background: rgb(22 63 66 / 95%); box-shadow: 0 1rem 3rem rgb(13 24 24 / 28%); }
 .learning-lab-safety h2 { color: inherit; }
 .learning-lab-safety .learning-lab-kicker { color: #efbd77; }
 .learning-lab-safety .case-study-callout { --case-study-callout-accent: #efbd77; }
@@ -199,9 +249,18 @@
   .learning-lab-origin, .learning-atlas__header, .learning-atlas__courses { grid-template-columns: 1fr; }
   .learning-atlas__course, .learning-atlas__course:first-child, .learning-atlas__course:nth-child(2) { grid-column: auto; padding: var(--space-7) 0; border-right: 0; }
   .learning-atlas__course:first-child .learning-atlas__modules { grid-template-columns: 1fr; }
-  .lab-promotion > ol, .lab-anatomy__layers, .representative-lab, .learning-lab-safety, .learning-lab-state > header, .learning-lab-state > dl { grid-template-columns: 1fr; }
+  .lab-promotion > ol, .lab-anatomy__layers, .representative-lab, .learning-lab-state > header, .learning-lab-state > dl { grid-template-columns: 1fr; }
   .lab-anatomy__layers section:nth-child(2), .lab-anatomy__layers section:nth-child(3) { margin-top: 0; }
   .representative-lab:nth-child(even) header { order: initial; }
   .representative-lab dl div { grid-template-columns: 1fr; gap: var(--space-2); }
+  .representative-lab[data-lab="7"] { display: flex; flex-direction: column; }
+  .representative-lab[data-lab="7"] header { order: 0; margin: 0; padding: var(--space-6); }
+  .representative-lab[data-lab="7"] .learning-lab-image { order: 1; min-height: 0; }
+  .representative-lab[data-lab="7"] .learning-lab-image img { height: auto; }
+  .representative-lab[data-lab="7"] dl { order: 2; margin: 0; padding: var(--space-6) 0 0; }
+  .learning-lab-safety { display: flex; flex-direction: column; min-height: 0; }
+  .learning-lab-safety .learning-lab-image,
+  .learning-lab-safety .learning-lab-image img { height: auto; }
+  .learning-lab-safety__copy { width: auto; margin: 0; padding: var(--space-7); box-shadow: none; }
   .learning-lab-state > dl > div, .learning-lab-state > dl > div:first-child, .learning-lab-state > dl > div:last-child { padding: var(--space-5) 0; border-right: 0; border-bottom: 1px solid var(--color-border); }
 }

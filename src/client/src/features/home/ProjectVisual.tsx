@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { LearningLabImage } from '../case-study/learning-lab/LearningLabImage'
 import { LearningLoop } from '../case-study/learning-lab/LearningLoop'
 import './ProjectVisual.scss'
 
@@ -40,7 +41,12 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
   }
 
   if (slug === 'agentic-learning-lab') {
-    return <LearningLoop />
+    return (
+      <div className="project-visual project-visual--learning-lab" data-visual-contract="learning-lab-inspection-hero">
+        <LearningLabImage id="engineering-control-workbench" eager={eager} />
+        <LearningLoop />
+      </div>
+    )
   }
 
   if (slug === 'codex-marketplace') {

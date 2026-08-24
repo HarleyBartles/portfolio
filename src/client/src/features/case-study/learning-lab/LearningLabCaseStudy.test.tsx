@@ -27,4 +27,18 @@ describe('LearningLabCaseStudy', () => {
     expect(container).toHaveTextContent(/cloud.*local/i)
     expect(container).not.toHaveTextContent(/tested with real learners|testimonial|completion rate|cutting edge|chain of thought/i)
   })
+
+  test('uses responsive concept art as evidence without rasterising the argument', () => {
+    render(<LearningLabCaseStudy />)
+
+    const image = screen.getByRole('img', { name: /fractured test piece remains inside a clear containment rig/i })
+    expect(image).toHaveAttribute('src', '/media/learning-lab/safe-breakage-rig-mobile-720.webp')
+    expect(image).toHaveAttribute('width', '720')
+    expect(image).toHaveAttribute('height', '540')
+    expect(image).toHaveAttribute('loading', 'lazy')
+    expect(image).toHaveAttribute('decoding', 'async')
+    expect(image.closest('picture')?.querySelectorAll('source')).toHaveLength(4)
+    expect(screen.getByRole('heading', { name: /safe enough to learn by breaking things/i })).toBeVisible()
+    expect(screen.getByText(/what is the blast radius/i)).toBeVisible()
+  })
 })

@@ -95,6 +95,9 @@ describe('ContentPage specialist presentation boundary', () => {
     const header = container.querySelector('[data-visual-contract="learning-lab-case-study-hero"]') as HTMLElement
     expect(within(header).getByText('Direct')).toBeVisible()
     expect(within(header).getByText('Redirect')).toBeVisible()
+    const image = within(header).getByRole('img', { name: /hands inspect measured components and test evidence/i })
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(await screen.findByText('Learning Lab specialist body')).toBeVisible()
   })
 })

@@ -36,6 +36,7 @@ export function RepresentativeLabs() {
         {labs.map((lab) => (
           <article className="representative-lab" data-lab={lab.id} key={lab.id}>
             <header><p>Lab {lab.id}</p><h3>{lab.title}</h3></header>
+            {lab.id === '7' ? <LearningLabImage id="authority-transfer" /> : null}
             <dl>
               <div><dt>Learner problem</dt><dd>{lab.problem}</dd></div>
               <div><dt>Designed pressure</dt><dd>{lab.pressure}</dd></div>
@@ -49,3 +50,4 @@ export function RepresentativeLabs() {
     </section>
   )
 }
+import { LearningLabImage } from './LearningLabImage'

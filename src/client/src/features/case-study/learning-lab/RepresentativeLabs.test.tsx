@@ -18,5 +18,12 @@ describe('RepresentativeLabs', () => {
     expect(container.textContent?.match(/model \+ harness \+ instructions\/settings \+ context \+ tools \+ environment\/state \+ feedback = observed behaviour/g)).toHaveLength(1)
     expect(container).toHaveTextContent(/software engineering.*creative writing.*technical drawing/i)
     expect(screen.queryByRole('heading', { name: /lab 4/i })).not.toBeInTheDocument()
+
+    const authorityImage = screen.getByRole('img', { name: /three connected work zones move from engineer-led inspection/i })
+    expect(authorityImage).toHaveAttribute('src', '/media/learning-lab/authority-transfer-mobile-720.webp')
+    expect(authorityImage).toHaveAttribute('width', '720')
+    expect(authorityImage).toHaveAttribute('height', '461')
+    expect(authorityImage).toHaveAttribute('loading', 'lazy')
+    expect(authorityImage.closest('picture')?.querySelectorAll('source')).toHaveLength(4)
   })
 })

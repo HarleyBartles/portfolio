@@ -4,6 +4,7 @@ import { ExternalLink } from '../../../components/ExternalLink'
 import { CurriculumAtlas } from './CurriculumAtlas'
 import { LabAnatomy } from './LabAnatomy'
 import { LabPromotionFlow } from './LabPromotionFlow'
+import { LearningLabImage } from './LearningLabImage'
 import { RepresentativeLabs } from './RepresentativeLabs'
 import { formatLearningLabDelivery, learningLabEvidence, pinnedLearningLabPath } from './learningLabEvidence'
 import './LearningLabCaseStudy.scss'
@@ -36,13 +37,14 @@ export function LearningLabCaseStudy() {
         <RepresentativeLabs />
 
         <section className="learning-lab-safety" aria-labelledby="learning-lab-safety-title">
-          <div>
+          <LearningLabImage id="safe-breakage-rig" />
+          <div className="learning-lab-safety__copy">
             <p className="learning-lab-kicker">Lab 4 runs underneath the curriculum</p>
             <h2 id="learning-lab-safety-title">Safe enough to learn by breaking things</h2>
             <p>A learner should be able to make a mess without losing the last state they understood. Lab 4 builds that recovery model with tracked and untracked files, inspected diffs, deliberate commits and the separate act of publishing a commit.</p>
             <p>The lesson uses one repository, one main line of history and one agent changing it at a time. That constraint keeps the experiment legible. Concurrency, branches and worktree isolation wait until the learner has a recovery model sturdy enough to carry them.</p>
+            <p className="case-study-callout">What is the blast radius, and do I have a recovery path?</p>
           </div>
-          <p className="case-study-callout">What is the blast radius, and do I have a recovery path?</p>
         </section>
 
         <CaseStudySection title="The method built the method" layout="lead">
