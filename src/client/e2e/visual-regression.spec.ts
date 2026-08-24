@@ -37,6 +37,11 @@ async function waitForTournamentStyles(page: Page): Promise<void> {
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
+async function waitForLawfulHeistStyles(page: Page): Promise<void> {
+  const rollback = page.locator('.heist-recruit--rollback')
+  await expect.poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(24, 33, 28)')
+}
+
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
@@ -222,6 +227,16 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
   const story = page.locator('article.content-page')
   await waitForImages(story)
   await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
+})
+
+test('Lawful Heist keeps Rollback at the dominant end of agent scale', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './patch/lawful-heist')
+  await waitForLawfulHeistStyles(page)
+
+  const rollback = page.locator('.heist-recruit--rollback')
+  await waitForImages(rollback)
+  await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
 })
 
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
