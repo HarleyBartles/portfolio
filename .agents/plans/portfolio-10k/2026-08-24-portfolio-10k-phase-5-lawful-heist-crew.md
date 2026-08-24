@@ -284,7 +284,7 @@
   git commit -m "style: finish the Lawful Heist dossier"
   ```
 
-- [ ] **Step 8: Mark Task 4 complete.** Set Task 4's checklist boxes to `[x]`, stage the plan file and include that state in Task 5's closeout commit.
+- [x] **Step 8: Mark Task 4 complete.** Set Task 4's checklist boxes to `[x]`, stage the plan file and include that state in Task 5's closeout commit.
 
 ### Task 5: Canonical verification, review and publication
 
@@ -298,11 +298,13 @@
 - Consumes: clean staged implementation from Tasks 1 through 4.
 - Produces: exact local proof, self-review findings and repairs, an open PR with exact head SHA, passing hosted checks and a browser review URL for Harley.
 
-- [ ] **Step 1: Perform the completion-readiness review.** Read the full diff against the approved spec and `.agents/runbooks/code-review.md`. Check factual status, source custody, permission, generated text, prose flow, public route, responsive composition, alt intent, payload and unrelated changes. Repair every in-scope issue before continuing.
+- [x] **Step 1: Perform the completion-readiness review.** Read the full diff against the approved spec and `.agents/runbooks/code-review.md`. Check factual status, source custody, permission, generated text, prose flow, public route, responsive composition, alt intent, payload and unrelated changes. Repair every in-scope issue before continuing.
 
-- [ ] **Step 2: Regenerate and stage the final tree.** Run `py -3 tools/run.py ci --apply`, inspect every generated change, stage the complete intended tree and verify `git diff --cached --check` is clean. Include canonical generated files unless direct evidence proves they are disposable.
+  **Finding and repair:** The route, custody, status and scope matched the approved spec. The review found three alt descriptions that named props more specifically than the final crops proved. Index, Writ and Klause now describe the visible action and objects, with focused component assertions locking those accessible names.
 
-- [ ] **Step 3: Run canonical validation on the staged tree.** Run:
+- [x] **Step 2: Regenerate and stage the final tree.** Run `py -3 tools/run.py ci --apply`, inspect every generated change, stage the complete intended tree and verify `git diff --cached --check` is clean. Include canonical generated files unless direct evidence proves they are disposable.
+
+- [x] **Step 3: Run canonical validation on the staged tree.** Run:
 
   ```powershell
   $env:ADVENTURES_PATCH_SOURCE_ROOT = 'Z:\adventures-of-patch'
@@ -312,7 +314,9 @@
 
   Expected: repository standards, generated mesh, link hygiene, portfolio quality, Python, Vitest, build, axe and Playwright journeys all pass. Record exact observed counts and any intentionally skipped platform-specific suite. Do not call the branch green from partial output.
 
-- [ ] **Step 4: Commit final proof state.** Mark completed plan boxes accurately, record commands, counts, Patch revision, accepted generation outputs, viewport evidence, visual-baseline decision and remaining human gate. Commit:
+  **Evidence:** With `ADVENTURES_PATCH_SOURCE_ROOT=Z:\adventures-of-patch`, `py -3 tools/run.py ci --check` passed repository standards, the 47-file index mesh, agent mesh, 20-route link hygiene, portfolio quality, 53 Python tests, 35 Vitest files containing 105 tests, the production build and all 74 Chromium journeys. The Windows visual suite ran rather than being skipped. The first full attempt correctly failed on an old Adventures source-revision assertion and Tournament's mobile related-content tail. The assertion now uses source revision `13bf77adc63cf5c8f49363cedd5dd392822b8375`; the Tournament baseline adds only the newly linked Lawful Heist record and passed twice unchanged before the full canonical rerun.
+
+- [x] **Step 4: Commit final proof state.** Mark completed plan boxes accurately, record commands, counts, Patch revision, accepted generation outputs, viewport evidence, visual-baseline decision and remaining human gate. Commit:
 
   ```powershell
   git commit -m "docs: record Lawful Heist verification"
