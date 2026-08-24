@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const clientPort = 4173
+const clientPort = 4174
 const clientOrigin = `http://127.0.0.1:${clientPort}`
 const clientBaseUrl = `${clientOrigin}/portfolio/`
 
@@ -32,7 +32,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npm run preview:test',
+      command: 'npm run build && npm run preview:e2e',
       url: clientOrigin,
       env: {
         VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact',
