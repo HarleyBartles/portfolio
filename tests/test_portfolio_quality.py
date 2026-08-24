@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CLIENT_ROOT = ROOT / "src/client"
@@ -168,10 +170,10 @@ class PortfolioFixture:
 
     def write_patch_evidence(self) -> None:
         revision = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
-        asset_path = "src/client/public/media/patch/patch-example.avif"
+        asset_path = "src/client/public/media/patch/patch-example.webp"
         asset = self.root / asset_path
         asset.parent.mkdir(parents=True, exist_ok=True)
-        asset.write_bytes(b"RIFF-owned-patch-image")
+        Image.new("RGB", (1, 1), "white").save(asset, "WEBP")
         custody_path = self.docs / "asset-custody.md"
         custody_path.write_text(
             custody_path.read_text(encoding="utf-8") + f"- Public file: `{asset_path}`\n",
@@ -205,23 +207,23 @@ class PortfolioFixture:
                     "status": "published",
                     "publicArtefactUrl": (
                         "https://github.com/HarleyBartles/adventures-of-patch/blob/"
-                        f"{revision}/published/adventures/club-db.pptx"
+                        f"{revision}/published/adventures/club_db_bouncer_queue_v6_canonical.pptx"
                     ),
                 },
                 {
                     "title": "Goldilocks",
                     "status": "published",
-                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/goldilocks/page.png",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
                 },
                 {
                     "title": "The Sorcerer's Apprentice",
                     "status": "published",
-                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/sorcerers-apprentice/page.png",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
                 },
                 {
                     "title": "Introducing Patch",
                     "status": "published",
-                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/misc/introducing-patch/page.png",
+                    "publicArtefactUrl": f"https://github.com/HarleyBartles/adventures-of-patch/blob/{revision}/published/misc/introducing-patch/page__v1.png",
                 },
             ],
             "inFlight": [
@@ -258,10 +260,10 @@ class PortfolioFixture:
                     "Distinguish technical capability from authorisation.",
                 ],
                 "adventureQuestions": [
-                    {"title": "Test Goblin", "lesson": "Rank executable test scenarios."},
-                    {"title": "The Tiny Change That Wasn't", "lesson": "Map blast radius."},
-                    {"title": "Review Dragon", "lesson": "Shape reviewer handoff."},
-                    {"title": "Hall of Mirrors", "lesson": "Bound the next hypothesis."},
+                    {"title": "Test Goblin", "lesson": "Turn failure-mode suspicion into ranked, executable test scenarios."},
+                    {"title": "The Tiny Change That Wasn't", "lesson": "Map consumers, tests, migrations, documentation, and operations before treating a small diff as a small blast radius."},
+                    {"title": "Review Dragon", "lesson": "Shape completed work into a reviewer handoff with intent, risk, evidence, gaps, and requested attention."},
+                    {"title": "Hall of Mirrors", "lesson": "Separate observation, inference, assumption, contradiction, and uncertainty before proposing a bounded hypothesis and next check."},
                 ],
             },
             "media": [
@@ -269,17 +271,23 @@ class PortfolioFixture:
                     "path": asset_path,
                     "width": 1,
                     "height": 1,
-                    "bytes": len(b"RIFF-owned-patch-image"),
-                    "custody": "Patch example custody.",
+                    "bytes": asset.stat().st_size,
+                    "custody": "Introducing Patch source base, mobile-safe crop.",
                     "sourceType": "repository-evidence",
                     "sourceStatus": "accepted",
                     "sourceRevision": revision,
+                    "family": "hero",
+                    "format": "webp",
+                    "sourcePath": "published/misc/introducing-patch/source.png",
+                    "sourceSha256": "b" * 64,
                 }
             ],
         }
         evidence_path = self.root / "src/client/src/data/case-studies/patch-evidence.json"
         evidence_path.parent.mkdir(parents=True, exist_ok=True)
         evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+        receipt_path = self.root / "src/client/public/media/patch/patch-derivatives.json"
+        receipt_path.write_text(json.dumps({"sourceRevision": revision, "images": [dict(evidence["media"][0])]}), encoding="utf-8")
 
 
 class PortfolioQualityTests(unittest.TestCase):
@@ -757,9 +765,18 @@ class PortfolioQualityTests(unittest.TestCase):
             ), "private coordinate or credential"),
             "credential": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "token=private"), "private coordinate or credential"),
             "connector identifier": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "connector_id=private"), "private coordinate or credential"),
+            "file URL": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "file:///var/private/receipt"), "private coordinate or credential"),
+            "Unix coordinate": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "/var/private/receipt"), "private coordinate or credential"),
+            "wrong in-flight status": (lambda evidence: evidence["inFlight"][0].__setitem__("status", "visual-development"), "Lawful Heist must use status"),
             "media without dimensions and custody": (lambda evidence: evidence["media"][0].update(
                 {"width": 0, "height": 0, "custody": ""}
             ), "requires positive intrinsic dimensions"),
+            "false media dimension": (lambda evidence: evidence["media"][0].__setitem__("width", 2), "does not match derivative receipt"),
+            "mismatched media custody": (lambda evidence: evidence["media"][0].__setitem__("custody", "unrelated custody"), "custody must match derivative sourcePath"),
+            "duplicate media": (lambda evidence: evidence["media"].append(dict(evidence["media"][0])), "complete unique derivative receipt inventory"),
+            "swapped fairytale lesson": (lambda evidence: evidence["storyLab"]["fairytaleLessons"].reverse(), "must match the seven approved lessons"),
+            "swapped question lesson": (lambda evidence: evidence["storyLab"]["adventureQuestions"][0].__setitem__("lesson", "wrong"), "must match the four approved title and lesson pairs"),
+            "swapped published path": (lambda evidence: evidence["published"][0].__setitem__("publicArtefactUrl", evidence["published"][1]["publicArtefactUrl"]), "must match the four approved title and path pairs"),
             "generated pose without accepted source": (lambda evidence: evidence["media"][0].update(
                 {"sourceType": "generated-pose", "sourceStatus": "candidate"}
             ), "generated pose requires accepted sourceStatus"),

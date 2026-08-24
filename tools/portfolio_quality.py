@@ -12,6 +12,8 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import unquote, urlparse
 
+from PIL import Image
+
 
 CONTENT_ROOT = Path("src/client/src/data/content")
 MANIFEST_PATH = CONTENT_ROOT / "content-manifest.json"
@@ -21,6 +23,7 @@ MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
 PATCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/patch-evidence.json")
+PATCH_DERIVATIVE_RECEIPT_PATH = Path("src/client/public/media/patch/patch-derivatives.json")
 WILD_BUNCH_REVISION = "2a9814d094148bb789766a27d316095fecce5a60"
 WILD_BUNCH_REPOSITORY_URL = "https://github.com/HarleyBartles/wild-bunch"
 WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd"
@@ -51,7 +54,7 @@ WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
     re.IGNORECASE,
 )
 PATCH_PRIVATE_COORDINATE_RE = re.compile(
-    r"(?:\blinear\.app\b|\bPATCH-\d+\b|\b[A-Za-z]:[\\/]|/(?:Users|home)/|"
+    r"(?:\blinear\.app\b|\bPATCH-\d+\b|\b[A-Za-z]:[\\/]|\bfile:|"
     r"\blocalhost\b|[?&](?:signature|sig|token|x-amz-signature)=[^&#\s]+|"
     r"\b(?:password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]|\bconnector[_ -]?id\s*[=:])",
     re.IGNORECASE,
@@ -66,6 +69,38 @@ PATCH_STATUSES = {
 }
 PATCH_SOURCE_TYPES = {"repository-evidence", "public-artefact", "user-supplied-professional-project-context", "generated-pose"}
 PATCH_SOURCE_STATES = {"accepted", "published", "advanced_visual_preproduction", "visual_development", "legacy_reference"}
+PATCH_IN_FLIGHT_STATUSES = {
+    "Lawful Heist": "advanced-visual-preproduction",
+    "Tournament of Reasonable Defaults": "visual-development",
+    "Identity Emporium": "legacy-reference",
+}
+PATCH_PUBLISHED_PATHS = {
+    "Club DB": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
+    "Goldilocks": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
+    "The Sorcerer's Apprentice": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
+    "Introducing Patch": "published/misc/introducing-patch/page__v1.png",
+}
+PATCH_FAIRYTALE_LESSONS = [
+    "Preserve escalation signal.", "Agreement is not evidence.", "Leave purposeful recovery breadcrumbs.",
+    "Build resilience before predictable pressure.", "Let temporary authority expire.",
+    "Verify identity, provenance, and authority.", "Distinguish technical capability from authorisation.",
+]
+PATCH_ADVENTURE_QUESTIONS = [
+    ("Test Goblin", "Turn failure-mode suspicion into ranked, executable test scenarios."),
+    ("The Tiny Change That Wasn't", "Map consumers, tests, migrations, documentation, and operations before treating a small diff as a small blast radius."),
+    ("Review Dragon", "Shape completed work into a reviewer handoff with intent, risk, evidence, gaps, and requested attention."),
+    ("Hall of Mirrors", "Separate observation, inference, assumption, contradiction, and uncertainty before proposing a bounded hypothesis and next check."),
+]
+PATCH_CUSTODY_BY_FAMILY = {
+    "hero": "Introducing Patch source base, mobile-safe crop.",
+    "introducingPage": "Published Introducing Patch page derivative.",
+    "goldilocks": "Published Goldilocks page derivative.",
+    "sorcerersApprentice": "Published Sorcerer's Apprentice page derivative.",
+    "clubDb": None,
+    "heist": "Lawful Heist receipt-folder derivative.",
+    "tournament": "Tournament route-check derivative.",
+    "identity": "Identity Emporium world-proof derivative.",
+}
 CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 DECORATIVE_EMOJI_RE = re.compile(r"[\u2600-\u27BF\U0001F1E6-\U0001FAFF]")
 # Add a path only when the emoji itself is necessary to the quoted material or medium.
@@ -577,6 +612,16 @@ def _is_pinned_patch_url(value: Any, revision: str) -> bool:
     return parsed.query == "" and parsed.fragment == "" and bool(parsed.path.removeprefix(urlparse(prefix).path))
 
 
+def _is_private_patch_coordinate(value: str) -> bool:
+    if PATCH_PRIVATE_COORDINATE_RE.search(value):
+        return True
+    try:
+        parsed = urlparse(value)
+    except ValueError:
+        return True
+    return parsed.scheme == "file" or (not parsed.scheme and value.startswith("/"))
+
+
 def _require_patch_string(evidence: dict[str, Any], field: str, findings: list[Finding], message: str) -> None:
     value = evidence.get(field)
     if not isinstance(value, str) or not value.strip():
@@ -661,11 +706,21 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
         "Club DB", "Goldilocks", "The Sorcerer's Apprentice", "Introducing Patch",
     ]:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "published must contain the four approved artefacts in order"))
+    elif any(
+        record.get("publicArtefactUrl") != f"{PATCH_REPOSITORY_URL}/blob/{PATCH_SOURCE_REVISION}/{PATCH_PUBLISHED_PATHS[record['title']]}"
+        for record in published
+    ):
+        findings.append(_finding(PATCH_EVIDENCE_PATH, "published must match the four approved title and path pairs"))
     in_flight = evidence.get("inFlight")
     if not isinstance(in_flight, list) or [record.get("title") if isinstance(record, dict) else None for record in in_flight] != [
         "Lawful Heist", "Tournament of Reasonable Defaults", "Identity Emporium",
     ]:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "inFlight must contain the three approved worlds in order"))
+    else:
+        for record in in_flight:
+            title = record["title"]
+            if record.get("status") != PATCH_IN_FLIGHT_STATUSES[title]:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"{title} must use status '{PATCH_IN_FLIGHT_STATUSES[title]}'"))
 
     story_lab = evidence.get("storyLab")
     if not isinstance(story_lab, dict):
@@ -673,22 +728,31 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
     else:
         lessons = story_lab.get("fairytaleLessons")
         questions = story_lab.get("adventureQuestions")
-        if not isinstance(lessons, list) or len(lessons) != 7:
-            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab fairytaleLessons must contain seven lessons"))
-        if not isinstance(questions, list) or [entry.get("title") if isinstance(entry, dict) else None for entry in questions] != [
-            "Test Goblin", "The Tiny Change That Wasn't", "Review Dragon", "Hall of Mirrors",
-        ]:
-            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab adventureQuestions must contain only the four approved archived questions"))
+        if lessons != PATCH_FAIRYTALE_LESSONS:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab fairytaleLessons must match the seven approved lessons"))
+        if not isinstance(questions, list) or [
+            (entry.get("title"), entry.get("lesson")) if isinstance(entry, dict) else None for entry in questions
+        ] != PATCH_ADVENTURE_QUESTIONS:
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "storyLab adventureQuestions must match the four approved title and lesson pairs"))
         for collection in (lessons if isinstance(lessons, list) else [], questions if isinstance(questions, list) else []):
             for entry in collection:
                 if isinstance(entry, dict) and any(field in entry for field in ("date", "progress", "link", "url")):
                     findings.append(_finding(PATCH_EVIDENCE_PATH, "future-work item must not contain date, progress, or link"))
 
+    receipt = _read_json(root / PATCH_DERIVATIVE_RECEIPT_PATH, findings, "Patch derivative receipt")
+    receipt_images = receipt.get("images") if isinstance(receipt, dict) else None
+    receipt_by_path = {
+        entry.get("path"): entry for entry in receipt_images
+        if isinstance(entry, dict) and isinstance(entry.get("path"), str)
+    } if isinstance(receipt_images, list) else {}
     media = evidence.get("media")
     custody = (root / CUSTODY_PATH).read_text(encoding="utf-8") if (root / CUSTODY_PATH).is_file() else ""
     if not isinstance(media, list) or not media:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "media must be a nonempty array"))
     else:
+        media_paths = [item.get("path") if isinstance(item, dict) else None for item in media]
+        if len(media_paths) != len(set(media_paths)) or set(media_paths) != set(receipt_by_path):
+            findings.append(_finding(PATCH_EVIDENCE_PATH, "media must match the complete unique derivative receipt inventory"))
         for index, item in enumerate(media, start=1):
             if not isinstance(item, dict):
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} must be an object"))
@@ -698,6 +762,9 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path must be a Patch public custody path"))
             elif f"`{path}`" not in custody:
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path is missing from docs/asset-custody.md"))
+            receipt_item = receipt_by_path.get(path)
+            if receipt_item is None:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} is missing from the derivative receipt"))
             width, height = item.get("width"), item.get("height")
             if not all(isinstance(value, int) and not isinstance(value, bool) and value > 0 for value in (width, height)):
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} requires positive intrinsic dimensions"))
@@ -715,15 +782,33 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} must retain the approved source revision"))
             if source_type == "generated-pose" and item.get("sourceStatus") != "accepted":
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} generated pose requires accepted sourceStatus"))
+            if isinstance(receipt_item, dict):
+                for field in ("width", "height", "bytes", "sourceRevision", "sourceStatus"):
+                    if item.get(field) != receipt_item.get(field):
+                        findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} {field} does not match derivative receipt"))
+                expected_custody = PATCH_CUSTODY_BY_FAMILY.get(receipt_item.get("family"))
+                if receipt_item.get("family") == "clubDb":
+                    expected_custody = f"Club DB origin slide {receipt_item.get('slide')} derivative."
+                if item.get("custody") != expected_custody:
+                    findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} custody must match derivative sourcePath family"))
             if isinstance(path, str) and path.startswith("src/client/public/media/patch/"):
                 asset_path = root / path
                 if not asset_path.is_file():
                     findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} derivative is missing from the public tree"))
                 elif isinstance(bytes_count, int) and not isinstance(bytes_count, bool) and asset_path.stat().st_size != bytes_count:
                     findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} byte count does not match the committed derivative"))
+                else:
+                    try:
+                        with Image.open(asset_path) as image:
+                            intrinsic = image.size
+                    except (OSError, ValueError):
+                        findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} derivative dimensions cannot be read"))
+                    else:
+                        if intrinsic != (width, height):
+                            findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} intrinsic dimensions do not match the committed derivative"))
 
     for text in _patch_strings(evidence):
-        if PATCH_PRIVATE_COORDINATE_RE.search(text):
+        if _is_private_patch_coordinate(text):
             findings.append(_finding(PATCH_EVIDENCE_PATH, "contains a private coordinate or credential"))
             break
 
