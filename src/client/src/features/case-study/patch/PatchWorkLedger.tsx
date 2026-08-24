@@ -20,7 +20,7 @@ const worldMedia = {
     key: 'identity',
     path: 'src/client/public/media/patch/patch-identity-1200.avif',
     alt: 'Patch shows a mission card to the Identity Emporium shopkeeper beside role costumes and task tools.',
-    caption: 'The Emporium supplies the role kit. Patch succeeds when he carries it into the matching domain; the same structure spans cowboy, chef, detective and mechanic.',
+    caption: 'Patch brings the task to the Emporium, where the role becomes preparation for the work ahead.',
   },
 } as const
 
@@ -53,11 +53,11 @@ const identityRoles = [
 
 function IdentityEmporiumEvidence() {
   return (
-    <figure className="identity-evidence" aria-label="Identity Emporium combines role and domain">
-      <div className="identity-evidence__logic" aria-label="Cowboy example outcomes">
-        <div><span>Bot</span><strong>Right kit, wrong domain</strong><small>All the gear, no idea</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
-        <div><span>Bit</span><strong>Right domain, wrong kit</strong><small>No get-up, can&apos;t get down to work</small><span className="identity-evidence__outcome">Doesn&apos;t work</span></div>
-        <div><span>Patch</span><strong>Right kit, right domain</strong><small>Prepared for the job</small><span className="identity-evidence__outcome">Works</span></div>
+    <figure className="identity-evidence" aria-label="Identity Emporium compares three approaches to preparation">
+      <div className="identity-evidence__logic" aria-label="Three approaches to a cowboy task">
+        <div><span>Bot</span><strong>Preparation mistaken for a script</strong><small>All the gear, no idea</small><span className="identity-evidence__outcome">Misreads the work</span></div>
+        <div><span>Bit</span><strong>Straight to work, underprepared</strong><small>No get-up, can&apos;t get down to work</small><span className="identity-evidence__outcome">Starts too soon</span></div>
+        <div><span>Patch</span><strong>Preparation shaped by the task</strong><small>Prepared for the job</small><span className="identity-evidence__outcome">Ready to work</span></div>
       </div>
       <div className="identity-evidence__source-pair">
         <div>
@@ -79,7 +79,7 @@ function IdentityEmporiumEvidence() {
       <ul className="identity-evidence__roles" aria-label="Patch role kits">
         {identityRoles.map((role) => <li key={role.name}><EvidencePicture path={role.path} alt={role.alt} /><span>{role.name}</span></li>)}
       </ul>
-      <figcaption className="case-study-media-caption">The cowboy example carries the argument. The same role-and-domain pairing extends through detective, mechanic and chef.</figcaption>
+      <figcaption className="case-study-media-caption">Preparation gives capability a useful shape. Judgement keeps it relevant once the work begins.</figcaption>
     </figure>
   )
 }
