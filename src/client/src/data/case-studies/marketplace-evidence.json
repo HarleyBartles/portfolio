@@ -1,6 +1,6 @@
 {
-  "observedAt": "2026-08-21",
-  "marketplaceRevision": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+  "observedAt": "2026-08-24",
+  "marketplaceRevision": "efd45c9a822bdba0a92817e014b17ce6f21915f4",
   "inventory": {
     "pluginCount": 17,
     "entryCount": 74,
@@ -29,8 +29,8 @@
     {
       "name": "Agent Asset Marketplace",
       "url": "https://github.com/HarleyBartles/agent-asset-marketplace",
-      "commit": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
-      "marketplaceRevision": "52866dfb13b257c8d7d98fbb6155f96a7a8ca07e",
+      "commit": "efd45c9a822bdba0a92817e014b17ce6f21915f4",
+      "marketplaceRevision": "efd45c9a822bdba0a92817e014b17ce6f21915f4",
       "plugins": ["repo-worker-pack", "superpowers-plus", "mcp-usage-pack"],
       "installedSkillCount": 39,
       "localPlugins": [],

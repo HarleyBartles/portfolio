@@ -11,7 +11,7 @@ Use this runbook when working with the repo-local plugin marketplace or refreshi
 
 ## Refreshing skills
 
-- Run `py -3 tools/run.py skills --apply` to refresh derived skills from the marketplace source.
+- Run `py -3 tools/run.py refresh-skills --apply` to refresh derived skills from the marketplace source.
 - Run `py -3 tools/run.py ci --check` to verify the refreshed mesh.
 - Do not hand-edit marketplace-derived skills in `.agents/skills/`.
 

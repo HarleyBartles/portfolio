@@ -42,7 +42,7 @@ def _repo_standards_cmd(mode: str, allow_shared: bool) -> list[str]:
     return cmd
 
 
-def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
+def _refresh_skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
         ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
@@ -53,11 +53,18 @@ def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     return cmd
 
 
-def _mesh_generate_cmd(mode: str, allow_shared: bool) -> list[str]:
+def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
+    """Compatibility alias for the pre-standard command name."""
+    return _refresh_skills_cmd(mode, allow_shared)
+
+
+def _index_mesh_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
-        "tools/generate_index_mesh.py",
+        ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py",
         f"--{mode}",
+        "--exclusions",
+        "tools/index_mesh_exclusions.json",
     ]
     if mode == "apply" and allow_shared:
         cmd.append("--allow-shared-checkout")
@@ -111,14 +118,22 @@ def _skills_check(ctx: Ctx) -> None:
 
 
 def _mesh_apply(ctx: Ctx) -> None:
-    _run(_mesh_generate_cmd("apply", ctx.allow_shared), ctx)
-    _run(_mesh_generate_cmd("check", ctx.allow_shared), ctx)
+    _index_mesh_apply(ctx)
     _run(_mesh_validate_cmd(), ctx)
 
 
 def _mesh_check(ctx: Ctx) -> None:
-    _run(_mesh_generate_cmd("check", ctx.allow_shared), ctx)
+    _index_mesh_check(ctx)
     _run(_mesh_validate_cmd(), ctx)
+
+
+def _index_mesh_apply(ctx: Ctx) -> None:
+    _run(_index_mesh_cmd("apply", ctx.allow_shared), ctx)
+    _run(_index_mesh_cmd("check", ctx.allow_shared), ctx)
+
+
+def _index_mesh_check(ctx: Ctx) -> None:
+    _run(_index_mesh_cmd("check", ctx.allow_shared), ctx)
 
 
 def _ci_apply(ctx: Ctx) -> None:
@@ -160,7 +175,9 @@ TARGETS = {
         "apply": _repo_standards_apply,
         "check": _repo_standards_check,
     },
+    "refresh-skills": {"apply": _skills_apply, "check": _skills_check},
     "skills": {"apply": _skills_apply, "check": _skills_check},
+    "index-mesh": {"apply": _index_mesh_apply, "check": _index_mesh_check},
     "mesh": {"apply": _mesh_apply, "check": _mesh_check},
     "precommit": {"apply": _ci_apply, "check": _precommit_check},
     "ci": {"apply": _ci_apply, "check": _ci_check},

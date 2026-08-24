@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import call, patch
@@ -35,6 +37,87 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_cmd("test", "--", "--run"), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
+
+    def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--check",
+            ],
+            run._refresh_skills_cmd("check", False),
+        )
+
+    def test_portfolio_index_mesh_target_uses_bundled_code_with_local_policy(self) -> None:
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py",
+                "--check",
+                "--exclusions",
+                "tools/index_mesh_exclusions.json",
+            ],
+            run._index_mesh_cmd("check", False),
+        )
+
+    @patch.object(run, "_run")
+    def test_mesh_composes_the_standard_index_target_and_validation(self, run_command) -> None:
+        run._mesh_check(self.context)
+
+        self.assertEqual(
+            [
+                call(run._index_mesh_cmd("check", False), self.context),
+                call(run._mesh_validate_cmd(), self.context),
+            ],
+            run_command.call_args_list,
+        )
+
+    def test_portfolio_mesh_policy_excludes_noncanonical_generated_surfaces(self) -> None:
+        generator = ROOT / ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py"
+        exclusions = ROOT / "tools/index_mesh_exclusions.json"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            tracked = (
+                repo / ".githooks/pre-commit",
+                repo / "src/client/public/media/hero.png",
+                repo / "src/client/src/data/content/project.md",
+                repo / "docs/guide.md",
+            )
+            for path in tracked:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("fixture\n", encoding="utf-8")
+            subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+            subprocess.run(["git", "add", "."], cwd=repo, check=True)
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(generator),
+                    "--apply",
+                    "--repo-root",
+                    str(repo),
+                    "--exclusions",
+                    str(exclusions),
+                ],
+                cwd=repo,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertTrue((repo / "docs/INDEX.md").is_file())
+            self.assertFalse((repo / ".githooks/INDEX.md").exists())
+            self.assertFalse((repo / "src/client/public/INDEX.md").exists())
+            self.assertFalse((repo / "src/client/src/data/content/INDEX.md").exists())
+
+    def test_playwright_mcp_diagnostics_do_not_dirty_the_checkout(self) -> None:
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", ".playwright-mcp/session.yml"],
+            cwd=ROOT,
+        )
+
+        self.assertEqual(0, result.returncode)
 
     @patch.dict("os.environ", {"GITHUB_ACTIONS": "true"})
     @patch.object(run, "_run")
