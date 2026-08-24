@@ -37,6 +37,11 @@ LEARNING_LAB_MODULES = {
     "course-3": ["16", "17", "18"],
 }
 LEARNING_LAB_MODULE_STATES = {"mature-lab", "roadmap-module"}
+LEARNING_LAB_EXPECTED_MODULE_STATES = {
+    module_id: "mature-lab" if course_id == "course-1" else "roadmap-module"
+    for course_id, module_ids in LEARNING_LAB_MODULES.items()
+    for module_id in module_ids
+}
 LEARNING_LAB_PROOF_PATHS = {
     "curriculum": "README.md",
     "curriculumShape": "docs/curriculum-shape.md",
@@ -404,6 +409,15 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
                         LEARNING_LAB_EVIDENCE_PATH,
                         f"module {module_id} state must be mature-lab or roadmap-module",
                     ))
+                elif (
+                    isinstance(module_id, str)
+                    and module_id in LEARNING_LAB_EXPECTED_MODULE_STATES
+                    and state != LEARNING_LAB_EXPECTED_MODULE_STATES[module_id]
+                ):
+                    findings.append(_finding(
+                        LEARNING_LAB_EVIDENCE_PATH,
+                        f"module {module_id} state must be {LEARNING_LAB_EXPECTED_MODULE_STATES[module_id]}",
+                    ))
                 if state == "mature-lab":
                     mature_count += 1
 
@@ -459,7 +473,9 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
     licensing = evidence.get("licensing")
     if not isinstance(licensing, dict):
         findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "licensing must be an object"))
-    elif licensing.get("freelyLicensed") is True:
+    elif licensing.get("freelyLicensed") is not True:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "licensing freelyLicensed must be true"))
+    else:
         curriculum = licensing.get("curriculum")
         tooling = licensing.get("tooling")
         if licensing.get("policyPath") != "LICENSE.md":

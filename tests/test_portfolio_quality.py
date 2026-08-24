@@ -616,6 +616,13 @@ class PortfolioQualityTests(unittest.TestCase):
                 lambda evidence: evidence["courses"][0]["modules"][0].__setitem__("state", "complete"),
                 "module 1 state must be mature-lab or roadmap-module",
             ),
+            "count-preserving maturity swap": (
+                lambda evidence: (
+                    evidence["courses"][0]["modules"][0].__setitem__("state", "roadmap-module"),
+                    evidence["courses"][1]["modules"][0].__setitem__("state", "mature-lab"),
+                ),
+                "module 1 state must be mature-lab",
+            ),
             "wrong mature count": (
                 lambda evidence: evidence.__setitem__("matureLabCount", 9),
                 "matureLabCount must match the 10 mature-lab modules",
@@ -686,6 +693,18 @@ class PortfolioQualityTests(unittest.TestCase):
             "missing licence link": (
                 lambda evidence: evidence["licensing"]["curriculum"].__setitem__("url", ""),
                 "freelyLicensed requires HTTPS curriculum and tooling licence links",
+            ),
+            "false freely licensed flag": (
+                lambda evidence: evidence["licensing"].__setitem__("freelyLicensed", False),
+                "licensing freelyLicensed must be true",
+            ),
+            "missing freely licensed flag": (
+                lambda evidence: evidence["licensing"].pop("freelyLicensed"),
+                "licensing freelyLicensed must be true",
+            ),
+            "non-boolean freely licensed flag": (
+                lambda evidence: evidence["licensing"].__setitem__("freelyLicensed", "true"),
+                "licensing freelyLicensed must be true",
             ),
             "snapshot without commit": (
                 lambda evidence: evidence.__setitem__("sourceRevision", ""),
