@@ -130,6 +130,16 @@
       "presentation": "patch-identity-emporium",
       "tags": ["patch", "agentic-engineering", "preparation"],
       "relatedSlugs": ["goldilocks", "sorcerers-apprentice", "adventures-of-patch"]
+    },
+    {
+      "slug": "tournament-of-reasonable-defaults",
+      "kind": "patch",
+      "title": "Tournament of Reasonable Defaults",
+      "status": "visual development",
+      "summary": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
+      "presentation": "patch-tournament",
+      "tags": ["patch", "agentic-engineering", "requirements", "acceptance-criteria"],
+      "relatedSlugs": ["identity-emporium", "adventures-of-patch"]
     }
   ]
 }

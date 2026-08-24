@@ -6,7 +6,7 @@ export type ContentKind =
   | 'writing'
   | 'patch'
 
-export type ContentPresentation = 'marketplace-case-study' | 'wild-bunch-case-study' | 'patch-pipeline-case-study' | 'patch-identity-emporium'
+export type ContentPresentation = 'marketplace-case-study' | 'wild-bunch-case-study' | 'patch-pipeline-case-study' | 'patch-identity-emporium' | 'patch-tournament'
 
 export type ContentSummary = {
   slug: string

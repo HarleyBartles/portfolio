@@ -32,6 +32,11 @@ async function waitForPatchStyles(page: Page): Promise<void> {
   await expect.poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(21, 63, 66)')
 }
 
+async function waitForTournamentStyles(page: Page): Promise<void> {
+  const event = page.locator('.tournament-event').first()
+  await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
+}
+
 test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
@@ -193,6 +198,30 @@ test('Adventures of Patch leads with its origin story before the compact mobile 
   expect(originBox).not.toBeNull()
   expect(snapshotBox?.height).toBeLessThanOrEqual(650)
   expect(snapshotBox?.y).toBeGreaterThanOrEqual((originBox?.y ?? 0) + (originBox?.height ?? 0))
+})
+
+test('Tournament keeps its opening ambiguity and stakeholder consultation legible on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './patch/tournament-of-reasonable-defaults')
+  await waitForTournamentStyles(page)
+
+  const opening = page.locator('.tournament-event--seven-day')
+  await waitForImages(opening)
+  await expect(opening).toHaveScreenshot('patch-tournament-seven-day.png')
+
+  const consultation = page.locator('.tournament-event__consultation')
+  await waitForImages(consultation)
+  await expect(consultation).toHaveScreenshot('patch-tournament-consultation.png')
+})
+
+test('Tournament keeps the complete four-event progression on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './patch/tournament-of-reasonable-defaults')
+  await waitForTournamentStyles(page)
+
+  const story = page.locator('article.content-page')
+  await waitForImages(story)
+  await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
 })
 
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {

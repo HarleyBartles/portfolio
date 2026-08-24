@@ -38,10 +38,18 @@ describe('Adventures of Patch routes', () => {
     expect(within(adventures).getByRole('link', { name: /Identity Emporium/i })).toHaveAttribute('href', '/portfolio/patch/identity-emporium')
     const tournament = within(adventures).getByRole('article', { name: 'Tournament of Reasonable Defaults' })
     const heist = within(adventures).getByRole('article', { name: 'Lawful Heist' })
-    expect(within(tournament).queryByRole('link')).not.toBeInTheDocument()
+    expect(within(tournament).getByRole('link', { name: /Tournament of Reasonable Defaults/i })).toHaveAttribute('href', '/portfolio/patch/tournament-of-reasonable-defaults')
     expect(within(heist).queryByRole('link')).not.toBeInTheDocument()
     expect(tournament).toHaveTextContent(/visual development/i)
     expect(heist).toHaveTextContent(/advanced visual pre-production/i)
+  })
+
+  test('publishes the Tournament progression on its own route', async () => {
+    renderRoute('/patch/tournament-of-reasonable-defaults')
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'Tournament of Reasonable Defaults' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The Seven-Day Sprint' })).toBeVisible()
+    expect(screen.getByRole('heading', { level: 2, name: 'The Long Course' })).toBeVisible()
   })
 
   test('publishes the reviewed Identity Emporium argument on its own route', async () => {

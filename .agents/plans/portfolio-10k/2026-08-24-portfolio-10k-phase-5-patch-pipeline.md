@@ -472,17 +472,19 @@ The tournament is held by stakeholders. Bit and Bot fail in predictable ways tha
 
 The final judging image should preserve Patch's bronze and gold. If the available assets support Bit and Bot's cheerful homemade medals, use them as the closing joke without making them essential to the lesson. Do not generate new visuals to satisfy copy that the current assets cannot support. Change the argument or omit the gag first.
 
-- [ ] **Step 1: Reverify source truth and select the smallest sufficient asset set.** Inspect public `main`, manifests, sidecars, source pixels, and custody for the four environment families, character failure poses, stakeholder booth, judging, and medal assets. Record the exact revision. Select images that visibly support each event; do not imply a failure mode that exists only in prose.
+**Execution note:** The current tree and deleted Tournament image history contain no celebration scene showing Patch's bronze and gold or Bit and Bot's homemade medals. Generic medal-official art cannot identify the recipient, so the page preserves the medal outcomes in HTML and omits the unsupported visual gag.
 
-- [ ] **Step 2: Write failing event-order and lesson tests.** Require four events in the approved order, the exact task and lesson for each, Bit/Bot/Patch outcomes, no medal in events one and two, bronze in event three, gold in event four, visible development status, and no claim that an upstream deck is complete.
+- [x] **Step 1: Reverify source truth and select the smallest sufficient asset set.** Inspect public `main`, manifests, sidecars, source pixels, and custody for the four environment families, character failure poses, stakeholder booth, judging, and medal assets. Record the exact revision. Select images that visibly support each event; do not imply a failure mode that exists only in prose.
 
-- [ ] **Step 3: Add responsive derivatives and custody.** Extend the canonical Patch asset processor, generate AVIF and WebP derivatives with intrinsic dimensions, record source hashes and transformations, and commit the canonical outputs. Essential task wording, outcomes, and lessons remain HTML.
+- [x] **Step 2: Write failing event-order and lesson tests.** Require four events in the approved order, the exact task and lesson for each, Bit/Bot/Patch outcomes, no medal in events one and two, bronze in event three, gold in event four, visible development status, and no claim that an upstream deck is complete.
 
-- [ ] **Step 4: Compose and edit the Tournament page.** Use each event as a visual reveal with one clear task, failure pattern, Patch response, and lesson. Preserve the progression across all four events. Avoid four interchangeable cards, repeated three-column matrices, or a long wall of character-by-character prose.
+- [x] **Step 3: Add responsive derivatives and custody.** Extend the canonical Patch asset processor, generate AVIF and WebP derivatives with intrinsic dimensions, record source hashes and transformations, and commit the canonical outputs. Essential task wording, outcomes, and lessons remain HTML.
 
-- [ ] **Step 5: Verify the complete story.** Review at 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Confirm every image cashes the adjacent claim, raster text is non-essential, the humour survives, and the page reads as one escalating argument.
+- [x] **Step 4: Compose and edit the Tournament page.** Use each event as a visual reveal with one clear task, failure pattern, Patch response, and lesson. Preserve the progression across all four events. Avoid four interchangeable cards, repeated three-column matrices, or a long wall of character-by-character prose.
 
-- [ ] **Step 6: Commit and return to the remaining adventure.** Mark Task 9's boxes `[x]`, stage the complete reviewed slice, rerun its focused checks on the staged tree, and commit `feat: publish the Tournament of Reasonable Defaults story` after focused proof. Lawful Heist remains a human-led shaping task: inspect its assets, ask Harley for the intended adventure story, agree its lesson, then write a separate plan amendment before building its page.
+- [x] **Step 5: Verify the complete story.** Review at 1440, 768, 390, 320, keyboard-only, reduced motion, and 200% zoom. Confirm every image cashes the adjacent claim, raster text is non-essential, the humour survives, and the page reads as one escalating argument.
+
+- [x] **Step 6: Commit and return to the remaining adventure.** Mark Task 9's boxes `[x]`, stage the complete reviewed slice, rerun its focused checks on the staged tree, and commit `feat: publish the Tournament of Reasonable Defaults story` after focused proof. Lawful Heist remains a human-led shaping task: inspect its assets, ask Harley for the intended adventure story, agree its lesson, then write a separate plan amendment before building its page.
 
 ### Task 10: Final Phase 5 review and publication
 

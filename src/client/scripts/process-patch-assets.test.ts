@@ -20,6 +20,13 @@ const fixtureManifest = {
   clubDb: { width: 1600, height: 900 },
   heist: { width: 1600, height: 900 },
   tournament: { width: 1600, height: 900 },
+  tournamentSevenDay: { width: 1600, height: 1200 },
+  tournamentHighJump: { width: 1600, height: 1200 },
+  tournamentMaze: { width: 1600, height: 1200 },
+  tournamentMazeMap: { width: 1600, height: 1200 },
+  tournamentBitHazard: { width: 1124, height: 1448 },
+  tournamentBotWrongLine: { width: 1124, height: 1448 },
+  tournamentLongCourse: { width: 1600, height: 900 },
   identity: { width: 1600, height: 900 },
   identityBotFailure: { width: 1400, height: 1114 },
   identityBitAction: { width: 1124, height: 1448 },
@@ -40,6 +47,13 @@ describe('Patch asset processor', () => {
     expect(PATCH_DERIVATIVES.identityBotFailure.sourcePath).toContain('cowboy_alt_chicken_chase')
     expect(PATCH_DERIVATIVES.identityBotFailure.cropFrame).toEqual({ width: 480, height: 384, position: 'center' })
     expect(PATCH_DERIVATIVES.identityBitAction.sourcePath).toContain('bit_action')
+    expect(PATCH_DERIVATIVES.tournamentSevenDay.sourcePath).toContain('c1_r1_hero')
+    expect(PATCH_DERIVATIVES.tournamentHighJump.sourcePath).toContain('c2_r1_hero')
+    expect(PATCH_DERIVATIVES.tournamentMaze.sourcePath).toContain('c3_r2_alt_overhead_maze')
+    expect(PATCH_DERIVATIVES.tournamentMazeMap.sourcePath).toContain('c3_r3_alt_annotated_map')
+    expect(PATCH_DERIVATIVES.tournamentBitHazard.sourcePath).toContain('bit_hazard_tape')
+    expect(PATCH_DERIVATIVES.tournamentBotWrongLine.sourcePath).toContain('bot_wrong_line')
+    expect(PATCH_DERIVATIVES.tournamentLongCourse.sourcePath).toContain('c4_r2_alt_false_line_risks')
     expect(PATCH_DERIVATIVES.identityCowboy.sourcePath).toContain('cowboy-role-kit')
     expect([
       PATCH_DERIVATIVES.identityCowboy,

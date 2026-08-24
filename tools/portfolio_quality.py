@@ -105,6 +105,13 @@ PATCH_CUSTODY_BY_FAMILY = {
     "clubDb": None,
     "heist": "Lawful Heist verified Git-blob derivative.",
     "tournament": "Tournament route-check derivative.",
+    "tournamentSevenDay": "Tournament seven-day sprint environment derivative.",
+    "tournamentHighJump": "Tournament industry-standard high-jump environment derivative.",
+    "tournamentMaze": "Tournament maze environment derivative.",
+    "tournamentMazeMap": "Tournament annotated maze-plan derivative.",
+    "tournamentBitHazard": "Tournament Bit hazard-tape failure-pose derivative.",
+    "tournamentBotWrongLine": "Tournament Bot false-finish failure-pose derivative.",
+    "tournamentLongCourse": "Tournament long-course false-line environment derivative.",
     "identity": "Identity Emporium world-proof derivative.",
     "identityBotFailure": "Approved Bot cowboy failure-pose derivative.",
     "identityBitAction": "Approved Bit action-pose source derivative.",
@@ -201,11 +208,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium", "patch-tournament"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif presentation == "patch-identity-emporium" and kind != "patch":
+            elif presentation in {"patch-identity-emporium", "patch-tournament"} and kind != "patch":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
-            elif presentation != "patch-identity-emporium" and kind != "project":
+            elif presentation not in {"patch-identity-emporium", "patch-tournament"} and kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
         if has_path:

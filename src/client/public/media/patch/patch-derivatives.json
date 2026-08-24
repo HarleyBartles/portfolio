@@ -654,6 +654,286 @@
       "outputSha256": "e10ac365eb32ec39266072a9293a9b34e3fe0b2a0f8dcbe3490b445e0194824e"
     },
     {
+      "family": "tournamentSevenDay",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 800,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-seven-day-1200.avif",
+      "sourceGitObjectId": "4660006a04628ea9b606d16c3dc556a9fa367251",
+      "sourceSha256": "887c304c2ad078580dfb1af14d0b37c6ce8f16dec2ef324ddf8c0fcb0ea93c9a",
+      "bytes": 148938,
+      "outputSha256": "495da4441b04659f612b4d6652e1e2305f9b8544837bf1f8324a6616a2863298"
+    },
+    {
+      "family": "tournamentSevenDay",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-seven-day-1200.webp",
+      "sourceGitObjectId": "4660006a04628ea9b606d16c3dc556a9fa367251",
+      "sourceSha256": "887c304c2ad078580dfb1af14d0b37c6ce8f16dec2ef324ddf8c0fcb0ea93c9a",
+      "bytes": 214204,
+      "outputSha256": "cdd458a47ec234bcd97062cb8d77a80a6080ae240608174872102e9109b3c57d"
+    },
+    {
+      "family": "tournamentHighJump",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-high-jump-1200.avif",
+      "sourceGitObjectId": "fef8389101c8ae0be032d770e6f913911ba66188",
+      "sourceSha256": "90289a19eadcaa4f1021dd65af0803360fb18b43aa4310e608e8a1ca307c4851",
+      "bytes": 114123,
+      "outputSha256": "b1e79459f29ed661131383aedaad87eec080390e4c7626aa0bdf7e9406d46777"
+    },
+    {
+      "family": "tournamentHighJump",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-high-jump-1200.webp",
+      "sourceGitObjectId": "fef8389101c8ae0be032d770e6f913911ba66188",
+      "sourceSha256": "90289a19eadcaa4f1021dd65af0803360fb18b43aa4310e608e8a1ca307c4851",
+      "bytes": 172488,
+      "outputSha256": "09c8674d47ddad1d98b5aad97e362b251ba8c072f6543015221f5b601ba3b84b"
+    },
+    {
+      "family": "tournamentMaze",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1120,
+      "height": 840,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-1120.avif",
+      "sourceGitObjectId": "b5440c053a68cc9c7ccd4f4f19b22d98f0bb63c5",
+      "sourceSha256": "7f5856fa59e71a35a6d97565055801b4b6dae18f7a4f53e810233e7ca1e4f737",
+      "bytes": 258575,
+      "outputSha256": "00eba764a475723248ff1ff6cc5ddc783900d2a71d46b0081b6eb2c9d57228c1"
+    },
+    {
+      "family": "tournamentMaze",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1120,
+      "height": 840,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-1120.webp",
+      "sourceGitObjectId": "b5440c053a68cc9c7ccd4f4f19b22d98f0bb63c5",
+      "sourceSha256": "7f5856fa59e71a35a6d97565055801b4b6dae18f7a4f53e810233e7ca1e4f737",
+      "bytes": 370906,
+      "outputSha256": "a8561bfd3828ceb844503d521f4fcb9d0ccb2c609977226064b1240cd4e375a3"
+    },
+    {
+      "family": "tournamentMazeMap",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-map-1200.avif",
+      "sourceGitObjectId": "63dea0a2b4365e0b9f3798e925ea54fa2a6e9605",
+      "sourceSha256": "6dcd2073c9f75726defe0e9830419d492d05dbcf24ab346fe21ddd4650a7d9f9",
+      "bytes": 161335,
+      "outputSha256": "10e3a8e7c57a7d6089dbffca4ece91455552c39e8fb51bd81ecd3e9367595ff1"
+    },
+    {
+      "family": "tournamentMazeMap",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-maze-map-1200.webp",
+      "sourceGitObjectId": "63dea0a2b4365e0b9f3798e925ea54fa2a6e9605",
+      "sourceSha256": "6dcd2073c9f75726defe0e9830419d492d05dbcf24ab346fe21ddd4650a7d9f9",
+      "bytes": 227736,
+      "outputSha256": "a36313b8fa882d14db60919768715fd7de0ee42777d4257d5724c0eed6542e49"
+    },
+    {
+      "family": "tournamentBitHazard",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bit-hazard-560.avif",
+      "sourceGitObjectId": "c463bd30fb5d7d6097c6e7e34e5c561e2c4cd8cd",
+      "sourceSha256": "956b1addeba6d4c8c8eb739e9d243b15dc7d4730b84ff1413cdc8e14f8ea07e2",
+      "bytes": 19467,
+      "outputSha256": "ed4e67f178e122bd8d8337f0eb676aed9725bf489b92568f83d49a898de84f03"
+    },
+    {
+      "family": "tournamentBitHazard",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bit-hazard-560.webp",
+      "sourceGitObjectId": "c463bd30fb5d7d6097c6e7e34e5c561e2c4cd8cd",
+      "sourceSha256": "956b1addeba6d4c8c8eb739e9d243b15dc7d4730b84ff1413cdc8e14f8ea07e2",
+      "bytes": 31342,
+      "outputSha256": "ebb65acdf502483544bfd75ecdbe4dc050d592fd17687cf7cc7cf2db7e7bdcbe"
+    },
+    {
+      "family": "tournamentBotWrongLine",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bot-wrong-line-560.avif",
+      "sourceGitObjectId": "3d7070f84b70e0434b1d7b14d494504ca5c33a9c",
+      "sourceSha256": "72d3f43f4aa8b12fcddd4bf64f6df5002baf1cb589fbc5a0ae7e6c6c59339235",
+      "bytes": 19175,
+      "outputSha256": "be20c28b03e6120da5e68f5a95b343c3f00b02d304e88552f6a12a01233a89a2"
+    },
+    {
+      "family": "tournamentBotWrongLine",
+      "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-bot-wrong-line-560.webp",
+      "sourceGitObjectId": "3d7070f84b70e0434b1d7b14d494504ca5c33a9c",
+      "sourceSha256": "72d3f43f4aa8b12fcddd4bf64f6df5002baf1cb589fbc5a0ae7e6c6c59339235",
+      "bytes": 30574,
+      "outputSha256": "db53d1aa9bd14e8dd70f81c0975741b81b8849cf90bdcbbca3dc905d9ae476de"
+    },
+    {
+      "family": "tournamentLongCourse",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-long-course-1200.avif",
+      "sourceGitObjectId": "253e50fa21852098d918a751bd48830736c22914",
+      "sourceSha256": "7b2c8341338435c1e89001df3339cbdcfb99c3774d931084724328e5303ad232",
+      "bytes": 76899,
+      "outputSha256": "c187f30dd12aadb9188bcb2469a5337b726dd9926c3fe6b55e3718374d7489ea"
+    },
+    {
+      "family": "tournamentLongCourse",
+      "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
+      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceStatus": "visual_development",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-tournament-long-course-1200.webp",
+      "sourceGitObjectId": "253e50fa21852098d918a751bd48830736c22914",
+      "sourceSha256": "7b2c8341338435c1e89001df3339cbdcfb99c3774d931084724328e5303ad232",
+      "bytes": 116700,
+      "outputSha256": "48f920db293108d739640aff7ccdf1a47bb914464655c6813fa2d06d1e9ddb8b"
+    },
+    {
       "family": "identity",
       "sourcePath": "build/environments/identity-emporium/reference_sheets/world_proof__v1.png",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
