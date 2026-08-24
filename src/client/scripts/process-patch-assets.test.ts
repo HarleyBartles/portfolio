@@ -5,6 +5,7 @@ import {
   PATCH_SOURCE_REVISION,
   assertApprovedSourceState,
   assertDerivativeReceipt,
+  assertPortfolioSourceIdentity,
   assertTrackedSourceIdentity,
   buildDerivativeManifest,
   parseArgs,
@@ -19,6 +20,21 @@ const fixtureManifest = {
   sorcerersApprentice: { width: 2400, height: 1350 },
   clubDb: { width: 1600, height: 900 },
   heist: { width: 1600, height: 900 },
+  heistFolderOpen: { width: 1600, height: 900 },
+  heistIndex: { width: 1254, height: 1672 },
+  heistSilk: { width: 1254, height: 1672 },
+  heistWrit: { width: 1254, height: 1672 },
+  heistKlause: { width: 1254, height: 1672 },
+  heistRollback: { width: 1254, height: 1672 },
+  heistReceipt: { width: 1254, height: 1672 },
+  heistIndexMarker: { width: 1254, height: 1254 },
+  heistSilkMarker: { width: 1254, height: 1254 },
+  heistWritMarker: { width: 1254, height: 1254 },
+  heistKlauseMarker: { width: 1254, height: 1254 },
+  heistRollbackMarker: { width: 1254, height: 1254 },
+  heistReceiptMarker: { width: 1254, height: 1254 },
+  heistRollbackLockdown: { width: 1672, height: 941 },
+  heistReceiptAlcove: { width: 1672, height: 941 },
   tournament: { width: 1600, height: 900 },
   tournamentSevenDay: { width: 1600, height: 1200 },
   tournamentHighJump: { width: 1600, height: 1200 },
@@ -55,13 +71,21 @@ describe('Patch asset processor', () => {
     expect(PATCH_DERIVATIVES.tournamentBotWrongLine.sourcePath).toContain('bot_wrong_line')
     expect(PATCH_DERIVATIVES.tournamentLongCourse.sourcePath).toContain('c4_r2_alt_false_line_risks')
     expect(PATCH_DERIVATIVES.identityCowboy.sourcePath).toContain('cowboy-role-kit')
+    expect(PATCH_DERIVATIVES.heistFolderOpen.sourcePath).toContain('01_clean_folder')
+    expect(PATCH_DERIVATIVES.heist.sourcePath).toContain('07_receipt_joined')
+    expect(PATCH_DERIVATIVES.heistIndex.sourcePath).toBe('build/characters/heist-crew/reference_sheets/index_hero__v1.png')
+    expect(PATCH_DERIVATIVES.heistReceipt.sourcePath).toBe('build/characters/heist-crew/reference_sheets/receipt_hero__v1.png')
+    expect(PATCH_DERIVATIVES.heistIndexMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-index.png')
+    expect(PATCH_DERIVATIVES.heistReceiptMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-receipt.png')
+    expect(PATCH_DERIVATIVES.heistRollbackLockdown.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/rollback-lockdown.png')
+    expect(PATCH_DERIVATIVES.heistReceiptAlcove.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/receipt-alcove.png')
+    expect(Object.keys(PATCH_DERIVATIVES).filter((key) => key.endsWith('Marker'))).toHaveLength(6)
     expect([
       PATCH_DERIVATIVES.identityCowboy,
       PATCH_DERIVATIVES.identityDetective,
       PATCH_DERIVATIVES.identityMechanic,
       PATCH_DERIVATIVES.identityChef,
     ].map(({ frame }) => frame)).toEqual(Array(4).fill({ width: 480, height: 600 }))
-    expect(PATCH_DERIVATIVES.heist.sourcePath).toBeUndefined()
   })
 
   it('builds outputs with the custody fields required by later evidence', () => {
@@ -71,7 +95,7 @@ describe('Patch asset processor', () => {
     for (const output of outputs) {
       expect(output.width).toBeGreaterThan(0)
       expect(output.height).toBeGreaterThan(0)
-      expect(output.sourcePath ?? output.sourceObjectId).toMatch(/^(?:.+\.(png|pptx)|[a-f0-9]{40})$/)
+      expect(output.sourcePath ?? output.portfolioSourcePath ?? output.sourceObjectId).toMatch(/^(?:.+\.(png|pptx)|[a-f0-9]{40})$/)
       expect(output.sourceRevision).toBe(PATCH_SOURCE_REVISION)
       expect(output.encoding).toEqual(expect.objectContaining({ quality: expect.any(Number) }))
       expect(output.byteBudgetClass).toMatch(/^(hero|page|support)$/)
@@ -97,8 +121,30 @@ describe('Patch asset processor', () => {
     expect(() => assertTrackedSourceIdentity({ ...accepted, sha256: 'different' }, PATCH_HEIST_SOURCE_IDENTITY)).toThrow('SHA-256')
   })
 
+  it('accepts only receipt-backed portfolio generated masters inside the client root', () => {
+    const expected = {
+      outputPath: 'src/client/assets/patch/lawful-heist/assent-index.png',
+      outputSha256: 'approved-sha',
+      width: 1254,
+      height: 1254,
+      status: 'accepted',
+    }
+    const accepted = {
+      candidateWithinRoot: true,
+      receiptEntry: expected,
+      sha256: 'approved-sha',
+      width: 1254,
+      height: 1254,
+    }
+
+    expect(() => assertPortfolioSourceIdentity(accepted, expected.outputPath)).not.toThrow()
+    expect(() => assertPortfolioSourceIdentity({ ...accepted, candidateWithinRoot: false }, expected.outputPath)).toThrow('inside the portfolio client root')
+    expect(() => assertPortfolioSourceIdentity({ ...accepted, receiptEntry: undefined }, expected.outputPath)).toThrow('generation receipt')
+    expect(() => assertPortfolioSourceIdentity({ ...accepted, sha256: 'different' }, expected.outputPath)).toThrow('SHA-256')
+  })
+
   it('rejects arbitrary Club DB slide directories because apply renders the verified PPTX itself', () => {
-    expect(() => parseArgs(['--apply', '--club-db-dir', 'C:\\untrusted-slides', '--heist-source', 'C:\\source\\receipt.png'])).toThrow('renders directly from the verified PPTX')
+    expect(() => parseArgs(['--apply', '--club-db-dir', 'C:\\untrusted-slides'])).toThrow('renders directly from the verified PPTX')
   })
 
   it('accepts a current receipt and rejects missing, extra, and stale entries without writing files', () => {

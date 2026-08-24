@@ -57,7 +57,7 @@ Present the specialists in functional order:
 5. Rollback adds recovery and contingency.
 6. Receipt records what happened and preserves the audit trail.
 
-Each profile contains:
+Each recruitment scene contains:
 
 - the character's name and responsibility;
 - one canonical approved portrait;
@@ -66,7 +66,11 @@ Each profile contains:
 - an individual assent marker that records their version of joining the crew;
 - enough connective copy to show how their contribution changes the folder passed to the next recruit.
 
-The sections must read as a sequence, not six interchangeable biography cards. Composition may alternate or change emphasis, but a repeated visual trick must not compete with the accumulating folder story.
+The source repository contains written frame bibles for the six specialist zones but no finished recruitment-location images. Use those bibles to ground the brief prose action and panel language, not as permission to imply that missing scenes were rendered. The canonical portrait may carry the scene visually where its background contains useful domain cues. Colour fields, geometry and small editorial labels may evoke archive, test corridor, chambers, decision office, observation deck and audit alcove without pretending to be location evidence.
+
+The page may tell small actions that are explicit in the source frame bibles. Rollback's scene can show Plan A failing behind glass in prose while he closes the steel shutter without breaking attention. Do not invent comparable spectacle merely to give every scene the same amount of action.
+
+The sections must read as a recruitment journey, not six interchangeable biography cards. Composition may alternate or change emphasis, but a repeated visual trick must not compete with the accumulating folder story.
 
 ### 3. The completed folder
 
@@ -177,6 +181,14 @@ Each generation call uses the relevant joined folder image as its explicit visua
 Exact lettering is an acceptance gate. Mangled, invented or near-correct text does not ship. Visible assent wording also remains HTML, so the image never carries the only accessible statement. If a generated candidate fails identity, lettering or physical credibility, reject it and regenerate from the same approved source. Do not invent a seventh object or replace a character-specific marker with a generic `I'm in` badge.
 
 The original clean and completed folders remain the opening and closing evidence. The new marker images are supporting details, not replacements for the cumulative payoff.
+
+### Rollback lockdown scene
+
+The five Index, Silk, Writ, Klause and Receipt hero sources already contain enough domain and recruitment action to work as scene images. Rollback's hero establishes identity and scale but only hints at his observation deck. Use one portfolio-generated wide scene, derived from his approved hero and style sheet, to show the sourced frame-bible beat: a chamber fails behind thick glass, Rollback presses the lockdown control and the steel shutter descends while Patch continues his pitch off-screen.
+
+The selected scene must preserve Rollback at the upper limit of believable agent scale, keep the failure contained, avoid military or explosion spectacle, contain no baked dialogue or required labels, and leave useful geometry for an HTML editorial inset. It complements rather than replaces the canonical portrait.
+
+Receipt also has one accepted portfolio-generated scene, derived from his approved hero and style sheet. It shows the ordinary corridor, his easy-to-miss warm audit alcove, the roll already printed and a mild no-pitch-needed gesture. Use it inside the page canvas, asymmetrically and with deliberate breathing room. It replaces the canonical Receipt portrait in the reading flow. Do not give it Rollback's full-bleed dominance; the quieter placement should express Receipt's tendency to go unnoticed until proof is needed.
 
 ### Editorial composition
 

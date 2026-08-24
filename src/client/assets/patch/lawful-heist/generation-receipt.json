@@ -36,8 +36,9 @@
       "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/05_writ_joined.png",
       "sourceSha256": "f131ed45b35fec45c365607f578a72fe050ae86985a242553184efce819d4bd0",
       "prompt": "Use case: background-extraction. Create an editorial dossier inset from the attached Writ continuity board. Isolate Writ's completed official assent form as one convincing physical prop on a genuinely transparent background, preserving the white top sheet curling upward to reveal pink and yellow carbon copies. Use a square canvas, slight overhead view, full edges and punched holes, economical clearance, institutional paper, typed form furniture, handwriting, perforations, curl and coloured copies. Preserve the verbatim text \"OFFICIAL ASSENT\", \"AGENT: Writ\", \"DATE: Today\", \"NOTES: you son of a gun\", pink copy \"I’M IN\" and \"SIGNATURE: Writ\", and yellow copy \"SIGNATURE: Writ\". Include no character, folder, dog tags, blueprint, recruitment list, table, external heading, annotation, surrounding scene, trademark, watermark or new symbol.",
+      "postProcess": "node src/client/scripts/remove-leading-alpha-specks.mjs <selected-generation.png> src/client/assets/patch/lawful-heist/assent-writ.png",
       "outputPath": "src/client/assets/patch/lawful-heist/assent-writ.png",
-      "outputSha256": "8542b05cece1cfaf7012c13ec27e6c6406a05a5f136f10731071ee3d7b8c2934",
+      "outputSha256": "7f2fda7a4c094cad828bd9eb473220e2ab5ebe5ac50b1fdd455d6d2f8c5cfd1a",
       "width": 1254,
       "height": 1254,
       "status": "accepted",
@@ -73,12 +74,49 @@
       "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png",
       "sourceSha256": "b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab",
       "prompt": "Use case: background-extraction. Create an editorial dossier inset from the attached Receipt continuity board. Isolate Receipt's printed audit roll as one convincing physical prop on a genuinely transparent background, including the metal staple and curled top and bottom edges. Use a square canvas, straight-on overhead view, complete narrow roll, economical clearance, warm receipt paper, typewriter-black ink, dashed separators and paper grain. Preserve in order the verbatim lines \"Index – IN\", \"Silk – IN\", \"Rollback – IN\", \"Writ – IN\", \"Klause – IN\", then \"Receipt –\", \"you son of a gun.\" and \"I’m in\". Include no character, folder, blueprint, recruitment list, dog tags, form, table, border, caption, heading, annotation, surrounding scene, trademark, signature, watermark or new symbol.",
+      "postProcess": "node src/client/scripts/remove-leading-alpha-specks.mjs <selected-generation.png> src/client/assets/patch/lawful-heist/assent-receipt.png",
       "outputPath": "src/client/assets/patch/lawful-heist/assent-receipt.png",
-      "outputSha256": "0aa3867271bc521bb7c58f29a67b1794a4517f6e620f9434e9545d3966ab9054",
+      "outputSha256": "a7d19c3158321e5ff4c69cf94d82b14745018901fda32a5d6124994c82613e5b",
       "width": 1254,
       "height": 1254,
       "status": "accepted",
       "inspectionNotes": "Exact status order and assent text, credible receipt roll, complete curled silhouette and genuine alpha."
+    },
+    {
+      "id": "rollback-lockdown",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/rollback_hero__v1.png",
+      "sourceSha256": "e589526afc89f38ced0d49bd46b4ebcbbb23b310a11cd79654042d1a544286f1",
+      "additionalSourcePaths": [
+        {
+          "path": "build/characters/heist-crew/reference_sheets/rollback_style_sheet__v1.png",
+          "sha256": "2ca6efabb0bbcb5b61fd8281212db84f09aaf3f83c82cdb37d8393ff45b518f4"
+        }
+      ],
+      "prompt": "Use case: production. Create a signature wide comic-book recruitment panel from the attached approved Rollback hero and style sheet. Patch speaks outside the frame while a containment experiment fails safely behind thick glass on the left. Rollback remains calm, presses his amber lockdown control and lowers a heavy steel shutter over the chamber. Preserve Rollback exactly as the largest believable agent in the room: huge broad olive workwear body, warm brown mask-like face, cropped black beard, narrow calm eyes, hood, chest display, heavy gloves and approved recovery equipment. Use an operational recovery-bunker observation deck with reinforced glass, shutter seams, control rail, hazard margin, amber light, olive, charcoal and steel. Compose for a 16:9 crop, with Rollback dominating the right half and a calmer upper-left area for a separate HTML inset. Use vibrant painterly Adventures of Patch heist-comic language, clear cause and effect, and no baked words, labels, Patch, speech bubble, explosion spectacle, panic, weapons, military framing, trademark, signature or watermark.",
+      "outputPath": "src/client/assets/patch/lawful-heist/rollback-lockdown.png",
+      "outputSha256": "1bc1b655400fe4ef48e6763bf7afe5b175ac78a3290296c78e95889b73e14c4a",
+      "width": 1672,
+      "height": 941,
+      "status": "accepted",
+      "inspectionNotes": "Approved Rollback identity and upper-limit agent scale, unmistakable control action, visibly descending shutter, contained chamber failure, useful full-bleed geometry and no baked text."
+    },
+    {
+      "id": "receipt-alcove",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/receipt_hero__v1.png",
+      "sourceSha256": "4524441782e7699c1f0c90572b268a5e9b6078a6d2e61f7dbc76f1be07ec188f",
+      "additionalSourcePaths": [
+        {
+          "path": "build/characters/heist-crew/reference_sheets/receipt_style_sheet__v1.png",
+          "sha256": "2e4610ce72eb06c0fa9c586f34690f9d49fc76eb09c043b7d0f6c6e79bbb53ad"
+        }
+      ],
+      "prompt": "Use case: production. Create Receipt's signature wide anti-recruitment panel from the attached approved hero and style sheet. Patch has arrived outside the frame ready to pitch. Receipt leans from a compact audit alcove with the audit roll already printed, offering it with one hand and making a mild no-pitch-needed gesture with the other. Preserve Receipt exactly as a small 3.5-head agent with pale casing, bronze side hardware, stubby antenna, pale teal faceplate, tired mild eyes, cream shirt, dark tie, maroon knitted vest, cuffed brown trousers and brown shoes. Place the warm, immaculate cubby off an ordinary corridor with a desk lamp, receipt printer, aligned trays, abstract clock, pencil cup and archive boxes. Compose for 16:9, corridor left and alcove right, with calm upper-left geometry for HTML. Use clean Adventures of Patch heist-comic styling, no baked words, Patch, dialogue, paperwork storm, surprise, slapstick, criminal framing, trademark, signature or watermark.",
+      "outputPath": "src/client/assets/patch/lawful-heist/receipt-alcove.png",
+      "outputSha256": "bf4b47968f56d8584ee447ec00eee476fc2d660e5994d5eba19e8f424e155388",
+      "width": 1672,
+      "height": 941,
+      "status": "accepted",
+      "inspectionNotes": "Approved Receipt identity and scale, quiet no-pitch gesture, credible audit alcove, useful contained landscape composition and no baked text."
     }
   ]
 }

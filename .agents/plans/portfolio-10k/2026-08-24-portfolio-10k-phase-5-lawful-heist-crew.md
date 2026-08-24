@@ -88,6 +88,10 @@
 - Modify: `src/client/public/media/patch/patch-derivatives.json`
 - Create: `src/client/public/media/patch/patch-heist-folder-open-1200.avif`
 - Create: `src/client/public/media/patch/patch-heist-folder-open-1200.webp`
+- Create: `src/client/public/media/patch/patch-heist-rollback-lockdown-1200.avif`
+- Create: `src/client/public/media/patch/patch-heist-rollback-lockdown-1200.webp`
+- Create: `src/client/public/media/patch/patch-heist-receipt-alcove-1200.avif`
+- Create: `src/client/public/media/patch/patch-heist-receipt-alcove-1200.webp`
 - Retain and re-pin: `src/client/public/media/patch/patch-heist-1200.avif`
 - Retain and re-pin: `src/client/public/media/patch/patch-heist-1200.webp`
 - Create: twelve portrait derivatives named `patch-heist-{index|silk|writ|klause|rollback|receipt}-560.{avif|webp}`
@@ -97,10 +101,10 @@
 - Regenerate: `src/client/public/media/patch/INDEX.md`
 
 **Interfaces:**
-- Consumes: Task 1's six master PNG paths and checksums; clean Patch root and pinned source revision; existing `PATCH_DERIVATIVES`, `loadSourceInputs`, `buildDerivativeManifest`, `renderDerivative` and receipt contracts.
-- Produces: verified derivative definitions for one opening folder, one retained completed folder, six portraits and six marker masters; evidence records consumed by `PatchShowcasePicture` in Task 3.
+- Consumes: Task 1's six marker masters and accepted Rollback lockdown and Receipt alcove scenes with checksums; clean Patch root and pinned source revision; existing `PATCH_DERIVATIVES`, `loadSourceInputs`, `buildDerivativeManifest`, `renderDerivative` and receipt contracts.
+- Produces: verified derivative definitions for one opening folder, one retained completed folder, six portraits, six marker masters and two generated narrative scenes; evidence records consumed by `PatchShowcasePicture` in Task 3.
 
-- [ ] **Step 1: Write failing processor tests.** Extend `fixtureManifest` and the reviewed-definition test to require:
+- [x] **Step 1: Write failing processor tests.** Extend `fixtureManifest` and the reviewed-definition test to require:
 
   ```ts
   expect(PATCH_DERIVATIVES.heistFolderOpen.sourcePath).toContain('01_clean_folder')
@@ -108,12 +112,14 @@
   expect(PATCH_DERIVATIVES.heistReceipt.sourcePath).toBe('build/characters/heist-crew/reference_sheets/receipt_hero__v1.png')
   expect(PATCH_DERIVATIVES.heistIndexMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-index.png')
   expect(PATCH_DERIVATIVES.heistReceiptMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-receipt.png')
+  expect(PATCH_DERIVATIVES.heistRollbackLockdown.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/rollback-lockdown.png')
+  expect(PATCH_DERIVATIVES.heistReceiptAlcove.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/receipt-alcove.png')
   expect(Object.keys(PATCH_DERIVATIVES).filter((key) => key.endsWith('Marker'))).toHaveLength(6)
   ```
 
   Add a pure `assertPortfolioSourceIdentity` test that accepts a path inside `clientRoot` with the receipt SHA-256 and rejects an external path, absent receipt entry and checksum drift.
 
-- [ ] **Step 2: Run the focused tests and observe the expected failure.** Run:
+- [x] **Step 2: Run the focused tests and observe the expected failure.** Run:
 
   ```powershell
   npm --prefix src/client test -- --run scripts/process-patch-assets.test.ts
@@ -121,13 +127,13 @@
 
   Expected: FAIL because the new definitions and local-source verifier do not exist.
 
-- [ ] **Step 3: Add the exact derivative definitions.** Pin `PATCH_SOURCE_REVISION` to the verified Patch main commit. Add the opening folder at width `1200`, six canonical portraits at width `560`, and six local marker masters at width `420`, all in AVIF and WebP using the existing support encoding. Keep the existing `heist` completed-folder family and its output names for compatibility, but replace its anonymous `--heist-source` identity seam with the tracked `07_receipt_joined.png` path at the newly pinned revision.
+- [x] **Step 3: Add the exact derivative definitions.** Pin `PATCH_SOURCE_REVISION` to the verified Patch main commit. Add the opening folder at width `1200`, six canonical portraits at width `560`, six local marker masters at width `420`, and the portfolio-generated Rollback lockdown and Receipt alcove scenes at width `1200`, all in AVIF and WebP using the existing support encoding. Keep the existing `heist` completed-folder family and its output names for compatibility, but replace its anonymous `--heist-source` identity seam with the tracked `07_receipt_joined.png` path at the newly pinned revision.
 
-- [ ] **Step 4: Verify local generated masters without confusing their custody.** Add `portfolioSourcePath` handling that resolves only beneath `clientRoot`, reads Task 1's generation receipt, checks the named master SHA-256 and intrinsic dimensions, and emits `sourceCustody: "portfolio-generated"` plus `generationReceiptPath` in derivative receipts. Upstream definitions must still use `verifyTrackedSource`. Remove the now-unnecessary `--heist-source` argument and update `parseArgs` tests and error text accordingly.
+- [x] **Step 4: Verify local generated masters without confusing their custody.** Add `portfolioSourcePath` handling that resolves only beneath `clientRoot`, reads Task 1's generation receipt, checks the named master SHA-256 and intrinsic dimensions, and emits `sourceCustody: "portfolio-generated"` plus `generationReceiptPath` in derivative receipts. Upstream definitions must still use `verifyTrackedSource`. Remove the now-unnecessary `--heist-source` argument and update `parseArgs` tests and error text accordingly.
 
-- [ ] **Step 5: Keep repository quality truth aligned.** Update the approved Patch revision in `tools/portfolio_quality.py` and its tests. Allow Heist marker evidence to use `sourceType: "generated-pose"`, `sourceStatus: "accepted"`, the pinned continuity `sourceRevision`, and custody text naming the portfolio generation receipt. Do not weaken validation for other Patch media.
+- [x] **Step 5: Keep repository quality truth aligned.** Update the approved Patch revision in `tools/portfolio_quality.py` and its tests. Allow Heist marker evidence to use `sourceType: "generated-pose"`, `sourceStatus: "accepted"`, the pinned continuity `sourceRevision`, and custody text naming the portfolio generation receipt. Do not weaken validation for other Patch media.
 
-- [ ] **Step 6: Make focused tests pass.** Run:
+- [x] **Step 6: Make focused tests pass.** Run:
 
   ```powershell
   npm --prefix src/client test -- --run scripts/process-patch-assets.test.ts
@@ -136,7 +142,7 @@
 
   Expected: all focused processor and quality tests pass.
 
-- [ ] **Step 7: Apply the canonical processor and inspect outputs.** Run:
+- [x] **Step 7: Apply the canonical processor and inspect outputs.** Run:
 
   ```powershell
   $env:ADVENTURES_PATCH_SOURCE_ROOT = 'Z:\adventures-of-patch'
@@ -147,15 +153,15 @@
 
   Inspect every new AVIF at native size with `view_image`. Confirm folder lettering remains legible, portraits preserve the accepted character identity, marker silhouettes survive at intended size, and no output is upscaled or clipped.
 
-- [ ] **Step 8: Update evidence and custody from measured receipt values.** Add all 28 new or retained Heist derivatives to `patch-evidence.json` with measured width, height and bytes. Use `repository-evidence` for folders and portraits and `generated-pose` for markers. Rewrite the Lawful Heist custody section with exact source paths, Patch revision, Git object IDs, SHA-256 values, generation receipt, transformation, output checksums, sizes, alt intent and the explicit limited derivative permission.
+- [x] **Step 8: Update evidence and custody from measured receipt values.** Add all 32 new or retained Heist derivatives to `patch-evidence.json` with measured width, height and bytes. Use `repository-evidence` for folders and portraits and `generated-pose` for markers and the two narrative scenes. Rewrite the Lawful Heist custody section with exact source paths, Patch revision, Git object IDs, SHA-256 values, generation receipt, transformation, output checksums, sizes, alt intent and the explicit limited derivative permission.
 
-- [ ] **Step 9: Regenerate, stage and commit the pipeline slice.** Run `py -3 tools/run.py ci --apply`, stage all processor, evidence, custody, generated media and index outputs, then run the focused tests and `git diff --cached --check` again. Commit:
+- [x] **Step 9: Regenerate, stage and commit the pipeline slice.** Run `py -3 tools/run.py ci --apply`, stage all processor, evidence, custody, generated media and index outputs, then run the focused tests and `git diff --cached --check` again. Commit:
 
   ```powershell
   git commit -m "feat: process Lawful Heist crew evidence"
   ```
 
-- [ ] **Step 10: Mark Task 2 complete.** Set Task 2's checklist boxes to `[x]`, stage the plan file and include that state in the next task commit.
+- [x] **Step 10: Mark Task 2 complete.** Set Task 2's checklist boxes to `[x]`, stage the plan file and include that state in the next task commit.
 
 ### Task 3: Register the route and build the sequential crew story
 
@@ -220,7 +226,7 @@
 
   Add the lazy presentation import and make `PatchIndexPage` resolve the existing world titled `Lawful Heist` to this item without changing the evidence title stored in `patch-evidence.json`.
 
-- [ ] **Step 5: Build `LawfulHeistPage` in semantic order.** Use a local immutable crew data structure for the six names, responsibilities, portraits, marker paths, quotes and connective copy. Render the opening folder before the profiles and the completed folder afterward. Keep the working lines from the spec only where they sound natural in the continuous page; edit surrounding prose for cadence rather than forcing every supplied line into equal-length panels.
+- [ ] **Step 5: Build `LawfulHeistPage` in semantic order.** Use a local immutable crew data structure for the six names, responsibilities, portraits, marker paths, quotes and connective copy. Treat each section as a brief recruitment scene, grounded in the specialist-zone and character frame bibles, rather than a static profile. The canonical portraits and markers remain the visual backbone; prose carries missing pitch action, and colour-block geometry or small editorial labels may evoke a domain without claiming rendered location evidence. Use the accepted Rollback lockdown scene as the sole full-bleed narrative panel before or within his oversized recruitment section, with HTML carrying the Plan A and shutter context. Use the Receipt alcove scene instead of his portrait in the reading flow, contained asymmetrically inside the page canvas so its quiet scale reflects his role. Render the opening folder before the recruitments and the completed folder afterward. Keep the working lines from the spec only where they sound natural in the continuous page; edit surrounding prose for cadence rather than forcing every supplied line into equal-length panels.
 
 - [ ] **Step 6: Compose a comic-book dossier sequence, not a profile grid.** In `LawfulHeistPage.scss`, use the existing spacing tokens, warm paper and typography as the portfolio frame. Reflect the planned adventure's comic-book energy with asymmetric panel spans, decisive colour fields, full-bleed imagery where the source background supports it, and short white editorial insets placed at an image edge. An occasional oval text block may suggest speech through shape and placement, without a tail or literal speech-bubble styling. Give each profile one underlying grid with portrait, prose and small marker inset, then vary the geometry only when it improves character, handoff or reading order. Give Rollback a larger image span and enough vertical room for his canonical upper-limit agent scale to dominate without clipping or breaking proportionality; keep his dog-tag marker quiet. At narrow widths collapse to the DOM order with no CSS `order`. Keep prose near `48rem`, align wider evidence to the existing page canvas and avoid arbitrary unused columns. No new global CSS is needed.
 

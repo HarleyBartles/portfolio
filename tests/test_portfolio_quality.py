@@ -169,7 +169,7 @@ class PortfolioFixture:
         evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
     def write_patch_evidence(self) -> None:
-        revision = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
+        revision = "13bf77adc63cf5c8f49363cedd5dd392822b8375"
         asset_path = "src/client/public/media/patch/patch-example.webp"
         asset = self.root / asset_path
         asset.parent.mkdir(parents=True, exist_ok=True)
