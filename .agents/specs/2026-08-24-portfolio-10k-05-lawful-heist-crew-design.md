@@ -180,9 +180,13 @@ The original clean and completed folders remain the opening and closing evidence
 
 ### Editorial composition
 
-Use the existing warm paper, ink, copper and controlled Patch-teal vocabulary. The Heist page may introduce restrained dossier cues through ruled lines, clipped paper edges, stamped utility type and physical marker insets. It must remain part of the portfolio's editorial grammar rather than becoming a skeuomorphic detective board or a themed game interface.
+Use the existing warm paper, ink, copper and controlled Patch-teal vocabulary. The planned adventure's visual language was effectively a comic book, and this route should retain that energy through composition rather than costume. Use asymmetric panels, decisive colour fields, full-bleed imagery where the source background can carry it, and short white editorial insets placed at the upper edge of imagery. An occasional oval text block may borrow the pressure and placement of speech without a tail or literal speech-bubble treatment. These devices must make a character, handoff or reading beat clearer.
 
-At wide widths, portrait, prose and marker should form one intentional composition per recruit. Varying the image side can help the sequential rhythm, but align every section to the same underlying grid and spacing scale. Whitespace must explain grouping and emphasis. It must not appear as unused canvas caused by arbitrary max-widths.
+The Heist page may also use restrained dossier cues through ruled lines, clipped paper edges, stamped utility type and physical marker insets. It must remain part of the portfolio's editorial grammar rather than becoming a skeuomorphic detective board, a themed game interface or six interchangeable profile cards.
+
+At wide widths, portrait, prose and marker should form one intentional composition per recruit. Use one underlying page grid and spacing scale, then vary panel spans, image bleed, colour-block geometry and inset placement when the content earns the change. Uniformity is not the goal, but every variation needs a cognitive explanation. Whitespace must explain grouping and emphasis. It must not appear as unused canvas caused by arbitrary max-widths.
+
+Character scale is part of the story. Rollback sits at the extreme upper limit of canonical agent scale. His profile must give the portrait enough width and height to contain him comfortably while letting his mass dominate the composition. Do not create the effect by clipping him or scaling him out of relation to the other portraits. Let his panel concede space, and keep the dog-tag marker subordinate.
 
 At narrow widths, use one semantic reading column: name and role, portrait, prose, spoken line, assent marker, then the handoff to the next recruit. Do not use CSS `order` to repair a desktop-first DOM. No horizontal scroller, carousel, modal gallery or hover-only detail is allowed.
 

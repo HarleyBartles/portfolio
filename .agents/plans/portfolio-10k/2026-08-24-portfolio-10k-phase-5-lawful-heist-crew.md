@@ -44,7 +44,7 @@
 - Consumes: Adventures of Patch `main` at `13bf77adc63cf5c8f49363cedd5dd392822b8375`; canonical portraits under `build/characters/heist-crew/reference_sheets/`; joined folder references under `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/`; the explicit derivative permission in the approved spec.
 - Produces: six reviewed source PNGs and a machine-readable `generation-receipt.json` containing `sourceRevision`, `permission`, `tool`, `generatedAt`, and six records with `id`, `sourcePath`, `sourceSha256`, `prompt`, `outputPath`, `outputSha256`, `width`, `height`, `status`, and `inspectionNotes`.
 
-- [ ] **Step 1: Verify source state and exact promoted paths.** Run:
+- [x] **Step 1: Verify source state and exact promoted paths.** Run:
 
   ```powershell
   git -C Z:\adventures-of-patch fetch origin
@@ -56,9 +56,9 @@
 
   Expected: clean `main`, exact head `13bf77adc63cf5c8f49363cedd5dd392822b8375` unless a later merged source-only change is explicitly inspected and pinned, all six `*_hero__v1.png` portraits, and `01_clean...png` through `07_receipt_joined.png` present.
 
-- [ ] **Step 2: Inspect every generation reference at original resolution.** Use `view_image` on `02_index_joined.png`, `03_silk_joined.png`, `05_writ_joined.png`, `06_klause_joined.png`, `04_rollback_joined.png` and `07_receipt_joined.png`. Preserve this functional order even though the source folder sequence places Rollback before Writ and Klause.
+- [x] **Step 2: Inspect every generation reference at original resolution.** Use `view_image` on `02_index_joined.png`, `03_silk_joined.png`, `05_writ_joined.png`, `06_klause_joined.png`, `04_rollback_joined.png` and `07_receipt_joined.png`. Preserve this functional order even though the source folder sequence places Rollback before Writ and Klause.
 
-- [ ] **Step 3: Generate one marker at a time with the source image attached.** Use the image-generation tool once per marker with the shared instruction below, replacing the final object sentence exactly:
+- [x] **Step 3: Generate one marker at a time with the source image attached.** Use the image-generation tool once per marker with the shared instruction below, replacing the final object sentence exactly:
 
   ```text
   Create a production-ready editorial asset derived from the attached Adventures of Patch continuity image. Isolate the named assent object as one convincing physical prop on a transparent or clean neutral background, with no character, folder, table, border, caption or surrounding scene. Preserve the source object's established materials, colours, proportions, wear, lighting and identifying details. Keep any source lettering exactly legible; do not invent, rewrite or approximate text. Use a square composition with comfortable but economical clearance around the object, coherent three-quarter product lighting and a natural contact shadow. This will appear as a small dossier inset beside the canonical character portrait, so favour a clear silhouette and believable physical scale over decorative flourish. Do not add trademarks, signatures, logos or new symbols.
@@ -66,9 +66,9 @@
   Object: [Index's folded blueprint and handwritten note | Silk's steel ring and red tension cord | Writ's triplicate assent form | Klause's decisive stamp or stamped mark | Rollback's dog tags | Receipt's printed audit roll].
   ```
 
-- [ ] **Step 4: Inspect and accept deliberately.** View each output at original resolution. Reject any candidate with mangled lettering, wrong object identity, inconsistent materials, false transparency, clipped edges, generic icon treatment or invented marks. Regenerate from the same approved source until all six pass. Do not use a weak candidate merely to complete the set.
+- [x] **Step 4: Inspect and accept deliberately.** View each output at original resolution. Reject any candidate with mangled lettering, wrong object identity, inconsistent materials, false transparency, clipped edges, generic icon treatment or invented marks. Regenerate from the same approved source until all six pass. Do not use a weak candidate merely to complete the set.
 
-- [ ] **Step 5: Commit selected masters and provenance.** Place only the six accepted masters in `src/client/assets/patch/lawful-heist/`. Write `generation-receipt.json` with full prompts, SHA-256 values and concise inspection notes. Add the approved permission text and selected master paths to `docs/asset-custody.md`. Stage the complete custody slice, run `git diff --cached --check`, then commit:
+- [x] **Step 5: Commit selected masters and provenance.** Place only the six accepted masters in `src/client/assets/patch/lawful-heist/`. Write `generation-receipt.json` with full prompts, SHA-256 values and concise inspection notes. Add the approved permission text and selected master paths to `docs/asset-custody.md`. Stage the complete custody slice, run `git diff --cached --check`, then commit:
 
   ```powershell
   git add src/client/assets/patch/lawful-heist docs/asset-custody.md
@@ -76,7 +76,7 @@
   git commit -m "assets: create Lawful Heist assent markers"
   ```
 
-- [ ] **Step 6: Mark Task 1 complete.** Set Task 1's checklist boxes to `[x]`, stage the plan file and include that state in the next task commit.
+- [x] **Step 6: Mark Task 1 complete.** Set Task 1's checklist boxes to `[x]`, stage the plan file and include that state in the next task commit.
 
 ### Task 2: Extend the verified derivative pipeline
 
@@ -222,7 +222,7 @@
 
 - [ ] **Step 5: Build `LawfulHeistPage` in semantic order.** Use a local immutable crew data structure for the six names, responsibilities, portraits, marker paths, quotes and connective copy. Render the opening folder before the profiles and the completed folder afterward. Keep the working lines from the spec only where they sound natural in the continuous page; edit surrounding prose for cadence rather than forcing every supplied line into equal-length panels.
 
-- [ ] **Step 6: Compose a dossier sequence, not a profile grid.** In `LawfulHeistPage.scss`, use the existing spacing tokens, warm paper and typography. Give each profile one shared grid with portrait, prose and small marker inset; alternate emphasis only where it improves the handoff rhythm. At narrow widths collapse to the DOM order with no CSS `order`. Keep prose near `48rem`, align wider evidence to the existing page canvas and avoid arbitrary unused columns. No new global CSS is needed.
+- [ ] **Step 6: Compose a comic-book dossier sequence, not a profile grid.** In `LawfulHeistPage.scss`, use the existing spacing tokens, warm paper and typography as the portfolio frame. Reflect the planned adventure's comic-book energy with asymmetric panel spans, decisive colour fields, full-bleed imagery where the source background supports it, and short white editorial insets placed at an image edge. An occasional oval text block may suggest speech through shape and placement, without a tail or literal speech-bubble styling. Give each profile one underlying grid with portrait, prose and small marker inset, then vary the geometry only when it improves character, handoff or reading order. Give Rollback a larger image span and enough vertical room for his canonical upper-limit agent scale to dominate without clipping or breaking proportionality; keep his dog-tag marker quiet. At narrow widths collapse to the DOM order with no CSS `order`. Keep prose near `48rem`, align wider evidence to the existing page canvas and avoid arbitrary unused columns. No new global CSS is needed.
 
 - [ ] **Step 7: Complete accessibility and static-route coverage.** Add the Heist route to the desktop/mobile axe matrix. Extend route-document tests with a Patch manifest fixture and assert `/patch/lawful-heist`, title, summary and canonical URL. Use semantic headings, visible links and reviewed alt text. Add `decoding="async"` to `PatchShowcasePicture` for below-fold evidence; expose an `eager` option only for the opening folder if measured first-paint review justifies it.
 
@@ -260,7 +260,7 @@
 
 - [ ] **Step 1: Start a production preview and inspect at the required widths.** Run `npm --prefix src/client run build` and `npm --prefix src/client run preview:test`. Use Playwright at 1440, 768, 390 and 320 CSS pixels. Inspect the full page, not only the hero. Confirm the reading order, portrait scale, marker hierarchy, folder payoff, deliberate whitespace and relationship to Identity and Tournament.
 
-- [ ] **Step 2: Review the £10k composition.** Reject any section that resembles an interchangeable card, leaves unexplained empty columns, lets a marker compete with its character, shrinks baked detail below legibility or repeats the same visual cadence six times. Adjust only the Heist stylesheet and shared evidence loading behaviour required by this page.
+- [ ] **Step 2: Review the £10k composition.** Reject any section that resembles an interchangeable card, leaves unexplained empty columns, lets a marker compete with its character, shrinks baked detail below legibility or repeats the same visual cadence six times. Check that comic-book energy comes from useful geometry, colour and editorial placement, not novelty decoration, literal speech bubbles or broken portfolio grammar. Adjust only the Heist stylesheet and shared evidence loading behaviour required by this page.
 
 - [ ] **Step 3: Review accessibility manually.** Use keyboard-only navigation, 200% browser zoom and reduced-motion emulation. Confirm no horizontal overflow at 320, headings remain ordered, links have visible focus, images do not contain unique text meaning and the page remains understandable with images disabled. Run the focused axe route at desktop and mobile.
 
