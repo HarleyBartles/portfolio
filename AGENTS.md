@@ -18,7 +18,7 @@ The site exists to present Harley as a software engineer through:
 
 ## Build and test commands
 
-Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated.
+Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated. Standard lifecycle targets are `refresh-skills` for marketplace-derived skills and `index-mesh` for index generation; `mesh` composes index generation with agent-mesh validation.
 
 ## Design quality
 

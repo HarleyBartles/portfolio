@@ -5,3 +5,4 @@ src/client/dist/
 src/client/.env.local
 test-results/
 playwright-report/
+.playwright-mcp/

@@ -16,8 +16,8 @@ Use this runbook when deciding what to verify for a change.
 
 ## Scoped validation
 
-- If a change only touches docs or navigation, run `py -3 tools/run.py mesh --check`.
-- If a change only touches marketplace or derived skills, run `py -3 tools/run.py skills --check`.
+- If a change only touches generated index navigation, run `py -3 tools/run.py index-mesh --check`; use `mesh --check` when agent links or doctrine routing may also have changed.
+- If a change only touches marketplace or derived skills, run `py -3 tools/run.py refresh-skills --check`.
 - If a change touches the `tools/` runner, verify it still runs on both `ci --apply` and `ci --check`.
 - The site is static GitHub Pages output. Do not add .NET or other backend checks unless a later approved architecture introduces a real runtime service.
 

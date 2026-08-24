@@ -1,0 +1,7 @@
+{
+  "exclude_dir_names": [
+    "content",
+    "public"
+  ],
+  "exclude_file_names": []
+}
