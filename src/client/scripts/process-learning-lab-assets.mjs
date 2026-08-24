@@ -108,9 +108,11 @@ async function check() {
     if (!Number.isInteger(entry.bytes) || entry.bytes <= 0 || entry.bytes > 450_000) throw new Error(`Learning Lab derivative byte budget failed for ${specification.path}.`)
     const filePath = path.join(repositoryRoot, entry.path)
     await access(filePath)
-    const [metadata, fileStats] = await Promise.all([sharp(filePath).metadata(), stat(filePath)])
+    if (typeof entry.outputSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(entry.outputSha256)) throw new Error(`Learning Lab derivative hash is missing for ${entry.path}.`)
+    const [metadata, fileStats, output] = await Promise.all([sharp(filePath).metadata(), stat(filePath), readFile(filePath)])
     const expectedFormat = entry.format === 'avif' ? 'heif' : entry.format
     if (metadata.format !== expectedFormat || metadata.width !== entry.width || metadata.height !== entry.height || fileStats.size !== entry.bytes) throw new Error(`Learning Lab derivative metadata drifted for ${entry.path}.`)
+    if (createHash('sha256').update(output).digest('hex') !== entry.outputSha256) throw new Error(`Learning Lab derivative identity drifted for ${entry.path}.`)
     if (metadata.exif || metadata.icc || metadata.xmp || metadata.hasProfile) throw new Error(`Learning Lab derivative retains metadata: ${entry.path}.`)
   }
 }
@@ -125,9 +127,9 @@ async function apply() {
       for (const format of formats) {
         const destination = derivativeFile(id, derivative, format.extension)
         await sharp(source).rotate().resize({ width: derivative.width, height: derivative.height, fit: derivative.fit, position: derivative.position, withoutEnlargement: true }).toFormat(format.extension, format.options).toFile(destination)
-        const fileStats = await stat(destination)
+        const [fileStats, output] = await Promise.all([stat(destination), readFile(destination)])
         const expected = expectedDerivativeSpecs().find((entry) => entry.path === publicPath(destination))
-        derivatives.push({ ...expected, bytes: fileStats.size })
+        derivatives.push({ ...expected, bytes: fileStats.size, outputSha256: createHash('sha256').update(output).digest('hex') })
       }
     }
   }

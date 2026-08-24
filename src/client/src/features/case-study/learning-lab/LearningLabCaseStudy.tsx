@@ -23,7 +23,7 @@ export function LearningLabCaseStudy() {
           <div>
             <p className="learning-lab-kicker">Origin artefact</p>
             <h2 id="learning-lab-origin-title">A scrappy promise became a curriculum</h2>
-            <p>At heart, the Learning Lab is a love letter to my brother: a promise to turn hard-earned agentic practice into something an intelligent, technically minded non-programmer could learn safely and use for his own purposes. That promise grew into a public curriculum other learners and facilitators can adapt.</p>
+            <p>The Learning Lab began as a love letter to my brother: a promise to turn hard-earned agentic practice into something an intelligent, technically minded non-programmer could learn safely and use for his own purposes. That promise grew into a public curriculum other learners and facilitators can adapt.</p>
           </div>
           <blockquote>“I&apos;m going to teach my brother a few things about using agentic AI. I don&apos;t really have a learning plan or anything.”</blockquote>
         </section>
@@ -65,7 +65,7 @@ export function LearningLabCaseStudy() {
             <div><dt>Curriculum</dt><dd>10 mature labs and 9 roadmap modules across three courses.</dd></div>
             <div><dt>Source snapshot</dt><dd><code>{learningLabEvidence.sourceRevision.slice(0, 7)}</code>, inspected 24 August 2026.</dd></div>
             <div><dt>Repository proof</dt><dd><ExternalLink href={learningLabEvidence.repositoryUrl} aria-label="View the public repository">View the public repository</ExternalLink><br /><ExternalLink href={learningLabEvidence.integrityRunUrl} aria-label="Inspect the integrity run">Inspect the integrity run</ExternalLink></dd></div>
-            <div><dt>Licence</dt><dd><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.curriculum.path)} aria-label="CC BY 4.0 curriculum licence">CC BY 4.0 curriculum licence</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.tooling.path)} aria-label="MIT tooling licence">MIT tooling licence</ExternalLink><p>With those scopes explicit, the curriculum and its standalone tools are freely licensed for reuse.</p></dd></div>
+            <div><dt>Licence</dt><dd><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.policyPath)} aria-label="Read the licence policy">Read the licence policy</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.curriculum.path)} aria-label="CC BY 4.0 curriculum licence">CC BY 4.0 curriculum licence</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.tooling.path)} aria-label="MIT tooling licence">MIT tooling licence</ExternalLink><p>With those scopes explicit, the curriculum and its standalone tools are freely licensed for reuse.</p></dd></div>
           </dl>
         </section>
       </div>

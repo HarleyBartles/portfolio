@@ -32,7 +32,7 @@ export function CurriculumAtlas() {
           </section>
         ))}
       </div>
-      <p className="learning-atlas__source"><ExternalLink href={pinnedLearningLabPath()} aria-label="Inspect the pinned curriculum snapshot">Inspect the pinned curriculum snapshot</ExternalLink></p>
+      <p className="learning-atlas__source"><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.proof.curriculumShape)} aria-label="Inspect the pinned curriculum shape">Inspect the pinned curriculum shape</ExternalLink></p>
     </section>
   )
 }

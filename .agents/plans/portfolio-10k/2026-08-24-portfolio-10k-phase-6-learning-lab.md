@@ -407,9 +407,9 @@
 - Consumes: complete reviewed Phase 6 implementation.
 - Produces: reconciled independent findings, exact staged-tree canonical proof, Sol final creative pass, draft PR, hosted checks after ready transition and a stable Harley review surface.
 
-- [ ] **Step 1: Dispatch three fresh-context Terra reviews.** Sol dispatches read-only reviews for: (a) spec, factual, privacy, licensing and source-evidence compliance; (b) React, data validation, tests, accessibility and performance; and (c) £10k editorial, visual and portfolio coherence. Reviewers inspect source and rendered evidence, report exact paths and proof, make no edits and may not delegate. Sol verifies and reconciles every finding before repair.
+- [x] **Step 1: Dispatch three fresh-context Terra reviews.** Sol dispatches read-only reviews for: (a) spec, factual, privacy, licensing and source-evidence compliance; (b) React, data validation, tests, accessibility and performance; and (c) £10k editorial, visual and portfolio coherence. Reviewers inspect source and rendered evidence, report exact paths and proof, make no edits and may not delegate. Sol verifies and reconciles every finding before repair.
 
-- [ ] **Step 2: Run focused automated proof after repairs.** Run:
+- [x] **Step 2: Run focused automated proof after repairs.** Run:
 
   ```powershell
   py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v
@@ -422,11 +422,11 @@
 
   Expected: every focused suite passes; Windows visual comparison passes unchanged; production build remains inside existing budgets.
 
-- [ ] **Step 3: Reverify volatile source and delivery truth.** Fetch Agentic Learning Lab `origin/main`. If it remains `315442b`, record that. If it moved, compare taxonomy, maturity, licences, representative labs and integrity status. Update snapshot/date/counts together for compatible evidence drift; return to Harley only for a design conflict. Verify the delivery fact from approved user context. A passed target month creates a stale-status finding, never an invented start date.
+- [x] **Step 3: Reverify volatile source and delivery truth.** Fetch Agentic Learning Lab `origin/main`. If it remains `315442b`, record that. If it moved, compare taxonomy, maturity, licences, representative labs and integrity status. Update snapshot/date/counts together for compatible evidence drift; return to Harley only for a design conflict. Verify the delivery fact from approved user context. A passed target month creates a stale-status finding, never an invented start date.
 
-- [ ] **Step 4: Run Sol's final prose and visual review.** Read the whole route without interruption, then inspect all required widths and modes. Confirm each section pays dues, paragraphs flow, contractions sound human, the route does not teach Harley's own familiar concepts back to him, the origin stays bounded, all labels remain legible and the ending lands on an honest invitation to inspect/reuse the work. Record criterion-by-criterion `pass` or a bounded veto and re-review.
+- [x] **Step 4: Run Sol's final prose and visual review.** Read the whole route without interruption, then inspect all required widths and modes. Confirm each section pays dues, paragraphs flow, contractions sound human, the route does not teach Harley's own familiar concepts back to him, the origin stays bounded, all labels remain legible and the ending lands on an honest invitation to inspect/reuse the work. Record criterion-by-criterion `pass` or a bounded veto and re-review.
 
-- [ ] **Step 5: Regenerate, stage and run the canonical gate.** Run:
+- [x] **Step 5: Regenerate, stage and run the canonical gate.** Run:
 
   ```powershell
   py -3 tools/run.py ci --apply
@@ -438,7 +438,7 @@
 
   The canonical check runs only after the complete intended tree is staged. Inspect every generated file before retaining it. Do not bypass the pre-commit hook.
 
-- [ ] **Step 6: Record completion evidence and commit.** Mark all completed boxes accurately. Record exact counts, source revision, evidence date, delivery fact, licence objects, viewport evidence, visual-baseline runs, Sol gates, independent findings/repairs, limitations and any Harley-owned decision. Set Phase 6 to `executing` until merge and post-deploy route proof. Commit:
+- [x] **Step 6: Record completion evidence and commit.** Mark all completed boxes accurately. Record exact counts, source revision, evidence date, delivery fact, licence objects, viewport evidence, visual-baseline runs, Sol gates, independent findings/repairs, limitations and any Harley-owned decision. Set Phase 6 to `executing` until merge and post-deploy route proof. Commit:
 
   ```powershell
   git commit -m "docs: record Learning Lab review evidence"
@@ -451,6 +451,16 @@
 - [ ] **Step 9: Give Harley the review surface.** Retain a stable production preview and provide the direct Learning Lab route plus PR URL. Stop at Harley's factual, tone, visual and merge decision. Phase 6 closes only after merge commit, post-deploy route proof, completed-plan archival and worktree cleanup are verified.
 
 - [ ] **Step 10: Mark Task 6 complete.** Set Task 6's checklist boxes to `[x]` only when the branch has the exact publication evidence required by Step 9.
+
+### Task 6 review evidence
+
+- Source truth: Agentic Learning Lab `origin/main` remained `315442bd2661bbc99a0834e57ff5f500b549326c` on 24 August 2026. Integrity run `32619166005` was successful. The root licence policy and the CC BY 4.0 and MIT texts still match the pinned evidence, including Git objects `b1cd3c7`, `a4fbbf2` and `2820c8b`.
+- Delivery boundary: the approved fact remains `First live delivery planned for late August 2026.` No learner outcome, delivery result or teaching credential is claimed.
+- Independent review: three fresh-context read-only reviews covered source evidence and privacy, implementation and performance, and editorial and visual quality. Repairs added the missing pinned licence-policy and curriculum-shape links, required started-delivery display text, added SHA-256 identity checks for all 12 derivatives, removed a generic reflective opening and prevented stages 01 and 02 of the hero loop from clipping at 768 CSS pixels.
+- Focused proof: 37 portfolio-quality tests, 26 focused Vitest tests, 46 browser story and axe tests, the production build and `git diff --check` passed after repair. The final Windows Learning Lab visual baseline passed unchanged twice after its intentional evidence-link update.
+- Sol gate: pass at 1440, 768, 390 and 320 CSS pixels; pass for keyboard-only external links, reduced motion, image-disabled semantics and the 200%-zoom reflow proxy. The prose was read as one argument and passed for economy, paragraph flow, contractions, factual restraint and AI-tell policy. The 768 review was initially vetoed for clipped loop stages and passed after the header breakpoint repair.
+- Performance and custody: entry JavaScript is 327,195 of 358,400 bytes, entry CSS is 40,602 of 40,960 bytes and the generated CV is 268,289 of 524,288 bytes. Three accepted masters produce 12 stripped AVIF/WebP derivatives with committed dimensions, byte counts and output SHA-256 values. Exact prompts, selection reasoning, rights and transformation steps remain in the committed custody record.
+- Limitation: browser-native 200% zoom was represented by the established 720 CSS pixel reflow proxy; no learner delivery evidence exists yet, so the case study remains explicitly incomplete.
 
 ---
 

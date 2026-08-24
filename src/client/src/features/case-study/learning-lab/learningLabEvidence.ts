@@ -28,6 +28,19 @@ export type LearningLabEvidence = Readonly<{
     curriculum: Readonly<{ spdx: 'CC-BY-4.0'; path: string; url: string }>
     tooling: Readonly<{ spdx: 'MIT'; path: string; url: string }>
   }>
+  proof: Readonly<{
+    curriculum: string
+    curriculumShape: string
+    lab3: string
+    lab3Instructions: string
+    lab4: string
+    lab5: string
+    lab7: string
+    licencePolicy: string
+    curriculumLicence: string
+    toolingLicence: string
+    integrity: string
+  }>
   courses: readonly LearningLabCourse[]
 }>
 

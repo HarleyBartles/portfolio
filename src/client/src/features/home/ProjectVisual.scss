@@ -121,7 +121,7 @@
   .learning-loop__stage:nth-child(5) { grid-column: auto; }
 }
 
-@media (max-width: 44rem) {
+@media (max-width: 56rem) {
   .content-page-header[data-visual-contract="learning-lab-case-study-hero"] { grid-template-columns: 1fr; padding: var(--space-7); }
   .content-page-header[data-visual-contract="learning-lab-case-study-hero"] h1 { max-width: none; }
   .learning-loop__stage { min-height: 6.5rem; }

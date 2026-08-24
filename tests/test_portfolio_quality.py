@@ -652,7 +652,7 @@ class PortfolioQualityTests(unittest.TestCase):
                     evidence_path = self.use_learning_lab_presentation(fixture)
                     fixture.write_learning_lab_evidence()
                     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-                    evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23"}
+                    evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
                     mutate_delivery(evidence["delivery"])
                     evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
@@ -719,10 +719,20 @@ class PortfolioQualityTests(unittest.TestCase):
             evidence_path = self.use_learning_lab_presentation(fixture)
             fixture.write_learning_lab_evidence()
             evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-            evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23"}
+            evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
             evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
         self.assertEqual([], self.validate(started, today=date(2026, 8, 24)))
+
+        def started_without_display(fixture: PortfolioFixture) -> None:
+            evidence_path = self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23"}
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(started_without_display, today=date(2026, 8, 24))
+        self.assertTrue(any("started delivery requires display text" in finding for finding in findings))
 
     def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

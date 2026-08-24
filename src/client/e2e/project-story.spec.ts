@@ -359,6 +359,8 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   await expect(page.getByText(/First live delivery planned for late August 2026/)).toBeVisible()
   await expect(page.getByRole('link', { name: /View the public repository/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the integrity run/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Inspect the pinned curriculum shape/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Read the licence policy/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /CC BY 4.0 curriculum licence/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /MIT tooling licence/ })).toBeVisible()
   await expect(page.getByText(/tested with real learners/i)).toHaveCount(0)
@@ -380,9 +382,10 @@ test('Learning Lab links and narrow layouts preserve an accessible complete argu
   await page.goto(learningLabPath)
 
   for (const linkName of [
-    'Inspect the pinned curriculum snapshot (opens in a new tab)',
+    'Inspect the pinned curriculum shape (opens in a new tab)',
     'View the public repository (opens in a new tab)',
     'Inspect the integrity run (opens in a new tab)',
+    'Read the licence policy (opens in a new tab)',
     'CC BY 4.0 curriculum licence (opens in a new tab)',
     'MIT tooling licence (opens in a new tab)',
   ]) {
@@ -391,6 +394,16 @@ test('Learning Lab links and narrow layouts preserve an accessible complete argu
     await expect(link).toBeFocused()
     await expect(link).toHaveAttribute('target', '_blank')
     await expect(link).toHaveAttribute('rel', /noopener/)
+  }
+
+  await page.setViewportSize({ width: 768, height: 900 })
+  const heroBounds = await page.locator('[data-visual-contract="learning-lab-inspection-hero"]').boundingBox()
+  expect(heroBounds).not.toBeNull()
+  for (const stage of await page.locator('[data-visual-contract="learning-lab-inspection-hero"] .learning-loop__stage').all()) {
+    const stageBounds = await stage.boundingBox()
+    expect(stageBounds).not.toBeNull()
+    expect(stageBounds!.y).toBeGreaterThanOrEqual(heroBounds!.y)
+    expect(stageBounds!.y + stageBounds!.height).toBeLessThanOrEqual(heroBounds!.y + heroBounds!.height)
   }
 
   for (const width of [390, 320, 360]) {

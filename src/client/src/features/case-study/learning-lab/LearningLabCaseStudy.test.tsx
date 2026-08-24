@@ -22,6 +22,7 @@ describe('LearningLabCaseStudy', () => {
     expect(screen.getByText(/315442b/)).toBeVisible()
     expect(screen.getByRole('link', { name: /view the public repository/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /inspect the integrity run/i })).toBeVisible()
+    expect(screen.getByRole('link', { name: /read the licence policy/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /CC BY 4.0 curriculum licence/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /MIT tooling licence/i })).toBeVisible()
     expect(container).toHaveTextContent(/cloud.*local/i)

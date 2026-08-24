@@ -12,7 +12,10 @@ describe('CurriculumAtlas', () => {
     expect(container.querySelectorAll('.learning-atlas__module')).toHaveLength(19)
     expect(within(courses[1]).getAllByText(/^14A$/)).toHaveLength(1)
     expect(screen.getByText(/Snapshot inspected 24 August 2026/i)).toBeVisible()
-    expect(screen.getByRole('link', { name: /inspect the pinned curriculum snapshot/i })).toHaveAttribute('target', '_blank')
+    expect(screen.getByRole('link', { name: /inspect the pinned curriculum shape/i })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/agentic-learning-lab/tree/315442bd2661bbc99a0834e57ff5f500b549326c/docs/curriculum-shape.md',
+    )
     expect(container).not.toHaveTextContent(/percent|velocity|completion date|credential/i)
   })
 })

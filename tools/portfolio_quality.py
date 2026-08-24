@@ -451,6 +451,8 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
             else:
                 if parsed_started_on > today:
                     findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "startedOn must not be in the future"))
+            if not isinstance(delivery.get("display"), str) or not delivery["display"].strip():
+                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "started delivery requires display text"))
         else:
             findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "delivery status must be planned or started"))
 
