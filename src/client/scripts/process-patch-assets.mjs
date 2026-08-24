@@ -11,9 +11,11 @@ import sharp from 'sharp'
 const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch')
 const manifestPath = path.join(outputRoot, 'patch-derivatives.json')
+const generationReceiptPath = path.join(clientRoot, 'assets', 'patch', 'lawful-heist', 'generation-receipt.json')
+const generationReceiptRepositoryPath = 'src/client/assets/patch/lawful-heist/generation-receipt.json'
 const execFileAsync = promisify(execFile)
 
-export const PATCH_SOURCE_REVISION = '0240a8657aae5b580c1a7a0d31e0be7a68b27f4e'
+export const PATCH_SOURCE_REVISION = '13bf77adc63cf5c8f49363cedd5dd392822b8375'
 export const PATCH_HEIST_SOURCE_IDENTITY = Object.freeze({
   gitObjectId: '5d718ee449173bea4374e707a5d1b20ed9d57101',
   sha256: 'b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab',
@@ -39,7 +41,22 @@ export const PATCH_DERIVATIVES = {
   goldilocksPortrait: { sourcePath: 'published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png', sourceStatus: 'published', widths: [640], formats, byteBudgetClass: 'page' },
   sorcerersApprentice: { sourcePath: 'published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
   clubDb: { sourcePath: 'published/adventures/club_db_bouncer_queue_v6_canonical.pptx', sourceStatus: 'legacy_reference', slides: [2, 4, 14], widths: [1200], formats, byteBudgetClass: 'support' },
-  heist: { sourceStatus: 'advanced_visual_preproduction', widths: [1200], formats, byteBudgetClass: 'support', sourceIdentity: PATCH_HEIST_SOURCE_IDENTITY },
+  heist: { sourcePath: 'workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png', sourceStatus: 'advanced_visual_preproduction', widths: [1200], formats, byteBudgetClass: 'support', sourceIdentity: PATCH_HEIST_SOURCE_IDENTITY },
+  heistFolderOpen: { sourcePath: 'workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/01_clean_folder_and_recruitment_list.png', sourceStatus: 'advanced_visual_preproduction', widths: [1200], formats, byteBudgetClass: 'support' },
+  heistIndex: { sourcePath: 'build/characters/heist-crew/reference_sheets/index_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistSilk: { sourcePath: 'build/characters/heist-crew/reference_sheets/silk_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistWrit: { sourcePath: 'build/characters/heist-crew/reference_sheets/writ_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistKlause: { sourcePath: 'build/characters/heist-crew/reference_sheets/klause_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistRollback: { sourcePath: 'build/characters/heist-crew/reference_sheets/rollback_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistReceipt: { sourcePath: 'build/characters/heist-crew/reference_sheets/receipt_hero__v1.png', sourceStatus: 'accepted', widths: [560], formats, byteBudgetClass: 'support' },
+  heistIndexMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-index.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistSilkMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-silk.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistWritMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-writ.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistKlauseMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-klause.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistRollbackMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-rollback.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistReceiptMarker: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/assent-receipt.png', sourceStatus: 'accepted', widths: [420], formats, byteBudgetClass: 'support' },
+  heistRollbackLockdown: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/rollback-lockdown.png', sourceStatus: 'accepted', widths: [1200], formats, byteBudgetClass: 'support' },
+  heistReceiptAlcove: { portfolioSourcePath: 'src/client/assets/patch/lawful-heist/receipt-alcove.png', sourceStatus: 'accepted', widths: [1200], formats, byteBudgetClass: 'support' },
   tournament: { sourcePath: 'build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png', sourceStatus: 'visual_development', widths: [1200], formats, byteBudgetClass: 'support' },
   tournamentSevenDay: { sourcePath: 'build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png', sourceStatus: 'visual_development', widths: [1200], formats, byteBudgetClass: 'support' },
   tournamentHighJump: { sourcePath: 'build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png', sourceStatus: 'visual_development', widths: [1200], formats, byteBudgetClass: 'support' },
@@ -83,6 +100,13 @@ export function assertTrackedSourceIdentity({ candidateWithinRoot, revisionObjec
   if (expected.sha256 !== undefined && sourceSha256 !== expected.sha256) fail('Patch source SHA-256 is not the approved custody checksum.')
 }
 
+export function assertPortfolioSourceIdentity({ candidateWithinRoot, receiptEntry, sha256: sourceSha256, width, height }, expectedPath) {
+  if (!candidateWithinRoot) fail('Portfolio-generated source must be inside the portfolio client root.')
+  if (!receiptEntry || receiptEntry.outputPath !== expectedPath || receiptEntry.status !== 'accepted') fail(`Portfolio-generated source must have an accepted generation receipt entry for ${expectedPath}.`)
+  if (sourceSha256 !== receiptEntry.outputSha256) fail(`Portfolio-generated source SHA-256 drifted for ${expectedPath}.`)
+  if (width !== receiptEntry.width || height !== receiptEntry.height) fail(`Portfolio-generated source dimensions drifted for ${expectedPath}.`)
+}
+
 export function assertDerivativeReceipt(expected, actual) {
   const actualByPath = new Map(actual.map((entry) => [entry.path, entry]))
   if (actualByPath.size !== actual.length) fail('Patch derivative receipt contains duplicate paths.')
@@ -109,7 +133,7 @@ export function buildDerivativeManifest(sourceManifest) {
     return slides.flatMap((slide) => definition.widths.flatMap((width) => definition.formats.map((format) => ({
       family,
       ...(slide ? { slide } : {}),
-      ...(definition.sourcePath ? { sourcePath: definition.sourcePath } : { sourceObjectId: definition.sourceIdentity.gitObjectId }),
+      ...(definition.sourcePath ? { sourcePath: definition.sourcePath } : { portfolioSourcePath: definition.portfolioSourcePath, sourceCustody: 'portfolio-generated', generationReceiptPath: generationReceiptRepositoryPath }),
       sourceRevision: PATCH_SOURCE_REVISION,
       sourceStatus: definition.sourceStatus,
       width,
@@ -175,6 +199,18 @@ async function verifiedImageSource(sourceRoot, candidatePath, expectedIdentity) 
   return sourceInfo(identity.candidatePath, identity)
 }
 
+async function verifiedPortfolioImageSource(definition, generationReceipt) {
+  const candidatePath = path.join(clientRoot, definition.portfolioSourcePath.replace(/^src\/client\//, ''))
+  const candidateWithinRoot = isInsideRoot(clientRoot, candidatePath)
+  const buffer = candidateWithinRoot ? await readFile(candidatePath).catch(() => undefined) : undefined
+  if (!buffer) fail(`Cannot read required portfolio-generated source ${definition.portfolioSourcePath}.`)
+  const metadata = await sharp(buffer).metadata()
+  const receiptEntry = generationReceipt.records.find((entry) => entry.outputPath === definition.portfolioSourcePath)
+  const identity = { candidateWithinRoot, receiptEntry, sha256: sha256(buffer), width: metadata.width, height: metadata.height }
+  assertPortfolioSourceIdentity(identity, definition.portfolioSourcePath)
+  return { buffer, width: metadata.width, height: metadata.height, sha256: identity.sha256, sourceCustody: 'portfolio-generated', generationReceiptPath: generationReceiptRepositoryPath }
+}
+
 async function renderClubDbSlides(pptxPath) {
   if (process.platform !== 'win32') fail('Club DB derivatives can only be applied on Windows with the named presentation renderer.')
   const scratch = await mkdtemp(path.join(tmpdir(), 'patch-club-db-'))
@@ -188,15 +224,17 @@ async function renderClubDbSlides(pptxPath) {
   }
 }
 
-async function loadSourceInputs({ sourceRoot: suppliedSourceRoot, heistSource }, renderClubDb) {
+async function loadSourceInputs({ sourceRoot: suppliedSourceRoot }, renderClubDb) {
   const sourceRoot = await verifySourceRoot(suppliedSourceRoot)
-  if (!heistSource || !path.isAbsolute(heistSource)) fail('--heist-source must be an absolute Lawful Heist source path.')
+  const generationReceipt = JSON.parse(await readFile(generationReceiptPath, 'utf8').catch((error) => fail(`Cannot read Lawful Heist generation receipt: ${error.message}`)))
+  if (generationReceipt.sourceRevision !== PATCH_SOURCE_REVISION || !Array.isArray(generationReceipt.records)) fail('Lawful Heist generation receipt is stale or malformed.')
   const sourceManifest = {}
   const sourceInfoByFamily = {}
   for (const [family, definition] of Object.entries(PATCH_DERIVATIVES)) {
     if (family === 'clubDb') continue
-    const candidate = family === 'heist' ? heistSource : path.join(sourceRoot, definition.sourcePath)
-    const info = await verifiedImageSource(sourceRoot, candidate, definition.sourceIdentity)
+    const info = definition.portfolioSourcePath
+      ? await verifiedPortfolioImageSource(definition, generationReceipt)
+      : await verifiedImageSource(sourceRoot, path.join(sourceRoot, definition.sourcePath), definition.sourceIdentity)
     sourceManifest[family] = info
     sourceInfoByFamily[family] = info
   }
@@ -283,10 +321,10 @@ async function check(options) {
 }
 
 export function parseArgs(argv) {
-  if (!['--apply', '--check'].includes(argv[0])) fail('Use --apply or --check with ADVENTURES_PATCH_SOURCE_ROOT and --heist-source.')
+  if (!['--apply', '--check'].includes(argv[0])) fail('Use --apply or --check with ADVENTURES_PATCH_SOURCE_ROOT.')
   if (argv.includes('--club-db-dir')) fail('Club DB renders directly from the verified PPTX; arbitrary slide directories are not accepted.')
-  const heistIndex = argv.indexOf('--heist-source')
-  return { mode: argv[0].slice(2), heistSource: heistIndex === -1 ? undefined : argv[heistIndex + 1] }
+  if (argv.includes('--heist-source')) fail('Lawful Heist sources are pinned in the processor; --heist-source is no longer accepted.')
+  return { mode: argv[0].slice(2) }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

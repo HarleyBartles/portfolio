@@ -9,7 +9,7 @@ export function PatchShowcasePicture({ path, alt }: { path: string; alt: string 
     <picture>
       <source srcSet={getPatchAssetPath(avif.path)} type="image/avif" />
       <source srcSet={getPatchAssetPath(webp.path)} type="image/webp" />
-      <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={alt} loading="lazy" />
+      <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={alt} loading="lazy" decoding="async" />
     </picture>
   )
 }

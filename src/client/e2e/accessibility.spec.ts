@@ -8,6 +8,7 @@ const routes = [
   { name: 'projects', path: 'projects' },
   { name: 'project story', path: 'projects/adventures-of-patch' },
   { name: 'Tournament adventure', path: 'patch/tournament-of-reasonable-defaults' },
+  { name: 'Lawful Heist adventure', path: 'patch/lawful-heist' },
   { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
   { name: 'writing', path: 'writing' },
   { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },

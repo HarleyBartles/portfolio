@@ -27,7 +27,7 @@ PATCH_DERIVATIVE_RECEIPT_PATH = Path("src/client/public/media/patch/patch-deriva
 WILD_BUNCH_REVISION = "2a9814d094148bb789766a27d316095fecce5a60"
 WILD_BUNCH_REPOSITORY_URL = "https://github.com/HarleyBartles/wild-bunch"
 WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/software/games/the-wild-bunch-firebird-software-ltd"
-PATCH_SOURCE_REVISION = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
+PATCH_SOURCE_REVISION = "13bf77adc63cf5c8f49363cedd5dd392822b8375"
 PATCH_REPOSITORY_URL = "https://github.com/HarleyBartles/adventures-of-patch"
 PRODUCTION_ROOT = Path("src/client/src")
 PRODUCTION_TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".md", ".mjs", ".scss", ".ts", ".tsx"}
@@ -103,7 +103,22 @@ PATCH_CUSTODY_BY_FAMILY = {
     "goldilocksPortrait": "Published Goldilocks portrait page derivative.",
     "sorcerersApprentice": "Published Sorcerer's Apprentice page derivative.",
     "clubDb": None,
-    "heist": "Lawful Heist verified Git-blob derivative.",
+    "heist": "Lawful Heist completed recruitment-folder derivative.",
+    "heistFolderOpen": "Lawful Heist opening recruitment-folder derivative.",
+    "heistIndex": "Lawful Heist canonical crew portrait derivative.",
+    "heistSilk": "Lawful Heist canonical crew portrait derivative.",
+    "heistWrit": "Lawful Heist canonical crew portrait derivative.",
+    "heistKlause": "Lawful Heist canonical crew portrait derivative.",
+    "heistRollback": "Lawful Heist canonical crew portrait derivative.",
+    "heistReceipt": "Lawful Heist canonical crew portrait derivative.",
+    "heistIndexMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistSilkMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistWritMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistKlauseMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistRollbackMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistReceiptMarker": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistRollbackLockdown": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
+    "heistReceiptAlcove": "Portfolio-generated Lawful Heist derivative recorded in the generation receipt.",
     "tournament": "Tournament route-check derivative.",
     "tournamentSevenDay": "Tournament seven-day sprint environment derivative.",
     "tournamentHighJump": "Tournament industry-standard high-jump environment derivative.",
@@ -208,11 +223,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium", "patch-tournament"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "patch-identity-emporium", "patch-tournament", "patch-lawful-heist"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif presentation in {"patch-identity-emporium", "patch-tournament"} and kind != "patch":
+            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "patch":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
-            elif presentation not in {"patch-identity-emporium", "patch-tournament"} and kind != "project":
+            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
         if has_path:

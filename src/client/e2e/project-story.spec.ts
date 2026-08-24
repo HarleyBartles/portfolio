@@ -151,7 +151,7 @@ test('visitor opens Adventures of Patch with its production claim and a clear ro
   await expect(page.getByText('Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.')).toBeVisible()
 
   const publicRepository = page.getByRole('link', { name: 'Open the public Adventures of Patch repository' })
-  await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/0240a8657aae5b580c1a7a0d31e0be7a68b27f4e')
+  await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/13bf77adc63cf5c8f49363cedd5dd392822b8375')
 
   const showcaseLink = page.getByRole('link', { name: 'Explore the Adventures of Patch' })
   await expect(showcaseLink).toHaveAttribute('href', '/portfolio/patch')

@@ -39,7 +39,7 @@ describe('Adventures of Patch routes', () => {
     const tournament = within(adventures).getByRole('article', { name: 'Tournament of Reasonable Defaults' })
     const heist = within(adventures).getByRole('article', { name: 'Lawful Heist' })
     expect(within(tournament).getByRole('link', { name: /Tournament of Reasonable Defaults/i })).toHaveAttribute('href', '/portfolio/patch/tournament-of-reasonable-defaults')
-    expect(within(heist).queryByRole('link')).not.toBeInTheDocument()
+    expect(within(heist).getByRole('link', { name: /Lawful Heist/i })).toHaveAttribute('href', '/portfolio/patch/lawful-heist')
     expect(tournament).toHaveTextContent(/visual development/i)
     expect(heist).toHaveTextContent(/advanced visual pre-production/i)
   })
@@ -63,6 +63,18 @@ describe('Adventures of Patch routes', () => {
     expect(evidence).toHaveTextContent(/Straight to work, underprepared/i)
     expect(evidence).toHaveTextContent(/Preparation shaped by the task/i)
     expect(within(evidence).getAllByRole('img')).toHaveLength(7)
+    expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
+  })
+
+  test('publishes the Lawful Heist recruitment dossier on its own route', async () => {
+    renderRoute('/patch/lawful-heist')
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Lawful Heist Crew' })).toBeVisible()
+    expect(await screen.findByText(/six specialists/i)).toBeVisible()
+    const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
+    expect(within(story).getAllByRole('article')).toHaveLength(6)
+    expect(screen.getByText('Advanced visual pre-production')).toBeVisible()
+    expect(screen.getByAltText(/completed recruitment folder/i)).toBeVisible()
     expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
   })
 

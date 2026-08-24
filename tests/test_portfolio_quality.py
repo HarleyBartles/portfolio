@@ -169,7 +169,7 @@ class PortfolioFixture:
         evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
     def write_patch_evidence(self) -> None:
-        revision = "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e"
+        revision = "13bf77adc63cf5c8f49363cedd5dd392822b8375"
         asset_path = "src/client/public/media/patch/patch-example.webp"
         asset = self.root / asset_path
         asset.parent.mkdir(parents=True, exist_ok=True)
@@ -440,23 +440,25 @@ class PortfolioQualityTests(unittest.TestCase):
                 self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
 
     def test_patch_showcase_accepts_authored_presentations(self) -> None:
-        def mutate(fixture: PortfolioFixture) -> None:
-            source = fixture.content / str(fixture.items[0]["path"])
-            source.unlink()
-            fixture.items[0].update({
-                "slug": "identity-emporium",
-                "kind": "patch",
-                "title": "Identity Emporium",
-                "status": "visual development",
-                "summary": "Preparation shaped by the work.",
-                "presentation": "patch-identity-emporium",
-            })
-            del fixture.items[0]["path"]
-            fixture.write_manifest()
+        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-lawful-heist"):
+            with self.subTest(presentation=presentation):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    source = fixture.content / str(fixture.items[0]["path"])
+                    source.unlink()
+                    fixture.items[0].update({
+                        "slug": "patch-story",
+                        "kind": "patch",
+                        "title": "Patch Story",
+                        "status": "visual development",
+                        "summary": "A shaped visual story.",
+                        "presentation": presentation,
+                    })
+                    del fixture.items[0]["path"]
+                    fixture.write_manifest()
 
-        findings = self.validate(mutate)
+                findings = self.validate(mutate)
 
-        self.assertEqual(findings, [])
+                self.assertEqual(findings, [])
 
     def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

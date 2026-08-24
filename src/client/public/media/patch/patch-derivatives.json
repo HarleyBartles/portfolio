@@ -1,10 +1,10 @@
 {
-  "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+  "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
   "images": [
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 720,
       "height": 403,
@@ -25,7 +25,7 @@
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 720,
       "height": 403,
@@ -46,7 +46,7 @@
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 1440,
       "height": 806,
@@ -67,7 +67,7 @@
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 1440,
       "height": 806,
@@ -88,7 +88,7 @@
     {
       "family": "introducingPage",
       "sourcePath": "published/misc/introducing-patch/page__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 358,
@@ -108,7 +108,7 @@
     {
       "family": "introducingPage",
       "sourcePath": "published/misc/introducing-patch/page__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 358,
@@ -128,7 +128,7 @@
     {
       "family": "introducingPage",
       "sourcePath": "published/misc/introducing-patch/page__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 672,
@@ -148,7 +148,7 @@
     {
       "family": "introducingPage",
       "sourcePath": "published/misc/introducing-patch/page__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 672,
@@ -168,7 +168,7 @@
     {
       "family": "introducingPagePortrait",
       "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 1138,
@@ -188,7 +188,7 @@
     {
       "family": "introducingPagePortrait",
       "sourcePath": "published/misc/introducing-patch/page__v1-mobile.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 1138,
@@ -208,7 +208,7 @@
     {
       "family": "goldilocks",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 360,
@@ -228,7 +228,7 @@
     {
       "family": "goldilocks",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 360,
@@ -248,7 +248,7 @@
     {
       "family": "goldilocks",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 675,
@@ -268,7 +268,7 @@
     {
       "family": "goldilocks",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 675,
@@ -288,7 +288,7 @@
     {
       "family": "goldilocksPortrait",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 1138,
@@ -308,7 +308,7 @@
     {
       "family": "goldilocksPortrait",
       "sourcePath": "published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 1138,
@@ -328,7 +328,7 @@
     {
       "family": "sorcerersApprentice",
       "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 360,
@@ -348,7 +348,7 @@
     {
       "family": "sorcerersApprentice",
       "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 640,
       "height": 360,
@@ -368,7 +368,7 @@
     {
       "family": "sorcerersApprentice",
       "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 675,
@@ -388,7 +388,7 @@
     {
       "family": "sorcerersApprentice",
       "sourcePath": "published/fairytales/sorcerers-apprentice/page__delegation_without_boundaries__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "published",
       "width": 1200,
       "height": 675,
@@ -409,7 +409,7 @@
       "family": "clubDb",
       "slide": 2,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -437,7 +437,7 @@
       "family": "clubDb",
       "slide": 2,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -465,7 +465,7 @@
       "family": "clubDb",
       "slide": 4,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -493,7 +493,7 @@
       "family": "clubDb",
       "slide": 4,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -521,7 +521,7 @@
       "family": "clubDb",
       "slide": 14,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -549,7 +549,7 @@
       "family": "clubDb",
       "slide": 14,
       "sourcePath": "published/adventures/club_db_bouncer_queue_v6_canonical.pptx",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 675,
@@ -575,8 +575,8 @@
     },
     {
       "family": "heist",
-      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "advanced_visual_preproduction",
       "width": 1200,
       "height": 900,
@@ -595,8 +595,8 @@
     },
     {
       "family": "heist",
-      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/07_receipt_joined.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "advanced_visual_preproduction",
       "width": 1200,
       "height": 900,
@@ -614,9 +614,625 @@
       "outputSha256": "8c9f7ea53f2ef68762ef70406eddfc2f1c6f54c0c14e00fe5dece1dd560279d4"
     },
     {
+      "family": "heistFolderOpen",
+      "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/01_clean_folder_and_recruitment_list.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "advanced_visual_preproduction",
+      "width": 1200,
+      "height": 800,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-folder-open-1200.avif",
+      "sourceGitObjectId": "c47c51bbabd62fbe70dadbfa2fa3d511263625d2",
+      "sourceSha256": "b7e9e65c5b493bb49b39c102d38e3c420bea2f49cc73065d21471d0244a8b177",
+      "bytes": 62933,
+      "outputSha256": "9eb510ca937f60906d625a00db40ceb1608255eddbc8257623f6a112009bd1de"
+    },
+    {
+      "family": "heistFolderOpen",
+      "sourcePath": "workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/01_clean_folder_and_recruitment_list.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "advanced_visual_preproduction",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-folder-open-1200.webp",
+      "sourceGitObjectId": "c47c51bbabd62fbe70dadbfa2fa3d511263625d2",
+      "sourceSha256": "b7e9e65c5b493bb49b39c102d38e3c420bea2f49cc73065d21471d0244a8b177",
+      "bytes": 101350,
+      "outputSha256": "c1e96af30f856dce7b8700af74343ad4437cc4f4b8ad2d2e27fe90d0025fbc14"
+    },
+    {
+      "family": "heistIndex",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/index_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-index-560.avif",
+      "sourceGitObjectId": "cf3135e44dd9d244e38a57d42865157adc5aa9d3",
+      "sourceSha256": "50b563bfebe97415b778b7ddb82f0b4f6625248b9120ff5d675d714a5ae4b8b8",
+      "bytes": 22691,
+      "outputSha256": "87452bce7fa75fb1b578fa7fa9e5faecc373bbbe6f18e6820c130266ab3dc38e"
+    },
+    {
+      "family": "heistIndex",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/index_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-index-560.webp",
+      "sourceGitObjectId": "cf3135e44dd9d244e38a57d42865157adc5aa9d3",
+      "sourceSha256": "50b563bfebe97415b778b7ddb82f0b4f6625248b9120ff5d675d714a5ae4b8b8",
+      "bytes": 36098,
+      "outputSha256": "170f2de93b28eb40db47bc0df7692f08e9eabcae56de34166be4021950c12553"
+    },
+    {
+      "family": "heistSilk",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/silk_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-silk-560.avif",
+      "sourceGitObjectId": "a7da6c9f2f757c6551bcc7522f8e917a54ebeebd",
+      "sourceSha256": "28627c6809a7604dbcff66e46be9f79cf554cfe5c1176efe53ecc3f5c8b223d8",
+      "bytes": 20141,
+      "outputSha256": "6c36c59b92344d57f5fa24620fa5c89676bd8eedbd4fe4fdbcae7113db26280d"
+    },
+    {
+      "family": "heistSilk",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/silk_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-silk-560.webp",
+      "sourceGitObjectId": "a7da6c9f2f757c6551bcc7522f8e917a54ebeebd",
+      "sourceSha256": "28627c6809a7604dbcff66e46be9f79cf554cfe5c1176efe53ecc3f5c8b223d8",
+      "bytes": 30618,
+      "outputSha256": "2ed95d471fe6bb3f512f155a84b2e1490c6b2c8bfebdd9c120d4bc85a3526b1c"
+    },
+    {
+      "family": "heistWrit",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/writ_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-writ-560.avif",
+      "sourceGitObjectId": "04c23b1a4c35945d348b3a6634bc7438a80595bc",
+      "sourceSha256": "74daf08c9ec227c90e7cb7bd74bb7148c326a66ca5fe212c5879c92bb787f87a",
+      "bytes": 14636,
+      "outputSha256": "84458ca6b336ea1a6c155ca6b68c788f928d7b5d6a1e3231a3e948e59db91919"
+    },
+    {
+      "family": "heistWrit",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/writ_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-writ-560.webp",
+      "sourceGitObjectId": "04c23b1a4c35945d348b3a6634bc7438a80595bc",
+      "sourceSha256": "74daf08c9ec227c90e7cb7bd74bb7148c326a66ca5fe212c5879c92bb787f87a",
+      "bytes": 25172,
+      "outputSha256": "faf51d9006c850f4fb36a5c78b6ec3827c2338329e87e7025b3fc23f614f3b32"
+    },
+    {
+      "family": "heistKlause",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/klause_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 635,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-klause-560.avif",
+      "sourceGitObjectId": "1d4035bd010e140540b44941312d5222ea3e57a1",
+      "sourceSha256": "c5964126f97005db435b9beae0bf1c5b65102277f5d7b83d643ba70440252d33",
+      "bytes": 16135,
+      "outputSha256": "40e0f5e49ec371da13dd867705748973f10b1dbdcfcb797522ecfcddbc1cb704"
+    },
+    {
+      "family": "heistKlause",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/klause_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 635,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-klause-560.webp",
+      "sourceGitObjectId": "1d4035bd010e140540b44941312d5222ea3e57a1",
+      "sourceSha256": "c5964126f97005db435b9beae0bf1c5b65102277f5d7b83d643ba70440252d33",
+      "bytes": 27020,
+      "outputSha256": "9bb3cc35ffe16709d7085ae78df8070f21a02a7f807d8dbeb08d11473dc48879"
+    },
+    {
+      "family": "heistRollback",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/rollback_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-560.avif",
+      "sourceGitObjectId": "6aedf036bb22d1a28f467a20e3d6d8788712db92",
+      "sourceSha256": "e589526afc89f38ced0d49bd46b4ebcbbb23b310a11cd79654042d1a544286f1",
+      "bytes": 18415,
+      "outputSha256": "c9bbd2214549be95376de2bb4ed2f27132727f1cf43890f82b20218e4820d266"
+    },
+    {
+      "family": "heistRollback",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/rollback_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 700,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-560.webp",
+      "sourceGitObjectId": "6aedf036bb22d1a28f467a20e3d6d8788712db92",
+      "sourceSha256": "e589526afc89f38ced0d49bd46b4ebcbbb23b310a11cd79654042d1a544286f1",
+      "bytes": 27282,
+      "outputSha256": "c0942f4b3eca0f71044e207978a92172a30d4bc1446728c7ad848aad1167cb55"
+    },
+    {
+      "family": "heistReceipt",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/receipt_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 840,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-560.avif",
+      "sourceGitObjectId": "8fbb8ea63f670626e783cf4628aff073ce338d4b",
+      "sourceSha256": "4524441782e7699c1f0c90572b268a5e9b6078a6d2e61f7dbc76f1be07ec188f",
+      "bytes": 17038,
+      "outputSha256": "7444a039e76ea2cbe74201e5d9d90a478690c53ae6de1787fe7f96b7d8fc47f5"
+    },
+    {
+      "family": "heistReceipt",
+      "sourcePath": "build/characters/heist-crew/reference_sheets/receipt_hero__v1.png",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 560,
+      "height": 840,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-560.webp",
+      "sourceGitObjectId": "8fbb8ea63f670626e783cf4628aff073ce338d4b",
+      "sourceSha256": "4524441782e7699c1f0c90572b268a5e9b6078a6d2e61f7dbc76f1be07ec188f",
+      "bytes": 29298,
+      "outputSha256": "d9f05a916b03446b304a37a972db2f5f5345439afd3848ea0c2d98a1f9dfbc6b"
+    },
+    {
+      "family": "heistIndexMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-index.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-index-marker-420.avif",
+      "sourceSha256": "634144fe87d6dba2565d27c050d3445309d4b99fe86da42c1763baca4ecddc81",
+      "bytes": 21351,
+      "outputSha256": "9eda8d2b2af59de2c87e52f437021594217ac8f57382ee38019daff52544bebd"
+    },
+    {
+      "family": "heistIndexMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-index.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-index-marker-420.webp",
+      "sourceSha256": "634144fe87d6dba2565d27c050d3445309d4b99fe86da42c1763baca4ecddc81",
+      "bytes": 47192,
+      "outputSha256": "0a5b90e2589a459f36575a873143eb6f2214182d6d78e57330485662b3626d97"
+    },
+    {
+      "family": "heistSilkMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-silk.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-silk-marker-420.avif",
+      "sourceSha256": "a748ce32d8ea96419cfe8623dc94badb5b9b98018ff3871edfc4d05216b63050",
+      "bytes": 12364,
+      "outputSha256": "6a6655c58a0ce9e0ba85a5f2d536393ecba2377d4e4d79964703d32dfd5e3b73"
+    },
+    {
+      "family": "heistSilkMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-silk.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-silk-marker-420.webp",
+      "sourceSha256": "a748ce32d8ea96419cfe8623dc94badb5b9b98018ff3871edfc4d05216b63050",
+      "bytes": 20958,
+      "outputSha256": "9c2d60085f1795c36d1f256e2f89befc2fe3977c0942aba91fe2c75054232cd4"
+    },
+    {
+      "family": "heistWritMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-writ.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-writ-marker-420.avif",
+      "sourceSha256": "7f2fda7a4c094cad828bd9eb473220e2ab5ebe5ac50b1fdd455d6d2f8c5cfd1a",
+      "bytes": 9328,
+      "outputSha256": "d3ee4eb81e3fa3ca2e8e0f0339e64176f6cae9c03a971db07250e6f8379c21e1"
+    },
+    {
+      "family": "heistWritMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-writ.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-writ-marker-420.webp",
+      "sourceSha256": "7f2fda7a4c094cad828bd9eb473220e2ab5ebe5ac50b1fdd455d6d2f8c5cfd1a",
+      "bytes": 20554,
+      "outputSha256": "e539d478d38005efdf1f9d8a5544b609fe40ecd099ff8f5822568248d2ac57d7"
+    },
+    {
+      "family": "heistKlauseMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-klause.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-klause-marker-420.avif",
+      "sourceSha256": "56232ae0ba4b8e0205acdc0984bc04638002c3a4cec3c7a7d21819060918367a",
+      "bytes": 21560,
+      "outputSha256": "9c32ed05281b4864bcd25f9367d688523052487469914bc65772590791b30360"
+    },
+    {
+      "family": "heistKlauseMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-klause.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-klause-marker-420.webp",
+      "sourceSha256": "56232ae0ba4b8e0205acdc0984bc04638002c3a4cec3c7a7d21819060918367a",
+      "bytes": 43066,
+      "outputSha256": "396f1c98cef5ad226c943a96ea6bc39b86dc71e27505bd33ea137849044f4721"
+    },
+    {
+      "family": "heistRollbackMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-rollback.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-marker-420.avif",
+      "sourceSha256": "2ffaedb936ee3f7e5489bad0b0a0e8c6942d43868e38152c6038f131195f87ab",
+      "bytes": 19385,
+      "outputSha256": "201f36018f1e2df5b27b7b2d2f92e8465a2c0dfa81f0c7a98e4aeb4c38d8bb28"
+    },
+    {
+      "family": "heistRollbackMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-rollback.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-marker-420.webp",
+      "sourceSha256": "2ffaedb936ee3f7e5489bad0b0a0e8c6942d43868e38152c6038f131195f87ab",
+      "bytes": 27588,
+      "outputSha256": "547562372a4cb171a78ee1c8294bb1a5f63d6a26616d56137fe5174cec60e65c"
+    },
+    {
+      "family": "heistReceiptMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-receipt.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-marker-420.avif",
+      "sourceSha256": "a7d19c3158321e5ff4c69cf94d82b14745018901fda32a5d6124994c82613e5b",
+      "bytes": 7719,
+      "outputSha256": "524f60ee1ca9c1328b6e2241a6bb05880937c1aa6d78b04fd15637e3070abe9c"
+    },
+    {
+      "family": "heistReceiptMarker",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/assent-receipt.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 420,
+      "height": 420,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-marker-420.webp",
+      "sourceSha256": "a7d19c3158321e5ff4c69cf94d82b14745018901fda32a5d6124994c82613e5b",
+      "bytes": 16762,
+      "outputSha256": "a26a81135db53c5f70070ccd02147fbe7e3c06faf1e62fc3cebff1b5948d2a27"
+    },
+    {
+      "family": "heistRollbackLockdown",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/rollback-lockdown.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-lockdown-1200.avif",
+      "sourceSha256": "1bc1b655400fe4ef48e6763bf7afe5b175ac78a3290296c78e95889b73e14c4a",
+      "bytes": 38960,
+      "outputSha256": "a28e7679c641a911583414b74ef6abadb8d5afede9c5554064432d23c9cd5f88"
+    },
+    {
+      "family": "heistRollbackLockdown",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/rollback-lockdown.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-rollback-lockdown-1200.webp",
+      "sourceSha256": "1bc1b655400fe4ef48e6763bf7afe5b175ac78a3290296c78e95889b73e14c4a",
+      "bytes": 71888,
+      "outputSha256": "98f49c781b21736191d88d8878fca80088e29c5676b3651688a9d943be5e8501"
+    },
+    {
+      "family": "heistReceiptAlcove",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/receipt-alcove.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 675,
+      "format": "avif",
+      "encoding": {
+        "quality": 52,
+        "effort": 6,
+        "chromaSubsampling": "4:2:0"
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-alcove-1200.avif",
+      "sourceSha256": "bf4b47968f56d8584ee447ec00eee476fc2d660e5994d5eba19e8f424e155388",
+      "bytes": 24441,
+      "outputSha256": "f8baf42f56505494aaa15c4bfbfab2319070c9e90089807dbf4c439b886bc58f"
+    },
+    {
+      "family": "heistReceiptAlcove",
+      "portfolioSourcePath": "src/client/assets/patch/lawful-heist/receipt-alcove.png",
+      "sourceCustody": "portfolio-generated",
+      "generationReceiptPath": "src/client/assets/patch/lawful-heist/generation-receipt.json",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
+      "sourceStatus": "accepted",
+      "width": 1200,
+      "height": 675,
+      "format": "webp",
+      "encoding": {
+        "quality": 78,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "byteBudgetClass": "support",
+      "path": "src/client/public/media/patch/patch-heist-receipt-alcove-1200.webp",
+      "sourceSha256": "bf4b47968f56d8584ee447ec00eee476fc2d660e5994d5eba19e8f424e155388",
+      "bytes": 47522,
+      "outputSha256": "12a0c86ed608d0488f5e0609f1a13ae3a31d8b9e537da67a88cf7b62af51eac7"
+    },
+    {
       "family": "tournament",
       "sourcePath": "build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -636,7 +1252,7 @@
     {
       "family": "tournament",
       "sourcePath": "build/adventures/Tournament/long-course-route-check-booth/source_images/source_02_patch_at_route_check_booth__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -656,7 +1272,7 @@
     {
       "family": "tournamentSevenDay",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 800,
@@ -676,7 +1292,7 @@
     {
       "family": "tournamentSevenDay",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c1_r1_hero__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 800,
@@ -696,7 +1312,7 @@
     {
       "family": "tournamentHighJump",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -716,7 +1332,7 @@
     {
       "family": "tournamentHighJump",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c2_r1_hero__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -736,7 +1352,7 @@
     {
       "family": "tournamentMaze",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1120,
       "height": 840,
@@ -756,7 +1372,7 @@
     {
       "family": "tournamentMaze",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r2_alt_overhead_maze__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1120,
       "height": 840,
@@ -776,7 +1392,7 @@
     {
       "family": "tournamentMazeMap",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -796,7 +1412,7 @@
     {
       "family": "tournamentMazeMap",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c3_r3_alt_annotated_map__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 900,
@@ -816,7 +1432,7 @@
     {
       "family": "tournamentBitHazard",
       "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 560,
       "height": 700,
@@ -836,7 +1452,7 @@
     {
       "family": "tournamentBitHazard",
       "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bit_hazard_tape__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 560,
       "height": 700,
@@ -856,7 +1472,7 @@
     {
       "family": "tournamentBotWrongLine",
       "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 560,
       "height": 700,
@@ -876,7 +1492,7 @@
     {
       "family": "tournamentBotWrongLine",
       "sourcePath": "build/adventures/Tournament/patch-bit-bot-tournament-kit/source_images/bot_wrong_line__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 560,
       "height": 700,
@@ -896,7 +1512,7 @@
     {
       "family": "tournamentLongCourse",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 675,
@@ -916,7 +1532,7 @@
     {
       "family": "tournamentLongCourse",
       "sourcePath": "build/adventures/Tournament/tournament-trial-environments/source_images/c4_r2_alt_false_line_risks__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 1200,
       "height": 675,
@@ -936,7 +1552,7 @@
     {
       "family": "identity",
       "sourcePath": "build/environments/identity-emporium/reference_sheets/world_proof__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 960,
@@ -956,7 +1572,7 @@
     {
       "family": "identity",
       "sourcePath": "build/environments/identity-emporium/reference_sheets/world_proof__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "legacy_reference",
       "width": 1200,
       "height": 960,
@@ -976,7 +1592,7 @@
     {
       "family": "identityBotFailure",
       "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 480,
       "height": 384,
@@ -1001,7 +1617,7 @@
     {
       "family": "identityBotFailure",
       "sourcePath": "build/characters/bit-bot/bot-role-kit/source_images/cowboy_alt_chicken_chase__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 480,
       "height": 384,
@@ -1026,7 +1642,7 @@
     {
       "family": "identityBitAction",
       "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 480,
       "height": 600,
@@ -1046,7 +1662,7 @@
     {
       "family": "identityBitAction",
       "sourcePath": "build/characters/bit-bot/bit-and-bot/source_images/bit_action__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
       "width": 480,
       "height": 600,
@@ -1066,7 +1682,7 @@
     {
       "family": "identityCowboy",
       "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1090,7 +1706,7 @@
     {
       "family": "identityCowboy",
       "sourcePath": "build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1114,7 +1730,7 @@
     {
       "family": "identityDetective",
       "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1138,7 +1754,7 @@
     {
       "family": "identityDetective",
       "sourcePath": "build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1162,7 +1778,7 @@
     {
       "family": "identityMechanic",
       "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1186,7 +1802,7 @@
     {
       "family": "identityMechanic",
       "sourcePath": "build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1210,7 +1826,7 @@
     {
       "family": "identityChef",
       "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
@@ -1234,7 +1850,7 @@
     {
       "family": "identityChef",
       "sourcePath": "build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png",
-      "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
+      "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "visual_development",
       "width": 480,
       "height": 600,
