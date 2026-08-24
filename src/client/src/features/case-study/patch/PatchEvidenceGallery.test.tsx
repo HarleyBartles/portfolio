@@ -9,9 +9,16 @@ describe('PatchEvidenceGallery', () => {
     const gallery = screen.getByRole('region', { name: 'Evidence gallery' })
     const figures = within(gallery).getAllByRole('figure')
     expect(figures).toHaveLength(4)
-    expect(within(figures[0]).getByText('Historical published-deck evidence')).toBeVisible()
-    expect(within(figures[0]).getByText(/legacy-reference derivative/)).toBeVisible()
-    figures.slice(1).forEach((figure) => expect(within(figure).getByText('Published artefact evidence')).toBeVisible())
+    expect(within(figures[0]).getByText('Club DB, published origin deck')).toBeVisible()
+    expect(figures[0]).toHaveTextContent(/original production process/)
+    ;['Goldilocks and the Right Amount of Guidance', "The Sorcerer's Apprentice", 'Introducing Patch'].forEach((caption, index) => {
+      expect(within(figures[index + 1]).getByText(caption)).toBeVisible()
+    })
+    figures.forEach((figure) => {
+      expect(figure.querySelector('picture')).not.toBeNull()
+      expect(figure.querySelectorAll('source').length).toBeGreaterThanOrEqual(2)
+      expect(within(figure).getByRole('link')).toHaveAttribute('href', expect.stringMatching(/^https:\/\//))
+    })
   })
 
   test('preserves the deployment base path for public derivatives', () => {

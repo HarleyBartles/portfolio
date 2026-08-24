@@ -51,22 +51,6 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Format and dimensions: optimized PNG, `1200 × 630`, 30,053 bytes.
 - Alt/fallback context: link preview metadata also carries the page title and description.
 
-## Adventures of Patch role-kit montage
-
-- Public files:
-  - `src/client/public/media/patch/patch-role-kits-640.webp` — `640 × 384`, 48,616 bytes.
-  - `src/client/public/media/patch/patch-role-kits-1200.webp` — `1200 × 720`, 110,482 bytes.
-- Source repository: sibling `adventures-of-patch` repository (owned by Harley Bartles).
-- Exact sources:
-  - `build/canon/patch/role-kits/detective-role-kit/source_images/hero_patch_detective__v1.png`
-  - `build/canon/patch/role-kits/cowboy-role-kit/source_images/hero_patch_cowboy_waistcoat__v1.png`
-  - `build/canon/patch/role-kits/chef-role-kit/source_images/hero_front__v1.png`
-  - `build/canon/patch/role-kits/mechanic-role-kit/source_images/hero_full_body__v1.png`
-- Transformation: near-white source backgrounds were removed; the four character renders were placed on overlapping editorial cards with a restrained workflow line, then exported as quality-86 WebP at the two display widths.
-- Added: 2026-08-21.
-- Alt text: "Patch appears as a detective, cowboy, chef, and mechanic in four overlapping role-kit cards."
-- Continued use: retained for the existing homepage/project visual consumer in `src/client/src/features/home/ProjectVisual.tsx`. Task 4 owns its replacement and may remove these two files only after that consumer changes.
-
 ## Adventures of Patch evidence derivatives
 
 All records below are first-party source material from `HarleyBartles/adventures-of-patch` revision `0240a8657aae5b580c1a7a0d31e0be7a68b27f4e`, processed on 2026-08-24 by `src/client/scripts/process-patch-assets.mjs`. Sharp 0.34.5 uses no-upscale resizing, AVIF quality 52/effort 6/4:2:0 or WebP quality 78/effort 6/smart subsampling, and emits no retained metadata. `src/client/public/media/patch/patch-derivatives.json` is the exact per-output receipt for path, dimensions, source checksum, encoding, and measured bytes. Rights basis for every family is Harley Bartles' first-party project work, authorised for this portfolio. Semantic HTML provides every caption and explanatory label, so the images have no essential explanatory text fallback.

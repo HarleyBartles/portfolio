@@ -89,24 +89,27 @@ export type PatchPublishedEvidence = Readonly<{
 const publishedEvidenceRelations: Readonly<Record<string, PublishedEvidenceRelation>> = {
   'Club DB': {
     mediaPath: 'src/client/public/media/patch/patch-clubDb-slide-2-1200.avif',
-    captionLabel: 'Historical published-deck evidence',
-    captionDetail: 'Its legacy-reference derivative preserves the origin without claiming current production quality.',
-    alt: 'Historical Club DB deck evidence.',
+    captionLabel: 'Club DB, published origin deck',
+    captionDetail: 'Slide 2 traces the deletion back to an environment that made the database look disposable. This derivative records the original production process.',
+    alt: 'Club DB slide showing Patch at a workstation after the database deletion, with the root cause traced to a disposable-looking working folder.',
   },
   Goldilocks: {
     mediaPath: 'src/client/public/media/patch/patch-goldilocks-1200.avif',
-    captionLabel: 'Published artefact evidence',
-    alt: 'Published Goldilocks fairytale evidence.',
+    captionLabel: 'Goldilocks and the Right Amount of Guidance',
+    captionDetail: 'Enough relevant context supports the next confident decision; more context isn’t automatically better.',
+    alt: 'Goldilocks fairytale contrasting too much guidance, too little guidance, and a just-right organised workspace for Patch.',
   },
   "The Sorcerer's Apprentice": {
     mediaPath: 'src/client/public/media/patch/patch-sorcerers-apprentice-1200.avif',
-    captionLabel: 'Published artefact evidence',
-    alt: "Published Sorcerer's Apprentice fairytale evidence.",
+    captionLabel: "The Sorcerer's Apprentice",
+    captionDetail: 'Delegation needs boundaries around authority, depth, tools, reporting and escalation.',
+    alt: 'Sorcerer’s Apprentice fairytale showing one bounded delegation policy beside many multiplying Patch apprentices.',
   },
   'Introducing Patch': {
     mediaPath: 'src/client/public/media/patch/patch-introducing-page-1200.avif',
-    captionLabel: 'Published artefact evidence',
-    alt: 'Published Introducing Patch evidence.',
+    captionLabel: 'Introducing Patch',
+    captionDetail: 'The finished one-page introduction is a published artefact; a separate base image supplies the route hero.',
+    alt: 'Introducing Patch page with the character holding an index card and map beside a concise explanation of his role.',
   },
 }
 
@@ -139,6 +142,10 @@ export function getPatchStoryLab(): PatchStoryLab {
 
 export function getPatchMedia(): readonly PatchEvidenceMedia[] {
   return patchEvidence.media
+}
+
+export function getPatchMediaByPath(path: string): PatchEvidenceMedia | undefined {
+  return patchMediaByPath.get(path)
 }
 
 export function getPublishedEvidence(): readonly PatchPublishedEvidence[] {

@@ -1,38 +1,114 @@
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
-import { CaseStudySection } from '../CaseStudySection'
-import { PatchEvidenceGallery } from './PatchEvidenceGallery'
+import { PatchEvidenceGallery, getPatchAssetPath } from './PatchEvidenceGallery'
 import { PatchProductionFlow } from './PatchProductionFlow'
 import { PatchStoryLab } from './PatchStoryLab'
-import { getPatchRepositoryEvidence } from './patchEvidence'
+import { getPatchMediaByPath, getPatchRepositoryEvidence } from './patchEvidence'
 import { PatchWorkLedger } from './PatchWorkLedger'
+import './PatchPipelineCaseStudy.scss'
+
+const frameQuestions = [
+  'What real engineering task is being performed?',
+  'What specific failure occurs?',
+  'What does Patch do differently?',
+  'What observable artefact or outcome changes?',
+  'What can the audience use in its own work tomorrow?',
+  'Does the adventure metaphor explain the mechanism?',
+] as const
+
+function PatchEvidenceFigure({ path, alt, caption }: { path: string; alt: string; caption: string }) {
+  const avif = getPatchMediaByPath(path)
+  const webp = getPatchMediaByPath(path.replace(/\.avif$/, '.webp'))
+  if (avif === undefined || webp === undefined) throw new Error(`Patch evidence is missing for ${path}.`)
+
+  return (
+    <figure className="patch-evidence-figure">
+      <picture>
+        <source srcSet={getPatchAssetPath(avif.path)} type="image/avif" />
+        <source srcSet={getPatchAssetPath(webp.path)} type="image/webp" />
+        <img src={getPatchAssetPath(webp.path)} width={webp.width} height={webp.height} alt={alt} loading="lazy" />
+      </picture>
+      <figcaption>{caption}</figcaption>
+    </figure>
+  )
+}
 
 export function PatchPipelineCaseStudy() {
   const repositoryEvidence = getPatchRepositoryEvidence()
+  const pinnedRepositoryUrl = `${repositoryEvidence.repositoryUrl}/tree/${repositoryEvidence.sourceRevision}`
 
   return (
     <CaseStudyBody>
-      <section aria-label="Adventures of Patch case study">
-        <p>The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.</p>
-        <CaseStudySection title="An accountable origin">
-          <p>Patch began after I created an environment in which an agent could delete a development database. The agent followed the authority and affordances I had engineered, so I treated the incident as a systems-design failure.</p>
-        </CaseStudySection>
-        <CaseStudySection title="The first deck">
-          <p>I made the first Club DB deck in one day to explain the failure and the layered enforcement that changed the available actions. It is an origin artefact, not today&apos;s quality bar: its legibility, continuity, and generated-image weaknesses motivated the controls used now.</p>
-        </CaseStudySection>
-        <CaseStudySection title="The frame gate">
-          <p>A story enters production only when it can make the task, failure, Patch action, changed outcome, and audience practice concrete.</p>
-        </CaseStudySection>
+      <section className="patch-case-study" aria-label="Adventures of Patch case study">
+        <p className="patch-thesis">The first deck explains why Patch exists. The production system and the adventures moving through it show what the project has become.</p>
+
+        <section className="patch-snapshot" aria-label="Project snapshot">
+          <p className="patch-snapshot__label">Project snapshot</p>
+          <dl>
+            <div><dt>Teaching</dt><dd>Agentic engineering, testing, authority, evidence, recovery, review and stakeholder decisions.</dd></div>
+            <div><dt>Production</dt><dd>Story frames, visual bibles, character and environment packs, image QA, deterministic builders, manifests, sidecars and receipts.</dd></div>
+            <div><dt>Formats</dt><dd>Multi-slide Adventures, one-page Fairytales and supporting character or world artefacts.</dd></div>
+            <div><dt>Planning and delivery</dt><dd>Linear shapes the work. GitHub proves what lands. Python builders, presentation tooling and repository validation make the route repeatable.</dd></div>
+            <div><dt>Current state</dt><dd>One published origin deck, two published fairytales, three materially developed adventure worlds and one gated idea library.</dd></div>
+          </dl>
+        </section>
+
+        <section className="patch-movement patch-origin" aria-labelledby="patch-origin-title">
+          <div className="patch-movement__copy">
+            <p className="patch-section-number" aria-hidden="true">01</p>
+            <h2 id="patch-origin-title">The day the database disappeared</h2>
+            <p>I gave an agent an environment in which deleting a development database was a reasonable available action. It deleted the database. The data wasn&apos;t business-critical and I rebuilt it, but the useful part of the incident wasn&apos;t the recovery. The agent had followed the affordances and authority I&apos;d designed.</p>
+            <p>Calling it rogue would&apos;ve let the system designer off the hook. I asked the same agent to help design layers of enforcement around the database instead. Those controls became the Club DB bouncers, checks that changed the available actions rather than adding another instruction. Patch was the character I made to carry that explanation.</p>
+          </div>
+          <PatchEvidenceFigure path="src/client/public/media/patch/patch-clubDb-slide-2-1200.avif" alt="Club DB slide showing Patch at a workstation after the database deletion, with the root cause traced to a disposable-looking working folder." caption="The original incident and root cause, rendered from slide 2 of the published Club DB deck." />
+        </section>
+
+        <section className="patch-movement patch-first-deck" aria-labelledby="patch-first-deck-title">
+          <div className="patch-movement__copy">
+            <p className="patch-section-number" aria-hidden="true">02</p>
+            <h2 id="patch-first-deck-title">The first deck</h2>
+            <p>I made Club DB in a day because I needed the explanation to be useful straight away. It shows what happened, why instructions weren&apos;t enough and how layered enforcement changed the action space.</p>
+            <p>It also shows the limits of the process I had then. Some text fights the background, Patch changes between frames and generated artefacts got through. I don&apos;t need to disown the deck. I need the current pipeline to catch what it missed.</p>
+            <p>A sign can describe a rule. Enforcement makes the unsafe action unavailable or costly. That distinction still runs through the project.</p>
+          </div>
+          <PatchEvidenceFigure path="src/client/public/media/patch/patch-clubDb-slide-14-1200.avif" alt="Club DB slide contrasting a warning sign with a bouncer who enforces the rule at the door." caption="Slide 14 closes the original argument: signs advise; bouncers enforce." />
+        </section>
+
+        <section className="patch-movement patch-frame-gate" aria-labelledby="patch-frame-gate-title">
+          <div className="patch-movement__copy">
+            <p className="patch-section-number" aria-hidden="true">03</p>
+            <h2 id="patch-frame-gate-title">A story has to earn production</h2>
+            <p>I gate ideas before visual production. A candidate has to answer six questions clearly enough that the metaphor teaches the engineering mechanism instead of decorating it.</p>
+          </div>
+          <ol className="patch-frame-gate__questions">
+            {frameQuestions.map((question) => <li key={question}>{question}</li>)}
+          </ol>
+          <p className="patch-frame-gate__close">If the frame can&apos;t answer them, it stops there. That&apos;s cheap on purpose; the expensive work hasn&apos;t started.</p>
+        </section>
+
         <PatchProductionFlow />
         <PatchWorkLedger><PatchEvidenceGallery /></PatchWorkLedger>
         <PatchStoryLab />
-        <CaseStudySection title="Public proof, private workshop">
-          <p>The public repository shows what has earned a durable artefact. Earlier planning and future directions do not all begin or remain in public.</p>
-          <CaseStudyEvidence auditDate="24 August 2026" href={repositoryEvidence.repositoryUrl} label="Adventures of Patch source snapshot" />
-        </CaseStudySection>
-        <CaseStudySection title="Controlled production">
-          <p>Story framing, visual direction, acceptance, and publication remain deliberate human decisions. The record keeps those decisions inspectable.</p>
-        </CaseStudySection>
+
+        <section className="patch-movement patch-boundary" aria-labelledby="patch-boundary-title">
+          <div className="patch-movement__copy">
+            <p className="patch-section-number" aria-hidden="true">08</p>
+            <h2 id="patch-boundary-title">The repository is evidence, not the whole workshop</h2>
+            <p>I use Linear to shape and sequence work, GitHub to prove what has landed, and the published catalogue to mark what&apos;s ready for an audience. The planning surface contains provisional thinking; the public repository carries the smaller set I&apos;m prepared to call evidence.</p>
+            <p>Manifests and sidecars record source, status and acceptance. Deterministic receipts record the transforms that produced each public file. That boundary keeps private workshop material private and makes every public claim inspectable at one exact revision.</p>
+            <CaseStudyEvidence auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
+          </div>
+        </section>
+
+        <section className="patch-movement patch-close" aria-labelledby="patch-close-title">
+          <div className="patch-movement__copy">
+            <p className="patch-section-number" aria-hidden="true">09</p>
+            <h2 id="patch-close-title">Controlled creative production</h2>
+            <p>Generative imagery gives this project range, but the model isn&apos;t the production system. I choose the lesson, frame, visual direction, rejection reasons and acceptance bar. The tooling preserves those decisions through source custody, status, image QA, deterministic composition and the receipt that says what actually shipped.</p>
+            <p>This costs more than asking for a finished comic and keeping whatever arrives. It buys me work I can revise without losing provenance, explanations I can trust in front of a technical audience, and an honest line between an exciting image and a published artefact.</p>
+            <a className="patch-source-link" href={pinnedRepositoryUrl}>Open the public Adventures of Patch repository</a>
+          </div>
+        </section>
       </section>
     </CaseStudyBody>
   )

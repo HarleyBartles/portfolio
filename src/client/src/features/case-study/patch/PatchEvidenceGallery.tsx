@@ -1,19 +1,36 @@
-import { getPublishedEvidence } from './patchEvidence'
+import { getPatchMediaByPath, getPublishedEvidence, type PatchEvidenceMedia } from './patchEvidence'
 
 export function getPatchAssetPath(path: string, baseUrl = import.meta.env.BASE_URL): string {
   return `${baseUrl}${path.replace(/^src\/client\/public\/?/, '')}`
 }
 
+function siblingMedia(media: PatchEvidenceMedia, path: string): PatchEvidenceMedia {
+  return getPatchMediaByPath(path) ?? media
+}
+
 export function PatchEvidenceGallery() {
   return (
-    <section aria-labelledby="patch-evidence-gallery-title">
-      <h2 id="patch-evidence-gallery-title">Evidence gallery</h2>
-      {getPublishedEvidence().map(({ artefact, media, captionLabel, captionDetail, alt }) => (
-        <figure key={artefact.title}>
-          <img src={getPatchAssetPath(media.path)} width={media.width} height={media.height} alt={alt} loading="lazy" />
-          <figcaption><strong>{captionLabel}</strong>{captionDetail === undefined ? '.' : `: ${captionDetail}`} {media.custody}</figcaption>
-        </figure>
-      ))}
+    <section className="patch-published-gallery" aria-label="Evidence gallery">
+      {getPublishedEvidence().map(({ artefact, media, captionLabel, captionDetail, alt }) => {
+        const wideWebp = siblingMedia(media, media.path.replace(/\.avif$/, '.webp'))
+        const narrowAvif = siblingMedia(media, media.path.replace('-1200.avif', '-640.avif'))
+        const narrowWebp = siblingMedia(wideWebp, wideWebp.path.replace('-1200.webp', '-640.webp'))
+
+        return (
+          <figure key={artefact.title}>
+            <a href={artefact.publicArtefactUrl} aria-label={`Open ${artefact.title} in the public repository`}>
+              <picture>
+                <source media="(min-width: 45rem)" srcSet={getPatchAssetPath(media.path)} type="image/avif" />
+                <source media="(min-width: 45rem)" srcSet={getPatchAssetPath(wideWebp.path)} type="image/webp" />
+                <source srcSet={getPatchAssetPath(narrowAvif.path)} type="image/avif" />
+                <source srcSet={getPatchAssetPath(narrowWebp.path)} type="image/webp" />
+                <img src={getPatchAssetPath(narrowWebp.path)} width={narrowWebp.width} height={narrowWebp.height} alt={alt} loading="lazy" />
+              </picture>
+            </a>
+            <figcaption><strong>{captionLabel}</strong>{captionDetail === undefined ? '.' : `. ${captionDetail}`}</figcaption>
+          </figure>
+        )
+      })}
     </section>
   )
 }

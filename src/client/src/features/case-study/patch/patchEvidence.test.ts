@@ -38,7 +38,7 @@ describe('Patch evidence selectors', () => {
     ])
     expect(publishedEvidence[0]).toMatchObject({
       media: { sourceType: 'repository-evidence', sourceStatus: 'legacy_reference' },
-      captionLabel: 'Historical published-deck evidence',
+      captionLabel: 'Club DB, published origin deck',
     })
   })
 })
