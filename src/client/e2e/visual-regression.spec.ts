@@ -183,3 +183,28 @@ test('Adventures of Patch keeps the complete authored composition on mobile', as
   await waitForImages(projectPage)
   await expect(projectPage).toHaveScreenshot('patch-composition-mobile.png')
 })
+
+test('Adventures of Patch keeps the mobile snapshot within one viewport before the origin', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
+  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  const [snapshotBox, originBox] = await Promise.all([snapshot.boundingBox(), origin.boundingBox()])
+
+  expect(snapshotBox).not.toBeNull()
+  expect(originBox).not.toBeNull()
+  expect(snapshotBox?.height).toBeLessThanOrEqual(650)
+  expect(originBox?.y).toBeGreaterThanOrEqual((snapshotBox?.y ?? 0) + (snapshotBox?.height ?? 0))
+})
+
+test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 })
+  await openStable(page, './projects/adventures-of-patch')
+  await waitForPatchStyles(page)
+
+  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
+  await expect(snapshot).toBeVisible()
+  expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+})

@@ -17,8 +17,10 @@
       "byteBudgetClass": "hero",
       "path": "src/client/public/media/patch/patch-hero-720.avif",
       "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 6218
+      "bytes": 6218,
+      "outputSha256": "5999c4fab6dda4056ed3df0818a678a036e5918234da9a0a9068855aa978782f"
     },
     {
       "family": "hero",
@@ -36,8 +38,10 @@
       "byteBudgetClass": "hero",
       "path": "src/client/public/media/patch/patch-hero-720.webp",
       "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 10998
+      "bytes": 10998,
+      "outputSha256": "7dd7b216285f2378ac503c1cca3cf1bf27ec65980fccc3be2a3c1faf3542244e"
     },
     {
       "family": "hero",
@@ -55,8 +59,10 @@
       "byteBudgetClass": "hero",
       "path": "src/client/public/media/patch/patch-hero-1440.avif",
       "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 12247
+      "bytes": 12247,
+      "outputSha256": "709795a199818eb5cf8c5345cfd02a11b9b4c884c3cd6105b22846f87a41f453"
     },
     {
       "family": "hero",
@@ -74,8 +80,10 @@
       "byteBudgetClass": "hero",
       "path": "src/client/public/media/patch/patch-hero-1440.webp",
       "crop": "mobile_safe_patch",
+      "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 26590
+      "bytes": 26590,
+      "outputSha256": "6752b212bb8d613f2be4e530deff30afbe02201d8906767e2607afdf36ca8e23"
     },
     {
       "family": "introducingPage",
@@ -92,8 +100,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-introducing-page-640.avif",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
       "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
-      "bytes": 9843
+      "bytes": 9843,
+      "outputSha256": "f717d1ed1ac75fc3bc95912a19d690bd9ba755beb6e5a3c0a761ea0067dc7152"
     },
     {
       "family": "introducingPage",
@@ -110,8 +120,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-introducing-page-640.webp",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
       "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
-      "bytes": 15070
+      "bytes": 15070,
+      "outputSha256": "87095de4807be663560506a228e9c1030c0c003a80c38f34ccc6c6d4e913106d"
     },
     {
       "family": "introducingPage",
@@ -128,8 +140,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-introducing-page-1200.avif",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
       "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
-      "bytes": 20383
+      "bytes": 20383,
+      "outputSha256": "f70aeb5ed4733d0e54817f478c1a72041aa16c16139c4a6c56d9b3163b876c71"
     },
     {
       "family": "introducingPage",
@@ -146,8 +160,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-introducing-page-1200.webp",
+      "sourceGitObjectId": "4a2146ff3ebf638e24e9ee7e64210a7ba7c793ba",
       "sourceSha256": "0a7ea32dc4dc1054ca144a2b4bf3dd96b5901937b9e0d9b9007791ec74cd609a",
-      "bytes": 36102
+      "bytes": 36102,
+      "outputSha256": "020af1657a7887e167f7438194315f3f784a24c3c398fd9592bf7085f47f1480"
     },
     {
       "family": "goldilocks",
@@ -164,8 +180,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-goldilocks-640.avif",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
       "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
-      "bytes": 23148
+      "bytes": 23148,
+      "outputSha256": "ab6399e66ecc616f8f2a85c2f616230705c2dca58560e630a31354af01f8b767"
     },
     {
       "family": "goldilocks",
@@ -182,8 +200,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-goldilocks-640.webp",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
       "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
-      "bytes": 31616
+      "bytes": 31616,
+      "outputSha256": "55aa03bc565a45a343c524f1ce1c0ab86b2bef24aef5e501e0d773cd6f81569a"
     },
     {
       "family": "goldilocks",
@@ -200,8 +220,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-goldilocks-1200.avif",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
       "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
-      "bytes": 56684
+      "bytes": 56684,
+      "outputSha256": "003d6f233e2b2ee7475d09d6f5fe2e8499d4777204ebe58192b0c75b02162368"
     },
     {
       "family": "goldilocks",
@@ -218,8 +240,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-goldilocks-1200.webp",
+      "sourceGitObjectId": "5f78e239cfdb610e64e3a52079ca0a916ceb7dcd",
       "sourceSha256": "3ecd0a1052de65f222fb9ea2a6c4f8ffbec11cc0f509fac6bb51cfc432ddd92c",
-      "bytes": 84952
+      "bytes": 84952,
+      "outputSha256": "ff79b73a927ff28735299a09ea1395c40289459487e44a8c84ff4f4bfe79bdd7"
     },
     {
       "family": "sorcerersApprentice",
@@ -236,8 +260,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-sorcerers-apprentice-640.avif",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
       "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
-      "bytes": 38945
+      "bytes": 38945,
+      "outputSha256": "d0672b46764b329d61d0cda6a4a6c0ca6f85fcc774c1efda704b6121d6fb1ecc"
     },
     {
       "family": "sorcerersApprentice",
@@ -254,8 +280,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-sorcerers-apprentice-640.webp",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
       "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
-      "bytes": 49790
+      "bytes": 49790,
+      "outputSha256": "7fbd996242eb1cb25c7f8df6e49ab9239a43499cc09289dfb2a1330540fb8b7c"
     },
     {
       "family": "sorcerersApprentice",
@@ -272,8 +300,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-sorcerers-apprentice-1200.avif",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
       "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
-      "bytes": 99476
+      "bytes": 99476,
+      "outputSha256": "28a9d1cdc0d41b7df86393ce732097afee6a6a59ef39cc69b0beafcaf6fe466f"
     },
     {
       "family": "sorcerersApprentice",
@@ -290,8 +320,10 @@
       },
       "byteBudgetClass": "page",
       "path": "src/client/public/media/patch/patch-sorcerers-apprentice-1200.webp",
+      "sourceGitObjectId": "7a80348c963d1ce9c8812c99a361ba7f097b213d",
       "sourceSha256": "10a78af6a1e49dc9d7b3f60e2919a22c479590a833aa930f21a12b6519671d1b",
-      "bytes": 133940
+      "bytes": 133940,
+      "outputSha256": "aeed223bb5c9a27f4580204a839cb38afeeabac3213cb71e03d4f0fc07a04e15"
     },
     {
       "family": "clubDb",
@@ -309,8 +341,17 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-2-1200.avif",
-      "sourceSha256": "227e181b6b90a05eea0d5f5bc1c6f951764815238b5a8263a8a1658f396fbe81",
-      "bytes": 49764
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 51979,
+      "outputSha256": "b84662bb4424f0e2997b6a38df9ab465cb97703b743b1cef517991ef4f5e3f76"
     },
     {
       "family": "clubDb",
@@ -328,8 +369,17 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-2-1200.webp",
-      "sourceSha256": "227e181b6b90a05eea0d5f5bc1c6f951764815238b5a8263a8a1658f396fbe81",
-      "bytes": 82238
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "366834aa1098c30079e3710114d2ce8e084172e30b6bd5c3622f6339f0ff5563",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 85852,
+      "outputSha256": "cbc653e974dbc96ea37bebe62a4229360d5c3b386f9eaa65f7d390fdf7959309"
     },
     {
       "family": "clubDb",
@@ -347,8 +397,17 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-4-1200.avif",
-      "sourceSha256": "a09250e6fa420c7dc631d151dd4cb2078e7a9fda04a0a7ead3e74bda36733d42",
-      "bytes": 58352
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 61389,
+      "outputSha256": "f20bc843cd9ef209b25782be68d9441fe8cefe76d34b7e9808bb28551d8a1132"
     },
     {
       "family": "clubDb",
@@ -366,8 +425,17 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-4-1200.webp",
-      "sourceSha256": "a09250e6fa420c7dc631d151dd4cb2078e7a9fda04a0a7ead3e74bda36733d42",
-      "bytes": 95018
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "9fdb35779075d9803a19e1a7cafbccf9b1d412df5e2833e4f486dbe195a5cc94",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 99772,
+      "outputSha256": "775435c4ed216351ac7f4d860c1f145a53d863156a9171f453955e5b901543cd"
     },
     {
       "family": "clubDb",
@@ -385,8 +453,17 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-14-1200.avif",
-      "sourceSha256": "ce74abb7d011265bbcaa1959ec7d4f65e218f6bedf8ca2e636d5a927a80f64d3",
-      "bytes": 65908
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 70224,
+      "outputSha256": "c837d74f2edf092487353e0e706c4c29eeb46d6e9240981cb58ddf027578239b"
     },
     {
       "family": "clubDb",
@@ -404,12 +481,21 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-clubDb-slide-14-1200.webp",
-      "sourceSha256": "ce74abb7d011265bbcaa1959ec7d4f65e218f6bedf8ca2e636d5a927a80f64d3",
-      "bytes": 103818
+      "sourceGitObjectId": "ebc7fe4ad0c1bcd2b6deeafeaf6530e2ef862ca0",
+      "sourceSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "sourcePptxSha256": "7cfe625cb5757adeec271c2e04f0c50a6ac3766011670160313fca9e62f334ee",
+      "renderedSlideSha256": "6138b94c041f1e255374740694f194b03c2a5c6c16d4a2f5dc1769256c08d629",
+      "renderer": {
+        "name": "Microsoft PowerPoint",
+        "version": "COM Slide.Export PNG",
+        "tool": "render-patch-club-db-slides.ps1"
+      },
+      "bytes": 111920,
+      "outputSha256": "0d6851f26d219baa3fb2fe47b349b24e25ec21edea9cdfe0324fd5407e0d6026"
     },
     {
       "family": "heist",
-      "sourcePath": "lawful-heist/receipt-folder/07_receipt_joined.png",
+      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "advanced_visual_preproduction",
       "width": 1200,
@@ -422,12 +508,14 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-heist-1200.avif",
+      "sourceGitObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
       "sourceSha256": "b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab",
-      "bytes": 74131
+      "bytes": 74131,
+      "outputSha256": "53e9bc7684d25a09a9ff1d411e6b78a4aae55300c832c60b334320cd1e9209cf"
     },
     {
       "family": "heist",
-      "sourcePath": "lawful-heist/receipt-folder/07_receipt_joined.png",
+      "sourceObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
       "sourceRevision": "0240a8657aae5b580c1a7a0d31e0be7a68b27f4e",
       "sourceStatus": "advanced_visual_preproduction",
       "width": 1200,
@@ -440,8 +528,10 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-heist-1200.webp",
+      "sourceGitObjectId": "5d718ee449173bea4374e707a5d1b20ed9d57101",
       "sourceSha256": "b653f2159851d0c1acd10fdf526323f55964aa941669536dfbdb87be40a5f5ab",
-      "bytes": 117480
+      "bytes": 117480,
+      "outputSha256": "8c9f7ea53f2ef68762ef70406eddfc2f1c6f54c0c14e00fe5dece1dd560279d4"
     },
     {
       "family": "tournament",
@@ -458,8 +548,10 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-tournament-1200.avif",
+      "sourceGitObjectId": "4b223ce51e9d75a6bf1cc5c81b376ba960a0e936",
       "sourceSha256": "74cd76abe10c3d7db2a399f64906141b0e7c657fed4c02d7cc787c67867a1802",
-      "bytes": 125029
+      "bytes": 125029,
+      "outputSha256": "a413a70fd002782deaa502a963ee4990bd24d053273aadaf0063df8b1d2168c8"
     },
     {
       "family": "tournament",
@@ -476,8 +568,10 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-tournament-1200.webp",
+      "sourceGitObjectId": "4b223ce51e9d75a6bf1cc5c81b376ba960a0e936",
       "sourceSha256": "74cd76abe10c3d7db2a399f64906141b0e7c657fed4c02d7cc787c67867a1802",
-      "bytes": 202048
+      "bytes": 202048,
+      "outputSha256": "e10ac365eb32ec39266072a9293a9b34e3fe0b2a0f8dcbe3490b445e0194824e"
     },
     {
       "family": "identity",
@@ -494,8 +588,10 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-identity-1200.avif",
+      "sourceGitObjectId": "2833182bc399c9aacfc5a5df58627b56bdf311e7",
       "sourceSha256": "8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b",
-      "bytes": 95269
+      "bytes": 95269,
+      "outputSha256": "c72db87c48c20c515bcca323e760dd03404f8989a98e64cafabd93732b0f4e01"
     },
     {
       "family": "identity",
@@ -512,8 +608,10 @@
       },
       "byteBudgetClass": "support",
       "path": "src/client/public/media/patch/patch-identity-1200.webp",
+      "sourceGitObjectId": "2833182bc399c9aacfc5a5df58627b56bdf311e7",
       "sourceSha256": "8bbaaeb2c4499eb560092787aafbd0e439d2746c4db467f86e922c7f607d233b",
-      "bytes": 166626
+      "bytes": 166626,
+      "outputSha256": "d3243f14dcf9be5eca5608d4775128fdda22343a7436a645f2571015d70ce458"
     }
   ]
 }

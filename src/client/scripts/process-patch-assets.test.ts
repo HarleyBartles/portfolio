@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import {
   PATCH_DERIVATIVES,
+  PATCH_HEIST_SOURCE_IDENTITY,
   PATCH_SOURCE_REVISION,
   assertApprovedSourceState,
   assertDerivativeReceipt,
+  assertTrackedSourceIdentity,
   buildDerivativeManifest,
+  parseArgs,
 } from './process-patch-assets.mjs'
 
 const fixtureManifest = {
@@ -24,6 +27,7 @@ describe('Patch asset processor', () => {
     expect(PATCH_DERIVATIVES.hero.formats).toEqual(['avif', 'webp'])
     expect(PATCH_DERIVATIVES.clubDb.slides).toEqual([2, 4, 14])
     expect(PATCH_DERIVATIVES.identity.sourceStatus).toBe('legacy_reference')
+    expect(PATCH_DERIVATIVES.heist.sourcePath).toBeUndefined()
   })
 
   it('builds outputs with the custody fields required by later evidence', () => {
@@ -33,7 +37,7 @@ describe('Patch asset processor', () => {
     for (const output of outputs) {
       expect(output.width).toBeGreaterThan(0)
       expect(output.height).toBeGreaterThan(0)
-      expect(output.sourcePath).toMatch(/^.+\.(png|pptx)$/)
+      expect(output.sourcePath ?? output.sourceObjectId).toMatch(/^(?:.+\.(png|pptx)|[a-f0-9]{40})$/)
       expect(output.sourceRevision).toBe(PATCH_SOURCE_REVISION)
       expect(output.encoding).toEqual(expect.objectContaining({ quality: expect.any(Number) }))
       expect(output.byteBudgetClass).toMatch(/^(hero|page|support)$/)
@@ -43,6 +47,24 @@ describe('Patch asset processor', () => {
   it('rejects a dirty or revision-mismatched Adventures worktree', () => {
     expect(() => assertApprovedSourceState({ revision: 'different', dirty: false })).toThrow(PATCH_SOURCE_REVISION)
     expect(() => assertApprovedSourceState({ revision: PATCH_SOURCE_REVISION, dirty: true })).toThrow('clean')
+  })
+
+  it('rejects an external, untracked, or mismatched Heist input instead of lending it the pinned revision', () => {
+    const accepted = {
+      candidateWithinRoot: true,
+      revisionObjectId: PATCH_HEIST_SOURCE_IDENTITY.gitObjectId,
+      workingTreeObjectId: PATCH_HEIST_SOURCE_IDENTITY.gitObjectId,
+      sha256: PATCH_HEIST_SOURCE_IDENTITY.sha256,
+    }
+
+    expect(() => assertTrackedSourceIdentity({ ...accepted, candidateWithinRoot: false }, PATCH_HEIST_SOURCE_IDENTITY)).toThrow('inside ADVENTURES_PATCH_SOURCE_ROOT')
+    expect(() => assertTrackedSourceIdentity({ ...accepted, revisionObjectId: undefined }, PATCH_HEIST_SOURCE_IDENTITY)).toThrow('tracked at the pinned revision')
+    expect(() => assertTrackedSourceIdentity({ ...accepted, workingTreeObjectId: 'different' }, PATCH_HEIST_SOURCE_IDENTITY)).toThrow('Git object identity')
+    expect(() => assertTrackedSourceIdentity({ ...accepted, sha256: 'different' }, PATCH_HEIST_SOURCE_IDENTITY)).toThrow('SHA-256')
+  })
+
+  it('rejects arbitrary Club DB slide directories because apply renders the verified PPTX itself', () => {
+    expect(() => parseArgs(['--apply', '--club-db-dir', 'C:\\untrusted-slides', '--heist-source', 'C:\\source\\receipt.png'])).toThrow('renders directly from the verified PPTX')
   })
 
   it('accepts a current receipt and rejects missing, extra, and stale entries without writing files', () => {

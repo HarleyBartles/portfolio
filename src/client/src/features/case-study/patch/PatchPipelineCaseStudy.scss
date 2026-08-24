@@ -471,9 +471,27 @@
 
   .patch-snapshot dl div,
   .patch-snapshot dl div:nth-child(even) {
-    grid-template-columns: 1fr;
+    display: block;
+    padding-block: var(--space-2);
     padding-inline: 0;
     border-left: 0;
+  }
+
+  .patch-snapshot {
+    padding-block: var(--space-3);
+  }
+
+  .patch-snapshot dl {
+    margin-top: var(--space-3);
+  }
+
+  .patch-snapshot dt,
+  .patch-snapshot dd {
+    display: inline;
+  }
+
+  .patch-snapshot dt {
+    margin-right: var(--space-2);
   }
 
   .patch-snapshot dl div:last-child,

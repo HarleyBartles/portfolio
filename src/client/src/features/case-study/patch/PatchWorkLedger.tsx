@@ -6,8 +6,8 @@ const worldMedia = {
   'Lawful Heist': {
     key: 'heist',
     path: 'src/client/public/media/patch/patch-heist-1200.avif',
-    alt: 'Lawful Heist receipt-folder proof with six specialists marked in and an audit receipt joining the plan.',
-    caption: 'The joined receipt proves continuity through advanced visual pre-production; the deck itself remains unbuilt.',
+    alt: 'Lawful Heist joined visual evidence showing six specialist roles and an audit receipt linking the planned adventure.',
+    caption: 'Accepted visual evidence shows continuity through advanced visual pre-production; the deck itself remains unbuilt.',
   },
   'Tournament of Reasonable Defaults': {
     key: 'tournament',

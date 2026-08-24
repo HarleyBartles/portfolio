@@ -97,7 +97,7 @@ PATCH_CUSTODY_BY_FAMILY = {
     "goldilocks": "Published Goldilocks page derivative.",
     "sorcerersApprentice": "Published Sorcerer's Apprentice page derivative.",
     "clubDb": None,
-    "heist": "Lawful Heist receipt-folder derivative.",
+    "heist": "Lawful Heist verified Git-blob derivative.",
     "tournament": "Tournament route-check derivative.",
     "identity": "Identity Emporium world-proof derivative.",
 }
