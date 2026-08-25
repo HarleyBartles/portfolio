@@ -3,6 +3,15 @@ import { describe, expect, test } from 'vitest'
 import { LearningLabCaseStudy } from './LearningLabCaseStudy'
 
 describe('LearningLabCaseStudy', () => {
+  test('puts the origin quote before prose that refers back to it', () => {
+    render(<LearningLabCaseStudy />)
+
+    const quote = screen.getByText(/I'm going to teach my brother a few things about using agentic AI/)
+    const referringProse = screen.getByText(/I wrote those words at the start of the first curriculum-design conversation/)
+
+    expect(quote.compareDocumentPosition(referringProse) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  })
+
   test('opens with engineering lineage and preserves the bounded human origin', () => {
     const { container } = render(<LearningLabCaseStudy />)
     expect(screen.getByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()

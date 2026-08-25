@@ -34,9 +34,12 @@
 .learning-lab-origin {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  grid-template-areas: "copy quote";
   gap: clamp(var(--space-8), 6vw, var(--space-16));
   align-items: center;
 }
+
+.learning-lab-origin > div { grid-area: copy; }
 
 .learning-lab-kicker,
 .learning-atlas__course-number {
@@ -50,6 +53,7 @@
 }
 
 .learning-lab-origin blockquote {
+  grid-area: quote;
   margin: 0;
   padding: clamp(var(--space-6), 4vw, var(--space-10));
   background: var(--color-ink);
@@ -264,6 +268,7 @@
 
 @media (max-width: 44rem) {
   .learning-lab-origin, .learning-atlas__header, .learning-atlas__courses { grid-template-columns: 1fr; }
+  .learning-lab-origin { grid-template-areas: "quote" "copy"; }
   .learning-atlas__course, .learning-atlas__course:first-child, .learning-atlas__course:nth-child(2), .learning-atlas__course:last-child { grid-column: auto; padding: var(--space-7) 0; border-top: 0; border-right: 0; }
   .learning-atlas__course:not(:last-child) .learning-atlas__module:last-child { border-bottom: 1px solid var(--color-border); }
   .learning-atlas__course:not(:last-child) h3 { min-height: 0; }

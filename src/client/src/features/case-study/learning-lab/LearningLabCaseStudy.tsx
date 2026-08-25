@@ -20,13 +20,13 @@ export function LearningLabCaseStudy() {
         </CaseStudySection>
 
         <section className="learning-lab-origin" aria-labelledby="learning-lab-origin-title">
+          <blockquote>“I&apos;m going to teach my brother a few things about using agentic AI. I don&apos;t really have a learning plan or anything.”</blockquote>
           <div>
             <p className="learning-lab-kicker">Origin artefact</p>
             <h2 id="learning-lab-origin-title">A scrappy promise became a curriculum</h2>
             <p>I wrote those words at the start of the first curriculum-design conversation in August 2026. I wanted to pass hard-earned agentic practice to my brother, an intelligent, technically minded non-programmer, but I hadn&apos;t decided what was valuable to teach and what he should discover through the work. The Learning Lab began there, as a love letter to my brother and an admission that I didn&apos;t yet know its shape.</p>
             <p>That conversation produced a repository on 15 August. Working in it with agents turned the loose promise into teaching principles, runnable experiments and a three-course curriculum that other learners and facilitators can adapt. It also corrected an assumption in the original prompt: the early cloud-versus-local framing gave way to the stronger question of where the project lives and what evidence the learner can inspect.</p>
           </div>
-          <blockquote>“I&apos;m going to teach my brother a few things about using agentic AI. I don&apos;t really have a learning plan or anything.”</blockquote>
         </section>
 
         <CurriculumAtlas />
