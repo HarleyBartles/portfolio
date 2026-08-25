@@ -213,6 +213,7 @@ exists, then plan-readiness or final handoff readiness as the phase advances.
 | 5 | Adventures of Patch showcase and pipeline story | done | [approved base spec](../../specs/2026-08-21-portfolio-10k-05-patch-pipeline-case-study-design.md) · [Lawful Heist Crew slice](../../specs/2026-08-24-portfolio-10k-05-lawful-heist-crew-design.md) | [completed foundation plan](../completed/2026-08-24-portfolio-10k-phase-5-patch-pipeline.md) · [completed Lawful Heist Crew plan](../completed/2026-08-24-portfolio-10k-phase-5-lawful-heist-crew.md) | [`67b0276`](https://github.com/HarleyBartles/portfolio/commit/67b02764076d117c161befeb74605076e183c677) | [#25](https://github.com/HarleyBartles/portfolio/pull/25) · [#26](https://github.com/HarleyBartles/portfolio/pull/26) | 9.5/10 | PR #25 established the separate Patch showcase, moved Identity Emporium into it, closed the engineering case study and published Tournament. PR #26 completed the Lawful Heist recruitment dossier. Harley accepted the page at the visual gate; PR #26 merged at `2026-08-24T17:48:28Z`. Post-merge run [32758747612](https://github.com/HarleyBartles/portfolio/actions/runs/32758747612) passed the quality gate, Windows visuals, deployment and public-route verification on exact merge commit `67b0276`. |
 | 6 | Agentic Learning Lab leadership proof | done | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | [completed implementation plan](../completed/2026-08-24-portfolio-10k-phase-6-learning-lab.md) | [`e906f05`](https://github.com/HarleyBartles/portfolio/commit/e906f055a28a37e9874e76b4358f0cfb239d5e8d) · [`146c6b4`](https://github.com/HarleyBartles/portfolio/commit/146c6b40e9c8790644fc492a46b128daf458b86e) | [#29](https://github.com/HarleyBartles/portfolio/pull/29) · [#30](https://github.com/HarleyBartles/portfolio/pull/30) | 9.5/10 | PR #29 delivered the accepted Learning Lab leadership case study. PR #30 repaired the mobile origin-artefact order and adopted dependency-aware worktree setup. Hosted run [32836625754](https://github.com/HarleyBartles/portfolio/actions/runs/32836625754) passed on exact final merge commit `146c6b4`. |
 | 7 | Writing authority and breadth | ready | [approved spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | [JIT implementation plan](2026-08-25-portfolio-10k-phase-7-writing-authority.md) | — | — | 9/10 | The Graph evidence gate passed against Marketplace public `main` at `ddbd36f4`; Phase 7 will publish the preferred five-essay roster, remove Context and Pass References from the public manifest, and build typed figures, curated continuations and homepage-ready editorial metadata. |
+| 7A | Professional outcomes and proof compression | pending | [source-gated spec](../../specs/2026-08-25-portfolio-10k-07a-professional-outcomes-proof-compression-design.md) | — | — | — | 8/10 | Independent skeptical review exposed a distinct gap between responsibility and outcome evidence. Gather one employer-safe Access Checks stakes, change, outcome and influence account; give long case studies an early question, design, proof, cost and status fast path; then hand stable evidence inputs to Phase 8. |
 | 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Build a progressively enhanced editorial front page, a complete four-project deck, one Patch fairytale interlude, one essay feature, and a quiet professional route without feed, repetition, autoplay, or pitch clutter. |
 | 9 | Discovery and sharing finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
 | 10 | Direct-route first-paint finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
@@ -310,6 +311,25 @@ The five-essay publication fails this phase if a reader can remain inside an
 agentic-about-agentic loop without seeing the established engineering practice
 underneath it.
 
+Phase 7 source discovery for the Access-grounded API essay should capture one
+employer-safe outcome account when Harley can supply it. The essay may use only
+the approved portion. The durable professional treatment remains Phase 7A's
+responsibility.
+
+### 7A. Professional outcomes and proof compression
+
+Close the gap between responsibility and consequence before homepage
+choreography. Use one Harley-approved Access Checks example to make dependants,
+stakes, the before condition, Harley's decision, the observable result, and
+organisational influence legible without inventing metrics or disclosing
+private employer detail.
+
+Give each long engineering case study an early fast path through its question,
+design choice, inspectable proof, cost, and present status. Preserve the
+distinct narrative opening and visual language of each page. This phase does
+not reopen the accepted case-study arguments or turn them into one repeated
+template.
+
 ### 8. Homepage evidence choreography
 
 Only after the professional narrative, flagship projects, and writing are
@@ -379,8 +399,10 @@ reading time required before substantive evidence overrules it.
 - Phases 4–6 may be re-ordered after Phase 3 if asset readiness changes, but
   the reason must be recorded in Handoff Notes.
 - Phase 7 precedes the homepage so the final editorial hierarchy uses real
-  flagship material.
-- Phase 8 depends on the stable outputs of Phases 1 and 3–7.
+  flagship material. Its Access source discovery feeds Phase 7A.
+- Phase 7A depends on one Harley-approved, employer-safe outcome account and
+  the stable long-form outputs of Phases 3–7.
+- Phase 8 depends on the stable outputs of Phases 1 and 3–7A.
 - Phase 9 follows route and content stabilisation; Phase 10 may move earlier if
   investigation proves it blocks trustworthy content review.
 - Phase 11 is conditional and must not hold Phase 12 hostage after a justified
@@ -430,6 +452,12 @@ reading time required before substantive evidence overrules it.
   re-enters through the Phase 7 publication, Phase 8 homepage choreography,
   Phase 9 previews, Phase 10 direct-route identity, and Phase 12 launch audit
   under the fast-to-break skepticism rubric above.
+- An independent Sol review on 25 August 2026 confirmed the ordering problem
+  and exposed a separate evidence deficit: current professional surfaces prove
+  responsibility but not yet one bounded consequence of that responsibility.
+  Phase 7A now owns the source-gated professional outcome chain and compact
+  case-study proof abstracts. Phase 8 consumes those outputs; Phase 12 audits
+  that the reader does not have to assemble them across disconnected pages.
 - Design dialogue for Phases 10–12 was approved as one consolidated packet on
   22 August 2026. Each outcome remains a separate specification and handoff
   gate; Harley approved all three written specifications on 22 August 2026.

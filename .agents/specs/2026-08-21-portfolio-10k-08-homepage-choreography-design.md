@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phases 1 and 3–7 have landed
+**Implementation-plan readiness:** Deferred until Phases 1 and 3–7A have landed
 
 **Repository snapshot inspected:** `3e6cf23ceef6a80270d0fb1bf36ca93fea900fce`
 
@@ -19,7 +19,8 @@
 - the Phase 4 Wild Bunch preview;
 - the Phase 5 Adventures of Patch preview;
 - the Phase 6 Agentic Learning Lab preview; and
-- the Phase 7 writing roster and homepage-feature metadata.
+- the Phase 7 writing roster and homepage-feature metadata; and
+- the Phase 7A professional outcome account and case-study proof abstracts.
 
 This specification records the approved homepage design. It is not an
 implementation plan. The implementation plan must be written just in time from
@@ -348,6 +349,17 @@ Random selection may vary the doorway, but it may not determine whether the
 first viewport passes this test. The quiet professional route enters the top of
 About or an equivalent evidence-bearing professional surface. Contact remains
 available after the reader can inspect the case.
+
+The professional signal must communicate consequence as well as scope. A role
+label, ownership statement, or technology list alone is not the concrete signal
+required here. Use the approved Phase 7A outcome account at a length the first
+viewport can support, then route to the canonical About treatment for the full
+stakes, change, outcome, and influence chain.
+
+The direct content CTA should land where a project's question, design, proof,
+cost, and current status are quickly legible. It must not force a skeptical
+reader to reconstruct the case-study argument across several screens before
+they know what kind of proof they are reading.
 
 ## Homepage doorway pool
 
@@ -1089,8 +1101,12 @@ The reviewer answers:
   specialist agent identity?
 - Does one concrete professional or technical signal begin breaking a weary
   skeptic's default interpretation before the selected doorway is considered?
+- Does the professional signal expose a consequence, rather than merely
+  repeating scope or senior positioning?
 - Does one deliberate click reach substantive evidence, including when the
   selected doorway is the weakest eligible skepticism-breaker?
+- Does the destination quickly identify its question, design, proof, cost, and
+  present status without flattening its narrative opening?
 - Is there a direct, useful content CTA inside the initial desktop viewport?
 - Does the page read as how Harley thinks across domains rather than an attempt
   to sell himself?
@@ -1118,8 +1134,12 @@ protected homepage hierarchy and selection persistence.
       of the role;
 - [ ] one concrete professional or technical signal is visible in the stable
       first-viewport frame for every valid selection and fallback state;
+- [ ] any professional signal communicates an approved consequence as well as
+      scope and routes to the canonical outcome account;
 - [ ] manual review proves that one deliberate click reaches substantive
       evidence from every initial doorway and from the quiet professional route;
+- [ ] every project doorway lands where question, design, proof, cost, and
+      present status are quickly legible;
 - [ ] one direct project-or-essay CTA is visible in the initial desktop
       viewport;
 - [ ] initial selection is balanced by content category and stable for the
@@ -1217,6 +1237,6 @@ The specification defines:
 
 No unresolved design decision blocked approval. The missing point is
 intentional: a safe implementation plan cannot be written until Phases 1 and
-3–7 have landed and their actual types, routes, previews, assets, and metadata
+3–7A have landed and their actual types, routes, previews, assets, and metadata
 can be re-inspected. That dependency does not weaken the design specification;
 it prevents a premature plan from becoming stale.

@@ -60,7 +60,9 @@ agentic presentation may conceal weak engineering. For each path, record:
 - the clicks, viewport screens, and approximate reading time required to reach
   it;
 - the substantive evidence surface that makes the interpretation untenable;
-  and
+- whether the professional route proves consequence as well as responsibility;
+- whether each long case study exposes its question, design, proof, cost, and
+  current status before the reader must reconstruct them; and
 - any essential claim the reader had to assemble across disconnected pages.
 
 The target is skepticism beginning to break in the first viewport, becoming
@@ -348,6 +350,13 @@ decision.
       reach substantive engineering evidence in one deliberate click;
 - [ ] no essential engineering claim depends on the reader assembling it from
       disconnected pages;
+- [ ] the professional story contains an approved stakes, change, outcome, and
+      influence chain rather than responsibility evidence alone;
+- [ ] every long engineering case study offers an early question, design,
+      proof, cost, and present-status fast path without flattening its authored
+      argument;
+- [ ] prominent uses of `proof`, `evidence`, `honest`, or `inspectable` sit near
+      the receipt, limitation, trade-off, or outcome that earns the word;
 - [ ] professional facts, current claims, confidentiality boundaries, dates,
       maturity language, CV, contact, and availability are re-verified;
 - [ ] four distinct case studies and five fully groomed essays meet their

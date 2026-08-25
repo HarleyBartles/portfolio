@@ -373,6 +373,14 @@ Access Checks is the concrete, employer-safe anchor. The article may name:
 It must not expose internal architecture, customer identity, candidate data,
 private metrics, or imply that Harley originally architected the whole product.
 
+Responsibility is already an approved public fact; consequence is a separate
+evidence class. Before drafting, ask Harley for one employer-safe example that
+identifies the dependants and stakes, relevant before condition, Harley's exact
+decision, observable result, organisational influence, and disclosure class.
+Use only the approved portion. If no safe example survives review, omit the
+outcome claim rather than substituting generic impact language. Record the
+source account or blocker for Phase 7A's durable About and CV treatment.
+
 The tone is neutral professional learning. Do not mention the job search,
 progression, recognition, dissatisfaction, or employer evaluation. Do not add
 defensive `this is not criticism` disclaimers that manufacture suspicion.
@@ -1051,6 +1059,9 @@ Phase 7 is complete only when:
 - [ ] the selected Graph or Context article is fully groomed and
       author-approved;
 - [ ] API is written, employer-safe, and author-approved;
+- [ ] any API claim about stakes, outcomes, or organisational influence is
+      explicitly approved and classified as exact, approximate, qualitative,
+      or confidential, with the Phase 7A handoff recorded;
 - [ ] Testing is written, source-grounded, and author-approved;
 - [ ] skill-TDD upstream lineage, traditional engineering composition,
       Harley's extension, and later convergence are distinguished accurately;
