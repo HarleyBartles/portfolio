@@ -82,8 +82,8 @@ Phase 8 does not:
 - implement or rewrite the professional facts owned by Phase 1;
 - produce the CV or activate contact delivery owned by Phase 2;
 - create or materially rewrite the case studies owned by Phases 3–6;
-- groom essays, choose the Graph-versus-Context launch slot, or build article
-  figures owned by Phase 7;
+- groom essays, make editorial-admission decisions, or build article figures
+  owned by Phase 7;
 - publish a new Patch fairytale merely to fill the homepage interlude;
 - make the homepage a feed, search surface, topic archive, or complete router;
 - render a whole essay inline on the homepage;
@@ -388,8 +388,9 @@ The writing side contains every published essay whose Phase 7 metadata says:
 homepageFeature.eligible === true
 ```
 
-At launch this is the five-essay floor. The pool is metadata-driven so future
-approved essays can enter without editing an unrelated homepage slug list.
+At launch this is the complete admitted Phase 7 publication, with at least five
+essays. The pool is metadata-driven so roster size and future approved essays
+do not require an unrelated homepage slug list.
 
 The candidate consumes:
 
@@ -402,6 +403,11 @@ The candidate consumes:
 
 The vibe-coding essay is the stable writing fallback. Writing-index leadership
 and homepage eligibility remain independent facts.
+
+`Why ADRs?` is eligible to become a technically serious doorway when its final
+Phase 7 metadata admits it to the homepage pool. Its selection may accelerate
+the principal-architect reading, but the stable first viewport must still break
+the weary hiring-manager interpretation when another candidate is selected.
 
 ### Candidate contract
 
@@ -668,7 +674,7 @@ reuse the principal article figure automatically when a lighter homepage
 preview from the same visual language serves the composition better.
 
 There are no Previous, Next, or Shuffle controls in this section. The secondary
-action enters `/writing`, where the full five-essay editorial space and curated
+action enters `/writing`, where the full admitted editorial space and curated
 continuations become available.
 
 ## Quiet professional route
@@ -920,8 +926,9 @@ image icon or placeholder promise.
 - no writing: omit the feature and retain a working `/writing` route only when
   that route has useful published content.
 
-These are defensive runtime states. The five-essay and four-project launch
-contracts remain build-time acceptance requirements for the intended release.
+These are defensive runtime states. The five-essay floor and four-project
+launch contracts remain build-time acceptance requirements for the intended
+release.
 
 ### Pre-hydration boundary
 

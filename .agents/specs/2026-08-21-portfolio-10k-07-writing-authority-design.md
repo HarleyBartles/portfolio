@@ -6,6 +6,8 @@
 
 **Approved written specification:** 22 August 2026
 
+**Approved editorial-admission amendment:** 25 August 2026
+
 **Spec-readiness:** 9/10
 
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
@@ -23,15 +25,16 @@
 
 ## Goal
 
-Turn the portfolio's current five-article writing floor into a finished,
-deliberately navigable body of technical writing that demonstrates Harley's
-authority as a senior software engineer with a distinctive agentic-engineering
-edge.
+Turn the portfolio's current five-article writing floor into the strongest
+finished, deliberately navigable body of technical writing that the Phase 7
+time budget can support. The publication must demonstrate Harley's authority
+as a senior software engineer with a distinctive agentic-engineering edge.
 
-The phase must prove breadth without pretending that volume is authority. Two
-articles must make core engineering judgment inspectable. Three may lead with
-agentic engineering only because they expose different layers of that field:
-professional position, operating environment, and governed process.
+Five is a content-density floor, not a desired exact cardinality. Phase 7 may
+publish roughly five to eight essays. The upper edge is a wall-clock guardrail,
+not an editorial target. Every admitted essay must earn full treatment through
+a distinct argument, concrete evidence, sufficient substance, a useful place
+in the reading graph, and a realistic completion cost.
 
 The governing thesis is:
 
@@ -41,8 +44,8 @@ The governing thesis is:
 
 The writing-system thesis is:
 
-> Five essays should feel like one authored publication with several ways in,
-> not five adjacent blog posts or a thin chronological feed.
+> The admitted essays should feel like one authored publication with several
+> ways in, not a pile of adjacent blog posts or a thin chronological feed.
 
 The publication must also serve a skeptical hiring manager who has already seen
 several agentic-engineering portfolios without finding strong engineering
@@ -54,9 +57,13 @@ reader cannot mistake the corpus for commentary about agents alone.
 
 Phase 7 will deliver:
 
-- five fully groomed and author-approved public essays;
-- two core-engineering arguments and three distinct agentic-engineering
-  arguments;
+- at least five fully groomed and author-approved public essays, with a bounded
+  working range of roughly five to eight;
+- a recorded editorial-admission decision for every candidate essay;
+- `Why ADRs?` as a user-directed core-engineering essay rooted in Harley's
+  professional history rather than a generic ADR tutorial;
+- enough core and agentic engineering breadth to defeat both the weary hiring-
+  manager reading and the pattern-costume reading;
 - a shared premium editorial essay system with article-specific proof figures;
 - a writing-specific manifest contract for editorial datelines, reading time,
   index leadership, homepage-feature readiness, visual identity, and curated
@@ -65,10 +72,11 @@ Phase 7 will deliver:
 - homepage-feature inputs for every published essay without implementing the
   Phase 8 homepage selection mechanic;
 - exactly two authored continuation choices on every essay;
-- an early curated route from the Vibe lead into at least one of the two core-
-  engineering essays;
+- an early curated route from the Vibe lead into substantive core-engineering
+  evidence;
 - no automatic chronological, random, or first-available article fallback;
-- a real Graph-versus-Context evidence gate with an approved Plan B;
+- a real Graph evidence gate without treating Graph and Context as mutually
+  exclusive editorial slots;
 - explicit lineage for skill TDD, the Marketplace extension, and later-found
   frontier evaluation guidance;
 - a source-custody record covering conceptual lineage and supporting evidence;
@@ -82,8 +90,12 @@ Phase 7 will deliver:
 
 Phase 7 will not:
 
-- publish six essays merely to make the catalogue look larger;
-- preserve rough placeholder prose because it already exists;
+- optimise for an exact essay count;
+- publish any essay merely to make the catalogue look larger or meet the five-
+  essay floor;
+- preserve rough source material because it already exists;
+- discard strong, distinct material because five essays have already been
+  admitted;
 - turn the writing index into a search, topic taxonomy, filter system, or
   publication-scale archive before the content volume earns one;
 - build a homepage article feed or select the homepage feature;
@@ -93,7 +105,8 @@ Phase 7 will not:
 - describe an editorial dateline as `published`, `posted`, or `written on`;
 - claim that a public article's editorial dateline matches its Git commit or
   deployment date;
-- create five bespoke microsites or introduce MDX for article-specific layout;
+- create a bespoke microsite for every essay or introduce MDX for article-
+  specific layout;
 - add a runtime graph, chart, or diagram dependency;
 - use generic AI imagery, stock imagery, or decorative diagrams to simulate
   authority;
@@ -248,28 +261,43 @@ At Phase 7 JIT planning, refresh Agent Asset Marketplace `main` and inspect the
 actual implementation and proof. Pin the accepted public revision. Do not
 silently preserve this design baseline if the implementation has moved.
 
-## Launch roster
+## Editorial candidate pool and admission gate
 
-Phase 7 has a five-essay launch acceptance roster.
+Phase 7 begins with eight bounded candidates. Existing-file status does not
+confer admission, and the lack of an existing file does not count against a
+new argument.
 
-| Public title | Canonical slug | Decision |
+| Public title | Canonical slug | Starting state |
 | --- | --- | --- |
-| Agentic engineering and the kindness of vibe coding | `agentic-engineering-vs-vibe-coding` | Required |
-| Provisioning is not accumulation | `provisioning-is-not-accumulation` | Required |
-| The review graph | `graph-iterative-review` | Preferred, subject to evidence gate |
-| The API is only the middle | `api-is-only-the-middle` | Required |
-| Tests are different kinds of evidence | `tests-are-different-kinds-of-evidence` | Required |
+| Agentic engineering and the kindness of vibe coding | `agentic-engineering-vs-vibe-coding` | Accepted argument and intended lead |
+| Why ADRs? | `why-adrs` | User-directed required addition |
+| Provisioning is not accumulation | `provisioning-is-not-accumulation` | Candidate source material |
+| The review graph | `graph-iterative-review` | Candidate with passed evidence gate |
+| Context is not the same as state | `context-is-not-state` | Candidate source material |
+| Pass references, not paragraphs | `pass-references-not-paragraphs` | Candidate source material |
+| The API is only the middle | `api-is-only-the-middle` | Candidate outline |
+| Tests are different kinds of evidence | `tests-are-different-kinds-of-evidence` | Candidate outline |
 
-The Plan B title and slug are `Context is not the same as state` and
-`context-is-not-state`.
+Before atomic manifest activation, record an editorial-admission decision for
+every candidate. The decision asks:
 
-If the review graph fails its evidence gate, `Context is not the same as state`
-replaces it. Exactly one of Graph and Context occupies the public slot.
+1. Does the essay have a distinct governing argument?
+2. Can it expose concrete evidence rather than assertion?
+3. Is there enough substance for a finished article?
+4. Does it create a useful route through the reading graph?
+5. Is the cost to finish realistic inside the remaining Phase 7 time budget?
 
-Five is the launch floor and the approved Phase 7 scope. It is not a permanent
-maximum. Future essays must satisfy the same editorial, visual, continuation,
-homepage-readiness, attribution, and accessibility contracts before becoming
-public.
+Vibe remains admitted and the intended index lead unless Harley changes that
+author decision. `Why ADRs?` must be written and author-approved. Every other
+candidate earns or loses admission on the five questions above. The Graph
+evidence gate proves that real source material exists; it does not force
+Context out. A nominal roster size does not force Pass References out.
+
+Publish every essay that earns full editorial treatment, with at least five
+admitted essays and a practical working range of roughly five to eight. Record
+dropped candidates as deliberately unpublished material preserved in Git, not
+failed content or deleted history. Harley's author gate remains decisive:
+structural conformance never entitles an essay to publication.
 
 ## Portfolio responsibility split
 
@@ -278,19 +306,21 @@ Each essay must contribute a distinct proof angle.
 | Essay | Primary responsibility | Senior-candidate evidence |
 | --- | --- | --- |
 | Vibe coding | Professional boundary | Distinguishes generated output from accountable engineering judgment |
+| Why ADRs? | Architectural memory and transfer | Preserves decisions, rejected alternatives, evidence and reconsideration triggers so future engineers do not pay twice for the same learning |
 | Provisioning | Environment and knowledge architecture | Scopes capability deliberately rather than accumulating instructions |
 | Review graph | Runtime governance | Makes coverage, independence, repair, and termination inspectable |
 | API | End-to-end product ownership | Extends responsibility from ambiguous work through production operation |
 | Testing | Evidence strategy | Selects test boundaries by risk and knows what each result can prove |
-| Context fallback | Durable state | Separates transient conversation from governed project truth |
+| Context | Durable state | Separates transient conversation from governed project truth |
+| Pass references | Materialised handoff | Transfers durable, inspectable state without bloating conversation context |
 
 The agentic shorthand is:
 
 > Vibe coding is the position. Provisioning designs the environment. The graph
 > governs the process.
 
-Reinforcement between essays is expected. A public essay does not earn its slot
-if it merely repeats another essay's primary responsibility.
+Reinforcement between essays is expected. A public essay does not earn
+admission if it merely repeats another essay's primary responsibility.
 
 ## Article contracts
 
@@ -304,6 +334,70 @@ silently reopen the governing argument.
 The article proves the professional boundary between prototype capability and
 engineered responsibility. It remains generous toward vibe coding while
 making clear why an engineer still matters when outputs affect a real product.
+
+### Why ADRs?
+
+This is not a generic explanation of what an ADR is. Its governing proposition
+is:
+
+> Architectural decisions are institutional memory. If nobody records what
+> was tried and why it was rejected, tomorrow's engineer can pay again for
+> yesterday's learning.
+
+The article preserves Harley's argument before any shorter editorial line. A
+derived line such as `Do not make future engineers pay twice for the same
+learning` may support the piece, but must not replace the reasoning with a
+slogan.
+
+The useful record contains:
+
+1. context;
+2. decision;
+3. rejected alternatives;
+4. evidence or experience behind each rejection;
+5. consequences; and
+6. reconsideration triggers.
+
+Not every experiment deserves an ADR. Record a rejected alternative when a
+competent future engineer could reasonably rediscover it and propose it again.
+Mistakes and malformed implementations are valuable when they expose a
+boundary, cost, or falsifier that the surviving decision alone would hide.
+
+The professional origin is Harley's Barbican and Arch period. Early in his
+engineering career he spent roughly two years on a complex enterprise system
+inside a three-person team, learning alongside a senior engineer with deep DDD,
+CQRS, event-sourcing, and related architectural experience. This is where the
+kit was learned in practice.
+
+The article must present that kit as selective rather than doctrinal. Other
+architectures and ecosystems can solve difficult problems well. The relevant
+evidence is that Harley knows when this family of patterns earns its cost, when
+it does not, and how a claimed implementation can wear the vocabulary without
+preserving the pattern's consequences.
+
+The team left little durable architectural reasoning. When the original
+team's knowledge disappeared, the organisation could no longer own the system
+confidently and the product was later sunset. A planned replacement expected a
+substantially simpler architecture and a much shorter route to delivery, then
+encountered the same domain complexity the original team had discovered.
+
+The article must hold two conclusions together without sneering:
+
+- much of the original complexity was essential domain complexity and the
+  architecture substantially earned its cost; and
+- the organisation had not preserved enough reasoning for future engineers to
+  understand, challenge, or own it safely.
+
+That organisational failure is the scar behind Harley's current ADR and
+knowledge-custody practice. Source custody must classify Harley's professional
+account separately from public Wild Bunch corroboration, external conceptual
+sources, and editorial inference.
+
+Wild Bunch may corroborate the argument through public source evidence, but
+Phase 7 must not edit its accepted case-study page. ADR-0028, later typed-event
+and replay evolution, and integration tests that damage stale snapshots and
+require event-stream recovery are deferred proof-compression inputs for Phase
+7A.
 
 ### Provisioning is not accumulation
 
@@ -325,7 +419,7 @@ must not become a catalogue of Harley's plugins or skills.
 
 ### The review graph
 
-The preferred public article explains why a graph earns its complexity in an
+The candidate article explains why a graph earns its complexity in an
 iterative-review workflow and what a trustworthy completion claim requires.
 
 The article must use the implemented, pinned graph and evidence vocabulary. It
@@ -333,17 +427,27 @@ must not publish this design's speculative topology, copy a planning diagram,
 or claim that reviewer assistance is already trustworthy-green when the source
 repository does not prove that state.
 
-The full grooming pass starts only after the evidence gate passes.
+The evidence gate has passed. Editorial admission still depends on the
+article's distinctness, substance, graph role, and cost to finish.
 
-### Context is not the same as state — Plan B
+### Context is not the same as state
 
-If Graph is not ready, rebuild Context as the fifth article. Its governing
-claim is that conversation may carry working context while durable truth needs
-a governed home outside the conversation.
+Its governing claim is that conversation may carry working context while
+durable truth needs a governed home outside the conversation.
 
-Absorb only the strongest material from `Pass references, not paragraphs`,
-particularly durable handoff references and materialised state. That article
-does not remain as a sixth rough route.
+Context may coexist with Graph if its finished argument remains distinct and
+earns a useful place in the reading graph.
+
+### Pass references, not paragraphs
+
+Its governing claim is that durable handoffs should point to materialised,
+governed state rather than reproduce large conversational payloads. The essay
+must remain distinct from Context: Context establishes where truth lives; Pass
+References explains how workers transfer authority and evidence without
+copying the truth into every handoff.
+
+Existing prose is candidate material. Keep the essay only if that distinction
+survives full editorial treatment and justifies its completion cost.
 
 ### The API is only the middle
 
@@ -598,34 +702,27 @@ Do not use a topic label such as `towards core engineering` or `towards
 agentic engineering` in the public interface. The semantic branching remains
 editorial structure that the reader experiences through interest.
 
-## Approved continuation graph
+## Admission-dependent continuation graph
 
-Preferred Graph roster:
+Do not encode a continuation graph before the editorial-admission gate fixes
+the actual launch roster. After Harley admits the final set:
 
-| From | Continuation 1 | Continuation 2 |
-| --- | --- | --- |
-| Vibe coding | API | Provisioning |
-| API | Tests | Vibe coding |
-| Tests | API | Review graph |
-| Provisioning | API | Review graph |
-| Review graph | Tests | Provisioning |
+- keep Vibe as the only lead unless Harley changes that author decision;
+- give Vibe a direct route to substantive core-engineering evidence;
+- give every admitted essay exactly two published, distinct, non-self targets;
+- make every admitted essay reachable from the index and connected graph;
+- preserve useful choice rather than making both links repeat the same
+  conceptual move; and
+- author distinct rationale copy for both links on every route.
 
-Plan B Context roster:
-
-| From | Continuation 1 | Continuation 2 |
-| --- | --- | --- |
-| Vibe coding | API | Provisioning |
-| API | Tests | Vibe coding |
-| Tests | API | Context |
-| Provisioning | API | Context |
-| Context | Tests | Provisioning |
-
-The implementation must author distinct rationale copy for both links on every
-route. It must not expose these tables or their hidden branch labels publicly.
+The implementation must test the graph generated from the admitted roster. It
+must not expose internal branch labels publicly. Graph and Context may both
+appear when both earn admission.
 
 ## Reading-surface contract
 
-All five essays use one shared editorial system with article-specific proof.
+All admitted essays use one shared editorial system with article-specific
+proof.
 
 The route order is:
 
@@ -668,6 +765,14 @@ human responsibility. The figure must preserve the article's generosity
 toward experimentation and avoid a simplistic `AI bad / engineer good`
 binary.
 
+### Why ADRs? figure
+
+Show decision history as a reusable engineering asset: context and attempted
+routes enter a decision record; rejected alternatives retain their evidence;
+consequences and reconsideration triggers remain visible to a later engineer.
+The figure must make lost reasoning and repeated learning legible without
+turning the article into a document-template tutorial.
+
 ### Provisioning figure
 
 Show knowledge at four deliberately different scopes:
@@ -705,11 +810,18 @@ claims they can examine.
 Do not use the testing pyramid or separate frontend/backend columns as the
 governing model.
 
-### Context fallback figure
+### Context figure
 
 Contrast transient conversation context with durable, governed project state.
 Show the materialisation boundary without implying that all useful context
 belongs in permanent files.
+
+### Pass-references figure
+
+Show a handoff carrying a compact reference to governed materialised state,
+with the recipient resolving the current evidence at source. Do not imply that
+a reference is sufficient when the target lacks authority, version, or
+availability.
 
 ## Visual and typographic direction
 
@@ -779,6 +891,18 @@ Each record includes:
   convergence, supporting evidence, or further reading; and
 - the location of public attribution.
 
+For `Why ADRs?`, the ledger must keep four authorities separate:
+
+- Harley's first-party Barbican and Arch professional account;
+- public Wild Bunch repository evidence used as corroboration;
+- external conceptual sources; and
+- any editorial inference drawn by the article.
+
+The professional account is authoritative for Harley's experience, not for
+claims about another person's intent or an organisation's private reasoning.
+Approximate chronology, expected delivery time, and later outcomes retain their
+approved precision in prose and custody.
+
 This relationship field prevents later-discovered reading from being rewritten
 as original influence.
 
@@ -810,8 +934,8 @@ Expected responsibilities include:
 - an `ArticleContinuations` presentation;
 - removal of chronological navigation from writing routes;
 - preservation of existing project and fairytale navigation;
-- five groomed Markdown documents;
-- the chosen Graph or Context route only;
+- at least five groomed Markdown documents from the admitted roster;
+- one recorded admission decision for every bounded candidate;
 - writing-index alignment; and
 - source and asset custody updates.
 
@@ -894,11 +1018,10 @@ No essential motion is required. Any incidental transition must respect
 ### Graph gate failure
 
 If public default-branch evidence cannot prove the review graph at JIT time,
-select Context and record the decision in the JIT plan. Do not wait indefinitely
-or lower the evidence threshold to preserve the preferred title.
-
-Once selected, Graph and Context cannot be silently exchanged during
-implementation.
+Graph cannot be admitted. Record the evidence failure without treating Context
+as an automatic replacement. Context still faces the same editorial-admission
+questions as every other candidate. Do not wait indefinitely or lower the
+evidence threshold to preserve Graph's title.
 
 ### Continuation failure
 
@@ -929,10 +1052,10 @@ selection mechanic.
 
 ### Obsolete drafts
 
-Unselected or superseded placeholders are not public manifest entries. Apply
-cleanup custody during JIT planning: absorb useful prose, retain only a bounded
-backlog note when it has future value, and remove disposable duplicate drafts.
-Git history remains available.
+Unselected candidates are not public manifest entries. Record them as
+deliberately unpublished material and preserve their history in Git. Removal of
+a working-tree Markdown file happens only after the final admission decision,
+with any useful source material or future value named in the admission record.
 
 ## Testing contract
 
@@ -940,6 +1063,7 @@ Git history remains available.
 
 Automated checks cover:
 
+- at least five admitted public essays for Phase 7;
 - valid writing-specific metadata;
 - one and only one writing-index lead;
 - homepage-feature readiness for every published essay;
@@ -947,11 +1071,12 @@ Automated checks cover:
 - no duplicate, self, missing, or unpublished continuation targets;
 - valid visual identifiers and descriptions;
 - editorial dateline and reading time presence;
-- Graph-versus-Context exclusivity; and
-- no publicly registered superseded placeholder.
+- every public essay having a recorded admission decision; and
+- no publicly registered rejected candidate.
 
-The exact five-essay roster is a Phase 7 acceptance assertion, not a permanent
-schema maximum.
+Five is a Phase 7 launch floor. Eight is a time-budget guardrail, not a
+permanent schema maximum. The validator should keep permanent content quality
+rules separate from this phase-level count check.
 
 ### Unit and component tests
 
@@ -969,13 +1094,13 @@ Cover:
 
 At desktop and narrow-mobile widths verify:
 
-1. the writing index presents one lead essay and the full five-essay roster;
+1. the writing index presents one lead essay and the full admitted roster;
 2. every essay route has one `h1`, proposition, dateline, reading time,
    principal figure, body, and two continuations;
 3. Vibe can continue toward API or Provisioning;
 4. the core and agentic journeys remain traversable through curated links;
-5. Graph or Context appears according to the recorded JIT decision, never
-   both;
+5. every admitted candidate appears and every rejected candidate remains
+   unpublished;
 6. no essay renders `Previous` or `Next` chronology;
 7. source links have descriptive names; and
 8. no layout overflows at the tested viewport.
@@ -1020,16 +1145,20 @@ review, or visual judgment.
 
 ## Manual quality review
 
-Before Phase 7 can complete, review the five essays together and confirm:
+Before Phase 7 can complete, review the admitted publication together and
+confirm:
 
 - each makes one distinct senior-level contribution;
-- the two core-engineering essays are visible without being presented as an
-  antidote to agentic work;
+- `Why ADRs?` exposes field-acquired architectural judgement, rejected
+  alternatives, reconsideration triggers, and the organisational cost of lost
+  reasoning without becoming a generic ADR tutorial;
+- core-engineering evidence is visible without being presented as an antidote
+  to agentic work;
 - a skeptical reader can reach API ownership or evidence-led testing from the
   index or Vibe lead without traversing another agentic-only essay first;
 - the first core-engineering surface replaces assertion with concrete product
   responsibility, risk, test boundary, or operational evidence;
-- the three agentic essays expose different layers rather than repeating one
+- admitted agentic essays expose distinct layers rather than repeating one
   thesis;
 - article openings are concrete and conclusions are useful;
 - every factual claim is within its approved authority boundary;
@@ -1038,6 +1167,13 @@ Before Phase 7 can complete, review the five essays together and confirm:
 - skill TDD is credited to Superpowers before Harley's extension is described;
 - later OpenAI and Anthropic alignment is not rewritten as prior inspiration;
 - every copied or adapted asset has inspectable custody;
+- every candidate has a recorded admission or deliberate non-publication
+  decision based on argument, evidence, substance, graph role, and finish cost;
+- Wild Bunch remains unchanged in Phase 7 while its ADR and recovery evidence
+  is retained for Phase 7A proof compression;
+- a technical reviewer can find professional provenance, selective pattern
+  use, a rejected alternative, an architectural correction, and a falsifier
+  without independently excavating repository history;
 - every third-party source is attributed according to its licence and role;
 - every cross-repository Harley-owned asset still names its source;
 - the continuation graph feels like reader choice rather than telegraphed
@@ -1051,20 +1187,33 @@ Before Phase 7 can complete, review the five essays together and confirm:
 Phase 7 is complete only when:
 
 - [ ] the Graph evidence gate has been run against refreshed public source
-      truth and the Graph-or-Context decision is recorded;
-- [ ] exactly five approved launch essays are publicly registered;
+      truth and the evidence result is recorded without forcing another
+      candidate in or out;
+- [ ] at least five essays meet the full editorial bar, with no essay admitted
+      merely to satisfy volume and no strong essay rejected merely because five
+      already exist;
+- [ ] every bounded candidate has an explicit admission decision based on
+      argument, evidence, substance, graph role, and realistic finish cost;
 - [ ] Vibe coding retains its approved argument and receives finished
       presentation;
-- [ ] Provisioning is rebuilt and author-approved;
-- [ ] the selected Graph or Context article is fully groomed and
-      author-approved;
-- [ ] API is written, employer-safe, and author-approved;
-- [ ] any API claim about stakes, outcomes, or organisational influence is
+- [ ] `Why ADRs?` is written and author-approved as a core-engineering argument
+      rooted in Harley's professional experience;
+- [ ] `Why ADRs?` treats rejected alternatives and mistakes as a core purpose
+      of decision history and records reconsideration triggers;
+- [ ] the Barbican and Arch account distinguishes essential domain complexity
+      from the separate failure to preserve architectural reasoning;
+- [ ] the ADR essay presents DDD, CQRS, event sourcing, and related patterns as
+      a selectively used professional kit rather than the only legitimate
+      architecture for complex software;
+- [ ] every admitted candidate is fully groomed and author-approved;
+- [ ] any admitted API claim about stakes, outcomes, or organisational influence is
       explicitly approved and classified as exact, approximate, qualitative,
       or confidential, with the Phase 7A handoff recorded;
-- [ ] Testing is written, source-grounded, and author-approved;
-- [ ] skill-TDD upstream lineage, traditional engineering composition,
-      Harley's extension, and later convergence are distinguished accurately;
+- [ ] any admitted Testing essay distinguishes skill-TDD upstream lineage,
+      traditional engineering composition, Harley's extension, and later
+      convergence accurately;
+- [ ] Wild Bunch is used only as corroborating source evidence and its public
+      case-study page remains unchanged until Phase 7A;
 - [ ] every essay satisfies the editorial content contract;
 - [ ] one essay leads the writing index;
 - [ ] every published essay is homepage-feature ready;
@@ -1072,18 +1221,21 @@ Phase 7 is complete only when:
       equivalent;
 - [ ] every essay has exactly two curated continuations with authored
       rationale copy;
-- [ ] the Vibe lead has a direct curated continuation to API or Testing, and
-      the writing index exposes at least one core-engineering doorway without a
-      long scan;
+- [ ] the Vibe lead and writing index expose substantive core-engineering
+      evidence without a long scan;
 - [ ] chronological and fallback article navigation is absent from writing
       routes;
-- [ ] the approved continuation graph is implemented without public branch
-      labels;
-- [ ] source and asset custody records are complete;
+- [ ] the admitted-roster continuation graph is implemented without public
+      branch labels;
+- [ ] source custody distinguishes Harley's first-party professional account,
+      public Wild Bunch evidence, external conceptual sources, and inference;
+- [ ] source and asset custody records are otherwise complete;
+- [ ] rejected candidates are recorded as deliberately unpublished material
+      preserved in Git;
 - [ ] no rough placeholder remains publicly routable;
 - [ ] browser, accessibility, responsive, and performance checks pass;
 - [ ] the canonical gate passes at the final implementation head; and
-- [ ] Harley approves the complete five-essay reading journey.
+- [ ] Harley approves the complete admitted publication as one reading journey.
 
 ## Approved design dialogue record
 
@@ -1092,7 +1244,7 @@ The 22 August 2026 design dialogue approved:
 - five finished essays as the launch floor;
 - two core and three agentic essays;
 - the distinct position/environment/process roles of the agentic trio;
-- Graph as preferred and Context as a preselected Plan B;
+- Graph as preferred under the original five-slot design;
 - the Access-grounded API article and its employer-neutral boundary;
 - the cross-boundary testing article and evidence-map visual;
 - skill TDD as inherited from Superpowers;
@@ -1109,16 +1261,33 @@ The 22 August 2026 design dialogue approved:
 - provenance and attribution even across Harley-owned repositories; and
 - fail-closed content, evidence, and validation gates.
 
+Harley's 25 August 2026 amendment supersedes the fixed-slot parts of that
+dialogue. It approves:
+
+- five as a content-density floor and roughly five to eight as a bounded
+  working range rather than an editorial target;
+- an explicit editorial-admission gate for all eight candidates;
+- Graph and Context as independently judged candidates;
+- preservation of strong Context or Pass References material when it earns
+  publication;
+- `Why ADRs?` as a required user-directed addition;
+- the Barbican and Arch professional account as the ADR essay's authority;
+- Wild Bunch as corroborating source only during Phase 7; and
+- a complementary principal-architect falsification lens for later phases.
+
 ## Readiness assessment
 
-**Rating: 9/10 — approved and ready for later JIT implementation planning.**
+**Rating: 9/10, approved amendment and ready for revised JIT execution.**
 
 The specification has:
 
-- a bounded five-essay launch roster;
+- a bounded eight-candidate pool with a five-essay publication floor;
+- an explicit editorial-admission gate and hard Harley author gate;
 - distinct proof responsibilities;
+- a required `Why ADRs?` argument grounded in professional provenance,
+  rejected alternatives, and organisational knowledge loss;
 - approved arguments and confidentiality boundaries;
-- a trustworthy Graph-or-Context contingency;
+- a passed Graph evidence gate that does not predetermine Context admission;
 - explicit editorial, navigation, visual, date, homepage, and custody
   contracts;
 - implementation seams grounded in the current repository;
@@ -1126,7 +1295,8 @@ The specification has:
   and
 - a clear Phase 8 and Phase 9 boundary.
 
-The remaining uncertainty is intentionally deferred to the JIT evidence gate:
-whether the review graph has become publicly implemented and trustworthy. That
-uncertainty has a complete Plan B, did not block approval, and does not block
-JIT planning when the evidence gate is reached.
+The remaining uncertainty is editorial rather than architectural: which of the
+six non-required candidates can earn full treatment inside the wall-clock
+budget. The admission contract and Harley gate make that decision explicit
+without forcing weak work into the publication or discarding strong work to
+protect a number.

@@ -35,6 +35,9 @@ Phase 7A will deliver:
 - one approved, employer-safe Access Checks outcome account;
 - a compact stakes, change, outcome, and influence treatment on About;
 - a deliberate decision on whether a shorter version belongs in the CV;
+- a concise professional-provenance treatment identifying Barbican and Arch as
+  the place Harley acquired his DDD, CQRS, event-sourcing, and related
+  architectural kit in practice;
 - canonical professional-fact ownership in `professionalProfile.ts`, with
   claim precision and disclosure boundaries recorded;
 - a compact evidence abstract near the start of each long engineering case
@@ -113,6 +116,12 @@ The treatment must:
 - remain concise enough that the broader professional chronology still has
   room to breathe.
 
+About may also carry one compact professional-history statement connecting the
+Barbican and Arch period to Harley's current architecture and knowledge-custody
+practice. The `Why ADRs?` essay owns the full argument. About should establish
+provenance, selective use, and the consequence of lost reasoning without
+becoming another architecture essay.
+
 ### CV
 
 The CV is not required to repeat the About narrative. At implementation time,
@@ -156,6 +165,21 @@ The current long-form candidates are Marketplace, Wild Bunch, Adventures of
 Patch, and Agentic Learning Lab. The implementation plan must inspect their
 then-current openings before deciding which already satisfy part of the
 contract and which need a bounded retrofit.
+
+Wild Bunch carries specific deferred inputs from the Phase 7 ADR work:
+
+- ADR-0028 records event recording masquerading as event sourcing and rejects
+  that drift;
+- later architecture makes typed events, replay, projection authority,
+  optimistic concurrency, disposable snapshots, and version or upcasting
+  behaviour materially true; and
+- integration tests damage or stale snapshot state and require production
+  loading to recover equivalent state from the event stream.
+
+These are proof-compression candidates because they expose a mistake,
+correction history, and falsifiers. Phase 7 must not edit the accepted Wild
+Bunch page. Phase 7A re-inspects the pinned public source before deciding how
+much of this evidence the case study can carry without losing its narrative.
 
 ## Optional portfolio-as-software receipt
 
@@ -223,6 +247,8 @@ Validation must include:
       and disclosure class;
 - [ ] About makes both responsibility and consequence legible without becoming
       an employer product case study;
+- [ ] About identifies the professional provenance and selective use of
+      Harley's architectural kit without duplicating the ADR essay;
 - [ ] the bounded AI decision is connected to an approved human, operational,
       or business consequence, or is deliberately omitted from the outcome
       treatment;
@@ -235,6 +261,9 @@ Validation must include:
 - [ ] each long engineering case study gives an early question, design, proof,
       cost, and status fast path without losing its narrative opening or visual
       identity;
+- [ ] Wild Bunch proof compression uses refreshed public evidence of mistake,
+      correction, and falsification, while Phase 7 leaves the accepted page
+      untouched;
 - [ ] any portfolio-as-software receipt is inspectable, restrained, and
       corroborating rather than self-certifying;
 - [ ] a skeptical reviewer can identify why the professional responsibility
