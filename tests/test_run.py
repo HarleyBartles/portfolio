@@ -48,6 +48,35 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._refresh_skills_cmd("check", False),
         )
 
+    @patch("shutil.which", return_value="C:/node/npm.cmd")
+    def test_install_deps_apply_uses_the_client_lockfile(self, _which) -> None:
+        self.assertEqual(
+            ["C:/node/npm.cmd", "--prefix", "src/client", "ci"],
+            run._install_deps_cmd("apply"),
+        )
+
+    @patch("shutil.which", return_value="C:/node/npm.cmd")
+    def test_install_deps_check_validates_the_installed_client_tree(self, _which) -> None:
+        self.assertEqual(
+            ["C:/node/npm.cmd", "--prefix", "src/client", "ls", "--depth=0"],
+            run._install_deps_cmd("check"),
+        )
+
+    @patch.object(run, "_run")
+    def test_install_deps_target_dispatches_by_mode(self, run_command) -> None:
+        apply_context = run.Ctx(mode="apply", allow_shared=False)
+
+        run.TARGETS["install-deps"]["apply"](apply_context)
+        run.TARGETS["install-deps"]["check"](self.context)
+
+        self.assertEqual(
+            [
+                call(run._install_deps_cmd("apply"), apply_context),
+                call(run._install_deps_cmd("check"), self.context),
+            ],
+            run_command.call_args_list,
+        )
+
     def test_portfolio_index_mesh_target_uses_bundled_code_with_local_policy(self) -> None:
         self.assertEqual(
             [
