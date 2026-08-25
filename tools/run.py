@@ -99,6 +99,20 @@ def _client_cmd(*args: str) -> list[str]:
     return [shutil.which("npm") or "npm", "--prefix", "src/client", *args]
 
 
+def _install_deps_cmd(mode: str) -> list[str]:
+    if mode == "apply":
+        return _client_cmd("ci")
+    return _client_cmd("ls", "--depth=0")
+
+
+def _install_deps_apply(ctx: Ctx) -> None:
+    _run(_install_deps_cmd("apply"), ctx)
+
+
+def _install_deps_check(ctx: Ctx) -> None:
+    _run(_install_deps_cmd("check"), ctx)
+
+
 def _repo_standards_apply(ctx: Ctx) -> None:
     _run(_repo_standards_cmd("apply", ctx.allow_shared), ctx)
     _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
@@ -171,6 +185,7 @@ def _all_check(ctx: Ctx) -> None:
 
 
 TARGETS = {
+    "install-deps": {"apply": _install_deps_apply, "check": _install_deps_check},
     "repo-standards": {
         "apply": _repo_standards_apply,
         "check": _repo_standards_check,
