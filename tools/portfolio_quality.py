@@ -326,6 +326,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
         if len(editorial_writing) < 5:
             findings.append(_finding(MANIFEST_PATH, "editorial writing requires at least five published essays"))
 
+        editorial_slugs = {str(item.get("slug")).casefold() for item in editorial_writing}
         leads = 0
         for item in editorial_writing:
             slug = str(item.get("slug"))
@@ -372,7 +373,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
                     continue
                 target_key = target.casefold()
                 continuation_slugs.append(target_key)
-                if target_key not in known_slugs:
+                if target_key not in editorial_slugs:
                     findings.append(_finding(MANIFEST_PATH, f"'{slug}' references missing continuation '{target}'"))
                 elif target_key == slug.casefold():
                     findings.append(_finding(MANIFEST_PATH, f"'{slug}' cannot continue to itself"))

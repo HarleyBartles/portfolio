@@ -480,6 +480,10 @@ class PortfolioQualityTests(unittest.TestCase):
                 lambda fixture: fixture.items[1]["editorial"]["continuations"][0].__setitem__("slug", "missing"),
                 "references missing continuation 'missing'",
             ),
+            "non-editorial continuation target": (
+                lambda fixture: fixture.items[1]["editorial"]["continuations"][0].__setitem__("slug", "example-project"),
+                "references missing continuation 'example-project'",
+            ),
             "duplicate continuation": (
                 lambda fixture: fixture.items[1]["editorial"]["continuations"][1].__setitem__("slug", "essay-2"),
                 "has duplicate continuation 'essay-2'",
