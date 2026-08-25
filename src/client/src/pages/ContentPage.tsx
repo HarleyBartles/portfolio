@@ -143,6 +143,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
     ? document.summary.slug as ProjectVisualSlug
     : null
+  const hasHeaderVisual = projectVisualSlug !== null || WritingFigure !== undefined
   const visualContract = writingPresentation === undefined ? document.summary.presentation === 'marketplace-case-study'
     ? 'marketplace-case-study-hero'
     : document.summary.presentation === 'patch-pipeline-case-study'
@@ -163,7 +164,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       />
       <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
         <header
-          className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}
+          className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
           data-visual-contract={visualContract}
           role={writingPresentation === undefined ? undefined : 'region'}
           aria-label={writingPresentation === undefined ? undefined : 'Vibe article introduction'}
@@ -183,7 +184,11 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           {projectVisualSlug === null ? null : (
             <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} /></div>
           )}
-          {WritingFigure === undefined ? null : <div className="content-page-visual"><Suspense fallback={null}><WritingFigure /></Suspense></div>}
+          {WritingFigure === undefined ? null : (
+            <div className="content-page-visual content-page-visual--vibe-coding">
+              <Suspense fallback={<div className="vibe-coding-figure__loading" aria-hidden="true" data-loading="vibe-coding-figure" />}><WritingFigure /></Suspense>
+            </div>
+          )}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
           {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}

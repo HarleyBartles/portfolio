@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react'
-import './VibeCodingFigure.scss'
 
 const responsibilities = [
   'edge cases',

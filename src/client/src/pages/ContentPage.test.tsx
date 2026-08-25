@@ -115,6 +115,7 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const header = await screen.findByRole('region', { name: 'Vibe article introduction' }, { timeout: 5_000 })
     expect(header).toHaveAttribute('data-visual-contract', 'vibe-coding-door-road')
+    expect(header).toHaveClass('content-page-header--visual')
     await within(header).findByText('The door opens', undefined, { timeout: 5_000 })
     expect(header.querySelector('figure')).toHaveAccessibleDescription('Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.')
 
@@ -142,7 +143,9 @@ describe('ContentPage specialist presentation boundary', () => {
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByRole('link', { name: /previous: provisioning is not accumulation/i }, { timeout: 5_000 })).toBeVisible()
+    const header = await screen.findByRole('heading', { level: 1, name: 'Context is not the same as state' }, { timeout: 5_000 })
+    expect(header.closest('.content-page-header')).not.toHaveClass('content-page-header--visual')
+    expect(screen.getByRole('link', { name: /previous: provisioning is not accumulation/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /next: the graph i built/i })).toBeVisible()
     expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
   }, 10_000)

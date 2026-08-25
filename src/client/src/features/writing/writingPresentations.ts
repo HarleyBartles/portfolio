@@ -1,4 +1,5 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
+import './VibeCodingFigure.scss'
 
 type WritingFigure = {
   id: 'vibe-coding-door-road-visual'
