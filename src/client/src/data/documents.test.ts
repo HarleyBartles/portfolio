@@ -1,6 +1,51 @@
 import { describe, expect, test } from 'vitest'
-import type { ContentSummary } from '../types/content'
-import { loadDocument, navigation, prepareMarkdown } from './documents'
+import type { ContentSummary, EditorialWritingSummary } from '../types/content'
+import { loadDocument, navigation, parseContentSummary, prepareMarkdown } from './documents'
+
+const editorialWritingFixture = {
+  slug: 'editorial-fixture',
+  kind: 'writing',
+  title: 'Editorial fixture',
+  status: 'published',
+  summary: 'A generic writing fixture.',
+  tags: ['writing'],
+  editorial: {
+    dateline: 'Autumn 2026',
+    readingMinutes: 7,
+    indexLead: true,
+    homepageFeature: {
+      eligible: true,
+      proposition: 'A homepage proposition written for this fixture.',
+    },
+    visual: {
+      id: 'editorial-fixture-visual',
+      description: 'A text equivalent for the fixture visual.',
+    },
+    continuations: [
+      { slug: 'second-fixture', rationale: 'It develops the first decision.' },
+      { slug: 'third-fixture', rationale: 'It supplies a contrasting example.' },
+    ],
+  },
+} satisfies EditorialWritingSummary
+
+describe('parseContentSummary', () => {
+  test('parses the complete editorial writing contract', () => {
+    expect(parseContentSummary(editorialWritingFixture)).toEqual(editorialWritingFixture)
+  })
+
+  test('keeps non-writing content valid without editorial metadata', () => {
+    expect(parseContentSummary({
+      slug: 'project-fixture',
+      kind: 'project',
+      title: 'Project fixture',
+      status: 'live',
+      summary: 'A generic project fixture.',
+      featured: false,
+      tags: ['project'],
+      relatedSlugs: [],
+    })).toMatchObject({ kind: 'project', slug: 'project-fixture' })
+  })
+})
 
 describe('prepareMarkdown', () => {
   test('removes a duplicate leading title from a fairytale before the page header renders', () => {

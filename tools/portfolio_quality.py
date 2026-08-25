@@ -83,6 +83,7 @@ PRIVATE_PATH_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/)")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+EDITORIAL_DATELINE_RE = re.compile(r"^(Spring|Summer|Autumn|Winter) \d{4}$")
 PRIVATE_EVIDENCE_RE = re.compile(r"(?:\b[A-Za-z]:[\\/]|/Users/|\bworktree\b|\bbranch\b)", re.IGNORECASE)
 WILD_BUNCH_FORBIDDEN_COORDINATE_RE = re.compile(
     r"(?:\blocalhost\b|\b(?:password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]|\b(?:server|host|data source|user id|uid)\s*=|\bsession[-_ ]?(?:id|[0-9a-f]{8,})\b)",
@@ -316,6 +317,71 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' references unknown related slug '{related_slug}'"))
             if related_slug.casefold() == slug.casefold():
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' cannot relate to itself"))
+
+    editorial_writing = [
+        item for item in items
+        if item.get("kind") == "writing" and item.get("status") == "published" and "editorial" in item
+    ]
+    if editorial_writing:
+        if len(editorial_writing) < 5:
+            findings.append(_finding(MANIFEST_PATH, "editorial writing requires at least five published essays"))
+
+        leads = 0
+        for item in editorial_writing:
+            slug = str(item.get("slug"))
+            if item.get("featured") is not None:
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' must not use generic featured"))
+            if item.get("relatedSlugs") not in (None, []):
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' must not use generic relatedSlugs"))
+
+            editorial = item.get("editorial")
+            if not isinstance(editorial, dict):
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' editorial must be an object"))
+                continue
+            if not EDITORIAL_DATELINE_RE.fullmatch(editorial.get("dateline", "")):
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has invalid editorial dateline"))
+            reading_minutes = editorial.get("readingMinutes")
+            if not isinstance(reading_minutes, int) or isinstance(reading_minutes, bool) or reading_minutes <= 0:
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' editorial readingMinutes must be a positive integer"))
+            if editorial.get("indexLead") is True:
+                leads += 1
+
+            homepage = editorial.get("homepageFeature")
+            if not isinstance(homepage, dict) or not isinstance(homepage.get("eligible"), bool):
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires homepage feature eligibility"))
+            if not isinstance(homepage, dict) or not isinstance(homepage.get("proposition"), str) or not homepage["proposition"].strip():
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' homepage proposition must be nonempty"))
+
+            visual = editorial.get("visual")
+            visual_id = visual.get("id") if isinstance(visual, dict) else None
+            if visual_id != f"{slug}-visual":
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown visual id {visual_id!r}"))
+            if not isinstance(visual, dict) or not isinstance(visual.get("description"), str) or not visual["description"].strip():
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' visual description must be nonempty"))
+
+            continuations = editorial.get("continuations")
+            if not isinstance(continuations, list) or len(continuations) != 2:
+                findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly two editorial continuations"))
+                continue
+            continuation_slugs: list[str] = []
+            for continuation in continuations:
+                target = continuation.get("slug") if isinstance(continuation, dict) else None
+                rationale = continuation.get("rationale") if isinstance(continuation, dict) else None
+                if not isinstance(target, str) or not isinstance(rationale, str) or not rationale.strip():
+                    findings.append(_finding(MANIFEST_PATH, f"'{slug}' continuation requires slug and rationale"))
+                    continue
+                target_key = target.casefold()
+                continuation_slugs.append(target_key)
+                if target_key not in known_slugs:
+                    findings.append(_finding(MANIFEST_PATH, f"'{slug}' references missing continuation '{target}'"))
+                elif target_key == slug.casefold():
+                    findings.append(_finding(MANIFEST_PATH, f"'{slug}' cannot continue to itself"))
+            for target in set(continuation_slugs):
+                if continuation_slugs.count(target) > 1:
+                    findings.append(_finding(MANIFEST_PATH, f"'{slug}' has duplicate continuation '{target}'"))
+
+        if leads != 1:
+            findings.append(_finding(MANIFEST_PATH, "editorial writing requires exactly one indexLead"))
 
     for markdown_path in content_root.rglob("*.md"):
         if markdown_path.name == "INDEX.md":
