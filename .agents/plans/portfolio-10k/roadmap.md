@@ -145,11 +145,17 @@ constraints and protected defaults, factual and privacy boundaries,
 distinctive design intent, failure modes, observable acceptance signals, and
 evidence surface.
 
-The JIT plan records Sol's selected review lenses. Sol must use
-`/writing-with-clarity` and the matching `/unslop-profiles` profile for
-material prose, creative writing, documentation, plans, and handoffs, plus
-the relevant artifact-specific skills and doctrine lenses. Model reputation or
-an unsupported claim that Sol has better taste is never acceptance evidence.
+The JIT plan records Sol's selected review lenses. Sol must use `/writing` as
+the composed entrypoint for material prose, creative writing, documentation,
+plans, and handoffs. It uses `/writing-with-clarity` for composition and final
+edit, an authorised voice profile only when one exists, and `/writing-style`
+for contextual fatigue review only when material evidence warrants it.
+`/writing-profile-engine` may provide reproducible observations, but those
+findings are not an AI detector, token blacklist, authorship verdict, or
+automatic repair instruction. Facts, explicit user intent, approved project
+voice, and human author judgement retain authority. Relevant artifact-specific
+skills and doctrine lenses still apply. Model reputation or an unsupported
+claim that Sol has better taste is never acceptance evidence.
 
 Terra may draft creative work, but Sol personally reviews every material
 creative output: public copy, creative writing, visual style, art direction,
@@ -529,4 +535,7 @@ archaeology is a failed shortcut even when the buried evidence exists.
   passed on that exact commit. Phase 7's JIT evidence gate selected the live
   review graph from Agent Asset Marketplace `main` at `ddbd36f4`. The evidence
   gate proves Graph has publishable source material; the amended editorial gate
-  now decides Graph and Context independently.
+  now decides Graph and Context independently. Before Phase 7 implementation,
+  Portfolio adopted Marketplace `writing-pack` and `unslop-plus` at final
+  upstream revision `aec3a077ccd16053516cd0fde9303bafdd0c58bf`; the JIT plan
+  records how those capabilities support rather than replace author judgement.

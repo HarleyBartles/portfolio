@@ -155,11 +155,18 @@ constraints and protected defaults, factual and privacy boundaries,
 distinctive design intent, failure modes, observable acceptance signals, and
 evidence surface.
 
-The JIT plan records Sol's selected review lenses. Sol must use
-`/writing-with-clarity` and the matching `/unslop-profiles` profile for
-material prose, creative writing, documentation, plans, and handoffs, plus
-the relevant artifact-specific skills and doctrine lenses. Model reputation or
-an unsupported claim that Sol has better taste is never acceptance evidence.
+The JIT plan records Sol's selected review lenses. Sol must use `/writing` as
+the composed entrypoint for material prose, creative writing, documentation,
+plans, and handoffs. That workflow establishes facts and constraints, uses
+`/writing-with-clarity` for composition and final edit, applies an authorised
+voice profile only when one exists, and uses `/writing-style` for contextual
+fatigue review only when the text supplies material evidence. The deterministic
+`/writing-profile-engine` may support that review, but its findings are not an
+AI detector, authorship verdict, token ban, or automatic edit instruction.
+Facts, explicit user intent, approved project voice, and final author judgement
+outrank heuristic findings. The relevant artifact-specific skills and doctrine
+lenses still apply. Model reputation or an unsupported claim that Sol has
+better taste is never acceptance evidence.
 
 Terra may draft creative work, but Sol personally reviews every material
 creative output: public copy, creative writing, visual style, art direction,
@@ -597,6 +604,8 @@ Every public essay requires:
 - an honest boundary around what the evidence does not prove;
 - a useful takeaway another engineer can apply;
 - controlled evidence and lineage links;
+- a completed `/writing` pass whose fatigue findings were judged in context
+  across the article and publication rather than mechanically repaired;
 - a quiet conclusion rather than a hiring pitch; and
 - Harley's final author review.
 
@@ -1161,6 +1170,8 @@ confirm:
 - admitted agentic essays expose distinct layers rather than repeating one
   thesis;
 - article openings are concrete and conclusions are useful;
+- the admitted corpus has been reviewed for site-wide phrase density without
+  flattening earned phrasing or inventing a private voice profile;
 - every factual claim is within its approved authority boundary;
 - Access wording remains employer-neutral and non-defensive;
 - no unheld senior title is implied;

@@ -121,6 +121,25 @@ The professional account must remain nuanced. Harley learned this architectural 
 - Every material creative output requires Sol's personal pass or veto.
 - Harley's complete-publication author review is a hard gate before merge readiness. Structural validation cannot admit an essay.
 
+### Writing-pack execution contract
+
+Portfolio consumes Marketplace `writing-pack` and `unslop-plus` at revision
+`aec3a077ccd16053516cd0fde9303bafdd0c58bf`. Use `/writing` as the composed
+entrypoint for material prose. Its order is binding: establish facts, audience,
+purpose and constraints; draft or revise with `/writing-with-clarity`; apply an
+authorised voice profile only when one actually exists; run `/writing-style`
+only when the text supplies material evidence for a fatigue review; then finish
+through the `/writing-with-clarity` final-edit gate.
+
+`/writing-profile-engine` may validate and evaluate the bundled fatigue profile
+deterministically. Its findings are observations and repair candidates, not an
+AI detector, authorship verdict, token blacklist or automatic rewrite queue.
+One phrase occurrence is not a defect. Review frequency across the complete
+publication, context, author intent and the risk of flattening Harley's voice
+before changing prose. Facts, safety, legal and accessibility constraints,
+Harley's explicit direction, and the approved project voice outrank a profile
+finding. Do not infer or create a private voice card from repository prose.
+
 ---
 
 ### Task 1: Build the roster-independent editorial contract
@@ -164,7 +183,7 @@ The professional account must remain nuanced. Harley learned this architectural 
 **Produces:** One accepted-control brief for Vibe, seven comparable admission briefs, a provisional shortlist with at least five realistic publication paths overall and Harley's provisional author decision before expensive full production.
 
 - [ ] **Step 1: Read every candidate as source material.** Do not infer quality from current manifest status or file length. Capture the strongest existing argument, evidence and reusable passages without polishing yet.
-- [ ] **Step 2: Write an audition brief for every candidate.** State its one-sentence argument, reader value, distinctness from the other seven, evidence route, likely sections, useful reading-graph role and realistic finish cost.
+- [ ] **Step 2: Write an audition brief for every candidate.** Use `/writing` to state its one-sentence argument, reader value, distinctness from the other seven, evidence route, likely sections, useful reading-graph role and realistic finish cost. Keep fatigue-profile findings subordinate to the actual argument and evidence.
 - [ ] **Step 3: Test the ADR brief against the supplied history.** Require institutional memory, rejected alternatives, mistakes, reconsideration triggers, selective kitbag posture and the Barbican/Arch organisational lesson. Reject any generic “what is an ADR?” structure.
 - [ ] **Step 4: Keep Graph and Context independent.** Graph evidence readiness contributes to Graph's score but does not count against Context. Keep Pass References eligible on its own argument. Do not delete or de-register either.
 - [ ] **Step 5: Run Sol's provisional admission pass.** Keep Vibe accepted. Classify each of the other seven candidates `draft now`, `reserve`, or `do not spend launch time`, with concise reasoning against the five gate questions. Why ADRs enters `draft now` by user direction. Ensure at least five credible publication paths exist before proceeding.
@@ -193,7 +212,7 @@ The professional account must remain nuanced. Harley learned this architectural 
 - [ ] **Step 3: Use Wild Bunch as corroboration only.** Cite ADR-0028 and relevant public tests at the pinned revision. Do not edit or reopen the Wild Bunch case-study page. Distinguish source fact, Harley's professional account and editorial inference.
 - [ ] **Step 4: Draft API if provisionally admitted.** Ask Harley for one employer-safe example covering reliance, consequence, before state, exact decision, observable result and adjacent influence. Classify every fact. If the safe outcome does not survive review, omit the claim and return the candidate to reserve rather than inventing proof.
 - [ ] **Step 5: Draft Testing if provisionally admitted.** Organise around claim, risk and observation boundary across the product system. Name the inherited pressure-testing method and Harley's evidence-custody extension accurately. Avoid tool catalogues and testing pyramids.
-- [ ] **Step 6: Run the Sol editorial gate on each completed essay.** Inspect authority, specificity, paragraph progression, economy, contractions, technical accuracy, source relationships, conclusions and repo-wide AI-familiar phrase frequency. Record pass or veto in the admission ledger.
+- [ ] **Step 6: Run the composed writing gate on each completed essay.** Sol applies `/writing`, including the final clarity edit, then may use `/writing-profile-engine` and `/writing-style` to inspect contextual and repo-wide AI-familiar phrase frequency. Preserve the evaluator output in task scratch and record only the consequential evidence, decision and limitation in the admission ledger. Never auto-repair from a pattern match. Record pass or veto.
 - [ ] **Step 7: Run focused quality and safety checks.** Add negative checks for private employer claims, false originality and unsupported professional assertions. Run the quality suite and source-link validation.
 - [ ] **Step 8: Stage, inspect and commit.** Commit only finished, editorially passed essays and their custody changes as `feat: write the Phase 7 core engineering essays`.
 - [ ] **Step 9: Mark Task 3 complete.** Update this checklist and carry the plan state in Task 4's commit.
@@ -219,7 +238,7 @@ The professional account must remain nuanced. Harley learned this architectural 
 - [ ] **Step 2: Give each shortlisted candidate a non-overlapping job.** Provisioning owns environment and knowledge selection. Graph owns explicit state, guarded transitions and bounded repair. Context owns durable project memory if its argument remains distinct. Pass References owns evidence-rich delegation if it can sustain more than a procedural tip.
 - [ ] **Step 3: Rewrite Graph against the accepted implementation.** Explain scope honesty, cheap early review, deep lenses, finding custody, scoped repair, regression scanning, final strong review and first-class blocked exits. State what the graph cannot prove.
 - [ ] **Step 4: Refuse mechanical roster logic.** Do not weaken Context because Graph is strong. Do not keep Pass References because a file exists. Return candidates that miss the bar to reserve with a recorded reason.
-- [ ] **Step 5: Run Sol's article and whole-set gates.** Read each piece as a coherent argument, then compare the set for duplication, terminology drift, repeated examples and familiar AI phrasing. Revise until each candidate earns `pass` or receives a recorded veto.
+- [ ] **Step 5: Run Sol's article and whole-set gates.** Read each piece through `/writing` as a coherent argument, then compare the set for duplication, terminology drift, repeated examples and familiar AI phrasing. Use the profile engine as reproducible evidence, not as authority. Revise until each candidate earns `pass` or receives a recorded veto.
 - [ ] **Step 6: Complete source custody and checks.** Add only sources that advance the argument, validate links and run the focused quality suite.
 - [ ] **Step 7: Stage, inspect and commit.** Commit the finished agentic set and updated admission evidence as `feat: finish the agentic engineering essays`.
 - [ ] **Step 8: Mark Task 4 complete.** Update this checklist and carry the plan state in Task 5's commit.
@@ -288,7 +307,7 @@ The professional account must remain nuanced. Harley learned this architectural 
 - [ ] **Step 5: Test semantics and accessibility.** Run axe on the index and every admitted route. Manually verify landmarks, headings, keyboard navigation, focus, external-link disclosure, figure equivalence, 200% zoom, code and long-link wrapping, and no horizontal overflow at 320 pixels.
 - [ ] **Step 6: Perform the full visual review.** Inspect index and every essay at 1440, 768, 390 and 320 CSS pixels plus 200% zoom. Confirm coherent publication grammar without identical templates, deliberate whitespace, attached captions, readable figures and clear continuation hierarchy.
 - [ ] **Step 7: Update focused Windows baselines.** Capture only the surfaces needed to prove lead treatment, every distinct principal figure and continuation behaviour. Avoid brittle full-page paragraph captures.
-- [ ] **Step 8: Run whole-publication editorial and skeptic passes.** Sol reads the index and all admitted essays in traversal order. Check that every sentence pays dues and the publication sounds like one author. Record how quickly a weary hiring manager reaches conventional engineering proof. Run the principal-architect falsification path and record distance to professional provenance, selective pattern use, a rejected alternative, correction history and a falsifier.
+- [ ] **Step 8: Run whole-publication editorial and skeptic passes.** Sol reads the index and all admitted essays in traversal order through the composed `/writing` workflow. Evaluate the admitted corpus against the bundled fatigue profile to expose site-wide density, then judge every finding in context. Check that every sentence pays dues and the publication sounds like Harley rather than a mechanically normalised author. Record how quickly a weary hiring manager reaches conventional engineering proof. Run the principal-architect falsification path and record distance to professional provenance, selective pattern use, a rejected alternative, correction history and a falsifier.
 - [ ] **Step 9: Present Harley's hard final author gate.** Keep the PR draft until Harley has read and approved the complete publication as one body of work. Treat factual, employer-safe, tone, title, admission and authorship notes as load-bearing.
 - [ ] **Step 10: Run canonical validation on a staged tree.** Run `py -3 tools/run.py ci --apply`, stage all intended source and generated files, run `git diff --cached --check`, then `py -3 tools/run.py ci --check`. Diagnose and rerun any test layer that exits without trustworthy evidence.
 - [ ] **Step 11: Run completion review.** Use `/handoff-gates` completion-readiness and `/iterative-review` with writing, frontend, accessibility and source-custody lenses. Resolve all important findings, make the PR body readable and wait for hosted checks on the exact head.
@@ -308,6 +327,7 @@ py -3 tools/run.py ci --check
 
 Retain alongside the canonical gate:
 
+- `py -3 .agents/skills/writing-profile-engine/scripts/validate_profiles.py --json` with a valid bundled-profile result;
 - the eight-candidate admission ledger and Harley's final decisions;
 - route and index component tests covering every admitted essay;
 - roster-floor and metadata validation;
