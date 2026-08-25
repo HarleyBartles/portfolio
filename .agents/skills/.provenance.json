@@ -1,12 +1,14 @@
 {
-  "manifestSha": "ddbd36f4e34c82155983f84de2318d00b0f2824d",
+  "manifestSha": "aec3a077ccd16053516cd0fde9303bafdd0c58bf",
   "syncedPlugins": [
     "repo-worker-pack",
     "superpowers-plus",
     "mcp-usage-pack",
-    "frontend-pack"
+    "frontend-pack",
+    "unslop-plus",
+    "writing-pack"
   ],
-  "syncedSkills": 45,
+  "syncedSkills": 49,
   "localSkills": [
     "asset-custody",
     "design-tokens",
@@ -23,5 +25,5 @@
   "localPlugins": [],
   "marketplaceFile": ".agents/plugins/marketplace.json",
   "vendorProfiles": [],
-  "syncedAt": "2026-08-25T09:53:17.470574"
+  "syncedAt": "2026-08-25T18:47:14.724003"
 }

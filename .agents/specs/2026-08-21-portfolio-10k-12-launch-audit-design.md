@@ -45,12 +45,52 @@ to make the audit green.
 ### Hiring journey and editorial argument
 
 Verify the ten-second homepage proposition, the quiet professional route, the
-four distinct case-study arguments, the five-essay entry and continuation
+four distinct case-study arguments, the admitted-essay entry and continuation
 journeys, Patch fairytale interlude, About narrative, CV, contact path, and
 availability language.
 
 The site should read as an authored view of how Harley thinks across domains,
 not a sequence of repeated claims that he should be hired.
+
+Run a weary-skeptic review from four cold entry points: homepage, shared
+project, shared essay, and About. Begin from the assumption that polished
+agentic presentation may conceal weak engineering. For each path, record:
+
+- the first concrete signal that weakens that interpretation;
+- the clicks, viewport screens, and approximate reading time required to reach
+  it;
+- the substantive evidence surface that makes the interpretation untenable;
+- whether the professional route proves consequence as well as responsibility;
+- whether each long case study exposes its question, design, proof, cost, and
+  current status before the reader must reconstruct them; and
+- any essential claim the reader had to assemble across disconnected pages.
+
+The target is skepticism beginning to break in the first viewport, becoming
+untenable after one deliberate click, and turning into strong engineering
+confidence after one substantive evidence surface. Treat a broken homepage-to-
+evidence path as a launch blocker. Treat a deeper route that cannot identify
+its proof responsibility as an owning-phase defect rather than repairing it
+with another generic claim.
+
+Run a complementary cold technical-review path. Give the portfolio to a
+principal architect who is tired of candidates wearing DDD, CQRS, event
+sourcing, and other architectural vocabulary as costume. Ask the reviewer to
+choose the strongest architecture-heavy claim and try to falsify it. Record the
+clicks, screens, reading time, and source depth required to establish:
+
+- professional provenance for the architectural vocabulary;
+- selective use rather than doctrine;
+- one real rejected alternative;
+- one inspectable architectural mistake and correction;
+- the cost or consequence of the chosen design;
+- one explicit falsifier or reconsideration trigger; and
+- the organisational failure mode created when reasoning is not transferable.
+
+The desired result does not require agreement with every choice. A strong
+result is that the reviewer can disagree while recognising a real decision
+made by an engineer who understands its consequences. If the reviewer must
+independently excavate ADR folders or test suites to establish the chain, the
+technical shortcut remains too long.
 
 ### Factual and privacy integrity
 
@@ -73,7 +113,8 @@ unlabelled control, or homepage impersonation.
 Confirm the implemented launch floor:
 
 - four project case studies with distinct senior-proof responsibilities;
-- five fully groomed essays with two core and three agentic arguments;
+- the complete Phase 7 admitted publication, with at least five fully groomed
+  essays carrying distinct proof responsibilities;
 - curated essay continuations rather than random adjacency;
 - the approved Patch fairytale presence;
 - About, professional facts, CV, and contact surfaces; and
@@ -323,10 +364,29 @@ decision.
 - [ ] the complete site is audited against the approved design baseline rather
       than a newly invented standard;
 - [ ] the ten-second hiring proposition and all core evidence journeys work;
+- [ ] the weary-skeptic audit records first signal, clicks, screen depth,
+      approximate reading time, and decisive evidence for all four cold entry
+      points;
+- [ ] every cold entry begins breaking skepticism in its first viewport and can
+      reach substantive engineering evidence in one deliberate click;
+- [ ] no essential engineering claim depends on the reader assembling it from
+      disconnected pages;
+- [ ] the professional story contains an approved stakes, change, outcome, and
+      influence chain rather than responsibility evidence alone;
+- [ ] every long engineering case study offers an early question, design,
+      proof, cost, and present-status fast path without flattening its authored
+      argument;
+- [ ] prominent uses of `proof`, `evidence`, `honest`, or `inspectable` sit near
+      the receipt, limitation, trade-off, or outcome that earns the word;
 - [ ] professional facts, current claims, confidentiality boundaries, dates,
       maturity language, CV, contact, and availability are re-verified;
-- [ ] four distinct case studies and five fully groomed essays meet their
+- [ ] four distinct case studies and every admitted Phase 7 essay meet their
       assigned proof responsibilities;
+- [ ] the cold principal-architect audit records the path to professional
+      provenance, selective use, a rejected alternative, an architectural
+      correction, a cost, and a falsifier;
+- [ ] an architecture-heavy claim can survive informed disagreement without
+      relying on pattern names or extensive repository archaeology;
 - [ ] every public route, deep link, state, fallback, and external action is
       exercised without placeholders or dead ends;
 - [ ] route first paint, metadata, discovery, sharing, domain/fallback, and

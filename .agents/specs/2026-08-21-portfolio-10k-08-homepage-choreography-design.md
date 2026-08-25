@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phases 1 and 3–7 have landed
+**Implementation-plan readiness:** Deferred until Phases 1 and 3–7A have landed
 
 **Repository snapshot inspected:** `3e6cf23ceef6a80270d0fb1bf36ca93fea900fce`
 
@@ -19,7 +19,8 @@
 - the Phase 4 Wild Bunch preview;
 - the Phase 5 Adventures of Patch preview;
 - the Phase 6 Agentic Learning Lab preview; and
-- the Phase 7 writing roster and homepage-feature metadata.
+- the Phase 7 writing roster and homepage-feature metadata; and
+- the Phase 7A professional outcome account and case-study proof abstracts.
 
 This specification records the approved homepage design. It is not an
 implementation plan. The implementation plan must be written just in time from
@@ -81,8 +82,8 @@ Phase 8 does not:
 - implement or rewrite the professional facts owned by Phase 1;
 - produce the CV or activate contact delivery owned by Phase 2;
 - create or materially rewrite the case studies owned by Phases 3–6;
-- groom essays, choose the Graph-versus-Context launch slot, or build article
-  figures owned by Phase 7;
+- groom essays, make editorial-admission decisions, or build article figures
+  owned by Phase 7;
 - publish a new Patch fairytale merely to fill the homepage interlude;
 - make the homepage a feed, search surface, topic archive, or complete router;
 - render a whole essay inline on the homepage;
@@ -326,6 +327,40 @@ able to answer:
 The test does not require the reviewer to remember every project, scan a
 technology list, or reach the explicit contact route.
 
+### Fast-to-break skepticism
+
+Review the first viewport from the position of a hiring manager who has already
+seen several polished agentic-engineering portfolios without finding convincing
+software-engineering evidence. The stable identity frame must begin breaking
+that skepticism before the selected doorway earns any additional credit.
+
+The intended progression is:
+
+1. within ten seconds, recognise a senior full-stack engineer with an agentic
+   edge and encounter one concrete professional or technical signal;
+2. within one deliberate click, reach substantive project, writing, or
+   professional evidence rather than another positioning statement or the
+   contact form alone; and
+3. after one substantive evidence surface, find the vibe-coding interpretation
+   untenable because the page exposes responsibility, decisions, trade-offs, or
+   verification that generated polish cannot supply.
+
+Random selection may vary the doorway, but it may not determine whether the
+first viewport passes this test. The quiet professional route enters the top of
+About or an equivalent evidence-bearing professional surface. Contact remains
+available after the reader can inspect the case.
+
+The professional signal must communicate consequence as well as scope. A role
+label, ownership statement, or technology list alone is not the concrete signal
+required here. Use the approved Phase 7A outcome account at a length the first
+viewport can support, then route to the canonical About treatment for the full
+stakes, change, outcome, and influence chain.
+
+The direct content CTA should land where a project's question, design, proof,
+cost, and current status are quickly legible. It must not force a skeptical
+reader to reconstruct the case-study argument across several screens before
+they know what kind of proof they are reading.
+
 ## Homepage doorway pool
 
 ### Eligible projects
@@ -353,8 +388,9 @@ The writing side contains every published essay whose Phase 7 metadata says:
 homepageFeature.eligible === true
 ```
 
-At launch this is the five-essay floor. The pool is metadata-driven so future
-approved essays can enter without editing an unrelated homepage slug list.
+At launch this is the complete admitted Phase 7 publication, with at least five
+essays. The pool is metadata-driven so roster size and future approved essays
+do not require an unrelated homepage slug list.
 
 The candidate consumes:
 
@@ -367,6 +403,11 @@ The candidate consumes:
 
 The vibe-coding essay is the stable writing fallback. Writing-index leadership
 and homepage eligibility remain independent facts.
+
+`Why ADRs?` is eligible to become a technically serious doorway when its final
+Phase 7 metadata admits it to the homepage pool. Its selection may accelerate
+the principal-architect reading, but the stable first viewport must still break
+the weary hiring-manager interpretation when another candidate is selected.
 
 ### Candidate contract
 
@@ -633,7 +674,7 @@ reuse the principal article figure automatically when a lighter homepage
 preview from the same visual language serves the composition better.
 
 There are no Previous, Next, or Shuffle controls in this section. The secondary
-action enters `/writing`, where the full five-essay editorial space and curated
+action enters `/writing`, where the full admitted editorial space and curated
 continuations become available.
 
 ## Quiet professional route
@@ -885,8 +926,9 @@ image icon or placeholder promise.
 - no writing: omit the feature and retain a working `/writing` route only when
   that route has useful published content.
 
-These are defensive runtime states. The five-essay and four-project launch
-contracts remain build-time acceptance requirements for the intended release.
+These are defensive runtime states. The five-essay floor and four-project
+launch contracts remain build-time acceptance requirements for the intended
+release.
 
 ### Pre-hydration boundary
 
@@ -1064,6 +1106,14 @@ The reviewer answers:
 
 - Does the first viewport say senior full-stack engineer before it says
   specialist agent identity?
+- Does one concrete professional or technical signal begin breaking a weary
+  skeptic's default interpretation before the selected doorway is considered?
+- Does the professional signal expose a consequence, rather than merely
+  repeating scope or senior positioning?
+- Does one deliberate click reach substantive evidence, including when the
+  selected doorway is the weakest eligible skepticism-breaker?
+- Does the destination quickly identify its question, design, proof, cost, and
+  present status without flattening its narrative opening?
 - Is there a direct, useful content CTA inside the initial desktop viewport?
 - Does the page read as how Harley thinks across domains rather than an attempt
   to sell himself?
@@ -1089,6 +1139,14 @@ protected homepage hierarchy and selection persistence.
 - [ ] the first viewport identifies Harley as a senior full-stack engineer;
 - [ ] agentic engineering reads as a differentiating edge, not the full limit
       of the role;
+- [ ] one concrete professional or technical signal is visible in the stable
+      first-viewport frame for every valid selection and fallback state;
+- [ ] any professional signal communicates an approved consequence as well as
+      scope and routes to the canonical outcome account;
+- [ ] manual review proves that one deliberate click reaches substantive
+      evidence from every initial doorway and from the quiet professional route;
+- [ ] every project doorway lands where question, design, proof, cost, and
+      present status are quickly legible;
 - [ ] one direct project-or-essay CTA is visible in the initial desktop
       viewport;
 - [ ] initial selection is balanced by content category and stable for the
@@ -1110,8 +1168,9 @@ protected homepage hierarchy and selection persistence.
       no recent-post feed;
 - [ ] the writing feature avoids the initial writing doorway when an
       alternative exists;
-- [ ] the quiet close reaches experience, CV, availability, and contact without
-      duplicating private or volatile facts;
+- [ ] the quiet close reaches the evidence-bearing top of About, with experience,
+      CV, availability, and contact available without duplicating private or
+      volatile facts;
 - [ ] the fixed project grid, principle cards, recent-writing list, and current
       self-conscious close are removed;
 - [ ] project, fairytale, and writing visuals preserve their owning visual
@@ -1128,7 +1187,8 @@ protected homepage hierarchy and selection persistence.
 - [ ] the implementation PR appends the required design-decision entries with
       before/after evidence; and
 - [ ] manual review confirms the ten-second hiring-manager outcome and the
-      proof-before-pitch tone.
+      proof-before-pitch tone, and records the first signal that breaks the
+      weary-skeptic interpretation.
 
 ## Approved design dialogue record
 
@@ -1184,6 +1244,6 @@ The specification defines:
 
 No unresolved design decision blocked approval. The missing point is
 intentional: a safe implementation plan cannot be written until Phases 1 and
-3–7 have landed and their actual types, routes, previews, assets, and metadata
+3–7A have landed and their actual types, routes, previews, assets, and metadata
 can be re-inspected. That dependency does not weaken the design specification;
 it prevents a premature plan from becoming stale.

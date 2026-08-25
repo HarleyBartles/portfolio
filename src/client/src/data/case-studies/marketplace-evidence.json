@@ -1,10 +1,10 @@
 {
-  "observedAt": "2026-08-24",
-  "marketplaceRevision": "ddbd36f4e34c82155983f84de2318d00b0f2824d",
+  "observedAt": "2026-08-25",
+  "marketplaceRevision": "aec3a077ccd16053516cd0fde9303bafdd0c58bf",
   "inventory": {
-    "pluginCount": 17,
-    "entryCount": 74,
-    "uniqueSkillCount": 70
+    "pluginCount": 18,
+    "entryCount": 76,
+    "uniqueSkillCount": 73
   },
   "plugins": [
     "agentic-evaluation",
@@ -23,7 +23,8 @@
     "research-pack",
     "security-pack",
     "superpowers-plus",
-    "unslop-plus"
+    "unslop-plus",
+    "writing-pack"
   ],
   "consumers": [
     {

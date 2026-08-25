@@ -7,7 +7,7 @@ implementation details can be planned months in advance.
 
 **Created:** 21 August 2026
 
-**Status:** Approved; design wave complete; implementation wave in progress (Phase 6 executing)
+**Status:** Approved; design wave complete; implementation wave in progress (Phase 7 ready)
 
 **Starting main:** `bd07d8a09581bdde40cddff4e880db426a50cd82`
 
@@ -29,6 +29,33 @@ The active [portfolio design policy](../../doctrine/portfolio-design-policy.md)
 continues to govern every phase. This roadmap sequences change; it does not
 replace the policy, the [design-decision ledger](../../../docs/design-decisions.md),
 or live repository evidence.
+
+## Weary-skeptic hiring rubric
+
+The remaining phases must assume a hiring manager has already reviewed several
+polished portfolios from people claiming to be agentic software engineers and
+has not yet found convincing software-engineering evidence. The portfolio must
+earn attention from that starting position rather than requiring goodwill.
+
+`Fast-to-break skepticism` is a first-class acceptance rubric for Phases 7–12:
+
+1. within the first ten seconds of the homepage, the reader can identify Harley
+   as a senior full-stack engineer and agentic engineering as an edge to that
+   practice;
+2. the first viewport contains one concrete professional or technical signal,
+   independent of which eligible project or essay is selected;
+3. one deliberate click reaches substantive evidence rather than another
+   unsupported positioning statement or a contact-only destination;
+4. one substantive evidence surface makes the vibe-coding interpretation
+   untenable through inspectable decisions, responsibility, trade-offs, or
+   verification; and
+5. deeper traversal strengthens the case without forcing the reader to assemble
+   one essential claim from disconnected pages.
+
+The rubric does not require a fixed sentence, technology wall, hiring pitch, or
+removal of useful randomness. It measures the reader's route from suspicion to
+evidence. JIT plans must identify which phase output shortens that route and how
+manual review will observe it.
 
 ## Artifact contract
 
@@ -118,11 +145,17 @@ constraints and protected defaults, factual and privacy boundaries,
 distinctive design intent, failure modes, observable acceptance signals, and
 evidence surface.
 
-The JIT plan records Sol's selected review lenses. Sol must use
-`/writing-with-clarity` and the matching `/unslop-profiles` profile for
-material prose, creative writing, documentation, plans, and handoffs, plus
-the relevant artifact-specific skills and doctrine lenses. Model reputation or
-an unsupported claim that Sol has better taste is never acceptance evidence.
+The JIT plan records Sol's selected review lenses. Sol must use `/writing` as
+the composed entrypoint for material prose, creative writing, documentation,
+plans, and handoffs. It uses `/writing-with-clarity` for composition and final
+edit, an authorised voice profile only when one exists, and `/writing-style`
+for contextual fatigue review only when material evidence warrants it.
+`/writing-profile-engine` may provide reproducible observations, but those
+findings are not an AI detector, token blacklist, authorship verdict, or
+automatic repair instruction. Facts, explicit user intent, approved project
+voice, and human author judgement retain authority. Relevant artifact-specific
+skills and doctrine lenses still apply. Model reputation or an unsupported
+claim that Sol has better taste is never acceptance evidence.
 
 Terra may draft creative work, but Sol personally reviews every material
 creative output: public copy, creative writing, visual style, art direction,
@@ -184,13 +217,14 @@ exists, then plan-readiness or final handoff readiness as the phase advances.
 | 3 | Marketplace flagship and case-study system | done | [approved spec](../../specs/2026-08-21-portfolio-10k-03-marketplace-case-study-design.md) | [completed implementation plan](../completed/2026-08-22-portfolio-10k-phase-3-marketplace-case-study.md) | [`fdc4dc0`](https://github.com/HarleyBartles/portfolio/commit/fdc4dc01f590cfc1af29861a843232aaa72eed32) | [#21](https://github.com/HarleyBartles/portfolio/pull/21) | 9/10 | PR #21 merged at `2026-08-23T07:55:27Z`; post-merge run [32626870954](https://github.com/HarleyBartles/portfolio/actions/runs/32626870954) passed Portfolio quality gate, Visual regression, Deploy validated artifact, and Verify public routes on exact head `fdc4dc0`. The Phase 4 PR carries the prospective editorial correction removing an irrelevant consumer from the Marketplace evidence and map; the merged PR record remains historical. |
 | 4 | Wild Bunch architectural proof | done | [approved spec with 23 August editorial amendment](../../specs/2026-08-21-portfolio-10k-04-wild-bunch-case-study-design.md) | [completed editorial revision plan](../completed/2026-08-23-portfolio-10k-phase-4-editorial-revision.md) | [`454b684`](https://github.com/HarleyBartles/portfolio/commit/454b684caf8e3bda3fccda9ab9ca0e96dca47a4a) | [#22](https://github.com/HarleyBartles/portfolio/pull/22) · [#23](https://github.com/HarleyBartles/portfolio/pull/23) · [#24](https://github.com/HarleyBartles/portfolio/pull/24) | 9/10 | PR #23 replaced the rejected first article with the accepted human architectural narrative after 46 Python, 77 Vitest and 52 Playwright checks. Follow-up PR #24 recovered the final local voice-policy changes. Hosted run [32672182157](https://github.com/HarleyBartles/portfolio/actions/runs/32672182157) passed on PR #24 head `34dfcdf`; PR #24 merged as `454b684` on 24 August 2026. The deregistered locked worktree folder remains an on-disk Windows cleanup limitation, not a publication gap. |
 | 5 | Adventures of Patch showcase and pipeline story | done | [approved base spec](../../specs/2026-08-21-portfolio-10k-05-patch-pipeline-case-study-design.md) · [Lawful Heist Crew slice](../../specs/2026-08-24-portfolio-10k-05-lawful-heist-crew-design.md) | [completed foundation plan](../completed/2026-08-24-portfolio-10k-phase-5-patch-pipeline.md) · [completed Lawful Heist Crew plan](../completed/2026-08-24-portfolio-10k-phase-5-lawful-heist-crew.md) | [`67b0276`](https://github.com/HarleyBartles/portfolio/commit/67b02764076d117c161befeb74605076e183c677) | [#25](https://github.com/HarleyBartles/portfolio/pull/25) · [#26](https://github.com/HarleyBartles/portfolio/pull/26) | 9.5/10 | PR #25 established the separate Patch showcase, moved Identity Emporium into it, closed the engineering case study and published Tournament. PR #26 completed the Lawful Heist recruitment dossier. Harley accepted the page at the visual gate; PR #26 merged at `2026-08-24T17:48:28Z`. Post-merge run [32758747612](https://github.com/HarleyBartles/portfolio/actions/runs/32758747612) passed the quality gate, Windows visuals, deployment and public-route verification on exact merge commit `67b0276`. |
-| 6 | Agentic Learning Lab leadership proof | executing | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | [JIT implementation plan](2026-08-24-portfolio-10k-phase-6-learning-lab.md) | — | [#29](https://github.com/HarleyBartles/portfolio/pull/29) | 9/10 | Implementation remains pinned to Agentic Learning Lab public `main` at `315442bd2661bbc99a0834e57ff5f500b549326c`. The narrative, semantic curriculum, three custody-recorded scenes, browser and accessibility contracts, Windows baselines and three independent reviews are locally complete. Publication and Harley's review remain. |
-| 7 | Writing authority and breadth | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Deliver a five-essay launch floor: two core-engineering arguments, three distinct agentic arguments, an evidence-gated Graph/Context choice, curated continuation paths, and homepage-feature-ready metadata. |
-| 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Build a progressively enhanced editorial front page, a complete four-project deck, one Patch fairytale interlude, one essay feature, and a quiet professional route without feed, repetition, autoplay, or pitch clutter. |
+| 6 | Agentic Learning Lab leadership proof | done | [approved spec](../../specs/2026-08-21-portfolio-10k-06-learning-lab-case-study-design.md) | [completed implementation plan](../completed/2026-08-24-portfolio-10k-phase-6-learning-lab.md) | [`e906f05`](https://github.com/HarleyBartles/portfolio/commit/e906f055a28a37e9874e76b4358f0cfb239d5e8d) · [`146c6b4`](https://github.com/HarleyBartles/portfolio/commit/146c6b40e9c8790644fc492a46b128daf458b86e) | [#29](https://github.com/HarleyBartles/portfolio/pull/29) · [#30](https://github.com/HarleyBartles/portfolio/pull/30) | 9.5/10 | PR #29 delivered the accepted Learning Lab leadership case study. PR #30 repaired the mobile origin-artefact order and adopted dependency-aware worktree setup. Hosted run [32836625754](https://github.com/HarleyBartles/portfolio/actions/runs/32836625754) passed on exact final merge commit `146c6b4`. |
+| 7 | Writing authority and breadth | ready | [approved amended spec](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md) | [revised JIT implementation plan](2026-08-25-portfolio-10k-phase-7-writing-authority.md) | — | — | 9/10 | Five is the publication floor, not a target. Phase 7 evaluates eight bounded candidates, requires Vibe and the new `Why ADRs?` argument, admits every essay that earns full treatment inside the time budget, and derives figures, continuations, tests and homepage metadata from the final Harley-approved roster. |
+| 7A | Professional outcomes and proof compression | pending | [source-gated spec](../../specs/2026-08-25-portfolio-10k-07a-professional-outcomes-proof-compression-design.md) | — | — | — | 8/10 | Gather one employer-safe Access Checks outcome chain, establish Barbican and Arch as concise professional provenance for Harley's selectively used architecture kit, and compress long case-study proof into early question, decision, evidence, cost and status paths. Reopen Wild Bunch only here, using refreshed mistake, correction and falsifier evidence. |
+| 8 | Homepage evidence choreography | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 | Make fast-to-break skepticism the first-viewport rubric. Build a progressively enhanced editorial front page, complete project deck, Patch interlude, metadata-selected admitted essay feature and quiet professional route. `Why ADRs?` may become the technical doorway when admitted, but the stable proposition cannot depend on lucky selection. |
 | 9 | Discovery and sharing finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
 | 10 | Direct-route first-paint finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
 | 11 | Interactive proof value gate | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. No-build is selected for v1, subject to one evidence re-check after Phases 1–10; a changed decision returns to design. |
-| 12 | Launch audit and measurement decision | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Whole-site launch audit and bounded defect closure, with a dated evidence report and no analytics at launch. |
+| 12 | Launch audit and measurement decision | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Audit the whole site through weary-hiring-manager and cold principal-architect paths. Record distance to conventional engineering proof, professional provenance, selective pattern use, a rejected alternative, correction history, cost and falsifier. Close bounded defects, publish dated evidence and launch without analytics. |
 
 ## Case-study proof responsibilities
 
@@ -259,23 +293,70 @@ not merely that a repository of teaching files exists.
 
 ### 7. Writing authority and breadth
 
-Deliver five fully groomed, author-approved essays rather than preserving the
-current mix of one finished article and four placeholders. The launch roster
-contains two core-engineering arguments and three agentic-engineering arguments
-with distinct responsibilities: professional position, environment design,
-process governance, end-to-end API ownership, and evidence-led testing.
+Assemble the strongest author-approved technical publication available inside
+the Phase 7 wall-clock budget. Five essays is the content-density floor; roughly
+five to eight is the bounded working range. The number carries no editorial
+meaning beyond preventing a thin launch and unbounded rehabilitation work.
+
+The bounded candidate pool is Vibe, Why ADRs, Provisioning, Graph, Context,
+Pass References, API, and Testing. Vibe retains its accepted argument and
+intended lead. Why ADRs is a required user-directed addition. Every other
+candidate receives an explicit editorial-admission decision based on distinct
+argument, concrete evidence, sufficient substance, reading-graph value, and
+realistic finish cost. Existing files have no automatic claim to publication,
+and a nominally full roster cannot exclude strong material.
 
 The review-graph article proceeds only when refreshed public default-branch
-evidence can support it at JIT time. `Context is not the same as state` is the
-pre-approved Plan B and absorbs the strongest material from `Pass references,
-not paragraphs` if needed.
+evidence can support it at JIT time. That evidence gate has passed, but Graph,
+Context, and Pass References remain independent editorial candidates. One does
+not mechanically displace another.
 
-The phase owns article argument, principal figures, editorial datelines,
+The phase owns editorial admission, article argument, principal figures,
+editorial datelines,
 reading finish, source and asset custody, two curated continuation choices per
 essay, author review, and the metadata that makes every published essay
 eligible for a homepage feature. It does not choose or render the Phase 8
 homepage feature, create a search or taxonomy system without archive-scale
 evidence, or make editorial dates into publication receipts.
+
+The writing index and admitted-roster continuation graph must give a skeptical reader
+an early route from the agentic lead into API ownership or evidence-led testing.
+The publication fails this phase if a reader can remain inside an
+agentic-about-agentic loop without seeing the established engineering practice
+underneath it.
+
+Why ADRs must preserve architectural decisions as institutional memory,
+including rejected alternatives, mistakes, evidence, consequences, and
+reconsideration triggers. It uses Harley's Barbican and Arch history to show
+where the architectural kit was learned professionally, why it is applied
+selectively, and how technically justified complexity can still fail
+organisationally when its reasoning remains tacit. Phase 7 may cite public Wild
+Bunch source as corroboration but must not reopen the accepted case-study page.
+
+Phase 7 source discovery for the Access-grounded API essay should capture one
+employer-safe outcome account when Harley can supply it. The essay may use only
+the approved portion. The durable professional treatment remains Phase 7A's
+responsibility.
+
+### 7A. Professional outcomes and proof compression
+
+Close the gap between responsibility and consequence before homepage
+choreography. Use one Harley-approved Access Checks example to make dependants,
+stakes, the before condition, Harley's decision, the observable result, and
+organisational influence legible without inventing metrics or disclosing
+private employer detail.
+
+Give each long engineering case study an early fast path through its question,
+design choice, inspectable proof, cost, and present status. Preserve the
+distinct narrative opening and visual language of each page. This phase does
+not reopen the accepted case-study arguments or turn them into one repeated
+template.
+
+Retain the Phase 7 Wild Bunch findings as deferred proof-compression inputs:
+ADR-0028's event-recording drift, the later typed-event and replay correction,
+and recovery tests that treat snapshots as disposable. Re-inspect public source
+before implementation; the roadmap note is not proof that those details remain
+current.
 
 ### 8. Homepage evidence choreography
 
@@ -285,6 +366,12 @@ evidence. Retain useful randomness and manual motion, eliminate adjacent
 duplicate stories, and make the senior full-stack proposition clear within the
 first viewport without turning the page into a generic sales funnel.
 
+Phase 8 is the primary owner of fast-to-break skepticism. The stable first-
+viewport frame must carry the professional proposition and one concrete signal
+without depending on a lucky random selection. The direct evidence action must
+reach substantive work in one click, while the quiet professional route must
+enter the evidence-bearing top of About rather than bypass it for contact.
+
 ### 9. Discovery and sharing finish
 
 Finish how pages are found, shared, and identified: `harleybartles.com`, static
@@ -292,6 +379,9 @@ route metadata, canonical URLs, route-appropriate social artwork, deterministic
 discovery files, and restrained sharing. Record RSS as deliberately deferred.
 The spec must distinguish repository work from DNS or platform actions
 requiring Harley's authority and must preserve GitHub Pages static delivery.
+Search results and shared previews must preserve senior full-stack breadth and
+the route's specific proof responsibility rather than reducing Harley to a
+generic agentic-systems identity before the visit begins.
 
 ### 10. Direct-route first-paint finish
 
@@ -300,6 +390,11 @@ replace the brief generic “Preparing the portfolio” state with small useful
 route identity derived from Phase 9's catalogue. Preserve static GitHub Pages
 delivery, lazy loading, accessibility, layout stability, and bundle budgets;
 do not add SSR or duplicate the content system.
+
+For direct visitors, the route-specific first paint must identify the kind of
+evidence ahead. It need not prove the whole case before React resolves, but it
+must not replace a specific project, article, or professional route with generic
+portfolio or agentic branding.
 
 ### 11. Interactive proof value gate
 
@@ -318,6 +413,17 @@ there is no concrete launch decision that currently earns their privacy,
 performance, and maintenance cost. This phase validates the whole rather than
 introducing a second redesign.
 
+The launch audit must run the weary-skeptic journey from homepage, shared
+project, shared essay, and About entry points. Record the first signal that
+weakens the skeptical interpretation and the clicks, screens, and approximate
+reading time required before substantive evidence overrules it.
+
+It must also run a cold principal-architect path against the strongest
+architecture-heavy claim. Record how far the reviewer must travel to establish
+professional provenance, selective use, a rejected alternative, an inspectable
+correction, a cost, and a falsifier. Extensive independent repository
+archaeology is a failed shortcut even when the buried evidence exists.
+
 ## Dependency logic
 
 - Phase 1 is the source for professional claims used everywhere else.
@@ -327,8 +433,10 @@ introducing a second redesign.
 - Phases 4–6 may be re-ordered after Phase 3 if asset readiness changes, but
   the reason must be recorded in Handoff Notes.
 - Phase 7 precedes the homepage so the final editorial hierarchy uses real
-  flagship material.
-- Phase 8 depends on the stable outputs of Phases 1 and 3–7.
+  flagship material. Its Access source discovery feeds Phase 7A.
+- Phase 7A depends on one Harley-approved, employer-safe outcome account and
+  the stable long-form outputs of Phases 3–7.
+- Phase 8 depends on the stable outputs of Phases 1 and 3–7A.
 - Phase 9 follows route and content stabilisation; Phase 10 may move earlier if
   investigation proves it blocks trustworthy content review.
 - Phase 11 is conditional and must not hold Phase 12 hostage after a justified
@@ -351,6 +459,13 @@ introducing a second redesign.
   about exact prose, component names, or incidental styling are not the goal.
 - Each implementation phase should be independently mergeable and should
   leave the public site more useful than it found it.
+- Phase 7–12 reviews treat fast-to-break skepticism as a reader outcome, not a
+  prose slogan. Random selection, visual polish, and repeated positioning
+  claims cannot substitute for concrete engineering evidence.
+- Phase 7A, 8, and 12 also apply the pattern-costume falsification lens. A
+  technical reader should be able to find professional provenance, selective
+  use, rejected alternatives, correction history, costs, and falsifiers without
+  independently mining repository history.
 
 ## Handoff Notes
 
@@ -368,6 +483,26 @@ introducing a second redesign.
 - The interactive artefact is a value gate, not a promise to add novelty.
 - If a phase spec reveals multiple independent deliverables, split the roadmap
   item before plan-writing and record the reason here.
+- On 25 August 2026, a skeptical-hiring-manager audit found that the published
+  site does overturn skepticism through About, Wild Bunch, Patch, Marketplace,
+  and Learning Lab, but requires more navigation than the final hiring
+  instrument should. Completed phases remain closed. Their strongest evidence
+  re-enters through the Phase 7 publication, Phase 8 homepage choreography,
+  Phase 9 previews, Phase 10 direct-route identity, and Phase 12 launch audit
+  under the fast-to-break skepticism rubric above.
+- An independent Sol review on 25 August 2026 confirmed the ordering problem
+  and exposed a separate evidence deficit: current professional surfaces prove
+  responsibility but not yet one bounded consequence of that responsibility.
+  Phase 7A now owns the source-gated professional outcome chain and compact
+  case-study proof abstracts. Phase 8 consumes those outputs; Phase 12 audits
+  that the reader does not have to assemble them across disconnected pages.
+- A second independent review, refined through Harley's design dialogue on 25
+  August 2026, corrected Phase 7's fixed-roster assumption and added the
+  principal-architect lens. Five is now a publication floor; eight named
+  candidates enter an explicit admission gate; `Why ADRs?` is required; and
+  Graph, Context, and Pass References are judged independently. Wild Bunch
+  remains closed during Phase 7, with its mistake, correction, and falsifier
+  evidence deferred to Phase 7A.
 - Design dialogue for Phases 10–12 was approved as one consolidated packet on
   22 August 2026. Each outcome remains a separate specification and handoff
   gate; Harley approved all three written specifications on 22 August 2026.
@@ -393,3 +528,14 @@ introducing a second redesign.
   `315442bd2661bbc99a0834e57ff5f500b549326c`; its local checkout remains
   untouched because it is behind `origin/main` and contains an unrelated
   untracked Python cache.
+- Phase 6 completed through [PR #29](https://github.com/HarleyBartles/portfolio/pull/29)
+  and [PR #30](https://github.com/HarleyBartles/portfolio/pull/30). The final
+  merge commit is [`146c6b4`](https://github.com/HarleyBartles/portfolio/commit/146c6b40e9c8790644fc492a46b128daf458b86e),
+  and hosted run [32836625754](https://github.com/HarleyBartles/portfolio/actions/runs/32836625754)
+  passed on that exact commit. Phase 7's JIT evidence gate selected the live
+  review graph from Agent Asset Marketplace `main` at `ddbd36f4`. The evidence
+  gate proves Graph has publishable source material; the amended editorial gate
+  now decides Graph and Context independently. Before Phase 7 implementation,
+  Portfolio adopted Marketplace `writing-pack` and `unslop-plus` at final
+  upstream revision `aec3a077ccd16053516cd0fde9303bafdd0c58bf`; the JIT plan
+  records how those capabilities support rather than replace author judgement.
