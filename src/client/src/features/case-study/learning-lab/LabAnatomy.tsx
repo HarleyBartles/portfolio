@@ -11,7 +11,7 @@ export function LabAnatomy() {
         <section aria-label="Learner">
           <p className="lab-anatomy__label">Learner</p>
           <h3>Reveal the next card</h3>
-          <p><strong>Learner card 03</strong> supplies the questions needed now. The learner inspects what happened, makes the judgment and decides what to try next.</p>
+          <p><strong>The next learner card</strong> supplies the questions needed now. The learner inspects what happened, makes the judgment and decides what to try next.</p>
         </section>
         <section aria-label="Worker environment">
           <p className="lab-anatomy__label">Worker environment</p>

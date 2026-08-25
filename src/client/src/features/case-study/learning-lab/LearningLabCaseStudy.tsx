@@ -13,7 +13,7 @@ export function LearningLabCaseStudy() {
   return (
     <CaseStudyBody>
       <div className="learning-lab-case-study">
-        <CaseStudySection title="Experience made transferable" layout="lead">
+        <CaseStudySection title="Experience made transferable" layout="lead-prose">
           <p className="learning-lab-thesis">The learner is not the agent&apos;s hands. They learn to direct, inspect, verify, recover, and direct again.</p>
           <p>I was a software engineer before I became an agentic engineer. Source truth, controlled variables, durable state, bounded authority, inspected evidence and recoverable failure were already ordinary parts of my work. The machinery changed. Those responsibilities came with me.</p>
           <p>The curriculum turns what I&apos;ve learned through extensive hands-on work into experiments another person can run. Each lesson has to make a distinction observable, give the learner room to judge it and leave enough evidence to question what happened.</p>
@@ -23,7 +23,8 @@ export function LearningLabCaseStudy() {
           <div>
             <p className="learning-lab-kicker">Origin artefact</p>
             <h2 id="learning-lab-origin-title">A scrappy promise became a curriculum</h2>
-            <p>The Learning Lab began as a love letter to my brother: a promise to turn hard-earned agentic practice into something an intelligent, technically minded non-programmer could learn safely and use for his own purposes. That promise grew into a public curriculum other learners and facilitators can adapt.</p>
+            <p>I wrote those words at the start of the first curriculum-design conversation in August 2026. I wanted to pass hard-earned agentic practice to my brother, an intelligent, technically minded non-programmer, but I hadn&apos;t decided what was valuable to teach and what he should discover through the work. The Learning Lab began there, as a love letter to my brother and an admission that I didn&apos;t yet know its shape.</p>
+            <p>That conversation produced a repository on 15 August. Working in it with agents turned the loose promise into teaching principles, runnable experiments and a three-course curriculum that other learners and facilitators can adapt. It also corrected an assumption in the original prompt: the early cloud-versus-local framing gave way to the stronger question of where the project lives and what evidence the learner can inspect.</p>
           </div>
           <blockquote>“I&apos;m going to teach my brother a few things about using agentic AI. I don&apos;t really have a learning plan or anything.”</blockquote>
         </section>
@@ -50,7 +51,7 @@ export function LearningLabCaseStudy() {
         </section>
 
         <CaseStudySection title="The method built the method" layout="lead-prose">
-          <p>The first version was a live question: what does useful agentic practice actually look like? I used agents to investigate it, build the repository, test the teaching shape and revise it whenever the work exposed a better one. I was writing the course while sitting partly in the learner's chair.</p>
+          <p>The founding prompt left the learning plan open. That made the first version a live question: what does useful agentic practice actually look like? I used agents to investigate it, build the repository, test the teaching shape and revise it whenever the work exposed a better one. I was writing the course while sitting partly in the learner&apos;s chair.</p>
           <p>Cloud and local began as the organising split. Building Lab 3 exposed the stronger question: where does the project live when nobody is talking to an AI about it? The experiment changed the curriculum because it gave me better evidence than the original plan.</p>
           <p>That is the promise I want the curriculum to keep. A learner should be able to use agents to build something they care about before they can describe its final form. The work becomes clearer through making, inspection and revision. This repository had to prove that promise while it was being made.</p>
           <p>The repository carries the resulting discipline. Facilitator guides preserve rationale and contingency. Learner cards reveal only the next useful problem. Worker folders contain the project rather than the lesson. Integrity checks catch missing references and leaks between those boundaries. A lab can still change when running it teaches me something better.</p>

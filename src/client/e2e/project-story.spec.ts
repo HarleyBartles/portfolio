@@ -396,6 +396,15 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   expect(lab3Header!.x).toBeLessThan(lab3Evidence!.x)
   expect(lab5Evidence!.x).toBeLessThan(lab5Header!.x)
 
+  const opening = page.getByRole('heading', { name: 'Experience made transferable' }).locator('..').locator('..')
+  const [openingHeading, openingBody] = await Promise.all([
+    opening.locator('.case-study-lead__heading').boundingBox(),
+    opening.locator('.case-study-lead__body').boundingBox(),
+  ])
+  expect(openingHeading).not.toBeNull()
+  expect(openingBody).not.toBeNull()
+  expect(openingBody!.width).toBeGreaterThan(openingHeading!.width * 2)
+
   const method = page.getByRole('heading', { name: 'The method built the method' }).locator('..').locator('..')
   const [methodHeading, methodBody] = await Promise.all([
     method.locator('.case-study-lead__heading').boundingBox(),
