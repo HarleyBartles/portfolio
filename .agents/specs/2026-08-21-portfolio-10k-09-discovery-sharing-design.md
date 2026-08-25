@@ -963,6 +963,8 @@ The reviewer answers:
 
 - Does a pasted homepage link identify Harley as a senior full-stack engineer
   with an agentic edge?
+- Does each pasted flagship link state the route's concrete proof responsibility
+  rather than relying on generic agentic or portfolio language?
 - Can each flagship route be recognised from its preview without making every
   image look templated?
 - Does route-aware artwork add specificity rather than feed-style noise?
@@ -997,6 +999,8 @@ The reviewer answers:
       are absent from the sitemap;
 - [ ] the default social card expresses senior full-stack breadth with an
       agentic edge;
+- [ ] every flagship route description gives a skeptical recipient one concrete
+      reason to inspect its engineering evidence;
 - [ ] project, essay, and fairytale routes use approved route-appropriate
       artwork where it earns its cost and otherwise use the default;
 - [ ] social images are 1200 by 627 PNG or JPEG files with declared MIME,

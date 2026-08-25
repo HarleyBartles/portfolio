@@ -326,6 +326,29 @@ able to answer:
 The test does not require the reviewer to remember every project, scan a
 technology list, or reach the explicit contact route.
 
+### Fast-to-break skepticism
+
+Review the first viewport from the position of a hiring manager who has already
+seen several polished agentic-engineering portfolios without finding convincing
+software-engineering evidence. The stable identity frame must begin breaking
+that skepticism before the selected doorway earns any additional credit.
+
+The intended progression is:
+
+1. within ten seconds, recognise a senior full-stack engineer with an agentic
+   edge and encounter one concrete professional or technical signal;
+2. within one deliberate click, reach substantive project, writing, or
+   professional evidence rather than another positioning statement or the
+   contact form alone; and
+3. after one substantive evidence surface, find the vibe-coding interpretation
+   untenable because the page exposes responsibility, decisions, trade-offs, or
+   verification that generated polish cannot supply.
+
+Random selection may vary the doorway, but it may not determine whether the
+first viewport passes this test. The quiet professional route enters the top of
+About or an equivalent evidence-bearing professional surface. Contact remains
+available after the reader can inspect the case.
+
 ## Homepage doorway pool
 
 ### Eligible projects
@@ -1064,6 +1087,10 @@ The reviewer answers:
 
 - Does the first viewport say senior full-stack engineer before it says
   specialist agent identity?
+- Does one concrete professional or technical signal begin breaking a weary
+  skeptic's default interpretation before the selected doorway is considered?
+- Does one deliberate click reach substantive evidence, including when the
+  selected doorway is the weakest eligible skepticism-breaker?
 - Is there a direct, useful content CTA inside the initial desktop viewport?
 - Does the page read as how Harley thinks across domains rather than an attempt
   to sell himself?
@@ -1089,6 +1116,10 @@ protected homepage hierarchy and selection persistence.
 - [ ] the first viewport identifies Harley as a senior full-stack engineer;
 - [ ] agentic engineering reads as a differentiating edge, not the full limit
       of the role;
+- [ ] one concrete professional or technical signal is visible in the stable
+      first-viewport frame for every valid selection and fallback state;
+- [ ] manual review proves that one deliberate click reaches substantive
+      evidence from every initial doorway and from the quiet professional route;
 - [ ] one direct project-or-essay CTA is visible in the initial desktop
       viewport;
 - [ ] initial selection is balanced by content category and stable for the
@@ -1110,8 +1141,9 @@ protected homepage hierarchy and selection persistence.
       no recent-post feed;
 - [ ] the writing feature avoids the initial writing doorway when an
       alternative exists;
-- [ ] the quiet close reaches experience, CV, availability, and contact without
-      duplicating private or volatile facts;
+- [ ] the quiet close reaches the evidence-bearing top of About, with experience,
+      CV, availability, and contact available without duplicating private or
+      volatile facts;
 - [ ] the fixed project grid, principle cards, recent-writing list, and current
       self-conscious close are removed;
 - [ ] project, fairytale, and writing visuals preserve their owning visual
@@ -1128,7 +1160,8 @@ protected homepage hierarchy and selection persistence.
 - [ ] the implementation PR appends the required design-decision entries with
       before/after evidence; and
 - [ ] manual review confirms the ten-second hiring-manager outcome and the
-      proof-before-pitch tone.
+      proof-before-pitch tone, and records the first signal that breaks the
+      weary-skeptic interpretation.
 
 ## Approved design dialogue record
 

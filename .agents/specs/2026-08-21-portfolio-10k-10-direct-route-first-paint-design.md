@@ -290,6 +290,8 @@ The reviewer answers:
 
 - Can a hiring manager tell which page they opened before the application is
   ready?
+- Can a skeptical direct visitor tell what kind of engineering evidence the
+  route offers without being shown generic agentic positioning first?
 - Does the prepaint feel like intentional editorial identity rather than a
   spinner with better copy?
 - Is the transition restrained enough to disappear from attention?
@@ -302,6 +304,8 @@ The reviewer answers:
 
 - [ ] the current lifecycle is reproduced and recorded before implementation;
 - [ ] every known public direct route emits useful route-specific prepaint;
+- [ ] project, writing, and professional prepaint identifies the route's proof
+      responsibility without duplicating a full content introduction;
 - [ ] the prepaint consumes the Phase 9 catalogue and selected site profile;
 - [ ] unknown routes remain honest and distinct;
 - [ ] “Preparing the portfolio” is absent from public production first paint;

@@ -44,6 +44,12 @@ The writing-system thesis is:
 > Five essays should feel like one authored publication with several ways in,
 > not five adjacent blog posts or a thin chronological feed.
 
+The publication must also serve a skeptical hiring manager who has already seen
+several agentic-engineering portfolios without finding strong engineering
+evidence. The index and continuation journey should reveal Harley's established
+product, testing, delivery, and operational judgement early enough that the
+reader cannot mistake the corpus for commentary about agents alone.
+
 ## Outcome
 
 Phase 7 will deliver:
@@ -59,6 +65,8 @@ Phase 7 will deliver:
 - homepage-feature inputs for every published essay without implementing the
   Phase 8 homepage selection mechanic;
 - exactly two authored continuation choices on every essay;
+- an early curated route from the Vibe lead into at least one of the two core-
+  engineering essays;
 - no automatic chronological, random, or first-available article fallback;
 - a real Graph-versus-Context evidence gate with an approved Plan B;
 - explicit lineage for skill TDD, the Marketplace extension, and later-found
@@ -1009,6 +1017,10 @@ Before Phase 7 can complete, review the five essays together and confirm:
 - each makes one distinct senior-level contribution;
 - the two core-engineering essays are visible without being presented as an
   antidote to agentic work;
+- a skeptical reader can reach API ownership or evidence-led testing from the
+  index or Vibe lead without traversing another agentic-only essay first;
+- the first core-engineering surface replaces assertion with concrete product
+  responsibility, risk, test boundary, or operational evidence;
 - the three agentic essays expose different layers rather than repeating one
   thesis;
 - article openings are concrete and conclusions are useful;
@@ -1049,6 +1061,9 @@ Phase 7 is complete only when:
       equivalent;
 - [ ] every essay has exactly two curated continuations with authored
       rationale copy;
+- [ ] the Vibe lead has a direct curated continuation to API or Testing, and
+      the writing index exposes at least one core-engineering doorway without a
+      long scan;
 - [ ] chronological and fallback article navigation is absent from writing
       routes;
 - [ ] the approved continuation graph is implemented without public branch

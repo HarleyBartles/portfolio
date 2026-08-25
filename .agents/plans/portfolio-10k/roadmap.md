@@ -30,6 +30,33 @@ continues to govern every phase. This roadmap sequences change; it does not
 replace the policy, the [design-decision ledger](../../../docs/design-decisions.md),
 or live repository evidence.
 
+## Weary-skeptic hiring rubric
+
+The remaining phases must assume a hiring manager has already reviewed several
+polished portfolios from people claiming to be agentic software engineers and
+has not yet found convincing software-engineering evidence. The portfolio must
+earn attention from that starting position rather than requiring goodwill.
+
+`Fast-to-break skepticism` is a first-class acceptance rubric for Phases 7–12:
+
+1. within the first ten seconds of the homepage, the reader can identify Harley
+   as a senior full-stack engineer and agentic engineering as an edge to that
+   practice;
+2. the first viewport contains one concrete professional or technical signal,
+   independent of which eligible project or essay is selected;
+3. one deliberate click reaches substantive evidence rather than another
+   unsupported positioning statement or a contact-only destination;
+4. one substantive evidence surface makes the vibe-coding interpretation
+   untenable through inspectable decisions, responsibility, trade-offs, or
+   verification; and
+5. deeper traversal strengthens the case without forcing the reader to assemble
+   one essential claim from disconnected pages.
+
+The rubric does not require a fixed sentence, technology wall, hiring pitch, or
+removal of useful randomness. It measures the reader's route from suspicion to
+evidence. JIT plans must identify which phase output shortens that route and how
+manual review will observe it.
+
 ## Artifact contract
 
 This epic intentionally adapts the default `/writing-roadmaps` sequence.
@@ -277,6 +304,12 @@ eligible for a homepage feature. It does not choose or render the Phase 8
 homepage feature, create a search or taxonomy system without archive-scale
 evidence, or make editorial dates into publication receipts.
 
+The writing index and curated continuation graph must give a skeptical reader
+an early route from the agentic lead into API ownership or evidence-led testing.
+The five-essay publication fails this phase if a reader can remain inside an
+agentic-about-agentic loop without seeing the established engineering practice
+underneath it.
+
 ### 8. Homepage evidence choreography
 
 Only after the professional narrative, flagship projects, and writing are
@@ -285,6 +318,12 @@ evidence. Retain useful randomness and manual motion, eliminate adjacent
 duplicate stories, and make the senior full-stack proposition clear within the
 first viewport without turning the page into a generic sales funnel.
 
+Phase 8 is the primary owner of fast-to-break skepticism. The stable first-
+viewport frame must carry the professional proposition and one concrete signal
+without depending on a lucky random selection. The direct evidence action must
+reach substantive work in one click, while the quiet professional route must
+enter the evidence-bearing top of About rather than bypass it for contact.
+
 ### 9. Discovery and sharing finish
 
 Finish how pages are found, shared, and identified: `harleybartles.com`, static
@@ -292,6 +331,9 @@ route metadata, canonical URLs, route-appropriate social artwork, deterministic
 discovery files, and restrained sharing. Record RSS as deliberately deferred.
 The spec must distinguish repository work from DNS or platform actions
 requiring Harley's authority and must preserve GitHub Pages static delivery.
+Search results and shared previews must preserve senior full-stack breadth and
+the route's specific proof responsibility rather than reducing Harley to a
+generic agentic-systems identity before the visit begins.
 
 ### 10. Direct-route first-paint finish
 
@@ -300,6 +342,11 @@ replace the brief generic “Preparing the portfolio” state with small useful
 route identity derived from Phase 9's catalogue. Preserve static GitHub Pages
 delivery, lazy loading, accessibility, layout stability, and bundle budgets;
 do not add SSR or duplicate the content system.
+
+For direct visitors, the route-specific first paint must identify the kind of
+evidence ahead. It need not prove the whole case before React resolves, but it
+must not replace a specific project, article, or professional route with generic
+portfolio or agentic branding.
 
 ### 11. Interactive proof value gate
 
@@ -317,6 +364,11 @@ evidence report, and seek final human launch approval. No analytics are added:
 there is no concrete launch decision that currently earns their privacy,
 performance, and maintenance cost. This phase validates the whole rather than
 introducing a second redesign.
+
+The launch audit must run the weary-skeptic journey from homepage, shared
+project, shared essay, and About entry points. Record the first signal that
+weakens the skeptical interpretation and the clicks, screens, and approximate
+reading time required before substantive evidence overrules it.
 
 ## Dependency logic
 
@@ -351,6 +403,9 @@ introducing a second redesign.
   about exact prose, component names, or incidental styling are not the goal.
 - Each implementation phase should be independently mergeable and should
   leave the public site more useful than it found it.
+- Phase 7–12 reviews treat fast-to-break skepticism as a reader outcome, not a
+  prose slogan. Random selection, visual polish, and repeated positioning
+  claims cannot substitute for concrete engineering evidence.
 
 ## Handoff Notes
 
@@ -368,6 +423,13 @@ introducing a second redesign.
 - The interactive artefact is a value gate, not a promise to add novelty.
 - If a phase spec reveals multiple independent deliverables, split the roadmap
   item before plan-writing and record the reason here.
+- On 25 August 2026, a skeptical-hiring-manager audit found that the published
+  site does overturn skepticism through About, Wild Bunch, Patch, Marketplace,
+  and Learning Lab, but requires more navigation than the final hiring
+  instrument should. Completed phases remain closed. Their strongest evidence
+  re-enters through the Phase 7 publication, Phase 8 homepage choreography,
+  Phase 9 previews, Phase 10 direct-route identity, and Phase 12 launch audit
+  under the fast-to-break skepticism rubric above.
 - Design dialogue for Phases 10–12 was approved as one consolidated packet on
   22 August 2026. Each outcome remains a separate specification and handoff
   gate; Harley approved all three written specifications on 22 August 2026.

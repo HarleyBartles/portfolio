@@ -52,6 +52,24 @@ availability language.
 The site should read as an authored view of how Harley thinks across domains,
 not a sequence of repeated claims that he should be hired.
 
+Run a weary-skeptic review from four cold entry points: homepage, shared
+project, shared essay, and About. Begin from the assumption that polished
+agentic presentation may conceal weak engineering. For each path, record:
+
+- the first concrete signal that weakens that interpretation;
+- the clicks, viewport screens, and approximate reading time required to reach
+  it;
+- the substantive evidence surface that makes the interpretation untenable;
+  and
+- any essential claim the reader had to assemble across disconnected pages.
+
+The target is skepticism beginning to break in the first viewport, becoming
+untenable after one deliberate click, and turning into strong engineering
+confidence after one substantive evidence surface. Treat a broken homepage-to-
+evidence path as a launch blocker. Treat a deeper route that cannot identify
+its proof responsibility as an owning-phase defect rather than repairing it
+with another generic claim.
+
 ### Factual and privacy integrity
 
 Check employment chronology, role language, education, project maturity,
@@ -323,6 +341,13 @@ decision.
 - [ ] the complete site is audited against the approved design baseline rather
       than a newly invented standard;
 - [ ] the ten-second hiring proposition and all core evidence journeys work;
+- [ ] the weary-skeptic audit records first signal, clicks, screen depth,
+      approximate reading time, and decisive evidence for all four cold entry
+      points;
+- [ ] every cold entry begins breaking skepticism in its first viewport and can
+      reach substantive engineering evidence in one deliberate click;
+- [ ] no essential engineering claim depends on the reader assembling it from
+      disconnected pages;
 - [ ] professional facts, current claims, confidentiality boundaries, dates,
       maturity language, CV, contact, and availability are re-verified;
 - [ ] four distinct case studies and five fully groomed essays meet their
