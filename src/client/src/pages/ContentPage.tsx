@@ -12,6 +12,8 @@ import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
+import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
+import { getWritingPresentation } from '../features/writing/writingPresentations'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
 import { formatContentDate, sortWriting } from '../utils/content'
@@ -112,6 +114,10 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   if (document.summary.presentation !== undefined && Presentation === undefined) {
     return <ContentErrorState />
   }
+  const writingPresentation = document.summary.kind === 'writing'
+    ? getWritingPresentation(document.summary.slug)
+    : undefined
+  const WritingFigure = writingPresentation?.figure.Component
 
   const relatedSummaries = navigationQuery.data ?? []
   const fallbackSlugs =
@@ -137,7 +143,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
     ? document.summary.slug as ProjectVisualSlug
     : null
-  const visualContract = document.summary.presentation === 'marketplace-case-study'
+  const visualContract = writingPresentation === undefined ? document.summary.presentation === 'marketplace-case-study'
     ? 'marketplace-case-study-hero'
     : document.summary.presentation === 'patch-pipeline-case-study'
       ? 'patch-case-study-hero'
@@ -145,7 +151,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       ? 'wild-bunch-case-study-hero'
     : document.summary.presentation === 'learning-lab-case-study'
       ? 'learning-lab-case-study-hero'
-      : 'content-page-header'
+      : 'content-page-header' : 'vibe-coding-door-road'
   const formattedDate = formatContentDate(document.summary.date)
 
   return (
@@ -159,6 +165,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         <header
           className={`content-page-header${projectVisualSlug === null ? '' : ' content-page-header--visual'}`}
           data-visual-contract={visualContract}
+          role={writingPresentation === undefined ? undefined : 'region'}
+          aria-label={writingPresentation === undefined ? undefined : 'Vibe article introduction'}
         >
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
@@ -175,6 +183,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           {projectVisualSlug === null ? null : (
             <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} /></div>
           )}
+          {WritingFigure === undefined ? null : <div className="content-page-visual"><Suspense fallback={null}><WritingFigure /></Suspense></div>}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
           {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
@@ -186,7 +195,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             unavailable={relatedNavigationUnavailable}
           />
         )}
-        <ContentNavigation items={kindItems} currentSlug={document.summary.slug} />
+        {writingPresentation === undefined ? <ContentNavigation items={kindItems} currentSlug={document.summary.slug} /> : (
+          <AuthoredContinuations presentation={writingPresentation} summaries={relatedSummaries} />
+        )}
       </article>
     </SiteLayout>
   )
