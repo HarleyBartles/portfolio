@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import date
 from pathlib import Path
 
 from PIL import Image
@@ -289,15 +290,115 @@ class PortfolioFixture:
         receipt_path = self.root / "src/client/public/media/patch/patch-derivatives.json"
         receipt_path.write_text(json.dumps({"sourceRevision": revision, "images": [dict(evidence["media"][0])]}), encoding="utf-8")
 
+    def write_learning_lab_evidence(self) -> None:
+        revision = "3d8e92ceaebcbb67f0ede5bda95846da8e18b80d"
+        courses = [
+            {
+                "id": "course-1",
+                "stage": "complete",
+                "title": "Agentic Engineering 101: Zero to Hero",
+                "outcome": "Direct, understand, provision, navigate, verify, and safely operate useful agent work.",
+                "modules": [
+                    {"id": "1", "title": "From chatbot to worker", "state": "mature-lab"},
+                    {"id": "2", "title": "Give the cloud agent the project", "state": "mature-lab"},
+                    {"id": "3", "title": "The project has a home", "state": "mature-lab"},
+                    {"id": "4", "title": "Repositories, save points, and safe breakage", "state": "mature-lab"},
+                    {"id": "5", "title": "Model, harness, context, tools, and behaviour", "state": "mature-lab"},
+                    {"id": "6", "title": "What does the model know?", "state": "mature-lab"},
+                    {"id": "7", "title": "Tools, operating knowledge, and domain provisioning", "state": "mature-lab"},
+                    {"id": "8", "title": "What did we just create? Local work and connected systems", "state": "mature-lab"},
+                    {"id": "9", "title": "Source of truth and verification", "state": "mature-lab"},
+                    {"id": "10", "title": "Build a real agentic project", "state": "mature-lab"},
+                ],
+            },
+            {
+                "id": "course-2",
+                "stage": "substantially-planned",
+                "title": "Advanced Agentic Engineering: Mastering Agents",
+                "outcome": "Design agent behaviour, workflow, context, delegation, evaluation, and autonomy.",
+                "modules": [
+                    {"id": "1", "title": "Agent self-introspection and local review", "state": "roadmap-module"},
+                    {"id": "2", "title": "Autonomous human-in-the-loop workflows", "state": "roadmap-module"},
+                    {"id": "3", "title": "Specialist sub-agents and orchestration", "state": "roadmap-module"},
+                    {"id": "4", "title": "Harnesses, portability, and agent observability", "state": "roadmap-module"},
+                    {"id": "5", "title": "The 20-Agent Bonfire and context transport", "state": "roadmap-module"},
+                    {"id": "6", "title": "Selective provisioning, context, and evaluation", "state": "roadmap-module"},
+                    {"id": "7", "title": "Trust boundaries and connected autonomy", "state": "roadmap-module"},
+                    {"id": "8", "title": "Concurrent agents and isolation", "state": "roadmap-module"},
+                    {"id": "9", "title": "Retrospective: how this repo was built", "state": "roadmap-module"},
+                ],
+            },
+            {
+                "id": "course-3",
+                "stage": "early-outline",
+                "title": "Beyond the Agent: Engineering Agent Systems",
+                "outcome": "Design trust, coordination, concurrency, integration, provenance, and operational behaviour around agents.",
+                "modules": [],
+            },
+        ]
+        for course in courses:
+            for module in course["modules"]:
+                module["summary"] = "A concise editorial account of what the learner earns."
+        evidence = {
+            "observedAt": "2026-08-25",
+            "repositoryUrl": "https://github.com/HarleyBartles/agentic-learning-lab",
+            "sourceChangeUrl": "https://github.com/HarleyBartles/agentic-learning-lab/pull/13",
+            "sourceRevision": revision,
+            "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32812192933",
+            "matureLabCount": 10,
+            "delivery": {"status": "planned", "target": "2026-08", "display": "late August 2026"},
+            "licensing": {
+                "freelyLicensed": True,
+                "policyPath": "LICENSE.md",
+                "curriculum": {
+                    "spdx": "CC-BY-4.0",
+                    "path": "LICENSES/CC-BY-4.0.txt",
+                    "url": "https://creativecommons.org/licenses/by/4.0/",
+                },
+                "tooling": {
+                    "spdx": "MIT",
+                    "path": "LICENSES/MIT.txt",
+                    "url": "https://opensource.org/license/mit",
+                },
+            },
+            "courses": courses,
+            "proof": {
+                "curriculum": "README.md",
+                "curriculumShape": "docs/curriculum-shape.md",
+                "course2Index": "modules/course-2/README.md",
+                "lab3": "labs/03-project-has-a-home/README.md",
+                "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
+                "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",
+                "lab5": "labs/05-model-harness-context-tools-and-behaviour/README.md",
+                "lab7": "labs/07-tools-operating-knowledge-and-domain-provisioning/README.md",
+                "licencePolicy": "LICENSE.md",
+                "curriculumLicence": "LICENSES/CC-BY-4.0.txt",
+                "toolingLicence": "LICENSES/MIT.txt",
+                "integrity": "tests/test_repo_integrity.py",
+            },
+        }
+        evidence_path = self.root / "src/client/src/data/case-studies/learning-lab-evidence.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
 
 class PortfolioQualityTests(unittest.TestCase):
-    def validate(self, mutate=None) -> list[str]:
+    def validate(self, mutate=None, *, today: date | None = None) -> list[str]:
         with tempfile.TemporaryDirectory() as temporary:
             fixture = PortfolioFixture(Path(temporary))
             fixture.write()
             if mutate is not None:
                 mutate(fixture)
-            return [str(finding) for finding in validate_portfolio(fixture.root)]
+            return [str(finding) for finding in validate_portfolio(fixture.root, today=today)]
+
+    @staticmethod
+    def use_learning_lab_presentation(fixture: PortfolioFixture) -> Path:
+        source = fixture.content / str(fixture.items[0]["path"])
+        source.unlink()
+        del fixture.items[0]["path"]
+        fixture.items[0]["presentation"] = "learning-lab-case-study"
+        fixture.write_manifest()
+        return fixture.root / "src/client/src/data/case-studies/learning-lab-evidence.json"
 
     def test_clean_portfolio_has_no_findings(self) -> None:
         self.assertEqual([], self.validate())
@@ -459,6 +560,221 @@ class PortfolioQualityTests(unittest.TestCase):
                 findings = self.validate(mutate)
 
                 self.assertEqual(findings, [])
+
+    def test_learning_lab_presentation_requires_project_content_and_evidence(self) -> None:
+        def missing(fixture: PortfolioFixture) -> None:
+            self.use_learning_lab_presentation(fixture)
+
+        missing_findings = self.validate(missing)
+        self.assertTrue(any("cannot load Learning Lab evidence" in finding for finding in missing_findings))
+
+        def malformed(fixture: PortfolioFixture) -> None:
+            evidence_path = self.use_learning_lab_presentation(fixture)
+            evidence_path.parent.mkdir(parents=True, exist_ok=True)
+            evidence_path.write_text("{", encoding="utf-8")
+
+        malformed_findings = self.validate(malformed)
+        self.assertTrue(any("cannot load Learning Lab evidence" in finding for finding in malformed_findings))
+
+        def both_sources(fixture: PortfolioFixture) -> None:
+            fixture.items[0]["presentation"] = "learning-lab-case-study"
+            fixture.write_manifest()
+            fixture.write_learning_lab_evidence()
+
+        self.assertTrue(any("exactly one body source" in finding for finding in self.validate(both_sources)))
+
+        def non_project(fixture: PortfolioFixture) -> None:
+            source = fixture.content / str(fixture.items[1]["path"])
+            source.unlink()
+            del fixture.items[1]["path"]
+            fixture.items[1]["presentation"] = "learning-lab-case-study"
+            fixture.write_manifest()
+            fixture.write_learning_lab_evidence()
+
+        self.assertTrue(any("only supported for project content" in finding for finding in self.validate(non_project)))
+
+    def test_learning_lab_evidence_rejects_invalid_taxonomy_and_maturity(self) -> None:
+        mutations = {
+            "invalid observation date": (
+                lambda evidence: evidence.__setitem__("observedAt", "24 August 2026"),
+                "observedAt must be an ISO date",
+            ),
+            "short revision": (
+                lambda evidence: evidence.__setitem__("sourceRevision", "short"),
+                "sourceRevision must be a 40-character commit",
+            ),
+            "stale valid revision": (
+                lambda evidence: evidence.__setitem__("sourceRevision", "315442bd2661bbc99a0834e57ff5f500b549326c"),
+                "sourceRevision must match the course-local numbering revision",
+            ),
+            "wrong source change": (
+                lambda evidence: evidence.__setitem__("sourceChangeUrl", "https://github.com/HarleyBartles/agentic-learning-lab/pull/12"),
+                "sourceChangeUrl must match the merged course-numbering change",
+            ),
+            "stale integrity run": (
+                lambda evidence: evidence.__setitem__("integrityRunUrl", "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005"),
+                "integrityRunUrl must match the successful run for the pinned source revision",
+            ),
+            "duplicate identifier": (
+                lambda evidence: evidence["courses"][1]["modules"][1].__setitem__("id", "1"),
+                "module identifiers must be unique within each course",
+            ),
+            "missing Course 2 Module 5": (
+                lambda evidence: evidence["courses"][1]["modules"].__delitem__(4),
+                "course-2 modules must be 1, 2, 3, 4, 5, 6, 7, 8, 9",
+            ),
+            "identifier outside curriculum": (
+                lambda evidence: evidence["courses"][1]["modules"][8].__setitem__("id", "10"),
+                "course-2 modules must be 1, 2, 3, 4, 5, 6, 7, 8, 9",
+            ),
+            "unknown maturity": (
+                lambda evidence: evidence["courses"][0]["modules"][0].__setitem__("state", "complete"),
+                "module 1 state must be mature-lab or roadmap-module",
+            ),
+            "missing editorial summary": (
+                lambda evidence: evidence["courses"][0]["modules"][0].__setitem__("summary", ""),
+                "module 1 requires a nonempty editorial summary",
+            ),
+            "count-preserving maturity swap": (
+                lambda evidence: (
+                    evidence["courses"][0]["modules"][0].__setitem__("state", "roadmap-module"),
+                    evidence["courses"][1]["modules"][0].__setitem__("state", "mature-lab"),
+                ),
+                "course-1 module 1 state must be mature-lab",
+            ),
+            "wrong mature count": (
+                lambda evidence: evidence.__setitem__("matureLabCount", 9),
+                "matureLabCount must match the 10 mature-lab modules",
+            ),
+            "wrong course stage": (
+                lambda evidence: evidence["courses"][2].__setitem__("stage", "substantially-planned"),
+                "course-3 stage must be early-outline",
+            ),
+        }
+
+        for label, (mutate_evidence, expected) in mutations.items():
+            with self.subTest(label=label):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    fixture.write_learning_lab_evidence()
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    mutate_evidence(evidence)
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                self.assertTrue(any(expected in finding for finding in self.validate(mutate)), expected)
+
+    def test_learning_lab_delivery_changes_only_from_authored_evidence(self) -> None:
+        def stale_planned(fixture: PortfolioFixture) -> None:
+            self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+
+        stale = self.validate(stale_planned, today=date(2026, 9, 1))
+        self.assertTrue(any("delivery planned state is stale after 2026-08" in finding for finding in stale))
+
+        started_mutations = {
+            "missing date": (lambda delivery: delivery.pop("startedOn", None), "started delivery requires startedOn"),
+            "invalid date": (lambda delivery: delivery.__setitem__("startedOn", "late August"), "startedOn must be an ISO date"),
+            "future date": (lambda delivery: delivery.__setitem__("startedOn", "2026-08-25"), "startedOn must not be in the future"),
+        }
+        for label, (mutate_delivery, expected) in started_mutations.items():
+            with self.subTest(label=label):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    fixture.write_learning_lab_evidence()
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
+                    mutate_delivery(evidence["delivery"])
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                findings = self.validate(mutate, today=date(2026, 8, 24))
+                self.assertTrue(any(expected in finding for finding in findings), expected)
+
+        def planned_with_started_date(fixture: PortfolioFixture) -> None:
+            evidence_path = self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["delivery"]["startedOn"] = "2026-08-23"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(planned_with_started_date, today=date(2026, 8, 24))
+        self.assertTrue(any("planned delivery must not include startedOn" in finding for finding in findings))
+
+    def test_learning_lab_evidence_bounds_licensing_and_public_claims(self) -> None:
+        mutations = {
+            "missing curriculum licence": (
+                lambda evidence: evidence["licensing"]["curriculum"].__setitem__("spdx", ""),
+                "freelyLicensed requires curriculum SPDX CC-BY-4.0",
+            ),
+            "missing tooling licence": (
+                lambda evidence: evidence["licensing"]["tooling"].__setitem__("spdx", ""),
+                "freelyLicensed requires tooling SPDX MIT",
+            ),
+            "missing policy path": (
+                lambda evidence: evidence["licensing"].__setitem__("policyPath", ""),
+                "freelyLicensed requires policyPath LICENSE.md",
+            ),
+            "missing licence link": (
+                lambda evidence: evidence["licensing"]["curriculum"].__setitem__("url", ""),
+                "freelyLicensed requires HTTPS curriculum and tooling licence links",
+            ),
+            "false freely licensed flag": (
+                lambda evidence: evidence["licensing"].__setitem__("freelyLicensed", False),
+                "licensing freelyLicensed must be true",
+            ),
+            "missing freely licensed flag": (
+                lambda evidence: evidence["licensing"].pop("freelyLicensed"),
+                "licensing freelyLicensed must be true",
+            ),
+            "non-boolean freely licensed flag": (
+                lambda evidence: evidence["licensing"].__setitem__("freelyLicensed", "true"),
+                "licensing freelyLicensed must be true",
+            ),
+            "snapshot without commit": (
+                lambda evidence: evidence.__setitem__("sourceRevision", ""),
+                "sourceRevision must be a 40-character commit",
+            ),
+            "unsupported learner claim": (
+                lambda evidence: evidence["proof"].__setitem__("claim", "tested with real learners"),
+                "must not claim tested with real learners",
+            ),
+        }
+
+        for label, (mutate_evidence, expected) in mutations.items():
+            with self.subTest(label=label):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    fixture.write_learning_lab_evidence()
+                    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+                    mutate_evidence(evidence)
+                    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+                self.assertTrue(any(expected in finding for finding in self.validate(mutate)), expected)
+
+    def test_learning_lab_evidence_accepts_planned_and_started_states(self) -> None:
+        def planned(fixture: PortfolioFixture) -> None:
+            self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+
+        self.assertEqual([], self.validate(planned, today=date(2026, 8, 24)))
+
+        def started(fixture: PortfolioFixture) -> None:
+            evidence_path = self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        self.assertEqual([], self.validate(started, today=date(2026, 8, 24)))
+
+        def started_without_display(fixture: PortfolioFixture) -> None:
+            evidence_path = self.use_learning_lab_presentation(fixture)
+            fixture.write_learning_lab_evidence()
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23"}
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+        findings = self.validate(started_without_display, today=date(2026, 8, 24))
+        self.assertTrue(any("started delivery requires display text" in finding for finding in findings))
 
     def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

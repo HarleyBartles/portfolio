@@ -3,6 +3,22 @@ import { describe, expect, test } from 'vitest'
 import { ProjectVisual } from './ProjectVisual'
 
 describe('ProjectVisual', () => {
+  test('pairs the semantic learning loop with responsive inspection imagery', () => {
+    const { container } = render(<ProjectVisual slug="agentic-learning-lab" eager />)
+
+    expect(container.querySelector('[data-visual-contract="learning-lab-loop"]')).not.toBeNull()
+    expect(screen.getByText('Direct')).toBeVisible()
+    expect(screen.getByText('Redirect')).toBeVisible()
+    const image = screen.getByRole('img', { name: /hands inspect measured components and test evidence/i })
+    expect(image).toHaveAttribute('src', '/media/learning-lab/engineering-control-workbench-mobile-720.webp')
+    expect(image).toHaveAttribute('width', '720')
+    expect(image).toHaveAttribute('height', '450')
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(image.closest('picture')?.querySelectorAll('source')).toHaveLength(4)
+    expect(container).not.toHaveTextContent(/venue plan/i)
+  })
+
   test('summarises the Marketplace core with selected and local boundaries', () => {
     render(<ProjectVisual slug="codex-marketplace" />)
 

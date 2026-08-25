@@ -1,0 +1,101 @@
+{
+  "policy": {
+    "owner": "Harley Bartles",
+    "rights": "Copyright Harley Bartles. All rights reserved.",
+    "purpose": "Portfolio-owned editorial interpretations of curriculum mechanics, not documentary images of a delivered session.",
+    "tool": "OpenAI built-in image generation",
+    "generatedOn": "2026-08-24",
+    "sourceRevision": "315442bd2661bbc99a0834e57ff5f500b549326c"
+  },
+  "assets": [
+    {
+      "id": "engineering-control-workbench",
+      "status": "accepted",
+      "outputPath": "src/client/assets/learning-lab/engineering-control-workbench.png",
+      "outputSha256": "6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170",
+      "width": 1536,
+      "height": 1024,
+      "useCase": "stylized-concept",
+      "pageRole": "Wide route-hero scene behind and beside the semantic learning loop. It makes human inspection focal while HTML carries every exact stage label.",
+      "sourceLab": "Learning loop across the curriculum, grounded especially in Labs 4 and 5",
+      "claim": "Agent output is material under examination; direction, verification and recovery remain human-owned.",
+      "intendedCrop": {
+        "desktop": "3:2 wide field, full visual column, 760 by 510 CSS pixels maximum",
+        "mobile": "16:10 centre-right crop above the complete HTML loop, 390 by 244 CSS pixels maximum",
+        "focalSafeArea": "Inspection hands and measured work remain in the centre-right 60 percent; quieter bench surface remains at left for overlap."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: premium developer-portfolio hero illustration\nPrimary request: An editorial engineering-control workbench where a human is directing and inspecting agent-produced work as physical evidence. Show a pair of human hands using a loupe, ruler and test probe over neatly separated output sheets, measured components and a reversible fixture. A labelled-looking but completely blank rollback tray and an obvious reset mechanism make recovery physically present. The scene should communicate observe, inspect, verify, recover and redirect without turning those concepts into a diagram.\nScene/backdrop: a real working inspection bench, viewed from a high oblique angle, with purposeful tools and evidence arranged by use rather than decoration\nStyle/medium: sophisticated editorial mixed-media illustration, tactile paper and ink, restrained screenprint texture, subtle technical cutaway precision, premium magazine art rather than photorealism\nComposition/framing: wide 3:2 landscape; focal inspection hands and evidence in the centre-right; calm negative bench space on the left for an HTML overlay; strong diagonal working line; no essential object near the crop edges\nLighting/mood: warm directional work light, calm concentration, serious but inviting\nColor palette: warm paper, near-black ink, controlled deep teal, oxidised copper and one restrained amber highlight\nMaterials/textures: heavy paper, steel measuring tools, matte painted metal, wood worktop, graphite and stamped ink texture\nConstraints: no readable text, no pseudo-text, no logos, no interfaces, no screens, no classroom, no certificate, no humanoid robot, no glowing brain, no sci-fi spectacle; hands must be anatomically convincing; leave the exact semantic loop to HTML\nAvoid: generic AI imagery, neon, holograms, dashboards, decorative gears, stock teamwork poses, protected trade dress, watermark",
+      "correctionPrompt": "Edit the generated engineering-control workbench image with one targeted correction only. Preserve the exact composition, crop, hands, loupe, probe, ruler, tools, trays, fixture, palette, lighting, mixed-media linework and large quiet wooden area on the left. Remove every letter, numeral, word-like mark, circular seal and pseudo-text glyph from all paper sheets. Replace those marks with clean non-linguistic engineering evidence only: simple solid measurement lines, geometric component outlines, dot plots and blank ruled areas that contain no shapes resembling any alphabet, numeral or logo. Do not change anything else. No readable text, no pseudo-text, no watermark.",
+      "selectionReasoning": "The corrected result makes inspection unmistakable, preserves a generous HTML overlap zone and removes the first draft's letter-like paper marks without disturbing the strong composition.",
+      "riskReview": "No branding, interface, protected character, classroom trope or generic AI spectacle. Human hands are anatomically coherent. Remaining paper marks are non-linguistic geometry.",
+      "altIntent": "Hands inspect measured components and test evidence at a controlled engineering workbench, with recovery tools already in place.",
+      "finishing": "Deterministic Sharp resize and crop to responsive AVIF and WebP; metadata stripped.",
+      "acceptanceCriteria": [
+        "Human inspection is the unquestioned focal action.",
+        "Agent output reads as evidence being tested, not magic being admired.",
+        "Recovery is materially present without words.",
+        "The left-side overlay zone stays quiet at desktop and the centre-right crop survives mobile.",
+        "No essential text or label is rasterised and no generic AI trope appears."
+      ]
+    },
+    {
+      "id": "safe-breakage-rig",
+      "status": "accepted",
+      "outputPath": "src/client/assets/learning-lab/safe-breakage-rig.png",
+      "outputSha256": "8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7",
+      "width": 1536,
+      "height": 1024,
+      "useCase": "stylized-concept",
+      "pageRole": "Lab 4 feature scene sharing a dark full-bleed safety section with the blast-radius callout.",
+      "sourceLab": "Lab 4, Repositories, save points, and safe breakage",
+      "claim": "Failure can be deliberately bounded when containment, evidence and a recovery route are designed before the experiment runs.",
+      "intendedCrop": {
+        "desktop": "3:2 wide scene, 640 by 426 CSS pixels maximum, with a dark text panel overlapping the quiet left edge",
+        "mobile": "4:3 centre crop, full bleed, 390 by 293 CSS pixels maximum",
+        "focalSafeArea": "Contained rig, catch tray and reset path stay inside the central 65 percent."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: premium developer-portfolio editorial illustration for a safety and recovery section\nPrimary request: A compact engineering experiment visibly designed to fail safely. A small mechanical test piece has fractured inside a clear containment shroud; every fragment remains in a deep catch tray. An intact earlier specimen sits in a protected reference cradle, and a simple physical reset carriage is already aligned to restore the rig for another run. The image should feel calm and controlled, with containment and recovery more prominent than the breakage.\nScene/backdrop: a bounded workshop test bay on a solid bench, no surrounding disaster\nStyle/medium: same sophisticated editorial mixed-media family as a premium magazine technical illustration, tactile paper grain, ink edges, restrained screenprint layers and clear spatial logic\nComposition/framing: wide 3:2 landscape; rig and recovery path centred; quiet darker area at left for HTML copy overlap; all safety boundaries visibly closed; central composition must survive a 4:3 mobile crop\nLighting/mood: warm task light, composed, competent, no alarm or spectacle\nColor palette: warm paper and near-black ink with deep teal containment, oxidised copper mechanisms and a small amber control accent\nMaterials/textures: clear safety acrylic, matte steel, painted metal, rubber catch tray, wood bench, printed-paper texture\nConstraints: no readable text, no pseudo-text, no logos, no interface, no warning labels, no people, no gore, no fire, no explosion, no flying debris, no robot, no science-fiction effects\nAvoid: catastrophe imagery, hazard theatre, neon, generic cyber security symbols, broken computers, decorative clutter, protected trade dress, watermark",
+      "selectionReasoning": "The first result clearly contains the broken specimen, protects the reference state and places a reset carriage in the same calm visual field. It needs no corrective generation.",
+      "riskReview": "No branding, text, people, gore, fire, explosion, robot or generic cyber-security metaphor. The breakage is fully contained and visually subordinate to recovery.",
+      "altIntent": "A fractured test piece remains inside a clear containment rig beside a protected reference specimen and ready reset carriage.",
+      "finishing": "Deterministic Sharp resize and crop to responsive AVIF and WebP; metadata stripped.",
+      "acceptanceCriteria": [
+        "The failure is visible but completely contained.",
+        "The protected reference state and recovery mechanism are immediately legible.",
+        "The scene feels calm enough to support learning rather than dramatise danger.",
+        "The central rig survives desktop and mobile crops.",
+        "No essential text, branding or generic security metaphor appears."
+      ]
+    },
+    {
+      "id": "authority-transfer",
+      "status": "accepted",
+      "outputPath": "src/client/assets/learning-lab/authority-transfer.png",
+      "outputSha256": "a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db",
+      "width": 1568,
+      "height": 1003,
+      "useCase": "stylized-concept",
+      "pageRole": "Large Lab 7 scene attached to the authority caselet, breaking the long text rhythm before the safety section.",
+      "sourceLab": "Lab 7, Tools, operating knowledge, and domain provisioning",
+      "claim": "Acceptance authority moves to whoever can judge the domain while the experimental frame remains coherent.",
+      "intendedCrop": {
+        "desktop": "16:10 working scene, 760 by 475 CSS pixels maximum, with HTML caselet overlapping a quiet lower-left zone",
+        "mobile": "4:3 centre crop above the Lab 7 evidence, 390 by 293 CSS pixels maximum",
+        "focalSafeArea": "Three work zones and their currently judging hands stay inside the central 75 percent."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: premium developer-portfolio editorial illustration for a curriculum case study\nPrimary request: One coherent collaborative worktable showing three successive domains of judgment without labels. On the left, software architecture evidence and test results are being inspected by an experienced engineer's hands. In the centre, two people jointly review original prose with equal pens and shared authority. On the right, a technically skilled learner's hands use a scale rule and set square to correct a precise technical drawing while the facilitator's hands are deliberately pulled back in deference. A neutral wheeled tool caddy passes between the three work zones, showing that capability is provisioned while acceptance remains with the human who knows what good looks like.\nScene/backdrop: one continuous studio workshop table, not three disconnected panels and not a classroom\nStyle/medium: same sophisticated editorial mixed-media family, premium magazine illustration, tactile paper and ink, restrained screenprint texture, precise but lively\nComposition/framing: wide 16:10 landscape; three connected work zones flow left to right; the right-hand technical drawing judgment is the visual climax; calm lower-left area can accept an HTML overlap; all domains remain legible in a central 4:3 crop\nLighting/mood: warm shared work light, attentive, collegial and serious\nColor palette: warm paper, near-black ink, deep teal, oxidised copper and restrained amber accents\nMaterials/textures: tracing paper, heavy writing paper, scale rule, set square, test printouts, pencils, matte metal tool caddy, wood table\nConstraints: no readable text, no pseudo-text, no code, no logos, no screens, no classroom, no teacher-at-the-front hierarchy, no humanoid robot, no glowing AI device; hands must be anatomically convincing; the three domains must read from objects and action rather than labels\nAvoid: stock teamwork photography, corporate meeting, equal-card triptych, neon, holograms, generic AI iconography, protected trade dress, watermark",
+      "correctionPrompt": "Edit the generated authority-transfer worktable image with two tightly bounded corrections. Preserve the exact people, hands, poses, continuous table, left software work zone, centre shared prose review, right technical drawing work zone, tool caddy, set square, ruler, palette, lighting, crop and mixed-media style. First, remove every letter, numeral, word-like mark, code-like mark and pseudo-text glyph from every sheet. Replace them only with non-linguistic evidence: clean geometric architecture boxes and connector lines with no marks inside them, simple unlabeled plots, blank ruled prose lines, and pure technical drawing geometry. Second, simplify the lower-left 25 percent by reducing it to one restrained stack of mostly blank tracing sheets with a sparse unlabeled geometric diagram, leaving calmer wooden-table negative space around it for an HTML overlap. Keep the right-side learner actively correcting the technical drawing and the facilitator's hands visibly folded back in deference. Do not change anything else. No readable text, no pseudo-text, no logos, no watermark.",
+      "selectionReasoning": "The corrected result keeps all three authority arrangements in one continuous scene, makes learner-owned technical judgment the climax and removes the initial pseudo-text while retaining the caddy as a neutral provisioning device.",
+      "riskReview": "No branding, screens, classroom hierarchy, humanoid robot or generic AI effect. Papers contain geometry and blank ruled lines rather than language. Hands and tools are coherent at intended display sizes.",
+      "altIntent": "Three connected work zones move from engineer-led inspection through shared prose review to learner-led technical drawing judgment.",
+      "finishing": "Deterministic Sharp resize to responsive AVIF and WebP; metadata stripped.",
+      "acceptanceCriteria": [
+        "The three authority arrangements read as one continuous working scene.",
+        "Technical drawing clearly ends with learner-owned judgment and facilitator deference.",
+        "The neutral tool caddy supports provisioning without becoming an AI mascot.",
+        "The composition survives a central mobile crop and leaves a useful desktop overlap zone.",
+        "No text, branding, classroom trope or generic AI spectacle appears."
+      ]
+    }
+  ]
+}

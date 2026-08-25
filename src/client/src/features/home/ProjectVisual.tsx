@@ -1,4 +1,6 @@
 import type { ReactElement } from 'react'
+import { LearningLabImage } from '../case-study/learning-lab/LearningLabImage'
+import { LearningLoop } from '../case-study/learning-lab/LearningLoop'
 import './ProjectVisual.scss'
 
 export type ProjectVisualSlug =
@@ -40,16 +42,10 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
 
   if (slug === 'agentic-learning-lab') {
     return (
-      <figure className="project-visual project-visual--learning">
-        <img
-          src={assetPath('/media/learning-lab/venue-plan.png')}
-          alt="A simple venue floor plan used as the bounded project artifact in Learning Lab 02."
-          width="500"
-          height="350"
-          loading={eager ? 'eager' : 'lazy'}
-        />
-        <figcaption>Lab 02 / bounded workspace artifact</figcaption>
-      </figure>
+      <div className="project-visual project-visual--learning-lab" data-visual-contract="learning-lab-inspection-hero">
+        <LearningLabImage id="engineering-control-workbench" eager={eager} />
+        <LearningLoop />
+      </div>
     )
   }
 

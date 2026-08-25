@@ -1,0 +1,137 @@
+{
+  "generatedBy": "src/client/scripts/process-learning-lab-assets.mjs",
+  "derivatives": [
+    {
+      "id": "engineering-control-workbench",
+      "variant": "mobile",
+      "sourceSha256": "6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170",
+      "path": "src/client/public/media/learning-lab/engineering-control-workbench-mobile-720.avif",
+      "width": 720,
+      "height": 450,
+      "format": "avif",
+      "bytes": 33080,
+      "outputSha256": "883bea038dc13a5169031ec69dd775751b4bf02a96e0e838cb45701fbbf9a469"
+    },
+    {
+      "id": "engineering-control-workbench",
+      "variant": "mobile",
+      "sourceSha256": "6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170",
+      "path": "src/client/public/media/learning-lab/engineering-control-workbench-mobile-720.webp",
+      "width": 720,
+      "height": 450,
+      "format": "webp",
+      "bytes": 61634,
+      "outputSha256": "8e2fc758047f60ccfdd38f3a7efb7fca4bf467687852737c2422efac1654fbc8"
+    },
+    {
+      "id": "engineering-control-workbench",
+      "variant": "desktop",
+      "sourceSha256": "6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170",
+      "path": "src/client/public/media/learning-lab/engineering-control-workbench-desktop-1440.avif",
+      "width": 1440,
+      "height": 960,
+      "format": "avif",
+      "bytes": 175987,
+      "outputSha256": "778c16513d94a5481e8b1ada4737bb6647fcafffd168b50b8724cd3e77d5de26"
+    },
+    {
+      "id": "engineering-control-workbench",
+      "variant": "desktop",
+      "sourceSha256": "6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170",
+      "path": "src/client/public/media/learning-lab/engineering-control-workbench-desktop-1440.webp",
+      "width": 1440,
+      "height": 960,
+      "format": "webp",
+      "bytes": 336728,
+      "outputSha256": "27a5f74c18e569653f97b4d038d0c5fc9e902854fae918ebfb8482ff20fc6371"
+    },
+    {
+      "id": "safe-breakage-rig",
+      "variant": "mobile",
+      "sourceSha256": "8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7",
+      "path": "src/client/public/media/learning-lab/safe-breakage-rig-mobile-720.avif",
+      "width": 720,
+      "height": 540,
+      "format": "avif",
+      "bytes": 34700,
+      "outputSha256": "42d19d26d98a3f29ad1efd165111c0cb83a3625f29ee2281de6ad128e64453fe"
+    },
+    {
+      "id": "safe-breakage-rig",
+      "variant": "mobile",
+      "sourceSha256": "8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7",
+      "path": "src/client/public/media/learning-lab/safe-breakage-rig-mobile-720.webp",
+      "width": 720,
+      "height": 540,
+      "format": "webp",
+      "bytes": 58812,
+      "outputSha256": "41f879cf45719d7530ecbd1321f14982a69b621d8ab04c6f815d13ade5129eb1"
+    },
+    {
+      "id": "safe-breakage-rig",
+      "variant": "desktop",
+      "sourceSha256": "8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7",
+      "path": "src/client/public/media/learning-lab/safe-breakage-rig-desktop-1200.avif",
+      "width": 1200,
+      "height": 800,
+      "format": "avif",
+      "bytes": 82548,
+      "outputSha256": "5fa0876e84a6150be1a9e370235db71df3af729d375be0007d3431fe48fd3fa0"
+    },
+    {
+      "id": "safe-breakage-rig",
+      "variant": "desktop",
+      "sourceSha256": "8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7",
+      "path": "src/client/public/media/learning-lab/safe-breakage-rig-desktop-1200.webp",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "bytes": 147190,
+      "outputSha256": "3dc46b8728902ae63652c71e974ad0b914ea6dee550e536916472b8916cb21fc"
+    },
+    {
+      "id": "authority-transfer",
+      "variant": "mobile",
+      "sourceSha256": "a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db",
+      "path": "src/client/public/media/learning-lab/authority-transfer-mobile-720.avif",
+      "width": 720,
+      "height": 461,
+      "format": "avif",
+      "bytes": 34890,
+      "outputSha256": "071ced436bcb97f6eaa8eb9c27da1170ab9cf0f2d11ea0e77bf2dc7c02311b55"
+    },
+    {
+      "id": "authority-transfer",
+      "variant": "mobile",
+      "sourceSha256": "a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db",
+      "path": "src/client/public/media/learning-lab/authority-transfer-mobile-720.webp",
+      "width": 720,
+      "height": 461,
+      "format": "webp",
+      "bytes": 59652,
+      "outputSha256": "3b16d1bc4d6ec48953cc6035cfc4d54238b7c8eddb27357bd2e4bb067b8c3b9b"
+    },
+    {
+      "id": "authority-transfer",
+      "variant": "desktop",
+      "sourceSha256": "a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db",
+      "path": "src/client/public/media/learning-lab/authority-transfer-desktop-1440.avif",
+      "width": 1440,
+      "height": 921,
+      "format": "avif",
+      "bytes": 119263,
+      "outputSha256": "ebfb4ff6c852b6ea7a284fc47e882a7bfb60cdb2dee1b00d9f7194626b341f6c"
+    },
+    {
+      "id": "authority-transfer",
+      "variant": "desktop",
+      "sourceSha256": "a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db",
+      "path": "src/client/public/media/learning-lab/authority-transfer-desktop-1440.webp",
+      "width": 1440,
+      "height": 921,
+      "format": "webp",
+      "bytes": 213586,
+      "outputSha256": "0f4604e5080b8a1c95d3e70d8fbb34766ddb8b07593d78ecfe54dec28b6053c7"
+    }
+  ]
+}

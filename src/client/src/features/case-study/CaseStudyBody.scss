@@ -26,6 +26,10 @@
   max-width: none;
 }
 
+.case-study-body .case-study-lead--prose {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+}
+
 .case-study-lead__heading,
 .case-study-lead__body {
   min-width: 0;

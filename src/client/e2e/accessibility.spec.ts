@@ -10,6 +10,7 @@ const routes = [
   { name: 'Tournament adventure', path: 'patch/tournament-of-reasonable-defaults' },
   { name: 'Lawful Heist adventure', path: 'patch/lawful-heist' },
   { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
+  { name: 'Agentic Learning Lab', path: 'projects/agentic-learning-lab' },
   { name: 'writing', path: 'writing' },
   { name: 'article', path: 'writing/agentic-engineering-vs-vibe-coding' },
   { name: 'fairytale', path: 'fairytales/goldilocks' },

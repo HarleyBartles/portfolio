@@ -178,14 +178,19 @@ Exact generated measurements and output identities follow.
 - Added: 2026-08-21.
 - Accessibility: the detail page provides a concise alt description and a separate scene transcript.
 
-## Agentic Learning Lab venue plan
+## Agentic Learning Lab editorial scenes
 
-- Public file: `src/client/public/media/learning-lab/venue-plan.png` — `500 × 350`, 1,322 bytes.
-- Source repository: sibling `agentic-learning-lab` repository (owned by Harley Bartles).
-- Exact source: `labs/02-give-the-cloud-agent-the-project/project/source/venue-plan.png`.
-- Transformation: copied byte-for-byte. The source PNG is already much smaller than a WebP derivative and should not be upscaled merely to satisfy a nominal responsive width.
-- Added: 2026-08-21.
-- Alt text: "A simple venue floor plan used as the bounded project artifact in Learning Lab 02."
+These three portfolio-owned generated scenes interpret curriculum mechanics at Agentic Learning Lab revision `315442bd2661bbc99a0834e57ff5f500b549326c`. They are editorial concept art, not documentary images of a delivered session. Copyright Harley Bartles, all rights reserved.
+
+- Generation custody: `src/client/assets/learning-lab/generation-receipt.json` records the exact initial and corrective prompts, selection reasoning, acceptance criteria, source revision, rights, dimensions and SHA-256 for every master. The accepted masters are `engineering-control-workbench.png` (`1536 × 1024`, 4,039,699 bytes, SHA-256 `6d9c3f85ac63e7743525d269e9e86f9330101e3e6a04267711be067c6e6ce170`), `safe-breakage-rig.png` (`1536 × 1024`, 3,353,290 bytes, SHA-256 `8e81ed32473bf50433b65f6ef5f9853f0b7e679d9ef2eee815f8bc650849d1a7`) and `authority-transfer.png` (`1568 × 1003`, 3,011,470 bytes, SHA-256 `a9485800263c51185133a7dcb4647a95faf28b1a9d98da19c0215fc3e9e894db`).
+- Public derivative manifest: `src/client/public/media/learning-lab/learning-lab-derivatives.json`.
+- Workbench derivatives: `src/client/public/media/learning-lab/engineering-control-workbench-mobile-720.avif` (`720 × 450`, 33,080 bytes), `src/client/public/media/learning-lab/engineering-control-workbench-mobile-720.webp` (`720 × 450`, 61,634 bytes), `src/client/public/media/learning-lab/engineering-control-workbench-desktop-1440.avif` (`1440 × 960`, 175,987 bytes) and `src/client/public/media/learning-lab/engineering-control-workbench-desktop-1440.webp` (`1440 × 960`, 336,728 bytes).
+- Safe-breakage derivatives: `src/client/public/media/learning-lab/safe-breakage-rig-mobile-720.avif` (`720 × 540`, 34,700 bytes), `src/client/public/media/learning-lab/safe-breakage-rig-mobile-720.webp` (`720 × 540`, 58,812 bytes), `src/client/public/media/learning-lab/safe-breakage-rig-desktop-1200.avif` (`1200 × 800`, 82,548 bytes) and `src/client/public/media/learning-lab/safe-breakage-rig-desktop-1200.webp` (`1200 × 800`, 147,190 bytes).
+- Authority-transfer derivatives: `src/client/public/media/learning-lab/authority-transfer-mobile-720.avif` (`720 × 461`, 34,890 bytes), `src/client/public/media/learning-lab/authority-transfer-mobile-720.webp` (`720 × 461`, 59,652 bytes), `src/client/public/media/learning-lab/authority-transfer-desktop-1440.avif` (`1440 × 921`, 119,263 bytes) and `src/client/public/media/learning-lab/authority-transfer-desktop-1440.webp` (`1440 × 921`, 213,586 bytes). All twelve outputs remain below the 450 KB editorial-image ceiling.
+- Transformation: `src/client/scripts/process-learning-lab-assets.mjs` verifies master hashes and dimensions, applies the accepted focal crop or inside fit, exports AVIF/WebP and strips metadata. From the repository root, `npm.cmd --prefix src/client run media:learning-lab:check` fails when a master, derivative or receipt drifts.
+- Alt intent: the workbench shows human inspection of measured output and an available recovery path; the containment rig shows bounded failure beside a protected reference state and reset mechanism; the authority scene shows judgment moving from engineer-led inspection through shared review to learner-led technical drawing acceptance. Semantic HTML carries the exact learning loop, lab mechanics and authority argument.
+- Earlier source prop retained without a public consumer: `src/client/public/media/learning-lab/venue-plan.png` is the byte-for-byte `500 × 350` source from `labs/02-give-the-cloud-agent-the-project/project/source/venue-plan.png`. It remains canonical Lab 2 material, but its basic connector-test pixels no longer represent the case study or any project preview.
+- Added: 2026-08-24.
 
 ## Marketplace case-study icons
 

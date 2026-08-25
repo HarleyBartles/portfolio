@@ -7,6 +7,7 @@ const projectPresentations = {
   'patch-identity-emporium': lazy(async () => ({ default: (await import('../patch-showcase/IdentityEmporiumPage')).IdentityEmporiumPage })),
   'patch-tournament': lazy(async () => ({ default: (await import('../patch-showcase/TournamentPage')).TournamentPage })),
   'patch-lawful-heist': lazy(async () => ({ default: (await import('../patch-showcase/LawfulHeistPage')).LawfulHeistPage })),
+  'learning-lab-case-study': lazy(async () => ({ default: (await import('./learning-lab/LearningLabCaseStudy')).LearningLabCaseStudy })),
 } as const satisfies Record<string, ComponentType>
 
 export function getProjectPresentation(presentation: string): ComponentType | undefined {
