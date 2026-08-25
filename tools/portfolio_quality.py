@@ -31,20 +31,29 @@ WILD_BUNCH_HISTORICAL_REFERENCE_URL = "https://worldofspectrum.org/archive/softw
 PATCH_SOURCE_REVISION = "13bf77adc63cf5c8f49363cedd5dd392822b8375"
 PATCH_REPOSITORY_URL = "https://github.com/HarleyBartles/adventures-of-patch"
 LEARNING_LAB_REPOSITORY_URL = "https://github.com/HarleyBartles/agentic-learning-lab"
+LEARNING_LAB_SOURCE_REVISION = "3d8e92ceaebcbb67f0ede5bda95846da8e18b80d"
+LEARNING_LAB_SOURCE_CHANGE_URL = "https://github.com/HarleyBartles/agentic-learning-lab/pull/13"
+LEARNING_LAB_INTEGRITY_RUN_URL = "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32812192933"
 LEARNING_LAB_MODULES = {
     "course-1": [str(number) for number in range(1, 11)],
-    "course-2": ["11", "12", "13", "14", "14A", "15"],
-    "course-3": ["16", "17", "18"],
+    "course-2": [str(number) for number in range(1, 10)],
+    "course-3": [],
+}
+LEARNING_LAB_COURSE_STAGES = {
+    "course-1": "complete",
+    "course-2": "substantially-planned",
+    "course-3": "early-outline",
 }
 LEARNING_LAB_MODULE_STATES = {"mature-lab", "roadmap-module"}
 LEARNING_LAB_EXPECTED_MODULE_STATES = {
-    module_id: "mature-lab" if course_id == "course-1" else "roadmap-module"
+    (course_id, module_id): "mature-lab" if course_id == "course-1" else "roadmap-module"
     for course_id, module_ids in LEARNING_LAB_MODULES.items()
     for module_id in module_ids
 }
 LEARNING_LAB_PROOF_PATHS = {
     "curriculum": "README.md",
     "curriculumShape": "docs/curriculum-shape.md",
+    "course2Index": "modules/course-2/README.md",
     "lab3": "labs/03-project-has-a-home/README.md",
     "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
     "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",
@@ -62,7 +71,7 @@ RASTER_IMAGE_SUFFIXES = PUBLIC_ASSET_SUFFIXES - {".svg"}
 MAX_IMAGE_BYTES = 400 * 1024
 
 STATUS_BY_KIND = {
-    "project": {"active project", "incomplete", "live", "pre-alpha"},
+    "project": {"active project", "Course 1 complete", "incomplete", "live", "pre-alpha"},
     "writing": {"published"},
     "patch": {"published", "visual development", "advanced visual pre-production"},
 }
@@ -357,14 +366,18 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
     source_revision = evidence.get("sourceRevision")
     if not isinstance(source_revision, str) or SHA_RE.fullmatch(source_revision) is None:
         findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "sourceRevision must be a 40-character commit"))
+    elif source_revision != LEARNING_LAB_SOURCE_REVISION:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "sourceRevision must match the course-local numbering revision"))
 
     if evidence.get("repositoryUrl") != LEARNING_LAB_REPOSITORY_URL:
         findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "repositoryUrl must match the public Learning Lab repository"))
-    if not _is_https_url(evidence.get("integrityRunUrl")):
-        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "integrityRunUrl must use HTTPS"))
+    if evidence.get("sourceChangeUrl") != LEARNING_LAB_SOURCE_CHANGE_URL:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "sourceChangeUrl must match the merged course-numbering change"))
+    if evidence.get("integrityRunUrl") != LEARNING_LAB_INTEGRITY_RUN_URL:
+        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "integrityRunUrl must match the successful run for the pinned source revision"))
 
     courses = evidence.get("courses")
-    seen_module_ids: set[str] = set()
+    seen_module_ids: set[tuple[str, str]] = set()
     mature_count = 0
     if not isinstance(courses, list) or len(courses) != 3:
         findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "courses must contain the three curriculum courses"))
@@ -378,6 +391,12 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
                 findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "each course must be an object"))
                 continue
             course_id = course.get("id")
+            expected_stage = LEARNING_LAB_COURSE_STAGES.get(str(course_id))
+            if course.get("stage") != expected_stage:
+                findings.append(_finding(
+                    LEARNING_LAB_EVIDENCE_PATH,
+                    f"{course_id} stage must be {expected_stage}",
+                ))
             for field in ("title", "outcome"):
                 if not isinstance(course.get(field), str) or not course[field].strip():
                     findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"{course_id} requires a nonempty {field}"))
@@ -398,11 +417,14 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
                     continue
                 module_id = module.get("id")
                 if isinstance(module_id, str):
-                    if module_id in seen_module_ids:
-                        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "module identifiers must be unique"))
-                    seen_module_ids.add(module_id)
+                    scoped_module_id = (str(course_id), module_id)
+                    if scoped_module_id in seen_module_ids:
+                        findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "module identifiers must be unique within each course"))
+                    seen_module_ids.add(scoped_module_id)
                 if not isinstance(module.get("title"), str) or not module["title"].strip():
                     findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"module {module_id} requires a nonempty title"))
+                if not isinstance(module.get("summary"), str) or not module["summary"].strip():
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, f"module {module_id} requires a nonempty editorial summary"))
                 state = module.get("state")
                 if state not in LEARNING_LAB_MODULE_STATES:
                     findings.append(_finding(
@@ -411,12 +433,12 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
                     ))
                 elif (
                     isinstance(module_id, str)
-                    and module_id in LEARNING_LAB_EXPECTED_MODULE_STATES
-                    and state != LEARNING_LAB_EXPECTED_MODULE_STATES[module_id]
+                    and (str(course_id), module_id) in LEARNING_LAB_EXPECTED_MODULE_STATES
+                    and state != LEARNING_LAB_EXPECTED_MODULE_STATES[(str(course_id), module_id)]
                 ):
                     findings.append(_finding(
                         LEARNING_LAB_EVIDENCE_PATH,
-                        f"module {module_id} state must be {LEARNING_LAB_EXPECTED_MODULE_STATES[module_id]}",
+                        f"{course_id} module {module_id} state must be {LEARNING_LAB_EXPECTED_MODULE_STATES[(str(course_id), module_id)]}",
                     ))
                 if state == "mature-lab":
                     mature_count += 1

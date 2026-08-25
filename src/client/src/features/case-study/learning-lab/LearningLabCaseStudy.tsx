@@ -49,21 +49,24 @@ export function LearningLabCaseStudy() {
           </div>
         </section>
 
-        <CaseStudySection title="The method built the method" layout="lead">
-          <p>I began with cloud and local as the organising split. Building Lab 3 exposed the stronger question: where does the project live when nobody is talking to an AI about it? The curriculum changed because its own experiment produced better evidence.</p>
-          <p>The repository follows the same discipline it teaches. Facilitator guides preserve rationale and contingency. Learner cards reveal the next useful problem. Worker folders contain the project rather than the lesson. Integrity checks catch missing references and accidental leaks between those boundaries.</p>
-          <p>That structure lets the material move as the field moves. A roadmap module earns maturity through pressure, choreography, safety, recovery and handoff. A mature lab can still change when running it teaches me something better.</p>
+        <CaseStudySection title="The method built the method" layout="lead-prose">
+          <p>The first version was a live question: what does useful agentic practice actually look like? I used agents to investigate it, build the repository, test the teaching shape and revise it whenever the work exposed a better one. I was writing the course while sitting partly in the learner's chair.</p>
+          <p>Cloud and local began as the organising split. Building Lab 3 exposed the stronger question: where does the project live when nobody is talking to an AI about it? The experiment changed the curriculum because it gave me better evidence than the original plan.</p>
+          <p>That is the promise I want the curriculum to keep. A learner should be able to use agents to build something they care about before they can describe its final form. The work becomes clearer through making, inspection and revision. This repository had to prove that promise while it was being made.</p>
+          <p>The repository carries the resulting discipline. Facilitator guides preserve rationale and contingency. Learner cards reveal only the next useful problem. Worker folders contain the project rather than the lesson. Integrity checks catch missing references and leaks between those boundaries. A lab can still change when running it teaches me something better.</p>
         </CaseStudySection>
 
         <section className="learning-lab-state" aria-labelledby="learning-lab-state-title">
           <header>
-            <p className="learning-lab-kicker">Honest present state</p>
-            <h2 id="learning-lab-state-title">A dated body of working practice</h2>
+            <div className="learning-lab-state__heading">
+              <p className="learning-lab-kicker">Honest present state</p>
+              <h2 id="learning-lab-state-title">A dated body of working practice</h2>
+            </div>
             <p>{formatLearningLabDelivery(learningLabEvidence.delivery)}</p>
           </header>
           <dl>
-            <div><dt>Curriculum</dt><dd>10 mature labs and 9 roadmap modules across three courses.</dd></div>
-            <div><dt>Source snapshot</dt><dd><code>{learningLabEvidence.sourceRevision.slice(0, 7)}</code>, inspected 24 August 2026.</dd></div>
+            <div><dt>Curriculum</dt><dd>Course 1 is complete. Course 2 is substantially planned. Course 3 is little more than an outline today.</dd></div>
+            <div><dt>Source snapshot</dt><dd><code>{learningLabEvidence.sourceRevision.slice(0, 7)}</code>, inspected 25 August 2026.<br /><ExternalLink href={learningLabEvidence.sourceChangeUrl} aria-label="Inspect the course-numbering change">Inspect the course-numbering change</ExternalLink></dd></div>
             <div><dt>Repository proof</dt><dd><ExternalLink href={learningLabEvidence.repositoryUrl} aria-label="View the public repository">View the public repository</ExternalLink><br /><ExternalLink href={learningLabEvidence.integrityRunUrl} aria-label="Inspect the integrity run">Inspect the integrity run</ExternalLink></dd></div>
             <div><dt>Licence</dt><dd><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.policyPath)} aria-label="Read the licence policy">Read the licence policy</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.curriculum.path)} aria-label="CC BY 4.0 curriculum licence">CC BY 4.0 curriculum licence</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.tooling.path)} aria-label="MIT tooling licence">MIT tooling licence</ExternalLink><p>With those scopes explicit, the curriculum and its standalone tools are freely licensed for reuse.</p></dd></div>
           </dl>

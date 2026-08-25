@@ -291,10 +291,11 @@ class PortfolioFixture:
         receipt_path.write_text(json.dumps({"sourceRevision": revision, "images": [dict(evidence["media"][0])]}), encoding="utf-8")
 
     def write_learning_lab_evidence(self) -> None:
-        revision = "315442bd2661bbc99a0834e57ff5f500b549326c"
+        revision = "3d8e92ceaebcbb67f0ede5bda95846da8e18b80d"
         courses = [
             {
                 "id": "course-1",
+                "stage": "complete",
                 "title": "Agentic Engineering 101: Zero to Hero",
                 "outcome": "Direct, understand, provision, navigate, verify, and safely operate useful agent work.",
                 "modules": [
@@ -312,33 +313,38 @@ class PortfolioFixture:
             },
             {
                 "id": "course-2",
+                "stage": "substantially-planned",
                 "title": "Advanced Agentic Engineering: Mastering Agents",
                 "outcome": "Design agent behaviour, workflow, context, delegation, evaluation, and autonomy.",
                 "modules": [
-                    {"id": "11", "title": "Agent self-introspection and local review", "state": "roadmap-module"},
-                    {"id": "12", "title": "Autonomous human-in-the-loop workflows", "state": "roadmap-module"},
-                    {"id": "13", "title": "Specialist sub-agents and orchestration", "state": "roadmap-module"},
-                    {"id": "14", "title": "Harnesses, portability, and agent observability", "state": "roadmap-module"},
-                    {"id": "14A", "title": "The 20-Agent Bonfire and context transport", "state": "roadmap-module"},
-                    {"id": "15", "title": "Selective provisioning, context, and evaluation", "state": "roadmap-module"},
+                    {"id": "1", "title": "Agent self-introspection and local review", "state": "roadmap-module"},
+                    {"id": "2", "title": "Autonomous human-in-the-loop workflows", "state": "roadmap-module"},
+                    {"id": "3", "title": "Specialist sub-agents and orchestration", "state": "roadmap-module"},
+                    {"id": "4", "title": "Harnesses, portability, and agent observability", "state": "roadmap-module"},
+                    {"id": "5", "title": "The 20-Agent Bonfire and context transport", "state": "roadmap-module"},
+                    {"id": "6", "title": "Selective provisioning, context, and evaluation", "state": "roadmap-module"},
+                    {"id": "7", "title": "Trust boundaries and connected autonomy", "state": "roadmap-module"},
+                    {"id": "8", "title": "Concurrent agents and isolation", "state": "roadmap-module"},
+                    {"id": "9", "title": "Retrospective: how this repo was built", "state": "roadmap-module"},
                 ],
             },
             {
                 "id": "course-3",
+                "stage": "early-outline",
                 "title": "Beyond the Agent: Engineering Agent Systems",
                 "outcome": "Design trust, coordination, concurrency, integration, provenance, and operational behaviour around agents.",
-                "modules": [
-                    {"id": "16", "title": "Trust boundaries and connected autonomy", "state": "roadmap-module"},
-                    {"id": "17", "title": "Concurrent agents and isolation", "state": "roadmap-module"},
-                    {"id": "18", "title": "Epilogue: show how this was built", "state": "roadmap-module"},
-                ],
+                "modules": [],
             },
         ]
+        for course in courses:
+            for module in course["modules"]:
+                module["summary"] = "A concise editorial account of what the learner earns."
         evidence = {
-            "observedAt": "2026-08-24",
+            "observedAt": "2026-08-25",
             "repositoryUrl": "https://github.com/HarleyBartles/agentic-learning-lab",
+            "sourceChangeUrl": "https://github.com/HarleyBartles/agentic-learning-lab/pull/13",
             "sourceRevision": revision,
-            "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005",
+            "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32812192933",
             "matureLabCount": 10,
             "delivery": {"status": "planned", "target": "2026-08", "display": "late August 2026"},
             "licensing": {
@@ -359,6 +365,7 @@ class PortfolioFixture:
             "proof": {
                 "curriculum": "README.md",
                 "curriculumShape": "docs/curriculum-shape.md",
+                "course2Index": "modules/course-2/README.md",
                 "lab3": "labs/03-project-has-a-home/README.md",
                 "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
                 "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",
@@ -596,36 +603,52 @@ class PortfolioQualityTests(unittest.TestCase):
                 lambda evidence: evidence.__setitem__("sourceRevision", "short"),
                 "sourceRevision must be a 40-character commit",
             ),
+            "stale valid revision": (
+                lambda evidence: evidence.__setitem__("sourceRevision", "315442bd2661bbc99a0834e57ff5f500b549326c"),
+                "sourceRevision must match the course-local numbering revision",
+            ),
+            "wrong source change": (
+                lambda evidence: evidence.__setitem__("sourceChangeUrl", "https://github.com/HarleyBartles/agentic-learning-lab/pull/12"),
+                "sourceChangeUrl must match the merged course-numbering change",
+            ),
+            "stale integrity run": (
+                lambda evidence: evidence.__setitem__("integrityRunUrl", "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005"),
+                "integrityRunUrl must match the successful run for the pinned source revision",
+            ),
             "duplicate identifier": (
-                lambda evidence: evidence["courses"][1]["modules"][0].__setitem__("id", "1"),
-                "module identifiers must be unique",
+                lambda evidence: evidence["courses"][1]["modules"][1].__setitem__("id", "1"),
+                "module identifiers must be unique within each course",
             ),
-            "missing 14A": (
+            "missing Course 2 Module 5": (
                 lambda evidence: evidence["courses"][1]["modules"].__delitem__(4),
-                "course-2 modules must be 11, 12, 13, 14, 14A, 15",
-            ),
-            "14A in wrong course": (
-                lambda evidence: evidence["courses"][2]["modules"].append(evidence["courses"][1]["modules"].pop(4)),
-                "course-2 modules must be 11, 12, 13, 14, 14A, 15",
+                "course-2 modules must be 1, 2, 3, 4, 5, 6, 7, 8, 9",
             ),
             "identifier outside curriculum": (
-                lambda evidence: evidence["courses"][2]["modules"][2].__setitem__("id", "19"),
-                "course-3 modules must be 16, 17, 18",
+                lambda evidence: evidence["courses"][1]["modules"][8].__setitem__("id", "10"),
+                "course-2 modules must be 1, 2, 3, 4, 5, 6, 7, 8, 9",
             ),
             "unknown maturity": (
                 lambda evidence: evidence["courses"][0]["modules"][0].__setitem__("state", "complete"),
                 "module 1 state must be mature-lab or roadmap-module",
+            ),
+            "missing editorial summary": (
+                lambda evidence: evidence["courses"][0]["modules"][0].__setitem__("summary", ""),
+                "module 1 requires a nonempty editorial summary",
             ),
             "count-preserving maturity swap": (
                 lambda evidence: (
                     evidence["courses"][0]["modules"][0].__setitem__("state", "roadmap-module"),
                     evidence["courses"][1]["modules"][0].__setitem__("state", "mature-lab"),
                 ),
-                "module 1 state must be mature-lab",
+                "course-1 module 1 state must be mature-lab",
             ),
             "wrong mature count": (
                 lambda evidence: evidence.__setitem__("matureLabCount", 9),
                 "matureLabCount must match the 10 mature-lab modules",
+            ),
+            "wrong course stage": (
+                lambda evidence: evidence["courses"][2].__setitem__("stage", "substantially-planned"),
+                "course-3 stage must be early-outline",
             ),
         }
 

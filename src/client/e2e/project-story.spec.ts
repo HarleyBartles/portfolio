@@ -23,7 +23,7 @@ const learningLabModules = [
   'Selective provisioning, context, and evaluation',
   'Trust boundaries and connected autonomy',
   'Concurrent agents and isolation',
-  'Epilogue: show how this was built',
+  'Retrospective: how this repo was built',
 ] as const
 
 async function expectNoHorizontalOverflow(page: import('@playwright/test').Page): Promise<void> {
@@ -327,7 +327,7 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
 
   expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: 'Agentic Learning Lab' })).toBeVisible()
-  await expect(page.locator('.content-status')).toHaveText(/Status\s*incomplete/i)
+  await expect(page.locator('.content-status')).toHaveText(/Status\s*Course 1 complete/i)
   await expect(page.getByText(/The learner is not the agent's hands/)).toBeVisible()
   await expect(page.getByText(/I was a software engineer before I became an agentic engineer/)).toBeVisible()
 
@@ -343,16 +343,83 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   ])
 
   await expect(page.locator('.learning-atlas__module-copy strong')).toHaveText(learningLabModules)
-  await expect(page.locator('.learning-atlas__module-copy small')).toHaveCount(19)
-  await expect(page.locator('.learning-atlas__module-copy small', { hasText: 'Mature lab' })).toHaveCount(10)
-  await expect(page.locator('.learning-atlas__module-copy small', { hasText: 'Roadmap module' })).toHaveCount(9)
+  await expect(page.locator('.learning-atlas__module-summary')).toHaveCount(19)
+  await expect(page.locator('.learning-atlas__module-summary').first()).toContainText('working environment changes context')
+  await expect(page.locator('.learning-atlas')).not.toContainText('Mature lab')
+  await expect(page.locator('.learning-atlas')).not.toContainText('Roadmap module')
   await expect(page.getByRole('heading', { name: 'Agentic Engineering 101: Zero to Hero' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Advanced Agentic Engineering: Mastering Agents' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Beyond the Agent: Engineering Agent Systems' })).toBeVisible()
+  const courseFolios = page.locator('.learning-atlas__course')
+  const [course1Box, course2Box, course3Box] = await Promise.all([
+    courseFolios.nth(0).boundingBox(),
+    courseFolios.nth(1).boundingBox(),
+    courseFolios.nth(2).boundingBox(),
+  ])
+  expect(course1Box).not.toBeNull()
+  expect(course2Box).not.toBeNull()
+  expect(course3Box).not.toBeNull()
+  expect(Math.abs(course1Box!.y - course2Box!.y)).toBeLessThan(2)
+  expect(course3Box!.y).toBeGreaterThanOrEqual(course1Box!.y + course1Box!.height)
+  expect(course3Box!.width).toBeGreaterThan(course1Box!.width * 1.8)
+  const pairedCourseGeometry = await courseFolios.evaluateAll((courses) => courses.slice(0, 2).map((course) => ({
+    headingHeight: course.querySelector('h3')!.getBoundingClientRect().height,
+    moduleTops: Array.from(course.querySelectorAll('.learning-atlas__module')).slice(0, 9).map((module) => module.getBoundingClientRect().top),
+  })))
+  expect(Math.abs(pairedCourseGeometry[0].headingHeight - pairedCourseGeometry[1].headingHeight)).toBeLessThan(2)
+  pairedCourseGeometry[0].moduleTops.forEach((moduleTop, index) => {
+    expect(Math.abs(moduleTop - pairedCourseGeometry[1].moduleTops[index])).toBeLessThan(2)
+  })
   await expect(page.locator('.lab-promotion > ol > li')).toHaveCount(6)
   await expect(page.locator('.lab-anatomy__layers > section')).toHaveCount(3)
+  const labLayerBoxes = await page.locator('.lab-anatomy__layers > section').evaluateAll((layers) => layers.map((layer) => layer.getBoundingClientRect()).map(({ y, height }) => ({ y, height })))
+  expect(Math.max(...labLayerBoxes.map(({ height }) => height)) - Math.min(...labLayerBoxes.map(({ height }) => height))).toBeLessThan(2)
+  expect(labLayerBoxes[1].y).toBeGreaterThan(labLayerBoxes[0].y)
+  expect(labLayerBoxes[2].y).toBeGreaterThan(labLayerBoxes[1].y)
   await expect(page.locator('.representative-lab')).toHaveCount(3)
   expect(await page.locator('.representative-lab').evaluateAll((items) => items.map((item) => item.getAttribute('data-lab')))).toEqual(['3', '5', '7'])
+
+  const lab3 = page.locator('.representative-lab[data-lab="3"]')
+  const lab5 = page.locator('.representative-lab[data-lab="5"]')
+  const [lab3Header, lab3Evidence, lab5Header, lab5Evidence] = await Promise.all([
+    lab3.locator('header').boundingBox(),
+    lab3.locator('dl').boundingBox(),
+    lab5.locator('header').boundingBox(),
+    lab5.locator('dl').boundingBox(),
+  ])
+  expect(lab3Header).not.toBeNull()
+  expect(lab3Evidence).not.toBeNull()
+  expect(lab5Header).not.toBeNull()
+  expect(lab5Evidence).not.toBeNull()
+  expect(lab3Evidence!.width).toBeGreaterThan(lab3Header!.width)
+  expect(lab5Evidence!.width).toBeGreaterThan(lab5Header!.width)
+  expect(lab3Header!.x).toBeLessThan(lab3Evidence!.x)
+  expect(lab5Evidence!.x).toBeLessThan(lab5Header!.x)
+
+  const method = page.getByRole('heading', { name: 'The method built the method' }).locator('..').locator('..')
+  const [methodHeading, methodBody] = await Promise.all([
+    method.locator('.case-study-lead__heading').boundingBox(),
+    method.locator('.case-study-lead__body').boundingBox(),
+  ])
+  expect(methodHeading).not.toBeNull()
+  expect(methodBody).not.toBeNull()
+  expect(methodBody!.width).toBeGreaterThan(methodHeading!.width * 1.4)
+
+  const stateHeader = page.locator('.learning-lab-state > header')
+  const [stateHeadingGroup, stateDelivery, stateKicker, stateTitle] = await Promise.all([
+    stateHeader.locator('.learning-lab-state__heading').boundingBox(),
+    stateHeader.locator(':scope > p').boundingBox(),
+    stateHeader.locator('.learning-lab-kicker').boundingBox(),
+    stateHeader.getByRole('heading', { name: 'A dated body of working practice' }).boundingBox(),
+  ])
+  expect(stateHeadingGroup).not.toBeNull()
+  expect(stateDelivery).not.toBeNull()
+  expect(stateKicker).not.toBeNull()
+  expect(stateTitle).not.toBeNull()
+  expect(stateHeadingGroup!.width).toBeGreaterThan(stateDelivery!.width)
+  expect(Math.abs(stateKicker!.x - stateTitle!.x)).toBeLessThan(2)
+  expect(stateTitle!.y - (stateKicker!.y + stateKicker!.height)).toBeLessThan(32)
+  expect(stateTitle!.height).toBeLessThan(55)
 
   await expect(page.getByText(/I'm going to teach my brother a few things about using agentic AI/)).toHaveCount(1)
   await expect(page.getByText(/a love letter to my brother/)).toHaveCount(1)
@@ -360,6 +427,8 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   await expect(page.getByRole('link', { name: /View the public repository/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the integrity run/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the pinned curriculum shape/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Inspect the pinned Course 2 plan/ })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Inspect the course-numbering change/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Read the licence policy/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /CC BY 4.0 curriculum licence/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /MIT tooling licence/ })).toBeVisible()
@@ -383,6 +452,8 @@ test('Learning Lab links and narrow layouts preserve an accessible complete argu
 
   for (const linkName of [
     'Inspect the pinned curriculum shape (opens in a new tab)',
+    'Inspect the pinned Course 2 plan (opens in a new tab)',
+    'Inspect the course-numbering change (opens in a new tab)',
     'View the public repository (opens in a new tab)',
     'Inspect the integrity run (opens in a new tab)',
     'Read the licence policy (opens in a new tab)',
@@ -409,7 +480,7 @@ test('Learning Lab links and narrow layouts preserve an accessible complete argu
   for (const width of [390, 320, 360]) {
     await page.setViewportSize({ width, height: 844 })
     await expectNoHorizontalOverflow(page)
-    await expect(page.locator('.content-status')).toContainText('incomplete')
+    await expect(page.locator('.content-status')).toContainText('Course 1 complete')
     await expect(page.locator('.learning-atlas__module-copy strong')).toHaveCount(19)
     for (const course of [
       'Agentic Engineering 101: Zero to Hero',

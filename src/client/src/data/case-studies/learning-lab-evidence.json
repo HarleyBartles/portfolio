@@ -1,8 +1,9 @@
 {
-  "observedAt": "2026-08-24",
+  "observedAt": "2026-08-25",
   "repositoryUrl": "https://github.com/HarleyBartles/agentic-learning-lab",
-  "sourceRevision": "315442bd2661bbc99a0834e57ff5f500b549326c",
-  "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005",
+  "sourceRevision": "3d8e92ceaebcbb67f0ede5bda95846da8e18b80d",
+  "sourceChangeUrl": "https://github.com/HarleyBartles/agentic-learning-lab/pull/13",
+  "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32812192933",
   "matureLabCount": 10,
   "delivery": {
     "status": "planned",
@@ -26,48 +27,51 @@
   "courses": [
     {
       "id": "course-1",
+      "stage": "complete",
       "title": "Agentic Engineering 101: Zero to Hero",
       "outcome": "Direct, understand, provision, navigate, verify, and safely operate useful agent work.",
       "modules": [
-        { "id": "1", "title": "From chatbot to worker", "state": "mature-lab" },
-        { "id": "2", "title": "Give the cloud agent the project", "state": "mature-lab" },
-        { "id": "3", "title": "The project has a home", "state": "mature-lab" },
-        { "id": "4", "title": "Repositories, save points, and safe breakage", "state": "mature-lab" },
-        { "id": "5", "title": "Model, harness, context, tools, and behaviour", "state": "mature-lab" },
-        { "id": "6", "title": "What does the model know?", "state": "mature-lab" },
-        { "id": "7", "title": "Tools, operating knowledge, and domain provisioning", "state": "mature-lab" },
-        { "id": "8", "title": "What did we just create? Local work and connected systems", "state": "mature-lab" },
-        { "id": "9", "title": "Source of truth and verification", "state": "mature-lab" },
-        { "id": "10", "title": "Build a real agentic project", "state": "mature-lab" }
+        { "id": "1", "title": "From chatbot to worker", "summary": "See how the working environment changes context, capability, and the journey of an artefact.", "state": "mature-lab" },
+        { "id": "2", "title": "Give the cloud agent the project", "summary": "Treat project access as a surface with its own state, representations, permissions, and blind spots.", "state": "mature-lab" },
+        { "id": "3", "title": "The project has a home", "summary": "Persist important decisions beyond the conversation, then decide which durable source carries authority.", "state": "mature-lab" },
+        { "id": "4", "title": "Repositories, save points, and safe breakage", "summary": "Judge the blast radius, inspect the diff, and preserve a recovery path before publishing change.", "state": "mature-lab" },
+        { "id": "5", "title": "Model, harness, context, tools, and behaviour", "summary": "Diagnose the failing layer in the worker's system before changing it.", "state": "mature-lab" },
+        { "id": "6", "title": "What does the model know?", "summary": "Test what the model retains, what evidence supplies, and whether missing recall proves anything.", "state": "mature-lab" },
+        { "id": "7", "title": "Tools, operating knowledge, and domain provisioning", "summary": "Provision useful expertise while keeping verification and acceptance with the human.", "state": "mature-lab" },
+        { "id": "8", "title": "What did we just create? Local work and connected systems", "summary": "Distinguish access, context, and discovery before trusting what an agent says it can find.", "state": "mature-lab" },
+        { "id": "9", "title": "Source of truth and verification", "summary": "Identify what can be observed, which source governs, and what proves the result.", "state": "mature-lab" },
+        { "id": "10", "title": "Build a real agentic project", "summary": "Take an owned goal from vague intent to an accepted, evidence-backed result.", "state": "mature-lab" }
       ]
     },
     {
       "id": "course-2",
+      "stage": "substantially-planned",
       "title": "Advanced Agentic Engineering: Mastering Agents",
       "outcome": "Design agent behaviour, workflow, context, delegation, evaluation, and autonomy.",
       "modules": [
-        { "id": "11", "title": "Agent self-introspection and local review", "state": "roadmap-module" },
-        { "id": "12", "title": "Autonomous human-in-the-loop workflows", "state": "roadmap-module" },
-        { "id": "13", "title": "Specialist sub-agents and orchestration", "state": "roadmap-module" },
-        { "id": "14", "title": "Harnesses, portability, and agent observability", "state": "roadmap-module" },
-        { "id": "14A", "title": "The 20-Agent Bonfire and context transport", "state": "roadmap-module" },
-        { "id": "15", "title": "Selective provisioning, context, and evaluation", "state": "roadmap-module" }
+        { "id": "1", "title": "Agent self-introspection and local review", "summary": "Use cheap prediction, self-review, and test-first probes before adding workflow machinery.", "state": "roadmap-module" },
+        { "id": "2", "title": "Autonomous human-in-the-loop workflows", "summary": "Turn repeated behaviour into explicit loops, gates, stop conditions, and human decisions.", "state": "roadmap-module" },
+        { "id": "3", "title": "Specialist sub-agents and orchestration", "summary": "Introduce specialist workers only when separation buys something material.", "state": "roadmap-module" },
+        { "id": "4", "title": "Harnesses, portability, and agent observability", "summary": "Compare the intended worker with the one the runtime actually creates and exposes.", "state": "roadmap-module" },
+        { "id": "5", "title": "The 20-Agent Bonfire and context transport", "summary": "Make the cost of over-delegation, transported context, defaults, and coordination painfully visible.", "state": "roadmap-module" },
+        { "id": "6", "title": "Selective provisioning, context, and evaluation", "summary": "Supply the right knowledge at the right scope, then test whether behaviour improved.", "state": "roadmap-module" },
+        { "id": "7", "title": "Trust boundaries and connected autonomy", "summary": "Bound connected autonomy by making authority, permission, and reach explicit.", "state": "roadmap-module" },
+        { "id": "8", "title": "Concurrent agents and isolation", "summary": "Earn isolation, reconciliation, and integration by letting capable workers collide over shared state.", "state": "roadmap-module" },
+        { "id": "9", "title": "Retrospective: how this repo was built", "summary": "Reconstruct and critique the agent system through its history, decisions, and evidence.", "state": "roadmap-module" }
       ]
     },
     {
       "id": "course-3",
+      "stage": "early-outline",
       "title": "Beyond the Agent: Engineering Agent Systems",
       "outcome": "Design trust, coordination, concurrency, integration, provenance, and operational behaviour around agents.",
-      "modules": [
-        { "id": "16", "title": "Trust boundaries and connected autonomy", "state": "roadmap-module" },
-        { "id": "17", "title": "Concurrent agents and isolation", "state": "roadmap-module" },
-        { "id": "18", "title": "Epilogue: show how this was built", "state": "roadmap-module" }
-      ]
+      "modules": []
     }
   ],
   "proof": {
     "curriculum": "README.md",
     "curriculumShape": "docs/curriculum-shape.md",
+    "course2Index": "modules/course-2/README.md",
     "lab3": "labs/03-project-has-a-home/README.md",
     "lab3Instructions": "labs/03-project-has-a-home/project/AGENTS.md",
     "lab4": "labs/04-repositories-save-points-and-safe-breakage/README.md",

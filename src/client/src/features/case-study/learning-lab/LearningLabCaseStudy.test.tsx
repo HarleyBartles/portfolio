@@ -18,8 +18,14 @@ describe('LearningLabCaseStudy', () => {
     expect(container.textContent?.match(/a love letter to my brother/g)).toHaveLength(1)
     expect(container.textContent?.match(/I was a software engineer before I became an agentic engineer\./g)).toHaveLength(1)
     expect(container.textContent?.match(/The method built the method/g)).toHaveLength(1)
+    expect(screen.getByText(/I was writing the course while sitting partly in the learner's chair/)).toBeVisible()
     expect(screen.getByText(/First live delivery planned for late August 2026/)).toBeVisible()
-    expect(screen.getByText(/315442b/)).toBeVisible()
+    expect(screen.getByText(/Course 1 is complete\. Course 2 is substantially planned\. Course 3 is little more than an outline today\./)).toBeVisible()
+    expect(screen.getByText(/3d8e92c/)).toBeVisible()
+    expect(screen.getByRole('link', { name: /inspect the course-numbering change/i })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/agentic-learning-lab/pull/13',
+    )
     expect(screen.getByRole('link', { name: /view the public repository/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /inspect the integrity run/i })).toBeVisible()
     expect(screen.getByRole('link', { name: /read the licence policy/i })).toBeVisible()

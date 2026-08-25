@@ -1,15 +1,18 @@
 import evidence from '../../../data/case-studies/learning-lab-evidence.json'
 
 export type LearningLabModuleState = 'mature-lab' | 'roadmap-module'
+export type LearningLabCourseStage = 'complete' | 'substantially-planned' | 'early-outline'
 
 export type LearningLabModule = Readonly<{
   id: string
   title: string
+  summary: string
   state: LearningLabModuleState
 }>
 
 export type LearningLabCourse = Readonly<{
   id: string
+  stage: LearningLabCourseStage
   title: string
   outcome: string
   modules: readonly LearningLabModule[]
@@ -19,6 +22,7 @@ export type LearningLabEvidence = Readonly<{
   observedAt: string
   repositoryUrl: string
   sourceRevision: string
+  sourceChangeUrl: string
   integrityRunUrl: string
   matureLabCount: number
   delivery: Readonly<{ status: 'planned'; target: string; display: string }> | Readonly<{ status: 'started'; startedOn: string; display: string }>
@@ -31,6 +35,7 @@ export type LearningLabEvidence = Readonly<{
   proof: Readonly<{
     curriculum: string
     curriculumShape: string
+    course2Index: string
     lab3: string
     lab3Instructions: string
     lab4: string

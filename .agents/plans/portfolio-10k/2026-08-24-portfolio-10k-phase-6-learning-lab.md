@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Use Agentic Learning Lab public `main` at `315442bd2661bbc99a0834e57ff5f500b549326c` as the implementation evidence snapshot. Refresh `origin/main` again immediately before publication and record any later drift.
+- Use Agentic Learning Lab public `main` at `3d8e92ceaebcbb67f0ede5bda95846da8e18b80d` as the implementation evidence snapshot. Refresh `origin/main` again immediately before publication and record any later drift.
 - Keep the approved thesis: `The learner is not the agent's hands. They learn to direct, inspect, verify, recover, and direct again.`
 - Make the professional lineage legible once and then prove it through the labs: Harley was a software engineer before he became an agentic engineer. His instincts around evidence, review, authority, controlled variables, blast radius, durable state and recovery come from traditional engineering practice applied to new machinery.
 - Do not add architecture badges or another pattern inventory. Wild Bunch already owns architectural depth. Phase 6 earns unique portfolio rent through engineering continuity, epistemic discipline and the ability to turn tacit practice into mentorable experiences.
@@ -20,8 +20,8 @@
 - Do not claim that a lab has been delivered, tested with a learner or produced learner outcomes. Delivery remains the authored `planned` state until Harley records a real session date.
 - Identify Harley's intended first learner only as his intelligent, technically minded, non-coding brother. Publish no name, occupation, location, schedule or response.
 - Use `a love letter to my brother` exactly once, in the origin section. Use the approved founding-prompt fragment exactly once and do not polish it into a fictional brief.
-- Describe the curriculum as Modules 1 through 18 with the linked `14A` practicum. Render all nineteen labelled entries once. This preserves the source repository's eighteen-number sequence without hiding the additional practicum.
-- At this snapshot, Labs 1 through 10 are `Mature lab`; Modules 11 through 18 and `14A` are `Roadmap module`. Never derive maturity from file count or elapsed time.
+- Use course-local numbering. Course 1 contains Labs 1 through 10. Course 2 contains nine planning modules numbered 1 through 9. Course 3 has a defined boundary but no detailed module spine yet. Render the nineteen existing labelled entries once.
+- At this snapshot, Course 1's ten labs are `Mature lab`; Course 2's nine entries are `Roadmap module`; Course 3 remains an early outline. Never derive maturity from file count or elapsed time.
 - Preserve the verified dual licence: CC BY 4.0 for educational material and MIT for standalone tooling. Link the pinned policy and both licence texts before using `freely licensed`.
 - Keep the site static. Add no runtime GitHub fetch, LMS behaviour, enrolment, assessment, course engine, date library, chart library, diagramming runtime, icon library or global state.
 - Do not promote the existing `500 × 350`, 1,322-byte venue plan into the case study. It is a basic Lab 2 prop and does not carry flagship portfolio weight. Remove its public consumer only after proving no hidden fallback remains; retain or delete the file according to asset-custody evidence rather than convenience.
@@ -42,14 +42,14 @@
 
 | Material assumption | Classification | Current evidence and planning consequence |
 | --- | --- | --- |
-| Agentic Learning Lab evidence baseline is `bb422376...` | implementation seam moved | Public `origin/main` is `315442bd2661bbc99a0834e57ff5f500b549326c`, merged through PR #12 on 23 August 2026. Pin the new SHA and inspected date `2026-08-24`. |
+| Agentic Learning Lab evidence baseline is `bb422376...` | implementation seam moved | Public `origin/main` is `3d8e92ceaebcbb67f0ede5bda95846da8e18b80d`, merged through PR #13 on 25 August 2026. Pin the new SHA and inspected date `2026-08-25`. |
 | Labs 1 through 7 are mature | implementation seam moved | Labs 8, 9 and 10 have been promoted. README now states Labs 1 through 10 are mature and ready to run, with Lab 10 closing Course 1. Snapshot and copy use ten, never seven. |
 | Three course boundaries and cognitive outcomes | still true | `README.md` and `docs/curriculum-shape.md` retain the approved taxonomy and Course 1, Course 2 and Course 3 outcomes. |
-| Eighteen modules include linked `14A` | implementation seam moved | Source language retains Modules 1 through 18 plus `14A`. The atlas renders nineteen labelled entries and uses `Modules 1-18 plus the linked 14A practicum` where a count needs precision. |
+| Global numbering and linked `14A` were current at implementation start | implementation seam moved | PR #13 reset numbering at each course boundary. Course 2 now uses Modules 1 through 9, the Bonfire is Module 5, and Course 3's detailed spine is deliberately unplanned. |
 | Labs 3, 5 and 7 are the principal proof experiments | still true | Their current mature-lab README files preserve durable state, behaviour diagnosis and changing domain-authority arrangements. Lab 4 still owns safe breakage. |
 | CC BY 4.0 and MIT scope | still true | `LICENSE.md`, `LICENSES/CC-BY-4.0.txt` and `LICENSES/MIT.txt` have unchanged Git objects `b1cd3c7`, `a4fbbf2` and `2820c8b`. |
 | Existing venue-plan evidence | still true, intentionally demoted | The source remains `labs/02-give-the-cloud-agent-the-project/project/source/venue-plan.png`, unchanged Git object `131acb4`, but it only demonstrates a basic cloud-vision limitation in Lab 2. Remove it from the case-study argument and do not mistake availability for portfolio value. |
-| Repository integrity is current evidence | implementation seam moved | GitHub run `32619166005` passed on exact source head `315442b`. Snapshot this run instead of PR #9's older evidence. |
+| Repository integrity is current evidence | implementation seam moved | GitHub run `32812192933` passed on exact source head `3d8e92c`. Snapshot this run with the course-local taxonomy. |
 | First live delivery is planned for late August 2026 | still true at planning time | No repository or approved user fact records a delivered session. Keep `status: planned`, `target: 2026-08`, `display: late August 2026`; reverify with Harley only if evidence appears before publication. |
 | Learning Lab uses ordinary Markdown and venue-plan-only preview | still true, intentionally replaced | Manifest still points at `projects/agentic-learning-lab.md`; that Markdown contains the false real-learner claim. Convert it to `learning-lab-case-study`, delete the stale Markdown, and replace the preview with the semantic learning-loop language. |
 | Phase 3 specialist seam is the target | implementation seam moved | The registry now also serves Wild Bunch and Patch. Reuse its lazy presentation boundary, shared case-study primitives, external-link policy and current header grammar. Do not copy the older illustrative architecture blindly. |
@@ -68,7 +68,7 @@
 
 **Protected defaults:** Existing typography, palette, site canvas, prose measure, route shell, accessible external-link behaviour, one body callout at most, shared dark caption treatment and static final-state rendering.
 
-**Factual, privacy and custody boundaries:** No completed delivery, learner result, teaching qualification, universal teaching claim, `expert` badge or claim to a stable frontier canon. No identifying detail beyond `my brother` and the approved broad description. All curriculum and licence claims pin `315442b`; the delivery fact remains separately authored. Generated illustrations are clearly portfolio-owned editorial interpretation, never documentary evidence of a delivered lab.
+**Factual, privacy and custody boundaries:** No completed delivery, learner result, teaching qualification, universal teaching claim, `expert` badge or claim to a stable frontier canon. No identifying detail beyond `my brother` and the approved broad description. All curriculum and licence claims pin `3d8e92c`; the delivery fact remains separately authored. Generated illustrations are clearly portfolio-owned editorial interpretation, never documentary evidence of a delivered lab.
 
 **Failure modes:** An LMS dashboard; three equal pricing columns; a wall of nineteen interchangeable module cards; a family-sentiment hero; generic AI or education decoration; an architecture inventory; badges standing in for engineering judgement; promotional claims about mentoring; generated raster labels; imagery chosen because it already exists; a tiny full-repository screenshot; duplicated thesis copy; unexplained whitespace; status encoded only by colour; prose that teaches familiar enterprise concepts back to Harley; direct disclaimers about not being a teacher; or a technically complete route with no human origin or editorial momentum.
 
@@ -93,7 +93,7 @@
 - Modify: `src/client/src/api/contentApi.test.ts`
 
 **Interfaces:**
-- Consumes: Agentic Learning Lab `origin/main` at `315442bd2661bbc99a0834e57ff5f500b549326c`, GitHub integrity run `32619166005`, the approved personal-origin fact and the existing manifest validation seam.
+- Consumes: Agentic Learning Lab `origin/main` at `3d8e92ceaebcbb67f0ede5bda95846da8e18b80d`, GitHub integrity run `32812192933`, the approved personal-origin fact and the existing manifest validation seam.
 - Produces: `learning-lab-evidence.json`; presentation identifier `learning-lab-case-study`; `validate_learning_lab_evidence(root, evidence, findings, today)`; one explicit delivery-state authority; no stale Markdown fallback.
 
 - [x] **Step 1: Write failing fixture support and manifest tests.** Extend `PortfolioFixture` with `write_learning_lab_evidence()` and add tests that convert the fixture project to `presentation: "learning-lab-case-study"`. Require the manifest to accept that presentation for project content, reject it for other kinds, require the evidence file, and reject simultaneous Markdown plus presentation. Update `ContentPresentation` tests to include the already-live `patch-lawful-heist` value as well as the new value.
@@ -102,7 +102,7 @@
   - missing or malformed evidence JSON;
   - non-ISO `observedAt` and non-40-character source SHA;
   - duplicate module identifiers and one identifier assigned to two courses;
-  - missing `14A`, wrong course assignment, or a module outside `1` through `18` plus `14A`;
+  - a missing, duplicated or out-of-order course-local identifier, or any module assigned to Course 3 before its detailed spine is planned;
   - any state outside `mature-lab` and `roadmap-module`;
   - `matureLabCount` disagreeing with the ten labelled mature modules;
   - planned delivery after its target month, using an injected `today=date(2026, 9, 1)`;
@@ -127,8 +127,9 @@
   {
     "observedAt": "2026-08-24",
     "repositoryUrl": "https://github.com/HarleyBartles/agentic-learning-lab",
-    "sourceRevision": "315442bd2661bbc99a0834e57ff5f500b549326c",
-    "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32619166005",
+    "sourceRevision": "3d8e92ceaebcbb67f0ede5bda95846da8e18b80d",
+    "sourceChangeUrl": "https://github.com/HarleyBartles/agentic-learning-lab/pull/13",
+    "integrityRunUrl": "https://github.com/HarleyBartles/agentic-learning-lab/actions/runs/32812192933",
     "matureLabCount": 10,
     "delivery": {
       "status": "planned",
@@ -146,11 +147,11 @@
   }
   ```
 
-  Fill `courses` with the exact titles, outcomes and ordered identifiers from the drift table: Course 1 contains `1` through `10`, all `mature-lab`; Course 2 contains `11`, `12`, `13`, `14`, `14A`, `15`, all `roadmap-module`; Course 3 contains `16`, `17`, `18`, all `roadmap-module`. Preserve every approved module title exactly. Record source paths for `README.md`, `docs/curriculum-shape.md`, Labs 3, 4, 5 and 7 README files, the Lab 3 scoped `AGENTS.md`, `LICENSE.md`, both licence texts and `tests/test_repo_integrity.py`.
+  Fill `courses` with the exact titles, outcomes and ordered identifiers from the drift table: Course 1 contains `1` through `10`, all `mature-lab`; Course 2 contains `1` through `9`, all `roadmap-module`; Course 3 contains no modules yet. Preserve every approved module title exactly. Record source paths for `README.md`, `docs/curriculum-shape.md`, `modules/course-2/README.md`, Labs 3, 4, 5 and 7 README files, the Lab 3 scoped `AGENTS.md`, `LICENSE.md`, both licence texts and `tests/test_repo_integrity.py`.
 
 - [x] **Step 4: Implement the narrow validator with an injectable date.** Add `LEARNING_LAB_EVIDENCE_PATH`, allowed states, exact identifier/course membership and `validate_learning_lab_evidence`. Change `validate_portfolio(root, today: date | None = None)` to resolve `today or date.today()` once and pass it into this validator. Validate the discriminated delivery union rather than inferring state. Lexically compare a validated `YYYY-MM` target with `today.strftime('%Y-%m')`; report stale planned status after the target month without inventing a start date. Identify the exact failing field in every finding.
 
-- [x] **Step 5: Convert the content source and remove the stale claim.** In `content-manifest.json`, replace `path` with `presentation: "learning-lab-case-study"`. Keep status `incomplete`, use a concise source-backed summary about a facilitator-led curriculum for non-programmers, and do not claim weekly improvement. Delete the Markdown file so `tested with real learners` cannot survive as hidden fallback content. Update document/API tests to expect a presentation and `markdown: undefined`; use a writing item to retain ordinary-Markdown coverage.
+- [x] **Step 5: Convert the content source and remove the stale claim.** In `content-manifest.json`, replace `path` with `presentation: "learning-lab-case-study"`. Use a concise source-backed summary about a facilitator-led curriculum for non-programmers, and do not claim weekly improvement. Delete the Markdown file so `tested with real learners` cannot survive as hidden fallback content. Update document/API tests to expect a presentation and `markdown: undefined`; use a writing item to retain ordinary-Markdown coverage. Human review replaced the flattening `incomplete` label with `Course 1 complete` and required the article to distinguish Course 2's substantial plan from Course 3's early outline.
 
 - [x] **Step 6: Make the focused gate pass.** Run:
 
@@ -194,11 +195,11 @@
 - Consumes: validated Task 1 evidence, the existing lazy presentation registry, `CaseStudyBody`, `CaseStudySection`, the shared project route header and ProjectVisual preview seam.
 - Produces: typed selectors; `LearningLoop`; `CurriculumAtlas`; registered `LearningLabCaseStudy`; aligned route-header, homepage and project-index visual vocabulary; visual contracts `learning-lab-case-study-hero`, `learning-lab-loop` and `learning-lab-atlas`.
 
-- [x] **Step 1: Write the failing typed-evidence tests.** Require immutable access to the source revision, inspected date, delivery union, three courses, ten mature labs, nine roadmap entries, nineteen unique labels and `14A` in Course 2 immediately after `14`. Reject test fixtures that would make a component invent labels or counts.
+- [x] **Step 1: Write the failing typed-evidence tests.** Require immutable access to the source revision, inspected date, delivery union, three courses, ten mature labs, nine roadmap entries and nineteen course-scoped labels. Require Course 2 Modules 1 through 9, the Bonfire at 5 and an empty Course 3 module list. Reject test fixtures that would make a component invent labels or counts.
 
 - [x] **Step 2: Write the failing learning-loop tests.** Require one ordered semantic sequence containing `Direct`, `Agent works`, `Inspect`, `Verify`, `Question`, `Explain observable work` and `Redirect`. Mark human-owned and agent-performed stages with visible text and structural classes. Assert explanation never carries `proof`, `accept`, or self-approval language. Decorative connectors must be `aria-hidden`.
 
-- [x] **Step 3: Write the failing atlas tests.** Require exactly three course regions, each with a heading, cognitive outcome and ordered module list. Assert every evidence identifier appears once, `14A` belongs to Course 2 after `14`, ten `Mature lab` labels and nine `Roadmap module` labels are visible, and the snapshot date plus pinned source link are present. Reject percentage, progress, velocity, completion-date and credential language.
+- [x] **Step 3: Write the failing atlas tests.** Require exactly three course regions, each with a heading, cognitive outcome and explicit stage. Assert every course-scoped evidence identifier appears once, Course 2 uses 1 through 9, Course 3 states that its detailed spine is still to come, ten `Mature lab` labels and nine `Roadmap module` labels are visible, and the snapshot date plus pinned source links are present. Reject percentage, progress, velocity, completion-date and credential language.
 
 - [x] **Step 4: Register the specialist route before implementation.** Add the lazy `learning-lab-case-study` import to `projectPresentations.ts` and extend its test to render the route under `Suspense` and `MemoryRouter`. Add `learning-lab-case-study` to the route-header visual-contract mapping and its deferred-presentation test seam. Run:
 
@@ -311,7 +312,7 @@
 - Modify: this plan
 
 **Interfaces:**
-- Consumes: complete semantic route and accepted copy from Task 3; exact Lab 3/4/5/7 source mechanics at pinned revision `315442b`; built-in image generation; existing deterministic derivative pipeline.
+- Consumes: complete semantic route and accepted copy from Task 3; exact Lab 3/4/5/7 source mechanics at pinned revision `3d8e92c`; built-in image generation; existing deterministic derivative pipeline.
 - Produces: three accepted portfolio-owned editorial masters with complete generation custody; purposeful responsive derivatives; Sol-reviewed 1440/768/390/320 composition; deliberate whitespace; coherent preview; dated design rationale; and no dependence on motion or raster text.
 
 - [x] **Step 1: Start the production preview and inspect the full route.** Run `npm.cmd --prefix src/client run build` and `npm.cmd --prefix src/client run preview:test`. Use Playwright to review `/portfolio/projects/agentic-learning-lab/` at 1440, 768, 390 and 320 CSS pixels. Scroll the full route and inspect the project index and every homepage feature position that can show Learning Lab. Record the exact desktop and mobile image slots, aspect ratios, focal safe areas, overlay zones and maximum rendered dimensions before calling image generation.
@@ -422,7 +423,7 @@
 
   Expected: every focused suite passes; Windows visual comparison passes unchanged; production build remains inside existing budgets.
 
-- [x] **Step 3: Reverify volatile source and delivery truth.** Fetch Agentic Learning Lab `origin/main`. If it remains `315442b`, record that. If it moved, compare taxonomy, maturity, licences, representative labs and integrity status. Update snapshot/date/counts together for compatible evidence drift; return to Harley only for a design conflict. Verify the delivery fact from approved user context. A passed target month creates a stale-status finding, never an invented start date.
+- [x] **Step 3: Reverify volatile source and delivery truth.** Fetch Agentic Learning Lab `origin/main`. Compare taxonomy, maturity, licences, representative labs and integrity status whenever it moves. Update snapshot/date/counts together for compatible evidence drift; return to Harley only for a design conflict. Verify the delivery fact from approved user context. A passed target month creates a stale-status finding, never an invented start date.
 
 - [x] **Step 4: Run Sol's final prose and visual review.** Read the whole route without interruption, then inspect all required widths and modes. Confirm each section pays dues, paragraphs flow, contractions sound human, the route does not teach Harley's own familiar concepts back to him, the origin stays bounded, all labels remain legible and the ending lands on an honest invitation to inspect/reuse the work. Record criterion-by-criterion `pass` or a bounded veto and re-review.
 
@@ -454,14 +455,16 @@
 
 ### Task 6 review evidence
 
-- Source truth: Agentic Learning Lab `origin/main` remained `315442bd2661bbc99a0834e57ff5f500b549326c` on 24 August 2026. Integrity run `32619166005` was successful. The root licence policy and the CC BY 4.0 and MIT texts still match the pinned evidence, including Git objects `b1cd3c7`, `a4fbbf2` and `2820c8b`.
+- Source truth: Agentic Learning Lab `origin/main` moved to `3d8e92ceaebcbb67f0ede5bda95846da8e18b80d` on 25 August 2026 through PR #13. Integrity run `32812192933` was successful. Course-local numbering now governs: Course 1 has ten mature labs, Course 2 has nine planning modules and Course 3's detailed spine is deliberately unplanned. The root licence policy and the CC BY 4.0 and MIT texts still match the pinned evidence.
 - Delivery boundary: the approved fact remains `First live delivery planned for late August 2026.` No learner outcome, delivery result or teaching credential is claimed.
 - Independent review: three fresh-context read-only reviews covered source evidence and privacy, implementation and performance, and editorial and visual quality. Repairs added the missing pinned licence-policy and curriculum-shape links, required started-delivery display text, added SHA-256 identity checks for all 12 derivatives, removed a generic reflective opening and prevented stages 01 and 02 of the hero loop from clipping at 768 CSS pixels.
 - Iterative review: the affected plans and skills lenses closed the roadmap-column, root command and native-zoom evidence gaps with permanent regression coverage. The whole-branch strong pass then found two fail-open evidence seams: a count-preserving maturity swap and a false or absent free-licence flag could survive validation. The final validator binds all nineteen module identifiers to their expected maturity states and requires the free-licence flag to be exactly true before the public claim can pass.
-- Focused proof: 37 portfolio-quality tests, 26 focused Vitest tests, 46 browser story and axe tests, the production build and `git diff --check` passed after repair. The final Windows Learning Lab visual baseline passed unchanged twice after its intentional evidence-link update.
+- Final proof: the canonical gate passed with 65 repository tests, 121 Vitest tests and 82 browser tests. The browser run includes desktop and mobile accessibility, responsive contracts and Windows visual regression. Updated Learning Lab baselines passed again without regeneration after the intentional copy and layout changes.
 - Sol gate: pass at 1440, 768, 390 and 320 CSS pixels; pass for keyboard-only external links, reduced motion, image-disabled semantics and native 200% Edge zoom. The native zoom run used Edge 151 in a 1440-pixel window, producing a 708 CSS-pixel inner viewport at DPR 2. It retained all nineteen module labels within the viewport at a minimum 16px CSS size, both origin excerpts as ordinary HTML and equal document scroll/client widths of 700px. The prose was read as one argument and passed for economy, paragraph flow, contractions, factual restraint and AI-tell policy. The 768 review was initially vetoed for clipped loop stages and passed after the header breakpoint repair.
-- Performance and custody: entry JavaScript is 327,195 of 358,400 bytes, entry CSS is 40,602 of 40,960 bytes and the generated CV is 268,289 of 524,288 bytes. Three accepted masters produce 12 stripped AVIF/WebP derivatives with committed dimensions, byte counts and output SHA-256 values. Exact prompts, selection reasoning, rights and transformation steps remain in the committed custody record.
-- Limitation: no learner delivery evidence exists yet, so the case study remains explicitly incomplete.
+- Performance and custody: entry JavaScript is 327,202 of 358,400 bytes, entry CSS is 40,602 of 40,960 bytes and the generated CV is 268,289 of 524,288 bytes. Three accepted masters produce 12 stripped AVIF/WebP derivatives with committed dimensions, byte counts and output SHA-256 values. Exact prompts, selection reasoning, rights and transformation steps remain in the committed custody record.
+- Harley review refinements: the atlas now uses course-local numbering, honest course-level maturity and a one-sentence behavioural takeaway for each listed lab or planning module. Its paired course titles and first nine module rows align at desktop width, redundant terminal rules and the empty Course 3 list were removed, alternating representative-lab layouts keep evidence dominant, and the three descending lab-layer cards share one measured height. “The method built the method” now explains how agent-led exploration shaped both the repository and the curriculum while Harley occupied part of the learner's position; its prose-weighted composition prevents that expanded argument from being cramped beside unused space. The present-state kicker and title are one heading group, keeping their spacing and line length tied to their shared meaning.
+- Limitation: no learner delivery evidence exists yet. The case study distinguishes a complete first course, a substantially planned second course and an early outline for the third without implying learner outcomes.
+- Deferred site-wide polish: white cards on the off-white page need a shared surface-separation decision. Compare subtle border, shadow and tonal treatments across every raised or inset surface rather than introducing a Learning Lab-only fix.
 
 ---
 
@@ -471,7 +474,7 @@
 
 - Evidence precedence, current source, volatility, runtime independence and delivery freshness: Task 1 and Task 6.
 - Origin, approved prompt, learner/privacy boundary and defensible public proposition: Tasks 2 and 3.
-- Three courses, Modules 1 through 18 plus `14A`, cognitive grades and maturity distinction: Tasks 1 and 2.
+- Three courses, course-local numbering, cognitive grades and maturity distinction: Tasks 1 and 2.
 - Promotion flow, lab cutaway, Labs 3/5/7, Lab 4 safety, authorship and corrected cloud/local premise: Task 3.
 - Field-manual visual direction, curriculum-grounded editorial imagery, complete generation custody and static motion decision: Task 4.
 - Responsive, zoom, keyboard, contrast, semantics, performance and fallbacks: Tasks 2 through 5.
