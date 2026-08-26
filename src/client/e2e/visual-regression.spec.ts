@@ -117,7 +117,7 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
-  await expect(page.locator('[data-visual-contract="content-page-header"]')).toHaveScreenshot('article-mobile-header.png')
+  await expect(page.locator('[data-visual-contract="vibe-coding-door-road"]')).toHaveScreenshot('article-mobile-header.png')
 })
 
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
