@@ -1,0 +1,102 @@
+# Why ADRs?
+
+Status: Sol author-review draft, not publication-ready
+
+## I didn't know the documentation was me
+
+I hadn't designed LENS alone. I was a junior engineer, left holding the baton, completely ill-equipped to explain the complex system I knew like the back of my hand.
+
+LENS was the first substantial system I worked on as a professional software engineer. I joined Barbican Insurance as a junior developer and, almost as soon as I arrived, talks began about Arch Capital acquiring the company. The acquisition completed, I moved to Arch with it, and LENS went too as one of Barbican's assets.
+
+It was an asset for a good reason. LENS made Iris easier to use. The name wasn't an acronym. It was a lens over Iris.
+
+Iris is a legacy policy administration system used in insurance and reinsurance. It handles serious work, but it expects users to understand a vast collection of opaque validation rules. The rules were expressed in reverse Polish notation. An engineer could inspect them with the validation-code manual open beside the screen. A business support operative couldn't reasonably be expected to do that while capturing a policy.
+
+LENS put a modern application around that problem. An operative selected a policy, or risk, from a queue and worked through roughly eight ordered sections of risk capture. A second operative received the completed risk in a separate peer-review queue. The review screen looked almost identical, but its inputs were disabled. The reviewer could mark corrections and return the risk for re-capture, or approve it for submission to Iris.
+
+LENS mirrored the Iris validation rules as the operative worked. A field that would fail at submission showed its error beside the input. Nobody had to complete an entire risk, send it to Iris and then decipher why Iris refused it.
+
+We made the user's job simpler by accepting more complexity into the system. Simplicity at the boundary was something the implementation had to earn.
+
+## The architecture wasn't theatre
+
+I spent roughly two years on LENS in a three-person engineering team. I learned alongside a senior engineer with deep experience of domain-driven design, CQRS and event sourcing. That was where I acquired the architectural kit I still use now.
+
+> Everybody thinks CQRS and event sourcing are theatre until somebody asks for a full audit history.
+
+For plenty of systems, that criticism is fair. These patterns introduce concepts, infrastructure and failure modes that a straightforward application doesn't need. LENS did need to reconstruct relevant actions and attribute them to an actor.
+
+Risk capture, peer-review rejection, re-capture and approval were meaningful domain events. The final state of a policy wasn't enough. We needed its history. We also used SQL Server Temporal Tables, which were very new at the time, to preserve historical row versions.
+
+One LENS feature could show how the data on a page had changed between stages of the workflow. The operative could open a quick modal and see before-and-after field values. I can infer why we kept both forms of history. The event stream gave us authoritative, replayable domain state. Temporal tables made comparison between two points in time cheap enough for an interactive query.
+
+It's a good explanation. I can't promise it was the team's explanation.
+
+The code can prove that both mechanisms existed. It can't tell me whether my reconstruction matches the original decision. We didn't preserve that reasoning.
+
+That gap is why ADRs matter.
+
+## I knew the system. I couldn't transfer it
+
+I only discovered how much of LENS I was carrying in my head when I decided to leave.
+
+I had three months to hand over my knowledge. The handover consisted mostly of calls with a manager who was himself brand new. Arch didn't find an engineer to replace me until I was almost out of the door, so the engineer-to-engineer conversation barely happened.
+
+The problem wasn't simply the timing. I was still a naïve junior engineer. I didn't understand ADRs and I didn't know how to backfill documentation for a complex system. Asked to explain the architecture, I could say that it was a textbook example of DDD, CQRS, event sourcing and a handful of other patterns.
+
+That wasn't knowledge transfer. It was a list of nouns.
+
+Knowing what I know now, I'd have treated those three months as a documentation recovery project. I'd have identified the decisions a competent engineer might question, reconstructed the context, recorded the rejected alternatives, linked the evidence and named the conditions that should trigger reconsideration.
+
+Why were risk capture and peer review separate gates when their screens looked almost identical? Why did the application reproduce Iris validation instead of relying on submission errors? Why did it keep an event stream and temporal row history? Which parts of the architecture protected real domain requirements, and which parts were merely the best choices we knew at the time?
+
+The source code answered what. The handover needed why.
+
+## The complexity hole was real
+
+About a week before I left, I was told LENS would be sunset and replaced with something simpler. The expectation was that the replacement would launch in six months.
+
+I stayed in touch with a former colleague for roughly another year. When I lost contact with the story, the replacement still hadn't launched. The team had been iterating as it uncovered what seemed like a never-ending hole of domain complexity.
+
+I don't know whether the replacement was eventually completed. I won't turn an incomplete account into a "we told you so" story. The part I can stand behind is narrower: LENS wasn't complex purely for its own sake. It modelled a genuinely complex domain and absorbed the difficulty of working with Iris. A new implementation could choose different patterns, but it couldn't wish those constraints away.
+
+The reasoning should have survived independently of the original team. It didn't.
+
+## An ADR isn't a shrine
+
+An ADR shouldn't make a future engineer obey us. It should give them a fair starting point.
+
+For a consequential decision, I want the record to preserve the context, the chosen route, the credible alternatives we rejected, the evidence behind those rejections, the consequences we accepted and the facts that would make us reconsider. Mistakes belong in the record when they expose a boundary that the polished final architecture hides.
+
+Not every experiment deserves an ADR. I care about the routes a competent engineer could reasonably rediscover and propose again. "We considered a simpler model" is useless if it omits the behaviour that made the model fail. The next engineer needs enough evidence to decide whether the old constraint still applies.
+
+That's also why architectural vocabulary isn't enough. A codebase can wear the names DDD, CQRS and event sourcing without preserving the consequences that make those patterns useful. The label doesn't tell a future engineer which complexity was essential, which was accidental, or what the team learned the expensive way.
+
+## Agents can infer a convincing wrong answer
+
+Agentic engineering has made the missing-reasoning problem more urgent, not less.
+
+An agent can inspect a codebase, recognise its patterns and produce a plausible explanation for why they exist. I just did the human version of that with LENS's event stream and temporal tables. The explanation may be correct. Plausibility isn't decision history.
+
+I haven't solved ADR discipline for agents. Not all of my repositories have an ADR log, and agents don't yet identify every architectural decision reliably enough for me to trust the process without supervision. I still have to nudge them: this looks architectural, check whether an ADR should be created or updated.
+
+The direction is clear even if the process is unfinished. Repository guidance, skills and other agent instructions should route a worker towards the decision record as a matter of course. The agent should inspect the existing rationale before changing a boundary, and update that rationale when the decision changes. It should also know that an ADR is evidence to examine, not an order carved into stone.
+
+I understood this too late for LENS. The next engineer or agent shouldn't depend on whoever happens to be left holding the baton before they can safely change the system.
+
+## Editorial source custody
+
+| Authority | Material used | Boundary |
+| --- | --- | --- |
+| Harley's first-party professional account | Three-person LENS team; risk-capture and peer-review workflow; mirrored Iris validation; CQRS, event sourcing and temporal-table use; three-month handover; replacement timing and later colleague updates; current agentic ADR practice | Attributable recollection. No source code, customer data, topology or current operational information disclosed. The replacement's eventual outcome is unknown. |
+| [Arch acquisition announcement](https://ir.archgroup.com/news/news-details/2019/Arch-Capital-Group-Ltd--Closes-Acquisition-of-Barbican-Group-Holdings-Limited/default.aspx) | Arch completed its acquisition of Barbican Group Holdings on 29 November 2019 | Corroborates the acquisition only. It does not corroborate LENS, its commercial plan or the internal handover. |
+| [UK competition filing describing Iris](https://assets.publishing.service.gov.uk/media/54d2392fe5274a4514000001/Xchanging_initial_submission.pdf) | Iris was Xchanging's legacy policy-administration software for insurance and reinsurance underwriters, supporting risk processing, claims, technical accounting and ceded reinsurance | Public context for Iris. It does not establish Harley's assessment of usability or validation complexity. |
+| [Microsoft event-sourcing guidance](https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing) | Event streams can preserve authoritative history, support replay and provide an audit trail; query projections avoid replaying history for every read | Conceptual corroboration, not proof of LENS's implementation. |
+| [Microsoft temporal-table documentation](https://learn.microsoft.com/en-us/sql/relational-databases/tables/temporal-tables?view=sql-server-ver17) | System-versioned temporal tables retain row history and support point-in-time analysis | Conceptual corroboration. Harley's explanation for combining temporal tables with the event stream is explicitly present-day inference. |
+
+## Open Harley review points
+
+- Confirm whether "business support operative" is the right public role description.
+- Confirm whether the article should name Arch's six-month replacement expectation directly or describe it as the internal expectation Harley was given.
+- Decide whether the commercial ambition for LENS belongs in the final prose. It raises the stakes but is not needed for the ADR argument.
+- Check whether "every action" should be narrowed to every relevant action in the risk workflow.

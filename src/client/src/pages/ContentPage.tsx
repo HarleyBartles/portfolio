@@ -152,7 +152,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       ? 'wild-bunch-case-study-hero'
     : document.summary.presentation === 'learning-lab-case-study'
       ? 'learning-lab-case-study-hero'
-      : 'content-page-header' : 'vibe-coding-door-road'
+      : 'content-page-header' : writingPresentation.visualContract
   const formattedDate = formatContentDate(document.summary.date)
 
   return (
@@ -167,7 +167,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
           data-visual-contract={visualContract}
           role={writingPresentation === undefined ? undefined : 'region'}
-          aria-label={writingPresentation === undefined ? undefined : 'Vibe article introduction'}
+          aria-label={writingPresentation?.regionLabel}
         >
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
@@ -185,8 +185,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} /></div>
           )}
           {WritingFigure === undefined ? null : (
-            <div className="content-page-visual content-page-visual--vibe-coding">
-              <Suspense fallback={<div className="vibe-coding-figure__loading" aria-hidden="true" data-loading="vibe-coding-figure" />}><WritingFigure /></Suspense>
+            <div className="content-page-visual content-page-visual--writing">
+              <Suspense fallback={<div className="writing-figure__loading" aria-hidden="true" data-loading="writing-figure" />}><WritingFigure /></Suspense>
             </div>
           )}
         </header>

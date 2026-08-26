@@ -2,24 +2,28 @@ import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
 import './VibeCodingFigure.scss'
 
 type WritingFigure = {
-  id: 'vibe-coding-door-road-visual'
-  description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.'
+  id: `${string}-visual`
+  description: string
   Component: LazyExoticComponent<ComponentType>
 }
 
 type WritingContinuation = {
-  slug: 'graph-iterative-review' | 'provisioning-is-not-accumulation'
-  eyebrow: 'Follow the review machinery' | 'Follow the environment boundary'
-  rationale: 'Follow the review machinery' | 'Follow the environment boundary'
+  slug: string
+  eyebrow: string
+  rationale: string
 }
 
 export type WritingPresentation = {
+  regionLabel: string
+  visualContract: string
   figure: WritingFigure
   continuations: readonly [WritingContinuation, WritingContinuation]
 }
 
 const writingPresentations = {
   'agentic-engineering-vs-vibe-coding': {
+    regionLabel: 'Vibe article introduction',
+    visualContract: 'vibe-coding-door-road',
     figure: {
       id: 'vibe-coding-door-road-visual',
       description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.',
@@ -28,6 +32,19 @@ const writingPresentations = {
     continuations: [
       { slug: 'graph-iterative-review', eyebrow: 'Follow the review machinery', rationale: 'Follow the review machinery' },
       { slug: 'provisioning-is-not-accumulation', eyebrow: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
+    ],
+  },
+  'why-adrs': {
+    regionLabel: 'Why ADRs? article introduction',
+    visualContract: 'decision-memory',
+    figure: {
+      id: 'decision-memory-visual',
+      description: 'A decision record carries context, rejected alternatives, evidence, consequences and reconsideration triggers forward to the next engineer.',
+      Component: lazy(async () => ({ default: (await import('./WhyAdrsFigure')).WhyAdrsFigure })),
+    },
+    continuations: [
+      { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
+      { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
     ],
   },
 } as const satisfies Record<string, WritingPresentation>

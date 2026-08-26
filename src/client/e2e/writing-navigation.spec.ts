@@ -20,6 +20,23 @@ test('visitor opens a direct article route and moves through previous and next n
   await expect(storyNavigation.getByRole('link', { name: /next/i })).toBeVisible()
 })
 
+test('authored pull quotes use the wide editorial margin without widening the prose', async ({ page }) => {
+  await page.setViewportSize({ width: 1600, height: 1000 })
+  await page.goto('./writing/why-adrs/')
+
+  const prose = page.locator('.markdown-content > p').first()
+  const pullQuote = page.locator('.markdown-content > blockquote').first()
+  const [proseBox, wideQuoteBox] = await Promise.all([prose.boundingBox(), pullQuote.boundingBox()])
+
+  expect(wideQuoteBox!.width).toBeGreaterThan(proseBox!.width + 100)
+
+  await page.setViewportSize({ width: 720, height: 900 })
+  const [narrowProseBox, narrowQuoteBox] = await Promise.all([prose.boundingBox(), pullQuote.boundingBox()])
+
+  expect(Math.abs(narrowQuoteBox!.width - narrowProseBox!.width)).toBeLessThanOrEqual(1)
+  expect(narrowQuoteBox!.x + narrowQuoteBox!.width).toBeLessThanOrEqual(720)
+})
+
 test('fairytale index and detail expose imagery plus a readable transcript', async ({ page }) => {
   await page.goto('./fairytales/')
 
