@@ -165,17 +165,17 @@
   .vibe-coding-figure__releases { flex-direction: column; }
 }
 
-.content-page-visual--vibe-coding {
+.content-page-visual--writing {
   display: grid;
   min-block-size: 30rem;
 }
 
-.vibe-coding-figure__loading {
+.writing-figure__loading {
   min-block-size: 100%;
   border-block: 1px solid var(--color-border);
   background: linear-gradient(to bottom, transparent 32%, var(--color-accent-soft) 32%, var(--color-accent-soft) calc(32% + 1px), transparent calc(32% + 1px));
 }
 
 @media (min-width: 46.0625rem) {
-  .content-page-visual--vibe-coding { min-block-size: 24rem; }
+  .content-page-visual--writing { min-block-size: 24rem; }
 }

@@ -54,6 +54,19 @@
       "relatedSlugs": ["graph-iterative-review", "context-is-not-state", "provisioning-is-not-accumulation"]
     },
     {
+      "slug": "why-adrs",
+      "kind": "writing",
+      "title": "Why ADRs?",
+      "date": "2026-08-26",
+      "readingMinutes": 8,
+      "status": "published",
+      "featured": false,
+      "summary": "A junior engineer learned too late that knowing a complex system isn't the same as preserving why it works.",
+      "path": "writing/2026-08-26-why-adrs.md",
+      "tags": ["writing", "software-architecture", "decision-records"],
+      "relatedSlugs": []
+    },
+    {
       "slug": "graph-iterative-review",
       "kind": "writing",
       "title": "The graph I built to keep a review agent from going in circles",

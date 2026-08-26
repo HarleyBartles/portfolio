@@ -131,6 +131,32 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 
+  test('gives Why ADRs its decision-memory figure and authored reading route', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/why-adrs'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const header = await screen.findByRole('region', { name: 'Why ADRs? article introduction' }, { timeout: 5_000 })
+    expect(header).toHaveAttribute('data-visual-contract', 'decision-memory')
+    await within(header).findByRole('heading', { level: 2, name: 'Decision record' }, { timeout: 5_000 })
+    expect(header.querySelector('figure')).toHaveAccessibleDescription('A decision record carries context, rejected alternatives, evidence, consequences and reconsideration triggers forward to the next engineer.')
+
+    expect(await screen.findByText('Everybody thinks CQRS and event sourcing are theatre until somebody asks for a full audit history.')).toBeVisible()
+    const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
+    const links = within(continuations).getAllByRole('link')
+    expect(links).toHaveLength(2)
+    expect(links[0]).toHaveAttribute('href', '/portfolio/writing/agentic-engineering-vs-vibe-coding')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(container.querySelector('.content-navigation')).toBeNull()
+  })
+
   test('keeps chronological writing navigation for a legacy article', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',

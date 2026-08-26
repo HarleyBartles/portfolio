@@ -102,4 +102,19 @@ describe('loadDocument', () => {
       markdown: expect.any(String),
     })
   })
+
+  test('loads the Why ADRs production article from the public manifest', async () => {
+    const whyAdrs = navigation.find((item) => item.slug === 'why-adrs')
+
+    expect(whyAdrs).toMatchObject({
+      kind: 'writing',
+      title: 'Why ADRs?',
+      readingMinutes: 8,
+      featured: false,
+    })
+    await expect(loadDocument(whyAdrs!)).resolves.toMatchObject({
+      summary: { slug: 'why-adrs' },
+      markdown: expect.stringContaining("I didn't know the documentation was me"),
+    })
+  })
 })
