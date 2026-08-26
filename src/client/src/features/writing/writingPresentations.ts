@@ -43,7 +43,7 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./WhyAdrsFigure')).WhyAdrsFigure })),
     },
     continuations: [
-      { slug: 'agentic-engineering-vs-vibe-coding', eyebrow: 'Return to the professional boundary', rationale: 'Return to the professional boundary' },
+      { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
       { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
     ],
   },

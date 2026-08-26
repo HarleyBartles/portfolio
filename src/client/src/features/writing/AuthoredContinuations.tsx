@@ -15,7 +15,7 @@ export function AuthoredContinuations({ presentation, summaries }: AuthoredConti
     summary: summaries.find((summary) => summary.slug === continuation.slug),
   }))
 
-  if (continuations.some(({ summary }) => summary?.kind !== 'writing')) return null
+  if (continuations.some(({ summary }) => summary === undefined)) return null
 
   return (
     <nav className="writing-continuations" aria-label="Continue reading">

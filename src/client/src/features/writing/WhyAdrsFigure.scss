@@ -68,6 +68,12 @@
   letter-spacing: -0.025em;
 }
 
+@media (min-width: 64rem) {
+  .content-page-header[data-visual-contract='decision-memory'] + .content-page-body .markdown-content blockquote {
+    width: min(54rem, calc(100vw - var(--space-12)));
+  }
+}
+
 .decision-memory-figure__routes span {
   padding: var(--space-1) var(--space-2);
   border: 1px solid var(--color-border);
