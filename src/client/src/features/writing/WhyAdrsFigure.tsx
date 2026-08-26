@@ -14,8 +14,8 @@ export function WhyAdrsFigure(): ReactElement {
         <p className="decision-memory-figure__marker">Then</p>
         <h2 id="decision-memory-start">At the decision</h2>
         <p>Several credible routes meet a real constraint.</p>
-        <div className="decision-memory-figure__routes" aria-label="Attempted routes">
-          <span>Route A</span><span>Route B</span><span>Route C</span>
+        <div className="decision-memory-figure__routes" aria-label="Decision inputs">
+          <span>Context</span><span>Routes</span><span>Evidence</span>
         </div>
       </section>
 

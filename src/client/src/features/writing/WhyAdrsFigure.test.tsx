@@ -14,6 +14,7 @@ describe('WhyAdrsFigure', () => {
     expect(diagram.getByRole('heading', { level: 2, name: 'At the decision' })).toBeVisible()
     expect(diagram.getByRole('heading', { level: 2, name: 'Decision record' })).toBeVisible()
     expect(diagram.getByRole('heading', { level: 2, name: 'With the next engineer' })).toBeVisible()
+    expect(diagram.getByLabelText('Decision inputs')).toHaveTextContent('ContextRoutesEvidence')
     expect(diagram.getByText('Rejected routes keep their evidence')).toBeVisible()
     expect(diagram.getByText('Reconsider when the facts change')).toBeVisible()
   })
