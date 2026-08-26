@@ -122,6 +122,16 @@ practice. The `Why ADRs?` essay owns the full argument. About should establish
 provenance, selective use, and the consequence of lost reasoning without
 becoming another architecture essay.
 
+**Author clarification, 26 August 2026:** Harley's formal engineering journey
+began at Barbican with the title `Full Stack Software Engineer`. In Arch's
+three-level framework he progressed from `Software Engineer (Level 1)` to
+`Software Engineer (Level 2)` in roughly two years; Level 3 was the effective
+senior level. Harley assesses the following roughly four years as progression
+from mid-level to effective senior scope, while his current formal title remains
+`Software Engineer`. Later About and CV work should make that trajectory
+inferable from responsibility, judgement and outcomes. It must not upgrade the
+formal title or present being overdue for a Senior title as an employer fact.
+
 ### CV
 
 The CV is not required to repeat the About narrative. At implementation time,
