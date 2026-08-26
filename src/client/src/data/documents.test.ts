@@ -109,6 +109,7 @@ describe('loadDocument', () => {
     expect(whyAdrs).toMatchObject({
       kind: 'writing',
       title: 'Why ADRs?',
+      summary: 'I learned the cost of losing architectural memory. Now I treat preserving the reasoning behind complex decisions as engineering work, so the next engineer or agent can change the system safely.',
       readingMinutes: 8,
       featured: false,
     })

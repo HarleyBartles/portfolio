@@ -149,6 +149,8 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(header.querySelector('figure')).toHaveAccessibleDescription('A decision record carries context, rejected alternatives, evidence, consequences and reconsideration triggers forward to the next engineer.')
 
     expect(await screen.findByText('Everybody thinks CQRS and event sourcing are theatre until somebody asks for a full audit history.')).toBeVisible()
+    expect(screen.getByText("You know DDD, right? It's textbook DDD.")).toBeVisible()
+    expect(container.querySelectorAll('.markdown-content blockquote')).toHaveLength(2)
     const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
     const links = within(continuations).getAllByRole('link')
     expect(links).toHaveLength(2)

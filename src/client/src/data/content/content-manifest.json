@@ -61,7 +61,7 @@
       "readingMinutes": 8,
       "status": "published",
       "featured": false,
-      "summary": "A junior engineer learned too late that knowing a complex system isn't the same as preserving why it works.",
+      "summary": "I learned the cost of losing architectural memory. Now I treat preserving the reasoning behind complex decisions as engineering work, so the next engineer or agent can change the system safely.",
       "path": "writing/2026-08-26-why-adrs.md",
       "tags": ["writing", "software-architecture", "decision-records"],
       "relatedSlugs": []
