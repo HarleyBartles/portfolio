@@ -37,21 +37,56 @@ class PortfolioFixture:
                 "summary": "An inspectable example.",
                 "path": "projects/example-project.md",
                 "tags": ["project"],
-                "relatedSlugs": ["example-note"],
+                "relatedSlugs": ["essay-1"],
             },
             {
-                "slug": "example-note",
+                "slug": "essay-1",
                 "kind": "writing",
-                "title": "Example note",
+                "title": "Example essay 1",
                 "status": "published",
-                "summary": "A useful note.",
+                "summary": "A useful essay.",
                 "date": "2026-08-21",
                 "readingMinutes": 4,
-                "path": "writing/example-note.md",
+                "path": "writing/essay-1.md",
                 "tags": ["writing"],
                 "relatedSlugs": [],
+                "editorial": {
+                    "dateline": "Autumn 2026",
+                    "readingMinutes": 4,
+                    "indexLead": True,
+                    "homepageFeature": {"eligible": True, "proposition": "A clear proposition."},
+                    "visual": {"id": "essay-1-visual", "description": "A text equivalent."},
+                    "continuations": [
+                        {"slug": "essay-2", "rationale": "A deliberate next reading."},
+                        {"slug": "essay-3", "rationale": "A second deliberate next reading."},
+                    ],
+                },
             },
         ]
+        for number in range(2, 6):
+            self.items.append({
+                "slug": f"essay-{number}",
+                "kind": "writing",
+                "title": f"Example essay {number}",
+                "status": "published",
+                "summary": "A useful essay.",
+                "date": "2026-08-21",
+                "readingMinutes": 4,
+                "path": f"writing/essay-{number}.md",
+                "tags": ["writing"],
+                "relatedSlugs": [],
+                "editorial": {
+                    "dateline": "Autumn 2026",
+                    "readingMinutes": 4,
+                    "indexLead": False,
+                    "homepageFeature": {"eligible": True, "proposition": "A clear proposition."},
+                    "visual": {"id": f"essay-{number}-visual", "description": "A text equivalent."},
+                    "continuations": [
+                        {"slug": "essay-1", "rationale": "A deliberate next reading."},
+                        {"slug": "essay-2" if number != 2 else "essay-3", "rationale": "A second deliberate next reading."},
+                    ],
+                },
+            })
 
     def write(self) -> None:
         for item in self.items:
@@ -402,6 +437,103 @@ class PortfolioQualityTests(unittest.TestCase):
 
     def test_clean_portfolio_has_no_findings(self) -> None:
         self.assertEqual([], self.validate())
+
+    def test_editorial_writing_requires_the_publication_floor_and_complete_contract(self) -> None:
+        mutations = {
+            "fewer than five essays": (
+                lambda fixture: fixture.items.__delitem__(-1),
+                "at least five published essays",
+            ),
+            "duplicate lead": (
+                lambda fixture: fixture.items[2]["editorial"].__setitem__("indexLead", True),
+                "exactly one indexLead",
+            ),
+            "missing lead": (
+                lambda fixture: fixture.items[1]["editorial"].__setitem__("indexLead", False),
+                "exactly one indexLead",
+            ),
+            "unknown visual": (
+                lambda fixture: fixture.items[1]["editorial"]["visual"].__setitem__("id", "unknown-visual"),
+                "unknown visual id 'unknown-visual'",
+            ),
+            "empty visual description": (
+                lambda fixture: fixture.items[1]["editorial"]["visual"].__setitem__("description", " "),
+                "visual description must be nonempty",
+            ),
+            "empty proposition": (
+                lambda fixture: fixture.items[1]["editorial"]["homepageFeature"].__setitem__("proposition", " "),
+                "homepage proposition must be nonempty",
+            ),
+            "malformed dateline": (
+                lambda fixture: fixture.items[1]["editorial"].__setitem__("dateline", "2026-08-21"),
+                "has invalid editorial dateline",
+            ),
+            "generic featured": (
+                lambda fixture: fixture.items[1].__setitem__("featured", True),
+                "must not use generic featured",
+            ),
+            "generic related slugs": (
+                lambda fixture: fixture.items[1].__setitem__("relatedSlugs", ["essay-2"]),
+                "must not use generic relatedSlugs",
+            ),
+            "missing continuation target": (
+                lambda fixture: fixture.items[1]["editorial"]["continuations"][0].__setitem__("slug", "missing"),
+                "references missing continuation 'missing'",
+            ),
+            "non-editorial continuation target": (
+                lambda fixture: fixture.items[1]["editorial"]["continuations"][0].__setitem__("slug", "example-project"),
+                "references missing continuation 'example-project'",
+            ),
+            "duplicate continuation": (
+                lambda fixture: fixture.items[1]["editorial"]["continuations"][1].__setitem__("slug", "essay-2"),
+                "has duplicate continuation 'essay-2'",
+            ),
+            "self continuation": (
+                lambda fixture: fixture.items[1]["editorial"]["continuations"][0].__setitem__("slug", "essay-1"),
+                "cannot continue to itself",
+            ),
+        }
+
+        for label, (mutate_editorial, expected_finding) in mutations.items():
+            with self.subTest(label=label):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    mutate_editorial(fixture)
+                    fixture.write_manifest()
+
+                findings = self.validate(mutate)
+                self.assertTrue(any(expected_finding in finding for finding in findings), findings)
+
+    def test_editorial_writing_accepts_six_seven_and_eight_essays(self) -> None:
+        for count in (6, 7, 8):
+            with self.subTest(count=count):
+                def mutate(fixture: PortfolioFixture) -> None:
+                    for number in range(6, count + 1):
+                        fixture.items.append({
+                            "slug": f"essay-{number}",
+                            "kind": "writing",
+                            "title": f"Example essay {number}",
+                            "status": "published",
+                            "summary": "A useful essay.",
+                            "date": "2026-08-21",
+                            "readingMinutes": 4,
+                            "path": f"writing/essay-{number}.md",
+                            "tags": ["writing"],
+                            "relatedSlugs": [],
+                            "editorial": {
+                                "dateline": "Autumn 2026",
+                                "readingMinutes": 4,
+                                "indexLead": False,
+                                "homepageFeature": {"eligible": True, "proposition": "A clear proposition."},
+                                "visual": {"id": f"essay-{number}-visual", "description": "A text equivalent."},
+                                "continuations": [
+                                    {"slug": "essay-1", "rationale": "A deliberate next reading."},
+                                    {"slug": "essay-2", "rationale": "A second deliberate next reading."},
+                                ],
+                            },
+                        })
+                    fixture.write()
+
+                self.assertEqual([], self.validate(mutate))
 
     def test_manifest_rejects_duplicate_slugs_and_unknown_related_content(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:

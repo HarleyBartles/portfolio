@@ -100,4 +100,53 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(await screen.findByText('Learning Lab specialist body')).toBeVisible()
   })
+
+  test('gives Vibe its authored header figure and continuation navigation without chronological links', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/agentic-engineering-vs-vibe-coding'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const header = await screen.findByRole('region', { name: 'Vibe article introduction' }, { timeout: 5_000 })
+    expect(header).toHaveAttribute('data-visual-contract', 'vibe-coding-door-road')
+    expect(header).toHaveClass('content-page-header--visual')
+    await within(header).findByText('The door opens', undefined, { timeout: 5_000 })
+    expect(header.querySelector('figure')).toHaveAccessibleDescription('Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.')
+
+    const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
+    const links = within(continuations).getAllByRole('link')
+    expect(links).toHaveLength(2)
+    expect(links[0]).toHaveAttribute('href', '/portfolio/writing/graph-iterative-review')
+    expect(links[0]).toHaveTextContent('Follow the review machinery')
+    expect(links[0]).toHaveTextContent('The graph I built to keep a review agent from going in circles')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/provisioning-is-not-accumulation')
+    expect(links[1]).toHaveTextContent('Follow the environment boundary')
+    expect(links[1]).toHaveTextContent('Provisioning is not accumulation')
+    expect(container.querySelector('.content-navigation')).toBeNull()
+  })
+
+  test('keeps chronological writing navigation for a legacy article', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/context-is-not-state'],
+    })
+
+    render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const header = await screen.findByRole('heading', { level: 1, name: 'Context is not the same as state' }, { timeout: 5_000 })
+    expect(header.closest('.content-page-header')).not.toHaveClass('content-page-header--visual')
+    expect(screen.getByRole('link', { name: /previous: provisioning is not accumulation/i })).toBeVisible()
+    expect(screen.getByRole('link', { name: /next: the graph i built/i })).toBeVisible()
+    expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
+  }, 10_000)
 })

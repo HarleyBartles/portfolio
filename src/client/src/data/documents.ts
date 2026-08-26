@@ -1,4 +1,11 @@
-import type { ContentDocument, ContentSummary } from '../types/content'
+import type {
+  ArticleVisualId,
+  ContentDocument,
+  ContentSummary,
+  EditorialContinuation,
+  EditorialWritingSummary,
+  WritingEditorial,
+} from '../types/content'
 import manifest from './content/content-manifest.json'
 
 const markdownLoaders = import.meta.glob('./content/**/*.md', {
@@ -26,8 +33,85 @@ export function prepareMarkdown(raw: string, summary: ContentSummary): string {
   return stripLeadingTitle(withoutFrontmatter, summary.title)
 }
 
-function itemToSummary(item: unknown): ContentSummary {
+function nonemptyString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0
+}
+
+function parseEditorial(item: Record<string, unknown>): WritingEditorial | undefined {
+  const editorial = item.editorial
+  if (item.kind !== 'writing' || editorial === null || typeof editorial !== 'object') {
+    return undefined
+  }
+
+  const source = editorial as Record<string, unknown>
+  const homepageFeature = source.homepageFeature
+  const visual = source.visual
+  const continuations = source.continuations
+  if (
+    !nonemptyString(source.dateline)
+    || typeof source.readingMinutes !== 'number'
+    || !Number.isInteger(source.readingMinutes)
+    || source.readingMinutes <= 0
+    || typeof source.indexLead !== 'boolean'
+    || homepageFeature === null
+    || typeof homepageFeature !== 'object'
+    || visual === null
+    || typeof visual !== 'object'
+    || !Array.isArray(continuations)
+    || continuations.length !== 2
+  ) {
+    return undefined
+  }
+
+  const homepage = homepageFeature as Record<string, unknown>
+  const figure = visual as Record<string, unknown>
+  if (
+    typeof homepage.eligible !== 'boolean'
+    || !nonemptyString(homepage.proposition)
+    || !nonemptyString(figure.id)
+    || !figure.id.endsWith('-visual')
+    || !nonemptyString(figure.description)
+  ) {
+    return undefined
+  }
+
+  const parsedContinuations: EditorialContinuation[] = []
+  for (const continuation of continuations) {
+    if (continuation === null || typeof continuation !== 'object') {
+      return undefined
+    }
+    const entry = continuation as Record<string, unknown>
+    if (!nonemptyString(entry.slug) || !nonemptyString(entry.rationale)) {
+      return undefined
+    }
+    parsedContinuations.push({ slug: entry.slug, rationale: entry.rationale })
+  }
+
+  return {
+    dateline: source.dateline,
+    readingMinutes: source.readingMinutes,
+    indexLead: source.indexLead,
+    homepageFeature: { eligible: homepage.eligible, proposition: homepage.proposition },
+    visual: { id: figure.id as ArticleVisualId, description: figure.description },
+    continuations: [parsedContinuations[0], parsedContinuations[1]],
+  }
+}
+
+export function parseContentSummary(item: unknown): ContentSummary | EditorialWritingSummary {
   const source = item as Record<string, unknown>
+  const editorial = parseEditorial(source)
+  if (editorial !== undefined) {
+    return {
+      slug: String(source.slug),
+      kind: 'writing',
+      title: String(source.title),
+      status: String(source.status),
+      summary: String(source.summary),
+      tags: Array.isArray(source.tags) ? source.tags.map(String) : [],
+      editorial,
+    }
+  }
+
   return {
     slug: String(source.slug),
     kind: source.kind as ContentSummary['kind'],
@@ -42,6 +126,23 @@ function itemToSummary(item: unknown): ContentSummary {
     tags: Array.isArray(source.tags) ? source.tags.map(String) : [],
     relatedSlugs: Array.isArray(source.relatedSlugs) ? source.relatedSlugs.map(String) : [],
   }
+}
+
+function itemToSummary(item: unknown): ContentSummary {
+  const parsed = parseContentSummary(item)
+  if ('editorial' in parsed) {
+    return {
+      slug: parsed.slug,
+      kind: parsed.kind,
+      title: parsed.title,
+      status: parsed.status,
+      summary: parsed.summary,
+      featured: false,
+      tags: parsed.tags,
+      relatedSlugs: [],
+    }
+  }
+  return parsed
 }
 
 export const navigation: ContentSummary[] = manifest.items.map(itemToSummary)
