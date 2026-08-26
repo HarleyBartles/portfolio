@@ -10,16 +10,19 @@ Cloud Sol owns the complete editorial journey for `Provisioning is not accumulat
 
 This is not a request to polish the Terra draft. The draft offers a candidate argument and useful questions. Harley's experience and intended meaning govern the article.
 
+The current durable discovery snapshot lives in [`provisioning-cloud-discovery-record.md`](provisioning-cloud-discovery-record.md). It preserves the cross-repo story, settled editorial decisions, evidence boundaries, anti-inferences, voice anchors, related article seeds and unresolved drafting choices from the long-form Cloud conversation. It is source material, not approved article copy.
+
 When Harley approves the copy, Cloud Sol writes the settled manuscript back to this branch, completes the editorial record below, updates the admission and source-custody ledgers, and changes the baton state to `Ready for local production`. Cloud Sol then stops editing the branch. Local Sol will implement and assess the rendered page, principal visual, pull-quote treatment, responsive behaviour and final presentation value.
 
 ## Read in this order
 
 1. This brief.
-2. [`provisioning-terra-draft.md`](provisioning-terra-draft.md), including its open Harley questions and custody table.
-3. The current public candidate at [`src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md`](../../../src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md).
-4. The finished [`Why ADRs?`](../../../src/client/src/data/content/writing/2026-08-26-why-adrs.md) article and [PR #33](https://github.com/HarleyBartles/portfolio/pull/33) as evidence of the editorial journey this workflow is trying to compress.
-5. The Provisioning contract in [the Phase 7 design](../../../.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md#provisioning-is-not-accumulation) and the responsibility split in the same document.
-6. [`docs/editorial-admission.md`](../../editorial-admission.md), [`docs/editorial-source-custody.md`](../../editorial-source-custody.md), the active [portfolio design policy](../../../.agents/doctrine/portfolio-design-policy.md), and the repository's installed `/writing` workflow.
+2. [`provisioning-cloud-discovery-record.md`](provisioning-cloud-discovery-record.md), which now holds the durable Cloud discovery context.
+3. [`provisioning-terra-draft.md`](provisioning-terra-draft.md), including its open Harley questions and custody table.
+4. The current public candidate at [`src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md`](../../../src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md).
+5. The finished [`Why ADRs?`](../../../src/client/src/data/content/writing/2026-08-26-why-adrs.md) article and [PR #33](https://github.com/HarleyBartles/portfolio/pull/33) as evidence of the editorial journey this workflow is trying to compress.
+6. The Provisioning contract in [the Phase 7 design](../../../.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md#provisioning-is-not-accumulation) and the responsibility split in the same document.
+7. [`docs/editorial-admission.md`](../../editorial-admission.md), [`docs/editorial-source-custody.md`](../../editorial-source-custody.md), the active [portfolio design policy](../../../.agents/doctrine/portfolio-design-policy.md), and the repository's installed `/writing` workflow.
 
 Resolve all relative links from the repository root if the GitHub connector does not follow them from this document.
 
@@ -132,6 +135,8 @@ This section is intentionally incomplete while Cloud Sol and Harley retain the e
 - Visual proposition: awaiting the settled argument.
 - Reconsideration condition: awaiting discovery.
 - Harley copy approval: not yet given.
+
+The durable discovery record already contains the current working answers for most of these fields. They remain deliberately unpromoted here until the manuscript is settled and Harley approves the copy.
 
 ## Local production acceptance
 
