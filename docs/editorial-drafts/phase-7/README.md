@@ -15,11 +15,14 @@ These files are durable internal editorial source material for the Phase 7 writi
 - `context-terra-draft.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
+- `provisioning-cloud-editorial-brief.md`
 - `review-graph-terra-draft.md`
 - `testing-evidence-terra-draft.md`
 - `why-adrs-terra-draft.md`
 - `why-adrs-sol-draft.md`
 
 The Terra files are first-pass working drafts. The Why ADRs Sol file incorporates Harley's story-discovery and argument decisions, but remains an editorial working document until its production article is separately approved.
+
+`provisioning-cloud-editorial-brief.md` dogfoods the cross-runtime editorial handoff. Cloud Sol owns story discovery and settled copy on its named draft-PR branch; local Sol accepts the baton only after Harley's copy approval, then owns rendered production and publication proof.
 
 Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.
