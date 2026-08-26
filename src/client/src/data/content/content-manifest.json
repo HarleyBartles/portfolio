@@ -61,7 +61,7 @@
       "readingMinutes": 8,
       "status": "published",
       "featured": false,
-      "summary": "I learned the cost of losing architectural memory. Now I treat preserving the reasoning behind complex decisions as engineering work, so the next engineer or agent can change the system safely.",
+      "summary": "An ADR is a love letter to a future engineer: enough context, evidence and hard-won reasoning to challenge an old decision without relearning the same lessons by failure.",
       "path": "writing/2026-08-26-why-adrs.md",
       "tags": ["writing", "software-architecture", "decision-records"],
       "relatedSlugs": []
