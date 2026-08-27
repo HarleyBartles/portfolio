@@ -26,6 +26,20 @@ There is no fixed turn count or timer. Judge the recovery value of the accumulat
 
 Before each GitHub checkpoint, reconcile the local answer log, current manuscript and cross-article ledger so the commit is a coherent recovery point. At final handoff, retain the durable discovery record and valuable cross-article notes; remove disposable briefs and intermediate manuscripts once their decisions are present in the production article or durable record.
 
+## Governing-argument pressure test: the hot take
+
+When an article has good material but its governing thesis still feels descriptive, taxonomic or merely agreeable, try the **hot-take pressure test**.
+
+Internal shorthand: **`I say X; fight me.`**
+
+Reader-facing posture: **`Bold claim. Click here to see me prove it.`**
+
+The point is not to manufacture controversy, force contrarianism or reward provocative wording for its own sake. Ask whether the article makes a clear proposition that a competent reader could reasonably dispute, then earns that proposition through evidence, trade-offs, reasoning and honest boundaries.
+
+If the supposed argument collapses into a truism, a catalogue, a pattern-name explainer or an unbounded `it depends`, keep discovering what the article actually wants to say. Use the hot-take shape as a tool for finding the governing argument, not as a requirement that every title sound aggressive or every article disagree with received wisdom.
+
+The useful target is an article that makes the reader think: **bold claim; show me.** Then the body does.
+
 ## Preserved draft stack
 
 - `context-terra-draft.md`
