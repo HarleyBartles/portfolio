@@ -42,6 +42,7 @@ The useful target is an article that makes the reader think: **bold claim; show 
 
 ## Preserved draft stack
 
+- `api-is-only-the-middle-next-room-seed.md`
 - `context-terra-draft.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
@@ -77,6 +78,8 @@ The Terra files are first-pass working drafts. The Why ADRs Sol file incorporate
 
 `testing-evidence-cloud-discovery-record.md` preserves the backend and frontend discovery through the final conventional-engineering checkpoint. `testing-evidence-cloud-handoff-addendum.md` supersedes its unresolved/open-discovery tail with the accepted governing argument, curveball decision, pressure-scenario boundary, three-lens review, £8,750 valuation and local-Sol handoff. `testing-evidence-cloud-first-draft.md` is the resulting Cloud manuscript to stand up into the production article frame. None of those surfaces makes an admission decision.
 
+`api-is-only-the-middle-next-room-seed.md` is a deliberately small bridge into the next candidate room. It records Harley's correction that the planned API framing is too narrow: the product itself is the middle of engineering, with substantial responsibility before and after implementation. It also preserves the provisional warmer autobiographical posture - what Harley thought engineering was when he started versus what experience taught him - and explicitly warns the next room not to force hot-take energy. It is a discovery seed, not a title or thesis decision.
+
 For Provisioning, the current editorial read order is:
 
 1. `provisioning-cloud-editorial-brief.md`
@@ -106,3 +109,11 @@ For Testing, the durable local-Sol handoff read order is:
 7. `cross-article-thread-ledger.md` for adjacent material already routed elsewhere.
 
 The accepted public-facing proposition is **The right test isn't your favourite test**. The article is engineering-first; agentic pressure testing is a worked transfer of the same judgement, not the centre of gravity. Local Sol owns the aggressive final edit, production article frame, source refresh where needed, presentation and any later admission decision.
+
+For the next API/Product candidate room, start with:
+
+1. `api-is-only-the-middle-next-room-seed.md` for the correction and provisional emotional posture;
+2. the API responsibility and candidate contract in the Phase 7 specification and plan; and
+3. `docs/editorial-admission.md` for the still-pending admission state.
+
+Keep the canonical candidate identity `api-is-only-the-middle` until Harley-led discovery settles any public title change. The seed exists specifically so the next Cloud room starts from **the product is the middle of engineering**, not from an API-specific premise.
