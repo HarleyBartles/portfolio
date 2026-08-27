@@ -47,6 +47,19 @@ const writingPresentations = {
       { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
     ],
   },
+  'provisioning-is-not-accumulation': {
+    regionLabel: 'Provisioning article introduction',
+    visualContract: 'capability-read-path',
+    figure: {
+      id: 'capability-read-path-visual',
+      description: 'A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.',
+      Component: lazy(async () => ({ default: (await import('./ProvisioningFigure')).ProvisioningFigure })),
+    },
+    continuations: [
+      { slug: 'goldilocks', eyebrow: 'See the argument in one page', rationale: 'See the argument in one page' },
+      { slug: 'context-is-not-state', eyebrow: 'Separate context from durable state', rationale: 'Separate context from durable state' },
+    ],
+  },
 } as const satisfies Record<string, WritingPresentation>
 
 export function getWritingPresentation(slug: string): WritingPresentation | undefined {

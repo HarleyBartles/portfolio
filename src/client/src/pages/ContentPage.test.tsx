@@ -161,6 +161,35 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 
+  test('gives Provisioning its capability path and an authored route into the wider argument', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/provisioning-is-not-accumulation'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const header = await screen.findByRole('region', { name: 'Provisioning article introduction' }, { timeout: 5_000 })
+    expect(header).toHaveAttribute('data-visual-contract', 'capability-read-path')
+    const figure = await within(header).findByRole('figure', undefined, { timeout: 5_000 })
+    expect(figure).toHaveAccessibleDescription('A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.')
+    expect(within(figure).getByRole('heading', { level: 2, name: 'Capability store' })).toBeVisible()
+    expect(within(figure).getByRole('heading', { level: 2, name: 'This task’s read path' })).toBeVisible()
+    expect(within(figure).getByRole('heading', { level: 2, name: 'Current agent' })).toBeVisible()
+
+    const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
+    const links = within(continuations).getAllByRole('link')
+    expect(links[0]).toHaveAttribute('href', '/portfolio/patch/goldilocks')
+    expect(links[0]).toHaveTextContent('See the argument in one page')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(links[1]).toHaveTextContent('Separate context from durable state')
+    expect(container.querySelector('.content-navigation')).toBeNull()
+  })
+
   test('keeps chronological writing navigation for a legacy article', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',

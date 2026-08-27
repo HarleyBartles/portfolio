@@ -30,7 +30,23 @@ describe('writing presentations', () => {
         { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
       ],
     })
-    expect(getWritingPresentation('provisioning-is-not-accumulation')).toBeUndefined()
     expect(getWritingPresentation('unknown-writing-slug')).toBeUndefined()
+  })
+
+  test('registers Provisioning as a narrow active read through a deeper capability store', () => {
+    const presentation = getWritingPresentation('provisioning-is-not-accumulation')
+
+    expect(presentation).toMatchObject({
+      regionLabel: 'Provisioning article introduction',
+      visualContract: 'capability-read-path',
+      figure: {
+        id: 'capability-read-path-visual',
+        description: 'A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.',
+      },
+      continuations: [
+        { slug: 'goldilocks', eyebrow: 'See the argument in one page' },
+        { slug: 'context-is-not-state', eyebrow: 'Separate context from durable state' },
+      ],
+    })
   })
 })
