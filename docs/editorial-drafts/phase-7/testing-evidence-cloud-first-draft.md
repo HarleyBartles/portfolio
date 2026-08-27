@@ -1,8 +1,10 @@
-# Cloud first draft: The right test isn't your favourite test
+# Cloud handoff draft: The right test isn't your favourite test
 
-**Status:** Reframed Cloud manuscript after Harley-led discovery. Not publication-ready, not admitted, and still subject to author revision. This version adopts the accepted governing argument and keeps agentic testing as a worked transfer of established engineering judgement.
+**Status:** Final Cloud editorial-room manuscript for local Sol handoff. Harley accepted the governing path and valued this draft at **£8,750 / £10,000**, enough to clear the bar for the time-boxed Cloud session. It is not publication-ready, not admitted, and has not been stood up in the production article frame.
 
 **Governing argument:** The right test is the one that can falsify the next thing you are about to trust. Testing belongs inside iterative development, so its scope should change as the thing being trusted changes.
+
+**Local Sol handoff:** Preserve the engineering-first argument, lived examples, honest evidence boundaries and narrow agentic pressure-scenario transfer. The remaining gap is editorial subtraction and article-frame integration, not missing discovery. A later final edit can cut where the point has already landed without reopening the premise by default.
 
 ## Manuscript
 
