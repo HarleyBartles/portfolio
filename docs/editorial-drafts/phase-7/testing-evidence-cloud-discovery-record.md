@@ -1,111 +1,97 @@
 # Cloud discovery record — Tests are different kinds of evidence
 
-**Status:** Live Cloud editorial-room record. Checkpoint 1, 27 August 2026. This is durable discovery custody, not publication copy or an admission decision.
+Status: live Cloud editorial-room answer log; reconciled for GitHub checkpoint 2 on 27 August 2026.
 
-**PR / branch:** `#36` / `codex/phase-7-testing-evidence-editorial-room`
+## Session direction
 
-## Current governing direction
+- Harley clarified that this is primarily a software-engineering article about hard-won testing judgement. Agentic engineering is a worked application of engineering first principles, not the governing subject.
+- Current exploration is backend testing only. Frontend is a separate testing family with its own meaningful scopes and should not be collapsed into “browser tests”.
 
-Harley has clarified that this is primarily an engineering article, not primarily an agents article. Its source is hard-won software-engineering judgement about what different testing strategies actually buy. Agentic engineering should appear as a worked application of those first principles to a newer and less deterministic substrate.
+## Emerging backend evidence strategy
 
-The original premise, **Tests are different kinds of evidence**, survives provisionally. The stronger spine now emerging is that test scope and test economics belong to the same decision: choose the scope that can genuinely prove the behaviour under question, then run that evidence at a cadence its cost can support.
+### Unit tests
 
-This is not yet the deliberate curveball reframe required by the Cloud brief. Do not settle the title or governing argument until the backend, frontend and agentic evidence has been discovered far enough to compare materially different framings.
+- Abundant, small, fast slices of proven functionality.
+- Run frequently for regression and as the RED/GREEN TDD lever.
+- Around 3,000 unit tests can exceed 10 minutes when run serially; five-way parallel sharding can reduce the same run to roughly 2 minutes.
+- The lesson is not “shard from the start”. The suite should be organised so that, when runtime becomes a drag, restoring fast feedback through sharding is boring and mechanical rather than a rewrite.
+- Test organisation should reflect the area under test. A monolithic `tests.py` with thousands of tests, or even one giant `api_tests.py`, makes later sharding harder than a properly decomposed suite.
 
-## Evidence classes and custody
+### Acceptance/application tests
 
-| Material | Evidence class | Current boundary |
-| --- | --- | --- |
-| Harley's testing philosophy, definitions, execution cadence and scaling experience | Harley first-party engineering account | Authoritative for Harley's practice and judgement. Do not inflate it into a universal standard. |
-| Roughly 3,000 unit tests taking 10+ minutes serially and roughly 2 minutes over five shards | Harley first-party engineering account | Use as an approximate lived scale example, not a benchmark or universal performance ratio. |
-| Car component-safety versus road-safety analogy | Harley explanatory analogy | Useful only if it clarifies composition evidence without being mistaken for formal equivalence. |
-| Portfolio testing surfaces named in the Terra draft | Public repository evidence | May verify implementation facts if those claims survive discovery; no fresh verification was required for this first checkpoint. |
-| RED/GREEN pressure-testing lineage | Existing pinned `obra/superpowers` source from the Phase 7 brief and plan | Inherited practice. Preserve attribution. |
-| Scenario/result evidence-custody composition | Existing Phase 7 design and Marketplace evidence | Harley-specific composition under the existing originality boundary; currently a worked agentic application, not the article's destination. |
+- Exercise a single externally meaningful journey through the controlled application boundary.
+- Often begin with one API call, follow resultant state mutations and side effects, assert persisted state, and mock dependencies at the application boundary.
+- Need not begin with an API call; the essential shape is one input from outside, no uncontrolled outputs to dependencies, and observation of the application's resulting state.
+- Unit proof does not compose automatically into application proof. Harley's analogy: every component of a car can be mechanically fit for purpose without proving that the assembled car is road-safe. Unit and acceptance tests test different compositions of the same components.
+- This is a first-principles judgement, not a lesson that required waiting for a production failure.
 
-No employer-private system, customer, internal metric or confidential implementation detail has entered the discovery room so far.
+### Integration tests
 
-## Material answer log
+- Black-box external behaviour tests against a running instance of the application.
+- Follow real dependency interactions outward to sandbox/non-live dependencies; external dependencies are not mocked, but they are not production either.
+- Often model a consumer behaviour through a sequence of API calls.
+- The internals of the application are not directly under test; inability to stop on an internal breakpoint is a useful expression of the boundary.
+- Expensive by design. Run in CD rather than the fast CI loop; must pass before deployment but should not be churned on every development iteration.
 
-### Engineering before agents
+## Emerging argument candidates
 
-Harley's intended article is about engineering judgement first. The agentic material earns its place by showing the same first principles applied when the code under test becomes prose intended to shape behaviour in a non-deterministic system.
+- A test earns its place from both the evidence it provides and the cost of obtaining that evidence.
+- Use the cheapest test scope that can genuinely prove the behaviour at issue, then run that evidence at the cadence its cost permits.
+- Testing strategy includes execution strategy, but YAGNI still applies: preserve future mechanical parallelism without paying sharding complexity before it is needed.
+- Different scopes are not larger/smaller versions of the same proof; they observe different compositions and therefore support different claims.
 
-Editorial consequence: do not let the pressure-testing or evidence-custody material consume the article. It should demonstrate transfer of established engineering reasoning into agentic work.
+## Editorial cautions
 
-### Scope boundary: the discussion so far is backend testing
+- Do not make “shard from the start” the lesson; Harley explicitly rejected that as bullshit.
+- Do not imply acceptance tests exist only because unit tests have failed in production; the need follows from composition reasoning.
+- Do not generalise the current backend model to frontend testing.
 
-Harley corrected an early editorial simplification: frontend testing is its own substantial category with its own meaningful test scopes. The unit/application/integration model discovered so far describes backend testing principles.
+### Contract/schema validation as a claim across scopes
 
-Do not collapse frontend into a single `browser tests` rung. Discover it separately before writing that part of the article.
+- Harley does not naturally treat contract tests as a separate rung. In one professional API project, contract-like input validation is exercised across the existing unit, application/acceptance and integration scopes.
+- The API has serializer/schema rules that refuse input type coercion, plus validators on input models in the MediatR pipeline that reject invalid requests before the handler runs.
+- Unit evidence: the validator rejects the invalid model for the right reason.
+- Application/acceptance evidence: a request with the bad shape is rejected cleanly at the correct point, does not leak past the validator into later application behaviour, and produces the expected rejection messages for that class of failure.
+- Integration evidence: valid requests get through; invalid requests are rejected from outside the running API with the expected rejection message.
+- Editorial consequence: the same behavioural contract can legitimately have tests at several scopes without those tests being redundant. Each scope proves a different part of the enforcement chain: local rule, application composition/wiring and externally observed boundary behaviour.
+- `Acceptance` is the project-local name for what Harley conceptually classifies as application tests. Preserve that distinction if the project is ever named publicly.
 
-### Unit tests: abundant, small and cheap enough to live in the fast loop
+### Integration environment: real persistence, safe environment
 
-Harley's normal unit-test posture is abundant coverage through small unit-shaped slices of proven functionality. They run often, catch regressions quickly and provide the main TDD lever: write a small RED test, make the smallest responsible change to turn it GREEN, then iterate.
+Harley added an important reason integration tests are expensive: they run against a real application instance backed by a real database. The database is not an in-memory substitute, because some behaviour only becomes meaningful across time and across multiple external interactions.
 
-The useful property is not merely that an individual unit test is fast. The suite has to preserve fast feedback as it grows.
+In Harley's practice, the backing database is environment-specific:
 
-Harley's scale example is roughly 3,000 unit tests. Run in series, that suite can take more than ten minutes. Split across five parallel shards, the same suite can return in roughly two minutes. A ten-minute CI wait becomes drag when engineers are iterating quickly.
+- locally, the development database;
+- in the delivery pipeline, a staging-slot database associated with the build under test;
+- ordinarily not the production database.
 
-#### Correction: the lesson is not `shard from the start`
+The key judgement is that integration tests should have run against the same build that will be deployed to production, in an environment realistic enough to preserve the behaviours being observed.
 
-Harley explicitly rejected that interpretation as premature engineering. The lesson is to have a test organisation that makes sharding boring and mechanical when feedback time eventually becomes a problem.
+Harley explicitly softened this from an absolute prohibition on production execution. Tenant isolation can mitigate the main risk by placing synthetic integration-test artefacts into a dedicated tenant for later sweep cleanup. That makes production execution technically containable, but it also creates cleanup and lifecycle work.
 
-Test structure should reflect the area of behaviour under test. If 3,000 tests eventually live in one `tests.py`, scaling the runner exposes an organisational problem. Even one broad `api_tests.py` file makes later partitioning harder than a suite that was already organised around meaningful areas.
+His practical position is: why create that work unless production itself is necessary to answer some specific claim? He cannot currently think of a reason his integration tests would need to run against the production instance. Safe pre-production execution already proves the build against real persistence and real dependency behaviour without contaminating live data.
 
-Current editorial formulation, not yet author-approved as final copy:
+Editorial consequence: distinguish **production-representative execution** from **execution in production**. Do not write this as a universal ban. The stronger first-principles rule is that the environment should be no more production-like than the claim requires, and synthetic production state needs an explicit reason to exist.
 
-> Do not pay for scale before you need it. Do not structure the suite so that scale requires surgery when you do.
+This also strengthens the reason integration belongs in CD rather than the tight CI loop: standing up or targeting a running instance plus a real database and sandbox dependencies buys broader behavioural evidence at a materially higher execution cost.
 
-A related distinction worth retaining is **test architecture versus test infrastructure**: organise the suite so safe concurrency and partitioning are possible; spend the infrastructure complexity only when the economics justify it.
+### Integration tests can prove temporal consumer behaviour
 
-### Acceptance/application tests: prove the controlled application composes
+Harley supplied an illustrative integration-test shape to show what the external boundary can buy. It is not a claim that this exact test currently exists in the professional project; it is an off-the-cuff example that would be straightforward to write and, in Harley's judgement, is a good use of the integration boundary.
 
-Harley does not need a production failure story to justify application-level evidence. The epistemic gap exists regardless of whether somebody has already been hurt by it.
+Example sequence:
 
-His analogy: safety testing can prove every individual part of a car is mechanically fit for purpose. Without testing the assembled car as a car, those component results are not enough reason to put your granny in it and assume the whole thing is safe.
+1. Send a create request whose schema is valid but whose values trigger a subtle edge validation case; receive an ID.
+2. Poll for the result associated with that ID until a result is available.
+3. Observe that the result reports validation failure.
+4. Deliberately correct the input, submit again, receive a new ID and observe that the new request is not rejected for that validation case.
 
-The backend equivalent is unit versus acceptance/application evidence. They test different compositions of the same components.
-
-Harley's application-test shape is usually one meaningful input from outside the application, often an API call, followed through the controlled application to its own boundary and back. The test observes and asserts the resulting persisted state mutations and internal side effects. Dependencies beyond the application boundary are mocked or otherwise controlled.
-
-The important distinction is not `API` versus `non-API`. It is the evidence boundary: one outside stimulus enters; the application is allowed to compose its real internal behaviour; external dependencies do not become part of the proof.
-
-These tests run regularly because they provide broader composition evidence while remaining inside a controlled application environment.
-
-### Integration tests: prove external behaviour against a running system
-
-Harley's integration-test definition moves the observation point fully outside the application.
-
-The test drives a running instance from the outside and follows real dependency behaviour into safe sandbox dependencies. External dependencies are not mocked, but they are not live production systems either. A test may consist of a sequence of API calls that together fulfil an API-consumer behaviour under test.
-
-The application's internals are deliberately not the direct test surface. Harley's practical rule is that you should not be able to stop on a breakpoint inside the code under test as part of the integration-test design. The observed subject is the externally visible behaviour of the running application and its integrations.
-
-These tests are inherently more expensive. Harley runs them in CD rather than churning them in CI. They are a deployment gate: they need to pass before deployment proceeds, but their cost makes them a poor fit for the tight coding-feedback loop.
-
-### Current backend evidence progression
-
-The discovered distinction is not `small / medium / large` tests for its own sake.
-
-- Unit evidence asks whether a small behaviour works in isolation.
-- Acceptance/application evidence asks whether those behaviours compose correctly inside the controlled application.
-- Integration evidence asks whether the running application behaves correctly from outside when its real external collaborations are exercised against safe environments.
-
-All three can examine the same broad feature and still answer materially different questions. A green result at one scope does not logically inherit the proof supplied by another scope.
-
-## Corrections to the existing drafts
-
-1. **Engineering is the centre of gravity.** Agentic testing is a worked application, not the governing destination.
-2. **The backend model is not a complete testing taxonomy.** Frontend testing remains a separate undiscovered family.
-3. **Acceptance evidence does not need a prior production scar to be justified.** Composition itself creates a different claim requiring different evidence.
-4. **Do not say `shard from the start`.** Preserve YAGNI while structuring the suite so future sharding is mechanical rather than surgical.
-5. **The roughly 3,000-test example is about feedback economics.** Individually cheap tests can become an expensive suite at scale.
-6. **Reduce the prominence of `the scenario travels; the result stays with the run`.** Keep the custody rule as an agentic application of the evidence argument unless later discovery proves it deserves more weight.
+Editorial consequence: integration scope can prove more than endpoint acceptance/rejection. It can prove a consumer-visible sequence across time, correlation IDs, persisted state and multiple interactions with a real running system. Lower scopes can test the constituent rules and composition, but they cannot by themselves prove that whole external protocol behaves correctly over time.
 
 ## Open discovery
 
 - Discover Harley's frontend testing model as its own family rather than treating browser tests as the whole frontend story.
-- Decide whether contract tests are a distinct evidence class in Harley's practice or an assertion style that lives within application/integration scopes.
 - Discover any other backend scopes that genuinely add engineering judgement rather than completeness for completeness's sake.
 - Discover Harley's separate model for classifying tests when the artefact under test is behavioural prose and the system is non-deterministic.
 - Map the backend evidence scopes into that agentic worked example without pretending determinism transfers unchanged.
@@ -119,11 +105,6 @@ All three can examine the same broad feature and still answer materially differe
 - `Fast` is a property of the feedback loop, not merely of an individual test.
 - The car component-safety / road-safety analogy for composition evidence.
 - Test organisation by meaningful behavioural area as an enabler of later parallelism.
+- Production-representative evidence without unnecessarily using production state.
 
 No new material from this batch belongs in `cross-article-thread-ledger.md` yet.
-
-## Checkpoint decision
-
-This checkpoint is worth a GitHub write because a meaningful batch of discovery changed both the factual scope and the governing direction: engineering-first rather than agent-first, backend rather than universal taxonomy, composition evidence rather than failure-story dependence, and scale-ready organisation rather than premature sharding.
-
-The current manuscript is reconciled in `testing-evidence-cloud-first-draft.md`. The cross-article ledger has been reviewed and requires no addition for this batch.
