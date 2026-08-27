@@ -10,6 +10,22 @@ These files are durable internal editorial source material for the Phase 7 writi
 - Cross-repository facts must be reverified against the live source before publication.
 - Public article content lives in `src/client/src/data/content/writing/`; the admission and source-custody ledgers govern publication.
 
+## Cloud editorial-room persistence cadence
+
+Keep a repo-local answer log throughout the conversation. Append every material answer, correction, factual boundary, editorial decision and valuable cutting-room thread while it is fresh. Local writes are cheap protection against context rot; they do not need a GitHub commit on every turn.
+
+Commit and push a coherent editorial checkpoint only when the accumulated state justifies the wall-clock cost. Useful checkpoint triggers are:
+
+- a meaningful batch of new evidence or answered questions;
+- a changed factual boundary or governing argument;
+- acceptance of a curveball reframe, after its consequences have been carried through the argument and notes;
+- approaching a context, session or time-box risk where losing the local state would be expensive; and
+- the final handoff back to local production.
+
+There is no fixed turn count or timer. Judge the recovery value of the accumulated state against the cost of interrupting discovery to prepare, commit and push it. Between GitHub checkpoints, keep the local log current enough that a sudden interruption loses conversation time, not editorial knowledge.
+
+Before each GitHub checkpoint, reconcile the local answer log, current manuscript and cross-article ledger so the commit is a coherent recovery point. At final handoff, retain the durable discovery record and valuable cross-article notes; remove disposable briefs and intermediate manuscripts once their decisions are present in the production article or durable record.
+
 ## Preserved draft stack
 
 - `context-terra-draft.md`
