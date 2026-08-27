@@ -21,10 +21,7 @@ These files are durable internal editorial source material for the Phase 7 writi
 - `provisioning-cloud-first-draft.md`
 - `cross-article-thread-ledger.md`
 - `review-graph-terra-draft.md`
-- `review-graph-sol-first-pass.md`
-- `review-graph-cloud-editorial-brief.md`
 - `review-graph-cloud-discovery-checkpoint.md`
-- `review-graph-cloud-working-draft.md`
 - `testing-evidence-terra-draft.md`
 - `why-adrs-terra-draft.md`
 - `why-adrs-sol-draft.md`
@@ -41,7 +38,7 @@ The Terra files are first-pass working drafts. The Why ADRs Sol file incorporate
 
 `cross-article-thread-ledger.md` preserves valuable material deliberately cut from a current article and routes it towards a plausible future home. It is editorial memory, not a promise that every thread will become an article.
 
-The Review Graph files open the next time-boxed Cloud editorial room. `review-graph-sol-first-pass.md` is one bounded local Sol improvement pass over the Terra draft and live Marketplace truth. The Cloud brief governs a three-hour target and five-hour hard stop. The checkpoint is append-only conversational memory; the working draft may be replaced regularly as the story settles.
+`review-graph-cloud-discovery-checkpoint.md` is the durable record of the completed time-boxed editorial room. The brief, working manuscript and first local pass were deliberately removed once the article settled; the public source is the production article, while the checkpoint retains the facts, boundaries, decisions and cutting-room material needed by later work.
 
 For Provisioning, the current editorial read order is:
 
@@ -51,14 +48,12 @@ For Provisioning, the current editorial read order is:
 4. `provisioning-cloud-first-draft.md`
 5. source surfaces named by the two discovery records as needed for verification
 
-For Review Graph, the current editorial read order is:
+For Review Graph, the durable editorial read order is:
 
 1. `review-graph-cloud-discovery-checkpoint.md`
-2. `review-graph-sol-first-pass.md`
-3. `review-graph-terra-draft.md`
-4. `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
-5. the Graph passages in the Phase 7 plan
-6. `cross-article-thread-ledger.md`
-7. the pinned Marketplace implementation, design and roadmap named by the Cloud brief
+2. `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+3. the Graph passages in the Phase 7 plan
+4. `cross-article-thread-ledger.md`
+5. the pinned Marketplace implementation, design and roadmap named in the checkpoint
 
 Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.

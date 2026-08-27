@@ -69,11 +69,11 @@
     {
       "slug": "graph-iterative-review",
       "kind": "writing",
-      "title": "The graph I built to keep a review agent from going in circles",
+      "title": "If you write a loop, don't be surprised when your agent starts looping",
       "date": "2026-08-05",
-      "readingMinutes": 6,
+      "readingMinutes": 12,
       "status": "published",
-      "summary": "Why a state graph beat a checklist for agentic review, and the pitfall of the reviewer reviewing itself.",
+      "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
       "path": "writing/2026-08-05-graph-iterative-review.md",
       "tags": ["writing", "agentic-engineering", "review"],
       "relatedSlugs": []

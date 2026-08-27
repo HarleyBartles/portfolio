@@ -1,6 +1,6 @@
 # Review graph: Cloud discovery checkpoint
 
-Status: active editorial-room memory for the draft PR
+Status: durable editorial-room record; discovery completed 27 August 2026
 
 This file is the durable answer ledger for Cloud Sol's conversation with Harley. Append to it during discovery. Do not rewrite an earlier answer merely because the manuscript changes. If later evidence corrects an entry, add a dated correction that points back to the earlier item.
 
@@ -267,21 +267,10 @@ Editorial consequence: use this sequence as the article's causal backbone: prose
 - `make the fast fix fast review loop robust and boring`
 - `no new findings occur can't be assumed from everything asked for previously is resolved`
 
-## Current manuscript pass
+## Editorial outcome
 
-- Working manuscript: `docs/editorial-drafts/phase-7/review-graph-cloud-working-draft.md`
-- Reframed draft commit: `ed00017eeb89cdfee2fd4d67d1d2f510172f6f03`
-- Approximate length: 2,399 words.
-- Working title: `If you write a loop, don't be surprised when your agent starts looping`.
-- Structure: original prose loop -> explicit graph -> mechanical/JIT authority -> linked-loop diagnosis -> workflow authority -> prose vs gates -> v1 strengths -> current churn -> v2 principles -> proof standard.
-- Three deliberate pull quotes are present.
-- No admission-state change. PR #35 remains a draft editorial room.
-
-## Baton status
-
-Current status: discovery active
-
-At the hard stop, replace this with exactly one of:
-- `Ready for local production` and the settled argument, factual boundary and manuscript path;
-- `Needs one named fact` and the single fact still required; or
-- `Not yet publishable` and the honest editorial reason.
+- Production article: `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+- Settled title: `If you write a loop, don't be surprised when your agent starts looping`.
+- Final structure: original prose loop -> explicit graph -> mechanical/JIT authority -> linked-loop diagnosis -> workflow authority -> prose versus gates -> version-one strengths -> current churn -> version-two principles -> proof standard.
+- The three deliberate pull quotes remain in the production article.
+- The working manuscript, Cloud brief and local first pass were removed after their decisions were incorporated here and in the public article. This checkpoint and the cross-article ledger retain the material that has a future editorial use.

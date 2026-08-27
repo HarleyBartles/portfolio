@@ -124,7 +124,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(links).toHaveLength(2)
     expect(links[0]).toHaveAttribute('href', '/portfolio/writing/graph-iterative-review')
     expect(links[0]).toHaveTextContent('Follow the review machinery')
-    expect(links[0]).toHaveTextContent('The graph I built to keep a review agent from going in circles')
+    expect(links[0]).toHaveTextContent("If you write a loop, don't be surprised when your agent starts looping")
     expect(links[1]).toHaveAttribute('href', '/portfolio/writing/provisioning-is-not-accumulation')
     expect(links[1]).toHaveTextContent('Follow the environment boundary')
     expect(links[1]).toHaveTextContent('Provisioning is not accumulation')
@@ -190,6 +190,33 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 
+  test('gives the review-graph article its full-width captured graph and authored continuations', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/graph-iterative-review'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const header = await screen.findByRole('region', { name: 'Review graph article introduction' }, { timeout: 5_000 })
+    expect(header).toHaveAttribute('data-visual-contract', 'review-graph-authority')
+    const figure = await within(header).findByRole('figure', undefined, { timeout: 5_000 })
+    expect(figure).toHaveAccessibleDescription('A trustworthy review graph turns recorded state into one lawful next action or an honest blocked exit.')
+    expect(within(header).getByRole('img', { name: /version-one iterative-review graph/i })).toBeVisible()
+
+    const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
+    const links = within(continuations).getAllByRole('link')
+    expect(links[0]).toHaveAttribute('href', '/portfolio/writing/provisioning-is-not-accumulation')
+    expect(links[0]).toHaveTextContent('See the environment boundary')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(links[1]).toHaveTextContent('Keep the evidence durable')
+    expect(container.querySelector('.content-navigation')).toBeNull()
+  })
+
   test('keeps chronological writing navigation for a legacy article', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
@@ -205,7 +232,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const header = await screen.findByRole('heading', { level: 1, name: 'Context is not the same as state' }, { timeout: 5_000 })
     expect(header.closest('.content-page-header')).not.toHaveClass('content-page-header--visual')
     expect(screen.getByRole('link', { name: /previous: provisioning is not accumulation/i })).toBeVisible()
-    expect(screen.getByRole('link', { name: /next: the graph i built/i })).toBeVisible()
+    expect(screen.getByRole('link', { name: /next: if you write a loop/i })).toBeVisible()
     expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
   }, 10_000)
 })

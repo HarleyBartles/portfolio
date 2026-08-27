@@ -49,4 +49,21 @@ describe('writing presentations', () => {
       ],
     })
   })
+
+  test('registers the review graph as an authority contract rather than a decorative diagram', () => {
+    const presentation = getWritingPresentation('graph-iterative-review')
+
+    expect(presentation).toMatchObject({
+      regionLabel: 'Review graph article introduction',
+      visualContract: 'review-graph-authority',
+      figure: {
+        id: 'review-graph-authority-visual',
+        description: 'A trustworthy review graph turns recorded state into one lawful next action or an honest blocked exit.',
+      },
+      continuations: [
+        { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary' },
+        { slug: 'context-is-not-state', eyebrow: 'Keep the evidence durable' },
+      ],
+    })
+  })
 })

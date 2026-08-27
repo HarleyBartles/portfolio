@@ -60,6 +60,19 @@ const writingPresentations = {
       { slug: 'context-is-not-state', eyebrow: 'Separate context from durable state', rationale: 'Separate context from durable state' },
     ],
   },
+  'graph-iterative-review': {
+    regionLabel: 'Review graph article introduction',
+    visualContract: 'review-graph-authority',
+    figure: {
+      id: 'review-graph-authority-visual',
+      description: 'A trustworthy review graph turns recorded state into one lawful next action or an honest blocked exit.',
+      Component: lazy(async () => ({ default: (await import('./ReviewGraphFigure')).ReviewGraphFigure })),
+    },
+    continuations: [
+      { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary', rationale: 'See the environment boundary' },
+      { slug: 'context-is-not-state', eyebrow: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
+    ],
+  },
 } as const satisfies Record<string, WritingPresentation>
 
 export function getWritingPresentation(slug: string): WritingPresentation | undefined {
