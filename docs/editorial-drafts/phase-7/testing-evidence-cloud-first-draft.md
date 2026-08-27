@@ -1,6 +1,6 @@
 # Cloud first draft — Tests are different kinds of evidence
 
-**Status:** Checkpoint-2 manuscript from Cloud editorial discovery. Not publication-ready, not admitted, and deliberately incomplete. Frontend testing, the agentic worked example and the required curveball reframe remain under discovery.
+**Status:** Checkpoint-3 manuscript from Cloud editorial discovery. Not publication-ready, not admitted, and deliberately incomplete. The conventional backend/frontend engineering half is now coherent; the agentic worked example and required curveball reframe remain under discovery.
 
 **Current working argument:** Tests earn their place from both the evidence they provide and the cost of obtaining that evidence. Good engineering matches test scope to the behaviour under question, then keeps that evidence at a cadence the delivery loop can afford.
 
@@ -54,7 +54,7 @@ That is not necessarily redundant coverage. The same behavioural contract is bei
 
 So I am wary of treating `contract tests` as an obligatory fourth rung. Sometimes the contract is the claim under test, while unit, application and integration scopes provide different evidence that the contract is implemented, composed and exposed correctly.
 
-## Integration tests buy external behaviour across a real build
+## Integration tests prove a running build
 
 For integration evidence, I move the observation point outside the application.
 
@@ -76,24 +76,70 @@ That also explains why I generally would not run the same integration suite agai
 
 The useful distinction is production-representative execution versus execution in production. Test the build in an environment realistic enough for the claim. Do not make the environment more dangerous merely to make it feel more real.
 
+## Frontend is the same logic in a smaller organism
+
+React is my bread and butter, but I am not going to pretend to be a frontend-testing guru. Jest and Vitest cover what I usually need.
+
+Conceptually, frontend testing feels like a smaller model organism of the backend strategy. Components get direct tests. API clients get tests at their boundary. Routing gets tests because navigation and composition can fail independently. TypeScript and some discipline carry part of the contract statically rather than making every guarantee wait for a runtime test.
+
+The philosophy does not change. I still want to know what claim I am making and which observation can honestly falsify it.
+
+Some frontend claims need a very different kind of evidence, though.
+
+## Visual regression is supposed to be nosy
+
+This portfolio is a good example because the frontend is part of the product, not decoration around it. I visually regression-test selected authored compositions.
+
+That comes with overhead. Change the title of one article and a related article that links to it can become taller on mobile because the longer title wraps onto another line. A screenshot test can go red somewhere I did not think I was changing.
+
+I consider that worth paying for.
+
+The red result does not automatically mean I broke the page. It means my change had a visible consequence that crossed the boundary I had in my head. I look at it, decide whether the new result is legitimate and, if it is, deliberately update the baseline and make the test green again.
+
+That is an important distinction. A visual baseline is not a sacred picture of the old product. It is a reviewed expectation. Sometimes the test is telling me I caused accidental drift. Sometimes it is forcing me to acknowledge a valid change I would otherwise have missed.
+
+The portfolio's own testing policy makes that explicit. It protects selected signature compositions, stabilises randomness, motion, fonts and viewports, and expects baseline changes to be reviewed rather than sprayed across the suite until CI shuts up.
+
+There is a cost to having a test this sensitive. The cost buys awareness of spatial coupling elsewhere in the product.
+
+## Accessibility is a contract
+
+I do not think of accessibility as another test scope. Accessibility is a product contract, and contracts should be tested.
+
+A site that claims to be accessible can lose that claim through one poor judgement call. Tests help keep that claim honest, but I am not an accessibility specialist and I do not invent the rules myself. I hold the product to published accessibility standards.
+
+That still takes some baseline understanding from the engineer. I have had product ask for red text on a green background to indicate a row state. Hard decline. I already know enough to see the problem for colour-blind users; I do not need to wait for a scanner to grant me permission to object.
+
+The standards are the authority. Automation can enforce a useful part of them. Human judgement still has to recognise when a design choice is plainly working against the contract.
+
+That is another reason I do not like pretending one green suite can certify the whole product. A scanner can prove what it actually checks. It cannot turn off the engineer's responsibility to think.
+
+## Some evidence has a different owner
+
+Professionally, I do not usually write the automated browser-journey tests. QA own the Playwright suites.
+
+That does not make the journey somebody else's concern. If I care that a journey is coherent, I run it as a user would use it. Dogfooding my own work is as good a proof of usability as I can personally give.
+
+Component tests can prove component behaviour. Client tests can prove client behaviour. Routing tests can prove routing. None of them can tell me whether the assembled experience actually feels coherent when I use it from the outside.
+
+Test strategy therefore includes ownership as well as scope. I do not need to personally author every automated proof. I do need to understand which claim needs evidence, what kind of evidence can answer it and who owns keeping that evidence alive.
+
 ## Green belongs to a question
 
-These scopes can all examine the same broad feature and still answer materially different questions.
+Across backend and frontend, the pattern is the same.
 
-A unit test can prove a small rule. An application test can prove that those rules compose correctly inside the controlled application. An integration test can prove the externally visible behaviour of a specific running build with real persistence and safe integrations.
+A unit test can prove a small rule. An application test can prove that those rules compose correctly inside a controlled application. An integration test can prove the externally visible behaviour of a specific running build with real persistence and safe integrations. A visual regression can prove that a reviewed composition did not drift unnoticed. An accessibility suite can enforce objective parts of a product contract. Dogfooding can answer a usability question that no isolated component test can.
 
 None of those green results inherits the others' jurisdiction.
 
-That is the testing habit I care about more than any framework: before celebrating green, know which behaviour the test observed, which composition it exercised, what build and environment produced the result, and what remains outside the boundary.
+That is the testing habit I care about more than any framework: before celebrating green, know which behaviour the test observed, which composition it exercised, what build and environment produced the result, what the evidence cost to obtain, and what remains outside the boundary.
 
-The same reasoning becomes more interesting once the system under test is no longer deterministic application code. In agentic engineering, some of the code under test is prose intended to shape behaviour. A scenario may be reusable while the observation is tied to a particular model, harness, toolset, repository state and run. I use the same engineering questions there too: what behaviour am I trying to prove, what is the cheapest credible observation, and which parts of the environment are actually inside the evidence boundary?
+The same reasoning becomes more interesting once the system under test is no longer deterministic application code. In agentic engineering, some of the code under test is prose intended to shape behaviour. A scenario may be reusable while the observation is tied to a particular model, harness, toolset, repository state and run.
 
-That is where the agentic worked example will enter this article. It should demonstrate the transfer of ordinary engineering judgement into a strange substrate, not turn the piece into an agents article with a testing preface.
+That is the next question for this article: if the engineering principles are real rather than merely familiar, what happens when I apply them to a system where identical inputs do not guarantee identical behaviour?
 
 ## Still under discovery
 
-This backend model is not a complete theory of testing. Frontend testing is its own substantial family with meaningful scopes that have not yet been discovered for this draft. Other backend evidence classes should only be added where Harley's actual practice gives them distinct value.
-
-The agentic example also needs its own evidence map before the manuscript can settle. The existing Superpowers-derived RED/GREEN pressure-testing lineage and Harley's portable-scenario/run-bound-result custody rule remain available, but their final weight should follow the engineering argument rather than dictate it.
+The conventional engineering half is now coherent enough to hand off and recover. The next editorial phase needs to discover Harley's evidence model for agentic behaviour, preserve the Superpowers lineage boundary, test the portable-scenario/run-bound-result custody rule against the engineering principles above, and then perform the required materially different curveball reframe.
 
 No admission or publication decision has been made.
