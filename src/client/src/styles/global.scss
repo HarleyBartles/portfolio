@@ -798,19 +798,6 @@ main,
   color: var(--color-muted);
 }
 
-.footer-primary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6) var(--space-10);
-  justify-content: space-between;
-  align-items: start;
-}
-
-.footer-primary p {
-  max-width: 34rem;
-  margin: 0;
-}
-
 .footer-links {
   display: flex;
   flex-wrap: wrap;
@@ -2121,9 +2108,6 @@ main,
     margin-bottom: 0;
   }
 
-  .footer-primary {
-    flex-direction: column;
-  }
 }
 
 @media (max-width: 30rem) {

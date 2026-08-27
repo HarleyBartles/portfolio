@@ -1,0 +1,32 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#1f241f', 'primaryColor': '#1f241f', 'primaryTextColor': '#fffaf0', 'primaryBorderColor': '#d6cfc2', 'lineColor': '#d6cfc2', 'secondaryColor': '#1f241f', 'tertiaryColor': '#1f241f', 'edgeLabelBackground': '#535047', 'fontFamily': 'Fira Code, monospace' }}}%%
+flowchart TD
+    setup --> normalize-inputs --> preflight
+    preflight -->|red| fast-fix --> preflight
+    preflight -->|green| scope-honesty --> reviewer-fast
+    reviewer-fast -->|findings| lens-triage
+    reviewer-fast -->|clean| lens-dispatch
+    lens-triage -->|unresolved blocking/important from reviewer-fast| metrics-track
+    lens-triage -->|clean or trivial from reviewer-fast| lens-dispatch
+    metrics-track --> finding-fix
+    finding-fix -->|round cap exceeded| blocked
+    finding-fix --> re-preflight
+    re-preflight -->|red| fast-fix --> re-preflight
+    re-preflight -->|green and fast finding| lens-dispatch
+    re-preflight -->|green and deep finding| reviewer-fixes
+    lens-dispatch --> normalize-inputs --> lens-triage
+    lens-triage -->|unresolved blocking/important| metrics-track
+    lens-triage -->|trivial/deferred| final-strong
+    lens-triage -->|clean| final-strong
+    lens-triage -->|contested/load-bearing| blocked
+    reviewer-fixes -->|original fixed, no regressions| resolved-ledger
+    reviewer-fixes -->|original not fixed| finding-fix
+    reviewer-fixes -->|new issue, same lens/blast radius| metrics-track
+    reviewer-fixes -->|non-trivial or cross-cutting| regression-scan
+    regression-scan -->|clean| resolved-ledger
+    regression-scan -->|new confirmed| metrics-track
+    resolved-ledger -->|more open findings| finding-fix
+    resolved-ledger -->|all findings resolved| final-strong
+    final-strong -->|clean| closeout
+    final-strong -->|findings| metrics-track
+    final-strong -->|contested/load-bearing| blocked
+    closeout --> ready

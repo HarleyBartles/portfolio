@@ -14,6 +14,32 @@ Audience priority is:
 2. senior engineers and technical peers;
 3. agentic-workflow practitioners and learners.
 
+## Portfolio-wide editorial decision lenses
+
+Every material editorial choice across the portfolio is judged through three lenses. These are decision tools, not three separate sections or audiences to pander to in the public copy. A choice is not finished merely because it satisfies one lens.
+
+### £10k agency lens
+
+`Is it £10k?` is shorthand for: would we be comfortable paying £10,000 for this site if a respectable agency delivered it?
+
+This is a finish and copy-quality test, not a literal valuation of an individual article or engineering idea. The work should feel properly edited, structured, restrained, specific, coherent and presentation-ready. Strong technical material still fails this lens when the copy feels amateur, rambling, repetitive, generic, obviously AI-shaped or unfinished.
+
+### Weary sceptical hiring manager
+
+Assume the hiring manager has already looked at ten portfolios today from people claiming to be a `senior software engineer working at the frontier of agentic engineering`. None has yet proved to be a good engineer. Three looked promising enough to forward to the architect and were quickly laughed off.
+
+The hiring manager is now protecting their own judgement. They will not forward another candidate unless the evidence is legible and credible enough that sending the URL feels safe. Editorial choices should shorten the path from claim to inspectable proof and remove reasons for a cautious reader to dismiss the work before that proof lands.
+
+### Jaded cynical architect
+
+Assume the architect has seen every variation of a developer recognising an advanced pattern by name without understanding it deeply. They are good at stripping presentation away until only the engineer's actual knowledge remains. They have already had three weak candidates forwarded today and expect the next one to be the same.
+
+The work must survive hostile technical scrutiny: why this design, what failed, what was rejected, which trade-offs were made, what the evidence proves, where the claim stops, what remains unresolved, and whether the author can distinguish implementation reality from aspiration. Pattern vocabulary is not evidence.
+
+The target reactions are simple: the hiring manager should think `I am not going to look stupid forwarding this one`; the architect should think `annoyingly, this person actually does understand what they're talking about`.
+
+Truth, evidence, privacy and Harley's author judgement still outrank all three lenses. The lenses shape how established truth is selected, ordered and presented; they do not license stronger claims.
+
 ## Design invariants
 
 - **Proof before pitch.** Projects, articles, and artefacts demonstrate judgement. Repeated claims that Harley is good are not a substitute for inspectable evidence.

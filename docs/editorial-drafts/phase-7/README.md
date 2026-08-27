@@ -10,6 +10,22 @@ These files are durable internal editorial source material for the Phase 7 writi
 - Cross-repository facts must be reverified against the live source before publication.
 - Public article content lives in `src/client/src/data/content/writing/`; the admission and source-custody ledgers govern publication.
 
+## Cloud editorial-room persistence cadence
+
+Keep a repo-local answer log throughout the conversation. Append every material answer, correction, factual boundary, editorial decision and valuable cutting-room thread while it is fresh. Local writes are cheap protection against context rot; they do not need a GitHub commit on every turn.
+
+Commit and push a coherent editorial checkpoint only when the accumulated state justifies the wall-clock cost. Useful checkpoint triggers are:
+
+- a meaningful batch of new evidence or answered questions;
+- a changed factual boundary or governing argument;
+- acceptance of a curveball reframe, after its consequences have been carried through the argument and notes;
+- approaching a context, session or time-box risk where losing the local state would be expensive; and
+- the final handoff back to local production.
+
+There is no fixed turn count or timer. Judge the recovery value of the accumulated state against the cost of interrupting discovery to prepare, commit and push it. Between GitHub checkpoints, keep the local log current enough that a sudden interruption loses conversation time, not editorial knowledge.
+
+Before each GitHub checkpoint, reconcile the local answer log, current manuscript and cross-article ledger so the commit is a coherent recovery point. At final handoff, retain the durable discovery record and valuable cross-article notes; remove disposable briefs and intermediate manuscripts once their decisions are present in the production article or durable record.
+
 ## Preserved draft stack
 
 - `context-terra-draft.md`
@@ -19,7 +35,9 @@ These files are durable internal editorial source material for the Phase 7 writi
 - `provisioning-cloud-discovery-record.md`
 - `provisioning-cloud-discovery-addendum.md`
 - `provisioning-cloud-first-draft.md`
+- `cross-article-thread-ledger.md`
 - `review-graph-terra-draft.md`
+- `review-graph-cloud-discovery-checkpoint.md`
 - `testing-evidence-terra-draft.md`
 - `why-adrs-terra-draft.md`
 - `why-adrs-sol-draft.md`
@@ -34,6 +52,10 @@ The Terra files are first-pass working drafts. The Why ADRs Sol file incorporate
 
 `provisioning-cloud-first-draft.md` preserves the first coherent Cloud manuscript rather than the settled public copy. The final article was completed in the production source after an in-repo editorial pass using the discovery records and installed writing/fatigue skills.
 
+`cross-article-thread-ledger.md` preserves valuable material deliberately cut from a current article and routes it towards a plausible future home. It is editorial memory, not a promise that every thread will become an article.
+
+`review-graph-cloud-discovery-checkpoint.md` is the durable record of the completed time-boxed editorial room. The brief, working manuscript and first local pass were deliberately removed once the article settled; the public source is the production article, while the checkpoint retains the facts, boundaries, decisions and cutting-room material needed by later work.
+
 For Provisioning, the current editorial read order is:
 
 1. `provisioning-cloud-editorial-brief.md`
@@ -41,5 +63,13 @@ For Provisioning, the current editorial read order is:
 3. `provisioning-cloud-discovery-addendum.md`
 4. `provisioning-cloud-first-draft.md`
 5. source surfaces named by the two discovery records as needed for verification
+
+For Review Graph, the durable editorial read order is:
+
+1. `review-graph-cloud-discovery-checkpoint.md`
+2. `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+3. the Graph passages in the Phase 7 plan
+4. `cross-article-thread-ledger.md`
+5. the pinned Marketplace implementation, design and roadmap named in the checkpoint
 
 Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.

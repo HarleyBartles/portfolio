@@ -248,6 +248,17 @@ The visible game art is first-party project work generated under Harley's direct
 - Alt intent: current development build showing player-known clues, records, and evidence without a hidden culprit answer. Caption framing: current development build / working skeleton.
 - Added: 2026-08-23. The measured derivatives all meet the stated byte targets; no legibility exception is recorded.
 
+## Writing diagram captures
+
+### Iterative Review version-one graph
+
+- Public file: `src/client/public/images/writing/review-graph-v1.svg`.
+- Source: `docs/assets/review-graph-v1.mmd`, a faithful Mermaid capture of `codex-marketplace/plugins/superpowers-plus/skills/iterative-review/references/review-state-graph.md` at first-party Marketplace revision `70dd30e2e65fd8f7aa89796a1a037da14235dd2a`. The capture preserves every node and transition in that source graph; its dark treatment is a portfolio presentation choice, not a claim about the runtime.
+- Rights: Harley Bartles' first-party Marketplace workflow source, published from the public repository; authorised for this portfolio article.
+- Transformation: rendered locally on 2026-08-27 with `@mermaid-js/mermaid-cli` 11.12.0. The retained source is the Mermaid input; the public output is static SVG with the portfolio's ink, surface and border palette, `2428.17 × 1544` view box, 61,984 bytes, SHA-256 `8427a3c8494755c6eb9a4964c4599bd06d7875013c31e67c06a8aaf102ee0879`.
+- Alt and fallback: the concise alt identifies the initial orderly route and the later knot around repair, metrics, triage and final review. The figure caption and article text carry the argument if the image cannot load.
+- Added: 2026-08-27.
+
 ## Removal rule
 
 Before removing or replacing one of these files, search the client source, Markdown, generated route documents, and metadata for its path. Remove every consumer, run the client build and browser suite, and update this record in the same change.
