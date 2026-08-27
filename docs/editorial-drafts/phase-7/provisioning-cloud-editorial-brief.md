@@ -1,8 +1,8 @@
 # Provisioning is not accumulation: Cloud Sol editorial brief
 
-**Baton state:** Cloud editorial discovery / first-draft review
+**Baton state:** Local production complete / merge approved
 
-**Production status:** A first coherent Cloud manuscript now exists, but it is not accepted copy. Local visual production must still wait until Harley marks the manuscript settled.
+**Production status:** Harley approved the settled copy and rendered composition for merge on 27 August 2026. Exact-head hosted checks, merge, deployment and public-route proof remain publication closeout work.
 
 ## Outcome
 
@@ -154,7 +154,7 @@ If the GitHub connector cannot push to the branch, leave a complete proposed pat
 
 ## Completion record
 
-These are the current discovery conclusions, not final-copy approval.
+These are the settled editorial and production conclusions.
 
 - Governing argument: well-provisioned agent environments make durable capability available at the point of need without forcing every worker to carry all supporting machinery all the time; effective semantics are determined by the runtime rather than the apparent file/configuration hierarchy.
 - Publication job: demonstrate senior environment/capability architecture judgement at the agentic frontier without turning the piece into a tool catalogue.
@@ -168,12 +168,14 @@ These are the current discovery conclusions, not final-copy approval.
 - Voice anchors and pull quotes: Harley's “things you keep telling the agent...”, “don't read everything...”, Goldilocks/carry-the-machinery framing, and the direct Handoff Gates/adapter comments in the addendum.
 - Visual proposition: capability can be stored deeply while the active read path stays narrow and task-relevant; Goldilocks already expresses a related idea.
 - Reconsideration condition: change or delete these provisioning patterns when runtimes provide reliable native semantics that make them unnecessary.
-- First coherent draft: saved at `provisioning-cloud-first-draft.md`.
-- Fatigue/voice pass: still required in-repo.
-- Harley copy approval: not yet given.
+- First coherent draft: preserved at `provisioning-cloud-first-draft.md`; the public article is the settled manuscript.
+- Fatigue/voice pass: completed in-repo, including cadence, stock-reversal and whole-page repetition review.
+- Presentation: capability-path semantic figure, established pull-quote grammar, responsive layout and contextual continuations implemented locally.
+- Assessment: £9,200 composed value; fast-to-shortlist hiring-manager argument and fast-to-agree architect argument both pass.
+- Harley copy and merge approval: given 27 August 2026.
 
 ## Local production acceptance
 
-Local Sol accepts the baton for rendered production only when the branch contains the settled manuscript, completed record, updated custody and admission entries, and Harley's explicit copy approval. Until then, Local Sol may reason over and edit the first draft as an editorial worker using both discovery records as authority, but must not mistake that for approval to publish or implement the final page.
+Local Sol accepted the baton after completing the evidence-backed manuscript with Harley, then produced and reviewed the rendered page. The branch now contains the settled manuscript, completed record, updated custody and admission entries, and Harley's explicit merge approval.
 
 The local production stage owns presentation value: principal imagery or semantic figure, hierarchy, pull-quote grammar, responsive behaviour, accessibility, contextual continuations, whole-site visual coherence, focused tests, canonical verification, exact-head PR review, merge, deployment and public-route proof.

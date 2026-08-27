@@ -1,51 +1,97 @@
 ---
 title: Provisioning is not accumulation
 date: 2026-08-12
-summary: More instructions do not make a better agent. Give the right knowledge at the right scope at the right time.
+summary: Capability should be available when the work needs it, without making every agent carry the whole workshop.
 ---
 
-## The first principle
+I asked an agent a fairly ordinary architecture question: “We’re just talking, no plans or specs yet. What are your thoughts on this?”
 
-Early work with agents quickly shows a pattern. You give the same correction twice, then three times. The model forgets a convention, misses a formatting rule, or reintroduces a tool you retired. The natural reaction is to stop typing the same thing and put it somewhere permanent: a project instruction file, a skill, a template. Make the environment remember so the conversation does not have to.
+Before it really answered, it spent a substantial part of its visible reasoning negotiating its own environment. Which skills applied? Was brainstorming mandatory? Which repository rules had become active? Which doctrine needed reading? Did my request to “just talk” override any of that?
 
-This is a good instinct. Expertise should be provisioned, not repeatedly performed. If a system can carry stable knowledge, let it. The energy freed up is not just typing. It is the cognitive load of keeping every convention in working memory while also doing the actual work. Done well, provisioning is one of the highest-leverage changes in an agentic project.
+Later I said, “Still just talking.” Off it went again.
 
-But the instinct has a seductive twin. Once you see that environment knowledge works, you start moving more and more into it. Every useful clarification becomes a rule. Every repeated nudge becomes a policy. Every edge case becomes a guardrail. Eventually the environment is no longer a clean workspace. It is a landfill of good intentions, each one reasonable in isolation.
+None of the individual instructions looked especially foolish. I’d put quite a lot of work into making them reasonable. Across several repositories, though, useful answers had been taking longer to arrive while agents spent more time working out what guidance applied, what they had already satisfied and which rule took precedence.
 
-## More is not better
+The environment was supposed to make them more capable. Increasingly, they had to administer the environment before they could do the work.
 
-Moving every useful rule into the environment can make the agent worse. This is not a problem of willpower or bad models. It is a problem of scope. An agent with too many overlapping instructions does not become more capable. It becomes a mediator between your own accumulated advice.
+## The configuration passed. The runtime didn’t
 
-The symptoms are easy to spot if you know to look. The agent starts to self-discuss. It quotes one rule, then another, then compares them. It performs policy reconciliation before it performs the task. It hesitates before actions that should be obvious. It asks for clarification not because the task is unclear, but because several of your doctrines are all being litigated at once. Tool and skill selection churns. Commitment weakens because the output has to satisfy several overlapping, slightly drifted definitions of good.
+One of the systems behind this was a mesh of `AGENTS.md` files. It wasn’t accidental prompt sprawl. I’d designed it around the [documented hierarchical model](https://learn.chatgpt.com/docs/agent-configuration/agents-md#how-codex-discovers-guidance): broad guidance near the repository root, with increasingly local guidance further down the tree.
 
-I have seen this in my own work. A project instructions file grows over weeks. Each addition was a direct response to a real mistake. No single line is wrong. Together they produce a worker that spends more time balancing your past guidance than writing the next line.
+The intent was conventional: keep global concerns global and local concerns local. An agent working in one part of a repository should be able to discover what is special about that part without loading the operating manual for every other part.
 
-## The diagnosis
+The mesh validator passed. Then I watched one runtime use it.
 
-When this happens, the first explanation is usually that the agent is under-instructed. Add more context. Clarify the priority. Rewrite the rule. The real diagnosis is almost the opposite. The agent is not under-instructed. It is over-provisioned and poorly scoped.
+In that harness, discovering nested `AGENTS.md` files appeared to promote them into the continuing instruction set. A local router intended for one subtree could remain active after the agent had merely explored that subtree. As the repository opened up, the agent accumulated more local law and more `MUST READ` pointers, then had to reconstruct the intended scope and precedence itself.
 
-Over-provisioned means too much knowledge has been pushed into the working context. Poorly scoped means the right knowledge is not at the right level. A formatting rule sits in a global project instruction. A one-off task intent lives forever in a reusable skill. A verification criterion is buried in a prose paragraph. The agent is asked to reason about all of them at once.
+That observation came from retained diagnostic sessions, not a controlled benchmark or a claim about every harness. The public receipt is the resulting [Marketplace migration](https://github.com/HarleyBartles/agent-asset-marketplace/pull/249): thin the retained `AGENTS.md` surfaces, move narrow law behind the runtime’s scoped activation mechanism, audit the old nodes and add guardrails against the same shape returning.
 
-The fix is not more words. The fix is to ask what kind of knowledge each item is, and therefore where it belongs. This is the same discipline we apply to code. A global constant, a local variable, a function, a test assertion, and a comment are all ways to capture knowledge, but they are not interchangeable. Putting a local condition in a global config file makes the whole system brittle. Putting stable project doctrine in a single task prompt makes every conversation repetitive. Agentic instruction has the same shape.
+> **The system is what the runtime does, not what the configuration appears to say.**
 
-## The classification question
+A file tree can describe intended scope. A validator can prove that the files obey the structure you designed. Neither proves that the consumer will preserve those semantics when it assembles the agent’s working environment. We had tested the configuration we wrote, not the configuration the runtime produced.
 
-Before adding another instruction, ask the question. Is this a stable project rule, a task intent, a reusable workflow, or a verification criterion? Each category has a different natural home.
+I didn’t respond by deleting the knowledge. Root instructions became smaller and more durable. Narrow rules moved behind conditional activation where the harness supported it reliably. Skills, runbooks and references remained available as discoverable surfaces instead of becoming ambient reading for every worker.
 
-A stable project rule belongs in project instructions or durable configuration. It holds across tasks. It should be scoped to the workers and directories where it applies. A task intent belongs in the current prompt or task artifact. It should describe the goal of this particular job, not the rules that apply to every job. A reusable workflow belongs in a skill or runbook. It teaches a recurring pattern of work, not a policy. A verification criterion belongs in an explicit check, a test, or a quality contract that can be evaluated against output.
+The knowledge survived; its delivery changed.
 
-The question is not just about storage. It is about when and whether the current worker needs to see the knowledge at all. Sometimes the right answer is that the current worker does not need the rule now. A worker writing unit tests does not need the full orchestration doctrine. A worker routing work does not need the implementation style guide. The knowledge is not deleted. It is held out of context until the point of need.
+## The question I got tired of asking
 
-This mirrors how we already engineer systems. Lazy loading is a deliberate choice. Eager loading is a deliberate choice. Passing a reference instead of the whole object is a deliberate choice. Agentic provisioning is the same problem in a different medium.
+That failure explains what I now avoid. Handoff Gates is a better example of what I mean by provisioning capability.
 
-## The concrete takeaway
+An agent can finish a plan, declare it ready for execution and ask for approval. If I then ask, “What would you rate this plan for handoff?”, it will quite often give an unexpectedly honest answer. Six out of ten. Seven. Eight.
 
-Provision the right knowledge at the point of need. That is the whole rule.
+Then it explains why. A dependency is implicit, a verification step is weak, or a task assumes knowledge that never made it into the plan. Thirty seconds earlier, the same agent had called the artifact finished.
 
-It is not about accumulating the largest possible instruction surface. It is about matching the knowledge to the worker, the scope, and the moment. Stable rules live in the environment. Task intent lives in the prompt. Reusable patterns live in skills. Verification lives in explicit checks. When in doubt, start small and move a rule up only after you have repeated it enough to be sure it is stable, not just familiar.
+The number is only a forcing function. Rating makes the producer inspect its artifact from the position of the next consumer. “Can I continue from this?” permits the producing agent to rely silently on its own conversational memory. “Could a planning agent continue from this spec?” asks whether the artifact contains assumed shared knowledge it never earned.
 
-The test is whether the agent spends less time reconciling your advice and more time doing the work. If adding a rule makes the agent more hesitant, it is probably the wrong rule in the wrong place. If removing a rule makes the agent violate a real project boundary, you have found the natural home for that rule.
+The next stage often runs in the same session; freshness is a lens, not an execution topology.
 
-## Conclusion
+I used to remember the question and ask it manually. Now [Handoff Gates](https://github.com/HarleyBartles/agent-asset-marketplace/blob/70dd30e2e65fd8f7aa89796a1a037da14235dd2a/codex-marketplace/plugins/superpowers-plus/skills/handoff-gates/SKILL.md) applies the check at the boundary between stages. Specs and plans already have contracts: a spec must expose the seams a planner needs to open, while a plan must tell an implementer what to execute and how to prove it. The gate checks whether the next consumer can rely on those promises without rediscovering the work.
 
-Instructions are a form of environment design. They should make the agent's job simpler, not heavier. A well-provisioned agent is not the one with the most guidance. It is the one with the guidance it actually needs, available when it actually needs it. That is the difference between provisioning and accumulation.
+It also permits one bounded strengthening pass. Self-critique is useful; infinite polishing isn’t. The score isn’t a scientific measure of quality, and I don’t treat it as one. The useful mechanism is the perspective change, applied at the point where hidden assumptions become somebody else’s problem.
+
+> **Things you keep telling the agent need to become things you stop needing to tell the agent.**
+
+Handoff Gates is one of my additions to a development workflow largely inherited from the [upstream Superpowers project](https://github.com/obra/superpowers). The wider lifecycle isn’t my invention. Turning this repeated nudge into a durable, bounded capability was my engineering response to a failure I kept seeing.
+
+## Keep the workshop. Narrow the read
+
+Provisioning is moving something out of the prompt and into the environment. Moving it is only the start. If the environment then activates everything because it exists or has been encountered, the storage location changed while the provisioning problem remained.
+
+A capable environment can contain a great deal of machinery without making the current worker reason about all of it at once. Deep material can stay cold until the work justifies the read. A small routing surface only needs to provide enough of a breadcrumb for the agent to recognise that another capability exists and that the current task has crossed into its territory.
+
+This still requires judgement. The agent can’t know what it doesn’t know, and semantic discovery isn’t guaranteed. I use explicit first-turn routing alongside trigger-rich skill descriptions because two plausible routes are more dependable than pretending one hidden relevance mechanism is infallible.
+
+Rich tools provide a small, concrete example. Agents repeatedly searched the Linear connector for a `create` operation, failed to find one and told me they couldn’t create the object. The connector exposes that behaviour through `save_*`: omit an ID to create, provide one to update. After explaining that more than once, I put the route into the environment.
+
+That doesn’t mean every tool deserves a manual. Some retrieval tools have two obvious fields and a schema that says everything worth saying. Adding another skill would be ceremony. Tool availability and usable capability diverge only when discovery, naming or operating semantics leave a real gap.
+
+> **Don’t read everything. Read the next thing you need to make the next move.**
+
+I’d already made the same argument visually in [Goldilocks](/patch/goldilocks). Patch stands at a junction buried under maps, tools, notes, rules and competing signposts. Every item might be useful; carrying all of them at once has become another problem to solve. The maps can stay. Patch just needs the relevant one before choosing a path.
+
+## Bring the work. Provision the method
+
+The prompt still has an important job because work begins in conversation, before the work itself has been discovered. I bring the problem, current constraints and judgement. The environment carries the reusable method for turning that conversation into something executable.
+
+Any capable coding model can be asked to write a plan, and harnesses increasingly have planning modes of their own. I need more than the generic ability to produce plausible planning prose. In my environment, a spec and a plan have distinct contracts, planning hands off to an execution lane, and review has its own boundary. I want to bring the work without teaching that lifecycle again in every prompt.
+
+Once work starts, durable artifacts carry decisions between stages, tools provide executable capability, and skills expose specialist practice when it becomes relevant. None of that machinery needs permanent residence in the model’s attention merely because the environment can reach it.
+
+This is ordinary separation of concerns applied to an unfamiliar runtime. The human remains responsible for intent and acceptance; the environment should remember the repeatable method.
+
+## Fix the boundary you control
+
+There is no perfect ontology underneath this. Sometimes the right correction belongs in a tool, sometimes a skill, and sometimes a runbook, repository rule, test or piece of plain documentation.
+
+If I control the source of a recurring problem, I prefer to fix the source. If I don’t, I adapt at a boundary I do control. Linear’s operation names belong to an external interface, so operating guidance is a reasonable adapter. Preserving an adapter forever on a source I own may be less sensible than changing the source.
+
+The current patterns solve failures I can observe today. They are rules of thumb, not a final architecture for agentic engineering. A future runtime that reliably and observably enforces nested instruction scope, precedence and lifecycle would make a dense hierarchical mesh attractive again. I’d happily remove machinery whose reason for existing had disappeared.
+
+I used to think increasingly rich agent environments mostly meant teaching them more. Now I think the harder problem is deciding what the current worker should have to carry.
+
+The engineering ideas are familiar: scope, interfaces, contracts, lazy loading, dependency ownership, DRY and separation of concerns; above all, runtime behaviour outranks declared intent. Agentic systems give those ideas unfamiliar failure modes, but they don’t repeal them.
+
+For me, provisioning succeeds when I can ask for the work without repeatedly teaching the agent how that kind of work should be done, and without making it carry the implementation details of every other thing it could possibly do.
+
+The capability is there; the machinery can wait until it is needed.

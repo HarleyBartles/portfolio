@@ -95,12 +95,12 @@
       "kind": "writing",
       "title": "Provisioning is not accumulation",
       "date": "2026-08-12",
-      "readingMinutes": 5,
+      "readingMinutes": 7,
       "status": "published",
-      "summary": "More instructions do not make a better agent. Give the right knowledge at the right scope at the right time.",
+      "summary": "Capability should be available when the work needs it, without making every agent carry the whole workshop.",
       "path": "writing/2026-08-12-provisioning-is-not-accumulation.md",
       "tags": ["writing", "agentic-engineering", "provisioning"],
-      "relatedSlugs": []
+      "relatedSlugs": ["goldilocks"]
     },
     {
       "slug": "pass-references-not-paragraphs",
