@@ -6,13 +6,13 @@ This file is the durable answer ledger for Cloud Sol's conversation with Harley.
 
 ## Session clock
 
-- Started at: not started
-- Target stop: three hours after starting
-- Hard stop: five hours after starting
-- Last durable save: not started
-- Current manuscript commit: not started
+- Started at: `2026-08-27T06:23:00Z`
+- Target stop: `2026-08-27T09:23:00Z`
+- Hard stop: `2026-08-27T11:23:00Z`
+- Last durable save: `2026-08-27T06:23:00Z`
+- Current manuscript commit: baseline `da85903012fbf115a01b75f8e44c836611fb6866`; no Cloud manuscript commit yet
 
-At the first working commit, replace the values above with UTC timestamps. The hard stop is binding. At five hours, stop asking questions and write the best honest baton status the evidence supports.
+The hard stop is binding. At five hours, stop asking questions and write the best honest baton status the evidence supports.
 
 ## Settled editorial frame
 
@@ -66,7 +66,7 @@ No Review Graph cuttings recorded yet.
 
 ## Baton status
 
-Current status: discovery not started
+Current status: discovery active
 
 At the hard stop, replace this with exactly one of:
 
