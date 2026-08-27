@@ -67,6 +67,19 @@
       "relatedSlugs": []
     },
     {
+      "slug": "the-right-test-isnt-your-favourite-test",
+      "kind": "writing",
+      "title": "The right test isn't your favourite test",
+      "date": "2026-08-27",
+      "readingMinutes": 12,
+      "status": "published",
+      "featured": false,
+      "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
+      "path": "writing/2026-08-27-the-right-test-isnt-your-favourite-test.md",
+      "tags": ["writing", "software-engineering", "testing", "agentic-engineering"],
+      "relatedSlugs": []
+    },
+    {
       "slug": "graph-iterative-review",
       "kind": "writing",
       "title": "If you write a loop, don't be surprised when your agent starts looping",
