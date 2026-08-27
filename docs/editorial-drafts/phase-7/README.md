@@ -43,6 +43,8 @@ The useful target is an article that makes the reader think: **bold claim; show 
 ## Preserved draft stack
 
 - `api-is-only-the-middle-next-room-seed.md`
+- `api-is-only-the-middle-sol-first-pass.md`
+- `api-is-only-the-middle-cloud-editorial-brief.md`
 - `context-terra-draft.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
@@ -113,7 +115,9 @@ The accepted public-facing proposition is **The right test isn't your favourite 
 For the next API/Product candidate room, start with:
 
 1. `api-is-only-the-middle-next-room-seed.md` for the correction and provisional emotional posture;
-2. the API responsibility and candidate contract in the Phase 7 specification and plan; and
-3. `docs/editorial-admission.md` for the still-pending admission state.
+2. `api-is-only-the-middle-sol-first-pass.md` for the intentionally narrow, warm opening manuscript;
+3. `api-is-only-the-middle-cloud-editorial-brief.md` for the time-box, discovery contract and durable-output rules;
+4. the API responsibility and candidate contract in the Phase 7 specification and plan; and
+5. `docs/editorial-admission.md` for the still-pending admission state.
 
 Keep the canonical candidate identity `api-is-only-the-middle` until Harley-led discovery settles any public title change. The seed exists specifically so the next Cloud room starts from **the product is the middle of engineering**, not from an API-specific premise.
