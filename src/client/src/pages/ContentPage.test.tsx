@@ -232,7 +232,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const header = await screen.findByRole('heading', { level: 1, name: 'Context is not the same as state' }, { timeout: 5_000 })
     expect(header.closest('.content-page-header')).not.toHaveClass('content-page-header--visual')
     expect(screen.getByRole('link', { name: /previous: provisioning is not accumulation/i })).toBeVisible()
-    expect(screen.getByRole('link', { name: /next: if you write a loop/i })).toBeVisible()
+    expect(screen.getByRole('link', { name: /next: agentic engineering and the kindness of vibe coding/i })).toBeVisible()
     expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
   }, 10_000)
 })

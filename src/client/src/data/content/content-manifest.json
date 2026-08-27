@@ -67,14 +67,27 @@
       "relatedSlugs": []
     },
     {
+      "slug": "the-right-test-isnt-your-favourite-test",
+      "kind": "writing",
+      "title": "The right test isn't your favourite test",
+      "date": "2026-08-27",
+      "readingMinutes": 8,
+      "status": "published",
+      "featured": false,
+      "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
+      "path": "writing/2026-08-27-the-right-test-isnt-your-favourite-test.md",
+      "tags": ["writing", "software-engineering", "testing", "agentic-engineering"],
+      "relatedSlugs": []
+    },
+    {
       "slug": "graph-iterative-review",
       "kind": "writing",
       "title": "If you write a loop, don't be surprised when your agent starts looping",
-      "date": "2026-08-05",
+      "date": "2026-08-22",
       "readingMinutes": 12,
       "status": "published",
       "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
-      "path": "writing/2026-08-05-graph-iterative-review.md",
+      "path": "writing/2026-08-22-graph-iterative-review.md",
       "tags": ["writing", "agentic-engineering", "review"],
       "relatedSlugs": []
     },

@@ -26,8 +26,23 @@ There is no fixed turn count or timer. Judge the recovery value of the accumulat
 
 Before each GitHub checkpoint, reconcile the local answer log, current manuscript and cross-article ledger so the commit is a coherent recovery point. At final handoff, retain the durable discovery record and valuable cross-article notes; remove disposable briefs and intermediate manuscripts once their decisions are present in the production article or durable record.
 
+## Governing-argument pressure test: the hot take
+
+When an article has good material but its governing thesis still feels descriptive, taxonomic or merely agreeable, try the **hot-take pressure test**.
+
+Internal shorthand: **`I say X; fight me.`**
+
+Reader-facing posture: **`Bold claim. Click here to see me prove it.`**
+
+The point is not to manufacture controversy, force contrarianism or reward provocative wording for its own sake. Ask whether the article makes a clear proposition that a competent reader could reasonably dispute, then earns that proposition through evidence, trade-offs, reasoning and honest boundaries.
+
+If the supposed argument collapses into a truism, a catalogue, a pattern-name explainer or an unbounded `it depends`, keep discovering what the article actually wants to say. Use the hot-take shape as a tool for finding the governing argument, not as a requirement that every title sound aggressive or every article disagree with received wisdom.
+
+The useful target is an article that makes the reader think: **bold claim; show me.** Then the body does.
+
 ## Preserved draft stack
 
+- `api-is-only-the-middle-next-room-seed.md`
 - `context-terra-draft.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
@@ -39,6 +54,11 @@ Before each GitHub checkpoint, reconcile the local answer log, current manuscrip
 - `review-graph-terra-draft.md`
 - `review-graph-cloud-discovery-checkpoint.md`
 - `testing-evidence-terra-draft.md`
+- `testing-evidence-sol-first-pass.md`
+- `testing-evidence-cloud-editorial-brief.md`
+- `testing-evidence-cloud-discovery-record.md`
+- `testing-evidence-cloud-handoff-addendum.md`
+- `testing-evidence-cloud-first-draft.md`
 - `why-adrs-terra-draft.md`
 - `why-adrs-sol-draft.md`
 
@@ -56,6 +76,10 @@ The Terra files are first-pass working drafts. The Why ADRs Sol file incorporate
 
 `review-graph-cloud-discovery-checkpoint.md` is the durable record of the completed time-boxed editorial room. The brief, working manuscript and first local pass were deliberately removed once the article settled; the public source is the production article, while the checkpoint retains the facts, boundaries, decisions and cutting-room material needed by later work.
 
+`testing-evidence-cloud-discovery-record.md` preserves the backend and frontend discovery through the final conventional-engineering checkpoint. `testing-evidence-cloud-handoff-addendum.md` supersedes its unresolved/open-discovery tail with the accepted governing argument, curveball decision, pressure-scenario boundary, three-lens review, £8,750 valuation and local-Sol handoff. `testing-evidence-cloud-first-draft.md` is the resulting Cloud manuscript to stand up into the production article frame. None of those surfaces makes an admission decision.
+
+`api-is-only-the-middle-next-room-seed.md` is a deliberately small bridge into the next candidate room. It records Harley's correction that the planned API framing is too narrow: the product itself is the middle of engineering, with substantial responsibility before and after implementation. It also preserves the provisional warmer autobiographical posture - what Harley thought engineering was when he started versus what experience taught him - and explicitly warns the next room not to force hot-take energy. It is a discovery seed, not a title or thesis decision.
+
 For Provisioning, the current editorial read order is:
 
 1. `provisioning-cloud-editorial-brief.md`
@@ -67,9 +91,29 @@ For Provisioning, the current editorial read order is:
 For Review Graph, the durable editorial read order is:
 
 1. `review-graph-cloud-discovery-checkpoint.md`
-2. `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+2. `src/client/src/data/content/writing/2026-08-22-graph-iterative-review.md`
 3. the Graph passages in the Phase 7 plan
 4. `cross-article-thread-ledger.md`
 5. the pinned Marketplace implementation, design and roadmap named in the checkpoint
 
 Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.
+
+For Testing, the durable local-Sol handoff read order is:
+
+1. `testing-evidence-cloud-editorial-brief.md` for the room contract and protected boundaries;
+2. `testing-evidence-cloud-discovery-record.md` for the backend/frontend evidence, corrections and factual custody;
+3. `testing-evidence-cloud-handoff-addendum.md` for the accepted reframe, agentic worked example, editorial lenses and final handoff decisions;
+4. `testing-evidence-cloud-first-draft.md` for the £8,750 manuscript to stand up into the article frame;
+5. the Testing passages in the Phase 7 specification and plan, plus live source surfaces named by the discovery documents, when factual/source refresh is needed;
+6. `testing-evidence-terra-draft.md` and `testing-evidence-sol-first-pass.md` only as superseded historical working material; and
+7. `cross-article-thread-ledger.md` for adjacent material already routed elsewhere.
+
+The accepted public-facing proposition is **The right test isn't your favourite test**. The article is engineering-first; agentic pressure testing is a worked transfer of the same judgement, not the centre of gravity. Local Sol owns the aggressive final edit, production article frame, source refresh where needed, presentation and any later admission decision.
+
+For the next API/Product candidate room, start with:
+
+1. `api-is-only-the-middle-next-room-seed.md` for the correction and provisional emotional posture;
+2. the API responsibility and candidate contract in the Phase 7 specification and plan; and
+3. `docs/editorial-admission.md` for the still-pending admission state.
+
+Keep the canonical candidate identity `api-is-only-the-middle` until Harley-led discovery settles any public title change. The seed exists specifically so the next Cloud room starts from **the product is the middle of engineering**, not from an API-specific premise.

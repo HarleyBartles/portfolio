@@ -1,6 +1,6 @@
 ---
 title: If you write a loop, don't be surprised when your agent starts looping
-date: 2026-08-05
+date: 2026-08-22
 summary: A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.
 ---
 

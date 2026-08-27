@@ -269,7 +269,7 @@ Editorial consequence: use this sequence as the article's causal backbone: prose
 
 ## Editorial outcome
 
-- Production article: `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+- Production article: `src/client/src/data/content/writing/2026-08-22-graph-iterative-review.md`
 - Settled title: `If you write a loop, don't be surprised when your agent starts looping`.
 - Final structure: original prose loop -> explicit graph -> mechanical/JIT authority -> linked-loop diagnosis -> workflow authority -> prose versus gates -> version-one strengths -> current churn -> version-two principles -> proof standard.
 - The three deliberate pull quotes remain in the production article.
