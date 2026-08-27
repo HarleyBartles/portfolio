@@ -70,30 +70,6 @@
   font-size: clamp(2.5rem, 4.8vw, 4.6rem);
 }
 
-.content-page-header[data-visual-contract='review-graph-authority'] + .content-page-body .markdown-content blockquote {
-  margin: var(--space-8) 0 var(--space-7);
-  border-left: 0.3rem solid var(--color-accent);
-  padding: var(--space-5) var(--space-6);
-  background: color-mix(in srgb, var(--color-accent-soft) 36%, transparent);
-  color: var(--color-ink);
-}
-
-.content-page-header[data-visual-contract='review-graph-authority'] + .content-page-body .markdown-content blockquote p {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.65rem, 3.2vw, 2.7rem);
-  font-style: italic;
-  font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.025em;
-}
-
-@media (min-width: 60rem) {
-  .content-page-header[data-visual-contract='review-graph-authority'] + .content-page-body .markdown-content blockquote {
-    width: min(54rem, calc(100vw - var(--space-12)));
-  }
-}
-
 @media (max-width: 34rem) {
   .review-graph-figure__heading {
     display: grid;

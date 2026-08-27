@@ -14,6 +14,8 @@ import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectV
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
+import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
+import '../features/writing/WritingPullQuotes.scss'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
 import { formatContentDate, sortWriting } from '../utils/content'
@@ -154,6 +156,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
       ? 'learning-lab-case-study-hero'
       : 'content-page-header' : writingPresentation.visualContract
   const formattedDate = formatContentDate(document.summary.date)
+  const hasTestingEvidencePresentation = document.summary.kind === 'writing'
+    && document.summary.slug === 'the-right-test-isnt-your-favourite-test'
 
   return (
     <SiteLayout>
@@ -191,7 +195,11 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           )}
         </header>
         <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
-          {Presentation === undefined ? <MarkdownContent markdown={document.markdown ?? ''} /> : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
+          {Presentation === undefined
+            ? hasTestingEvidencePresentation
+              ? <TestingEvidenceArticle markdown={document.markdown ?? ''} />
+              : <MarkdownContent markdown={document.markdown ?? ''} />
+            : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
         </div>
         {document.summary.kind === 'writing' ? null : (
           <RelatedContent

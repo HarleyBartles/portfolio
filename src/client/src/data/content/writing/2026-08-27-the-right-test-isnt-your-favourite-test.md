@@ -6,116 +6,90 @@ summary: The test worth running is the one that can falsify the next thing you a
 
 I like unit tests. I write a lot of them.
 
-If the next thing I need to know is whether a validator rejects bad input for the right reason, a unit test is probably exactly what I want. If I am about to trust that the same rule is wired into an application correctly, that unit test has already told me everything it can. Running another hundred unit tests does not make the composition more proven. I need to move the observation point.
+If I need to know whether a validator rejects bad input for the right reason, a unit test is exactly what I want. Once I'm trusting that the same rule is wired into an application correctly, that test has told me everything it can. Another hundred unit tests won't prove the composition. I need to move the observation point.
 
-The right test isn't your favourite test.
+Testing gets weak when the preferred tool starts choosing the question. Unit-test people reach for another unit test. Integration-heavy teams make everything expensive in the name of realism. End-to-end suites become certificates for things they never examined. Coverage becomes a number people point at instead of asking what can still fail.
 
-Testing gets weak when the preferred tool starts choosing the question. Unit-test people can reach for another unit test. Integration-heavy teams can make everything expensive in the name of realism. An end-to-end suite can turn into a certificate for things it never actually examined. Coverage can become a number people point at instead of asking what is still capable of failing.
-
-I do not think testing belongs exclusively before implementation or after it. Iterative testing is part of iterative development. The system changes, the risk changes, and the next useful question changes with it. Pick the test that can answer that question.
+Testing belongs inside the iteration. The system changes, the risk changes, and the next useful question changes with it.
 
 ## Start small while small is enough
 
-Unit tests are my default tool for small, local behaviour. I want them abundant, fast and cheap enough to run constantly. They catch regression and they give me the TDD loop I actually use: write a small RED test, make the smallest responsible change that turns it GREEN, move on.
+Unit tests are my default for small, local behaviour. I want them abundant, fast and cheap enough to run constantly. They catch regression and give me the TDD loop I use: write a small RED test, make the smallest responsible change that turns it GREEN, move on.
 
-Cheap is relative once a codebase gets large.
+I've worked with a suite of roughly 3,000 unit tests that took more than ten minutes in series. Across five shards, they came back in roughly two minutes. Ten minutes is long enough to stop watching and start something else. Two minutes is still feedback.
 
-I have worked with a suite of roughly 3,000 unit tests that took more than ten minutes in series. Run over five shards, the same body of tests came back in roughly two minutes. When engineers are iterating quickly, that difference changes the development loop. Ten minutes is long enough to stop watching and start something else. Two minutes is still feedback.
+Don't shard from day one. That pays for scale before you have the problem. Organise the suite around meaningful behaviour so making it snappy again is boring and mechanical when the problem arrives. If 3,000 tests eventually live in one `tests.py`, you're going to have a bad time.
 
-The lesson is not `shard from day one`. That is paying for scale before you have the problem. The lesson is to organise the suite so making it snappy again is boring and mechanical when the problem arrives.
-
-If 3,000 tests eventually live in one `tests.py`, you are going to have a bad time. Even one giant `api_tests.py` leaves more work than a suite already divided around meaningful areas of behaviour. I want the test architecture to preserve the option to partition later. I only want to pay the infrastructure cost when the feedback economics justify it.
-
-That is part of test selection too. Evidence has a runtime cost, and cost affects how often I can afford to ask for it.
+Evidence has a runtime cost. That cost affects how often I can afford to ask for it.
 
 ## Move the boundary when the question changes
 
-Passing unit tests do not add up automatically to a passing application.
+Passing unit tests don't add up to a passing application.
 
-I do not need to watch that fail in production before believing it. Safety testing can prove every component of a car mechanically fit for purpose. If nobody has road-tested the assembled car, I am not putting my granny in it and assuming the component certificates somehow prove the journey.
+An application-level test gives the application one meaningful input from outside, often an API call, lets its real internal composition run, then asserts on state changes and consequences inside the application boundary. External dependencies stay controlled. The validator, handler and persistence can each be correct in isolation while their composition is wrong.
 
-That is where I move to an application-level test. Give the application one meaningful input from outside, often an API call, let its real internal composition run, then assert on the state changes and consequences inside the application boundary. External dependencies stay controlled.
+I don't need to watch that fail in production before believing it. Safety testing can prove every component of a car mechanically fit for purpose. If nobody has road-tested the assembled car, I'm not putting my granny in it and assuming the component certificates prove the journey.
 
-Now I am testing a different claim. The validator, handler, persistence and internal wiring might each be correct in isolation while their composition is wrong.
+The same validation rule can deserve proof at several scopes. I can unit-test that a validator rejects one bad model for the right reason. I can test the application pipeline to prove the bad request stops at the right point. Then I can approach the running API from outside and prove that a consumer gets the public rejection behaviour I promised.
 
-The same contract can deserve proof at several scopes for exactly that reason. Take API input validation. I can unit-test that a validator rejects one bad model for the right reason. I can test the application pipeline to prove the bad request is rejected at the right point and does not leak farther into the system. Then I can approach the running API from outside and prove that a consumer gets the public rejection behaviour I promised.
-
-Those tests overlap in subject without duplicating their evidence. One proves the rule. One proves the rule is composed correctly. One proves the running system exposes the contract correctly.
-
-That is why I am not especially interested in arguments about whether `contract test` deserves its own box on a diagram. The useful question is where this contract can fail, and which observation can catch that failure.
+One rule, three places it can fail. I care more about catching the failure than which box `contract test` gets on a diagram.
 
 ## Integration tests prove a build
 
-When I want evidence about the running system as an external consumer sees it, I move the observation point outside the application.
+To see the running system as an external consumer does, I move outside the application. My integration tests run against an instance with a real database and safe external dependencies. If I need a breakpoint inside the application to understand the test, I'm probably testing at the wrong level.
 
-My integration tests run against an instance with a real database and safe external dependencies. I am not interested in reaching through the boundary to poke at internals. If I need a breakpoint inside the application to understand the test, I am probably testing at the wrong level.
+An integration scenario can span time: send a validly shaped request with a subtle bad value, receive an ID, poll until processing finishes, then observe the public validation failure. Correct the input, submit it under a new ID and prove the same rejection doesn't happen. That crosses several calls, correlation, persistence and time. Neither a unit test nor an application test proves that external protocol.
 
-A useful integration scenario can span time. Send a validly shaped request with a subtle bad value. Receive an ID. Poll the ID until processing finishes. Observe the public validation failure. Correct the input, submit again under a new ID, and observe that the same rejection does not happen.
+I find integration tests a dog because the instance is running, the database is real, and the dependencies are real enough for the behaviour under test.
 
-That is a consumer behaviour. It crosses several calls, correlation, persistence and time. A unit test can prove the validation rule. An application test can prove where it is enforced. Neither proves that whole external protocol.
+> **The work isn't done until it's tested and done.**
 
-This evidence is expensive. The instance is running, the database is real, and the dependencies are real enough for the behaviour under test. I therefore run integration tests in CD rather than churning them through the tight CI loop. They need to pass before I deploy, but I do not need to pay for them on every small iteration.
+This evidence is expensive. I run integration tests in CD rather than churning them through the tight CI loop. They must pass before I deploy. I don't need to pay for them on every small iteration.
 
-More precisely, integration tests prove a build.
+Integration tests prove a build. I might gather that evidence in staging, but it belongs to the unchanged build. If that exact build moves into production, its result doesn't evaporate because the hostname changed.
 
-Staging is where I might obtain that evidence. The unchanged build is what the result belongs to. If that exact build moves into production, its integration result does not evaporate because the hostname changed.
+I could isolate a tenant and run synthetic integration traffic in production. I still need a reason. If production contains behaviour I can only observe there, that's a different claim and deserves its own test. Otherwise I've bought cleanup work and live-state risk without learning anything new about the build.
 
-I could arrange tenant isolation and run synthetic integration traffic in production without poisoning everybody else's data. I still need a reason. If production itself contains a behaviour the test can only observe there, fine, that is a different claim. Otherwise I have bought cleanup work and live-state risk without learning anything new about the unchanged build.
-
-The environment should be realistic enough for the question. Making it more dangerous does not make the answer more truthful.
+The environment should be realistic enough for the question. Making it more dangerous doesn't make the answer more truthful.
 
 ## Some tests earn their keep by being annoying
 
-Frontend work makes this easier to see because different claims need visibly different evidence.
+Frontend work makes the distinction visible. I can test React components, API clients and routing directly. TypeScript carries some guarantees without waiting for runtime. None of those tells me whether a page changed shape somewhere I didn't expect.
 
-I can test React components, API clients and routing directly. TypeScript carries some guarantees without waiting for runtime at all. None of those tells me whether a carefully authored page changed shape somewhere I did not expect.
+This portfolio is visually regression-tested because its frontend is part of the product. The suite is deliberately nosy.
 
-This portfolio is visually regression-tested because its frontend is part of the product. That test suite is deliberately nosy.
-
-Change the title of one article and a related article that links to it can become taller on mobile because the new title wraps onto another line. A visual test goes RED on a page I did not think I was changing.
+Change one article's title and a related article can become taller on mobile when the new title wraps. A visual test goes RED on a page I didn't think I was changing.
 
 Good. I want to know.
 
-The RED result is not automatically a defect verdict. I inspect the changed composition. If the consequence is legitimate, I deliberately update the baseline and make the test GREEN again. If it is not legitimate, I fix the regression.
+RED isn't automatically a defect verdict. I inspect the changed composition. If the consequence is legitimate, I update the baseline deliberately. If it isn't, I fix the regression. The maintenance cost buys a forced decision about collateral visual change. A quieter test would tell me less.
 
-That maintenance cost buys me a forced decision about collateral visual change. A quieter test would be cheaper and would tell me less.
+I treat accessibility as a product contract. I'm not an accessibility specialist, so published standards are the authority. I still need enough understanding to recognise an obviously hostile decision. I've had product ask for red text on a green background to indicate row state. Hard decline. Colour-blind users still have to read the thing.
 
-Accessibility is similar in one important respect: the claim dictates the evidence. I treat accessibility as a product contract. A site that claims to be accessible can lose that claim through one poor judgement call, so tests help keep us honest.
+Automation can enforce objective parts of the contract. It can't outsource judgement.
 
-I am not an accessibility specialist. I use published standards as the authority and keep enough understanding to recognise when a product decision is obviously cutting against them. I have had product ask for red text on a green background to indicate row state. Hard decline. Colour-blind users still have to read the thing.
+> **Before you judge the journey, walk it.**
+>
+> *With apologies to Joe South, via Elvis.*
 
-Automation can enforce objective parts of the contract. It cannot outsource judgement.
+Professionally, QA own the durable Playwright journey suites. I don't personally automate every layer of proof. When I care whether something I built is coherent, I use it as a user would. I dogfood it.
 
-And when the question is simply whether a frontend journey is coherent, I use it as a user would use it. Professionally, QA own the durable Playwright journey suites. I do not need to pretend I personally automate every layer of proof. If I care about the usability of something I built, I dogfood it.
+Dogfooding gives me one user's evidence: mine. It catches the point where green components fail to become a coherent journey. It makes no wider usability claim.
 
-That does not prove every user will find it usable. It does prove I did not stop at green components and declare the assembled journey coherent without actually taking the journey.
+## Prose can still be tested
 
-## The same engineering habit works on prose
+A skill is prose. I still test what it makes an agent do. The RED/GREEN pressure-testing shape comes from [`obra/superpowers`](https://github.com/obra/superpowers); I'm applying that established TDD idea to the skills I build.
 
-Agentic systems make testing stranger, but I do not think they need a completely new philosophy.
+**Observe RED.** I write a scenario that exposes the bad behaviour the skill exists to correct, then run it against an agent without the skill.
 
-For skills, I use RED/GREEN pressure scenarios. The pressure-testing shape comes from [`obra/superpowers`](https://github.com/obra/superpowers); I am applying that established TDD idea to the skills I build.
+**Earn GREEN.** I write or revise the skill and rerun the same scenario. The before-and-after behaviour answers `how do we know this skill does what it claims?` better than persuasive-looking instructions.
 
-First I write a scenario that should expose the bad behaviour the skill exists to correct. I run the scenario against an agent without the skill and observe RED. Then I write or revise the skill and rerun the same scenario until the targeted behaviour goes GREEN.
+**Assume staleness.** GREEN is a bold word, and I mean it. It proves green against the RED I defined and observed. The result is stale as soon as it ran. Change the model, harness, repository or agent configuration and the question needs asking again. That's why the skill ships its pressure scenario rather than its historical result.
 
-That gives me a much better answer to `how do we know this skill does what it claims?` than reading the instructions and deciding they look persuasive.
-
-Here is the scenario. Run it without the skill. Run it with the skill. Observe what changes.
-
-The implementation happens to be prose intended to influence a non-deterministic system, so the GREEN needs an honest boundary. A pass in my Marketplace repository, with one model, harness, repository and agent configuration, does not guarantee a pass in yours.
-
-That is why the skill ships its pressure scenario, not its historical result.
-
-If I clone an open-source repository, I expect it to ship its tests. I would not accept `all these tests passed for us, here are the results, you do not need to run them` as a substitute for verification where I intend to rely on the code. I might care that upstream CI was green. I still have the test because the test is what lets the claim be challenged again.
-
-Shipping a skill should be no different. Ship the verifier. Let the environment where the skill is actually used produce its own observation.
+When I clone an open-source repository, I expect it to ship its tests. Upstream CI may be green. I still need the test that lets me challenge the claim where I intend to rely on the code. Skills deserve the same deal: ship the verifier and let the environment using the skill produce its own observation.
 
 ## Green only earns the confidence it earned
 
-This is why I resist favourite-test thinking.
+Every GREEN belongs to the question, boundary and run that produced it. Testing stays inside the iteration because the thing I'm trying to trust keeps changing as the system grows.
 
-I like unit tests, but a unit test cannot certify composition. An application test cannot certify an external protocol it never exercised. An integration result belongs to the build that actually ran. A visual baseline can tell me something moved, then I still have to decide whether the movement is right. An accessibility scan can enforce part of a contract without becoming a substitute for engineering judgement. A skill pressure test can show a behavioural change in one agentic context without becoming a universal guarantee.
-
-Testing is part of the iteration because the thing I am trying to trust keeps changing as the system grows.
-
-The right test is not the one I reach for most often. It is the one most capable of proving me wrong about the next thing I am about to trust.
+The right test isn't the one I reach for most often. It's the one most capable of proving me wrong about the next thing I'm about to trust.
