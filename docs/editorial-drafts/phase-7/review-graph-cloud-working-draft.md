@@ -1,59 +1,47 @@
-Status: Cloud Sol working manuscript, discovery draft
+Status: Cloud Sol working manuscript, discovery draft, not publication-ready
 
-# The review graph has to be more trustworthy than the model using it
+# The review graph
 
-I built the iterative review graph for models I don't trust to review a pull request the way I trust a frontier model to.
+I didn't build a review graph because graphs became fashionable. I built one because I wanted weaker models to carry out a review that normally needs frontier-model judgement, and a loop left too much of the hard part in the model's head.
 
-A frontier model can usually hold the whole change in its head, challenge its own assumptions and decide what to inspect next. A weaker model needs more structure. The point of the graph was to supply enough of that structure that a cheaper or less capable agent could reason its way through a serious review without having to improvise the whole process.
+A frontier model can usually review its own work with ordinary engineering guidance and the repository's normal checks. A weaker model needs more scaffolding. My first attempt gave the agent the whole review graph and expected it to understand the route before starting. That was exactly the kind of global reasoning I was trying to avoid. The graph became another thing the model had to keep in context.
 
-The first version failed by asking too much of the model at once. It had to understand the graph before traversing it. That defeated the point. The model was already the weaker component; making it carry the whole control-flow model in context just moved the hard problem back into the agent.
+The next version moved control into deterministic next-node tooling and small node recipes. The agent asks what node is legal next, reads that recipe just in time, does the local job and asks again. That is a much better fit for a weaker model because it can spend its reasoning budget on the current review obligation instead of carrying the whole process around in its head.
 
-The next iteration made the graph operational rather than descriptive. A deterministic router tells the agent the one legal next node. The agent opens one node recipe, does that job, records the result and asks the router what comes next. It is deliberately discouraged from reading the whole graph up front.
+But that design creates a stronger requirement than the first version made explicit: if the agent is going to hand administration of the graph to the graph, the graph has to deserve that authority.
 
-That gave me the architectural boundary I actually wanted: let the agent reason locally and hand administration of the graph to the graph.
+The graph I have today does not.
 
-And that boundary creates a much stricter requirement than I first appreciated. If the agent is supposed to stop thinking globally about the workflow, the workflow has to be more trustworthy than the agent using it.
+The concrete failure is almost embarrassingly simple: I can ask the tool for the next node and it can leave me stranded. The graph can return a lawful-looking next step, or reach a state after that step, from which its deterministic machinery cannot recover without the agent reasoning about the wider workflow again.
 
-The graph that's in place today isn't.
+That breaks the contract the JIT design depends on. The weaker model is supposed to ask what comes next, trust the answer, do that bounded job and move on. It cannot do that safely if "next" can eventually mean "now reconstruct how the graph got here and work out how to escape it".
 
-It has routes that don't tell the truth about what can happen next. It has states that can strand the agent without an automatic recovery path. It has loops that can recurse. I asked a frontier model to audit the skill on one narrow question: if a weaker agent genuinely hands global control to this graph and only reasons about each node just in time, can it trust the graph to get it through the review without having to reconstruct the workflow itself?
+The requirements fall out of each other. If the agent has to understand the whole graph before traversal, the graph has already consumed the context budget I was trying to protect. If I refuse to make it carry the whole graph, then I need deterministic routing and just-in-time recipes. And once I make that choice, "sometimes read ahead" is not a harmless exception. It means the graph stops being trustworthy exactly when the agent most needs it to be.
 
-The answer was no.
+So the contract is deliberately small. For every non-terminal state, the tooling must return one truthful next action that moves the review somewhere meaningful. If it cannot do that safely, it must return an honest `BLOCKED` exit with enough durable state for a human or later run to understand why. There should be no third mode where the weaker model is expected to inspect the wider graph and improvise its way out.
 
-That is the first problem version two has to solve. The current graph may also be too weak to justify a strong final `green` claim. Coverage can be incomplete. Evidence can be stale or weakly bound. Independence and provenance can be ambiguous. Those are real defects in a trustworthy review system.
+That is the primary failure. The fact that the current `ready` state also falls short of proving a genuinely trustworthy green review is real, but it comes second. There is little value in making the completion claim stronger while the process used to reach it can still be the failure mode.
 
-But they are downstream defects. There is no point making the final green review stronger while the graph itself is still a failure mode.
+Graphs themselves are not the mistake here. They are a good way to route an agent through work with branching obligations, guarded transitions, repair paths and explicit stopping conditions. If your loop has loops inside loops, diverging exit paths and different onward paths, you do not really have a loop any more. You have a badly designed graph, with the topology left implicit for the model to reconstruct. Making that topology explicit is especially valuable when the model doing the traversal is the part of the system I trust least with global workflow judgement.
 
-## Local reasoning needs a trustworthy global authority
+The industry vocabulary around graphs has moved absurdly quickly. Anthropic's Claude Code team was still publishing loop-engineering guidance at the end of June 2026; within weeks, practitioner discussion had swung hard toward 'graph engineering'. I had also absorbed at least one viral 'Anthropic engineers say' attribution that did not survive source checking. That is useful context, but not a reason to use a graph. I read about the approach, recognised a control problem that actually needed it, and used the graph because the topology solved something a loop would leave ambiguous.
 
-The useful part of the current design is still the separation between local work and global workflow state.
+## The audit found a state problem, not one bad edge
 
-The agent should not have to decide whether a repair routes back through deterministic checks, whether a contested finding should stop, whether another lens pass is legal or whether the review has exhausted its repair budget. Those are process decisions. If they stay in the model's discretion, the weaker model is still administering the workflow it was meant to be protected from.
+When I asked Sol to audit the graph as an authority rather than as a diagram, the result was not a neat bug report. The replacement plan freezes a catalogue of version-one states that version two must reject: a final-strong path with no valid report behind it, circular resolution state, cumulative preflight state, lost normalization origin, blocked states the model cannot represent safely, round state that can mislead traversal, and blockers the old state model cannot express at all.
 
-The deterministic next-node tooling was therefore the right correction to the first attempt. It reduced the agent's job from “understand and administer this whole review process” to “perform the current node correctly”. That is a much more realistic burden for a lesser model.
+That list changes the repair strategy. If one edge were wrong, I would fix the edge. This is broader. The graph can lose why it arrived somewhere, represent progress that is not actually safe progress, or enter a state from which deterministic traversal cannot recover. Those are failures in workflow authority. A weaker agent cannot hand over global control to a state machine that sometimes needs the agent to reconstruct missing history or decide how to escape its own state.
 
-The mistake was assuming that a deterministic router is automatically a trustworthy authority. It isn't. Determinism can reproduce a bad transition perfectly. A graph can be explicit and still contain contradictions, dead ends and unsafe cycles.
+The accepted replacement therefore treats version-one state, reports and metrics as history, not authority. Version two starts from a stricter machine state and is being planned to fail closed when state is stale, malformed, incomplete or contradictory. That repair comes before the more ambitious question of what evidence would justify a stronger green claim.
 
-Version two has to make global workflow state authoritative in a stronger sense: the graph must know exactly what state the review is in, what evidence exists, which transitions are lawful, which conditions block progress and how recovery works. If the process cannot make that decision safely, it should stop rather than force the agent to rediscover the whole graph in the middle of a review.
+## Ask the agent that has to live with it
 
-## Green comes after control
+One of the more useful questions I have learned to ask in agentic engineering is deliberately plain: what is your honest opinion of the environment I have given you?
 
-Once the workflow itself can be trusted, the second problem becomes worth solving: what should a completed review actually prove?
+That is not outsourcing architecture to a language model. It is using the agent as an observer of the runtime it actually has to work inside. Documentation tells me what a system intends to do. The agent can tell me what happens when it tries to use it. I still have to verify the answer, but pretending the written contract is the whole truth has already bitten me elsewhere.
 
-The accepted replacement design goes much further than the current router. It proposes one machine authority for review state, immutable snapshot identity, explicit coverage obligations, structured findings and dispositions, evidence custody, current verification, independent closure and remote identity checks. It also fails closed on missing authority, unavailable reviewers, stale inputs, malformed reports and unresolved uncertainty.
+The same pattern showed up here. I did not ask Sol whether the graph looked elegant. I asked a frontier model to assess whether a weaker model could safely surrender global workflow reasoning to it. The answer was no, and the replacement plan explains why in states and invariants rather than vibes. That is much more useful than asking whether the diagram looks sensible.
 
-That design is not the implementation running today. The current Marketplace skill is still the legacy review-assistance graph, explicitly bounded away from a `reviewed-green` claim. The replacement design, roadmap and first implementation plan are accepted planning artefacts, not delivered behaviour.
+You can learn the rules of driving from a book. You still have to drive the car to find out how it behaves. Agent-facing infrastructure is similar: sometimes the only way to know whether a control surface helps or hinders the agent is to make the agent use it, observe where it gets confused or stranded, and then check those observations against the implementation.
 
-The ordering matters. I don't want a workflow that produces stronger receipts at the end while still requiring a weak model to debug its own control system halfway through. First make the graph trustworthy enough to own the process. Then make the completion claim trustworthy enough to deserve its name.
-
-## What I want the graph to buy
-
-This machinery is not a general argument for putting every review behind a state machine. A frontier model doing an ordinary self-review doesn't need this level of scaffolding. The graph exists because I am deliberately trying to get useful review work out of models I trust less with open-ended global judgement.
-
-That means the graph has to carry the part they are weakest at.
-
-If it works, the weaker agent gets a small current problem, explicit inputs and one lawful next action. It does not need to remember the whole route, invent its own stopping condition or reason about whether the process around it is still coherent. The graph carries that burden.
-
-If the agent has to stop halfway through and reason about whether the graph itself is lying, looping or stranded, I haven't reduced the problem. I've hidden it until the worst possible moment.
-
-That is why version two starts with trust in global workflow state. A stronger green matters. A review process that can safely own its own administration comes first.
+[Next section to discover: what version one genuinely improved in practice beyond JIT traversal, and which of those properties version two must preserve.]
