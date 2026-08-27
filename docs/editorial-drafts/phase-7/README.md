@@ -39,6 +39,8 @@ Before each GitHub checkpoint, reconcile the local answer log, current manuscrip
 - `review-graph-terra-draft.md`
 - `review-graph-cloud-discovery-checkpoint.md`
 - `testing-evidence-terra-draft.md`
+- `testing-evidence-sol-first-pass.md`
+- `testing-evidence-cloud-editorial-brief.md`
 - `why-adrs-terra-draft.md`
 - `why-adrs-sol-draft.md`
 
@@ -67,9 +69,19 @@ For Provisioning, the current editorial read order is:
 For Review Graph, the durable editorial read order is:
 
 1. `review-graph-cloud-discovery-checkpoint.md`
-2. `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+2. `src/client/src/data/content/writing/2026-08-22-graph-iterative-review.md`
 3. the Graph passages in the Phase 7 plan
 4. `cross-article-thread-ledger.md`
 5. the pinned Marketplace implementation, design and roadmap named in the checkpoint
 
 Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.
+
+For Testing, the opening editorial read order is:
+
+1. `testing-evidence-terra-draft.md`
+2. `testing-evidence-sol-first-pass.md`
+3. `testing-evidence-cloud-editorial-brief.md`
+4. the Testing passages in the Phase 7 specification and plan
+5. `cross-article-thread-ledger.md`
+
+The Sol first pass is intentionally bounded to the Terra material. It improves argument, cadence and hierarchy without pretending that story discovery or article admission has happened.

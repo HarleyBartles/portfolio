@@ -70,11 +70,11 @@
       "slug": "graph-iterative-review",
       "kind": "writing",
       "title": "If you write a loop, don't be surprised when your agent starts looping",
-      "date": "2026-08-05",
+      "date": "2026-08-22",
       "readingMinutes": 12,
       "status": "published",
       "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
-      "path": "writing/2026-08-05-graph-iterative-review.md",
+      "path": "writing/2026-08-22-graph-iterative-review.md",
       "tags": ["writing", "agentic-engineering", "review"],
       "relatedSlugs": []
     },

@@ -225,7 +225,7 @@ finding. Do not infer or create a private voice card from repository prose.
 **Files:**
 - Modify: `src/client/src/data/content/writing/2026-08-01-agentic-engineering-vs-vibe-coding.md`
 - Modify if shortlisted: `src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md`
-- Modify if shortlisted: `src/client/src/data/content/writing/2026-08-05-graph-iterative-review.md`
+- Modify if shortlisted: `src/client/src/data/content/writing/2026-08-22-graph-iterative-review.md`
 - Modify if shortlisted: `src/client/src/data/content/writing/2026-08-07-context-is-not-state.md`
 - Modify if shortlisted: `src/client/src/data/content/writing/2026-08-15-pass-references-not-paragraphs.md`
 - Modify: `docs/editorial-admission.md`
