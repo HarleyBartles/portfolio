@@ -93,3 +93,13 @@ This ledger preserves valuable discoveries that did not belong in the article be
 - Boundary: the monetary score is a working taste lens, not an objective market valuation.
 - Source trail: `provisioning-cloud-discovery-record.md`, “Specialist lenses”; the Why ADRs and Provisioning admission records.
 - Next action: consolidate the method after enough articles have exercised it to distinguish stable grammar from one-article taste.
+
+## CAT-011: Hoarding paid frontier capacity can be false economy
+
+- Candidate destination: future article about model allocation, paid allowances and capability economics.
+- Thread: Harley prepaid a year of four standard ChatGPT Business seats and therefore already owned a substantial frontier-model allowance as sunk cost. For roughly the first six months he still tried to conserve that allowance by routing meaningful work through lesser “worker” models. He later recognised the fallacy: if the stronger capacity is already paid for, sandbagging important agents with weaker reasoning to preserve unused allowance can make the work worse without producing a useful saving. The correction was to spend frontier capability where stronger reasoning materially changes the outcome rather than treating consumption minimisation as the goal.
+- Contrast worth preserving: in Devin Pro, SWE-class models are effectively free at point of use while premium frontier review consumes a small scarce allowance, so iterative review has a real reason to prepare work before the premium audit. In ChatGPT Business, Harley's resource-allocation mistake was almost the inverse because the larger frontier allowance was already paid for and going underused.
+- Evidence class: Harley's first-party account of subscriptions, usage strategy and the change in his operating judgement.
+- Boundary: do not present Harley's rough comparison of SWE-class reasoning to GPT-5.4-mini-level intelligence as a benchmarked equivalence. Product pricing, model availability and allowance limits are time-sensitive and must be re-verified before publication. Do not turn the lesson into “always use the strongest model”; the claim is that capability allocation should follow consequence and marginal value rather than reflexive thrift.
+- Source trail: Review Graph cloud editorial-room conversation, 27 August 2026; related Review Graph discussion distinguishing included Devin models from premium cloud review.
+- Next question: what concrete before-and-after work examples best show the cost of under-spending already-purchased frontier capacity without turning the article into a subscription comparison?
