@@ -9,7 +9,7 @@ This file is the durable answer ledger for Cloud Sol's conversation with Harley.
 - Started at: `2026-08-27T06:23:00Z`
 - Target stop: `2026-08-27T09:23:00Z`
 - Hard stop: `2026-08-27T11:23:00Z`
-- Last durable save: `2026-08-27T06:30:56Z`
+- Last durable save: `2026-08-27T06:33:54Z`
 - Current manuscript commit: baseline `da85903012fbf115a01b75f8e44c836611fb6866`; Cloud manuscript still placeholder at this checkpoint save
 
 The hard stop is binding. At five hours, stop asking questions and write the best honest baton status the evidence supports.
@@ -18,8 +18,8 @@ The hard stop is binding. At five hours, stop asking questions and write the bes
 
 - Candidate: `graph-iterative-review`.
 - Governing story, revised by Cloud discovery: Harley built the review graph so a weaker model could traverse an explicit review process without having to reason globally like a frontier model. JIT node execution only works if the graph itself is trustworthy enough for the agent to hand process administration over to it. The current version has not earned that trust.
-- The article should therefore establish process-authority trust before the later question of what a completion claim such as `reviewed-green` would need to prove.
-- Required progression: why weaker models needed stronger process scaffolding; why whole-graph comprehension failed; why deterministic next-node/JIT recipes were the correction; why that correction makes graph trustworthiness load-bearing; what the current graph still gets wrong; what the accepted replacement design proposes; what has and has not landed.
+- The primary problem is trust in global workflow state and control. The later problem of what `reviewed-green` should prove is real but secondary: strengthening the final completion claim is premature while the graph itself can still become the failure mode.
+- Required progression: why weaker models needed stronger process scaffolding; why whole-graph comprehension failed; why deterministic next-node/JIT recipes were the correction; why that correction makes graph trustworthiness load-bearing; what the current graph still gets wrong; how version two first repairs workflow authority and state; only then, how it strengthens the eventual green claim; what has and has not landed.
 - Audience test: a weary hiring manager should quickly see conventional engineering judgement applied to an agentic system. A cynical architect should be able to trace the correction, disagree with choices and still accept the honesty of the claim.
 - Authority: Harley owns experience, meaning, privacy, voice and admission. Repository evidence owns implementation state. A plan proves intent, not delivered behaviour.
 
@@ -55,11 +55,22 @@ The hard stop is binding. At five hours, stop asking questions and write the bes
 - Related manuscript section: trust failure / pivot to replacement design.
 - Reopened later: no
 
+### RG-A004
+
+- Question: After the trust audit, was the primary correction about repairing graph control or immediately about proving a stronger final green?
+- Harley's answer: Trust and global workflow state are the main problem. The fact that the current graph may not prove green is secondary, though still real. There is no point trying to make the final green review stronger while the graph itself is the failure mode.
+- Editorial consequence: Keep the two trust layers ordered. Layer one is process authority: can the weaker agent safely surrender global workflow administration to the graph? Layer two is completion authority: once traversal itself is trustworthy, what evidence would justify a stronger completion claim? Version two can address both, but the manuscript must not present layer two as the original or primary failure.
+- Evidence class: first-party engineering judgement, corroborated by the accepted design's separation of state-machine/process soundness from later completion predicates.
+- Public boundary: Do not imply that green semantics are unimportant or already solved. They are explicitly a later problem in the same replacement design.
+- Related manuscript section: governing argument / ordering of version-two concerns.
+- Reopened later: no
+
 ## Editorial decisions
 
 - ED-RG-001: The provisional first-pass thesis “a disciplined route does not prove coverage” is valid but too late in the causal chain to govern the opening. The more fundamental article argument is that JIT delegation of process control requires a trustworthy process authority.
-- ED-RG-002: Keep frontier vs weaker-model economics/capability explicit because it explains why this machinery exists at all. Avoid turning “inferior” into a universal model ranking claim; use it in Harley's intended comparative sense within this review task.
+- ED-RG-002: Keep frontier vs weaker-model capability explicit because it explains why this machinery exists at all. Avoid turning “inferior” into a universal model ranking claim; use it in Harley's intended comparative sense within this review task.
 - ED-RG-003: Preserve the phrase “hand administration of the graph to the graph” as a voice anchor. It expresses the intended architectural boundary cleanly.
+- ED-RG-004: Treat graph/process trust and final-green trust as two ordered layers. The manuscript should solve the reader's first question, “can the graph safely own global workflow state?”, before introducing the stronger question, “what does green prove?”.
 
 ## Corrections and anti-inferences
 
@@ -71,17 +82,17 @@ The hard stop is binding. At five hours, stop asking questions and write the bes
 - Do not use plan detail as public implementation evidence.
 - Do not collapse “the graph is not trustworthy as process authority” into “the review missed a defect”. No concrete missed production defect has been claimed.
 - Do not publish “the graph lies” as a factual implementation description until a specific public example makes the meaning precise.
+- Do not lead with coverage, evidence provenance or snapshot identity as though they caused the redesign. They are real completion-trust concerns, but Harley identifies global workflow trust as the primary failure.
 
 ## Unresolved questions
 
-1. After Sol's “not trustworthy” assessment, did Harley initially set out to repair the graph so weaker agents could safely surrender global control, or did the work immediately broaden into defining what a trustworthy `reviewed-green` claim itself would require?
-2. What did version one solve well enough that it deserves to survive the critique beyond the JIT traversal mechanism itself?
-3. Which concrete current contradiction, dead end or recursive route best demonstrates the trust failure without turning the article into graph archaeology?
-4. Why replace the authority model rather than keep patching the router?
-5. What part of the version-two design is Harley's strongest engineering judgement, and what part remains most uncertain?
-6. What should the hiring manager understand about Harley after reading this that the Provisioning article doesn't already establish?
-7. Which additional voice anchors, jokes, irritations or metaphors are unmistakably Harley and worth preserving?
-8. What must remain private, qualified or explicitly unknown?
+1. What did version one solve well enough that it deserves to survive the critique beyond the JIT traversal mechanism itself?
+2. Which concrete current contradiction, dead end or recursive route best demonstrates the trust failure without turning the article into graph archaeology?
+3. Why replace the authority model rather than keep patching the router?
+4. What part of the version-two design is Harley's strongest engineering judgement, and what part remains most uncertain?
+5. What should the hiring manager understand about Harley after reading this that the Provisioning article doesn't already establish?
+6. Which additional voice anchors, jokes, irritations or metaphors are unmistakably Harley and worth preserving?
+7. What must remain private, qualified or explicitly unknown?
 
 ## Voice language worth preserving
 
@@ -89,6 +100,7 @@ The hard stop is binding. At five hours, stop asking questions and write the bes
 - “the graph that's in place today is not trustworthy”
 - “it lies in places” (hold for a concrete example before public use)
 - frontier model can self-review; lesser model needs scaffolding strong enough that it does not have to reason globally about the review process
+- “we can't make the final green review any stronger while the graph itself is the failure mode”
 
 ## Cutting-room material from this article
 
