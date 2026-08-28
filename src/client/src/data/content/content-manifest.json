@@ -107,11 +107,11 @@
     {
       "slug": "context-is-not-state",
       "kind": "writing",
-      "title": "Context is not the same as state",
+      "title": "I made agentic engineering harder than it needed to be",
       "date": "2026-08-07",
-      "readingMinutes": 6,
+      "readingMinutes": 12,
       "status": "published",
-      "summary": "Files are state. Conversation is context. Agentic systems need both, but durable truth lives in files.",
+      "summary": "I built an agent organisation around a book that only needed three domains. Untangling it taught me where agent roles, repository state and hard boundaries actually belong.",
       "path": "writing/2026-08-07-context-is-not-state.md",
       "tags": ["writing", "agentic-engineering", "context"],
       "relatedSlugs": []
