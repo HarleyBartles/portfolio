@@ -11,8 +11,6 @@ import { LoadingPage } from './LoadingPage'
 export function WritingIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
   const writing = sortWriting(navigationQuery.data ?? [])
-  const featured = writing.find((item) => item.featured) ?? writing[0]
-  const archive = writing.filter((item) => item.slug !== featured?.slug)
 
   return (
     <SiteLayout>
@@ -31,14 +29,11 @@ export function WritingIndexPage(): ReactElement {
         </header>
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
-        {navigationQuery.isSuccess && featured !== undefined ? (
-          <>
-            <EditorialIndexCard item={featured} index={0} featured />
-            <div className="writing-archive" aria-label="Writing archive">
-              <p className="eyebrow">Archive / newest first</p>
-              {archive.map((item, index) => <EditorialIndexCard item={item} index={index + 1} key={item.slug} />)}
-            </div>
-          </>
+        {navigationQuery.isSuccess && writing.length > 0 ? (
+          <section className="writing-list" aria-label="Writing, newest first" data-visual-contract="writing-peer-list">
+            <p className="eyebrow">All writing / newest first</p>
+            {writing.map((item, index) => <EditorialIndexCard item={item} index={index} key={item.slug} />)}
+          </section>
         ) : null}
       </section>
     </SiteLayout>
