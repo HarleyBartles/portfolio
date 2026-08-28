@@ -32,8 +32,8 @@ You own conversational discovery and manuscript craft under Harley's direction. 
 
 ## Read order
 
-1. `docs/editorial-drafts/phase-7/api-is-only-the-middle-next-room-seed.md`
-2. `docs/editorial-drafts/phase-7/api-is-only-the-middle-sol-first-pass.md`
+1. `docs/editorial-drafts/phase-7/article-records/api-middle/api-is-only-the-middle-next-room-seed.md`
+2. `docs/editorial-drafts/phase-7/article-records/api-middle/api-is-only-the-middle-sol-first-pass.md`
 3. `.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md`, beginning at `### The API is only the middle`
 4. `.agents/plans/portfolio-10k/2026-08-25-portfolio-10k-phase-7-writing-authority.md`, using the candidate's ownership and evidence boundaries
 5. `docs/editorial-admission.md` and `docs/editorial-source-custody.md`

@@ -16,8 +16,8 @@ You own the conversational discovery and manuscript craft under Harley's directi
 
 ## Read order
 
-1. `docs/editorial-drafts/phase-7/testing-evidence-terra-draft.md`
-2. `docs/editorial-drafts/phase-7/testing-evidence-sol-first-pass.md`
+1. `docs/editorial-drafts/phase-7/article-records/testing/testing-evidence-terra-draft.md`
+2. `docs/editorial-drafts/phase-7/article-records/testing/testing-evidence-sol-first-pass.md`
 3. `.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md`, beginning at `### Tests are different kinds of evidence`
 4. `.agents/plans/portfolio-10k/2026-08-25-portfolio-10k-phase-7-writing-authority.md`, using its Testing evidence and originality boundaries
 5. `docs/editorial-drafts/phase-7/cross-article-thread-ledger.md`

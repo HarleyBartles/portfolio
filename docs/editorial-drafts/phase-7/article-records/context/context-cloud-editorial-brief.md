@@ -22,8 +22,8 @@ The article should make one concrete, arguable engineering point, not wear a con
 
 ## Read order
 
-1. `src/client/src/data/content/writing/2026-08-07-context-is-not-state.md` — the published stub to groom.
-2. `docs/editorial-drafts/phase-7/context-terra-draft.md` — historical first-pass material and its questions; not source truth or settled copy.
+1. `src/client/src/data/content/writing/2026-08-07-i-made-agentic-engineering-harder-than-it-needed-to-be.md` — the published article. The former `context-is-not-state` route was deliberately retired during production.
+2. `docs/editorial-drafts/phase-7/article-records/context/context-terra-draft.md` — historical first-pass material and its questions; not source truth or settled copy.
 3. `.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md`, especially the Context, Graph and Pass References responsibilities.
 4. `docs/editorial-admission.md` and `docs/editorial-source-custody.md`.
 5. `docs/editorial-drafts/phase-7/cross-article-thread-ledger.md`.

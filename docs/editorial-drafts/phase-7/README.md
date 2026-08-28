@@ -1,160 +1,31 @@
-# Phase 7 editorial drafts
+# Phase 7 editorial record
 
-These files are durable internal editorial source material for the Phase 7 writing-authority publication. They preserve the draft stack between article cycles so work on one article cannot strand or erase the others.
+This directory is the durable internal record of the writing-authority phase. It
+keeps future editorial work recoverable without presenting every draft as a
+current brief or a public claim.
 
-## Authority and status
+## Current publication
 
-- A draft is not public, admitted or author-approved merely because it is stored here.
-- Harley remains the authority on his experience, intended meaning, factual boundaries and final publication decision.
-- Open questions, provisional claims and plausible prose are not source truth.
-- Cross-repository facts must be reverified against the live source before publication.
-- Public article content lives in `src/client/src/data/content/writing/`; the admission and source-custody ledgers govern publication.
+Seven articles were admitted and published. `Pass references, not paragraphs`
+was deliberately left unpublished: its retained material did not yet earn the
+same editorial bar.
 
-## Cloud editorial-room persistence cadence
+- [Publication closeout](publication-closeout.md) records the final public roster and merge receipts.
+- [Article records](article-records.md) routes an editor to the relevant production source and retained discovery material.
+- [Editorial admission ledger](../../editorial-admission.md) is the authority for admission and deferral decisions.
+- [Source custody](../../editorial-source-custody.md) governs supporting evidence and attribution boundaries.
 
-Keep a repo-local answer log throughout the conversation. Append every material answer, correction, factual boundary, editorial decision and valuable cutting-room thread while it is fresh. Local writes are cheap protection against context rot; they do not need a GitHub commit on every turn.
+## Reusing the method
 
-Commit and push a coherent editorial checkpoint only when the accumulated state justifies the wall-clock cost. Useful checkpoint triggers are:
+- [Editorial-room playbook](editorial-room-playbook.md) holds the reusable room method: authority, persistence, thesis pressure-testing and closure.
+- [Cross-article thread ledger](cross-article-thread-ledger.md) holds material deliberately kept out of a completed article because it belongs elsewhere.
 
-- a meaningful batch of new evidence or answered questions;
-- a changed factual boundary or governing argument;
-- acceptance of a curveball reframe, after its consequences have been carried through the argument and notes;
-- approaching a context, session or time-box risk where losing the local state would be expensive; and
-- the final handoff back to local production.
+## Custody rules
 
-There is no fixed turn count or timer. Judge the recovery value of the accumulated state against the cost of interrupting discovery to prepare, commit and push it. Between GitHub checkpoints, keep the local log current enough that a sudden interruption loses conversation time, not editorial knowledge.
+- Harley remains the authority on lived experience, intended meaning, factual boundaries and publication decisions.
+- Production articles live in [`src/client/src/data/content/writing/`](../../../src/client/src/data/content/writing/). They are the public source; these records explain discovery and custody.
+- A retained draft, brief or cutting-room note is not public copy, an admission decision or factual authority by itself.
+- Reverify cross-repository claims against live source before using them in a later article.
+- Keep new material in the relevant `article-records/` folder. Put reusable process guidance in the playbook and wrong-article material in the cross-article ledger.
 
-Before each GitHub checkpoint, reconcile the local answer log, current manuscript and cross-article ledger so the commit is a coherent recovery point. At final handoff, retain the durable discovery record and valuable cross-article notes; remove disposable briefs and intermediate manuscripts once their decisions are present in the production article or durable record.
-
-## Governing-argument pressure test: the hot take
-
-When an article has good material but its governing thesis still feels descriptive, taxonomic or merely agreeable, try the **hot-take pressure test**.
-
-Internal shorthand: **`I say X; fight me.`**
-
-Reader-facing posture: **`Bold claim. Click here to see me prove it.`**
-
-The point is not to manufacture controversy, force contrarianism or reward provocative wording for its own sake. Ask whether the article makes a clear proposition that a competent reader could reasonably dispute, then earns that proposition through evidence, trade-offs, reasoning and honest boundaries.
-
-If the supposed argument collapses into a truism, a catalogue, a pattern-name explainer or an unbounded `it depends`, keep discovering what the article actually wants to say. Use the hot-take shape as a tool for finding the governing argument, not as a requirement that every title sound aggressive or every article disagree with received wisdom.
-
-The useful target is an article that makes the reader think: **bold claim; show me.** Then the body does.
-
-## Room-to-room editorial lessons
-
-Carry these process lessons into the next Cloud article room. They are workflow defaults, not public-copy rules or substitutes for Harley's judgement.
-
-- **Discover conversationally.** Follow Harley's live riffs instead of converting the brief into a questionnaire. Ask one useful question when a question is needed, and let an answer change what should be asked next.
-- **Treat the seed thesis as an entry point, not a protected conclusion.** If the lived story and evidence reveal that the article is actually about something else, let the governing argument move. Do not keep an inherited premise, title or framing merely because it got the room opened.
-- **Use one deliberate curveball after the evidence exists.** A materially different governing argument is most useful once the room has enough lived detail to test whether the same evidence supports a sharper article. Do not manufacture contrarian energy just to satisfy the exercise.
-- **Do not call the rewrite too early.** Wait until the lived story, governing argument, important evidence boundaries and obvious counterargument are stable enough that sentence polishing is unlikely to be thrown away by the next discovery turn. Before then, prose is disposable working material.
-- **Once the thesis lands, review paragraph jobs before repeatedly redrafting sentences.** Every paragraph should carry one coherent thought, turn, consequence or phase. If adjacent paragraphs are developing the same thought, merge them before polishing their individual cadence.
-- **Reconcile the promise before final polish.** Once the governing argument is stable, read the title, summary, opening, section headings and closing as one surface. They should promise and cash the same article. A title inherited from the seed brief does not survive merely because the supporting idea still appears somewhere in the body.
-- **Whitespace is not emphasis by default.** A short or one-sentence paragraph earns isolation only when separation changes how the reader should hear or understand it: a real turn, conclusion, contrast or intentionally load-bearing line. If it merely creates a spoken pause, attach it to the thought it belongs to.
-- **Verify load-bearing mechanisms before turning them into patterns.** When the argument depends on how a harness, profile, runtime, authority boundary or other mechanism actually behaves, inspect or establish the implementation semantics before abstracting. Keep observed harness-specific behaviour distinct from universal claims.
-- **Inspect available primary evidence as soon as an anecdote becomes causal.** If a first-party email, screenshot, commit, trace or other source is available and the manuscript now depends on the episode, inspect it before the next settled draft. Separate what the source says from what Harley reasonably infers from it.
-- **Run the three value lenses on a coherent manuscript, not raw discovery.** The £10k-agency, weary-hiring-manager and cynical-architect lenses are most useful after the argument and evidence are stable enough to expose real finish, credibility and technical-boundary problems rather than rewarding an attractive fragment.
-- **Look for stories whose later event changes the meaning of the earlier one.** Circularity can compress a large lesson without adding another abstract explanation. The SQL story worked because the interview answer and the later real problem exposed opposite halves of the same mistake: `have a go` and `ask for help` did not need to be mutually exclusive.
-- **Protect the earlier self before showing the attitude change.** A reflective article is stronger when the old behaviour made sense under the old constraints. Do not make a junior, earlier Harley or another past actor artificially foolish so the present-day lesson can sound wiser.
-- **Route valuable wrong-article material away instead of squeezing it in.** A good discovery can be too large or too orthogonal for the current manuscript. Preserve it in the cross-article ledger with its evidence boundary and let the current article get simpler.
-- **Start closure before the nominal stop.** For a three-hour room, begin the handoff window at roughly `T-15m`: no new discovery branch unless it corrects a material factual error. Reconcile title/thesis, lenses, cutting-room material, evidence/privacy custody, manuscript and read order, then hand local production a durable surface.
-- **Stop Cloud when local production has a sufficient handoff.** The room does not need to finish page composition or squeeze every last sentence. It does need to leave the accepted manuscript, evidence and privacy custody, unresolved boundaries, valuable cutting-room material, and a clear read order so local Sol can continue without reopening discovery by default.
-
-## Preserved draft stack
-
-- `api-is-only-the-middle-next-room-seed.md`
-- `api-is-only-the-middle-sol-first-pass.md`
-- `api-is-only-the-middle-cloud-editorial-brief.md`
-- `api-is-only-the-middle-cloud-discovery-record.md`
-- `api-is-only-the-middle-cloud-handoff-addendum.md`
-- `api-is-only-the-middle-cloud-first-draft.md`
-- `context-terra-draft.md`
-- `context-cloud-editorial-brief.md`
-- `context-cloud-discovery-record.md`
-- `pass-references-terra-draft.md`
-- `provisioning-terra-draft.md`
-- `provisioning-cloud-editorial-brief.md`
-- `provisioning-cloud-discovery-record.md`
-- `provisioning-cloud-discovery-addendum.md`
-- `provisioning-cloud-first-draft.md`
-- `cross-article-thread-ledger.md`
-- `review-graph-terra-draft.md`
-- `review-graph-cloud-discovery-checkpoint.md`
-- `testing-evidence-terra-draft.md`
-- `testing-evidence-sol-first-pass.md`
-- `testing-evidence-cloud-editorial-brief.md`
-- `testing-evidence-cloud-discovery-record.md`
-- `testing-evidence-cloud-handoff-addendum.md`
-- `testing-evidence-cloud-first-draft.md`
-- `why-adrs-terra-draft.md`
-- `why-adrs-sol-draft.md`
-
-The Terra files are first-pass working drafts. The Why ADRs Sol file incorporates Harley's story-discovery and argument decisions, but remains an editorial working document until its production article is separately approved.
-
-`provisioning-cloud-editorial-brief.md` records the completed cross-runtime editorial handoff. Cloud Sol supplied the discovery and first manuscript on the named PR branch; local Sol and Harley completed the settled copy, rendered production and merge approval. Publication proof remains with the exact-head merge and deployment closeout.
-
-`provisioning-cloud-discovery-record.md` is the durable snapshot of the long-form Cloud discovery conversation through the first major drain. It preserves the cross-repo argument, evidence boundaries, corrections, anti-inferences, voice anchors, related article seeds and unresolved drafting decisions. It is deliberately more complete than the eventual article and must not be mistaken for settled public copy.
-
-`provisioning-cloud-discovery-addendum.md` preserves the late-stage discussion that happened after the main record was written. It contains the final capability framing, Goldilocks connection, Linear `save_*` anecdote, tool/manual boundary, Superpowers adapter-to-fork judgement, workflow provisioning model, contracted spec/plan semantics, Handoff Gates mechanism and evidence, the fresh-agent-as-lens correction, AI-fatigue warning, and the final supported/first-party/anti-inference boundaries. **Local Sol must read both discovery documents before treating the first draft as evidence-backed copy.**
-
-`provisioning-cloud-first-draft.md` preserves the first coherent Cloud manuscript rather than the settled public copy. The final article was completed in the production source after an in-repo editorial pass using the discovery records and installed writing/fatigue skills.
-
-`cross-article-thread-ledger.md` preserves valuable material deliberately cut from a current article and routes it towards a plausible future home. It is editorial memory, not a promise that every thread will become an article.
-
-`review-graph-cloud-discovery-checkpoint.md` is the durable record of the completed time-boxed editorial room. The brief, working manuscript and first local pass were deliberately removed once the article settled; the public source is the production article, while the checkpoint retains the facts, boundaries, decisions and cutting-room material needed by later work.
-
-`testing-evidence-cloud-discovery-record.md` preserves the backend and frontend discovery through the final conventional-engineering checkpoint. `testing-evidence-cloud-handoff-addendum.md` supersedes its unresolved/open-discovery tail with the accepted governing argument, curveball decision, pressure-scenario boundary, three-lens review, £8,750 valuation and local-Sol handoff. `testing-evidence-cloud-first-draft.md` is the resulting Cloud manuscript to stand up into the production article frame. None of those surfaces makes an admission decision.
-
-`api-is-only-the-middle-next-room-seed.md` records the original correction from an API-specific premise to the wider observation that implementation is only the middle of engineering. `api-is-only-the-middle-cloud-discovery-record.md` preserves the main Harley-led discovery and accepted curveball. `api-is-only-the-middle-cloud-handoff-addendum.md` closes the late discovery with the anti-adversarial `no dev is an island` argument, breadcrumb stewardship, regulated-supplier handoff, SQL circularity, profanity/cadence rules and final three-lens review. `api-is-only-the-middle-cloud-first-draft.md` is the accepted Cloud manuscript for local Sol to stand up in the production article frame. None of those surfaces makes an admission decision.
-
-For Provisioning, the current editorial read order is:
-
-1. `provisioning-cloud-editorial-brief.md`
-2. `provisioning-cloud-discovery-record.md`
-3. `provisioning-cloud-discovery-addendum.md`
-4. `provisioning-cloud-first-draft.md`
-5. source surfaces named by the two discovery records as needed for verification
-
-For Review Graph, the durable editorial read order is:
-
-1. `review-graph-cloud-discovery-checkpoint.md`
-2. `src/client/src/data/content/writing/2026-08-22-graph-iterative-review.md`
-3. the Graph passages in the Phase 7 plan
-4. `cross-article-thread-ledger.md`
-5. the pinned Marketplace implementation, design and roadmap named in the checkpoint
-
-Preserve superseded drafts or record their disposition. Do not silently rewrite another article's factual boundaries while working on the current one.
-
-For Testing, the durable local-Sol handoff read order is:
-
-1. `testing-evidence-cloud-editorial-brief.md` for the room contract and protected boundaries;
-2. `testing-evidence-cloud-discovery-record.md` for the backend/frontend evidence, corrections and factual custody;
-3. `testing-evidence-cloud-handoff-addendum.md` for the accepted reframe, agentic worked example, editorial lenses and final handoff decisions;
-4. `testing-evidence-cloud-first-draft.md` for the £8,750 manuscript to stand up into the article frame;
-5. the Testing passages in the Phase 7 specification and plan, plus live source surfaces named by the discovery documents, when factual/source refresh is needed;
-6. `testing-evidence-terra-draft.md` and `testing-evidence-sol-first-pass.md` only as superseded historical working material; and
-7. `cross-article-thread-ledger.md` for adjacent material already routed elsewhere.
-
-The accepted public-facing proposition is **The right test isn't your favourite test**. The article is engineering-first; agentic pressure testing is a worked transfer of the same judgement, not the centre of gravity. Local Sol owns the aggressive final edit, production article frame, source refresh where needed, presentation and any later admission decision.
-
-For `api-is-only-the-middle`, the durable local-Sol handoff read order is:
-
-1. `api-is-only-the-middle-cloud-editorial-brief.md` for the room contract and protected boundaries;
-2. `api-is-only-the-middle-cloud-discovery-record.md` for the main lived-story discovery, evidence classes and anti-inferences;
-3. `api-is-only-the-middle-cloud-handoff-addendum.md` for the accepted late discoveries, SQL circularity, stewardship argument, cadence rule and final value lenses;
-4. `api-is-only-the-middle-cloud-first-draft.md` for the accepted Cloud manuscript, valued at approximately £9,500 / £10,000 before final local polish;
-5. live source surfaces named by the discovery documents when production claims need reverification;
-6. `api-is-only-the-middle-next-room-seed.md` and `api-is-only-the-middle-sol-first-pass.md` only as superseded historical working material; and
-7. `cross-article-thread-ledger.md` for the repeating new-guy-reset thread deliberately routed away from this manuscript.
-
-The accepted article proposition is **“I just write the code” is not a full sentence**. The implementation remains central, but responsibility continues before and after it. Local Sol owns final subtraction, production article framing, SQL-aside presentation, source refresh where needed, corpus-level fatigue review, any later admission decision and publication proof.
-
-For Context's completed Cloud room, the durable local-Sol handoff read order is:
-
-1. `context-cloud-editorial-brief.md` for the original room contract and protected boundaries;
-2. `context-cloud-discovery-record.md` for the accepted governing argument, lived-story chronology, WorkClaw evidence boundary, profile/harness correction, privacy custody, future threads, intentional URL change and final three-lens review;
-3. `src/client/src/data/content/writing/2026-08-07-context-is-not-state.md` for the accepted manuscript currently parked under its old filename pending local route production;
-4. `cross-article-thread-ledger.md` for the source-staging and independent-convergence threads deliberately routed elsewhere; and
-5. `context-terra-draft.md` only as superseded historical working material.
-
-The accepted article title and proposition is **I made agentic engineering harder than it needed to be**. The old `context-is-not-state` URL is intentionally disposable; local Sol should move the production article to the new title-derived slug/route rather than preserving the old URL by accident. Local Sol owns page composition, any WorkClaw aside treatment, route/file rename, generated-surface refresh, source refresh where needed, corpus-level fatigue review, admission and publication proof.
+The generated [index](INDEX.md) is the file inventory, not the reading order.

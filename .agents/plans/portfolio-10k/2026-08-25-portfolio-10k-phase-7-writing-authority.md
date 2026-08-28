@@ -1,6 +1,6 @@
 # Portfolio £10k Phase 7: Writing Authority and Breadth Implementation Plan
 
-**Status:** Ready for execution
+**Status:** Completed public publication; editorial record consolidated
 
 **Approved design:** [Writing Authority and Breadth](../../specs/2026-08-21-portfolio-10k-07-writing-authority-design.md)
 
@@ -17,6 +17,18 @@
 ## Outcome
 
 Publish the strongest technical publication that can be finished to the full editorial standard inside the Phase 7 time budget. Five essays is the publication floor, not a target cardinality. The practical working pool contains eight candidates and will probably yield five to eight finished essays. The upper end is a wall-clock guardrail for this phase, not a schema rule.
+
+## Closeout record
+
+Phase 7 published seven author-approved essays: Vibe, Why ADRs, Provisioning,
+Review Graph, Testing, product responsibility and context containment. `Pass
+references, not paragraphs` was deliberately deferred rather than admitted to
+fill the floor. The final roster, merge receipts and retained editorial record
+are in [`docs/editorial-drafts/phase-7/publication-closeout.md`](../../../docs/editorial-drafts/phase-7/publication-closeout.md) and
+[`docs/editorial-admission.md`](../../../docs/editorial-admission.md).
+
+The original checklist below records the execution design. It is not rewritten
+as a fictional contemporaneous log; the closeout records the observed outcome.
 
 The candidate pool is:
 
