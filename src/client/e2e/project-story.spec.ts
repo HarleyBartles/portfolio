@@ -477,6 +477,12 @@ test('Learning Lab links and narrow layouts preserve an accessible complete argu
   }
 
   await page.setViewportSize({ width: 768, height: 900 })
+  await page.evaluate(async () => {
+    await document.fonts.ready
+    window.scrollTo(0, 0)
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+  })
   const heroBounds = await page.locator('[data-visual-contract="learning-lab-inspection-hero"]').boundingBox()
   expect(heroBounds).not.toBeNull()
   for (const stage of await page.locator('[data-visual-contract="learning-lab-inspection-hero"] .learning-loop__stage').all()) {
