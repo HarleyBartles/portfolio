@@ -95,10 +95,10 @@ describe('loadDocument', () => {
   })
 
   test('continues to load ordinary Markdown documents', async () => {
-    const writing = navigation.find((item) => item.slug === 'context-is-not-state')
+    const writing = navigation.find((item) => item.slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be')
 
     await expect(loadDocument(writing!)).resolves.toMatchObject({
-      summary: { slug: 'context-is-not-state' },
+      summary: { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be' },
       markdown: expect.any(String),
     })
   })

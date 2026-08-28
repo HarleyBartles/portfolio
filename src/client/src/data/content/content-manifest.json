@@ -8,7 +8,7 @@
       "summary": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
       "presentation": "marketplace-case-study",
       "tags": ["project", "agentic-engineering", "skills"],
-      "relatedSlugs": ["provisioning-is-not-accumulation", "context-is-not-state", "pass-references-not-paragraphs"]
+      "relatedSlugs": ["provisioning-is-not-accumulation", "i-made-agentic-engineering-harder-than-it-needed-to-be", "pass-references-not-paragraphs"]
     },
     {
       "slug": "agentic-learning-lab",
@@ -51,7 +51,7 @@
       "summary": "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room.",
       "path": "writing/2026-08-01-agentic-engineering-vs-vibe-coding.md",
       "tags": ["writing", "agentic-engineering", "vibe-coding"],
-      "relatedSlugs": ["graph-iterative-review", "context-is-not-state", "provisioning-is-not-accumulation"]
+      "relatedSlugs": ["graph-iterative-review", "i-made-agentic-engineering-harder-than-it-needed-to-be", "provisioning-is-not-accumulation"]
     },
     {
       "slug": "why-adrs",
@@ -105,14 +105,14 @@
       "relatedSlugs": []
     },
     {
-      "slug": "context-is-not-state",
+      "slug": "i-made-agentic-engineering-harder-than-it-needed-to-be",
       "kind": "writing",
       "title": "I made agentic engineering harder than it needed to be",
       "date": "2026-08-07",
       "readingMinutes": 8,
       "status": "published",
       "summary": "I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.",
-      "path": "writing/2026-08-07-context-is-not-state.md",
+      "path": "writing/2026-08-07-i-made-agentic-engineering-harder-than-it-needed-to-be.md",
       "tags": ["writing", "agentic-engineering", "context"],
       "relatedSlugs": []
     },

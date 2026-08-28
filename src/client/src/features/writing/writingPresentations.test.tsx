@@ -27,7 +27,7 @@ describe('writing presentations', () => {
       },
       continuations: [
         { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
-        { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
       ],
     })
     expect(getWritingPresentation('unknown-writing-slug')).toBeUndefined()
@@ -45,7 +45,7 @@ describe('writing presentations', () => {
       },
       continuations: [
         { slug: 'goldilocks', eyebrow: 'See the argument in one page' },
-        { slug: 'context-is-not-state', eyebrow: 'Separate context from durable state' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Separate context from durable state' },
       ],
     })
   })
@@ -62,13 +62,13 @@ describe('writing presentations', () => {
       },
       continuations: [
         { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary' },
-        { slug: 'context-is-not-state', eyebrow: 'Keep the evidence durable' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Keep the evidence durable' },
       ],
     })
   })
 
   test('registers the context article as an organisation that outgrew its work', () => {
-    const presentation = getWritingPresentation('context-is-not-state')
+    const presentation = getWritingPresentation('i-made-agentic-engineering-harder-than-it-needed-to-be')
 
     expect(presentation).toMatchObject({
       regionLabel: 'Agent organisation article introduction',

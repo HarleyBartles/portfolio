@@ -9,7 +9,7 @@ export type ProjectVisualSlug =
   | 'adventures-of-patch'
   | 'wild-bunch'
   | 'agentic-engineering-vs-vibe-coding'
-  | 'context-is-not-state'
+  | 'i-made-agentic-engineering-harder-than-it-needed-to-be'
 
 type ProjectVisualProps = {
   slug: ProjectVisualSlug
@@ -86,7 +86,7 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
     )
   }
 
-  if (slug === 'context-is-not-state') {
+  if (slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be') {
     return (
       <figure className="project-visual project-visual--diagram" role="img" aria-label="Context flows into a decision, while durable state is written to a file.">
         <span>CONTEXT</span><b aria-hidden="true">→</b><span>DECISION</span><i aria-hidden="true">/</i><span>STATE</span><b aria-hidden="true">→</b><span>FILE</span>

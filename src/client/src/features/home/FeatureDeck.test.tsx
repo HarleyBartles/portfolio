@@ -26,8 +26,8 @@ const items: FeatureItem[] = [
     eyebrow: 'Field note',
     title: 'Context is not state',
     summary: 'Conversation helps. Durable truth still needs a home.',
-    to: '/writing/context-is-not-state',
-    visual: 'context-is-not-state',
+    to: '/writing/i-made-agentic-engineering-harder-than-it-needed-to-be',
+    visual: 'i-made-agentic-engineering-harder-than-it-needed-to-be',
   },
   {
     id: 'wild-bunch',

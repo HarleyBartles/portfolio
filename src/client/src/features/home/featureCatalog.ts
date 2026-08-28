@@ -26,7 +26,7 @@ export const homeFeatureCatalog: readonly HomeFeatureSpec[] = [
     visual: 'agentic-engineering-vs-vibe-coding',
   },
   { slug: 'wild-bunch', eyebrow: 'Project story', visual: 'wild-bunch' },
-  { slug: 'context-is-not-state', eyebrow: 'Field note', visual: 'context-is-not-state' },
+  { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Field note', visual: 'i-made-agentic-engineering-harder-than-it-needed-to-be' },
 ]
 
 export function buildHomeFeatures(items: readonly ContentSummary[]): FeatureItem[] {
