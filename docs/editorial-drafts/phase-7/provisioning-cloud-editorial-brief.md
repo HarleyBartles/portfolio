@@ -29,7 +29,7 @@ When Harley eventually approves settled copy, Cloud Sol writes the settled manus
 4. [`provisioning-cloud-first-draft.md`](provisioning-cloud-first-draft.md).
 5. [`provisioning-terra-draft.md`](provisioning-terra-draft.md), including its older open Harley questions and custody table. Treat unresolved questions there as superseded where the Cloud discovery records answer them.
 6. The current public candidate at [`src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md`](../../../src/client/src/data/content/writing/2026-08-12-provisioning-is-not-accumulation.md).
-7. The finished [`Why ADRs?`](../../../src/client/src/data/content/writing/2026-08-26-why-adrs.md) article and [PR #33](https://github.com/HarleyBartles/portfolio/pull/33) as evidence of the editorial journey this workflow is trying to compress.
+7. The finished [`Why ADRs?`](../../../src/client/src/data/content/writing/2026-08-22-why-adrs.md) article and [PR #33](https://github.com/HarleyBartles/portfolio/pull/33) as evidence of the editorial journey this workflow is trying to compress.
 8. The Provisioning contract in [the Phase 7 design](../../../.agents/specs/2026-08-21-portfolio-10k-07-writing-authority-design.md#provisioning-is-not-accumulation) and the responsibility split in the same document.
 9. [`docs/editorial-admission.md`](../../editorial-admission.md), [`docs/editorial-source-custody.md`](../../editorial-source-custody.md), the active [portfolio design policy](../../../.agents/doctrine/portfolio-design-policy.md), and the repository's installed `/writing` workflow.
 10. Exact source surfaces named by the two discovery records whenever a claim needs re-verification.
