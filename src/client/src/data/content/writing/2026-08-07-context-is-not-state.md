@@ -20,9 +20,9 @@ I learned this on a private project that eventually became unpleasant to work in
 
 A quick evidence note before I use it as a case study: the repository is private because it contains a book I’m writing, so I can’t give you links to inspect the history yourself. I’m happy to screen-share the engineering history in an interview — the sprawl, the commits and the cleanup — subject to a reasonably strong stomach for profanity. The book pulls no punches.
 
-The book has three real subdomains with a small amount of coordination above them. I started by giving those domains separate Git repositories wired together with submodules. Then I built a named-agent hierarchy over the top: work came in through one agent, passed to another for acceptance and delegation, moved into domain-specific agents, then travelled back up through reports.
+The book has three real subdomains: research, world-building and writing, with a small amount of coordination above them. That separation still makes sense. My first implementation gave each domain its own Git repository, wired together with submodules, and then gave each one a character: Albert the Archaeologist handled research, Brian the Librarian looked after world-building, and Derek the Novelist sat at the writing desk. Work came in through a coordinating layer, was accepted and delegated to one of them, then travelled back up through reports.
 
-I was trying to make ownership and handoff legible. I accidentally built an organisation.
+I was trying to make ownership and handoff legible. In practice I had built a little organisation around three real boundaries. Albert, Brian and Derek made the structure memorable, but they were puppetry and theatre. They did not buy me anything I could not get by routing an agent into the right domain with the right context.
 
 There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/blog/introducing-workclaw) launched while my own named-agent hierarchy was still live, built around collaborative AI coworkers that can coordinate with one another. I had independently landed near a design another team was productising at the same time.
 
@@ -36,13 +36,13 @@ The $100 startup bonus credit disappeared during onboarding and one minor smoke 
 
 I emailed WorkClaw about it. They thanked me for surfacing a cost they had not properly accounted for: agents spinning on “any new tasks yet?” were hitting frontier models because their model routing was misconfigured.
 
-That routing bug was theirs, not a universal law of multi-agent systems. What interested me was that the productised version had exposed the same design question my hand-rolled version had, only through money instead of repository complexity: what was all this coordination actually buying?
+That routing bug was theirs, not a universal law of multi-agent systems. What interested me was that the polished version had exposed the same design question my hand-rolled version had, only through money instead of repository complexity: what was all this coordination actually buying?
 
 For this project, not enough.
 
-The book needed three subdomains. It didn’t need an organisation.
+The book needed research, world-building and writing. It didn’t need an organisation.
 
-So I collapsed the submodules into one repository and kept the useful boundary: the domains became folders. The thing I had actually needed survived. Most of the machinery around it did not.
+So I collapsed the submodules into one repository and kept the useful boundary: research, world-building and writing became folders. Albert, Brian and Derek stopped being roles an agent had to inhabit. An agent could simply work in the domain the task belonged to. The thing I had actually needed survived. The puppetry did not.
 
 The bigger mess was documentation.
 
@@ -106,7 +106,7 @@ That question changed the shape of the cleanup. “Keep the repo tidy” was not
 
 That thinking eventually became the public [`cleanup-custody`](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/skills/cleanup-custody/SKILL.md) skill I use now. Its useful idea is not that fewer files are better. It is that a surface should have a custody decision. Keep it live because it has a current job. Retain it because history or provenance gives it value. Delete it because it genuinely has none. Stop and route it when the authority is not yours.
 
-When active work resumed, the first substantial job was sanitation. The submodules went. The named-agent organisation went. Old actor and governance surfaces were dissolved. Historical reports, receipts and proof artifacts with no current consumer were removed because Git already held the history. Routing became thinner. Repeatable procedures moved toward skills. Current rules had to have current readers. Material that had lost its job needed an exit.
+When active work resumed, the first substantial job was sanitation. The submodules went. Albert, Brian and Derek went. Research, world-building and writing stayed. Old actor and governance surfaces were dissolved. Historical reports, receipts and proof artifacts with no current consumer were removed because Git already held the history. Routing became thinner. Repeatable procedures moved toward skills. Current rules had to have current readers. Material that had lost its job needed an exit.
 
 I did not simplify the repository because small repositories are morally better. I simplified it because every surviving surface should be able to answer a fairly ordinary question: why are you here?
 
