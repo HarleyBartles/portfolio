@@ -10,8 +10,8 @@ test('writing index presents a featured essay and consistent human dates', async
   await expect(featured.getByText('6 min read', { exact: true })).toBeVisible()
 })
 
-test('visitor opens the context article and finds its authored continuations', async ({ page }) => {
-  const response = await page.goto('./writing/context-is-not-state/')
+test('visitor opens the agentic-organisation article and finds its authored continuations', async ({ page }) => {
+  const response = await page.goto('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/')
 
   expect(response?.status()).toBe(200)
   await expect(page.getByRole('heading', { level: 1, name: 'I made agentic engineering harder than it needed to be' })).toBeVisible()

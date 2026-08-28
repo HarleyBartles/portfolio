@@ -157,7 +157,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(links[0]).toHaveAttribute('href', '/portfolio/projects/wild-bunch')
     expect(links[0]).toHaveTextContent('See the decision under pressure')
     expect(links[0]).toHaveTextContent('Wild Bunch')
-    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 
@@ -185,7 +185,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const links = within(continuations).getAllByRole('link')
     expect(links[0]).toHaveAttribute('href', '/portfolio/patch/goldilocks')
     expect(links[0]).toHaveTextContent('See the argument in one page')
-    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
     expect(links[1]).toHaveTextContent('Separate context from durable state')
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
@@ -212,7 +212,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const links = within(continuations).getAllByRole('link')
     expect(links[0]).toHaveAttribute('href', '/portfolio/writing/provisioning-is-not-accumulation')
     expect(links[0]).toHaveTextContent('See the environment boundary')
-    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/context-is-not-state')
+    expect(links[1]).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
     expect(links[1]).toHaveTextContent('Keep the evidence durable')
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
@@ -220,7 +220,7 @@ describe('ContentPage specialist presentation boundary', () => {
   test('gives the context article its organisation figure and authored continuations', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
-      initialEntries: ['/portfolio/writing/context-is-not-state'],
+      initialEntries: ['/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be'],
     })
 
     render(

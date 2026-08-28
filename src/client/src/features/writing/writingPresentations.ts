@@ -44,7 +44,7 @@ const writingPresentations = {
     },
     continuations: [
       { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
-      { slug: 'context-is-not-state', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
     ],
   },
   'provisioning-is-not-accumulation': {
@@ -57,7 +57,7 @@ const writingPresentations = {
     },
     continuations: [
       { slug: 'goldilocks', eyebrow: 'See the argument in one page', rationale: 'See the argument in one page' },
-      { slug: 'context-is-not-state', eyebrow: 'Separate context from durable state', rationale: 'Separate context from durable state' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Separate context from durable state', rationale: 'Separate context from durable state' },
     ],
   },
   'graph-iterative-review': {
@@ -70,10 +70,10 @@ const writingPresentations = {
     },
     continuations: [
       { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary', rationale: 'See the environment boundary' },
-      { slug: 'context-is-not-state', eyebrow: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
     ],
   },
-  'context-is-not-state': {
+  'i-made-agentic-engineering-harder-than-it-needed-to-be': {
     regionLabel: 'Agent organisation article introduction',
     visualContract: 'agent-organisation-overhead',
     figure: {

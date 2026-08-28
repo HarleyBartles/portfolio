@@ -163,7 +163,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const hasProductOwnershipPresentation = document.summary.kind === 'writing'
     && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
   const hasContextComplexityPresentation = document.summary.kind === 'writing'
-    && document.summary.slug === 'context-is-not-state'
+    && document.summary.slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be'
 
   return (
     <SiteLayout>
