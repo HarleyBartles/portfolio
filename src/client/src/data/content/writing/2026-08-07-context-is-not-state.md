@@ -22,7 +22,7 @@ One evidence note before I go further: the repository is private because it cont
 
 The project had three real subdomains and a coordinating domain above them. That part was useful. I then used Git submodules to give those domains separate repositories and built an organisational graph around named agents: work entered at the top, passed through an accepting and delegating role, moved into domain-specific actors for execution, then travelled back up through reports.
 
-There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/) is one current example of the same broad instinct packaged as a product: named, specialised agents with their own identity, skills and scope, coordinating as a team. I hadn’t arrived at a silly idea in isolation; I had independently reached a design that current agent products are exploring too. My mistake was hand-rolling it in a way that caused more problems than it solved, then binding a lot of agent theatre to it before I had evidence that the theatre was buying me enough to pay for its complexity.
+There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/blog/introducing-workclaw) launched while I still had my named-agent hierarchy, built around collaborative AI coworkers that can coordinate with one another. I had independently landed close to a design another team was productising at the same time. My mistake was not the instinct to organise agents around roles and domains. It was hand-rolling the organisation in a way whose complexity cost more than it bought, then adding theatre faster than evidence justified it.
 
 When I eventually collapsed the project into one repository with the same domains bounded by folders, very little of value was lost. The domains were still real. The authority boundaries were still real. What disappeared was the need to model an imaginary organisation before an agent could do useful work inside them.
 
@@ -135,8 +135,6 @@ None of this has made me think agentic engineering is easy. If anything, it has 
 The part I would tell my earlier self is that seriousness does not require machinery.
 
 Before adding another document, ask whether there is actually a reader for it and how that reader will encounter it when it matters. Before adding another orchestration role, ask what real authority boundary the role represents. Before asking for another receipt, ask what fact it preserves that Git, a test result or an existing source of truth does not already preserve. When a clear instruction is missed, do not automatically make it louder; first look at what else you have already trained the agent to treat as an emergency.
-
-> **Get out of your own way.**
 
 Good agentic engineering is not the maximum amount of governance you can persuade an agent to obey. It is enough structure to make the important things obvious, recoverable and hard to contradict, without making the agent solve your agent architecture before it can solve the problem.
 
