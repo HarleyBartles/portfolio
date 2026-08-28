@@ -1,10 +1,10 @@
 ---
-title: Context is not the same as state
+title: I made agentic engineering harder than it needed to be
 date: 2026-08-07
 summary: I built an agent organisation around a book that only needed three domains. Untangling it taught me where agent roles, repository state and hard boundaries actually belong.
 ---
 
-# Context is not the same as state
+# I made agentic engineering harder than it needed to be
 
 I’ve spent a lot of this portfolio arguing that agentic engineering is a real engineering skill. It has failure modes you don’t wish away with a better prompt, and getting good at it means learning things about source truth, review, delegation and recovery that only become obvious after you’ve been bitten by them.
 
