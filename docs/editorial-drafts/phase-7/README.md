@@ -62,6 +62,7 @@ Carry these process lessons into the next Cloud article room. They are workflow 
 - `api-is-only-the-middle-cloud-handoff-addendum.md`
 - `api-is-only-the-middle-cloud-first-draft.md`
 - `context-terra-draft.md`
+- `context-cloud-editorial-brief.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
 - `provisioning-cloud-editorial-brief.md`
