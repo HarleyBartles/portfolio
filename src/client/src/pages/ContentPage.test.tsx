@@ -217,7 +217,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 
-  test('keeps chronological writing navigation for a legacy article', async () => {
+  test('gives the context article its organisation figure and authored continuations', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/writing/context-is-not-state'],
@@ -229,10 +229,19 @@ describe('ContentPage specialist presentation boundary', () => {
       </QueryClientProvider>,
     )
 
-    const header = await screen.findByRole('heading', { level: 1, name: 'Context is not the same as state' }, { timeout: 5_000 })
-    expect(header.closest('.content-page-header')).not.toHaveClass('content-page-header--visual')
-    expect(screen.getByRole('link', { name: /previous: provisioning is not accumulation/i })).toBeVisible()
-    expect(screen.getByRole('link', { name: /next: agentic engineering and the kindness of vibe coding/i })).toBeVisible()
-    expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
+    const header = await screen.findByRole('region', { name: 'Agent organisation article introduction' }, { timeout: 5_000 })
+    expect(header).toHaveAttribute('data-visual-contract', 'agent-organisation-overhead')
+    expect(await within(header).findByRole('figure', undefined, { timeout: 5_000 })).toBeVisible()
+
+    const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
+    expect(within(continuations).getByRole('link', { name: /provision only what the work needs/i })).toHaveAttribute(
+      'href',
+      '/portfolio/writing/provisioning-is-not-accumulation',
+    )
+    expect(within(continuations).getByRole('link', { name: /engineer the route, not the theatre/i })).toHaveAttribute(
+      'href',
+      '/portfolio/writing/graph-iterative-review',
+    )
+    expect(screen.queryByRole('navigation', { name: 'Article navigation' })).not.toBeInTheDocument()
   }, 10_000)
 })

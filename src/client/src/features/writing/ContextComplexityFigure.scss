@@ -1,0 +1,226 @@
+.context-org-chart {
+  margin: 0;
+}
+
+.context-org-chart__canvas {
+  position: relative;
+  padding: clamp(var(--space-5), 3.5vw, var(--space-8));
+  border: 1px solid var(--color-ink);
+  background:
+    linear-gradient(color-mix(in srgb, var(--color-border) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 45%, transparent) 1px, transparent 1px),
+    var(--color-surface);
+  background-size: 1.5rem 1.5rem;
+}
+
+.context-org-chart__eyebrow,
+.context-org-chart__project > p {
+  margin: 0;
+  color: var(--color-accent);
+  font-family: var(--font-code);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.context-org-chart__eyebrow {
+  margin-bottom: var(--space-5);
+}
+
+.context-org-chart__node {
+  position: relative;
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-ink);
+  background: var(--color-surface);
+  box-shadow: 0.3rem 0.3rem 0 color-mix(in srgb, var(--color-accent-soft) 55%, transparent);
+}
+
+.context-org-chart__node strong {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1;
+}
+
+.context-org-chart__node span {
+  color: var(--color-ink-secondary);
+  font-family: var(--font-code);
+  font-size: 0.63rem;
+  line-height: 1.35;
+}
+
+.context-org-chart__canvas > .context-org-chart__node {
+  width: min(15rem, 70%);
+  margin-inline: auto;
+  border-color: var(--color-accent);
+}
+
+.context-org-chart__portfolio {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(8rem, 0.8fr);
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.context-org-chart__portfolio::before {
+  position: absolute;
+  top: calc(var(--space-8) * -1);
+  left: 50%;
+  width: 1px;
+  height: var(--space-4);
+  background: var(--color-accent);
+  content: '';
+}
+
+.context-org-chart__branches {
+  position: absolute;
+  top: calc(var(--space-4) * -1);
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(8rem, 0.8fr);
+  gap: var(--space-5);
+  height: var(--space-4);
+  pointer-events: none;
+}
+
+.context-org-chart__branches span {
+  position: relative;
+}
+
+.context-org-chart__branches span::before {
+  position: absolute;
+  top: 0;
+  height: 1px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.context-org-chart__branches span:first-child::before {
+  right: calc(var(--space-5) * -0.5);
+  left: 50%;
+}
+
+.context-org-chart__branches span:last-child::before {
+  right: 50%;
+  left: calc(var(--space-5) * -0.5);
+}
+
+.context-org-chart__project {
+  position: relative;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+}
+
+.context-org-chart__project::before {
+  position: absolute;
+  top: calc(var(--space-4) * -1);
+  left: 50%;
+  width: 1px;
+  height: var(--space-4);
+  background: var(--color-accent);
+  content: '';
+}
+
+.context-org-chart__project > .context-org-chart__node {
+  margin-top: var(--space-3);
+}
+
+.context-org-chart__departments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.context-org-chart__departments .context-org-chart__node::before {
+  position: absolute;
+  top: calc(var(--space-3) * -1);
+  left: 50%;
+  width: 1px;
+  height: var(--space-3);
+  background: var(--color-accent);
+  content: '';
+}
+
+.context-org-chart figcaption {
+  margin-top: var(--space-4);
+  color: var(--color-muted);
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 68rem) {
+  .content-page-header[data-visual-contract='agent-organisation-overhead'] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .content-page-header[data-visual-contract='agent-organisation-overhead'] .content-page-intro {
+    max-width: min(44rem, 100%);
+  }
+}
+
+@media (max-width: 39rem) {
+  .context-org-chart__branches {
+    display: none;
+  }
+
+  .context-org-chart__portfolio {
+    margin-top: var(--space-6);
+    margin-left: var(--space-4);
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--color-accent);
+    grid-template-columns: 1fr;
+  }
+
+  .context-org-chart__portfolio::before {
+    top: calc(var(--space-6) * -1);
+    left: calc(50% - var(--space-2));
+    height: var(--space-6);
+  }
+
+  .context-org-chart__portfolio::after {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    left: 0;
+    height: 1px;
+    background: var(--color-accent);
+    content: '';
+  }
+
+  .context-org-chart__project::before {
+    top: var(--space-6);
+    left: calc(var(--space-5) * -1);
+    width: var(--space-5);
+    height: 1px;
+  }
+
+  .context-org-chart__project--patch {
+    margin-top: var(--space-2);
+  }
+}
+
+@media (max-width: 25rem) {
+  .context-org-chart__departments {
+    grid-template-columns: 1fr;
+    margin-left: var(--space-4);
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--color-accent);
+  }
+
+  .context-org-chart__departments .context-org-chart__node::before {
+    top: 50%;
+    left: var(--space-5);
+    width: var(--space-5);
+    height: 1px;
+    transform: translateX(calc((var(--space-5) + var(--space-4)) * -1));
+  }
+}

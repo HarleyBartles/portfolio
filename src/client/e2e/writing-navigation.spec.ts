@@ -10,14 +10,14 @@ test('writing index presents a featured essay and consistent human dates', async
   await expect(featured.getByText('6 min read', { exact: true })).toBeVisible()
 })
 
-test('visitor opens a direct article route and moves through previous and next notes', async ({ page }) => {
+test('visitor opens the context article and finds its authored continuations', async ({ page }) => {
   const response = await page.goto('./writing/context-is-not-state/')
 
   expect(response?.status()).toBe(200)
-  await expect(page.getByRole('heading', { level: 1, name: 'Context is not the same as state' })).toBeVisible()
-  const storyNavigation = page.getByRole('navigation', { name: 'More writing' })
-  await expect(storyNavigation.getByRole('link', { name: /previous/i })).toBeVisible()
-  await expect(storyNavigation.getByRole('link', { name: /next/i })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'I made agentic engineering harder than it needed to be' })).toBeVisible()
+  const continuations = page.getByRole('navigation', { name: 'Continue reading' })
+  await expect(continuations.getByRole('link', { name: /provision only what the work needs/i })).toBeVisible()
+  await expect(continuations.getByRole('link', { name: /engineer the route, not the theatre/i })).toBeVisible()
 })
 
 test('authored pull quotes use the wide editorial margin without widening the prose', async ({ page }) => {

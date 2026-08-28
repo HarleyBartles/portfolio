@@ -13,6 +13,7 @@ import { SiteLayout } from '../components/SiteLayout'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
+import { ContextComplexityArticle } from '../features/writing/ContextComplexityArticle'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
 import { ProductOwnershipArticle } from '../features/writing/ProductOwnershipArticle'
 import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
@@ -161,6 +162,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     && document.summary.slug === 'the-right-test-isnt-your-favourite-test'
   const hasProductOwnershipPresentation = document.summary.kind === 'writing'
     && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
+  const hasContextComplexityPresentation = document.summary.kind === 'writing'
+    && document.summary.slug === 'context-is-not-state'
 
   return (
     <SiteLayout>
@@ -203,7 +206,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
               ? <TestingEvidenceArticle markdown={document.markdown ?? ''} />
               : hasProductOwnershipPresentation
                 ? <ProductOwnershipArticle markdown={document.markdown ?? ''} />
-                : <MarkdownContent markdown={document.markdown ?? ''} />
+                : hasContextComplexityPresentation
+                  ? <ContextComplexityArticle markdown={document.markdown ?? ''} />
+                  : <MarkdownContent markdown={document.markdown ?? ''} />
             : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
         </div>
         {document.summary.kind === 'writing' ? null : (
