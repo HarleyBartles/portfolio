@@ -97,7 +97,7 @@
       "kind": "writing",
       "title": "If you write a loop, don't be surprised when your agent starts looping",
       "date": "2026-08-22",
-      "readingMinutes": 12,
+      "readingMinutes": 8,
       "status": "published",
       "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
       "path": "writing/2026-08-22-graph-iterative-review.md",
@@ -107,11 +107,11 @@
     {
       "slug": "context-is-not-state",
       "kind": "writing",
-      "title": "Context is not the same as state",
+      "title": "I made agentic engineering harder than it needed to be",
       "date": "2026-08-07",
-      "readingMinutes": 6,
+      "readingMinutes": 8,
       "status": "published",
-      "summary": "Files are state. Conversation is context. Agentic systems need both, but durable truth lives in files.",
+      "summary": "I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.",
       "path": "writing/2026-08-07-context-is-not-state.md",
       "tags": ["writing", "agentic-engineering", "context"],
       "relatedSlugs": []

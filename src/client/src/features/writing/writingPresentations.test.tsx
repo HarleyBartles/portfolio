@@ -66,4 +66,17 @@ describe('writing presentations', () => {
       ],
     })
   })
+
+  test('registers the context article as an organisation that outgrew its work', () => {
+    const presentation = getWritingPresentation('context-is-not-state')
+
+    expect(presentation).toMatchObject({
+      regionLabel: 'Agent organisation article introduction',
+      visualContract: 'agent-organisation-overhead',
+      figure: {
+        id: 'agent-organisation-overhead-visual',
+        description: 'Will turned Harley’s intent into a small cross-repository organisation. Chris directed Rooms through three department heads while Patch represented another project under Will.',
+      },
+    })
+  })
 })

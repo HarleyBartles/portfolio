@@ -73,6 +73,19 @@ const writingPresentations = {
       { slug: 'context-is-not-state', eyebrow: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
     ],
   },
+  'context-is-not-state': {
+    regionLabel: 'Agent organisation article introduction',
+    visualContract: 'agent-organisation-overhead',
+    figure: {
+      id: 'agent-organisation-overhead-visual',
+      description: 'Will turned Harley’s intent into a small cross-repository organisation. Chris directed Rooms through three department heads while Patch represented another project under Will.',
+      Component: lazy(async () => ({ default: (await import('./ContextComplexityFigure')).ContextComplexityFigure })),
+    },
+    continuations: [
+      { slug: 'provisioning-is-not-accumulation', eyebrow: 'Provision only what the work needs', rationale: 'Provision only what the work needs' },
+      { slug: 'graph-iterative-review', eyebrow: 'Engineer the route, not the theatre', rationale: 'Engineer the route, not the theatre' },
+    ],
+  },
 } as const satisfies Record<string, WritingPresentation>
 
 export function getWritingPresentation(slug: string): WritingPresentation | undefined {

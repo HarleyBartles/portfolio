@@ -1,63 +1,115 @@
 ---
-title: Context is not the same as state
+title: I made agentic engineering harder than it needed to be
 date: 2026-08-07
-summary: Files are state. Conversation is context. Agentic systems need both, but durable truth lives in files.
+summary: I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.
 ---
 
-# Context is not the same as state
+# I made agentic engineering harder than it needed to be
 
-A chat is a useful place to think. You can ask a question, chase an edge case, sketch an interface, and change your mind three times before lunch. For one person reasoning through an ambiguous problem, that fluidity is exactly what you want.
+My [`cleanup-custody`](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/skills/cleanup-custody/SKILL.md) skill doesn't shout “WOLF” at an agent and hope repetition becomes governance. It makes the agent ask what a repository surface is for, who still needs it and whether it has enough authority to act. Those questions end in one of four outcomes: keep it live, retain it elsewhere, remove it or stop.
 
-A project is not the same thing. A project needs inspectable, versioned, durable state. It needs a place where the next worker, the next day, can look and know what is currently true without replaying a conversation. The difference is not academic. It is the difference between a useful discussion and a system that keeps its shape after the conversation ends.
+I built the skill because I'd made a private repository that badly needed cleaning up. I had put an agent organisation around research, world-building and writing for a novel, then filled the repository with enough rules, reports and proof files that returning to the novel felt like accepting a cleanup project first.
 
-## The chat is for thinking, not filing
+There were roughly 300 agent-facing documents by the time I had to unwind it. Taking agentic engineering seriously had become its own source of unnecessary complexity.
 
-The agentic learning lab makes this distinction early. "A chat is a useful interface for thinking and asking questions. A project needs durable state that can be inspected, changed, versioned, and revisited independently of one conversation." That sentence separates the medium from the artifact.
+> **The repository remembered too much.**
 
-A chat is good for reasoning because it is cheap to change. You can propose, retract, and re-propose without writing a changelog. But the same property that makes chat good for thinking makes it bad for record keeping. Once the conversation closes, the reasoning is gone. What is left is whatever landed in the filesystem and whatever the next worker happens to remember.
+## The organisation around the novel
 
-If the only place a decision exists is inside a chat transcript, the decision is not project state yet. It is a message.
+The novel has three real domains: research, world-building and writing. My first implementation gave them separate Git repositories wired together with submodules, then represented each domain as a standing employee.
 
-## Memory is context. Files are state.
+Will represented my will. He was me in agent form, there to make my intent concrete. Rooms, the novel project, reported to Will through Chris, its Project Director. Chris had three heads of department beneath him: Albert the Archaeologist for research, Brian the Librarian for world-building and Derek the Novelist for writing.
 
-A useful shorthand from the learning lab is this: "Memory is context. Files are state."
+The organisation crossed repository boundaries. Adventures of Patch had Patch as its responsible agent reporting into Will. Other branches may have existed, but the point isn't the roll call. I had built a chain of command across my projects. Rooms alone had a project director and three department heads. Another project only needed a project director who also did the work.
 
-Context is what a worker currently has in its working memory. It might be the conversation so far, retrieved project instructions, the content of a file the agent just read, or a few paragraphs of reference material pulled in before the turn. Context helps continuity. It gives the worker the background it needs for the current turn.
+That's a ton of bureaucracy for “do some work please”.
 
-State is the durable record of what the project actually is. State lives in files, commits, tests, schemas, and configuration. It is the kind of thing you can diff, pin, roll back, and review outside of any conversation. A file on disk does not evaporate when the agent disconnects. A test does not become false because the session ended.
+I wanted it to be obvious who owned what and where the work went next. A task went in at the top, travelled down to the agent responsible and came back up through reports. The characters weren't the mistake. Albert is still a perfectly good name for a research specialist. The expensive part was maintaining him as an employee with persistent responsibilities, routing rules and reporting relationships.
 
-Context and state are not interchangeable. Context is temporary, selective, and finite. It carries what the current worker needs for the current turn. State is persistent, authoritative, and inspectable. It carries what the project needs to keep its shape across time and across workers.
+> **The novel needed research, world-building and writing. It didn't need an organisation.**
 
-## Durable state can sit outside any one worker
+The repository is private because the novel draws on lived experience and real people. I can't link its history, but I'm happy to screen-share the engineering in an interview, subject to a reasonably strong stomach for profanity. The novel pulls no punches.
 
-A useful refinement of the shorthand is that a file can exist as durable state without any current worker having materialised its contents into working context. That is not a subtle point. It is the whole point.
+## I tried the packaged version
 
-A build artifact, a test report, a requirements document, or an architecture decision record is real project state. It can be correct or incorrect, up to date or stale. But it does not need to be loaded into the current worker's context in order to exist. It sits in the project. It waits for whatever worker, human or agent, actually needs it.
+[WorkClaw](https://www.workclaw.com/blog/introducing-workclaw) launched while my named-agent hierarchy was still live. Its collaborative AI coworkers could coordinate with one another, which was close enough to my hand-rolled organisation to make a useful second experiment.
 
-The learning lab makes this explicit in the thread on context transport and materialisation. "A handoff that passes a durable file/artifact reference lets the recipient decide when and whether to resolve the contents." Passing a reference is different from pasting the contents. The file is state. Whether a particular worker loads it into context is a separate question about that worker's current job.
+I rebuilt a miniature version of the novel-writing organisation in WorkClaw. The $100 startup credit got me through setting it up and one small smoke task. I gave it the benefit of the doubt and bought a monthly subscription anyway. Then I left the organisation largely idle for a couple of days and watched the paid allowance disappear too.
 
-This also means the overall system can know more than any individual agent currently has in context. An orchestrator may only need a verdict and a pointer. A specialist may need the full report. A reviewer may only need the diff. The source of truth stays in the file. The context is just the working copy.
+WorkClaw's team told me their “heartbeats”, agents periodically waking up to check for work, were consuming far more credits than expected. Their planned fix was to move lightweight work onto lower-cost models and increase the heartbeat interval. They covered the resulting overage.
 
-## The mistake is making the agent carry the source of truth
+Moving my home-grown organisation into a packaged one no longer looked like a solution. The experiment forced the more useful question: had this novel earned an organisation at all?
 
-The practical failure mode is easy to spot once you know what to look for. It looks like an engineer asking the agent to remember something important until the end of the session. It looks like a design decision that was discussed, agreed, and then never written down.
+It hadn't. Somebody else had built a plausible version of the same abstraction, and my novel still didn't need it.
 
-In that pattern, the source of truth has shifted into the agent's context. The agent has become the file system. This is the wrong shape. Agent context is finite and selective. Long sessions may be compacted, summarised, truncated, or otherwise transformed. Compacted context can preserve a conclusion while losing the qualification, provenance, rejected alternatives, or reasoning detail that made it defensible. The learning lab is direct on this: "Context capacity is finite; long sessions may be compacted, summarised, truncated, or otherwise transformed." If the only record of a choice is inside that context, the record is fragile.
+## A role is not a sign on the wall
 
-The same issue shows up when one agent narrates an artifact to another instead of writing the artifact directly. A large final response pushes the whole report into the orchestrator's context. The next worker then has to carry that bulk in order to act on it. It is far cleaner to write the file and pass a reference. "Do not make an agent narrate an artifact to another agent when it can create the artifact directly." The file is the durable state. The reference is the lightweight context.
+I removed the named agents when I decided the novel hadn't earned an organisation. I didn't replace them with profiles. Looking back with the tooling I have now, profiles are the better implementation answer: if a project genuinely benefits from a specialist Albert, I can dispatch one without employing him full-time.
 
-The curriculum summarises this with the line: "Context is tears in the rain. Persist what matters before the weather changes." That is a warning about lossy storage.
+Give him a personality if you like: call the profile Albert the Archaeologist and tell him he loves digging deep into archival material. None of that costs anything while the profile sits unloaded. It gets expensive when Albert becomes a standing employee: permanently routed, repeatedly provisioned and expected to report through an organisation.
 
-## Write the decision down before the session ends
+In [Devin CLI](https://docs.devin.ai/cli/subagents), a hypothetical Albert could literally live at `.devin/agents/albert/AGENT.md`. The directory names the profile. The file body becomes Albert's system prompt, and its frontmatter can choose his model and restrict his tools. The singular filename matters: this is the same instruction-file mechanism as a root `AGENTS.md`, scoped to exactly one agent.
 
-The concrete takeaway is small enough to fit on a sticky note. If the decision matters, write it to a file before the conversation ends.
+That guarantees the job specification reaches Albert's starting context. It can't guarantee he obeys every line. The `allowed-tools` frontmatter does a different job: it can prevent him from crossing a capability boundary even if the prose fails.
 
-This does not mean every thought needs a markdown file. It means the durable output of a session should be durable. Architecture decisions belong in architecture decision records or in the code that enforces them. Conventions belong in project instructions, style guides, or `AGENTS.md` files. Task-specific decisions that were never intended to survive are allowed to fade. The question is not "did we write everything down?" It is "did we write down the things that are now project truth?"
+My old system had signs on the wall. One effectively said: you've entered archaeology; bind as Albert now. The agent had to find that guidance, understand it and give it the right priority among everything else in the repository. If the project had actually needed Albert, a dispatched profile wouldn't have needed to discover its own job description.
 
-A good stopping ritual for an agentic session is to ask what has changed in the project and where the record now lives. If the answer is "the agent remembers it," the session is not finished. State belongs in files. Files belong in version control. Memory and conversation are the right tools for thinking, but they are the wrong tools for storing truth.
+I used to blur instruction delivery and capability enforcement because both could be described in Markdown. They govern different failure modes.
 
-## Closing
+The novel still has research, world-building and manuscript boundaries because they own different things. Material crosses them deliberately. Evidence from research can be proposed into World, but it can't promote itself into the novel's canon. That rule exists without Albert being employed to enforce it.
 
-Context and state are both necessary. A worker with no background makes bad decisions. But context is not a substitute for state. It is the working material, not the durable artifact.
+## The document was there
 
-The projects that survive keep their truth in places anyone can inspect: files, commits, tests, schemas, and records. Chat is for thinking. Files are for facts. Write the facts down before the weather changes.
+My understanding of agent-facing repository material was fairly mushy at the time. Doctrine, policy, governance, contracts, runbooks and skills were all ways of writing down something I wanted an agent to know. I hadn't yet understood that putting words in a repository doesn't make those words govern an action.
+
+When an agent violated an existing instruction, I found the document sitting there, clear as day, and concluded that it hadn't been strong enough. I strengthened it. If the miss happened again, I linked it from somewhere harder to overlook or reinforced it in another document. Policies gained supporting contracts. Completion checks pointed back to policies. Routing documents appeared to make sure the other routing documents were discovered.
+
+I wanted every failure to become reusable engineering knowledge instead of hoping a conversation remembered it. Eventually everything in the repository was shouting at the same volume.
+
+> **If you shout “WOLF” at an agent enough, everything starts looking like a wolf.**
+
+Agents regularly acknowledged a missed instruction with some version of: “mea culpa, that was there all along; I should have followed it.” I used to hear that as permission to make the rule louder.
+
+The repository already contained too many things that were hard to miss. One important instruction beat another important instruction in the attention contest. Strengthening the loser might fix that exact miss and make the next contest worse.
+
+## Receipts became their own paperwork
+
+Agents love receipts. Ask for rigour and they'll happily produce reports, proof files, completion records and prose explaining what changed. Some have a real consumer. An independent verification result, audit record, deployment receipt or handoff can preserve information the commit doesn't.
+
+A receipt whose only job is to say repository work happened is different. Git already knows. The receipt adds another surface that can become stale while forcing every future worker to decide what authority it has.
+
+I tried to teach agents that disposable work should be disposed of, not commemorated. The anti-clutter rule grew policies, self-checks and supporting guidance. I had documents telling agents not to memorialise disposable work, and most of those documents were themselves disposable.
+
+Persistence doesn't create authority, usefulness or truth: a stale report and a superseded plan can both persist. Two slightly different policies can also survive and leave the next agent to decide which one wins.
+
+## The cleanup project before the project
+
+Eventually I stopped wanting to open the repository. Continuing the novel meant accepting a cleanup project before I could do the work I cared about.
+
+I spent roughly a fortnight ruminating on the mess rather than returning with a sudden answer. What had to survive? What was clearly shite? Which things looked redundant but carried provenance I'd regret deleting? How could an agent classify roughly 300 documents without making me personally decide the custody of every one?
+
+“Keep the repo tidy” wasn't enough. Neither was “delete anything that looks stale.” The useful classification was live guidance, retained history, disposable residue and material ambiguous enough to stop and ask about.
+
+That became `cleanup-custody`. A surface needs a reason to remain live, a reason to be retained elsewhere or a reason to leave. When the answer depends on authority the worker doesn't have, cleanup stops rather than guessing.
+
+The submodules went. The standing Will, Chris, Albert, Brian, Derek and Patch organisation went. Research, world-building and writing stayed. Reports and proof artefacts with no current consumer left because Git already held the history. I thinned out the routing and moved procedures I actually repeated into skills.
+
+I simplified the repository until every surviving surface could answer one ordinary question: why are you here?
+
+## Files are not state just because they're files
+
+When I first outlined this article, one of its central lines was: “Memory is context. Files are state.” It was useful shorthand and too neat for what I'd learned. A repository file can be durable while stale, superseded, ambiguous or non-authoritative. Calling every persistent artefact state hides the failure that made this repository difficult to operate.
+
+I now use state to mean material the project deliberately carries forward. It has a reason to survive the conversation. Its authority is legible enough that a later worker can decide whether to trust it. If it can become stale, there is some way to recognise, replace or retire it.
+
+Context is what the current worker needs to act correctly now. Governing state still has to reach that worker at the point where it applies. A decision can be perfectly durable and govern nothing because the agent never encounters it. A conclusion future work depends on can't remain only in conversation.
+
+If something matters after the conversation ends, it needs to become state. When a later task needs it, the relevant bit has to come back into context. Plenty of information can safely disappear instead.
+
+## Get out of your own way
+
+I still use profiles, skills, contracts, routing, custody rules and hard capability boundaries where they earn their keep. Some parts of the novel have more engineering around them now than they did when Albert, Brian and Derek were running the place. These days I can explain what each bit of machinery is buying me: a real domain boundary, the right specialist for a job, a restriction the agent can't talk its way around, or a record somebody will actually need later.
+
+When an agent misses an instruction, I no longer treat the miss as automatic permission to write another one. I check the wording, the route and the required enforcement. Sometimes the repository already contains enough words.
+
+I still engineer the real boundaries. The theatre can get out of the way.

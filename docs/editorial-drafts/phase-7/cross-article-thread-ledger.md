@@ -112,3 +112,22 @@ This ledger preserves valuable discoveries that did not belong in the article be
 - Boundary: keep the comic frustration and reluctance. Do not rewrite it as a story about graduating away from coding, loving meetings or pursuing management. `I didn’t change. Expectations shifted.` is the useful line.
 - Source trail: `api-is-only-the-middle-cloud-discovery-record.md`, `api-is-only-the-middle-cloud-handoff-addendum.md`, and the 28 August 2026 Cloud editorial-room conversation.
 - Next question: is the stronger future article about the repeating job-cycle itself, or about the strange consequence that learning a system deeply enough to code well eventually changes how the organisation uses you?
+
+## CAT-013: Independent convergence is evidence, not validation
+
+- Candidate destination: future article about agent abstractions, experimentation and local fit.
+- Thread: Harley's hand-rolled named-agent organisation and WorkClaw independently converged on a broadly similar organisational abstraction. The convergence shows that the idea was plausible enough for multiple builders to reach it; it does not prove the abstraction paid rent for Harley's book project. The home-grown version cost repository/orchestration complexity and the packaged version cost runtime spend. Both led back to the same local question: what problem is the organisation solving here?
+- Evidence class: private Rooms engineering history, public WorkClaw product framing, Harley's first-party usage history and contemporaneous WorkClaw support correspondence.
+- Boundary: do not turn convergence into `therefore I was right`, `the frontier independently invented my idea`, or evidence that WorkClaw as a product is broadly unsound. This is about plausibility versus local fit.
+- Source trail: `context-cloud-discovery-record.md`, WorkClaw public launch material and Harley's retained support thread.
+- Next question: do two or three further timestamped independent-convergence examples exist strongly enough to support a whole essay rather than one interesting case?
+
+## CAT-014: Source-faithful staging before canonical project truth
+
+- Candidate destination: future article about evidence architecture, research systems or source truth.
+- Thread: heterogeneous evidence should first land in a queryable representation faithful to its source class before being transformed into the project's canonical factual model. Twitter archives all come from the same source system and therefore share the same structure, so one Twitter staging database can represent all of them. Participant testimony, folders of screenshots and future source classes would each need the representation appropriate to that class before promotion into canonical Pit.
+- Current architecture worth preserving: `source artifact -> source-type faithful/queryable staging -> canonical Pit facts -> deliberate World representation -> Manuscript`. Pit answers what the evidence can establish about the real world. World is epistemic/book-world state and may preserve ambiguity, perspective and deliberate divergence. Manuscript owns what appears on the page.
+- Evidence class: private Rooms repository architecture and Harley's first-party design account, with substantial public-to-the-room repo evidence for current Twitter staging and Pit implementation.
+- Boundary: World database/schema implementation is intended/forthcoming, not complete today. Do not say `one staging database per archive`; the unit is source type/class. Do not expose content-entangled book evidence when illustrating the architecture.
+- Source trail: `context-cloud-discovery-record.md` and the current `rooms-mostly` Datastore/Pit/World doctrine surfaces inspected during the 28 August 2026 Cloud room.
+- Next question: is the governing article about preserving source semantics before transformation, about the boundary between evidence and canon, or about databases as an antidote to narrative-shaped research storage?
