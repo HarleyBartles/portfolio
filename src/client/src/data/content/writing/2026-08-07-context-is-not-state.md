@@ -18,9 +18,11 @@ Eventually the machinery you built to make the agent reliable becomes one of the
 
 I learned this the expensive way on a private project.
 
+One evidence note before I go further: the repository is private because it contains a book I’m writing, so I can’t give you links to inspect the history yourself. I’m happy to screen-share the engineering history in an interview — the sprawl, the commits and the cleanup — subject to a reasonably strong stomach for profanity. The book pulls no punches.
+
 The project had three real subdomains and a coordinating domain above them. That part was useful. I then used Git submodules to give those domains separate repositories and built an organisational graph around named agents: work entered at the top, passed through an accepting and delegating role, moved into domain-specific actors for execution, then travelled back up through reports.
 
-There is nothing inherently ridiculous about that shape. Hierarchies, delegation and domain ownership are all legitimate ways to organise work. My mistake was binding a lot of agent theatre to them before I had evidence that the theatre was buying me enough to pay for its complexity.
+There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/) is one current example of the same broad instinct packaged as a product: named, specialised agents with their own identity, skills and scope, coordinating as a team. I hadn’t arrived at a silly idea in isolation; I had independently reached a design that current agent products are exploring too. My mistake was hand-rolling it in a way that caused more problems than it solved, then binding a lot of agent theatre to it before I had evidence that the theatre was buying me enough to pay for its complexity.
 
 When I eventually collapsed the project into one repository with the same domains bounded by folders, very little of value was lost. The domains were still real. The authority boundaries were still real. What disappeared was the need to model an imaginary organisation before an agent could do useful work inside them.
 
@@ -44,7 +46,7 @@ The result was that more and more things in the repository were shouting at the 
 
 > **If you shout “WOLF” at an agent enough, everything starts looking like a wolf.**
 
-That is as far as I want to take the fable. The actual failure is simpler: salience collapses when too many instructions compete at the same apparent severity.
+Salience collapses when too many instructions compete at the same apparent severity.
 
 You can see this when an agent misses a perfectly clear instruction and you ask it why. It looks back, finds the instruction and gives you some version of, “mea culpa, that was there all along; I should have followed it.” It is tempting to hear that as confirmation that the agent was careless and the rule needs to be made even harder to miss.
 
@@ -68,7 +70,7 @@ That cost is easy to miss because the file is small. The real cost is paid by ev
 
 I spent successive iterations trying to teach agents a very simple idea: disposable work should be disposed of, not commemorated.
 
-The joke eventually became recursive. I had documents telling agents not to memorialise disposable work. When I finally cleaned the repository up, some of those documents were themselves disposable work.
+The joke eventually became recursive. I had documents telling agents not to memorialise disposable work. When I finally cleaned the repository up, most of those documents were themselves disposable work.
 
 > **The repository remembered too much.**
 
@@ -86,7 +88,11 @@ Eventually I found myself avoiding the project.
 
 Coming back to it did not feel like continuing the work. It felt like accepting a separate cleanup project that had to happen before I could safely do the project I actually wanted to do. Work stalled for stretches because I knew how much accumulated ambiguity I would have to untangle before I could trust a fresh agent in the repository again.
 
-When I did return, the first substantial job was sanitation.
+I did not leave it alone for a fortnight and somehow come back with all of the answers in my pocket. For roughly that fortnight, a lot of the work was rumination: how had I got here, what genuinely needed to be carried forward, what was clearly shite, what had become misleading or dangerous, and how could I unpick the whole thing without turning myself into the human parser for hundreds of agent documents?
+
+The hard part was not deciding that the repository needed cleaning. It was working out how to get an agent to classify the pile without me personally reading roughly 300 documents and deciding one by one what was current, stale, misleading, protected or safe to delete. That is where custody became more useful to me than a general instruction to keep the repository tidy. I needed the system to distinguish live material from historical evidence, cold material from disposable residue, and genuine ambiguity from obvious rubbish.
+
+When active work resumed, the first substantial job was sanitation.
 
 The submodules went. The real domains stayed and became folder boundaries inside one repository. The named-agent organisation was stripped back so the architecture described actual authority rather than fictional employees. Old actor and governance surfaces were dissolved. Historical reports, receipts and proof artifacts with no current consumer were deleted because Git already held the history. Routing became thinner. Repeatable procedures moved toward skills. Current rules had to have current readers. Material that had lost its job needed an exit.
 
