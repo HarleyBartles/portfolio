@@ -63,6 +63,7 @@ Carry these process lessons into the next Cloud article room. They are workflow 
 - `api-is-only-the-middle-cloud-first-draft.md`
 - `context-terra-draft.md`
 - `context-cloud-editorial-brief.md`
+- `context-cloud-discovery-record.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
 - `provisioning-cloud-editorial-brief.md`
@@ -140,3 +141,13 @@ For `api-is-only-the-middle`, the durable local-Sol handoff read order is:
 7. `cross-article-thread-ledger.md` for the repeating new-guy-reset thread deliberately routed away from this manuscript.
 
 The accepted article proposition is **“I just write the code” is not a full sentence**. The implementation remains central, but responsibility continues before and after it. Local Sol owns final subtraction, production article framing, SQL-aside presentation, source refresh where needed, corpus-level fatigue review, any later admission decision and publication proof.
+
+For Context's completed Cloud room, the durable local-Sol handoff read order is:
+
+1. `context-cloud-editorial-brief.md` for the original room contract and protected boundaries;
+2. `context-cloud-discovery-record.md` for the accepted governing argument, lived-story chronology, WorkClaw evidence boundary, profile/harness correction, privacy custody, future threads, intentional URL change and final three-lens review;
+3. `src/client/src/data/content/writing/2026-08-07-context-is-not-state.md` for the accepted manuscript currently parked under its old filename pending local route production;
+4. `cross-article-thread-ledger.md` for the source-staging and independent-convergence threads deliberately routed elsewhere; and
+5. `context-terra-draft.md` only as superseded historical working material.
+
+The accepted article title and proposition is **I made agentic engineering harder than it needed to be**. The old `context-is-not-state` URL is intentionally disposable; local Sol should move the production article to the new title-derived slug/route rather than preserving the old URL by accident. Local Sol owns page composition, any WorkClaw aside treatment, route/file rename, generated-surface refresh, source refresh where needed, corpus-level fatigue review, admission and publication proof.
