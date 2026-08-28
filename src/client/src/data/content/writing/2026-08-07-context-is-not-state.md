@@ -12,63 +12,73 @@ So here is the slightly awkward companion argument: getting agents to do what yo
 
 I don’t mean there is one simple prompt pattern that turns a model into a senior engineer. I don’t believe that, and the rest of this portfolio should make that fairly obvious. I mean that once you accept agentic engineering as engineering, it becomes very easy to respond to every failure by adding more engineering around the agent. Another role. Another document. Another contract. Another check. Another receipt proving the check happened.
 
-Eventually the machinery you built to make the agent reliable becomes one of the things the agent has to survive.
+One of the harder skills is noticing when you have become part of the problem.
 
 ## Serious does not have to mean elaborate
 
-I learned this the expensive way on a private project.
+I learned this on a private project that eventually became unpleasant to work in.
 
-One evidence note before I go further: the repository is private because it contains a book I’m writing, so I can’t give you links to inspect the history yourself. I’m happy to screen-share the engineering history in an interview — the sprawl, the commits and the cleanup — subject to a reasonably strong stomach for profanity. The book pulls no punches.
+A quick evidence note before I use it as a case study: the repository is private because it contains a book I’m writing, so I can’t give you links to inspect the history yourself. I’m happy to screen-share the engineering history in an interview — the sprawl, the commits and the cleanup — subject to a reasonably strong stomach for profanity. The book pulls no punches.
 
-The project had three real subdomains and a coordinating domain above them. That part was useful. I then used Git submodules to give those domains separate repositories and built an organisational graph around named agents: work entered at the top, passed through an accepting and delegating role, moved into domain-specific actors for execution, then travelled back up through reports.
+The book has three real subdomains with a small amount of coordination above them. I started by giving those domains separate Git repositories wired together with submodules. Then I built a named-agent hierarchy over the top: work came in through one agent, passed to another for acceptance and delegation, moved into domain-specific agents, then travelled back up through reports.
 
-There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/blog/introducing-workclaw) launched while I still had my named-agent hierarchy, built around collaborative AI coworkers that can coordinate with one another. I had independently landed close to a design another team was productising at the same time. My mistake was not the instinct to organise agents around roles and domains. It was hand-rolling the organisation in a way whose complexity cost more than it bought, then adding theatre faster than evidence justified it.
+I was trying to make ownership and handoff legible. I accidentally built an organisation.
 
-When I eventually collapsed the project into one repository with the same domains bounded by folders, very little of value was lost. The domains were still real. The authority boundaries were still real. What disappeared was the need to model an imaginary organisation before an agent could do useful work inside them.
+There is nothing inherently ridiculous about that shape. [WorkClaw](https://www.workclaw.com/blog/introducing-workclaw) launched while my own named-agent hierarchy was still live, built around collaborative AI coworkers that can coordinate with one another. I had independently landed near a design another team was productising at the same time.
 
-The bigger problem, though, was documentation.
+That did not make my implementation right. It made the next experiment more interesting.
 
-At the time I did not properly understand the difference between doctrine, policy, governance, contracts, runbooks, skills and the other kinds of material that accumulate around an agentic system. More importantly, I had not yet internalised something much simpler: putting a document in a repository is not the same as presenting that document to an agent when it needs to act on it.
+## I tried the packaged version
 
-That distinction sounds obvious now. It was not obvious to me then.
+I rebuilt a miniature version of the book-writing organisation in WorkClaw.
+
+The $100 startup bonus credit disappeared during onboarding and one minor smoke task. I paid for a month anyway. What looked like an idle organisation then burned through the monthly allowance in about two days.
+
+I emailed WorkClaw about it. They thanked me for surfacing a cost they had not properly accounted for: agents spinning on “any new tasks yet?” were hitting frontier models because their model routing was misconfigured.
+
+That routing bug was theirs, not a universal law of multi-agent systems. What interested me was that the productised version had exposed the same design question my hand-rolled version had, only through money instead of repository complexity: what was all this coordination actually buying?
+
+For this project, not enough.
+
+The book needed three subdomains. It didn’t need an organisation.
+
+So I collapsed the submodules into one repository and kept the useful boundary: the domains became folders. The thing I had actually needed survived. Most of the machinery around it did not.
+
+The bigger mess was documentation.
 
 ## The document was there
 
-My failure loop went something like this. An agent would do something I had already told it not to do. I would inspect the repository and find the instruction sitting there, clear as day. The obvious conclusion was that the instruction had not been strong enough.
+At the time, my understanding of agent-facing repository material was fairly mushy. Doctrine, policy, governance, contracts, runbooks and skills were all ways of writing down something I wanted an agent to know. I had not yet internalised the more important distinction: a document existing in a repository is not the same as that document being presented to an agent when it needs to act on it.
+
+My failure loop was predictable. An agent would do something I had already told it not to do. I would inspect the repository and find the instruction sitting there, clear as day. The obvious conclusion was that the instruction had not been strong enough.
 
 So I strengthened it.
 
-If that did not work, I linked it from somewhere harder to miss. If the rule still got violated, I reinforced it in another document. Eventually there were policies backed by contracts, completion checks backed by policies, and routing surfaces whose job was to make sure the other routing surfaces had been read.
+If that did not work, I linked it from somewhere harder to miss. If the rule still got violated, I reinforced it in another document. Policies gained supporting contracts. Completion checks pointed back to policies. Routing documents appeared to make sure the other routing documents were discovered.
 
-The intention was good. I was trying to turn lessons from real failures into durable engineering knowledge instead of relying on a conversation to remember them.
-
-The result was that more and more things in the repository were shouting at the same volume.
+I was trying to turn real failures into durable engineering knowledge instead of hoping a conversation remembered them. The instinct was sound. The repository slowly lost its sense of priority.
 
 > **If you shout “WOLF” at an agent enough, everything starts looking like a wolf.**
 
-Salience collapses when too many instructions compete at the same apparent severity.
+An agent would miss one of those perfectly clear instructions and, when challenged, look back and give me some version of: “mea culpa, that was there all along; I should have followed it.”
 
-You can see this when an agent misses a perfectly clear instruction and you ask it why. It looks back, finds the instruction and gives you some version of, “mea culpa, that was there all along; I should have followed it.” It is tempting to hear that as confirmation that the agent was careless and the rule needs to be made even harder to miss.
+For a while I heard that as confirmation that the agent had been careless. Make the instruction louder. Make it more mandatory. Put it somewhere else as well.
 
-Sometimes the more useful diagnosis is that you have created too many things that are hard to miss.
+The more useful diagnosis was that I had created too many things that were hard to miss.
 
-The agent followed one important instruction and skipped another because some other warning, contract or local rule won the attention contest. Making the missed instruction louder may help next time. It may also drown out something else.
-
-If everything is mandatory, mandatory stops being a useful distinction.
+One important instruction beat another important instruction in the attention contest. Strengthening the loser might fix that exact miss and make the next contest worse. Once everything is written at emergency volume, “mandatory” stops telling the agent very much.
 
 ## Agents love receipts
 
-There was another version of the same problem: receipts.
+The same instinct showed up in what agents left behind after the work.
 
-Agents love writing receipts. Ask one to work rigorously and it will quite happily leave you a report saying what it changed, a manifest describing the report, a completion proof recording that the manifest was updated, and a ledger entry explaining that the proof exists. All of this looks reassuringly responsible.
+Agents love receipts. Ask for rigor and they will happily produce reports, proof files, completion records and little pieces of prose explaining what changed. Some of those artifacts have a real consumer. An independent verification result, an audit record, a deployment receipt or a handoff can preserve information that the underlying commit does not.
 
-Some receipts have a real job. An independent verification result, an audit record with a genuine consumer, a deployment receipt or a handoff artifact can carry information that the underlying commit does not.
+A receipt whose only job is to say that repository work happened is different. Git already knows that. The receipt adds another surface that can become stale while forcing every future worker to decide what authority it has.
 
-But a receipt whose only purpose is to memorialise that repository work happened is often duplicating Git while adding a new surface that can go stale.
+Is it current? Does it describe the source of truth or replace it? Has the work moved on? Is something consuming it? Can it be deleted? Why is it still here?
 
-That cost is easy to miss because the file is small. The real cost is paid by every future worker that has to decide what the file means. Is it current? Is it authoritative? Has the work it describes been superseded? Is this a report about the source of truth, or is it itself the source of truth? Can it be deleted? Does something consume it? Why is it still here?
-
-I spent successive iterations trying to teach agents a very simple idea: disposable work should be disposed of, not commemorated.
+I spent successive iterations trying to teach agents a very simple idea: disposable work should be disposed of, not commemorated. The anti-clutter rule grew its own policies, self-checks and supporting guidance.
 
 The joke eventually became recursive. I had documents telling agents not to memorialise disposable work. When I finally cleaned the repository up, most of those documents were themselves disposable work.
 
@@ -76,68 +86,68 @@ The joke eventually became recursive. I had documents telling agents not to memo
 
 That was the correction I needed to the way I had been thinking about state. I had been so concerned about transient context disappearing that I treated persistence as an almost unqualified good. If a lesson mattered, write it down. If a worker did something, record it. If an instruction was missed, persist it more strongly.
 
-But persistence does not create authority, usefulness or truth. It just makes something persist.
+Persistence does not create authority, usefulness or truth. It just makes something persist.
 
-A stale report can persist. A superseded plan can persist. A generated view can persist long after the source changed. A receipt can faithfully describe a revision that is no longer current. A second policy can preserve the same rule as the first one with slightly different wording, forcing the next agent to work out which version wins.
+A stale report can persist. A superseded plan can persist. A generated view can outlive the source that generated it. Two slightly different policies can both persist and leave the next agent to work out which one wins.
 
 The repository had become very good at remembering and progressively worse at telling an agent what mattered now.
 
 ## The cleanup project before the project
 
-Eventually I found myself avoiding the project.
+Eventually I stopped wanting to open it.
 
-Coming back to it did not feel like continuing the work. It felt like accepting a separate cleanup project that had to happen before I could safely do the project I actually wanted to do. Work stalled for stretches because I knew how much accumulated ambiguity I would have to untangle before I could trust a fresh agent in the repository again.
+Coming back did not feel like continuing the book. It felt like accepting a cleanup project before I was allowed to do the project I actually cared about.
 
-I did not leave it alone for a fortnight and somehow come back with all of the answers in my pocket. For roughly that fortnight, a lot of the work was rumination: how had I got here, what genuinely needed to be carried forward, what was clearly shite, what had become misleading or dangerous, and how could I unpick the whole thing without turning myself into the human parser for hundreds of agent documents?
+I did not leave it alone for a fortnight and magically return with the answer in my pocket. For roughly that fortnight, I spent far more time ruminating on the mess than moving the book forward. How had I got here? What genuinely needed to survive? What was clearly shite? What had become stale, misleading or actively dangerous? Which things looked redundant but were actually carrying provenance I would regret deleting?
 
-The hard part was not deciding that the repository needed cleaning. It was working out how to get an agent to classify the pile without me personally reading roughly 300 documents and deciding one by one what was current, stale, misleading, protected or safe to delete. That is where custody became more useful to me than a general instruction to keep the repository tidy. I needed the system to distinguish live material from historical evidence, cold material from disposable residue, and genuine ambiguity from obvious rubbish.
+More importantly: how could I get an agent to classify the pile without personally reading roughly 300 documents and making every custody decision myself?
 
-When active work resumed, the first substantial job was sanitation.
+That question changed the shape of the cleanup. “Keep the repo tidy” was not useful enough. Neither was “delete anything that looks stale.” I needed an agent to distinguish live guidance from historical evidence, retained material from disposable residue, and obvious rubbish from something ambiguous enough to stop and ask about.
 
-The submodules went. The real domains stayed and became folder boundaries inside one repository. The named-agent organisation was stripped back so the architecture described actual authority rather than fictional employees. Old actor and governance surfaces were dissolved. Historical reports, receipts and proof artifacts with no current consumer were deleted because Git already held the history. Routing became thinner. Repeatable procedures moved toward skills. Current rules had to have current readers. Material that had lost its job needed an exit.
+That thinking eventually became the public [`cleanup-custody`](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/skills/cleanup-custody/SKILL.md) skill I use now. Its useful idea is not that fewer files are better. It is that a surface should have a custody decision. Keep it live because it has a current job. Retain it because history or provenance gives it value. Delete it because it genuinely has none. Stop and route it when the authority is not yours.
 
-The point was not to make the repository small for the sake of smallness. Deleting a useful contract because fewer files looks tidier would just be a different kind of cargo cult.
+When active work resumed, the first substantial job was sanitation. The submodules went. The named-agent organisation went. Old actor and governance surfaces were dissolved. Historical reports, receipts and proof artifacts with no current consumer were removed because Git already held the history. Routing became thinner. Repeatable procedures moved toward skills. Current rules had to have current readers. Material that had lost its job needed an exit.
 
-The improvement was that every surviving surface had to justify why it was still live.
-
-A small cleanup-custody skill I use now is a good example of where the thinking ended up. It does not treat cleanup as a campaign against files. It asks what custody a surface actually deserves: should it stay live, be retained but inactive, move through reversible deletion, be deleted now, or be protected and routed to somebody with the authority to decide? The useful idea is not the terminology. It is that retention is a classification decision, not a reflex.
-
-That is a lot less dramatic than the system it replaced. It also works better.
+I did not simplify the repository because small repositories are morally better. I simplified it because every surviving surface should be able to answer a fairly ordinary question: why are you here?
 
 ## Files are not state just because they are files
 
 When I first outlined this article, one of its central lines was: “Memory is context. Files are state.”
 
-I do not think that is precise enough anymore.
+It is a useful shorthand. It is also too neat for what I learned.
 
-A file is a durable carrier. Durability is useful, but it does not make the contents current, authoritative, discoverable or worth keeping. Calling every persistent artifact “state” hides exactly the problem that caused my repository to become difficult to operate.
+A file is a durable carrier. Durability is valuable, but it does not make the contents current, authoritative, discoverable or worth keeping. Calling every persistent artifact “state” hides exactly the failure that made the private repository difficult to operate.
 
-I now think of state as the material the project deliberately carries forward. It has a reason to survive the conversation. It has some intelligible authority. It can be recovered by a worker that was not present when it was created. If it can become stale, there is a way to recognise that or replace it. If it stops serving a purpose, it has a lifecycle rather than an assumption of immortality.
+I now use state to mean the material the project deliberately carries forward. It has a reason to survive the conversation. Its authority is legible enough that a later worker can decide whether to trust it. If it can become stale, there is some way to recognise that, replace it or retire it.
 
-Context is different. Context is what this worker needs in order to act correctly now.
+Context is what this worker needs in order to act correctly now.
 
-Those two things have to meet. A governing decision can be perfectly durable and still fail to govern anything if the agent never encounters it at the point where the decision applies. Conversely, a conclusion reached in conversation that future work depends on cannot remain only in the conversation and still be called project state.
+Those two things have to meet. A governing decision can be perfectly durable and still fail to govern anything if the agent never encounters it at the point where it applies. Conversely, a conclusion reached in conversation that future work depends on cannot remain only in that conversation and still do the job of project state.
 
-So the useful movement is in both directions. Important context becomes state when it needs to survive. Relevant state is routed back into context when it needs to influence action.
+So useful information moves in both directions. Important context becomes state when it needs to survive. Relevant state is routed back into context when it needs to influence action.
 
 And some things deserve neither.
 
-A temporary report that nobody will consume does not become more valuable because it is Markdown. A narration of what Git already records does not need a permanent home simply because an agent can produce one. A historical plan may be useful history without being live instruction. A generated index may be a useful view without becoming the authority it points at.
+A temporary report nobody will consume does not become more valuable because it is Markdown. A narration of what Git already records does not need a permanent home because an agent can produce one. A historical plan can remain useful history without being live instruction. A generated index can be a useful view without becoming the authority it points at.
 
-This is where the original distinction between context and state becomes useful to me again. Not as “chat disappears, files persist”, but as a custody and delivery problem. What must this project carry forward, and what does this agent need to see right now?
+The distinction I care about now is not “chat disappears, files persist.” It is: what must this project carry forward, and what does this worker need to see right now?
 
 They are related questions. They are not the same question.
 
 ## Get out of your own way
 
-None of this has made me think agentic engineering is easy. If anything, it has made me more convinced that it is a real engineering discipline, because the lesson did not come from finding a clever prompt. It came from watching a system fail, preserving the evidence, changing the design and discovering that some of my own attempts at reliability were part of the failure.
+None of this has made me think agentic engineering is easy. The lesson did not come from finding a clever prompt or deciding governance was pointless. It came from watching a system fail, looking at the scar tissue and admitting that some of my own attempts at reliability were now part of the failure.
 
-The part I would tell my earlier self is that seriousness does not require machinery.
+The part I would tell my earlier self is that seriousness does not require maximum machinery.
 
-Before adding another document, ask whether there is actually a reader for it and how that reader will encounter it when it matters. Before adding another orchestration role, ask what real authority boundary the role represents. Before asking for another receipt, ask what fact it preserves that Git, a test result or an existing source of truth does not already preserve. When a clear instruction is missed, do not automatically make it louder; first look at what else you have already trained the agent to treat as an emergency.
+A real domain boundary can earn its keep. So can a routing rule, a skill, a contract, an ADR, a receipt or a specialist agent. The question is not whether those things are sophisticated enough to count as engineering. The question is what problem each one is solving and what it costs the next worker to understand it.
 
-Good agentic engineering is not the maximum amount of governance you can persuade an agent to obey. It is enough structure to make the important things obvious, recoverable and hard to contradict, without making the agent solve your agent architecture before it can solve the problem.
+Sometimes the fix for an agent missing an instruction is a better instruction. Sometimes it is better routing. Sometimes the repository already contains enough instruction and the useful move is to stop adding to it.
+
+Good agentic engineering gives the important things enough structure to remain obvious, recoverable and hard to contradict without making the agent solve your agent architecture before it can solve the problem you hired it for.
 
 Persist what needs to survive. Route it when it matters. Let stale material leave. Let Git remember the history it is already good at remembering.
 
-Context is not the same as state. Files are not automatically state either. State is what the project deliberately carries forward; context is where the relevant parts of it become useful. Learning to keep that boundary clear was useful. Learning when to stop adding things to either side of it was harder.
+Context is not the same as state. Files are not automatically state either. State is what the project deliberately carries forward; context is where the relevant parts of it become useful.
+
+The rest is learning when to get out of your own way.
