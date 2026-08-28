@@ -47,7 +47,7 @@
       "date": "2026-08-01",
       "readingMinutes": 6,
       "status": "published",
-      "featured": true,
+      "featured": false,
       "summary": "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room.",
       "path": "writing/2026-08-01-agentic-engineering-vs-vibe-coding.md",
       "tags": ["writing", "agentic-engineering", "vibe-coding"],
@@ -78,6 +78,19 @@
       "path": "writing/2026-08-27-the-right-test-isnt-your-favourite-test.md",
       "tags": ["writing", "software-engineering", "testing", "agentic-engineering"],
       "relatedSlugs": []
+    },
+    {
+      "slug": "i-just-write-the-code-is-not-a-full-sentence",
+      "kind": "writing",
+      "title": "\"I just write the code\" is not a full sentence",
+      "date": "2026-08-28",
+      "readingMinutes": 7,
+      "status": "published",
+      "featured": false,
+      "summary": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
+      "path": "writing/2026-08-28-i-just-write-the-code-is-not-a-full-sentence.md",
+      "tags": ["writing", "software-engineering", "engineering-judgement"],
+      "relatedSlugs": ["why-adrs", "the-right-test-isnt-your-favourite-test"]
     },
     {
       "slug": "graph-iterative-review",

@@ -34,8 +34,8 @@ export function HomePage(): ReactElement {
     .map((slug) => findItem(items, slug))
     .filter((item): item is ContentSummary => item !== undefined)
   const writing = sortWriting(items)
-  const featuredEssay = findItem(items, 'agentic-engineering-vs-vibe-coding')
-  const recentWriting = writing.filter((item) => item.slug !== featuredEssay?.slug).slice(0, 3)
+  const latestEssay = writing[0]
+  const recentWriting = writing.slice(1, 4)
 
   return (
     <SiteLayout>
@@ -112,11 +112,11 @@ export function HomePage(): ReactElement {
           <p>Notes from building agentic workflows, repositories, and review systems in public.</p>
         </header>
         <div className="home-writing-grid">
-          {featuredEssay === undefined ? null : (
-            <article className="featured-essay">
-              <p className="eyebrow">Featured essay / {formatContentDate(featuredEssay.date)}</p>
-              <h3><Link to={getContentPath(featuredEssay)}>{featuredEssay.title}</Link></h3>
-              <p>{featuredEssay.summary}</p>
+          {latestEssay === undefined ? null : (
+            <article className="latest-essay">
+              <p className="eyebrow">Latest essay / {formatContentDate(latestEssay.date)}</p>
+              <h3><Link to={getContentPath(latestEssay)}>{latestEssay.title}</Link></h3>
+              <p>{latestEssay.summary}</p>
             </article>
           )}
           <ol className="recent-notes">

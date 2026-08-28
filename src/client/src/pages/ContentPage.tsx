@@ -14,6 +14,7 @@ import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectV
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
+import { ProductOwnershipArticle } from '../features/writing/ProductOwnershipArticle'
 import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
 import '../features/writing/WritingPullQuotes.scss'
 import type { ContentKind } from '../types/content'
@@ -158,6 +159,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const formattedDate = formatContentDate(document.summary.date)
   const hasTestingEvidencePresentation = document.summary.kind === 'writing'
     && document.summary.slug === 'the-right-test-isnt-your-favourite-test'
+  const hasProductOwnershipPresentation = document.summary.kind === 'writing'
+    && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
 
   return (
     <SiteLayout>
@@ -198,7 +201,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           {Presentation === undefined
             ? hasTestingEvidencePresentation
               ? <TestingEvidenceArticle markdown={document.markdown ?? ''} />
-              : <MarkdownContent markdown={document.markdown ?? ''} />
+              : hasProductOwnershipPresentation
+                ? <ProductOwnershipArticle markdown={document.markdown ?? ''} />
+                : <MarkdownContent markdown={document.markdown ?? ''} />
             : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
         </div>
         {document.summary.kind === 'writing' ? null : (

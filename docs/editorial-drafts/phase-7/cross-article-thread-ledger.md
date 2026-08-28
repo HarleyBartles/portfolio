@@ -103,3 +103,12 @@ This ledger preserves valuable discoveries that did not belong in the article be
 - Boundary: do not present Harley's rough comparison of SWE-class reasoning to GPT-5.4-mini-level intelligence as a benchmarked equivalence. Product pricing, model availability and allowance limits are time-sensitive and must be re-verified before publication. Do not turn the lesson into “always use the strongest model”; the claim is that capability allocation should follow consequence and marginal value rather than reflexive thrift.
 - Source trail: Review Graph cloud editorial-room conversation, 27 August 2026; related Review Graph discussion distinguishing included Devin models from premium cloud review.
 - Next question: what concrete before-and-after work examples best show the cost of under-spending already-purchased frontier capacity without turning the article into a subscription comparison?
+
+## CAT-012: The new-guy reset is temporary
+
+- Candidate destination: future reflective article about how engineering responsibility accumulates across a job.
+- Thread: a new job temporarily restores the simple version of engineering because nobody asks the new person how the whole application works. As Harley builds and repairs enough of the system, product knowledge accumulates as a side effect of trying to write the code well. The social expectation then changes: the engineer who wanted to code becomes the person people ask about the application, coordination and historical decisions. Changing jobs can temporarily reset the cycle, but it does not remove the wider responsibility from the profession.
+- Evidence class: Harley's first-party career reflection.
+- Boundary: keep the comic frustration and reluctance. Do not rewrite it as a story about graduating away from coding, loving meetings or pursuing management. `I didn’t change. Expectations shifted.` is the useful line.
+- Source trail: `api-is-only-the-middle-cloud-discovery-record.md`, `api-is-only-the-middle-cloud-handoff-addendum.md`, and the 28 August 2026 Cloud editorial-room conversation.
+- Next question: is the stronger future article about the repeating job-cycle itself, or about the strange consequence that learning a system deeply enough to code well eventually changes how the organisation uses you?

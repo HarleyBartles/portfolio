@@ -40,9 +40,27 @@ If the supposed argument collapses into a truism, a catalogue, a pattern-name ex
 
 The useful target is an article that makes the reader think: **bold claim; show me.** Then the body does.
 
+## Room-to-room editorial lessons
+
+Carry these process lessons into the next Cloud article room. They are workflow defaults, not public-copy rules or substitutes for Harley's judgement.
+
+- **Discover conversationally.** Follow Harley's live riffs instead of converting the brief into a questionnaire. Ask one useful question when a question is needed, and let an answer change what should be asked next.
+- **Use one deliberate curveball after the evidence exists.** A materially different governing argument is most useful once the room has enough lived detail to test whether the same evidence supports a sharper article. Do not manufacture contrarian energy just to satisfy the exercise.
+- **Once the thesis lands, review paragraph jobs before repeatedly redrafting sentences.** Every paragraph should carry one coherent thought, turn, consequence or phase. If adjacent paragraphs are developing the same thought, merge them before polishing their individual cadence.
+- **Whitespace is not emphasis by default.** A short or one-sentence paragraph earns isolation only when separation changes how the reader should hear or understand it: a real turn, conclusion, contrast or intentionally load-bearing line. If it merely creates a spoken pause, attach it to the thought it belongs to.
+- **Run the three value lenses on a coherent manuscript, not raw discovery.** The £10k-agency, weary-hiring-manager and cynical-architect lenses are most useful after the argument and evidence are stable enough to expose real finish, credibility and technical-boundary problems rather than rewarding an attractive fragment.
+- **Look for stories whose later event changes the meaning of the earlier one.** Circularity can compress a large lesson without adding another abstract explanation. The SQL story worked because the interview answer and the later real problem exposed opposite halves of the same mistake: `have a go` and `ask for help` did not need to be mutually exclusive.
+- **Protect the earlier self before showing the attitude change.** A reflective article is stronger when the old behaviour made sense under the old constraints. Do not make a junior, earlier Harley or another past actor artificially foolish so the present-day lesson can sound wiser.
+- **Stop Cloud when local production has a sufficient handoff.** The room does not need to finish page composition or squeeze every last sentence. It does need to leave the accepted manuscript, evidence and privacy custody, unresolved boundaries, valuable cutting-room material, and a clear read order so local Sol can continue without reopening discovery by default.
+
 ## Preserved draft stack
 
 - `api-is-only-the-middle-next-room-seed.md`
+- `api-is-only-the-middle-sol-first-pass.md`
+- `api-is-only-the-middle-cloud-editorial-brief.md`
+- `api-is-only-the-middle-cloud-discovery-record.md`
+- `api-is-only-the-middle-cloud-handoff-addendum.md`
+- `api-is-only-the-middle-cloud-first-draft.md`
 - `context-terra-draft.md`
 - `pass-references-terra-draft.md`
 - `provisioning-terra-draft.md`
@@ -78,7 +96,7 @@ The Terra files are first-pass working drafts. The Why ADRs Sol file incorporate
 
 `testing-evidence-cloud-discovery-record.md` preserves the backend and frontend discovery through the final conventional-engineering checkpoint. `testing-evidence-cloud-handoff-addendum.md` supersedes its unresolved/open-discovery tail with the accepted governing argument, curveball decision, pressure-scenario boundary, three-lens review, £8,750 valuation and local-Sol handoff. `testing-evidence-cloud-first-draft.md` is the resulting Cloud manuscript to stand up into the production article frame. None of those surfaces makes an admission decision.
 
-`api-is-only-the-middle-next-room-seed.md` is a deliberately small bridge into the next candidate room. It records Harley's correction that the planned API framing is too narrow: the product itself is the middle of engineering, with substantial responsibility before and after implementation. It also preserves the provisional warmer autobiographical posture - what Harley thought engineering was when he started versus what experience taught him - and explicitly warns the next room not to force hot-take energy. It is a discovery seed, not a title or thesis decision.
+`api-is-only-the-middle-next-room-seed.md` records the original correction from an API-specific premise to the wider observation that implementation is only the middle of engineering. `api-is-only-the-middle-cloud-discovery-record.md` preserves the main Harley-led discovery and accepted curveball. `api-is-only-the-middle-cloud-handoff-addendum.md` closes the late discovery with the anti-adversarial `no dev is an island` argument, breadcrumb stewardship, regulated-supplier handoff, SQL circularity, profanity/cadence rules and final three-lens review. `api-is-only-the-middle-cloud-first-draft.md` is the accepted Cloud manuscript for local Sol to stand up in the production article frame. None of those surfaces makes an admission decision.
 
 For Provisioning, the current editorial read order is:
 
@@ -110,10 +128,14 @@ For Testing, the durable local-Sol handoff read order is:
 
 The accepted public-facing proposition is **The right test isn't your favourite test**. The article is engineering-first; agentic pressure testing is a worked transfer of the same judgement, not the centre of gravity. Local Sol owns the aggressive final edit, production article frame, source refresh where needed, presentation and any later admission decision.
 
-For the next API/Product candidate room, start with:
+For `api-is-only-the-middle`, the durable local-Sol handoff read order is:
 
-1. `api-is-only-the-middle-next-room-seed.md` for the correction and provisional emotional posture;
-2. the API responsibility and candidate contract in the Phase 7 specification and plan; and
-3. `docs/editorial-admission.md` for the still-pending admission state.
+1. `api-is-only-the-middle-cloud-editorial-brief.md` for the room contract and protected boundaries;
+2. `api-is-only-the-middle-cloud-discovery-record.md` for the main lived-story discovery, evidence classes and anti-inferences;
+3. `api-is-only-the-middle-cloud-handoff-addendum.md` for the accepted late discoveries, SQL circularity, stewardship argument, cadence rule and final value lenses;
+4. `api-is-only-the-middle-cloud-first-draft.md` for the accepted Cloud manuscript, valued at approximately £9,500 / £10,000 before final local polish;
+5. live source surfaces named by the discovery documents when production claims need reverification;
+6. `api-is-only-the-middle-next-room-seed.md` and `api-is-only-the-middle-sol-first-pass.md` only as superseded historical working material; and
+7. `cross-article-thread-ledger.md` for the repeating new-guy-reset thread deliberately routed away from this manuscript.
 
-Keep the canonical candidate identity `api-is-only-the-middle` until Harley-led discovery settles any public title change. The seed exists specifically so the next Cloud room starts from **the product is the middle of engineering**, not from an API-specific premise.
+The accepted article proposition is **“I just write the code” is not a full sentence**. The implementation remains central, but responsibility continues before and after it. Local Sol owns final subtraction, production article framing, SQL-aside presentation, source refresh where needed, corpus-level fatigue review, any later admission decision and publication proof.
