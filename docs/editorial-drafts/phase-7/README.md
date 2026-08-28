@@ -40,6 +40,19 @@ If the supposed argument collapses into a truism, a catalogue, a pattern-name ex
 
 The useful target is an article that makes the reader think: **bold claim; show me.** Then the body does.
 
+## Room-to-room editorial lessons
+
+Carry these process lessons into the next Cloud article room. They are workflow defaults, not public-copy rules or substitutes for Harley's judgement.
+
+- **Discover conversationally.** Follow Harley's live riffs instead of converting the brief into a questionnaire. Ask one useful question when a question is needed, and let an answer change what should be asked next.
+- **Use one deliberate curveball after the evidence exists.** A materially different governing argument is most useful once the room has enough lived detail to test whether the same evidence supports a sharper article. Do not manufacture contrarian energy just to satisfy the exercise.
+- **Once the thesis lands, review paragraph jobs before repeatedly redrafting sentences.** Every paragraph should carry one coherent thought, turn, consequence or phase. If adjacent paragraphs are developing the same thought, merge them before polishing their individual cadence.
+- **Whitespace is not emphasis by default.** A short or one-sentence paragraph earns isolation only when separation changes how the reader should hear or understand it: a real turn, conclusion, contrast or intentionally load-bearing line. If it merely creates a spoken pause, attach it to the thought it belongs to.
+- **Run the three value lenses on a coherent manuscript, not raw discovery.** The £10k-agency, weary-hiring-manager and cynical-architect lenses are most useful after the argument and evidence are stable enough to expose real finish, credibility and technical-boundary problems rather than rewarding an attractive fragment.
+- **Look for stories whose later event changes the meaning of the earlier one.** Circularity can compress a large lesson without adding another abstract explanation. The SQL story worked because the interview answer and the later real problem exposed opposite halves of the same mistake: `have a go` and `ask for help` did not need to be mutually exclusive.
+- **Protect the earlier self before showing the attitude change.** A reflective article is stronger when the old behaviour made sense under the old constraints. Do not make a junior, earlier Harley or another past actor artificially foolish so the present-day lesson can sound wiser.
+- **Stop Cloud when local production has a sufficient handoff.** The room does not need to finish page composition or squeeze every last sentence. It does need to leave the accepted manuscript, evidence and privacy custody, unresolved boundaries, valuable cutting-room material, and a clear read order so local Sol can continue without reopening discovery by default.
+
 ## Preserved draft stack
 
 - `api-is-only-the-middle-next-room-seed.md`
