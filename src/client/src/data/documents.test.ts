@@ -65,6 +65,14 @@ describe('prepareMarkdown', () => {
 })
 
 describe('loadDocument', () => {
+  test('keeps the unadmitted Pass References stub out of public navigation', () => {
+    expect(navigation.some((item) => item.slug === 'pass-references-not-paragraphs')).toBe(false)
+    expect(navigation.find((item) => item.slug === 'graph-iterative-review')).toMatchObject({ date: '2026-08-15' })
+    expect(navigation.find((item) => item.slug === 'why-adrs')).toMatchObject({ date: '2026-08-22' })
+    expect(navigation.find((item) => item.slug === 'the-right-test-isnt-your-favourite-test')).toMatchObject({ date: '2026-08-25' })
+    expect(navigation.find((item) => item.slug === 'i-just-write-the-code-is-not-a-full-sentence')).toMatchObject({ date: '2026-08-28' })
+  })
+
   test('preserves specialist project presentation discriminators without looking for Markdown', async () => {
     const marketplace = navigation.find((item) => item.slug === 'codex-marketplace')
     const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')

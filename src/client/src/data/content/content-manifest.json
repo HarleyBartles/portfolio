@@ -8,7 +8,7 @@
       "summary": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
       "presentation": "marketplace-case-study",
       "tags": ["project", "agentic-engineering", "skills"],
-      "relatedSlugs": ["provisioning-is-not-accumulation", "i-made-agentic-engineering-harder-than-it-needed-to-be", "pass-references-not-paragraphs"]
+      "relatedSlugs": ["provisioning-is-not-accumulation", "i-made-agentic-engineering-harder-than-it-needed-to-be"]
     },
     {
       "slug": "agentic-learning-lab",
@@ -57,12 +57,12 @@
       "slug": "why-adrs",
       "kind": "writing",
       "title": "Why ADRs?",
-      "date": "2026-08-26",
+      "date": "2026-08-22",
       "readingMinutes": 8,
       "status": "published",
       "featured": false,
       "summary": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
-      "path": "writing/2026-08-26-why-adrs.md",
+      "path": "writing/2026-08-22-why-adrs.md",
       "tags": ["writing", "software-architecture", "decision-records"],
       "relatedSlugs": []
     },
@@ -70,12 +70,12 @@
       "slug": "the-right-test-isnt-your-favourite-test",
       "kind": "writing",
       "title": "The right test isn't your favourite test",
-      "date": "2026-08-27",
+      "date": "2026-08-25",
       "readingMinutes": 8,
       "status": "published",
       "featured": false,
       "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
-      "path": "writing/2026-08-27-the-right-test-isnt-your-favourite-test.md",
+      "path": "writing/2026-08-25-the-right-test-isnt-your-favourite-test.md",
       "tags": ["writing", "software-engineering", "testing", "agentic-engineering"],
       "relatedSlugs": []
     },
@@ -96,11 +96,11 @@
       "slug": "graph-iterative-review",
       "kind": "writing",
       "title": "If you write a loop, don't be surprised when your agent starts looping",
-      "date": "2026-08-22",
+      "date": "2026-08-15",
       "readingMinutes": 8,
       "status": "published",
       "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
-      "path": "writing/2026-08-22-graph-iterative-review.md",
+      "path": "writing/2026-08-15-graph-iterative-review.md",
       "tags": ["writing", "agentic-engineering", "review"],
       "relatedSlugs": []
     },
@@ -127,18 +127,6 @@
       "path": "writing/2026-08-12-provisioning-is-not-accumulation.md",
       "tags": ["writing", "agentic-engineering", "provisioning"],
       "relatedSlugs": ["goldilocks"]
-    },
-    {
-      "slug": "pass-references-not-paragraphs",
-      "kind": "writing",
-      "title": "Pass references, not paragraphs",
-      "date": "2026-08-15",
-      "readingMinutes": 5,
-      "status": "published",
-      "summary": "Multi-agent handoffs are a context-materialisation problem. Pass durable references when you can.",
-      "path": "writing/2026-08-15-pass-references-not-paragraphs.md",
-      "tags": ["writing", "agentic-engineering", "context"],
-      "relatedSlugs": []
     },
     {
       "slug": "goldilocks",
