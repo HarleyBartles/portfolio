@@ -181,15 +181,24 @@ public value lies in the dependency decision and its consequence.
 This is cutting-room or cost/status material. It should not displace the
 cleaner commercial and evidence account on About.
 
+## Representativeness boundary
+
+- The two retained accounts are worked examples selected because they are
+  legible, consequential and employer-safe. They are not Harley's only Access
+  outcomes and must not be presented as an exhaustive account of his work.
+- The surrounding professional signal is sustained practice: these examples
+  show ordinary ownership within a larger body of delivery, not isolated hero
+  moments or the only two occasions on which Harley created value.
+
 ## Approved implementation inputs so far
 
 - **About:** Lead with two additional paid checks enabled, then the governed
   customer stakes, Harley's bounded design and the `no evidence, no success`
   invariant. LLM mechanics support the account; they are not the headline.
 - **CV:** A compressed professional outcome earns space, but it must not imply
-  that the browser-automation service is Harley's only consequential Access
-  work. Use the approved commercial/evidence account and the cross-product
-  migration account as distinct inputs; exact wording remains for
+  that the browser-automation service and migration sequence are Harley's only
+  consequential Access work. Use them as representative worked examples within
+  a much larger body of ordinary delivery; exact wording remains for
   implementation.
 - **Status/cost:** The AI-capability retrospective and assigned legacy-endpoint
   retirement may inform a restrained cost or current-status treatment. Neither
