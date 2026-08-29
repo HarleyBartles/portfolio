@@ -36,6 +36,12 @@ def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subpro
 
 
 class PreCommitHookTests(unittest.TestCase):
+    def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
+        hook = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
+
+        self.assertIn('"${PYTHON[@]}" tools/run.py ci --check', hook)
+        self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
+
     def test_hook_commands_resolve_the_linked_worktree(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             temporary_root = Path(temporary)
@@ -77,7 +83,7 @@ class PreCommitHookTests(unittest.TestCase):
             fake_bin.mkdir()
             fake_runner = """#!/usr/bin/env sh
 case "$*" in
-  *"precommit --check"*)
+  *"ci --check"*)
     git rev-parse --show-toplevel > "$OBSERVED_ROOT"
     git -C "$NESTED_REPO" rev-parse HEAD > "$OBSERVED_HEAD"
     ;;
@@ -222,7 +228,7 @@ case "$*" in
   *"ci --apply"*)
     cp tracked.txt docs/INDEX.md
     ;;
-  *"precommit --check"*)
+  *"ci --check"*)
     if grep -q BROKEN tracked.txt; then
       echo "staged check saw BROKEN" >&2
       exit 17
@@ -278,7 +284,7 @@ exit 0
             fake_bin.mkdir()
             fake_runner = """#!/usr/bin/env sh
 case "$*" in
-  *"precommit --check"*)
+  *"ci --check"*)
     printf 'gate mutation\n' > tracked.txt
     ;;
 esac

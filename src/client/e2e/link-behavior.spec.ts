@@ -4,13 +4,14 @@ test('external links declare a new browsing context while internal links stay in
   const sitemapResponse = await request.get('sitemap.xml')
   expect(sitemapResponse.ok()).toBe(true)
   const sitemap = await sitemapResponse.text()
-  const routes = Array.from(sitemap.matchAll(/<loc>[^<]+\/portfolio(?<route>\/[^<]*)<\/loc>/g))
-    .map((match) => match.groups?.route ?? '/')
+  const publicUrls = Array.from(sitemap.matchAll(/<loc>(?<url>[^<]+)<\/loc>/g))
+    .map((match) => new URL(match.groups?.url ?? ''))
 
-  expect(routes.length).toBeGreaterThan(0)
+  expect(publicUrls.length).toBeGreaterThan(0)
+  const publicOrigin = publicUrls[0].origin
 
-  for (const route of routes) {
-    await page.goto(route === '/' ? './' : `.${route}`)
+  for (const { pathname: route } of publicUrls) {
+    await page.goto(route)
     const pageOrigin = new URL(page.url()).origin
     const links = await page.locator('a[href]').evaluateAll((anchors) => anchors.map((anchor) => {
       const element = anchor as HTMLAnchorElement
@@ -26,7 +27,8 @@ test('external links declare a new browsing context while internal links stay in
 
     for (const link of links) {
       const destination = new URL(link.href)
-      const isExternalSite = ['http:', 'https:'].includes(destination.protocol) && destination.origin !== pageOrigin
+      const isExternalSite = ['http:', 'https:'].includes(destination.protocol)
+        && ![pageOrigin, publicOrigin].includes(destination.origin)
 
       if (isExternalSite) {
         expect(link, `${route}: ${link.href}`).toMatchObject({

@@ -5,7 +5,8 @@ Use this reference when deciding what to verify for repo-starter work.
 ## Canonical validation command
 
 - `py -3 tools/run.py ci --check` is the repo's canonical pre-commit and CI verification command.
-- The tracked pre-commit hook uses `py -3 tools/run.py precommit --check`, the fast product gate. Full CI adds Playwright browser journeys.
+- The tracked pre-commit hook enforces `py -3 tools/run.py ci --check`, including Playwright browser journeys. A commit that passes locally should reach hosted CI for confirmation, not predictable failure discovery.
+- `py -3 tools/run.py precommit --check` remains an explicitly partial development check for repository checks, unit tests, and a production build. It is not a commit or publication gate.
 
 ## Validation principles
 

@@ -33,7 +33,9 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 
 - A task is not ready just because files changed.
 - Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
-- Before publishing a PR, verify `py -3 tools/run.py ci --check` and the branch state so the published CI run is expected to pass.
+- During implementation, run the smallest focused test slice that proves each repair. When the complete staged change is ready, commit normally and let the tracked pre-commit hook run `py -3 tools/run.py ci --check` once as the integration gate.
+- Do not run the complete canonical gate immediately before a commit that will run the same gate again. If the hook refuses the commit, fix the reported failure, prove that focused slice, and retry the commit. Do not bypass the hook.
+- A successful normal commit is the local canonical proof for its exact staged tree. Before publishing a PR, verify the branch state so hosted CI is expected to confirm that proof rather than discover predictable failures.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
 ## Clean finish

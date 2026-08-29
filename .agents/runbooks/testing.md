@@ -10,9 +10,19 @@ Use this runbook when deciding what to verify for a change.
 ## Canonical validation command
 
 - `py -3 tools/run.py ci --check` runs the full validation pipeline.
-- `py -3 tools/run.py precommit --check` runs repository checks, Python tests, client unit tests, and a production build without the slower browser journeys.
+- `py -3 tools/run.py precommit --check` is an explicitly partial development check: it runs repository checks, Python tests, client unit tests, and a production build without the slower browser journeys. The tracked Git hook does not use it as proof that a commit is safe to publish.
 - `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
 - The canonical command checks the marketplace-to-derived-skill projection locally and in GitHub Actions. The marketplace source is public, so hosted checkout initializes the pinned submodule before running the same gate.
+
+## Efficient commit gate
+
+1. Run focused tests while implementing or repairing a known failure.
+2. Stage the complete intended tree and commit normally.
+3. Let the tracked pre-commit hook run the complete canonical gate once.
+4. If the hook rejects the commit, use its first real failure to select the next focused test. Fix that slice, prove it independently, then retry the commit.
+5. Do not pre-run `ci --check` immediately before a normal commit, rerun it immediately after a successful hooked commit, or use hosted CI to discover a failure the local hook can predict.
+
+Do not bypass the hook. Its successful completion is the canonical local proof for the exact staged tree Git committed.
 
 ## Scoped validation
 
