@@ -106,8 +106,8 @@ describe('generateCvPdf', () => {
   })
 
   test('rewrites preview-server links to the canonical public origin before printing', async () => {
-    document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.github.io/portfolio/cv">'
-    document.body.innerHTML = '<a href="http://127.0.0.1:4173/portfolio/about#contact">Contact</a>'
+    document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.com/cv">'
+    document.body.innerHTML = '<a href="http://127.0.0.1:4173/about#contact">Contact</a>'
     const page = {
       evaluate: vi.fn(async (callback: (origin: string) => string[], origin: string) => callback(origin)),
     }
@@ -116,7 +116,7 @@ describe('generateCvPdf', () => {
 
     expect(document.querySelector('a')).toHaveAttribute(
       'href',
-      'https://harleybartles.github.io/portfolio/about#contact',
+      'https://harleybartles.com/about#contact',
     )
   })
 
@@ -138,7 +138,7 @@ describe('generateCvPdf', () => {
       rewriteLinksForPdf,
     })
 
-    expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4173/portfolio/cv/', { waitUntil: 'networkidle' })
+    expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4173/cv/', { waitUntil: 'networkidle' })
     expect(page.evaluate).toHaveBeenCalledOnce()
     expect(rewriteLinksForPdf).toHaveBeenCalledWith(page, 'http://127.0.0.1:4173')
     expect(page.emulateMedia).toHaveBeenCalledWith({ media: 'print' })

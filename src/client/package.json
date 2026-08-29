@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run media:wild-bunch:check && npm run media:learning-lab:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
+    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:learning-lab:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
+    "routes:apply": "node scripts/generate-route-catalogue.mjs",
+    "routes:check": "node scripts/generate-route-catalogue.mjs --check",
     "media:wild-bunch:apply": "node scripts/process-wild-bunch-captures.mjs --apply",
     "media:wild-bunch:check": "node scripts/process-wild-bunch-captures.mjs --check",
     "media:learning-lab:apply": "node scripts/process-learning-lab-assets.mjs --apply",

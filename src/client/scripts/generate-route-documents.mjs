@@ -1,45 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-
-const INDEX_METADATA = [
-  {
-    route: '/',
-    title: 'Harley Bartles | Senior Software Engineer',
-    description: 'Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations.',
-  },
-  {
-    route: '/projects',
-    title: 'Project Stories | Harley Bartles',
-    description: 'Selected public engineering project stories from Harley Bartles.',
-  },
-  {
-    route: '/writing',
-    title: 'Writing and Notes | Harley Bartles',
-    description: 'Notes on engineering practice, agentic systems, and repository design.',
-  },
-  {
-    route: '/patch',
-    title: 'Adventures of Patch | Harley Bartles',
-    description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.',
-  },
-  {
-    route: '/about',
-    title: 'About and Work With Me | Harley Bartles',
-    description: 'Experience, working style, and contact information for Harley Bartles.',
-  },
-  {
-    route: '/cv',
-    title: 'CV | Harley Bartles',
-    description: 'A concise professional CV with verified experience, education, and public work from Harley Bartles.',
-  },
-]
-
-const KIND_ROUTE = {
-  project: 'projects',
-  writing: 'writing',
-  patch: 'patch',
-}
+import { buildRouteCatalogue } from './generate-route-catalogue.mjs'
 
 const LEGACY_ROUTES = [
   { route: '/fairytales', canonicalRoute: '/patch', title: 'Adventures of Patch | Harley Bartles', description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.' },
@@ -57,30 +19,49 @@ function escapeHtml(value) {
 }
 
 function canonicalUrl(origin, baseUrl, route) {
-  const base = `${origin.replace(/\/$/, '')}/${baseUrl.replace(/^\//, '').replace(/\/$/, '')}`
-  return route === '/' ? base : `${base}${route}`
+  const normalizedOrigin = origin.replace(/\/$/, '')
+  const normalizedBase = baseUrl === '/' ? '' : `/${baseUrl.replace(/^\//, '').replace(/\/$/, '')}`
+  return route === '/' ? `${normalizedOrigin}${normalizedBase}/` : `${normalizedOrigin}${normalizedBase}${route}`
 }
 
 function renderMetadata(template, metadata, origin, baseUrl) {
-  const canonical = canonicalUrl(origin, baseUrl, metadata.canonicalRoute ?? metadata.route)
-  const socialImage = canonicalUrl(origin, baseUrl, '/brand/social-card.png')
+  if (metadata.indexability === 'noindex') {
+    const cleanTemplate = template
+      .replace(/\s*<link\s+rel=["']canonical["'][^>]*>/gi, '')
+      .replace(/\s*<meta\s+property=["']og:[^"']+["'][^>]*>/gi, '')
+      .replace(/\s*<meta\s+name=["']twitter:[^"']+["'][^>]*>/gi, '')
+
+    return cleanTemplate
+      .replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(metadata.title)}</title>`)
+      .replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(metadata.description)}" />`)
+      .replace('</head>', '    <meta name="robots" content="noindex, nofollow" />\n  </head>')
+  }
+
+  const canonical = canonicalUrl(origin, baseUrl, metadata.canonicalRoute ?? metadata.path)
+  const socialImage = canonicalUrl(origin, baseUrl, metadata.socialImage.path)
   const socialTags = [
     `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
     `<meta property="og:title" content="${escapeHtml(metadata.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(metadata.description)}" />`,
-    `<meta property="og:type" content="${metadata.type ?? 'website'}" />`,
+    `<meta name="robots" content="${metadata.indexability}" />`,
+    `<meta property="og:type" content="${metadata.openGraphType}" />`,
     `<meta property="og:url" content="${escapeHtml(canonical)}" />`,
     `<meta property="og:image" content="${escapeHtml(socialImage)}" />`,
+    `<meta property="og:image:alt" content="${escapeHtml(metadata.socialImage.alt)}" />`,
+    `<meta property="og:image:width" content="${metadata.socialImage.width}" />`,
+    `<meta property="og:image:height" content="${metadata.socialImage.height}" />`,
+    `<meta property="og:image:type" content="${metadata.socialImage.mimeType}" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
     `<meta name="twitter:title" content="${escapeHtml(metadata.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(metadata.description)}" />`,
     `<meta name="twitter:image" content="${escapeHtml(socialImage)}" />`,
+    `<meta name="twitter:image:alt" content="${escapeHtml(metadata.socialImage.alt)}" />`,
   ].join('\n    ')
 
   const cleanTemplate = template
     .replace(/\s*<link\s+rel=["']canonical["'][^>]*>/gi, '')
     .replace(/\s*<meta\s+property=["']og:[^"']+["'][^>]*>/gi, '')
-    .replace(/\s*<meta\s+name=["']twitter:[^"']+["'][^>]*>/gi, '')
+    .replace(/\s*<meta\s+name=["'](?:twitter|robots):[^"']+["'][^>]*>/gi, '')
 
   return cleanTemplate
     .replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(metadata.title)}</title>`)
@@ -91,46 +72,30 @@ function renderMetadata(template, metadata, origin, baseUrl) {
     .replace('</head>', `    ${socialTags}\n  </head>`)
 }
 
-function contentMetadata(manifest) {
-  return manifest.items.flatMap((item) => {
-    const routeRoot = KIND_ROUTE[item.kind]
-
-    if (routeRoot === undefined) {
-      return []
-    }
-
-    return [{
-      route: `/${routeRoot}/${item.slug}`,
-      title: `${item.title} | Harley Bartles`,
-      description: item.summary,
-      type: item.kind === 'writing' ? 'article' : 'website',
-    }]
-  })
-}
-
 export async function buildRouteDocuments({ distRoot, manifestPath, baseUrl, origin }) {
   const [template, manifestText] = await Promise.all([
     readFile(path.join(distRoot, 'index.html'), 'utf8'),
     readFile(manifestPath, 'utf8'),
   ])
   const manifest = JSON.parse(manifestText)
-  const contentEntries = contentMetadata(manifest)
+  const contentEntries = buildRouteCatalogue(manifest)
   const legacyEntries = LEGACY_ROUTES.flatMap((legacy) => {
-    if (legacy.slug === undefined) return [legacy]
-    const source = manifest.items.find((item) => item.slug === legacy.slug)
-    return source === undefined ? [] : [{ ...legacy, title: `${source.title} | Harley Bartles`, description: source.summary }]
+    const source = legacy.slug === undefined
+      ? contentEntries.find((item) => item.path === legacy.canonicalRoute)
+      : contentEntries.find((item) => item.path === legacy.canonicalRoute)
+    return source === undefined ? [] : [{ ...source, path: legacy.route, canonicalRoute: legacy.canonicalRoute }]
   })
-  const entries = [...INDEX_METADATA, ...contentEntries, ...legacyEntries]
+  const entries = [...contentEntries, ...legacyEntries]
 
   for (const metadata of entries) {
     const html = renderMetadata(template, metadata, origin, baseUrl)
 
-    if (metadata.route === '/') {
+    if (metadata.path === '/') {
       await writeFile(path.join(distRoot, 'index.html'), html)
       continue
     }
 
-    const routeRoot = path.join(distRoot, ...metadata.route.split('/').filter(Boolean))
+    const routeRoot = path.join(distRoot, ...metadata.path.split('/').filter(Boolean))
     await mkdir(routeRoot, { recursive: true })
     await writeFile(path.join(routeRoot, 'index.html'), html)
   }
@@ -138,28 +103,30 @@ export async function buildRouteDocuments({ distRoot, manifestPath, baseUrl, ori
   const notFound = renderMetadata(
     template,
     {
-      route: '/',
+      path: '/',
       title: 'Page Not Found | Harley Bartles',
       description: 'This portfolio page is not available.',
-      type: 'website',
+      indexability: 'noindex',
     },
     origin,
     baseUrl,
   )
   await writeFile(path.join(distRoot, '404.html'), notFound)
 
-  return entries.map((entry) => entry.route)
+  return entries.map((entry) => entry.path)
 }
 
 const scriptPath = process.argv[1] === undefined ? '' : pathToFileURL(path.resolve(process.argv[1])).href
 
 if (scriptPath === import.meta.url) {
   const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+  const siteConfig = JSON.parse(await readFile(path.join(clientRoot, 'site.config.json'), 'utf8'))
+  const profile = siteConfig.profiles[siteConfig.activeProfile]
   const routes = await buildRouteDocuments({
     distRoot: path.join(clientRoot, 'dist'),
     manifestPath: path.join(clientRoot, 'src', 'data', 'content', 'content-manifest.json'),
-    baseUrl: '/portfolio/',
-    origin: 'https://harleybartles.github.io',
+    baseUrl: profile.basePath,
+    origin: profile.canonicalOrigin,
   })
   console.log(`[generate-route-documents] wrote ${routes.length} known routes and 404.html`)
 }

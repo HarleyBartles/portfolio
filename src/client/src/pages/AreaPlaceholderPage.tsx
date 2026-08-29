@@ -14,6 +14,7 @@ export function AreaPlaceholderPage({ title }: AreaPlaceholderPageProps): ReactE
         title={`${title} | Harley Bartles`}
         description={`${title} portfolio content is being prepared.`}
         canonicalPath="/"
+        noIndex
       />
       <section className="state-panel" aria-labelledby="area-placeholder-title">
         <h1 id="area-placeholder-title">{title}</h1>

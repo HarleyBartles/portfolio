@@ -25,7 +25,7 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
   await expect(page).toHaveTitle('CV | Harley Bartles')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     'href',
-    'https://harleybartles.github.io/portfolio/cv',
+    'https://harleybartles.com/cv',
   )
   await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
   await expect(page.getByText('Senior software engineer | full-stack and agentic systems')).toBeVisible()
@@ -38,8 +38,8 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
     regions.map((region) => region.getAttribute('data-cv-page'))
   ))
   expect(pageRegions).toEqual(['1', '2'])
-  await expect(page.getByRole('link', { name: 'Return to About' })).toHaveAttribute('href', '/portfolio/about')
-  await expect(page.getByRole('link', { name: 'Download PDF' })).toHaveAttribute('href', '/portfolio/harley-bartles-cv.pdf')
+  await expect(page.getByRole('link', { name: 'Return to About' })).toHaveAttribute('href', '/about')
+  await expect(page.getByRole('link', { name: 'Download PDF' })).toHaveAttribute('href', '/harley-bartles-cv.pdf')
 
   const pdfResponse = await page.request.get('harley-bartles-cv.pdf')
   expect(pdfResponse.ok()).toBe(true)

@@ -43,6 +43,13 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Format and dimensions: vector SVG, `64 × 64` view box.
 - Fallback: the home link retains the accessible name `Harley Bartles, home` when the image cannot load.
 
+### HB device-icon fallbacks
+
+- Public files: `src/client/public/brand/hb-mark-32.png` and `src/client/public/brand/hb-mark-180.png`.
+- Source and rights: derived on 29 August 2026 from the hand-authored Harley Bartles SVG mark above; the same original portfolio identity rights apply.
+- Transformation: local Sharp 0.34.5 rasterisation at exact `32 × 32` and `180 × 180` PNG sizes, respectively; no external source material or generated imagery was used.
+- Use and fallback: the SVG remains the preferred favicon; the 32-pixel PNG supports older favicon consumers and the 180-pixel PNG serves Apple touch-icon discovery. Neither asset carries essential text or alters the accessible home-link fallback.
+
 ### Social card
 
 - Public file: `src/client/public/brand/social-card.png`

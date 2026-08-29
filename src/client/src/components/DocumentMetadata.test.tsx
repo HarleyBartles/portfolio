@@ -42,7 +42,7 @@ describe('DocumentMetadata', () => {
     )
     expect(readCanonical()).toHaveAttribute(
       'href',
-      'https://harleybartles.github.io/portfolio/projects',
+      'https://harleybartles.com/projects',
     )
     expect(readProperty('og:title')).toHaveAttribute('content', 'Project Stories | Harley Bartles')
     expect(readProperty('og:description')).toHaveAttribute(
@@ -51,11 +51,11 @@ describe('DocumentMetadata', () => {
     )
     expect(readProperty('og:url')).toHaveAttribute(
       'content',
-      'https://harleybartles.github.io/portfolio/projects',
+      'https://harleybartles.com/projects',
     )
     expect(readProperty('og:image')).toHaveAttribute(
       'content',
-      'https://harleybartles.github.io/portfolio/brand/social-card.png',
+      'https://harleybartles.com/brand/social-card.png',
     )
     expect(readMeta('twitter:card')).toHaveAttribute('content', 'summary_large_image')
   })
@@ -69,9 +69,7 @@ describe('DocumentMetadata', () => {
       />,
     )
 
-    expect(readCanonical()).toHaveAttribute('href', 'https://harleybartles.github.io/portfolio')
-    expect(readCanonical()?.getAttribute('href')).not.toContain('Z:')
-    expect(readCanonical()?.getAttribute('href')).not.toContain('trace')
+    expect(readCanonical()).toBeNull()
   })
 })
 

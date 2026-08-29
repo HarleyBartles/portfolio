@@ -177,7 +177,7 @@ test('visitor opens Adventures of Patch with its production claim and a clear ro
   await expect(publicRepository).toHaveAttribute('href', 'https://github.com/HarleyBartles/adventures-of-patch/tree/13bf77adc63cf5c8f49363cedd5dd392822b8375')
 
   const showcaseLink = page.getByRole('link', { name: 'Explore the Adventures of Patch' })
-  await expect(showcaseLink).toHaveAttribute('href', '/portfolio/patch')
+  await expect(showcaseLink).toHaveAttribute('href', '/patch')
   await showcaseLink.focus()
   await expect(showcaseLink).toBeFocused()
   await expect(page.getByRole('heading', { name: 'Three worlds in motion' })).toHaveCount(0)
@@ -568,7 +568,7 @@ test('visitor receives a useful page state when a content slug is missing', asyn
   await expect(page).toHaveTitle('Page Not Found | Harley Bartles')
   await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
   await expect(page.getByText('This portfolio story is not available.', { exact: true })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Return to the homepage' })).toHaveAttribute('href', '/portfolio/')
+  await expect(page.getByRole('link', { name: 'Return to the homepage' })).toHaveAttribute('href', '/')
 })
 
 test('sibling case studies share one evidence-caption treatment', async ({ page }) => {

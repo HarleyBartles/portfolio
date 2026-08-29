@@ -1,0 +1,13 @@
+{
+  "activeProfile": "custom-domain",
+  "profiles": {
+    "custom-domain": {
+      "canonicalOrigin": "https://harleybartles.com",
+      "basePath": "/"
+    },
+    "github-pages-fallback": {
+      "canonicalOrigin": "https://harleybartles.github.io",
+      "basePath": "/portfolio/"
+    }
+  }
+}

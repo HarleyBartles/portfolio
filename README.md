@@ -85,6 +85,21 @@ concrete requirement cannot be satisfied safely by the static architecture.
 
 This repository is **not** intended to become a large DDD system, a CQRS/event-sourcing experiment, or a microservices landscape. The site should stay easy to understand and easy to evolve.
 
+## Public identity and discovery
+
+The active public deployment profile lives in `src/client/site.config.json`.
+It owns the canonical origin and base path for Vite, generated route documents,
+sitemap and robots files, client metadata, and public-link checks. The custom
+domain is the intended profile; the GitHub Pages profile remains as an explicit
+rebuild rollback, not as a second canonical host.
+
+RSS was considered and deliberately deferred. The portfolio has a small,
+curated writing surface and no publication-cadence promise; a feed would add
+another public contract without serving a reader need yet.
+
+See [the custom-domain activation runbook](.agents/runbooks/custom-domain-activation.md)
+for the separate GitHub Pages and DNS proof steps.
+
 ## Development Philosophy
 
 - Prefer the simplest structure that supports the current need.
