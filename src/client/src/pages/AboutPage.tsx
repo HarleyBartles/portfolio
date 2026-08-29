@@ -6,12 +6,14 @@ import { EditorialPullQuote } from '../components/editorial/EditorialPullQuote'
 import { EditorialThemeProvider } from '../components/editorial/EditorialThemeProvider'
 import { ExternalLink } from '../components/ExternalLink'
 import { SiteLayout } from '../components/SiteLayout'
+import { getProjectSummaries } from '../data/documents'
 import { getEngineeringExperienceLabel, professionalProfile } from '../data/professionalProfile'
 import { NextRolePanel, ProfessionalStory, ProfessionalStoryContent, ProfessionalStoryRail } from './about/ProfessionalSurface'
 import './AboutPage.scss'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT
+const projectStories = getProjectSummaries()
 
 export function AboutPage(): ReactElement {
   const experience = getEngineeringExperienceLabel(new Date())
@@ -54,7 +56,7 @@ export function AboutPage(): ReactElement {
           </div>
         </section>
 
-        <section className="about-independent" aria-labelledby="independent-title"><p className="eyebrow">Independent work</p><h2 id="independent-title">Work I can show you.</h2><p>Employer systems have sensible confidentiality boundaries. My own projects are where I can show my working.</p>{professionalProfile.independentWork.map((work) => <section className="about-independent__row" key={work.id}><h3><Link to={work.path}>{work.title}</Link></h3><p>{work.summary}</p><Link className="text-link" to={work.path}>Read the case study</Link></section>)}</section>
+        <section className="about-independent" aria-labelledby="independent-title"><p className="eyebrow">Independent work</p><h2 id="independent-title">Work I can show you.</h2><p>Employer systems have sensible confidentiality boundaries. My own projects are where I can show my working.</p>{projectStories.map((project) => <section className="about-independent__row" key={project.slug}><h3><Link to={`/projects/${project.slug}`}>{project.title}</Link></h3><p>{project.summary}</p><Link className="text-link" to={`/projects/${project.slug}`}>Read the case study</Link></section>)}</section>
         <ProfessionalStory aria-labelledby="study-title"><ProfessionalStoryRail data-professional-story-rail><p className="eyebrow">Current study</p><p>{professionalProfile.apprenticeship.periodLabel}</p></ProfessionalStoryRail><ProfessionalStoryContent><h2 id="study-title">AI Engineer Level 6 apprenticeship.</h2><p>I started QA's Level 6 AI Engineer apprenticeship in February 2026. It runs through January 2028 and is a bachelor's degree-level programme against the Machine Learning Engineer standard. The syllabus covers machine learning, generative AI, model development, deployment, monitoring, ethics and security underneath the agent layer.</p></ProfessionalStoryContent></ProfessionalStory>
         <aside className="about-aside" aria-labelledby="previous-life-title"><p className="eyebrow">In a previous life</p><h2 id="previous-life-title">There was an acting career too.</h2><p>I acted on and off for about four years, including a role in series three of <em>Shameless</em>. It has almost nothing to do with the engineering argument and still feels worth mentioning.</p><ExternalLink className="text-link" href={professionalProfile.publicLinks.imdb.href}>IMDb: Harley Bartles</ExternalLink></aside>
         <NextRolePanel aria-labelledby="cv-title" data-visual-contract="about-cv-conversion"><div><p className="eyebrow">Next role</p><h2 id="cv-title">I'm looking for a senior full-stack role.</h2></div><div><p>Remote-first works best. I'm open to occasional UK-wide office travel, or Manchester hybrid up to one day a week. My notice period is four weeks.</p><p>I want a job where owning the shape of a problem, the technical decisions and what happens after release is normal, and where I still have people around me who know things I don't.</p><div><Link className="text-link" to="/cv">Read the CV</Link><a className="button-link" href={pdfHref}>Download PDF</a></div></div></NextRolePanel>

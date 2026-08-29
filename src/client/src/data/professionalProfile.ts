@@ -43,13 +43,6 @@ export type PublicProfessionalLink = {
   href: string
 }
 
-export type IndependentWork = {
-  id: string
-  title: string
-  summary: string
-  path: string
-}
-
 export type ProfessionalProfile = {
   engineeringStarted: PublicDate
   currentRole: {
@@ -86,7 +79,6 @@ export type ProfessionalProfile = {
     portfolio: PublicProfessionalLink
     imdb: PublicProfessionalLink
   }
-  independentWork: readonly IndependentWork[]
 }
 
 const engineeringStart = new Date('2019-02-06T00:00:00Z')
@@ -265,24 +257,4 @@ export const professionalProfile: ProfessionalProfile = {
       href: 'https://www.imdb.com/name/nm2179685/',
     },
   },
-  independentWork: [
-    {
-      id: 'agent-asset-marketplace',
-      title: 'Agent Asset Marketplace',
-      summary: 'A public distribution system for reusable agent capabilities. It turns engineering guidance that keeps recurring across repositories into inspectable, versioned assets, while keeping repository-specific knowledge where it belongs.',
-      path: '/projects/codex-marketplace',
-    },
-    {
-      id: 'wild-bunch',
-      title: 'Wild Bunch',
-      summary: 'A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on. The case study follows the game and the engineering together: what I wanted, what the architecture had to make possible, and what changed when my assumptions were wrong.',
-      path: '/projects/wild-bunch',
-    },
-    {
-      id: 'agentic-learning-lab',
-      title: 'Agentic Learning Lab',
-      summary: 'A facilitator-led curriculum for teaching a non-coder to direct agents without hiding the engineering underneath. The labs use source control, deliberate breakage, inspection and recovery to turn judgement into something teachable.',
-      path: '/projects/agentic-learning-lab',
-    },
-  ],
 }

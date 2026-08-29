@@ -147,6 +147,10 @@ function itemToSummary(item: unknown): ContentSummary {
 
 export const navigation: ContentSummary[] = manifest.items.map(itemToSummary)
 
+export function getProjectSummaries(items: readonly ContentSummary[] = navigation): ContentSummary[] {
+  return items.filter((item) => item.kind === 'project')
+}
+
 const manifestItemBySlug = new Map(
   manifest.items.map((item) => [String(item.slug), item as Record<string, unknown>]),
 )

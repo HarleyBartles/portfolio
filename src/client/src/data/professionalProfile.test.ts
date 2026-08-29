@@ -48,11 +48,5 @@ describe('professional profile', () => {
       'Further education',
       'Secondary education',
     ])
-    expect(professionalProfile.independentWork.map(({ id }) => id)).toEqual([
-      'agent-asset-marketplace',
-      'wild-bunch',
-      'agentic-learning-lab',
-    ])
-    expect(professionalProfile.independentWork[0]?.path).toBe('/projects/codex-marketplace')
   })
 })

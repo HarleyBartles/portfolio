@@ -6,10 +6,11 @@ import { EditorialIndexCard } from '../components/EditorialIndexCard'
 import { SiteLayout } from '../components/SiteLayout'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
+import { getProjectSummaries } from '../data/documents'
 
 export function ProjectIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
-  const projects = navigationQuery.data?.filter((item) => item.kind === 'project') ?? []
+  const projects = navigationQuery.data === undefined ? [] : getProjectSummaries(navigationQuery.data)
 
   return (
     <SiteLayout>

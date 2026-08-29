@@ -4,11 +4,13 @@ import { DocumentMetadata } from '../components/DocumentMetadata'
 import { EditorialThemeProvider } from '../components/editorial/EditorialThemeProvider'
 import { ExternalLink } from '../components/ExternalLink'
 import { SiteLayout } from '../components/SiteLayout'
+import { getProjectSummaries } from '../data/documents'
 import { professionalProfile } from '../data/professionalProfile'
 import { CvDocument, CvSheet } from './cv/CvSurface'
 import './CvPage.scss'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
+const projectStories = getProjectSummaries()
 
 export function CvPage(): ReactElement {
   const { github, linkedin } = professionalProfile.publicLinks
@@ -80,12 +82,12 @@ export function CvPage(): ReactElement {
           </section>
 
           <section className="cv-section" aria-labelledby="cv-independent-title">
-            <h2 id="cv-independent-title">Selected independent engineering</h2>
+            <h2 id="cv-independent-title">Independent engineering projects</h2>
             <div className="cv-independent-work">
-              {professionalProfile.independentWork.map((work) => (
-                <section key={work.id}>
-                  <h3><Link to={work.path}>{work.title}</Link></h3>
-                  <p>{work.summary}</p>
+              {projectStories.map((project) => (
+                <section key={project.slug}>
+                  <h3><Link to={`/projects/${project.slug}`}>{project.title}</Link></h3>
+                  <p>{project.summary}</p>
                 </section>
               ))}
             </div>

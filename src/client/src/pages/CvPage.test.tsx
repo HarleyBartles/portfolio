@@ -28,6 +28,7 @@ test('composes a two-page CV from the approved professional facts', () => {
   expect(screen.getByRole('heading', { level: 3, name: 'Agent Asset Marketplace' })).toBeVisible()
   expect(screen.getByRole('heading', { level: 3, name: 'Wild Bunch' })).toBeVisible()
   expect(screen.getByRole('heading', { level: 3, name: 'Agentic Learning Lab' })).toBeVisible()
+  expect(screen.getByRole('heading', { level: 3, name: 'Adventures of Patch' })).toBeVisible()
   expect(screen.getByText(/SQL Server \/ MySQL/)).toBeVisible()
   expect(screen.getByText('Earlier production experience', { exact: false }).parentElement).not.toHaveTextContent('SQL Server')
   expect(screen.queryByRole('link', { name: 'Return to About' })).not.toBeInTheDocument()
@@ -58,4 +59,22 @@ test('replaces About’s future-CV boundary with finished conversion actions', (
   )
   expect(within(conversion).getByText(/notice period is four weeks/i)).toBeVisible()
   expect(screen.getByRole('heading', { name: 'AI Engineer Level 6 apprenticeship.' })).toBeVisible()
+})
+
+test('About lists every project story from the shared project catalogue', () => {
+  render(
+    <MemoryRouter>
+      <AboutPage />
+    </MemoryRouter>,
+  )
+
+  const independentWork = screen.getByRole('heading', { name: 'Work I can show you.' }).parentElement
+  expect(independentWork).not.toBeNull()
+  if (independentWork === null) return
+
+  expect(within(independentWork).getByRole('link', { name: 'Adventures of Patch' })).toHaveAttribute(
+    'href',
+    '/projects/adventures-of-patch',
+  )
+  expect(within(independentWork).getAllByRole('link', { name: 'Read the case study' })).toHaveLength(4)
 })
