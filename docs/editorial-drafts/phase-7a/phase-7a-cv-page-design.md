@@ -165,12 +165,10 @@ Bullets:
   result, no successful check, and a no-charge signal downstream. The service
   enabled Access Screening to offer two additional paid checks inside its
   normal screening journey.`
-- `Owned a v1-to-v2 migration across dependent products. Access Screening
-  originally supplied the capability behind Access Checks v1. As direct v2
-  integrations came online, Screening was also becoming a consumer of Access
-  Checks. I made migration of the remaining v1 consumers a prerequisite;
-  otherwise a call could have bounced from Access Checks v1 into Screening and
-  back through Access Checks v2 before reaching the supplier. The old v1
+- `Owned a cross-product v1-to-v2 migration where Access Screening was both the
+  original upstream supplier and becoming a downstream consumer of Access
+  Checks. I sequenced the remaining v1 consumers first, preventing a valid but
+  wasteful round trip through both generations of Access Checks. The old v1
   endpoint is now unused and tracked for retirement.`
 - `Earlier on Recruitment CRM, replaced a cursor-heavy chain of stored
   procedures with set-based SQL, reducing a several-minute operation to a
@@ -183,7 +181,7 @@ Editorial intent:
 - The browser-automation pair proves design judgement, safety boundary and
   commercial consequence.
 - The migration bullet proves cross-product sequencing and product-boundary
-  reasoning.
+  reasoning while leaving the fuller topology explanation to About.
 - The SQL bullet deliberately broadens the evidence beyond today's two Access
   examples and demonstrates ordinary conventional engineering.
 - Do not add more bullets merely to make the role look busy. These are
