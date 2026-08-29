@@ -89,6 +89,21 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertIn("Pillow==12.2.0", PYTHON_REQUIREMENTS_PATH.read_text(encoding="utf-8").splitlines())
         self.assertIn("python3 -m pip install --requirement requirements.txt", step_run_commands(quality))
 
+    def test_playwright_browser_cache_is_os_specific_and_lockfile_versioned(self) -> None:
+        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        jobs = mapping_block(workflow, "jobs", 0)
+        quality = mapping_block(jobs, "quality", 2)
+        visual = mapping_block(jobs, "visual-regression", 2)
+
+        cache_key = "playwright-${{ runner.os }}-${{ hashFiles('src/client/package-lock.json') }}"
+
+        self.assertIn("uses: actions/cache@v4", quality)
+        self.assertIn("path: ~/.cache/ms-playwright", quality)
+        self.assertIn(f"key: {cache_key}", quality)
+        self.assertIn("uses: actions/cache@v4", visual)
+        self.assertIn("path: ~/AppData/Local/ms-playwright", visual)
+        self.assertIn(f"key: {cache_key}", visual)
+
     def test_windows_is_the_required_canonical_visual_renderer(self) -> None:
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         package = json.loads(PACKAGE_PATH.read_text(encoding="utf-8"))
