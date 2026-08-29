@@ -3,12 +3,12 @@ import { expect, test } from '@playwright/test'
 test('homepage establishes professional identity and an authored editorial hierarchy', async ({ page }) => {
   await page.goto('./')
 
-  await expect(page).toHaveTitle('Harley Bartles | Senior Software Engineer')
+  await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
   await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
   await expect(page.getByText('I build reliable agentic systems.', { exact: true })).toBeVisible()
   await expect(page.locator('.hero').getByText(/silly comics/i)).toBeVisible()
 
-  const selected = page.getByRole('region', { name: 'Work worth bringing forward' })
+  const selected = page.getByRole('region', { name: "What I've been building" })
   await expect(selected.getByRole('button', { name: 'Previous feature' })).toBeVisible()
   await expect(selected.getByRole('button', { name: 'Shuffle features' })).toBeVisible()
   await expect(selected.getByRole('button', { name: 'Next feature' })).toBeVisible()

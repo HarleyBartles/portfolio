@@ -28,9 +28,10 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
     'https://harleybartles.com/cv',
   )
   await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
-  await expect(page.getByText('Senior software engineer | full-stack and agentic systems')).toBeVisible()
-  await expect(page.locator('.cv-role')).toHaveText(['Software Engineer', 'Web Manager'])
-  await expect(page.getByRole('heading', { level: 2, name: 'Education' })).toBeVisible()
+  await expect(page.getByText('Full-stack software engineer', { exact: true })).toBeVisible()
+  await expect(page.getByText('Software Engineer · September 2021 – present')).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Technical skills' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Education and current study' })).toBeVisible()
   await expect(page.getByText('Seven GCSEs', { exact: true })).toBeVisible()
   await expect(page.getByText(/acting|shameless/i)).toHaveCount(0)
 
@@ -38,7 +39,7 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
     regions.map((region) => region.getAttribute('data-cv-page'))
   ))
   expect(pageRegions).toEqual(['1', '2'])
-  await expect(page.getByRole('link', { name: 'Return to About' })).toHaveAttribute('href', '/about')
+  await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
   await expect(page.getByRole('link', { name: 'Download PDF' })).toHaveAttribute('href', '/harley-bartles-cv.pdf')
 
   const pdfResponse = await page.request.get('harley-bartles-cv.pdf')

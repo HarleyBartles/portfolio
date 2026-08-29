@@ -1,293 +1,379 @@
-# Portfolio £10k Phase 7A: Professional Outcomes and Proof Compression Design
+# Portfolio £10k Phase 7A: Professional Surfaces and Proof Choreography Design
 
-**Status:** Proposed, source-gated
+**Status:** Design complete and implementation-ready as of 29 August 2026.
 
-**Design input:** Weary-skeptic reviews completed 25 August 2026
+**Author override:** Harley expanded this room beyond the older roadmap wording. The
+roadmap and earlier Phase 7A constraints must follow the intent established here; they do
+not narrow it. This room owns the finished design for the affected hiring surfaces.
+Local implementation executes that design rather than inventing missing editorial or
+visual decisions.
 
-**Spec-readiness:** 8/10
+**Design input:** Weary-sceptical hiring-manager and jaded-cynical-architect lenses;
+Harley-led source discovery and rendered-site review, 29 August 2026.
 
 **Roadmap:** [Portfolio £10k Quality](../plans/portfolio-10k/roadmap.md)
 
-**Depends on:** Phases 1-7 and Harley's approval of one employer-safe outcome
-account
+## Binding room outputs
+
+The implementation plan must consume these records together:
+
+- [source and disclosure record](../../docs/editorial-drafts/phase-7a/phase-7a-cloud-discovery-record.md);
+- [final About page design](../../docs/editorial-drafts/phase-7a/phase-7a-about-page-design.md);
+- [final CV page design](../../docs/editorial-drafts/phase-7a/phase-7a-cv-page-design.md); and
+- [site visual-language recommendations](../../docs/editorial-drafts/phase-7a/phase-7a-site-visual-language-recommendations.md).
+
+The About and CV design records own their exact public copy, section order, link
+behaviour, layout and styling direction. The visual-language record owns both the Phase
+7A visual decisions and the recommendations the later site-wide polish pass must use as
+its starting design brief.
+
+Local Sol owns code, responsive execution, tests, generated artifacts and
+implementation-detail choices that do not alter those designs. A material copy,
+hierarchy, art-direction or proof-route choice not already answered by the room is a
+human/design gate, not permission to improvise.
 
 ## Goal
 
-Close the remaining gap between evidence of responsibility and evidence of
-consequence before the homepage turns the portfolio into a faster hiring
-journey.
+Make the professional hiring surfaces as strong as the engineering evidence they point
+to.
 
-The site already shows what Harley owns, how he reasons, and how he verifies
-work. It does not yet make one professional outcome legible enough to answer a
-skeptical hiring manager's next questions: who relies on the system, what was
-at stake, what condition changed because of Harley's judgement, and how did
-that affect the people around the product?
+The site already contains strong engineering work. Before this room, About and the CV
+obscured some of it with positioning language, defensive qualification and prose that
+could read like a rubric translated into copy. The CV was too shy in navigation and put
+a capability wall ahead of the career. Wild Bunch made a particularly strong
+falsification claim without making the receipt cheap enough to inspect.
 
-This phase also reduces the cognitive distance to the strongest case-study
-evidence. A reader should be able to understand the question, design choice,
-proof, cost, and present status near the start of a long case study without
-flattening its narrative or art direction.
+Phase 7A therefore redesigns the affected professional surfaces as one coherent hiring
+journey. It changes copy, information order, hierarchy and styling where needed, makes
+the CV a first-class route, and shortens the route from consequential claims to credible
+evidence without wallpapering the site in proof apparatus.
 
-## Outcome
+## Decision lenses
 
-Phase 7A will deliver:
+The active portfolio design policy remains authoritative. In particular:
 
-- one approved, employer-safe Access Checks outcome account;
-- a compact stakes, change, outcome, and influence treatment on About;
-- a deliberate decision on whether a shorter version belongs in the CV;
-- a concise professional-provenance treatment identifying Barbican and Arch as
-  the place Harley acquired his DDD, CQRS, event-sourcing, and related
-  architectural kit in practice;
-- canonical professional-fact ownership in `professionalProfile.ts`, with
-  claim precision and disclosure boundaries recorded;
-- a compact evidence abstract near the start of each long engineering case
-  study;
-- Phase 8 inputs that can bring consequential professional evidence into the
-  first-click hiring journey without duplicating the About narrative;
-- skeptical-reader and confidentiality review; and
-- no invented metric, generic impact claim, or employer case-study sprawl.
+- the weary hiring manager must be able to forward the site without feeling that they
+  are forwarding another polished agentic-engineering claim with no conventional
+  engineering underneath it;
+- the cynical architect must be able to strip away architecture vocabulary and find
+  decisions, failures, trade-offs, corrections, limits and falsifiers; and
+- strong evidence still fails if the public prose is generic, overqualified,
+  self-congratulatory or obviously AI-shaped.
 
-## The missing evidence class
+The intended reactions remain: `I am not going to look stupid forwarding this one` and
+`annoyingly, this person actually does understand what they're talking about`.
 
-Responsibility evidence answers `what did Harley carry?` Outcome evidence
-answers `what changed because Harley carried it well?`
+## Approved source truth
 
-Both matter. Scope without consequence can read as self-positioning. Outcome
-without scope can hide the judgement that produced it. The public account must
-connect them in one bounded chain:
+The employer-safe source gate is cleared. The discovery record is authority for claim
+precision and disclosure boundaries.
 
-1. **Dependants and stakes:** who or what relies on the product, at a safe
-   level of abstraction, and what goes wrong when it is unavailable, wrong, or
-   ambiguous;
-2. **Before:** the relevant condition before Harley's decision;
-3. **Change:** the exact decision, intervention, or delivery move Harley can
-   honestly own;
-4. **Outcome:** the observable condition afterwards;
-5. **Influence:** how Product, Support, QA, operations, customers, or other
-   engineers were able to act differently; and
-6. **Disclosure:** whether each fact is exact, approximate, qualitative, or
-   withheld for confidentiality.
+### Access browser automation
 
-The bounded AI architecture should appear only when it affected this chain. A
-description of deterministic boundaries pays rent when it explains safer
-operation, clearer recovery, supportability, or another approved human or
-business consequence. Architecture labels alone do not satisfy this phase.
+The governing professional example is the browser-automation service used by DBS Update
+and Right to Work Sharecode checks:
 
-## Source discovery gate
+- Harley received an underspecified delivery requirement plus access to an LLM endpoint
+  and credentials, then designed and delivered the service boundary and implementation;
+- the LLM is bounded to locating page elements and proposing browser actions;
+  deterministic code executes the actions and extracts the result;
+- a successful check requires captured rendering of the authoritative government result
+  page;
+- no capture means no successful result and a downstream no-charge signal; and
+- the work enabled Access Screening to offer two additional paid integrated checks.
 
-Before public copy is drafted, ask Harley for one strong example. Do not seek a
-metric for every responsibility. Record:
+The public memorable invariant is `No source capture, no success.` About renders it using
+the shared pull-quote grammar with `PRODUCTION INVARIANT` as the utility line.
 
-1. who or what relies on Access Checks;
-2. the consequence when it is unavailable, wrong, or unclear;
-3. the relevant before condition;
-4. Harley's exact decision or change;
-5. the observable result;
-6. the effect on Product, Support, QA, operations, customers, or other
-   engineers; and
-7. which details are exact, approximate, qualitative, or confidential.
+### Access migration sequencing
 
-Harley's approved account is the source for private professional experience.
-Repository evidence may corroborate public technical facts but cannot infer
-employer outcomes. Existing portfolio prose, an agent summary, or a plausible
-industry consequence is not source truth.
+Access Screening originally supplied the capability behind Access Checks v1. Access
+Checks then developed direct-supplier v2 integrations, while Access Screening itself was
+becoming a v2 consumer.
 
-If no employer-safe example survives this gate, the phase remains blocked. It
-must not substitute adjectives, implied metrics, or a generic statement that
-the work was important.
+Migrating Screening first while other consumers remained on v1 could therefore have
+created the wasteful route:
 
-## Professional-surface contract
+`remaining v1 consumer -> Access Checks v1 -> Access Screening -> Access Checks v2 -> direct supplier`
 
-### About
+Harley owned the migration epic, exposed that dependency and made migration of the
+remaining v1 consumers an explicit prerequisite. They moved first; Screening switched
+afterwards; the round trip never became the production operating model. The legacy v1
+endpoint is now unused but remains tracked retirement debt assigned to Harley.
 
-About receives one compact outcome treatment, not a full employer product case
-study. It should let the consequence of Harley's judgement establish seniority
-without claiming a title he does not hold.
+The browser-automation and migration accounts are representative worked examples from a
+larger body of ordinary delivery. Public copy must not make them sound like Harley's only
+two useful outcomes at Access.
 
-The treatment must:
+### Professional provenance
 
-- preserve the formal `Software Engineer` title and the existing explanation
-  of effective scope;
-- state the stakes at an employer-safe level;
-- show one before, change, and after chain;
-- include one example of organisational influence;
-- connect bounded AI to a consequence only when the source account earns it;
+Barbican Insurance Group and the subsequent Arch period are the concise professional
+provenance for Harley's architecture judgement.
+
+Harley learned DDD, CQRS, event sourcing, layered and onion architecture through
+production immersion in a complex insurance domain where the costs were visibly earned:
+DDD modelled dense business rules; event sourcing supported full replay and auditability;
+CQRS paid a complementary cost. The public point is not a pattern tutorial and not a
+claim that Harley originated the architecture. It is that he first learned expensive
+architecture in a system where he could see why it paid rent, which became the later
+rule that complexity has to earn its place.
+
+The full organisational-memory story remains owned by `Why ADRs?`.
+
+### Brand Addition progression
+
+Brand Addition is one long progression from commercial work through team management to
+Web Manager for the final couple of years, not thirteen years as Web Manager.
+
+While managing a team, Harley identified a web change the team needed and worked with the
+Ecommerce Director to specify and deliver it. That work led directly to an offer to move
+into Web Manager. In that role he defined requirements, coordinated external developers,
+held platform and delivery responsibility, and helped migrate and maintain more than 100
+multilingual, multicurrency stores.
+
+About and CV must preserve that progression rather than flattening the whole employment
+period into the final title.
+
+## About contract
+
+The final copy, section order, links, responsive intent, imagery recommendations and art
+direction are binding in
+[`phase-7a-about-page-design.md`](../../docs/editorial-drafts/phase-7a/phase-7a-about-page-design.md).
+
+The important structural decisions are:
+
+- replace the current `professional truth`, `evidence in view`, `underspecified,
+  consequential problems` and `frontier of agentic engineering` opening with a plain
+  first-person professional introduction;
+- put current Access responsibility and consequence near the top;
+- use the shared pull-quote grammar for the source-evidence invariant;
+- explain the Access Screening migration dependency before its consequence;
+- preserve Brand Addition as progression culminating in Web Manager;
+- use Barbican/Arch briefly to establish where the architecture judgement came from;
+- remove the current `At a glance` proof block, capability matrix and standalone Working
+  Style manifesto where the work itself now makes those arguments better;
+- treat independent work as three broad invitations to inspect the projects rather than
+  reducing each project to the proof receipt discovered in this room;
+- keep the AI Engineer Level 6 study and small acting-career aside at appropriate visual
+  weight;
+- close the hiring argument with a clear next-role treatment and CV actions; and
+- let the contact form implementation handle its own privacy mechanics without public
+  copy congratulating the site for not exposing a raw email address.
+
+No generated About hero image is required. If later imagery is added, follow the room's
+visual-language brief: project-native imagery is preferred; Access explanation should be
+semantic rather than fabricated employer UI; acting imagery must be genuine and
+publishable rather than generated history.
+
+## CV contract
+
+The final two-page copy, page order, screen/print treatment and hostile-reader contract
+are binding in
+[`phase-7a-cv-page-design.md`](../../docs/editorial-drafts/phase-7a/phase-7a-cv-page-design.md).
+
+The main decisions are:
+
+- retain a conventional two-page web/PDF CV mechanism;
+- put present professional experience and consequence before the capability inventory;
+- make page 1 overwhelmingly about current Access work;
+- keep the formal `Software Engineer` title exact while allowing scope and outcomes to
+  establish the level of work;
+- use representative Access examples plus the Recruitment CRM SQL outcome so the current
+  role is not reduced to two discoveries from this room;
+- make Barbican/Arch the professional foundation of the architecture judgement without a
+  technology wall;
+- make the Brand Addition progression explicit;
+- keep three selected independent projects broad enough to invite discovery;
+- move recruiter-searchable technical nouns into compact current/testing/earlier groups
+  instead of `Immediate contribution`, `Ready to contribute immediately`, or defensive
+  fluency qualifications;
+- keep the Level 6 apprenticeship precise as a bachelor's-degree-level programme, not a
+  bachelor's degree;
+- make mobile a readable continuous web document instead of a miniature A4 simulation;
   and
-- remain concise enough that the broader professional chronology still has
-  room to breathe.
+- preserve exactly two A4 pages for the generated print artifact without shrinking type
+  to rescue overlong copy.
 
-About may also carry one compact professional-history statement connecting the
-Barbican and Arch period to Harley's current architecture and knowledge-custody
-practice. The `Why ADRs?` essay owns the full argument. About should establish
-provenance, selective use, and the consequence of lost reasoning without
-becoming another architecture essay.
+### CV navigation
 
-**Author clarification, 26 August 2026:** Harley's formal engineering journey
-began at Barbican with the title `Full Stack Software Engineer`. In Arch's
-three-level framework he progressed from `Software Engineer (Level 1)` to
-`Software Engineer (Level 2)` in roughly two years; Level 3 was the effective
-senior level. Harley assesses the following roughly four years as progression
-from mid-level to effective senior scope, while his current formal title remains
-`Software Engineer`. Later About and CV work should make that trajectory
-inferable from responsibility, judgement and outcomes. It must not upgrade the
-formal title or present being overdue for a Senior title as an employer fact.
+`CV` becomes a first-class global masthead item linking to `/cv`.
 
-### CV
+The contextual About -> CV route remains. On the CV page, the global masthead already
+supplies About navigation, so the current prominent `Return to About` control should be
+removed. Keep the screen-only `Download PDF` action.
 
-The CV is not required to repeat the About narrative. At implementation time,
-decide whether a shorter outcome line adds more hiring value than it costs in
-space and repetition. Record the decision either way.
+## Case-study proof-access contract
 
-### Canonical facts
+The earlier requirement for a five-part evidence abstract on every long case study is
+withdrawn.
 
-Reusable public facts belong in `professionalProfile.ts`, not independently
-worded literals across About, CV, homepage, and writing. The implementation may
-extend the current profile type, but it must distinguish:
+The binding requirement is **early or cheap proof access**. A sceptical reader should not
+have to perform repository archaeology to test a consequential claim, but a case study
+that already establishes its question, design, cost and state through good narrative
+does not need extra proof furniture.
 
-- the public statement;
-- its basis;
-- its precision;
-- its disclosure limit; and
-- the routes allowed to consume it.
+Rendered-site inspection found:
 
-The model should prevent accidental strengthening while allowing About, CV,
-Phase 7 writing, and Phase 8 choreography to use different lengths of the same
-approved truth.
+- Agent Asset Marketplace already establishes its governing engineering problem quickly;
+- Agentic Learning Lab already establishes its governing idea quickly;
+- Adventures of Patch already establishes its system/pipeline idea quickly; and
+- Wild Bunch intentionally opens as a personal game story. That narrative is part of the
+  page's value and stays intact.
 
-## Case-study proof-compression contract
+Implementation leaves Marketplace, Learning Lab and Patch alone unless drift reveals a
+new concrete reader problem. Do not add components merely to satisfy the withdrawn
+abstract checklist.
 
-Each long engineering case study should offer a compact evidence abstract near
-its beginning. The abstract answers:
+### Wild Bunch falsifiability route
 
-- **Question:** what difficult product or engineering question shaped the
-  work?
-- **Design:** what consequential choice did Harley make?
-- **Proof:** what can the reader inspect?
-- **Cost:** what trade-off or ongoing burden came with the choice?
-- **Status:** what is true today?
+The rendered paragraph currently reads:
 
-This is an orientation aid, not a standardised scorecard. It may use prose,
-metadata, or a small composition that suits the case study's own visual
-language. It must not displace a strong narrative opening, turn every page into
-the same template, or repeat the article in miniature.
+> I only get to call that exact replay because it's falsifiable. Full-stream equality
+> tests rebuild a session from its events and compare the result. If the reconstructed
+> state differs, the architecture hasn't earned the claim.
 
-The current long-form candidates are Marketplace, Wild Bunch, Adventures of
-Patch, and Agentic Learning Lab. The implementation plan must inspect their
-then-current openings before deciding which already satisfy part of the
-contract and which need a bounded retrofit.
+Use two deliberate evidence links rather than making one link prove both the scar and the
+repair:
 
-Wild Bunch carries specific deferred inputs from the Phase 7 ADR work:
+- link **`falsifiable`** to Wild Bunch PR #167,
+  `https://github.com/HarleyBartles/wild-bunch/pull/167`;
+- link **`Full-stream equality tests`** to Wild Bunch PR #171,
+  `https://github.com/HarleyBartles/wild-bunch/pull/171`.
 
-- ADR-0028 records event recording masquerading as event sourcing and rejects
-  that drift;
-- later architecture makes typed events, replay, projection authority,
-  optimistic concurrency, disposable snapshots, and version or upcasting
-  behaviour materially true; and
-- integration tests damage or stale snapshot state and require production
-  loading to recover equivalent state from the event stream.
+PR #167 is the receipt for falsification: the replay audit tested the strict claim and
+found concrete gaps, including `TravelDiaryDays` and the unrelated-criminal-ledger
+concern. PR #171 is the closure receipt: the integrity series resolves the remaining
+audit findings, adds production full-replay loading and extends replay equality through
+the production path.
 
-These are proof-compression candidates because they expose a mistake,
-correction history, and falsifiers. Phase 7 must not edit the accepted Wild
-Bunch page. Phase 7A re-inspects the pinned public source before deciding how
-much of this evidence the case study can carry without losing its narrative.
+That gives the cynical architect one click to the uncomfortable evidence and one click to
+the repaired claim. Do not replace these with a generic repository link or a new proof
+panel.
 
-## Optional portfolio-as-software receipt
+## Portfolio-as-software receipt
 
-The repository's release discipline is legitimate corroborating evidence:
-quality gates, asset custody, accessibility checks, route verification, bundle
-budgets, and deployed checks show that the portfolio itself is engineered.
+Rejected for public Phase 7A treatment.
 
-Phase 7A may surface one restrained example only if it strengthens the reader's
-understanding of Harley's practice. It must link to an inspectable receipt and
-must not become a badge wall, CI dashboard, or self-awarded certificate.
+The 29 August pre-commit/hosted-CI repair is ordinary engineering maintenance. It was
+useful during discovery because it exposed Harley's instinct to challenge a locally fast
+but systemically wasteful process, but it does not compete with the Access outcomes or
+Wild Bunch falsification evidence for reader attention. Keep it in the discovery record
+as cutting-room context only. Do not add a CI receipt, badge, test-count boast or
+Working Style paragraph from it.
+
+## Canonical professional facts
+
+Reusable professional facts belong in `professionalProfile.ts` or another explicit
+single source selected by the local plan, not as independently strengthened literals
+across About, CV, homepage and writing.
+
+Implementation must preserve distinctions between the public statement, its factual
+basis, exact/approximate/qualitative precision, disclosure limits and allowed consumers.
+Different routes may use different lengths of the same approved truth. They may not grow
+it stronger by paraphrase.
+
+The About/CV design records identify the specific new canonical outcome/progression facts
+that implementation needs to model.
+
+## Visual and styling authority
+
+The current warm paper, ink, copper, Fraunces, Source Serif 4, Fira Code and authored
+editorial identity remain protected defaults. Phase 7A is not a visual reset.
+
+The final visual recommendations live in
+[`phase-7a-site-visual-language-recommendations.md`](../../docs/editorial-drafts/phase-7a/phase-7a-site-visual-language-recommendations.md).
+The governing principle is **reuse grammar, not layouts**.
+
+The room inspected rendered pull quotes directly and promoted their common grammar into a
+site editorial primitive: pale copper wash, strong copper left rule, oversized italic
+Fraunces, deliberate whitespace and an optional Fira Code secondary line when it adds
+real attribution or classification. About uses the short-statement variant. The later
+site-wide polish pass must compare and harmonise pull quotes and the wider recurring
+visual vocabulary across the whole publication rather than rediscovering the language
+from CSS.
+
+Phase 7A may change About/CV hierarchy, grid, rhythm, rules, typography scale and
+responsive behaviour as specified by their page-design records. It must not add
+dashboard cards, proof badges, metric theatre, generic corporate iconography or a new
+visual system that fights the rest of the site.
 
 ## Non-goals
 
 Phase 7A will not:
 
-- publish customer names, candidate data, internal volumes, financial figures,
-  security detail, contractual information, or private system topology;
+- publish customer identities, candidate data, private volumes, financial values,
+  credentials, security detail, contractual information or unnecessary employer
+  topology;
 - invent or reverse-engineer employer outcomes;
-- turn Access Checks into a public product case study;
-- add a generic impact section full of adjectives;
-- rewrite the complete About chronology or CV;
-- duplicate the same professional narrative on homepage, About, CV, and
-  writing;
-- reopen the accepted arguments or art direction of completed case studies;
-- replace narrative hooks with tables;
-- turn proof compression into one rigid component used everywhere;
-- build the Phase 8 homepage; or
-- expand into a general site-polish pass.
+- turn Access Checks into a standalone employer product case study;
+- claim a formal Senior title Harley does not hold;
+- redesign the Phase 8 homepage;
+- rewrite accepted essays simply to make them match the new professional pages;
+- flatten the four long case studies into one repeated template;
+- use proof density as a substitute for editorial judgement; or
+- make the later site-wide polish pass rediscover design decisions already made here.
 
-## Fast-to-break skepticism handoff
+Rewriting About and CV, changing their styling and information architecture, making CV
+first-class navigation, defining proof links, and supplying downstream visual-language
+recommendations are explicitly in scope.
 
-Phase 8 should receive three stable inputs from this phase:
+## Validation and hostile review
 
-1. one consequential professional signal suitable for a short first-click
-   route;
-2. an About destination that proves responsibility and consequence together;
-   and
-3. case-study openings that disclose their proof responsibility before the
-   reader has to reconstruct it from several screens.
+Normal repository gates remain necessary but are not design acceptance evidence by
+themselves.
 
-The homepage may compress these inputs, but it must not strengthen them. The
-quiet professional route should land where the outcome chain is immediately
-legible. Project doorways should promise only the question and proof the
-destination actually supplies.
+The landed implementation must:
 
-## Validation
+- cold-read About as the weary hiring manager and record what is believed after the first
+  viewport, after the Access treatment and after the career provenance;
+- cold-read the CV at recruiter scanning speed and verify role, current scope,
+  representative outcomes, conventional stack and chronology can be recovered without
+  reading every sentence;
+- cold-read Wild Bunch as the cynical architect, challenge `event sourcing` and `exact
+  replay`, click `falsifiable`, and confirm PR #167 exposes an actual failed replayability
+  claim;
+- click `Full-stream equality tests` and confirm PR #171 supplies the repaired production
+  replay/equality receipt;
+- verify Marketplace, Learning Lab and Patch have not acquired redundant proof furniture;
+- read all changed first-person prose aloud for Harley's cadence and the portfolio's
+  AI-tell policy;
+- verify formal titles, chronology, outcome precision and privacy boundaries claim by
+  claim; and
+- review changed layouts at 1440, 768, 390 and 320 CSS pixels, 200% zoom, keyboard,
+  reduced motion and representative screen-reader flow.
 
-Validation must include:
+The generated CV must also be inspected as the actual two-page PDF, not inferred from the
+web route.
 
-- a claim-by-claim source and disclosure review with Harley;
-- negative checks for unapproved employer details and stronger title language;
-- tests proving canonical professional facts are consumed rather than copied;
-- About and CV component or document checks appropriate to the implementation;
-- manual reading of each affected case-study opening as one coherent piece;
-- desktop, tablet, mobile, 200% zoom, keyboard, and representative screen-
-  reader review for changed layouts;
-- a weary-skeptic review beginning at About and at every affected case study;
-- canonical `py -3 tools/run.py ci --check`; and
-- hosted checks on the exact PR head.
+## Design-room acceptance
 
-## Acceptance criteria
+The Cloud design room is complete because:
 
-- [ ] one employer-safe professional example records dependants, stakes,
-      before, Harley's change, observable outcome, organisational influence,
-      and disclosure class;
-- [ ] About makes both responsibility and consequence legible without becoming
-      an employer product case study;
-- [ ] About identifies the professional provenance and selective use of
-      Harley's architectural kit without duplicating the ADR essay;
-- [ ] the bounded AI decision is connected to an approved human, operational,
-      or business consequence, or is deliberately omitted from the outcome
-      treatment;
-- [ ] seniority is inferable from judgement and consequences while the formal
-      title remains exact;
-- [ ] the CV inclusion decision is recorded and any retained line shares the
-      canonical fact source;
-- [ ] reusable professional facts have one authority and cannot silently grow
-      stronger across routes;
-- [ ] each long engineering case study gives an early question, design, proof,
-      cost, and status fast path without losing its narrative opening or visual
-      identity;
-- [ ] Wild Bunch proof compression uses refreshed public evidence of mistake,
-      correction, and falsification, while Phase 7 leaves the accepted page
-      untouched;
-- [ ] any portfolio-as-software receipt is inspectable, restrained, and
-      corroborating rather than self-certifying;
-- [ ] a skeptical reviewer can identify why the professional responsibility
-      mattered and what changed because of Harley's judgement;
-- [ ] confidentiality and precision boundaries survive copy, metadata, tests,
-      and previews; and
-- [ ] canonical and hosted validation pass on the final source.
+- [x] final About copy, section order and styling direction are recorded;
+- [x] final two-page CV copy, section order and styling direction are recorded;
+- [x] `CV` is a first-class masthead route;
+- [x] the Access outcome treatment is consequential, employer-safe and representative
+      rather than exhaustive;
+- [x] Barbican/Arch provenance establishes selective architecture judgement without a
+      pattern lecture;
+- [x] Brand Addition preserves the progression that earned Web Manager;
+- [x] About and CV no longer rely on generic `frontier`, `professional truth`,
+      competency-rubric or defensive-qualification language;
+- [x] Wild Bunch preserves its personal opening and has exact one-click scar and repair
+      receipts;
+- [x] Marketplace, Learning Lab and Patch receive no new proof structure without an
+      observed reader problem;
+- [x] the portfolio CI scar remains cutting-room material;
+- [x] reusable professional facts have a single-authority requirement;
+- [x] site-wide visual-language recommendations are durable for the later polish pass;
+- [x] hostile hiring-manager and architect lenses have been applied to the design; and
+- [x] local Sol can write a JIT implementation plan without inventing a material copy,
+      hierarchy, styling or proof-route decision.
 
 ## Readiness assessment
 
-**Rating: 8/10, direction is clear and implementation is source-gated.**
-
-The independent review identified a distinct missing evidence class rather
-than another presentation defect. The route ownership, compression contract,
-privacy boundary, and downstream homepage responsibility are clear. Readiness
-cannot reach 9/10 until Harley supplies and approves one concrete professional
-outcome account.
+**Implementation-ready.** The source gate, copy, information architecture, proof routes,
+visual direction and downstream polish recommendations are all decided. Local Sol should
+begin with a current-branch drift review, reconcile the canonical professional-fact
+source, write the JIT implementation plan, and execute the room outputs without
+redrafting them.

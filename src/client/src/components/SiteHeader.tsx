@@ -6,6 +6,7 @@ const primaryLinks = [
   { to: '/writing', label: 'Writing' },
   { to: '/patch', label: 'Patch' },
   { to: '/about', label: 'About' },
+  { to: '/cv', label: 'CV' },
 ]
 
 export function SiteHeader(): ReactElement {

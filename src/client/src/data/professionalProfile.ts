@@ -59,6 +59,12 @@ export type ProfessionalProfile = {
     scopeStarted: PublicDate
     soleEngineerSince: PublicDate
     scopeLabel: string
+    outcomes: {
+      sourceCaptureInvariant: string
+      paidChecksEnabled: number
+      legacyEndpointStatus: string
+      recruitmentCrmSqlOutcome: string
+    }
   }
   career: readonly CareerStage[]
   apprenticeship: {
@@ -124,6 +130,12 @@ export const professionalProfile: ProfessionalProfile = {
       label: 'Sole engineer from approximately May 2026',
     },
     scopeLabel: 'The sole engineer responsible for designing, delivering, operating, and supporting Access Checks.',
+    outcomes: {
+      sourceCaptureInvariant: 'No source capture, no success.',
+      paidChecksEnabled: 2,
+      legacyEndpointStatus: 'Unused and tracked for retirement.',
+      recruitmentCrmSqlOutcome: 'Reduced a several-minute operation to a couple of seconds while preserving existing single-ID callers.',
+    },
   },
   availability: {
     shortLabel: 'Manchester, UK · Remote-first',
@@ -257,19 +269,19 @@ export const professionalProfile: ProfessionalProfile = {
     {
       id: 'agent-asset-marketplace',
       title: 'Agent Asset Marketplace',
-      summary: 'A public distribution system for reusable agent capabilities, with provenance and governance kept visible.',
+      summary: 'A public distribution system for reusable agent capabilities. It turns engineering guidance that keeps recurring across repositories into inspectable, versioned assets, while keeping repository-specific knowledge where it belongs.',
       path: '/projects/codex-marketplace',
     },
     {
       id: 'wild-bunch',
       title: 'Wild Bunch',
-      summary: 'A pre-alpha .NET game project used to make deterministic architecture and diagnostic trade-offs inspectable.',
+      summary: 'A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on. The case study follows the game and the engineering together: what I wanted, what the architecture had to make possible, and what changed when my assumptions were wrong.',
       path: '/projects/wild-bunch',
     },
     {
       id: 'agentic-learning-lab',
       title: 'Agentic Learning Lab',
-      summary: 'A developing curriculum for helping non-coders direct agents with practical judgement and safe boundaries.',
+      summary: 'A facilitator-led curriculum for teaching a non-coder to direct agents without hiding the engineering underneath. The labs use source control, deliberate breakage, inspection and recovery to turn judgement into something teachable.',
       path: '/projects/agentic-learning-lab',
     },
   ],

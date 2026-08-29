@@ -3,13 +3,13 @@
     "id": "home",
     "path": "/",
     "kind": "home",
-    "title": "Harley Bartles | Senior Software Engineer",
-    "description": "Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations.",
+    "title": "Harley Bartles | Full-stack software engineer",
+    "description": "Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations.",
     "indexability": "index",
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -20,13 +20,13 @@
     "id": "about",
     "path": "/about",
     "kind": "about",
-    "title": "About and Work With Me | Harley Bartles",
-    "description": "Experience, working style, and contact information for Harley Bartles.",
+    "title": "About | Harley Bartles",
+    "description": "Full-stack software engineer with 7+ years of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.",
     "indexability": "index",
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -38,12 +38,12 @@
     "path": "/cv",
     "kind": "cv",
     "title": "CV | Harley Bartles",
-    "description": "A concise professional CV with verified experience, education, and public work from Harley Bartles.",
+    "description": "CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation.",
     "indexability": "index",
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -60,7 +60,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -77,7 +77,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -94,7 +94,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -111,7 +111,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -128,7 +128,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -145,7 +145,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -162,7 +162,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -179,7 +179,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -196,7 +196,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -213,7 +213,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -230,7 +230,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -247,7 +247,7 @@
     "openGraphType": "website",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -264,7 +264,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -281,7 +281,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -298,7 +298,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -315,7 +315,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -332,7 +332,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -349,7 +349,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"
@@ -366,7 +366,7 @@
     "openGraphType": "article",
     "socialImage": {
       "path": "/brand/social-card.png",
-      "alt": "Harley Bartles, Senior Software Engineer",
+      "alt": "Harley Bartles, Full-stack software engineer",
       "width": 1200,
       "height": 630,
       "mimeType": "image/png"

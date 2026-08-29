@@ -1,102 +1,82 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { DocumentMetadata } from '../components/DocumentMetadata'
+import { EditorialThemeProvider } from '../components/editorial/EditorialThemeProvider'
 import { ExternalLink } from '../components/ExternalLink'
 import { SiteLayout } from '../components/SiteLayout'
-import { professionalProfile, type CareerStage } from '../data/professionalProfile'
+import { professionalProfile } from '../data/professionalProfile'
+import { CvDocument, CvSheet } from './cv/CvSurface'
+import './CvPage.scss'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 
-function careerStage(id: string): CareerStage {
-  const stage = professionalProfile.career.find((candidate) => candidate.id === id)
-
-  if (stage === undefined) {
-    throw new Error(`Missing CV career stage: ${id}`)
-  }
-
-  return stage
-}
-
 export function CvPage(): ReactElement {
-  const access = careerStage('access')
-  const barbicanArch = careerStage('barbican-arch')
-  const brandAddition = careerStage('brand-addition')
-  const { github, linkedin, portfolio } = professionalProfile.publicLinks
+  const { github, linkedin } = professionalProfile.publicLinks
 
   return (
     <SiteLayout>
       <DocumentMetadata
         title="CV | Harley Bartles"
-        description="A two-page CV for Harley Bartles, senior software engineer working across full-stack and agentic systems."
+        description="CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation."
         canonicalPath="/cv"
       />
-      <article className="cv-page" aria-labelledby="cv-name">
+      <EditorialThemeProvider><CvDocument aria-labelledby="cv-name">
         <nav className="cv-screen-controls" aria-label="CV actions">
-          <Link className="text-link" to="/about">Return to About</Link>
           <a className="button-link" href={pdfHref}>Download PDF</a>
         </nav>
 
-        <section className="cv-sheet" data-cv-page="1" aria-labelledby="cv-name">
+        <CvSheet data-cv-page="1" aria-labelledby="cv-name">
           <header className="cv-header">
-            <div>
+            <div className="cv-header__identity">
               <p className="eyebrow">Curriculum vitae</p>
               <h1 id="cv-name">Harley Bartles</h1>
-              <p className="cv-headline">Senior software engineer | full-stack and agentic systems</p>
             </div>
+            <p className="cv-headline">Full-stack software engineer</p>
             <div className="cv-header__details">
               <p>{professionalProfile.availability.shortLabel} · {professionalProfile.noticePeriod}</p>
-              <p>{professionalProfile.availability.fullLabel}</p>
               <ul className="cv-links" aria-label="Professional links">
-                <li><Link to="/">{portfolio.label}</Link></li>
-                <li><ExternalLink href={linkedin.href}>{linkedin.label}</ExternalLink></li>
-                <li><ExternalLink href={github.href}>{github.label}</ExternalLink></li>
-                <li><Link to="/about#contact">Portfolio contact route</Link></li>
+                <li><Link to="/">harleybartles.com</Link></li>
+                <li><ExternalLink href={linkedin.href}>LinkedIn</ExternalLink></li>
+                <li><ExternalLink href={github.href}>GitHub</ExternalLink></li>
+                <li><Link to="/about#contact">Contact</Link></li>
               </ul>
             </div>
           </header>
 
           <section className="cv-section" aria-labelledby="cv-profile-title">
             <h2 id="cv-profile-title">Profile</h2>
-            <p>I enjoy turning underspecified, consequential problems into software that can be understood, tested, operated, and changed. I have grown into senior scope across full-stack delivery and agentic engineering, and I am looking for a larger next challenge with room to keep growing.</p>
-          </section>
-
-          <section className="cv-section" aria-labelledby="cv-contribution-title">
-            <h2 id="cv-contribution-title">Immediate contribution</h2>
-            <div className="cv-capabilities">
-              {professionalProfile.capabilities.map((group) => (
-                <section key={group.id} aria-labelledby={`cv-capability-${group.id}`}>
-                  <p className="eyebrow">{group.qualification}</p>
-                  <h3 id={`cv-capability-${group.id}`}>{group.label}</h3>
-                  <ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
-                </section>
-              ))}
-            </div>
+            <p>Full-stack software engineer with 7+ years in production systems. At The Access Group I'm currently the sole engineer responsible for Access Checks. I'm looking for a senior full-stack role where end-to-end ownership is expected and there's still something difficult left to learn.</p>
           </section>
 
           <section className="cv-section cv-section--employment" aria-labelledby="cv-access-title">
-            <p className="eyebrow">Employment / {access.periodLabel}</p>
-            <h2 id="cv-access-title">{access.heading}</h2>
-            <p className="cv-role">{access.formalTitle}</p>
-            <p>{professionalProfile.currentRole.scopeLabel}</p>
-            <p>{access.summary}</p>
-            <ul>{access.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
+            <h2 id="cv-access-title">Professional experience</h2>
+            <h3>The Access Group</h3>
+            <p className="cv-role">Software Engineer · September 2021 – present</p>
+            <p>I joined Recruitment CRM, volunteered for a move to Access Screening in January 2023, then moved into Access Checks from its early greenfield stage. I'm now the sole engineer responsible for designing, delivering, operating and supporting Access Checks.</p>
+            <ul>
+              <li>Turn product epics into delivery plans and own technical design, implementation, DevOps, release, production support and continuing operation across a .NET 8 API on Azure Functions, a React/.NET portal and its supporting automation services.</li>
+              <li>Designed and delivered a browser-automation service for DBS Update and Right to Work Sharecode checks where the authoritative government services expose web journeys rather than suitable APIs. The LLM is bounded to locating page elements and proposing browser actions; deterministic code executes the actions and extracts the result.</li>
+              <li>Made source evidence a hard success condition: no captured government result, no successful check, and a no-charge signal downstream. The service enabled Access Screening to offer two additional paid checks inside its normal screening journey.</li>
+              <li>Owned a cross-product v1-to-v2 migration where Access Screening was both the original upstream supplier and becoming a downstream consumer of Access Checks. I sequenced the remaining v1 consumers first, preventing a valid but wasteful round trip through both generations of Access Checks. The old v1 endpoint is now unused and tracked for retirement.</li>
+              <li>Earlier on Recruitment CRM, replaced a cursor-heavy chain of stored procedures with set-based SQL, reducing a several-minute operation to a couple of seconds while preserving existing single-ID callers.</li>
+            </ul>
           </section>
-        </section>
+        </CvSheet>
 
-        <section className="cv-sheet" data-cv-page="2" aria-label="CV page 2">
+        <CvSheet data-cv-page="2" aria-label="CV page 2">
+          <p className="cv-running-title">Harley Bartles · CV · 2 / 2</p>
           <section className="cv-section cv-section--employment" aria-labelledby="cv-barbican-title">
-            <p className="eyebrow">Employment / {barbicanArch.periodLabel}</p>
-            <h2 id="cv-barbican-title">{barbicanArch.heading}</h2>
-            <p>{barbicanArch.summary}</p>
-            <ul>{barbicanArch.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
+            <h2 id="cv-barbican-title">Barbican Insurance Group → Arch Capital Group</h2>
+            <p className="cv-role">Full Stack Software Engineer (Barbican) · Software Engineer, Level 1 → Level 2 (Arch) · February 2019 – September 2021</p>
+            <p>My first professional engineering role was at Barbican Insurance Group. I moved with the product after Arch Capital acquired the company and spent roughly two years on LENS in a three-person engineering team, progressing from Level 1 to Level 2 in Arch's three-level software-engineer framework.</p>
+            <ul><li>Built a complex insurance application across .NET Core, React/Redux and SQL Server, working deeply with DDD, CQRS, event sourcing and layered/onion architecture.</li><li>Worked in a domain where dense business rules needed explicit modelling and full replay and audit history made the event-sourced design earn its cost. That's where I learned that architecture has to earn its place.</li></ul>
           </section>
 
           <section className="cv-section cv-section--employment" aria-labelledby="cv-brand-title">
-            <p className="eyebrow">Employment / {brandAddition.periodLabel}</p>
-            <h2 id="cv-brand-title">{brandAddition.heading}</h2>
-            <p className="cv-role">{brandAddition.formalTitle}</p>
-            <p>{brandAddition.summary}</p>
-            <ul>{brandAddition.evidence.map((item) => <li key={item}>{item}</li>)}</ul>
+            <h2 id="cv-brand-title">Brand Addition</h2>
+            <p className="cv-role">Commercial roles → Team Manager → Web Manager · July 2005 – January 2019</p>
+            <p>I spent nearly fourteen years at Brand Addition, progressing through commercial roles and team management before becoming Web Manager for the final couple of years. That role became the bridge from commercial work into professional software engineering.</p>
+            <ul><li>While managing a team, I identified a web change we needed and worked with the Ecommerce Director to specify and deliver it. That work led to an offer to move into the Web Manager role.</li><li>As Web Manager I defined requirements, coordinated external developers, held platform and delivery responsibility, and helped migrate and maintain more than 100 multilingual, multicurrency stores.</li></ul>
           </section>
 
           <section className="cv-section" aria-labelledby="cv-independent-title">
@@ -112,7 +92,9 @@ export function CvPage(): ReactElement {
           </section>
 
           <section className="cv-section" aria-labelledby="cv-education-title">
-            <h2 id="cv-education-title">Education</h2>
+            <h2 id="cv-education-title">Technical skills</h2>
+            <div className="cv-skills"><p><strong>Current</strong> C# / .NET · Azure · Azure Functions · Azure DevOps · AWS · React · TypeScript / JavaScript · Python / Django · SQL Server / MySQL · REST APIs · Git / GitHub</p><p><strong>Testing</strong> Unit · application · integration · browser · xUnit · NUnit · pytest · Django/unittest · FakeItEasy · Playwright · Jest</p><p><strong>Earlier production experience</strong> React Native · Redux · GraphQL · SignalR · RabbitMQ / message brokers · Angular · TeamCity · Octopus Deploy · TFS</p></div>
+            <h2>Education and current study</h2>
             <dl className="cv-education">
               {professionalProfile.education.map((record) => (
                 <div key={record.id}>
@@ -127,8 +109,8 @@ export function CvPage(): ReactElement {
               ))}
             </dl>
           </section>
-        </section>
-      </article>
+        </CvSheet>
+      </CvDocument></EditorialThemeProvider>
     </SiteLayout>
   )
 }
