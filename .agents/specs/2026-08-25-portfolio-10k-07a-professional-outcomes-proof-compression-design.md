@@ -1,6 +1,6 @@
 # Portfolio £10k Phase 7A: Professional Outcomes and Proof Compression Design
 
-**Status:** Proposed, source-gated
+**Status:** Proposed, source-discovery gate cleared; implementation re-inspection pending
 
 **Design input:** Weary-skeptic reviews completed 25 August 2026
 
@@ -95,6 +95,16 @@ industry consequence is not source truth.
 If no employer-safe example survives this gate, the phase remains blocked. It
 must not substitute adjectives, implied metrics, or a generic statement that
 the work was important.
+
+**Gate decision, 29 August 2026:** cleared. Harley approved an employer-safe
+account in
+[`phase-7a-cloud-discovery-record.md`](../../docs/editorial-drafts/phase-7a/phase-7a-cloud-discovery-record.md).
+The retained chain shows how his design and delivery enabled two additional
+integrated, paid screening checks while making source evidence a condition of
+success: no captured government result means no successful check and a
+downstream no-charge signal. The record owns the exact, qualitative and
+withheld boundaries. This clears factual source discovery; it does not yet
+declare the implementation slice ready.
 
 ## Professional-surface contract
 
@@ -284,10 +294,12 @@ Validation must include:
 
 ## Readiness assessment
 
-**Rating: 8/10, direction is clear and implementation is source-gated.**
+**Rating: 8/10, source discovery is clear; implementation re-inspection remains.**
 
 The independent review identified a distinct missing evidence class rather
-than another presentation defect. The route ownership, compression contract,
-privacy boundary, and downstream homepage responsibility are clear. Readiness
-cannot reach 9/10 until Harley supplies and approves one concrete professional
-outcome account.
+than another presentation defect. Harley has now supplied and approved one
+concrete professional outcome account, clearing that gate. The route ownership,
+compression contract, privacy boundary, and downstream homepage responsibility
+are clear. The rating remains at 8/10 until the room finishes the required
+secondary discovery and re-inspects the current routes and case-study openings;
+source approval alone is not implementation readiness.
