@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { EventEmitter } from 'node:events'
+import { createServer } from 'node:net'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 // @ts-expect-error The production build utility is intentionally plain ESM for direct Node execution.
@@ -8,6 +9,7 @@ import {
   assertCvPdf,
   generateCvPdf,
   rewritePreviewLinksForPdf,
+  assertPreviewPortAvailable,
   startPreviewProcess,
   stopPreviewProcess,
 } from './generate-cv-pdf.mjs'
@@ -70,6 +72,34 @@ describe('assertCvPdf', () => {
 })
 
 describe('generateCvPdf', () => {
+  test('rejects an occupied preview port before starting a CV PDF preview', async () => {
+    const server = createServer()
+    await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve))
+    const address = server.address()
+    if (address === null || typeof address === 'string') throw new Error('Expected a TCP port')
+
+    try {
+      await expect(assertPreviewPortAvailable(`http://127.0.0.1:${address.port}`)).rejects.toThrow(
+        'CV PDF preview port is already in use',
+      )
+    } finally {
+      await new Promise<void>((resolve, reject) => server.close((error) => error === undefined ? resolve() : reject(error)))
+    }
+  })
+
+  test('does not create a preview process when the preview port is unavailable', async () => {
+    const startPreview = vi.fn()
+
+    await expect(generateCvPdf({
+      assertPreviewPort: vi.fn(async () => {
+        throw new Error('CV PDF preview port is already in use')
+      }),
+      startPreview,
+    })).rejects.toThrow('CV PDF preview port is already in use')
+
+    expect(startPreview).not.toHaveBeenCalled()
+  })
+
   test('starts the POSIX preview in its own process group', () => {
     const preview = { exitCode: null, pid: 1234 }
     const spawnProcess = vi.fn(() => preview)
@@ -131,6 +161,7 @@ describe('generateCvPdf', () => {
 
     await generateCvPdf({
       pdfPath,
+      assertPreviewPort: vi.fn(async () => {}),
       startPreview,
       waitForPreview,
       launchBrowser: vi.fn(async () => browser),
@@ -164,6 +195,7 @@ describe('generateCvPdf', () => {
 
     await expect(generateCvPdf({
       pdfPath,
+      assertPreviewPort: vi.fn(async () => {}),
       startPreview: vi.fn(async () => preview),
       waitForPreview: vi.fn(async () => {}),
       launchBrowser: vi.fn(async () => browser),

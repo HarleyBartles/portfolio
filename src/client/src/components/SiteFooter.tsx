@@ -10,6 +10,7 @@ export function SiteFooter(): ReactElement {
         <li><Link to="/projects">Projects</Link></li>
         <li><Link to="/writing">Writing</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/cv">CV</Link></li>
       </ul>
       <p className="footer-copyright">© 2026 Harley Bartles.</p>
     </footer>

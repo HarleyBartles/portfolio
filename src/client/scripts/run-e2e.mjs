@@ -5,15 +5,10 @@ import { fileURLToPath } from 'node:url'
 
 const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const npmCli = process.env.npm_execpath
-const testEnvironment = {
-  ...process.env,
-  VITE_CONTACT_FORM_ENDPOINT: 'https://forms.example.test/contact',
-}
-
 function runNode(args, label) {
   const result = spawnSync(process.execPath, args, {
     cwd: clientRoot,
-    env: testEnvironment,
+    env: process.env,
     stdio: 'inherit',
   })
   if (result.error !== undefined) throw result.error

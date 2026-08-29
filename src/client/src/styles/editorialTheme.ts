@@ -6,6 +6,7 @@ export const editorialTheme = {
     muted: 'var(--color-muted)',
     accent: 'var(--color-accent)',
     accentSoft: 'var(--color-accent-soft)',
+    tealDeep: 'var(--color-teal-deep)',
     border: 'var(--color-border)',
   },
   space: {

@@ -36,6 +36,9 @@ describe('SiteLayout', () => {
     expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Patch', 'About', 'CV'])
     expect(navLinks[2]).toHaveAttribute('href', '/patch')
 
+    const footerLinks = screen.getByRole('list', { name: 'Footer links' })
+    expect(within(footerLinks).getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv')
+
     await user.tab()
     expect(skipLink).toHaveFocus()
     await user.tab()

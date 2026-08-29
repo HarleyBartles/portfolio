@@ -206,9 +206,9 @@ architectural decisions, not turn the technologies into a logo wall.
 **July 2005–January 2019.** The public professional chronology begins here.
 Earlier jobs do not support the portfolio's hiring case and should be omitted
 rather than stretched into a professional through-line. The useful Brand
-Addition story is progression through order administration, account work, and
-team management into Web Manager—not an exhaustive recital of every title on
-About.
+Addition story is progression through order administration, Account Executive,
+Account Manager and Team Manager into Web Manager—not an exhaustive recital of
+every title on About.
 
 The move from Team Manager to Web Manager was earned through a concrete piece
 of work. Harley identified a web change his team needed and worked with the

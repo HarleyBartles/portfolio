@@ -173,6 +173,40 @@ class CanonicalRunnerTests(unittest.TestCase):
             run_command.call_args_list,
         )
 
+    @patch.object(run, "_run")
+    def test_diagnostic_ci_reports_independent_failures_before_rejecting(self, run_command) -> None:
+        diagnostic_context = run.Ctx(mode="check", allow_shared=False, diagnostics=True)
+        failed_commands = {
+            tuple(run._repo_standards_cmd("check", False)),
+            tuple(run._link_hygiene_check_cmd()),
+            tuple(run._client_cmd("run", "build")),
+        }
+
+        def run_with_failures(command: list[str], _ctx: run.Ctx) -> None:
+            if tuple(command) in failed_commands:
+                raise subprocess.CalledProcessError(1, command)
+
+        run_command.side_effect = run_with_failures
+
+        with self.assertRaises(run.DiagnosticCheckError) as raised:
+            run._ci_check(diagnostic_context)
+
+        commands = [entry.args[0] for entry in run_command.call_args_list]
+        self.assertIn(run._skills_cmd("check", False), commands)
+        self.assertIn(run._mesh_validate_cmd(), commands)
+        self.assertIn(run._portfolio_quality_check_cmd(), commands)
+        self.assertIn(run._tests_cmd(), commands)
+        self.assertIn(run._client_cmd("test", "--", "--run"), commands)
+        self.assertNotIn(run._client_cmd("run", "test:e2e"), commands)
+        self.assertEqual(
+            ["repository standards", "link hygiene", "production build"],
+            [result.name for result in raised.exception.failures],
+        )
+        self.assertEqual(
+            "production build",
+            raised.exception.skipped[0].blocked_by,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

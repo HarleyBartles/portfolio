@@ -43,6 +43,10 @@ describe('ContactForm', () => {
       'href',
       'https://formspree.io/legal/privacy-policy/',
     )
+    const privacyNotice = container.querySelector('.contact-privacy')
+    const privacyWarning = container.querySelector('.contact-privacy__warning')
+    expect(privacyWarning).toHaveTextContent('Do not send sensitive personal information.')
+    expect(privacyNotice?.innerHTML).not.toContain('</a>.')
     expect(screen.getByRole('button', { name: 'Send message' })).toBeEnabled()
   })
 

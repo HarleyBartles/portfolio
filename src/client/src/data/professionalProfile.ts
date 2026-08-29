@@ -33,6 +33,7 @@ export type EducationRecord = {
   id: string
   level: string
   provider?: string
+  providerWebsiteLabel?: string
   title: string
   periodLabel?: string
   detail?: string
@@ -41,13 +42,6 @@ export type EducationRecord = {
 export type PublicProfessionalLink = {
   label: string
   href: string
-}
-
-export type IndependentWork = {
-  id: string
-  title: string
-  summary: string
-  path: string
 }
 
 export type ProfessionalProfile = {
@@ -86,7 +80,6 @@ export type ProfessionalProfile = {
     portfolio: PublicProfessionalLink
     imdb: PublicProfessionalLink
   }
-  independentWork: readonly IndependentWork[]
 }
 
 const engineeringStart = new Date('2019-02-06T00:00:00Z')
@@ -148,9 +141,10 @@ export const professionalProfile: ProfessionalProfile = {
       periodLabel: 'July 2005 – January 2019',
       heading: 'Brand Addition',
       formalTitle: 'Web Manager',
-      summary: 'A progression through commercial roles and team management into a hybrid business-systems and proto-development role.',
+      summary: 'A progression from order administration through Account Executive, Account Manager and Team Manager into a hybrid business-systems and proto-development role.',
       evidence: [
-        'While managing a team, Harley identified a web change it needed, worked with the Ecommerce Director to specify and deliver it, and then moved into the Web Manager role.',
+        'As Team Manager, Harley managed an operational account-support unit comprising 3–5 Account Managers, around eight Account Executives and two Order Administrators.',
+        'While managing that team, Harley identified a web change it needed, worked with the Ecommerce Director to specify and deliver it, and then moved into the Web Manager role.',
         'He defined requirements, coordinated external developers, held platform and delivery responsibility, and helped migrate and maintain more than 100 multilingual, multicurrency stores.',
         'The work developed commercial judgement, client awareness, leadership, and the deliberate transition into full-time software engineering; it was not a professional software developer role.',
       ],
@@ -197,6 +191,7 @@ export const professionalProfile: ProfessionalProfile = {
       id: 'qa-ai-engineer-apprenticeship',
       level: 'Higher education - in progress',
       provider: 'QA',
+      providerWebsiteLabel: 'qa.com',
       title: 'AI Engineer Level 6 Apprenticeship',
       periodLabel: 'February 2026 – January 2028',
       detail: `${apprenticeshipQualificationLabel} (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).`,
@@ -219,6 +214,8 @@ export const professionalProfile: ProfessionalProfile = {
       id: 'secondary-education',
       level: 'Secondary education',
       title: 'Seven GCSEs',
+      provider: 'Spurley Hey High School',
+      periodLabel: '1992 – 1997',
     },
   ],
   capabilities: [
@@ -265,24 +262,4 @@ export const professionalProfile: ProfessionalProfile = {
       href: 'https://www.imdb.com/name/nm2179685/',
     },
   },
-  independentWork: [
-    {
-      id: 'agent-asset-marketplace',
-      title: 'Agent Asset Marketplace',
-      summary: 'A public distribution system for reusable agent capabilities. It turns engineering guidance that keeps recurring across repositories into inspectable, versioned assets, while keeping repository-specific knowledge where it belongs.',
-      path: '/projects/codex-marketplace',
-    },
-    {
-      id: 'wild-bunch',
-      title: 'Wild Bunch',
-      summary: 'A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on. The case study follows the game and the engineering together: what I wanted, what the architecture had to make possible, and what changed when my assumptions were wrong.',
-      path: '/projects/wild-bunch',
-    },
-    {
-      id: 'agentic-learning-lab',
-      title: 'Agentic Learning Lab',
-      summary: 'A facilitator-led curriculum for teaching a non-coder to direct agents without hiding the engineering underneath. The labs use source control, deliberate breakage, inspection and recovery to turn judgement into something teachable.',
-      path: '/projects/agentic-learning-lab',
-    },
-  ],
 }

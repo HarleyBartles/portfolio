@@ -50,7 +50,7 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
 test('configured contact submission is intercepted locally with the exact FormData payload', async ({ page }) => {
   let captured: { method: string; accept: string | undefined; fields: Record<string, string> } | undefined
 
-  await page.route('https://forms.example.test/contact', async (route) => {
+  await page.route('https://formspree.io/f/mdenjbqa', async (route) => {
     const request = route.request()
     captured = {
       method: request.method(),

@@ -105,4 +105,6 @@ if [ -n "$UNSTAGED" ]; then
   exit 1
 fi
 
-"${PYTHON[@]}" tools/run.py ci --check
+# The safety checks above must fail immediately. The validation runner can then
+# collect every independent product failure from this exact staged snapshot.
+"${PYTHON[@]}" tools/run.py ci --check --diagnostics

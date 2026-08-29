@@ -1302,15 +1302,24 @@ main,
 
 .about-page {
   max-width: 76rem;
-  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-bottom: 0;
 }
 
 .about-intro {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr);
   gap: clamp(var(--space-10), 7vw, var(--space-20));
-  align-items: end;
-  padding-bottom: clamp(var(--space-16), 10vw, var(--space-24));
+  align-items: start;
+  box-sizing: border-box;
+  min-block-size: calc(100svh - var(--size-site-header) - var(--space-24));
+  padding-block: clamp(var(--space-8), 6vw, var(--space-16)) var(--space-10);
+}
+
+@media (max-width: 68rem) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
 }
 
 .about-intro .eyebrow,
@@ -1349,7 +1358,11 @@ main,
 .about-problems,
 .about-contact {
   border-top: 1px solid var(--color-ink);
-  padding-block: clamp(var(--space-12), 8vw, var(--space-20));
+  padding-block: clamp(var(--space-12), 6vw, var(--space-16));
+}
+
+.about-contact {
+  padding-bottom: var(--space-10);
 }
 
 .about-facts {
@@ -1401,14 +1414,12 @@ main,
 
 .about-working h2,
 .about-problems h2,
-.about-contact h2,
 .contact-disconnected h3 {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 4.5rem);
   line-height: 0.98;
   letter-spacing: -0.045em;
-  text-wrap: balance;
 }
 
 .about-working p:not(.eyebrow) {
@@ -1871,6 +1882,11 @@ main,
   font-size: 0.92rem;
 }
 
+.contact-privacy__warning {
+  display: block;
+  margin-top: var(--space-2);
+}
+
 .contact-submit p[role='alert'] {
   color: var(--color-accent);
 }
@@ -2239,7 +2255,7 @@ main,
 .about-capabilities,
 .about-aside {
   border-top: 1px solid var(--color-ink);
-  padding-block: clamp(var(--space-12), 8vw, var(--space-20));
+  padding-block: clamp(var(--space-12), 6vw, var(--space-16));
 }
 
 .about-career h2,
@@ -2251,7 +2267,6 @@ main,
   letter-spacing: -0.045em;
   line-height: 0.98;
   margin: 0;
-  text-wrap: balance;
 }
 
 .about-laboratory > div:last-child p,
@@ -2265,6 +2280,10 @@ main,
   margin-bottom: var(--space-12);
 }
 
+.about-career {
+  padding-bottom: 0;
+}
+
 .career-timeline {
   list-style: none;
   margin: 0;
@@ -2272,19 +2291,16 @@ main,
 }
 
 .career-timeline__stage {
+  display: grid;
+  grid-template-columns: minmax(10rem, 3fr) minmax(0, 7fr);
+  gap: clamp(var(--space-8), 6vw, var(--space-20));
   border-top: 1px solid var(--color-ink);
   padding-block: var(--space-10);
   scroll-margin-top: var(--space-8);
 }
 
 .career-timeline__stage:last-child {
-  border-bottom: 1px solid var(--color-ink);
-}
-
-.career-timeline__stage section {
-  display: grid;
-  grid-template-columns: minmax(10rem, 3fr) minmax(0, 7fr);
-  gap: clamp(var(--space-8), 6vw, var(--space-20));
+  padding-bottom: var(--space-6);
 }
 
 .career-timeline__rail .eyebrow {
@@ -2394,7 +2410,7 @@ main,
 }
 
 @media (max-width: 48rem) {
-  .career-timeline__stage section,
+  .career-timeline__stage,
   .about-laboratory {
     grid-template-columns: 1fr;
   }

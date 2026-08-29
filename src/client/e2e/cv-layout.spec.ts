@@ -47,3 +47,20 @@ test('the CV name owns a full desktop header row', async ({ page }) => {
   expect(layout.nameHeight).toBeLessThanOrEqual(layout.nameLineHeight + 1)
   expect(Math.abs(layout.headlineTop - layout.detailsTop)).toBeLessThanOrEqual(1)
 })
+
+test('the Barbican title balances its unavoidable two-line presentation', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto('./cv/')
+
+  const heading = page.locator('#cv-barbican-title')
+  await expect(heading).toHaveAttribute('data-text-wrap', 'balanced')
+
+  const lineWidths = await heading.evaluate((element) => {
+    const range = document.createRange()
+    range.selectNodeContents(element)
+    return Array.from(range.getClientRects()).map((rect) => rect.width)
+  })
+
+  expect(lineWidths).toHaveLength(2)
+  expect(Math.min(...lineWidths) / Math.max(...lineWidths)).toBeGreaterThan(0.45)
+})

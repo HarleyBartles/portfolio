@@ -9,6 +9,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
 import shared_checkout
 
@@ -22,6 +23,21 @@ class Ctx:
     mode: str
     allow_shared: bool
     verbose: bool = False
+    diagnostics: bool = False
+
+
+@dataclass(frozen=True)
+class DiagnosticResult:
+    name: str
+    blocked_by: str | None = None
+
+
+class DiagnosticCheckError(RuntimeError):
+    def __init__(self, failures: list[DiagnosticResult], skipped: list[DiagnosticResult]) -> None:
+        self.failures = failures
+        self.skipped = skipped
+        failure_names = ", ".join(result.name for result in failures)
+        super().__init__(f"diagnostic checks failed: {failure_names}")
 
 
 def _run(cmd: list[str], ctx: Ctx) -> None:
@@ -157,21 +173,73 @@ def _ci_apply(ctx: Ctx) -> None:
     _run(_refresh_seo_files_cmd(), ctx)
 
 
+def _python_tests_check(ctx: Ctx) -> None:
+    if any((ROOT / "tests").rglob("test*.py")):
+        _run(_tests_cmd(), ctx)
+    else:
+        print("[tools/run] no Python tests under tests/; skipping test step")
+
+
+def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], str | None]]:
+    steps = [
+        ("repository standards", _repo_standards_check, None),
+        ("installed skills", _skills_check, None),
+        ("agent mesh", _mesh_check, None),
+        ("link hygiene", lambda ctx: _run(_link_hygiene_check_cmd(), ctx), None),
+        ("portfolio quality", lambda ctx: _run(_portfolio_quality_check_cmd(), ctx), None),
+        ("Python tests", _python_tests_check, None),
+        ("client unit tests", lambda ctx: _run(_client_cmd("test", "--", "--run"), ctx), None),
+        ("production build", lambda ctx: _run(_client_cmd("run", "build"), ctx), None),
+    ]
+    if include_e2e:
+        steps.append(("Playwright journeys", lambda ctx: _run(_client_cmd("run", "test:e2e"), ctx), "production build"))
+    return steps
+
+
+def _diagnostic_check(ctx: Ctx, include_e2e: bool) -> None:
+    failures: list[DiagnosticResult] = []
+    skipped: list[DiagnosticResult] = []
+    failed_names: set[str] = set()
+
+    for name, action, blocked_by in _check_steps(include_e2e):
+        if blocked_by in failed_names:
+            skipped.append(DiagnosticResult(name, blocked_by))
+            print(f"[tools/run] {name}: skipped because {blocked_by} failed")
+            continue
+        try:
+            action(ctx)
+        except Exception as exc:
+            failures.append(DiagnosticResult(name))
+            failed_names.add(name)
+            print(f"[tools/run] {name}: failed ({exc})", file=sys.stderr)
+
+    if failures:
+        print("[tools/run] diagnostic report:", file=sys.stderr)
+        for result in failures:
+            print(f"[tools/run] FAIL {result.name}", file=sys.stderr)
+        for result in skipped:
+            print(f"[tools/run] SKIP {result.name}: requires {result.blocked_by}", file=sys.stderr)
+        raise DiagnosticCheckError(failures, skipped)
+
+
 def _precommit_check(ctx: Ctx) -> None:
+    if ctx.diagnostics:
+        _diagnostic_check(ctx, include_e2e=False)
+        return
     _repo_standards_check(ctx)
     _skills_check(ctx)
     _mesh_check(ctx)
     _run(_link_hygiene_check_cmd(), ctx)
     _run(_portfolio_quality_check_cmd(), ctx)
-    if any((ROOT / "tests").rglob("test*.py")):
-        _run(_tests_cmd(), ctx)
-    else:
-        print("[tools/run] no Python tests under tests/; skipping test step")
+    _python_tests_check(ctx)
     _run(_client_cmd("test", "--", "--run"), ctx)
     _run(_client_cmd("run", "build"), ctx)
 
 
 def _ci_check(ctx: Ctx) -> None:
+    if ctx.diagnostics:
+        _diagnostic_check(ctx, include_e2e=True)
+        return
     _precommit_check(ctx)
     _run(_client_cmd("run", "test:e2e"), ctx)
 
@@ -216,14 +284,27 @@ def main() -> int:
         action="store_true",
         help="allow writes in a shared/main checkout",
     )
+    parser.add_argument(
+        "--diagnostics",
+        action="store_true",
+        help="collect independent check failures before rejecting a check run",
+    )
     parser.add_argument("--verbose", "-v", action="store_true", help="print each sub-command")
     args = parser.parse_args()
 
     mode = "apply" if args.apply else "check"
-    ctx = Ctx(mode=mode, allow_shared=args.allow_shared_checkout, verbose=args.verbose)
+    ctx = Ctx(
+        mode=mode,
+        allow_shared=args.allow_shared_checkout,
+        verbose=args.verbose,
+        diagnostics=args.diagnostics,
+    )
 
     if args.allow_shared_checkout and not args.apply:
         print("error: --allow-shared-checkout requires --apply", file=sys.stderr)
+        return 1
+    if args.diagnostics and args.apply:
+        print("error: --diagnostics requires --check", file=sys.stderr)
         return 1
     if args.apply:
         if not shared_checkout.approve_mutation(ROOT, SCRIPT_NAME, args.allow_shared_checkout):
@@ -231,7 +312,7 @@ def main() -> int:
 
     try:
         _run_steps(args.target, ctx, TARGETS[args.target][mode])
-    except subprocess.CalledProcessError as exc:
+    except (subprocess.CalledProcessError, DiagnosticCheckError) as exc:
         print(f"[tools/run] target '{args.target}' failed: {exc}", file=sys.stderr)
         return 1
 
