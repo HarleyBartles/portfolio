@@ -39,7 +39,7 @@ class PreCommitHookTests(unittest.TestCase):
     def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
         hook = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
 
-        self.assertIn('"${PYTHON[@]}" tools/run.py ci --check', hook)
+        self.assertIn('"${PYTHON[@]}" tools/run.py ci --check --diagnostics', hook)
         self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
 
     def test_hook_commands_resolve_the_linked_worktree(self) -> None:

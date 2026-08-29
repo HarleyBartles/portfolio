@@ -19,7 +19,7 @@ Use this runbook when deciding what to verify for a change.
 1. Run focused tests while implementing or repairing a known failure.
 2. Stage the complete intended tree and commit normally.
 3. Let the tracked pre-commit hook run the complete canonical gate once.
-4. If the hook rejects the commit, use its first real failure to select the next focused test. Fix that slice, prove it independently, then retry the commit.
+4. If the hook rejects the commit after its state-safety checks, use its full independent-failure report to make one focused repair sweep. Prove each repaired slice independently, then retry the commit. Playwright is skipped only if the production build failed.
 5. Do not pre-run `ci --check` immediately before a normal commit, rerun it immediately after a successful hooked commit, or use hosted CI to discover a failure the local hook can predict.
 
 Do not bypass the hook. Its successful completion is the canonical local proof for the exact staged tree Git committed.
