@@ -123,11 +123,9 @@ Heading:
 Copy:
 
 > Full-stack software engineer with 7+ years in production systems. At The
-> Access Group I'm currently the sole engineer responsible for Access Checks,
-> taking work from product epics through technical design, implementation,
-> DevOps, release, production support and operation. I'm looking for a senior
-> full-stack role where that level of ownership is expected and there's still
-> something difficult left to learn.
+> Access Group I'm currently the sole engineer responsible for Access Checks.
+> I'm looking for a senior full-stack role where end-to-end ownership is
+> expected and there's still something difficult left to learn.
 
 Do not add `senior scope`, `frontier`, `consequential problems`, `evidence in
 view`, or other positioning language around this. The next section supplies the
@@ -154,9 +152,10 @@ Lead:
 
 Bullets:
 
-- `Product gives me the desired outcome as an epic. I turn that into a delivery
-  plan and own the technical design, implementation, DevOps, release,
-  production support and continuing operation.`
+- `Turn product epics into delivery plans and own technical design,
+  implementation, DevOps, release, production support and continuing operation
+  across a .NET 8 API on Azure Functions, a React/.NET portal and its supporting
+  automation services.`
 - `Designed and delivered a browser-automation service for DBS Update and Right
   to Work Sharecode checks where the authoritative government services expose
   web journeys rather than suitable APIs. The LLM is bounded to locating page
@@ -179,7 +178,8 @@ Bullets:
 
 Editorial intent:
 
-- The first bullet proves current ownership.
+- The first bullet proves current ownership and puts the conventional stack on
+  page 1.
 - The browser-automation pair proves design judgement, safety boundary and
   commercial consequence.
 - The migration bullet proves cross-product sequencing and product-boundary
@@ -207,10 +207,9 @@ Bullets:
 - `Built a complex insurance application across .NET Core, React/Redux and SQL
   Server, working deeply with DDD, CQRS, event sourcing and layered/onion
   architecture.`
-- `The complexity had a job: dense business rules needed explicit domain
-  modelling, while replay and audit history made the event-sourced design
-  load-bearing. This is where I learned that architecture has to earn its
-  place.`
+- `Worked in a domain where dense business rules needed explicit modelling and
+  full replay and audit history made the event-sourced design earn its cost.
+  That's where I learned that architecture has to earn its place.`
 
 Do not turn this entry into a pattern or tooling inventory. TeamCity, Octopus,
 TFS, SignalR and other useful search terms can live in Technical skills.
@@ -224,9 +223,9 @@ Role/date line:
 Copy:
 
 > I spent nearly fourteen years at Brand Addition, progressing through
-> commercial roles and team management before becoming Web Manager for the last
-> couple of years. It was the bridge from commercial work into professional
-> software engineering, not thirteen years as a web developer.
+> commercial roles and team management before becoming Web Manager for the final
+> couple of years. That role became the bridge from commercial work into
+> professional software engineering.
 
 Bullets:
 
@@ -236,9 +235,6 @@ Bullets:
 - `As Web Manager I defined requirements, coordinated external developers, held
   platform and delivery responsibility, and helped migrate and maintain more
   than 100 multilingual, multicurrency stores.`
-- `I left after taking the role as far toward software development as the
-  company structure allowed, and moved into full-time professional engineering
-  at Barbican.`
 
 The role title `Web Manager` must never be rendered beside the full 2005-2019
 period in a way that implies Harley held it for the whole employment period.
