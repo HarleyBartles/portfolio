@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://harleybartles.github.io/portfolio/sitemap.xml
+Sitemap: https://harleybartles.com/sitemap.xml

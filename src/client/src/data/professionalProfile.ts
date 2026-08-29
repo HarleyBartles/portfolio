@@ -245,8 +245,8 @@ export const professionalProfile: ProfessionalProfile = {
       href: 'https://www.linkedin.com/in/harley-bartles-92326110/',
     },
     portfolio: {
-      label: 'Portfolio: harleybartles.github.io',
-      href: 'https://harleybartles.github.io/portfolio/',
+      label: 'Portfolio: harleybartles.com',
+      href: 'https://harleybartles.com/',
     },
     imdb: {
       label: 'IMDb: Harley Bartles',

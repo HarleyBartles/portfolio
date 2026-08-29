@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate owned mechanical surfaces, then prove the staged product slice.
+# Regenerate owned mechanical surfaces, then prove the complete staged product.
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
@@ -105,4 +105,4 @@ if [ -n "$UNSTAGED" ]; then
   exit 1
 fi
 
-"${PYTHON[@]}" tools/run.py precommit --check
+"${PYTHON[@]}" tools/run.py ci --check

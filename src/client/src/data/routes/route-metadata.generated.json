@@ -1,0 +1,376 @@
+[
+  {
+    "id": "home",
+    "path": "/",
+    "kind": "home",
+    "title": "Harley Bartles | Senior Software Engineer",
+    "description": "Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "about",
+    "path": "/about",
+    "kind": "about",
+    "title": "About and Work With Me | Harley Bartles",
+    "description": "Experience, working style, and contact information for Harley Bartles.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "cv",
+    "path": "/cv",
+    "kind": "cv",
+    "title": "CV | Harley Bartles",
+    "description": "A concise professional CV with verified experience, education, and public work from Harley Bartles.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "patch",
+    "path": "/patch",
+    "kind": "index",
+    "title": "Adventures of Patch | Harley Bartles",
+    "description": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "patch:goldilocks",
+    "path": "/patch/goldilocks",
+    "kind": "patch",
+    "title": "Goldilocks - The Right Amount of Guidance | Harley Bartles",
+    "description": "Good agent guidance is not maximum context, but enough relevant context for a confident next decision.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "patch:identity-emporium",
+    "path": "/patch/identity-emporium",
+    "kind": "patch",
+    "title": "Identity Emporium | Harley Bartles",
+    "description": "Preparation should guide judgement without becoming a script. Bot takes the costume too literally, Bit rushes past preparation, and Patch starts with the task before choosing how to work.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "patch:lawful-heist",
+    "path": "/patch/lawful-heist",
+    "kind": "patch",
+    "title": "The Lawful Heist Crew | Harley Bartles",
+    "description": "Six specialists turn a lawful vault override into a plan whose execution should be almost offensively boring.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "patch:sorcerers-apprentice",
+    "path": "/patch/sorcerers-apprentice",
+    "kind": "patch",
+    "title": "The Sorcerer's Apprentice - Delegation Without Boundaries | Harley Bartles",
+    "description": "Delegation needs a boundary, not just permission.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "patch:tournament-of-reasonable-defaults",
+    "path": "/patch/tournament-of-reasonable-defaults",
+    "kind": "patch",
+    "title": "Tournament of Reasonable Defaults | Harley Bartles",
+    "description": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "projects",
+    "path": "/projects",
+    "kind": "index",
+    "title": "Project Stories | Harley Bartles",
+    "description": "Selected public engineering project stories from Harley Bartles.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "project:adventures-of-patch",
+    "path": "/projects/adventures-of-patch",
+    "kind": "project",
+    "title": "Adventures of Patch | Harley Bartles",
+    "description": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "project:agentic-learning-lab",
+    "path": "/projects/agentic-learning-lab",
+    "kind": "project",
+    "title": "Agentic Learning Lab | Harley Bartles",
+    "description": "A facilitator-led curriculum that helps non-programmers direct, inspect, verify and recover agent work through bounded practical labs.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "project:codex-marketplace",
+    "path": "/projects/codex-marketplace",
+    "kind": "project",
+    "title": "Agent Asset Marketplace | Harley Bartles",
+    "description": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "project:wild-bunch",
+    "path": "/projects/wild-bunch",
+    "kind": "project",
+    "title": "Wild Bunch | Harley Bartles",
+    "description": "A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "writing",
+    "path": "/writing",
+    "kind": "index",
+    "title": "Writing and Notes | Harley Bartles",
+    "description": "Notes on engineering practice, agentic systems, and repository design.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
+    "id": "writing:agentic-engineering-vs-vibe-coding",
+    "path": "/writing/agentic-engineering-vs-vibe-coding",
+    "kind": "writing",
+    "title": "Agentic engineering and the kindness of vibe coding | Harley Bartles",
+    "description": "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:graph-iterative-review",
+    "path": "/writing/graph-iterative-review",
+    "kind": "writing",
+    "title": "If you write a loop, don't be surprised when your agent starts looping | Harley Bartles",
+    "description": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:i-just-write-the-code-is-not-a-full-sentence",
+    "path": "/writing/i-just-write-the-code-is-not-a-full-sentence",
+    "kind": "writing",
+    "title": "\"I just write the code\" is not a full sentence | Harley Bartles",
+    "description": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:i-made-agentic-engineering-harder-than-it-needed-to-be",
+    "path": "/writing/i-made-agentic-engineering-harder-than-it-needed-to-be",
+    "kind": "writing",
+    "title": "I made agentic engineering harder than it needed to be | Harley Bartles",
+    "description": "I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:provisioning-is-not-accumulation",
+    "path": "/writing/provisioning-is-not-accumulation",
+    "kind": "writing",
+    "title": "Provisioning is not accumulation | Harley Bartles",
+    "description": "Capability should be available when the work needs it, without making every agent carry the whole workshop.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:the-right-test-isnt-your-favourite-test",
+    "path": "/writing/the-right-test-isnt-your-favourite-test",
+    "kind": "writing",
+    "title": "The right test isn't your favourite test | Harley Bartles",
+    "description": "The test worth running is the one that can falsify the next thing you are about to trust.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
+    "id": "writing:why-adrs",
+    "path": "/writing/why-adrs",
+    "kind": "writing",
+    "title": "Why ADRs? | Harley Bartles",
+    "description": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Senior Software Engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  }
+]

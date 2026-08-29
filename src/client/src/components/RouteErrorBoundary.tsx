@@ -12,6 +12,7 @@ export function RouteErrorBoundary(): ReactElement {
         title="Portfolio Error | Harley Bartles"
         description="Portfolio route content could not be loaded."
         canonicalPath="/"
+        noIndex
       />
       <section className="state-panel" aria-labelledby="route-error-title">
         <h1 id="route-error-title">Portfolio route unavailable</h1>

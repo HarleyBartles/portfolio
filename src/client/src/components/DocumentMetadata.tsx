@@ -1,13 +1,12 @@
 import { useEffect, type ReactElement } from 'react'
-
-const portfolioOrigin = 'https://harleybartles.github.io'
-const portfolioBasePath = '/portfolio'
-const socialImageUrl = `${portfolioOrigin}${portfolioBasePath}/brand/social-card.png`
+import { getRouteMetadata } from '../data/routes/routeCatalogue'
+import { buildPublicAssetUrl, buildPublicUrl } from '../data/routes/siteProfile'
 
 type DocumentMetadataProps = {
   title: string
   description: string
   canonicalPath: string
+  noIndex?: boolean
 }
 
 function getOrCreateMeta(name: string): HTMLMetaElement {
@@ -52,7 +51,11 @@ function getOrCreateCanonical(): HTMLLinkElement {
   return link
 }
 
-function normalizeCanonicalPath(canonicalPath: string): string {
+function removeHeadElement(selector: string): void {
+  document.head.querySelector(selector)?.remove()
+}
+
+function normalizeCanonicalPath(canonicalPath: string): string | undefined {
   if (
     !canonicalPath.startsWith('/') ||
     canonicalPath.startsWith('//') ||
@@ -60,7 +63,7 @@ function normalizeCanonicalPath(canonicalPath: string): string {
     canonicalPath.includes(':') ||
     canonicalPath.includes('..')
   ) {
-    return '/'
+    return undefined
   }
 
   const [pathOnly] = canonicalPath.split(/[?#]/)
@@ -69,29 +72,54 @@ function normalizeCanonicalPath(canonicalPath: string): string {
 }
 
 export function buildCanonicalUrl(canonicalPath: string): string {
-  const path = normalizeCanonicalPath(canonicalPath).replace(/^\//, '')
-  return `${portfolioOrigin}${portfolioBasePath}${path === '' ? '' : `/${path}`}`
+  const normalizedPath = normalizeCanonicalPath(canonicalPath)
+  const path = (normalizedPath ?? '/').replace(/^\//, '')
+  return buildPublicUrl(path === '' ? '/' : `/${path}`)
 }
 
 export function DocumentMetadata({
   title,
   description,
   canonicalPath,
+  noIndex = false,
 }: DocumentMetadataProps): ReactElement {
   useEffect(() => {
-    const canonical = buildCanonicalUrl(canonicalPath)
-    document.title = title
-    getOrCreateMeta('description').setAttribute('content', description)
+    const route = getRouteMetadata(normalizeCanonicalPath(canonicalPath))
+
+    if (noIndex || route === undefined) {
+      document.title = title
+      getOrCreateMeta('description').setAttribute('content', description)
+      getOrCreateMeta('robots').setAttribute('content', 'noindex, nofollow')
+      removeHeadElement('link[rel="canonical"]')
+      for (const property of ['og:url', 'og:image', 'og:image:alt', 'og:image:width', 'og:image:height', 'og:image:type']) {
+        removeHeadElement(`meta[property="${property}"]`)
+      }
+      for (const name of ['twitter:image', 'twitter:image:alt']) {
+        removeHeadElement(`meta[name="${name}"]`)
+      }
+      return
+    }
+
+    const canonical = buildPublicUrl(route.path)
+    const socialImage = buildPublicAssetUrl(route.socialImage.path)
+    document.title = route.title
+    getOrCreateMeta('description').setAttribute('content', route.description)
+    getOrCreateMeta('robots').setAttribute('content', route.indexability)
     getOrCreateCanonical().setAttribute('href', canonical)
-    getOrCreateProperty('og:title').setAttribute('content', title)
-    getOrCreateProperty('og:description').setAttribute('content', description)
-    getOrCreateProperty('og:type').setAttribute('content', canonicalPath.startsWith('/writing/') ? 'article' : 'website')
+    getOrCreateProperty('og:title').setAttribute('content', route.title)
+    getOrCreateProperty('og:description').setAttribute('content', route.description)
+    getOrCreateProperty('og:type').setAttribute('content', route.openGraphType)
     getOrCreateProperty('og:url').setAttribute('content', canonical)
-    getOrCreateProperty('og:image').setAttribute('content', socialImageUrl)
+    getOrCreateProperty('og:image').setAttribute('content', socialImage)
+    getOrCreateProperty('og:image:alt').setAttribute('content', route.socialImage.alt)
+    getOrCreateProperty('og:image:width').setAttribute('content', String(route.socialImage.width))
+    getOrCreateProperty('og:image:height').setAttribute('content', String(route.socialImage.height))
+    getOrCreateProperty('og:image:type').setAttribute('content', route.socialImage.mimeType)
     getOrCreateMeta('twitter:card').setAttribute('content', 'summary_large_image')
-    getOrCreateMeta('twitter:title').setAttribute('content', title)
-    getOrCreateMeta('twitter:description').setAttribute('content', description)
-    getOrCreateMeta('twitter:image').setAttribute('content', socialImageUrl)
+    getOrCreateMeta('twitter:title').setAttribute('content', route.title)
+    getOrCreateMeta('twitter:description').setAttribute('content', route.description)
+    getOrCreateMeta('twitter:image').setAttribute('content', socialImage)
+    getOrCreateMeta('twitter:image:alt').setAttribute('content', route.socialImage.alt)
   }, [canonicalPath, description, title])
 
   return <></>

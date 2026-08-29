@@ -10,6 +10,9 @@ export const MAX_CV_PDF_BYTES = 512 * 1024
 const DEFAULT_PREVIEW_URL = 'http://127.0.0.1:4173'
 const EXPECTED_PAGE_REGIONS = ['1', '2']
 const LOCALHOST_URL_PATTERN = /https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?(?:[/?#]|$)/i
+const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
+const siteConfig = JSON.parse(readFileSync(path.join(scriptDirectory, '..', 'site.config.json'), 'utf8'))
+const activeBasePath = siteConfig.profiles[siteConfig.activeProfile].basePath
 
 function formatPageRegions(pageRegions) {
   return `[${pageRegions.map((pageRegion) => JSON.stringify(pageRegion)).join(', ')}]`
@@ -144,7 +147,7 @@ export async function generateCvPdf({
     browser = await launchBrowser()
     page = await browser.newPage()
 
-    await page.goto(`${previewUrl}/portfolio/cv/`, { waitUntil: 'networkidle' })
+    await page.goto(`${previewUrl}${activeBasePath === '/' ? '' : activeBasePath.slice(0, -1)}/cv/`, { waitUntil: 'networkidle' })
     const pageRegions = await page.evaluate(async () => {
       await document.fonts.ready
       return Array.from(document.querySelectorAll('[data-cv-page]')).map((element) => element.getAttribute('data-cv-page'))

@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -11,37 +10,18 @@ ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
 PUBLIC = ROOT / "src" / "client" / "public"
 
-ORIGIN = "https://harleybartles.github.io"
-BASE_URL = "/portfolio/"
-
-INDEX_ROUTES = ["/", "/projects", "/writing", "/patch", "/about", "/cv"]
-
-PLURAL = {
-    "project": "projects",
-}
-
-
-def _kind_route(kind: str) -> str:
-    return PLURAL.get(kind, kind)
+try:
+    from .site_profile import public_routes, public_url
+except ImportError:
+    from site_profile import public_routes, public_url
 
 
 def _loc(route: str) -> str:
-    base = f"{ORIGIN.rstrip('/')}{BASE_URL.rstrip('/')}"
-    return f"{base}/" if route == "/" else f"{base}{route}"
+    return public_url(route)
 
 
 def build_routes() -> list[str]:
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    slugs = {item["slug"] for item in manifest["items"]}
-    routes = set(INDEX_ROUTES)
-
-    for item in manifest["items"]:
-        if item["slug"] not in slugs:
-            continue
-        kind = _kind_route(item["kind"])
-        routes.add(f"/{kind}/{item['slug']}")
-
-    return sorted(routes)
+    return public_routes()
 
 
 def _write_robots() -> None:

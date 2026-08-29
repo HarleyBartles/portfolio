@@ -10,6 +10,8 @@ import { MarkdownContent } from '../components/MarkdownContent'
 import { ProjectStatus } from '../components/ProjectStatus'
 import { RelatedContent } from '../components/RelatedContent'
 import { SiteLayout } from '../components/SiteLayout'
+import { ShareAction } from '../components/ShareAction'
+import { getRouteMetadata } from '../data/routes/routeCatalogue'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
@@ -34,6 +36,7 @@ function ContentLoadingState(): ReactElement {
         title="Portfolio Loading | Harley Bartles"
         description="Portfolio content is loading."
         canonicalPath="/"
+        noIndex
       />
       <AccessibleStatus id="content-loading-title" title="Preparing the portfolio" routeLoading>
         Loading portfolio content.
@@ -49,6 +52,7 @@ function ContentErrorState(): ReactElement {
         title="Portfolio Story Unavailable | Harley Bartles"
         description="This portfolio story could not be loaded."
         canonicalPath="/"
+        noIndex
       />
       <AccessibleStatus id="content-error-title" title="Portfolio content unavailable" tone="alert">
         Could not load this portfolio story. Please refresh or try again later.
@@ -68,6 +72,7 @@ function ContentNotFoundState(): ReactElement {
         title="Page Not Found | Harley Bartles"
         description="This portfolio story is not available."
         canonicalPath="/"
+        noIndex
       />
       <section className="state-panel" aria-labelledby="content-not-found-title">
         <h1 id="content-not-found-title">Page not found</h1>
@@ -164,6 +169,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
   const hasContextComplexityPresentation = document.summary.kind === 'writing'
     && document.summary.slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be'
+  const routeMetadata = getRouteMetadata(getContentPath(document.summary))
 
   return (
     <SiteLayout>
@@ -221,6 +227,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         {writingPresentation === undefined ? <ContentNavigation items={kindItems} currentSlug={document.summary.slug} /> : (
           <AuthoredContinuations presentation={writingPresentation} summaries={relatedSummaries} />
         )}
+        {routeMetadata?.shareAction === 'content-end' ? (
+          <ShareAction title={document.summary.title} path={routeMetadata.path} />
+        ) : null}
       </article>
     </SiteLayout>
   )

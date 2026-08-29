@@ -31,6 +31,7 @@ export function ErrorPage({ message, shell = true }: ErrorPageProps): ReactEleme
         title="Portfolio Content Unavailable | Harley Bartles"
         description="Portfolio content could not be loaded."
         canonicalPath="/"
+        noIndex
       />
       {content}
       <div className="state-actions" aria-label="Recovery navigation">

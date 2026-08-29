@@ -1,8 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
+import { readFileSync } from 'node:fs'
 
 const clientPort = 4174
 const clientOrigin = `http://127.0.0.1:${clientPort}`
-const clientBaseUrl = `${clientOrigin}/portfolio/`
+const siteConfig = JSON.parse(readFileSync(new URL('./site.config.json', import.meta.url), 'utf8')) as {
+  activeProfile: 'custom-domain' | 'github-pages-fallback'
+  profiles: Record<'custom-domain' | 'github-pages-fallback', { basePath: string }>
+}
+const activeBasePath = siteConfig.profiles[siteConfig.activeProfile].basePath
+const clientBaseUrl = `${clientOrigin}${activeBasePath}`
 
 export default defineConfig({
   testDir: './e2e',

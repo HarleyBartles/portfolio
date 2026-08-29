@@ -24,6 +24,7 @@ export function LoadingPage({ shell = true }: LoadingPageProps): ReactElement {
         title="Portfolio Loading | Harley Bartles"
         description="Portfolio content is loading."
         canonicalPath="/"
+        noIndex
       />
       {content}
     </SiteLayout>

@@ -47,8 +47,8 @@ describe('route document generator', () => {
     await buildRouteDocuments({
       distRoot,
       manifestPath,
-      baseUrl: '/portfolio/',
-      origin: 'https://harleybartles.github.io',
+      baseUrl: '/',
+      origin: 'https://harleybartles.com',
     })
 
     const projects = await readFile(path.join(distRoot, 'projects', 'index.html'), 'utf8')
@@ -61,20 +61,22 @@ describe('route document generator', () => {
     const lawfulHeist = await readFile(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'), 'utf8')
 
     expect(projects).toContain('<title>Project Stories | Harley Bartles</title>')
-    expect(projects).toContain('https://harleybartles.github.io/portfolio/projects')
+    expect(projects).toContain('https://harleybartles.com/projects')
     expect(projects.match(/rel="canonical"/g)).toHaveLength(1)
     expect(projects.match(/property="og:title"/g)).toHaveLength(1)
     expect(cv).toContain('<title>CV | Harley Bartles</title>')
-    expect(cv).toContain('https://harleybartles.github.io/portfolio/cv')
+    expect(cv).toContain('https://harleybartles.com/cv')
     expect(article).toContain('A specific article summary.')
     expect(article).toContain('property="og:type" content="article"')
     expect(article.match(/property="og:type"/g)).toHaveLength(1)
     expect(article).toContain(
-      'https://harleybartles.github.io/portfolio/writing/agentic-engineering-vs-vibe-coding',
+      'https://harleybartles.com/writing/agentic-engineering-vs-vibe-coding',
     )
     expect(lawfulHeist).toContain('<title>The Lawful Heist Crew | Harley Bartles</title>')
     expect(lawfulHeist).toContain('Six specialists make a lawful override routine.')
-    expect(lawfulHeist).toContain('https://harleybartles.github.io/portfolio/patch/lawful-heist')
+    expect(lawfulHeist).toContain('https://harleybartles.com/patch/lawful-heist')
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
+    expect(fallback).not.toContain('rel="canonical"')
+    expect(fallback).toContain('name="robots" content="noindex, nofollow"')
   })
 })

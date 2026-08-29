@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -15,10 +14,10 @@ PUBLIC = ROOT / "src" / "client" / "public"
 SRC_CLIENT = ROOT / "src" / "client" / "src"
 CONTENT_DIR = SRC_CLIENT / "data" / "content"
 
-ORIGIN = "https://harleybartles.github.io"
-BASE_URL = "/portfolio/"
-
-PLURAL = {"project": "projects"}
+try:
+    from .site_profile import public_routes, public_url
+except ImportError:
+    from site_profile import public_routes, public_url
 
 INDEX_ROUTES = {"/", "/projects", "/writing", "/patch", "/about", "/cv"}
 COMPATIBILITY_ROUTES = {"/fairytales", "/fairytales/goldilocks", "/fairytales/sorcerers-apprentice"}
@@ -29,21 +28,8 @@ LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)]+)\)')
 ABSOLUTE_LOCAL_RE = re.compile(r'^/[a-zA-Z0-9_/.-]')
 
 
-def _kind_route(kind: str) -> str:
-    return PLURAL.get(kind, kind)
-
-
 def build_routes() -> set[str]:
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    routes = set(INDEX_ROUTES)
-    slugs = {item["slug"]: item["kind"] for item in manifest["items"]}
-
-    for item in manifest["items"]:
-        if item["slug"] not in slugs:
-            continue
-        routes.add(f"/{_kind_route(item['kind'])}/{item['slug']}")
-
-    return routes
+    return set(public_routes())
 
 
 def _is_allowed_external(url: str) -> bool:
@@ -150,7 +136,7 @@ def check_markdown_links(manifest: dict, routes: set[str], errors: list[str]) ->
 
 
 def check_seo_files(routes: set[str], errors: list[str]) -> None:
-    expected_sitemap = f"{ORIGIN.rstrip('/')}{BASE_URL.rstrip('/')}/sitemap.xml"
+    expected_sitemap = public_url('/sitemap.xml')
     robots = PUBLIC / "robots.txt"
     sitemap = PUBLIC / "sitemap.xml"
 
@@ -177,7 +163,7 @@ def check_seo_files(routes: set[str], errors: list[str]) -> None:
     tree = ET.parse(sitemap)
     root = tree.getroot()
     seen = set()
-    base = f"{ORIGIN.rstrip('/')}{BASE_URL.rstrip('/')}"
+    base = public_url('/').rstrip('/')
 
     for url in root:
         for child in url:
@@ -201,9 +187,10 @@ def check_seo_files(routes: set[str], errors: list[str]) -> None:
 
 def main() -> int:
     errors: list[str] = []
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     routes = build_routes()
 
+    import json
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     check_related_slugs(manifest, errors)
     check_jsx_anchors(errors)
     check_external_link_contract(errors)

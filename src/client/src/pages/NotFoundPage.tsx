@@ -10,6 +10,7 @@ export function NotFoundPage(): ReactElement {
         title="Page Not Found | Harley Bartles"
         description="This portfolio page is not available."
         canonicalPath="/"
+        noIndex
       />
       <section className="state-panel" aria-labelledby="not-found-title">
         <h1 id="not-found-title">Page not found</h1>
