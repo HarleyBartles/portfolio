@@ -67,7 +67,7 @@ inventory before employment.
 
 1. Small running identity line: `Harley Bartles · CV · 2 / 2`
 2. Professional experience continued
-3. Barbican Insurance Group -> Arch Capital Group
+3. Barbican Insurance Group → Arch Capital Group
 4. Brand Addition
 5. Selected independent engineering
 6. Technical skills
@@ -94,7 +94,7 @@ Name:
 
 Headline:
 
-`Full-stack software engineer · .NET, React, Python and AI-assisted systems`
+`Full-stack software engineer · .NET, React, Python and AI-assisted automation`
 
 Utility details:
 
@@ -143,7 +143,7 @@ Section heading:
 
 Role/date line:
 
-`Software Engineer · September 2021 - present`
+`Software Engineer · September 2021 – present`
 
 Lead:
 
@@ -167,12 +167,12 @@ Bullets:
   enabled Access Screening to offer two additional paid checks inside its
   normal screening journey.`
 - `Owned a v1-to-v2 migration across dependent products. Access Screening
-  originally supplied the capability behind Access Checks v1 while Access
-  Checks built direct v2 supplier integrations; Screening was also becoming a
-  v2 consumer. I made migration of the remaining v1 consumers a prerequisite,
-  avoiding a consumer -> Access Checks v1 -> Access Screening -> Access Checks
-  v2 -> supplier round trip. The old v1 endpoint is now unused and tracked for
-  retirement.`
+  originally supplied the capability behind Access Checks v1. As direct v2
+  integrations came online, Screening was also becoming a consumer of Access
+  Checks. I made migration of the remaining v1 consumers a prerequisite;
+  otherwise a call could have bounced from Access Checks v1 into Screening and
+  back through Access Checks v2 before reaching the supplier. The old v1
+  endpoint is now unused and tracked for retirement.`
 - `Earlier on Recruitment CRM, replaced a cursor-heavy chain of stored
   procedures with set-based SQL, reducing a several-minute operation to a
   couple of seconds while preserving existing single-ID callers.`
@@ -189,11 +189,11 @@ Editorial intent:
 - Do not add more bullets merely to make the role look busy. These are
   representative worked examples, not an exhaustive achievement ledger.
 
-#### Barbican Insurance Group -> Arch Capital Group
+#### Barbican Insurance Group → Arch Capital Group
 
 Role/date line:
 
-`Full Stack Software Engineer / Software Engineer (Level 1 -> Level 2) · February 2019 - September 2021`
+`Full Stack Software Engineer (Barbican) · Software Engineer, Level 1 → Level 2 (Arch) · February 2019 – September 2021`
 
 Copy:
 
@@ -219,7 +219,7 @@ TFS, SignalR and other useful search terms can live in Technical skills.
 
 Role/date line:
 
-`Commercial roles -> Team Manager -> Web Manager · July 2005 - January 2019`
+`Commercial roles → Team Manager → Web Manager · July 2005 – January 2019`
 
 Copy:
 
@@ -319,17 +319,17 @@ Heading:
 
 Entries:
 
-**AI Engineer Level 6 Apprenticeship - QA**  
-`February 2026 - January 2028 · in progress`  
+**AI Engineer Level 6 Apprenticeship – QA**  
+`February 2026 – January 2028 · in progress`  
 `Bachelor's degree-level programme delivered against the Machine Learning
 Engineer standard (ST1398 v1.0), covering machine learning, generative AI,
 model development, deployment, monitoring, ethics and security.`
 
-**Access to H.E. Certificate - Media, Theatre, English - ManCAT**  
-`2002 - 2003`
+**Access to H.E. Certificate – Media, Theatre, English – ManCAT**  
+`2002 – 2003`
 
-**BTEC Level 3 - Performing Arts (Music) - Shena Simon F.E. College**  
-`1997 - 1999`
+**BTEC Level 3 – Performing Arts (Music) – Shena Simon F.E. College**  
+`1997 – 1999`
 
 **Seven GCSEs**
 
