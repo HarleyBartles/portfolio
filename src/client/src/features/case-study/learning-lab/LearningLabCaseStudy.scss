@@ -124,7 +124,7 @@
 .learning-atlas__module-copy { display: grid; gap: var(--space-2); }
 .learning-atlas__module-copy strong { line-height: 1.2; }
 .learning-atlas__course:not(:last-child) .learning-atlas__module-copy strong { min-height: 2.4em; }
-.learning-atlas__module-summary { color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.4; }
+.learning-atlas__module-summary { color: var(--color-muted); font-size: 0.9rem; line-height: 1.4; }
 .learning-atlas__course:not(:last-child) .learning-atlas__module-summary { min-height: 2.8em; }
 .learning-atlas__source { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); margin-top: var(--space-6); }
 

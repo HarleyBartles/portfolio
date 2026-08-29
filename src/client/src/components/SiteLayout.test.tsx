@@ -33,7 +33,7 @@ describe('SiteLayout', () => {
 
     const navigation = screen.getByRole('navigation', { name: /primary/i })
     const navLinks = within(navigation).getAllByRole('link')
-    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Patch', 'About'])
+    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Patch', 'About', 'CV'])
     expect(navLinks[2]).toHaveAttribute('href', '/patch')
 
     await user.tab()

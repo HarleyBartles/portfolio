@@ -78,11 +78,11 @@ test('writing index keeps its newest-first editorial composition', async ({ page
   await expect(page.locator('[data-visual-contract="writing-peer-list"]')).toHaveScreenshot('writing-peer-list.png')
 })
 
-test('about page keeps the professional proof panel', async ({ page }) => {
+test('about page keeps the current-work argument', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './about')
 
-  await expect(page.locator('[data-visual-contract="about-professional-proof"]')).toHaveScreenshot('about-professional-proof.png')
+  await expect(page.locator('[data-visual-contract="about-current-work"]')).toHaveScreenshot('about-current-work.png')
 })
 
 test('about page keeps the CV conversion area', async ({ page }) => {

@@ -3,18 +3,18 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const INDEX_ROUTES = [
-  ['home', '/', 'home', 'Harley Bartles | Senior Software Engineer', 'Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations.'],
+  ['home', '/', 'home', 'Harley Bartles | Full-stack software engineer', 'Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations.'],
   ['projects', '/projects', 'index', 'Project Stories | Harley Bartles', 'Selected public engineering project stories from Harley Bartles.'],
   ['writing', '/writing', 'index', 'Writing and Notes | Harley Bartles', 'Notes on engineering practice, agentic systems, and repository design.'],
   ['patch', '/patch', 'index', 'Adventures of Patch | Harley Bartles', 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.'],
-  ['about', '/about', 'about', 'About and Work With Me | Harley Bartles', 'Experience, working style, and contact information for Harley Bartles.'],
-  ['cv', '/cv', 'cv', 'CV | Harley Bartles', 'A concise professional CV with verified experience, education, and public work from Harley Bartles.'],
+  ['about', '/about', 'about', 'About | Harley Bartles', 'Full-stack software engineer with 7+ years of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.'],
+  ['cv', '/cv', 'cv', 'CV | Harley Bartles', 'CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation.'],
 ]
 
 const KIND_ROUTE = { project: 'projects', writing: 'writing', patch: 'patch' }
 const DEFAULT_SOCIAL_IMAGE = {
   path: '/brand/social-card.png',
-  alt: 'Harley Bartles, Senior Software Engineer',
+  alt: 'Harley Bartles, Full-stack software engineer',
   width: 1200,
   height: 630,
   mimeType: 'image/png',

@@ -164,7 +164,10 @@ describe('WildBunchCaseStudy', () => {
 
     expect(screen.getByText(/starts with Delaunay candidates, takes a minimum spanning tree/i)).toBeVisible()
     expect(screen.getByText(/same seed.*difficulty.*entropy policy.*ordered choices/i)).toBeVisible()
-    expect(screen.getByText(/Full-stream equality tests rebuild a session from its events/i)).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Full-stream equality tests (opens in a new tab)' })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/wild-bunch/pull/171',
+    )
     expect(screen.getByText(/fix a salt source or prepare a one-use next action/i)).toBeVisible()
   })
 

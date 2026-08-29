@@ -40,13 +40,13 @@ export function HomePage(): ReactElement {
   return (
     <SiteLayout>
       <DocumentMetadata
-        title="Harley Bartles | Senior Software Engineer"
-        description="Senior software engineer building reliable agentic systems, public tools, and memorable visual explanations."
+        title="Harley Bartles | Full-stack software engineer"
+        description="Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations."
         canonicalPath="/"
       />
 
       <section className="hero" aria-labelledby="homepage-title" data-visual-contract="homepage-masthead">
-        <p className="eyebrow">Senior software engineer / agentic systems</p>
+        <p className="eyebrow">Full-stack software engineer / agentic systems</p>
         <div className="hero-grid">
           <div>
             <h1 id="homepage-title">Harley Bartles</h1>
@@ -65,8 +65,8 @@ export function HomePage(): ReactElement {
       <section className="feature-section" id="selected-work" aria-labelledby="feature-title" data-visual-contract="homepage-feature-deck">
         <header className="section-heading">
           <p className="eyebrow">Selected / shuffled on arrival</p>
-          <h2 id="feature-title">Work worth bringing forward</h2>
-          <p>Prominence changes. The proof stays available.</p>
+          <h2 id="feature-title">What I've been building</h2>
+          <p>The order changes. Every project is still here to inspect.</p>
         </header>
         <FeatureDeck items={features} />
       </section>
@@ -97,7 +97,7 @@ export function HomePage(): ReactElement {
       <section className="working-principles" aria-labelledby="principles-title">
         <header className="section-heading">
           <p className="eyebrow">Working principles</p>
-          <h2 id="principles-title">How the work stays honest</h2>
+          <h2 id="principles-title">How I keep the work honest</h2>
         </header>
         <ol>
           <li><span>01</span><h3>Requirements before architecture</h3><p>Start with the problem and constraints. Let patterns earn their place.</p><Link to="/projects/wild-bunch">See it under pressure</Link></li>
@@ -131,8 +131,8 @@ export function HomePage(): ReactElement {
       <section className="home-close" aria-labelledby="home-close-title">
         <p className="eyebrow">The practical bit</p>
         <h2 id="home-close-title">Yes, this is also a portfolio.</h2>
-        <p>The work makes the argument elsewhere. About is where I make it explicit.</p>
-        <Link to="/about" className="button-link">Experience, working style, contact</Link>
+        <p>The project stories show the work. About fills in the working life behind them.</p>
+        <Link to="/about#contact" className="button-link">Experience, current work, contact</Link>
       </section>
     </SiteLayout>
   )
