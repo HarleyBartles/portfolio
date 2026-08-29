@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import { EditorialSingleLineHeading } from '../../components/editorial/EditorialTextWrap'
 
 export const ProfessionalStory = styled.section`
   display: grid;
   grid-template-columns: minmax(10rem, 3fr) minmax(0, 7fr);
   gap: clamp(${({ theme }) => theme.space.xl}, 6vw, var(--space-20));
   border-top: 1px solid ${({ theme }) => theme.color.ink};
-  padding-block: clamp(${({ theme }) => theme.space.xxl}, 8vw, var(--space-20));
+  padding: clamp(${({ theme }) => theme.space.xxl}, 6vw, var(--space-16)) 0 var(--space-10);
 
   @media (max-width: 48rem) {
     grid-template-columns: 1fr;
@@ -31,6 +32,7 @@ export const ProfessionalStoryRail = styled.div`
 
 export const ProfessionalStoryContent = styled.div`
   max-width: var(--measure-reading);
+  container-type: inline-size;
 
   h2 {
     margin: 0;
@@ -38,7 +40,10 @@ export const ProfessionalStoryContent = styled.div`
     font-size: clamp(2.25rem, 4.5vw, 4.2rem);
     letter-spacing: -0.045em;
     line-height: 0.98;
-    text-wrap: balance;
+  }
+
+  ${EditorialSingleLineHeading} {
+    font-size: clamp(1.25rem, 8.2cqi, 4.2rem);
   }
 
   > p {
@@ -72,7 +77,6 @@ export const NextRolePanel = styled.aside`
     font-size: clamp(2.2rem, 5vw, 4.5rem);
     letter-spacing: -0.045em;
     line-height: 0.98;
-    text-wrap: balance;
   }
 
   > div:last-child > p {
@@ -88,7 +92,19 @@ export const NextRolePanel = styled.aside`
     margin-top: ${({ theme }) => theme.space.lg};
   }
 
-  @media (max-width: 64rem) {
+  > div:last-child .button-link {
+    border-color: ${({ theme }) => theme.color.accent};
+    background: ${({ theme }) => theme.color.accent};
+    color: ${({ theme }) => theme.color.surface};
+  }
+
+  > div:last-child .button-link:hover {
+    background: ${({ theme }) => theme.color.tealDeep};
+    border-color: ${({ theme }) => theme.color.tealDeep};
+    color: ${({ theme }) => theme.color.surface};
+  }
+
+  @media (max-width: 68rem) {
     grid-template-columns: 1fr;
   }
 `

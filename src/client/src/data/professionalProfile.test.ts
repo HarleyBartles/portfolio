@@ -21,6 +21,8 @@ describe('professional profile', () => {
     expect(professionalProfile.education[0]?.detail).toBe(
       "Bachelor's degree-level qualification (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).",
     )
+    expect(professionalProfile.education[0]?.provider).toBe('QA')
+    expect(professionalProfile.education[0]?.providerWebsiteLabel).toBe('qa.com')
     expect(professionalProfile.career[0].id).toBe('brand-addition')
     expect(professionalProfile.career.at(-1)?.id).toBe('access')
   })
@@ -48,5 +50,9 @@ describe('professional profile', () => {
       'Further education',
       'Secondary education',
     ])
+    expect(professionalProfile.education.find((record) => record.id === 'secondary-education')).toMatchObject({
+      provider: 'Spurley Hey High School',
+      periodLabel: '1992 – 1997',
+    })
   })
 })

@@ -33,6 +33,7 @@ export type EducationRecord = {
   id: string
   level: string
   provider?: string
+  providerWebsiteLabel?: string
   title: string
   periodLabel?: string
   detail?: string
@@ -140,9 +141,10 @@ export const professionalProfile: ProfessionalProfile = {
       periodLabel: 'July 2005 – January 2019',
       heading: 'Brand Addition',
       formalTitle: 'Web Manager',
-      summary: 'A progression through commercial roles and team management into a hybrid business-systems and proto-development role.',
+      summary: 'A progression from order administration through Account Executive, Account Manager and Team Manager into a hybrid business-systems and proto-development role.',
       evidence: [
-        'While managing a team, Harley identified a web change it needed, worked with the Ecommerce Director to specify and deliver it, and then moved into the Web Manager role.',
+        'As Team Manager, Harley managed an operational account-support unit comprising 3–5 Account Managers, around eight Account Executives and two Order Administrators.',
+        'While managing that team, Harley identified a web change it needed, worked with the Ecommerce Director to specify and deliver it, and then moved into the Web Manager role.',
         'He defined requirements, coordinated external developers, held platform and delivery responsibility, and helped migrate and maintain more than 100 multilingual, multicurrency stores.',
         'The work developed commercial judgement, client awareness, leadership, and the deliberate transition into full-time software engineering; it was not a professional software developer role.',
       ],
@@ -189,6 +191,7 @@ export const professionalProfile: ProfessionalProfile = {
       id: 'qa-ai-engineer-apprenticeship',
       level: 'Higher education - in progress',
       provider: 'QA',
+      providerWebsiteLabel: 'qa.com',
       title: 'AI Engineer Level 6 Apprenticeship',
       periodLabel: 'February 2026 – January 2028',
       detail: `${apprenticeshipQualificationLabel} (Level 6), delivered against the Machine Learning Engineer standard (ST1398 v1.0).`,
@@ -211,6 +214,8 @@ export const professionalProfile: ProfessionalProfile = {
       id: 'secondary-education',
       level: 'Secondary education',
       title: 'Seven GCSEs',
+      provider: 'Spurley Hey High School',
+      periodLabel: '1992 – 1997',
     },
   ],
   capabilities: [

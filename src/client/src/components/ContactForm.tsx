@@ -93,8 +93,8 @@ export function ContactForm({ endpoint }: ContactFormProps): ReactElement {
         </button>
         <p className="contact-privacy">
           Your name, reply email, and message are sent to Formspree for delivery. I use them only to reply. Formspree processes submissions under its{' '}
-          <ExternalLink href="https://formspree.io/legal/privacy-policy/">privacy policy</ExternalLink>.
-          {' '}Do not send sensitive personal information.
+          <ExternalLink href="https://formspree.io/legal/privacy-policy/">privacy policy</ExternalLink>
+          <span className="contact-privacy__warning">Do not send sensitive personal information.</span>
         </p>
         {submissionState === 'sent' ? <p role="status">Message sent. Thank you.</p> : null}
         {submissionState === 'error' ? <p role="alert">I could not send that message. Your text is still here; please try again.</p> : null}

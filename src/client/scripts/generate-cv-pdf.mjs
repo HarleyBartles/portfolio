@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process'
 import { once } from 'node:events'
 import { existsSync, readFileSync, statSync } from 'node:fs'
+import { createServer } from 'node:net'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
@@ -54,6 +55,29 @@ export function startPreviewProcess(
     cwd: clientRoot,
     detached: platform !== 'win32',
     stdio: 'inherit',
+  })
+}
+
+export async function assertPreviewPortAvailable(previewUrl) {
+  const url = new URL(previewUrl)
+  const host = url.hostname
+  const port = Number(url.port || (url.protocol === 'https:' ? 443 : 80))
+
+  await new Promise((resolve, reject) => {
+    const server = createServer()
+
+    server.once('error', () => {
+      reject(new Error(`CV PDF preview port is already in use: ${host}:${port}`))
+    })
+    server.listen(port, host, () => {
+      server.close((error) => {
+        if (error === undefined) {
+          resolve()
+          return
+        }
+        reject(error)
+      })
+    })
   })
 }
 
@@ -130,7 +154,8 @@ export async function rewritePreviewLinksForPdf(page, previewUrl) {
 export async function generateCvPdf({
   clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   pdfPath = path.join(clientRoot, 'dist', 'harley-bartles-cv.pdf'),
-  previewUrl = DEFAULT_PREVIEW_URL,
+    previewUrl = DEFAULT_PREVIEW_URL,
+    assertPreviewPort = assertPreviewPortAvailable,
     startPreview = startPreviewProcess,
     waitForPreview = waitForPreviewServer,
     launchBrowser = () => chromium.launch(),
@@ -142,6 +167,7 @@ export async function generateCvPdf({
   let page
 
   try {
+    await assertPreviewPort(previewUrl)
     previewProcess = await startPreview(clientRoot)
     await waitForPreview(previewUrl, previewProcess)
     browser = await launchBrowser()
