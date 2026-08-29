@@ -213,10 +213,126 @@ cleaner commercial and evidence account on About.
   consumer portal, and bounded AI-assisted browser automation inside
   deterministic API workflows.
 
-## Secondary discovery still required
+## Secondary discovery decisions — 29 August 2026
 
-The outcome source and initial About/CV inputs are stable. Before the room
-closes, record only the remaining minimum implementation inputs requested by
-the editorial brief: professional provenance, current case-study compression
-needs, the precise Wild Bunch proof source and any portfolio-as-software
-receipt that earns space.
+### Professional provenance
+
+- Barbican Insurance Group and the subsequent Arch period were Harley's
+  deep-end introduction to professional engineering in a genuinely complex
+  insurance domain.
+- DDD, CQRS, event sourcing, layered and onion architecture became practical
+  engineering kit through production immersion rather than pattern study in
+  isolation.
+- The public claim is selective and bounded: Harley worked deeply inside those
+  systems and learned why the complexity earned its place; he does not claim to
+  have originated their architecture or that every system needs the same kit.
+- This period is the provenance for the later rule that architectural
+  complexity must earn its place.
+
+### Current case-study openings
+
+The live rendered site was inspected rather than judging source alone.
+Marketplace, Agentic Learning Lab and Adventures of Patch establish their
+central question or governing idea quickly. Wild Bunch deliberately opens as a
+personal game story. Preserve that narrative opening rather than flattening it
+into a standard evidence card.
+
+The Phase 7A fast path should therefore adapt to each case study instead of
+forcing one repeated component. Wild Bunch needs proof made cheaper to reach,
+not its personality compressed away.
+
+### Wild Bunch falsifiability receipt
+
+The strongest direct receipt is the event-sourcing integrity sequence:
+
+- `.agents/docs/event-sourcing-replayability-audit.md` explicitly tests the
+  claim that persisted session state is reconstructable from events alone and
+  records where the claim was false: `TravelDiaryDays` were a known violation,
+  with an additional `UnrelatedCriminalLedger` full-replay concern.
+- `tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs` is the later
+  executable proof. It deliberately makes snapshots stale, deletes snapshot
+  components and compares snapshot-loaded state with full event replay. The
+  file describes itself as the completion gate for making event sourcing
+  materially true: the snapshot is a shortcut cache, not a requirement.
+- The public Wild Bunch sentence that says exact replay is `falsifiable` should
+  make `falsifiable` the deep-link into this receipt. The prose stays clean; a
+  skeptical reader can challenge the word immediately.
+- About may reuse that receipt, link back through the Wild Bunch claim, or use a
+  separate Wild Bunch receipt such as the geometry/map brute-force work to
+  broaden the portfolio's proof surface. These are complementary, not
+  mutually exclusive.
+
+### Portfolio-as-software receipt
+
+A first-party conversation supplied by Harley on 29 August records the scar
+behind PR #42 rather than only the repaired end state.
+
+- A portfolio PR reached hosted CI with two Playwright failures that the local
+  repository could have predicted: a hard-coded `/portfolio` route assumption
+  and a stale Windows visual baseline.
+- The existing tracked pre-commit hook ran a partial fast check and omitted
+  Playwright. The initial diagnosis treated this as an operator/process error.
+- Harley challenged the design itself: a gate described as a fast path was a
+  trap if it could pave the way to a predictably failed hosted build.
+- The correction changed the enforced hook to run the complete canonical
+  `ci --check`, while retaining the old `precommit --check` only as an explicit
+  partial development check.
+- Harley then refined the efficient repair loop: let the hook identify the
+  failing canonical slice; fix it; run only that focused slice; retry the
+  commit; let the hook perform the single full integration run. Do not churn on
+  duplicate full runs immediately before or after a normal hooked commit.
+- The workflow guidance was made durable in repository doctrine and the testing
+  runbook so later agents do not rediscover the same waste.
+- Commit `c568d2fe9bb1707b6c50389a91106c32a94a78f4` was accepted only after the
+  repaired hook passed 71 Python tests, 151 component tests and all 83
+  Playwright journeys. Hosted run `33239035432` then passed both the Portfolio
+  quality gate and Visual regression jobs on that exact head.
+
+Editorial call: this receipt earns public space, but quietly. Use one concise
+sentence and one inspectable link in Working Style or the independent-
+engineering treatment. The useful story is failure -> challenged assumption ->
+machinery repair -> durable operating rule, not a badge wall or test-count
+boast. Harley's own summary of the principle is that the hook is fast because
+it removes an iteration fixing failures that hosted CI could predict locally.
+
+### CV editorial rehabilitation and navigation
+
+The rendered CV was re-read during this room. Its factual material is useful,
+but the prose currently reads too much like a rubric translated into copy:
+generic positioning, defensive qualification, headings such as `Immediate
+contribution`, and an inconsistent switch into third person for the Brand
+Addition period.
+
+Harley explicitly moved substantive CV editorial rehabilitation into Phase 7A
+because no later roadmap phase owns it.
+
+Implementation boundaries:
+
+- preserve the existing two-page CV mechanism, responsive web route and
+  generated PDF rather than redesigning the document from scratch;
+- rewrite the prose as an actual hiring document: plainer, more specific and
+  less self-auditing, using the approved Access outcomes and Barbican/Arch
+  provenance where they earn space;
+- preserve the exact formal-title boundary and honest differences in current
+  fluency without repeatedly announcing those qualifications;
+- keep web and PDF on the same canonical professional facts; and
+- add `CV` as a first-class masthead destination to `/cv`, while retaining the
+  contextual About -> CV route.
+
+This is a scope amendment to the existing Phase 7A specification. The current
+non-goal against rewriting the complete CV should be narrowed before JIT plan
+writing to prohibit a visual redesign or unrelated site-polish expansion, not
+substantive editorial rehabilitation.
+
+## Secondary discovery status
+
+The required secondary discovery is now materially complete: professional
+provenance, current case-study opening needs, the precise Wild Bunch
+falsifiability receipt, the portfolio-as-software receipt, CV treatment and CV
+navigation are all bounded well enough for the local Sol implementation-planning
+pass.
+
+Before writing the JIT plan, local Sol should amend the Phase 7A spec to record
+the CV scope change and the settled masthead/receipt decisions, then perform the
+normal drift review against the current branch. Public copy remains unwritten
+at this checkpoint.
