@@ -97,9 +97,6 @@ RSS was considered and deliberately deferred. The portfolio has a small,
 curated writing surface and no publication-cadence promise; a feed would add
 another public contract without serving a reader need yet.
 
-See [the custom-domain activation runbook](.agents/runbooks/custom-domain-activation.md)
-for the separate GitHub Pages and DNS proof steps.
-
 ## Development Philosophy
 
 - Prefer the simplest structure that supports the current need.
