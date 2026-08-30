@@ -59,6 +59,11 @@ The irony is that the inspectable evidence underneath is much stronger: Marketpl
 12. **The first fold should not make About the only onward path.** About is the canonical proof route for the professional consequence claim, but the same fold should also expose one direct route into project or writing evidence. The intended composition is one stable professional signal plus one inspectable work doorway, not `hero -> About -> everything else`.
 13. **A direct route into About is acceptable only because About itself is evidence-bearing and well connected back into the wider portfolio.** The current rendered About route begins with professional ownership and consequence, links directly to the CV/contact path, contains the Access outcome account, links into `Why ADRs?`, and later exposes all four independent project case studies. The masthead also keeps Projects, Writing and Patch available. That makes About a legitimate evidence node rather than a cul-de-sac.
 14. **The preferred proof choreography is therefore dual-path.** Hiring-manager curiosity can follow the stable professional claim into About; architect curiosity can follow the adjacent project/writing doorway straight into technical evidence. Either route can continue into the other evidence family without returning to the homepage first.
+15. **The homepage is the deliberate stylistic crescendo of the site.** Interior routes should continue to use the established restrained editorial grammar; `/` is the one surface allowed to make that grammar move, fold, layer and reveal itself more theatrically.
+16. **The home art direction should amplify the existing `ink on paper` language rather than introduce a different visual brand.** Warm paper, ink, copper punctuation, deliberate dark inserts, asymmetry, project-native imagery and editorial typography remain the source material. The opportunity is to make those materials feel like a designed publication object rather than a static webpage.
+17. **Publication-like motion is in scope when it carries hierarchy.** Page folds, page turns, layered sheets, inserts, reveals or other paper-derived transitions may be explored as the mechanism that carries the reader from the first fold into the evidence landscape. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension. Reduced motion must preserve the same content order and proof routes without requiring the physical metaphor.
+18. **The £10k bar rejects conventional portfolio UI even when it is usable.** A card grid, tabs, filter chips, category picker or link directory that merely exposes the right evidence still fails if it reads as `some guy's personal website`. The breadth of evidence should be expressed through authored composition, typography, native media, pacing and motion.
+19. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The post-hero evidence landscape should let readers recognise and enter the kind of proof they care about through composition itself. It should not announce a taxonomy or ask visitors to operate a portfolio filter.
 
 ## First-fold rubric
 
@@ -91,13 +96,30 @@ This is enough cross-linking that a homepage claim can legitimately route to Abo
 
 ## Active design direction, not yet settled
 
+### Publication object / motion metaphor
+
+A promising direction is a **living editorial publication** rather than a page with magazine styling pasted onto conventional sections.
+
+Possible grammar to test during design, without treating any one effect as implementation instruction:
+
+- fold one behaves like a cover or opening spread: spacious, stable, identity-led and consequence-bearing;
+- the first natural scroll physically carries the reader into the evidence landscape through a sheet, fold, turn or layered-paper transition;
+- project and writing evidence can behave like spreads, plates, tipped-in artefacts, clippings, marginalia or dark insert pages rather than interchangeable cards;
+- deliberate dark sections can read like printed insert stock rather than generic dark-mode bands;
+- copper can behave as editorial furniture: folios, rules, registration-like marks, annotations and navigation punctuation;
+- project-native visuals should remain the content, with the publication metaphor acting as custody and framing rather than fake decoration.
+
+The open question is **degree of literalism**. The room has not yet decided whether the homepage should behave unmistakably like a digital paper publication with page mechanics, or use paper-derived motion more abstractly while preserving ordinary vertical flow.
+
 ### Randomness / feature interaction
 
 The approved specification still assumes session-stable random selection plus manual another-feature controls. Harley's current rendered-page review challenges the value premise: the mechanism originally helped promote `the best stuff`, but the matured portfolio should no longer contain second-tier homepage material.
 
+The emerging evidence-landscape direction weakens the case for randomness further: breadth can be present at once, while visual hierarchy lets different readers recognise the evidence relevant to them. Randomness must therefore earn a reader benefit that authored composition cannot provide.
+
 **Current room position:** randomness is no longer protected by inertia. It must earn a specific reader benefit beyond novelty. If it cannot, Phase 8 should explicitly amend the earlier protected default rather than preserve a gimmick because code and tests already exist.
 
-This is a material design conflict with the approved Phase 8 selection contract and must be settled before local planning.
+This remains a material design conflict with the approved Phase 8 selection contract and must be settled before local planning.
 
 ## Rejected alternatives
 
@@ -110,6 +132,8 @@ This is a material design conflict with the approved Phase 8 selection contract 
 - Render separate hiring-manager and architect messages. Rejected: the personas are review lenses, not public information architecture. One authored composition should satisfy both through evidence choice and routing.
 - Make About the single first-fold CTA. Rejected: About can substantiate the professional claim, but forcing all readers through it would unnecessarily hide the portfolio's stronger technical and editorial evidence behind a professional funnel.
 - Avoid linking to About because it is `too portfolio-like`. Rejected after inspecting the current route: About is itself evidence-bearing and links back into the wider portfolio, so the problem is not the route; the problem would be making it the only route.
+- Express the evidence landscape as a conventional card grid, tab set or category filter. Rejected: that solves routing but spends the homepage's one opportunity for genuinely art-directed composition and would undershoot the agency-value target.
+- Keep the homepage as visually static as the interior routes for consistency. Rejected: consistency is already supplied by the underlying paper/ink/copper/dark-insert grammar. The homepage is allowed to amplify that grammar into motion while the rest of the site remains restrained.
 
 ## Public copy and evidence boundaries
 
@@ -123,11 +147,11 @@ The current About page remains the canonical full professional treatment. Homepa
 
 Work one consequential decision at a time:
 
-1. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind the About route;
-2. settle the identity and behaviour of the adjacent project/writing doorway, including whether it is stable or variable;
-3. settle whether randomness/manual feature change still earns its place;
-4. settle the evidence choreography after the first fold, including whether a separate four-project deck is still useful;
-5. settle the Patch interlude, writing feature and professional close;
+1. settle the degree of literal publication metaphor: true digital paper object versus more abstract paper-derived transitions in an ordinary vertical document;
+2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind the About route;
+3. settle the detailed evidence landscape and which proof angles must be simultaneously legible within the first post-fold movement;
+4. settle whether randomness/manual feature change still earns its place;
+5. settle the evidence choreography through projects, Patch, writing and the professional close;
 6. settle exact copy and art direction only after those hierarchy calls are stable;
 7. reconcile responsive, keyboard, reduced-motion, media-failure and storage-failure implications at design level;
 8. classify the resulting spec drift and any required protected-default amendments.
