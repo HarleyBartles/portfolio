@@ -4,9 +4,10 @@ Use this reference when deciding what to verify for repo-starter work.
 
 ## Canonical validation command
 
-- `py -3 tools/run.py ci --check` is the repo's canonical pre-commit and CI verification command.
+- `py -3 tools/run.py ci --check` is the repo's complete local and hosted CI verification command. For normal commit work, the tracked hook owns its single local execution against the staged tree.
 - The tracked pre-commit hook enforces `py -3 tools/run.py ci --check`, including Playwright browser journeys. A commit that passes locally should reach hosted CI for confirmation, not predictable failure discovery.
-- `py -3 tools/run.py precommit --check` remains an explicitly partial development check for repository checks, unit tests, and a production build. It is not a commit or publication gate.
+- Focused repository, Python, client, build, and browser checks remain the iteration tools. There is no separate `precommit` runner target; the hook owns staged-tree orchestration around `ci --apply` and `ci --check --diagnostics`.
+- Do not run the complete command immediately before a normal hooked commit or immediately after it passes. Invoke it directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity.
 
 ## Validation principles
 

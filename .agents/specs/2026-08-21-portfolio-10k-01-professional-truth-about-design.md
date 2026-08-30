@@ -518,9 +518,9 @@ The JIT plan must include:
 - visual review at 1440, 768, 390, and 320 CSS pixels;
 - keyboard-only, reduced-motion, and 200% zoom review;
 - updated About visual-regression evidence; and
-- `py -3 tools/run.py ci --check` on the staged final tree.
+- one normal commit whose tracked hook runs `py -3 tools/run.py ci --check` on the staged final tree.
 
-Generated navigation is updated through `py -3 tools/run.py ci --apply`, never
+Generated navigation is updated through `py -3 tools/run.py index-mesh --apply`, never
 by hand.
 
 ## Acceptance outcomes

@@ -15,6 +15,8 @@ test('composes a two-page CV from the approved professional facts', () => {
   )
 
   const pages = container.querySelectorAll('[data-cv-page]')
+  expect(container.querySelector('[data-type-register="site-sans"]')).toBeInTheDocument()
+  expect(container.querySelector('[data-type-register="article-serif"]')).not.toBeInTheDocument()
   expect(pages).toHaveLength(2)
   expect(pages[0]).toHaveAttribute('data-cv-page', '1')
   expect(pages[1]).toHaveAttribute('data-cv-page', '2')
@@ -59,10 +61,11 @@ test('composes a two-page CV from the approved professional facts', () => {
   expect(screen.getByText(/SQL Server \/ MySQL/)).toBeVisible()
   expect(screen.getByText('Earlier production experience', { exact: false }).parentElement).not.toHaveTextContent('SQL Server')
   expect(screen.queryByRole('link', { name: 'Return to About' })).not.toBeInTheDocument()
-  expect(screen.getByRole('link', { name: 'Download PDF' })).toHaveAttribute(
-    'href',
-    pdfHref,
-  )
+  const downloadLinks = screen.getAllByRole('link', { name: 'Download PDF' })
+  expect(downloadLinks).toHaveLength(2)
+  expect(downloadLinks.every((link) => link.getAttribute('href') === pdfHref)).toBe(true)
+  expect(screen.getByRole('navigation', { name: 'Download CV at the top' })).toContainElement(downloadLinks[0])
+  expect(screen.getByRole('navigation', { name: 'Download CV at the end' })).toContainElement(downloadLinks[1])
   expect(container.querySelector('a[href^="mailto:"], a[href^="tel:"]')).toBeNull()
   expect(container).not.toHaveTextContent(/salary|acting|shameless/i)
   expect(within(screen.getByRole('navigation', { name: 'Primary' })).getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv')
@@ -86,6 +89,12 @@ test('leads About with the next-role conversion and routes its CTA to contact', 
   expect(screen.queryByText(/my formal title is software engineer/i)).not.toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send message' })).toBeVisible()
   expect(screen.queryByText(/contact delivery is not connected yet/i)).not.toBeInTheDocument()
+  expect(screen.getByText('No source capture, no success.').closest('blockquote')).toHaveAttribute(
+    'data-type-register',
+    'site-sans',
+  )
+  expect(container.querySelectorAll('[data-professional-rail="chronology"]')).toHaveLength(1)
+  expect(container.querySelector('[data-type-register="article-serif"]')).not.toBeInTheDocument()
   const currentWork = screen.getByRole('heading', { name: 'Access Checks, end to end.' }).closest('section')
   expect(currentWork).not.toBeNull()
   if (currentWork === null) return

@@ -1,0 +1,209 @@
+{
+  "generatedBy": "src/client/scripts/process-wild-bunch-evidence-crops.mjs",
+  "derivatives": [
+    {
+      "id": "dustwell-town-hub-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/dustwell-town-1200.webp",
+      "sourceSha256": "03a765839f6650aaf54c4fb269fee40b727f6cd98b13f971e9fe37616912e0ba",
+      "crop": {
+        "left": 267,
+        "top": 244,
+        "width": 667,
+        "height": 417
+      },
+      "path": "src/client/public/media/wild-bunch/dustwell-town-hub-focus-640.avif",
+      "width": 640,
+      "height": 400,
+      "format": "avif",
+      "bytes": 6346,
+      "outputSha256": "f5f67d4de5334469e55c15af66bc7850a010adbdb5999b2953d9ac4e154b6ce1"
+    },
+    {
+      "id": "dustwell-town-hub-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/dustwell-town-1200.webp",
+      "sourceSha256": "03a765839f6650aaf54c4fb269fee40b727f6cd98b13f971e9fe37616912e0ba",
+      "crop": {
+        "left": 267,
+        "top": 244,
+        "width": 667,
+        "height": 417
+      },
+      "path": "src/client/public/media/wild-bunch/dustwell-town-hub-focus-640.webp",
+      "width": 640,
+      "height": 400,
+      "format": "webp",
+      "bytes": 10256,
+      "outputSha256": "c4422037dbaad4a0114ebd627a9a8408d7e173a9cdbdc305703ab6f4a5021af3"
+    },
+    {
+      "id": "dustwell-town-hub-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/dustwell-town-1200.webp",
+      "sourceSha256": "03a765839f6650aaf54c4fb269fee40b727f6cd98b13f971e9fe37616912e0ba",
+      "crop": {
+        "left": 267,
+        "top": 244,
+        "width": 667,
+        "height": 417
+      },
+      "path": "src/client/public/media/wild-bunch/dustwell-town-hub-focus-800.avif",
+      "width": 800,
+      "height": 500,
+      "format": "avif",
+      "bytes": 7858,
+      "outputSha256": "522702c844ecdbb3315a61b32132b61b06f6c30be4256ba906e851c26be8c384"
+    },
+    {
+      "id": "dustwell-town-hub-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/dustwell-town-1200.webp",
+      "sourceSha256": "03a765839f6650aaf54c4fb269fee40b727f6cd98b13f971e9fe37616912e0ba",
+      "crop": {
+        "left": 267,
+        "top": 244,
+        "width": 667,
+        "height": 417
+      },
+      "path": "src/client/public/media/wild-bunch/dustwell-town-hub-focus-800.webp",
+      "width": 800,
+      "height": 500,
+      "format": "webp",
+      "bytes": 13060,
+      "outputSha256": "4d6f73c95054424af24b93f6e3ad8081427fe2f997c88fce9f4e6a53bab0e0a3"
+    },
+    {
+      "id": "trail-map-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/trail-map-1200.webp",
+      "sourceSha256": "7b00aecd93e3729a2c50e9df3589a52061e55bb85cfba3a09d4f57e26b83c730",
+      "crop": {
+        "left": 300,
+        "top": 278,
+        "width": 600,
+        "height": 590
+      },
+      "path": "src/client/public/media/wild-bunch/trail-map-focus-480.avif",
+      "width": 480,
+      "height": 472,
+      "format": "avif",
+      "bytes": 10972,
+      "outputSha256": "c33ab44081c7527020d081bc7badc7191057366ded6dec8925bc1fdfc73baca5"
+    },
+    {
+      "id": "trail-map-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/trail-map-1200.webp",
+      "sourceSha256": "7b00aecd93e3729a2c50e9df3589a52061e55bb85cfba3a09d4f57e26b83c730",
+      "crop": {
+        "left": 300,
+        "top": 278,
+        "width": 600,
+        "height": 590
+      },
+      "path": "src/client/public/media/wild-bunch/trail-map-focus-480.webp",
+      "width": 480,
+      "height": 472,
+      "format": "webp",
+      "bytes": 15598,
+      "outputSha256": "2136baff432dad8628afe1529d95f9b5deffb54eacd4a7701b8d5cd68c99d78d"
+    },
+    {
+      "id": "trail-map-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/trail-map-1200.webp",
+      "sourceSha256": "7b00aecd93e3729a2c50e9df3589a52061e55bb85cfba3a09d4f57e26b83c730",
+      "crop": {
+        "left": 300,
+        "top": 278,
+        "width": 600,
+        "height": 590
+      },
+      "path": "src/client/public/media/wild-bunch/trail-map-focus-600.avif",
+      "width": 600,
+      "height": 590,
+      "format": "avif",
+      "bytes": 15285,
+      "outputSha256": "de0d6aeff3595105122ab2fa9bbfa8976b8fe688cd04c3fe43a2a79a4efde1ba"
+    },
+    {
+      "id": "trail-map-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/trail-map-1200.webp",
+      "sourceSha256": "7b00aecd93e3729a2c50e9df3589a52061e55bb85cfba3a09d4f57e26b83c730",
+      "crop": {
+        "left": 300,
+        "top": 278,
+        "width": 600,
+        "height": 590
+      },
+      "path": "src/client/public/media/wild-bunch/trail-map-focus-600.webp",
+      "width": 600,
+      "height": 590,
+      "format": "webp",
+      "bytes": 22570,
+      "outputSha256": "90cda09a1b4f277e5d036d6bae44319b264d9d66120e83624a396cc2d8727b7f"
+    },
+    {
+      "id": "wanted-notice-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/wanted-notice-960.webp",
+      "sourceSha256": "b03e2ef23c6aabe6e00cd3f88b85282fb31af8555fd00369da90b618d7a60afc",
+      "crop": {
+        "left": 180,
+        "top": 134,
+        "width": 590,
+        "height": 599
+      },
+      "path": "src/client/public/media/wild-bunch/wanted-notice-focus-472.avif",
+      "width": 472,
+      "height": 479,
+      "format": "avif",
+      "bytes": 12345,
+      "outputSha256": "927f66f36ef1b395a48a08dcb816b27631da01938785cfedb23ed5839b5d5d97"
+    },
+    {
+      "id": "wanted-notice-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/wanted-notice-960.webp",
+      "sourceSha256": "b03e2ef23c6aabe6e00cd3f88b85282fb31af8555fd00369da90b618d7a60afc",
+      "crop": {
+        "left": 180,
+        "top": 134,
+        "width": 590,
+        "height": 599
+      },
+      "path": "src/client/public/media/wild-bunch/wanted-notice-focus-472.webp",
+      "width": 472,
+      "height": 479,
+      "format": "webp",
+      "bytes": 16078,
+      "outputSha256": "9b2bd79dddf3f25b70fcc7008f600f2215760f17a7def572c208c76cf0137c37"
+    },
+    {
+      "id": "wanted-notice-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/wanted-notice-960.webp",
+      "sourceSha256": "b03e2ef23c6aabe6e00cd3f88b85282fb31af8555fd00369da90b618d7a60afc",
+      "crop": {
+        "left": 180,
+        "top": 134,
+        "width": 590,
+        "height": 599
+      },
+      "path": "src/client/public/media/wild-bunch/wanted-notice-focus-590.avif",
+      "width": 590,
+      "height": 599,
+      "format": "avif",
+      "bytes": 17039,
+      "outputSha256": "ef12fd8c70d558306d2bfe7c59368016878912e6bbfc9f1b676c55b5bb4331fc"
+    },
+    {
+      "id": "wanted-notice-focus",
+      "sourcePath": "src/client/public/media/wild-bunch/wanted-notice-960.webp",
+      "sourceSha256": "b03e2ef23c6aabe6e00cd3f88b85282fb31af8555fd00369da90b618d7a60afc",
+      "crop": {
+        "left": 180,
+        "top": 134,
+        "width": 590,
+        "height": 599
+      },
+      "path": "src/client/public/media/wild-bunch/wanted-notice-focus-590.webp",
+      "width": 590,
+      "height": 599,
+      "format": "webp",
+      "bytes": 22580,
+      "outputSha256": "c88fb5fbf18c07cb462f43f4324cd10a84a7add384a83ca0703c17b7597fe5aa"
+    }
+  ]
+}

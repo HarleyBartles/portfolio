@@ -269,11 +269,12 @@ The JIT plan must inspect the landed repository. Expected surfaces include:
 The canonical repository command is:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
 
-Use `ci --apply` only for intended mechanical surfaces, inspect its diff, and
-rerun check mode. Report any test not run, browser not available, external
+Use the narrow owning apply target only for intended mechanical surfaces, inspect its diff, and
+stage and commit normally so the hook runs check mode once. Report any test not run, browser not available, external
 state not observed, or manual judgement not independently reviewed.
 
 ## Non-goals

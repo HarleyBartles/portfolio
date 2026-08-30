@@ -5,6 +5,7 @@ import { createServer } from 'node:net'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
+import { PDFDocument } from 'pdf-lib'
 
 export const MAX_CV_PDF_BYTES = 512 * 1024
 
@@ -40,6 +41,15 @@ export function assertCvPdf(pdfPath, maxBytes = MAX_CV_PDF_BYTES) {
   }
 
   return pdfBytes
+}
+
+export async function assertCvPdfPageCount(pdfPath, expectedPageCount = 2) {
+  const pdf = await PDFDocument.load(readFileSync(pdfPath).toString('base64'))
+  const pageCount = pdf.getPageCount()
+  if (pageCount !== expectedPageCount) {
+    throw new Error(`CV PDF has ${pageCount} pages; expected ${expectedPageCount}`)
+  }
+  return pageCount
 }
 
 export function startPreviewProcess(
@@ -154,13 +164,14 @@ export async function rewritePreviewLinksForPdf(page, previewUrl) {
 export async function generateCvPdf({
   clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   pdfPath = path.join(clientRoot, 'dist', 'harley-bartles-cv.pdf'),
-    previewUrl = DEFAULT_PREVIEW_URL,
-    assertPreviewPort = assertPreviewPortAvailable,
-    startPreview = startPreviewProcess,
-    waitForPreview = waitForPreviewServer,
-    launchBrowser = () => chromium.launch(),
-    stopPreview = stopPreviewProcess,
-    rewriteLinksForPdf = rewritePreviewLinksForPdf,
+  previewUrl = DEFAULT_PREVIEW_URL,
+  assertPreviewPort = assertPreviewPortAvailable,
+  startPreview = startPreviewProcess,
+  waitForPreview = waitForPreviewServer,
+  launchBrowser = () => chromium.launch(),
+  stopPreview = stopPreviewProcess,
+  rewriteLinksForPdf = rewritePreviewLinksForPdf,
+  assertPdfPageCount = assertCvPdfPageCount,
 } = {}) {
   let previewProcess
   let browser
@@ -197,7 +208,8 @@ export async function generateCvPdf({
     })
 
     const pdfBytes = assertCvPdf(pdfPath)
-    return { pdfPath, pdfBytes }
+    const pdfPages = await assertPdfPageCount(pdfPath)
+    return { pdfPath, pdfBytes, pdfPages }
   } finally {
     try {
       await page?.close()
@@ -215,5 +227,5 @@ const scriptPath = process.argv[1] === undefined ? '' : pathToFileURL(path.resol
 
 if (scriptPath === import.meta.url) {
   const result = await generateCvPdf()
-  console.log(`[generate-cv-pdf] wrote ${result.pdfPath} (${result.pdfBytes} bytes)`)
+  console.log(`[generate-cv-pdf] wrote ${result.pdfPath} (${result.pdfBytes} bytes, ${result.pdfPages} pages)`)
 }

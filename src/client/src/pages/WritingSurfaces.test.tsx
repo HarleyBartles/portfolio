@@ -38,6 +38,17 @@ describe('Writing discovery surfaces', () => {
     expect(list.querySelector('[data-visual-contract="writing-editorial-lead"]')).toBeNull()
   })
 
+  test('marks an authored article as longform and keeps reading time in metadata', async () => {
+    renderRoute('/writing/why-adrs')
+
+    const title = await screen.findByRole('heading', { level: 1, name: 'Why ADRs?' })
+    const article = title.closest('article')
+
+    expect(article).toHaveAttribute('data-visual-language', 'authored-longform')
+    expect(article).toHaveAttribute('data-type-register', 'article-serif')
+    expect(screen.getByText(/min read/).closest('.editorial-meta')).toBeInTheDocument()
+  })
+
   test('uses the newest article as the homepage latest essay', async () => {
     renderRoute('/')
 

@@ -11,7 +11,7 @@ Use this runbook when authoring a Portfolio-owned skill under `port-*/`.
 
 - Create the skill under `.agents/skills/port-<name>/` with `SKILL.md` frontmatter.
 - Declare the skill in `.agents/plugins/marketplace.json` under `repo.local_skills`.
-- Run `py -3 tools/run.py ci --apply` to regenerate the mesh and provenance.
+- Run `py -3 tools/run.py refresh-skills --apply` to refresh installed provenance, then `py -3 tools/run.py mesh --apply` when the mesh also changed. Inspect and stage those outputs; the normal commit hook owns the complete gate.
 - Do not let marketplace refresh tooling overwrite `port-*` skills.
 
 ## See also

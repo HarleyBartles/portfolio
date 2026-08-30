@@ -63,8 +63,11 @@ cd ../..
 ```
 
 The Playwright command builds the production client and starts only the Vite
-preview server. Repository tooling checks use `py -3` on Windows and
-`python3` on Bash:
+preview server. A normal commit already runs the complete repository pipeline
+once through the tracked hook. Use the commands below directly only when no
+commit will follow, when diagnosing the whole pipeline, or when checking CI
+parity; do not run them immediately before or after a normal hooked commit.
+Repository tooling uses `py -3` on Windows and `python3` on Bash:
 
 ```powershell
 py -3 tools/run.py ci --check

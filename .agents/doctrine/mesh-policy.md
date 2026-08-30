@@ -68,8 +68,8 @@ The `tools/` tree is the repo-local tooling surface.
 - `py -3 tools/run.py index-mesh --apply` owns index generation through the bundled implementation and Portfolio's declarative exclusions.
 - `py -3 tools/run.py mesh --apply` composes `index-mesh` with agent-mesh validation.
 - `py -3 tools/run.py refresh-skills --apply` owns marketplace-derived skill refresh. The older `skills` name remains a compatibility alias, not the standard dispatch target.
-- `py -3 tools/run.py ci --check` is the canonical combined readiness check.
-- `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
+- `py -3 tools/run.py ci --check` is the complete combined readiness check. For normal commit work, the tracked hook owns its single execution against the staged tree; direct invocation is reserved for no-commit verification, pipeline diagnosis, or explicit CI-parity work.
+- Prefer the narrow owning generator (`refresh-skills --apply`, `index-mesh --apply`, or `mesh --apply`). Reserve umbrella `ci --apply` for deliberate repair of several generated surfaces, inspect its diff, and let the normal commit hook own complete verification.
 
 ## 7. Handoff quality gate
 

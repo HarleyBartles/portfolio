@@ -46,7 +46,7 @@ test('about intro starts both desktop columns on the same baseline', async ({ pa
   expect(Math.abs(headingBox!.y - copyBox!.y)).toBeLessThanOrEqual(1)
 })
 
-test('about uses a deliberate first fold and one boundary between structural sections', async ({ page }) => {
+test('about uses a content-led first section and one boundary between structural sections', async ({ page }) => {
   await page.goto('./about/')
   await expect(page.locator('.about-intro')).toBeVisible()
 
@@ -68,8 +68,8 @@ test('about uses a deliberate first fold and one boundary between structural sec
     }
   })
 
-  expect(layout.introMinimumHeight).toBeGreaterThan(0)
-  expect(layout.introHeight).toBeGreaterThanOrEqual(layout.introMinimumHeight)
+  expect(layout.introMinimumHeight).toBe(0)
+  expect(layout.introHeight).toBeGreaterThan(0)
   expect(layout.articlePaddingBottom).toBe('0px')
   expect(layout.careerPaddingBottom).toBe('0px')
   expect(layout.contactPaddingBottom).toBe('40px')

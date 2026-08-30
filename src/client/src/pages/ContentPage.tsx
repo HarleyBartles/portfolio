@@ -20,6 +20,7 @@ import { getWritingPresentation } from '../features/writing/writingPresentations
 import { ProductOwnershipArticle } from '../features/writing/ProductOwnershipArticle'
 import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
 import '../features/writing/WritingPullQuotes.scss'
+import '../styles/interior.scss'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
 import { formatContentDate, sortWriting } from '../utils/content'
@@ -178,7 +179,12 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         description={document.summary.summary}
         canonicalPath={getContentPath(document.summary)}
       />
-      <article className={`content-page content-page--${document.summary.kind}`} aria-labelledby="content-page-title">
+      <article
+        className={`content-page content-page--${document.summary.kind}`}
+        aria-labelledby="content-page-title"
+        data-visual-language={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
+        data-type-register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
+      >
         <header
           className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
           data-visual-contract={visualContract}
@@ -195,10 +201,13 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
               </p>
             ) : null}
             <p className="content-summary">{document.summary.summary}</p>
-            {document.summary.kind === 'project' ? <ProjectStatus status={document.summary.status} /> : null}
+            {document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : null}
           </div>
+          {document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? (
+            <div className="content-page-status-anchor"><ProjectStatus status={document.summary.status} /></div>
+          ) : null}
           {projectVisualSlug === null ? null : (
-            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} /></div>
+            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" /></div>
           )}
           {WritingFigure === undefined ? null : (
             <div className="content-page-visual content-page-visual--writing">

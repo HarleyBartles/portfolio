@@ -4,6 +4,8 @@
 
 .wild-bunch-case-study {
   --wild-bunch-color-faded-gold: #e6bf6d;
+  --wild-bunch-color-earth: #574c3f;
+  --wild-bunch-color-field: #ded7cc;
 
   display: grid;
   gap: clamp(var(--space-12), 8vw, var(--space-20));
@@ -17,8 +19,19 @@
 }
 
 .wild-bunch-story-movement,
+.wild-bunch-build-evidence,
 .wild-bunch-source-note {
   min-width: 0;
+}
+
+.wild-bunch-build-evidence {
+  width: min(100%, 68rem);
+  margin: calc(clamp(var(--space-6), 4vw, var(--space-10)) * -1) 0 0 auto;
+}
+
+.wild-bunch-story-movement[data-project-field='constructed-world'] {
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  background: var(--wild-bunch-color-field);
 }
 
 .wild-bunch-story-movement > section,
@@ -44,8 +57,7 @@
 
 .wild-bunch-dossier {
   padding: var(--space-6);
-  border-top: 2px solid var(--color-accent);
-  background: var(--color-surface);
+  border-block: 1px solid var(--color-border);
 }
 
 .wild-bunch-dossier h3 {
@@ -62,11 +74,10 @@
 }
 
 .wild-bunch-dossier dt {
-  color: var(--color-accent);
-  font-family: var(--font-code);
-  font-size: .75rem;
+  color: var(--color-muted);
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .wild-bunch-dossier dd {
@@ -77,7 +88,7 @@
 .wild-bunch-event-flow {
   margin: 0;
   padding: clamp(var(--space-6), 4vw, var(--space-10));
-  background: var(--color-teal-deep);
+  background: var(--wild-bunch-color-earth);
   color: var(--color-surface);
 }
 
@@ -115,10 +126,9 @@
 .wild-bunch-determinism-figure h3 {
   margin: 0;
   color: var(--wild-bunch-color-faded-gold);
-  font-family: var(--font-code);
-  font-size: .8rem;
-  letter-spacing: .05em;
-  text-transform: uppercase;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  letter-spacing: .012em;
 }
 
 .wild-bunch-determinism-figure p,
@@ -136,6 +146,180 @@
   color: var(--color-surface);
 }
 
+.wild-bunch-codec-map {
+  container: wild-bunch-codec-map / inline-size;
+  margin-block: var(--space-4) var(--space-5);
+  box-sizing: border-box;
+  padding: var(--space-4) var(--space-2);
+  border: 1px solid rgb(230 191 109 / 24%);
+  background: var(--wild-bunch-color-earth);
+  box-shadow: 0 .9rem 2rem rgb(18 15 11 / 16%);
+  font-family: var(--font-site-sans);
+}
+
+.wild-bunch-codec-map__eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--wild-bunch-color-faded-gold);
+  font-size: var(--type-metadata-size);
+  font-weight: 700;
+  letter-spacing: .025em;
+}
+
+.wild-bunch-codec-map__uuid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-wrap: normal;
+  color: var(--color-surface);
+  font-family: var(--font-code);
+  font-size: clamp(.82rem, 2cqi, 1.05rem);
+  letter-spacing: .025em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.wild-bunch-codec-map__allocation {
+  margin-top: var(--space-5);
+}
+
+.wild-bunch-codec-map__allocation-labels,
+.wild-bunch-codec-map__allocation-rail,
+.wild-bunch-codec-map__allocation-notes {
+  display: grid;
+  grid-template-columns: 95fr 33fr;
+}
+
+.wild-bunch-codec-map__allocation-labels,
+.wild-bunch-codec-map__allocation-notes {
+  color: rgb(255 250 240 / 72%);
+  font-size: var(--type-metadata-size);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.wild-bunch-codec-map__allocation-rail {
+  height: 1.75rem;
+  margin-block: var(--space-2);
+}
+
+.wild-bunch-codec-map__allocation-rail span:first-child {
+  border: 1px solid rgb(255 250 240 / 34%);
+  background: rgb(255 250 240 / 5%);
+}
+
+.wild-bunch-codec-map__allocation-rail span:last-child {
+  border: 1px solid var(--wild-bunch-color-faded-gold);
+  background: rgb(230 191 109 / 18%);
+}
+
+.wild-bunch-codec-map__allocation-notes span:last-child {
+  color: var(--wild-bunch-color-faded-gold);
+}
+
+.wild-bunch-codec-map__recipe-heading {
+  margin-top: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgb(255 250 240 / 24%);
+}
+
+.wild-bunch-codec-map__recipe-heading p {
+  margin: 0;
+  color: var(--wild-bunch-color-faded-gold);
+  font-size: var(--type-metadata-size);
+  font-weight: 700;
+}
+
+.wild-bunch-codec-map__recipe-heading span {
+  margin-left: var(--space-2);
+  color: rgb(255 250 240 / 68%);
+  font-weight: 400;
+}
+
+.wild-bunch-codec-map__groups {
+  display: grid;
+  grid-template-columns: 4fr 4fr 3fr;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.wild-bunch-codec-map__group--topology {
+  --codec-group-color: #d2c0aa;
+}
+
+.wild-bunch-codec-map__group--settlement {
+  --codec-group-color: var(--color-evidence-group-secondary);
+}
+
+.wild-bunch-codec-map__group--case {
+  --codec-group-color: var(--wild-bunch-color-faded-gold);
+}
+
+.wild-bunch-codec-map__group h4 {
+  margin: 0;
+  padding-top: var(--space-2);
+  border-top: 2px solid var(--codec-group-color);
+  color: var(--codec-group-color);
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  line-height: 1.2;
+}
+
+.wild-bunch-codec-map__group ol {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wild-bunch-codec-map__group li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: baseline;
+  min-width: 0;
+}
+
+.wild-bunch-codec-map__group li > code {
+  color: var(--codec-group-color);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.wild-bunch-codec-map__group strong,
+.wild-bunch-codec-map__group small {
+  display: block;
+}
+
+.wild-bunch-codec-map__group strong {
+  color: var(--codec-group-color);
+  font-size: var(--type-metadata-size);
+  line-height: 1.2;
+}
+
+.wild-bunch-codec-map__group small {
+  margin-top: .15rem;
+  color: rgb(255 250 240 / 68%);
+  font-size: .8125rem;
+  line-height: 1.25;
+}
+
+@container wild-bunch-codec-map (max-width: 36rem) {
+  .wild-bunch-codec-map__groups {
+    grid-template-columns: 1fr;
+  }
+
+  .wild-bunch-codec-map__group ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container wild-bunch-codec-map (max-width: 24rem) {
+  .wild-bunch-codec-map__group ol {
+    grid-template-columns: 1fr;
+  }
+}
+
 .wild-bunch-event-flow ol {
   counter-reset: event-stage;
 }
@@ -151,8 +335,8 @@
   counter-increment: event-stage;
   content: counter(event-stage, decimal-leading-zero);
   color: var(--wild-bunch-color-faded-gold);
-  font-family: var(--font-code);
-  font-size: .8rem;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
 }
 
@@ -164,10 +348,9 @@
 .wild-bunch-event-flow-content h3 {
   margin: 0;
   color: var(--wild-bunch-color-faded-gold);
-  font-family: var(--font-code);
-  font-size: .8rem;
-  letter-spacing: .05em;
-  text-transform: uppercase;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  letter-spacing: .012em;
 }
 
 .wild-bunch-event-flow-content p {
@@ -176,8 +359,6 @@
 
 .wild-bunch-evidence {
   margin: 0;
-  background: var(--color-ink);
-  color: var(--color-surface);
 }
 
 .wild-bunch-evidence picture,
@@ -187,6 +368,21 @@
 
 .wild-bunch-evidence img {
   height: auto;
+}
+
+.wild-bunch-evidence--dustwell-town-hub-focus {
+  max-width: 50rem;
+  margin-inline: auto;
+}
+
+.wild-bunch-evidence--trail-map-focus {
+  max-width: 37.5rem;
+  margin-inline: auto;
+}
+
+.wild-bunch-evidence--wanted-notice-focus {
+  max-width: 36.875rem;
+  margin-inline: auto;
 }
 
 .wild-bunch-product-evidence {
@@ -204,10 +400,16 @@
   .wild-bunch-story-movement--event-history > section,
   .wild-bunch-story-movement--knowledge-boundary > section {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 1fr);
+    grid-template-columns: minmax(0, .9fr) minmax(28rem, 1.1fr);
     column-gap: clamp(var(--space-8), 6vw, var(--space-16));
     align-items: start;
     max-width: none;
+  }
+
+  .wild-bunch-story-movement--determinism .wild-bunch-codec-map {
+    width: 122%;
+    margin-left: -19.5%;
+    margin-right: -2.5%;
   }
 
   .wild-bunch-story-movement--determinism h2,
@@ -236,7 +438,6 @@
     align-self: start;
   }
 
-  .wild-bunch-determinism-figure ol,
   .wild-bunch-event-flow ol {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--space-8);

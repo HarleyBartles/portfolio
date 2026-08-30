@@ -36,6 +36,54 @@ def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subpro
 
 
 class PreCommitHookTests(unittest.TestCase):
+    def test_worker_guidance_uses_the_hook_as_the_single_normal_commit_gate(self) -> None:
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        testing = (ROOT / ".agents/runbooks/testing.md").read_text(encoding="utf-8")
+        pull_requests = (ROOT / ".agents/runbooks/pr.md").read_text(encoding="utf-8")
+        code_style = (ROOT / ".agents/runbooks/code-style.md").read_text(encoding="utf-8")
+
+        rule = "Do not run `py -3 tools/run.py ci --check` immediately before a normal commit"
+        self.assertIn(rule, agents)
+        self.assertIn(rule, testing)
+        self.assertNotIn("Run `py -3 tools/run.py ci --check` before pushing.", pull_requests)
+        self.assertNotIn("Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.", code_style)
+
+        active_guidance = [
+            ROOT / "AGENTS.md",
+            ROOT / "README.md",
+            ROOT / "CONTRIBUTING.md",
+            ROOT / "src/README.md",
+            ROOT / ".github/pull_request_template.md",
+        ]
+        for directory in (
+            ROOT / ".agents/doctrine",
+            ROOT / ".agents/runbooks",
+            ROOT / ".agents/plans",
+            ROOT / ".agents/specs",
+            ROOT / ".devin/rules",
+        ):
+            active_guidance.extend(
+                path
+                for path in directory.rglob("*.md")
+                if "completed" not in path.relative_to(ROOT).parts
+            )
+
+        misleading_signage = (
+            "Run the staged canonical gate",
+            "run the canonical gate on the staged final tree",
+            "Run `py -3 tools/run.py ci --check` before pushing.",
+            "Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.",
+            "Run `py -3 tools/run.py ci --check` once on the final staged tree before commit",
+        )
+        violations = []
+        for path in active_guidance:
+            content = path.read_text(encoding="utf-8")
+            for phrase in misleading_signage:
+                if phrase.casefold() in content.casefold():
+                    violations.append(f"{path.relative_to(ROOT)}: {phrase}")
+
+        self.assertEqual([], violations, "Misleading validation signage:\n" + "\n".join(violations))
+
     def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
         hook = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
 

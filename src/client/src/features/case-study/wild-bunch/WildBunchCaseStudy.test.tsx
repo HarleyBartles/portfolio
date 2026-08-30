@@ -38,6 +38,8 @@ describe('WildBunchCaseStudy', () => {
     ])
     expect(sourceNote).toHaveLength(1)
     expect(sourceNote[0]).toHaveAttribute('data-story-close', 'source-note')
+    expect(caseStudy.querySelector('[data-story-movement="determinism"]')).toHaveAttribute('data-project-field', 'constructed-world')
+    expect(caseStudy.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     expect(determinism).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
     expect(eventFlow).toHaveAttribute('data-relationship', 'ordered-semantic-stages')
     expect(determinism.querySelectorAll('[class*="connector"]')).toHaveLength(0)
@@ -74,7 +76,7 @@ describe('WildBunchCaseStudy', () => {
     expect(follows(knowledge, choice)).toBe(true)
     expect(follows(choice, future)).toBe(true)
     expect(follows(future, sourceNote)).toBe(true)
-    expect(screen.getAllByText(/current playable build/i)).toHaveLength(1)
+    expect(screen.getAllByText(/current playable build/i)).toHaveLength(2)
     expect(screen.queryByRole('heading', { level: 2, name: 'Built, in motion, beyond pre-alpha' })).not.toBeInTheDocument()
   })
 
@@ -175,7 +177,7 @@ describe('WildBunchCaseStudy', () => {
     renderCaseStudy()
 
     expect(screen.getByText(/uses 33 of them and deliberately reserves 95/i)).toBeVisible()
-    expect(screen.getByText(/Dustwell, shown above, is one generated town in this seed's map-world/i)).toBeVisible()
+    expect(screen.getByText(/Dustwell, shown above, is the generated town captured for the recorded seed/i)).toBeVisible()
     expect(screen.getByText(/Every town comes from the world contract/i)).toBeVisible()
     expect(screen.getByText(/When the player leaves and returns, it's the same place/i)).toBeVisible()
     expect(screen.getByText(/which actions brought them there, which version of the rules accepted each action/i)).toBeVisible()

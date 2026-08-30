@@ -1,0 +1,45 @@
+{
+  "generatedBy": "src/client/scripts/process-wild-bunch-concept-art.mjs",
+  "derivatives": [
+    {
+      "id": "town-arrival-landscape",
+      "sourceSha256": "9d592f8840034dc9be94c541d2e1fb744f5cba55663e5881730c338628cfc21e",
+      "path": "src/client/public/media/wild-bunch/town-arrival-landscape.avif",
+      "width": 1440,
+      "height": 810,
+      "format": "avif",
+      "bytes": 121640,
+      "outputSha256": "6347656b7543f9d14f050345ce056143ee6d4cfe39f4b5558f2cbd69ef03a3ee"
+    },
+    {
+      "id": "town-arrival-landscape",
+      "sourceSha256": "9d592f8840034dc9be94c541d2e1fb744f5cba55663e5881730c338628cfc21e",
+      "path": "src/client/public/media/wild-bunch/town-arrival-landscape.webp",
+      "width": 1440,
+      "height": 810,
+      "format": "webp",
+      "bytes": 169746,
+      "outputSha256": "bc58e90bf375e61d46d7145ef3576343862b8efba89d85799437fb6784b44a15"
+    },
+    {
+      "id": "town-arrival-portrait",
+      "sourceSha256": "6caa63f62e91da216054c864893e277f085b30f0b3149aacafac61c9b25456c2",
+      "path": "src/client/public/media/wild-bunch/town-arrival-portrait.avif",
+      "width": 720,
+      "height": 900,
+      "format": "avif",
+      "bytes": 81615,
+      "outputSha256": "d639d07825dad94675e38bdfaa411a84097c3fa19debacfb2f06fe3995ecc9d4"
+    },
+    {
+      "id": "town-arrival-portrait",
+      "sourceSha256": "6caa63f62e91da216054c864893e277f085b30f0b3149aacafac61c9b25456c2",
+      "path": "src/client/public/media/wild-bunch/town-arrival-portrait.webp",
+      "width": 720,
+      "height": 900,
+      "format": "webp",
+      "bytes": 109312,
+      "outputSha256": "3ed7d4ff6f1c3d1eee64adfb0e745257d1629c15e8b80f99c4b1be1bf37dc834"
+    }
+  ]
+}

@@ -1105,6 +1105,15 @@ main,
   background: var(--color-teal-deep);
 }
 
+.editorial-card-visual--adventures-of-patch {
+  background: #fbf8ee;
+}
+
+.editorial-card-visual--adventures-of-patch + .editorial-card-copy .status-active-project {
+  border-color: color-mix(in srgb, var(--color-teal) 56%, transparent);
+  background: color-mix(in srgb, var(--color-teal) 9%, transparent);
+}
+
 .editorial-card-visual .project-visual,
 .editorial-card-visual .editorial-card-media {
   transition: transform var(--duration-state) var(--ease-out);
@@ -1463,8 +1472,8 @@ main,
 
 .about-problems li span {
   color: var(--color-accent-soft);
-  font-family: var(--font-code);
-  font-size: 0.74rem;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
 }
 
 .about-problems li p {
@@ -1578,11 +1587,11 @@ main,
 }
 
 .cv-role {
-  color: var(--color-accent) !important;
-  font-family: var(--font-code);
-  font-size: 0.82rem;
+  color: var(--color-muted) !important;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .cv-capabilities,
@@ -1623,12 +1632,12 @@ main,
 }
 
 .cv-education dt {
-  color: var(--color-accent);
-  font-family: var(--font-code);
-  font-size: 0.76rem;
+  color: var(--color-muted);
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .cv-education dd,
@@ -1754,7 +1763,7 @@ main,
 
   .cv-links a[href^='https']::after {
     content: ' (' attr(href) ')';
-    font-family: var(--font-code);
+    font-family: var(--font-site-sans);
     font-size: 6.25pt;
     overflow-wrap: anywhere;
   }
@@ -1818,11 +1827,11 @@ main,
 }
 
 .contact-field label {
-  font-family: var(--font-code);
-  font-size: 0.74rem;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .contact-field input,
@@ -2066,7 +2075,11 @@ main,
 
   .editorial-index-grid--projects .editorial-card,
   .editorial-index-grid--projects .editorial-card:nth-child(n) {
-    grid-column: span 12;
+    grid-column: auto;
+  }
+
+  .editorial-index-grid--projects {
+    grid-template-columns: 1fr;
   }
 
   .editorial-index-grid--fairytales {
@@ -2115,6 +2128,11 @@ main,
 }
 
 @media (max-width: 30rem) {
+  .project-visual--marketplace {
+    aspect-ratio: auto;
+    padding: var(--space-4);
+  }
+
   .marketplace-nodes {
     min-width: 0;
     grid-template-columns: 1fr;
@@ -2304,7 +2322,7 @@ main,
 }
 
 .career-timeline__rail .eyebrow {
-  color: var(--color-accent);
+  color: var(--color-muted);
   margin: 0;
 }
 
@@ -2332,11 +2350,11 @@ main,
 }
 
 .career-timeline__content dt {
-  color: var(--color-accent);
-  font-family: var(--font-code);
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: var(--color-muted);
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .career-timeline__content dd {
@@ -2379,7 +2397,7 @@ main,
 }
 
 .capability-list .eyebrow {
-  color: var(--color-accent);
+  color: var(--color-muted);
 }
 
 .capability-list h3 {

@@ -18,6 +18,8 @@ describe('Lawful Heist crew story', () => {
     )
 
     const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
+    expect(story).toHaveAttribute('data-type-register', 'site-sans')
+    expect(story.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     const profiles = within(story).getAllByRole('article')
     expect(profiles).toHaveLength(6)
     expect(profiles.map((profile) => within(profile).getByRole('heading', { level: 2 }).textContent)).toEqual([

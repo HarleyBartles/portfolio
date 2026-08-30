@@ -127,7 +127,7 @@ git commit -m "refactor: separate home and interior surfaces"
 - Consumes: `.site-shell--interior` from Task 1 and the accepted typography/substrate contracts.
 - Produces: `--color-interior-canvas`, `--font-site-sans`, `--font-article-serif`, `--font-technical`, exact role tokens, and Fontsource dependencies for Source Sans 3 and Source Code Pro. Existing Fraunces/Fira Code tokens remain available only to the protected homepage until Phase 8.
 
-- [ ] **Step 1: Write failing semantic-token and font tests**
+- [x] **Step 1: Write failing semantic-token and font tests**
 
 Extend `editorialTheme.test.ts` with exact CSS-variable references:
 
@@ -140,7 +140,7 @@ expect(editorialTheme.font.technical).toBe('var(--font-technical)')
 
 Extend `fonts.spec.ts` to assert that an interior About heading resolves to Source Sans 3, article body to Source Serif 4, and a genuine code block to Source Code Pro. Keep the existing self-hosted/no-CDN assertions.
 
-- [ ] **Step 2: Run focused tests and observe RED**
+- [x] **Step 2: Run focused tests and observe RED**
 
 ```powershell
 npm test -- --run src/styles/editorialTheme.test.ts scripts/css-token-references.test.ts
@@ -149,7 +149,7 @@ npm run test:e2e -- e2e/fonts.spec.ts
 
 Expected: fail because Source Sans 3, Source Code Pro and the interior role tokens do not exist in production.
 
-- [ ] **Step 3: Add the accepted Fontsource dependencies and faces**
+- [x] **Step 3: Add the accepted Fontsource dependencies and faces**
 
 From `src/client` run:
 
@@ -159,7 +159,7 @@ npm install @fontsource-variable/source-sans-3@^5.3.0 @fontsource-variable/sourc
 
 Define normal variable faces with `font-display: swap`. Keep Source Serif 4. Do not remove legacy Fraunces/Fira Code while the homepage is protected.
 
-- [ ] **Step 4: Add exact interior role tokens and scoped defaults**
+- [x] **Step 4: Add exact interior role tokens and scoped defaults**
 
 Add these semantic values to `_tokens.scss` and mirror them in `editorialTheme.ts`:
 
@@ -183,7 +183,7 @@ Add these semantic values to `_tokens.scss` and mirror them in `editorialTheme.t
 
 Scope the mineral background and Source Sans base to `.site-shell--interior`. Scope Source Serif to `.content-page--writing` article title/body roles, not generic blockquotes. Scope Source Code Pro only to `code`, `pre`, diffs, command output and explicit machine-readable evidence hooks.
 
-- [ ] **Step 5: Prove role mapping, fallback behaviour and homepage isolation**
+- [x] **Step 5: Prove role mapping, fallback behaviour and homepage isolation**
 
 Run:
 
@@ -215,7 +215,7 @@ git commit -m "feat: add interior typography and substrate roles"
 - Consumes: `showName` and interior tokens from Tasks 1-2.
 - Produces: one interior identity/navigation flow with visible `Harley Bartles`, neutral active state, natural wrapping and no route-context furniture.
 
-- [ ] **Step 1: Write failing shell behaviour assertions**
+- [x] **Step 1: Write failing shell behaviour assertions**
 
 Add tests that assert:
 
@@ -228,7 +228,7 @@ await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link')
 
 At 195px, keep the existing keyboard-reachability assertion and add page-overflow and visible-name assertions.
 
-- [ ] **Step 2: Run shell tests and observe RED**
+- [x] **Step 2: Run shell tests and observe RED**
 
 ```powershell
 npm test -- --run src/components/SiteLayout.test.tsx
@@ -237,11 +237,11 @@ npm run test:e2e -- e2e/narrow-navigation.spec.ts e2e/link-behavior.spec.ts
 
 Expected: the new visible-name and interior shell assertions fail.
 
-- [ ] **Step 3: Style the single-flow interior shell**
+- [x] **Step 3: Style the single-flow interior shell**
 
 Use Source Sans 3 for navigation at the 14px metadata floor, sentence case, ordinary underline/current-state treatment and visible focus. Keep HB + visible name in one home link. Allow the existing five-link list to wrap; do not add a hamburger, breadcrumb, folio line, route-context row or project colour.
 
-- [ ] **Step 4: Prove navigation behaviour and accessibility**
+- [x] **Step 4: Prove navigation behaviour and accessibility**
 
 ```powershell
 npm run test:e2e -- e2e/narrow-navigation.spec.ts e2e/link-behavior.spec.ts e2e/accessibility.spec.ts
@@ -274,7 +274,7 @@ git commit -m "feat: implement the quiet interior shell"
 - Consumes: interior substrate, typography and shell from Tasks 1-3.
 - Produces: Sans project/index hierarchy, quieter Serif article register, 14px metadata, semantic variable cadence and route-owned visual hooks. It does not produce a shared evidence frame or reusable route composition.
 
-- [ ] **Step 1: Write failing route-role tests**
+- [x] **Step 1: Write failing route-role tests**
 
 Assert exact semantic ownership rather than CSS class snapshots:
 
@@ -286,20 +286,20 @@ expect(screen.getByText(/min read/).closest('.editorial-meta')).toBeInTheDocumen
 
 In Playwright assert computed font family/size for project title, article title/body and metadata, plus source-order and no-overflow at `1440`, `768`, `390`, `320` and a `360px` 200%-zoom proxy.
 
-- [ ] **Step 2: Run focused route tests and observe RED**
+- [x] **Step 2: Run focused route tests and observe RED**
 
 ```powershell
 npm test -- --run src/pages/ProjectPage.test.tsx src/pages/WritingSurfaces.test.tsx
 npm run test:e2e -- e2e/writing-navigation.spec.ts
 ```
 
-- [ ] **Step 3: Apply semantic type and cadence roles**
+- [x] **Step 3: Apply semantic type and cadence roles**
 
 Add `data-visual-language` to the existing `article` in `ContentPage.tsx`. Keep project/index body in Source Sans. Keep authored article display/body in Source Serif, with article display no larger or louder than the site-display role. Replace uppercase/tracked Mono metadata with sentence-case Source Sans at `14px/1.4/.012em`. Keep pull quotes inside the article's authored register and existing semantic `blockquote` ownership.
 
 Recompose index spacing from content relationships: cluster title, summary, status/date and action; open larger space only between distinct entries/movements. Do not convert every entry to equal cards or copy the integrated proof layout.
 
-- [ ] **Step 4: Prove longform and index behaviour**
+- [x] **Step 4: Prove longform and index behaviour**
 
 ```powershell
 npm test -- --run src/pages/ProjectPage.test.tsx src/pages/WritingSurfaces.test.tsx
@@ -332,7 +332,7 @@ git commit -m "feat: apply non-home index and longform grammar"
 - Consumes: Sans/metadata/caption roles and route hooks from Tasks 2 and 4.
 - Produces: shared custody semantics for captions, provenance, status and qualification while leaving artifact boundary/style to each project presentation.
 
-- [ ] **Step 1: Replace the old shared-frame test with failing custody tests**
+- [x] **Step 1: Replace the old shared-frame test with failing custody tests**
 
 Preserve the allowed shared caption semantics but stop asserting one identical visual frame across media. Add:
 
@@ -344,18 +344,18 @@ expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInT
 
 In `project-story.spec.ts`, replace `sibling case studies share one evidence-caption treatment` with assertions that Wild Bunch, Patch, Marketplace and Learning Lab each retain distinct artifact boundaries while captions remain Source Sans 3 at 14px and adjacent in semantic order.
 
-- [ ] **Step 2: Run focused case-study tests and observe RED**
+- [x] **Step 2: Run focused case-study tests and observe RED**
 
 ```powershell
 npm test -- --run src/features/case-study/CaseStudyPrimitives.test.tsx
 npm run test:e2e -- e2e/project-story.spec.ts --grep "custody|caption|artifact"
 ```
 
-- [ ] **Step 3: Implement custody primitives, not an evidence container**
+- [x] **Step 3: Implement custody primitives, not an evidence container**
 
 Keep `CaseStudyEvidence` responsible for provenance/status/action semantics only. Add `data-evidence-custody="provenance"` to that semantic seam. Do not add a wrapper that imposes border, background, radius, header/body/footer or colour on child artifacts. In `CaseStudyBody.scss`, define shared caption typography and adjacency; keep media boundary rules out of the shared file.
 
-- [ ] **Step 4: Prove source-native evidence and narrow behaviour**
+- [x] **Step 4: Prove source-native evidence and narrow behaviour**
 
 ```powershell
 npm test -- --run src/features/case-study/CaseStudyPrimitives.test.tsx
@@ -394,7 +394,7 @@ git commit -m "refactor: make case-study evidence custody semantic"
 - Consumes: shared custody rules from Task 5 and the existing specialist-presentation registry.
 - Produces: four independently derived project compositions with artifact-first evidence, relationship-led cadence and no shared composition template. Project-native colour may remain inside artifacts or leave them through an earned finite field; no route is required to manufacture a field.
 
-- [ ] **Step 1: Add failing route-specific authority assertions**
+- [x] **Step 1: Add failing route-specific authority assertions**
 
 For every project, assert the absence of project colour on shared components. When a route lets project colour leave an artifact, give the owning field a specific `data-project-field` value and assert that finite boundary in the route test:
 
@@ -408,14 +408,14 @@ expect(container.querySelector('[data-project-field="<route-owned-field>"]')).to
 
 In Playwright, keep `.site-header`, `.content-status` and shared captions neutral. When a `data-project-field` exists, read computed styles and prove that the field is finite and returns to mineral afterwards. A route with no earned field should not add one to satisfy the test. Keep existing semantic order, media loading and public-evidence assertions.
 
-- [ ] **Step 2: Run project tests and observe RED**
+- [x] **Step 2: Run project tests and observe RED**
 
 ```powershell
 npm test -- --run src/features/case-study/marketplace/MarketplaceCaseStudy.test.tsx src/features/case-study/patch/PatchPipelineCaseStudy.test.tsx src/features/case-study/learning-lab/LearningLabCaseStudy.test.tsx src/features/case-study/wild-bunch/WildBunchCaseStudy.test.tsx
 npm run test:e2e -- e2e/project-story.spec.ts --grep "Wild Bunch|Patch|Learning Lab|Marketplace"
 ```
 
-- [ ] **Step 3: Derive and implement each route from its own material**
+- [x] **Step 3: Derive and implement each route from its own material**
 
 Implement these bounded jobs without sharing their geometry:
 
@@ -426,7 +426,7 @@ Implement these bounded jobs without sharing their geometry:
 
 For every route, cluster claim + proof + qualification, open space at genuine story movements and use a rail only for a real parallel information stream that collapses into source order.
 
-- [ ] **Step 4: Prove project routes at required widths and missing-media state**
+- [x] **Step 4: Prove project routes at required widths and missing-media state**
 
 ```powershell
 npm test -- --run src/features/case-study/marketplace/MarketplaceCaseStudy.test.tsx src/features/case-study/patch/PatchPipelineCaseStudy.test.tsx src/features/case-study/learning-lab/LearningLabCaseStudy.test.tsx src/features/case-study/wild-bunch/WildBunchCaseStudy.test.tsx
@@ -443,6 +443,38 @@ Stage the four project presentation folders, project browser tests, intentional 
 git add .agents/plans/portfolio-10k/2026-08-30-portfolio-10k-phase-8p-non-home-visual-language.md src/client/src/features/case-study/marketplace src/client/src/features/case-study/patch src/client/src/features/case-study/learning-lab src/client/src/features/case-study/wild-bunch src/client/e2e/project-story.spec.ts src/client/e2e/visual-regression.spec.ts src/client/e2e/visual-regression.spec.ts-snapshots
 git commit -m "feat: apply evidence-owned project compositions"
 ```
+
+### Task 6A: Replace the cramped UUID markup with a truthful responsive allocation plate
+
+**Files:**
+- Create: `src/client/src/features/case-study/wild-bunch/WildBunchCodecMap.tsx`
+- Modify: `src/client/src/features/case-study/wild-bunch/WildBunchDeterminismFigure.tsx`
+- Modify: `src/client/src/features/case-study/wild-bunch/WildBunchDeterminismFigure.test.tsx`
+- Modify: `src/client/src/features/case-study/wild-bunch/WildBunchCaseStudy.scss`
+
+**Interfaces:**
+- Consumes: the pinned resolver-v17 field ranges already represented by `WildBunchDeterminismFigure`.
+- Produces: one accessible `WildBunchCodecMap` with a canonical UUID, exact 95/33 allocation rail, and bracketed high-to-low field groups that retain readable CSS typography at every width.
+
+- [x] **Step 1: Extend the focused test around the truthful diagram contract**
+
+Assert one labelled image, the canonical UUID, explicit right-end packing, and all eleven individually bracketed sample values in high-to-low bit order.
+
+- [x] **Step 2: Run the focused test and observe RED**
+
+Run `npm test -- --run src/features/case-study/wild-bunch/WildBunchDeterminismFigure.test.tsx`; expect failure because the current markup groups all assigned bits into one misleading substring.
+
+- [x] **Step 3: Implement the shared-data responsive allocation plate**
+
+Keep the exact allocation rail proportional. Do not claim that field boundaries align to hexadecimal characters. Use semantic HTML and container-responsive CSS so the grouped fields reflow without shrinking their typography; give this page-specific technical plate a restrained 105% breakout only in the two-column composition.
+
+- [x] **Step 4: Prove semantics, build output and rendered breakpoints**
+
+Run the focused Vitest file and `npm run build`. Inspect `1440 × 1100`, `934 × 459`, `390 × 844`, `360 × 844` and `320 × 844`; require no page overflow and readable association between every bracketed value and its field label.
+
+- [ ] **Step 5: Hold for Harley's rendered acceptance**
+
+Do not make a separate commit while the Phase 8P visual review is active. Fold the accepted plate and its proof into Task 6 and the final normal-hook commit.
 
 ### Task 7: Apply the interior system to Patch stories, About and CV
 
@@ -468,7 +500,7 @@ git commit -m "feat: apply evidence-owned project compositions"
 - Consumes: interior type/shell/cadence and project-colour limits from Tasks 2-6.
 - Produces: Sans-only About/CV, one earned chronology rail, and Patch story routes whose expressive imagery remains project-owned without becoming the house system.
 
-- [ ] **Step 1: Write failing professional and Patch-route assertions**
+- [x] **Step 1: Write failing professional and Patch-route assertions**
 
 Add About/CV assertions for Source Sans title/body/metadata, one chronology rail, no Serif quotation and source-order collapse:
 
@@ -480,20 +512,20 @@ expect(container.querySelector('[data-type-register="article-serif"]')).not.toBe
 
 For Patch stories, preserve existing semantic event/recruitment order and add no-universal-frame and narrow-overflow assertions.
 
-- [ ] **Step 2: Run focused tests and observe RED**
+- [x] **Step 2: Run focused tests and observe RED**
 
 ```powershell
 npm test -- --run src/pages/CvPage.test.tsx src/features/patch-showcase/LawfulHeistPage.test.tsx src/features/patch-showcase/TournamentPage.test.tsx
 npm run test:e2e -- e2e/about-layout.spec.ts e2e/about.spec.ts e2e/cv-layout.spec.ts e2e/cv.spec.ts
 ```
 
-- [ ] **Step 3: Implement professional and Patch route grammar**
+- [x] **Step 3: Implement professional and Patch route grammar**
 
 Keep About and CV on mineral with Source Sans 3 throughout. Use the current `ProfessionalStoryRail` only for dates/state/context that remains useful beside the narrative; add `data-professional-rail="chronology"` and collapse it before its related content on narrow screens. Keep the production-invariant quotation in Sans. Remove paper retreat, prestige Serif, decorative Mono metadata, quotation furniture and repeated dossier rules.
 
 For Tournament and Lawful Heist, keep real source imagery, narrative order and the accepted project-specific scale/overlap decisions. Replace any route-wide warm-paper/rounded-panel/tracked-label house resemblance with the interior mineral ground and project-owned local treatments. Do not make Patch styling a shared template.
 
-- [ ] **Step 4: Prove professional and Patch routes**
+- [x] **Step 4: Prove professional and Patch routes**
 
 ```powershell
 npm test -- --run src/pages/CvPage.test.tsx src/features/patch-showcase/LawfulHeistPage.test.tsx src/features/patch-showcase/TournamentPage.test.tsx
@@ -509,6 +541,28 @@ git add .agents/plans/portfolio-10k/2026-08-30-portfolio-10k-phase-8p-non-home-v
 git commit -m "feat: apply the interior system to professional and Patch routes"
 ```
 
+### Task 7A: Close site-wide image alternative-text coverage
+
+**Files:**
+- Modify: `src/client/e2e/accessibility.spec.ts`
+- Modify: `docs/editorial-drafts/phase-8/phase-8p-non-home-implementation-proof.md`
+
+**Interfaces:**
+- Consumes: the generated public-route catalogue and the existing content/decorative distinction at every production `<img>` seam.
+- Produces: WCAG 2.2 SC 1.1.1 regression proof across every canonical public route, including every homepage feature state, while preserving deliberate empty alternatives for the linked HB mark and repeated Marketplace plugin icons.
+
+- [x] **Step 1: Audit the source and rendered contracts**
+
+Inventory direct JSX images, Markdown-authored images and responsive `<picture>` seams. Require descriptive alternatives for content images and empty alternatives only where the same accessible name or adjacent text already carries the information.
+
+- [x] **Step 2: Add a generated-route regression guard**
+
+Drive Playwright from `route-metadata.generated.json`. Fail when an image omits `alt`, when a non-decorative image has blank alternative text, or when an explicitly decorative image starts announcing duplicated prose. Cycle through every homepage feature rather than checking only its initial state.
+
+- [x] **Step 3: Prove the rendered route inventory**
+
+Run `npm run test:e2e -- e2e/accessibility.spec.ts --grep "site-wide image alternatives"`. Record the exact route count and outcome in the Phase 8P implementation proof. Do not make a separate commit while the final visual review remains active.
+
 ### Task 8: Record rendered proof, run the valuation gate and stop at Harley acceptance
 
 **Files:**
@@ -522,7 +576,7 @@ git commit -m "feat: apply the interior system to professional and Patch routes"
 - Consumes: completed Tasks 1-7 and their focused proof.
 - Produces: durable before/after custody, exact route/viewport evidence, AI-convergence judgment, canonical validation and an explicit Harley `Accepted` or `Blocked` result. It does not unlock or modify `/` by itself.
 
-- [ ] **Step 1: Add the final failing visual-coverage assertion**
+- [x] **Step 1: Add the final failing visual-coverage assertion**
 
 Add one data-driven Playwright inventory covering the representative families and widths:
 
@@ -536,7 +590,7 @@ const nonHomeProof = [
 
 For each route assert visible focus, no page overflow, expected type register and stable semantic source order at `1440 × 1100`, `390 × 844`, `320 × 844` and `360 × 844` zoom proxy. This automated proxy supplies repeatable reflow pressure; it does not prove actual browser zoom. Use the existing `decision-memory` hook from `writingPresentations.ts`; do not add a proof-only production hook.
 
-- [ ] **Step 2: Run the final visual test before updating proof and observe any missing coverage**
+- [x] **Step 2: Run the final visual test before updating proof and observe any missing coverage**
 
 ```powershell
 npm run test:e2e:visual
@@ -544,7 +598,7 @@ npm run test:e2e:visual
 
 Expected: fail only for intentional visual changes or an uncovered representative hook. Any behavioural, accessibility, overflow or homepage failure returns to the owning task.
 
-- [ ] **Step 3: Create the durable implementation-proof record**
+- [x] **Step 3: Create the durable implementation-proof record**
 
 Record exact branch/head, changed route families, source-owned assets, before-state commit, each implementation commit, Windows screenshot names, desktop/narrow/zoom-proxy conditions, the browser used for the separate actual 200% zoom pass, missing-media checks, accessibility results, rejected shortcuts and the AI-convergence assessment. Use these exact status fields:
 
@@ -565,15 +619,16 @@ Record exact branch/head, changed route families, source-owned assets, before-st
 
 After rendering, replace each valuation `Pending` with `Yes` or `No` and cite the specific observation and cultural reference used. Do not change Harley's `Pending` status without his actual rendered review; record `Accepted` or `Blocked` and attribute the decision accurately.
 
-- [ ] **Step 4: Regenerate, stage and run the clean final gate**
+- [ ] **Step 4: Regenerate and run focused final proof**
 
 From the repo root:
 
 ```powershell
 py -3 tools/run.py mesh --apply
-git add .
-py -3 tools/run.py ci --check
+npm.cmd --prefix src/client run test:e2e:visual
 ```
+
+Run only the affected unit slices named in Tasks 1-7, then inspect any regenerated output and the reviewed visual baselines. These focused proofs prepare the acceptance decision; they do not run or substitute for the complete commit gate.
 
 Expected: mesh is current; 73+ repository tests, 159+ client tests, production build/budgets and 93+ Playwright journeys pass on the staged tree. Do not commit if generated or test counts decrease without an explained source change.
 
@@ -583,7 +638,7 @@ Open the representative routes and proof record for Harley. Before asking for ac
 
 - [ ] **Step 6: Mark Task 8 complete and commit the accepted non-home implementation**
 
-After Harley acceptance, mark this task's boxes `[x]`, regenerate/stage again, let the normal pre-commit hook run the canonical gate, and commit without bypassing hooks:
+After Harley acceptance, mark this task's boxes `[x]`, stage the accepted tree, and commit normally. The pre-commit hook runs the complete gate once; do not pre-run or bypass it:
 
 ```powershell
 git add .

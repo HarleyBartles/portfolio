@@ -14,7 +14,7 @@
 - Keep the existing `.agents/specs/2026-08-19-portfolio-site-design.md` as the source of truth.
 - Do not introduce Tailwind, shadcn/ui, `motion`, `lenis`, or `lucide` in v0.1.
 - No `.NET` backend for the site.
-- All changes must keep `py -3 tools/run.py ci --check` passing.
+- All normal commits must pass the tracked hook's complete `ci --check` gate; use focused checks while iterating.
 - Write articles in the user's voice: direct, evidence-based, no fluff.
 
 ---
@@ -177,8 +177,8 @@
 **Files:**
 - All modified files.
 
-- [ ] **Step 1: Run `py -3 tools/run.py ci --check`.**
-- [ ] **Step 2: Run `npm run build` from `src/client/` and verify it completes.**
-- [ ] **Step 3: Stage, commit, and push the implementation branch to GitHub.**
-- [ ] **Step 4: Open a PR, run `ci --check` in the worktree, and merge to `main`.**
+- [ ] **Step 1: Run the focused checks and `npm run build` from `src/client/`.**
+- [ ] **Step 2: Stage and commit the implementation branch normally; let the tracked hook run the complete gate once.**
+- [ ] **Step 3: Push the proven commit and open a PR. Do not repeat the complete local gate before pushing or after the successful hook.**
+- [ ] **Step 4: Merge only after the hosted checks confirm the exact head.**
 - [ ] **Step 5: Move this plan to `.agents/plans/completed/` and update any index/roadmap links.**

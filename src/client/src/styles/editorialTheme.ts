@@ -8,6 +8,7 @@ export const editorialTheme = {
     accentSoft: 'var(--color-accent-soft)',
     tealDeep: 'var(--color-teal-deep)',
     border: 'var(--color-border)',
+    interiorCanvas: 'var(--color-interior-canvas)',
   },
   space: {
     xs: 'var(--space-2)',
@@ -21,6 +22,9 @@ export const editorialTheme = {
     display: 'var(--font-display)',
     body: 'var(--font-body)',
     code: 'var(--font-code)',
+    siteSans: 'var(--font-site-sans)',
+    articleSerif: 'var(--font-article-serif)',
+    technical: 'var(--font-technical)',
   },
 } as const
 

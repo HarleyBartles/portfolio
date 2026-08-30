@@ -255,6 +255,25 @@ The visible game art is first-party project work generated under Harley's direct
 - Alt intent: current development build showing player-known clues, records, and evidence without a hidden culprit answer. Caption framing: current development build / working skeleton.
 - Added: 2026-08-23. The measured derivatives all meet the stated byte targets; no legibility exception is recorded.
 
+### Phase 8P evidence crops
+
+These crops remove application-shell chrome while preserving the product surface that supports the case-study claim. They are deterministic derivatives generated and checked by `src/client/scripts/process-wild-bunch-evidence-crops.mjs`; `src/client/public/media/wild-bunch/evidence-crop-derivatives.json` records source identity, crop rectangles, output hashes, dimensions and bytes.
+
+- Dustwell source: receipt-controlled `src/client/public/media/wild-bunch/dustwell-town-1200.webp`, SHA-256 `03a765839f6650aaf54c4fb269fee40b727f6cd98b13f971e9fe37616912e0ba`. The `667 × 417` crop at `(267, 244)` retains the complete town hub while removing application-shell chrome. Public derivatives: `src/client/public/media/wild-bunch/dustwell-town-hub-focus-640.avif` (`640 × 400`, 6,346 bytes), `src/client/public/media/wild-bunch/dustwell-town-hub-focus-640.webp` (`640 × 400`, 10,256 bytes), `src/client/public/media/wild-bunch/dustwell-town-hub-focus-800.avif` (`800 × 500`, 7,858 bytes), and `src/client/public/media/wild-bunch/dustwell-town-hub-focus-800.webp` (`800 × 500`, 13,060 bytes).
+- Trail-map source: receipt-controlled `src/client/public/media/wild-bunch/trail-map-1200.webp`, SHA-256 `7b00aecd93e3729a2c50e9df3589a52061e55bb85cfba3a09d4f57e26b83c730`. The crop retains the complete starting-town heading, explanatory copy, graph and instruction. Public derivatives: `src/client/public/media/wild-bunch/trail-map-focus-480.avif` (`480 × 472`, 10,972 bytes), `src/client/public/media/wild-bunch/trail-map-focus-480.webp` (`480 × 472`, 15,598 bytes), `src/client/public/media/wild-bunch/trail-map-focus-600.avif` (`600 × 590`, 15,285 bytes), and `src/client/public/media/wild-bunch/trail-map-focus-600.webp` (`600 × 590`, 22,570 bytes).
+- Sheriff Office source: receipt-controlled `src/client/public/media/wild-bunch/wanted-notice-960.webp`, SHA-256 `b03e2ef23c6aabe6e00cd3f88b85282fb31af8555fd00369da90b618d7a60afc`. The crop retains the office title, player action and wanted-poster surface. Public derivatives: `src/client/public/media/wild-bunch/wanted-notice-focus-472.avif` (`472 × 479`, 12,345 bytes), `src/client/public/media/wild-bunch/wanted-notice-focus-472.webp` (`472 × 479`, 16,078 bytes), `src/client/public/media/wild-bunch/wanted-notice-focus-590.avif` (`590 × 599`, 17,039 bytes), and `src/client/public/media/wild-bunch/wanted-notice-focus-590.webp` (`590 × 599`, 22,580 bytes).
+- Rights and framing: first-party Wild Bunch gameplay captures owned and authorised by Harley Bartles. Dustwell belongs to the revision, seed and setup already recorded for the public Wild Bunch evidence set and proves a stored town layout without adding a stronger prosperity claim. The Hardpan reference capture remains internal composition evidence only because its public revision, seed and setup are not recorded. These remain current development-build evidence, not final game art.
+- Added: 2026-08-30.
+
+## Wild Bunch early-alpha concept art
+
+- Sources: `src/client/assets/wild-bunch/concept-art/town-arrival-landscape.png` (`1672 × 941`, SHA-256 `9d592f8840034dc9be94c541d2e1fb744f5cba55663e5881730c338628cfc21e`) and `src/client/assets/wild-bunch/concept-art/town-arrival-portrait.png` (`1122 × 1402`, SHA-256 `6caa63f62e91da216054c864893e277f085b30f0b3149aacafac61c9b25456c2`).
+- Provenance and rights: generated with OpenAI's built-in image-generation tool under Harley's direction; copyright Harley Bartles, all rights reserved. `src/client/assets/wild-bunch/concept-art/generation-receipt.json` preserves the accepted prompts, selections, risk review and intended claims. User-supplied references guided mood and subject only and are not retained.
+- Public derivatives: `src/client/public/media/wild-bunch/town-arrival-landscape.avif` (`1440 × 810`, 121,640 bytes), `src/client/public/media/wild-bunch/town-arrival-landscape.webp` (`1440 × 810`, 169,746 bytes), `src/client/public/media/wild-bunch/town-arrival-portrait.avif` (`720 × 900`, 81,615 bytes), and `src/client/public/media/wild-bunch/town-arrival-portrait.webp` (`720 × 900`, 109,312 bytes).
+- Transformation: deterministic Sharp resize to the accepted responsive compositions, AVIF quality 55 or WebP quality 80, with metadata stripped. `src/client/public/media/wild-bunch/concept-art-derivatives.json` records output identity and bytes.
+- Claim boundary: bespoke visual-direction concept art for an early-alpha game, not a gameplay capture or evidence of implemented graphics. The landscape uses one-sided tintype emulsion loss; the portrait is a clean-edge re-composition of the same arrival moment.
+- Added: 2026-08-30.
+
 ## Writing diagram captures
 
 ### Iterative Review version-one graph

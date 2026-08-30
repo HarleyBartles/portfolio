@@ -16,13 +16,13 @@ export const ProfessionalStory = styled.section`
 export const ProfessionalStoryRail = styled.div`
   align-self: start;
   color: ${({ theme }) => theme.color.muted};
-  font-family: ${({ theme }) => theme.font.code};
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  letter-spacing: 0;
   line-height: 1.45;
 
   .eyebrow {
-    color: ${({ theme }) => theme.color.accent};
+    color: ${({ theme }) => theme.color.muted};
   }
 
   @media (max-width: 48rem) {
@@ -36,7 +36,7 @@ export const ProfessionalStoryContent = styled.div`
 
   h2 {
     margin: 0;
-    font-family: ${({ theme }) => theme.font.display};
+    font-family: var(--font-site-sans);
     font-size: clamp(2.25rem, 4.5vw, 4.2rem);
     letter-spacing: -0.045em;
     line-height: 0.98;
@@ -53,7 +53,7 @@ export const ProfessionalStoryContent = styled.div`
 
   > p:first-of-type {
     color: ${({ theme }) => theme.color.ink};
-    font-family: ${({ theme }) => theme.font.display};
+    font-family: var(--font-site-sans);
     font-size: clamp(1.4rem, 2.3vw, 1.85rem);
     letter-spacing: -0.02em;
     line-height: 1.14;
@@ -73,7 +73,7 @@ export const NextRolePanel = styled.aside`
 
   h2 {
     margin: 0;
-    font-family: ${({ theme }) => theme.font.display};
+    font-family: var(--font-site-sans);
     font-size: clamp(2.2rem, 5vw, 4.5rem);
     letter-spacing: -0.045em;
     line-height: 0.98;
@@ -93,15 +93,15 @@ export const NextRolePanel = styled.aside`
   }
 
   > div:last-child .button-link {
-    border-color: ${({ theme }) => theme.color.accent};
-    background: ${({ theme }) => theme.color.accent};
+    border-color: ${({ theme }) => theme.color.ink};
+    background: ${({ theme }) => theme.color.ink};
     color: ${({ theme }) => theme.color.surface};
   }
 
   > div:last-child .button-link:hover {
-    background: ${({ theme }) => theme.color.tealDeep};
-    border-color: ${({ theme }) => theme.color.tealDeep};
-    color: ${({ theme }) => theme.color.surface};
+    background: transparent;
+    border-color: ${({ theme }) => theme.color.ink};
+    color: ${({ theme }) => theme.color.ink};
   }
 
   @media (max-width: 68rem) {

@@ -41,23 +41,23 @@ export function WildBunchTrailMapEvidence(): ReactElement {
     <ResponsiveCapture
       alt="Generated starting-town trail map with named towns, connecting trails, and ride-day distances."
       caption="The generated topology and travel distances are visible before the player chooses a town."
-      compact={{ width: 720, height: 550 }}
+      compact={{ width: 480, height: 472 }}
       figureLabel="Generated trail-map development-build evidence"
-      name="trail-map"
-      wide={{ width: 1200, height: 917 }}
+      name="trail-map-focus"
+      wide={{ width: 600, height: 590 }}
     />
   )
 }
 
-export function WildBunchAuditEvidence(): ReactElement {
+export function WildBunchTownEvidence(): ReactElement {
   return (
     <ResponsiveCapture
-      alt="Expanded developer session audit showing an ordered history of setup, world, town, and investigation events."
-      caption="The audit exposes typed events in order without publishing a private run reference."
-      compact={{ width: 720, height: 550 }}
-      figureLabel="Session-audit development-build evidence"
-      name="session-audit"
-      wide={{ width: 1200, height: 917 }}
+      alt="Dustwell town hub with its central road, Store, Sheriff Office, Saloon, trailhead, and sparse frontier props."
+      caption="Current playable build: Dustwell is the generated town captured for the recorded seed. Its stored layout persists when the player leaves and returns."
+      compact={{ width: 640, height: 400 }}
+      figureLabel="Dustwell town-hub development-build evidence"
+      name="dustwell-town-hub-focus"
+      wide={{ width: 800, height: 500 }}
     />
   )
 }
@@ -69,10 +69,10 @@ export function WildBunchProductEvidence(): ReactElement {
       <ResponsiveCapture
         alt="A populated Sheriff Office wanted notice with player-facing clues."
         caption="The wanted notice shows player-safe knowledge reached through the ordinary Sheriff Office action."
-        compact={{ width: 640, height: 489 }}
+        compact={{ width: 472, height: 479 }}
         figureLabel="Wanted-notice development-build evidence"
-        name="wanted-notice"
-        wide={{ width: 960, height: 733 }}
+        name="wanted-notice-focus"
+        wide={{ width: 590, height: 599 }}
       />
       <ResponsiveCapture
         alt="A player-known case file with earned clues, records, loose leads, and evidence items."

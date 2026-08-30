@@ -35,11 +35,12 @@ const Quote = styled.blockquote`
 type EditorialPullQuoteProps = {
   children: ReactNode
   attribution?: string
+  typeRegister?: 'article-serif' | 'site-sans'
 }
 
-export function EditorialPullQuote({ children, attribution }: EditorialPullQuoteProps) {
+export function EditorialPullQuote({ children, attribution, typeRegister = 'article-serif' }: EditorialPullQuoteProps) {
   return (
-    <Quote>
+    <Quote data-type-register={typeRegister}>
       <p>{children}</p>
       {attribution === undefined ? null : <cite>{attribution}</cite>}
     </Quote>

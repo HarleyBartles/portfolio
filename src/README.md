@@ -13,7 +13,11 @@ npm ci --prefix src/client
 npm --prefix src/client run dev
 ```
 
-The repository owns one complete validation command:
+The repository owns one complete validation command. For normal work the
+tracked pre-commit hook runs it once against the staged tree. Invoke it directly
+only when no commit will follow, when diagnosing the whole pipeline, or when
+checking CI parity; do not run it immediately before or after a normal hooked
+commit.
 
 ```powershell
 py -3 tools/run.py ci --check

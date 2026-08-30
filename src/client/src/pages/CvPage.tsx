@@ -9,6 +9,7 @@ import { getProjectSummaries } from '../data/documents'
 import { professionalProfile } from '../data/professionalProfile'
 import { CvDocument, CvSheet } from './cv/CvSurface'
 import './CvPage.scss'
+import '../styles/interior.scss'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 const projectStories = getProjectSummaries()
@@ -24,19 +25,18 @@ export function CvPage(): ReactElement {
         canonicalPath="/cv"
       />
       <EditorialThemeProvider>
-        <CvDocument aria-labelledby="cv-name">
-          <nav className="cv-screen-controls" aria-label="CV actions">
-            <a className="button-link" href={pdfHref}>
-              Download PDF
-            </a>
-          </nav>
-
+        <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
           <CvSheet data-cv-page="1" aria-labelledby="cv-name">
             <header className="cv-header">
               <div className="cv-header__identity">
                 <p className="eyebrow">Curriculum vitae</p>
                 <h1 id="cv-name">Harley Bartles</h1>
               </div>
+              <nav className="cv-screen-controls cv-screen-controls--top" aria-label="Download CV at the top">
+                <a className="button-link" href={pdfHref}>
+                  Download PDF
+                </a>
+              </nav>
               <p className="cv-headline">Full-stack software engineer</p>
               <div className="cv-header__details">
                 <p>
@@ -232,6 +232,14 @@ export function CvPage(): ReactElement {
               </dl>
             </section>
           </CvSheet>
+          <footer className="cv-download-footer">
+            <p>Keep a copy.</p>
+            <nav className="cv-screen-controls cv-screen-controls--bottom" aria-label="Download CV at the end">
+              <a className="button-link" href={pdfHref}>
+                Download PDF
+              </a>
+            </nav>
+          </footer>
         </CvDocument>
       </EditorialThemeProvider>
     </SiteLayout>

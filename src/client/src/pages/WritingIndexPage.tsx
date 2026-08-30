@@ -7,6 +7,7 @@ import { SiteLayout } from '../components/SiteLayout'
 import { sortWriting } from '../utils/content'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
+import '../styles/interior.scss'
 
 export function WritingIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())

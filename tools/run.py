@@ -222,7 +222,7 @@ def _diagnostic_check(ctx: Ctx, include_e2e: bool) -> None:
         raise DiagnosticCheckError(failures, skipped)
 
 
-def _precommit_check(ctx: Ctx) -> None:
+def _base_ci_check(ctx: Ctx) -> None:
     if ctx.diagnostics:
         _diagnostic_check(ctx, include_e2e=False)
         return
@@ -240,7 +240,7 @@ def _ci_check(ctx: Ctx) -> None:
     if ctx.diagnostics:
         _diagnostic_check(ctx, include_e2e=True)
         return
-    _precommit_check(ctx)
+    _base_ci_check(ctx)
     _run(_client_cmd("run", "test:e2e"), ctx)
 
 
@@ -262,7 +262,6 @@ TARGETS = {
     "skills": {"apply": _skills_apply, "check": _skills_check},
     "index-mesh": {"apply": _index_mesh_apply, "check": _index_mesh_check},
     "mesh": {"apply": _mesh_apply, "check": _mesh_check},
-    "precommit": {"apply": _ci_apply, "check": _precommit_check},
     "ci": {"apply": _ci_apply, "check": _ci_check},
     "all": {"apply": _all_apply, "check": _all_check},
 }

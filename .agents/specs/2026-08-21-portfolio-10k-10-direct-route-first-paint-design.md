@@ -273,11 +273,12 @@ eager application shell that weakens Phase 9's static delivery.
 Finish with the staged tree and:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
 
-Use `ci --apply` only for intended mechanical regeneration, inspect the diff,
-then rerun check mode. Green CI proves consistency, not the quality of the
+Use the narrow owning apply target for intended mechanical regeneration, inspect the diff,
+then stage and commit normally so the hook runs check mode once. Green CI proves consistency, not the quality of the
 first-paint transition.
 
 ## Manual quality review

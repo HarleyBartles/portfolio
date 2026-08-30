@@ -4,9 +4,11 @@ import { EventEmitter } from 'node:events'
 import { createServer } from 'node:net'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
+import { PDFDocument } from 'pdf-lib'
 // @ts-expect-error The production build utility is intentionally plain ESM for direct Node execution.
 import {
   assertCvPdf,
+  assertCvPdfPageCount,
   generateCvPdf,
   rewritePreviewLinksForPdf,
   assertPreviewPortAvailable,
@@ -68,6 +70,18 @@ describe('assertCvPdf', () => {
     const pdfPath = await temporaryPdf(Buffer.from('%PDF\n/URI (http://127.0.0.1:4173/portfolio/about#contact)'))
 
     expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF contains a localhost link target')
+  })
+
+  test('rejects a generated CV that is not exactly two pages', async () => {
+    const document = await PDFDocument.create()
+    document.addPage()
+    document.addPage()
+    document.addPage()
+    const pdfPath = await temporaryPdf(await document.save())
+
+    await expect(assertCvPdfPageCount(pdfPath, 2)).rejects.toThrow(
+      'CV PDF has 3 pages; expected 2',
+    )
   })
 })
 
@@ -157,6 +171,7 @@ describe('generateCvPdf', () => {
     const waitForPreview = vi.fn(async () => {})
     const stopPreview = vi.fn(async () => {})
     const rewriteLinksForPdf = vi.fn(async () => {})
+    const assertPdfPageCount = vi.fn(async () => 2)
     const { browser, page } = browserFixture(['1', '2'])
 
     await generateCvPdf({
@@ -167,6 +182,7 @@ describe('generateCvPdf', () => {
       launchBrowser: vi.fn(async () => browser),
       stopPreview,
       rewriteLinksForPdf,
+      assertPdfPageCount,
     })
 
     expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4173/cv/', { waitUntil: 'networkidle' })

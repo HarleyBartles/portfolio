@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:learning-lab:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
+    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:wild-bunch-concept:check && npm run media:wild-bunch-evidence-crops:check && npm run media:learning-lab:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
     "routes:apply": "node scripts/generate-route-catalogue.mjs",
     "routes:check": "node scripts/generate-route-catalogue.mjs --check",
     "media:wild-bunch:apply": "node scripts/process-wild-bunch-captures.mjs --apply",
     "media:wild-bunch:check": "node scripts/process-wild-bunch-captures.mjs --check",
+    "media:wild-bunch-concept:apply": "node scripts/process-wild-bunch-concept-art.mjs --apply",
+    "media:wild-bunch-concept:check": "node scripts/process-wild-bunch-concept-art.mjs --check",
+    "media:wild-bunch-evidence-crops:apply": "node scripts/process-wild-bunch-evidence-crops.mjs --apply",
+    "media:wild-bunch-evidence-crops:check": "node scripts/process-wild-bunch-evidence-crops.mjs --check",
     "media:learning-lab:apply": "node scripts/process-learning-lab-assets.mjs --apply",
     "media:learning-lab:check": "node scripts/process-learning-lab-assets.mjs --check",
     "preview:test": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
@@ -22,6 +26,8 @@
   "dependencies": {
     "@fontsource-variable/fira-code": "^5.3.0",
     "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/source-code-pro": "^5.3.0",
+    "@fontsource-variable/source-sans-3": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@tanstack/react-query": "^5.101.2",
     "react": "^19.2.7",
@@ -32,7 +38,6 @@
     "styled-components": "^6.4.4"
   },
   "devDependencies": {
-    "sharp": "0.34.5",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -44,6 +49,8 @@
     "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^29.1.1",
     "msw": "^2.15.0",
+    "pdf-lib": "^1.17.1",
+    "sharp": "0.34.5",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
     "vitest": "^4.1.10"

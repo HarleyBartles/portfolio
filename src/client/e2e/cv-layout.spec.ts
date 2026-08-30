@@ -48,7 +48,7 @@ test('the CV name owns a full desktop header row', async ({ page }) => {
   expect(Math.abs(layout.headlineTop - layout.detailsTop)).toBeLessThanOrEqual(1)
 })
 
-test('the Barbican title balances its unavoidable two-line presentation', async ({ page }) => {
+test('the Barbican title stays balanced without forcing an obsolete line break', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 })
   await page.goto('./cv/')
 
@@ -61,6 +61,9 @@ test('the Barbican title balances its unavoidable two-line presentation', async 
     return Array.from(range.getClientRects()).map((rect) => rect.width)
   })
 
-  expect(lineWidths).toHaveLength(2)
-  expect(Math.min(...lineWidths) / Math.max(...lineWidths)).toBeGreaterThan(0.45)
+  expect(lineWidths.length).toBeGreaterThanOrEqual(1)
+  expect(lineWidths.length).toBeLessThanOrEqual(2)
+  if (lineWidths.length === 2) {
+    expect(Math.min(...lineWidths) / Math.max(...lineWidths)).toBeGreaterThan(0.45)
+  }
 })

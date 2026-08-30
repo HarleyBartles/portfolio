@@ -1389,8 +1389,11 @@ course-boundary regressions.
 After source and generated surfaces are staged, run:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
+
+The tracked hook runs the complete `ci --check` gate once. Do not pre-run it.
 
 The existing Python, Vitest, TypeScript, Vite, Playwright, route, privacy,
 asset-custody, accessibility, and bundle-budget gates must pass.

@@ -68,9 +68,9 @@
 
 ### Task 5: Validate, publish and activate only after repository proof
 
-- [ ] Run `py -3 tools/run.py ci --apply`, inspect generated changes, then run `py -3 tools/run.py ci --check`.
+- [ ] Because this phase changes both SEO output and the mesh, run umbrella `py -3 tools/run.py ci --apply`, inspect and stage generated changes, then commit normally so the tracked hook runs the complete `ci --check` gate once. Do not use the umbrella target for a single generated surface.
 - [ ] Review desktop and narrow sharing/metadata presentation; verify route documents and production build under custom and fallback profiles.
-- [ ] Commit, push and open a draft PR with exact validation evidence.
+- [ ] Push the proven commit and open a draft PR with exact hook validation evidence; do not repeat the complete local gate before pushing.
 - [ ] After Harley merges, read the exact deployed Pages state, perform the separate Namecheap/GitHub cutover, and verify DNS, TLS, redirects, deep routes, sitemap, robots and representative social previews before claiming public completion.
 
 ## Plan-readiness review

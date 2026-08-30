@@ -8,8 +8,8 @@ export const CvDocument = styled.article`
 export const CvSheet = styled.section`
   width: min(100%, 58rem);
   margin-inline: auto;
-  border: 1px solid ${({ theme }) => theme.color.ink};
-  background: rgb(255 250 240 / 82%);
+  border: 0;
+  background: transparent;
   padding: clamp(${({ theme }) => theme.space.xl}, 5vw, var(--space-16));
 
   & + & {
@@ -41,7 +41,7 @@ export const CvSheet = styled.section`
     break-after: page;
     break-inside: avoid;
 
-    &:last-child {
+    &:last-of-type {
       break-after: auto;
     }
 

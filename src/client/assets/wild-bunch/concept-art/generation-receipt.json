@@ -1,0 +1,45 @@
+{
+  "policy": {
+    "owner": "Harley Bartles",
+    "rights": "Copyright Harley Bartles. All rights reserved.",
+    "purpose": "Portfolio-owned concept art for the visual direction of an early-alpha game. It is not a gameplay capture or evidence of implemented graphics.",
+    "tool": "OpenAI built-in image generation",
+    "generatedOn": "2026-08-30",
+    "seed": "Not exposed by the built-in image generation tool",
+    "referenceCustody": "Two user-supplied town-arrival images guided mood and subject only. They are not retained in the repository and the generated compositions are new."
+  },
+  "assets": [
+    {
+      "id": "town-arrival-landscape",
+      "status": "accepted",
+      "outputPath": "src/client/assets/wild-bunch/concept-art/town-arrival-landscape.png",
+      "outputSha256": "9d592f8840034dc9be94c541d2e1fb744f5cba55663e5881730c338628cfc21e",
+      "width": 1672,
+      "height": 941,
+      "useCase": "stylized-concept",
+      "pageRole": "Desktop and wide-screen case-study hero introducing the intended feeling of arriving in a persistent generated town.",
+      "claim": "Concept art for Wild Bunch's early-alpha visual direction, not a current game surface.",
+      "prompt": "Use case: stylized-concept\nAsset type: Wild Bunch portfolio case-study hero, revised desktop landscape master\nInput images: use the earlier generated landscape for the invented town-arrival subject and deep street perspective; use the newly supplied image only for its one-sided chemical fade and antique plate character; the portrait is continuity context only\nPrimary request: create a clearly new 16:9 image of a lone rider arriving in an invented high-desert frontier town, rendered consistently as a hand-tinted tintype-era plate across the entire image\nScene/backdrop: late-19th-century frontier town with a broad dusty, naturally rutted main street, varied timber and sun-baked masonry buildings, an off-centre civic water tower, distant pale mesas, telegraph poles and restrained signs of habitation\nSubject: one small mounted rider entering the town from behind; no other prominent figure\nStyle/medium: the whole image must read as one aged hand-tinted tintype plate: subdued silver-grey photographic values beneath restrained mineral blue, sandstone and umber tinting; fine plate grain, slight exposure unevenness, modest optical softness and material age throughout; still credible as bespoke early-alpha game concept art\nComposition/framing: exact 16:9 landscape; deep street perspective; rider in the lower-middle third; water tower offset in the upper-right third; useful detail across a full-width 1440px hero\nEdge treatment: chemical emulsion loss and pale abrasion enter from the left edge only, irregular and organic; the other three edges remain intact; the one-sided loss is visibly part of the same physical tintype plate\nConstraints: historically plausible; no tiled or paved grid street; no readable signage; no text; no logos; no watermark; no UI; no modern objects; no frame or border; no weapons foregrounded\nAvoid: a modern digital painting with a white fade pasted over it, sepia filter, symmetrical composition, central water tower, heavy vignette, damaged edges on more than one side, torn paper, faux scrapbook, shallow-focus blur, movie-poster cowboy glamour, fantasy architecture, hyper-detailed AI clutter, copying any reference composition",
+      "selectionReasoning": "The town reads before the genre styling does: one arrival line, one civic landmark and enough material variation to suggest a generated place without pretending to be gameplay.",
+      "riskReview": "No text, branding, interface, modern object or copied reference composition. The rider and water tower are coherent at the intended display size. Review again at final human acceptance for protected-trade-dress resemblance.",
+      "altIntent": "Concept art of a lone rider entering a sunlit high-desert frontier town, with a water tower and mesas beyond the main street.",
+      "finishing": "Deterministic Sharp resize to 1440 by 810 AVIF and WebP; metadata stripped."
+    },
+    {
+      "id": "town-arrival-portrait",
+      "status": "accepted",
+      "outputPath": "src/client/assets/wild-bunch/concept-art/town-arrival-portrait.png",
+      "outputSha256": "6caa63f62e91da216054c864893e277f085b30f0b3149aacafac61c9b25456c2",
+      "width": 1122,
+      "height": 1402,
+      "useCase": "stylized-concept",
+      "pageRole": "Narrow-screen case-study hero preserving the arrival, street and landmark as a native portrait composition.",
+      "claim": "Concept art for Wild Bunch's early-alpha visual direction, not a current game surface.",
+      "prompt": "Use case: style-transfer\nAsset type: responsive portrait re-composition of an existing Wild Bunch portfolio hero\nInput images: Image 1 is the selected landscape master and is the strict source of truth\nPrimary request: re-compose Image 1 into an exact 4:5 portrait view of the same moment and the same place; this is a responsive alternate camera framing, not a new town and not a loose companion\nScene continuity requirements: preserve the same lone rider and horse, naturally rutted main street, tall cylindrical water tower with conical roof in the upper-right, right-side pale masonry building with arched opening, left-side dark timber building, central mesas, telegraph poles, materials, weather and quiet town\nStyle and tone lock: match Image 1's faded hand-tinted tintype tone exactly across the whole portrait: cool silver-grey photographic base, restrained dusty sandstone tint, muted mineral-blue sky, low saturation, fine plate grain, antique exposure, contrast and modest optical softness\nComposition/framing: exact 4:5 portrait; move the camera closer and narrow its field of view while preserving the street axis; rider remains in the lower-middle; water tower remains upper-right\nEdge treatment: none. The image runs cleanly to all four edges with no chemical loss, pale fade, dark border, vignette, abrasion, torn paper, plate edge or frame\nConstraints: no new landmarks; no new prominent figures; no text; no readable signs; no logos; no watermark; no interface; no modern objects; no tiled street\nAvoid: a different town, a different rider, warm orange or sepia grading, contemporary digital-painting polish, black borders, damaged edges, heroic portrait, central water tower, fantasy architecture",
+      "selectionReasoning": "The portrait preserves the same arrival beat and town identity while keeping the rider, road and tower legible on a narrow screen.",
+      "riskReview": "No text, branding, interface or modern object. It remains continuous with the landscape without being a crop.",
+      "altIntent": "Portrait concept art of a lone rider entering a high-desert frontier town beneath a tall water tower.",
+      "finishing": "Deterministic Sharp resize to 720 by 900 AVIF and WebP; metadata stripped."
+    }
+  ]
+}

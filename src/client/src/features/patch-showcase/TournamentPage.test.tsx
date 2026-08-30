@@ -5,7 +5,10 @@ import { TournamentPage } from './TournamentPage'
 
 describe('Tournament of Reasonable Defaults', () => {
   test('preserves the four-event progression, outcomes and honest development boundary', () => {
-    render(<MemoryRouter><TournamentPage /></MemoryRouter>)
+    const { container } = render(<MemoryRouter><TournamentPage /></MemoryRouter>)
+
+    expect(container.querySelector('.tournament-showcase')).toHaveAttribute('data-type-register', 'site-sans')
+    expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
 
     expect(screen.getByText('Visual development')).toBeVisible()
     expect(screen.getByText(/current adventure is assembled from accepted scene art/i)).toBeVisible()

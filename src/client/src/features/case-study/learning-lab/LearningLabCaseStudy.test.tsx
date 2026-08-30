@@ -14,6 +14,8 @@ describe('LearningLabCaseStudy', () => {
 
   test('opens with engineering lineage and preserves the bounded human origin', () => {
     const { container } = render(<LearningLabCaseStudy />)
+    expect(container.querySelector('[data-project-field]')).not.toBeInTheDocument()
+    expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()
     expect(screen.getByText(/The learner is not the agent's hands/)).toBeVisible()
     expect(screen.getByText(/I'm going to teach my brother a few things about using agentic AI/)).toBeVisible()

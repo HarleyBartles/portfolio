@@ -9,6 +9,7 @@ import { getInFlightWorlds } from '../features/case-study/patch/patchEvidence'
 import '../features/patch-showcase/PatchShowcase.scss'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
+import '../styles/interior.scss'
 
 const statusLabels = {
   'advanced-visual-preproduction': 'Advanced visual pre-production',

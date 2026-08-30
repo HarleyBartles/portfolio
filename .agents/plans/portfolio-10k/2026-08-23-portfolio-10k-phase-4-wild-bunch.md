@@ -248,14 +248,16 @@
 
 - [x] **Step 5: Run whole-branch review loops.** Fresh requirements/evidence, code/test quality, accessibility/responsive, and public copy/asset-custody lenses completed. Sol repaired and reverified the pinned claim links, first-party art custody, focused visual contracts, image readiness, real keyboard traversal, Suspense status, event-flow layout, token use, and Axe contrast. A final subagent re-dispatch was unavailable because the workspace reviewer pool reported exhausted credits; Sol therefore reconciled each reported finding against focused automated and rendered evidence rather than claiming an unavailable second external pass.
 
-- [x] **Step 6: Regenerate and run the canonical gate on the staged final tree.** Run:
+- [x] **Step 6: Regenerate, inspect, stage and commit the final tree.** Run:
 
   ```powershell
-  py -3 tools/run.py ci --apply
+  py -3 tools/run.py mesh --apply
   git add -A
-  py -3 tools/run.py ci --check
   git diff --cached --check
+  git commit
   ```
+
+  The normal commit hook runs the complete `ci --check` gate once. Do not pre-run it after `ci --apply`.
 
   Expected: PASS. Inspect every generated delta and commit canonical outputs; do not discard them merely because a generator created them.
 

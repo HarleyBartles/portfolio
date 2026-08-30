@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 describe('Project route visuals', () => {
-  test('keeps one eager Dustwell preview in the route header under its visual contract', async () => {
+  test('separates eager Wild Bunch concept art from lower-hierarchy playable-build proof', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/projects/wild-bunch'],
@@ -29,14 +29,18 @@ describe('Project route visuals', () => {
     const article = title.closest('article')
     const header = article?.querySelector('header')
 
+    expect(article).toHaveAttribute('data-visual-language', 'project')
+    expect(article).toHaveAttribute('data-type-register', 'site-sans')
     expect(header).not.toBeNull()
     expect(header).toHaveAttribute('data-visual-contract', 'wild-bunch-case-study-hero')
-    const visual = within(header as HTMLElement).getByLabelText('Wild Bunch generated-town development-build preview')
+    const visual = within(header as HTMLElement).getByLabelText('Wild Bunch early-alpha town-arrival concept art')
     const image = within(visual).getByRole('img')
 
     expect(visual).toBeVisible()
+    expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-concept-art')
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(await screen.findByRole('figure', { name: 'Dustwell town-hub development-build evidence' })).toBeVisible()
     expect(article?.querySelectorAll('[data-visual-contract="wild-bunch-development-build-preview"]')).toHaveLength(1)
   })
 
@@ -55,6 +59,7 @@ describe('Project route visuals', () => {
 
     const title = await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' })
     const article = title.closest('article')
+    expect(article).toHaveAttribute('data-visual-language', 'project')
     expect(article?.querySelector('header')).toHaveAttribute('data-visual-contract', 'learning-lab-case-study-hero')
     expect(article?.querySelectorAll('[data-visual-contract="learning-lab-loop"]')).toHaveLength(1)
     expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()
