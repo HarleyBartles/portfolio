@@ -1,6 +1,6 @@
 # Phase 8 preliminary visual-language remediation decision record
 
-**Status:** Re-scoped on 30 August 2026. Ready for local Sol to plan non-home visual-language remediation; homepage planning, design and implementation are blocked.
+**Status:** Re-scoped on 30 August 2026. Ready for Cloud Sol to research and settle the non-home visual-language design with Harley; local implementation planning and homepage work are blocked.
 
 This is the durable decision and handoff record for the Phase 8 preliminary remediation. It preserves the settled homepage editorial findings as deferred input, but it is not an implementation plan and does not authorize work on `/`.
 
@@ -12,7 +12,7 @@ The current warm-paper/copper/large-serif/tracked-label/rounded-panel grammar is
 
 The valuation rule is automatic: if a credible cultural reference identifies the delivered visual language as an AI-design tell, the assessed value is halved. An otherwise £10k site becomes £5k. Strong engineering, accessibility or polish cannot offset that specific credibility failure at the premium-design gate.
 
-The remedy is not a negative prompt or mechanical inversion of the tell list. Local Sol must plan a portfolio-specific system derived from the site's material, reading hierarchy, project evidence and professional purpose, then prove it on non-home routes before Phase 8 homepage work resumes.
+The remedy is not a negative prompt or mechanical inversion of the tell list. Cloud Sol must research and design a portfolio-specific system with Harley, derived from the site's material, reading hierarchy, project evidence and professional purpose. Only after Harley accepts that contract may local Sol plan and implement it on non-home routes.
 
 ## Current rendered evidence
 
@@ -188,18 +188,22 @@ The matured portfolio no longer has an obvious `best stuff versus the rest` prob
 - Put condensed case studies or essay summaries on the homepage until the destination has little left to add.
 - Force unlike projects, essays and Patch material into equal-length preview components for visual consistency.
 
-## Preliminary remediation planning requirements
+## Cloud design-room deliverables
 
-Local Sol must write a JIT implementation plan that:
+Before local implementation planning, Cloud Sol must return a Harley-approved design contract that:
 
 1. inventories palette, typography roles, tracking, labels, strips, borders, radii, repeated panels and layout primitives across every non-home route;
 2. distinguishes content-earned uses from inherited defaults and recognisable cluster effects;
-3. derives the replacement visual principles from portfolio-specific evidence and editorial jobs rather than from a generic anti-AI checklist;
-4. sequences shared-source changes and representative non-home route migrations before broad propagation;
-5. preserves route-specific art direction, semantic source order, accessibility, reduced motion, performance, privacy and asset custody;
-6. includes rendered desktop, narrow and 200% zoom review plus keyboard, contrast, missing-media and regression evidence;
-7. names Harley-owned art-direction approval gates and the exact exit evidence for this preliminary phase; and
-8. contains no homepage implementation, fold-one prototype or homepage baseline update.
+3. records source-backed premium-design and AI-convergence research rather than relying on taste claims alone;
+4. presents materially different directions and records Harley's accepted and rejected choices;
+5. defines the replacement visual principles and concrete system from portfolio-specific evidence and editorial jobs rather than from a generic anti-AI checklist;
+6. specifies representative non-home route compositions and route-specific variation without flattening the site into a new template;
+7. preserves semantic source order, accessibility, reduced motion, performance, privacy and asset custody at design level;
+8. defines desktop, narrow, 200% zoom, keyboard, contrast and missing-media intent;
+9. separates decisions local Sol may make during implementation from decisions that require Harley; and
+10. contains no implementation code, homepage design, fold-one prototype or homepage baseline update.
+
+Once Harley accepts that contract, local Sol writes the JIT implementation plan, sequences shared-source changes and representative route migrations, implements the design locally, validates it and presents the rendered browser result to Harley. Local Sol may solve engineering seams inside the contract; it may not invent or materially redirect the visual language.
 
 The later homepage phase still needs to settle exact first-fold copy, front-matter spreads, randomness, Patch/writing/professional choreography, responsive transition behaviour and material spec drift. Those are deferred, not discarded.
 
@@ -220,12 +224,14 @@ This remediation is intended to become source evidence for a later article argui
 7. accessibility, performance and regression evidence showing that distinctiveness was not bought by hiding a technical loss; and
 8. Harley's explicit acceptance of the remediated system and the later decision that homepage planning may resume.
 
-The implementation plan must name the durable files that carry this evidence and the commits or PR sections that introduce each stage. Do not squash the narrative into a retrospective success claim inside one final summary. If the eventual Git history is squash-merged, the committed audit, decision and evidence documents must preserve the sequence and link to the draft PR where the finer-grained work remains inspectable.
+The Cloud design handoff must name the durable files that carry research, audit and decision evidence. The later local implementation plan must extend that map to the commits or PR sections that introduce each implementation and verification stage. Do not squash the narrative into a retrospective success claim inside one final summary. If the eventual Git history is squash-merged, the committed audit, decision and evidence documents must preserve the sequence and link to the draft PR where the finer-grained work remains inspectable.
 
 The strongest lawful future claim is not that a model can never produce premium work. It is that this repository records a real case where plausible AI-assisted choices converged on a documented default aesthetic, a one-pattern correction was rejected as inadequate, and premium quality required sustained human diagnosis, art direction, implementation, falsification and acceptance. The later article may strengthen that claim only to the extent the completed remediation evidence supports it.
 
 ## Baton
 
-**Ready for local Sol to plan the Phase 8 preliminary visual-language remediation.** The plan must start from current repository and rendered-route truth, cover non-home routes first, and use the planning requirements above as its acceptance boundary.
+**Ready for Cloud Sol to research and lead the Phase 8 preliminary visual-language design room with Harley.** Cloud must return its research, audit, alternatives, settled system and authority boundaries to this same branch and draft PR.
+
+**Local Sol state: blocked.** Do not write the preliminary implementation plan until Harley accepts the Cloud design contract and the record says `Ready for local implementation planning`. At that point local Sol implements the decided design, stands it up locally and presents it in a browser for Harley's rendered review.
 
 **Homepage state: blocked.** Do not write the homepage JIT plan, design fold one or implement `/` until the preliminary remediation has landed, its non-home route evidence has passed the 50% valuation gate, Harley has accepted the visual system, and this record has been reopened against that proven contract.

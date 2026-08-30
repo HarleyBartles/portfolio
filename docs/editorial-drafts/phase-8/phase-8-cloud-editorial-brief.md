@@ -1,12 +1,14 @@
-# Phase 8 preliminary handoff — visual-language remediation before homepage work
+# Phase 8 preliminary handoff — Cloud visual-language design room
 
-**Status:** Re-scoped decision brief. Ready for local Sol to plan the preliminary remediation phase; homepage planning and implementation remain blocked.
+**Status:** Ready for Cloud Sol to research and lead the preliminary visual-language design room with Harley. Local implementation planning and homepage work remain blocked.
 
 ## Your job
 
-Local Sol must plan a preliminary, non-home visual-language remediation phase from current rendered and repository truth. Audit the shared visual grammar and representative interior routes, derive a deliberate composed system from Harley's work and editorial purpose, and sequence its adoption across non-home routes before `/` is designed or implemented.
+Cloud Sol must research premium visual-language practice and current AI-generated design convergence, inspect the current rendered site and repository sources, develop materially different design directions, and work conversationally with Harley until the non-home visual system is decided. The output is a durable, implementation-ready design contract, not code and not a local implementation plan.
 
-This branch does not contain that implementation plan. It records the corrected phase boundary and passes planning authority to local Sol. Do not implement the homepage, prototype fold one, update homepage visual baselines or use the settled homepage decisions as permission to proceed around the remediation gate.
+Cloud Sol owns design research, art direction, visual-system decisions, route treatment, responsive intent and the design evidence needed for Harley's choices. Harley owns taste and final design acceptance. Local Sol owns the later JIT implementation plan, architecture, code, local runtime, browser presentation, validation and implementation repair. Do not ask local Sol to invent missing design decisions during implementation.
+
+Do not implement the homepage, prototype fold one, update homepage visual baselines or use the settled homepage decisions as permission to proceed around the remediation gate.
 
 ## Why the phase changed
 
@@ -14,15 +16,15 @@ The existing site materially overlaps a culturally documented 2026 AI-generated 
 
 The valuation rule is exact: once a credible cultural reference can point to the delivered visual language as an AI-design tell, the site's value is halved. An otherwise £10k result is assessed as £5k. A respectable agency charging full price would catch and correct that convergence before delivery.
 
-Homepage-first work would now compound the problem by turning a questioned inherited grammar into the site's most visible expression. The non-home routes must establish the new visual contract first. The homepage can later return as the stylistic crescendo of a system already demonstrated elsewhere.
+Homepage-first work would compound the problem by turning a questioned inherited grammar into the site's most visible expression. The non-home routes must establish the new visual contract first. The homepage can later return as the stylistic crescendo of a system already demonstrated elsewhere.
 
 ## Adversarial lenses
 
 Use all three as challenge lenses, not vibes:
 
 - **£ value:** apply the automatic 50% penalty whenever a credible cultural reference identifies the delivered grammar as a common AI-design aesthetic. Do not average that failure away against otherwise strong implementation.
-- **Weary hiring manager:** test the first ten seconds, the first deliberate click, the legibility of senior full-stack scope and whether the page reduces the work needed to decide that Harley merits an interview.
-- **Cynical principal architect:** attack unsupported architecture theatre, agent-first identity, selection gimmicks, repeated claims, concealed costs and evidence routes that do not survive inspection.
+- **Weary hiring manager:** test whether the visual system makes the site's professional evidence feel deliberate, credible and safe to forward.
+- **Cynical principal architect:** attack genericity, architecture theatre, unexplained ornament, design-system cosplay and any choice whose authorship can be explained mainly by an AI or component-library default.
 
 Do not average the lenses into general approval. Record disagreements and the call Harley makes.
 
@@ -43,30 +45,44 @@ The warm-paper/copper/large-serif/tracked-label/rounded-panel grammar is explici
 7. every rendered non-home route, sampled at representative desktop and narrow widths
 8. `.agents/specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md` only as deferred homepage input
 
-Inspect the homepage only to understand shared dependencies and to preserve the deferred decisions. Do not design it during this phase.
+Inspect the homepage only to understand shared dependencies and preserve deferred decisions. Do not design it during this phase.
 
-## Planning questions local Sol must answer
+## Research and design questions Cloud Sol must answer
 
 1. Which shared tokens, typography roles, labels, strips, borders, radii and layout primitives produce the recognisable AI-default cluster?
 2. Which uses are genuinely earned by the content, which are neutral, and which must be replaced?
-3. What portfolio-specific principles can produce variety without losing site-wide coherence?
-4. Which representative non-home routes should prove the system first, and in what migration order?
-5. How will the plan test the system at desktop, narrow, 200% zoom, keyboard, reduced motion, missing media and performance boundaries?
-6. What evidence will prove that the redesign is composed rather than a mechanical palette/font swap?
-7. What explicit Harley gates are needed for art direction and final editorial acceptance?
+3. What do respected premium agencies, editorial designers and durable design systems do that separates authored direction from fashionable component assembly?
+4. Which portfolio-specific sources, artefacts, constraints and ideas can generate a visual language that belongs to this site?
+5. Which materially different directions deserve discussion with Harley, what does each gain and lose, and which common AI or agency clichés does each risk?
+6. What exact system should govern colour, typography, spacing, geometry, borders, imagery, labels, navigation, editorial primitives and route-specific variation?
+7. How should representative non-home routes express the system at desktop, narrow, 200% zoom, keyboard, reduced motion and missing-media conditions?
+8. What evidence will prove that the chosen direction is composed rather than a mechanical palette/font swap?
+9. What decisions remain Harley-owned, and what rendered implementation details may local Sol resolve without changing the art direction?
 
-## Required local-Sol planning handoff
+## Cloud design-room method
 
-The preliminary implementation plan must:
+Begin with research and a concise diagnosis of the current system, then discuss one material choice with Harley at a time. Do not dump a complete questionnaire or choose a direction by averaging references. For each serious direction:
 
-1. cover the non-home routes and shared visual-language sources before any homepage task;
-2. include an inventory of the questioned grammar and route-by-route evidence;
-3. define a composed replacement system without banning individual ingredients by reflex;
-4. preserve route-specific art direction and avoid flattening every page into a new template;
-5. name focused visual, accessibility, performance and regression checks;
-6. include Harley review gates for the direction and representative rendered routes;
-7. state the exit evidence that allows Phase 8 homepage planning to resume; and
-8. preserve the settled homepage hierarchy, evidence and navigation decisions as deferred inputs; and
-9. maintain a durable evidence trail from pre-remediation state through audit, rejected shortcuts, implementation rounds, rendered before/after proof, technical validation and Harley's final acceptance, with commit or PR pointers suitable for a later evidence-led article.
+1. show the research basis and intended reader effect;
+2. identify what makes it specific to Harley's material rather than a style trend;
+3. show how it behaves across unlike interior routes rather than one hero mock;
+4. name the resemblance or genericity risks;
+5. test accessibility, responsiveness, motion and asset implications at design level; and
+6. record Harley's decision, rejected alternatives and the reason.
 
-Do not implement the homepage. Do not mark this draft PR ready merely because the re-scope is recorded. The next actor is local Sol planning the preliminary remediation phase.
+## Required Cloud handoff on this draft PR
+
+Before handing work to local Sol, Cloud Sol must update this branch and draft PR with:
+
+1. a source-backed research note covering premium agency practice, editorial/system precedents and current AI-design convergence;
+2. a rendered-route and source audit of the current non-home visual grammar;
+3. the credible design directions discussed with Harley and the alternatives rejected;
+4. Harley's settled visual-language decision and intended audience effect;
+5. an implementation-ready design contract for colour, typography, spacing, geometry, imagery, navigation, shared primitives and route-specific variation;
+6. representative route compositions or precise design descriptions at desktop and narrow widths, including 200% zoom, keyboard, reduced-motion and missing-media intent;
+7. asset, licensing, performance, privacy and accessibility boundaries;
+8. the preserved historical evidence chain for the later article;
+9. explicit `must`, `may` and `must not` boundaries so local Sol does not become the designer by accident; and
+10. a baton of either `Ready for local implementation planning` or `Blocked`, with the exact missing design decision.
+
+Do not write the implementation plan or implement the site in Cloud. Do not mark this draft PR ready merely because the design room closes. After Harley accepts the design contract, local Sol will write the JIT implementation plan, implement the non-home remediation, run it locally and put the rendered site in a browser for Harley's review. Homepage work remains blocked throughout.

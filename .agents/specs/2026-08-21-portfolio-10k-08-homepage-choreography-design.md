@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Blocked. Do not plan or implement the homepage until the non-home visual-language remediation has landed and Harley has accepted its composed system
+**Implementation-plan readiness:** Blocked. Cloud Sol must first research and settle the Phase 8P visual system with Harley; local Sol then plans and implements that non-home remediation. Do not plan or implement the homepage until Phase 8P has landed and Harley has accepted its rendered result
 
 **Repository snapshot inspected:** `3e6cf23ceef6a80270d0fb1bf36ca93fea900fce`
 
@@ -31,7 +31,10 @@ On 30 August 2026, Harley inserted a preliminary visual-language remediation
 gate ahead of this specification. The settled homepage hierarchy, evidence and
 interaction decisions remain deferred inputs. They do not authorize homepage
 design or implementation while the current site-wide visual grammar is under
-audit. See `docs/editorial-drafts/phase-8/phase-8-cloud-decision-record.md`.
+audit. Cloud Sol owns the preliminary design research and decisions with Harley;
+local Sol later owns implementation planning and browser-ready execution of the
+accepted contract. See
+`docs/editorial-drafts/phase-8/phase-8-cloud-decision-record.md`.
 
 Phase 2 is a compatible input rather than a hard dependency because the
 roadmap permits contact activation to be bypassed when an external provider is
@@ -1265,6 +1268,8 @@ The specification defines:
 The content and evidence predecessor dependencies are satisfied. A new visual-
 language predecessor is not: the non-home routes must first establish and
 prove a deliberate composed system that does not read as a common AI-generated
-aesthetic. Local Sol must not write the homepage JIT plan until that
-preliminary phase has landed, Harley has accepted its visual contract and the
-durable decision record explicitly reopens homepage planning.
+aesthetic. Cloud Sol must first research and settle that system with Harley.
+Local Sol then plans and implements the accepted contract for rendered review.
+Neither actor may resume homepage work until the preliminary phase has landed,
+Harley has accepted its rendered result and the durable decision record
+explicitly reopens homepage planning.
