@@ -64,6 +64,11 @@ The irony is that the inspectable evidence underneath is much stronger: Marketpl
 17. **Publication-like motion is in scope when it carries hierarchy.** Page folds, page turns, layered sheets, inserts, reveals or other paper-derived transitions may be explored as the mechanism that carries the reader from the first fold into the evidence landscape. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension. Reduced motion must preserve the same content order and proof routes without requiring the physical metaphor.
 18. **The £10k bar rejects conventional portfolio UI even when it is usable.** A card grid, tabs, filter chips, category picker or link directory that merely exposes the right evidence still fails if it reads as `some guy's personal website`. The breadth of evidence should be expressed through authored composition, typography, native media, pacing and motion.
 19. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The post-hero evidence landscape should let readers recognise and enter the kind of proof they care about through composition itself. It should not announce a taxonomy or ask visitors to operate a portfolio filter.
+20. **Push the publication metaphor deliberately past the safe midpoint before judging it.** Phase 8 should explore the fully literal digital-paper direction first and only pull back after seeing where it becomes distracting, gimmicky or less usable. The room does not want to pre-optimise the concept into tasteful-but-timid motion before testing its ceiling.
+21. **The SPA boundary is part of the art direction.** Leaving `/` for an interior route should feel like opening the publication; returning to `/` should feel like closing it. This is a homepage-boundary treatment, not a site-wide animated-routing system.
+22. **Navigation inside the publication remains ordinary, trustworthy website navigation.** Once a visitor is on Projects, Writing, Patch, About, CV or a deep evidence route, moving among those routes should behave normally. Browser history, Back/Forward expectations, deep links and standard route semantics remain authoritative rather than being bent around the book metaphor.
+23. **The opening/closing transition is contextual, not mandatory theatre.** A direct deep link to an interior page has no reason to perform a fake `book opening` from a homepage the visitor never saw. Likewise, leaving an interior route for another interior route stays ordinary. The book gesture belongs only when crossing the actual home/interior boundary.
+24. **Reduced motion must preserve the boundary idea without requiring the effect.** The same navigation relationship should remain legible when page-turn/fold mechanics are suppressed or replaced by an immediate, minimal state change. The destination, focus behaviour, history and reading order cannot depend on animation completion.
 
 ## First-fold rubric
 
@@ -98,7 +103,7 @@ This is enough cross-linking that a homepage claim can legitimately route to Abo
 
 ### Publication object / motion metaphor
 
-A promising direction is a **living editorial publication** rather than a page with magazine styling pasted onto conventional sections.
+The leading direction is now a **fully literal digital publication**, explored at full strength first rather than diluted into generic page transitions.
 
 Possible grammar to test during design, without treating any one effect as implementation instruction:
 
@@ -107,9 +112,12 @@ Possible grammar to test during design, without treating any one effect as imple
 - project and writing evidence can behave like spreads, plates, tipped-in artefacts, clippings, marginalia or dark insert pages rather than interchangeable cards;
 - deliberate dark sections can read like printed insert stock rather than generic dark-mode bands;
 - copper can behave as editorial furniture: folios, rules, registration-like marks, annotations and navigation punctuation;
-- project-native visuals should remain the content, with the publication metaphor acting as custody and framing rather than fake decoration.
+- project-native visuals should remain the content, with the publication metaphor acting as custody and framing rather than fake decoration;
+- crossing from the homepage into a destination route should feel like opening the book into that evidence surface;
+- crossing back home should feel like closing the publication back onto its cover;
+- route transitions among interior pages should disappear back into normal website behaviour.
 
-The open question is **degree of literalism**. The room has not yet decided whether the homepage should behave unmistakably like a digital paper publication with page mechanics, or use paper-derived motion more abstractly while preserving ordinary vertical flow.
+The remaining design question is not whether to be literal. That is settled for exploration. The remaining question is **how the homepage's own scroll choreography should divide into publication units**: a sequence of recognisable pages/spreads, or a more continuous publication object whose folds and inserts transform within one long vertical journey.
 
 ### Randomness / feature interaction
 
@@ -134,6 +142,9 @@ This remains a material design conflict with the approved Phase 8 selection cont
 - Avoid linking to About because it is `too portfolio-like`. Rejected after inspecting the current route: About is itself evidence-bearing and links back into the wider portfolio, so the problem is not the route; the problem would be making it the only route.
 - Express the evidence landscape as a conventional card grid, tab set or category filter. Rejected: that solves routing but spends the homepage's one opportunity for genuinely art-directed composition and would undershoot the agency-value target.
 - Keep the homepage as visually static as the interior routes for consistency. Rejected: consistency is already supplied by the underlying paper/ink/copper/dark-insert grammar. The homepage is allowed to amplify that grammar into motion while the rest of the site remains restrained.
+- Pre-emptively tone the paper metaphor down to avoid gimmick risk. Rejected: the room wants to discover the actual boundary by crossing it, then pull back from observed excess rather than imagined excess.
+- Animate every SPA route to keep the metaphor consistent. Rejected: the publication gesture is valuable precisely because it marks the home/interior boundary. Repeating it between every route would make navigation theatrical, slower and less trustworthy.
+- Fake an opening transition on direct deep links. Rejected: the metaphor should reflect actual navigation context, not manufacture history the visitor did not experience.
 
 ## Public copy and evidence boundaries
 
@@ -147,7 +158,7 @@ The current About page remains the canonical full professional treatment. Homepa
 
 Work one consequential decision at a time:
 
-1. settle the degree of literal publication metaphor: true digital paper object versus more abstract paper-derived transitions in an ordinary vertical document;
+1. settle how the homepage's own scroll choreography divides into publication units: discrete pages/spreads versus a continuous transforming paper object;
 2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind the About route;
 3. settle the detailed evidence landscape and which proof angles must be simultaneously legible within the first post-fold movement;
 4. settle whether randomness/manual feature change still earns its place;
