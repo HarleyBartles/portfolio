@@ -55,6 +55,10 @@ The irony is that the inspectable evidence underneath is much stronger: Marketpl
 8. **The first fold is an evidence-routing contract, not a complete sales argument.** Its job is to establish Harley Bartles as a full-stack software engineer, give the reader one concrete reason to believe his responsibility extends beyond straightforward implementation, and offer an obvious route into substantive work.
 9. **Each human review persona must have its first important question answered in the first fold by a grounded claim, with proof no farther than one deliberate click or one natural scroll away.** The hiring-manager question is essentially `who is this professionally, and is there enough here to justify forwarding?`; the principal-architect question is essentially `is there actual judgement behind the presentation, and can I inspect it?`. The first fold need not prove either case in full, but it must make the claim specific enough to be falsifiable and make the proof path obvious.
 10. **The £ lens is a quality gate rather than a third reader persona.** It judges whether the composition, copy, restraint and finish make the two human evidence paths feel like premium editorial design rather than a rubric rendered literally onto the page.
+11. **The stable first-fold claim should lead with professional consequence rather than an isolated architecture claim.** That is the stronger cross-lens signal because it gives the hiring manager immediate evidence of scope, ownership and outcome while still giving the architect something substantive to test.
+12. **The first fold should not make About the only onward path.** About is the canonical proof route for the professional consequence claim, but the same fold should also expose one direct route into project or writing evidence. The intended composition is one stable professional signal plus one inspectable work doorway, not `hero -> About -> everything else`.
+13. **A direct route into About is acceptable only because About itself is evidence-bearing and well connected back into the wider portfolio.** The current rendered About route begins with professional ownership and consequence, links directly to the CV/contact path, contains the Access outcome account, links into `Why ADRs?`, and later exposes all four independent project case studies. The masthead also keeps Projects, Writing and Patch available. That makes About a legitimate evidence node rather than a cul-de-sac.
+14. **The preferred proof choreography is therefore dual-path.** Hiring-manager curiosity can follow the stable professional claim into About; architect curiosity can follow the adjacent project/writing doorway straight into technical evidence. Either route can continue into the other evidence family without returning to the homepage first.
 
 ## First-fold rubric
 
@@ -66,8 +70,24 @@ The settled Phase 8 first-fold rubric is:
 - **Principal-architect route:** within one click or one scroll, the reader can reach evidence containing decisions, trade-offs, correction history, costs, falsifiers or other inspectable engineering substance.
 - **No dead claims:** every prominent claim in the fold has an evident destination that can substantiate or qualify it.
 - **No persona-specific sales copy:** the public copy should read naturally as one authored homepage. The persona matrix is an editorial test, not visible page scaffolding.
+- **No single-route funnel:** the fold should not force every reader through About before reaching the wider portfolio. Professional proof and technical/public proof are parallel, connected paths.
 
 A useful acceptance test is: after the first fold, neither human persona should need to wonder `where would I even go to verify that?`.
+
+## Current About-route evidence check
+
+The rendered About route was inspected during this room before settling the direct-link concern.
+
+It currently provides:
+
+- a professional opening that identifies Harley as a full-stack software engineer with 7+ years of experience and sole responsibility for Access Checks;
+- a direct `Read the CV` route and contact path;
+- the detailed Access Checks ownership/outcome account, including the production invariant and paid-check consequence;
+- a career section with a contextual route to `Why ADRs?`;
+- a dedicated independent-work section linking to Agent Asset Marketplace, Agentic Learning Lab, Wild Bunch and Adventures of Patch;
+- persistent masthead routes to Projects, Writing, Patch, About and CV.
+
+This is enough cross-linking that a homepage claim can legitimately route to About without trapping the reader in a purely biographical surface. Phase 8 should still prefer a direct project/writing doorway in the first fold so that About does not become mandatory transit.
 
 ## Active design direction, not yet settled
 
@@ -88,6 +108,8 @@ This is a material design conflict with the approved Phase 8 selection contract 
 - Keep a closing statement explaining that the site is a portfolio. Rejected: the professional route can be explicit without commenting on the site's genre.
 - Make the first fold fully prove seniority for every audience. Rejected: that would overload the fold and turn the homepage into a sales dossier. Its job is to make a bounded claim and make the proof path immediate.
 - Render separate hiring-manager and architect messages. Rejected: the personas are review lenses, not public information architecture. One authored composition should satisfy both through evidence choice and routing.
+- Make About the single first-fold CTA. Rejected: About can substantiate the professional claim, but forcing all readers through it would unnecessarily hide the portfolio's stronger technical and editorial evidence behind a professional funnel.
+- Avoid linking to About because it is `too portfolio-like`. Rejected after inspecting the current route: About is itself evidence-bearing and links back into the wider portfolio, so the problem is not the route; the problem would be making it the only route.
 
 ## Public copy and evidence boundaries
 
@@ -101,13 +123,14 @@ The current About page remains the canonical full professional treatment. Homepa
 
 Work one consequential decision at a time:
 
-1. settle the exact first-fold claim/evidence pairing that satisfies the agreed rubric;
-2. settle whether randomness/manual feature change still earns its place;
-3. settle the evidence choreography after the first fold, including whether a separate four-project deck is still useful;
-4. settle the Patch interlude, writing feature and professional close;
-5. settle exact copy and art direction only after those hierarchy calls are stable;
-6. reconcile responsive, keyboard, reduced-motion, media-failure and storage-failure implications at design level;
-7. classify the resulting spec drift and any required protected-default amendments.
+1. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind the About route;
+2. settle the identity and behaviour of the adjacent project/writing doorway, including whether it is stable or variable;
+3. settle whether randomness/manual feature change still earns its place;
+4. settle the evidence choreography after the first fold, including whether a separate four-project deck is still useful;
+5. settle the Patch interlude, writing feature and professional close;
+6. settle exact copy and art direction only after those hierarchy calls are stable;
+7. reconcile responsive, keyboard, reduced-motion, media-failure and storage-failure implications at design level;
+8. classify the resulting spec drift and any required protected-default amendments.
 
 ## Baton
 
