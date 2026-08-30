@@ -1,6 +1,6 @@
 # Phase 8 preliminary visual-language remediation decision record
 
-**Status:** Re-scoped on 30 August 2026. Ready for Cloud Sol to research and settle the non-home visual-language design with Harley; local implementation planning and homepage work are blocked.
+**Status:** Phase 8P typography checkpoint complete on 30 August 2026. PR #45 is ready to merge as a draft checkpoint; Phase 8P remains open and broader visual-language design continues in a fresh PR #46. Local implementation planning and homepage work remain blocked.
 
 This is the durable decision and handoff record for the Phase 8 preliminary remediation. It preserves the settled homepage editorial findings as deferred input, but it is not an implementation plan and does not authorize work on `/`.
 
@@ -190,7 +190,7 @@ The matured portfolio no longer has an obvious `best stuff versus the rest` prob
 
 ## Cloud design-room deliverables
 
-Before local implementation planning, Cloud Sol must return a Harley-approved design contract that:
+Before local implementation planning, the continuing Phase 8P design room in PR #46 must return a Harley-approved design contract that:
 
 1. inventories palette, typography roles, tracking, labels, strips, borders, radii, repeated panels and layout primitives across every non-home route;
 2. distinguishes content-earned uses from inherited defaults and recognisable cluster effects;
@@ -230,8 +230,8 @@ The strongest lawful future claim is not that a model can never produce premium 
 
 ## Baton
 
-**Ready for Cloud Sol to research and lead the Phase 8 preliminary visual-language design room with Harley.** Cloud must return its research, audit, alternatives, settled system and authority boundaries to this same branch and draft PR.
+**Checkpoint complete — Phase 8P continues in PR #46.** Typography is settled; broader visual-language design remains active. PR #45 is ready to merge while remaining draft. Merging it does not authorize implementation or close Phase 8P, and this task does not create PR #46.
 
-**Local Sol state: blocked.** Do not write the preliminary implementation plan until Harley accepts the Cloud design contract and the record says `Ready for local implementation planning`. At that point local Sol implements the decided design, stands it up locally and presents it in a browser for Harley's rendered review.
+**Public non-home implementation planning: blocked.** Do not write the preliminary implementation plan until Harley accepts the complete wider design contract and the continuing record says `Ready for local implementation planning`. At that point local Sol may plan the decided design, implement it, stand it up locally and present it in a browser for Harley's rendered review.
 
-**Homepage state: blocked.** Do not write the homepage JIT plan, design fold one or implement `/` until the preliminary remediation has landed, its non-home route evidence has passed the 50% valuation gate, Harley has accepted the visual system, and this record has been reopened against that proven contract.
+**Homepage Phase 8: blocked.** Do not write the homepage JIT plan, design fold one or implement `/` until Phase 8P is complete, the preliminary remediation has been implemented, its non-home route evidence has passed the 50% valuation gate, and Harley has accepted the rendered visual system.

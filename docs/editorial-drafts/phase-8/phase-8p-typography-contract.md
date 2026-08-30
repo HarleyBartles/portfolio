@@ -125,4 +125,4 @@ Future public implementation must reassess subset coverage against the real char
 
 ## Decision close
 
-The earlier three-way comparison between the Source, IBM Plex and Literata/Atkinson systems is retired. It was temporary selection evidence and must not be added to the repository. This contract and the single Source-system specimen replace it as the durable typography decision artifacts. The wider Phase 8P visual-language contract remains incomplete, so the baton stays `Blocked` and PR #45 stays draft.
+The earlier three-way comparison between the Source, IBM Plex and Literata/Atkinson systems is retired. It was temporary selection evidence and must not be added to the repository. This contract and the single Source-system specimen replace it as the durable typography decision artifacts. PR #45 is ready to merge as a draft checkpoint, but the wider Phase 8P visual-language contract remains incomplete and the implementation baton stays `Blocked`. Phase 8P continues in a fresh PR #46; merging this checkpoint neither closes the phase nor authorizes implementation.

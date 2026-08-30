@@ -1,6 +1,6 @@
 # Phase 8 preliminary handoff — Cloud visual-language design room
 
-**Status:** Ready for Cloud Sol to research and lead the preliminary visual-language design room with Harley. Local implementation planning and homepage work remain blocked.
+**Status:** Historical Phase 8P opening brief. PR #45 now closes the typography checkpoint; broader visual-language design continues in a fresh PR #46. Local implementation planning and homepage work remain blocked.
 
 ## Your job
 
@@ -70,9 +70,9 @@ Begin with research and a concise diagnosis of the current system, then discuss 
 5. test accessibility, responsiveness, motion and asset implications at design level; and
 6. record Harley's decision, rejected alternatives and the reason.
 
-## Required Cloud handoff on this draft PR
+## Required continuation handoff in PR #46
 
-Before handing work to local Sol, Cloud Sol must update this branch and draft PR with:
+Before handing work to local Sol, the continuing Phase 8P design room must preserve these deliverables in the fresh PR #46:
 
 1. a source-backed research note covering premium agency practice, editorial/system precedents and current AI-design convergence;
 2. a rendered-route and source audit of the current non-home visual grammar;
@@ -85,4 +85,4 @@ Before handing work to local Sol, Cloud Sol must update this branch and draft PR
 9. explicit `must`, `may` and `must not` boundaries so local Sol does not become the designer by accident; and
 10. a baton of either `Ready for local implementation planning` or `Blocked`, with the exact missing design decision.
 
-Do not write the implementation plan or implement the site in Cloud. Do not mark this draft PR ready merely because the design room closes. After Harley accepts the design contract, local Sol will write the JIT implementation plan, implement the non-home remediation, run it locally and put the rendered site in a browser for Harley's review. Homepage work remains blocked throughout.
+Do not write the implementation plan or implement the site in Cloud. Merging the draft checkpoint PR #45 does not close the design room or authorize implementation. After Harley accepts the complete design contract, local Sol will write the JIT implementation plan, implement the non-home remediation, run it locally and put the rendered site in a browser for Harley's review. Homepage work remains blocked throughout.
