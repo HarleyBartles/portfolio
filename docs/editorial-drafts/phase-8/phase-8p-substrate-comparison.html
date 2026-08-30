@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>Phase 8P substrate comparison</title>
+    <style>
+      @font-face {
+        font-family: "Source Sans 3 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Serif 4 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Code Pro Local";
+        src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+        --serif: "Source Serif 4 Local", Georgia, "Times New Roman", serif;
+        --mono: "Source Code Pro Local", Consolas, "Liberation Mono", monospace;
+        --substrate: #e6eaeb;
+        --ink: #172127;
+        --muted: #56636b;
+        --rule: rgba(23, 33, 39, .24);
+        --patch: #17b1a6;
+        --wild-bunch: #b48752;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        background: var(--substrate);
+        color: var(--ink);
+        font-family: var(--sans);
+        transition: background-color 140ms linear;
+      }
+
+      button, input { font: inherit; }
+      a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
+      a:focus-visible, button:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        padding: 14px 18px;
+        background: color-mix(in srgb, var(--substrate) 92%, white 8%);
+        border-bottom: 1px solid var(--rule);
+        backdrop-filter: blur(12px);
+      }
+
+      .controls strong { margin-right: 6px; font-size: 14px; }
+      .controls button {
+        border: 1px solid var(--rule);
+        background: transparent;
+        color: var(--ink);
+        padding: 8px 11px;
+        cursor: pointer;
+      }
+      .controls button[aria-pressed="true"] { background: var(--ink); color: var(--substrate); }
+      .controls .hex { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+      .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 48px 0 84px; }
+      .eyebrow { margin: 0 0 18px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      .site-display {
+        max-width: 14ch;
+        margin: 0;
+        font-family: var(--sans);
+        font-size: clamp(42px, 5.4vw, 72px);
+        font-weight: 650;
+        line-height: .98;
+        letter-spacing: -.025em;
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+        gap: 64px;
+        padding: 28px 0 52px;
+        border-bottom: 1px solid var(--rule);
+        align-items: end;
+      }
+      .intro-note { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.62; max-width: 48ch; }
+
+      .specimen-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+        gap: 56px;
+        padding: 52px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .section-heading { margin: 0 0 18px; font-size: 32px; font-weight: 600; line-height: 1.08; letter-spacing: -.022em; }
+      .site-body { max-width: 66ch; margin: 0 0 1.1em; font-size: 18px; line-height: 1.62; }
+      .metadata { margin: 0 0 16px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      .caption { margin: 12px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      .article-display { margin: 0 0 16px; font-family: var(--serif); font-size: clamp(38px, 4.2vw, 52px); font-weight: 600; line-height: 1.04; letter-spacing: -.025em; }
+      .article-lead { margin: 0 0 20px; font-family: var(--serif); font-size: 20px; font-weight: 500; line-height: 1.35; }
+      .article-body { margin: 0 0 1.05em; font-family: var(--serif); font-size: 19px; line-height: 1.66; }
+
+      .colour-test { padding: 52px 0; border-bottom: 1px solid var(--rule); }
+      .colour-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      .route-test { min-width: 0; }
+      .route-test h3 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+      .ladder { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); min-height: 110px; border: 1px solid var(--rule); }
+      .ladder span { display: flex; align-items: end; padding: 10px; font-family: var(--mono); font-size: 12px; }
+      .patch .a08 { background: rgba(23,177,166,.08); }
+      .patch .a18 { background: rgba(23,177,166,.18); }
+      .patch .a38 { background: rgba(23,177,166,.38); }
+      .patch .a100 { background: #17b1a6; color: #0d2022; }
+      .wild .a08 { background: rgba(180,135,82,.08); }
+      .wild .a18 { background: rgba(180,135,82,.18); }
+      .wild .a38 { background: rgba(180,135,82,.38); }
+      .wild .a100 { background: #b48752; color: #24170c; }
+      .colour-note { margin: 14px 0 0; max-width: 62ch; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      .evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 52px 0; }
+      .evidence pre { margin: 0; padding: 20px; overflow-x: auto; background: #202a2f; color: #e8edef; font-family: var(--mono); font-size: 14px; line-height: 1.55; }
+      .evidence .plain-evidence { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 18px 0; }
+      .evidence .plain-evidence p { margin: 0; font-size: 18px; line-height: 1.62; }
+      .evidence .plain-evidence code { font-family: var(--mono); font-size: 14px; }
+
+      .comparison-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 52px; }
+      .chip { min-height: 112px; padding: 16px; border: 1px solid rgba(23,33,39,.2); display: flex; flex-direction: column; justify-content: space-between; }
+      .chip strong { font-size: 16px; }
+      .chip code { font-family: var(--mono); font-size: 13px; }
+      .mineral { background: #e6eaeb; }
+      .near-white { background: #f7f8f8; }
+      .blue-grey { background: #e8eef2; }
+
+      .footer { padding-top: 24px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      @media (max-width: 760px) {
+        .controls .hex { width: 100%; margin-left: 0; }
+        .page { width: min(100% - 28px, 1180px); padding-top: 30px; }
+        .intro, .specimen-grid, .colour-grid, .evidence { grid-template-columns: 1fr; gap: 34px; }
+        .comparison-strip { grid-template-columns: 1fr; }
+        .ladder { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="controls" aria-label="Substrate treatments">
+      <strong>Substrate only</strong>
+      <button type="button" data-colour="#e6eaeb" data-name="A · cool mineral" aria-pressed="true">A · Cool mineral</button>
+      <button type="button" data-colour="#f7f8f8" data-name="B · cool near-white" aria-pressed="false">B · Cool near-white</button>
+      <button type="button" data-colour="#e8eef2" data-name="C · restrained blue-grey" aria-pressed="false">C · Restrained blue-grey</button>
+      <span class="hex" id="selection">A · cool mineral · #E6EAEB</span>
+    </nav>
+
+    <main class="page">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">Phase 8P · deterministic substrate comparison</p>
+          <h1 class="site-display">Serious engineering, visibly handled by a human.</h1>
+        </div>
+        <p class="intro-note">Only the shared light substrate changes. Typography, ink, rules, spacing, geometry, route-colour samples and evidence treatment stay fixed. Judge atmosphere, legibility and whether project-owned colour can still do meaningful work.</p>
+      </header>
+
+      <section class="specimen-grid" aria-labelledby="site-voice-heading">
+        <div>
+          <p class="metadata">Project · pre-alpha</p>
+          <h2 class="section-heading" id="site-voice-heading">Wild Bunch</h2>
+          <p class="site-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo sed urna pellentesque posuere. Sed finibus, ligula at dignissim luctus, augue neque tempor erat, vitae faucibus lectus velit non neque.</p>
+          <p class="site-body">The shared shell should stay quiet enough that route-owned material can carry identity without every page becoming a branded theme. <a href="#article-proof">Ordinary site links remain ordinary.</a></p>
+          <p class="caption">Site voice proof · Source Sans 3 · fixed across all three substrates.</p>
+        </div>
+
+        <article id="article-proof">
+          <p class="metadata">Writing · article register</p>
+          <h2 class="article-display">Why ADRs?</h2>
+          <p class="article-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae tortor sit amet sem cursus posuere.</p>
+          <p class="article-body">Donec ullamcorper, arcu vel luctus facilisis, eros sapien vulputate justo, at elementum lorem urna vitae urna. Maecenas commodo nibh a ligula porttitor, ac suscipit est tempor.</p>
+          <p class="caption">Authored reading proof · Source Serif 4 · fixed across all three substrates.</p>
+        </article>
+      </section>
+
+      <section class="colour-test" aria-labelledby="route-colour-heading">
+        <p class="eyebrow">Route-native colour pressure</p>
+        <h2 class="section-heading" id="route-colour-heading">Can project colour register without taking over the shell?</h2>
+        <div class="colour-grid">
+          <div class="route-test patch">
+            <h3>Patch · governed teal</h3>
+            <div class="ladder" aria-label="Patch teal intensity ladder">
+              <span class="a08">8%</span><span class="a18">18%</span><span class="a38">38%</span><span class="a100">100%</span>
+            </div>
+          </div>
+          <div class="route-test wild">
+            <h3>Wild Bunch · dust / ochre behaviour</h3>
+            <div class="ladder" aria-label="Wild Bunch ochre intensity ladder">
+              <span class="a08">8%</span><span class="a18">18%</span><span class="a38">38%</span><span class="a100">100%</span>
+            </div>
+          </div>
+        </div>
+        <p class="colour-note">Patch teal is the governed canonical <code>#17B1A6</code>. The ochre here is a fixed comparison sample only, not a Wild Bunch palette decision. Its job is to exert identical warm route-colour pressure on each substrate.</p>
+      </section>
+
+      <section class="evidence" aria-labelledby="evidence-heading">
+        <div>
+          <p class="eyebrow">Plain evidence</p>
+          <h2 class="section-heading" id="evidence-heading">The architecture wasn't theatre.</h2>
+          <div class="plain-evidence"><p>Complexity has to earn its place. A decision record keeps the argument available after the diagram and the people who drew it have moved on.</p></div>
+        </div>
+        <div>
+          <p class="eyebrow">Technical evidence</p>
+          <pre><code>- calculateEngagementScore(...)
++ getPlayerEngagement(...)
+  // call it what it is</code></pre>
+        </div>
+      </section>
+
+      <section aria-labelledby="strip-heading">
+        <p class="eyebrow">Direct swatch comparison</p>
+        <h2 class="section-heading" id="strip-heading">Same ink. Same accents. Different ground.</h2>
+        <div class="comparison-strip">
+          <div class="chip mineral"><strong>A · Cool mineral</strong><code>#E6EAEB</code></div>
+          <div class="chip near-white"><strong>B · Cool near-white</strong><code>#F7F8F8</code></div>
+          <div class="chip blue-grey"><strong>C · Restrained blue-grey</strong><code>#E8EEF2</code></div>
+        </div>
+      </section>
+
+      <p class="footer">Temporary Phase 8P selection surface. It does not alter the settled typography contract and is not a production layout, palette contract or visitor-facing page.</p>
+    </main>
+
+    <script>
+      const buttons = [...document.querySelectorAll('[data-colour]')];
+      const selection = document.getElementById('selection');
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          document.documentElement.style.setProperty('--substrate', button.dataset.colour);
+          buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
+          selection.textContent = `${button.dataset.name} · ${button.dataset.colour.toUpperCase()}`;
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>Phase 8P route-colour authority comparison</title>
+    <style>
+      @font-face {
+        font-family: "Source Sans 3 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Code Pro Local";
+        src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+        --mono: "Source Code Pro Local", Consolas, "Liberation Mono", monospace;
+        --substrate: #e6eaeb;
+        --ink: #172127;
+        --muted: #56636b;
+        --rule: rgba(23, 33, 39, .24);
+        --patch: #17b1a6;
+        --wild: #b48752;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        margin: 0;
+        background: var(--substrate);
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+
+      button { font: inherit; }
+      button:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        padding: 14px 18px;
+        background: color-mix(in srgb, var(--substrate) 94%, white 6%);
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .controls strong { margin-right: 6px; font-size: 14px; }
+      .controls button {
+        border: 1px solid var(--rule);
+        background: transparent;
+        color: var(--ink);
+        padding: 8px 11px;
+        cursor: pointer;
+      }
+      .controls button[aria-pressed="true"] { background: var(--ink); color: var(--substrate); }
+      .controls .selection { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+      .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 52px 0 84px; }
+      .eyebrow { margin: 0 0 16px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      .site-display {
+        max-width: 15ch;
+        margin: 0;
+        font-size: clamp(42px, 5.4vw, 72px);
+        font-weight: 650;
+        line-height: .98;
+        letter-spacing: -.025em;
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr);
+        gap: 56px;
+        align-items: end;
+        padding-bottom: 48px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .intro p:last-child { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.62; max-width: 48ch; }
+
+      .routes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        padding: 52px 0 26px;
+      }
+
+      .route {
+        --project: var(--patch);
+        position: relative;
+        isolation: isolate;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        background: transparent;
+      }
+      .route.wild { --project: var(--wild); }
+
+      .route::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        background: transparent;
+      }
+
+      body[data-mode="bounded"] .route::before {
+        top: 0;
+        right: 0;
+        width: 44%;
+        height: 38%;
+        background: color-mix(in srgb, var(--project) 18%, var(--substrate));
+      }
+
+      body[data-mode="atmosphere"] .route {
+        background: color-mix(in srgb, var(--project) 8%, var(--substrate));
+      }
+      body[data-mode="atmosphere"] .route::before {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 38%;
+        background: color-mix(in srgb, var(--project) 18%, var(--substrate));
+      }
+
+      .route-head { padding: 28px 28px 24px; border-bottom: 1px solid var(--rule); }
+      .route .metadata { margin: 0 0 12px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      .route h2 { margin: 0 0 14px; font-size: 32px; font-weight: 600; line-height: 1.08; letter-spacing: -.022em; }
+      .route .body { margin: 0; max-width: 58ch; font-size: 18px; line-height: 1.62; }
+
+      .artifact-wrap { padding: 28px; }
+      .artifact {
+        min-height: 168px;
+        display: grid;
+        grid-template-columns: 1.4fr .6fr;
+        border: 1px solid var(--rule);
+        background: var(--substrate);
+      }
+      .artifact-main {
+        display: flex;
+        align-items: end;
+        padding: 18px;
+        background: var(--project);
+        color: #102126;
+        font-weight: 650;
+        font-size: 18px;
+      }
+      .wild .artifact-main { color: #24170c; }
+      .artifact-side {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+      }
+      .artifact-side span { display: flex; align-items: end; padding: 12px; font-family: var(--mono); font-size: 12px; }
+      .artifact-side span:first-child { background: color-mix(in srgb, var(--project) 38%, var(--substrate)); }
+      .artifact-side span:last-child { background: color-mix(in srgb, var(--project) 18%, var(--substrate)); border-top: 1px solid var(--rule); }
+
+      .evidence {
+        display: grid;
+        grid-template-columns: .8fr 1.2fr;
+        gap: 20px;
+        padding: 0 28px 28px;
+      }
+      .evidence .note {
+        border-top: 1px solid var(--rule);
+        padding-top: 14px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .evidence pre {
+        margin: 0;
+        padding: 18px;
+        overflow-x: auto;
+        background: #202a2f;
+        color: #e8edef;
+        font-family: var(--mono);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .behaviour-key {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding-top: 26px;
+      }
+      .behaviour-key article { border-top: 1px solid var(--rule); padding-top: 14px; }
+      .behaviour-key h3 { margin: 0 0 8px; font-size: 18px; font-weight: 600; }
+      .behaviour-key p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      .footer { margin: 34px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      @media (max-width: 800px) {
+        .controls .selection { width: 100%; margin-left: 0; }
+        .page { width: min(100% - 28px, 1180px); padding-top: 34px; }
+        .intro, .routes, .behaviour-key { grid-template-columns: 1fr; gap: 28px; }
+        .artifact { grid-template-columns: 1fr; }
+        .artifact-side { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+        .artifact-side span:last-child { border-top: 0; border-left: 1px solid var(--rule); }
+        .evidence { grid-template-columns: 1fr; }
+        body[data-mode="bounded"] .route::before { width: 58%; height: 30%; }
+        body[data-mode="atmosphere"] .route::before { height: 30%; }
+      }
+    </style>
+  </head>
+  <body data-mode="bounded">
+    <nav class="controls" aria-label="Route colour authority treatments">
+      <strong>Project colour authority</strong>
+      <button type="button" data-mode="local" aria-pressed="false">A · Local only</button>
+      <button type="button" data-mode="bounded" aria-pressed="true">B · Bounded bleed</button>
+      <button type="button" data-mode="atmosphere" aria-pressed="false">C · Route atmosphere</button>
+      <span class="selection" id="selection">B · bounded bleed</span>
+    </nav>
+
+    <main class="page">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">Phase 8P · deterministic route-colour comparison</p>
+          <h1 class="site-display">How far can project colour leave the artifact?</h1>
+        </div>
+        <p>Shared substrate is fixed at cool mineral <code>#E6EAEB</code>. Typography, ink, geometry, content and artifact colour stay fixed. Only the spatial authority of project-owned colour changes.</p>
+      </header>
+
+      <section class="routes" aria-label="Project colour pressure examples">
+        <article class="route patch">
+          <div class="route-head">
+            <p class="metadata">Project · governed colour</p>
+            <h2>Patch</h2>
+            <p class="body">The route should recognise its own material without turning the whole portfolio into a themed microsite.</p>
+          </div>
+          <div class="artifact-wrap">
+            <div class="artifact" aria-label="Patch project-native colour artifact">
+              <div class="artifact-main">Project-native artifact</div>
+              <div class="artifact-side"><span>38%</span><span>18%</span></div>
+            </div>
+          </div>
+          <div class="evidence">
+            <div class="note">Canonical Patch teal <code>#17B1A6</code>. The solid artifact remains identical in all three treatments.</div>
+            <pre><code>request -> clarify
+        -> verify
+        -> handoff</code></pre>
+          </div>
+        </article>
+
+        <article class="route wild">
+          <div class="route-head">
+            <p class="metadata">Project · warm colour pressure</p>
+            <h2>Wild Bunch</h2>
+            <p class="body">Warm project material should remain recognisable without recolouring the shared shell by default.</p>
+          </div>
+          <div class="artifact-wrap">
+            <div class="artifact" aria-label="Wild Bunch comparison colour artifact">
+              <div class="artifact-main">Project-native artifact</div>
+              <div class="artifact-side"><span>38%</span><span>18%</span></div>
+            </div>
+          </div>
+          <div class="evidence">
+            <div class="note">Ochre <code>#B48752</code> is still comparison-only, not a settled Wild Bunch palette decision.</div>
+            <pre><code>- calculateEngagementScore(...)
++ getPlayerEngagement(...)
+  // call it what it is</code></pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="behaviour-key" aria-label="Treatment definitions">
+        <article>
+          <h3>A · Local only</h3>
+          <p>Project colour stays inside project-native artifacts and their immediate evidence. The mineral shell does all surrounding work.</p>
+        </article>
+        <article>
+          <h3>B · Bounded bleed</h3>
+          <p>Project colour may leave the artifact as a restrained, finite field tied to a meaningful section or edge. The mineral shell remains visibly dominant.</p>
+        </article>
+        <article>
+          <h3>C · Route atmosphere</h3>
+          <p>Project colour lightly tints the route itself and gains a stronger top field. Identity becomes ambient rather than merely local.</p>
+        </article>
+      </section>
+
+      <p class="footer">Temporary Phase 8P selection surface. It tests colour authority only. It does not settle the Wild Bunch palette, route layout, component system or public implementation.</p>
+    </main>
+
+    <script>
+      const buttons = [...document.querySelectorAll('[data-mode]')];
+      const selection = document.getElementById('selection');
+      const labels = {
+        local: 'A · local only',
+        bounded: 'B · bounded bleed',
+        atmosphere: 'C · route atmosphere'
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          document.body.dataset.mode = button.dataset.mode;
+          buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
+          selection.textContent = labels[button.dataset.mode];
+        });
+      });
+    </script>
+  </body>
+</html>

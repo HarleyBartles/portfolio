@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Phase 8P integrated route proof</title>
+  <style>
+    @font-face {
+      font-family: "Source Sans 3 Local";
+      src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Source Serif 4 Local";
+      src: url("./phase-8p-typography-assets/fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Source Code Pro Local";
+      src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+      --serif: "Source Serif 4 Local", Georgia, serif;
+      --mono: "Source Code Pro Local", Consolas, monospace;
+      --substrate: #e6eaeb;
+      --ink: #172127;
+      --muted: #56636b;
+      --rule: rgb(23 33 39 / 24%);
+      --rule-strong: rgb(23 33 39 / 42%);
+      --warm: #b48752;
+      --warm-soft: rgb(180 135 82 / 18%);
+      --code: #202a2f;
+      --code-ink: #e8edef;
+      --focus: #005f87;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; background: var(--substrate); }
+    body { margin: 0; min-height: 100%; background: var(--substrate); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
+    a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    img, svg { display: block; max-width: 100%; }
+    code, pre { font-family: var(--mono); }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--substrate) 94%, white 6%);
+    }
+    .controls strong { margin-right: 6px; font-size: 14px; }
+    .controls a { border: 1px solid var(--rule); padding: 7px 9px; font-size: 14px; text-decoration: none; }
+    .controls .fixed { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+
+    .proof { min-height: 100vh; padding: 42px 20px 84px; scroll-margin-top: 62px; border-bottom: 1px solid var(--rule-strong); }
+    .proof:last-of-type { border-bottom: 0; }
+    .proof-intro { width: min(1160px, 100%); margin: 0 auto 22px; display: flex; justify-content: space-between; gap: 30px; align-items: end; }
+    .proof-intro p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .proof-intro strong { color: var(--ink); }
+
+    .viewport {
+      container-type: inline-size;
+      margin: 0 auto;
+      border: 1px solid var(--rule-strong);
+      background: var(--substrate);
+      box-shadow: 0 14px 40px rgb(23 33 39 / 8%);
+      overflow: hidden;
+    }
+    .viewport.desktop { width: min(1160px, 100%); }
+    .viewport.narrow { width: min(390px, 100%); }
+
+    .site {
+      min-height: 760px;
+      background: var(--substrate);
+      color: var(--ink);
+    }
+
+    .masthead {
+      width: min(1080px, calc(100% - 48px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0 17px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .identity { display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; }
+    .identity img { width: 40px; height: 40px; flex: 0 0 auto; }
+    .identity-name { font-size: 14px; font-weight: 650; white-space: nowrap; }
+    .primary { margin-left: auto; }
+    .primary ul { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 22px; margin: 0; padding: 0; list-style: none; }
+    .primary a { position: relative; display: inline-block; padding: 5px 0; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .primary a[aria-current="page"]::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: var(--ink); content: ""; }
+
+    .page { width: min(1080px, calc(100% - 48px)); margin: 0 auto; padding: 52px 0 74px; }
+    .meta { margin: 0; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+    .site-display { margin: 12px 0 0; max-width: 15ch; font: 650 clamp(42px, 5.4cqi, 72px)/.98 var(--sans); letter-spacing: -.025em; }
+    .site-body { max-width: 66ch; margin: 0; font-size: 18px; line-height: 1.62; }
+    .section-title { margin: 0; font: 600 32px/1.08 var(--sans); letter-spacing: -.022em; }
+    .caption { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* Project route: bounded bleed + earned interruption + artifact-first custody. */
+    .project-lead { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 28px; align-items: end; padding-bottom: 54px; }
+    .project-lead-copy { grid-column: 1 / span 7; }
+    .project-lead-note { grid-column: 9 / span 4; padding-top: 18px; border-top: 1px solid var(--rule-strong); }
+    .project-lead-note p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; }
+
+    .project-movement { padding: 58px 0 0; border-top: 1px solid var(--rule); }
+    .project-copy { max-width: 66ch; }
+    .project-copy p { margin: 18px 0 0; font-size: 18px; line-height: 1.62; }
+
+    .proof-cluster { position: relative; display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 24px; margin-top: 30px; padding: 30px 0 4px; }
+    .proof-cluster::before {
+      position: absolute; top: 0; right: -34px; bottom: 18px; left: 28%;
+      background: var(--warm-soft); content: ""; z-index: 0;
+    }
+    .proof-cluster > * { position: relative; z-index: 1; }
+    .image-evidence { grid-column: 1 / span 8; min-width: 0; }
+    .code-evidence { grid-column: 8 / span 5; align-self: end; margin-bottom: 18px; min-width: 0; }
+    .hub-crop { aspect-ratio: 668 / 341; overflow: hidden; background: #ab7b3a; }
+    .hub-crop img { width: 179.6%; max-width: none; height: auto; transform: translate(-22.1%, -32%); transform-origin: top left; }
+    .code-evidence pre { margin: 0; padding: 18px; overflow: auto; background: var(--code); color: var(--code-ink); font-size: 14px; line-height: 1.55; }
+    .project-after { max-width: 66ch; margin-top: 30px; }
+    .project-after p { margin: 0 0 18px; font-size: 18px; line-height: 1.62; }
+
+    /* Article route: serif only where authored reading begins. */
+    .article-page { max-width: 800px; }
+    .article-header { padding-bottom: 38px; border-bottom: 1px solid var(--rule); }
+    .article-title { max-width: 16ch; margin: 10px 0 0; font: 600 clamp(38px,4.2cqi,52px)/1.04 var(--serif); letter-spacing: -.025em; }
+    .article-lead { max-width: 31ch; margin: 22px 0 0; font: 500 20px/1.35 var(--serif); }
+    .article-body { max-width: 680px; padding-top: 38px; font: 400 19px/1.66 var(--serif); }
+    .article-body p { margin: 0 0 23px; }
+    .article-body h2 { margin: 54px 0 18px; font: 600 32px/1.08 var(--sans); letter-spacing: -.022em; }
+    .article-body blockquote { margin: 34px 0; padding: 0 0 0 24px; border-left: 2px solid var(--ink); font: 500 20px/1.45 var(--serif); }
+    .article-body a { text-decoration-line: underline; }
+
+    /* About route: Sans throughout; one earned semantic rail. */
+    .about-lead { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: end; padding-bottom: 54px; }
+    .about-lead-copy { grid-column: 1 / span 7; }
+    .about-lede { grid-column: 8 / span 5; margin: 0; font-size: 20px; line-height: 1.45; }
+    .about-story { display: grid; grid-template-columns: minmax(170px, .28fr) minmax(0,1fr); margin-top: 4px; padding-top: 30px; border-top: 1px solid var(--rule-strong); }
+    .about-rail { padding-right: 28px; }
+    .about-rail p { margin: 0 0 10px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .about-content { padding-left: 28px; border-left: 1px solid var(--rule); }
+    .about-content p { max-width: 66ch; margin: 18px 0 0; font-size: 18px; line-height: 1.62; }
+    .invariant { margin: 30px 0 0; max-width: 48ch; padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 22px; font-weight: 650; line-height: 1.25; }
+    .route-flow { margin: 26px 0 0; padding: 16px 18px; overflow: auto; background: var(--code); color: var(--code-ink); font: 400 14px/1.55 var(--mono); }
+    .about-next { margin-top: 58px; padding-top: 36px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; }
+    .about-next h2 { grid-column: 1 / span 6; }
+    .about-next div { grid-column: 8 / span 5; }
+    .about-next p { margin: 0 0 16px; font-size: 18px; line-height: 1.62; }
+
+    .proof-note { width: min(1160px,100%); margin: 18px auto 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    @container (max-width: 620px) {
+      .masthead { width: calc(100% - 28px); align-items: flex-start; flex-wrap: wrap; gap: 10px 16px; padding: 15px 0 13px; }
+      .identity img { width: 36px; height: 36px; }
+      .identity-name { font-size: 14px; }
+      .primary { width: 100%; margin-left: 0; }
+      .primary ul { justify-content: flex-start; gap: 8px 18px; }
+      .primary a { font-size: 14px; }
+      .page { width: calc(100% - 28px); padding: 36px 0 56px; }
+      .site-display { font-size: clamp(42px, 11cqi, 54px); }
+      .project-lead, .about-lead { display: block; padding-bottom: 38px; }
+      .project-lead-note { margin-top: 28px; }
+      .project-movement { padding-top: 42px; }
+      .proof-cluster { display: block; margin-top: 24px; padding-top: 22px; }
+      .proof-cluster::before { top: 0; right: -14px; bottom: 0; left: 18%; }
+      .code-evidence { margin: 18px 0 0; }
+      .article-page { max-width: none; }
+      .article-title { font-size: 40px; }
+      .article-body { font-size: 19px; }
+      .article-body h2 { margin-top: 42px; font-size: 28px; }
+      .about-lede { margin-top: 28px; font-size: 19px; }
+      .about-story { grid-template-columns: 1fr; }
+      .about-rail { padding: 0 0 14px; }
+      .about-content { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--rule); }
+      .about-next { display: block; margin-top: 44px; }
+      .about-next div { margin-top: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="controls" aria-label="Integrated route proof states">
+    <strong>Integrated proof</strong>
+    <a href="#project-desktop">Project · desktop</a>
+    <a href="#project-narrow">Project · narrow</a>
+    <a href="#article-desktop">Article · desktop</a>
+    <a href="#article-narrow">Article · narrow</a>
+    <a href="#about-desktop">About · desktop</a>
+    <a href="#about-narrow">About · narrow</a>
+    <span class="fixed">all settled Phase 8P inputs active · homepage excluded</span>
+  </nav>
+
+  <main>
+    <section class="proof" id="project-desktop" aria-labelledby="project-desktop-label">
+      <header class="proof-intro"><p><strong id="project-desktop-label">Project / evidence-heavy route · desktop</strong><br>Wild Bunch pressure: bounded bleed, earned interruption, artifact-first custody, variable cadence.</p><p>Visible name is deliberately included in the quiet shell for integrated-proof judgement.</p></header>
+      <div class="viewport desktop"><div class="site">
+        <header class="masthead">
+          <a class="identity" href="#project-desktop" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a>
+          <nav class="primary" aria-label="Primary"><ul><li><a aria-current="page" href="#project-desktop">Projects</a></li><li><a href="#article-desktop">Writing</a></li><li><a href="#project-desktop">Patch</a></li><li><a href="#about-desktop">About</a></li><li><a href="#about-desktop">CV</a></li></ul></nav>
+        </header>
+        <article class="page">
+          <header class="project-lead">
+            <div class="project-lead-copy"><p class="meta">Projects / Wild Bunch</p><h1 class="site-display">Wild Bunch</h1><p class="site-body" style="margin-top:24px">A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on.</p></div>
+            <aside class="project-lead-note"><p>Pre-alpha. The project can justify complicated architecture only where the game actually needs the properties it buys.</p></aside>
+          </header>
+          <section class="project-movement" aria-labelledby="project-movement-title">
+            <div class="project-copy"><h2 class="section-title" id="project-movement-title">Making chance reproducible</h2><p>I treated the seed as the address of a starting world. Randomising it is a first-class player choice. Once chosen, that world can be revisited by tests or by me chasing a bug.</p><p>The map follows the same idea. A compact recipe produces meaningful route distances and more than one way through the map. Every road remains reproducible without being encoded separately.</p><p>Town layout closes a subtler gap. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay.</p></div>
+            <div class="proof-cluster">
+              <figure class="image-evidence"><div class="hub-crop"><img src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Cropped Wild Bunch town-hub development capture"></div><figcaption class="caption"><strong>Playable development evidence.</strong> Cropped to the town-hub field; the original capture and provenance remain the source receipt.</figcaption></figure>
+              <figure class="code-evidence"><pre><code>I only get to call that exact replay
+because it's falsifiable.
+
+Full-stream equality tests rebuild a
+session from its events and compare it.</code></pre><figcaption class="caption">Proof attached to the claim rather than normalised into a shared evidence card.</figcaption></figure>
+            </div>
+            <div class="project-after"><p>The seed describes the base world; it doesn't swallow the whole playthrough. Difficulty, entropy policy, named salts and player choices remain legible inputs of their own.</p><p><a href="https://github.com/HarleyBartles/wild-bunch">Inspect the public Wild Bunch repository</a></p></div>
+          </section>
+        </article>
+      </div></div>
+      <p class="proof-note">The warm field is finite and terminates back into mineral ground. The image crosses a local grid relationship because the evidence earns the interruption; the shell stays neutral.</p>
+    </section>
+
+    <section class="proof" id="project-narrow" aria-labelledby="project-narrow-label">
+      <header class="proof-intro"><p><strong id="project-narrow-label">Project / evidence-heavy route · narrow</strong><br>Same composition contract at 390 CSS px.</p></header>
+      <div class="viewport narrow"><div class="site">
+        <header class="masthead"><a class="identity" href="#project-narrow" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a><nav class="primary" aria-label="Primary"><ul><li><a aria-current="page" href="#project-narrow">Projects</a></li><li><a href="#article-narrow">Writing</a></li><li><a href="#project-narrow">Patch</a></li><li><a href="#about-narrow">About</a></li><li><a href="#about-narrow">CV</a></li></ul></nav></header>
+        <article class="page"><header class="project-lead"><div class="project-lead-copy"><p class="meta">Projects / Wild Bunch</p><h1 class="site-display">Wild Bunch</h1><p class="site-body" style="margin-top:22px">A seeded world, exact replay and architecture that has to earn its complexity.</p></div><aside class="project-lead-note"><p>Pre-alpha. Project context remains page content, not shell furniture.</p></aside></header><section class="project-movement"><div class="project-copy"><h2 class="section-title">Making chance reproducible</h2><p>The seed is the address of a starting world. Once chosen, that world can be revisited by tests or by me chasing a bug.</p></div><div class="proof-cluster"><figure class="image-evidence"><div class="hub-crop"><img src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Cropped Wild Bunch town-hub development capture"></div><figcaption class="caption">Town-hub evidence keeps its own visual boundary.</figcaption></figure><figure class="code-evidence"><pre><code>No source-neutral wrapper.
+Proof stays attached to the claim.</code></pre><figcaption class="caption">Technical evidence remains technical.</figcaption></figure></div></section></article>
+      </div></div>
+    </section>
+
+    <section class="proof" id="article-desktop" aria-labelledby="article-desktop-label">
+      <header class="proof-intro"><p><strong id="article-desktop-label">Authored article route · desktop</strong><br>Why ADRs? pressure: quiet shell, semantic Serif transition, steady reading pulse, no project colour.</p></header>
+      <div class="viewport desktop"><div class="site">
+        <header class="masthead"><a class="identity" href="#article-desktop" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a><nav class="primary" aria-label="Primary"><ul><li><a href="#project-desktop">Projects</a></li><li><a aria-current="page" href="#article-desktop">Writing</a></li><li><a href="#project-desktop">Patch</a></li><li><a href="#about-desktop">About</a></li><li><a href="#about-desktop">CV</a></li></ul></nav></header>
+        <article class="page article-page">
+          <header class="article-header"><p class="meta">Writing · 22 August 2026 · 8 min read</p><h1 class="article-title">Why ADRs?</h1><p class="article-lead">A love letter to a future engineer.</p></header>
+          <div class="article-body"><p>Sometimes you're writing to your own future self.</p><p>You leave them enough of the argument to challenge your decision properly. The record serves whoever inherits the system, including when they decide the architecture should change.</p><p>I learned this by failing to write one.</p><h2>I didn't know the documentation was me</h2><p>I hadn't designed the system alone. I was early in my career, left holding the baton, completely ill-equipped to explain the complex system I knew like the back of my hand.</p><p>We made the user's job simpler by accepting more complexity into the system. Simplicity at the boundary was something the implementation had to earn.</p><h2>The architecture wasn't theatre</h2><blockquote>Everybody thinks CQRS and event sourcing are theatre until somebody asks for a full audit history.</blockquote><p>For plenty of systems, that criticism is fair. These patterns introduce concepts, infrastructure and failure modes that would be wasteful in a straightforward application. LENS had to reconstruct relevant actions and attribute them to an actor. The architecture was load-bearing.</p><p><a href="https://harleybartles.com/writing/why-adrs">Read the published article</a></p></div>
+        </article>
+      </div></div>
+      <p class="proof-note">Serif begins only at authored reading. Navigation, metadata and section mechanics remain Sans. The article is quieter than the project display and uses space rather than repeated rules for rhythm.</p>
+    </section>
+
+    <section class="proof" id="article-narrow" aria-labelledby="article-narrow-label">
+      <header class="proof-intro"><p><strong id="article-narrow-label">Authored article route · narrow</strong><br>Same reading register at 390 CSS px.</p></header>
+      <div class="viewport narrow"><div class="site"><header class="masthead"><a class="identity" href="#article-narrow" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a><nav class="primary" aria-label="Primary"><ul><li><a href="#project-narrow">Projects</a></li><li><a aria-current="page" href="#article-narrow">Writing</a></li><li><a href="#project-narrow">Patch</a></li><li><a href="#about-narrow">About</a></li><li><a href="#about-narrow">CV</a></li></ul></nav></header><article class="page article-page"><header class="article-header"><p class="meta">Writing · 22 August 2026</p><h1 class="article-title">Why ADRs?</h1><p class="article-lead">A love letter to a future engineer.</p></header><div class="article-body"><p>Sometimes you're writing to your own future self.</p><p>You leave them enough of the argument to challenge your decision properly.</p><h2>The architecture wasn't theatre</h2><p>For plenty of systems, that criticism is fair. These patterns introduce concepts, infrastructure and failure modes that would be wasteful in a straightforward application.</p></div></article></div></div>
+    </section>
+
+    <section class="proof" id="about-desktop" aria-labelledby="about-desktop-label">
+      <header class="proof-intro"><p><strong id="about-desktop-label">Professional / heterogeneous route · desktop</strong><br>About pressure: Sans voice, professional provenance, one earned semantic rail, technical evidence without a component frame.</p></header>
+      <div class="viewport desktop"><div class="site">
+        <header class="masthead"><a class="identity" href="#about-desktop" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a><nav class="primary" aria-label="Primary"><ul><li><a href="#project-desktop">Projects</a></li><li><a href="#article-desktop">Writing</a></li><li><a href="#project-desktop">Patch</a></li><li><a aria-current="page" href="#about-desktop">About</a></li><li><a href="#about-desktop">CV</a></li></ul></nav></header>
+        <article class="page">
+          <header class="about-lead"><div class="about-lead-copy"><p class="meta">About</p><h1 class="site-display">I still like writing code. I just know the job is bigger than that now.</h1></div><p class="about-lede">I'm a full-stack software engineer with 7+ years of professional experience. At The Access Group I'm currently the sole engineer responsible for Access Checks, taking work from product epics through technical design, implementation, release, support and operation.</p></header>
+          <section class="about-story" aria-labelledby="access-title"><aside class="about-rail"><p><strong>Current work</strong><br>The Access Group</p><p>September 2021 – present</p><p>Sole engineer for Access Checks from approximately May 2026.</p></aside><div class="about-content"><h2 class="section-title" id="access-title">Access Checks, end to end.</h2><p>Product usually gives me the desired outcome as an epic. I turn that into a delivery plan, make the technical decisions, build it, handle the DevOps, release it, support it and keep it running.</p><p>DBS Update and Right to Work Sharecode are two live examples. Their government services expose web journeys rather than suitable APIs. The LLM handles the narrow part that benefits from interpretation: locating page elements and proposing browser actions. Deterministic code executes those actions and extracts the result.</p><p class="invariant">No source capture, no success.</p><p>After hardening and load-testing the recovery paths, I removed partial-success delivery. If we don't have the capture, the check fails and downstream systems receive a no-charge signal.</p><pre class="route-flow"><code>remaining v1 consumer
+  → Access Checks v1
+  → Access Screening
+  → Access Checks v2
+  → direct supplier</code></pre><p>Every hop worked. The route just added latency, failure surface and support opacity for no customer value. I made migration of the remaining v1 consumers a prerequisite, so the loop never became the production design.</p></div></section>
+          <section class="about-next"><h2 class="section-title">I'm looking for a senior full-stack role.</h2><div><p>Remote-first works best. I'm open to occasional UK-wide office travel, or Manchester hybrid up to one day a week. My notice period is four weeks.</p><p><a href="https://harleybartles.com/cv">Read the CV</a> · <a href="https://harleybartles.com/about#contact">Get in touch</a></p></div></section>
+        </article>
+      </div></div>
+      <p class="proof-note">The rail survives because date/scope are semantically distinct from the professional story. It remains neutral, collapses on narrow screens and does not become brand furniture.</p>
+    </section>
+
+    <section class="proof" id="about-narrow" aria-labelledby="about-narrow-label">
+      <header class="proof-intro"><p><strong id="about-narrow-label">Professional / heterogeneous route · narrow</strong><br>Same About hierarchy at 390 CSS px; rail returns to normal source order.</p></header>
+      <div class="viewport narrow"><div class="site"><header class="masthead"><a class="identity" href="#about-narrow" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""><span class="identity-name">Harley Bartles</span></a><nav class="primary" aria-label="Primary"><ul><li><a href="#project-narrow">Projects</a></li><li><a href="#article-narrow">Writing</a></li><li><a href="#project-narrow">Patch</a></li><li><a aria-current="page" href="#about-narrow">About</a></li><li><a href="#about-narrow">CV</a></li></ul></nav></header><article class="page"><header class="about-lead"><div class="about-lead-copy"><p class="meta">About</p><h1 class="site-display">I still like writing code. I just know the job is bigger than that now.</h1></div><p class="about-lede">I'm a full-stack software engineer with 7+ years of professional experience, currently the sole engineer responsible for Access Checks.</p></header><section class="about-story"><aside class="about-rail"><p><strong>Current work / The Access Group</strong></p><p>September 2021 – present</p></aside><div class="about-content"><h2 class="section-title">Access Checks, end to end.</h2><p>Product usually gives me the desired outcome as an epic. I turn that into a delivery plan, build it, release it, support it and keep it running.</p><p class="invariant">No source capture, no success.</p><pre class="route-flow"><code>v1 consumer → Screening → v2</code></pre></div></section></article></div></div>
+    </section>
+  </main>
+
+  <p class="proof-note" style="padding:0 20px 70px">Temporary Phase 8P integrated proof. Real route copy is drawn from the current Wild Bunch case study, Why ADRs? article, About page and professional-profile source. This is design-room evidence, not a production implementation or homepage authorization. After desktop/narrow judgement, repeat the route anchors at actual 200% browser zoom; then check focus/contrast/missing-media intent before closing Phase 8P.</p>
+</body>
+</html>
