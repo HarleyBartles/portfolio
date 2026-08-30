@@ -15,13 +15,15 @@ Observed defects and pressure points from Harley's rendered-page review:
 - `I build reliable agentic systems.` is too bold, too narrow and reads like an AI-written positioning claim.
 - The hero's `silly comics` reference currently writes a cheque the page does not cash. If that phrase survives, `silly comics` itself should link to `/patch`.
 - `SELECTED / SHUFFLED ON ARRIVAL` and `The order changes. Every project is still here to inspect.` expose implementation/editorial scaffolding as reader copy.
-- The shuffled feature surface no longer has an automatic claim to homepage space. Its original job was to push `the best stuff` first; after the later portfolio phases, all admitted homepage material should already clear that bar.
+- The current shuffled feature surface no longer has an automatic claim to homepage space. Its original job was to push `the best stuff` first; after the later portfolio phases, all admitted homepage material should already clear that bar.
 - `Systems with edges`, `How I keep the work honest`, the principle-card language and `building in public` read as AI-shaped connective or virtue copy rather than useful evidence.
 - The rendered Agentic Learning Lab entry in the fixed project grid is visibly misformatted.
 - `Yes, this is also a portfolio.` and its supporting close are rejected as self-conscious portfolio scaffolding rather than useful professional navigation.
 - SPA route navigation currently appears to retain the prior page's vertical scroll position on a new route, so a link followed halfway down one page can land the reader halfway down the next page. That is a direct finish defect.
 
 The route code supports Harley's observation as a structural gap rather than a visual fluke: the app uses a `createBrowserRouter` data router and the route shell is currently only an `Outlet`; there is no explicit route scroll-restoration/reset or route-focus layer in those seams.
+
+A new visual-design risk is now first-class rather than anecdotal. Kyle Chayka's 24 June 2026 New Yorker piece, `The A.I.-Design Aesthetic That's Taking Over the Internet`, reports a recognisable cluster of Claude-generated web-design defaults: beige/cream backgrounds, rusty orange accents, large serif type, tracked-out subheads, ticker-like bars, rounded outlined panels, and related component-library sameness. The current portfolio legitimately overlaps several of those cues. Because this site explicitly demonstrates AI-assisted engineering and editorial practice, being visually mistaken for an AI-default site would undermine the very judgement and taste the portfolio is trying to prove.
 
 ## Adversarial opening assessment
 
@@ -30,6 +32,8 @@ The route code supports Harley's observation as a structural gap rather than a v
 **Current homepage: about £6k of a £10k target.** The typography, palette, owned project evidence and surrounding site depth are materially better than that number, but the homepage discounts them through generic connective prose, repeated evidence, exposed scaffolding, conventional portfolio architecture and unfinished navigation behaviour.
 
 A genuine recomposition rather than a polish pass can plausibly reach the **£9k-£10k** range if the finished surface feels like one authored publication object, preserves the strength of the destination routes and removes cheap SPA/navigation tells.
+
+That valuation now has an additional hard gate: a visually polished homepage that still reads as a recognisable 2026 AI-design default does not clear the premium bar. The problem would not be that the individual ingredients are ugly; it would be that the composition advertises low-cost generic generation rather than authored taste.
 
 ### Weary hiring manager
 
@@ -42,6 +46,8 @@ A visible current employer can reduce another early ambiguity cheaply: this is a
 The current page says too much about desirable engineering qualities instead of exposing the decisions that prove them. Marketplace, Wild Bunch, Learning Lab, Patch, the essays and the Phase 7A outcome account contain stronger receipts than the homepage gives them credit for.
 
 The architect lens also gets a legitimate social prior from the employer context. Harley's point is twofold: sustained tenure at a recognisable enterprise software house is itself evidence that the candidate has survived a real professional engineering environment, and software-house alumni networks make the employer name socially legible in ways a generic `professional engineer` label is not. An architect may know former Access engineers, work with them, or be one. That prior is not technical proof and must not replace inspectable evidence, but it can raise the architect's motivation to test whether the substance matches the signal. Showing the tenure makes that prior substantially more useful than the employer name alone.
+
+For this lens, an AI-default visual surface is especially damaging. A portfolio that argues for deliberate agentic engineering while looking like an unchallenged model default gives the architect a cheap counterexample before they inspect a single receipt.
 
 ## Settled hierarchy and evidence decisions
 
@@ -89,29 +95,35 @@ The first fold must satisfy all of these without exposing the rubric as page cop
 - The architect can reach evidence containing decisions, trade-offs, costs, correction history, falsifiers or other inspectable engineering substance within one click or one scroll.
 - Every prominent claim has an obvious place where it can be verified or qualified.
 - About is not mandatory transit for the rest of the portfolio.
+- At a glance, the fold must not plausibly read as a stock 2026 AI-generated design. If the first visual description is essentially `cream paper + rust/copper + big serif + tracked labels + rounded modules`, the composition has failed regardless of polish.
 
 A useful acceptance test is: after the first fold, neither human persona should wonder `where would I even go to verify that?`.
+
+A second acceptance test is now equally important: a reader familiar with current AI-generated website aesthetics should not be able to explain the page's visual identity primarily by naming the model-default clichés reported in current design culture.
 
 ## Settled art direction
 
 19. **The homepage is the stylistic crescendo of the site.** Interior routes keep the restrained ink-on-paper editorial grammar; `/` is the one place that grammar is allowed to move, fold, layer and reveal itself theatrically.
-20. **The homepage amplifies the existing visual language rather than inventing a second brand.** Warm paper, ink, copper punctuation, deliberate dark inserts, Fraunces/Source Serif/Fira Code, asymmetry and project-native media remain the source material.
-21. **The leading exploration is a fully literal digital publication.** Phase 8 should push the metaphor past the safe midpoint first, then pull back from observed excess rather than pre-emptively diluting it.
-22. **Publication-like motion is in scope when it carries hierarchy.** Page folds, turns, layered sheets, inserts and reveals may carry the reader between publication states. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension.
-23. **The £10k bar rejects conventional portfolio UI as the main evidence surface.** Card grids, tabs, filters, chips and link directories may be usable but still fail the target feel if they read as `some guy's personal website`.
-24. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The composition itself should let readers recognise the kind of proof they care about.
-25. **The homepage scroll choreography uses recognisable publication spreads rather than one continuous morphing scroll trick.** Spreads provide clearer editorial pacing and natural places for different kinds of evidence to receive distinct treatment.
-26. **The homepage is the publication's front matter.** The metaphor is a design aid, not a literal content checklist: cover, contents, foreword, frontispiece or prologue are useful ways to think about functions that orient the reader before `here is the story`. The homepage's job is to establish identity, stakes, orientation and routes into the work. Earned pull-excerpts may carry real substance, but they exist to make entry into the story worthwhile rather than to retell it.
-27. **Do not marry the metaphor.** If a literal book convention hurts hierarchy, comprehension, responsiveness or evidence access, the product need wins. The metaphor supplies coherence, not handcuffs.
+20. **The existing visual rulebook is no longer protected merely because it is established.** Warm paper, ink, copper punctuation, Fraunces/Source Serif/Fira Code, asymmetry and the existing component furniture remain available source material, not mandatory defaults. Phase 8 may change them locally or trigger a later site-wide visual-language amendment if preserving them would make the portfolio read as an AI-design cliché.
+21. **Avoiding recognisable AI-default visual convergence is a hard credibility constraint.** This portfolio openly demonstrates AI-assisted work; therefore an unchallenged model-default visual language is not a harmless fashion overlap. It directly weakens the claim that Harley exercises judgement, taste and custody over AI output.
+22. **Do not respond mechanically to the tell list.** The New Yorker reporting is a current perception signal, not a law that forbids cream, orange, serif type or rounded rectangles individually. A generic instruction such as `don't use cream` can simply move an AI system to another default palette. The goal is an authored visual system derived from this portfolio's specific material and purpose, not an inverted anti-Claude template.
+23. **The leading exploration remains a digital publication, but the metaphor does not rescue generic styling.** Page/spread/front-matter structure can remain because it is an information-architecture decision. Its visual expression must earn distinctiveness independently rather than assuming paper colours and serif type make it authored.
+24. **Publication-like motion is in scope when it carries hierarchy.** Page folds, turns, layered sheets, inserts and reveals may carry the reader between publication states. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension.
+25. **The £10k bar rejects conventional portfolio UI as the main evidence surface.** Card grids, tabs, filters, chips and link directories may be usable but still fail the target feel if they read as `some guy's personal website` or as the obvious output of a common AI/component-library recipe.
+26. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The composition itself should let readers recognise the kind of proof they care about.
+27. **The homepage scroll choreography uses recognisable publication spreads rather than one continuous morphing scroll trick.** Spreads provide clearer editorial pacing and natural places for different kinds of evidence to receive distinct treatment.
+28. **The homepage is the publication's front matter.** The metaphor is a design aid, not a literal content checklist: cover, contents, foreword, frontispiece or prologue are useful ways to think about functions that orient the reader before `here is the story`. The homepage's job is to establish identity, stakes, orientation and routes into the work. Earned pull-excerpts may carry real substance, but they exist to make entry into the story worthwhile rather than to retell it.
+29. **Do not marry the metaphor.** If a literal book convention hurts hierarchy, comprehension, responsiveness, evidence access or visual distinctiveness, the product need wins. The metaphor supplies coherence, not handcuffs.
+30. **The fold-one prototype may commission at most one new generated image, and it must be ambient rather than load-bearing.** Its job is to add subtle finish, texture or depth to the whole composition. Meaning, hierarchy and credibility must survive its removal. Local should be able to audition the fold with and without it; if the image announces itself, carries the concept, or becomes the thing making an otherwise generic layout look special, it has failed.
 
 ## SPA and navigation contract
 
-28. **Crossing the home/interior boundary is part of the art direction.** Leaving `/` for an interior route should feel like opening the publication; returning to `/` should feel like closing it.
-29. **Interior-to-interior navigation remains ordinary and trustworthy.** Projects, Writing, Patch, About, CV and deep routes should use normal navigation semantics; browser history and deep links remain authoritative.
-30. **Do not manufacture navigation history.** A direct deep link to an interior page does not perform a fake book opening from a homepage the visitor never saw.
-31. **Reduced motion preserves the relationship without requiring the physical effect.** The same destination, source order, focus and proof paths must work when folds/turns are suppressed.
-32. **New-route navigation must not strand the reader at the previous route's scroll offset.** A normal push/replace navigation to a new non-fragment route arrives at the destination's beginning. A deliberate fragment route lands on its target. Browser Back/Forward may restore the prior history entry's scroll position where that is the expected browser behaviour.
-33. **Route transitions must finish in a correct document state, not merely a pretty visual state.** The opening/closing animation cannot win over destination scroll, focus, history or accessibility semantics. Phase 8 should include the scroll/focus behaviour because it is touching the same route boundary and the current defect visibly loses finish value.
+31. **Crossing the home/interior boundary is part of the art direction.** Leaving `/` for an interior route should feel like opening the publication; returning to `/` should feel like closing it.
+32. **Interior-to-interior navigation remains ordinary and trustworthy.** Projects, Writing, Patch, About, CV and deep routes should use normal navigation semantics; browser history and deep links remain authoritative.
+33. **Do not manufacture navigation history.** A direct deep link to an interior page does not perform a fake book opening from a homepage the visitor never saw.
+34. **Reduced motion preserves the relationship without requiring the physical effect.** The same destination, source order, focus and proof paths must work when folds/turns are suppressed.
+35. **New-route navigation must not strand the reader at the previous route's scroll offset.** A normal push/replace navigation to a new non-fragment route arrives at the destination's beginning. A deliberate fragment route lands on its target. Browser Back/Forward may restore the prior history entry's scroll position where that is the expected browser behaviour.
+36. **Route transitions must finish in a correct document state, not merely a pretty visual state.** The opening/closing animation cannot win over destination scroll, focus, history or accessibility semantics. Phase 8 should include the scroll/focus behaviour because it is touching the same route boundary and the current defect visibly loses finish value.
 
 ## Public copy and evidence boundaries
 
@@ -148,6 +160,11 @@ The matured portfolio no longer has an obvious `best stuff versus the rest` prob
 - Treat the employer name as technical proof rather than a useful prior that still has to be tested.
 - Express the evidence landscape primarily as a conventional card grid, tab set or category filter.
 - Keep the homepage as visually static as the interior routes for consistency.
+- Preserve the existing warm-paper/copper/serif rulebook simply because previous phases established it.
+- Assume the publication metaphor itself is enough to distinguish a cream/copper/serif composition from current AI-generated website clichés.
+- Mechanically invert the reported AI tells by swapping cream for another colour, orange for another accent, or one fashionable type pairing for another while leaving the generative design process unchanged.
+- Use a dramatic generated background to disguise an otherwise generic AI-shaped layout.
+- Treat resemblance to a common AI aesthetic as a cosmetic concern rather than a credibility failure for this particular portfolio.
 - Pre-emptively tone down the paper metaphor before testing it.
 - Animate every SPA route to maintain the book metaphor.
 - Fake a book opening on direct deep links.
@@ -161,13 +178,18 @@ The matured portfolio no longer has an obvious `best stuff versus the rest` prob
 
 Work one consequential decision at a time:
 
-1. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind About;
-2. settle the individual front-matter spreads and which proof angles must be legible in the first post-cover movement;
-3. settle whether randomness/manual feature change still earns any role;
-4. settle the final Patch, writing and professional-route choreography;
-5. settle exact copy only after hierarchy is stable;
-6. reconcile narrow, keyboard, reduced-motion, missing-media, route-focus, route-scroll and transition-failure behaviour at design level;
-7. classify material spec drift and required protected-default amendments.
+1. audit the current visual rulebook and fold-one prototype specifically for recognisable AI-default convergence, then decide which existing palette/type/component choices genuinely survive on their own merits;
+2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind About only if the visual composition proves that distinction needs an editorial answer;
+3. settle the individual front-matter spreads and which proof angles must be legible in the first post-cover movement;
+4. settle whether randomness/manual feature change still earns any role;
+5. settle the final Patch, writing and professional-route choreography;
+6. settle exact copy only after hierarchy and visual direction are stable;
+7. reconcile narrow, keyboard, reduced-motion, missing-media, route-focus, route-scroll and transition-failure behaviour at design level;
+8. classify material spec drift and required protected-default amendments, including any site-wide visual-language consequences of the anti-AI-default audit.
+
+## External research note
+
+The immediate visual-risk source is Kyle Chayka, `The A.I.-Design Aesthetic That's Taking Over the Internet`, The New Yorker, 24 June 2026. The report describes beige/cream backgrounds, rusty-orange accents, large serif type, tracked subheads, ticker-like bars and rounded outlined dashboard elements as a rapidly recognisable Claude-generated design cluster; it also reports that generic `don't use cream` prompting tends to shift the model into another fixed palette rather than create genuine variety. The useful conclusion for this room is not `ban those ingredients`. It is `do not accept a design whose authorship can be explained primarily by a model's default house style`.
 
 ## Baton
 
