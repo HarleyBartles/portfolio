@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>Phase 8P evidence custody comparison</title>
+    <style>
+      @font-face {
+        font-family: "Source Sans 3 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Code Pro Local";
+        src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+        --mono: "Source Code Pro Local", Consolas, "Liberation Mono", monospace;
+        --substrate: #e6eaeb;
+        --ink: #172127;
+        --muted: #56636b;
+        --rule: rgba(23, 33, 39, .24);
+        --rule-strong: rgba(23, 33, 39, .42);
+        --paper: rgba(255,255,255,.38);
+        --code: #202a2f;
+        --code-ink: #e8edef;
+        --warm: rgba(180,135,82,.18);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: auto; }
+      html, body { margin: 0; min-height: 100%; }
+      body { background: var(--substrate); color: var(--ink); font-family: var(--sans); }
+      a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
+      a:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+      code, pre { font-family: var(--mono); }
+
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        background: color-mix(in srgb, var(--substrate) 93%, white 7%);
+        border-bottom: 1px solid var(--rule);
+        backdrop-filter: blur(12px);
+      }
+      .controls strong { margin-right: 6px; font-size: 14px; }
+      .controls a { border: 1px solid var(--rule); padding: 8px 11px; text-decoration: none; }
+      .controls .fixed { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+      .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding-bottom: 96px; }
+      .treatment { min-height: 100vh; padding: 48px 0 76px; scroll-margin-top: 64px; border-bottom: 1px solid var(--rule-strong); }
+      .treatment:last-of-type { border-bottom: 0; }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+        gap: 70px;
+        align-items: end;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .eyebrow { margin: 0 0 16px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      h1 { max-width: 14ch; margin: 0; font-size: clamp(42px, 5vw, 68px); font-weight: 650; line-height: .98; letter-spacing: -.025em; }
+      .intro p:last-child { margin: 0; max-width: 48ch; color: var(--muted); font-size: 18px; line-height: 1.62; }
+
+      .evidence-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 28px;
+        padding-top: 40px;
+      }
+      .item-image { grid-column: span 7; }
+      .item-code { grid-column: span 5; }
+      .item-doc { grid-column: 3 / span 8; }
+      .kind { margin: 0 0 10px; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
+      .item h2 { margin: 0 0 14px; font-size: 28px; font-weight: 600; line-height: 1.08; letter-spacing: -.02em; }
+      .artifact-image { display: block; width: 100%; height: auto; background: #12181b; }
+      .code-artifact { margin: 0; min-height: 260px; padding: 22px; overflow: auto; background: var(--code); color: var(--code-ink); font-size: 14px; line-height: 1.58; }
+      .doc-artifact { padding: 28px 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+      .doc-artifact h3 { margin: 0 0 8px; font-size: 22px; line-height: 1.15; }
+      .doc-artifact p { margin: 0 0 12px; max-width: 66ch; font-size: 17px; line-height: 1.58; }
+      .doc-artifact p:last-child { margin-bottom: 0; }
+
+      .caption { color: var(--muted); font-size: 14px; line-height: 1.5; }
+      .caption strong { color: var(--ink); font-weight: 600; }
+      .receipt { font-family: var(--mono); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+
+      /* A: artifact-first. The evidence keeps its own native boundary; provenance follows outside. */
+      .artifact-first .item { min-width: 0; }
+      .artifact-first .caption { margin-top: 12px; max-width: 62ch; }
+      .artifact-first .caption + .caption { margin-top: 5px; }
+
+      /* B: custody seam. A narrow semantic provenance rail is attached to the evidence span. */
+      .custody-seam .custody {
+        display: grid;
+        grid-template-columns: minmax(150px, .28fr) minmax(0, 1fr);
+        border-top: 1px solid var(--rule-strong);
+        border-bottom: 1px solid var(--rule-strong);
+      }
+      .custody-seam .provenance {
+        padding: 16px 18px 16px 0;
+        border-right: 1px solid var(--rule);
+      }
+      .custody-seam .provenance p { margin: 0 0 8px; }
+      .custody-seam .provenance p:last-child { margin-bottom: 0; }
+      .custody-seam .evidence-body { min-width: 0; padding: 16px 0 16px 18px; }
+      .custody-seam .code-artifact { min-height: 226px; }
+      .custody-seam .doc-artifact { border: 0; padding: 6px 0; }
+      .custody-seam .item-image .evidence-body { background: var(--warm); padding: 16px; }
+      .custody-seam .item-image .artifact-image { width: calc(100% + 26px); max-width: none; }
+      .custody-seam .item-image .provenance { align-self: stretch; }
+
+      /* C: unified module. Plausible, orderly and deliberately more componentised. */
+      .evidence-module .module {
+        height: 100%;
+        border: 1px solid var(--rule-strong);
+        background: rgba(255,255,255,.20);
+      }
+      .evidence-module .module-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--rule);
+        background: rgba(255,255,255,.22);
+      }
+      .evidence-module .module-head strong { font-size: 14px; }
+      .evidence-module .module-head span { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+      .evidence-module .module-body { padding: 14px; }
+      .evidence-module .module-foot { padding: 12px 14px; border-top: 1px solid var(--rule); }
+      .evidence-module .module-foot p { margin: 0 0 5px; }
+      .evidence-module .module-foot p:last-child { margin-bottom: 0; }
+      .evidence-module .code-artifact { min-height: 226px; }
+      .evidence-module .doc-artifact { margin: 0; padding: 18px; border: 1px solid var(--rule); background: var(--paper); }
+
+      .definitions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 42px;
+        padding-top: 20px;
+        border-top: 1px solid var(--rule);
+      }
+      .definitions h3 { margin: 0 0 7px; font-size: 16px; }
+      .definitions p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.48; }
+      .footnote { margin: 32px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+      @media (max-width: 780px) {
+        .controls .fixed { width: 100%; margin-left: 0; }
+        .page { width: min(100% - 28px, 1180px); }
+        .intro { grid-template-columns: 1fr; gap: 24px; }
+        .evidence-grid { display: block; }
+        .item { margin-bottom: 38px; }
+        .custody-seam .custody { grid-template-columns: 1fr; }
+        .custody-seam .provenance { padding: 12px 0; border-right: 0; border-bottom: 1px solid var(--rule); }
+        .custody-seam .evidence-body { padding: 14px 0; }
+        .custody-seam .item-image .evidence-body { padding: 14px; }
+        .custody-seam .item-image .artifact-image { width: 100%; }
+        .definitions { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="controls" aria-label="Evidence custody treatments">
+      <strong>Evidence custody</strong>
+      <a href="#artifact-first">A · Artifact first</a>
+      <a href="#custody-seam">B · Custody seam</a>
+      <a href="#evidence-module">C · Evidence module</a>
+      <span class="fixed">substrate #E6EAEB · bounded bleed · earned interruption fixed</span>
+    </nav>
+
+    <main class="page">
+      <section class="treatment artifact-first" id="artifact-first" aria-labelledby="artifact-first-title">
+        <header class="intro">
+          <div>
+            <p class="eyebrow">A · artifact first</p>
+            <h1 id="artifact-first-title">The receipt keeps its own shape.</h1>
+          </div>
+          <p>Evidence is shown as itself. Shared styling stays outside the artifact: captions, provenance and nearby rules establish custody without wrapping unlike media in one visual component.</p>
+        </header>
+
+        <div class="evidence-grid">
+          <article class="item item-image">
+            <p class="kind">Running product capture</p>
+            <h2>Wild Bunch · Dustwell</h2>
+            <img class="artifact-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town development-build capture">
+            <p class="caption"><strong>Status:</strong> playable development-build evidence; not final game art direction.</p>
+            <p class="caption receipt">source SHA-256 1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147 · public derivative 1200 × 917 AVIF</p>
+          </article>
+
+          <article class="item item-code">
+            <p class="kind">Public source</p>
+            <h2>Outcome invariant</h2>
+            <pre class="code-artifact"><code>outcomes: {
+  sourceCaptureInvariant:
+    'No source capture, no success.',
+  paidChecksEnabled: 2,
+  legacyEndpointStatus:
+    'Unused and tracked for retirement.',
+}</code></pre>
+            <p class="caption"><strong>Source:</strong> <code>src/client/src/data/professionalProfile.ts</code></p>
+            <p class="caption">Public factual source used by the professional surfaces.</p>
+          </article>
+
+          <article class="item item-doc">
+            <p class="kind">Architecture decision record</p>
+            <h2>Wild Bunch ADR-0028</h2>
+            <div class="doc-artifact">
+              <h3>Onion, DDD, CQRS, event sourcing and projections posture</h3>
+              <p>The record rejects an early half-pattern that emitted events beside snapshot mutation, requires replay to make the event-sourcing claim true, and records when the rejected design would have been the better choice: audit logging.</p>
+              <p><a href="https://github.com/HarleyBartles/wild-bunch/blob/b095031388e8f8ca175f6639f8e460582e8ffb1d/docs/adr/ADR-0028-onion-ddd-cqrs-event-sourcing-and-projections-posture.md">Open the public ADR</a></p>
+            </div>
+            <p class="caption"><strong>Role:</strong> decision evidence, not decorative document furniture.</p>
+          </article>
+        </div>
+
+        <div class="definitions" aria-label="Treatment definitions">
+          <div><h3>A · Artifact first</h3><p>Native evidence boundary; shared custody lives immediately outside it.</p></div>
+          <div><h3>B · Custody seam</h3><p>A narrow semantic provenance rail is attached to the evidence span, while the artifact keeps its own visual language.</p></div>
+          <div><h3>C · Evidence module</h3><p>Every evidence family receives the same explicit frame, header and footer.</p></div>
+        </div>
+      </section>
+
+      <section class="treatment custody-seam" id="custody-seam" aria-labelledby="custody-seam-title">
+        <header class="intro">
+          <div>
+            <p class="eyebrow">B · custody seam</p>
+            <h1 id="custody-seam-title">The artifact and its custody touch.</h1>
+          </div>
+          <p>A narrow provenance rail belongs to the evidence span because source, status and qualification are semantically different from the artifact itself. The rail is information architecture, not decoration; the evidence remains source-native.</p>
+        </header>
+
+        <div class="evidence-grid">
+          <article class="item item-image">
+            <p class="kind">Running product capture</p>
+            <h2>Wild Bunch · Dustwell</h2>
+            <div class="custody">
+              <div class="provenance caption">
+                <p><strong>Status</strong><br>Playable development build.</p>
+                <p><strong>Qualification</strong><br>Not final game art direction.</p>
+                <p class="receipt">SHA-256<br>1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147</p>
+              </div>
+              <div class="evidence-body">
+                <img class="artifact-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town development-build capture">
+              </div>
+            </div>
+          </article>
+
+          <article class="item item-code">
+            <p class="kind">Public source</p>
+            <h2>Outcome invariant</h2>
+            <div class="custody">
+              <div class="provenance caption">
+                <p><strong>Source</strong><br><code>professionalProfile.ts</code></p>
+                <p><strong>Role</strong><br>Public factual source.</p>
+              </div>
+              <div class="evidence-body">
+                <pre class="code-artifact"><code>outcomes: {
+  sourceCaptureInvariant:
+    'No source capture, no success.',
+  paidChecksEnabled: 2,
+  legacyEndpointStatus:
+    'Unused and tracked for retirement.',
+}</code></pre>
+              </div>
+            </div>
+          </article>
+
+          <article class="item item-doc">
+            <p class="kind">Architecture decision record</p>
+            <h2>Wild Bunch ADR-0028</h2>
+            <div class="custody">
+              <div class="provenance caption">
+                <p><strong>Type</strong><br>Decision record.</p>
+                <p><strong>Use</strong><br>Rationale that a future engineer may challenge.</p>
+              </div>
+              <div class="evidence-body">
+                <div class="doc-artifact">
+                  <h3>Onion, DDD, CQRS, event sourcing and projections posture</h3>
+                  <p>The record rejects an early half-pattern that emitted events beside snapshot mutation, requires replay to make the event-sourcing claim true, and records when the rejected design would have been the better choice: audit logging.</p>
+                  <p><a href="https://github.com/HarleyBartles/wild-bunch/blob/b095031388e8f8ca175f6639f8e460582e8ffb1d/docs/adr/ADR-0028-onion-ddd-cqrs-event-sourcing-and-projections-posture.md">Open the public ADR</a></p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="footnote">Wild Bunch's approved sparse tintype/emulsion edge remains project-owned. This generic custody surface deliberately does not fake it with a CSS gradient. Whatever edge the project owns comes first; the custody seam begins outside that edge.</p>
+
+        <div class="definitions" aria-label="Treatment definitions">
+          <div><h3>A · Artifact first</h3><p>Native evidence boundary; shared custody lives immediately outside it.</p></div>
+          <div><h3>B · Custody seam</h3><p>A narrow semantic provenance rail is attached to the evidence span, while the artifact keeps its own visual language.</p></div>
+          <div><h3>C · Evidence module</h3><p>Every evidence family receives the same explicit frame, header and footer.</p></div>
+        </div>
+      </section>
+
+      <section class="treatment evidence-module" id="evidence-module" aria-labelledby="evidence-module-title">
+        <header class="intro">
+          <div>
+            <p class="eyebrow">C · evidence module</p>
+            <h1 id="evidence-module-title">Every receipt enters the same component.</h1>
+          </div>
+          <p>Each evidence family receives a consistent frame, metadata header and provenance footer. It is orderly and easy to implement; the test is whether that consistency protects custody or flattens unlike material into component-library sameness.</p>
+        </header>
+
+        <div class="evidence-grid">
+          <article class="item item-image">
+            <p class="kind">Running product capture</p>
+            <h2>Wild Bunch · Dustwell</h2>
+            <div class="module">
+              <div class="module-head"><strong>Product capture</strong><span>1200 × 917 AVIF</span></div>
+              <div class="module-body"><img class="artifact-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town development-build capture"></div>
+              <div class="module-foot caption">
+                <p><strong>Status:</strong> playable development build; not final game art direction.</p>
+                <p class="receipt">source SHA-256 1fb8228009fb80a728de3274ad564507414f83f2e996b628a57760441793f147</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="item item-code">
+            <p class="kind">Public source</p>
+            <h2>Outcome invariant</h2>
+            <div class="module">
+              <div class="module-head"><strong>Source excerpt</strong><span>TypeScript</span></div>
+              <div class="module-body"><pre class="code-artifact"><code>outcomes: {
+  sourceCaptureInvariant:
+    'No source capture, no success.',
+  paidChecksEnabled: 2,
+  legacyEndpointStatus:
+    'Unused and tracked for retirement.',
+}</code></pre></div>
+              <div class="module-foot caption"><p><code>src/client/src/data/professionalProfile.ts</code></p></div>
+            </div>
+          </article>
+
+          <article class="item item-doc">
+            <p class="kind">Architecture decision record</p>
+            <h2>Wild Bunch ADR-0028</h2>
+            <div class="module">
+              <div class="module-head"><strong>Decision record</strong><span>ADR-0028</span></div>
+              <div class="module-body">
+                <div class="doc-artifact">
+                  <h3>Onion, DDD, CQRS, event sourcing and projections posture</h3>
+                  <p>The record rejects an early half-pattern that emitted events beside snapshot mutation, requires replay to make the event-sourcing claim true, and records when the rejected design would have been the better choice: audit logging.</p>
+                  <p><a href="https://github.com/HarleyBartles/wild-bunch/blob/b095031388e8f8ca175f6639f8e460582e8ffb1d/docs/adr/ADR-0028-onion-ddd-cqrs-event-sourcing-and-projections-posture.md">Open the public ADR</a></p>
+                </div>
+              </div>
+              <div class="module-foot caption"><p>Rationale evidence · public repository</p></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="definitions" aria-label="Treatment definitions">
+          <div><h3>A · Artifact first</h3><p>Native evidence boundary; shared custody lives immediately outside it.</p></div>
+          <div><h3>B · Custody seam</h3><p>A narrow semantic provenance rail is attached to the evidence span, while the artifact keeps its own visual language.</p></div>
+          <div><h3>C · Evidence module</h3><p>Every evidence family receives the same explicit frame, header and footer.</p></div>
+        </div>
+      </section>
+
+      <p class="footnote">Temporary Phase 8P selection surface. Typography, cool-mineral substrate, bounded project-colour authority and earned-interruption geometry are fixed inputs. The Wild Bunch capture and professional-profile source are real public project material; the ADR summary is grounded in the published Why ADRs article and linked public ADR. This surface does not authorize production implementation or homepage work.</p>
+    </main>
+  </body>
+</html>
