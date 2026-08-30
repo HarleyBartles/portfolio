@@ -177,16 +177,19 @@ Harley accepted this visual contract after the integrated proof.
 
 Local Sol must add a repository skill, expected name **`applying-portfolio-visual-language`**, before visitor-facing non-home implementation begins.
 
-The skill is not the unit under test by itself. As with the typography skill, the unit under test is the **whole authority stack**: repository policy/guidance + this visual contract + subordinate decisions/proofs + the operational skill.
+The skill is not the unit under test by itself. As with the earlier typography work, the unit under test is the **whole authority stack**: repository policy/guidance + the Phase 8P typography contract/skill + this visual contract + subordinate decisions/proofs + the new operational skill.
 
 Use TDD pressure scenarios:
 
-1. freeze a RED baseline that does not have the PR #46 visual-language guidance/skill available;
-2. give fresh isolated workers realistic art-direction pressures and record what they actually recommend without inventing failures;
-3. write the minimum operational skill needed to route workers through the accepted authority and close observed leaks;
-4. rerun the same substantive pressures GREEN with the complete stack available;
-5. preserve negative controls where RED already behaved correctly;
-6. perform one loophole review and do not overfit the skill to the wording of the scenarios.
+1. freeze RED at the pre-Phase8P baseline `8f6028eb441bf5c304b007567621747f3003a173`, deliberately exposing **none** of the Phase 8P typography or wider visual-language guidance/skills;
+2. do **not** use PR #45 as RED for this wider test, because PR #45 already contains Phase 8P guidance and would test only the delta rather than the whole stack;
+3. give fresh isolated workers realistic art-direction pressures and record what they actually recommend without inventing failures;
+4. write the minimum operational skill needed to route workers through the accepted authority and close observed leaks;
+5. rerun the same substantive pressures GREEN with the complete current stack available, including the existing typography authority and the new visual-language skill;
+6. preserve negative controls where RED already behaved correctly;
+7. perform one loophole review and do not overfit the skill to the wording of the scenarios.
+
+The earlier typography TDD remains useful prior evidence, but this wider test deliberately re-runs the complete Phase 8P stack end to end.
 
 The detailed baton for that test is recorded in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md).
 
