@@ -2,11 +2,16 @@ import type { ReactElement, ReactNode } from 'react'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
 
-export function SiteLayout(props: { children: ReactNode }): ReactElement {
+export type SiteSurface = 'home' | 'interior'
+
+export function SiteLayout({ children, surface = 'interior' }: {
+  children: ReactNode
+  surface?: SiteSurface
+}): ReactElement {
   return (
-    <div className="site-shell">
-      <SiteHeader />
-      <main id="main-content">{props.children}</main>
+    <div className={`site-shell site-shell--${surface}`}>
+      <SiteHeader showName={surface === 'interior'} />
+      <main id="main-content">{children}</main>
       <SiteFooter />
     </div>
   )

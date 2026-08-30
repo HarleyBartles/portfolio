@@ -9,7 +9,7 @@ const primaryLinks = [
   { to: '/cv', label: 'CV' },
 ]
 
-export function SiteHeader(): ReactElement {
+export function SiteHeader({ showName = false }: { showName?: boolean }): ReactElement {
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -18,6 +18,7 @@ export function SiteHeader(): ReactElement {
       <header className="site-header">
       <NavLink to="/" className="site-mark" aria-label="Harley Bartles, home">
         <img src={`${import.meta.env.BASE_URL}brand/hb-mark.svg`} alt="" width="52" height="52" />
+        {showName ? <span className="site-identity-name">Harley Bartles</span> : null}
       </NavLink>
       <nav aria-label="Primary">
         <ul>

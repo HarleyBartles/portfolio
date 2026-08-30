@@ -8,6 +8,32 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { SiteLayout } from './SiteLayout'
 
 describe('SiteLayout', () => {
+  test('uses the interior surface and exposes the site identity', () => {
+    render(
+      <MemoryRouter>
+        <SiteLayout surface="interior">
+          <p>Interior</p>
+        </SiteLayout>
+      </MemoryRouter>,
+    )
+
+    expect(document.querySelector('.site-shell--interior')).toBeInTheDocument()
+    expect(screen.getByText('Harley Bartles')).toBeVisible()
+  })
+
+  test('uses the home surface without a visible site identity', () => {
+    render(
+      <MemoryRouter>
+        <SiteLayout surface="home">
+          <p>Home</p>
+        </SiteLayout>
+      </MemoryRouter>,
+    )
+
+    expect(document.querySelector('.site-shell--home')).toBeInTheDocument()
+    expect(screen.queryByText('Harley Bartles')).not.toBeInTheDocument()
+  })
+
   test('renders semantic page landmarks with understandable navigation', async () => {
     const user = userEvent.setup()
 

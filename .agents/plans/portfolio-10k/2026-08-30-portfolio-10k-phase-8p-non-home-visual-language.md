@@ -43,7 +43,7 @@
 - Consumes: the existing `SiteLayout` call sites and current homepage visual contracts.
 - Produces: `SiteSurface = 'home' | 'interior'`, an explicit `surface` prop on `SiteLayout`, `showName` on `SiteHeader`, and `.site-shell--home` / `.site-shell--interior` scope hooks used by later tasks.
 
-- [ ] **Step 1: Write failing component tests for the surface boundary**
+- [x] **Step 1: Write failing component tests for the surface boundary**
 
 Add assertions that an interior layout exposes the interior scope and visible identity, while the home layout preserves the current mark-only header:
 
@@ -57,7 +57,7 @@ expect(document.querySelector('.site-shell--home')).toBeInTheDocument()
 expect(screen.queryByText('Harley Bartles')).not.toBeInTheDocument()
 ```
 
-- [ ] **Step 2: Run the focused test and observe RED**
+- [x] **Step 2: Run the focused test and observe RED**
 
 Run from `src/client`:
 
@@ -67,7 +67,7 @@ npm test -- --run src/components/SiteLayout.test.tsx
 
 Expected: fail because `SiteLayout` has no `surface` prop, scope class or visible-name contract.
 
-- [ ] **Step 3: Implement the explicit surface interface**
+- [x] **Step 3: Implement the explicit surface interface**
 
 Use this public shape and keep `interior` as the safe default for error/loading and ordinary non-home routes:
 
@@ -90,7 +90,7 @@ export function SiteLayout({ children, surface = 'interior' }: {
 
 Render `Harley Bartles` inside the existing home link only when `showName` is true. Set `<SiteLayout surface="home">` in `HomePage.tsx`. Add no interior visual rules beyond the scope hooks in this task.
 
-- [ ] **Step 4: Prove the boundary and homepage non-regression**
+- [x] **Step 4: Prove the boundary and homepage non-regression**
 
 Run from `src/client`:
 
@@ -101,7 +101,7 @@ npm run test:e2e -- e2e/homepage.spec.ts
 
 Expected: component tests pass; the existing homepage behaviour assertions pass without snapshot updates.
 
-- [ ] **Step 5: Mark Task 1 complete and commit**
+- [x] **Step 5: Mark Task 1 complete and commit**
 
 Mark this task's boxes `[x]`, stage only its files and commit:
 
