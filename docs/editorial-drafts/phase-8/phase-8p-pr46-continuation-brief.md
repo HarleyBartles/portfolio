@@ -1,64 +1,78 @@
 # Phase 8P visual-language continuation
 
-**Status:** Active design-room continuation in draft PR #46. Public non-home implementation planning and homepage Phase 8 remain blocked.
+**Status:** Phase 8P design discovery accepted by Harley on 30 August 2026. Baton: **Ready for local non-home implementation planning.** Visitor-facing implementation must wait for the required visual-language operational-skill RED/GREEN closeout. Homepage Phase 8 remains blocked.
 
-## Inherited authority
+## Accepted authority
 
-PR #46 starts from merged `main` at the PR #45 checkpoint merge, `3b3527060a9452105af34128ad6bdafe6cac7dba`.
+PR #46 starts from merged `main` at the PR #45 typography checkpoint merge, `3b3527060a9452105af34128ad6bdafe6cac7dba`, and now closes the wider Phase 8P design room.
 
-- The [Phase 8P decision record](./phase-8-cloud-decision-record.md) owns the wider visual-language problem, valuation gate, evidence contract and blocked implementation baton.
-- The [Phase 8P typography contract](./phase-8p-typography-contract.md) is settled and implementation-ready. Do not reopen or dilute its Source Sans 3, Source Serif 4 and Source Code Pro role boundaries without a recorded design gap and Harley's decision.
-- The [visual-language checkpoint](./phase-8p-visual-language-checkpoint.md) records the accepted cool-mineral substrate, bounded project-colour authority, earned-interruption spatial grammar, rail/field special-case boundary, project-material discoveries, comparison-surface protocol and explicit diminishing-returns rule.
-- The [stage-1 evidence and imagery custody decision](./phase-8p-evidence-custody-decision.md) closes evidence custody: artifact-first is the default, custody seam is an earned special case, universal evidence modules are rejected, purposeful evidence-bearing crops are allowed under provenance guards, and reproducible live Wild Bunch captures may be commissioned from explicit seed/setup state with Harley driving the game while Cloud captures/crops the evidence in Opera.
-- The [stage-2 rhythm and density decision](./phase-8p-rhythm-density-decision.md) closes spacing/rhythm discovery: space follows semantic relationship, evidence clusters may tighten around one claim, major movements breathe, longform keeps its reading pulse, and rules remain subordinate to negative space.
-- The [stage-3 shell and navigation decision](./phase-8p-shell-navigation-decision.md) closes shell discovery: the quiet single-flow masthead owns identity and primary navigation only; route context belongs to the page; folio/split-index shell structures are rejected; narrow navigation may wrap without creating a second shell hierarchy.
+- [`phase-8p-visual-language-contract.md`](./phase-8p-visual-language-contract.md) is the normative synthesis for the accepted non-home visual language.
+- [`phase-8p-integrated-proof-decision.md`](./phase-8p-integrated-proof-decision.md) records the final desktop/narrow/actual-200%-zoom proof and Harley's acceptance.
+- [`phase-8p-integrated-route-proof.html`](./phase-8p-integrated-route-proof.html) is deterministic coexistence evidence, not a production template.
+- [`phase-8p-typography-contract.md`](./phase-8p-typography-contract.md) remains normative for typography and continues to be operationalised by `applying-portfolio-typography`.
+- [`phase-8p-evidence-custody-decision.md`](./phase-8p-evidence-custody-decision.md), [`phase-8p-rhythm-density-decision.md`](./phase-8p-rhythm-density-decision.md), and [`phase-8p-shell-navigation-decision.md`](./phase-8p-shell-navigation-decision.md) remain detailed subordinate authority.
+- [`phase-8p-visual-language-checkpoint.md`](./phase-8p-visual-language-checkpoint.md) preserves the discovery rationale, rejected directions, project-material discoveries and diminishing-returns rule.
+- [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md) is the mandatory local operationalisation task before visitor-facing implementation.
 
-## Settled inputs
+The original Phase 8 decision record still owns the valuation rule, deferred homepage findings and SPA/navigation behavioural contract where not superseded by the accepted synthesis.
 
-Typography, substrate, project-colour authority, baseline spatial grammar, evidence/imagery custody, page rhythm/density and shared shell/navigation are now settled inputs. Do not reopen them absent a concrete contradiction exposed by integrated proof.
+## Accepted visual system
 
-The quiet shell specifically means:
+Do not reopen these decisions during local planning absent a concrete implementation contradiction:
 
-- one identity/navigation flow rather than separate navigation and route-context rows;
-- Projects, Writing, Patch, About and CV remain ordinary primary routes, with the HB mark linking home;
-- active navigation may reinforce route family;
-- deep-route context belongs to page content, not persistent folio/breadcrumb furniture;
-- narrow widths may wrap the same flow naturally;
-- whether visible `Harley Bartles` text sits beside the HB mark is a minor integrated-proof check only and must not create another shell row.
+- Working Engineering Record: serious engineering, visibly handled by a human through judgement, revision, evidence and custody rather than faux-handmade decoration.
+- Source Sans 3 shared site voice; Source Serif 4 authored-longform only; Source Code Pro genuine technical material only.
+- default light mode with cool-mineral `#E6EAEB` shared substrate.
+- project-native colour with bounded bleed; no route-wide project atmosphere by default.
+- disciplined rectilinear grid with rare evidence-earned interruption.
+- rail + field only as an earned local information-architecture special case.
+- artifact-first evidence custody; no universal evidence-card module.
+- purposeful evidence-bearing crops with source/provenance retained.
+- variable cadence: space follows semantic relationship; longform retains a stable reading pulse; rules remain subordinate to negative space.
+- quiet single-flow masthead: HB mark + visible `Harley Bartles` + Projects / Writing / Patch / About / CV; route context belongs to the page.
+- desktop rails/asymmetries collapse to semantic source order on narrow screens.
+- sparse project-specific Wild Bunch edge treatment may survive; no Western theme and no dev-placeholder palette authority.
+- interior humanity is revision/judgement, not scribbles, tape, torn paper, scrapbook or generic anti-AI craft.
 
-The existing SPA/navigation behaviour contract remains fixed: authoritative deep links/history, correct top or fragment arrival, Back/Forward restoration where expected, and correct scroll/focus/accessibility state.
+The integrated proof survived project, article and About route families at desktop, 390px narrow and actual 200% browser zoom without a material visual-language contradiction. The one old Dustwell specimen crop defect is artifact preparation, not a contract reopening.
 
-## Work remaining in Phase 8P
+## Required local closeout: operational skill under TDD
 
-Stages 1, 2 and 3 are closed.
+Before visitor-facing non-home implementation begins, local Sol must create a repository skill expected at:
 
-Only **integrated route proof** remains.
+`.agents/skills/applying-portfolio-visual-language/SKILL.md`
 
-Compose the accepted system using real material across at least:
+The exact path may follow discovered repository conventions, but there must be one canonical operational skill for applying/reviewing the wider accepted contract.
 
-1. a project/evidence-heavy route;
-2. an authored article route;
-3. a professional/heterogeneous route such as About.
+**The unit under test is the whole authority stack, not the skill file alone.** Use the same discipline as the typography pressure test:
 
-Proof the system at desktop, narrow/mobile and 200% zoom, with keyboard/focus, contrast and missing-media behaviour where relevant.
+1. Freeze RED without the PR #46 wider visual-language guidance/skill. Prefer the merged PR #45 typography checkpoint so the already-proved typography system stays constant.
+2. Give fresh isolated workers realistic art-direction pressures and record their actual behaviour. Do not manufacture failures; preserve negative controls where RED already behaves correctly.
+3. Write the minimum skill that routes workers through policy, the accepted visual contract, subordinate decisions/proof and the existing typography skill.
+4. Rerun the same substantive pressures GREEN with the whole stack available.
+5. Perform one loophole review. Amend only for a real remaining leak; do not overfit to test wording.
+6. Commit a durable TDD record analogous to `phase-8p-typography-skill-tdd.md` with fixture SHAs, routes/viewports/runtime, scenario results, concise RED evidence, negative controls and GREEN outcome.
 
-Patch becomes an additional proof only if those three families expose a real unresolved problem that Patch uniquely stresses.
+The required scenario families and expected failure boundaries are specified in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md). They cover project theming, universal evidence wrappers, decorative asymmetry, route identity, faux-handmade anti-AI styling, premium/editorial About pressure, narrow/mobile compression and misuse of the integrated proof as a production template.
 
-There is at most one substantive correction loop after integrated proof. Reopen a settled rule only when integration falsifies it or exposes a material contradiction. Minor spacing, alpha, crop or edge-case styling belongs to local implementation/refinement.
+Do not duplicate the whole contract into the skill. The skill should classify, route, apply and verify; normative decisions stay in the contract.
 
-The discovery stop rule and exit criterion remain normative in [`phase-8p-visual-language-checkpoint.md`](./phase-8p-visual-language-checkpoint.md).
+## Local planning baton
 
-## Non-goals
+Local Sol may now prepare the JIT non-home implementation plan.
 
-- Do not write the local implementation plan yet.
-- Do not change visitor-facing components, styles or routes.
-- Do not design or implement the homepage.
-- Do not treat the settled sub-contracts as permission to implement them in isolation.
-- Do not extend integrated proof into route-by-route art direction once the representative families demonstrate the contract.
-- Do not exploit Wild Bunch's procedural variation as an invitation to hunt indefinitely for decorative screenshots; new captures must answer a real evidence/composition need and retain reproducible custody.
+The plan must:
 
-## Exit
+- put the operational skill + whole-stack RED/GREEN pressure test before visitor-facing implementation;
+- treat the accepted contract as art-direction authority rather than a source of optional suggestions;
+- solve engineering seams locally without inventing a new visual language;
+- use real route material rather than copying the integrated proof as page templates;
+- include rendered desktop/narrow/200% validation, keyboard/focus, contrast, overflow and missing-media checks where relevant;
+- rerun the 50% AI-convergence valuation gate against the rendered production result; and
+- return a genuine contradiction to Harley/Cloud rather than silently resolving it with local taste.
 
-Phase 8P may return `Ready for local implementation planning` only after the integrated proof demonstrates one coherent system across materially different route families, survives desktop/narrow/200% conditions and the 50% AI-convergence valuation gate, Harley accepts the complete visual contract, and remaining questions are implementation/refinement questions rather than art-direction questions.
+## Homepage boundary
 
-The homepage remains blocked until Phase 8P is complete, the non-home remediation is implemented and reviewed in a browser, its evidence passes the valuation gate, and Harley accepts the rendered visual system.
+The homepage remains blocked.
+
+Do not plan or implement `/` from this baton. Phase 8 homepage work resumes only after the non-home remediation is implemented, rendered in a browser, checked against the accepted contract and valuation gate, and accepted by Harley.
