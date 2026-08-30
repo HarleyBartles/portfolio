@@ -10,33 +10,49 @@ PR #46 starts from merged `main` at the PR #45 checkpoint merge, `3b3527060a9452
 - The [Phase 8P typography contract](./phase-8p-typography-contract.md) is settled and implementation-ready. Do not reopen or dilute its Source Sans 3, Source Serif 4 and Source Code Pro role boundaries without a recorded design gap and Harley's decision.
 - The [deterministic typography specimen](./phase-8p-typography-specimen.html) proves typography only; it is not a route layout or component system.
 - The [typography pressure-test record](./phase-8p-typography-skill-tdd.md) proves the operational authority stack against the frozen pre-PR baseline.
-- The [visual-language checkpoint](./phase-8p-visual-language-checkpoint.md) is the current durable baton for PR #46 discovery. It records the accepted cool-mineral substrate, bounded project-colour authority, earned-interruption spatial grammar, rail/field special-case boundary, project-material discoveries, comparison-surface protocol and the explicit diminishing-returns rule.
+- The [visual-language checkpoint](./phase-8p-visual-language-checkpoint.md) records the accepted cool-mineral substrate, bounded project-colour authority, earned-interruption spatial grammar, rail/field special-case boundary, project-material discoveries, comparison-surface protocol and explicit diminishing-returns rule.
+- The [stage-1 evidence and imagery custody decision](./phase-8p-evidence-custody-decision.md) closes evidence custody: artifact-first is the default, custody seam is an earned special case, universal evidence modules are rejected, purposeful evidence-bearing crops are allowed under provenance guards, and reproducible live Wild Bunch captures may be commissioned from explicit seed/setup state with Harley driving the game while Cloud captures/crops the evidence in Opera.
+
+## Settled inputs
+
+Typography, substrate, project-colour authority, baseline spatial grammar and evidence/imagery custody are now settled inputs. Do not keep reopening them absent a concrete contradiction exposed by integrated proof.
+
+Evidence custody specifically means:
+
+- source-native artifact boundary by default;
+- shared captions/provenance/status immediately around the artifact;
+- a local custody seam only when parallel provenance materially improves understanding and does not damage the evidence;
+- no universal evidence-card/header/footer component;
+- purposeful cropping may isolate the evidence-bearing region when surrounding product chrome or empty field adds no necessary context, while preserving the original source and custody;
+- Wild Bunch live capture can use reproducible seed/setup state rather than depending on one existing Dustwell screenshot; Harley performs the gameplay/clicking and Cloud owns screenshot selection/capture/cropping.
+
+The older checkpoint's four-stage list is superseded only in count by the settled stage-1 decision: evidence custody is closed, leaving three discovery stages. Its stop rule and integrated-proof exit criterion remain authoritative.
 
 ## Work remaining in Phase 8P
 
-Typography, substrate, project-colour authority and baseline spatial grammar are now settled inputs. Do not keep reopening them absent a concrete contradiction exposed by integrated proof.
+Stage 1, **evidence and imagery custody**, is closed.
 
-The remaining discovery is finite and proceeds through four stages:
+The remaining discovery is finite and proceeds through three stages:
 
-1. **Evidence and imagery custody** — settle how screenshots/project imagery, code/diffs, diagrams/documents, captions and provenance enter the shared system without a universal dark-card or universal framed-component aesthetic.
-2. **Page rhythm and density** — settle broad spacing, rule and negative-space relationships for evidence-heavy and longform routes without turning implementation pixel tuning into Cloud art direction.
-3. **Shared shell and navigation** — settle the visual/semantic contract for masthead, route context and ordinary interior navigation while preserving the existing history, fragment, scroll, focus and accessibility contract.
-4. **Integrated route proof** — compose the accepted system using real material across a project/evidence-heavy route, an authored article route and a professional/heterogeneous route such as About; prove desktop, narrow/mobile and 200% zoom, with keyboard/contrast/missing-media checks where relevant.
+1. **Page rhythm and density** — settle broad spacing, rule and negative-space relationships for evidence-heavy and longform routes without turning implementation pixel tuning into Cloud art direction.
+2. **Shared shell and navigation** — settle the visual/semantic contract for masthead, route context and ordinary interior navigation while preserving the existing history, fragment, scroll, focus and accessibility contract.
+3. **Integrated route proof** — compose the accepted system using real material across a project/evidence-heavy route, an authored article route and a professional/heterogeneous route such as About; prove desktop, narrow/mobile and 200% zoom, with keyboard/contrast/missing-media checks where relevant.
 
 There is at most one substantive correction loop after integrated proof. Reopen a settled rule only when integration falsifies it or exposes a material contradiction. Minor spacing, alpha or edge-case styling belongs to local implementation/refinement.
 
-The discovery stop rule, pressure cases and exit criterion are normative in [`phase-8p-visual-language-checkpoint.md`](./phase-8p-visual-language-checkpoint.md).
+The discovery stop rule, pressure cases and exit criterion are normative in [`phase-8p-visual-language-checkpoint.md`](./phase-8p-visual-language-checkpoint.md). The stage-1 decision is normative for evidence placement, cropping and image-source custody.
 
 ## Non-goals
 
 - Do not write the local implementation plan.
 - Do not change visitor-facing components, styles or routes.
 - Do not design or implement the homepage.
-- Do not treat the settled typography, substrate, colour or geometry decisions as permission to implement them in isolation.
+- Do not treat the settled typography, substrate, colour, geometry or evidence-custody decisions as permission to implement them in isolation.
 - Do not extend discovery into parameter-level minutiae once the visual vocabulary, authority boundaries and route-composition decisions are sufficient for local Sol.
+- Do not exploit Wild Bunch's procedural variation as an invitation to hunt indefinitely for decorative screenshots; new captures must answer a real evidence/composition need and retain reproducible custody.
 
 ## Exit
 
-Phase 8P may return `Ready for local implementation planning` only after the four remaining stages are closed, the representative integrated proof survives desktop/narrow/200% conditions and the 50% AI-convergence valuation gate, Harley accepts the complete visual contract, and remaining questions are implementation/refinement questions rather than art-direction questions.
+Phase 8P may return `Ready for local implementation planning` only after the three remaining stages are closed, the representative integrated proof survives desktop/narrow/200% conditions and the 50% AI-convergence valuation gate, Harley accepts the complete visual contract, and remaining questions are implementation/refinement questions rather than art-direction questions.
 
 The homepage remains blocked until Phase 8P is complete, the non-home remediation is implemented and reviewed in a browser, its evidence passes the valuation gate, and Harley accepts the rendered visual system.
