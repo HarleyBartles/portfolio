@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>Phase 8P spatial-language comparison</title>
+    <style>
+      @font-face {
+        font-family: "Source Sans 3 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Code Pro Local";
+        src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+        --mono: "Source Code Pro Local", Consolas, "Liberation Mono", monospace;
+        --substrate: #e6eaeb;
+        --ink: #172127;
+        --muted: #56636b;
+        --rule: rgba(23, 33, 39, .25);
+        --patch: #17b1a6;
+        --patch-bleed: rgba(23, 177, 166, .15);
+        --wild: #b48752;
+        --wild-bleed: rgba(180, 135, 82, .16);
+        --evidence: #202a2f;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: auto; }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        background: var(--substrate);
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+
+      a { color: inherit; text-underline-offset: .16em; }
+      a:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+
+      .jump-nav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 9px;
+        min-height: 58px;
+        padding: 10px 18px;
+        background: color-mix(in srgb, var(--substrate) 94%, white 6%);
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .jump-nav strong { margin-right: 8px; font-size: 14px; }
+      .jump-nav a {
+        padding: 8px 11px;
+        border: 1px solid var(--rule);
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .jump-nav .note {
+        margin-left: auto;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .board {
+        min-height: calc(100vh - 58px);
+        scroll-margin-top: 58px;
+        padding: 38px max(24px, calc((100vw - 1180px) / 2)) 56px;
+        border-bottom: 2px solid rgba(23, 33, 39, .35);
+      }
+
+      .board-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+        gap: 56px;
+        align-items: end;
+        padding-bottom: 26px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .eyebrow,
+      .meta {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: .012em;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      .board-title {
+        max-width: 15ch;
+        margin: 8px 0 0;
+        font-size: clamp(42px, 5.2vw, 68px);
+        font-weight: 650;
+        line-height: .98;
+        letter-spacing: -.025em;
+      }
+      .board-note {
+        max-width: 48ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.55;
+      }
+
+      .records { margin-top: 34px; }
+      .record h2 {
+        margin: 6px 0 10px;
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -.022em;
+      }
+      .summary {
+        max-width: 46ch;
+        margin-bottom: 0;
+        font-size: 17px;
+        line-height: 1.58;
+      }
+      .artifact-label {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .code {
+        margin: 0;
+        padding: 17px;
+        background: var(--evidence);
+        color: #e8edef;
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+      .caption {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.48;
+      }
+      .wild-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 168px;
+        object-fit: cover;
+        object-position: center 42%;
+      }
+      .patch-artifact {
+        min-height: 168px;
+        display: grid;
+        grid-template-columns: 1.6fr .7fr;
+        border: 1px solid rgba(23, 33, 39, .22);
+      }
+      .patch-artifact .solid {
+        display: flex;
+        align-items: end;
+        padding: 16px;
+        background: var(--patch);
+      }
+      .patch-artifact .steps {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+      }
+      .patch-artifact .steps span {
+        display: flex;
+        align-items: end;
+        padding: 10px;
+        border-left: 1px solid rgba(23, 33, 39, .18);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+      .patch-artifact .steps span:first-child { background: rgba(23, 177, 166, .38); }
+      .patch-artifact .steps span:last-child { background: rgba(23, 177, 166, .18); border-top: 1px solid rgba(23, 33, 39, .18); }
+      .image-frame { min-height: 168px; overflow: hidden; background: #c7b8a3; }
+
+      .treatment-key {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 30px;
+        padding-top: 18px;
+        border-top: 1px solid var(--rule);
+      }
+      .treatment-key h3 { margin-bottom: 7px; font-size: 15px; }
+      .treatment-key p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+      .active-key { color: var(--ink) !important; font-weight: 600; }
+
+      /* A — Aligned ledger. Every major edge is answerable to the same grid. */
+      .ledger .records {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--rule);
+        border-left: 1px solid var(--rule);
+      }
+      .ledger .record {
+        display: grid;
+        grid-template-rows: 154px 190px 112px;
+        min-width: 0;
+        border-right: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .ledger .record-head { padding: 22px 24px; }
+      .ledger .artifact-zone {
+        padding: 18px 24px;
+        border-top: 1px solid var(--rule);
+      }
+      .ledger .patch .artifact-zone { background: var(--patch-bleed); }
+      .ledger .wild .artifact-zone { background: var(--wild-bleed); }
+      .ledger .evidence-row {
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 16px;
+        align-items: start;
+        padding: 16px 24px;
+        border-top: 1px solid var(--rule);
+      }
+
+      /* B — Earned interruption. Base grid stays legible, one project-owned object may break it. */
+      .interruption .records {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 0;
+        position: relative;
+      }
+      .interruption .records::before,
+      .interruption .records::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--rule);
+      }
+      .interruption .records::before { top: 0; }
+      .interruption .records::after { bottom: 0; }
+      .interruption .record {
+        position: relative;
+        min-width: 0;
+        padding: 24px 0 22px;
+      }
+      .interruption .patch { grid-column: 1 / span 6; padding-right: 30px; }
+      .interruption .wild { grid-column: 7 / span 6; padding-left: 30px; border-left: 1px solid var(--rule); }
+      .interruption .record-head { min-height: 148px; max-width: 90%; }
+      .interruption .artifact-zone {
+        position: relative;
+        margin-top: 10px;
+        padding: 16px;
+        z-index: 1;
+      }
+      .interruption .patch .artifact-zone { background: var(--patch-bleed); margin-right: -54px; }
+      .interruption .wild .artifact-zone { background: var(--wild-bleed); margin-left: -54px; }
+      .interruption .patch .artifact-zone::after,
+      .interruption .wild .artifact-zone::after {
+        content: "";
+        position: absolute;
+        width: 54px;
+        height: 1px;
+        background: rgba(23,33,39,.42);
+        top: 50%;
+      }
+      .interruption .patch .artifact-zone::after { right: -54px; }
+      .interruption .wild .artifact-zone::after { left: -54px; }
+      .interruption .evidence-row {
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 18px;
+        align-items: start;
+        margin-top: 22px;
+      }
+      .interruption .patch .evidence-row { padding-right: 16px; }
+      .interruption .wild .evidence-row { padding-left: 16px; }
+
+      /* C — Rail + field. Asymmetry is structural: metadata rail beside a broad evidence field. */
+      .rail .records {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+      .rail .record {
+        display: grid;
+        grid-template-columns: 142px minmax(0, 1fr);
+        min-width: 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .rail .record-head {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        padding: 20px 18px 20px 0;
+        border-right: 1px solid var(--rule);
+      }
+      .rail .record-head h2 { font-size: 25px; }
+      .rail .record-head .summary { font-size: 14px; line-height: 1.48; }
+      .rail .artifact-zone {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 18px;
+      }
+      .rail .patch .artifact-zone { background: var(--patch-bleed); }
+      .rail .wild .artifact-zone { background: var(--wild-bleed); }
+      .rail .evidence-row {
+        grid-column: 2;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: .85fr 1.15fr;
+        gap: 16px;
+        align-items: start;
+        padding: 18px;
+        border-top: 1px solid var(--rule);
+      }
+
+      .footer-note {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 26px 24px 42px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 860px) {
+        .jump-nav .note { width: 100%; margin-left: 0; }
+        .board { padding-left: 18px; padding-right: 18px; }
+        .board-head { grid-template-columns: 1fr; gap: 22px; }
+        .ledger .records,
+        .rail .records { grid-template-columns: 1fr; }
+        .interruption .records { display: block; }
+        .interruption .patch,
+        .interruption .wild { padding: 24px 0; border-left: 0; }
+        .interruption .wild { border-top: 1px solid var(--rule); }
+        .interruption .patch .artifact-zone,
+        .interruption .wild .artifact-zone { margin-left: 0; margin-right: 0; }
+        .interruption .patch .artifact-zone::after,
+        .interruption .wild .artifact-zone::after { display: none; }
+        .ledger .record { grid-template-rows: auto auto auto; }
+        .rail .record { grid-template-columns: 112px minmax(0, 1fr); }
+        .treatment-key { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="jump-nav" aria-label="Spatial-language treatments">
+      <strong>Geometry only</strong>
+      <a href="#aligned-ledger">A · Aligned ledger</a>
+      <a href="#earned-interruption">B · Earned interruption</a>
+      <a href="#rail-field">C · Rail + field</a>
+      <span class="note">substrate #E6EAEB · bounded bleed fixed</span>
+    </nav>
+
+    <main>
+      <section class="board ledger" id="aligned-ledger" aria-labelledby="aligned-title">
+        <header class="board-head">
+          <div>
+            <p class="eyebrow">A · aligned ledger</p>
+            <h1 class="board-title" id="aligned-title">Everything answers to the same grid.</h1>
+          </div>
+          <p class="board-note">Strict column and rule alignment gives the page a registry-like discipline. Bounded project colour still exists, but every coloured field, artifact and evidence row terminates on the shared geometry.</p>
+        </header>
+
+        <div class="records" aria-label="Aligned ledger route examples">
+          <article class="record patch">
+            <div class="record-head">
+              <p class="meta">Project · governed workflow</p>
+              <h2>Patch</h2>
+              <p class="summary">Readable hierarchy, bounded work and custody without borrowing the character model as portfolio decoration.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="patch-artifact" aria-label="Patch governed teal artifact sample">
+                <div class="solid"><strong class="artifact-label">Project-native artifact</strong></div>
+                <div class="steps"><span>38%</span><span>18%</span></div>
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">Canonical teal <code>#17B1A6</code>. Bounded bleed remains finite and visibly returns to mineral.</p>
+              <pre class="code"><code>request -> clarify
+        -> verify
+        -> handoff</code></pre>
+            </div>
+          </article>
+
+          <article class="record wild">
+            <div class="record-head">
+              <p class="meta">Project · constructed world</p>
+              <h2>Wild Bunch</h2>
+              <p class="summary">Project-native imagery brings its own atmosphere while the portfolio keeps custody of the surrounding page.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="image-frame">
+                <img class="wild-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town game scene">
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">The image is project-native. The warm bleed around it is comparison-only, not a settled Wild Bunch palette.</p>
+              <pre class="code"><code>- calculateEngagementScore(...)
++ getPlayerEngagement(...)
+  // call it what it is</code></pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="treatment-key" aria-label="Geometry treatment definitions">
+          <div><h3>A · Aligned ledger</h3><p class="active-key">Alignment is the personality. Strongest custody; highest risk of becoming institutional or over-systematised.</p></div>
+          <div><h3>B · Earned interruption</h3><p>Base grid stays strict, but project-owned material may break one relationship when the evidence earns it.</p></div>
+          <div><h3>C · Rail + field</h3><p>Asymmetry comes from a persistent information rail rather than from local breakouts.</p></div>
+        </div>
+      </section>
+
+      <section class="board interruption" id="earned-interruption" aria-labelledby="interruption-title">
+        <header class="board-head">
+          <div>
+            <p class="eyebrow">B · earned interruption</p>
+            <h1 class="board-title" id="interruption-title">The grid is grammar. The break has to earn itself.</h1>
+          </div>
+          <p class="board-note">The same disciplined frame remains visible, but a project-owned artifact may cross one column boundary or rule. The interruption is rare, local and evidence-led rather than decorative.</p>
+        </header>
+
+        <div class="records" aria-label="Earned interruption route examples">
+          <article class="record patch">
+            <div class="record-head">
+              <p class="meta">Project · governed workflow</p>
+              <h2>Patch</h2>
+              <p class="summary">Readable hierarchy, bounded work and custody without borrowing the character model as portfolio decoration.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="patch-artifact" aria-label="Patch governed teal artifact sample">
+                <div class="solid"><strong class="artifact-label">Project-native artifact</strong></div>
+                <div class="steps"><span>38%</span><span>18%</span></div>
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">Canonical teal <code>#17B1A6</code>. The bleed crosses the centre relationship, then stops.</p>
+              <pre class="code"><code>request -> clarify
+        -> verify
+        -> handoff</code></pre>
+            </div>
+          </article>
+
+          <article class="record wild">
+            <div class="record-head">
+              <p class="meta">Project · constructed world</p>
+              <h2>Wild Bunch</h2>
+              <p class="summary">Project-native imagery brings its own atmosphere while the portfolio keeps custody of the surrounding page.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="image-frame">
+                <img class="wild-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town game scene">
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">The image is project-native. The warm bleed is still only a geometry-pressure sample.</p>
+              <pre class="code"><code>- calculateEngagementScore(...)
++ getPlayerEngagement(...)
+  // call it what it is</code></pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="treatment-key" aria-label="Geometry treatment definitions">
+          <div><h3>A · Aligned ledger</h3><p>Alignment is the personality. Strongest custody; highest risk of becoming institutional or over-systematised.</p></div>
+          <div><h3>B · Earned interruption</h3><p class="active-key">Base grid stays strict, but project-owned material may break one relationship when the evidence earns it.</p></div>
+          <div><h3>C · Rail + field</h3><p>Asymmetry comes from a persistent information rail rather than from local breakouts.</p></div>
+        </div>
+      </section>
+
+      <section class="board rail" id="rail-field" aria-labelledby="rail-title">
+        <header class="board-head">
+          <div>
+            <p class="eyebrow">C · rail + field</p>
+            <h1 class="board-title" id="rail-title">Classification lives in a rail. Evidence gets the field.</h1>
+          </div>
+          <p class="board-note">A persistent narrow rail carries route identity and context while evidence occupies a broader field. The asymmetry is structural and repeatable rather than created by individual objects breaking the grid.</p>
+        </header>
+
+        <div class="records" aria-label="Rail and field route examples">
+          <article class="record patch">
+            <div class="record-head">
+              <p class="meta">Project · governed workflow</p>
+              <h2>Patch</h2>
+              <p class="summary">Readable hierarchy, bounded work and custody without borrowing the character model as portfolio decoration.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="patch-artifact" aria-label="Patch governed teal artifact sample">
+                <div class="solid"><strong class="artifact-label">Project-native artifact</strong></div>
+                <div class="steps"><span>38%</span><span>18%</span></div>
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">Canonical teal <code>#17B1A6</code>. The bounded field belongs to the evidence side, not the rail.</p>
+              <pre class="code"><code>request -> clarify
+        -> verify
+        -> handoff</code></pre>
+            </div>
+          </article>
+
+          <article class="record wild">
+            <div class="record-head">
+              <p class="meta">Project · constructed world</p>
+              <h2>Wild Bunch</h2>
+              <p class="summary">Project-native imagery brings its own atmosphere while the portfolio keeps custody of the surrounding page.</p>
+            </div>
+            <div class="artifact-zone">
+              <div class="image-frame">
+                <img class="wild-image" src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Wild Bunch Dustwell town game scene">
+              </div>
+            </div>
+            <div class="evidence-row">
+              <p class="caption">The image is project-native. The warm bleed remains a comparison-only pressure sample.</p>
+              <pre class="code"><code>- calculateEngagementScore(...)
++ getPlayerEngagement(...)
+  // call it what it is</code></pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="treatment-key" aria-label="Geometry treatment definitions">
+          <div><h3>A · Aligned ledger</h3><p>Alignment is the personality. Strongest custody; highest risk of becoming institutional or over-systematised.</p></div>
+          <div><h3>B · Earned interruption</h3><p>Base grid stays strict, but project-owned material may break one relationship when the evidence earns it.</p></div>
+          <div><h3>C · Rail + field</h3><p class="active-key">Asymmetry comes from a persistent information rail rather than from local breakouts.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <p class="footer-note">Temporary Phase 8P geometry selection surface. Typography, cool-mineral substrate and bounded colour authority are treated as fixed inputs. The Wild Bunch image is real project material; its surrounding ochre tint is not a palette decision. Patch character imagery is deliberately absent. This surface does not authorize production layout or homepage work.</p>
+  </body>
+</html>
