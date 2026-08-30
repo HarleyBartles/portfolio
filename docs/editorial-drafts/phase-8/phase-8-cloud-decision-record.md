@@ -1,8 +1,18 @@
-# Phase 8 Cloud editorial-room decision record
+# Phase 8 preliminary visual-language remediation decision record
 
-**Status:** Cloud editorial discovery active. Current rendered homepage inspected on 30 August 2026.
+**Status:** Re-scoped on 30 August 2026. Ready for local Sol to plan non-home visual-language remediation; homepage planning, design and implementation are blocked.
 
-This is the durable answer log and final handoff surface for Phase 8 homepage evidence choreography. It records coherent decisions and rejected alternatives as the room progresses. It is not an implementation plan.
+This is the durable decision and handoff record for the Phase 8 preliminary remediation. It preserves the settled homepage editorial findings as deferred input, but it is not an implementation plan and does not authorize work on `/`.
+
+## Re-scope decision
+
+The Phase 8 homepage editorial room is closed as an implementation precursor. The site must first establish a deliberate, composed visual language across the non-home routes. Only after that system is implemented, reviewed and evidenced may the homepage return as the system's front matter and stylistic crescendo.
+
+The current warm-paper/copper/large-serif/tracked-label/rounded-panel grammar is no longer protected. This includes its associated ticker-like strips and repeated component furniture. Individual ingredients may survive only when the remediation demonstrates that they are earned by the content and do not combine into a recognisable common AI-generated aesthetic.
+
+The valuation rule is automatic: if a credible cultural reference identifies the delivered visual language as an AI-design tell, the assessed value is halved. An otherwise £10k site becomes £5k. Strong engineering, accessibility or polish cannot offset that specific credibility failure at the premium-design gate.
+
+The remedy is not a negative prompt or mechanical inversion of the tell list. Local Sol must plan a portfolio-specific system derived from the site's material, reading hierarchy, project evidence and professional purpose, then prove it on non-home routes before Phase 8 homepage work resumes.
 
 ## Current rendered evidence
 
@@ -29,11 +39,11 @@ A new visual-design risk is now first-class rather than anecdotal. Kyle Chayka's
 
 ### Plausible £ value
 
-**Current homepage: about £6k of a £10k target.** The typography, palette, owned project evidence and surrounding site depth are materially better than that number, but the homepage discounts them through generic connective prose, repeated evidence, exposed scaffolding, conventional portfolio architecture and unfinished navigation behaviour.
+**Current homepage before the cultural-reference penalty: about £6k of a £10k target.** The typography, palette, owned project evidence and surrounding site depth are materially better than that number, but the homepage discounts them through generic connective prose, repeated evidence, exposed scaffolding, conventional portfolio architecture and unfinished navigation behaviour.
 
 A genuine recomposition rather than a polish pass can plausibly reach the **£9k-£10k** range if the finished surface feels like one authored publication object, preserves the strength of the destination routes and removes cheap SPA/navigation tells.
 
-That valuation now has an additional hard gate: a visually polished homepage that still reads as a recognisable 2026 AI-design default does not clear the premium bar. The problem would not be that the individual ingredients are ugly; it would be that the composition advertises low-cost generic generation rather than authored taste.
+That valuation now has an additional hard gate: a visually polished site that still reads as a recognisable 2026 AI-design default receives an automatic 50% penalty. The problem is not that the individual ingredients are ugly; it is that the composition advertises low-cost generic generation rather than authored taste.
 
 ### Weary hiring manager
 
@@ -49,7 +59,9 @@ The architect lens also gets a legitimate social prior from the employer context
 
 For this lens, an AI-default visual surface is especially damaging. A portfolio that argues for deliberate agentic engineering while looking like an unchallenged model default gives the architect a cheap counterexample before they inspect a single receipt.
 
-## Settled hierarchy and evidence decisions
+## Deferred homepage hierarchy and evidence decisions
+
+The following decisions remain settled input for the later homepage phase. They must not be implemented, visually resolved or used to constrain the preliminary remediation before the non-home visual contract is proven.
 
 1. **The current hero thesis is rejected.** `I build reliable agentic systems.` must not survive as the homepage's governing claim.
 2. **Reader-facing copy must not explain the shuffle mechanism.** The current shuffle labels/explanations are removed rather than rewritten into nicer implementation commentary.
@@ -101,10 +113,12 @@ A useful acceptance test is: after the first fold, neither human persona should 
 
 A second acceptance test is now equally important: a reader familiar with current AI-generated website aesthetics should not be able to explain the page's visual identity primarily by naming the model-default clichés reported in current design culture.
 
-## Settled art direction
+## Deferred homepage art-direction decisions
 
-19. **The homepage is the stylistic crescendo of the site.** Interior routes keep the restrained ink-on-paper editorial grammar; `/` is the one place that grammar is allowed to move, fold, layer and reveal itself theatrically.
-20. **The existing visual rulebook is no longer protected merely because it is established.** Warm paper, ink, copper punctuation, Fraunces/Source Serif/Fira Code, asymmetry and the existing component furniture remain available source material, not mandatory defaults. Phase 8 may change them locally or trigger a later site-wide visual-language amendment if preserving them would make the portfolio read as an AI-design cliché.
+These decisions remain useful only where they do not presume the current visual grammar. They do not authorize fold-one prototyping during the preliminary remediation.
+
+19. **The homepage is the stylistic crescendo of the site.** It may move, fold, layer and reveal the eventual visual system more theatrically only after interior routes establish that system.
+20. **The existing visual rulebook is no longer protected merely because it is established.** Warm paper, ink, copper punctuation, Fraunces/Source Serif/Fira Code, asymmetry and the existing component furniture are audit inputs, not defaults. The preliminary remediation owns the site-wide decision; the later homepage phase consumes its result.
 21. **Avoiding recognisable AI-default visual convergence is a hard credibility constraint.** This portfolio openly demonstrates AI-assisted work; therefore an unchallenged model-default visual language is not a harmless fashion overlap. It directly weakens the claim that Harley exercises judgement, taste and custody over AI output.
 22. **Do not respond mechanically to the tell list.** The New Yorker reporting is a current perception signal, not a law that forbids cream, orange, serif type or rounded rectangles individually. A generic instruction such as `don't use cream` can simply move an AI system to another default palette. The goal is an authored visual system derived from this portfolio's specific material and purpose, not an inverted anti-Claude template.
 23. **The leading exploration remains a digital publication, but the metaphor does not rescue generic styling.** Page/spread/front-matter structure can remain because it is an information-architecture decision. Its visual expression must earn distinctiveness independently rather than assuming paper colours and serif type make it authored.
@@ -174,23 +188,44 @@ The matured portfolio no longer has an obvious `best stuff versus the rest` prob
 - Put condensed case studies or essay summaries on the homepage until the destination has little left to add.
 - Force unlike projects, essays and Patch material into equal-length preview components for visual consistency.
 
-## Unresolved judgments
+## Preliminary remediation planning requirements
 
-Work one consequential decision at a time:
+Local Sol must write a JIT implementation plan that:
 
-1. audit the current visual rulebook and fold-one prototype specifically for recognisable AI-default convergence, then decide which existing palette/type/component choices genuinely survive on their own merits;
-2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind About only if the visual composition proves that distinction needs an editorial answer;
-3. settle the individual front-matter spreads and which proof angles must be legible in the first post-cover movement;
-4. settle whether randomness/manual feature change still earns any role;
-5. settle the final Patch, writing and professional-route choreography;
-6. settle exact copy only after hierarchy and visual direction are stable;
-7. reconcile narrow, keyboard, reduced-motion, missing-media, route-focus, route-scroll and transition-failure behaviour at design level;
-8. classify material spec drift and required protected-default amendments, including any site-wide visual-language consequences of the anti-AI-default audit.
+1. inventories palette, typography roles, tracking, labels, strips, borders, radii, repeated panels and layout primitives across every non-home route;
+2. distinguishes content-earned uses from inherited defaults and recognisable cluster effects;
+3. derives the replacement visual principles from portfolio-specific evidence and editorial jobs rather than from a generic anti-AI checklist;
+4. sequences shared-source changes and representative non-home route migrations before broad propagation;
+5. preserves route-specific art direction, semantic source order, accessibility, reduced motion, performance, privacy and asset custody;
+6. includes rendered desktop, narrow and 200% zoom review plus keyboard, contrast, missing-media and regression evidence;
+7. names Harley-owned art-direction approval gates and the exact exit evidence for this preliminary phase; and
+8. contains no homepage implementation, fold-one prototype or homepage baseline update.
+
+The later homepage phase still needs to settle exact first-fold copy, front-matter spreads, randomness, Patch/writing/professional choreography, responsive transition behaviour and material spec drift. Those are deferred, not discarded.
 
 ## External research note
 
 The immediate visual-risk source is Kyle Chayka, `The A.I.-Design Aesthetic That's Taking Over the Internet`, The New Yorker, 24 June 2026. The report describes beige/cream backgrounds, rusty-orange accents, large serif type, tracked subheads, ticker-like bars and rounded outlined dashboard elements as a rapidly recognisable Claude-generated design cluster; it also reports that generic `don't use cream` prompting tends to shift the model into another fixed palette rather than create genuine variety. The useful conclusion for this room is not `ban those ingredients`. It is `do not accept a design whose authorship can be explained primarily by a model's default house style`.
 
+## Future article evidence contract
+
+This remediation is intended to become source evidence for a later article arguing against claims that one simple pattern or prompt can make Claude deliver a £10k agency-grade site. The article is not part of this phase, and the repository must not pre-write its conclusion. The remediation history must make the following chain independently inspectable:
+
+1. the pre-remediation code, tokens, components and rendered baselines that produced the questioned visual cluster;
+2. the dated cultural reference and Harley's decision to apply the 50% valuation penalty;
+3. the rejected shortcuts, especially prompt-level negation, palette swapping and mechanical component restyling;
+4. the visual-language audit and the human-authored principles chosen from portfolio-specific material;
+5. the staged non-home implementation, including corrections, reversals and alternatives that did not survive review;
+6. representative before/after rendered evidence at desktop, narrow and zoomed conditions;
+7. accessibility, performance and regression evidence showing that distinctiveness was not bought by hiding a technical loss; and
+8. Harley's explicit acceptance of the remediated system and the later decision that homepage planning may resume.
+
+The implementation plan must name the durable files that carry this evidence and the commits or PR sections that introduce each stage. Do not squash the narrative into a retrospective success claim inside one final summary. If the eventual Git history is squash-merged, the committed audit, decision and evidence documents must preserve the sequence and link to the draft PR where the finer-grained work remains inspectable.
+
+The strongest lawful future claim is not that a model can never produce premium work. It is that this repository records a real case where plausible AI-assisted choices converged on a documented default aesthetic, a one-pattern correction was rejected as inadequate, and premium quality required sustained human diagnosis, art direction, implementation, falsification and acceptance. The later article may strengthen that claim only to the extent the completed remediation evidence supports it.
+
 ## Baton
 
-**Blocked — Cloud editorial discovery is still active.** Local Sol must not write the JIT implementation plan or implement the homepage until Harley explicitly closes this room and this record is reconciled to a final `Ready for local planning` or `Blocked` handoff.
+**Ready for local Sol to plan the Phase 8 preliminary visual-language remediation.** The plan must start from current repository and rendered-route truth, cover non-home routes first, and use the planning requirements above as its acceptance boundary.
+
+**Homepage state: blocked.** Do not write the homepage JIT plan, design fold one or implement `/` until the preliminary remediation has landed, its non-home route evidence has passed the 50% valuation gate, Harley has accepted the visual system, and this record has been reopened against that proven contract.

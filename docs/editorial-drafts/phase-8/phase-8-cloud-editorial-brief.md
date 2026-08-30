@@ -1,32 +1,26 @@
-# Cloud editorial handoff — Phase 8 homepage evidence choreography
+# Phase 8 preliminary handoff — visual-language remediation before homepage work
 
-**Status:** Opening brief for a time-boxed Cloud chat on this branch's draft PR.
+**Status:** Re-scoped decision brief. Ready for local Sol to plan the preliminary remediation phase; homepage planning and implementation remain blocked.
 
 ## Your job
 
-Work conversationally with Harley to settle the homepage's material editorial, hierarchy, art-direction and interaction judgments before local Sol writes an implementation plan. Inspect the current homepage and the evidence now available after Phase 7A; do not begin from the 22 August mock assumptions as though the intervening work had not happened.
+Local Sol must plan a preliminary, non-home visual-language remediation phase from current rendered and repository truth. Audit the shared visual grammar and representative interior routes, derive a deliberate composed system from Harley's work and editorial purpose, and sequence its adoption across non-home routes before `/` is designed or implemented.
 
-This is a design and editorial room. Do not implement components, write the JIT plan, update visual baselines or broaden Phase 8 into discovery, first-paint, analytics or launch work owned by later phases. Local Sol retains architecture, planning, implementation, validation and publication authority after Harley closes the room.
+This branch does not contain that implementation plan. It records the corrected phase boundary and passes planning authority to local Sol. Do not implement the homepage, prototype fold one, update homepage visual baselines or use the settled homepage decisions as permission to proceed around the remediation gate.
 
-## Why the room exists
+## Why the phase changed
 
-The approved specification defines the outcome and hard boundaries, but several high-value choices should be judged against the finished site rather than improvised during planning:
+The existing site materially overlaps a culturally documented 2026 AI-generated design cluster: cream or beige grounds, rusty-orange/copper accents, large serif display type, highly tracked labels, ticker-like strips and repeated rounded outlined panels. Those ingredients are not individually banned. Their recognisable combination is now a direct credibility failure for a portfolio that claims human judgement over AI-assisted work.
 
-1. What exact first-viewport message identifies Harley as a senior full-stack engineer while keeping agentic engineering as an edge rather than the whole identity?
-2. Which concrete professional or technical signal earns first-fold space for every selected doorway?
-3. How should identity, selected evidence and its direct CTA share the first viewport without becoming either a generic hero or an overfilled dashboard?
-4. How much session-stable variation genuinely adds editorial life, and which controls feel authored rather than carousel-like?
-5. What is the right visual and reading relationship between the complete four-project deck, the Patch interlude and one admitted essay feature?
-6. Which current sections should disappear outright, which ideas should be absorbed, and which existing visual grammar is worth carrying forward?
-7. How quiet can the professional route be while still making About, CV, availability and contact obvious to a hiring manager?
+The valuation rule is exact: once a credible cultural reference can point to the delivered visual language as an AI-design tell, the site's value is halved. An otherwise £10k result is assessed as £5k. A respectable agency charging full price would catch and correct that convergence before delivery.
 
-The current page provides concrete pressure points, not protected answers: its lead says `I build reliable agentic systems`; it waits on a navigation query before rendering; the shuffled feature deck and a separate three-project grid repeat project evidence; `Working principles` restates claims already better demonstrated elsewhere; the writing surface is a latest/recent feed; and the close announces `Yes, this is also a portfolio.` Phase 8 is expected to replace that architecture, but Cloud must judge the better composition with Harley rather than merely negate the old one.
+Homepage-first work would now compound the problem by turning a questioned inherited grammar into the site's most visible expression. The non-home routes must establish the new visual contract first. The homepage can later return as the stylistic crescendo of a system already demonstrated elsewhere.
 
 ## Adversarial lenses
 
 Use all three as challenge lenses, not vibes:
 
-- **£ value:** name the plausible agency valuation of the current direction and of the settled recommendation, identify what would lose money at a final design gate, and state what evidence would justify the uplift.
+- **£ value:** apply the automatic 50% penalty whenever a credible cultural reference identifies the delivered grammar as a common AI-design aesthetic. Do not average that failure away against otherwise strong implementation.
 - **Weary hiring manager:** test the first ten seconds, the first deliberate click, the legibility of senior full-stack scope and whether the page reduces the work needed to decide that Harley merits an interview.
 - **Cynical principal architect:** attack unsupported architecture theatre, agent-first identity, selection gimmicks, repeated claims, concealed costs and evidence routes that do not survive inspection.
 
@@ -34,51 +28,45 @@ Do not average the lenses into general approval. Record disagreements and the ca
 
 ## Authority and boundaries
 
-Harley owns taste, professional identity, public facts, privacy, intended tone and final editorial acceptance. The active design policy and approved Phase 8 specification own protected defaults and non-goals. Current repository state owns implementation truth. Project registries, writing metadata, Patch records and the professional profile own their respective facts.
+Harley owns taste, professional identity, public facts, privacy, intended tone and final editorial acceptance. Current repository and rendered-route state own implementation truth. Project registries, writing metadata, Patch records and the professional profile own their respective facts.
 
-Cloud may propose exact homepage copy and composition. It must distinguish settled decisions from explorations and must not invent experience, outcomes, project maturity, metrics or asset provenance. If a desirable direction conflicts with a protected invariant, identify the conflict for explicit policy/spec amendment rather than eroding it silently.
+The warm-paper/copper/large-serif/tracked-label/rounded-panel grammar is explicitly unprotected and must be audited. The remediation must not mechanically invert that list into a second generic theme. It must derive a coherent visual system from the site's actual material, reading needs, project evidence and professional purpose. Accessibility, factual integrity, privacy, evidence custody, reduced motion, performance and static delivery remain protected.
 
 ## Read order
 
 1. `.agents/plans/portfolio-10k/roadmap.md`
-2. `.agents/specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md`
+2. `docs/editorial-drafts/phase-8/phase-8-cloud-decision-record.md`
 3. `.agents/doctrine/portfolio-design-policy.md`
 4. `docs/design-decisions.md`
-5. `docs/editorial-drafts/phase-7a/phase-7a-cloud-closeout.md`
-6. `docs/editorial-drafts/phase-7a/phase-7a-site-visual-language-recommendations.md`
-7. `src/client/src/pages/HomePage.tsx`
-8. `src/client/src/features/home/FeatureDeck.tsx`, `featureCatalog.ts` and `featureOrder.ts`
-9. the current rendered `/` route at representative desktop and narrow widths
-10. this brief and `phase-8-cloud-decision-record.md`
+5. `docs/editorial-drafts/phase-7a/phase-7a-site-visual-language-recommendations.md`
+6. the shared token, typography, shell and editorial-primitive sources in the current client
+7. every rendered non-home route, sampled at representative desktop and narrow widths
+8. `.agents/specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md` only as deferred homepage input
 
-Inspect project and writing sources only when a proposed homepage treatment depends on their exact evidence or visual custody. Do not turn the room into a fresh review of every case study or essay.
+Inspect the homepage only to understand shared dependencies and to preserve the deferred decisions. Do not design it during this phase.
 
-## Conversational method
+## Planning questions local Sol must answer
 
-Begin by showing Harley your concise diagnosis of the current homepage through the three adversarial lenses, then ask which problem he most wants the first viewport to solve. Work one material decision at a time. Use sketches in prose, hierarchy outlines or competing copy/composition options when they help Harley judge; do not bury him in a comprehensive questionnaire.
+1. Which shared tokens, typography roles, labels, strips, borders, radii and layout primitives produce the recognisable AI-default cluster?
+2. Which uses are genuinely earned by the content, which are neutral, and which must be replaced?
+3. What portfolio-specific principles can produce variety without losing site-wide coherence?
+4. Which representative non-home routes should prove the system first, and in what migration order?
+5. How will the plan test the system at desktop, narrow, 200% zoom, keyboard, reduced motion, missing media and performance boundaries?
+6. What evidence will prove that the redesign is composed rather than a mechanical palette/font swap?
+7. What explicit Harley gates are needed for art direction and final editorial acceptance?
 
-For each direction that survives discussion:
+## Required local-Sol planning handoff
 
-1. state the intended reader effect;
-2. identify the exact evidence and source owner;
-3. identify what it replaces or demotes;
-4. pressure-test the weakest eligible random/selected state;
-5. test desktop, narrow, keyboard, reduced-motion, missing-media and storage-failure implications at design level; and
-6. record Harley's call and the rejected alternative.
+The preliminary implementation plan must:
 
-Use the historical editorial-room discipline: preserve useful corrections as they happen, commit only coherent recovery checkpoints, and begin closure before context or time pressure turns the record into a dump.
+1. cover the non-home routes and shared visual-language sources before any homepage task;
+2. include an inventory of the questioned grammar and route-by-route evidence;
+3. define a composed replacement system without banning individual ingredients by reflex;
+4. preserve route-specific art direction and avoid flattening every page into a new template;
+5. name focused visual, accessibility, performance and regression checks;
+6. include Harley review gates for the direction and representative rendered routes;
+7. state the exit evidence that allows Phase 8 homepage planning to resume; and
+8. preserve the settled homepage hierarchy, evidence and navigation decisions as deferred inputs; and
+9. maintain a durable evidence trail from pre-remediation state through audit, rejected shortcuts, implementation rounds, rendered before/after proof, technical validation and Harley's final acceptance, with commit or PR pointers suitable for a later evidence-led article.
 
-## Required handoff on this branch
-
-Before Harley closes the room, update, commit and push to this same branch and draft PR:
-
-1. `phase-8-cloud-decision-record.md` with settled hierarchy, copy, interaction, art-direction and responsive decisions;
-2. the explicit £, hiring-manager and architect judgments, including disagreements and rejected alternatives;
-3. a section-by-section homepage order with each section's job, evidence source, CTA and visual intent;
-4. exact public copy only where Harley has approved it; otherwise a bounded copy brief;
-5. protected defaults, spec amendments, asset/custody needs and unresolved human gates;
-6. a current-repository drift table classifying material spec assumptions as `still true`, `implementation seam moved` or `design conflict`;
-7. a clear baton of either `Ready for local planning` or `Blocked`, with the reason; and
-8. regenerated indexes if repository machinery requires them.
-
-Do not write the implementation plan. Do not create another branch or PR. Do not mark this draft PR ready. Local Sol will inspect the returned record, reconcile any approved spec amendment and write the JIT plan only after Harley explicitly closes the Cloud room.
+Do not implement the homepage. Do not mark this draft PR ready merely because the re-scope is recorded. The next actor is local Sol planning the preliminary remediation phase.

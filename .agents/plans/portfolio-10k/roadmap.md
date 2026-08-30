@@ -358,19 +358,41 @@ and recovery tests that treat snapshots as disposable. Re-inspect public source
 before implementation; the roadmap note is not proof that those details remain
 current.
 
+### 8P. Preliminary visual-language remediation
+
+Before homepage design or implementation, audit and redesign the non-home
+routes into a deliberate, composed visual system. The current warm-paper,
+copper, large-serif, tracked-label, ticker-strip and rounded-panel grammar is
+not protected. Individual ingredients may survive only when their use is
+content-earned and the combination does not read as a culturally documented
+common AI-generated aesthetic.
+
+Apply an automatic 50% valuation penalty when a credible cultural reference
+identifies the delivered visual language as an AI-design tell: an otherwise
+£10k site is £5k. The remedy must be portfolio-specific rather than a mechanical
+palette, font or corner-radius inversion. Prove the replacement system across
+non-home routes, preserve their distinct arguments and accessibility, and seek
+Harley's acceptance before Phase 8 resumes. Preserve a durable evidence chain
+from the pre-remediation state through the audit, rejected shortcuts, design
+decisions, implementation rounds, rendered before/after proof, technical
+validation and final acceptance. That history must support a later article
+without requiring the article to invent a clean retrospective process.
+
 ### 8. Homepage evidence choreography
 
-Only after the professional narrative, flagship projects, and writing are
-substantially stable, redesign the homepage journey around the strongest
-evidence. Retain useful randomness and manual motion, eliminate adjacent
-duplicate stories, and make the senior full-stack proposition clear within the
-first viewport without turning the page into a generic sales funnel.
+Only after Phase 8P has landed and established the visual contract, redesign
+the homepage journey around the strongest evidence. Preserve the settled
+homepage hierarchy, evidence and navigation decisions as deferred input, then
+reconcile them against the remediated site rather than the superseded visual
+rulebook.
 
-Phase 8 is the primary owner of fast-to-break skepticism. The stable first-
-viewport frame must carry the professional proposition and one concrete signal
-without depending on a lucky random selection. The direct evidence action must
-reach substantive work in one click, while the quiet professional route must
-enter the evidence-bearing top of About rather than bypass it for contact.
+Phase 8 remains the primary owner of fast-to-break skepticism on `/`. The
+stable first-viewport frame must carry the professional proposition and one
+concrete signal without depending on a lucky random selection. The direct
+evidence action must reach substantive work in one click, while the quiet
+professional route must enter the evidence-bearing top of About rather than
+bypass it for contact. The homepage is blocked until Phase 8P passes its
+valuation and Harley-acceptance gates.
 
 ### 9. Discovery and sharing finish
 
@@ -436,7 +458,9 @@ archaeology is a failed shortcut even when the buried evidence exists.
   flagship material. Its Access source discovery feeds Phase 7A.
 - Phase 7A depends on one Harley-approved, employer-safe outcome account and
   the stable long-form outputs of Phases 3–7.
-- Phase 8 depends on the stable outputs of Phases 1 and 3–7A.
+- Phase 8P depends on the stable outputs of Phases 1 and 3–7A and owns the
+  non-home visual-language contract. Phase 8 depends on Phase 8P landing and
+  Harley accepting that contract.
 - Phase 9 follows route and content stabilisation; Phase 10 may move earlier if
   investigation proves it blocks trustworthy content review.
 - Phase 11 is conditional and must not hold Phase 12 hostage after a justified
