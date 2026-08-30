@@ -8,6 +8,7 @@ This directory is the durable handoff surface for the preliminary phase that now
 - [`phase-8p-typography-specimen.html`](./phase-8p-typography-specimen.html) is the internal, deterministic browser proof for that typography contract. It demonstrates typography only and is not a production layout.
 - [`phase-8p-typography-skill-tdd.md`](./phase-8p-typography-skill-tdd.md) records the frozen pre-PR pressure tests and the complete-system GREEN evidence.
 - [`applying-portfolio-typography`](../../../.agents/skills/applying-portfolio-typography/SKILL.md) routes implementation and review workers through the contract without duplicating it.
+- [`phase-8p-pr46-continuation-brief.md`](./phase-8p-pr46-continuation-brief.md) seeds the wider visual-language design room after the merged typography checkpoint.
 
 The approved homepage specification remains useful deferred input. It is not authority to implement `/` while the preliminary remediation gate is open. Warm paper, copper, large serif typography, tracked labels and repeated rounded-panel furniture are no longer protected defaults merely because previous phases established them.
 
