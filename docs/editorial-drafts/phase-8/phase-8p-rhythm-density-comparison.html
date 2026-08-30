@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Phase 8P rhythm and density comparison</title>
+  <style>
+    @font-face {
+      font-family: "Source Sans 3 Local";
+      src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Source Serif 4 Local";
+      src: url("./phase-8p-typography-assets/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Source Code Pro Local";
+      src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+      --serif: "Source Serif 4 Local", Georgia, serif;
+      --mono: "Source Code Pro Local", Consolas, monospace;
+      --substrate: #e6eaeb;
+      --ink: #172127;
+      --muted: #56636b;
+      --rule: rgba(23,33,39,.24);
+      --rule-strong: rgba(23,33,39,.42);
+      --code: #202a2f;
+      --code-ink: #e8edef;
+      --warm: rgba(180,135,82,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    html, body { margin: 0; min-height: 100%; }
+    body { background: var(--substrate); color: var(--ink); font-family: var(--sans); }
+    code, pre { font-family: var(--mono); }
+    a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
+    a:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 18px;
+      background: color-mix(in srgb, var(--substrate) 93%, white 7%);
+      border-bottom: 1px solid var(--rule);
+      backdrop-filter: blur(12px);
+    }
+    .controls strong { margin-right: 6px; font-size: 14px; }
+    .controls a { border: 1px solid var(--rule); padding: 8px 11px; text-decoration: none; }
+    .controls .fixed { margin-left: auto; color: var(--muted); font: 13px/1.4 var(--mono); }
+
+    .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding-bottom: 96px; }
+    .treatment { min-height: 100vh; padding: 48px 0 84px; scroll-margin-top: 64px; border-bottom: 1px solid var(--rule-strong); }
+    .treatment:last-of-type { border-bottom: 0; }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0,1.25fr) minmax(300px,.75fr);
+      gap: 70px;
+      align-items: end;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow { margin: 0 0 14px; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .012em; }
+    h1 { max-width: 15ch; margin: 0; font-size: clamp(42px,5vw,68px); line-height: .98; letter-spacing: -.025em; font-weight: 650; }
+    .intro > p { margin: 0; max-width: 48ch; color: var(--muted); font-size: 18px; line-height: 1.62; }
+
+    .pressure-set { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(0,.92fr); gap: 58px; }
+    .sample { min-width: 0; }
+    .sample-kicker { margin: 0; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .012em; }
+    .project h2, .article h2 { margin: 0; font-weight: 600; letter-spacing: -.022em; }
+    .project h2 { font-size: 32px; line-height: 1.08; }
+    .article h2 { max-width: 12ch; font-family: var(--serif); font-size: 44px; line-height: 1.04; letter-spacing: -.025em; }
+    .project p { max-width: 66ch; margin: 0; font-size: 17px; line-height: 1.6; }
+    .article p { max-width: 38em; margin: 0; font-family: var(--serif); font-size: 19px; line-height: 1.66; }
+    .article .lead { font-size: 20px; line-height: 1.35; font-weight: 500; }
+
+    .proof-cluster { min-width: 0; }
+    .town-crop {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 1.56 / 1;
+      background: var(--warm);
+    }
+    .town-crop img {
+      position: absolute;
+      width: 184%;
+      max-width: none;
+      left: -42%;
+      top: -49%;
+    }
+    .caption { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .caption strong { color: var(--ink); }
+    .code-artifact { margin: 0; padding: 20px; overflow: auto; background: var(--code); color: var(--code-ink); font-size: 14px; line-height: 1.55; }
+    .receipt-row { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: baseline; }
+    .receipt-row code { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+    .pull { margin: 0; max-width: 30em; font-family: var(--serif); font-size: 24px; line-height: 1.3; font-weight: 500; }
+
+    /* A — same breath everywhere. Spacious, polished, deliberately non-adaptive. */
+    .even-breath .pressure-set { margin-top: 72px; }
+    .even-breath .sample { display: flex; flex-direction: column; gap: 32px; }
+    .even-breath .text-group { display: flex; flex-direction: column; gap: 26px; }
+    .even-breath .proof-cluster { display: flex; flex-direction: column; gap: 26px; margin-top: 12px; }
+    .even-breath .receipt-row { padding-top: 24px; border-top: 1px solid var(--rule); }
+    .even-breath .article .pull { margin: 16px 0; }
+    .even-breath .article .section-shift { margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--rule); }
+
+    /* B — meaning-led cadence. Major moves breathe, related evidence tightens. */
+    .variable-cadence .pressure-set { margin-top: 64px; }
+    .variable-cadence .sample { display: flex; flex-direction: column; }
+    .variable-cadence .sample-kicker { margin-bottom: 10px; }
+    .variable-cadence h2 { margin-bottom: 24px; }
+    .variable-cadence .text-group { display: flex; flex-direction: column; gap: 17px; }
+    .variable-cadence .proof-cluster { display: flex; flex-direction: column; gap: 10px; margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--rule-strong); }
+    .variable-cadence .caption + .code-artifact { margin-top: 9px; }
+    .variable-cadence .receipt-row { margin-top: 2px; }
+    .variable-cadence .article .lead { margin-bottom: 24px; }
+    .variable-cadence .article .text-group { gap: 14px; }
+    .variable-cadence .article .pull { margin: 30px 0 28px; }
+    .variable-cadence .article .section-shift { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule); }
+    .variable-cadence .article .section-shift h3 { margin: 0 0 14px; font-size: 26px; line-height: 1.1; font-weight: 600; letter-spacing: -.018em; }
+
+    /* C — compact record. Frequent rules and tight intervals increase information density. */
+    .compact-record .pressure-set { margin-top: 42px; gap: 38px; }
+    .compact-record .sample { display: flex; flex-direction: column; }
+    .compact-record .sample-kicker { margin-bottom: 6px; }
+    .compact-record h2 { margin-bottom: 14px; }
+    .compact-record .text-group { display: flex; flex-direction: column; gap: 10px; }
+    .compact-record .project p { font-size: 16px; line-height: 1.52; }
+    .compact-record .proof-cluster { display: flex; flex-direction: column; gap: 7px; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--rule-strong); }
+    .compact-record .town-crop { aspect-ratio: 1.9 / 1; }
+    .compact-record .caption { font-size: 13px; line-height: 1.42; }
+    .compact-record .code-artifact { padding: 14px; font-size: 13px; line-height: 1.45; }
+    .compact-record .receipt-row { padding-top: 7px; border-top: 1px solid var(--rule); }
+    .compact-record .article p { font-size: 18px; line-height: 1.56; }
+    .compact-record .article .lead { margin-bottom: 14px; }
+    .compact-record .article .pull { margin: 18px 0; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 21px; }
+    .compact-record .article .section-shift { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--rule-strong); }
+    .compact-record .article .section-shift h3 { margin: 0 0 9px; font-size: 23px; line-height: 1.1; }
+
+    .definitions { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 54px; padding-top: 20px; border-top: 1px solid var(--rule); }
+    .definitions h3 { margin: 0 0 7px; font-size: 16px; }
+    .definitions p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.48; }
+    .footnote { margin: 34px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    @media (max-width: 820px) {
+      .controls .fixed { width: 100%; margin-left: 0; }
+      .page { width: min(100% - 28px, 1180px); }
+      .intro, .pressure-set { grid-template-columns: 1fr; gap: 28px; }
+      .pressure-set { gap: 68px !important; }
+      .article h2 { font-size: clamp(38px,10vw,48px); }
+      .definitions { grid-template-columns: 1fr; }
+      .receipt-row { grid-template-columns: 1fr; gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="controls" aria-label="Rhythm and density treatments">
+    <strong>Rhythm + density</strong>
+    <a href="#even-breath">A · Even breathing</a>
+    <a href="#variable-cadence">B · Variable cadence</a>
+    <a href="#compact-record">C · Compact record</a>
+    <span class="fixed">type · substrate · colour authority · geometry · artifact-first custody fixed</span>
+  </nav>
+
+  <main class="page">
+    <section class="treatment even-breath" id="even-breath" aria-labelledby="even-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">A · even breathing</p>
+          <h1 id="even-title">Everything gets room.</h1>
+        </div>
+        <p>A generous interval is applied consistently to prose, evidence and section changes. The test is whether calm spacing becomes premium-looking emptiness and disconnects proof from the claim it supports.</p>
+      </header>
+      <div class="pressure-set">
+        <article class="sample project">
+          <p class="sample-kicker">Project pressure · Wild Bunch</p>
+          <h2>Making chance reproducible</h2>
+          <div class="text-group">
+            <p>I treated the seed as the address of a starting world. Randomising it is a first-class player choice. Once chosen, that world can be revisited by tests or by me chasing a bug.</p>
+            <p>The seed is UUID-shaped because 128 bits are familiar to store, copy and pass around, but I didn't want 128 bits of arbitrary noise. The v17 codec currently uses 33 of them and deliberately reserves 95.</p>
+            <p>Town layout closes a subtler gap. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay.</p>
+          </div>
+          <div class="proof-cluster">
+            <div class="town-crop"><img src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Cropped town-hub evidence from the current Wild Bunch development capture"></div>
+            <p class="caption"><strong>Artifact-first:</strong> crop to the evidence-bearing town-hub region; surrounding application field is not part of this rhythm test.</p>
+            <pre class="code-artifact"><code>I only get to call that exact replay
+because it's falsifiable.
+
+Full-stream equality tests rebuild a
+session from its events and compare it.</code></pre>
+            <div class="receipt-row"><p class="caption">Proof stays close enough to its claim to read as evidence.</p><code>WildBunchCaseStudy.tsx</code></div>
+          </div>
+        </article>
+
+        <article class="sample article">
+          <p class="sample-kicker">Longform pressure · Why ADRs?</p>
+          <h2>A love letter to a future engineer</h2>
+          <p class="lead">Sometimes you're writing to your own future self.</p>
+          <div class="text-group">
+            <p>You leave them enough of the argument to challenge your decision properly. The record serves whoever inherits the system, including when they decide the architecture should change.</p>
+            <p>I learned this by failing to write one.</p>
+            <p>I only discovered how much of LENS I was carrying in my head when I had to hand it over.</p>
+          </div>
+          <p class="pull">What survived the handover was a list of nouns where the decisions should have been.</p>
+          <div class="section-shift">
+            <h3>What an ADR owes its reader</h3>
+            <p>A useful ADR gives a future engineer a fair starting point, with no obligation to obey us.</p>
+          </div>
+        </article>
+      </div>
+      <div class="definitions">
+        <div><h3>A · Even breathing</h3><p>One generous spacing temperament across prose, proof and section changes.</p></div>
+        <div><h3>B · Variable cadence</h3><p>Major movements breathe; semantically related evidence tightens; longform keeps a steady reading pulse.</p></div>
+        <div><h3>C · Compact record</h3><p>Higher information density, frequent rules and shorter intervals throughout.</p></div>
+      </div>
+    </section>
+
+    <section class="treatment variable-cadence" id="variable-cadence" aria-labelledby="variable-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">B · variable cadence</p>
+          <h1 id="variable-title">Space follows the relationship.</h1>
+        </div>
+        <p>Large movements receive clear breathing room, while evidence that belongs to one claim closes ranks. Longform remains steady rather than inheriting project-page compression. The test is whether one grammar can support both densities without becoming two site systems.</p>
+      </header>
+      <div class="pressure-set">
+        <article class="sample project">
+          <p class="sample-kicker">Project pressure · Wild Bunch</p>
+          <h2>Making chance reproducible</h2>
+          <div class="text-group">
+            <p>I treated the seed as the address of a starting world. Randomising it is a first-class player choice. Once chosen, that world can be revisited by tests or by me chasing a bug.</p>
+            <p>The seed is UUID-shaped because 128 bits are familiar to store, copy and pass around, but I didn't want 128 bits of arbitrary noise. The v17 codec currently uses 33 of them and deliberately reserves 95.</p>
+            <p>Town layout closes a subtler gap. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay.</p>
+          </div>
+          <div class="proof-cluster">
+            <div class="town-crop"><img src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Cropped town-hub evidence from the current Wild Bunch development capture"></div>
+            <p class="caption"><strong>Playable development evidence.</strong> Project material, qualification and proof are one reading cluster.</p>
+            <pre class="code-artifact"><code>I only get to call that exact replay
+because it's falsifiable.
+
+Full-stream equality tests rebuild a
+session from its events and compare it.</code></pre>
+            <div class="receipt-row"><p class="caption">The cluster tightens because each item qualifies the same engineering claim.</p><code>WildBunchCaseStudy.tsx</code></div>
+          </div>
+        </article>
+
+        <article class="sample article">
+          <p class="sample-kicker">Longform pressure · Why ADRs?</p>
+          <h2>A love letter to a future engineer</h2>
+          <p class="lead">Sometimes you're writing to your own future self.</p>
+          <div class="text-group">
+            <p>You leave them enough of the argument to challenge your decision properly. The record serves whoever inherits the system, including when they decide the architecture should change.</p>
+            <p>I learned this by failing to write one.</p>
+            <p>I only discovered how much of LENS I was carrying in my head when I had to hand it over.</p>
+          </div>
+          <p class="pull">What survived the handover was a list of nouns where the decisions should have been.</p>
+          <div class="section-shift">
+            <h3>What an ADR owes its reader</h3>
+            <p>A useful ADR gives a future engineer a fair starting point, with no obligation to obey us.</p>
+          </div>
+        </article>
+      </div>
+      <div class="definitions">
+        <div><h3>A · Even breathing</h3><p>One generous spacing temperament across prose, proof and section changes.</p></div>
+        <div><h3>B · Variable cadence</h3><p>Major movements breathe; semantically related evidence tightens; longform keeps a steady reading pulse.</p></div>
+        <div><h3>C · Compact record</h3><p>Higher information density, frequent rules and shorter intervals throughout.</p></div>
+      </div>
+    </section>
+
+    <section class="treatment compact-record" id="compact-record" aria-labelledby="compact-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">C · compact record</p>
+          <h1 id="compact-title">The record stays busy.</h1>
+        </div>
+        <p>Whitespace is rationed and rules carry more hierarchy. The treatment is deliberately efficient and documentary. The test is whether useful density tips into dossier/admin energy and makes authored longform feel like evidence inventory.</p>
+      </header>
+      <div class="pressure-set">
+        <article class="sample project">
+          <p class="sample-kicker">Project pressure · Wild Bunch</p>
+          <h2>Making chance reproducible</h2>
+          <div class="text-group">
+            <p>I treated the seed as the address of a starting world. Randomising it is a first-class player choice. Once chosen, that world can be revisited by tests or by me chasing a bug.</p>
+            <p>The seed is UUID-shaped because 128 bits are familiar to store, copy and pass around, but I didn't want 128 bits of arbitrary noise. The v17 codec currently uses 33 of them and deliberately reserves 95.</p>
+            <p>Town layout closes a subtler gap. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay.</p>
+          </div>
+          <div class="proof-cluster">
+            <div class="town-crop"><img src="https://harleybartles.com/media/wild-bunch/dustwell-town-1200.avif" alt="Cropped town-hub evidence from the current Wild Bunch development capture"></div>
+            <p class="caption"><strong>Playable development evidence.</strong> Cropped to town hub.</p>
+            <pre class="code-artifact"><code>I only get to call that exact replay because it's falsifiable.
+Full-stream equality tests rebuild a session from its events and compare it.</code></pre>
+            <div class="receipt-row"><p class="caption">Pinned public project source.</p><code>WildBunchCaseStudy.tsx</code></div>
+          </div>
+        </article>
+
+        <article class="sample article">
+          <p class="sample-kicker">Longform pressure · Why ADRs?</p>
+          <h2>A love letter to a future engineer</h2>
+          <p class="lead">Sometimes you're writing to your own future self.</p>
+          <div class="text-group">
+            <p>You leave them enough of the argument to challenge your decision properly. The record serves whoever inherits the system, including when they decide the architecture should change.</p>
+            <p>I learned this by failing to write one.</p>
+            <p>I only discovered how much of LENS I was carrying in my head when I had to hand it over.</p>
+          </div>
+          <p class="pull">What survived the handover was a list of nouns where the decisions should have been.</p>
+          <div class="section-shift">
+            <h3>What an ADR owes its reader</h3>
+            <p>A useful ADR gives a future engineer a fair starting point, with no obligation to obey us.</p>
+          </div>
+        </article>
+      </div>
+      <div class="definitions">
+        <div><h3>A · Even breathing</h3><p>One generous spacing temperament across prose, proof and section changes.</p></div>
+        <div><h3>B · Variable cadence</h3><p>Major movements breathe; semantically related evidence tightens; longform keeps a steady reading pulse.</p></div>
+        <div><h3>C · Compact record</h3><p>Higher information density, frequent rules and shorter intervals throughout.</p></div>
+      </div>
+    </section>
+
+    <p class="footnote">Temporary Phase 8P selection surface. Typography, cool-mineral substrate, bounded project-colour authority, earned-interruption geometry and artifact-first evidence custody are fixed inputs. The Wild Bunch and Why ADRs text is drawn from the current portfolio source. This surface tests spacing relationships, not production composition or homepage design.</p>
+  </main>
+</body>
+</html>
