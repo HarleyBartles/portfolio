@@ -14,158 +14,127 @@ Observed defects and pressure points from Harley's rendered-page review:
 
 - `I build reliable agentic systems.` is too bold, too narrow and reads like an AI-written positioning claim.
 - The hero's `silly comics` reference currently writes a cheque the page does not cash. If that phrase survives, `silly comics` itself should link to `/patch`.
-- `SELECTED / SHUFFLED ON ARRIVAL` is implementation/editorial scaffolding exposed as reader copy. It tells the visitor nothing useful.
-- `The order changes. Every project is still here to inspect.` is the same kind of exposed scaffolding.
+- `SELECTED / SHUFFLED ON ARRIVAL` and `The order changes. Every project is still here to inspect.` expose implementation/editorial scaffolding as reader copy.
 - The current shuffled feature surface no longer has an automatic claim to homepage space. Its original job was to push `the best stuff` first; after the later portfolio phases, all admitted homepage material should already clear that bar.
-- `Systems with edges` and its supporting sentence read as AI-generated connective copy rather than useful orientation.
+- `Systems with edges`, `How I keep the work honest`, the principle-card language and `building in public` read as AI-shaped connective or virtue copy rather than useful evidence.
 - The rendered Agentic Learning Lab entry in the fixed project grid is visibly misformatted.
-- `How I keep the work honest` reads as AI-generated language. The principle-card copy underneath compounds fatigue by asserting qualities already better demonstrated in the work.
-- `Notes from building agentic workflows, repositories, and review systems in public.` is rejected. `Building in public` gives the reader no useful comparison because they have no private version of the work to contrast it with.
-- `Yes, this is also a portfolio.` and its supporting close are rejected as a self-conscious AI-generated statement rather than useful professional navigation.
+- `Yes, this is also a portfolio.` and its supporting close are rejected as self-conscious portfolio scaffolding rather than useful professional navigation.
+- SPA route navigation currently appears to retain the prior page's vertical scroll position on a new route, so a link followed halfway down one page can land the reader halfway down the next page. That is a direct finish defect.
+
+The route code supports Harley's observation as a real structural gap rather than a visual fluke: the app uses a `createBrowserRouter` data router and the route shell is currently only an `Outlet`; there is no explicit route scroll-restoration/reset or route-focus layer in those seams.
 
 ## Adversarial opening assessment
 
 ### Plausible £ value
 
-**Current homepage: about £6k of a £10k target.** The typography, palette, owned project evidence and surrounding site depth are materially better than that number, but the homepage discounts them. Too much of the page is generic connective prose, duplicated evidence, exposed interaction scaffolding and old architecture that no longer reflects the quality of the destination routes.
+**Current homepage: about £6k of a £10k target.** The typography, palette, owned project evidence and surrounding site depth are materially better than that number, but the homepage discounts them through generic connective prose, repeated evidence, exposed scaffolding, conventional portfolio architecture and unfinished navigation behaviour.
 
-The opportunity is not to add polish around the existing composition. A materially better hierarchy that removes the scaffolding, lets concrete evidence lead and uses the mature Phase 7/7A material without duplication could plausibly move the homepage into the **£9k-£10k** range. The final uplift still depends on responsive art direction and whether the first fold feels authored rather than like a redesigned component catalogue.
+A genuine recomposition rather than a polish pass can plausibly reach the **£9k-£10k** range if the finished surface feels like one authored publication object, preserves the strength of the destination routes and removes cheap SPA/navigation tells.
 
 ### Weary hiring manager
 
-The current first ten seconds identify `FULL-STACK SOFTWARE ENGINEER / AGENTIC SYSTEMS`, then immediately narrow the proposition to `I build reliable agentic systems.` That makes the agentic specialism feel like the whole identity and asks the reader to accept a claim before seeing a consequence.
-
-The page then makes the reader work through a shuffled feature surface, a repeated project grid and declarative principles before the strongest professional evidence appears elsewhere on the site. The underlying work is strong enough to forward, but the homepage currently makes the hiring manager do too much assembly before feeling safe doing so.
+The current first ten seconds identify `FULL-STACK SOFTWARE ENGINEER / AGENTIC SYSTEMS`, then immediately narrow the proposition to `I build reliable agentic systems.` That asks the reader to accept a large claim before seeing consequence. The shuffled surface, repeated project grid and declarative principles then make the reader do too much assembly before the professional case becomes safe to forward.
 
 ### Cynical principal architect
 
-The current page supplies too many labels for qualities that the project routes already prove: `Systems with edges`, `How I keep the work honest`, `Evidence before claims`, `Bounded agent leverage`, and `building in public`. A skeptical architect is likely to read that as architecture/AI vocabulary used as self-description.
+The current page says too much about desirable engineering qualities instead of exposing the decisions that prove them. Marketplace, Wild Bunch, Learning Lab, Patch, the essays and the Phase 7A outcome account contain stronger receipts than the homepage gives them credit for.
 
-The irony is that the inspectable evidence underneath is much stronger: Marketplace's governed distribution model, Wild Bunch's replay and correction history, Learning Lab's curriculum mechanics, the Phase 7 writing, and the Phase 7A professional outcome account. The homepage should expose those receipts and get out of their way.
-
-## Settled decisions
+## Settled hierarchy and evidence decisions
 
 1. **The current hero thesis is rejected.** `I build reliable agentic systems.` must not survive as the homepage's governing claim.
-2. **Reader-facing copy must not explain the shuffle mechanism.** `SELECTED / SHUFFLED ON ARRIVAL` and `The order changes. Every project is still here to inspect.` are removed rather than rewritten into nicer implementation commentary.
-3. **If the hero retains the phrase `silly comics`, `silly comics` links directly to `/patch`.** A reference to Patch should cash itself at the point of mention.
-4. **The current principles section does not survive.** Its useful ideas belong in inspectable project/writing evidence, not declarative cards about Harley's virtues.
-5. **`building in public` is not useful homepage positioning.** Public availability can be demonstrated by links and evidence; it does not need to be narrated as a virtue.
-6. **The self-conscious portfolio close does not survive.** The final professional route should simply help the reader reach About, CV, availability and contact without announcing that the site is a portfolio.
-7. **The rendered page, not the old specification snapshot, is the design evidence for this room.** Current visual defects and the stronger post-7A content can override assumptions that were reasonable on 22 August.
-8. **The first fold is an evidence-routing contract, not a complete sales argument.** Its job is to establish Harley Bartles as a full-stack software engineer, give the reader one concrete reason to believe his responsibility extends beyond straightforward implementation, and offer an obvious route into substantive work.
-9. **Each human review persona must have its first important question answered in the first fold by a grounded claim, with proof no farther than one deliberate click or one natural scroll away.** The hiring-manager question is essentially `who is this professionally, and is there enough here to justify forwarding?`; the principal-architect question is essentially `is there actual judgement behind the presentation, and can I inspect it?`. The first fold need not prove either case in full, but it must make the claim specific enough to be falsifiable and make the proof path obvious.
-10. **The £ lens is a quality gate rather than a third reader persona.** It judges whether the composition, copy, restraint and finish make the two human evidence paths feel like premium editorial design rather than a rubric rendered literally onto the page.
-11. **The stable first-fold claim should lead with professional consequence rather than an isolated architecture claim.** That is the stronger cross-lens signal because it gives the hiring manager immediate evidence of scope, ownership and outcome while still giving the architect something substantive to test.
-12. **The first fold should not make About the only onward path.** About is the canonical proof route for the professional consequence claim, but the same fold should also expose one direct route into project or writing evidence. The intended composition is one stable professional signal plus one inspectable work doorway, not `hero -> About -> everything else`.
-13. **A direct route into About is acceptable only because About itself is evidence-bearing and well connected back into the wider portfolio.** The current rendered About route begins with professional ownership and consequence, links directly to the CV/contact path, contains the Access outcome account, links into `Why ADRs?`, and later exposes all four independent project case studies. The masthead also keeps Projects, Writing and Patch available. That makes About a legitimate evidence node rather than a cul-de-sac.
-14. **The preferred proof choreography is therefore dual-path.** Hiring-manager curiosity can follow the stable professional claim into About; architect curiosity can follow the adjacent project/writing doorway straight into technical evidence. Either route can continue into the other evidence family without returning to the homepage first.
-15. **The homepage is the deliberate stylistic crescendo of the site.** Interior routes should continue to use the established restrained editorial grammar; `/` is the one surface allowed to make that grammar move, fold, layer and reveal itself more theatrically.
-16. **The home art direction should amplify the existing `ink on paper` language rather than introduce a different visual brand.** Warm paper, ink, copper punctuation, deliberate dark inserts, asymmetry, project-native imagery and editorial typography remain the source material. The opportunity is to make those materials feel like a designed publication object rather than a static webpage.
-17. **Publication-like motion is in scope when it carries hierarchy.** Page folds, page turns, layered sheets, inserts, reveals or other paper-derived transitions may be explored as the mechanism that carries the reader from the first fold into the evidence landscape. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension. Reduced motion must preserve the same content order and proof routes without requiring the physical metaphor.
-18. **The £10k bar rejects conventional portfolio UI even when it is usable.** A card grid, tabs, filter chips, category picker or link directory that merely exposes the right evidence still fails if it reads as `some guy's personal website`. The breadth of evidence should be expressed through authored composition, typography, native media, pacing and motion.
-19. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The post-hero evidence landscape should let readers recognise and enter the kind of proof they care about through composition itself. It should not announce a taxonomy or ask visitors to operate a portfolio filter.
-20. **Push the publication metaphor deliberately past the safe midpoint before judging it.** Phase 8 should explore the fully literal digital-paper direction first and only pull back after seeing where it becomes distracting, gimmicky or less usable. The room does not want to pre-optimise the concept into tasteful-but-timid motion before testing its ceiling.
-21. **The SPA boundary is part of the art direction.** Leaving `/` for an interior route should feel like opening the publication; returning to `/` should feel like closing it. This is a homepage-boundary treatment, not a site-wide animated-routing system.
-22. **Navigation inside the publication remains ordinary, trustworthy website navigation.** Once a visitor is on Projects, Writing, Patch, About, CV or a deep evidence route, moving among those routes should behave normally. Browser history, Back/Forward expectations, deep links and standard route semantics remain authoritative rather than being bent around the book metaphor.
-23. **The opening/closing transition is contextual, not mandatory theatre.** A direct deep link to an interior page has no reason to perform a fake `book opening` from a homepage the visitor never saw. Likewise, leaving an interior route for another interior route stays ordinary. The book gesture belongs only when crossing the actual home/interior boundary.
-24. **Reduced motion must preserve the boundary idea without requiring the effect.** The same navigation relationship should remain legible when page-turn/fold mechanics are suppressed or replaced by an immediate, minimal state change. The destination, focus behaviour, history and reading order cannot depend on animation completion.
+2. **Reader-facing copy must not explain the shuffle mechanism.** The current shuffle labels/explanations are removed rather than rewritten into nicer implementation commentary.
+3. **If the hero retains `silly comics`, those words link directly to `/patch`.** A Patch reference should cash itself at the point of mention.
+4. **The current principles section does not survive.** Its useful ideas belong in inspectable evidence, not cards describing Harley's virtues.
+5. **`building in public` is not useful homepage positioning.** Publication is observable; it is not itself evidence of engineering quality.
+6. **The self-conscious portfolio close does not survive.** The professional route should simply reach About, CV, availability and contact.
+7. **The rendered page is the design evidence for this room.** Post-7A content and current visual/interaction defects may override assumptions that were reasonable in the 22 August snapshot.
+8. **The first fold is an evidence-routing contract, not the whole sales argument.** It establishes Harley Bartles as a full-stack software engineer, gives one concrete reason to believe his responsibility extends beyond straightforward implementation, and makes substantive proof easy to enter.
+9. **Each human persona gets its first important question answered in the fold, with proof no farther than one deliberate click or one natural scroll.** The hiring manager needs a defensible professional signal; the architect needs an obvious route to inspectable judgement.
+10. **The £ lens is a quality gate, not a third public audience.** The page must satisfy both human routes without visibly rendering the rubric.
+11. **The stable first-fold claim should lead with professional consequence rather than an isolated architecture claim.** The Phase 7A Access outcome account is the strongest cross-lens source.
+12. **About is the canonical proof route for that professional claim but must not be the only onward path.** The homepage must also expose direct technical/editorial evidence without forcing every reader through About.
+13. **About is a valid evidence node, not a cul-de-sac.** The rendered route contains Access ownership/outcomes, CV/contact, a route into `Why ADRs?`, the four independent project case studies and the persistent global navigation.
+14. **The proof choreography is dual-path.** Hiring-manager curiosity can follow the stable professional claim into About; architect curiosity can enter project/writing evidence directly. Either path can continue into the other evidence family.
 
 ## First-fold rubric
 
-The settled Phase 8 first-fold rubric is:
+The first fold must satisfy all of these without exposing the rubric as page copy:
 
-- **Identity:** the reader can tell who Harley is and that his primary professional identity is full-stack software engineer rather than `agentic systems` specialist.
-- **Credible claim:** the fold contains one specific, bounded signal that suggests senior-level ownership or judgement without asking the reader to accept a generic adjective.
-- **Hiring-manager route:** within one click or one scroll, the reader can reach evidence that makes forwarding Harley feel defensible.
-- **Principal-architect route:** within one click or one scroll, the reader can reach evidence containing decisions, trade-offs, correction history, costs, falsifiers or other inspectable engineering substance.
-- **No dead claims:** every prominent claim in the fold has an evident destination that can substantiate or qualify it.
-- **No persona-specific sales copy:** the public copy should read naturally as one authored homepage. The persona matrix is an editorial test, not visible page scaffolding.
-- **No single-route funnel:** the fold should not force every reader through About before reaching the wider portfolio. Professional proof and technical/public proof are parallel, connected paths.
+- Harley Bartles is legible as a full-stack software engineer, not an `agentic systems` specialist whose identity stops there.
+- One bounded, consequence-bearing signal suggests senior-level ownership or judgement without relying on generic adjectives.
+- The hiring manager can reach evidence that makes forwarding Harley defensible within one click or one scroll.
+- The architect can reach evidence containing decisions, trade-offs, costs, correction history, falsifiers or other inspectable engineering substance within one click or one scroll.
+- Every prominent claim has an obvious place where it can be verified or qualified.
+- About is not mandatory transit for the rest of the portfolio.
 
-A useful acceptance test is: after the first fold, neither human persona should need to wonder `where would I even go to verify that?`.
+A useful acceptance test is: after the first fold, neither human persona should wonder `where would I even go to verify that?`.
 
-## Current About-route evidence check
+## Settled art direction
 
-The rendered About route was inspected during this room before settling the direct-link concern.
+15. **The homepage is the stylistic crescendo of the site.** Interior routes keep the restrained ink-on-paper editorial grammar; `/` is the one place that grammar is allowed to move, fold, layer and reveal itself theatrically.
+16. **The homepage amplifies the existing visual language rather than inventing a second brand.** Warm paper, ink, copper punctuation, deliberate dark inserts, Fraunces/Source Serif/Fira Code, asymmetry and project-native media remain the source material.
+17. **The leading exploration is a fully literal digital publication.** Phase 8 should push the metaphor past the safe midpoint first, then pull back from observed excess rather than pre-emptively diluting it.
+18. **Publication-like motion is in scope when it carries hierarchy.** Page folds, turns, layered sheets, inserts and reveals may carry the reader between publication states. Motion must not become autoplay decoration, scroll-jacking or a prerequisite for comprehension.
+19. **The £10k bar rejects conventional portfolio UI as the main evidence surface.** Card grids, tabs, filters, chips and link directories may be usable but still fail the target feel if they read as `some guy's personal website`.
+20. **The evidence chooser is an information architecture, not necessarily a visible chooser control.** The composition itself should let readers recognise the kind of proof they care about.
+21. **The homepage scroll choreography uses recognisable publication spreads rather than one continuous morphing scroll trick.** Spreads provide clearer editorial pacing and natural places for different kinds of evidence to receive distinct treatment.
+22. **The homepage is the publication's front matter.** The metaphor is a design aid, not a literal content checklist: cover, contents, foreword, frontispiece or prologue are useful ways to think about functions that orient the reader before `here is the story`. The homepage's job is to establish identity, stakes, orientation and routes into the work; the actual stories live on the destination routes unless a preview earns its place for a specific front-matter purpose.
+23. **Do not marry the metaphor.** If a literal book convention hurts hierarchy, comprehension, responsiveness or evidence access, the product need wins. The metaphor supplies coherence, not handcuffs.
 
-It currently provides:
+## SPA and navigation contract
 
-- a professional opening that identifies Harley as a full-stack software engineer with 7+ years of experience and sole responsibility for Access Checks;
-- a direct `Read the CV` route and contact path;
-- the detailed Access Checks ownership/outcome account, including the production invariant and paid-check consequence;
-- a career section with a contextual route to `Why ADRs?`;
-- a dedicated independent-work section linking to Agent Asset Marketplace, Agentic Learning Lab, Wild Bunch and Adventures of Patch;
-- persistent masthead routes to Projects, Writing, Patch, About and CV.
-
-This is enough cross-linking that a homepage claim can legitimately route to About without trapping the reader in a purely biographical surface. Phase 8 should still prefer a direct project/writing doorway in the first fold so that About does not become mandatory transit.
-
-## Active design direction, not yet settled
-
-### Publication object / motion metaphor
-
-The leading direction is now a **fully literal digital publication**, explored at full strength first rather than diluted into generic page transitions.
-
-Possible grammar to test during design, without treating any one effect as implementation instruction:
-
-- fold one behaves like a cover or opening spread: spacious, stable, identity-led and consequence-bearing;
-- the first natural scroll physically carries the reader into the evidence landscape through a sheet, fold, turn or layered-paper transition;
-- project and writing evidence can behave like spreads, plates, tipped-in artefacts, clippings, marginalia or dark insert pages rather than interchangeable cards;
-- deliberate dark sections can read like printed insert stock rather than generic dark-mode bands;
-- copper can behave as editorial furniture: folios, rules, registration-like marks, annotations and navigation punctuation;
-- project-native visuals should remain the content, with the publication metaphor acting as custody and framing rather than fake decoration;
-- crossing from the homepage into a destination route should feel like opening the book into that evidence surface;
-- crossing back home should feel like closing the publication back onto its cover;
-- route transitions among interior pages should disappear back into normal website behaviour.
-
-The remaining design question is not whether to be literal. That is settled for exploration. The remaining question is **how the homepage's own scroll choreography should divide into publication units**: a sequence of recognisable pages/spreads, or a more continuous publication object whose folds and inserts transform within one long vertical journey.
-
-### Randomness / feature interaction
-
-The approved specification still assumes session-stable random selection plus manual another-feature controls. Harley's current rendered-page review challenges the value premise: the mechanism originally helped promote `the best stuff`, but the matured portfolio should no longer contain second-tier homepage material.
-
-The emerging evidence-landscape direction weakens the case for randomness further: breadth can be present at once, while visual hierarchy lets different readers recognise the evidence relevant to them. Randomness must therefore earn a reader benefit that authored composition cannot provide.
-
-**Current room position:** randomness is no longer protected by inertia. It must earn a specific reader benefit beyond novelty. If it cannot, Phase 8 should explicitly amend the earlier protected default rather than preserve a gimmick because code and tests already exist.
-
-This remains a material design conflict with the approved Phase 8 selection contract and must be settled before local planning.
-
-## Rejected alternatives
-
-- Keep `I build reliable agentic systems.` because it is concise. Rejected: concision does not rescue an over-broad, AI-shaped claim that narrows the professional identity.
-- Keep shuffle explanatory copy so visitors understand the UI. Rejected: implementation behaviour is not editorial content; the control itself should be self-explanatory if it survives.
-- Retain the principles section with improved wording. Rejected: the section's job is duplicated by stronger evidence elsewhere, so rewriting the claims would preserve the wrong information architecture.
-- Keep `building in public` as a credibility signal. Rejected: it describes publication context, not engineering quality, and asks the reader to value a contrast they cannot observe.
-- Keep a closing statement explaining that the site is a portfolio. Rejected: the professional route can be explicit without commenting on the site's genre.
-- Make the first fold fully prove seniority for every audience. Rejected: that would overload the fold and turn the homepage into a sales dossier. Its job is to make a bounded claim and make the proof path immediate.
-- Render separate hiring-manager and architect messages. Rejected: the personas are review lenses, not public information architecture. One authored composition should satisfy both through evidence choice and routing.
-- Make About the single first-fold CTA. Rejected: About can substantiate the professional claim, but forcing all readers through it would unnecessarily hide the portfolio's stronger technical and editorial evidence behind a professional funnel.
-- Avoid linking to About because it is `too portfolio-like`. Rejected after inspecting the current route: About is itself evidence-bearing and links back into the wider portfolio, so the problem is not the route; the problem would be making it the only route.
-- Express the evidence landscape as a conventional card grid, tab set or category filter. Rejected: that solves routing but spends the homepage's one opportunity for genuinely art-directed composition and would undershoot the agency-value target.
-- Keep the homepage as visually static as the interior routes for consistency. Rejected: consistency is already supplied by the underlying paper/ink/copper/dark-insert grammar. The homepage is allowed to amplify that grammar into motion while the rest of the site remains restrained.
-- Pre-emptively tone the paper metaphor down to avoid gimmick risk. Rejected: the room wants to discover the actual boundary by crossing it, then pull back from observed excess rather than imagined excess.
-- Animate every SPA route to keep the metaphor consistent. Rejected: the publication gesture is valuable precisely because it marks the home/interior boundary. Repeating it between every route would make navigation theatrical, slower and less trustworthy.
-- Fake an opening transition on direct deep links. Rejected: the metaphor should reflect actual navigation context, not manufacture history the visitor did not experience.
+24. **Crossing the home/interior boundary is part of the art direction.** Leaving `/` for an interior route should feel like opening the publication; returning to `/` should feel like closing it.
+25. **Interior-to-interior navigation remains ordinary and trustworthy.** Projects, Writing, Patch, About, CV and deep routes should use normal navigation semantics; browser history and deep links remain authoritative.
+26. **Do not manufacture navigation history.** A direct deep link to an interior page does not perform a fake book opening from a homepage the visitor never saw.
+27. **Reduced motion preserves the relationship without requiring the physical effect.** The same destination, source order, focus and proof paths must work when folds/turns are suppressed.
+28. **New-route navigation must not strand the reader at the previous route's scroll offset.** A normal push/replace navigation to a new non-fragment route arrives at the destination's beginning. A deliberate fragment route lands on its target. Browser Back/Forward may restore the prior history entry's scroll position where that is the expected browser behaviour.
+29. **Route transitions must finish in a correct document state, not merely a pretty visual state.** The opening/closing animation cannot win over destination scroll, focus, history or accessibility semantics. Phase 8 should include the scroll/focus behaviour because it is touching the same route boundary and the current defect visibly loses finish value.
 
 ## Public copy and evidence boundaries
 
 No replacement hero copy is approved yet.
 
-The Phase 7A professional outcome account is available as a bounded source for a first-fold concrete signal. Its strongest compact evidence includes end-to-end Access Checks ownership, the `No source capture, no success.` production invariant, the downstream no-charge consequence, and the outcome that the work enabled two additional integrated paid checks. Exact homepage compression remains a Harley-owned editorial decision; Phase 8 must not invent metrics or expose private topology.
+The Phase 7A professional outcome account is the bounded source for the first-fold professional signal. Available evidence includes end-to-end Access Checks ownership, the `No source capture, no success.` production invariant, the downstream no-charge consequence and the outcome that the work enabled two additional integrated paid checks. Phase 8 must not invent metrics or expose private topology.
 
-The current About page remains the canonical full professional treatment. Homepage copy should route into it rather than reproduce its complete argument.
+About remains the canonical full professional treatment; the homepage should compress and route, not reproduce it.
+
+## Randomness / feature interaction
+
+The approved specification still assumes session-stable random selection plus manual feature controls. That assumption is now under material challenge.
+
+The matured portfolio no longer has an obvious `best stuff versus the rest` problem, and the emerging evidence-landscape/front-matter model can expose breadth simultaneously. Randomness therefore has to earn a specific reader benefit that authored composition cannot provide. If it cannot, the protected randomized-deck default and related Phase 8 selection contract should be explicitly amended rather than preserved through inertia.
+
+## Rejected alternatives
+
+- Keep the current hero claim because it is concise.
+- Keep shuffle-explanation copy so visitors understand the UI.
+- Retain the principles section with improved wording.
+- Keep `building in public` as a credibility signal.
+- Keep the self-conscious portfolio close.
+- Fully prove seniority for every audience inside the first fold.
+- Render separate hiring-manager and architect messages.
+- Make About the single first-fold CTA.
+- Avoid About merely because it is a professional page.
+- Express the evidence landscape primarily as a conventional card grid, tab set or category filter.
+- Keep the homepage as visually static as the interior routes for consistency.
+- Pre-emptively tone down the paper metaphor before testing it.
+- Animate every SPA route to maintain the book metaphor.
+- Fake a book opening on direct deep links.
+- Treat the publication metaphor as a requirement to reproduce literal print front-matter conventions whether or not they help the reader.
+- Accept cross-route scroll-position leakage as normal SPA behaviour.
 
 ## Unresolved judgments
 
 Work one consequential decision at a time:
 
-1. settle how the homepage's own scroll choreography divides into publication units: discrete pages/spreads versus a continuous transforming paper object;
-2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind the About route;
-3. settle the detailed evidence landscape and which proof angles must be simultaneously legible within the first post-fold movement;
-4. settle whether randomness/manual feature change still earns its place;
-5. settle the evidence choreography through projects, Patch, writing and the professional close;
-6. settle exact copy and art direction only after those hierarchy calls are stable;
-7. reconcile responsive, keyboard, reduced-motion, media-failure and storage-failure implications at design level;
-8. classify the resulting spec drift and any required protected-default amendments.
+1. settle whether the homepage should contain any substantive case-study/essay excerpts, or function primarily as cover/front matter whose evidence previews only orient and route;
+2. settle the exact first-fold professional claim and how much of the Access consequence belongs in the fold versus behind About;
+3. settle the individual spreads and which proof angles must be legible in the first post-cover movement;
+4. settle whether randomness/manual feature change still earns any role;
+5. settle the final Patch, writing and professional-route choreography;
+6. settle exact copy only after hierarchy is stable;
+7. reconcile narrow, keyboard, reduced-motion, missing-media, route-focus, route-scroll and transition-failure behaviour at design level;
+8. classify material spec drift and required protected-default amendments.
 
 ## Baton
 
