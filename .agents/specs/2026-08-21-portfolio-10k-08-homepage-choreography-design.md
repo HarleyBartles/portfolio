@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phases 1 and 3–7A have landed
+**Implementation-plan readiness:** Dependency gate cleared; local planning deferred until the Harley-led Cloud editorial decision room closes
 
 **Repository snapshot inspected:** `3e6cf23ceef6a80270d0fb1bf36ca93fea900fce`
 
@@ -1223,7 +1223,7 @@ Harley approved:
 
 ## Readiness assessment
 
-**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
+**Rating: 9/10 — approved; dependency gate cleared; editorial decisions in progress.**
 
 The specification defines:
 
@@ -1242,8 +1242,8 @@ The specification defines:
 - design-led and automated acceptance criteria; and
 - the required protected-default decision receipts.
 
-No unresolved design decision blocked approval. The missing point is
-intentional: a safe implementation plan cannot be written until Phases 1 and
-3–7A have landed and their actual types, routes, previews, assets, and metadata
-can be re-inspected. That dependency does not weaken the design specification;
-it prevents a premature plan from becoming stale.
+The predecessor dependency is now satisfied. The remaining point is
+intentional: Harley has opened a Cloud editorial decision room against the
+landed professional surfaces, current homepage and this approved contract.
+Local Sol must not write the JIT implementation plan until that room returns a
+durable decision record and Harley explicitly closes it.
