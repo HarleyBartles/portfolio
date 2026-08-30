@@ -44,14 +44,17 @@ Before visitor-facing non-home implementation begins, local Sol must create a re
 
 The exact path may follow discovered repository conventions, but there must be one canonical operational skill for applying/reviewing the wider accepted contract.
 
-**The unit under test is the whole authority stack, not the skill file alone.** Use the same discipline as the typography pressure test:
+**The unit under test is the whole authority stack, not the skill file alone.** Use the same discipline as the typography pressure test, but RED for this wider test is deliberately before all Phase 8P guidance:
 
-1. Freeze RED without the PR #46 wider visual-language guidance/skill. Prefer the merged PR #45 typography checkpoint so the already-proved typography system stays constant.
-2. Give fresh isolated workers realistic art-direction pressures and record their actual behaviour. Do not manufacture failures; preserve negative controls where RED already behaves correctly.
-3. Write the minimum skill that routes workers through policy, the accepted visual contract, subordinate decisions/proof and the existing typography skill.
-4. Rerun the same substantive pressures GREEN with the whole stack available.
-5. Perform one loophole review. Amend only for a real remaining leak; do not overfit to test wording.
-6. Commit a durable TDD record analogous to `phase-8p-typography-skill-tdd.md` with fixture SHAs, routes/viewports/runtime, scenario results, concise RED evidence, negative controls and GREEN outcome.
+1. Freeze RED at `8f6028eb441bf5c304b007567621747f3003a173`, the pre-Phase8P no-guidance baseline used by the typography TDD. RED exposes no Phase 8P typography contract/skill and no PR #46 visual-language contract/decisions/proof/skill.
+2. Do **not** use merged PR #45 (`3b3527060a9452105af34128ad6bdafe6cac7dba`) as RED. It already contains Phase 8P typography guidance and would test only the later delta rather than the whole accepted stack.
+3. Give fresh isolated workers realistic art-direction pressures and record their actual behaviour. Do not manufacture failures; preserve negative controls where RED already behaves correctly.
+4. Write the minimum skill that routes workers through policy, the accepted visual contract, subordinate decisions/proof and the existing typography skill.
+5. Rerun the same substantive pressures GREEN with the complete current stack available: repository policy/routing, typography contract + `applying-portfolio-typography`, visual-language contract/subordinate authority/proof, and the new `applying-portfolio-visual-language` skill.
+6. Perform one loophole review. Amend only for a real remaining leak; do not overfit to test wording.
+7. Commit a durable TDD record analogous to `phase-8p-typography-skill-tdd.md` with fixture SHAs, routes/viewports/runtime, scenario results, concise RED evidence, negative controls and GREEN outcome.
+
+The earlier typography TDD remains valid prior evidence; this wider test intentionally re-runs the complete stack end to end because Harley defined the whole stack as the unit under test.
 
 The required scenario families and expected failure boundaries are specified in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md). They cover project theming, universal evidence wrappers, decorative asymmetry, route identity, faux-handmade anti-AI styling, premium/editorial About pressure, narrow/mobile compression and misuse of the integrated proof as a production template.
 
