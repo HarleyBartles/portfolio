@@ -25,7 +25,7 @@ A GREEN result means a fresh capable worker, receiving the same realistic pressu
 
 ## RED fixture
 
-Freeze the same **pre-Phase8P, no-guidance** repository baseline used by the typography TDD: `8f6028eb441bf5c304b007567621747f3003a173`.
+Freeze the same **pre-Phase8P, no-guidance** repository baseline used by the typography TDD: `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`.
 
 RED intentionally exposes none of the Phase 8P authority being tested: no Phase 8P typography contract or typography skill, no PR #46 visual-language contract/decisions/proofs, and no future `applying-portfolio-visual-language` skill. This is deliberate because Harley defined the unit under test as the whole current policy + guidance + skill stack.
 

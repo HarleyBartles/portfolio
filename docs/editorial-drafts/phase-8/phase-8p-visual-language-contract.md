@@ -1,6 +1,6 @@
 # Phase 8P visual-language contract
 
-**Status:** Accepted by Harley on 30 August 2026. Phase 8P design discovery is complete. This contract is ready for local non-home implementation planning, subject to the required operational-skill TDD closeout below. Homepage Phase 8 remains blocked.
+**Status:** Accepted by Harley on 30 August 2026. Phase 8P design discovery and operational-skill TDD are complete. The non-home implementation plan is ready; homepage Phase 8 remains blocked.
 
 This is the normative synthesis of the accepted Phase 8P visual language. The earlier checkpoint and stage decisions remain useful evidence and rationale; this file is the concise implementation authority for the whole non-home system.
 
@@ -181,7 +181,7 @@ The skill is not the unit under test by itself. As with the earlier typography w
 
 Use TDD pressure scenarios:
 
-1. freeze RED at the pre-Phase8P baseline `8f6028eb441bf5c304b007567621747f3003a173`, deliberately exposing **none** of the Phase 8P typography or wider visual-language guidance/skills;
+1. freeze RED at the pre-Phase8P baseline `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`, deliberately exposing **none** of the Phase 8P typography or wider visual-language guidance/skills;
 2. do **not** use PR #45 as RED for this wider test, because PR #45 already contains Phase 8P guidance and would test only the delta rather than the whole stack;
 3. give fresh isolated workers realistic art-direction pressures and record what they actually recommend without inventing failures;
 4. write the minimum operational skill needed to route workers through the accepted authority and close observed leaks;
@@ -193,12 +193,12 @@ The earlier typography TDD remains useful prior evidence, but this wider test de
 
 The detailed baton for that test is recorded in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md).
 
-Until that RED/GREEN closeout is recorded, Phase 8P design is accepted but the operational implementation guard is incomplete.
+The completed whole-stack test is recorded in [`phase-8p-visual-language-skill-tdd.md`](./phase-8p-visual-language-skill-tdd.md). It closes the operational guard but does not count as visitor-facing implementation or rendered acceptance.
 
 ## Baton
 
 **Ready for local non-home implementation planning.**
 
-Local Sol may now prepare the JIT plan and solve engineering seams inside this accepted contract. The first required governance task is the visual-language operational skill and its whole-stack RED/GREEN pressure test. Do not begin visitor-facing non-home implementation until that guard is GREEN.
+Local Sol prepared the JIT plan after the visual-language operational skill and whole-stack RED/GREEN pressure test reached GREEN. Visitor-facing non-home implementation may proceed only through that plan and this accepted contract.
 
 The homepage remains blocked until the non-home remediation is implemented, rendered in a browser, checked against this contract and the valuation gate, and accepted by Harley. Only then does Phase 8 resume on `/`.
