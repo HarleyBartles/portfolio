@@ -52,6 +52,22 @@ The irony is that the inspectable evidence underneath is much stronger: Marketpl
 5. **`building in public` is not useful homepage positioning.** Public availability can be demonstrated by links and evidence; it does not need to be narrated as a virtue.
 6. **The self-conscious portfolio close does not survive.** The final professional route should simply help the reader reach About, CV, availability and contact without announcing that the site is a portfolio.
 7. **The rendered page, not the old specification snapshot, is the design evidence for this room.** Current visual defects and the stronger post-7A content can override assumptions that were reasonable on 22 August.
+8. **The first fold is an evidence-routing contract, not a complete sales argument.** Its job is to establish Harley Bartles as a full-stack software engineer, give the reader one concrete reason to believe his responsibility extends beyond straightforward implementation, and offer an obvious route into substantive work.
+9. **Each human review persona must have its first important question answered in the first fold by a grounded claim, with proof no farther than one deliberate click or one natural scroll away.** The hiring-manager question is essentially `who is this professionally, and is there enough here to justify forwarding?`; the principal-architect question is essentially `is there actual judgement behind the presentation, and can I inspect it?`. The first fold need not prove either case in full, but it must make the claim specific enough to be falsifiable and make the proof path obvious.
+10. **The £ lens is a quality gate rather than a third reader persona.** It judges whether the composition, copy, restraint and finish make the two human evidence paths feel like premium editorial design rather than a rubric rendered literally onto the page.
+
+## First-fold rubric
+
+The settled Phase 8 first-fold rubric is:
+
+- **Identity:** the reader can tell who Harley is and that his primary professional identity is full-stack software engineer rather than `agentic systems` specialist.
+- **Credible claim:** the fold contains one specific, bounded signal that suggests senior-level ownership or judgement without asking the reader to accept a generic adjective.
+- **Hiring-manager route:** within one click or one scroll, the reader can reach evidence that makes forwarding Harley feel defensible.
+- **Principal-architect route:** within one click or one scroll, the reader can reach evidence containing decisions, trade-offs, correction history, costs, falsifiers or other inspectable engineering substance.
+- **No dead claims:** every prominent claim in the fold has an evident destination that can substantiate or qualify it.
+- **No persona-specific sales copy:** the public copy should read naturally as one authored homepage. The persona matrix is an editorial test, not visible page scaffolding.
+
+A useful acceptance test is: after the first fold, neither human persona should need to wonder `where would I even go to verify that?`.
 
 ## Active design direction, not yet settled
 
@@ -70,6 +86,8 @@ This is a material design conflict with the approved Phase 8 selection contract 
 - Retain the principles section with improved wording. Rejected: the section's job is duplicated by stronger evidence elsewhere, so rewriting the claims would preserve the wrong information architecture.
 - Keep `building in public` as a credibility signal. Rejected: it describes publication context, not engineering quality, and asks the reader to value a contrast they cannot observe.
 - Keep a closing statement explaining that the site is a portfolio. Rejected: the professional route can be explicit without commenting on the site's genre.
+- Make the first fold fully prove seniority for every audience. Rejected: that would overload the fold and turn the homepage into a sales dossier. Its job is to make a bounded claim and make the proof path immediate.
+- Render separate hiring-manager and architect messages. Rejected: the personas are review lenses, not public information architecture. One authored composition should satisfy both through evidence choice and routing.
 
 ## Public copy and evidence boundaries
 
@@ -83,7 +101,7 @@ The current About page remains the canonical full professional treatment. Homepa
 
 Work one consequential decision at a time:
 
-1. settle the first-fold hierarchy and exact job of the stable identity frame;
+1. settle the exact first-fold claim/evidence pairing that satisfies the agreed rubric;
 2. settle whether randomness/manual feature change still earns its place;
 3. settle the evidence choreography after the first fold, including whether a separate four-project deck is still useful;
 4. settle the Patch interlude, writing feature and professional close;
