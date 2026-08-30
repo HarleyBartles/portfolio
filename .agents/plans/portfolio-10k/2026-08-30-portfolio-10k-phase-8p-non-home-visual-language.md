@@ -392,18 +392,21 @@ git commit -m "refactor: make case-study evidence custody semantic"
 
 **Interfaces:**
 - Consumes: shared custody rules from Task 5 and the existing specialist-presentation registry.
-- Produces: four independently derived project compositions with bounded native colour, artifact-first evidence, relationship-led cadence and no shared composition template.
+- Produces: four independently derived project compositions with artifact-first evidence, relationship-led cadence and no shared composition template. Project-native colour may remain inside artifacts or leave them through an earned finite field; no route is required to manufacture a field.
 
 - [ ] **Step 1: Add failing route-specific authority assertions**
 
-For each project test, assert one named bounded field and the absence of project colour on shared components:
+For every project, assert the absence of project colour on shared components. When a route lets project colour leave an artifact, give the owning field a specific `data-project-field` value and assert that finite boundary in the route test:
 
 ```tsx
-expect(container.querySelector('[data-project-field="wild-bunch-origin"]')).toBeInTheDocument()
-expect(container.querySelectorAll('[data-project-field]')).not.toHaveLength(0)
+expect(container.querySelector('.site-header')).not.toHaveAttribute('data-project-field')
+expect(container.querySelector('.content-status')).not.toHaveAttribute('data-project-field')
+
+// Only when this route earns a field:
+expect(container.querySelector('[data-project-field="<route-owned-field>"]')).toBeInTheDocument()
 ```
 
-In Playwright, read computed styles and assert that each bounded field ends before a later mineral section, while `.site-header`, `.content-status` and shared captions keep neutral computed colours. Keep existing semantic order, media loading and public-evidence assertions.
+In Playwright, keep `.site-header`, `.content-status` and shared captions neutral. When a `data-project-field` exists, read computed styles and prove that the field is finite and returns to mineral afterwards. A route with no earned field should not add one to satisfy the test. Keep existing semantic order, media loading and public-evidence assertions.
 
 - [ ] **Step 2: Run project tests and observe RED**
 
@@ -531,7 +534,7 @@ const nonHomeProof = [
 ]
 ```
 
-For each route assert visible focus, no page overflow, expected type register and stable semantic source order at `1440 × 1100`, `390 × 844`, `320 × 844` and `360 × 844` zoom proxy. Use the existing `decision-memory` hook from `writingPresentations.ts`; do not add a proof-only production hook.
+For each route assert visible focus, no page overflow, expected type register and stable semantic source order at `1440 × 1100`, `390 × 844`, `320 × 844` and `360 × 844` zoom proxy. This automated proxy supplies repeatable reflow pressure; it does not prove actual browser zoom. Use the existing `decision-memory` hook from `writingPresentations.ts`; do not add a proof-only production hook.
 
 - [ ] **Step 2: Run the final visual test before updating proof and observe any missing coverage**
 
@@ -543,7 +546,7 @@ Expected: fail only for intentional visual changes or an uncovered representativ
 
 - [ ] **Step 3: Create the durable implementation-proof record**
 
-Record exact branch/head, changed route families, source-owned assets, before-state commit, each implementation commit, Windows screenshot names, desktop/narrow/zoom conditions, missing-media checks, accessibility results, rejected shortcuts and the AI-convergence assessment. Use these exact status fields:
+Record exact branch/head, changed route families, source-owned assets, before-state commit, each implementation commit, Windows screenshot names, desktop/narrow/zoom-proxy conditions, the browser used for the separate actual 200% zoom pass, missing-media checks, accessibility results, rejected shortcuts and the AI-convergence assessment. Use these exact status fields:
 
 ```markdown
 ## Valuation gate
@@ -555,7 +558,8 @@ Record exact branch/head, changed route families, source-owned assets, before-st
 ## Harley acceptance
 
 - Status: Pending
-- Reviewed routes and viewports: `/projects/wild-bunch`, `/writing/why-adrs` and `/about` at `1440 × 1100`, `390 × 844`, `320 × 844` and `360 × 844` zoom proxy
+- Reviewed routes and viewports: `/projects/wild-bunch`, `/writing/why-adrs` and `/about` at `1440 × 1100`, `390 × 844`, `320 × 844` and `360 × 844` automated zoom proxy; the same real-content routes separately at actual 200% browser zoom
+- Actual 200% browser-zoom result: Pending rendered review; record browser, route, overflow/reflow, focus and evidence-legibility observations
 - Decision: Pending Harley's rendered review
 ```
 
@@ -575,7 +579,7 @@ Expected: mesh is current; 73+ repository tests, 159+ client tests, production b
 
 - [ ] **Step 5: Present rendered proof to Harley and obey the gate**
 
-Open the representative routes and proof record for Harley. If `Blocked`, record the exact issue, return to the owning task and keep homepage Phase 8 blocked. If `Accepted`, update only the proof record's acceptance fields; do not implement `/` in this plan.
+Open the representative routes and proof record for Harley. Before asking for acceptance, set the browser itself to actual 200% zoom and inspect the same real-content routes for overflow, reflow, focus visibility, source order and evidence legibility. Record the browser and observations in the implementation proof; do not infer this result from the `360 × 844` automated proxy. If `Blocked`, record the exact issue, return to the owning task and keep homepage Phase 8 blocked. If `Accepted`, update only the proof record's acceptance fields; do not implement `/` in this plan.
 
 - [ ] **Step 6: Mark Task 8 complete and commit the accepted non-home implementation**
 

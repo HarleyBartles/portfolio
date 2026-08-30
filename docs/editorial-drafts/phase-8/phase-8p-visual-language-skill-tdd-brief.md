@@ -1,6 +1,6 @@
 # Phase 8P visual-language operational-skill TDD brief
 
-**Status:** Required local closeout after Harley accepted the Phase 8P visual contract. The design room is complete; this brief defines how local Sol must operationalise the contract before visitor-facing implementation begins.
+**Status:** Completed fixture and acceptance criteria. The resulting whole-stack GREEN evidence is recorded in [`phase-8p-visual-language-skill-tdd.md`](./phase-8p-visual-language-skill-tdd.md), and the implementation baton is ready.
 
 ## Goal
 

@@ -173,31 +173,17 @@ One old Dustwell specimen crop still includes a small amount of surrounding appl
 
 Harley accepted this visual contract after the integrated proof.
 
-## Required operationalisation before visitor-facing implementation
+## Completed operationalisation
 
-Local Sol must add a repository skill, expected name **`applying-portfolio-visual-language`**, before visitor-facing non-home implementation begins.
+The repository skill [`applying-portfolio-visual-language`](../../../.agents/skills/applying-portfolio-visual-language/SKILL.md) now routes implementation and review workers through this contract, its subordinate decisions and the existing typography authority.
 
-The skill is not the unit under test by itself. As with the earlier typography work, the unit under test is the **whole authority stack**: repository policy/guidance + the Phase 8P typography contract/skill + this visual contract + subordinate decisions/proofs + the new operational skill.
+The skill was proved as part of the whole authority stack. RED used the pre-Phase8P fixture `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`; GREEN used the complete current stack. The durable [`whole-stack TDD record`](./phase-8p-visual-language-skill-tdd.md) preserves the observed RED failures, negative controls, loophole review, Terra/low proof and repeated Luna/low consistency proof. The [TDD brief](./phase-8p-visual-language-skill-tdd-brief.md) remains the historical fixture and acceptance criteria.
 
-Use TDD pressure scenarios:
-
-1. freeze RED at the pre-Phase8P baseline `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`, deliberately exposing **none** of the Phase 8P typography or wider visual-language guidance/skills;
-2. do **not** use PR #45 as RED for this wider test, because PR #45 already contains Phase 8P guidance and would test only the delta rather than the whole stack;
-3. give fresh isolated workers realistic art-direction pressures and record what they actually recommend without inventing failures;
-4. write the minimum operational skill needed to route workers through the accepted authority and close observed leaks;
-5. rerun the same substantive pressures GREEN with the complete current stack available, including the existing typography authority and the new visual-language skill;
-6. preserve negative controls where RED already behaved correctly;
-7. perform one loophole review and do not overfit the skill to the wording of the scenarios.
-
-The earlier typography TDD remains useful prior evidence, but this wider test deliberately re-runs the complete Phase 8P stack end to end.
-
-The detailed baton for that test is recorded in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md).
-
-The completed whole-stack test is recorded in [`phase-8p-visual-language-skill-tdd.md`](./phase-8p-visual-language-skill-tdd.md). It closes the operational guard but does not count as visitor-facing implementation or rendered acceptance.
+This closes the operational guard. It does not count as visitor-facing implementation or rendered acceptance.
 
 ## Baton
 
-**Ready for local non-home implementation planning.**
+**Ready for non-home implementation.**
 
 Local Sol prepared the JIT plan after the visual-language operational skill and whole-stack RED/GREEN pressure test reached GREEN. Visitor-facing non-home implementation may proceed only through that plan and this accepted contract.
 

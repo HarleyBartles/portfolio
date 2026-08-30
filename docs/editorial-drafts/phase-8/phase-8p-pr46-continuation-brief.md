@@ -1,6 +1,6 @@
 # Phase 8P visual-language continuation
 
-**Status:** Phase 8P design discovery accepted by Harley on 30 August 2026. Baton: **Ready for local non-home implementation planning.** Visitor-facing implementation must wait for the required visual-language operational-skill RED/GREEN closeout. Homepage Phase 8 remains blocked.
+**Status:** Phase 8P design discovery and operational closeout are complete. Baton: **Ready for non-home implementation.** Homepage Phase 8 remains blocked.
 
 ## Accepted authority
 
@@ -12,7 +12,10 @@ PR #46 starts from merged `main` at the PR #45 typography checkpoint merge, `3b3
 - [`phase-8p-typography-contract.md`](./phase-8p-typography-contract.md) remains normative for typography and continues to be operationalised by `applying-portfolio-typography`.
 - [`phase-8p-evidence-custody-decision.md`](./phase-8p-evidence-custody-decision.md), [`phase-8p-rhythm-density-decision.md`](./phase-8p-rhythm-density-decision.md), and [`phase-8p-shell-navigation-decision.md`](./phase-8p-shell-navigation-decision.md) remain detailed subordinate authority.
 - [`phase-8p-visual-language-checkpoint.md`](./phase-8p-visual-language-checkpoint.md) preserves the discovery rationale, rejected directions, project-material discoveries and diminishing-returns rule.
-- [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md) is the mandatory local operationalisation task before visitor-facing implementation.
+- [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md) preserves the completed operationalisation fixture and acceptance criteria.
+- [`phase-8p-visual-language-skill-tdd.md`](./phase-8p-visual-language-skill-tdd.md) records whole-stack GREEN, the loophole review and lower-capability consistency proof.
+- [`applying-portfolio-visual-language`](../../../.agents/skills/applying-portfolio-visual-language/SKILL.md) is the proven operational skill.
+- [`2026-08-30-portfolio-10k-phase-8p-non-home-visual-language.md`](../../../.agents/plans/portfolio-10k/2026-08-30-portfolio-10k-phase-8p-non-home-visual-language.md) is the ready JIT implementation plan.
 
 The original Phase 8 decision record still owns the valuation rule, deferred homepage findings and SPA/navigation behavioural contract where not superseded by the accepted synthesis.
 
@@ -36,43 +39,17 @@ Do not reopen these decisions during local planning absent a concrete implementa
 
 The integrated proof survived project, article and About route families at desktop, 390px narrow and actual 200% browser zoom without a material visual-language contradiction. The one old Dustwell specimen crop defect is artifact preparation, not a contract reopening.
 
-## Required local closeout: operational skill under TDD
+## Completed operational closeout
 
-Before visitor-facing non-home implementation begins, local Sol must create a repository skill expected at:
+The whole authority stack was tested from RED fixture `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`, before any Phase 8P guidance, through the complete GREEN stack. The durable record preserves actual worker behaviour, negative controls, the single loophole review, Terra/low proof and repeated Luna/low consistency proof. The resulting skill classifies, routes, applies and verifies without duplicating the normative contract.
 
-`.agents/skills/applying-portfolio-visual-language/SKILL.md`
+The JIT plan is ready. It keeps `/` out of scope, derives route composition from real material, treats project-colour bleed as optional and earned, and requires desktop, narrow, automated reflow pressure and a separate actual 200% browser-zoom human pass. Visitor-facing non-home implementation may now proceed through that plan. A genuine authority contradiction still returns to Harley rather than being resolved with local taste.
 
-The exact path may follow discovered repository conventions, but there must be one canonical operational skill for applying/reviewing the wider accepted contract.
+## Implementation baton
 
-**The unit under test is the whole authority stack, not the skill file alone.** Use the same discipline as the typography pressure test, but RED for this wider test is deliberately before all Phase 8P guidance:
+**Ready for non-home implementation.**
 
-1. Freeze RED at `8f6028eb441bf5c304b007567621747f3003a173`, the pre-Phase8P no-guidance baseline used by the typography TDD. RED exposes no Phase 8P typography contract/skill and no PR #46 visual-language contract/decisions/proof/skill.
-2. Do **not** use merged PR #45 (`3b3527060a9452105af34128ad6bdafe6cac7dba`) as RED. It already contains Phase 8P typography guidance and would test only the later delta rather than the whole accepted stack.
-3. Give fresh isolated workers realistic art-direction pressures and record their actual behaviour. Do not manufacture failures; preserve negative controls where RED already behaves correctly.
-4. Write the minimum skill that routes workers through policy, the accepted visual contract, subordinate decisions/proof and the existing typography skill.
-5. Rerun the same substantive pressures GREEN with the complete current stack available: repository policy/routing, typography contract + `applying-portfolio-typography`, visual-language contract/subordinate authority/proof, and the new `applying-portfolio-visual-language` skill.
-6. Perform one loophole review. Amend only for a real remaining leak; do not overfit to test wording.
-7. Commit a durable TDD record analogous to `phase-8p-typography-skill-tdd.md` with fixture SHAs, routes/viewports/runtime, scenario results, concise RED evidence, negative controls and GREEN outcome.
-
-The earlier typography TDD remains valid prior evidence; this wider test intentionally re-runs the complete stack end to end because Harley defined the whole stack as the unit under test.
-
-The required scenario families and expected failure boundaries are specified in [`phase-8p-visual-language-skill-tdd-brief.md`](./phase-8p-visual-language-skill-tdd-brief.md). They cover project theming, universal evidence wrappers, decorative asymmetry, route identity, faux-handmade anti-AI styling, premium/editorial About pressure, narrow/mobile compression and misuse of the integrated proof as a production template.
-
-Do not duplicate the whole contract into the skill. The skill should classify, route, apply and verify; normative decisions stay in the contract.
-
-## Local planning baton
-
-Local Sol may now prepare the JIT non-home implementation plan.
-
-The plan must:
-
-- put the operational skill + whole-stack RED/GREEN pressure test before visitor-facing implementation;
-- treat the accepted contract as art-direction authority rather than a source of optional suggestions;
-- solve engineering seams locally without inventing a new visual language;
-- use real route material rather than copying the integrated proof as page templates;
-- include rendered desktop/narrow/200% validation, keyboard/focus, contrast, overflow and missing-media checks where relevant;
-- rerun the 50% AI-convergence valuation gate against the rendered production result; and
-- return a genuine contradiction to Harley/Cloud rather than silently resolving it with local taste.
+Use the JIT plan linked above. Preserve the policy's transitional homepage boundary, rerun the 50% AI-convergence valuation gate against the rendered production result and stop for Harley's rendered acceptance before any homepage work.
 
 ## Homepage boundary
 

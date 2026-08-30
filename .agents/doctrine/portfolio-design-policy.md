@@ -1,6 +1,14 @@
 # Portfolio Design Policy
 
-Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active design contract. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
+Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route boundaries and quality gates. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
+
+## Visual authority and route boundary
+
+For non-home routes, the accepted [Phase 8P visual-language contract](../../docs/editorial-drafts/phase-8/phase-8p-visual-language-contract.md) is the active protected visual direction. Its typography contract and subordinate evidence, rhythm, shell and navigation decisions supply the detailed authority. Apply those documents within this policy's portfolio-wide invariants and quality gates.
+
+The current homepage presentation is a transitional `/` boundary. Preserve it unchanged until the non-home system is implemented, rendered, checked against the valuation gate and accepted by Harley. Its warm paper, copper, Fraunces, Source Serif 4, Fira Code and asymmetrical editorial treatments describe the protected current homepage only. They are not defaults for non-home work and must not leak into interiors through shared components.
+
+If this policy and the accepted Phase 8P authority still appear to conflict within those scopes, stop and raise the mismatch rather than choosing locally.
 
 ## Purpose and audience
 
@@ -86,22 +94,22 @@ Read continuous prose aloud. Search for banned punctuation, decorative emoji, st
 
 ## Protected defaults
 
-These defaults are intentional, but replaceable through the change protocol below:
+These portfolio-wide defaults are intentional, but replaceable through the change protocol below:
 
-- warm paper, ink, copper, and a controlled Patch-teal accent;
-- Fraunces display type, Source Serif 4 reading type, and Fira Code utility type;
-- asymmetrical editorial layouts with constrained prose measure;
 - the designed HB SVG mark;
-- a manually controlled randomized feature deck with no autoplay;
 - project-native media and responsive derivatives under repository custody;
 - explicit hiring and contact language concentrated on About;
 - public deep routes with route-specific metadata and an honest unknown-route fallback.
+
+For non-home routes, protect the accepted Phase 8P direction: a cool-mineral shared substrate; Source Sans 3 as the shared site voice; Source Serif 4 only for authored longform; Source Code Pro only for genuine technical material; a disciplined rectilinear grid with rare evidence-earned interruption; artifact-first evidence; relationship-led cadence; a quiet single-flow shell; and project-native colour whose authority stays bounded when it leaves an artifact. Project colour, rails, fields, asymmetry and other interruptions are permissions earned by the material, not route quotas.
+
+On `/`, preserve the current warm paper, ink, copper and controlled Patch-teal palette; Fraunces, Source Serif 4 and Fira Code roles; asymmetrical editorial composition; and manually controlled randomized feature deck with no autoplay. This is a temporary homepage protection, not a portfolio-wide direction. The homepage may adopt the non-home system only after the accepted implementation and Harley's explicit gate.
 
 Do not encode these choices as brittle assertions about exact prose, DOM class names, or every colour value. Test the outcomes that make them valuable: accessible controls, route correctness, content integrity, privacy, asset custody, performance budgets, and deliberately chosen visual baselines.
 
 ## Quality review
 
-A material visual or editorial change is reviewed at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and 200% zoom. Review asks:
+A material visual or editorial change is reviewed at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and actual 200% browser zoom. A narrow viewport may automate reflow pressure, but it does not replace the real browser-zoom review. Review asks:
 
 - Is the reading order obvious without relying on animation?
 - Does first-person copy sound natural when read aloud, using the contractions and economical phrasing Harley would use in conversation rather than slipping into formal essay voice?
