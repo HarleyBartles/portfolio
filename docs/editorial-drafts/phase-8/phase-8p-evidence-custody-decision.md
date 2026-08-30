@@ -50,7 +50,9 @@ The deterministic comparison surface now crops the existing Dustwell source capt
 
 For later integrated proof and eventual production evidence, Cloud does not need to remain constrained to the existing Dustwell screenshot.
 
-Wild Bunch can be run locally and opened in Opera. An agent may drive a chosen seed/setup-salt state to a town hub, after which Cloud can inspect the rendered app and take/crop browser screenshots. The game's seeded architecture provides many legitimate town-hub variations rather than one canonical Dustwell composition.
+Wild Bunch can be run locally and opened in Opera. **Harley drives the game and chooses/clicks through the seed/setup state; Cloud inspects the rendered state, takes the screenshots it needs through Opera, and crops them to the evidence-bearing region.** This keeps gameplay/state selection under Harley's direct control while letting Cloud own the visual evidence capture it is judging.
+
+The game's seeded architecture provides many legitimate town-hub variations rather than one canonical Dustwell composition. Dustwell is only one town on the default all-zeroes seed; setup salts and seeds can produce effectively open-ended variation for pressure testing and later evidence selection.
 
 This capability is useful, but it is not permission to hunt indefinitely for the prettiest procedural frame. A selected capture must earn its use by illustrating a real project/material need.
 
@@ -63,7 +65,7 @@ For any new Wild Bunch evidence derivative intended to survive the design room, 
 - raw capture identity/checksum before portfolio cropping or optimisation;
 - derivative crop/optimisation receipt when the file enters the portfolio.
 
-This turns the game's own replayable/seeded architecture into part of the evidence provenance rather than treating generated variation as decorative stock material.
+This turns the game's own replayable/seeded architecture into part of the evidence provenance rather than treating procedural variation as decorative stock material.
 
 ## Project-specific imagery remains project-owned
 
