@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Phase 8P shell and navigation comparison</title>
+  <style>
+    @font-face {
+      font-family: "Source Sans 3 Local";
+      src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Source Code Pro Local";
+      src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+      font-weight: 200 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+      --mono: "Source Code Pro Local", Consolas, monospace;
+      --substrate: #e6eaeb;
+      --ink: #172127;
+      --muted: #56636b;
+      --rule: rgba(23,33,39,.24);
+      --rule-strong: rgba(23,33,39,.46);
+      --warm: rgba(180,135,82,.16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    html, body { margin: 0; min-height: 100%; }
+    body { background: var(--substrate); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; text-underline-offset: .18em; text-decoration-thickness: .08em; }
+    a:focus-visible { outline: 3px solid #005f87; outline-offset: 4px; }
+
+    .controls {
+      position: sticky;
+      z-index: 30;
+      top: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--substrate) 94%, white 6%);
+    }
+    .controls strong { margin-right: 5px; font-size: 14px; }
+    .controls a { padding: 8px 11px; border: 1px solid var(--rule); text-decoration: none; }
+    .controls .fixed { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+
+    .page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding-bottom: 96px; }
+    .treatment { min-height: 100vh; padding: 48px 0 76px; scroll-margin-top: 64px; border-bottom: 1px solid var(--rule-strong); }
+    .treatment:last-of-type { border-bottom: 0; }
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(300px,.8fr);
+      align-items: end;
+      gap: 70px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow { margin: 0 0 14px; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .012em; }
+    h1 { max-width: 14ch; margin: 0; font-size: clamp(42px,5vw,66px); line-height: .98; letter-spacing: -.025em; font-weight: 650; }
+    .intro > p { margin: 0; max-width: 48ch; color: var(--muted); font-size: 18px; line-height: 1.62; }
+
+    .sample-label { margin: 36px 0 10px; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .sample {
+      overflow: hidden;
+      border-top: 1px solid var(--rule-strong);
+      border-bottom: 1px solid var(--rule-strong);
+      background: var(--substrate);
+    }
+    .shell {
+      width: 100%;
+      padding-inline: 26px;
+    }
+    .shell a { text-decoration: none; }
+    .mark {
+      display: block;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+    }
+    .mark img { display: block; width: 100%; height: 100%; }
+    .nav-list { display: flex; flex-wrap: wrap; gap: 16px 26px; margin: 0; padding: 0; list-style: none; }
+    .nav-list a { position: relative; display: inline-block; padding: 7px 0; font-size: 15px; font-weight: 600; line-height: 1.2; }
+    .nav-list a.current { font-weight: 700; }
+    .nav-list a.current::after {
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      left: 0;
+      height: 2px;
+      background: var(--ink);
+      content: "";
+    }
+
+    .route-body {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(12,minmax(0,1fr));
+      gap: 24px;
+      min-height: 400px;
+      padding: 54px 26px 62px;
+    }
+    .route-body::before {
+      position: absolute;
+      right: 0;
+      top: 70px;
+      width: min(38%, 360px);
+      height: 120px;
+      background: var(--warm);
+      content: "";
+    }
+    .route-copy { position: relative; z-index: 1; grid-column: 1 / span 7; }
+    .route-copy .context { margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.4; }
+    .route-copy h2 { max-width: 10ch; margin: 0; font-size: 48px; line-height: .98; letter-spacing: -.025em; font-weight: 650; }
+    .route-copy p:last-child { max-width: 55ch; margin: 22px 0 0; font-size: 18px; line-height: 1.62; }
+    .route-proof {
+      position: relative;
+      z-index: 1;
+      grid-column: 8 / span 5;
+      align-self: end;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule-strong);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .narrow-stage { width: min(390px, 100%); margin-top: 22px; border: 1px solid var(--rule-strong); background: var(--substrate); }
+    .narrow-stage .shell { padding-inline: 16px; }
+    .narrow-stage .mark { width: 42px; height: 42px; }
+    .narrow-stage .nav-list { gap: 8px 18px; }
+    .narrow-stage .nav-list a { font-size: 14px; }
+    .narrow-stage .route-body { display: block; min-height: 270px; padding: 34px 16px 40px; }
+    .narrow-stage .route-body::before { top: 48px; width: 44%; height: 86px; }
+    .narrow-stage .route-copy h2 { font-size: 38px; }
+    .narrow-stage .route-copy p:last-child { font-size: 16px; line-height: 1.55; }
+    .narrow-stage .route-proof { margin-top: 34px; }
+
+    /* A — quiet line: shell is one calm line; route context belongs to page content. */
+    .quiet-line .desktop-header,
+    .quiet-line .narrow-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .quiet-line .narrow-header { align-items: flex-start; flex-direction: column; gap: 8px; padding-block: 14px; }
+    .quiet-line .route-copy .context { font-weight: 600; }
+
+    /* B — folio line: identity, nav and route context share a two-line masthead. */
+    .folio-line .desktop-header,
+    .folio-line .narrow-header {
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr);
+      gap: 0 26px;
+      padding-block: 14px 12px;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+    .folio-line .mark { grid-row: 1 / span 2; align-self: center; }
+    .folio-line .top-row { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+    .folio-line .identity { font-size: 15px; font-weight: 700; }
+    .folio-line .route-folio { padding-top: 7px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
+    .folio-line .route-copy .context { display: none; }
+    .folio-line .narrow-header { grid-template-columns: auto 1fr; }
+    .folio-line .narrow-header .top-row { display: block; }
+    .folio-line .narrow-header .nav-list { margin-top: 6px; }
+    .folio-line .narrow-header .route-folio { margin-top: 8px; }
+
+    /* C — split index: mark, navigation and current-route index each own a column. */
+    .split-index .desktop-header,
+    .split-index .narrow-header {
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr) minmax(190px,.45fr);
+      align-items: center;
+      gap: 26px;
+      padding-block: 16px;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+    .split-index .route-index { padding-left: 18px; border-left: 1px solid var(--rule); }
+    .split-index .route-index strong { display: block; font-size: 14px; }
+    .split-index .route-index span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; }
+    .split-index .route-copy .context { display: none; }
+    .split-index .narrow-header { grid-template-columns: auto 1fr; align-items: start; gap: 12px 16px; }
+    .split-index .narrow-header .route-index { grid-column: 1 / -1; padding: 9px 0 0; border-top: 1px solid var(--rule); border-left: 0; }
+
+    .definitions {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-top: 38px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+    .definitions h3 { margin: 0 0 7px; font-size: 16px; }
+    .definitions p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .footnote { margin: 32px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    @media (max-width: 780px) {
+      .controls .fixed { width: 100%; margin-left: 0; }
+      .page { width: min(100% - 28px,1180px); }
+      .intro { grid-template-columns: 1fr; gap: 24px; }
+      .definitions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="controls" aria-label="Shell and navigation treatments">
+    <strong>Shell + navigation</strong>
+    <a href="#quiet-line">A · Quiet line</a>
+    <a href="#folio-line">B · Folio line</a>
+    <a href="#split-index">C · Split index</a>
+    <span class="fixed">Source Sans nav · #E6EAEB · bounded bleed · variable cadence fixed</span>
+  </nav>
+
+  <main class="page">
+    <section class="treatment quiet-line" id="quiet-line" aria-labelledby="quiet-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">A · quiet line</p>
+          <h1 id="quiet-title">The shell stays out of the way.</h1>
+        </div>
+        <p>One calm masthead carries home identity and primary navigation. Current route context begins with the page itself rather than becoming persistent shell furniture.</p>
+      </header>
+
+      <p class="sample-label">Desktop pressure · project route</p>
+      <div class="sample">
+        <div class="shell desktop-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav>
+        </div>
+        <div class="route-body">
+          <div class="route-copy"><p class="context">Projects / Wild Bunch</p><h2>Wild Bunch</h2><p>A seeded world, exact replay and a game whose architecture has to earn its complexity.</p></div>
+          <div class="route-proof">Current section is legible in the page context; global navigation remains ordinary and visibly available.</div>
+        </div>
+      </div>
+
+      <p class="sample-label">Narrow pressure · same shell</p>
+      <div class="narrow-stage">
+        <div class="shell narrow-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav>
+        </div>
+        <div class="route-body"><div class="route-copy"><p class="context">Projects / Wild Bunch</p><h2>Wild Bunch</h2><p>Route context remains ordinary content; the nav simply wraps.</p></div></div>
+      </div>
+
+      <div class="definitions"><div><h3>A · Quiet line</h3><p>Minimal shared masthead; route context belongs to the page.</p></div><div><h3>B · Folio line</h3><p>Two-line masthead carries identity, nav and a restrained current-route folio.</p></div><div><h3>C · Split index</h3><p>Current route gets a persistent shell column beside the navigation.</p></div></div>
+    </section>
+
+    <section class="treatment folio-line" id="folio-line" aria-labelledby="folio-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">B · folio line</p>
+          <h1 id="folio-title">The shell carries a little context.</h1>
+        </div>
+        <p>The masthead remains restrained but uses a second line as a folio: identity and primary navigation above, current route beneath. The test is whether this improves orientation or makes publication furniture too visible.</p>
+      </header>
+
+      <p class="sample-label">Desktop pressure · project route</p>
+      <div class="sample">
+        <div class="shell desktop-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <div>
+            <div class="top-row"><span class="identity">Harley Bartles</span><nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav></div>
+            <div class="route-folio">Projects / Wild Bunch</div>
+          </div>
+        </div>
+        <div class="route-body"><div class="route-copy"><p class="context">Projects / Wild Bunch</p><h2>Wild Bunch</h2><p>A seeded world, exact replay and a game whose architecture has to earn its complexity.</p></div><div class="route-proof">Current route is present before the page lead; the content does not need to repeat it as a label.</div></div>
+      </div>
+
+      <p class="sample-label">Narrow pressure · same shell</p>
+      <div class="narrow-stage">
+        <div class="shell narrow-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <div><div class="top-row"><span class="identity">Harley Bartles</span><nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav></div><div class="route-folio">Projects / Wild Bunch</div></div>
+        </div>
+        <div class="route-body"><div class="route-copy"><h2>Wild Bunch</h2><p>The folio survives as a plain line rather than a chip or label strip.</p></div></div>
+      </div>
+
+      <div class="definitions"><div><h3>A · Quiet line</h3><p>Minimal shared masthead; route context belongs to the page.</p></div><div><h3>B · Folio line</h3><p>Two-line masthead carries identity, nav and a restrained current-route folio.</p></div><div><h3>C · Split index</h3><p>Current route gets a persistent shell column beside the navigation.</p></div></div>
+    </section>
+
+    <section class="treatment split-index" id="split-index" aria-labelledby="split-title">
+      <header class="intro">
+        <div>
+          <p class="eyebrow">C · split index</p>
+          <h1 id="split-title">The route gets a shell slot.</h1>
+        </div>
+        <p>Home identity, primary navigation and current-route context each receive their own structural column. It is highly legible; the test is whether the shell starts acting like a persistent product/documentation frame.</p>
+      </header>
+
+      <p class="sample-label">Desktop pressure · project route</p>
+      <div class="sample">
+        <div class="shell desktop-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav>
+          <div class="route-index"><strong>Wild Bunch</strong><span>Project story</span></div>
+        </div>
+        <div class="route-body"><div class="route-copy"><p class="context">Projects / Wild Bunch</p><h2>Wild Bunch</h2><p>A seeded world, exact replay and a game whose architecture has to earn its complexity.</p></div><div class="route-proof">The shell owns explicit current-route orientation at all times.</div></div>
+      </div>
+
+      <p class="sample-label">Narrow pressure · same shell</p>
+      <div class="narrow-stage">
+        <div class="shell narrow-header">
+          <a class="mark" href="/" aria-label="Harley Bartles, home"><img src="https://harleybartles.com/brand/hb-mark.svg" alt=""></a>
+          <nav aria-label="Primary"><ul class="nav-list"><li><a class="current" href="/projects">Projects</a></li><li><a href="/writing">Writing</a></li><li><a href="/patch">Patch</a></li><li><a href="/about">About</a></li><li><a href="/cv">CV</a></li></ul></nav>
+          <div class="route-index"><strong>Wild Bunch</strong><span>Project story</span></div>
+        </div>
+        <div class="route-body"><div class="route-copy"><h2>Wild Bunch</h2><p>The route slot becomes its own shell row on narrow screens.</p></div></div>
+      </div>
+
+      <div class="definitions"><div><h3>A · Quiet line</h3><p>Minimal shared masthead; route context belongs to the page.</p></div><div><h3>B · Folio line</h3><p>Two-line masthead carries identity, nav and a restrained current-route folio.</p></div><div><h3>C · Split index</h3><p>Current route gets a persistent shell column beside the navigation.</p></div></div>
+    </section>
+
+    <p class="footnote">Temporary Phase 8P selection surface. Primary links match the current site header: Projects, Writing, Patch, About and CV, with the HB mark as Home. The existing behavioural contract remains fixed: ordinary interior navigation, authoritative history/deep links, correct top/fragment arrival, history scroll restoration where appropriate, and correct focus/accessibility state. This surface tests shell authority and route context only; it does not authorize visitor-facing implementation or homepage work.</p>
+  </main>
+</body>
+</html>
