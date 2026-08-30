@@ -25,11 +25,13 @@ A GREEN result means a fresh capable worker, receiving the same realistic pressu
 
 ## RED fixture
 
-Freeze a repository baseline that does **not** expose the PR #46 wider visual-language authority or the new skill.
+Freeze the same **pre-Phase8P, no-guidance** repository baseline used by the typography TDD: `8f6028eb441bf5c304b007567621747f3003a173`.
 
-Prefer the merged PR #45 typography checkpoint (`3b3527060a9452105af34128ad6bdafe6cac7dba`) as the RED baseline. That keeps the already-proved typography stack constant while withholding the wider substrate/colour/geometry/evidence/rhythm/shell contract we are testing here.
+RED intentionally exposes none of the Phase 8P authority being tested: no Phase 8P typography contract or typography skill, no PR #46 visual-language contract/decisions/proofs, and no future `applying-portfolio-visual-language` skill. This is deliberate because Harley defined the unit under test as the whole current policy + guidance + skill stack.
 
-RED workers must not inspect PR #46, its comparison surfaces, integrated proof, final contract or future visual-language skill.
+**Do not use PR #45 (`3b3527060a9452105af34128ad6bdafe6cac7dba`) as RED for this wider test.** PR #45 already contains Phase 8P typography guidance and would turn this into a delta test of only the later visual-language additions rather than an end-to-end test of the accepted stack.
+
+RED workers must not inspect PR #45/PR #46 Phase 8P contracts, comparison surfaces, integrated proof or operational skills.
 
 Render representative existing non-home routes from the frozen fixture where visual context helps. Preserve the commit SHA, route, viewport and runtime as durable test fixtures rather than committing piles of temporary screenshots.
 
@@ -37,9 +39,11 @@ Use fresh isolated workers at the same model/reasoning class for RED and GREEN w
 
 ## GREEN fixture
 
-GREEN uses the same substantive pressure prompts and equivalent rendered context, but from the accepted PR #46 authority stack plus the minimum new skill under test.
+GREEN uses the same substantive pressure prompts and equivalent rendered context with the **complete current authority stack** available: repository policy/routing guidance, the accepted typography contract and `applying-portfolio-typography`, the accepted wider visual-language contract and subordinate decisions/proof, and the minimum new `applying-portfolio-visual-language` skill under test.
 
 Do not improve the prompt between RED and GREEN by adding the answer. The intervention is the stack.
+
+The earlier typography RED/GREEN record remains useful prior evidence, but this wider test deliberately reruns the full Phase 8P authority end to end because the whole stack is the unit under test.
 
 The new skill should route typography-specific choices through `applying-portfolio-typography` instead of duplicating its rules.
 
@@ -115,7 +119,7 @@ Expected GREEN behaviour: the proof demonstrates coexistence of rules only. Work
 
 Do not require every RED worker to fail.
 
-Include at least one or two pressures the baseline already handles sensibly if they emerge naturally. Record those as negative controls rather than rewriting the story so PR #46 appears to have invented judgement that already existed.
+Include at least one or two pressures the baseline already handles sensibly if they emerge naturally. Record those as negative controls rather than rewriting the story so Phase 8P appears to have invented judgement that already existed.
 
 Candidate controls include:
 
@@ -146,7 +150,7 @@ Do not duplicate the full contract into the skill. A huge skill is harder to mai
 
 ## GREEN and loophole review
 
-Rerun the same substantive pressures after the skill is introduced.
+Rerun the same substantive pressures after the complete stack, including the new skill, is introduced.
 
 For every scenario record:
 
