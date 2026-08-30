@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>Phase 8P typography specimen</title>
+    <style>
+      @font-face {
+        font-family: "Source Sans 3 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Serif 4 Local";
+        src: url("./phase-8p-typography-assets/fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Source Code Pro Local";
+        src: url("./phase-8p-typography-assets/fonts/source-code-pro-latin-wght-normal.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 200 900;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        --sans: "Source Sans 3 Local", "Segoe UI", Arial, sans-serif;
+        --serif: "Source Serif 4 Local", Georgia, "Times New Roman", serif;
+        --mono: "Source Code Pro Local", Consolas, "Liberation Mono", monospace;
+        --shell: #eef1f2;
+        --surface: #f8f9f9;
+        --ink: #172127;
+        --muted: #526169;
+        --rule: #aeb9be;
+        --link: #164f68;
+        --focus: #005f87;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--shell); }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--shell);
+        font-family: var(--sans);
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.16em;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 4px;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 36px 0 72px;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
+        gap: 36px;
+        align-items: end;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 24px;
+      }
+
+      .intro h1 {
+        margin: 0;
+        font-size: clamp(30px, 4vw, 48px);
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -0.025em;
+      }
+
+      .intro p,
+      .spec-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .section {
+        padding: 48px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .section-label {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0.012em;
+      }
+
+      .site-display {
+        max-width: 15ch;
+        margin: 0;
+        font-family: var(--sans);
+        font-size: clamp(42px, 5.4vw, 72px);
+        font-weight: 650;
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+      }
+
+      .section-heading {
+        margin: 0 0 18px;
+        font-family: var(--sans);
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1.08;
+        letter-spacing: -0.022em;
+      }
+
+      .site-body {
+        max-width: 66ch;
+        margin: 0 0 1.1em;
+        font-family: var(--sans);
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.62;
+        letter-spacing: 0;
+      }
+
+      .metadata {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0.012em;
+      }
+
+      .caption {
+        max-width: 66ch;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0;
+      }
+
+      .article {
+        max-width: 68ch;
+      }
+
+      .article-display {
+        max-width: 17ch;
+        margin: 0 0 20px;
+        font-family: var(--serif);
+        font-size: clamp(38px, 4.2vw, 52px);
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+      }
+
+      .article-lead {
+        margin: 0 0 24px;
+        font-family: var(--serif);
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.35;
+        letter-spacing: 0;
+      }
+
+      .article-body {
+        margin: 0 0 1.05em;
+        font-family: var(--serif);
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.66;
+        letter-spacing: 0;
+      }
+
+      .sample-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .technical-sample {
+        min-width: 0;
+      }
+
+      .technical-sample h3 {
+        margin: 0 0 10px;
+        font-family: var(--sans);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      pre,
+      pre code {
+        font-family: var(--mono);
+      }
+
+      pre {
+        min-height: 100%;
+        margin: 0;
+        padding: 18px;
+        overflow-x: auto;
+        color: #e8edef;
+        background: #202a2f;
+        border-radius: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.55;
+        letter-spacing: 0;
+        tab-size: 2;
+      }
+
+      .add { color: #b8dfc2; }
+      .remove { color: #f0b8b8; }
+      .dim { color: #aebbc1; }
+
+      .mobile-stage {
+        width: min(100%, 390px);
+        padding: 22px 20px 26px;
+        border: 1px solid var(--rule);
+        background: var(--surface);
+      }
+
+      .mobile-stage .article-display {
+        margin-bottom: 16px;
+      }
+
+      .mobile-stage .article-body:last-child {
+        margin-bottom: 0;
+      }
+
+      .token-note {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      code.token {
+        font-family: var(--mono);
+        font-size: 0.95em;
+      }
+
+      footer {
+        padding-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 760px) {
+        .page { width: min(100% - 28px, 1180px); padding-top: 24px; }
+        .intro { grid-template-columns: 1fr; gap: 16px; }
+        .sample-grid { grid-template-columns: 1fr; }
+        .section { padding: 38px 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1>Phase 8P typography specimen</h1>
+        <p>Selected Source system only. Internal deterministic proof for typography roles, not a production layout or wider visual-language proposal.</p>
+      </header>
+
+      <section class="section" aria-labelledby="site-display-label">
+        <p class="section-label" id="site-display-label">Shared site display</p>
+        <h2 class="site-display">About the work and how it gets made</h2>
+        <p class="token-note"><code class="token">Source Sans 3 · 650 · clamp(42px, 5.4vw, 72px) · 0.98 · -0.025em</code></p>
+      </section>
+
+      <section class="section" aria-labelledby="site-voice-label">
+        <p class="section-label" id="site-voice-label">Project and site voice</p>
+        <p class="metadata">Wild Bunch · Project specimen · Updated 30 August 2026</p>
+        <h2 class="section-heading">Wild Bunch</h2>
+        <p class="site-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo sed urna pellentesque posuere. Sed finibus, ligula at dignissim luctus, augue neque tempor erat, vitae faucibus lectus velit non neque.</p>
+        <p class="site-body">Curabitur interdum purus non nisl dictum, sed posuere nibh volutpat. This <a href="#sans-link-proof">ordinary site link</a> inherits the surrounding Sans voice and keeps a visible underline.</p>
+        <p class="caption" id="sans-link-proof">Neutral caption specimen for evidence or media. It remains Source Sans 3 and does not borrow the article register.</p>
+        <p class="token-note"><code class="token">Heading: Source Sans 3 · 600 · 32px · 1.08 · -0.022em</code><br><code class="token">Body: Source Sans 3 · 400 · 18px · 1.62 · 66ch</code><br><code class="token">Metadata: Source Sans 3 · 600 · 14px · 1.40 · +0.012em</code><br><code class="token">Caption: Source Sans 3 · 400 · 14px · 1.50</code></p>
+      </section>
+
+      <section class="section" aria-labelledby="article-label">
+        <p class="section-label" id="article-label">Authored long-form register</p>
+        <article class="article">
+          <p class="metadata">Article specimen · 8 minute read</p>
+          <h2 class="article-display">Why ADRs?</h2>
+          <p class="article-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae tortor sit amet sem cursus posuere.</p>
+          <p class="article-body">Donec ullamcorper, arcu vel luctus facilisis, eros sapien vulputate justo, at elementum lorem urna vitae urna. Maecenas commodo nibh a ligula porttitor, ac suscipit est tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
+          <p class="article-body">Fusce sed massa eget sapien feugiat interdum. Aliquam erat volutpat. Nulla facilisi. Nam ut semper leo. Aenean dignissim, velit vel porttitor ultrices, nisi ipsum faucibus justo, vel tincidunt neque nisl vitae tellus.</p>
+          <p class="article-body">This <a href="#serif-link-proof">link inside authored prose</a> remains Source Serif 4 because links inherit the reading context. Suspendisse potenti. Integer eu lectus sed lectus faucibus posuere at in mauris.</p>
+          <p class="article-body" id="serif-link-proof">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin sed luctus velit, vitae luctus lorem. Cras elementum lectus sit amet tortor vulputate, vel feugiat risus hendrerit.</p>
+        </article>
+        <p class="token-note"><code class="token">Title: Source Serif 4 · 600 · clamp(38px, 4.2vw, 52px) · 1.04 · -0.025em</code><br><code class="token">Lead: Source Serif 4 · 500 · 20px · 1.35</code><br><code class="token">Body: Source Serif 4 · 400 · 19px · 1.66</code></p>
+      </section>
+
+      <section class="section" aria-labelledby="technical-label">
+        <p class="section-label" id="technical-label">Genuine technical content</p>
+        <div class="sample-grid">
+          <section class="technical-sample" aria-labelledby="code-label">
+            <h3 id="code-label">Code</h3>
+            <pre><code>const type = {
+  siteBody: "source-sans-3",
+  articleBody: "source-serif-4",
+  code: "source-code-pro"
+};</code></pre>
+          </section>
+          <section class="technical-sample" aria-labelledby="diff-label">
+            <h3 id="diff-label">Diff</h3>
+            <pre><code><span class="remove">- font-size: 13px;</span>
+<span class="add">+ font-size: 14px;</span>
+<span class="dim">  line-height: 1.4;</span>
+<span class="add">+ letter-spacing: .012em;</span></code></pre>
+          </section>
+          <section class="technical-sample" aria-labelledby="terminal-label">
+            <h3 id="terminal-label">Terminal / machine-readable</h3>
+            <pre><code><span class="dim">$</span> verify-type --viewport 390
+font=source-serif-4
+size=19px
+line-height=1.66
+status=proof-required</code></pre>
+          </section>
+        </div>
+        <p class="token-note"><code class="token">Source Code Pro · 400 · 14px · 1.55 · 0 tracking</code></p>
+      </section>
+
+      <section class="section" aria-labelledby="mobile-label">
+        <p class="section-label" id="mobile-label">Narrow article proof · 390px frame</p>
+        <div class="mobile-stage">
+          <p class="metadata">Article specimen · Narrow layout</p>
+          <h2 class="article-display">Why ADRs?</h2>
+          <p class="article-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="article-body">Vivamus tempor augue vel est aliquet, vitae luctus arcu volutpat. Donec eu nibh nec lectus aliquet fermentum. This <a href="#mobile-link-proof">reading-context link</a> keeps its underline and Serif role.</p>
+          <p class="article-body" id="mobile-link-proof">Morbi sed turpis et sem eleifend ultricies. Integer vitae augue ac arcu pellentesque facilisis.</p>
+        </div>
+      </section>
+
+      <footer>
+        Local WOFF2 assets only; no remote fonts, images, scripts, random content or production-site dependency. See the <a href="./phase-8p-typography-contract.md">Phase 8P typography contract</a> and retained <a href="./phase-8p-typography-assets/OFL-1.1.txt">SIL OFL 1.1 licence</a>.
+      </footer>
+    </main>
+  </body>
+</html>

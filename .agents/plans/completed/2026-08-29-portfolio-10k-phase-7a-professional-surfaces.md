@@ -33,10 +33,10 @@
 
 **Produces:** typed, employer-safe facts used by About and CV; an in-flight plan link on the Phase 7A roadmap row.
 
-- [ ] Add failing profile assertions for the approved browser-automation boundary, source-capture/no-charge invariant, two paid checks, migration sequencing/outcome, Recruitment CRM SQL result, Barbican/Arch progression and Brand Addition progression.
-- [ ] Extend the profile with precision-aware fact groups rather than page-local strengthened literals.
-- [ ] Update the Phase 7A roadmap row to show this JIT plan and in-progress implementation, without marking the phase done.
-- [ ] Run `npm test -- --run src/data/professionalProfile.test.ts` from `src/client`.
+- [x] Add failing profile assertions for the approved browser-automation boundary, source-capture/no-charge invariant, two paid checks, migration sequencing/outcome, Recruitment CRM SQL result, Barbican/Arch progression and Brand Addition progression.
+- [x] Extend the profile with precision-aware fact groups rather than page-local strengthened literals.
+- [x] Update the Phase 7A roadmap row to show this JIT plan and in-progress implementation, without marking the phase done.
+- [x] Run `npm test -- --run src/data/professionalProfile.test.ts` from `src/client`.
 
 ### Task 2: Implement the approved About route
 
@@ -50,11 +50,11 @@
 
 **Produces:** an evidence-led About page with current-work consequence, migration explanation, career provenance, independent-work routes, study, acting aside, CV conversion and contact.
 
-- [ ] Add failing component/browser assertions for the revised hero, `No source capture, no success.` production invariant, migration dependency before avoided round trip, professional provenance, CV conversion and preserved contact route.
-- [ ] Replace the current positioning/proof/capability-wall order with the approved section order and exact copy.
-- [ ] Use the established pull-quote grammar for the source-capture invariant, with `PRODUCTION INVARIANT` utility copy.
-- [ ] Implement responsive About-specific styling from the Cloud record without inventing an employer hero or repeating the CV's document grammar.
-- [ ] Run the focused About component and Playwright tests.
+- [x] Add failing component/browser assertions for the revised hero, `No source capture, no success.` production invariant, migration dependency before avoided round trip, professional provenance, CV conversion and preserved contact route.
+- [x] Replace the current positioning/proof/capability-wall order with the approved section order and exact copy.
+- [x] Use the established pull-quote grammar for the source-capture invariant, with `PRODUCTION INVARIANT` utility copy.
+- [x] Implement responsive About-specific styling from the Cloud record without inventing an employer hero or repeating the CV's document grammar.
+- [x] Run the focused About component and Playwright tests.
 
 ### Task 3: Promote CV navigation and implement the approved two-page CV
 
@@ -72,11 +72,11 @@
 
 **Produces:** masthead CV route, conventional screen CV, two-page print/PDF result and direct PDF action.
 
-- [ ] Add failing tests for `Projects · Writing · Patch · About · CV`, removal of `Return to About`, approved headline/profile/Access evidence, Brand Addition progression, two `data-cv-page` sheets and PDF page count.
-- [ ] Recompose `CvPage` around present evidence on page 1, continued chronology and selected independent work on page 2, then compact searchable skills and education.
-- [ ] Implement desktop-sheet, mobile-continuous and print-only styling specified by the design record; keep semantic page sections in every mode.
-- [ ] Update PDF generation only where the exact two-page print contract requires it, then run its focused tests and generate a local PDF for visual inspection.
-- [ ] Run focused CV component, navigation and PDF tests.
+- [x] Add failing tests for `Projects · Writing · Patch · About · CV`, removal of `Return to About`, approved headline/profile/Access evidence, Brand Addition progression, two `data-cv-page` sheets and PDF page count.
+- [x] Recompose `CvPage` around present evidence on page 1, continued chronology and selected independent work on page 2, then compact searchable skills and education.
+- [x] Implement desktop-sheet, mobile-continuous and print-only styling specified by the design record; keep semantic page sections in every mode.
+- [x] Update PDF generation only where the exact two-page print contract requires it, then run its focused tests and generate a local PDF for visual inspection.
+- [x] Run focused CV component, navigation and PDF tests.
 
 ### Task 4: Add the Wild Bunch falsifiability route
 
@@ -89,9 +89,9 @@
 
 **Produces:** an early, readable route from the replay claim to its audit scar and closure evidence.
 
-- [ ] Add failing assertions for the rendered falsifiability paragraph and its two accessible external links.
-- [ ] Replace only the approved claim paragraph with the settled wording and links; retain the personal opening and broad case-study story.
-- [ ] Run focused Wild Bunch unit/component/browser tests.
+- [x] Add failing assertions for the rendered falsifiability paragraph and its two accessible external links.
+- [x] Replace only the approved claim paragraph with the settled wording and links; retain the personal opening and broad case-study story.
+- [x] Run focused Wild Bunch unit/component/browser tests.
 
 ### Task 5: Integrate visual language, regenerate and review
 
@@ -104,10 +104,10 @@
 
 **Produces:** a documented protected-default evolution and approved responsive visual evidence.
 
-- [ ] Add one dated design-decision entry describing the evidence-led professional hierarchy, CV-first navigation and reused editorial grammar.
-- [ ] Run `py -3 tools/run.py ci --apply` only if generation reports drift; inspect every generated diff, then stage it with the source changes.
-- [ ] Review About and CV at 1440, 768, 390 and 320 CSS pixels; inspect the generated PDF as two A4 pages; review keyboard, reduced motion and 200% zoom.
-- [ ] Update only intentional visual baselines and run their focused tests.
+- [x] Add one dated design-decision entry describing the evidence-led professional hierarchy, CV-first navigation and reused editorial grammar.
+- [x] Run `py -3 tools/run.py ci --apply` only if generation reports drift; inspect every generated diff, then stage it with the source changes.
+- [x] Review About and CV at 1440, 768, 390 and 320 CSS pixels; inspect the generated PDF as two A4 pages; review keyboard, reduced motion and 200% zoom.
+- [x] Update only intentional visual baselines and run their focused tests.
 
 ### Task 6: Validate and publish the implementation branch
 
@@ -119,10 +119,16 @@
 
 **Produces:** a review-ready PR head with honest evidence and an updated draft-PR body.
 
-- [ ] Stage the complete tree and run `py -3 tools/run.py ci --check`; fix only the focused failure reported by the hook before retrying commit.
-- [ ] Commit, push and read back the exact remote head.
-- [ ] Update PR #43's body from editorial-room status to the actual implementation scope, exact validation and remaining visual-review state.
-- [ ] Keep the PR draft until Harley accepts the rendered pages.
+- [x] Stage the complete tree and run `py -3 tools/run.py ci --check`; fix only the focused failure reported by the hook before retrying commit.
+- [x] Commit, push and read back the exact remote head.
+- [x] Update PR #43's body from editorial-room status to the actual implementation scope, exact validation and remaining visual-review state.
+- [x] Keep the PR draft until Harley accepts the rendered pages.
+
+## Closeout
+
+Phase 7A closed on 29 August 2026 across [PR #43](https://github.com/HarleyBartles/portfolio/pull/43) and Harley's rendered-page review and correction pass in [PR #44](https://github.com/HarleyBartles/portfolio/pull/44). PR #43 established the professional surfaces; PR #44 settled their reading order, language, responsive spacing and text-wrap contracts, completed the CV chronology and education record, made local contact preview truthful, and placed the CV route in the global footer. The final merged tree is `8f6028a0bd9ca4d2021d6b1b9d3a628dac570638`.
+
+The final tracked commit passed 72 repository/Python tests, 159 client tests and 93 Playwright journeys through the canonical pre-commit gate. The ready PR's hosted Linux quality and Windows visual jobs passed. Harley accepted the resulting About and CV surfaces and declared Phase 7A closed before opening Phase 8.
 
 ## Plan-readiness review
 

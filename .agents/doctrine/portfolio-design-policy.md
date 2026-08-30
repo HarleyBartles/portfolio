@@ -24,6 +24,8 @@ Every material editorial choice across the portfolio is judged through three len
 
 This is a finish and copy-quality test, not a literal valuation of an individual article or engineering idea. The work should feel properly edited, structured, restrained, specific, coherent and presentation-ready. Strong technical material still fails this lens when the copy feels amateur, rambling, repetitive, generic, obviously AI-shaped or unfinished.
 
+A culturally documented resemblance to a common AI-generated visual aesthetic is an automatic 50% valuation penalty: an otherwise £10k site is £5k. This is not a ban on individual colours, type categories or component shapes. It is a delivery gate against a recognisable default cluster that makes human art direction and custody implausible. Correct the system before delivery rather than averaging the failure away against strong engineering or accessibility.
+
 ### Weary sceptical hiring manager
 
 Assume the hiring manager has already looked at ten portfolios today from people claiming to be a `senior software engineer working at the frontier of agentic engineering`. None has yet proved to be a good engineer. Three looked promising enough to forward to the architect and were quickly laughed off.

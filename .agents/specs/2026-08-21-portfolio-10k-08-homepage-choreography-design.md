@@ -1,6 +1,6 @@
 # Portfolio £10k Phase 8: Homepage Evidence Choreography Design
 
-**Status:** Approved
+**Status:** Approved as deferred homepage input; implementation blocked by the Phase 8 preliminary visual-language remediation
 
 **Approved design dialogue:** 22 August 2026
 
@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phases 1 and 3–7A have landed
+**Implementation-plan readiness:** Blocked. Cloud Sol must first research and settle the Phase 8P visual system with Harley; local Sol then plans and implements that non-home remediation. Do not plan or implement the homepage until Phase 8P has landed and Harley has accepted its rendered result
 
 **Repository snapshot inspected:** `3e6cf23ceef6a80270d0fb1bf36ca93fea900fce`
 
@@ -26,6 +26,15 @@ This specification records the approved homepage design. It is not an
 implementation plan. The implementation plan must be written just in time from
 this specification and the then-current repository after the dependencies
 above are substantially stable.
+
+On 30 August 2026, Harley inserted a preliminary visual-language remediation
+gate ahead of this specification. The settled homepage hierarchy, evidence and
+interaction decisions remain deferred inputs. They do not authorize homepage
+design or implementation while the current site-wide visual grammar is under
+audit. Cloud Sol owns the preliminary design research and decisions with Harley;
+local Sol later owns implementation planning and browser-ready execution of the
+accepted contract. See
+`docs/editorial-drafts/phase-8/phase-8-cloud-decision-record.md`.
 
 Phase 2 is a compatible input rather than a hard dependency because the
 roadmap permits contact activation to be bypassed when an external provider is
@@ -223,10 +232,23 @@ These are baseline facts, not acceptance criteria for the finished phase.
 
 ### Protected defaults and approved evolution
 
+The following visual defaults are no longer protected and must be resolved by
+the preliminary non-home remediation before this specification resumes:
+
+- warm paper and cream/beige grounds;
+- copper or rusty-orange punctuation;
+- large serif display type, including Fraunces in its established role;
+- highly tracked labels and ticker-like strips; and
+- repeated rounded or outlined panel furniture.
+
+They are audit inputs rather than prohibited ingredients. An individual choice
+may survive only when the remediated system demonstrates that it is
+content-earned and does not combine into a culturally recognisable common
+AI-generated aesthetic. A mechanical inversion of the list is not an authored
+alternative.
+
 The following defaults remain protected:
 
-- warm editorial field-journal art direction;
-- Fraunces, Source Serif 4, and Fira Code in their established roles;
 - the HB mark;
 - asymmetrical authored layouts;
 - manually controlled feature changes with no autoplay;
@@ -243,7 +265,8 @@ The approved design intentionally evolves two recorded defaults:
    project candidate, because the fairytale is useful content rather than a
    second project advertisement.
 
-The implementation PR must append dated entries to `docs/design-decisions.md`.
+The preliminary remediation and later homepage implementation PRs must append
+dated entries to `docs/design-decisions.md` for their respective decisions.
 It must not rewrite the older decisions as if they never existed. The new
 entries must explain the stronger audience outcome and include reconsideration
 triggers.
@@ -1223,7 +1246,7 @@ Harley approved:
 
 ## Readiness assessment
 
-**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
+**Rating: 9/10 as deferred homepage input; implementation readiness blocked by the preliminary visual-language remediation.**
 
 The specification defines:
 
@@ -1242,8 +1265,11 @@ The specification defines:
 - design-led and automated acceptance criteria; and
 - the required protected-default decision receipts.
 
-No unresolved design decision blocked approval. The missing point is
-intentional: a safe implementation plan cannot be written until Phases 1 and
-3–7A have landed and their actual types, routes, previews, assets, and metadata
-can be re-inspected. That dependency does not weaken the design specification;
-it prevents a premature plan from becoming stale.
+The content and evidence predecessor dependencies are satisfied. A new visual-
+language predecessor is not: the non-home routes must first establish and
+prove a deliberate composed system that does not read as a common AI-generated
+aesthetic. Cloud Sol must first research and settle that system with Harley.
+Local Sol then plans and implements the accepted contract for rendered review.
+Neither actor may resume homepage work until the preliminary phase has landed,
+Harley has accepted its rendered result and the durable decision record
+explicitly reopens homepage planning.
