@@ -34,7 +34,7 @@ Do **not** permanently promote one canonical article to the homepage. The writin
 
 The homepage may contain one prominent writing movement/slot, but article **eligibility** is editorial rather than date-driven. A published article is eligible when its argument adds a distinct dimension to the current homepage composition. It is ineligible for that composition when it substantially duplicates evidence or a proposition already carried elsewhere on the homepage.
 
-`Latest` or `recent` is not an admission rule. Recency may help break a tie or refresh a rotation, but the homepage must not become a writing feed. The exact selection/rotation mechanism remains to be settled; it must not make completeness or truthful navigation depend on chance.
+`Latest` or `recent` is not an admission rule. Recency may help break a tie or refresh a rotation, but the homepage must not become a writing feed. Completeness and truthful navigation remain owned by the Writing route, never by homepage rotation.
 
 ### Patch
 
@@ -134,9 +134,23 @@ Objective validation should prove structural facts only: active pair records res
 
 The number of valid Patch partners an article has must **not** accidentally determine how often that article appears. Adding a second excellent pairing is editorial richness, not a request to double that article's homepage exposure.
 
-The eventual selection mechanic should therefore select an eligible **article** on the intended session-stable basis and then resolve one of that article's approved Patch pairings, or use an equivalent weighting that normalises by article. Raw uniform sampling across pair records is rejected because pair cardinality would become an accidental promotion algorithm.
+Selection therefore normalises by article. The edition chooses an eligible **article** first and then resolves one of that article's approved Patch pairings, or uses an equivalent deterministic schedule with the same weighting property. Raw uniform sampling across pair records is rejected because pair cardinality would become an accidental promotion algorithm.
 
 Likewise, Patch coverage is not a fairness target. The homepage is an authored edit, not a rotation quota. The complete Patch and Writing routes remain the authoritative collections.
+
+### Settled canonical edition behaviour
+
+The homepage uses a **canonical site-wide edition**, not a visitor-specific or session-specific shuffle.
+
+At any given time, everybody should receive the same approved Writing/Patch edit. A refresh does not reroll it. Sending another person the homepage should mean sending the same current composition, not merely the same selection mechanism.
+
+The edition changes quietly over time. The selection machinery is not exposed as a feature: no shuffle button, `today's edition` badge, rotation counter or explanatory copy is required. Variation is an editorial property of the publication, not visitor-facing theatre.
+
+The intended cadence is **daily** unless implementation evidence exposes a concrete reason to choose another bounded interval. The schedule should cycle through eligible articles without repeating one until the current eligible article set has had its turn. When an article has several approved Patch partners, later appearances of that article may use another approved partner; extra pairings broaden that article's possible editions without increasing its frequency.
+
+The schedule must be deterministic from shared site state such as the date/edition key and the source-controlled approved registry. It must not depend on per-visitor storage, request-time randomness, client hydration timing or an unstable ordering of manifest data.
+
+This choice is deliberately more publication-like than personalisation. The homepage has a stable editorial truth for the current edition.
 
 ### Re-review triggers
 
@@ -155,8 +169,10 @@ A new article or Patch adventure does **not** require re-litigating every existi
 
 The proposed current-corpus pair set is recorded separately in `phase-8-homepage-pairing-matrix.md` so the room can review the actual relationships without turning this governing record into a large catalogue.
 
-The candidate set currently covers every article that appears homepage-eligible under the fixed composition and deliberately leaves `"I just write the code" is not a full sentence` out because its governing argument collides with the first fold's professional-responsibility job. It also deliberately leaves Goldilocks without an active pair rather than manufacturing Patch rotation coverage. Those are candidate editorial calls until Harley accepts the matrix.
+Harley has accepted the current-composition exclusion of `"I just write the code" is not a full sentence`: its governing argument collides with the first fold's professional-responsibility job, so spending the Writing movement on it would duplicate the opening. This is explicitly composition-specific and must be re-reviewed if the first fold's job changes.
+
+The remaining candidate pairs are still subject to Harley acceptance as editorial relationships. Goldilocks remains deliberately without an active pair in the proposed matrix rather than manufacturing Patch rotation coverage.
 
 ## Current decision under discussion
 
-Harley review of the proposed initial pair matrix, then session-stable selection behaviour and the actual homepage movement that presents the selected article/Patch pair.
+Settle the actual homepage movement that presents the selected Writing/Patch pair and continue pair-by-pair editorial acceptance while the composition is being proved.
