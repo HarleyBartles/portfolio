@@ -195,10 +195,28 @@ The public story is adaptation under use: Harley adopted a strong open-source wo
 
 The strongest source-owned proof is the difference between upstream workflow behaviour and the maintained Superpowers+ system. Useful examples include the first-turn/router and staged composition model, explicit roadmap and plan-lifecycle handling, execution-strategy choices, and the first-party `handoff-gates` addition that tests whether an artifact is actually ready for the next worker rather than accepting the producer's declaration of completion.
 
-The homepage should therefore prefer a **lineage / before-and-after evidence composition** over a generic Marketplace topology or plugin-count display. Exact art direction remains open: the room still needs to decide whether one modification such as Handoff Gates should be the dominant worked example with the wider derivative visible around it, or whether several modifications should share the visual field.
+**Handoff Gates is the dominant worked modification.** The wider Superpowers+ changes remain visible as surrounding evidence that this is a maintained derivative rather than one isolated tweak, but they should not compete for equal weight.
+
+The eventual homepage treatment should be a **commissioned Phase 8 lineage composition**, not a literal Git diff and not a generic Marketplace topology. It should preserve upstream attribution, show genuine source lineage, use small real source fragments where they strengthen inspectability, and let Handoff Gates carry the central before/after change in operating model. The design room does not need to produce that final asset in prose; this record is its editorial brief.
 
 `mcp-usage-pack` remains a strong deeper Marketplace story: shipping a tool and shipping usable operating guidance around a rich tool surface are different things. It should remain available in the full Marketplace case study, but it is not the homepage lead. Keeping it subordinate also avoids making the fixed Marketplace movement unnecessarily duplicate the argument of `Provisioning is not accumulation` when that article appears in the Writing slot.
 
+## Settled Wild Bunch homepage lead
+
+Wild Bunch leads with **event-sourcing replay falsifiability**, not with architecture badges, a technology inventory, or the game premise alone.
+
+The homepage story is: Harley claimed that events were the source of truth, then audited the implementation to see whether that was actually true. The audit found concrete replay gaps, including `TravelDiaryDays` not being reconstructable from the event stream and a separate `UnrelatedCriminalLedger` replay concern. The architecture therefore did not yet deserve its own claim.
+
+The corrective work made the claim materially true: diary state became reconstructable from events, the replay path was corrected, snapshots remained shortcut caches rather than required truth, and integration tests now deliberately stale, remove or partially corrupt snapshot/component state before proving that the session still reconstructs from the event stream and matches the snapshot-loaded state.
+
+The public thesis can therefore inherit the existing case-study line in substance: **Harley only gets to call the replay exact because the claim is falsifiable.** The important evidence is not that the project uses event sourcing; it is that the central promise was challenged, failed, corrected, and then proved.
+
+This is the fixed Wild Bunch homepage job because it tears down the premature `another AI portfolio` categorisation created by Marketplace. The evidence is conventional software engineering territory: C#/.NET, PostgreSQL persistence, aggregates, projections, schema evolution, reconstruction and integration testing, with the pattern names subordinate to the engineering bargain they must satisfy.
+
+The eventual homepage treatment should be another **commissioned Phase 8 evidence composition**. A strong direction is an actual ordered session-audit/event-history surface as the visual spine, then a visible invalid/missing snapshot state, then full replay resolving to the same session, with a small verbatim fragment of replay-equality source or assertion as the receipt. Conceptually: `event history -> snapshot unavailable -> full replay -> same session`. `Snapshot = shortcut cache` is supporting evidence, not the headline.
+
+Controlled determinism/seed design and the player-vs-developer hidden-truth boundary remain strong deeper Wild Bunch stories, but they do not lead the homepage movement.
+
 ## Current decision under discussion
 
-Choose the exact Superpowers+ evidence composition for the Marketplace movement, then continue through the art direction and responsive/motion contract for the remaining major movements and rewrite/accept the compatibility matrix on the corrected co-selection meaning.
+Marketplace and Wild Bunch now have settled homepage evidence leads and commissioned-asset briefs. Continue through the autonomous Writing and Patch movement art direction, the responsive/motion contract for the full sequence, and then rewrite/accept the compatibility matrix on the corrected co-selection meaning.
