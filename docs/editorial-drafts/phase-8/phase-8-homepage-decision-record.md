@@ -151,6 +151,12 @@ Affected pair records must be re-reviewed when:
 
 A new article or Patch adventure does **not** require re-litigating every existing pair. Review the new material against the current corpus and revisit existing records only where the new work creates an obvious duplication, stronger replacement or contradiction.
 
+## Initial current-corpus matrix
+
+The proposed current-corpus pair set is recorded separately in `phase-8-homepage-pairing-matrix.md` so the room can review the actual relationships without turning this governing record into a large catalogue.
+
+The candidate set currently covers every article that appears homepage-eligible under the fixed composition and deliberately leaves `"I just write the code" is not a full sentence` out because its governing argument collides with the first fold's professional-responsibility job. It also deliberately leaves Goldilocks without an active pair rather than manufacturing Patch rotation coverage. Those are candidate editorial calls until Harley accepts the matrix.
+
 ## Current decision under discussion
 
-Build the initial current-corpus pairing matrix under this publishing contract, then settle the session-stable selection behaviour and the actual homepage movement that presents the pair.
+Harley review of the proposed initial pair matrix, then session-stable selection behaviour and the actual homepage movement that presents the selected article/Patch pair.
