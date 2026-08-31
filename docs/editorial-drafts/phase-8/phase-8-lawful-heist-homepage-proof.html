@@ -81,6 +81,11 @@
       background: linear-gradient(90deg, var(--teal) 0 31%, var(--red) 31% 33%, #d4ae6d 33% 100%);
     }
 
+    .hero-composition {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
     .hero-plate {
       position: absolute;
       inset: 0;
@@ -209,6 +214,7 @@
       line-height: 1.45;
       text-align: center;
     }
+    .media-off .hero-composition,
     .media-off .hero-plate,
     .media-off .detail,
     .media-off .stamp-overprint { display: none; }
@@ -260,7 +266,6 @@
       }
       .heist-close { width: 100%; margin-top: 36px; }
       .hero-plate {
-        grid-area: hero;
         position: relative;
         z-index: 1;
         width: calc(100% - 64px);
@@ -270,16 +275,22 @@
       }
       .hero-plate::after { display: none; }
       .hero-plate img { object-position: 58% center; }
-      .stamp-overprint {
+      .hero-composition {
         grid-area: hero;
         position: relative;
         inset: auto;
+        width: 100%;
+      }
+      .stamp-overprint {
+        position: absolute;
+        right: 5%;
+        bottom: clamp(-144px, -15vw, -104px);
+        left: auto;
+        top: auto;
         z-index: 30;
-        align-self: end;
-        justify-self: end;
         width: clamp(168px, 23vw, 224px);
-        margin-right: 5%;
-        transform: translateY(48%) rotate(-11deg);
+        margin: 0;
+        transform: rotate(-11deg);
       }
       .detail {
         position: relative;
@@ -300,7 +311,7 @@
         justify-self: start;
         width: min(74%, 760px);
         aspect-ratio: 16 / 9;
-        margin: 34px 0 0 5%;
+        margin: 0 0 0 5%;
         transform: rotate(-1.4deg);
       }
       .detail-receipt {
@@ -344,7 +355,6 @@
           "title"
           "eye"
           "hero"
-          "stamp"
           "rollback"
           "receipt";
         row-gap: 18px;
@@ -371,7 +381,6 @@
         transform: rotate(-.8deg);
       }
       .hero-plate {
-        grid-area: hero;
         width: calc(100% - 32px);
         aspect-ratio: 4 / 3;
         margin: 0 16px;
@@ -379,18 +388,17 @@
       }
       .hero-plate img { object-position: 63% center; }
       .stamp-overprint {
-        grid-area: stamp;
-        align-self: start;
-        justify-self: end;
+        right: 8%;
+        bottom: -108px;
         width: clamp(138px, 40vw, 172px);
-        margin: -92px 4% -62px 0;
+        margin: 0;
         transform: rotate(-10deg);
       }
       .detail-lockdown {
         grid-area: rollback;
         width: calc(100% - 32px);
         aspect-ratio: 4 / 3;
-        margin: 36px 16px 0;
+        margin: 0 16px;
         transform: rotate(-.8deg);
       }
       .detail-receipt {
@@ -428,9 +436,15 @@
 
   <main>
     <section class="heist-movement" id="lawful-heist-proof" aria-labelledby="lawful-heist-title">
-      <figure class="hero-plate">
-        <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-homepage-hero.png" width="1536" height="1024" alt="The completed Lawful Heist recruitment folder, carrying six distinct assent materials from Index, Silk, Rollback, Writ, Klause and Receipt.">
-      </figure>
+      <div class="hero-composition">
+        <figure class="hero-plate">
+          <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-homepage-hero.png" width="1536" height="1024" alt="The completed Lawful Heist recruitment folder, carrying six distinct assent materials from Index, Silk, Rollback, Writ, Klause and Receipt.">
+        </figure>
+
+        <figure class="stamp-overprint" aria-label="Klause's produced K assent impression crosses the title and folder boundary.">
+          <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-k-overprint.png" width="1254" height="1254" alt="Klause's produced K assent impression.">
+        </figure>
+      </div>
 
       <div class="title-field">
         <p class="heist-kicker">Adventures of Patch</p>
@@ -457,10 +471,6 @@
         <div class="detail__crop">
           <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-receipt-printing.png" width="1536" height="1024" alt="Receipt takes a fresh audit record as it emerges from the printer.">
         </div>
-      </figure>
-
-      <figure class="stamp-overprint" aria-label="Klause's produced K assent impression crosses the title and folder boundary.">
-        <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-k-overprint.png" width="1254" height="1254" alt="Klause's produced K assent impression.">
       </figure>
 
       <p class="media-fallback">Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.</p>

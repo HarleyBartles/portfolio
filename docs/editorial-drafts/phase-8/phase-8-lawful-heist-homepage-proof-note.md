@@ -32,7 +32,7 @@ Proof v2 used **zero additional generation attempts**. The accepted bespoke asse
 
 - Wide desktop retains the accepted simultaneous spread: live title in the dark left field, folder dominant, eye strip intruding above the title, two unequal action insets, and K crossing the comic/pale-ground seam.
 - Every supporting inset now has its own complete off-white carrier on all four sides. Unequal padding, rotation and polygon edges keep the carriers related without making them mechanically identical.
-- Intermediate/tablet is a distinct composition: Silk's eye strip leads; the completed folder carries the live title, proposition and link on a high-opacity Heist-dark field; K crosses the folder/following-beat seam; Rollback and Receipt follow as unequal story beats.
+- Intermediate/tablet is a distinct composition: Silk's eye strip leads; the completed folder carries the live title, proposition and link on a high-opacity Heist-dark field; K is an absolute zero-flow overprint across the folder/Rollback seam; Rollback and Receipt follow as unequal story beats.
 - Narrow mobile is separately authored: live title block, Silk eye strip, completed folder, K punctuation, Rollback, then Receipt. It does not inherit the intermediate text-over-folder treatment.
 - All title, proposition and link copy remains live DOM text. No production route or shared Patch template was changed.
 

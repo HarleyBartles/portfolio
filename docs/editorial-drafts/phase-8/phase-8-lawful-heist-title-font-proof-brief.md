@@ -1,6 +1,6 @@
 # Phase 8 Lawful Heist title-font proof brief
 
-**Status:** Focused typography side quest for Cloud/Harley visual selection. This is an inspection surface, not production homepage implementation.
+**Status:** Retired on 31 August 2026. `Lawful Heist` is no longer the public title, so this candidate comparison must not be treated as current title direction. The replacement proof is [`phase-8-the-usual-specialists-wordmark-proof.html`](./phase-8-the-usual-specialists-wordmark-proof.html).
 
 ## Purpose
 
@@ -64,3 +64,7 @@ Return with:
 - any font-access/licensing limitation encountered;
 - one screenshot-equivalent wide state and one narrow state available for Cloud/Harley review;
 - no recommendation presented as settled taste. Harley/Cloud will choose from the rendered proof.
+
+## Retired proof outcome
+
+The earlier Astounder/Changa comparison was superseded before public integration. Its uncommitted browser artifact was removed rather than preserving the retired `Lawful Heist` treatment as an active option. No candidate font from that proof was integrated into production.

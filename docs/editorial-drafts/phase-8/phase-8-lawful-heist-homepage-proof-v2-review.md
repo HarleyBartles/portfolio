@@ -1,6 +1,6 @@
 # Phase 8 Lawful Heist homepage proof v2 review
 
-**Status:** Focused revision requested after Cloud/Harley browser review. The responsive art direction is accepted. One structural K-overprint correction remains before the proof is ready to close, and title typography now gets its own inspection surface.
+**Status:** K-overprint correction implemented and browser-proved. The responsive art direction remains otherwise unchanged and is ready for Cloud/Harley inspection alongside the separate title-font proof.
 
 ## Accepted from proof v2
 
@@ -59,3 +59,11 @@ Revise the isolated proof only:
 5. keep production homepage integration out of scope.
 
 In parallel, create the separate Lawful Heist title-font inspection surface described in `phase-8-lawful-heist-title-font-proof-brief.md`.
+
+## Implemented correction and evidence
+
+- The folder and K now share a `hero-composition` plane. That plane participates in the authored grid; the K inside it is absolutely positioned at every breakpoint.
+- The responsive Rollback-only top margins were removed. Rollback now follows the same intentional grid-gap logic as the other story beats rather than carrying spacing that existed to accommodate the stamp.
+- At 768 and 390 CSS pixels the visible red impression crosses both the completed-folder artwork and Rollback artwork at the accepted stamp scale.
+- At 1440, 1099, 768, 521, 520, 390 and 320 CSS pixels, temporarily hiding the K changed Rollback position, Receipt position and Heist-section height by exactly `0px`. Computed K positioning remained `absolute` with `0px` margin.
+- The same widths reported no horizontal overflow. The 768 and 390 missing-media states still hide the complete hero/K plane, preserve the live title and expose the existing folder fallback without overflow.
