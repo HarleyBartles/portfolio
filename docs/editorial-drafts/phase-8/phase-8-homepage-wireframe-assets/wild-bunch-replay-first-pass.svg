@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Wild Bunch replay falsifiability evidence composition</title>
+  <desc id="desc">A real ordered event history continues past a missing snapshot into a full replay and a matching reconstructed session, with source assertions as the receipt.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#263338"/>
+    </marker>
+    <style>
+      .sans { font-family: "Source Sans 3", "Segoe UI", sans-serif; fill: #172127; }
+      .mono { font-family: "Source Code Pro", Consolas, monospace; fill: #172127; }
+      .meta { font-size: 21px; font-weight: 600; }
+      .small { font-size: 21px; }
+      .body { font-size: 27px; }
+      .head { font-size: 51px; font-weight: 650; letter-spacing: -1.2px; }
+      .cream { fill: #f7f1e5; }
+      .muted { fill: #667176; }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#e6eaeb"/>
+  <rect x="0" y="0" width="640" height="1000" fill="#d8c4a6"/>
+  <path d="M640 0 V1000" stroke="#172127" stroke-width="3"/>
+  <text x="64" y="56" class="sans meta">Wild Bunch · ordered session audit</text>
+  <text x="64" y="126" class="sans head">Event history</text>
+  <text x="64" y="166" class="sans body">The claimed source of truth.</text>
+
+  <path d="M118 226 V840" stroke="#8b4f32" stroke-width="5"/>
+  <g class="mono small">
+    <circle cx="118" cy="248" r="11" fill="#8b4f32"/><text x="154" y="256">#01 PlayerSetupCompleted</text>
+    <circle cx="118" cy="318" r="11" fill="#8b4f32"/><text x="154" y="326">#02 WorldGenerated</text>
+    <circle cx="118" cy="388" r="11" fill="#8b4f32"/><text x="154" y="396">#03 CaseFileGenerated</text>
+    <circle cx="118" cy="458" r="11" fill="#8b4f32"/><text x="154" y="466">#04 StartingTownSelected</text>
+    <circle cx="118" cy="528" r="11" fill="#8b4f32"/><text x="154" y="536">#05 GameStarted</text>
+    <circle cx="118" cy="598" r="11" fill="#8b4f32"/><text x="154" y="606">#06 JourneyStarted</text>
+    <circle cx="118" cy="668" r="11" fill="#8b4f32"/><text x="154" y="676">#07 TravelDayAdvanced</text>
+    <circle cx="118" cy="738" r="11" fill="#8b4f32"/><text x="154" y="746">#08 JourneyCompleted</text>
+    <circle cx="118" cy="808" r="11" fill="#8b4f32"/><text x="154" y="816">#09 JourneyArrivalAcknowledged</text>
+  </g>
+  <text x="64" y="900" class="sans small">The audit found state the stream could not rebuild.</text>
+  <text x="64" y="934" class="sans small">Travel diary days and the unrelated-criminal ledger exposed the gap.</text>
+
+  <g aria-label="Snapshot unavailable">
+    <rect x="700" y="104" width="346" height="286" fill="#f7f1e5" stroke="#172127" stroke-width="3"/>
+    <text x="738" y="160" class="sans meta">Shortcut cache</text>
+    <text x="738" y="222" class="sans head" style="font-size:40px">Snapshot</text>
+    <text x="738" y="272" class="mono body">version 41 ≠ 42</text>
+    <path d="M724 306 H1022" stroke="#8b4f32" stroke-width="8"/>
+    <text x="738" y="352" class="sans body">stale · removed · damaged</text>
+  </g>
+  <path d="M1048 246 H1170" fill="none" stroke="#263338" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="1060" y="218" class="sans meta">discard</text>
+
+  <g aria-label="Full replay">
+    <rect x="700" y="456" width="346" height="386" fill="#263338"/>
+    <text x="738" y="516" class="sans meta cream">Production load path</text>
+    <text x="738" y="582" class="sans head cream" style="font-size:43px">Full replay</text>
+    <text x="738" y="640" class="mono small cream">foreach (var e in events)</text>
+    <text x="738" y="678" class="mono small cream">    ApplyEvent(session, e);</text>
+    <path d="M738 716 H1008" stroke="#d8c4a6" stroke-width="2"/>
+    <text x="738" y="764" class="sans small cream">Ordered events rebuild the session</text>
+    <text x="738" y="798" class="sans small cream">without requiring snapshot state.</text>
+  </g>
+
+  <path d="M1048 650 H1170" fill="none" stroke="#263338" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <g aria-label="Same session proof">
+    <rect x="1182" y="104" width="348" height="738" fill="#b8c2ad" stroke="#172127" stroke-width="3"/>
+    <text x="1222" y="164" class="sans meta">Reconstructed result</text>
+    <text x="1222" y="230" class="sans head" style="font-size:43px">Same session</text>
+    <text x="1222" y="292" class="sans body">Ranger Vale · Quartzsite</text>
+    <text x="1222" y="334" class="sans body">journey complete · v42</text>
+    <path d="M1222 372 H1490" stroke="#172127" stroke-width="2"/>
+    <text x="1222" y="426" class="sans meta">Receipt from the integration test</text>
+    <text x="1222" y="484" class="mono small">Assert.Equal(</text>
+    <text x="1242" y="520" class="mono small">fromSnapshot.Version,</text>
+    <text x="1242" y="556" class="mono small">fromEvents.Version);</text>
+    <text x="1222" y="616" class="mono small">Assert.Equal(</text>
+    <text x="1242" y="652" class="mono small">fromSnapshot.</text>
+    <text x="1242" y="688" class="mono small">TravelDiaryDays.Count,</text>
+    <text x="1242" y="724" class="mono small">fromEvents.</text>
+    <text x="1242" y="760" class="mono small">TravelDiaryDays.Count);</text>
+    <text x="1222" y="812" class="sans meta">claim → challenged → corrected → proved</text>
+  </g>
+
+  <text x="700" y="912" class="sans body">Snapshot = shortcut cache. Ordered events remain the recovery route.</text>
+  <text x="700" y="954" class="sans small muted">Source: WildBunch.Integration.Tests/FullReplayEqualityTests.cs and GameSessionEventReplay.cs at f388c44</text>
+</svg>

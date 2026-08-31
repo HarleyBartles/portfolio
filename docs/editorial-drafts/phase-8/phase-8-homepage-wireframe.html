@@ -130,6 +130,16 @@
       font-size: 12px;
     }
 
+    .asset-real {
+      min-height: 0;
+      aspect-ratio: 8 / 5;
+      background: var(--surface);
+    }
+    .asset-real::after { content: none; }
+    .asset-real img { width: 100%; height: 100%; object-fit: cover; }
+    .asset-source { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .asset-mobile-proof { display: none; }
+
     .market-asset { padding: 34px; background: linear-gradient(135deg, var(--surface), var(--market-soft)); }
     .market-lineage { display: grid; grid-template-columns: 1fr 1.25fr; gap: 22px; height: 100%; }
     .sheet { border: 1px solid var(--rule-strong); background: rgb(255 255 255 / 62%); padding: 18px; }
@@ -215,6 +225,7 @@
       .project-reverse .project-copy { margin-bottom: 36px; }
       .project-reverse .project-visual { margin-top: 0; }
       .asset { min-height: 420px; }
+      .asset-real { min-height: 0; }
       .market-lineage { grid-template-columns: 1fr; }
       .upstream { margin-top: 0; }
       .stages { grid-template-columns: repeat(2,1fr); }
@@ -235,6 +246,8 @@
       .inset-stamp { left: 2%; width: 29%; }
       .inset-string { right: 2%; width: 28%; }
       .close-actions { margin-top: 42px; }
+      .asset-mobile-proof { display: grid; gap: 1px; margin-top: 12px; background: var(--rule); }
+      .asset-mobile-proof span { background: var(--surface); padding: 12px 14px; font-size: 14px; line-height: 1.4; }
     }
 
     @media (max-width: 480px) {
@@ -244,10 +257,13 @@
       .display { font-size: 49px; }
       .section-title { font-size: 42px; }
       .asset { min-height: 380px; }
+      .asset-real { min-height: 0; }
       .market-asset, .wild-asset { padding: 20px; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
       .heist-asset { min-height: 500px; }
+      .heist-asset.asset-real { min-height: 0; aspect-ratio: 4 / 5; }
+      .heist-asset.asset-real img { object-fit: cover; object-position: 50% 50%; }
       .folder { left: 8%; width: 84%; }
       .folder-page { padding: 18px; }
       .assent { width: 52px; height: 52px; font-size: 9px; }
@@ -284,7 +300,7 @@
           </div>
           <div class="opening-proof">
             <p class="small">5 years at The Access Group</p>
-            <p class="lede">I'm responsible for Access Checks engineering end to end. I recently designed and delivered a service that enabled two additional paid screening checks, with one hard production rule: no source evidence, no successful result.</p>
+            <p class="lede">I'm responsible for the engineering of Access Checks end to end. I recently designed and delivered a service that enabled two additional paid screening checks, with one hard production rule: no source evidence, no successful result.</p>
             <a class="cta" href="#marketplace">See the work ↓</a>
           </div>
         </div>
@@ -307,33 +323,15 @@
           <a class="cta" href="#wild-bunch">Inspect the case study →</a>
         </div>
         <div class="project-visual">
-          <div class="asset market-asset" data-asset-target="marketplace-superpowers-plus">
-            <div class="market-lineage">
-              <div class="sheet upstream">
-                <p class="eyebrow">Upstream</p>
-                <h3>obra/superpowers</h3>
-                <p>MIT · strong workflow base · preserved attribution</p>
-              </div>
-              <div class="derivative">
-                <div class="sheet">
-                  <p class="eyebrow">Maintained derivative</p>
-                  <h3>Superpowers+</h3>
-                  <p>first-turn routing · roadmap and plan lifecycle · execution strategy · local composition</p>
-                </div>
-                <div class="gate">
-                  <p class="eyebrow">First-party modification</p>
-                  <strong>Handoff Gates</strong>
-                  <code>Never hand off below 8/10. Target 9/10+.</code>
-                  <div class="stages" aria-label="Handoff stages">
-                    <div class="stage">spec</div>
-                    <div class="stage">plan</div>
-                    <div class="stage">execution</div>
-                    <div class="stage">review</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <figure class="asset asset-real market-asset" data-asset-target="marketplace-superpowers-plus">
+            <img src="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-first-pass.svg" alt="Source lineage from obra's MIT-licensed Superpowers workflow into Harley's maintained Superpowers Plus derivative, with Handoff Gates shown as the dominant readiness boundary." width="1600" height="1000">
+          </figure>
+          <div class="asset-mobile-proof" aria-label="Marketplace evidence transcript">
+            <span>Upstream: obra/superpowers v6.2.0, MIT.</span>
+            <span>Maintained derivative: Superpowers+.</span>
+            <span>First-party boundary: Handoff Gates. Never hand off below 8/10. Target 9/10+.</span>
           </div>
+          <p class="asset-source">First-pass deterministic composition from inspected Marketplace source at 5974690.</p>
         </div>
       </div>
     </section>
@@ -341,31 +339,15 @@
     <section class="movement project project-reverse" id="wild-bunch" aria-labelledby="wild-title">
       <div class="frame project-grid">
         <div class="project-visual">
-          <div class="asset wild-asset" data-asset-target="wild-bunch-replay">
-            <div class="event-spine">
-              <div class="events" aria-label="Ordered event history">
-                <p class="eyebrow">Ordered session audit</p>
-                <div class="event">JourneyStarted</div>
-                <div class="event">TravelDayPassed</div>
-                <div class="event">TownEntered</div>
-                <div class="event">ClueRecorded</div>
-                <div class="event">BountyStateChanged</div>
-              </div>
-              <div class="snapshot">
-                <span class="eyebrow">shortcut cache</span>
-                <strong>snapshot</strong>
-                stale / absent
-              </div>
-              <div class="replay">
-                <div class="replay-box">
-                  <span class="eyebrow">Full replay</span>
-                  <strong>events → state</strong>
-                </div>
-                <div class="same">SAME SESSION<br>replay equality holds</div>
-              </div>
-            </div>
-            <div class="audit-note"><strong>Receipt:</strong> the replay audit found state that could not be reconstructed. The gaps were fixed before the architecture was allowed to keep its claim.</div>
+          <figure class="asset asset-real wild-asset" data-asset-target="wild-bunch-replay">
+            <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-first-pass.svg" alt="An ordered Wild Bunch event history continues past a stale or missing snapshot into full replay and the same reconstructed session, with equality assertions as the receipt." width="1600" height="1000">
+          </figure>
+          <div class="asset-mobile-proof" aria-label="Wild Bunch evidence transcript">
+            <span>Ordered event history remains the source of truth.</span>
+            <span>Snapshot stale, missing or damaged: discard the shortcut cache.</span>
+            <span>Full replay: the reconstructed session matches the snapshot-loaded state.</span>
           </div>
+          <p class="asset-source">First-pass deterministic composition from Wild Bunch replay source and integration tests at f388c44.</p>
         </div>
         <div class="project-copy">
           <p class="eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
@@ -381,7 +363,7 @@
         <p class="eyebrow writing-label">Writing</p>
         <h2 class="article-title" id="writing-title">I made agentic engineering harder than it needed to be</h2>
         <div class="article-summary">
-          <p>I once wrapped a novel in an agent organisation, roughly 300 agent-facing documents and enough governance to make returning to the work feel like accepting a cleanup project. The lesson wasn't “less process”. It was that every piece of machinery has to pay rent.</p>
+          <p>I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?</p>
           <a class="cta" href="#patch">Read the article →</a>
         </div>
       </div>
@@ -398,32 +380,10 @@
           <a class="cta" href="#contact">Enter the heist →</a>
         </div>
       </div>
-      <div class="asset heist-asset" data-asset-target="patch-lawful-heist">
-        <div class="folder">
-          <div class="folder-tab"></div>
-          <div class="folder-page">
-            <p class="eyebrow">Completed operation folder</p>
-            <h3>Lawful route / authorised</h3>
-            <div class="folder-lines" aria-hidden="true">
-              <div class="folder-line"></div>
-              <div class="folder-line"></div>
-              <div class="folder-line short"></div>
-              <div class="folder-line"></div>
-              <div class="folder-line short"></div>
-            </div>
-            <div class="assents" aria-label="Assent markers">
-              <span class="assent">ASSENT</span>
-              <span class="assent">CHECKED</span>
-              <span class="assent">SIGNED</span>
-              <span class="assent">RECORDED</span>
-            </div>
-          </div>
-        </div>
-        <div class="inset inset-button"><span>detail inset<br>hand on control</span></div>
-        <div class="inset inset-eyes"><span>detail inset<br>eyes / reaction</span></div>
-        <div class="inset inset-stamp"><span>detail inset<br>stamp / signature</span></div>
-        <div class="inset inset-string"><span>detail inset<br>red string / route</span></div>
-      </div>
+      <figure class="asset asset-real heist-asset" data-asset-target="patch-lawful-heist">
+        <img src="./phase-8-homepage-wireframe-assets/patch-lawful-heist-first-pass.png" alt="The completed Lawful Heist recruitment folder dominates an overhead story plate, surrounded by four smaller details: a lockdown control, red thread and steel hoop, a printing receipt, and a signed pink assent slip." width="1536" height="1024">
+      </figure>
+      <p class="asset-source frame">First-pass generated derivative from the pinned Adventures of Patch folder and Rollback references at 13bf77a. Narrow layouts deliberately crop peripheral insets so the folder remains dominant.</p>
     </section>
 
     <section class="movement close" id="contact" aria-labelledby="close-title">
