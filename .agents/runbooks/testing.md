@@ -10,8 +10,8 @@ Use this runbook when deciding what to verify for a change.
 ## Canonical validation command
 
 - `py -3 tools/run.py ci --check` runs the full validation pipeline.
-- `py -3 tools/run.py precommit --check` is an explicitly partial development check: it runs repository checks, Python tests, client unit tests, and a production build without the slower browser journeys. The tracked Git hook does not use it as proof that a commit is safe to publish.
-- `py -3 tools/run.py ci --apply` regenerates mechanical surfaces and then verifies them.
+- During development, invoke the focused repository, Python, client, build, or browser target that proves the slice you changed. There is no separate `precommit` command surface; the hook composes the `ci` modes around Git's staged snapshot.
+- Apply only the mechanical surface that changed (`refresh-skills --apply`, `index-mesh --apply`, or `mesh --apply`). Reserve umbrella `ci --apply` for deliberate repair of several generated surfaces; it is not the normal verification step.
 - The canonical command checks the marketplace-to-derived-skill projection locally and in GitHub Actions. The marketplace source is public, so hosted checkout initializes the pinned submodule before running the same gate.
 
 ## Efficient commit gate
@@ -20,7 +20,7 @@ Use this runbook when deciding what to verify for a change.
 2. Stage the complete intended tree and commit normally.
 3. Let the tracked pre-commit hook run the complete canonical gate once.
 4. If the hook rejects the commit after its state-safety checks, use its full independent-failure report to make one focused repair sweep. Prove each repaired slice independently, then retry the commit. Playwright is skipped only if the production build failed.
-5. Do not pre-run `ci --check` immediately before a normal commit, rerun it immediately after a successful hooked commit, or use hosted CI to discover a failure the local hook can predict.
+5. Do not run `py -3 tools/run.py ci --check` immediately before a normal commit, rerun it immediately after a successful hooked commit, or use hosted CI to discover a failure the local hook can predict. Run the complete command directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity.
 
 Do not bypass the hook. Its successful completion is the canonical local proof for the exact staged tree Git committed.
 

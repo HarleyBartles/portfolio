@@ -46,7 +46,7 @@ test('visitor opens the Wild Bunch route with its Western hook, status, and insp
   await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
   await expect(page.locator('.content-status')).toHaveText(/Status\s*pre-alpha/)
   await expect(page.getByText(/wrong name on the crime: yours/i)).toBeVisible()
-  await expect(page.getByLabel('Wild Bunch generated-town development-build preview')).toBeVisible()
+  await expect(page.getByLabel('Wild Bunch early-alpha town-arrival concept art')).toBeVisible()
 
   const repository = page.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })
   const history = page.getByRole('link', { name: 'Historical Wild Bunch archive' })
@@ -72,7 +72,7 @@ test('visitor opens the Wild Bunch route with its Western hook, status, and insp
   await expect(page.getByText(/React Testing Library/i)).toBeVisible()
   await expect(page.locator('.wild-bunch-capability-ledger')).toHaveCount(0)
   await expect(page.getByRole('figure', { name: 'Generated trail-map development-build evidence' })).toBeVisible()
-  await expect(page.getByRole('figure', { name: 'Session-audit development-build evidence' })).toBeVisible()
+  await expect(page.getByRole('figure', { name: 'Session-audit development-build evidence' })).toHaveCount(0)
   await expect(page.getByRole('figure', { name: 'Wanted-notice development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Case-file development-build evidence' })).toBeVisible()
 })
@@ -83,13 +83,13 @@ test('visitor reaches the Wild Bunch story through client navigation and receive
 
   await expect(page).toHaveURL(/\/projects\/wild-bunch\/?$/)
   const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
-  await expect(determinism.locator('ol > li')).toHaveText([
+  await expect(determinism.locator(':scope > ol > li')).toHaveText([
     /Directly packed world contract/,
     /Separate downstream choices/,
     /Deterministic derivation/,
     /Observable outcomes/,
   ])
-  await expect(determinism).toContainText('00000000-0000-0000-0000-000000000000')
+  await expect(determinism).toContainText('00000000-0000-0000-0000-00012ed0a54e')
 
   const eventFlow = page.getByRole('figure', { name: 'Ordered event history from action to reconstruction' })
   await expect(eventFlow.locator('ol > li')).toHaveText([
@@ -121,6 +121,47 @@ test('Wild Bunch architecture figures retain their designed internal spacing', a
   }
 })
 
+test('Wild Bunch keeps the canonical UUID on one line whenever the plate can hold it', async ({ page }) => {
+  for (const width of [1128, 686, 510]) {
+    await page.setViewportSize({ width, height: 912 })
+    await page.goto(wildBunchPath)
+
+    const uuid = page.locator('.wild-bunch-codec-map__uuid')
+    await expect(uuid).toHaveText('00000000-0000-0000-0000-00012ed0a54e')
+    const layout = await uuid.evaluate((element) => {
+      const halves = [...element.children].map((half) => half.getBoundingClientRect())
+      return {
+        lineCount: new Set(halves.map(({ y }) => Math.round(y))).size,
+        fitsWithoutScrolling: element.scrollWidth <= element.clientWidth,
+      }
+    })
+
+    expect(layout.lineCount).toBe(1)
+    expect(layout.fitsWithoutScrolling).toBe(true)
+  }
+})
+
+test('Wild Bunch splits the canonical UUID evenly only under genuine narrow pressure', async ({ page }) => {
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto(wildBunchPath)
+
+    const uuid = page.locator('.wild-bunch-codec-map__uuid')
+    const layout = await uuid.evaluate((element) => {
+      const halves = [...element.children].map((half) => half.getBoundingClientRect())
+      return {
+        lineCount: new Set(halves.map(({ y }) => Math.round(y))).size,
+        lineWidthDifference: Math.abs(halves[0].width - halves[1].width),
+        fitsWithoutScrolling: element.scrollWidth <= element.clientWidth,
+      }
+    })
+
+    expect(layout.lineCount).toBe(2)
+    expect(layout.lineWidthDifference).toBeLessThan(20)
+    expect(layout.fitsWithoutScrolling).toBe(true)
+  }
+})
+
 test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const width of [390, 320, 360]) {
@@ -147,12 +188,12 @@ test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced mot
   }
 })
 
-test('Wild Bunch evidence exposes intrinsic image dimensions with one eager route-header hero and lazy body captures', async ({ page }) => {
+test('Wild Bunch evidence exposes intrinsic image dimensions with one eager concept-art hero and lazy body captures', async ({ page }) => {
   await page.goto(wildBunchPath)
 
-  const hero = page.getByLabel('Wild Bunch generated-town development-build preview').getByRole('img')
+  const hero = page.getByLabel('Wild Bunch early-alpha town-arrival concept art').getByRole('img')
   await expect(hero).toHaveAttribute('width', '720')
-  await expect(hero).toHaveAttribute('height', '550')
+  await expect(hero).toHaveAttribute('height', '900')
   await expect(hero).toHaveAttribute('loading', 'eager')
   await expect(hero).toHaveAttribute('fetchpriority', 'high')
 
@@ -160,9 +201,13 @@ test('Wild Bunch evidence exposes intrinsic image dimensions with one eager rout
   await expect(captures).toHaveCount(4)
   for (const capture of await captures.all()) {
     await expect(capture).toHaveAttribute('loading', 'lazy')
-    await expect(capture).toHaveAttribute('width', /^(640|720)$/)
-    await expect(capture).toHaveAttribute('height', /^(489|550)$/)
   }
+  expect(await captures.evaluateAll((images) => images.map((image) => [image.getAttribute('width'), image.getAttribute('height')]))).toEqual([
+    ['640', '400'],
+    ['480', '472'],
+    ['472', '479'],
+    ['640', '489'],
+  ])
 })
 
 test('visitor opens Adventures of Patch with its production claim and a clear route to the stories', async ({ page }) => {
@@ -374,8 +419,7 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   await expect(page.locator('.lab-anatomy__layers > section')).toHaveCount(3)
   const labLayerBoxes = await page.locator('.lab-anatomy__layers > section').evaluateAll((layers) => layers.map((layer) => layer.getBoundingClientRect()).map(({ y, height }) => ({ y, height })))
   expect(Math.max(...labLayerBoxes.map(({ height }) => height)) - Math.min(...labLayerBoxes.map(({ height }) => height))).toBeLessThan(2)
-  expect(labLayerBoxes[1].y).toBeGreaterThan(labLayerBoxes[0].y)
-  expect(labLayerBoxes[2].y).toBeGreaterThan(labLayerBoxes[1].y)
+  expect(Math.max(...labLayerBoxes.map(({ y }) => y)) - Math.min(...labLayerBoxes.map(({ y }) => y))).toBeLessThan(2)
   await expect(page.locator('.representative-lab')).toHaveCount(3)
   expect(await page.locator('.representative-lab').evaluateAll((items) => items.map((item) => item.getAttribute('data-lab')))).toEqual(['3', '5', '7'])
 
@@ -394,7 +438,7 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
   expect(lab3Evidence!.width).toBeGreaterThan(lab3Header!.width)
   expect(lab5Evidence!.width).toBeGreaterThan(lab5Header!.width)
   expect(lab3Header!.x).toBeLessThan(lab3Evidence!.x)
-  expect(lab5Evidence!.x).toBeLessThan(lab5Header!.x)
+  expect(lab5Header!.x).toBeLessThan(lab5Evidence!.x)
 
   const opening = page.getByRole('heading', { name: 'Experience made transferable' }).locator('..').locator('..')
   const [openingHeading, openingBody] = await Promise.all([

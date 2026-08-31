@@ -1145,8 +1145,11 @@ Do not create brittle full-page snapshots of every paragraph.
 Run:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
+
+The tracked hook runs the complete `ci --check` gate once. Do not pre-run it.
 
 This gate proves repository consistency and the configured automated suite. It
 does not replace Harley's author review, source verification, attribution

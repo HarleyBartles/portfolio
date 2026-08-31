@@ -28,8 +28,8 @@ class CanonicalRunnerTests(unittest.TestCase):
         )
 
     @patch.object(run, "_run")
-    def test_precommit_gate_runs_repository_and_client_product_checks(self, run_command) -> None:
-        run._precommit_check(self.context)
+    def test_base_ci_gate_runs_repository_and_client_product_checks(self, run_command) -> None:
+        run._base_ci_check(self.context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._link_hygiene_check_cmd(), commands)
@@ -151,7 +151,7 @@ class CanonicalRunnerTests(unittest.TestCase):
     @patch.dict("os.environ", {"GITHUB_ACTIONS": "true"})
     @patch.object(run, "_run")
     def test_gate_checks_public_marketplace_source_and_derived_projection(self, run_command) -> None:
-        run._precommit_check(self.context)
+        run._base_ci_check(self.context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._repo_standards_cmd("check", False), commands)
@@ -159,15 +159,15 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._mesh_validate_cmd(), commands)
 
     @patch.object(run, "_run")
-    @patch.object(run, "_precommit_check")
+    @patch.object(run, "_base_ci_check")
     def test_complete_ci_adds_browser_journeys_after_fast_gate(
         self,
-        precommit_check,
+        base_ci_check,
         run_command,
     ) -> None:
         run._ci_check(self.context)
 
-        precommit_check.assert_called_once_with(self.context)
+        base_ci_check.assert_called_once_with(self.context)
         self.assertEqual(
             [call(run._client_cmd("run", "test:e2e"), self.context)],
             run_command.call_args_list,
@@ -206,6 +206,10 @@ class CanonicalRunnerTests(unittest.TestCase):
             "production build",
             raised.exception.skipped[0].blocked_by,
         )
+
+    def test_precommit_is_not_a_separate_command_surface(self) -> None:
+        self.assertNotIn("precommit", run.TARGETS)
+        self.assertIn("ci", run.TARGETS)
 
 
 if __name__ == "__main__":

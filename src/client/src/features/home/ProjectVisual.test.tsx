@@ -49,6 +49,36 @@ describe('ProjectVisual', () => {
     expect(visual).toHaveTextContent(/Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns/i)
   })
 
+  test('uses honest responsive concept art for the Wild Bunch case-study hero', () => {
+    render(<ProjectVisual slug="wild-bunch" eager placement="case-study-hero" />)
+
+    const visual = screen.getByLabelText('Wild Bunch early-alpha town-arrival concept art')
+    const image = screen.getByRole('img', { name: /concept art of a lone rider entering/i })
+
+    expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-concept-art')
+    expect(image).toHaveAttribute('src', '/media/wild-bunch/town-arrival-portrait.webp')
+    expect(image).toHaveAttribute('width', '720')
+    expect(image).toHaveAttribute('height', '900')
+    expect(image).toHaveAttribute('loading', 'eager')
+    expect(image).toHaveAttribute('fetchpriority', 'high')
+    expect(visual.querySelectorAll('picture source')).toHaveLength(4)
+    expect(visual).toHaveTextContent('Concept art / early-alpha visual direction')
+  })
+
+  test('carries the Wild Bunch concept identity onto the projects index without changing the default preview', () => {
+    render(<ProjectVisual slug="wild-bunch" placement="index" />)
+
+    const visual = screen.getByLabelText('Wild Bunch early-alpha town-arrival concept art')
+
+    expect(visual).toHaveClass('project-visual--wild-bunch-concept-index')
+    expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-concept-art')
+    expect(screen.getByRole('img', { name: /concept art of a lone rider entering/i })).toHaveAttribute(
+      'src',
+      '/media/wild-bunch/town-arrival-portrait.webp',
+    )
+    expect(visual.querySelector('figcaption')).toBeNull()
+  })
+
   test('uses the Introducing Patch composition for the project preview and route hero', () => {
     render(<ProjectVisual slug="adventures-of-patch" eager />)
 
@@ -62,6 +92,17 @@ describe('ProjectVisual', () => {
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(picture?.querySelectorAll('source')).toHaveLength(4)
     expect(picture).not.toHaveTextContent(/detective|cowboy|chef|mechanic/i)
+  })
+
+  test('marks the Patch projects-index crop without changing the accepted source asset', () => {
+    render(<ProjectVisual slug="adventures-of-patch" placement="index" />)
+
+    const image = screen.getByRole('img', { name: /Patch carries an index card and folded map/i })
+    const picture = image.closest('picture')
+
+    expect(picture).toHaveClass('project-visual--patch-index')
+    expect(picture).toHaveAttribute('data-visual-contract', 'adventures-of-patch-index-crop')
+    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-720.webp')
   })
 
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {

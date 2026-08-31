@@ -17,8 +17,8 @@
 - Keep CV download, availability, salary, location, working-pattern copy, contact activation, homepage recomposition, a standalone experience route, rich timeline interaction, and new runtime services out of scope.
 - Preserve the existing warm editorial system and fonts; no portrait, stock/decorative AI imagery, autoplay, or new dependency. The native React/CSS implementation is sufficient for this static chronology.
 - Make all important content meaningful in DOM/source order at 320 CSS px, 200% zoom, keyboard-only, and reduced motion. Motion cannot be required for comprehension.
-- Update generated navigation only through `py -3 tools/run.py ci --apply`; hand-edit no `INDEX.md` file.
-- Before the final commit, stage the complete Phase 1 tree and run `py -3 tools/run.py ci --check`; do not use `--no-verify`.
+- Update generated navigation only through `py -3 tools/run.py index-mesh --apply`; hand-edit no `INDEX.md` file.
+- For the final commit, stage the complete Phase 1 tree and commit normally; the tracked hook runs `py -3 tools/run.py ci --check` once. Do not pre-run the complete gate or use `--no-verify`.
 
 ## Current-Truth Drift Record
 
@@ -275,10 +275,10 @@
 
   ```powershell
   git add src/client/src/components/OrientationStrip.tsx src/client/src/components/OrientationStrip.test.tsx src/client/src/types/content.ts src/client/e2e/about.spec.ts src/client/e2e/visual-regression.spec.ts src/client/e2e/visual-regression.spec.ts-snapshots/about-professional-proof.png
-  py -3 tools/run.py ci --check
+  git commit -m "feat: establish professional truth"
   ```
 
-  Expected: PASS on the staged final tree. If generated navigation changes are required, run `py -3 tools/run.py ci --apply`, stage its generated outputs, and rerun the check.
+  Expected: the normal commit hook passes on the staged final tree. If generated navigation changes are required, run `py -3 tools/run.py index-mesh --apply`, inspect and stage its generated outputs, then commit normally without a separate complete preflight.
 
 - [x] **Step 7: Commit and mark the plan complete**
 
@@ -293,5 +293,5 @@
 - **Spec coverage:** Tasks 1–4 cover the single fact authority, dynamic completed-years signal, formal-title/scope boundary, all approved narrative layers, static accessible chronology, capability model, stale Experience removal, Phase 2 boundaries, test contracts, visual evidence, and canonical validation. CV/download, provider activation, new route, rich interaction, and dependency additions are explicitly excluded.
 - **Dependency order:** Task 1 produces the profile consumed by Task 2 and Task 3. Task 2 produces the timeline consumed by Task 3. Task 4 removes the final unused type/orientation seam and verifies the completed public composition.
 - **No placeholder scan:** Every task names concrete files, interfaces, code direction, tests, commands, and expected outcomes. Public editorial prose is intentionally authored in Task 3 under exact approved claims rather than stored as duplicate data.
-- **Clean CI gate:** Task 4 stages the final tree, runs the canonical check, and commits only after observed success. Generated mesh output is delegated to `ci --apply` when needed.
+- **Clean CI gate:** Task 4 stages the final tree and commits normally so the tracked hook owns the single complete check. Generated mesh output is delegated to `index-mesh --apply` when needed.
 - **Plan-readiness rating:** **9/10.** Current source seams, dependencies, validated baseline limitations, fact boundaries, exact commands, and user-owned stop conditions are explicit. The only deliberately open implementation detail is final editorial sentence rhythm, which is permitted by the approved spec so long as claim strength and order do not change.

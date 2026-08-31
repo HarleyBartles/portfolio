@@ -7,10 +7,26 @@ import { SiteLayout } from '../components/SiteLayout'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 import { getProjectSummaries } from '../data/documents'
+import '../styles/interior.scss'
+
+const projectIndexOrder = new Map([
+  ['wild-bunch', 0],
+  ['adventures-of-patch', 1],
+  ['agentic-learning-lab', 2],
+  ['codex-marketplace', 3],
+])
+
+export function orderProjectIndex<T extends { slug: string }>(projects: readonly T[]): T[] {
+  return [...projects].sort((left, right) => {
+    const leftRank = projectIndexOrder.get(left.slug) ?? Number.MAX_SAFE_INTEGER
+    const rightRank = projectIndexOrder.get(right.slug) ?? Number.MAX_SAFE_INTEGER
+    return leftRank - rightRank
+  })
+}
 
 export function ProjectIndexPage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
-  const projects = navigationQuery.data === undefined ? [] : getProjectSummaries(navigationQuery.data)
+  const projects = navigationQuery.data === undefined ? [] : orderProjectIndex(getProjectSummaries(navigationQuery.data))
 
   return (
     <SiteLayout>

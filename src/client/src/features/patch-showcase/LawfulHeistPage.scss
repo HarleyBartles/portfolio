@@ -42,16 +42,16 @@
 .lawful-heist__lead .patch-status {
   grid-column: 1 / -1;
   color: var(--patch-teal);
-  font-family: var(--font-code);
-  font-size: 0.76rem;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: .012em;
+  text-transform: none;
 }
 
 .lawful-heist__lead > p:nth-child(2) {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-site-sans);
   font-size: clamp(1.65rem, 3.4vw, 3rem);
   line-height: 1.16;
 }
@@ -59,34 +59,31 @@
 .lawful-heist__lead > p:last-child {
   max-width: 24rem;
   margin: 0;
-  padding: var(--space-6);
-  color: var(--color-surface);
-  background: var(--heist-ink);
-  font-family: var(--font-code);
+  padding-left: var(--space-6);
+  border-left: 1px solid var(--patch-teal);
+  color: var(--color-muted);
+  background: transparent;
+  font-family: var(--font-site-sans);
   font-size: 0.92rem;
 }
 
 .lawful-heist__folder {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(73 50 20 / 35%);
-  background: var(--heist-paper);
-  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 10%);
+  border-block: 1px solid var(--color-border);
 }
 
 .lawful-heist__folder figcaption,
 .heist-recruit__scene figcaption {
-  position: absolute;
-  top: var(--space-5);
-  left: var(--space-5);
+  position: static;
   max-width: 22rem;
-  padding: var(--space-4) var(--space-5);
-  color: var(--heist-ink);
-  background: rgb(255 255 255 / 94%);
-  font-family: var(--font-code);
-  font-size: 0.76rem;
+  padding: var(--space-3) 0;
+  color: var(--color-muted);
+  background: transparent;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-caption-size);
   line-height: 1.45;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .lawful-heist__crew {
@@ -111,18 +108,17 @@
   padding: clamp(var(--space-6), 4vw, var(--space-10));
   color: var(--color-surface);
   background: var(--heist-ink);
-  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 16%);
   z-index: 2;
 }
 
 .heist-recruit__number,
 .heist-recruit__responsibility {
   margin: 0;
-  font-family: var(--font-code);
-  font-size: 0.74rem;
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: .012em;
+  text-transform: none;
 }
 
 .heist-recruit__number {
@@ -146,9 +142,9 @@
   padding-top: var(--space-4);
   border-top: 1px solid currentColor;
   color: inherit;
-  font-family: var(--font-display);
+  font-family: var(--font-site-sans);
   font-size: clamp(1.1rem, 2vw, 1.45rem);
-  font-style: italic;
+  font-style: normal;
   line-height: 1.25;
 }
 
@@ -162,7 +158,6 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 12%);
 }
 
 .heist-recruit__portrait picture,
@@ -181,8 +176,7 @@
   max-width: 43rem;
   margin-top: calc(-1 * var(--space-10));
   padding: clamp(var(--space-6), 4vw, var(--space-10));
-  background: var(--color-surface);
-  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 12%);
+  background: var(--color-interior-canvas);
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   z-index: 2;
 }
@@ -234,7 +228,7 @@
 
 .heist-recruit--writ .heist-recruit__header {
   color: var(--heist-ink);
-  background: var(--heist-paper);
+  background: var(--color-interior-canvas);
 }
 
 .heist-recruit--writ .heist-recruit__number {
@@ -334,7 +328,7 @@
   align-self: end;
   margin-bottom: var(--space-10);
   color: var(--heist-ink);
-  background: var(--heist-paper);
+  background: var(--color-interior-canvas);
 }
 
 .heist-recruit--receipt .heist-recruit__number {
@@ -350,7 +344,6 @@
   grid-row: 1;
   margin-left: var(--space-8);
   border: 1px solid var(--color-border);
-  box-shadow: 0 1.1rem 2.8rem rgb(31 36 31 / 10%);
 }
 
 .heist-recruit--receipt .heist-recruit__story {
@@ -379,10 +372,6 @@
   margin: var(--space-3) 0 var(--space-5);
   font-size: clamp(2.4rem, 5vw, 4.6rem);
   line-height: 0.98;
-}
-
-.lawful-heist__folder--complete figcaption {
-  inset: auto var(--space-5) var(--space-5) auto;
 }
 
 .lawful-heist__case-study-link {

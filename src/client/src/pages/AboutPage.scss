@@ -3,10 +3,51 @@
   overflow-wrap: anywhere;
   border-block: 1px solid var(--color-border);
   color: var(--color-ink);
-  font-family: var(--font-code);
+  font-family: var(--font-site-sans);
   font-size: 0.88rem;
   line-height: 1.55;
   padding: var(--space-3);
+}
+
+.about-page .about-intro {
+  min-block-size: auto;
+  gap: clamp(var(--space-8), 5vw, var(--space-12));
+  padding-block: var(--space-8) var(--space-10);
+}
+
+.about-page [data-visual-contract='about-cv-conversion'] {
+  padding-block: var(--space-10);
+}
+
+.about-page blockquote[data-type-register='site-sans'] {
+  margin-block: var(--space-8);
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.about-page blockquote[data-type-register='site-sans'] p {
+  font-family: var(--font-site-sans);
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  font-style: normal;
+  font-weight: 650;
+  letter-spacing: -.015em;
+  line-height: 1.18;
+}
+
+.about-page blockquote[data-type-register='site-sans'] cite {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-metadata-size);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.about-study {
+  grid-template-columns: 1fr;
+}
+
+.about-study > [data-professional-story-rail] {
+  max-width: none;
 }
 
 .about-independent {

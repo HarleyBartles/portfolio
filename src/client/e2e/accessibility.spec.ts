@@ -1,6 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { homeFeatureCatalog } from '../src/features/home/featureCatalog'
+import routeCatalogue from '../src/data/routes/route-metadata.generated.json' with { type: 'json' }
 
 
 const routes = [
@@ -23,6 +24,41 @@ const viewports = [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'mobile', width: 390, height: 844 },
 ] as const
+
+const decorativeImageSelectors = [
+  '.site-mark > img',
+  '.marketplace-map__plugins img',
+] as const
+
+function toTestPath(path: string): string {
+  return path === '/' ? './' : path.replace(/^\//, '')
+}
+
+async function expectIntentionalImageAlternatives(page: Page): Promise<void> {
+  const images = await page.locator('img').evaluateAll((elements, decorativeSelectors) =>
+    elements.map((element) => ({
+      alt: element.getAttribute('alt'),
+      decorativeContract: decorativeSelectors.some((selector) => element.matches(selector)),
+      src: element.getAttribute('src'),
+    })), decorativeImageSelectors)
+
+  expect(
+    images.filter((image) => image.alt === null).map((image) => image.src),
+    'Every rendered image must declare an alt attribute.',
+  ).toEqual([])
+  expect(
+    images
+      .filter((image) => image.alt !== null && image.alt.trim() === '' && !image.decorativeContract)
+      .map((image) => image.src),
+    'Only explicitly identified decorative images may use empty alt text.',
+  ).toEqual([])
+  expect(
+    images
+      .filter((image) => image.decorativeContract && image.alt !== '')
+      .map((image) => image.src),
+    'Decorative images must remain silent to screen readers.',
+  ).toEqual([])
+}
 
 async function expectNoAutomatedViolations(page: Page): Promise<void> {
   const results = await new AxeBuilder({ page })
@@ -68,3 +104,29 @@ for (const viewport of viewports) {
     }
   })
 }
+
+test.describe('site-wide image alternatives', () => {
+  test.use({ viewport: viewports[0] })
+
+  for (const route of routeCatalogue) {
+    test(`${route.id} gives every image an intentional text alternative`, async ({ page }) => {
+      await page.goto(toTestPath(route.path))
+      const pageHeading = page.locator('main h1').first()
+      await expect(pageHeading).toBeVisible()
+      await expect(page.locator('[data-route-loading]')).toHaveCount(0)
+      await expect(page.locator('[data-loading="specialist-presentation"]')).toHaveCount(0)
+
+      const featureVisits = route.id === 'home' ? homeFeatureCatalog.length : 1
+      for (let featureIndex = 0; featureIndex < featureVisits; featureIndex += 1) {
+        await expectIntentionalImageAlternatives(page)
+        if (featureIndex === featureVisits - 1) continue
+
+        const featureRegion = page.locator('[data-visual-contract="homepage-feature-deck"]')
+        const leadHeading = featureRegion.getByRole('heading', { level: 2 }).nth(1)
+        const currentLead = await leadHeading.textContent()
+        await featureRegion.getByRole('button', { name: 'Next feature' }).click()
+        await expect(leadHeading).not.toHaveText(currentLead ?? '')
+      }
+    })
+  }
+})

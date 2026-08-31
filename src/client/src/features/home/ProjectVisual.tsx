@@ -14,16 +14,20 @@ export type ProjectVisualSlug =
 type ProjectVisualProps = {
   slug: ProjectVisualSlug
   eager?: boolean
+  placement?: 'preview' | 'index' | 'case-study-hero'
 }
 
 function assetPath(path: string): string {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 }
 
-export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): ReactElement {
+export function ProjectVisual({ slug, eager = false, placement = 'preview' }: ProjectVisualProps): ReactElement {
   if (slug === 'adventures-of-patch') {
     return (
-      <picture className="project-visual project-visual--patch" data-visual-contract="adventures-of-patch-preview">
+      <picture
+        className={`project-visual project-visual--patch${placement === 'index' ? ' project-visual--patch-index' : ''}`}
+        data-visual-contract={placement === 'index' ? 'adventures-of-patch-index-crop' : 'adventures-of-patch-preview'}
+      >
         <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.avif')} type="image/avif" />
         <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.webp')} type="image/webp" />
         <source srcSet={assetPath('/media/patch/patch-hero-720.avif')} type="image/avif" />
@@ -61,6 +65,32 @@ export function ProjectVisual({ slug, eager = false }: ProjectVisualProps): Reac
   }
 
   if (slug === 'wild-bunch') {
+    if (placement === 'case-study-hero' || placement === 'index') {
+      return (
+        <figure
+          aria-label="Wild Bunch early-alpha town-arrival concept art"
+          className={`project-visual project-visual--wild-bunch-concept${placement === 'index' ? ' project-visual--wild-bunch-concept-index' : ''}`}
+          data-visual-contract="wild-bunch-concept-art"
+        >
+          <picture>
+            <source media="(min-width: 45rem)" srcSet={assetPath('/media/wild-bunch/town-arrival-landscape.avif')} type="image/avif" />
+            <source media="(min-width: 45rem)" srcSet={assetPath('/media/wild-bunch/town-arrival-landscape.webp')} type="image/webp" />
+            <source srcSet={assetPath('/media/wild-bunch/town-arrival-portrait.avif')} type="image/avif" />
+            <source srcSet={assetPath('/media/wild-bunch/town-arrival-portrait.webp')} type="image/webp" />
+            <img
+              src={assetPath('/media/wild-bunch/town-arrival-portrait.webp')}
+              alt="Concept art of a lone rider entering a faded, hand-tinted high-desert frontier town, with a water tower and mesas beyond the main street."
+              width="720"
+              height="900"
+              loading={eager ? 'eager' : 'lazy'}
+              fetchPriority={eager ? 'high' : 'auto'}
+            />
+          </picture>
+          {placement === 'index' ? null : <figcaption>Concept art / early-alpha visual direction</figcaption>}
+        </figure>
+      )
+    }
+
     return (
       <figure
         aria-label="Wild Bunch generated-town development-build preview"

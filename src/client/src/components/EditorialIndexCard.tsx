@@ -36,7 +36,7 @@ function publicPath(path: string): string {
 
 function CardMedia({ item }: { item: ContentSummary }): ReactElement | null {
   if (item.kind === 'project' && projectVisuals.has(item.slug as ProjectVisualSlug)) {
-    return <ProjectVisual slug={item.slug as ProjectVisualSlug} />
+    return <ProjectVisual slug={item.slug as ProjectVisualSlug} placement="index" />
   }
 
   if (item.kind === 'patch') {
@@ -71,7 +71,7 @@ export function EditorialIndexCard({ item, index, featured = false }: EditorialI
       data-visual-contract={featured ? 'writing-editorial-lead' : undefined}
     >
       {hasVisual ? (
-        <Link to={getContentPath(item)} className="editorial-card-visual" aria-label={`View ${item.title}`}>
+        <Link to={getContentPath(item)} className={`editorial-card-visual editorial-card-visual--${item.slug}`} aria-label={`View ${item.title}`}>
           <CardMedia item={item} />
         </Link>
       ) : null}

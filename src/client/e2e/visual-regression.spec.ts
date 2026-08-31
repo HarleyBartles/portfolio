@@ -24,7 +24,7 @@ async function waitForImages(region: ReturnType<Page['locator']>): Promise<void>
 
 async function waitForWildBunchStyles(page: Page): Promise<void> {
   const figure = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
-  await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(23, 60, 63)')
+  await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(87, 76, 63)')
 }
 
 async function waitForPatchStyles(page: Page): Promise<void> {
@@ -44,7 +44,54 @@ async function waitForLawfulHeistStyles(page: Page): Promise<void> {
 
 async function waitForLearningLabStyles(page: Page): Promise<void> {
   const safety = page.locator('.learning-lab-safety')
-  await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(22, 63, 66)')
+  await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).display)).toMatch(/^(grid|flex)$/)
+}
+
+const nonHomeProof = [
+  { path: './projects/wild-bunch', contract: 'wild-bunch-case-study-hero', register: 'site-sans' },
+  { path: './writing/why-adrs', contract: 'decision-memory', register: 'article-serif' },
+  { path: './about', contract: 'about-current-work', register: 'site-sans' },
+] as const
+
+const proofViewports = [
+  { width: 1440, height: 1100 },
+  { width: 390, height: 844 },
+  { width: 320, height: 844 },
+  { width: 360, height: 844 },
+] as const
+
+for (const route of nonHomeProof) {
+  for (const viewport of proofViewports) {
+    test(`${route.path} preserves its non-home contract at ${viewport.width}x${viewport.height}`, async ({ page }) => {
+      await page.setViewportSize(viewport)
+      await page.goto(route.path, { waitUntil: 'networkidle' })
+      await expect(page.locator('main h1')).toBeVisible()
+      await expect(page.locator(`[data-visual-contract="${route.contract}"]`)).toBeVisible()
+      await expect(page.locator(`[data-type-register="${route.register}"]`).first()).toBeVisible()
+
+      expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+
+      const contractFollowsHeading = await page.evaluate((contract) => {
+        const heading = document.querySelector('main h1')
+        const surface = document.querySelector(`[data-visual-contract="${contract}"]`)
+        if (heading === null || surface === null) return false
+        return heading === surface
+          || surface.contains(heading)
+          || heading.contains(surface)
+          || Boolean(heading.compareDocumentPosition(surface) & Node.DOCUMENT_POSITION_FOLLOWING)
+      }, route.contract)
+      expect(contractFollowsHeading).toBe(true)
+
+      await page.keyboard.press('Tab')
+      const focused = page.locator(':focus')
+      await expect(focused).toBeVisible()
+      expect(await focused.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0)
+          || style.boxShadow !== 'none'
+      })).toBe(true)
+    })
+  }
 }
 
 async function clipBetween(page: Page, firstSelector: string, lastSelector: string) {

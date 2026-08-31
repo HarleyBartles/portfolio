@@ -4,7 +4,10 @@ import { MarketplaceCaseStudy } from './MarketplaceCaseStudy'
 
 describe('MarketplaceCaseStudy', () => {
   test('tells the approved operating model and dated audit story in source order', () => {
-    render(<MarketplaceCaseStudy />)
+    const { container } = render(<MarketplaceCaseStudy />)
+
+    expect(container.querySelector('[data-project-field]')).not.toBeInTheDocument()
+    expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
 
     expect(screen.getByText('Shared where reuse earns it. Local where context matters.')).toBeVisible()
     expect(screen.getByRole('heading', { name: 'Baseline' })).toBeVisible()

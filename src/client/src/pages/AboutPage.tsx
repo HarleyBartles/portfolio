@@ -15,6 +15,7 @@ import { getEngineeringExperienceLabel, professionalProfile } from '../data/prof
 import { siteRuntime } from '../data/siteRuntime'
 import { NextRolePanel, ProfessionalStory, ProfessionalStoryContent, ProfessionalStoryRail } from './about/ProfessionalSurface'
 import './AboutPage.scss'
+import '../styles/interior.scss'
 
 const projectStories = getProjectSummaries()
 
@@ -48,7 +49,7 @@ export function AboutPage(): ReactElement {
         canonicalPath="/about"
       />
       <EditorialThemeProvider>
-        <article className="about-page" aria-labelledby="about-title">
+        <article className="about-page" aria-labelledby="about-title" data-type-register="site-sans">
           <header className="about-intro">
             <div>
               <p className="eyebrow">About</p>
@@ -98,7 +99,7 @@ export function AboutPage(): ReactElement {
             aria-labelledby="access-title"
             data-visual-contract="about-current-work"
           >
-            <ProfessionalStoryRail data-professional-story-rail>
+            <ProfessionalStoryRail data-professional-rail="chronology" data-professional-story-rail>
               <p className="eyebrow">Current work / The Access Group</p>
               <p>September 2021 – present</p>
             </ProfessionalStoryRail>
@@ -123,7 +124,7 @@ export function AboutPage(): ReactElement {
                 part that benefits from interpretation: locating page elements and proposing browser
                 actions. Deterministic code executes those actions and extracts the result.
               </p>
-              <EditorialPullQuote attribution="Production invariant">
+              <EditorialPullQuote attribution="Production invariant" typeRegister="site-sans">
                 No source capture, no success.
               </EditorialPullQuote>
               <p>
@@ -288,7 +289,7 @@ export function AboutPage(): ReactElement {
             ))}
           </section>
 
-          <ProfessionalStory aria-labelledby="study-title">
+          <ProfessionalStory aria-labelledby="study-title" className="about-study">
             <ProfessionalStoryRail data-professional-story-rail>
               <p className="eyebrow">Current study</p>
               <p>{professionalProfile.apprenticeship.periodLabel}</p>

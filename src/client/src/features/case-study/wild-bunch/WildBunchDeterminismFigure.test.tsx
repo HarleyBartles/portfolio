@@ -8,13 +8,18 @@ describe('Wild Bunch determinism figure contract', () => {
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><WildBunchCaseStudy /></MemoryRouter>)
 
     const figure = screen.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
-    const stages = within(figure).getAllByRole('listitem')
+    const stages = Array.from(figure.querySelectorAll<HTMLElement>(':scope > ol > li'))
     expect(stages).toHaveLength(4)
 
     expect(within(stages[0]).getByText('Directly packed world contract')).toBeVisible()
-    expect(within(stages[0]).getByText('00000000-0000-0000-0000-000000000000')).toBeVisible()
+    const allocation = within(stages[0]).getByRole('group', { name: 'Resolver version 17 UUID bit allocation' })
+    expect(allocation).toHaveTextContent('00000000-0000-0000-0000-00012ed0a54e')
+    expect(Array.from(allocation.querySelectorAll('[data-codec-field] code')).map((field) => field.textContent)).toEqual(['[9]', '[1]', '[1]', '[2]', '[6]', '[4]', '[2]', '[9]', '[5]', '[3]', '[2]'])
+    expect(within(allocation).getByText('layout topology')).toBeVisible()
+    expect(within(allocation).getByText('town profile')).toBeVisible()
+    expect(within(allocation).getByText('case setup')).toBeVisible()
     expect(within(stages[0]).getByText(/33 directly packed UUID bits/i)).toBeVisible()
-    expect(within(stages[0]).getByText(/95 reserved bits/i)).toBeVisible()
+    expect(within(stages[0]).getAllByText(/95 reserved bits/i)).toHaveLength(2)
 
     expect(within(stages[1]).getByText('Separate downstream choices')).toBeVisible()
     expect(within(stages[1]).getByText(/Difficulty, entropy policy, starting town and player actions remain separate inputs/i)).toBeVisible()

@@ -23,7 +23,7 @@ function Lesson({ children, medal }: { children: string; medal: string }) {
 
 export function TournamentPage() {
   return (
-    <section className="tournament-showcase" aria-label="Tournament of Reasonable Defaults adventure">
+    <section className="tournament-showcase" aria-label="Tournament of Reasonable Defaults adventure" data-type-register="site-sans">
       <header className="tournament-showcase__lead">
         <p className="patch-status">Visual development</p>
         <p>Four events begin with instructions that look clear at the starting line. Bit gets moving, Bot settles on the first plausible interpretation, and Patch checks whether the finish has actually been defined.</p>

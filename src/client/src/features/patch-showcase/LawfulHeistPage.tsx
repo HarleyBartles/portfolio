@@ -136,7 +136,7 @@ function CrewMember({ member }: { member: (typeof crew)[number] }) {
 
 export function LawfulHeistPage() {
   return (
-    <section className="lawful-heist" aria-label="The Lawful Heist Crew adventure">
+    <section className="lawful-heist" aria-label="The Lawful Heist Crew adventure" data-type-register="site-sans">
       <header className="lawful-heist__lead">
         <p className="patch-status">Advanced visual pre-production</p>
         <p>Patch has a lawful route into a protected vault and six names on a folder. The job is to recruit the specialists who can prove the route, test it, authorise it, choose it, recover it and leave a record.</p>

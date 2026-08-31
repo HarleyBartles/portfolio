@@ -18,7 +18,7 @@ The site exists to present Harley as a software engineer through:
 
 ## Build and test commands
 
-Canonical: `py -3 tools/run.py ci --check` for verification and `py -3 tools/run.py ci --apply` when mechanical surfaces need to be regenerated. Standard lifecycle targets are `refresh-skills` for marketplace-derived skills and `index-mesh` for index generation; `mesh` composes index generation with agent-mesh validation.
+Run the smallest focused checks that prove the slice while iterating. For a normal commit, stage the intended tree and let the tracked pre-commit hook run `py -3 tools/run.py ci --check` as the single complete local gate. Do not run `py -3 tools/run.py ci --check` immediately before a normal commit or immediately after a successful hooked commit. Run it directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity. Regenerate only the mechanical surface that changed: `refresh-skills --apply` for marketplace-derived skills and `index-mesh --apply` for index generation; `mesh --apply` composes index generation with agent-mesh validation. Reserve umbrella `ci --apply` for deliberate repair of several mechanical surfaces, inspect its diff, then rely on the normal commit hook for complete verification.
 
 ## Design quality
 

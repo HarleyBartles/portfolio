@@ -7,8 +7,8 @@ import { CaseStudySection } from '../CaseStudySection'
 import { WildBunchDeterminismFigure } from './WildBunchDeterminismFigure'
 import { WildBunchEventFlow } from './WildBunchEventFlow'
 import {
-  WildBunchAuditEvidence,
   WildBunchProductEvidence,
+  WildBunchTownEvidence,
   WildBunchTrailMapEvidence,
 } from './WildBunchProductEvidence'
 import './WildBunchCaseStudy.scss'
@@ -42,13 +42,17 @@ export function WildBunchCaseStudy(): ReactElement {
           </CaseStudySection>
         </div>
 
-        <div className="wild-bunch-story-movement wild-bunch-story-movement--determinism" data-story-movement="determinism">
+        <div className="wild-bunch-build-evidence" data-visual-contract="wild-bunch-development-build-preview">
+          <WildBunchTownEvidence />
+        </div>
+
+        <div className="wild-bunch-story-movement wild-bunch-story-movement--determinism" data-story-movement="determinism" data-project-field="constructed-world">
           <CaseStudySection title="Making chance reproducible">
             <div className="wild-bunch-story-movement__lead">
               <p>I treated the seed as the address of a starting world. Randomising it is a first-class player choice. Once chosen, that world can be revisited by tests or by me chasing a bug.</p>
               <p>The seed is UUID-shaped because 128 bits are familiar to store, copy and pass around, but I didn't want 128 bits of arbitrary noise. The v17 codec currently uses 33 of them and deliberately reserves 95. It spends bits on choices that need to survive as part of the world contract, then gets more variation from deterministic policies. Town names, for example, come from shuffling a pool of 40 names rather than assigning an encoded field to every town.</p>
               <p>The map follows the same idea. It starts with Delaunay candidates, takes a minimum spanning tree so every town is connected, adds useful alternate trails, filters awkward parallels and corridors, then repairs cases that would strand a town or leave it under-connected. A compact recipe produces meaningful route distances and more than one way through the map. Every road remains reproducible without being encoded separately.</p>
-              <p>Town layout closes a subtler gap. Dustwell, shown above, is one generated town in this seed's map-world. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay. When the player leaves and returns, it's the same place.</p>
+              <p>Town layout closes a subtler gap. Dustwell, shown above, is the generated town captured for the recorded seed. Every town comes from the world contract, and the chosen entropy policy decides whether salt may vary its layout. Once generated, that layout becomes session state and travels through snapshots and replay. When the player leaves and returns, it's the same place.</p>
               <p><ExternalLink href={graphEvidenceUrl}>Pinned graph-generation evidence</ExternalLink> · <ExternalLink href={persistedWorldEvidenceUrl}>Pinned persisted-world evidence</ExternalLink></p>
             </div>
             <div className="wild-bunch-story-movement__proof wild-bunch-story-movement__proof--determinism">
@@ -69,16 +73,13 @@ export function WildBunchCaseStudy(): ReactElement {
           <CaseStudySection title="A playthrough worth keeping">
             <div className="wild-bunch-story-movement__lead">
               <p>Once the starting world was reproducible, the next question was whether the history inside it should be reproducible too. A final database row can tell me where a player ended up. It can't tell me which actions brought them there, which version of the rules accepted each action, or where two apparently identical sessions first diverged.</p>
-              <p>That's the job I gave event sourcing. A player action becomes a command. GameSession decides whether it's legal and emits a typed fact. Persistence appends that fact to the session's ordered stream. Replaying the facts rebuilds the state. The audit below makes that history inspectable.</p>
+              <p>That's the job I gave event sourcing. A player action becomes a command. GameSession decides whether it's legal and emits a typed fact. Persistence appends that fact to the session's ordered stream. Replaying the facts rebuilds the state. The event-flow model below explains that history; the pinned developer-tooling evidence shows the live audit.</p>
               <p>DDD puts those decisions in GameSession. One live session forms the aggregate boundary around the invariants connecting its player, world, clock, journey, investigation and bounty. CQRS separates commands that may change the session from queries over its projections. The command repository loads and stages the aggregate, read repositories serve the projections, and the Unit of Work commits the staged changes. Onion dependency direction keeps the domain rules independent of HTTP, EF/PostgreSQL and Phaser.</p>
               <p>Each event stream carries a version, so if two commands race, one fails instead of quietly overwriting the other. That choice comes with a bill. Events need stable contracts; old payloads need upcasters; read models need rebuilding; optimistic failures need a retry policy; snapshots must remain disposable shortcuts rather than a second truth.</p>
               <p>I only get to call that exact replay because it's <ExternalLink href="https://github.com/HarleyBartles/wild-bunch/pull/167">falsifiable</ExternalLink>. <ExternalLink href="https://github.com/HarleyBartles/wild-bunch/pull/171">Full-stream equality tests</ExternalLink> rebuild a session from its events and compare the result. If the reconstructed state differs, the architecture hasn't earned the claim.</p>
             </div>
             <div className="wild-bunch-story-movement__proof wild-bunch-story-movement__proof--flow">
               <WildBunchEventFlow />
-            </div>
-            <div className="wild-bunch-story-movement__proof wild-bunch-story-movement__proof--audit">
-              <WildBunchAuditEvidence />
             </div>
             <div className="wild-bunch-story-movement__afterword">
               <p><ExternalLink href={`${sourceRoot}/tests/WildBunch.Integration.Tests/FullReplayEqualityTests.cs`}>Pinned replay-equality evidence</ExternalLink></p>

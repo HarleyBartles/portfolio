@@ -18,10 +18,10 @@ Use this runbook for pull-request workflow and publication proof in this repo.
 ## PR instructions
 
 - Work in an isolated worktree on a task branch.
-- Run `py -3 tools/run.py ci --check` before pushing.
+- Commit normally and use the successful tracked pre-commit hook as the complete local proof for the exact committed tree. Before pushing, verify the branch is clean and still points at that commit; do not rerun the same complete gate.
 - Push the branch and open a **draft** PR into `main` unless direct-main work is explicitly authorized.
 - Keep the PR in draft while iterating and running local validation.
-- Flip to ready for review only after self-review is complete and `py -3 tools/run.py ci --check` passes.
+- Flip to ready for review only after self-review is complete and the latest normal commit passed the tracked hook's complete `ci --check` gate. Run the command manually only when no normal commit follows or when diagnosing the pipeline.
 - The PR body must include publication proof.
 - Use `.github/pull_request_template.md`; do not delete its design, accessibility, performance, factual, custody, or visual-evidence prompts when they apply.
 

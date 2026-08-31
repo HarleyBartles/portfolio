@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react'
-
-const canonicalWorldSeed = '00000000-0000-0000-0000-000000000000'
+import { WildBunchCodecMap } from './WildBunchCodecMap'
 
 export function WildBunchDeterminismFigure(): ReactElement {
   return (
@@ -11,7 +10,7 @@ export function WildBunchDeterminismFigure(): ReactElement {
       <ol>
         <li>
           <h3>Directly packed world contract</h3>
-          <p><code>{canonicalWorldSeed}</code></p>
+          <WildBunchCodecMap />
           <p>At the pinned revision, 33 directly packed UUID bits describe world-owned choices and 95 reserved bits remain outside the current codec.</p>
         </li>
         <li>

@@ -263,8 +263,8 @@ The implementation plan must include:
 - visual review at 1440, 768, 390 and 320 CSS pixels;
 - a Windows-authored visual baseline only if the composition qualifies as a signature route under the existing visual policy;
 - two unchanged screenshot runs after any approved baseline is written;
-- `py -3 tools/run.py ci --apply` after generated source, derivative or mesh changes;
-- a clean staged `py -3 tools/run.py ci --check` before the implementation commit and publication handoff;
+- the owning asset generator after derivative changes and `py -3 tools/run.py mesh --apply` after mesh changes;
+- a normal implementation commit whose tracked hook runs `py -3 tools/run.py ci --check` once before publication handoff;
 - a full rendered-page editorial pass by Sol before the PR leaves draft;
 - exact-head GitHub checks and post-deploy public-route proof before Phase 5 can be marked done.
 

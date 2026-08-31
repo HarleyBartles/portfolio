@@ -23,7 +23,7 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 - Keep in-progress work in draft until the task is actually complete.
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
-- Only publish the PR when all work is done and `py -3 tools/run.py ci --check` has passed so CI is expected to pass.
+- Only publish the PR when all work is done and the latest normal commit has passed the tracked hook's complete `py -3 tools/run.py ci --check` gate, so hosted CI is expected to confirm rather than rediscover local failures.
 - GitHub Actions initializes the pinned public marketplace-source submodule and validates that source, the committed derived skills, provenance, and mesh agree. Do not weaken this check based on the marketplace repository's former private status.
 - For marketplace or derived-skill work, do not publish until the manifest, submodule, derived skills, provenance, and mesh validation all agree.
 - Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.

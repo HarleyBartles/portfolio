@@ -2,7 +2,7 @@ import { getPatchPipeline } from './patchEvidence'
 
 export function PatchProductionFlow() {
   return (
-    <section className="patch-movement patch-production" aria-labelledby="patch-production-flow-title">
+    <section className="patch-movement patch-production" aria-labelledby="patch-production-flow-title" data-project-field="production-evidence">
       <div className="patch-movement__copy case-study-lead">
         <div className="case-study-lead__heading">
           <p className="patch-section-number" aria-hidden="true">04</p>

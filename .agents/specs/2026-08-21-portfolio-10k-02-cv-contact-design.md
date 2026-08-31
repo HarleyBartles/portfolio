@@ -551,11 +551,14 @@ The implementation must add or preserve evidence for:
 - no `mailto:` or `tel:` output; and
 - mocked browser submission with no real external delivery.
 
-Run the staged canonical gate:
+Stage and commit the accepted tree:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
+
+The tracked hook runs the complete `ci --check` gate once. Do not pre-run it.
 
 ### PDF review
 

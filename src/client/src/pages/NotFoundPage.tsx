@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { DocumentMetadata } from '../components/DocumentMetadata'
 import { SiteLayout } from '../components/SiteLayout'
+import '../styles/interior.scss'
 
 export function NotFoundPage(): ReactElement {
   return (

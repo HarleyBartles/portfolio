@@ -12,7 +12,7 @@ Use this runbook for code and writing conventions in the portfolio repo.
 - Follow the existing Python, React, TypeScript, Vite, and SCSS patterns that apply to the files you change.
 - Keep documentation clear and routing surfaces up to date.
 - Regenerate `INDEX.md` files after any structural change.
-- Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.
+- Use focused checks while editing. Let the tracked pre-commit hook run the complete `py -3 tools/run.py ci --check` gate once when the staged change is ready.
 - Avoid new speculative abstractions; keep the repository simple and easy to navigate.
 
 ## See also

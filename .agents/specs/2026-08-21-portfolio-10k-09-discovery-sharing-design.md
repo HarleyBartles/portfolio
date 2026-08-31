@@ -884,11 +884,13 @@ Playwright verifies:
 The implementation plan finishes with the staged tree and:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
 
-When mechanical surfaces change, use `ci --apply`, inspect the diff, stage the
-intended outputs, and rerun `ci --check`. A green check proves repository
+When mechanical surfaces change, use the narrow owning apply target; use umbrella
+`ci --apply` only when this phase changes both SEO output and the mesh. Inspect the diff,
+stage the intended outputs, and commit normally so the hook runs `ci --check` once. A green check proves repository
 consistency only. It does not prove the external activation.
 
 ## Activation and deployed verification

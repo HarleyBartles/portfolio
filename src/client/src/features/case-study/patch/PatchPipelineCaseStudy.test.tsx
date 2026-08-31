@@ -31,6 +31,9 @@ describe('PatchPipelineCaseStudy', () => {
     renderCaseStudy()
 
     const snapshot = screen.getByRole('region', { name: 'Project snapshot' })
+    expect(document.querySelector('[data-project-field="production-evidence"]')).toBeInTheDocument()
+    expect(snapshot).not.toHaveAttribute('data-project-field')
+    expect(document.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     ;['Teaching', 'Production', 'Formats', 'Evidence'].forEach((label) => {
       expect(within(snapshot).getByText(label)).toBeVisible()
     })

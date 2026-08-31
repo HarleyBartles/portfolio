@@ -177,7 +177,7 @@ finding. Do not infer or create a private voice card from repository prose.
 - [ ] **Step 4: Create the admission ledger.** Give every candidate fields for its one-sentence argument, concrete evidence, substance, graph role, completion cost, provisional decision, final Harley decision and rationale. Record Vibe as accepted material and intended lead. Record Why ADRs as required for full drafting and author review, without confusing that requirement with structural admission by code.
 - [ ] **Step 5: Establish source custody.** Record the Marketplace Graph pin, inherited skill-TDD pin, Wild Bunch corroboration, Access Checks public-fact authority and Harley's first-party Barbican/Arch account. For each, record relationship, usage mode, access date, limits and candidate destination.
 - [ ] **Step 6: Run focused checks.** Run `py -3 -m unittest tests.test_portfolio_quality.PortfolioQualityTests -v` and `npm.cmd --prefix src/client test -- src/data/documents.test.ts src/api/contentApi.test.ts`.
-- [ ] **Step 7: Regenerate, stage, inspect and commit.** Run `py -3 tools/run.py ci --apply`, inspect generated changes, stage the Task 1 slice, run `git diff --cached --check`, then commit `feat: define editorial admission and writing contracts`.
+- [ ] **Step 7: Regenerate, stage, inspect and commit.** Run `py -3 tools/run.py mesh --apply`, inspect generated changes, stage the Task 1 slice, run `git diff --cached --check`, then commit `feat: define editorial admission and writing contracts`.
 - [ ] **Step 8: Mark Task 1 complete.** Update this checklist and carry the plan state in Task 2's commit.
 
 ---
@@ -322,7 +322,7 @@ finding. Do not infer or create a private voice card from repository prose.
 - [ ] **Step 7: Update focused Windows baselines.** Capture only the surfaces needed to prove lead treatment, every distinct principal figure and continuation behaviour. Avoid brittle full-page paragraph captures.
 - [ ] **Step 8: Run whole-publication editorial and skeptic passes.** Sol reads the index and all admitted essays in traversal order through the composed `/writing` workflow. Evaluate the admitted corpus against the bundled fatigue profile to expose site-wide density, then judge every finding in context. Check that every sentence pays dues and the publication sounds like Harley rather than a mechanically normalised author. Record how quickly a weary hiring manager reaches conventional engineering proof. Run the principal-architect falsification path and record distance to professional provenance, selective pattern use, a rejected alternative, correction history and a falsifier.
 - [ ] **Step 9: Present Harley's hard final author gate.** Keep the PR draft until Harley has read and approved the complete publication as one body of work. Treat factual, employer-safe, tone, title, admission and authorship notes as load-bearing.
-- [ ] **Step 10: Run canonical validation on a staged tree.** Run `py -3 tools/run.py ci --apply`, stage all intended source and generated files, run `git diff --cached --check`, then `py -3 tools/run.py ci --check`. Diagnose and rerun any test layer that exits without trustworthy evidence.
+- [ ] **Step 10: Prepare the staged tree for its single canonical validation.** Run `py -3 tools/run.py mesh --apply`, inspect and stage all intended source and generated files, and run `git diff --cached --check`. Then commit normally so the tracked hook runs the complete gate once. If it fails, diagnose and rerun only the untrustworthy or repaired layer before retrying the commit.
 - [ ] **Step 11: Run completion review.** Use `/handoff-gates` completion-readiness and `/iterative-review` with writing, frontend, accessibility and source-custody lenses. Resolve all important findings, make the PR body readable and wait for hosted checks on the exact head.
 - [ ] **Step 12: Commit and close the roadmap record.** Commit `feat: finish the writing authority publication`. After merge proof, move this plan to `.agents/plans/completed/`, record exact commit, PR, rating and hosted run in the roadmap, then use `/finishing-a-development-branch` for cleanup.
 - [ ] **Step 13: Mark Task 6 complete.** No unchecked plan item may be hidden behind a green reviewer or CI result.
@@ -332,10 +332,10 @@ finding. Do not infer or create a private voice card from repository prose.
 Focused checks are named within each task. Final evidence must include:
 
 ```powershell
-py -3 tools/run.py ci --apply
+py -3 tools/run.py mesh --apply
 git add --all
 git diff --cached --check
-py -3 tools/run.py ci --check
+git commit -m "feat: finish the writing authority publication"
 ```
 
 Retain alongside the canonical gate:

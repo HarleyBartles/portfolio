@@ -21,11 +21,11 @@ export function HomePage(): ReactElement {
   const navigationQuery = useQuery(contentQueries.navigation())
 
   if (navigationQuery.isLoading) {
-    return <SiteLayout><LoadingPage shell={false} /></SiteLayout>
+    return <SiteLayout surface="home"><LoadingPage shell={false} /></SiteLayout>
   }
 
   if (navigationQuery.isError) {
-    return <SiteLayout><ErrorPage shell={false} /></SiteLayout>
+    return <SiteLayout surface="home"><ErrorPage shell={false} /></SiteLayout>
   }
 
   const items = navigationQuery.data ?? []
@@ -38,7 +38,7 @@ export function HomePage(): ReactElement {
   const recentWriting = writing.slice(1, 4)
 
   return (
-    <SiteLayout>
+    <SiteLayout surface="home">
       <DocumentMetadata
         title="Harley Bartles | Full-stack software engineer"
         description="Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations."

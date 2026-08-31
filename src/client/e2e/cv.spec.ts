@@ -40,7 +40,11 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
   ))
   expect(pageRegions).toEqual(['1', '2'])
   await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
-  await expect(page.getByRole('link', { name: 'Download PDF' })).toHaveAttribute('href', '/harley-bartles-cv.pdf')
+  const pdfLinks = page.getByRole('link', { name: 'Download PDF' })
+  await expect(pdfLinks).toHaveCount(2)
+  for (const pdfLink of await pdfLinks.all()) {
+    await expect(pdfLink).toHaveAttribute('href', '/harley-bartles-cv.pdf')
+  }
 
   const pdfResponse = await page.request.get('harley-bartles-cv.pdf')
   expect(pdfResponse.ok()).toBe(true)

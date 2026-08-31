@@ -84,7 +84,7 @@ Skills are unprefixed unless they are a repo-specific override of a marketplace 
 - Every skill has a `SKILL.md` and the `assets/authority/` / `references/` structure used by `writing-with-clarity`.
 - Every vendored source has a `CITATIONS.md` and compatible license.
   - Exception: If a source has no stated license, it may be vendored with attribution and a recorded user acceptance when the source is otherwise public and the user explicitly approves.
-- `py -3 tools/run.py ci --check` passes.
+- The normal commit's tracked hook passes its complete `ci --check` gate.
 
 ## Phase 2: Subagent profiles
 
@@ -166,7 +166,7 @@ This is the enforcement layer. Without it, the skills and runbooks are just poli
 
 ## Validation bundle
 
-- `py -3 tools/run.py ci --check` passes.
+- The normal commit's tracked hook passes its complete `ci --check` gate.
 - `py -3 .agents/skills/repo-standards/scripts/repo_standards.py --check` passes.
 - `py -3 .agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py --check` passes.
 - New or changed skills have the `SKILL.md` + `assets/authority/` + `references/` structure.

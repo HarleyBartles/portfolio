@@ -1111,11 +1111,13 @@ under review. A stable snapshot must not weaken real-session variety.
 The implementation plan finishes with:
 
 ```powershell
-py -3 tools/run.py ci --check
+git add --all
+git commit
 ```
 
-If mechanical surfaces change, use `ci --apply` as directed by the repository,
-inspect the resulting diff, then rerun `ci --check`.
+If mechanical surfaces change, use the narrow owning apply target named by the
+repository, inspect and stage the resulting diff, then commit normally. The tracked hook
+runs the complete `ci --check` gate once.
 
 Do not describe a successful canonical check as proof of manual ten-second
 comprehension, complete visual quality, or independent review.

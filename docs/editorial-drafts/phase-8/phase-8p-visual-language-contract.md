@@ -60,6 +60,10 @@ Patch contributes controlled teal, calm competence, bounded workflow, readable h
 
 Wild Bunch contributes earth colour, spatial modularity and constructed-world structure. It does not make the portfolio Western-themed. Development placeholders such as the current yellow marker and olive trail-head blocks are not palette authority.
 
+The shared quiet classification token is **evidence-group secondary `#B8C2AD`**. It may distinguish one subordinate logical group inside a bounded evidence diagram when project-native colour would be too dominant or would falsely imply project palette authority. It is not a site accent, status colour, project identity colour or recurring component treatment. Its use must remain local to the evidence relationship it clarifies and retain sufficient contrast against that evidence surface.
+
+Harley accepted this bounded shared token on 31 August 2026 after rejecting the provisional Wild Bunch map green: that green belonged to a development surface rather than the project's intended visual identity. The token therefore records a deliberate cross-site evidence-classification role, not a colour extracted from temporary project UI and not permission to extend it beyond subordinate logical grouping.
+
 ## Spatial grammar
 
 **The rectilinear grid is the grammar. Alignment is the default.**

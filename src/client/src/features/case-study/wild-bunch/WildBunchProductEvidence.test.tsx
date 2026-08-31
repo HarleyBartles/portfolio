@@ -9,18 +9,17 @@ describe('Wild Bunch product evidence contract', () => {
     render(<MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}><WildBunchCaseStudy /></MemoryRouter>)
 
     const trail = screen.getByRole('figure', { name: 'Generated trail-map development-build evidence' })
-    const audit = screen.getByRole('figure', { name: 'Session-audit development-build evidence' })
+    const town = screen.getByRole('figure', { name: 'Dustwell town-hub development-build evidence' })
     const wanted = screen.getByRole('figure', { name: 'Wanted-notice development-build evidence' })
     const caseFile = screen.getByRole('figure', { name: 'Case-file development-build evidence' })
     const captures = [
-      { evidence: trail, name: 'trail-map', compact: { width: 720, height: 550 }, wide: { width: 1200, height: 917 } },
-      { evidence: audit, name: 'session-audit', compact: { width: 720, height: 550 }, wide: { width: 1200, height: 917 } },
-      { evidence: wanted, name: 'wanted-notice', compact: { width: 640, height: 489 }, wide: { width: 960, height: 733 } },
+      { evidence: town, name: 'dustwell-town-hub-focus', compact: { width: 640, height: 400 }, wide: { width: 800, height: 500 } },
+      { evidence: trail, name: 'trail-map-focus', compact: { width: 480, height: 472 }, wide: { width: 600, height: 590 } },
+      { evidence: wanted, name: 'wanted-notice-focus', compact: { width: 472, height: 479 }, wide: { width: 590, height: 599 } },
       { evidence: caseFile, name: 'case-file', compact: { width: 640, height: 489 }, wide: { width: 960, height: 733 } },
     ]
 
-    expect(screen.queryByRole('figure', { name: 'Dustwell town development-build evidence' })).not.toBeInTheDocument()
-    expect(screen.getAllByRole('img')).toHaveLength(4)
+    expect(screen.queryByRole('figure', { name: 'Session-audit development-build evidence' })).not.toBeInTheDocument()
 
     for (const { evidence, name, compact, wide } of captures) {
       const image = within(evidence).getByRole('img')
@@ -38,7 +37,7 @@ describe('Wild Bunch product evidence contract', () => {
     }
 
     expect(within(trail).getByText('The generated topology and travel distances are visible before the player chooses a town.')).toBeVisible()
-    expect(within(audit).getByText(/typed events in order/i)).toBeVisible()
+    expect(within(town).getByText(/Current playable build: Dustwell is the generated town captured for the recorded seed/i)).toBeVisible()
     expect(within(wanted).getByText(/player-safe knowledge/i)).toBeVisible()
     expect(within(caseFile).getByText(/player-safe knowledge/i)).toBeVisible()
   })
@@ -50,9 +49,9 @@ describe('Wild Bunch product evidence contract', () => {
     if (typeof candidate !== 'function') return
 
     const derivatives = [
-      { name: 'trail-map', compactWidth: 720, wideWidth: 1200 },
-      { name: 'session-audit', compactWidth: 720, wideWidth: 1200 },
-      { name: 'wanted-notice', compactWidth: 640, wideWidth: 960 },
+      { name: 'dustwell-town-hub-focus', compactWidth: 640, wideWidth: 800 },
+      { name: 'trail-map-focus', compactWidth: 480, wideWidth: 600 },
+      { name: 'wanted-notice-focus', compactWidth: 472, wideWidth: 590 },
       { name: 'case-file', compactWidth: 640, wideWidth: 960 },
     ]
 

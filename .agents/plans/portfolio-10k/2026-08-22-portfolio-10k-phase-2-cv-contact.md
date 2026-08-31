@@ -23,7 +23,7 @@
 - Add `/cv` to each existing route authority directly; do not introduce a route-registry refactor in this phase.
 - Keep `/cv` out of primary navigation, link it from About, and keep a useful HTML route when PDF download or browser print is unavailable.
 - Before completion, inspect HTML at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and actual 200% browser zoom. Render and inspect both generated PDF pages.
-- Run focused tests during each task. Run `py -3 tools/run.py ci --check` once on the final staged tree before commit; do not bypass pre-commit.
+- Run focused tests during each task. On the final staged tree, commit normally and let the tracked pre-commit hook run `py -3 tools/run.py ci --check` once; do not pre-run or bypass it.
 
 ## Planning Evidence and Drift Table
 
@@ -351,15 +351,15 @@
 
   Expected: the mesh is current and marketplace-derived skills remain unchanged from the pinned main tip.
 
-- [ ] **Step 2: Stage the final tree and run the canonical gate once.**
+- [ ] **Step 2: Stage and commit the final tree once.**
 
   Run: `git add --all`
 
   Run: `git diff --cached --check`
 
-  Run: `py -3 tools/run.py ci --check`
+  Run: commit normally and observe the tracked hook's complete `ci --check` gate
 
-  Expected: the staged tree has no whitespace errors; canonical CI verifies Python checks, Vitest, production build/PDF, and Playwright journeys. Do not rerun this broad gate without a subsequent source change.
+  Expected: the staged tree has no whitespace errors; the normal commit hook verifies Python checks, Vitest, production build/PDF, and Playwright journeys once. Do not pre-run or immediately repeat this broad gate.
 
 - [ ] **Step 3: Self-review against the approved spec and policy.** Inspect the staged diff and map every acceptance outcome to an implementation/test/manual-review receipt. Explicitly check absence of private contact literals, salary, acting, title inflation, unknown Access facts, new dependencies, SDKs, backends, telemetry, manually stored PDFs, and primary-navigation `/cv` links. Record the actual evidence scope and all limitations; a clean CI result alone is not proof-grade completion.
 
@@ -378,7 +378,7 @@
 - `/cv` routing, metadata, static documents, sitemap/link/public-route contracts, and no primary-navigation addition are covered by Tasks 3 and 4.
 - Generated two-A4-page PDF, build ordering, cleanup, signature/size checks, production artifact rebuild, and print treatment are covered by Task 5.
 - Required browser, axe, visual, keyboard, reduced-motion, 320/200%, and PDF visual review are covered by Task 6.
-- Final staged canonical validation, self-review, PR/hosted proof, roadmap truth, and external activation disclosure are covered by Task 7.
+- Final hooked validation, self-review, PR/hosted proof, roadmap truth, and external activation disclosure are covered by Task 7.
 
 ### Dependency and scope review
 
