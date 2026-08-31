@@ -187,6 +187,18 @@ The homepage sequence is:
 
 The rhythm is intentional: engineering -> agentic -> engineering -> variable authored judgement -> agentic storytelling. Marketplace is allowed to create the momentary narrow hypothesis before Wild Bunch tears it down. The opening must therefore establish professional engineering credibility without spending the agentic reveal early.
 
+## Settled Marketplace homepage lead
+
+The Marketplace movement leads with **Superpowers+**, not the Marketplace inventory as a whole and not `mcp-usage-pack`.
+
+The public story is adaptation under use: Harley adopted a strong open-source workflow system, used it seriously enough to discover where his own working model diverged, then changed, extended and now maintains a first-party derivative around those observed needs. The homepage must preserve the upstream `obra/superpowers` lineage and MIT provenance rather than implying that Harley originated Superpowers itself.
+
+The strongest source-owned proof is the difference between upstream workflow behaviour and the maintained Superpowers+ system. Useful examples include the first-turn/router and staged composition model, explicit roadmap and plan-lifecycle handling, execution-strategy choices, and the first-party `handoff-gates` addition that tests whether an artifact is actually ready for the next worker rather than accepting the producer's declaration of completion.
+
+The homepage should therefore prefer a **lineage / before-and-after evidence composition** over a generic Marketplace topology or plugin-count display. Exact art direction remains open: the room still needs to decide whether one modification such as Handoff Gates should be the dominant worked example with the wider derivative visible around it, or whether several modifications should share the visual field.
+
+`mcp-usage-pack` remains a strong deeper Marketplace story: shipping a tool and shipping usable operating guidance around a rich tool surface are different things. It should remain available in the full Marketplace case study, but it is not the homepage lead. Keeping it subordinate also avoids making the fixed Marketplace movement unnecessarily duplicate the argument of `Provisioning is not accumulation` when that article appears in the Writing slot.
+
 ## Current decision under discussion
 
-Continue from the settled sequence into the exact art direction and responsive/motion contract for each major movement, then rewrite and accept the compatibility matrix on the corrected co-selection meaning.
+Choose the exact Superpowers+ evidence composition for the Marketplace movement, then continue through the art direction and responsive/motion contract for the remaining major movements and rewrite/accept the compatibility matrix on the corrected co-selection meaning.
