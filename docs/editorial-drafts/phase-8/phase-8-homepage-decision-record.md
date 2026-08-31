@@ -24,6 +24,43 @@ This creates an intentional progression: authoritative front matter first, then 
 
 The first fold still inherits the already settled deferred content contract: Harley Bartles; full-stack software engineer; `5 years at The Access Group`; one bounded consequence-bearing signal of responsibility beyond straightforward implementation; professional proof reachable through About and technical/editorial proof directly reachable without About as mandatory transit.
 
+## Settled feature-admission principles
+
+Homepage space is scarce. Material earns it by changing the reader's model of Harley in a way the other admitted material does not, and by supplying specific source-owned substance worth composing around. Being recent, good, important, or one of the flagship projects is not enough by itself.
+
+### Writing
+
+Do **not** permanently promote one canonical article to the homepage. The writing corpus should be strong enough that any suitable published article can represent it.
+
+The homepage may contain one prominent writing movement/slot, but article **eligibility** is editorial rather than date-driven. A published article is eligible when its argument adds a distinct dimension to the current homepage composition. It is ineligible for that composition when it substantially duplicates evidence or a proposition already carried elsewhere on the homepage.
+
+`Latest` or `recent` is not an admission rule. Recency may help break a tie or refresh a rotation, but the homepage must not become a writing feed. The exact selection/rotation mechanism remains to be settled; it must not make completeness or truthful navigation depend on chance.
+
+### Patch
+
+Patch gets a homepage opportunity because it changes expressive register and demonstrates another way of making engineering ideas inspectable and memorable.
+
+Do not equate content-manifest maturity labels such as `visual development` or `advanced visual pre-production` with an unfinished public portfolio surface. The deployed Identity Emporium, Tournament of Reasonable Defaults and Lawful Heist routes are substantial authored experiences on this site. Their source-project state may remain accurately labelled while the portfolio pages themselves are eligible homepage material.
+
+Lawful Heist is especially strong as a composed public route, but no Patch adventure is permanently entitled to the slot merely because it is currently strongest. Patch admission should be based on the same rule as writing: the chosen adventure must add something distinct to the homepage composition and earn the visual/copy space it occupies.
+
+### Projects
+
+Agent Asset Marketplace and Wild Bunch remain strong homepage candidates because they demonstrate materially different engineering territory and provide specific inspectable evidence.
+
+Agentic Learning Lab does **not** need explicit homepage representation. Its leadership/teaching value remains discoverable through Projects; adding it to `/` does not currently win enough distinct homepage work to justify another movement.
+
+Adventures of Patch as an engineering case study does not automatically need separate homepage representation if a Patch adventure already carries that expressive territory. The deeper production-system story remains discoverable through Projects/Patch.
+
+### Explicit exclusions
+
+- no complete four-project deck merely for representativeness;
+- no recent-writing feed;
+- no principle/virtue cards;
+- no technology/logo wall;
+- no duplicated homepage mini-index of routes already owned by primary navigation;
+- no feature whose only justification is that a conventional portfolio usually has that section.
+
 ## Current decision under discussion
 
-Feature admission: what earns scarce homepage space after the first fold, what is represented only by a route-level doorway, and what is explicitly excluded because it duplicates stronger evidence, turns the homepage into an index/feed, or exists only to fill a conventional portfolio section.
+The remaining admission question is not `which article or Patch page wins forever?` but how the homepage chooses from an eligible writing/Patch pool without becoming random theatre, a recency feed, or a composition whose meaning changes incoherently between visits.
