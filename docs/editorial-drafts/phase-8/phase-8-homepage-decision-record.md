@@ -89,6 +89,68 @@ Pairings must be designed and recorded deliberately. Before implementation hando
 
 The proof is editorial, not algorithmic. Selection code may choose among pre-approved pairs, but it must not manufacture pairings from tags, keyword similarity, recency or random independent choice.
 
+## Settled publishing-time pairing contract
+
+Pairing is part of the **publishing contract**, not a one-off Phase 8 curation exercise. The initial matrix proves the current corpus; the durable system must keep future writing and Patch additions capable of entering the homepage without redesigning `/` or relying on an agent to improvise a match at runtime.
+
+A homepage pair is a first-class editorial record. Runtime code consumes approved records; it does not infer editorial compatibility.
+
+### When a new article is published
+
+The article's normal editorial-admission and publication work must include a homepage-pairing decision before its public manifest activation is considered complete.
+
+The decision has two legitimate outcomes:
+
+1. **Homepage-eligible:** the article has at least one approved pairing with a currently eligible Patch adventure. Each pairing carries the proof fields defined above.
+2. **Homepage-ineligible for the current composition:** the article is still publishable, but the record names the concrete collision that prevents homepage use, normally duplication with the first-fold professional claim, Marketplace, Wild Bunch, or another fixed homepage job. This is a composition judgement, not a quality downgrade, and must be reconsidered if the fixed homepage evidence later changes materially.
+
+Missing pairing review is not a third state. A newly published article must not silently become `not considered for home` simply because nobody updated the homepage registry.
+
+The default expectation is eligibility. The portfolio should have enough confidence in an admitted article to put it on the front page; exclusion therefore requires a specific current-composition reason rather than a vague quality judgement.
+
+### When a new Patch adventure is published
+
+Its publication work must perform the inverse review against the current homepage-eligible writing corpus.
+
+Add every genuinely strong new article/adventure pairing that creates a useful homepage edit. Do not manufacture coverage merely so the new Patch page participates. If no current article pairing survives the editorial test, record `no current homepage pair` and why; that does not block publication of the Patch adventure itself.
+
+A Patch adventure may pair with many articles, one article may pair with several Patch adventures, and the same Patch adventure may legitimately recur across different article pairings when the editorial rationale is different. Pair-count symmetry is not a goal.
+
+### Registry requirements
+
+The durable pair registry must be source-controlled, human-readable and reviewable beside the publishing change. Its production representation may be chosen by local Sol, but the editorial data for each active pair must preserve at least:
+
+- article slug;
+- Patch slug;
+- relationship/rationale;
+- distinct contribution to the homepage;
+- collision check against the fixed homepage evidence;
+- intended editorial/visual handoff; and
+- active/retired state or equivalent history-preserving treatment when a pair stops being valid.
+
+Objective validation should prove structural facts only: active pair records resolve to published routes; every homepage-eligible article has at least one active approved pair; no runtime state can manufacture an unapproved pair; and deleted/withdrawn routes cannot remain selectable. Tests must not pretend to prove the quality of the editorial rationale.
+
+### Selection fairness
+
+The number of valid Patch partners an article has must **not** accidentally determine how often that article appears. Adding a second excellent pairing is editorial richness, not a request to double that article's homepage exposure.
+
+The eventual selection mechanic should therefore select an eligible **article** on the intended session-stable basis and then resolve one of that article's approved Patch pairings, or use an equivalent weighting that normalises by article. Raw uniform sampling across pair records is rejected because pair cardinality would become an accidental promotion algorithm.
+
+Likewise, Patch coverage is not a fairness target. The homepage is an authored edit, not a rotation quota. The complete Patch and Writing routes remain the authoritative collections.
+
+### Re-review triggers
+
+Affected pair records must be re-reviewed when:
+
+- an article's governing argument materially changes;
+- a Patch adventure's operative lesson or public composition materially changes;
+- the first-fold proposition changes;
+- Marketplace or Wild Bunch stops carrying its current fixed homepage job;
+- another fixed homepage movement is added or removed; or
+- an underlying article/Patch route is withdrawn.
+
+A new article or Patch adventure does **not** require re-litigating every existing pair. Review the new material against the current corpus and revisit existing records only where the new work creates an obvious duplication, stronger replacement or contradiction.
+
 ## Current decision under discussion
 
-The next job is to inspect the full writing corpus and eligible Patch adventures, derive the finite pairing set from their actual arguments and lessons, and reject combinations that are redundant, narrow the homepage or have only superficial affinity.
+Build the initial current-corpus pairing matrix under this publishing contract, then settle the session-stable selection behaviour and the actual homepage movement that presents the pair.
