@@ -61,50 +61,38 @@ Adventures of Patch as an engineering case study does not automatically need sep
 - no duplicated homepage mini-index of routes already owned by primary navigation;
 - no feature whose only justification is that a conventional portfolio usually has that section.
 
-## Settled paired-selection rule
+## Settled Writing/Patch co-selection rule
 
-Writing and Patch do **not** vary independently. They are selected as a deliberately authored pair from an editorially eligible pool.
+Writing and Patch are **separate editorial pieces**. The homepage must not present an article and a Patch adventure as a conceptual double-act, matching illustration, companion piece or `this goes with that` feature.
 
-The pair is a homepage edit, not two random draws. The relationship must be explicit enough that Cloud can explain why the two pieces belong together in this composition and why the pairing improves the page compared with either an arbitrary alternative or a thematically redundant match.
+Their relationship exists at the **edition-selection layer**, not as a visitor-facing content relationship. The purpose of co-selection is to stop one homepage edition from spending two scarce movements on substantially the same argument, failure mode or engineering judgement.
 
-A valid pair should normally do at least two of these jobs:
+A valid Writing/Patch combination therefore needs to prove primarily that the two pieces can coexist without editorial cannibalisation. Useful contrast or complementarity is welcome, but the site does not owe the visitor an explanation of why they were selected together.
 
-- create useful contrast in engineering subject, scale, tone or mode of explanation;
-- reveal the same underlying judgement from materially different angles without merely restating it;
-- let one piece supply conceptual seriousness while the other supplies a memorable visual or narrative analogue;
-- widen the reader's model of Harley rather than making the homepage feel narrower around one topic;
-- create a stronger editorial transition between surrounding homepage movements than either candidate would create alone.
+The Writing movement should remain recognisably authored writing and the Patch movement should remain recognisably Patch. They may be separated by other homepage material. Their layout, motion and transitions should be designed for their own jobs and for the whole-page sequence, not around a pair-specific metaphor.
 
-A pair fails when the rationale can only be expressed as `both are about agents`, `both are good`, `both are recent`, `the colours work together`, or another superficial similarity. It also fails when both pieces make substantially the same point already proved by each other or by the fixed homepage material.
+A combination fails when the article and Patch adventure substantially duplicate one another or collectively over-concentrate the edition around a proposition already carried by the opening, Marketplace, Wild Bunch or another fixed homepage movement.
 
-Pairings must be designed and recorded deliberately. Before implementation handoff, build a finite candidate-pair record from the actual published writing and eligible Patch adventures. For each accepted pair, preserve:
+A combination does **not** fail merely because its relationship cannot be expressed as a clever thematic sentence. The premium behaviour is considered editorial breadth, not visible matchmaking.
 
-1. the writing argument in one sentence;
-2. the Patch adventure's operative lesson in one sentence;
-3. the relationship between them;
-4. what new dimension the pair adds to the fixed homepage evidence;
-5. why the pair is not redundant with Marketplace, Wild Bunch or the first-fold professional claim;
-6. the visual/editorial handoff the pair enables in the homepage sequence; and
-7. at least one plausible rejected pairing and why it is weaker.
+The existing `phase-8-homepage-pairing-matrix.md` should therefore be read as a **co-selection compatibility record**. Its current `why they belong together` language is provisional design-room evidence from before this clarification and must be rewritten before implementation handoff so that it proves non-duplication and edition balance rather than prescribing a public relationship.
 
-The proof is editorial, not algorithmic. Selection code may choose among pre-approved pairs, but it must not manufacture pairings from tags, keyword similarity, recency or random independent choice.
+## Settled publishing-time co-selection contract
 
-## Settled publishing-time pairing contract
+Co-selection review is part of the **publishing contract**, not a one-off Phase 8 curation exercise. The initial compatibility matrix proves the current corpus; the durable system must keep future writing and Patch additions capable of entering the homepage without redesigning `/` or relying on runtime semantic matching.
 
-Pairing is part of the **publishing contract**, not a one-off Phase 8 curation exercise. The initial matrix proves the current corpus; the durable system must keep future writing and Patch additions capable of entering the homepage without redesigning `/` or relying on an agent to improvise a match at runtime.
-
-A homepage pair is a first-class editorial record. Runtime code consumes approved records; it does not infer editorial compatibility.
+A homepage compatibility record is first-class editorial state. Runtime code consumes approved compatibility; it does not infer it from tags, keywords, embeddings, recency or generated prose.
 
 ### When a new article is published
 
-The article's normal editorial-admission and publication work must include a homepage-pairing decision before its public manifest activation is considered complete.
+The article's normal editorial-admission and publication work must include a homepage compatibility decision before its public manifest activation is considered complete.
 
 The decision has two legitimate outcomes:
 
-1. **Homepage-eligible:** the article has at least one approved pairing with a currently eligible Patch adventure. Each pairing carries the proof fields defined above.
+1. **Homepage-eligible:** the article has at least one currently eligible Patch adventure with which it can share an edition without duplicating the homepage's existing argument/evidence jobs.
 2. **Homepage-ineligible for the current composition:** the article is still publishable, but the record names the concrete collision that prevents homepage use, normally duplication with the first-fold professional claim, Marketplace, Wild Bunch, or another fixed homepage job. This is a composition judgement, not a quality downgrade, and must be reconsidered if the fixed homepage evidence later changes materially.
 
-Missing pairing review is not a third state. A newly published article must not silently become `not considered for home` simply because nobody updated the homepage registry.
+Missing compatibility review is not a third state. A newly published article must not silently become `not considered for home` simply because nobody updated the homepage registry.
 
 The default expectation is eligibility. The portfolio should have enough confidence in an admitted article to put it on the front page; exclusion therefore requires a specific current-composition reason rather than a vague quality judgement.
 
@@ -112,29 +100,30 @@ The default expectation is eligibility. The portfolio should have enough confide
 
 Its publication work must perform the inverse review against the current homepage-eligible writing corpus.
 
-Add every genuinely strong new article/adventure pairing that creates a useful homepage edit. Do not manufacture coverage merely so the new Patch page participates. If no current article pairing survives the editorial test, record `no current homepage pair` and why; that does not block publication of the Patch adventure itself.
+Record every article/adventure combination that can share an edition without creating argument duplication or an unbalanced concentration of one idea. Do not manufacture coverage merely so the new Patch page participates. If no current article combination survives the editorial test, record `no current homepage compatibility` and why; that does not block publication of the Patch adventure itself.
 
-A Patch adventure may pair with many articles, one article may pair with several Patch adventures, and the same Patch adventure may legitimately recur across different article pairings when the editorial rationale is different. Pair-count symmetry is not a goal.
+A Patch adventure may be compatible with many articles, one article may be compatible with several Patch adventures, and the same Patch adventure may legitimately recur across different article editions. Compatibility-count symmetry is not a goal.
 
 ### Registry requirements
 
-The durable pair registry must be source-controlled, human-readable and reviewable beside the publishing change. Its production representation may be chosen by local Sol, but the editorial data for each active pair must preserve at least:
+The durable compatibility registry must be source-controlled, human-readable and reviewable beside the publishing change. Its production representation may be chosen by local Sol, but the editorial data for each active combination must preserve at least:
 
 - article slug;
 - Patch slug;
-- relationship/rationale;
-- distinct contribution to the homepage;
-- collision check against the fixed homepage evidence;
-- intended editorial/visual handoff; and
-- active/retired state or equivalent history-preserving treatment when a pair stops being valid.
+- compatibility/non-duplication rationale;
+- distinct contribution each piece makes to the homepage edition;
+- collision check against the fixed homepage evidence; and
+- active/retired state or equivalent history-preserving treatment when a combination stops being valid.
 
-Objective validation should prove structural facts only: active pair records resolve to published routes; every homepage-eligible article has at least one active approved pair; no runtime state can manufacture an unapproved pair; and deleted/withdrawn routes cannot remain selectable. Tests must not pretend to prove the quality of the editorial rationale.
+A pair-specific visual handoff is **not** required editorial data. Any transition treatment belongs to homepage composition design, not to the compatibility registry.
+
+Objective validation should prove structural facts only: active compatibility records resolve to published routes; every homepage-eligible article has at least one active compatible Patch option; no runtime state can manufacture an unapproved combination; and deleted/withdrawn routes cannot remain selectable. Tests must not pretend to prove the quality of the editorial judgement.
 
 ### Selection fairness
 
-The number of valid Patch partners an article has must **not** accidentally determine how often that article appears. Adding a second excellent pairing is editorial richness, not a request to double that article's homepage exposure.
+The number of compatible Patch options an article has must **not** accidentally determine how often that article appears. Adding another compatible adventure is editorial flexibility, not a request to increase that article's homepage exposure.
 
-Selection therefore normalises by article. The edition chooses an eligible **article** first and then resolves one of that article's approved Patch pairings, or uses an equivalent deterministic schedule with the same weighting property. Raw uniform sampling across pair records is rejected because pair cardinality would become an accidental promotion algorithm.
+Selection therefore normalises by article. The edition chooses an eligible **article** first and then resolves one compatible Patch adventure, or uses an equivalent deterministic schedule with the same weighting property. Raw uniform sampling across compatibility records is rejected because compatibility cardinality would become an accidental promotion algorithm.
 
 Likewise, Patch coverage is not a fairness target. The homepage is an authored edit, not a rotation quota. The complete Patch and Writing routes remain the authoritative collections.
 
@@ -142,11 +131,11 @@ Likewise, Patch coverage is not a fairness target. The homepage is an authored e
 
 The homepage uses a **canonical site-wide edition**, not a visitor-specific or session-specific shuffle.
 
-At any given time, everybody should receive the same approved Writing/Patch edit. A refresh does not reroll it. Sending another person the homepage should mean sending the same current composition, not merely the same selection mechanism.
+At any given time, everybody should receive the same approved Writing and Patch selections. A refresh does not reroll them. Sending another person the homepage should mean sending the same current composition, not merely the same selection mechanism.
 
 The edition changes quietly over time. The selection machinery is not exposed as a feature: no shuffle button, `today's edition` badge, rotation counter or explanatory copy is required. Variation is an editorial property of the publication, not visitor-facing theatre.
 
-The intended cadence is **daily** unless implementation evidence exposes a concrete reason to choose another bounded interval. The schedule should cycle through eligible articles without repeating one until the current eligible article set has had its turn. When an article has several approved Patch partners, later appearances of that article may use another approved partner; extra pairings broaden that article's possible editions without increasing its frequency.
+The intended cadence is **daily** unless implementation evidence exposes a concrete reason to choose another bounded interval. The schedule should cycle through eligible articles without repeating one until the current eligible article set has had its turn. When an article has several compatible Patch options, later appearances of that article may use another compatible option; extra compatibility broadens possible editions without increasing article frequency.
 
 The schedule must be deterministic from shared site state such as the date/edition key and the source-controlled approved registry. It must not depend on per-visitor storage, request-time randomness, client hydration timing or an unstable ordering of manifest data.
 
@@ -154,7 +143,7 @@ This choice is deliberately more publication-like than personalisation. The home
 
 ### Re-review triggers
 
-Affected pair records must be re-reviewed when:
+Affected compatibility records must be re-reviewed when:
 
 - an article's governing argument materially changes;
 - a Patch adventure's operative lesson or public composition materially changes;
@@ -163,16 +152,16 @@ Affected pair records must be re-reviewed when:
 - another fixed homepage movement is added or removed; or
 - an underlying article/Patch route is withdrawn.
 
-A new article or Patch adventure does **not** require re-litigating every existing pair. Review the new material against the current corpus and revisit existing records only where the new work creates an obvious duplication, stronger replacement or contradiction.
+A new article or Patch adventure does **not** require re-litigating every existing combination. Review the new material against the current corpus and revisit existing records only where the new work creates an obvious duplication, stronger replacement or contradiction.
 
-## Initial current-corpus matrix
+## Initial current-corpus compatibility matrix
 
-The proposed current-corpus pair set is recorded separately in `phase-8-homepage-pairing-matrix.md` so the room can review the actual relationships without turning this governing record into a large catalogue.
+The proposed current-corpus combinations are recorded separately in `phase-8-homepage-pairing-matrix.md` so the room can review the actual relationships without turning this governing record into a large catalogue.
 
 Harley has accepted the current-composition exclusion of `"I just write the code" is not a full sentence`: its governing argument collides with the first fold's professional-responsibility job, so spending the Writing movement on it would duplicate the opening. This is explicitly composition-specific and must be re-reviewed if the first fold's job changes.
 
-The remaining candidate pairs are still subject to Harley acceptance as editorial relationships. Goldilocks remains deliberately without an active pair in the proposed matrix rather than manufacturing Patch rotation coverage.
+The matrix itself now needs a semantic rewrite before approval: preserve useful non-duplication evidence, but remove the implication that each article and Patch adventure should be presented as companions or joined by a bespoke transition. Goldilocks may still remain without an active compatible combination if its obvious current combinations are genuinely duplicative; Patch coverage remains non-goal.
 
 ## Current decision under discussion
 
-Settle the actual homepage movement that presents the selected Writing/Patch pair and continue pair-by-pair editorial acceptance while the composition is being proved.
+Design the Writing movement and the Patch movement as autonomous homepage editorial pieces within the whole-page sequence, then rewrite and accept the compatibility matrix on the corrected co-selection meaning.
