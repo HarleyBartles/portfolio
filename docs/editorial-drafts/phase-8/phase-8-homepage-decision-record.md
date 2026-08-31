@@ -61,6 +61,34 @@ Adventures of Patch as an engineering case study does not automatically need sep
 - no duplicated homepage mini-index of routes already owned by primary navigation;
 - no feature whose only justification is that a conventional portfolio usually has that section.
 
+## Settled paired-selection rule
+
+Writing and Patch do **not** vary independently. They are selected as a deliberately authored pair from an editorially eligible pool.
+
+The pair is a homepage edit, not two random draws. The relationship must be explicit enough that Cloud can explain why the two pieces belong together in this composition and why the pairing improves the page compared with either an arbitrary alternative or a thematically redundant match.
+
+A valid pair should normally do at least two of these jobs:
+
+- create useful contrast in engineering subject, scale, tone or mode of explanation;
+- reveal the same underlying judgement from materially different angles without merely restating it;
+- let one piece supply conceptual seriousness while the other supplies a memorable visual or narrative analogue;
+- widen the reader's model of Harley rather than making the homepage feel narrower around one topic;
+- create a stronger editorial transition between surrounding homepage movements than either candidate would create alone.
+
+A pair fails when the rationale can only be expressed as `both are about agents`, `both are good`, `both are recent`, `the colours work together`, or another superficial similarity. It also fails when both pieces make substantially the same point already proved by each other or by the fixed homepage material.
+
+Pairings must be designed and recorded deliberately. Before implementation handoff, build a finite candidate-pair record from the actual published writing and eligible Patch adventures. For each accepted pair, preserve:
+
+1. the writing argument in one sentence;
+2. the Patch adventure's operative lesson in one sentence;
+3. the relationship between them;
+4. what new dimension the pair adds to the fixed homepage evidence;
+5. why the pair is not redundant with Marketplace, Wild Bunch or the first-fold professional claim;
+6. the visual/editorial handoff the pair enables in the homepage sequence; and
+7. at least one plausible rejected pairing and why it is weaker.
+
+The proof is editorial, not algorithmic. Selection code may choose among pre-approved pairs, but it must not manufacture pairings from tags, keyword similarity, recency or random independent choice.
+
 ## Current decision under discussion
 
-The remaining admission question is not `which article or Patch page wins forever?` but how the homepage chooses from an eligible writing/Patch pool without becoming random theatre, a recency feed, or a composition whose meaning changes incoherently between visits.
+The next job is to inspect the full writing corpus and eligible Patch adventures, derive the finite pairing set from their actual arguments and lessons, and reject combinations that are redundant, narrow the homepage or have only superficial affinity.
