@@ -217,6 +217,93 @@ The eventual homepage treatment should be another **commissioned Phase 8 evidenc
 
 Controlled determinism/seed design and the player-vs-developer hidden-truth boundary remain strong deeper Wild Bunch stories, but they do not lead the homepage movement.
 
+## Settled Writing movement art direction
+
+Writing is the deliberate austere movement in the back half of the homepage. **Typography is the visual.**
+
+The selected article should feel as though a page from the publication has been given the whole stage, not as though a component is advertising an article. The title is the dominant visual object and uses the genuine authored-reading register; a short homepage-authored précis occupies a separate editorial plane; the route action remains quiet interface copy in the shared Sans register.
+
+Do not add an illustrative substitute merely because the movement has no image. No thumbnail, card shell, border radius, drop shadow, `featured` badge or feed-like furniture is required. Date/read-time metadata should not be added unless a later composition proves it earns space.
+
+The title length is allowed to materially affect the composition inside a governed responsive grid. A short title may become enormous and spacious; a long title may become denser and break across more lines. This variation is a feature of the canonical edition rather than a reason to flatten all articles into one card geometry.
+
+For the wireframe pass, the representative article is **`I made agentic engineering harder than it needed to be`**. Its long title deliberately pressure-tests whether the typography-first movement works with an awkward real specimen rather than only with designer-friendly short titles. The 1–2 sentence homepage précis will be commissioned for the wireframe rather than copied mechanically from the article manifest.
+
+## Settled Patch movement art direction
+
+Patch is the deliberate release back into spectacle after the austere Writing movement. It is **image-led** and may become the last major visual peak of the homepage.
+
+The movement should allow one large illustrated plate to push beyond the ordinary reading column while still resolving onto the site's governing grid. Title, very short setup copy and route action remain subordinate to the image. Patch should not be forced into the same feature component as Writing; their asymmetry is part of the page's rhythm.
+
+The homepage plate should show a consequential story beat or story object from inside the adventure rather than summarising the whole lesson as a poster. It should create curiosity first and allow the engineering idea to remain underneath for the reader who follows the route.
+
+For the wireframe pass, the representative Patch adventure is **Lawful Heist** because its visual world gives the strongest opportunity to prove that this movement can carry a striking premium composition.
+
+### Lawful Heist commission direction
+
+The homepage-specific Lawful Heist plate should treat the **completed heist folder as the dramatic hero object**.
+
+A strong first-pass composition is an overhead view of the completed folder with its assent/approval markers visible, materially rich and deliberately organised. Around the periphery, use roughly three or four small stylised comic-book insets showing consequential detail rather than additional complete scenes. Examples include a close crop of an agent's eyes registering emotion or deliberate absence of emotion, hands stamping or signing material, pressing a control, pulling a red string, pinning evidence or performing another role-specific action.
+
+The folder must remain dominant. Insets supply narrative charge; they are not equal subjects. Avoid a chaotic corkboard collage, generic film-poster composition, dense explanatory labels or a visual checklist of the lesson. The plate should feel like an authored illustrated story object from Patch's world.
+
+## Settled motion and choreography contract
+
+Motion may add spectacle, sequence and polish, but it cannot carry the page's value. **Motion is the cherry on top of the icing on the cake; it is not the cake or the icing.**
+
+Every movement must therefore succeed as a static stable composition. `prefers-reduced-motion` must be honoured without losing hierarchy, evidence, comprehension or premium feel. Reduced-motion users receive resolved compositions rather than downgraded versions of the page.
+
+Where motion exists, prefer one composition giving material or geometry to the next over generic `fade in every section` behaviour. The publication/front-matter metaphor should be felt through changing planes, margins, evidence placement and grid relationships rather than depicted literally. No page-turn animation, fake paper mechanics or book-cosplay interaction is required.
+
+The macro rhythm is currently: **quiet cover -> Marketplace opens -> Wild Bunch deepens -> Writing strips everything back -> Patch breaks back out -> quiet close**.
+
+## Settled responsive contract
+
+Mobile is a **re-authored vertical edition**, not the desktop homepage squeezed narrower.
+
+The sequence, hierarchy, source truth and editorial jobs remain the same across breakpoints, but individual compositions may reform substantially. Desktop can exploit breadth, juxtaposition and peripheral evidence. Narrow layouts should prefer one dominant subject per movement, strong vertical rhythm and deliberate source order.
+
+Desktop left/right relationships are not sacred. Supporting rails may move below hero evidence, offset columns may stack, and Patch may reduce or reposition peripheral insets rather than miniaturising a complex desktop plate into illegibility. Writing must remain recognisably typographic and editorial on mobile rather than collapsing into a conventional blog card.
+
+Responsive design must also survive real pressure: long titles, authored summaries, keyboard traversal, image failure, zoom and reduced motion. Premium intent is measured by the resolved result, not by geometric similarity to desktop.
+
+## Settled homepage wayfinding
+
+The authored scroll remains the default experience, but the homepage may be **lightly indexable** through restrained front-matter wayfinding or anchor links.
+
+This should read as orientation rather than dashboard navigation. Avoid section tabs, persistent chapter controls or another duplicated primary-navigation system. The masthead already owns permanent site navigation; homepage wayfinding may quietly help a reader jump to major movements without becoming sticky theatre.
+
+## Settled viewport and cognitive-section rule
+
+A full-viewport section is **not** inherently rejected. A composition that genuinely earns a full desktop viewport can feel premium and may use it.
+
+The mistake is turning `100vh` into a template or hierarchy rule. The more important desktop goal is that one **cognitive section** can often be understood within a viewport when the material naturally permits it. A section should not be stretched merely to occupy the screen, and a richer section should not be clipped or artificially paginated merely to obey a viewport quota.
+
+Viewport ownership is therefore earned per movement. Some resolved compositions may fill or nearly fill a screen because their evidence, scale or drama benefits from it. Others may be materially shorter. The site must not acquire the repetitive `every section is a full-screen slide` cadence associated with motion-heavy template portfolios.
+
+## Settled professional exit
+
+After Patch provides the final visual crest, the homepage should settle back into the quiet shared site register and end with a **professional invitation**, not another proof section or a summary of what the reader just saw.
+
+The emotional job is roughly: if the work has earned your interest and you would like to work with Harley, here is the practical next move. CV should be a clear hiring route, contact a direct action, and About a quieter route for readers who want more professional context first.
+
+Avoid oversized generic freelancer language such as `Interested in working together?` as a new theatrical hero. The close should be personal, matter-of-fact and low-volume. Patch is the crescendo; the invitation is the closing page.
+
+## Settled wireframing boundary for the next stage
+
+Wireframing begins **after the current decision stack is settled**. Its purpose is composition proof, not premature implementation.
+
+Cloud may place a repo-served prototype/wireframe file that local Sol can run and Cloud can inspect through the Opera connector. Local Sol may make one decent first-pass attempt at commissioned visual assets from explicit briefs so the wireframe can prove layout, hierarchy and flow. Those assets need not be final artwork.
+
+For the first wireframe, use representative specimens rather than building every variable state:
+
+- Marketplace: one first-pass Superpowers+/Handoff Gates commissioned visual from a Cloud brief;
+- Wild Bunch: one first-pass replay-falsifiability evidence composition from a Cloud brief;
+- Writing: `I made agentic engineering harder than it needed to be` with a Cloud-authored homepage précis;
+- Patch: Lawful Heist with the completed-folder/inset plate brief above.
+
+Do **not** implement the canonical edition-selection machinery merely to wireframe the page. One strong Writing/Patch specimen is enough to prove the shape first. The durable rotation and registry mechanics belong to later implementation planning after the composition has evidence behind it.
+
 ## Current decision under discussion
 
-Marketplace and Wild Bunch now have settled homepage evidence leads and commissioned-asset briefs. Continue through the autonomous Writing and Patch movement art direction, the responsive/motion contract for the full sequence, and then rewrite/accept the compatibility matrix on the corrected co-selection meaning.
+The major movement jobs, back-half art direction, responsive behaviour, motion boundary, wayfinding, viewport rule and professional exit are now settled. Continue only with genuinely unresolved homepage decisions that materially affect the durable design contract, then rewrite/accept the compatibility matrix on the corrected co-selection meaning. Once that decision stack is closed, move into the repo-served wireframing stage described above.
