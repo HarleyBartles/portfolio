@@ -65,3 +65,7 @@ No speech bubbles, invented explanatory copy, generic comic-heist imagery, corkb
 ## Fallbacks
 
 Every meaningful image has descriptive alternative text. The proof's `?media=off` state removes all critical media and provides a plain-language completed-folder fallback while retaining the semantic title and onward link.
+
+## Proof v2 responsive treatment
+
+Proof v2 uses the same accepted five assets across wide, intermediate and narrow authored layouts. No additional image-generation attempts or new derivatives were required. Breakpoint differences are implemented through layout-specific placement and browser crops; the depicted story beat and alternative-text contract remain unchanged in each case.

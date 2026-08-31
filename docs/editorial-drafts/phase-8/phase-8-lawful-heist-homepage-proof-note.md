@@ -1,6 +1,6 @@
 # Phase 8 Lawful Heist homepage proof note
 
-**Status:** Revision requested after Cloud/Harley visual review. The direction is accepted; the next proof pass should preserve the desktop composition and apply the settled responsive/framing refinements below. The proof remains isolated from production.
+**Status:** Ready for Cloud/Harley re-review. Proof v2 preserves the accepted desktop composition, adds the settled intermediate and narrow authored states, and remains isolated from production.
 
 ## Chosen composition
 
@@ -25,6 +25,16 @@ The composition is specific to Lawful Heist. It is not a reusable Patch componen
 Full source and derivative custody is recorded in `phase-8-lawful-heist-homepage-proof-assets/asset-custody.md`.
 
 The existing generation ceiling remains in force for the revision: local Sol may assess, reject and regenerate any required asset up to **five total generation attempts per asset**, accepting early when it lands and stopping honestly at the ceiling.
+
+Proof v2 used **zero additional generation attempts**. The accepted bespoke assets retained their intended semantic jobs at all three authored states; layout-specific crops and placement were sufficient, so breakpoint-only raster variants were not warranted.
+
+## Proof v2 implementation
+
+- Wide desktop retains the accepted simultaneous spread: live title in the dark left field, folder dominant, eye strip intruding above the title, two unequal action insets, and K crossing the comic/pale-ground seam.
+- Every supporting inset now has its own complete off-white carrier on all four sides. Unequal padding, rotation and polygon edges keep the carriers related without making them mechanically identical.
+- Intermediate/tablet is a distinct composition: Silk's eye strip leads; the completed folder carries the live title, proposition and link on a high-opacity Heist-dark field; K crosses the folder/following-beat seam; Rollback and Receipt follow as unequal story beats.
+- Narrow mobile is separately authored: live title block, Silk eye strip, completed folder, K punctuation, Rollback, then Receipt. It does not inherit the intermediate text-over-folder treatment.
+- All title, proposition and link copy remains live DOM text. No production route or shared Patch template was changed.
 
 ## Cloud/Harley review outcome
 
@@ -112,7 +122,7 @@ Open:
 
 The production homepage, production Lawful Heist route, and all other Patch treatments remain unchanged during this proof iteration.
 
-## Existing browser QA evidence
+## Browser QA evidence
 
 The first proof pass established:
 
@@ -123,16 +133,19 @@ The first proof pass established:
 - Reduced motion: browser context reported `prefers-reduced-motion: reduce`; the proof is static and exposes the same resolved state.
 - Missing media: `?media=off` hides the hero, insets and overprint, preserves title/navigation, and exposes one ordered plain-language fallback without a dead media block.
 
-The revision must re-run the relevant viewport/reflow/missing-media checks because the responsive composition contract has changed.
+Because the responsive composition contract changed, proof v2 re-ran the relevant viewport, reflow and missing-media checks.
 
-## Next local Sol iteration
+Proof v2 re-ran the evidence pass on 31 August 2026:
 
-Revise the isolated proof only. Preserve the accepted desktop concept; fix the complete four-side inset carrier treatment; re-author the intermediate state around eye-strip-first + text-over-folder + K across the folder/next-beat seam; add the narrow-mobile authored sequence; generate or derive responsive-specific assets where that produces a stronger proof; then re-run browser QA.
+- Responsive/reflow: inspected at 320, 390, 520, 521, 768, 1024, 1099, 1100 and 1440 CSS pixels. The narrow/intermediate boundary and intermediate/wide boundary both resolve into their intended authored states, with no horizontal overflow.
+- Media integrity: all five proof images completed with non-zero natural dimensions at every inspected width; failed requests, console errors and page errors were all zero.
+- Four-side carriers: visually inspected at 320, 390, 768, 1024, 1099, 1100 and 1440 CSS pixels. Silk, Rollback and Receipt retain visible off-white carrier material on every edge.
+- Keyboard order: `Skip to proof` → `Open live adventure` → `Meet the crew`.
+- Reduced motion and zoom-equivalent reflow: a 720 CSS-pixel viewport at 2× device scale, representing a 1440-pixel viewport at 200%, reported reduced motion active, no animations, no horizontal overflow and all images loaded.
+- Missing media: `?media=off` at the intermediate width preserves the live title and onward route, removes the composed media planes, exposes the single completed-folder fallback after the title, and has no horizontal overflow.
 
-Do not integrate the production homepage and do not generalise these choices into a reusable Patch visual template.
-
-Hand back with:
+## Review handoff
 
 **Ready for Cloud/Harley re-review — Lawful Heist homepage proof v2**
 
-or a concrete blocked report if a settled responsive treatment cannot be proven honestly.
+Review the isolated browser proof only. Production homepage integration and any reusable Patch visual system remain out of scope.
