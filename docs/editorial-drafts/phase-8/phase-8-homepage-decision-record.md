@@ -24,6 +24,18 @@ This creates an intentional progression: authoritative front matter first, then 
 
 The first fold still inherits the already settled deferred content contract: Harley Bartles; full-stack software engineer; `5 years at The Access Group`; one bounded consequence-bearing signal of responsibility beyond straightforward implementation; professional proof reachable through About and technical/editorial proof directly reachable without About as mandatory transit.
 
+### First-fold ownership boundary
+
+Do **not** say `I own Access Checks end to end`. That overstates Harley's authority by collapsing engineering responsibility into product ownership.
+
+The accurate public boundary is that Harley carries **engineering responsibility for Access Checks end to end**: turning product epics into technical design and delivery, implementation, release, support and operation. Product ownership and product decisions remain with Product.
+
+For first-fold copy, prefer language in this territory:
+
+`I'm responsible for the engineering of Access Checks end to end. I recently designed and delivered a service that enabled two additional paid screening checks, with one hard production rule: no source evidence, no successful result.`
+
+Exact wording may still be tuned for rhythm, but the ownership distinction is settled and must survive implementation.
+
 ## Settled feature-admission principles
 
 Homepage space is scarce. Material earns it by changing the reader's model of Harley in a way the other admitted material does not, and by supplying specific source-owned substance worth composing around. Being recent, good, important, or one of the flagship projects is not enough by itself.
@@ -162,6 +174,19 @@ Harley has accepted the current-composition exclusion of `"I just write the code
 
 The matrix itself now needs a semantic rewrite before approval: preserve useful non-duplication evidence, but remove the implication that each article and Patch adventure should be presented as companions or joined by a bespoke transition. Goldilocks may still remain without an active compatible combination if its obvious current combinations are genuinely duplicative; Patch coverage remains non-goal.
 
+## Settled homepage sequence
+
+The homepage sequence is:
+
+1. professional engineering opening;
+2. Agent Asset Marketplace — agentic engineering;
+3. Wild Bunch — conventional software engineering depth that breaks the premature `another AI portfolio` categorisation;
+4. Writing — autonomous text-led editorial feature, selected by the current edition;
+5. Patch — autonomous image-led agentic storytelling feature with engineering principles underneath the fun;
+6. quiet professional exit through About / CV / contact.
+
+The rhythm is intentional: engineering -> agentic -> engineering -> variable authored judgement -> agentic storytelling. Marketplace is allowed to create the momentary narrow hypothesis before Wild Bunch tears it down. The opening must therefore establish professional engineering credibility without spending the agentic reveal early.
+
 ## Current decision under discussion
 
-Design the Writing movement and the Patch movement as autonomous homepage editorial pieces within the whole-page sequence, then rewrite and accept the compatibility matrix on the corrected co-selection meaning.
+Continue from the settled sequence into the exact art direction and responsive/motion contract for each major movement, then rewrite and accept the compatibility matrix on the corrected co-selection meaning.
