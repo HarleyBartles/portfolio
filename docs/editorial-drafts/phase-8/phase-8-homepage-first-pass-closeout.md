@@ -49,7 +49,7 @@ The old front-index/jump links remain removed. The first fold does not carry the
 
 Authority: [`phase-8-homepage-fold-2-marketplace-visual-direction.md`](./phase-8-homepage-fold-2-marketplace-visual-direction.md)
 
-Reference moodboard: [`phase-8-homepage-fold-2-shape-language-moodboard.webp`](./phase-8-homepage-fold-2-shape-language-moodboard.webp)
+Reference moodboard: [`phase-8-homepage-fold-2-shape-language-moodboard.png`](./phase-8-homepage-fold-2-shape-language-moodboard.png)
 
 The final visual language is strong but potentially expansive. **Do not hold the whole homepage hostage to the deluxe version.** The next wireframe should implement a **small Fold 2, not a cheap Fold 2**: a reduced but production-real slice of the accepted modular negative-space/channel system.
 

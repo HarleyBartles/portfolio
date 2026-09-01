@@ -21,7 +21,7 @@ Read these files in order. Later focused locks supersede earlier exploratory wor
 3. [`phase-8p-typography-contract.md`](./phase-8p-typography-contract.md) — Source-family typography authority.
 4. [`phase-8-homepage-first-fold-lock.md`](./phase-8-homepage-first-fold-lock.md) — Fold 1 authority.
 5. [`phase-8-homepage-fold-2-marketplace-visual-direction.md`](./phase-8-homepage-fold-2-marketplace-visual-direction.md) — Fold 2 final direction and rejected routes.
-6. [`phase-8-homepage-fold-2-shape-language-moodboard.webp`](./phase-8-homepage-fold-2-shape-language-moodboard.webp) — accepted Fold 2 exploration reference, not a production asset to trace literally.
+6. [`phase-8-homepage-fold-2-shape-language-moodboard.png`](./phase-8-homepage-fold-2-shape-language-moodboard.png) — accepted Fold 2 exploration reference, not a production asset to trace literally.
 7. [`phase-8-homepage-fold-3-wild-bunch-lock.md`](./phase-8-homepage-fold-3-wild-bunch-lock.md) — Fold 3 authority.
 8. [`phase-8-homepage-fold-4-writing-lock.md`](./phase-8-homepage-fold-4-writing-lock.md) — Fold 4 authority.
 9. [`phase-8-the-usual-specialists-homepage-proof-note.md`](./phase-8-the-usual-specialists-homepage-proof-note.md) — Patch movement authority.
@@ -255,7 +255,7 @@ The final Fold 2 wireframe art must still be deterministic SVG geometry authored
 
 ## Strong generation brief — Fold 2 modular-channel exploration sheet
 
-Use the existing [`phase-8-homepage-fold-2-shape-language-moodboard.webp`](./phase-8-homepage-fold-2-shape-language-moodboard.webp) as visual prior art where the tool supports image references.
+Use the existing [`phase-8-homepage-fold-2-shape-language-moodboard.png`](./phase-8-homepage-fold-2-shape-language-moodboard.png) as visual prior art where the tool supports image references.
 
 Desired artifact:
 

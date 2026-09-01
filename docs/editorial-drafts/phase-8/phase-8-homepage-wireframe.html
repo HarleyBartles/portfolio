@@ -54,8 +54,8 @@
     }
 
     * { box-sizing: border-box; }
-    html { background: var(--mineral); scroll-behavior: auto; }
-    body { margin: 0; color: var(--ink); background: var(--mineral); font-family: var(--sans); }
+    html { overflow-x: hidden; background: var(--mineral); scroll-behavior: auto; }
+    body { margin: 0; overflow-x: hidden; color: var(--ink); background: var(--mineral); font-family: var(--sans); }
     img, svg { display: block; max-width: 100%; }
     a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
     a:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
@@ -101,10 +101,11 @@
     .opening-title { grid-column: 1 / span 7; }
     .opening-title .display { max-width: 9ch; }
     .opening-proof { grid-column: 8 / span 5; padding-top: 20px; border-top: 1px solid var(--rule-strong); }
-    .opening-proof .lede { max-width: 36ch; }
+    .opening-proof ul { margin: 0; padding: 0; list-style: none; }
+    .opening-proof li { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: clamp(17px, 1.55vw, 20px); line-height: 1.35; }
+    .opening-proof li:first-child { padding-top: 0; }
+    .opening-proof li:last-child { border-bottom: 0; }
     .opening-proof .small { margin: 0 0 14px; font-weight: 600; }
-    .front-index { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 46px; padding-top: 18px; border-top: 1px solid var(--rule); }
-    .front-index a { color: var(--muted); font-size: 14px; font-weight: 600; }
 
     .project { padding: clamp(82px, 10vw, 142px) 0; }
     .project-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: center; }
@@ -140,7 +141,8 @@
     .asset-source { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
     .asset-mobile-proof { display: none; }
 
-    .market-asset { padding: 34px; background: linear-gradient(135deg, var(--surface), var(--market-soft)); }
+    .market-asset { aspect-ratio: 16 / 9; border: 0; background: transparent; }
+    .market-asset img { object-fit: contain; }
     .market-lineage { display: grid; grid-template-columns: 1fr 1.25fr; gap: 22px; height: 100%; }
     .sheet { border: 1px solid var(--rule-strong); background: rgb(255 255 255 / 62%); padding: 18px; }
     .sheet h3 { margin: 0 0 8px; font-size: 18px; }
@@ -153,7 +155,8 @@
     .stages { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 18px; }
     .stage { min-height: 72px; display: grid; place-items: center; border: 1px solid var(--rule); text-align: center; font-size: 13px; }
 
-    .wild-asset { padding: 32px; background: linear-gradient(160deg, var(--surface) 62%, var(--western-soft)); }
+    .wild-asset { padding: 0; border: 0; background: transparent; }
+    .wild-asset img { object-fit: contain; }
     .event-spine { display: grid; grid-template-columns: 1.1fr .65fr 1fr; gap: 18px; align-items: stretch; min-height: 410px; }
     .events { border-left: 3px solid var(--western); padding-left: 18px; }
     .event { margin-bottom: 12px; padding: 12px 14px; border: 1px solid var(--rule); background: rgb(255 255 255 / 56%); font: 400 13px/1.4 var(--mono); }
@@ -337,7 +340,6 @@
       .opening-grid, .project-grid, .writing-grid, .close-grid { display: block; }
       .opening-title .display { max-width: 10ch; font-size: clamp(48px, 14vw, 72px); }
       .opening-proof { margin-top: 44px; }
-      .front-index { margin-top: 34px; }
       .project { padding: 76px 0; }
       .project-copy { max-width: 36rem; }
       .project-visual { margin-top: 36px; }
@@ -356,8 +358,13 @@
       .article-title { font-size: clamp(52px, 15vw, 78px); }
       .article-summary { max-width: 31rem; margin: 44px 0 0 auto; }
       .close-actions { margin-top: 42px; }
-      .asset-mobile-proof { display: grid; gap: 1px; margin-top: 12px; background: var(--rule); }
-      .asset-mobile-proof span { background: var(--surface); padding: 12px 14px; font-size: 14px; line-height: 1.4; }
+      .market-asset { aspect-ratio: 5 / 3; }
+      .wild-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .wild-grid .project-copy { display: contents; }
+      .wild-grid .project-visual { grid-area: auto; }
+      .wild-grid .project-copy .eyebrow, .wild-grid .project-copy .section-title { order: 1; }
+      .wild-grid .project-visual { order: 2; margin: 34px 0; }
+      .wild-grid .project-copy .body, .wild-grid .project-copy .cta { order: 3; }
     }
 
     @media (max-width: 480px) {
@@ -368,7 +375,7 @@
       .section-title { font-size: 42px; }
       .asset { min-height: 380px; }
       .asset-real { min-height: 0; }
-      .market-asset, .wild-asset { padding: 20px; }
+      .market-asset { aspect-ratio: 6 / 7; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
     }
@@ -503,18 +510,15 @@
             <h1 class="display" id="opening-title">Engineering the whole problem, not just the code.</h1>
           </div>
           <div class="opening-proof">
-            <p class="small">5 years at The Access Group</p>
-            <p class="lede">I'm responsible for the engineering of Access Checks end to end. I recently designed and delivered a service that enabled two additional paid screening checks, with one hard production rule: no source evidence, no successful result.</p>
+            <ul aria-label="Professional proof">
+              <li>5 years at The Access Group</li>
+              <li>Engineering responsibility for Access Checks, end to end.</li>
+              <li>Technical design → delivery → release → support → operation.</li>
+              <li>Recently designed and delivered the service behind 2 additional paid screening checks.</li>
+            </ul>
             <a class="cta" href="#marketplace">See the work ↓</a>
           </div>
         </div>
-        <nav class="front-index" aria-label="Homepage sections">
-          <a href="#marketplace">Marketplace</a>
-          <a href="#wild-bunch">Wild Bunch</a>
-          <a href="#writing">Writing</a>
-          <a href="#patch">Patch</a>
-          <a href="#contact">Contact</a>
-        </nav>
       </div>
     </section>
 
@@ -523,41 +527,38 @@
         <div class="project-copy">
           <p class="eyebrow">Agent Asset Marketplace · Superpowers+</p>
           <h2 class="section-title" id="marketplace-title">A strong system, changed by using it.</h2>
-          <p class="body">I maintain Superpowers+ as a derivative of obra/superpowers for the way I actually work. The clearest modification is Handoff Gates: a spec, plan or completed change does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
+          <p class="body">I use obra/superpowers as a strong base system. Superpowers+ is my plugin around the way I actually work; Handoff Gates makes one boundary explicit: work does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
           <a class="cta" href="#wild-bunch">Inspect the case study →</a>
         </div>
         <div class="project-visual">
           <figure class="asset asset-real market-asset" data-asset-target="marketplace-superpowers-plus">
-            <img src="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-first-pass.svg" alt="Source lineage from obra's MIT-licensed Superpowers workflow into Harley's maintained Superpowers Plus derivative, with Handoff Gates shown as the dominant readiness boundary." width="1600" height="1000">
+            <picture>
+              <source media="(max-width: 480px)" srcset="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-wireframe-narrow.svg">
+              <source media="(max-width: 900px)" srcset="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-wireframe-intermediate.svg">
+              <img src="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-wireframe-wide.svg" alt="A calm modular route system becomes stronger where one close-tolerance Superpowers Plus intervention lets the route continue across the composition." width="1600" height="900">
+            </picture>
           </figure>
-          <div class="asset-mobile-proof" aria-label="Marketplace evidence transcript">
-            <span>Upstream: obra/superpowers v6.2.0, MIT.</span>
-            <span>Maintained derivative: Superpowers+.</span>
-            <span>First-party boundary: Handoff Gates. Never hand off below 8/10. Target 9/10+.</span>
-          </div>
-          <p class="asset-source">First-pass deterministic composition from inspected Marketplace source at 5974690.</p>
+          <p class="asset-source">Reduced deterministic wireframe treatment derived from the accepted Fold 2 shape-language moodboard.</p>
         </div>
       </div>
     </section>
 
     <section class="movement project project-reverse" id="wild-bunch" aria-labelledby="wild-title">
-      <div class="frame project-grid">
+      <div class="frame project-grid wild-grid">
         <div class="project-visual">
           <figure class="asset asset-real wild-asset" data-asset-target="wild-bunch-replay">
-            <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-first-pass.svg" alt="An ordered Wild Bunch event history continues past a stale or missing snapshot into full replay and the same reconstructed session, with equality assertions as the receipt." width="1600" height="1000">
+            <picture>
+              <source media="(max-width: 560px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg">
+              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg" alt="The same canonical event history reaches one identical live state by a direct snapshot shortcut and by a longer full replay route; only the resulting state carries a tintype information fade." width="1600" height="1000">
+            </picture>
           </figure>
-          <div class="asset-mobile-proof" aria-label="Wild Bunch evidence transcript">
-            <span>Ordered event history remains the source of truth.</span>
-            <span>Snapshot stale, missing or damaged: discard the shortcut cache.</span>
-            <span>Full replay: the reconstructed session matches the snapshot-loaded state.</span>
-          </div>
-          <p class="asset-source">First-pass deterministic composition from Wild Bunch replay source and integration tests at f388c44.</p>
+          <p class="asset-source">Deterministic wireframe treatment from Wild Bunch replay source and FullReplayEqualityTests at f388c44.</p>
         </div>
         <div class="project-copy">
           <p class="eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
           <h2 class="section-title" id="wild-title">I only get to call the replay exact because it's falsifiable.</h2>
-          <p class="body">I said events were the source of truth, then audited the implementation to see whether that was actually true. It wasn't. I fixed the replay gaps until a stale or missing snapshot could be discarded and the same session reconstructed from the event stream.</p>
-          <a class="cta" href="#writing">See the evidence →</a>
+          <p class="body">I said events were the source of truth. Then I audited the replay and found they weren't. I fixed the gaps until I could throw the snapshot away and reconstruct the same session from the event stream.</p>
+          <a class="cta" href="#writing">Follow the trail →</a>
         </div>
       </div>
     </section>
@@ -626,13 +627,13 @@
       <div class="frame close-grid">
         <div class="close-copy">
           <p class="eyebrow">Work with me</p>
-          <h2 id="close-title">Think I could be useful on your team?</h2>
+          <h2 id="close-title">I've shown you how I work.</h2>
         </div>
         <div class="close-actions">
-          <p>My CV has the formal version. If you'd rather talk, get in touch.</p>
+          <p>If that looks like the kind of engineering you want on your team, I'd like to hear what you're building.</p>
           <div class="action-row">
+            <a href="#">Tell me about it →</a>
             <a href="#">Read my CV</a>
-            <a href="#">Get in touch</a>
             <a class="about-link" href="#">About me</a>
           </div>
         </div>

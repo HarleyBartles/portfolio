@@ -1,22 +1,25 @@
 # Phase 8 homepage wireframe asset custody
 
-**Status:** First-pass composition evidence only. These files are disposable wireframe commissions, not final production homepage assets.
+**Status:** Integrated wireframe evidence only. These files are disposable editorial-room assets, not final production homepage assets.
 
 ## Marketplace / Superpowers+ composition
 
-- Asset: `marketplace-superpowers-plus-first-pass.svg`, deterministic SVG at `1600 × 1000`.
+- Current assets: `marketplace-superpowers-plus-wireframe-wide.svg` (`1600 × 900`), `marketplace-superpowers-plus-wireframe-intermediate.svg` (`1200 × 720`) and `marketplace-superpowers-plus-wireframe-narrow.svg` (`720 × 860`).
+- Method: deterministic SVG authored from the accepted modular-channel direction and the checked-in `phase-8-homepage-fold-2-shape-language-moodboard.png` reference (`1448 × 1086`, SHA-256 `7FA29C140EE87C8564175563DDAEFA8F899475FE1B6B3182ED02BB8127F97ED7`). The supplied full-resolution source replaces an unreadable earlier WebP copy.
 - Source: `HarleyBartles/agent-asset-marketplace@59746904a5e8f787cc53a7d4c42833de0068d439`.
 - Inspected source: the Superpowers+ source and bundle records, plus the `using-superpowers-plus` and `handoff-gates` skills.
-- Attribution: `obra/superpowers` v6.2.0 is MIT licensed. Superpowers+ is Harley's maintained derivative; Handoff Gates is a first-party addition.
-- Narrow-screen fallback: text transcript and descriptive alternative text in the wireframe.
+- Attribution: `obra/superpowers` v6.2.0 is an external MIT-licensed base system. Superpowers+ is Harley's plugin around his working practice; it is not represented as a Git fork, derivative or ancestry claim. Handoff Gates is a first-party addition.
+- Responsive treatment: the three compositions preserve one route-system thesis while being independently authored for their available fields. Descriptive alternative text carries the editorial point without the image.
+- Rejected history: `marketplace-superpowers-plus-first-pass.svg` remains inspectable but is not rendered by the current wireframe.
 
 ## Wild Bunch replay composition
 
-- Asset: `wild-bunch-replay-first-pass.svg`, deterministic SVG at `1600 × 1000`.
+- Current assets: `wild-bunch-replay-wireframe-wide.svg` (`1600 × 1000`) and `wild-bunch-replay-wireframe-narrow.svg` (`720 × 980`).
 - Source: `HarleyBartles/wild-bunch@f388c44150bc7e68a725839d58ff31cd57e2c524`.
 - Inspected source: `FullReplayEqualityTests.cs`, `GameSessionEventReplay.cs`, and `SessionAuditDevPanel.tsx`.
-- Source fragments are verbatim or whitespace-normalised from those files. The ordered event names are real domain event types.
-- Narrow-screen fallback: text transcript and descriptive alternative text in the wireframe.
+- Source fragments are verbatim or whitespace-normalised from those files. The ordered event names are real domain event types; `TravelDiaryDays.Count` is the real equality surface used in the proof.
+- Responsive treatment: both assets preserve the accepted three-column meaning — canonical history, direct shortcut plus longer replay, identical live derived state — while the narrow asset composes those relationships vertically.
+- Rejected history: `wild-bunch-replay-first-pass.svg` remains inspectable but is not rendered by the current wireframe.
 
 ## Historical Patch Lawful Heist composition
 

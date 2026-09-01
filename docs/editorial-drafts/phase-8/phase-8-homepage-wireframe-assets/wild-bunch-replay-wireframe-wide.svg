@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Wild Bunch exact replay proof</title>
+  <desc id="desc">A canonical event history feeds a direct snapshot shortcut and a longer full replay route. Both arrive at the same reconstructed live state.</desc>
+  <defs>
+    <linearGradient id="tintype" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d7c7ad"/><stop offset=".5" stop-color="#af875f"/><stop offset="1" stop-color="#364348"/>
+    </linearGradient>
+    <pattern id="grain" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="2" cy="4" r="1" fill="#fff" opacity=".13"/><circle cx="8" cy="8" r=".8" fill="#172127" opacity=".13"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#e6eaeb"/>
+  <g font-family="Consolas,monospace" fill="#172127">
+    <text x="86" y="82" font-size="22" font-weight="700">CANONICAL EVENT HISTORY</text>
+    <line x1="102" y1="132" x2="102" y2="848" stroke="#a87442" stroke-width="5"/>
+    <g font-size="20">
+      <g transform="translate(126 126)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">GameStarted</text></g>
+      <g transform="translate(126 232)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">StoreItemPurchased</text></g>
+      <g transform="translate(126 338)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">JourneyStarted</text></g>
+      <g transform="translate(126 444)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">TravelDayAdvanced</text></g>
+      <g transform="translate(126 550)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">JourneyCompleted</text></g>
+      <g transform="translate(126 656)"><rect width="390" height="82" fill="#f4f6f6" stroke="#6e777b"/><text x="24" y="49">JourneyArrivalAcknowledged</text></g>
+    </g>
+    <path d="M516 273H690V390H820" fill="none" stroke="#172127" stroke-width="4"/>
+    <path d="M516 697H614V805H740V676H820" fill="none" stroke="#a87442" stroke-width="8"/>
+    <g transform="translate(610 326)"><rect width="210" height="122" fill="#f4f6f6" stroke="#172127" stroke-width="3"/><text x="105" y="49" font-size="18" text-anchor="middle">SNAPSHOT</text><text x="105" y="79" font-size="15" text-anchor="middle" fill="#56636b">shortcut cache</text></g>
+    <text x="612" y="860" font-size="18" fill="#7e532d">FULL REPLAY / REBUILD</text>
+    <g transform="translate(820 206)">
+      <rect width="680" height="586" fill="url(#tintype)" stroke="#172127" stroke-width="4"/>
+      <rect width="680" height="586" fill="url(#grain)"/>
+      <text x="46" y="66" fill="#f4f0e6" font-size="20" font-weight="700">SAME LIVE DERIVED STATE</text>
+      <g transform="translate(46 108)" fill="none" stroke="#f4f0e6" opacity=".9">
+        <circle cx="294" cy="188" r="112" stroke-width="5"/><path d="M0 188H182M406 188H588M294 0V76M294 300V376" stroke-width="5"/>
+        <path d="M226 188h136M294 120v136" stroke-width="3"/>
+      </g>
+      <g fill="#f4f0e6" font-size="18"><text x="46" y="522">TravelDiaryDays.Count</text><text x="430" y="522">EQUAL</text></g>
+    </g>
+    <circle cx="820" cy="390" r="10" fill="#172127"/><circle cx="820" cy="676" r="10" fill="#a87442"/>
+    <text x="86" y="940" font-size="18" fill="#56636b">ONE HISTORY · TWO MECHANISMS · ONE RESULT</text>
+  </g>
+</svg>

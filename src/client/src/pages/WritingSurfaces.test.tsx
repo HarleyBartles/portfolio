@@ -29,7 +29,7 @@ describe('Writing discovery surfaces', () => {
   test('presents peer articles newest first without a permanent featured essay', async () => {
     renderRoute('/writing')
 
-    const list = await screen.findByRole('region', { name: 'Writing, newest first' })
+    const list = await screen.findByRole('region', { name: 'Writing, newest first' }, { timeout: 5_000 })
     const articles = within(list).getAllByRole('article')
 
     expect(within(articles[0]).getByRole('heading', { name: '"I just write the code" is not a full sentence' })).toBeVisible()

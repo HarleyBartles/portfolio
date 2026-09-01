@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 860" role="img" aria-labelledby="title desc">
+  <title id="title">Superpowers Plus makes a vertical route continue</title>
+  <desc id="desc">A vertical route begins with calm blue-grey base modules, moves sideways through two stronger first-party modules at a close-fitting boundary, and returns to the base route below.</desc>
+  <defs>
+    <mask id="v"><rect width="180" height="180" fill="white"/><rect x="67" y="-2" width="46" height="184" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="trb"><rect width="180" height="180" fill="white"/><rect x="67" y="-2" width="46" height="184" fill="black"/><rect x="90" y="67" width="92" height="46" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="lb"><rect width="180" height="180" fill="white"/><rect x="-2" y="72" width="92" height="44" fill="black"/><rect x="67" y="90" width="46" height="92" fill="black"/><circle cx="90" cy="94" r="49" fill="black"/></mask>
+    <mask id="lt"><rect width="180" height="180" fill="white"/><rect x="-2" y="67" width="92" height="46" fill="black"/><rect x="67" y="-2" width="46" height="92" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="rb"><rect width="180" height="180" fill="white"/><rect x="90" y="67" width="92" height="46" fill="black"/><rect x="67" y="90" width="46" height="92" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <symbol id="tile-v"><rect width="180" height="180" fill="currentColor" mask="url(#v)"/></symbol>
+    <symbol id="tile-trb"><rect width="180" height="180" fill="currentColor" mask="url(#trb)"/></symbol>
+    <symbol id="tile-lb"><rect width="180" height="180" fill="currentColor" mask="url(#lb)"/></symbol>
+    <symbol id="tile-lt"><rect width="180" height="180" fill="currentColor" mask="url(#lt)"/></symbol>
+    <symbol id="tile-rb"><rect width="180" height="180" fill="currentColor" mask="url(#rb)"/></symbol>
+  </defs>
+  <use href="#tile-v" x="180" y="20" color="#aec1c4"/>
+  <use href="#tile-trb" x="180" y="200" color="#bdccce"/>
+  <use href="#tile-lb" x="360" y="200" color="#2d7476"/>
+  <use href="#tile-lt" x="360" y="380" color="#a95678"/>
+  <use href="#tile-rb" x="180" y="380" color="#aec1c4"/>
+  <use href="#tile-v" x="180" y="560" color="#bdccce"/>
+</svg>
