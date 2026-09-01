@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>The Usual Specialists canonical lockup proof | Phase 8</title>
+  <style>
+    @font-face {
+      font-family: "Source Sans 3";
+      src: url("./phase-8p-typography-assets/fonts/source-sans-3-latin-wght-normal.woff2") format("woff2");
+      font-display: swap;
+      font-style: normal;
+      font-weight: 200 900;
+    }
+
+    @font-face {
+      font-family: "Chassis Black Local Proof";
+      src: local("Chassis Black");
+      font-display: swap;
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    :root {
+      color-scheme: light;
+      --ink: #111718;
+      --muted: #596466;
+      --paper: #f6f4ed;
+      --panel: #fff;
+      --line: #b9c1c2;
+      --signal: #9f382f;
+      --focus: #b25b12;
+      background: #e8ecec;
+      color: var(--ink);
+      font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-width: 0; }
+    body { margin: 0; background: #e8ecec; }
+    a:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 10;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      background: #fff;
+      transform: translateY(-180%);
+    }
+    .skip-link:focus { transform: none; }
+
+    .review-shell,
+    main {
+      width: min(100% - 40px, 1440px);
+      margin-inline: auto;
+    }
+
+    .review-shell {
+      display: flex;
+      min-height: 72px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .review-shell p { margin: 0; font-weight: 700; }
+    .review-shell span { color: var(--muted); font-weight: 400; }
+
+    main { padding-bottom: 80px; }
+    .intro { max-width: 76ch; padding: 32px 0 40px; }
+    .intro h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 4.4vw, 60px);
+      font-weight: 750;
+      letter-spacing: -.025em;
+      line-height: .98;
+    }
+    .intro p { margin: 0; font-size: 18px; line-height: 1.56; }
+
+    .status-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.35;
+    }
+    .status::before {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #747e80;
+      content: "";
+    }
+    .status[data-state="loaded"]::before,
+    .status[data-state="verified"]::before { background: #16704a; }
+    .status[data-state="missing"],
+    .status[data-state="failed"] { border-color: #b4564d; color: #7f261f; }
+    .status[data-state="missing"]::before,
+    .status[data-state="failed"]::before { background: #a8322a; }
+
+    .section-heading { margin: 0 0 8px; font-size: 26px; letter-spacing: -.022em; line-height: 1.08; }
+    .section-copy { max-width: 76ch; margin: 0 0 22px; color: var(--muted); font-size: 16px; line-height: 1.5; }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .proof-card { min-width: 0; border: 1px solid var(--line); border-top: 4px solid var(--signal); background: var(--panel); }
+    .proof-card__label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .proof-card__label h3 { margin: 0; font-size: 18px; line-height: 1.2; }
+    .proof-card__label p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.4; text-align: right; }
+
+    .stage {
+      display: grid;
+      min-height: 360px;
+      place-items: center;
+      overflow: hidden;
+      padding: 48px clamp(20px, 4vw, 64px);
+      background: var(--paper);
+    }
+    .stage--narrow { padding-inline: 20px; }
+
+    .canonical-lockup {
+      display: block;
+      width: min(100%, 1120px);
+      height: auto;
+      aspect-ratio: 1120 / 240;
+      color: var(--ink);
+      overflow: visible;
+    }
+    .stage--narrow .canonical-lockup { width: min(100%, 340px); }
+    .lockup__rule { fill: var(--ink); }
+    .lockup__the,
+    .lockup__usual {
+      fill: currentColor;
+      font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      font-style: normal;
+      font-weight: 900;
+    }
+    .lockup__the { font-size: 24px; letter-spacing: .6px; text-anchor: middle; }
+    .lockup__usual { font-size: 56px; letter-spacing: -2.52px; }
+    .lockup__specialists {
+      fill: currentColor;
+      font-family: "Chassis Black Local Proof", Impact, sans-serif;
+      font-size: 158px;
+      font-style: normal;
+      font-weight: 900;
+      letter-spacing: -2.212px;
+    }
+
+    .geometry-note {
+      max-width: 940px;
+      margin-top: 56px;
+      padding: 22px 24px;
+      border-left: 4px solid var(--signal);
+      background: var(--panel);
+    }
+    .geometry-note h2 { margin: 0 0 9px; font-size: 20px; }
+    .geometry-note p { margin: 0; font-size: 15px; line-height: 1.55; }
+    .geometry-note p + p { margin-top: 9px; }
+    code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .92em; }
+
+    body.font-missing .lockup__specialists {
+      text-decoration: line-through;
+      text-decoration-color: var(--signal);
+      text-decoration-thickness: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-grid .proof-card:last-child { width: min(100%, 380px); }
+    }
+
+    @media (max-width: 600px) {
+      .review-shell,
+      main { width: min(100% - 32px, 1440px); }
+      .review-shell { align-items: flex-start; padding-block: 16px; }
+      .review-shell span { display: block; }
+      .intro { padding-top: 20px; }
+      .intro p { font-size: 17px; }
+      .proof-card__label { display: grid; gap: 5px; }
+      .proof-card__label p { text-align: left; }
+      .stage { min-height: 240px; padding: 36px 14px; }
+      .geometry-note { margin-top: 44px; padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#canonical-proof">Skip to canonical lockup</a>
+  <header class="review-shell">
+    <p>Harley Bartles <span>Phase 8 canonical lockup refinement</span></p>
+    <span>No production integration</span>
+  </header>
+
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="canonical-wordmark" viewBox="0 0 1120 240">
+      <g class="lockup__upper" transform="translate(24 75) scale(1.51259) translate(-24 -75)">
+        <rect class="lockup__rule" x="17.5" y="38" width="58" height="3" />
+        <text class="lockup__the" x="46.5" y="65">THE</text>
+        <rect class="lockup__rule" x="17.5" y="73" width="58" height="3" />
+        <text class="lockup__usual" x="84" y="75">USUAL</text>
+      </g>
+      <text class="lockup__specialists" x="24" y="190">SPECIALISTS</text>
+    </symbol>
+  </svg>
+
+  <main>
+    <section class="intro" aria-labelledby="proof-title">
+      <h1 id="proof-title">The Usual Specialists, canonical lockup</h1>
+      <p>The accepted Balanced datum is now one fixed proportional object. Wide and narrow instances render the same 1120 × 240 design coordinate system; only the outer scale changes.</p>
+      <div class="status-list">
+        <div class="status" id="font-status" data-state="checking" role="status" aria-live="polite">Checking the local Chassis Black face…</div>
+        <div class="status" id="geometry-status" data-state="checking" role="status" aria-live="polite">Checking proportional geometry…</div>
+      </div>
+    </section>
+
+    <section id="canonical-proof" tabindex="-1" aria-labelledby="canonical-heading">
+      <h2 class="section-heading" id="canonical-heading">One object, two scales</h2>
+      <p class="section-copy">THE now sits one ordinary optical word-space before USUAL. Its rules overhang the word only slightly and do not create a separate horizontal module. The narrow specimen is not recomposed, reflowed or independently tuned.</p>
+      <div class="proof-grid">
+        <article class="proof-card">
+          <header class="proof-card__label">
+            <h3>Canonical geometry, wide</h3>
+            <p>1120 × 240 coordinate system</p>
+          </header>
+          <div class="stage">
+            <svg class="canonical-lockup" viewBox="0 0 1120 240" role="img" aria-label="The Usual Specialists" preserveAspectRatio="xMidYMid meet"><use href="#canonical-wordmark" /></svg>
+          </div>
+        </article>
+
+        <article class="proof-card">
+          <header class="proof-card__label">
+            <h3>Canonical geometry, narrow</h3>
+            <p>Uniformly scaled only</p>
+          </header>
+          <div class="stage stage--narrow">
+            <svg class="canonical-lockup" viewBox="0 0 1120 240" role="img" aria-label="The Usual Specialists" preserveAspectRatio="xMidYMid meet"><use href="#canonical-wordmark" /></svg>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="geometry-note" aria-labelledby="boundary-heading">
+      <h2 id="boundary-heading">Geometry and production boundary</h2>
+      <p><strong>Canonical object:</strong> both specimens reference the same SVG symbol containing live text in a fixed <code>0 0 1120 240</code> viewBox. The symbol is a browser proof coordinate system, not outlined production artwork.</p>
+      <p><strong>Span:</strong> the actual left edge of <strong>THE</strong> aligns with the start of <strong>SPECIALISTS</strong>, then <strong>USUAL</strong> follows at a normal optical word-space and ends with the <strong>E</strong> in <strong>SPE</strong>. The upper phrase is uniformly scaled, not stretched.</p>
+      <p><strong>Chassis Black:</strong> purchased desktop licence, installed locally and requested only through <code>local("Chassis Black")</code>. This proof does not locate, copy, vendor, redistribute or commit the font binary.</p>
+      <p><strong>Source Sans 3:</strong> existing repository-held OFL 1.1 WOFF2, weight 900. Production integration and Chassis outline export remain blocked on Cloud/Harley acceptance.</p>
+    </aside>
+  </main>
+
+  <script>
+    (async () => {
+      const fontStatus = document.querySelector("#font-status");
+      const geometryStatus = document.querySelector("#geometry-status");
+      await document.fonts.load('900 64px "Chassis Black Local Proof"', "SPECIALISTS");
+      await document.fonts.ready;
+
+      const face = [...document.fonts].find((entry) => entry.family === "Chassis Black Local Proof");
+      const loaded = face?.status === "loaded" && face.style === "normal" && face.weight === "900";
+      fontStatus.dataset.state = loaded ? "loaded" : "missing";
+      fontStatus.textContent = loaded
+        ? "Verified: SPECIALISTS is rendering local Chassis Black, upright weight 900."
+        : "Blocked: Chassis Black did not load as upright weight 900. Do not review this fallback rendering.";
+      document.body.classList.toggle("font-missing", !loaded);
+
+      const specimens = [...document.querySelectorAll(".canonical-lockup")];
+      const canonical = specimens.length === 2
+        && specimens.every((svg) => svg.getAttribute("viewBox") === "0 0 1120 240")
+        && specimens.every((svg) => svg.querySelector("use")?.getAttribute("href") === "#canonical-wordmark")
+        && specimens.every((svg) => Math.abs(svg.getBoundingClientRect().width / svg.getBoundingClientRect().height - 1120 / 240) < .01);
+      geometryStatus.dataset.state = canonical ? "verified" : "failed";
+      geometryStatus.textContent = canonical
+        ? "Verified: wide and narrow share one geometry and differ only by uniform scale."
+        : "Blocked: the two specimens are not preserving one proportional geometry.";
+    })();
+  </script>
+</body>
+</html>

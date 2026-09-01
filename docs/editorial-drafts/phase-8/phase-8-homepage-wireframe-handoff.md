@@ -1,6 +1,6 @@
 # Phase 8 homepage wireframe handoff
 
-**Status:** Ready for local Sol to make the first visual pass. This is a discovery artifact inside the active homepage design room. It is not a production implementation plan and does not authorize edits to the production `HomePage`, shared production styles, routing, tests or edition mechanics.
+**Status:** Ready for Cloud/Harley integrated-wireframe review. The approved `PATCH / The Usual Specialists` movement now occupies its intended place in the complete homepage sequence. This remains a discovery artifact inside the active homepage design room, not a production implementation plan, and does not authorize edits to the production `HomePage`, shared production styles, routing, tests or edition mechanics.
 
 The static composition proof is [`phase-8-homepage-wireframe.html`](./phase-8-homepage-wireframe.html).
 
@@ -24,15 +24,15 @@ The questions are:
 
 If the page answers any of those questions badly, that is useful wireframe evidence. Do not hide it with extra decoration.
 
-## Local Sol boundary
+## Completed integration boundary
 
-Make one decent pass only before Cloud reviews it.
+The first-pass commissions and the separate Patch side quest are complete. This iteration was deliberately limited to integrating the accepted movement into the full wireframe.
 
-1. Serve the repository so `docs/editorial-drafts/phase-8/phase-8-homepage-wireframe.html` can be viewed in a normal browser. Serving the repo root is preferable because the proof deliberately refers to repository-owned source assets and fonts.
-2. Produce first-pass visuals for Marketplace, Wild Bunch and Lawful Heist from the briefs below.
-3. Store wireframe-only derivatives under `docs/editorial-drafts/phase-8/phase-8-homepage-wireframe-assets/` with clear filenames and a short source/provenance note if generated or composited.
-4. Replace the three CSS-drawn `data-asset-target` placeholders in the HTML with the first-pass images, preserving roughly the same occupied field. Small CSS adjustments are allowed where the real image exposes an obviously false assumption.
-5. Stop. Do not begin production component extraction, animation, homepage routing work, responsive perfection or edition-selection code.
+1. Preserve the existing professional opening, Marketplace, Wild Bunch and Writing movements.
+2. Replace only the obsolete Patch block with the accepted isolated movement.
+3. Tune page-level space around that movement rather than reinterpret its internal typography, artwork, copy or breakpoint choreography.
+4. Review the complete sequence at wide, intermediate and narrow widths, including media-failure and semantic-text states.
+5. Stop before production component extraction, animation, homepage routing work or edition-selection code.
 
 The HTML is intentionally ordinary static HTML/CSS. Keeping it disposable is a feature.
 
@@ -106,19 +106,23 @@ This is intentionally not the article manifest summary. The title is the dominan
 
 ### Patch
 
-Label:
+Stable protagonist marque:
 
-`Adventures of Patch`
+`PATCH`
 
-Title:
+Episode title:
 
-`The Lawful Heist Crew`
+`THE USUAL SPECIALISTS`
 
-Working setup:
+Invitation:
 
-`A protected route, a completed file, and a crew whose jobs only exist because each one leaves something the next step needs.`
+`One question. Are you in?`
 
-The plate carries the movement. Do not expand this into a miniature explanation of provenance, pressure, authority, decision, recovery and audit.
+Action:
+
+`Meet the crew →`
+
+The accepted artwork carries the movement. Do not reintroduce `Adventures of Patch` as the serial marque, expand the invitation into explanatory copy, or reconstruct either outlined wordmark from live type.
 
 ### Professional close
 

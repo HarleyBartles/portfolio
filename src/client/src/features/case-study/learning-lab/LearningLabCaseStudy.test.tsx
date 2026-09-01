@@ -36,7 +36,7 @@ describe('LearningLabCaseStudy', () => {
     expect(container.textContent?.match(/The method built the method/g)).toHaveLength(1)
     expect(screen.getByText(/The founding prompt left the learning plan open/)).toBeVisible()
     expect(screen.getByText(/I was writing the course while sitting partly in the learner's chair/)).toBeVisible()
-    expect(screen.getByText(/First live delivery planned for late August 2026/)).toBeVisible()
+    expect(screen.getByText(/First live delivery planned for September 2026/)).toBeVisible()
     expect(screen.getByText(/Course 1 is complete\. Course 2 is substantially planned\. Course 3 is little more than an outline today\./)).toBeVisible()
     expect(screen.getByText(/3d8e92c/)).toBeVisible()
     expect(screen.getByRole('link', { name: /inspect the course-numbering change/i })).toHaveAttribute(

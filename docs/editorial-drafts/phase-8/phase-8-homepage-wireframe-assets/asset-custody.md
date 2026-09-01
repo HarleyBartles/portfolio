@@ -18,7 +18,9 @@
 - Source fragments are verbatim or whitespace-normalised from those files. The ordered event names are real domain event types.
 - Narrow-screen fallback: text transcript and descriptive alternative text in the wireframe.
 
-## Patch Lawful Heist composition
+## Historical Patch Lawful Heist composition
+
+This generated first-pass plate is retained as wireframe process evidence but is no longer rendered by the integrated homepage wireframe. The accepted `The Usual Specialists` movement uses the separately recorded raster and outlined-wordmark assets from the isolated proof.
 
 - Asset: `patch-lawful-heist-first-pass.png`, generated PNG at `1536 × 1024`.
 - Method: built-in OpenAI image generation with positive local references, followed by one targeted edit to remove an extra full-character inset.

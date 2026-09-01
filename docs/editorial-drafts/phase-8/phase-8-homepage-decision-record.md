@@ -237,9 +237,19 @@ The movement should allow one large illustrated plate to push beyond the ordinar
 
 The homepage plate should show a consequential story beat or story object from inside the adventure rather than summarising the whole lesson as a poster. It should create curiosity first and allow the engineering idea to remain underneath for the reader who follows the route.
 
-For the wireframe pass, the representative Patch adventure is **Lawful Heist** because its visual world gives the strongest opportunity to prove that this movement can carry a striking premium composition.
+For the wireframe pass, the representative Patch adventure is the adventure publicly titled **The Usual Specialists**. Its accepted movement proves that this position can carry a striking premium composition without becoming a generic Patch template.
 
-### Lawful Heist commission direction
+### Approved The Usual Specialists movement authority
+
+The isolated proof at [`phase-8-lawful-heist-homepage-proof.html`](./phase-8-lawful-heist-homepage-proof.html) is the accepted movement authority. The legacy filename records the working-title history only; `Lawful Heist` is retired from the public title treatment.
+
+The movement preserves the canonical outlined `PATCH` protagonist marque, the canonical outlined `THE USUAL SPECIALISTS` episode wordmark, `One question. Are you in?`, `Meet the crew →`, the Silk crop, folder evidence, Rollback, Receipt and Klause's true zero-flow overprint. `Adventures of Patch` must not return as a serial marque.
+
+Wide, intermediate and narrow retain their accepted authored choreography. At intermediate widths the `SPECIALISTS` wordmark crosses directly into the folder without an added dark box, with the midpoint of its `T` locked to the dark-field/folder seam. This movement is finished design for wireframe integration; page-level tuning should happen around it unless rendered evidence exposes a genuine contradiction.
+
+### Historical Lawful Heist commission direction
+
+The following brief is retained as commission provenance. It was fulfilled and superseded by the accepted movement above; it is not the current integration authority.
 
 The homepage-specific Lawful Heist plate should treat the **completed heist folder as the dramatic hero object**.
 
@@ -304,6 +314,6 @@ For the first wireframe, use representative specimens rather than building every
 
 Do **not** implement the canonical edition-selection machinery merely to wireframe the page. One strong Writing/Patch specimen is enough to prove the shape first. The durable rotation and registry mechanics belong to later implementation planning after the composition has evidence behind it.
 
-## Current decision under discussion
+## Current review gate
 
-The major movement jobs, back-half art direction, responsive behaviour, motion boundary, wayfinding, viewport rule and professional exit are now settled. Continue only with genuinely unresolved homepage decisions that materially affect the durable design contract, then rewrite/accept the compatibility matrix on the corrected co-selection meaning. Once that decision stack is closed, move into the repo-served wireframing stage described above.
+The approved Patch movement is now integrated into the repo-served full-page wireframe in the settled sequence: quiet cover -> Marketplace -> Wild Bunch -> Writing -> Patch -> quiet professional close. Cloud and Harley should review the transitions into and out of Patch, the relative theatrical weight of neighbouring movements and the complete wide/intermediate/narrow rhythm. Production implementation, edition machinery and generalized Patch components remain blocked on that rendered wireframe review.

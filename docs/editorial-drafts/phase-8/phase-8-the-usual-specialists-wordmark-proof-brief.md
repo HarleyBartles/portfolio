@@ -1,6 +1,6 @@
 # Phase 8 The Usual Specialists wordmark proof brief
 
-**Status:** Isolated deterministic proof for Cloud/Harley review. Production integration remains blocked on rendered lockup acceptance.
+**Status:** Accepted and frozen by Harley on 1 September 2026. The comparison proof is historical evidence; [`phase-8-the-usual-specialists-wordmark-refinement-proof.html`](./phase-8-the-usual-specialists-wordmark-refinement-proof.html) is the canonical geometry authority. Production homepage integration remains out of scope.
 
 ## Goal
 
@@ -54,3 +54,19 @@ Open `phase-8-the-usual-specialists-wordmark-proof.html`.
 - Browser checks at 1440, 768, 390 and 320 CSS pixels found no page overflow or clipped wordmarks. The 720 CSS-pixel reflow-pressure check with reduced motion active found no overflow or animations.
 - The skip link reaches the wide proof, and every visual lockup exposes the semantic accessible name `The Usual Specialists`.
 - No Chassis binary or derived outline asset was added. Production integration and SVG-outline conversion remain blocked on rendered lockup acceptance.
+
+## Refinement baton
+
+Cloud/Harley accepted A / Balanced datum at both wide and narrow sizes on 1 September 2026. B and C are retired as candidates. The refinement proof preserves A's typographic concept and varies only minute optical geometry around its accepted parent values.
+
+## Structural refinement baton
+
+The first finishing proof exposed that its wide and narrow specimens independently resized constituent type. That is not a canonical wordmark: internal alignments drifted between scales. The replacement proof defines the accepted direction once in a `1120 × 240` coordinate system and renders both specimens from the same live-text SVG symbol. Wide and narrow now differ only by a uniform outer scale.
+
+The actual left edge of the `THE` glyphs now aligns with the start of `SPECIALISTS`; `USUAL` follows one ordinary optical word-space later. The `THE` rules overhang the word only slightly, so the decoration no longer creates a separate horizontal module. `SPECIALISTS`, both baselines, every font size, Chassis tracking, the `1120 × 240` coordinate system and wide/narrow scaling remain unchanged. There are no A0/A1/A2 variants and no breakpoint-specific alternate lockup.
+
+The lockup uses a single left anchor rather than holding the end of `USUAL` over a chosen part of `SPECIALISTS`. Once set in canonical coordinates, that relationship is preserved by the shared uniform transform at every rendered scale.
+
+Harley then accepted the proportional upper phrase spanning from the shared left edge through the end of the `E` in `SPE`, with `THE` plus both rules matching the rendered height of `USUAL`. No further optical tuning is authorised.
+
+The complete wordmark has now been exported as one path-only SVG under [`phase-8-the-usual-specialists-wordmark-assets/`](./phase-8-the-usual-specialists-wordmark-assets/). The asset retains the full `1120 × 240` geometry and contains no font reference or embedded binary. Its authority and licence boundary are recorded in [`phase-8-the-usual-specialists-wordmark-authority.md`](./phase-8-the-usual-specialists-wordmark-authority.md).

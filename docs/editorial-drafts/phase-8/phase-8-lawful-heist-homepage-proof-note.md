@@ -1,6 +1,6 @@
 # Phase 8 Lawful Heist homepage proof note
 
-**Status:** Ready for Cloud/Harley re-review. Proof v2 preserves the accepted desktop composition, adds the settled intermediate and narrow authored states, and remains isolated from production.
+**Status:** Historical proof-v2 art-direction record. The public title `Lawful Heist` is retired; the current isolated composition and review evidence are recorded in [`phase-8-the-usual-specialists-homepage-proof-note.md`](./phase-8-the-usual-specialists-homepage-proof-note.md).
 
 ## Chosen composition
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>Phase 8 homepage wireframe · first composition proof</title>
+  <title>Phase 8 homepage wireframe · integrated composition proof</title>
   <style>
     @font-face {
       font-family: "Source Sans 3 Local";
@@ -173,31 +173,150 @@
     .article-summary p { margin: 0; font: 400 20px/1.5 var(--serif); }
     .article-summary .cta { font-family: var(--sans); font-size: 16px; }
 
-    .patch { padding: clamp(76px, 9vw, 124px) 0 clamp(94px, 11vw, 154px); overflow: hidden; }
-    .patch-head { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: end; margin-bottom: 34px; }
-    .patch-title { grid-column: 1 / span 5; }
-    .patch-copy { grid-column: 9 / span 4; }
-    .patch-copy .body { margin-top: 8px; }
-    .heist-asset { width: min(88rem, calc(100% - 20px)); margin: 0 auto; min-height: 650px; border-color: rgb(23 33 39 / 55%); background: linear-gradient(135deg, var(--patch-soft), var(--surface) 36%, rgb(168 116 66 / 10%)); }
-    .folder { position: absolute; left: 20%; top: 12%; width: 60%; height: 72%; border: 1px solid #6f5a3b; background: #d9c7a3; box-shadow: 0 26px 50px rgb(23 33 39 / 14%); transform: rotate(-1.2deg); }
-    .folder-tab { position: absolute; top: -28px; left: 8%; width: 34%; height: 28px; border: 1px solid #6f5a3b; border-bottom: 0; background: #d9c7a3; }
-    .folder-page { position: absolute; inset: 9% 8% 8%; border: 1px solid rgb(23 33 39 / 34%); background: #efe7d4; padding: 24px; }
-    .folder-page h3 { margin: 0 0 22px; font-size: 26px; }
-    .folder-lines { display: grid; gap: 10px; }
-    .folder-line { height: 7px; background: rgb(23 33 39 / 20%); }
-    .folder-line.short { width: 65%; }
-    .assents { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .assent { display: grid; width: 68px; height: 68px; place-items: center; border: 2px solid #8b3d32; border-radius: 50%; color: #8b3d32; font-size: 11px; font-weight: 700; text-align: center; transform: rotate(-8deg); }
-    .assent:nth-child(2) { transform: rotate(5deg); }
-    .assent:nth-child(3) { transform: rotate(-2deg); }
-    .assent:nth-child(4) { transform: rotate(8deg); }
-    .inset { position: absolute; display: grid; place-items: center; border: 4px solid var(--ink); overflow: hidden; background: #d5dddd; font-size: 13px; font-weight: 700; text-align: center; }
-    .inset::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 7px, rgb(23 33 39 / 6%) 7px 8px); }
-    .inset span { position: relative; z-index: 1; padding: 10px; }
-    .inset-eyes { top: 7%; right: 4%; width: 24%; height: 23%; transform: rotate(2deg); }
-    .inset-stamp { left: 3%; bottom: 8%; width: 24%; height: 27%; transform: rotate(-3deg); }
-    .inset-string { right: 5%; bottom: 7%; width: 22%; height: 25%; transform: rotate(3deg); }
-    .inset-button { left: 4%; top: 9%; width: 19%; height: 20%; transform: rotate(-2deg); }
+    .patch-movement {
+      --ink: #111b1a;
+      --paper: #f5ecd7;
+      --teal: #0d7476;
+      --red: #a43d34;
+      padding: clamp(76px, 9vw, 124px) 20px clamp(132px, 15vw, 210px);
+      overflow: hidden;
+    }
+    .heist-movement {
+      position: relative;
+      width: min(100%, 1440px);
+      min-height: clamp(780px, 61vw, 900px);
+      margin-inline: auto;
+      overflow: visible;
+      color: var(--paper);
+      background: var(--ink);
+      isolation: isolate;
+    }
+    .heist-movement::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 20;
+      height: 7px;
+      background: linear-gradient(90deg, var(--teal) 0 31%, var(--red) 31% 33%, #d4ae6d 33% 100%);
+    }
+    .hero-composition { position: absolute; inset: 0; pointer-events: none; }
+    .hero-plate { position: absolute; inset: 0; z-index: -2; margin: 0; background: #10191b; }
+    .hero-plate img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-plate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgb(8 17 18 / 92%) 0, rgb(8 17 18 / 72%) 25%, transparent 48%),
+        linear-gradient(0deg, rgb(8 17 18 / 48%) 0, transparent 25%);
+      pointer-events: none;
+    }
+    .title-field {
+      position: relative;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      width: 43%;
+      min-height: inherit;
+      padding: clamp(42px, 5vw, 72px) 0 clamp(54px, 5vw, 72px) clamp(34px, 5vw, 72px);
+      pointer-events: none;
+    }
+    .title-field a { pointer-events: auto; }
+    .patch-marque { position: relative; width: clamp(112px, 10vw, 150px); height: 20px; margin: 0; color: var(--paper); }
+    .patch-marque__art { display: block; width: 100%; height: auto; overflow: visible; transform: translateX(6px); }
+    .wordmark-title { width: min(100%, 620px); margin: auto 0 0; color: var(--paper); }
+    .wordmark-art { display: block; width: 100%; height: auto; aspect-ratio: 1120 / 240; overflow: visible; }
+    .semantic-wordmark {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .heist-close {
+      display: grid;
+      gap: 18px;
+      width: min(20rem, 76%);
+      margin-top: clamp(52px, 7vw, 96px);
+      padding-top: 18px;
+      border-top: 1px solid rgb(245 236 215 / 46%);
+    }
+    .heist-close p { margin: 0; font-size: 18px; line-height: 1.5; }
+    .heist-close a { width: fit-content; font-size: 18px; font-weight: 720; }
+    .detail {
+      position: absolute;
+      z-index: 8;
+      margin: 0;
+      padding: 10px;
+      border: 2px solid #0b1111;
+      background: var(--paper);
+      box-shadow: 0 18px 30px rgb(2 7 7 / 38%);
+      overflow: hidden;
+    }
+    .detail__crop { width: 100%; height: 100%; overflow: hidden; }
+    .detail img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-eye {
+      top: 15%;
+      left: 5.5%;
+      width: 54%;
+      aspect-ratio: 4 / 1;
+      transform: rotate(-1.2deg);
+      clip-path: polygon(1.5% 8%, 100% 0, 98% 94%, 0 100%);
+      padding: 11px 9px 13px 12px;
+    }
+    .detail-lockdown {
+      bottom: 5.5%;
+      left: 31%;
+      width: 24%;
+      aspect-ratio: 3 / 2;
+      transform: rotate(-3deg);
+      clip-path: polygon(0 4%, 96% 0, 100% 94%, 5% 100%);
+      padding: 13px 10px 11px 14px;
+    }
+    .detail-receipt {
+      right: 2.2%;
+      bottom: 13%;
+      width: 18.5%;
+      aspect-ratio: 4 / 3;
+      transform: rotate(2.4deg);
+      clip-path: polygon(3% 0, 100% 4%, 96% 100%, 0 95%);
+      padding: 10px 13px 14px 9px;
+    }
+    .detail-receipt img { transform: scale(1.8); transform-origin: 63% 68%; }
+    .stamp-overprint {
+      position: absolute;
+      right: 4.5%;
+      bottom: -10%;
+      z-index: 30;
+      width: clamp(190px, 18vw, 260px);
+      margin: 0;
+      transform: rotate(-12deg);
+      filter: drop-shadow(0 10px 8px rgb(2 7 7 / 35%));
+    }
+    .stamp-overprint img { width: 100%; height: auto; }
+    .media-fallback {
+      display: none;
+      position: absolute;
+      inset: 18% 8%;
+      z-index: 7;
+      place-content: center;
+      padding: 32px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid #b9a67f;
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.45;
+      text-align: center;
+    }
+    .media-off .hero-composition,
+    .media-off .hero-plate,
+    .media-off .detail,
+    .media-off .stamp-overprint { display: none; }
+    .media-off .media-fallback { display: grid; }
 
     .close { padding: clamp(86px, 11vw, 150px) 0; border-bottom: 0; }
     .close-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: end; }
@@ -215,7 +334,7 @@
       .primary { width: 100%; }
       .primary ul { justify-content: flex-start; gap: 8px 18px; }
       .opening { min-height: auto; }
-      .opening-grid, .project-grid, .writing-grid, .patch-head, .close-grid { display: block; }
+      .opening-grid, .project-grid, .writing-grid, .close-grid { display: block; }
       .opening-title .display { max-width: 10ch; font-size: clamp(48px, 14vw, 72px); }
       .opening-proof { margin-top: 44px; }
       .front-index { margin-top: 34px; }
@@ -236,15 +355,6 @@
       .writing-label { margin-bottom: 30px; }
       .article-title { font-size: clamp(52px, 15vw, 78px); }
       .article-summary { max-width: 31rem; margin: 44px 0 0 auto; }
-      .patch-title { margin-bottom: 24px; }
-      .patch-copy { max-width: 32rem; margin-left: auto; }
-      .heist-asset { width: calc(100% - 12px); min-height: 560px; margin-top: 34px; }
-      .folder { left: 13%; top: 16%; width: 74%; height: 60%; }
-      .inset { border-width: 3px; }
-      .inset-eyes { right: 2%; width: 29%; }
-      .inset-button { left: 2%; width: 24%; }
-      .inset-stamp { left: 2%; width: 29%; }
-      .inset-string { right: 2%; width: 28%; }
       .close-actions { margin-top: 42px; }
       .asset-mobile-proof { display: grid; gap: 1px; margin-top: 12px; background: var(--rule); }
       .asset-mobile-proof span { background: var(--surface); padding: 12px 14px; font-size: 14px; line-height: 1.4; }
@@ -261,18 +371,112 @@
       .market-asset, .wild-asset { padding: 20px; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
-      .heist-asset { min-height: 500px; }
-      .heist-asset.asset-real { min-height: 0; aspect-ratio: 4 / 5; }
-      .heist-asset.asset-real img { object-fit: cover; object-position: 50% 50%; }
-      .folder { left: 8%; width: 84%; }
-      .folder-page { padding: 18px; }
-      .assent { width: 52px; height: 52px; font-size: 9px; }
-      .inset { font-size: 11px; }
+    }
+
+    @media (max-width: 1099px) {
+      .patch-movement { padding-inline: 0; }
+      .heist-movement {
+        display: grid;
+        grid-template-areas:
+          "eye"
+          "hero"
+          "rollback"
+          "receipt";
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 28px;
+        min-height: 0;
+        overflow: visible;
+        background: transparent;
+      }
+      .heist-movement::after { display: none; }
+      .title-field {
+        --intermediate-field: rgb(8 20 20 / 94%);
+        grid-area: hero;
+        position: relative;
+        z-index: 12;
+        align-self: center;
+        justify-self: start;
+        width: min(43%, 360px);
+        min-height: 0;
+        margin-left: clamp(32px, 6vw, 64px);
+        padding: 26px 28px 30px;
+        background: var(--intermediate-field);
+      }
+      .patch-marque { width: 94px; }
+      .wordmark-title { position: relative; z-index: 1; width: calc(119% + 33px); margin-top: clamp(48px, 8vw, 76px); }
+      .heist-close { width: 100%; margin-top: 22px; }
+      .heist-close p { font-size: clamp(15px, 2.4vw, 18px); line-height: 1.5; white-space: nowrap; }
+      .hero-plate {
+        position: relative;
+        z-index: 1;
+        width: calc(100% - 64px);
+        aspect-ratio: 3 / 2;
+        margin-inline: 32px;
+        clip-path: polygon(0 5%, 5% 0, 100% 0, 100% 96%, 97% 100%, 0 100%);
+      }
+      .hero-plate::after { display: none; }
+      .hero-plate img { object-position: 58% center; }
+      .hero-composition { grid-area: hero; position: relative; inset: auto; width: 100%; }
+      .stamp-overprint {
+        position: absolute;
+        right: 5%;
+        bottom: clamp(-144px, -15vw, -104px);
+        left: auto;
+        top: auto;
+        z-index: 30;
+        width: clamp(168px, 23vw, 224px);
+        margin: 0;
+        transform: rotate(-11deg);
+      }
+      .detail { position: relative; inset: auto; height: auto; margin: 0; }
+      .detail-eye { grid-area: eye; justify-self: start; width: min(88%, 880px); aspect-ratio: 4.4 / 1; margin: 8px 0 2px 4%; transform: rotate(-1deg); }
+      .detail-lockdown { grid-area: rollback; justify-self: start; width: min(74%, 760px); aspect-ratio: 16 / 9; margin: 0 0 0 5%; transform: rotate(-1.4deg); }
+      .detail-receipt { grid-area: receipt; justify-self: end; width: min(68%, 700px); aspect-ratio: 16 / 9; margin: -4px 4% 0 0; transform: rotate(1.2deg); }
+      .detail-receipt img { transform: scale(1.72); transform-origin: 63% 67%; }
+      .media-fallback { position: relative; inset: auto; grid-area: fallback; min-height: 280px; margin: 20px 32px 0; }
+      .media-off .heist-movement { grid-template-areas: "title" "fallback"; row-gap: 0; }
+      .media-off .title-field { grid-area: title; width: 100%; margin: 0; padding: 40px 32px 52px; background: var(--ink); }
+      .media-off .wordmark-title { width: auto; margin-top: 64px; }
+    }
+
+    @media (max-width: 520px) {
+      .patch-movement { padding-top: 76px; padding-bottom: 132px; }
+      .heist-movement { grid-template-areas: "title" "eye" "hero" "rollback" "receipt"; row-gap: 18px; }
+      .title-field {
+        grid-area: title;
+        align-self: stretch;
+        justify-self: stretch;
+        width: 100%;
+        min-height: 390px;
+        margin: 0;
+        padding: 36px 24px 52px;
+        background: var(--ink);
+      }
+      .patch-marque { width: 112px; }
+      .patch-marque__art { transform: translate(6px, 14px); }
+      .wordmark-title { width: auto; margin-top: auto; }
+      .heist-close { gap: 15px; }
+      .heist-close p { white-space: normal; }
+      .heist-close p, .heist-close a { font-size: 17px; }
+      .detail-eye { grid-area: eye; width: calc(100% - 32px); aspect-ratio: 3.35 / 1; margin: 0 16px; transform: rotate(-.8deg); }
+      .hero-plate { width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; clip-path: polygon(0 4%, 5% 0, 100% 0, 100% 97%, 96% 100%, 0 100%); }
+      .hero-plate img { object-position: 63% center; }
+      .stamp-overprint { right: 8%; bottom: -108px; width: clamp(138px, 40vw, 172px); margin: 0; transform: rotate(-10deg); }
+      .detail-lockdown { grid-area: rollback; width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; transform: rotate(-.8deg); }
+      .detail-receipt { grid-area: receipt; width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; transform: rotate(.8deg); }
+      .detail-receipt img { transform: scale(1.9); }
+      .media-off .heist-movement { grid-template-areas: "title" "fallback"; }
+      .media-off .title-field { min-height: 390px; padding: 36px 24px 52px; }
+      .media-off .media-fallback { margin: 0 16px; min-height: 260px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; }
     }
   </style>
 </head>
 <body>
-  <div class="wire-note">Phase 8 homepage · static first composition proof · deliberately unfinished · no production code or edition mechanics</div>
+  <div class="wire-note">Phase 8 homepage · integrated editorial wireframe · approved Patch movement · no production code or edition mechanics</div>
 
   <header class="masthead">
     <a class="identity" href="#top" aria-label="Harley Bartles home">
@@ -369,21 +573,53 @@
       </div>
     </section>
 
-    <section class="movement patch" id="patch" aria-labelledby="patch-title">
-      <div class="frame patch-head">
-        <div class="patch-title">
-          <p class="eyebrow">Adventures of Patch</p>
-          <h2 class="section-title" id="patch-title">The Lawful Heist Crew</h2>
+    <section class="movement patch-movement" id="patch" aria-labelledby="patch-title">
+      <div class="heist-movement">
+        <div class="hero-composition">
+          <figure class="hero-plate">
+            <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-homepage-hero.png" width="1536" height="1024" loading="lazy" alt="The completed recruitment folder for The Usual Specialists, carrying six distinct assent materials from Index, Silk, Rollback, Writ, Klause and Receipt.">
+          </figure>
+
+          <figure class="stamp-overprint" aria-label="Klause's produced K assent impression crosses the title and folder boundary.">
+            <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-k-overprint.png" width="1254" height="1254" loading="lazy" alt="Klause's produced K assent impression.">
+          </figure>
         </div>
-        <div class="patch-copy">
-          <p class="body">A protected route, a completed file, and a crew whose jobs only exist because each one leaves something the next step needs.</p>
-          <a class="cta" href="#contact">Enter the heist →</a>
+
+        <div class="title-field">
+          <p class="patch-marque">
+            <span class="semantic-wordmark">PATCH</span>
+            <svg class="patch-marque__art" viewBox="0 0 2893 744" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false"><use href="./phase-8-patch-wordmark-assets/patch-wordmark.svg#patch-wordmark" /></svg>
+          </p>
+          <h2 class="wordmark-title" id="patch-title">
+            <span class="semantic-wordmark">The Usual Specialists</span>
+            <svg class="wordmark-art" viewBox="0 0 1120 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><use href="./phase-8-the-usual-specialists-wordmark-assets/the-usual-specialists-wordmark.svg#the-usual-specialists-wordmark" /></svg>
+          </h2>
+          <div class="heist-close">
+            <p>One question. Are you in?</p>
+            <a href="https://harleybartles.com/patch/lawful-heist">Meet the crew <span aria-hidden="true">→</span></a>
+          </div>
         </div>
+
+        <figure class="detail detail-eye">
+          <div class="detail__crop">
+            <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-silk-reaction.png" width="1536" height="1024" loading="lazy" alt="Silk's eyes open in restrained surprise when the lawful route survives her pressure test.">
+          </div>
+        </figure>
+
+        <figure class="detail detail-lockdown">
+          <div class="detail__crop">
+            <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-lockdown-control.png" width="1536" height="1024" loading="lazy" alt="Rollback's heavy gloved hand presses the amber lockdown control.">
+          </div>
+        </figure>
+
+        <figure class="detail detail-receipt">
+          <div class="detail__crop">
+            <img src="./phase-8-lawful-heist-homepage-proof-assets/lawful-heist-receipt-printing.png" width="1536" height="1024" loading="lazy" alt="Receipt takes a fresh audit record as it emerges from the printer.">
+          </div>
+        </figure>
+
+        <p class="media-fallback">Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.</p>
       </div>
-      <figure class="asset asset-real heist-asset" data-asset-target="patch-lawful-heist">
-        <img src="./phase-8-homepage-wireframe-assets/patch-lawful-heist-first-pass.png" alt="The completed Lawful Heist recruitment folder dominates an overhead story plate, surrounded by four smaller details: a lockdown control, red thread and steel hoop, a printing receipt, and a signed pink assent slip." width="1536" height="1024">
-      </figure>
-      <p class="asset-source frame">First-pass generated derivative from the pinned Adventures of Patch folder and Rollback references at 13bf77a. Narrow layouts deliberately crop peripheral insets so the folder remains dominant.</p>
     </section>
 
     <section class="movement close" id="contact" aria-labelledby="close-title">
@@ -403,5 +639,10 @@
       </div>
     </section>
   </main>
+
+  <script>
+    const parameters = new URLSearchParams(window.location.search)
+    document.documentElement.classList.toggle('media-off', parameters.get('media') === 'off')
+  </script>
 </body>
 </html>

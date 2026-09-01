@@ -1,6 +1,6 @@
 # Phase 8 Lawful Heist homepage proof v2 review
 
-**Status:** K-overprint correction implemented and browser-proved. The responsive art direction remains otherwise unchanged and is ready for Cloud/Harley inspection alongside the separate title-font proof.
+**Status:** Historical proof-v2 correction record. The public title `Lawful Heist` is retired; the accepted responsive art direction and K-overprint rule continue under `The Usual Specialists` in [`phase-8-the-usual-specialists-homepage-proof-note.md`](./phase-8-the-usual-specialists-homepage-proof-note.md).
 
 ## Accepted from proof v2
 
