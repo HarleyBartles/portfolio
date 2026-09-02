@@ -1,6 +1,5 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
-import { homeFeatureCatalog } from '../src/features/home/featureCatalog'
 import routeCatalogue from '../src/data/routes/route-metadata.generated.json' with { type: 'json' }
 
 
@@ -28,6 +27,8 @@ const viewports = [
 const decorativeImageSelectors = [
   '.site-mark > img',
   '.marketplace-map__plugins img',
+  '[aria-hidden="true"] img',
+  '.stamp-overprint img',
 ] as const
 
 function toTestPath(path: string): string {
@@ -88,18 +89,7 @@ for (const viewport of viewports) {
         await expect(pageHeading).toBeVisible()
         await page.evaluate(() => document.fonts.ready)
 
-        const featureVisits = route.name === 'home' ? homeFeatureCatalog.length : 1
-        for (let featureIndex = 0; featureIndex < featureVisits; featureIndex += 1) {
-          await expectNoAutomatedViolations(page)
-          if (featureIndex === featureVisits - 1) continue
-
-          const featureRegion = page.locator('[data-visual-contract="homepage-feature-deck"]')
-          await expect(featureRegion).toHaveAccessibleName(/\S/)
-          const leadHeading = featureRegion.getByRole('heading', { level: 2 }).nth(1)
-          const currentLead = await leadHeading.textContent()
-          await featureRegion.getByRole('button', { name: 'Next feature' }).click()
-          await expect(leadHeading).not.toHaveText(currentLead ?? '')
-        }
+        await expectNoAutomatedViolations(page)
       })
     }
   })
@@ -116,17 +106,7 @@ test.describe('site-wide image alternatives', () => {
       await expect(page.locator('[data-route-loading]')).toHaveCount(0)
       await expect(page.locator('[data-loading="specialist-presentation"]')).toHaveCount(0)
 
-      const featureVisits = route.id === 'home' ? homeFeatureCatalog.length : 1
-      for (let featureIndex = 0; featureIndex < featureVisits; featureIndex += 1) {
-        await expectIntentionalImageAlternatives(page)
-        if (featureIndex === featureVisits - 1) continue
-
-        const featureRegion = page.locator('[data-visual-contract="homepage-feature-deck"]')
-        const leadHeading = featureRegion.getByRole('heading', { level: 2 }).nth(1)
-        const currentLead = await leadHeading.textContent()
-        await featureRegion.getByRole('button', { name: 'Next feature' }).click()
-        await expect(leadHeading).not.toHaveText(currentLead ?? '')
-      }
+      await expectIntentionalImageAlternatives(page)
     })
   }
 })

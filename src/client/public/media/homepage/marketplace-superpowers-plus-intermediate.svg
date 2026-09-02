@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">A compact Superpowers Plus intervention in the base route</title>
+  <desc id="desc">Seven square modules form a stepped carved route. Calm base modules approach from the left. A stronger teal module meets them at a deliberately close channel fit, while a plum module turns the route into the base modules on the right.</desc>
+  <defs>
+    <mask id="h"><rect width="180" height="180" fill="white"/><rect x="-2" y="67" width="184" height="46" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="lb"><rect width="180" height="180" fill="white"/><rect x="-2" y="67" width="92" height="46" fill="black"/><rect x="67" y="90" width="46" height="92" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="tr"><rect width="180" height="180" fill="white"/><rect x="67" y="-2" width="46" height="92" fill="black"/><rect x="90" y="67" width="92" height="46" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="td"><rect width="180" height="180" fill="white"/><rect x="-2" y="67" width="184" height="46" fill="black"/><rect x="67" y="90" width="46" height="92" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <mask id="tight"><rect width="180" height="180" fill="white"/><rect x="-2" y="72" width="184" height="44" fill="black"/><circle cx="90" cy="94" r="49" fill="black"/></mask>
+    <mask id="lt"><rect width="180" height="180" fill="white"/><rect x="-2" y="67" width="92" height="46" fill="black"/><rect x="67" y="-2" width="46" height="92" fill="black"/><circle cx="90" cy="90" r="52" fill="black"/></mask>
+    <symbol id="tile-h"><rect width="180" height="180" fill="currentColor" mask="url(#h)"/></symbol>
+    <symbol id="tile-lb"><rect width="180" height="180" fill="currentColor" mask="url(#lb)"/></symbol>
+    <symbol id="tile-tr"><rect width="180" height="180" fill="currentColor" mask="url(#tr)"/></symbol>
+    <symbol id="tile-td"><rect width="180" height="180" fill="currentColor" mask="url(#td)"/></symbol>
+    <symbol id="tile-tight"><rect width="180" height="180" fill="currentColor" mask="url(#tight)"/></symbol>
+    <symbol id="tile-lt"><rect width="180" height="180" fill="currentColor" mask="url(#lt)"/></symbol>
+  </defs>
+  <use href="#tile-h" x="60" y="90" color="#aec1c4"/>
+  <use href="#tile-lb" x="240" y="90" color="#bdccce"/>
+  <use href="#tile-tr" x="240" y="270" color="#aec1c4"/>
+  <use href="#tile-tight" x="420" y="270" color="#2d7476"/>
+  <use href="#tile-td" x="600" y="270" color="#a95678"/>
+  <use href="#tile-lb" x="780" y="270" color="#bdccce"/>
+  <use href="#tile-lt" x="780" y="450" color="#aec1c4"/>
+</svg>

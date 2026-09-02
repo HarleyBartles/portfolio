@@ -476,7 +476,7 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
 
   await expect(page.getByText(/I'm going to teach my brother a few things about using agentic AI/)).toHaveCount(1)
   await expect(page.getByText(/a love letter to my brother/)).toHaveCount(1)
-  await expect(page.getByText(/First live delivery planned for late August 2026/)).toBeVisible()
+  await expect(page.getByText(/First live delivery planned for September 2026/)).toBeVisible()
   await expect(page.getByRole('link', { name: /View the public repository/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the integrity run/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the pinned curriculum shape/ })).toBeVisible()

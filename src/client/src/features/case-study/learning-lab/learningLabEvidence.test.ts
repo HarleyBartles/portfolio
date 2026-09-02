@@ -6,7 +6,7 @@ describe('Learning Lab evidence', () => {
     expect(learningLabEvidence.sourceRevision).toBe('3d8e92ceaebcbb67f0ede5bda95846da8e18b80d')
     expect(learningLabEvidence.observedAt).toBe('2026-08-25')
     expect(learningLabEvidence.sourceChangeUrl).toBe('https://github.com/HarleyBartles/agentic-learning-lab/pull/13')
-    expect(learningLabEvidence.delivery).toEqual({ status: 'planned', target: '2026-08', display: 'late August 2026' })
+    expect(learningLabEvidence.delivery).toEqual({ status: 'planned', target: '2026-09', display: 'September 2026' })
     expect(learningLabEvidence.courses).toHaveLength(3)
     expect(learningLabModules).toHaveLength(19)
     expect(new Set(learningLabEvidence.courses.flatMap((course) => course.modules.map((module) => `${course.id}:${module.id}`)))).toHaveLength(19)
