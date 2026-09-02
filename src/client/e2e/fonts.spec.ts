@@ -29,7 +29,7 @@ test('production typography is self-hosted and available without a font CDN', as
   })
 
   await page.goto('./')
-  await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
   await page.goto('./about')
   await expect(page.locator('main h1')).toBeVisible()
   await page.goto('./writing/why-adrs/')

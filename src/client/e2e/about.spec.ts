@@ -26,10 +26,10 @@ test('about page makes the professional proposition and configured conversion ro
   await expect(page.getByText(/technical owner/i)).toHaveCount(0)
 })
 
-test('homepage hiring link reaches the contact section', async ({ page }) => {
+test('homepage professional close reaches the contact section', async ({ page }) => {
   await page.goto('./')
 
-  await page.getByRole('link', { name: 'Experience, current work, contact' }).click()
+  await page.getByRole('link', { name: 'Tell me about it →' }).click()
   await expect(page).toHaveURL(/\/about#contact$/)
   await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toBeVisible()
 })

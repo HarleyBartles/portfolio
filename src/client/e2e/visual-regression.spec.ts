@@ -110,14 +110,6 @@ async function clipBetween(page: Page, firstSelector: string, lastSelector: stri
   }
 }
 
-test('homepage keeps its authored masthead and feature composition', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './')
-
-  await expect(page.locator('[data-visual-contract="homepage-masthead"]')).toHaveScreenshot('homepage-masthead.png')
-  await expect(page.locator('[data-visual-contract="homepage-feature-deck"]')).toHaveScreenshot('homepage-feature-deck.png')
-})
-
 test('writing index keeps its newest-first editorial composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './writing')

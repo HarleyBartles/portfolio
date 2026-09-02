@@ -49,15 +49,15 @@ describe('Writing discovery surfaces', () => {
     expect(screen.getByText(/min read/).closest('.editorial-meta')).toBeInTheDocument()
   })
 
-  test('uses the newest article as the homepage latest essay', async () => {
+  test('uses the selected Writing edition on the homepage without restoring a featured deck', async () => {
     renderRoute('/')
 
-    const heading = await screen.findByRole('heading', { level: 2, name: 'Judgment, written down' })
+    const heading = await screen.findByRole('heading', { level: 2, name: 'I made agentic engineering harder than it needed to be' })
     const section = heading.closest('section')
 
     expect(section).not.toBeNull()
-    expect(within(section as HTMLElement).getByText(/Latest essay \/ 28 August 2026/i)).toBeVisible()
-    expect(within(section as HTMLElement).getByRole('heading', { name: '"I just write the code" is not a full sentence' })).toBeVisible()
+    expect(within(section as HTMLElement).getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
+    expect(within(section as HTMLElement).getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
     expect(within(section as HTMLElement).queryByText(/Featured essay/i)).not.toBeInTheDocument()
   })
 })

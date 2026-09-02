@@ -1,0 +1,72 @@
+import { render, screen, within } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+import { describe, expect, test } from 'vitest'
+import { defaultHomepageEdition } from './homepageEdition'
+import { HomepageOpening } from './HomepageOpening'
+import { MarketplaceFeature } from './MarketplaceFeature'
+import { ProfessionalClose } from './ProfessionalClose'
+import { SpecialistsPatchFeature } from './SpecialistsPatchFeature'
+import { WildBunchFeature } from './WildBunchFeature'
+import { WritingFeature } from './WritingFeature'
+
+function renderSections(): ReturnType<typeof render> {
+  return render(
+    <MemoryRouter>
+      <HomepageOpening />
+      <MarketplaceFeature />
+      <WildBunchFeature nextFeature={defaultHomepageEdition.writing} />
+      <WritingFeature feature={defaultHomepageEdition.writing} nextFeature={defaultHomepageEdition.patch} />
+      <SpecialistsPatchFeature feature={defaultHomepageEdition.patch} />
+      <ProfessionalClose />
+    </MemoryRouter>,
+  )
+}
+
+describe('Phase 8 homepage sections', () => {
+  test('compose the accepted movements and inward routes in source order', () => {
+    const { container } = renderSections()
+    const movements = [...container.querySelectorAll<HTMLElement>('[data-home-movement]')]
+
+    expect(movements.map((movement) => movement.dataset.homeMovement)).toEqual([
+      'opening',
+      'marketplace',
+      'wild-bunch',
+      'writing',
+      'patch',
+      'professional-close',
+    ])
+    expect(screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
+    expect(screen.getByRole('link', { name: /Inspect the case study/ })).toHaveAttribute('href', '/projects/codex-marketplace')
+    expect(screen.getByRole('link', { name: /Follow the trail/ })).toHaveAttribute('href', '/projects/wild-bunch')
+    expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
+    expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
+  })
+
+  test('renders each continuation from the destination feature metadata', () => {
+    renderSections()
+
+    expect(screen.getByRole('link', { name: `${defaultHomepageEdition.writing.incomingTeaser} ↓` })).toHaveAttribute('href', '#writing')
+    expect(screen.getByRole('link', { name: `${defaultHomepageEdition.patch.incomingTeaser} ↓` })).toHaveAttribute('href', '#patch')
+  })
+
+  test('keeps the Wild Bunch topology semantic and ordered', () => {
+    const { container } = renderSections()
+    const proof = container.querySelector('[data-wild-proof]') as HTMLElement
+
+    expect(proof.querySelectorAll('.home-wild-event')).toHaveLength(6)
+    expect(within(proof).getByRole('heading', { name: 'Replay' })).toBeVisible()
+    expect(within(proof).getByRole('heading', { name: 'Cache' })).toBeVisible()
+    expect(within(proof).getByRole('heading', { name: 'State' })).toBeVisible()
+    expect(proof).toHaveAttribute('data-topology', 'events-cache-state;history-replay-cache-state')
+  })
+
+  test('keeps Specialists presentation separate from semantic title and document flow', () => {
+    const { container } = renderSections()
+    const patch = container.querySelector('[data-home-movement="patch"]') as HTMLElement
+    const overprint = patch.querySelector('[data-zero-flow-overprint]') as HTMLElement
+
+    expect(within(patch).getByText('PATCH')).toBeInTheDocument()
+    expect(within(patch).getByRole('heading', { name: 'The Usual Specialists' })).toBeVisible()
+    expect(overprint).toHaveAttribute('data-zero-flow-overprint', 'true')
+  })
+})
