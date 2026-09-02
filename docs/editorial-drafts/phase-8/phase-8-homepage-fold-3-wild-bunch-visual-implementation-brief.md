@@ -14,7 +14,7 @@ The current wireframe SVG is structurally useful but visually too diagrammatic a
 
 ## Inspiration-board boundary
 
-Cloud and Harley reviewed a generative inspiration board for this direction. Harley will provide that board to local Sol alongside this brief.
+Cloud and Harley reviewed [`phase-8-homepage-fold-3-wild-bunch-inspiration-board.png`](./phase-8-homepage-fold-3-wild-bunch-inspiration-board.png) for this direction. The full-resolution PNG is checked in alongside this brief.
 
 The board is **visual inspiration only**. It is not a source asset and its arrows are not technically authoritative. In particular:
 

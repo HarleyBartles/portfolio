@@ -14,11 +14,13 @@
 
 ## Wild Bunch replay composition
 
-- Current assets: `wild-bunch-replay-wireframe-wide.svg` (`1600 × 1000`) and `wild-bunch-replay-wireframe-narrow.svg` (`720 × 980`).
+- Inspiration reference: `../phase-8-homepage-fold-3-wild-bunch-inspiration-board.png`, full-resolution PNG at `1672 × 941`, SHA-256 `F573206A01180ABCA7F930FDEEDFA091F1036EF90C004A189E6BD45E37DA07DB`.
+- Inspiration boundary: Harley supplied the reviewed generative board on 2 September 2026. It contributes material massing, restrained texture and the State-plane information fade only. Its incorrect replay arrows, ambiguous cache fan-in and baked text are not implementation authority.
+- Current assets: `wild-bunch-replay-wireframe-wide.svg` (`1600 × 1000`, SHA-256 `1C09D0D248F08CC3259C2648EE5EC313F7409E6358F55FA07FC154DEDF8B561E`) and `wild-bunch-replay-wireframe-narrow.svg` (`720 × 1280`, SHA-256 `BC814C8630FDF0D0ECC7CA44F8B686BFBC728E2F080DD4A7A6E1CDF23F3F2C69`).
 - Source: `HarleyBartles/wild-bunch@f388c44150bc7e68a725839d58ff31cd57e2c524`.
 - Inspected source: `FullReplayEqualityTests.cs`, `GameSessionEventReplay.cs`, and `SessionAuditDevPanel.tsx`.
 - Source fragments are verbatim or whitespace-normalised from those files. The ordered event names are real domain event types; `TravelDiaryDays.Count` is the real equality surface used in the proof.
-- Responsive treatment: both assets preserve the accepted three-column meaning — canonical history, direct shortcut plus longer replay, identical live derived state — while the narrow asset composes those relationships vertically.
+- Responsive treatment: both assets preserve the accepted topology — events only emit; leftward event reads enter the replay spine; rightward event reads converge on Cache; Cache and Replay independently point to the same State. The wide asset carries that proof laterally, while the narrow asset deliberately composes it as event stack, paired mechanisms and shared State. All meaningful labels are SVG text rather than generated pixels.
 - Rejected history: `wild-bunch-replay-first-pass.svg` remains inspectable but is not rendered by the current wireframe.
 
 ## Historical Patch Lawful Heist composition

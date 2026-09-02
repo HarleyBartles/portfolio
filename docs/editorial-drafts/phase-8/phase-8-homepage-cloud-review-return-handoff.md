@@ -14,7 +14,8 @@ Before editing, read:
 
 1. this return handoff;
 2. [`phase-8-homepage-fold-3-wild-bunch-visual-implementation-brief.md`](./phase-8-homepage-fold-3-wild-bunch-visual-implementation-brief.md);
-3. [`phase-8-homepage-fold-2-marketplace-visual-direction.md`](./phase-8-homepage-fold-2-marketplace-visual-direction.md) and [`phase-8-homepage-fold-2-shape-language-moodboard.webp`](./phase-8-homepage-fold-2-shape-language-moodboard.webp);
+   visual reference: [`phase-8-homepage-fold-3-wild-bunch-inspiration-board.png`](./phase-8-homepage-fold-3-wild-bunch-inspiration-board.png);
+3. [`phase-8-homepage-fold-2-marketplace-visual-direction.md`](./phase-8-homepage-fold-2-marketplace-visual-direction.md) and [`phase-8-homepage-fold-2-shape-language-moodboard.png`](./phase-8-homepage-fold-2-shape-language-moodboard.png);
 4. [`phase-8-homepage-fold-4-writing-lock.md`](./phase-8-homepage-fold-4-writing-lock.md);
 5. [`phase-8-the-usual-specialists-homepage-proof-note.md`](./phase-8-the-usual-specialists-homepage-proof-note.md);
 6. the current [`phase-8-homepage-wireframe.html`](./phase-8-homepage-wireframe.html) and its local assets.
@@ -146,7 +147,7 @@ The existing checked-in moodboard may be enough. If new generative exploration m
 
 Implement [`phase-8-homepage-fold-3-wild-bunch-visual-implementation-brief.md`](./phase-8-homepage-fold-3-wild-bunch-visual-implementation-brief.md).
 
-Harley will provide the reviewed generative inspiration board separately. It is an inspiration board only: its left replay arrows are backwards, its cache fan-in is ambiguous, and none of its baked text is admissible.
+Harley's reviewed [`phase-8-homepage-fold-3-wild-bunch-inspiration-board.png`](./phase-8-homepage-fold-3-wild-bunch-inspiration-board.png) is an inspiration board only: its left replay arrows are backwards, its cache fan-in is ambiguous, and none of its baked text is admissible.
 
 The implementation brief owns the exact topology:
 

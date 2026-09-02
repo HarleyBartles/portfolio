@@ -85,7 +85,9 @@
     .primary ul { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0; padding: 0; list-style: none; }
     .primary a { font-size: 14px; font-weight: 600; text-decoration: none; }
 
-    .movement { border-bottom: 1px solid var(--rule); }
+    .movement { position: relative; border-bottom: 1px solid var(--rule); }
+    .anchor-target { position: absolute; top: 0; left: 0; width: 1px; height: 1px; scroll-margin-top: 28px; }
+    .anchor-target--writing { top: clamp(72px, 9vw, 120px); }
     .frame { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
     .eyebrow { margin: 0; color: var(--muted); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: .012em; }
     .display { margin: 12px 0 0; font-size: clamp(46px, 6vw, 82px); font-weight: 650; line-height: .96; letter-spacing: -.03em; }
@@ -93,6 +95,9 @@
     .body { margin: 0; font-size: 18px; line-height: 1.62; }
     .lede { margin: 0; font-size: clamp(19px, 2vw, 23px); line-height: 1.46; }
     .cta { display: inline-block; margin-top: 22px; font-weight: 600; }
+    .route-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; margin-top: 22px; }
+    .route-actions .cta { margin-top: 0; }
+    .next-plate { color: var(--muted); font-size: 15px; font-weight: 600; }
     .small { color: var(--muted); font-size: 14px; line-height: 1.5; }
 
     .opening { min-height: calc(100svh - 86px); display: flex; align-items: center; }
@@ -108,12 +113,15 @@
     .opening-proof .small { margin: 0 0 14px; font-weight: 600; }
 
     .project { padding: clamp(82px, 10vw, 142px) 0; }
+    .marketplace-movement { min-height: calc(100svh - 56px); display: flex; align-items: center; }
+    .marketplace-movement .frame { flex: 1; }
     .project-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: center; }
     .project-copy { grid-column: 1 / span 4; }
     .project-copy .body { margin-top: 22px; }
     .project-visual { grid-column: 6 / span 7; min-width: 0; }
     .project-reverse .project-visual { grid-column: 1 / span 7; grid-row: 1; }
     .project-reverse .project-copy { grid-column: 9 / span 4; grid-row: 1; }
+    .market-grid .project-visual { grid-column: 5 / span 8; }
 
     .asset {
       position: relative;
@@ -138,10 +146,10 @@
     }
     .asset-real::after { content: none; }
     .asset-real img { width: 100%; height: 100%; object-fit: cover; }
-    .asset-source { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
     .asset-mobile-proof { display: none; }
 
-    .market-asset { aspect-ratio: 16 / 9; border: 0; background: transparent; }
+    .market-asset { aspect-ratio: 4 / 3; border: 1px solid var(--rule-strong); background: color-mix(in srgb, var(--mineral) 88%, white 12%); }
+    .market-asset picture { display: block; width: 100%; height: 100%; transform: rotate(-8deg) scale(1.3); transform-origin: 52% 50%; }
     .market-asset img { object-fit: contain; }
     .market-lineage { display: grid; grid-template-columns: 1fr 1.25fr; gap: 22px; height: 100%; }
     .sheet { border: 1px solid var(--rule-strong); background: rgb(255 255 255 / 62%); padding: 18px; }
@@ -155,7 +163,7 @@
     .stages { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 18px; }
     .stage { min-height: 72px; display: grid; place-items: center; border: 1px solid var(--rule); text-align: center; font-size: 13px; }
 
-    .wild-asset { padding: 0; border: 0; background: transparent; }
+    .wild-asset { aspect-ratio: 8 / 5; padding: 0; border: 0; background: transparent; }
     .wild-asset img { object-fit: contain; }
     .event-spine { display: grid; grid-template-columns: 1.1fr .65fr 1fr; gap: 18px; align-items: stretch; min-height: 410px; }
     .events { border-left: 3px solid var(--western); padding-left: 18px; }
@@ -250,6 +258,7 @@
     }
     .heist-close p { margin: 0; font-size: 18px; line-height: 1.5; }
     .heist-close a { width: fit-content; font-size: 18px; font-weight: 720; }
+    .heist-close .next-plate { color: rgb(245 236 215 / 72%); font-size: 15px; font-weight: 620; }
     .detail {
       position: absolute;
       z-index: 8;
@@ -358,13 +367,26 @@
       .article-title { font-size: clamp(52px, 15vw, 78px); }
       .article-summary { max-width: 31rem; margin: 44px 0 0 auto; }
       .close-actions { margin-top: 42px; }
+      .market-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .market-grid .project-copy { display: contents; }
+      .market-grid .project-copy .eyebrow, .market-grid .project-copy .section-title { order: 1; }
+      .market-grid .project-visual { order: 2; grid-area: auto; margin: 36px 0; }
+      .market-grid .project-copy .body { order: 3; }
+      .market-grid .project-copy .route-actions { order: 4; }
       .market-asset { aspect-ratio: 5 / 3; }
+      .market-asset picture { transform: rotate(-7deg) scale(1.34); }
       .wild-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
       .wild-grid .project-copy { display: contents; }
       .wild-grid .project-visual { grid-area: auto; }
       .wild-grid .project-copy .eyebrow, .wild-grid .project-copy .section-title { order: 1; }
       .wild-grid .project-visual { order: 2; margin: 34px 0; }
-      .wild-grid .project-copy .body, .wild-grid .project-copy .cta { order: 3; }
+      .wild-grid .project-copy .body, .wild-grid .project-copy .route-actions { order: 3; }
+    }
+
+    @media (min-width: 521px) and (max-width: 800px) {
+      .wild-grid { min-height: 1080px; align-content: center; }
+      .writing { min-height: calc(100svh + 120px); display: flex; align-items: center; }
+      .writing .frame { flex: 1; }
     }
 
     @media (max-width: 480px) {
@@ -375,7 +397,10 @@
       .section-title { font-size: 42px; }
       .asset { min-height: 380px; }
       .asset-real { min-height: 0; }
-      .market-asset { aspect-ratio: 6 / 7; }
+      .anchor-target--writing { top: 0; }
+      .market-asset { aspect-ratio: 4 / 5; }
+      .market-asset picture { transform: rotate(-6deg) scale(1.38); }
+      .wild-asset { aspect-ratio: 9 / 16; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
     }
@@ -436,9 +461,9 @@
         transform: rotate(-11deg);
       }
       .detail { position: relative; inset: auto; height: auto; margin: 0; }
-      .detail-eye { grid-area: eye; justify-self: start; width: min(88%, 880px); aspect-ratio: 4.4 / 1; margin: 8px 0 2px 4%; transform: rotate(-1deg); }
-      .detail-lockdown { grid-area: rollback; justify-self: start; width: min(74%, 760px); aspect-ratio: 16 / 9; margin: 0 0 0 5%; transform: rotate(-1.4deg); }
-      .detail-receipt { grid-area: receipt; justify-self: end; width: min(68%, 700px); aspect-ratio: 16 / 9; margin: -4px 4% 0 0; transform: rotate(1.2deg); }
+      .detail-eye { grid-area: eye; justify-self: start; width: min(94%, 900px); aspect-ratio: 4.4 / 1; margin: 8px 0 0 -1.5%; transform: rotate(-1deg); }
+      .detail-lockdown { grid-area: rollback; justify-self: start; width: min(82%, 800px); aspect-ratio: 16 / 9; margin: -6px 0 0 -2%; transform: rotate(-1.4deg); }
+      .detail-receipt { grid-area: receipt; justify-self: end; width: min(76%, 740px); aspect-ratio: 16 / 9; margin: -12px -3% 0 0; transform: rotate(1.2deg); }
       .detail-receipt img { transform: scale(1.72); transform-origin: 63% 67%; }
       .media-fallback { position: relative; inset: auto; grid-area: fallback; min-height: 280px; margin: 20px 32px 0; }
       .media-off .heist-movement { grid-template-areas: "title" "fallback"; row-gap: 0; }
@@ -465,12 +490,12 @@
       .heist-close { gap: 15px; }
       .heist-close p { white-space: normal; }
       .heist-close p, .heist-close a { font-size: 17px; }
-      .detail-eye { grid-area: eye; width: calc(100% - 32px); aspect-ratio: 3.35 / 1; margin: 0 16px; transform: rotate(-.8deg); }
-      .hero-plate { width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; clip-path: polygon(0 4%, 5% 0, 100% 0, 100% 97%, 96% 100%, 0 100%); }
+      .detail-eye { grid-area: eye; width: calc(100% + 8px); aspect-ratio: 3.35 / 1; margin: 0 0 0 -8px; transform: rotate(-.8deg); }
+      .hero-plate { width: calc(100% - 8px); aspect-ratio: 4 / 3; margin: 0 0 0 20px; clip-path: polygon(0 4%, 5% 0, 100% 0, 100% 97%, 96% 100%, 0 100%); }
       .hero-plate img { object-position: 63% center; }
       .stamp-overprint { right: 8%; bottom: -108px; width: clamp(138px, 40vw, 172px); margin: 0; transform: rotate(-10deg); }
-      .detail-lockdown { grid-area: rollback; width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; transform: rotate(-.8deg); }
-      .detail-receipt { grid-area: receipt; width: calc(100% - 32px); aspect-ratio: 4 / 3; margin: 0 16px; transform: rotate(.8deg); }
+      .detail-lockdown { grid-area: rollback; justify-self: start; width: 92%; aspect-ratio: 4 / 3; margin: -4px 0 0 -4%; transform: rotate(-.8deg); }
+      .detail-receipt { grid-area: receipt; justify-self: end; width: 88%; aspect-ratio: 4 / 3; margin: -8px -3% 0 0; transform: rotate(.8deg); }
       .detail-receipt img { transform: scale(1.9); }
       .media-off .heist-movement { grid-template-areas: "title" "fallback"; }
       .media-off .title-field { min-height: 390px; padding: 36px 24px 52px; }
@@ -522,13 +547,17 @@
       </div>
     </section>
 
-    <section class="movement project" id="marketplace" aria-labelledby="marketplace-title">
-      <div class="frame project-grid">
+    <section class="movement project marketplace-movement" aria-labelledby="marketplace-title">
+      <span class="anchor-target" id="marketplace" aria-hidden="true"></span>
+      <div class="frame project-grid market-grid">
         <div class="project-copy">
           <p class="eyebrow">Agent Asset Marketplace · Superpowers+</p>
           <h2 class="section-title" id="marketplace-title">A strong system, changed by using it.</h2>
           <p class="body">I use obra/superpowers as a strong base system. Superpowers+ is my plugin around the way I actually work; Handoff Gates makes one boundary explicit: work does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
-          <a class="cta" href="#wild-bunch">Inspect the case study →</a>
+          <div class="route-actions">
+            <a class="cta" href="/portfolio/projects/codex-marketplace">Inspect the case study →</a>
+            <a class="next-plate" href="#wild-bunch">I tried to break my own event-sourcing claim ↓</a>
+          </div>
         </div>
         <div class="project-visual">
           <figure class="asset asset-real market-asset" data-asset-target="marketplace-superpowers-plus">
@@ -538,43 +567,50 @@
               <img src="./phase-8-homepage-wireframe-assets/marketplace-superpowers-plus-wireframe-wide.svg" alt="A calm modular route system becomes stronger where one close-tolerance Superpowers Plus intervention lets the route continue across the composition." width="1600" height="900">
             </picture>
           </figure>
-          <p class="asset-source">Reduced deterministic wireframe treatment derived from the accepted Fold 2 shape-language moodboard.</p>
         </div>
       </div>
     </section>
 
-    <section class="movement project project-reverse" id="wild-bunch" aria-labelledby="wild-title">
+    <section class="movement project project-reverse" aria-labelledby="wild-title">
+      <span class="anchor-target" id="wild-bunch" aria-hidden="true"></span>
       <div class="frame project-grid wild-grid">
         <div class="project-visual">
           <figure class="asset asset-real wild-asset" data-asset-target="wild-bunch-replay">
             <picture>
-              <source media="(max-width: 560px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg">
-              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg" alt="The same canonical event history reaches one identical live state by a direct snapshot shortcut and by a longer full replay route; only the resulting state carries a tintype information fade." width="1600" height="1000">
+              <source media="(max-width: 560px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg?revision=3">
+              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg?revision=3" alt="Six immutable ordered events emit left into a full-history replay spine and right into a direct cache path. Cache and Replay both terminate at the same derived State, whose right edge progressively loses information." width="1600" height="1000">
             </picture>
           </figure>
-          <p class="asset-source">Deterministic wireframe treatment from Wild Bunch replay source and FullReplayEqualityTests at f388c44.</p>
         </div>
         <div class="project-copy">
           <p class="eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
           <h2 class="section-title" id="wild-title">I only get to call the replay exact because it's falsifiable.</h2>
           <p class="body">I said events were the source of truth. Then I audited the replay and found they weren't. I fixed the gaps until I could throw the snapshot away and reconstruct the same session from the event stream.</p>
-          <a class="cta" href="#writing">Follow the trail →</a>
+          <div class="route-actions">
+            <a class="cta" href="/portfolio/projects/wild-bunch">Follow the trail →</a>
+            <a class="next-plate" href="#writing">Then the process became the problem ↓</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="movement writing" id="writing" aria-labelledby="writing-title">
+    <section class="movement writing" aria-labelledby="writing-title">
+      <span class="anchor-target anchor-target--writing" id="writing" aria-hidden="true"></span>
       <div class="frame writing-grid">
         <p class="eyebrow writing-label">Writing</p>
         <h2 class="article-title" id="writing-title">I made agentic engineering harder than it needed to be</h2>
         <div class="article-summary">
           <p>I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?</p>
-          <a class="cta" href="#patch">Read the article →</a>
+          <div class="route-actions">
+            <a class="cta" href="/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be">Read the article →</a>
+            <a class="next-plate" href="#patch">Meet The Usual Specialists ↓</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="movement patch-movement" id="patch" aria-labelledby="patch-title">
+    <section class="movement patch-movement" aria-labelledby="patch-title">
+      <span class="anchor-target" id="patch" aria-hidden="true"></span>
       <div class="heist-movement">
         <div class="hero-composition">
           <figure class="hero-plate">
@@ -597,7 +633,8 @@
           </h2>
           <div class="heist-close">
             <p>One question. Are you in?</p>
-            <a href="https://harleybartles.com/patch/lawful-heist">Meet the crew <span aria-hidden="true">→</span></a>
+            <a href="/portfolio/patch/lawful-heist">Meet the crew <span aria-hidden="true">→</span></a>
+            <a class="next-plate" href="#contact">Then tell me what you're building ↓</a>
           </div>
         </div>
 
@@ -623,7 +660,8 @@
       </div>
     </section>
 
-    <section class="movement close" id="contact" aria-labelledby="close-title">
+    <section class="movement close" aria-labelledby="close-title">
+      <span class="anchor-target" id="contact" aria-hidden="true"></span>
       <div class="frame close-grid">
         <div class="close-copy">
           <p class="eyebrow">Work with me</p>
@@ -632,9 +670,9 @@
         <div class="close-actions">
           <p>If that looks like the kind of engineering you want on your team, I'd like to hear what you're building.</p>
           <div class="action-row">
-            <a href="#">Tell me about it →</a>
-            <a href="#">Read my CV</a>
-            <a class="about-link" href="#">About me</a>
+            <a href="/portfolio/about#contact">Tell me about it →</a>
+            <a href="/portfolio/cv">Read my CV →</a>
+            <a class="about-link" href="/portfolio/about">About me →</a>
           </div>
         </div>
       </div>
