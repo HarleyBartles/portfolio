@@ -283,17 +283,50 @@
       --paper: #f5ecd7;
       --teal: #0d7476;
       --red: #a43d34;
-      padding: clamp(76px, 9vw, 124px) 20px clamp(132px, 15vw, 210px);
+      --substrate-black: #090909;
+      --tear-width: clamp(110px, 16vw, 260px);
+      --tear-reveal: calc(var(--tear-width) * .18);
+      --tear-fill-left: calc(var(--tear-width) * .30);
+      --tear-fill-right: calc(var(--tear-width) * .20);
+      z-index: 0;
+      padding: clamp(76px, 9vw, 124px) 0 clamp(132px, 15vw, 210px);
       overflow: hidden;
+      isolation: isolate;
     }
+    .specialists-substrate {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .specialists-substrate__fill {
+      position: absolute;
+      inset-block: 0;
+      inset-inline: var(--tear-fill-left) var(--tear-fill-right);
+      background: linear-gradient(90deg, #050504, #0e0e0d);
+    }
+    .specialists-substrate__edge {
+      position: absolute;
+      top: 0;
+      width: var(--tear-width);
+      height: 100%;
+      max-width: none;
+      object-fit: fill;
+      object-position: center;
+      user-select: none;
+    }
+    .specialists-substrate__edge--left { left: 0; }
+    .specialists-substrate__edge--right { right: 0; }
     .heist-movement {
       position: relative;
-      width: min(100%, 1440px);
+      z-index: 1;
+      width: min(calc(100% - (2 * var(--tear-reveal))), 1440px);
       min-height: clamp(780px, 61vw, 900px);
       margin-inline: auto;
       overflow: visible;
       color: var(--paper);
-      background: var(--ink);
+      background: transparent;
       isolation: isolate;
     }
     .heist-movement::after {
@@ -627,7 +660,6 @@
     }
 
     @media (max-width: 1099px) {
-      .patch-movement { padding-inline: 0; }
       .heist-movement {
         display: grid;
         grid-template-areas:
@@ -653,7 +685,7 @@
         min-height: 0;
         margin-left: clamp(32px, 6vw, 64px);
         padding: 26px 28px 30px;
-        background: var(--intermediate-field);
+        background: transparent;
       }
       .patch-marque { width: 94px; }
       .wordmark-title { position: relative; z-index: 1; width: calc(119% + 33px); margin-top: clamp(48px, 8vw, 76px); }
@@ -703,7 +735,7 @@
         min-height: 390px;
         margin: 0;
         padding: 36px 24px 52px;
-        background: var(--ink);
+        background: transparent;
       }
       .patch-marque { width: 112px; }
       .patch-marque__art { transform: translate(6px, 14px); }
@@ -722,6 +754,10 @@
       .media-off .title-field { min-height: 390px; padding: 36px 24px 52px; }
       .media-off .media-fallback { margin: 0 16px; min-height: 260px; }
     }
+
+    .media-off .specialists-substrate { background: var(--substrate-black); }
+    .media-off .specialists-substrate__fill { inset: 0; }
+    .media-off .specialists-substrate__edge { display: none; }
 
     @media (max-width: 340px) {
       .wild-grid .wild-reading-card { padding: 18px 12px 22px; }
@@ -878,6 +914,11 @@
 
     <section class="movement patch-movement" aria-labelledby="patch-title">
       <span class="anchor-target" id="patch" aria-hidden="true"></span>
+      <div class="specialists-substrate" aria-hidden="true">
+        <span class="specialists-substrate__fill"></span>
+        <img class="specialists-substrate__edge specialists-substrate__edge--left" src="./phase-8-homepage-wireframe-assets/specialists-torn-edge-left.png" width="724" height="2172" loading="lazy" decoding="async" alt="">
+        <img class="specialists-substrate__edge specialists-substrate__edge--right" src="./phase-8-homepage-wireframe-assets/specialists-torn-edge-right.png" width="724" height="2172" loading="lazy" decoding="async" alt="">
+      </div>
       <div class="heist-movement">
         <div class="hero-composition">
           <figure class="hero-plate">

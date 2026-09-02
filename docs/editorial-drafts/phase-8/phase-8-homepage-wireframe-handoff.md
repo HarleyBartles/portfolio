@@ -1,6 +1,6 @@
 # Phase 8 homepage wireframe handoff
 
-**Status:** Ready for Cloud/Harley Fold 3 material/composition re-inspection. The event-sourcing proof now has a resolved material hierarchy, an intentional State/editorial seam and one coherent breakpoint strategy inside the disposable composition wireframe. This remains a discovery artifact inside the active homepage design room, not a production implementation plan, and does not authorize edits to the production `HomePage`, shared production styles, routing, tests or edition mechanics.
+**Status:** Ready for Cloud/Harley final wireframe inspection. The complete disposable homepage composition now includes the accepted Specialists movement on its final torn black substrate. This remains a discovery artifact inside the active homepage design room, not a production implementation plan, and does not authorize edits to the production `HomePage`, shared production styles, routing, tests or edition mechanics.
 
 The static composition proof is [`phase-8-homepage-wireframe.html`](./phase-8-homepage-wireframe.html).
 
@@ -10,8 +10,14 @@ The static composition proof is [`phase-8-homepage-wireframe.html`](./phase-8-ho
 2. Fold 2 now breaks in from the right as a materially larger, tighter crop without a hard image border. The mineral copy plane overlaps and crops the tile field instead of leaving image and copy as polite adjacent modules. Its narrow visual sequence remains label/title, proof, body, inward route and down-link; the semantic source keeps the explanatory copy and routes before the presentation image.
 3. Fold 3 answers from the left with one semantic DOM/CSS proof rather than three diagram images. The normal path is `events → Cache → State`; the rebuild path is `complete event history → Replay → Cache → State`. Replay never writes directly to State. Ordinary site-native history feeds restrained Cache/Replay mechanisms; the generated desert State surface is the expressive culmination. Expansive desktop lets the locked headline inhabit the State fade, compact landscape and tablet use one consistent left article rail, and narrow becomes a deliberate vertical evidence sequence.
 4. Writing is compositionally unchanged and retains its authored jump viewpoint.
-5. The accepted `PATCH / The Usual Specialists` movement keeps its type, copy, assets and sequence. At intermediate and narrow widths, Silk, folder, Rollback and Receipt now press and overlap the page edges with less regular spacing and more deliberate comic-panel placement; Klause remains a true zero-flow overprint across the folder/Rollback seam.
+5. The accepted `PATCH / The Usual Specialists` movement keeps its type, copy, assets and sequence. A full-height black substrate now binds its wide collage and decomposed intermediate/narrow panel sequence into one authored caper field. Complementary transparent torn edges reveal the real mineral homepage ground on both sides rather than introducing a second paper colour. At intermediate and narrow widths, Silk, folder, Rollback and Receipt retain their pressure and irregular overlap; Klause remains a true zero-flow overprint across the folder/Rollback seam.
 6. The reciprocal professional close remains compositionally unchanged.
+
+## Specialists torn-substrate disposition
+
+The Specialists field is locally owned by this selected adventure rather than encoded as generic Patch styling. One plain black CSS plane spans the feature behind every accepted carrier. The two supplied full-resolution alpha PNGs provide distinct left and right tears, each scaled once through the movement height so there is no repeated wallpaper seam. Their opaque black sides merge into the central field; their transparent sides expose the actual mineral page beneath. The central bridge is asymmetrically inset behind the deepest meaningful alpha contour of each original (`30%` of the left edge image and `20%` of the right), so no straight CSS edge can overbleed a torn bite at wide desktop. Content is inset only by the narrow revealed territory, preserving the accepted wide composition while allowing the intermediate and narrow panels to keep their authored edge pressure.
+
+The transition is intentionally binary: Writing ends on the ordinary mineral shell, the torn black Specialists page takes over, and the professional close returns immediately to mineral calm. No border, shadow, fake tape, staple or general grunge layer was added. The story imagery remains the expressive content; the substrate only makes its separate carriers belong to one world. With media disabled, the edge images disappear and the black field expands to the full movement width while semantic title, copy and routes remain intact.
 
 ## Fold 2 disposition
 
@@ -53,6 +59,10 @@ Every native down-link was exercised by click and landed on its declared target 
 
 Klause's overprint was checked separately at `768`, `390` and `320px`: removing it changes neither the Patch movement height nor the Rollback/Receipt offsets. At all three widths it intersects both the folder plate and Rollback carrier, proving the accepted seam-crossing while remaining zero-flow.
 
+The completed Specialists substrate was inspected at `1600`, `1440`, `1100`, `1099`, `984`, `801`, `800`, `768`, `521`, `520`, `390` and `320px`, including the two composition boundaries that materially change the movement. Both `724 × 2172` alpha edges decoded at every width. They scale once through the complete feature height, retain distinct left/right contours and reveal between roughly `20px` and `47px` of mineral ground per side before the content-safe field begins. Alpha-contour checks at the source resolution put the deepest opaque-paper onset at `29.6%` on the left and `19.5%` on the right; the bridge's `30%` / `20%` insets keep its straight edges behind those contours. No repeated seam, bridge overbleed or page-level horizontal overflow appears. At the five standing widths, the transition was also inspected with the end of Writing above and the professional close below; the black field arrives as a decisive register change and releases directly back into the quiet mineral shell.
+
+In media-off mode, both edge images are absent, the near-black field expands to the full movement width, the existing descriptive fallback is visible and both Specialists routes remain available. Semantic `PATCH` and `The Usual Specialists` text remains unchanged in the DOM. The substrate and edges are decorative and do not participate in focus or pointer interaction.
+
 ## Re-inspection questions
 
 - Does Fold 1 establish sufficient professional authority without exhausting the page before the work begins?
@@ -63,9 +73,11 @@ Klause's overprint was checked separately at `768`, `390` and `320px`: removing 
 - Does the compact-width left article rail remove the previous arbitrary title/body drift without making the proof feel generic?
 - Does the material progression read as ordinary truth → restrained mechanisms → expressive State without becoming western costume?
 - Does Writing create enough decompression before Patch returns the page to spectacle?
-- Do the transitions around the approved Patch movement preserve its theatricality without making the neighbouring movements feel unfinished?
+- Does the torn black Specialists page now take over the whole feature without becoming the subject itself?
+- Do the distinct tears reveal real mineral ground cleanly at every regime, without a repeated seam or scrapbook furniture?
+- Does the direct return from black paper to the professional mineral close feel like a satisfying release?
 - Does the reciprocal close feel earned and direct?
 
 ## Hard stop
 
-Do not continue into another homepage refinement or into production homepage components, routing, edition selection, animation, publication or final asset commissioning from this handoff. Cloud/Harley Fold 3 material/composition re-inspection is the next gate.
+Do not continue into another homepage refinement or into production homepage components, routing, edition selection, animation, publication or final asset commissioning from this handoff. Cloud/Harley final wireframe inspection is the next gate.

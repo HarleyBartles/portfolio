@@ -2,6 +2,14 @@
 
 **Status:** Integrated wireframe evidence only. These files are disposable editorial-room assets, not final production homepage assets.
 
+## The Usual Specialists torn substrate
+
+- Current assets: `specialists-torn-edge-left.png` and `specialists-torn-edge-right.png`, both full-resolution transparent PNGs at `724 × 2172`. SHA-256: left `BC213D50AE638EEF28C4B965CDA5F3AD1935FEF38525FAC42A5EF2A19749A340`; right `AB43D286DDF37721D6F98359F79AED9CBC4BE64FD327B1100EAC9693D3D3CE88`.
+- Source and permission: Harley supplied the two local originals directly on 2 September 2026 and authorised their use in this portfolio wireframe. The filenames identify them as ChatGPT-generated outputs; the original prompt and seed were not supplied. They remain wireframe-only exploration assets and are not asserted as commissioned final production art.
+- Format decision: the original 32-bit alpha PNGs are retained because the transparent torn-away side is the governing reveal mechanism. They were not fetched from GitHub, recompressed or converted.
+- Treatment: the left and right originals remain complementary rather than mirrored. Each is scaled once through the full movement height. A restrained near-black bridge grades from the left source's sampled `#050504` to the right source's `#0e0e0d`, joining their opaque sides without a green-black band or an added fake-grain layer. Its unequal `30%` left / `20%` right edge-image insets come from the deepest meaningful alpha contour in each distinct original, so the rectangular bridge remains behind opaque paper even at the widest crop rather than protruding through a torn bite. Their transparent sides reveal the real `--mineral` homepage ground. The assets are decorative, use empty alternative text and cannot intercept interaction.
+- Failure behaviour: the semantic PATCH/title/copy/links and all accepted story images remain independent DOM content. Media-off mode removes the torn images and expands the plain black field across the complete movement; the Specialists section therefore keeps its contrast, hierarchy and navigation without either edge asset.
+
 ## Marketplace / Superpowers+ composition
 
 - Current assets: `marketplace-superpowers-plus-wireframe-wide.svg` (`1600 × 900`), `marketplace-superpowers-plus-wireframe-intermediate.svg` (`1200 × 720`) and `marketplace-superpowers-plus-wireframe-narrow.svg` (`720 × 860`).
