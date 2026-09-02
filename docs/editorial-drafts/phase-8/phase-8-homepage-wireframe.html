@@ -213,8 +213,58 @@
       z-index: -1;
       background: linear-gradient(90deg, rgb(230 234 235 / 0%) 0, rgb(230 234 235 / 88%) 16%, var(--mineral) 29%);
     }
-    .wild-asset { margin: 0; aspect-ratio: 8 / 5; padding: 0; border: 0; overflow: visible; background: transparent; }
-    .wild-asset img { width: 112%; max-width: none; object-fit: contain; object-position: left center; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .wild-asset { margin: 0; padding: 0; border: 0; overflow: visible; background: transparent; }
+    .wild-proof {
+      position: relative;
+      width: 112%;
+      aspect-ratio: 8 / 5;
+      container-type: inline-size;
+      color: #172127;
+      background: var(--mineral);
+      font-family: var(--mono);
+    }
+    .wild-proof h3, .wild-proof p, .wild-proof ol, .wild-proof ul { margin: 0; }
+    .wild-proof h3 { font-family: var(--mono); }
+    .wild-proof-label { font-size: 1.45cqw; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
+    .wild-proof-history { position: absolute; left: 8%; top: 10%; width: 28%; height: 50%; }
+    .wild-event-list { position: absolute; inset: 8% 0 0; display: grid; grid-template-rows: repeat(6, 1fr); gap: 1.1cqw; padding: 0; list-style: none; }
+    .wild-event-list li { position: relative; display: grid; align-content: center; gap: .25cqw; padding: .55cqw .85cqw; border: .18cqw solid #5d3d24; background: #a36d41; color: #f7efe4; box-shadow: inset 0 0 0 999px rgb(255 255 255 / 2%); }
+    .wild-event-list li:nth-child(2), .wild-event-list li:nth-child(4), .wild-event-list li:nth-child(6) { background: #956039; }
+    .wild-event-meta { font-size: .82cqw; line-height: 1; letter-spacing: .035em; opacity: .78; }
+    .wild-event-name { font-size: 1.16cqw; line-height: 1; font-weight: 700; }
+    .wild-history-read { --history-head: .5cqw; --history-span: .62cqw; position: absolute; right: 100%; top: 50%; width: calc(3.5cqw - var(--history-head)); border-top: .23cqw solid #292d2d; }
+    .wild-history-read::after { content: ""; position: absolute; right: 100%; top: 0; width: var(--history-head); height: var(--history-span); background: #292d2d; clip-path: polygon(100% 0, 0 50%, 100% 100%); transform: translateY(-50%); }
+    .wild-history-sweep { --sweep-head: 1.1cqw; --sweep-span: 1.25cqw; position: absolute; left: 4.5%; top: 12%; width: calc(38.5cqw - var(--sweep-head)); height: 62%; border-left: .55cqw solid #292d2d; border-bottom: .55cqw solid #292d2d; border-radius: 0 0 0 2.2cqw; }
+    .wild-history-sweep::after { content: ""; position: absolute; left: 100%; bottom: 0; width: var(--sweep-head); height: var(--sweep-span); background: #292d2d; clip-path: polygon(0 0, 100% 50%, 0 100%); transform: translateY(50%); }
+    .wild-wire { --arrow-head: .62cqw; --arrow-span: .72cqw; position: absolute; z-index: 2; height: 0; border-top: .22cqw solid currentColor; transform-origin: left center; }
+    .wild-wire::after { content: ""; position: absolute; left: 100%; top: 0; width: var(--arrow-head); height: var(--arrow-span); background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); transform: translateY(-50%); }
+    .wild-live-wire { left: 36%; width: calc(7cqw - var(--arrow-head)); color: #8a5c32; }
+    .wild-live-wire--1 { top: 17%; }.wild-live-wire--2 { top: 24.5%; }.wild-live-wire--3 { top: 32%; }
+    .wild-live-wire--4 { top: 39.5%; }.wild-live-wire--5 { top: 47%; }.wild-live-wire--6 { top: 54.5%; }
+    .wild-proof-cache, .wild-proof-replay { position: absolute; z-index: 3; display: grid; place-content: center; gap: 1.2cqw; text-align: center; }
+    .wild-proof-cache { left: 43%; top: 10%; width: 17%; height: 50%; border: .28cqw solid #4e4b46; background: #c8c2b8; }
+    .wild-proof-replay { left: 43%; top: 64%; width: 17%; height: 20%; border: .28cqw solid #171b1c; background: #343738; color: #f0ece4; }
+    .wild-proof-cache h3, .wild-proof-replay h3 { font-size: 2.05cqw; line-height: 1; }
+    .wild-proof-cache p, .wild-proof-replay p { font-size: 1.05cqw; }
+    .wild-proof-cache small, .wild-proof-replay small { font-size: .85cqw; }
+    .wild-replay-cache-flow { --arrow-head: .8cqw; --arrow-span: .95cqw; left: 51.5%; top: 60%; z-index: 4; width: 0; height: 4%; color: #292d2d; border-top: 0; border-left: .4cqw solid currentColor; transform: none; }
+    .wild-replay-cache-flow::after { left: 0; top: 0; width: var(--arrow-span); height: var(--arrow-head); clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: translateX(-50%); }
+    .wild-replay-cache-flow small { display: none; }
+    .wild-cache-state-flow { --arrow-head: .8cqw; --arrow-span: .95cqw; left: 60%; top: 35%; width: calc(5cqw - var(--arrow-head)); color: #4e4b46; border-top-width: .4cqw; }
+    .wild-proof-state { position: absolute; z-index: 1; left: 65%; top: 10%; width: 31%; height: 74%; overflow: hidden; border: .32cqw solid #3c403f; background: linear-gradient(90deg, #70665c, #91877c 58%, #d9dcda); color: #f4f1ea; container-type: inline-size; mask-image: linear-gradient(90deg, #000 0 62%, transparent 100%); }
+    .wild-state-texture { position: absolute; inset: 0; opacity: .62; mix-blend-mode: multiply; }
+    .wild-state-texture img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+    .wild-proof-state > h3 { position: absolute; left: 9%; top: 8%; z-index: 1; font-size: 7cqw; }
+    .wild-proof-state > p:not(.wild-state-value) { position: absolute; left: 9%; top: 17%; z-index: 1; font-size: 3.8cqw; }
+    .wild-state-value { position: absolute; left: 9%; bottom: 9%; z-index: 1; display: grid; gap: 1.5cqw; max-width: 31%; font-size: 2.65cqw; }
+    .wild-state-value strong { font-size: 5cqw; white-space: nowrap; text-transform: uppercase; }
+    .wild-state-nodes { position: absolute; inset: 0; z-index: 1; padding: 0; list-style: none; }
+    .wild-state-nodes li { position: absolute; display: flex; align-items: center; gap: 2cqw; font-size: 3.2cqw; letter-spacing: .05em; text-transform: uppercase; }
+    .wild-state-nodes li::before { content: ""; width: 2.6cqw; aspect-ratio: 1; flex: none; border-radius: 50%; background: currentColor; }
+    .wild-state-node--player { left: 13%; top: 26%; }.wild-state-node--world { left: 32%; top: 35%; opacity: .93; }
+    .wild-state-node--clock { left: 50%; top: 25%; opacity: .84; }.wild-state-node--journey { left: 59%; top: 46%; opacity: .73; }
+    .wild-state-node--case { left: 73%; top: 34%; opacity: .6; }.wild-state-node--pursuit { left: 85%; top: 52%; opacity: .44; }
     .event-spine { display: grid; grid-template-columns: 1.1fr .65fr 1fr; gap: 18px; align-items: stretch; min-height: 410px; }
     .events { border-left: 3px solid var(--western); padding-left: 18px; }
     .event { margin-bottom: 12px; padding: 12px 14px; border: 1px solid var(--rule); background: rgb(255 255 255 / 56%); font: 400 13px/1.4 var(--mono); }
@@ -434,13 +484,12 @@
       .wild-grid .project-visual { order: 2; width: calc(100% + 28px); margin: 34px 0 34px -28px; }
       .wild-grid .project-copy .body { order: 3; padding-inline: clamp(20px, 5vw, 40px); }
       .wild-grid .project-copy .route-actions { order: 3; margin-inline: clamp(20px, 5vw, 40px); }
-      .wild-asset img { width: 108%; }
+      .wild-proof { width: 108%; }
     }
 
     @media (min-width: 521px) and (max-width: 800px) {
       .wild-grid { min-height: 1080px; align-content: center; }
-      .wild-asset { aspect-ratio: 3 / 2; }
-      .wild-asset img { width: 106%; }
+      .wild-proof { width: 112%; aspect-ratio: 4 / 3; }
       .writing { min-height: calc(100svh + 120px); display: flex; align-items: center; }
       .writing .frame { flex: 1; }
     }
@@ -462,18 +511,98 @@
       .market-grid .project-visual::before { width: 38%; }
       .market-asset { aspect-ratio: 7 / 4; }
       .market-asset picture { transform: translateX(34%) rotate(-2deg) scale(2.15); transform-origin: 56% 50%; }
-      .wild-asset { aspect-ratio: 9 / 16; }
+      .wild-proof { aspect-ratio: 9 / 16; }
       .wild-grid .project-visual { width: calc(100% + 24px); margin-left: -24px; }
-      .wild-asset img { width: 106%; }
+      .wild-proof { width: 106%; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
     }
 
     @media (max-width: 720px) {
       .wild-grid { min-height: 0; }
-      .wild-grid .project-visual { width: 100%; margin: 34px 0; }
-      .wild-asset { aspect-ratio: 12 / 25; }
-      .wild-asset img { width: 100%; max-width: 100%; object-position: center top; }
+      .wild-grid .project-copy .body { order: 2; max-width: none; margin: 30px 0 0; padding-inline: 20px; }
+      .wild-grid .project-copy .route-actions { display: contents; }
+      .wild-grid .project-copy .route-actions .cta { order: 2; width: fit-content; margin: 24px 20px 0; }
+      .wild-grid .project-visual { order: 3; width: 100%; margin: 42px 0 28px; }
+      .wild-grid .project-copy .route-actions .next-plate { order: 4; width: fit-content; margin: 0 20px; }
+      .wild-proof { width: 100%; aspect-ratio: 12 / 25; }
+    }
+
+    @media (min-width: 721px) and (max-width: 900px) {
+      .wild-grid { display: grid; width: 100%; min-height: 1080px; grid-template-columns: minmax(0, 1fr); align-content: center; }
+      .wild-grid .project-copy { display: contents; }
+      .wild-grid .project-copy::before { content: none; }
+      .wild-grid .project-copy .eyebrow, .wild-grid .project-copy .section-title { order: 1; padding-inline: clamp(28px, 6vw, 54px); }
+      .wild-grid .project-visual { grid-area: auto; order: 2; width: 100%; margin: 38px 0 0; }
+      .wild-grid .project-copy .body { order: 3; position: relative; z-index: 4; width: min(58%, 34rem); margin: -62px 0 0 auto; padding-inline: clamp(28px, 6vw, 54px); }
+      .wild-grid .project-copy .route-actions { order: 4; position: relative; z-index: 4; margin: 28px clamp(28px, 6vw, 54px) 0 auto; }
+      .wild-proof { width: 100%; aspect-ratio: 4 / 3; }
+      .wild-proof-history { left: 5%; top: 6%; width: 47%; height: 42%; }
+      .wild-event-list { inset: 9% 0 0; gap: .8cqw; }
+      .wild-history-read { width: calc(2.5cqw - var(--history-head)); }
+      .wild-history-sweep { --sweep-head: 1cqw; --sweep-span: 1.15cqw; left: 2.5%; top: 10%; width: calc(55.5cqw - var(--sweep-head)); height: 50%; }
+      .wild-live-wire { left: 52%; width: calc(6cqw - var(--arrow-head)); transform: none; }
+      .wild-live-wire--1 { top: 12.5%; }.wild-live-wire--2 { top: 19%; }.wild-live-wire--3 { top: 25.5%; }
+      .wild-live-wire--4 { top: 32%; }.wild-live-wire--5 { top: 38.5%; }.wild-live-wire--6 { top: 45%; }
+      .wild-proof-cache { left: 58%; top: 6%; width: 34%; height: 42%; }
+      .wild-proof-replay { left: 58%; top: 52%; width: 24%; height: 16%; }
+      .wild-proof-cache h3, .wild-proof-replay h3 { font-size: 2.5cqw; }
+      .wild-proof-cache p, .wild-proof-replay p { font-size: 1.3cqw; }
+      .wild-proof-cache small, .wild-proof-replay small { font-size: 1.05cqw; }
+      .wild-replay-cache-flow { --arrow-head: .8cqw; --arrow-span: .95cqw; left: 70%; top: 48%; width: 0; height: 4%; border-top: 0; border-left: .4cqw solid currentColor; transform: none; }
+      .wild-replay-cache-flow::after { left: 0; top: 0; width: var(--arrow-span); height: var(--arrow-head); clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: translateX(-50%); }
+      .wild-cache-state-flow { --arrow-head: .8cqw; --arrow-span: .95cqw; left: 90%; top: 48%; width: 0; height: 27%; border-top: 0; border-left: .4cqw solid currentColor; transform: none; }
+      .wild-cache-state-flow::after { left: 0; top: auto; bottom: 0; width: var(--arrow-span); height: var(--arrow-head); clip-path: polygon(0 0, 100% 0, 50% 100%); transform: translateX(-50%); }
+      .wild-proof-state { left: 5%; top: 75%; width: 90%; height: 22%; mask-image: linear-gradient(180deg, #000 0 52%, transparent 100%); }
+      .wild-state-texture img { object-position: center top; }
+      .wild-proof-state > h3 { left: 5%; top: 12%; font-size: 4.5cqw; }
+      .wild-proof-state > p:not(.wild-state-value) { left: 5%; top: 38%; font-size: 2.35cqw; }
+      .wild-state-value { left: 5%; bottom: 9%; max-width: 28%; gap: .7cqw; font-size: 1.9cqw; }
+      .wild-state-value strong { font-size: 3cqw; }
+      .wild-state-nodes li { font-size: 2.75cqw; }
+      .wild-state-node--player { left: 38%; top: 20%; }.wild-state-node--world { left: 48%; top: 38%; }
+      .wild-state-node--clock { left: 60%; top: 18%; }.wild-state-node--journey { left: 67%; top: 48%; }
+      .wild-state-node--case { left: 79%; top: 31%; }.wild-state-node--pursuit { left: 87%; top: 61%; }
+    }
+
+    @media (max-width: 720px) {
+      .wild-proof-history { left: 5%; top: 4%; width: 72%; height: 38%; }
+      .wild-proof-label { font-size: 2.7cqw; text-align: center; white-space: nowrap; }
+      .wild-event-list { inset: 9% 0 7%; gap: 1.5cqw; }
+      .wild-event-list li { gap: .55cqw; padding: 1.2cqw 1.8cqw; border-width: .45cqw; }
+      .wild-event-meta { font-size: 1.95cqw; }
+      .wild-event-name { font-size: 2.8cqw; }
+      .wild-history-read { --history-head: .9cqw; --history-span: 1.05cqw; width: calc(3cqw - var(--history-head)); border-top-width: .55cqw; }
+      .wild-history-sweep { --sweep-head: 1.4cqw; --sweep-span: 1.65cqw; left: 2%; top: 8%; width: calc(3cqw - var(--sweep-head)); height: 47%; border-left-width: 1.15cqw; border-bottom-width: 1.15cqw; border-radius: 0 0 0 4cqw; }
+      .wild-wire { --arrow-head: 1.05cqw; --arrow-span: 1.2cqw; border-top-width: .48cqw; }
+      .wild-live-wire { left: 77%; color: #8a5c32; border-right: .48cqw solid currentColor; transform: none; }
+      .wild-live-wire::after { left: 100%; top: 100%; width: var(--arrow-span); height: var(--arrow-head); clip-path: polygon(0 0, 100% 0, 50% 100%); transform: translate(-50%, -100%); }
+      .wild-live-wire--1 { top: 10.5%; width: 3%; height: 37.5%; }
+      .wild-live-wire--2 { top: 15.6%; width: 6%; height: 32.4%; }
+      .wild-live-wire--3 { top: 20.7%; width: 9%; height: 27.3%; }
+      .wild-live-wire--4 { top: 25.8%; width: 12%; height: 22.2%; }
+      .wild-live-wire--5 { top: 30.9%; width: 15%; height: 17.1%; }
+      .wild-live-wire--6 { top: 36%; width: 17%; height: 12%; }
+      .wild-proof-cache, .wild-proof-replay { gap: 2.4cqw; }
+      .wild-proof-cache { left: 55%; top: 48%; width: 40%; height: 14%; border-width: .7cqw; }
+      .wild-proof-replay { left: 5%; top: 48%; width: 40%; height: 14%; border-width: .7cqw; }
+      .wild-proof-cache h3, .wild-proof-replay h3 { font-size: 5cqw; }
+      .wild-proof-cache p, .wild-proof-replay p { font-size: 2.7cqw; }
+      .wild-proof-cache small, .wild-proof-replay small { font-size: 2.15cqw; }
+      .wild-replay-cache-flow { --arrow-head: 1.35cqw; --arrow-span: 1.55cqw; left: 45%; top: 55%; width: calc(10cqw - var(--arrow-head)); height: 0; border-top: .8cqw solid currentColor; border-left: 0; transform: none; }
+      .wild-replay-cache-flow::after { left: 100%; top: 0; width: var(--arrow-head); height: var(--arrow-span); clip-path: polygon(0 0, 100% 50%, 0 100%); transform: translateY(-50%); }
+      .wild-cache-state-flow { --arrow-head: 1.35cqw; --arrow-span: 1.55cqw; left: 75%; top: 62%; width: calc(8.33cqw - var(--arrow-head)); transform: rotate(90deg); border-top-width: .8cqw; }
+      .wild-proof-state { left: 5%; top: 66%; width: 90%; height: 27%; border-width: .7cqw; mask-image: linear-gradient(180deg, #000 0 67%, transparent 100%); }
+      .wild-state-texture img { object-position: center top; }
+      .wild-proof-state > h3 { left: 5%; top: 7%; font-size: 6.5cqw; }
+      .wild-proof-state > p:not(.wild-state-value) { left: 5%; top: 17%; font-size: 3.5cqw; }
+      .wild-state-value { left: 5%; top: 25%; bottom: auto; gap: 1cqw; font-size: 3.2cqw; }
+      .wild-state-value strong { font-size: 4cqw; }
+      .wild-state-nodes li { gap: 1.5cqw; font-size: 2.8cqw; }
+      .wild-state-nodes li::before { width: 2.2cqw; }
+      .wild-state-node--player { left: 73%; top: 18%; }.wild-state-node--world { left: 59%; top: 34%; }
+      .wild-state-node--clock { left: 76%; top: 49%; }.wild-state-node--journey { left: 47%; top: 59%; }
+      .wild-state-node--case { left: 65%; top: 72%; }.wild-state-node--pursuit { left: 37%; top: 84%; }
     }
 
     @media (max-width: 1099px) {
@@ -645,15 +774,6 @@
     <section class="movement project project-reverse wild-movement" aria-labelledby="wild-title">
       <span class="anchor-target" id="wild-bunch" aria-hidden="true"></span>
       <div class="frame project-grid wild-grid">
-        <div class="project-visual">
-          <figure class="asset asset-real wild-asset" data-asset-target="wild-bunch-replay">
-            <picture>
-              <source media="(max-width: 720px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg?revision=4">
-              <source media="(max-width: 900px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-tablet.svg?revision=1">
-              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg?revision=4" alt="Six immutable ordered events continually refresh a replaceable Cache. A separate complete-history path feeds Replay, which rebuilds that same Cache. Cache alone produces the current State, whose information then degrades in the direction of the composition." width="1600" height="1000">
-            </picture>
-          </figure>
-        </div>
         <div class="project-copy">
           <p class="eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
           <h2 class="section-title" id="wild-title">I only get to call the replay exact because it's falsifiable.</h2>
@@ -662,6 +782,58 @@
             <a class="cta" href="/portfolio/projects/wild-bunch">Follow the trail →</a>
             <a class="next-plate" href="#writing">Then the process became the problem ↓</a>
           </div>
+        </div>
+        <div class="project-visual">
+          <figure class="asset asset-real wild-asset wild-proof" data-asset-target="wild-bunch-replay" aria-labelledby="wild-proof-caption">
+            <figcaption class="visually-hidden" id="wild-proof-caption">Six immutable ordered events continually refresh one replaceable Cache. A separate complete-history sweep feeds Replay, which rebuilds that same Cache. Cache alone produces the current State.</figcaption>
+            <section class="wild-proof-history" aria-labelledby="wild-history-title">
+              <h3 class="wild-proof-label" id="wild-history-title">Immutable event history</h3>
+              <ol class="wild-event-list">
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 01 · 08:14:03</span><strong class="wild-event-name">GameStarted</strong></li>
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 02 · 08:14:19</span><strong class="wild-event-name">StoreItemPurchased</strong></li>
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 03 · 08:15:02</span><strong class="wild-event-name">JourneyStarted</strong></li>
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 04 · 08:15:44</span><strong class="wild-event-name">TravelDayAdvanced</strong></li>
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 05 · 08:16:27</span><strong class="wild-event-name">JourneyCompleted</strong></li>
+                <li><span class="wild-history-read" aria-hidden="true"></span><span class="wild-event-meta">EVENT 06 · 08:16:31</span><strong class="wild-event-name">JourneyArrivalAcknowledged</strong></li>
+              </ol>
+            </section>
+            <span class="wild-history-sweep" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--1" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--2" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--3" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--4" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--5" aria-hidden="true"></span>
+            <span class="wild-wire wild-live-wire wild-live-wire--6" aria-hidden="true"></span>
+            <section class="wild-proof-cache" aria-labelledby="wild-cache-title">
+              <h3 id="wild-cache-title">Cache</h3>
+              <p>continually refreshed</p>
+              <small>derived · replaceable</small>
+            </section>
+            <section class="wild-proof-replay" aria-labelledby="wild-replay-title">
+              <h3 id="wild-replay-title">Replay</h3>
+              <p>walk all 06 records</p>
+              <small>rebuild from truth</small>
+            </section>
+            <span class="wild-wire wild-replay-cache-flow" aria-hidden="true"><small>Rebuild</small></span>
+            <span class="wild-wire wild-cache-state-flow" aria-hidden="true"></span>
+            <section class="wild-proof-state" aria-labelledby="wild-state-title">
+              <picture class="wild-state-texture" aria-hidden="true">
+                <source media="(max-width: 900px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-state-texture-vertical.webp">
+                <img src="./phase-8-homepage-wireframe-assets/wild-bunch-state-texture.webp" alt="">
+              </picture>
+              <h3 id="wild-state-title">State</h3>
+              <p>from Cache only</p>
+              <p class="wild-state-value"><span>TravelDiaryDays.<wbr>Count</span><strong>Current view</strong></p>
+              <ul class="wild-state-nodes" aria-label="Examples of current derived state">
+                <li class="wild-state-node--player">Player</li>
+                <li class="wild-state-node--world">World</li>
+                <li class="wild-state-node--clock">Clock</li>
+                <li class="wild-state-node--journey">Journey</li>
+                <li class="wild-state-node--case">Case file</li>
+                <li class="wild-state-node--pursuit">Pursuit</li>
+              </ul>
+            </section>
+          </figure>
         </div>
       </div>
     </section>
