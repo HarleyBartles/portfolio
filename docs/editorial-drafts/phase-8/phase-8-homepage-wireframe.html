@@ -439,6 +439,8 @@
 
     @media (min-width: 521px) and (max-width: 800px) {
       .wild-grid { min-height: 1080px; align-content: center; }
+      .wild-asset { aspect-ratio: 3 / 2; }
+      .wild-asset img { width: 106%; }
       .writing { min-height: calc(100svh + 120px); display: flex; align-items: center; }
       .writing .frame { flex: 1; }
     }
@@ -465,6 +467,13 @@
       .wild-asset img { width: 106%; }
       .article-title { font-size: clamp(48px, 15vw, 64px); }
       .article-summary { margin-left: 0; }
+    }
+
+    @media (max-width: 720px) {
+      .wild-grid { min-height: 0; }
+      .wild-grid .project-visual { width: 100%; margin: 34px 0; }
+      .wild-asset { aspect-ratio: 12 / 25; }
+      .wild-asset img { width: 100%; max-width: 100%; object-position: center top; }
     }
 
     @media (max-width: 1099px) {
@@ -639,8 +648,9 @@
         <div class="project-visual">
           <figure class="asset asset-real wild-asset" data-asset-target="wild-bunch-replay">
             <picture>
-              <source media="(max-width: 560px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg?revision=3">
-              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg?revision=3" alt="Six immutable ordered events emit left into a full-history replay spine and right into a direct cache path. Cache and Replay both terminate at the same derived State, whose right edge progressively loses information." width="1600" height="1000">
+              <source media="(max-width: 720px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-narrow.svg?revision=4">
+              <source media="(max-width: 900px)" srcset="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-tablet.svg?revision=1">
+              <img src="./phase-8-homepage-wireframe-assets/wild-bunch-replay-wireframe-wide.svg?revision=4" alt="Six immutable ordered events continually refresh a replaceable Cache. A separate complete-history path feeds Replay, which rebuilds that same Cache. Cache alone produces the current State, whose information then degrades in the direction of the composition." width="1600" height="1000">
             </picture>
           </figure>
         </div>
