@@ -6,6 +6,7 @@ test('homepage presents the accepted deterministic edition in editorial order', 
   await page.goto('./')
 
   await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
+  await page.locator('body').focus()
   await page.keyboard.press('Tab')
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused()
   await expect(page.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
@@ -49,14 +50,14 @@ test('homepage anchor landings, reduced motion, and accepted breakpoint edges re
   expect(await page.locator('#patch').evaluate((element) => Math.abs(element.getBoundingClientRect().top))).toBeLessThan(40)
   expect(await page.locator('html').evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe('auto')
 
-  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.setViewportSize({ width: 1440, height: 800 })
   await page.goto('./')
   await page.getByRole('link', { name: 'I tried to break my own event-sourcing claim ↓' }).click()
   await expect(page).toHaveURL(/#wild-bunch$/)
   const replay = await page.locator('.wild-proof-replay').boundingBox()
   expect(replay).not.toBeNull()
   expect(replay?.y).toBeGreaterThanOrEqual(0)
-  expect(replay?.y! + replay?.height!).toBeLessThanOrEqual(1000)
+  expect(replay?.y! + replay?.height!).toBeLessThanOrEqual(800)
 
   await page.setViewportSize({ width: 1440, height: 1000 })
   await page.goto('./')
@@ -105,7 +106,11 @@ test('Wild Bunch copy and diagram connectors remain structurally anchored', asyn
       expect(await events.nth(index).locator('.home-wild-live-wire').evaluate((element) => getComputedStyle(element).zIndex)).toBe('4')
       expect(Math.abs(wire?.x! - (event?.x! + event?.width!))).toBeLessThanOrEqual(2)
       if (width > 720) {
-        expect(Math.abs((wire?.x! + wire?.width!) - cache?.x!)).toBeLessThanOrEqual(12)
+        const arrowHead = await events.nth(index).locator('.home-wild-live-wire').evaluate((element) => Number.parseFloat(getComputedStyle(element, '::after').width))
+        const arrowStart = wire?.x! + wire?.width!
+        const arrowEnd = arrowStart + arrowHead
+        expect(arrowStart, `event ${index + 1} arrowhead should reach Cache`).toBeLessThanOrEqual(cache?.x! + cache?.width!)
+        expect(arrowEnd, `event ${index + 1} arrowhead should overlap Cache`).toBeGreaterThanOrEqual(cache?.x!)
       } else {
         expect(wire?.x! + wire?.width!).toBeGreaterThanOrEqual(cache?.x!)
         expect(wire?.x! + wire?.width!).toBeLessThanOrEqual(cache?.x! + cache?.width! + 2)

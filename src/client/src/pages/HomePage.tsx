@@ -5,7 +5,7 @@ import '../features/home/HomePage.scss'
 import { HomepageOpening } from '../features/home/HomepageOpening'
 import { MarketplaceFeature } from '../features/home/MarketplaceFeature'
 import { ProfessionalClose } from '../features/home/ProfessionalClose'
-import { SpecialistsPatchFeature } from '../features/home/SpecialistsPatchFeature'
+import { PatchHomepageSlot } from '../features/home/PatchHomepageSlot'
 import { WildBunchFeature } from '../features/home/WildBunchFeature'
 import { WritingFeature } from '../features/home/WritingFeature'
 import { getHomepageEdition } from '../features/home/homepageEdition'
@@ -24,7 +24,7 @@ export function HomePage(): ReactElement {
       <MarketplaceFeature />
       <WildBunchFeature nextFeature={edition.writing} />
       <WritingFeature feature={edition.writing} nextFeature={edition.patch} />
-      <SpecialistsPatchFeature feature={edition.patch} />
+      <PatchHomepageSlot feature={edition.patch} />
       <ProfessionalClose />
     </SiteLayout>
   )

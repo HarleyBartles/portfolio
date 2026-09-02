@@ -1,6 +1,6 @@
 # Phase 8 React homepage implementation handoff
 
-**Status:** Harley approved the production React translation on `codex/phase-8-homepage-editorial-room`. PR #48 is in merge-ready closeout; visual proof and staging artefacts are retained in Git history only.
+**Status:** Harley approved the production React translation on `codex/phase-8-homepage-editorial-room`. PR #48 contains the completed Phase 8 implementation and is awaiting exact-head CI verification; visual proof and staging artefacts are retained in Git history only.
 
 ## Standing production surface
 
@@ -10,7 +10,7 @@ The previous navigation-query gate, randomized lead, supporting-card deck, shuff
 
 ## Edition seam and copy ownership
 
-`homepageEdition.ts` defines discriminated Writing and Patch descriptors and a pinned default edition. A descriptor owns its destination route, inward label, incoming teaser, and feature-specific copy/presentation data. The shell only selects an edition and passes the next descriptor to the current movement, so the Wild Bunch-to-Writing and Writing-to-Patch teasers change with their destinations rather than being duplicated in `HomePage`.
+`homepageEdition.ts` defines discriminated Writing and Patch descriptors and a pinned default edition. A descriptor owns its destination route, inward label, incoming teaser, and feature-specific copy/presentation data. The shell only selects an edition and passes the next descriptor to the current movement, so the Wild Bunch-to-Writing and Writing-to-Patch teasers change with their destinations rather than being duplicated in `HomePage`. `PatchHomepageSlot` is an exhaustive presentation registry: the shell does not know whether a Patch edition is The Usual Specialists or Tournament, and the alternate descriptor selects a distinct component contract.
 
 Selection is deterministic and stable. No date, cookie, network, or random policy exists. A future rotation policy remains a separate editorial decision.
 
@@ -18,7 +18,7 @@ Selection is deterministic and stable. No date, cookie, network, or random polic
 
 Accepted production assets live under `src/client/public/media/homepage/`; `docs/asset-custody.md` records source identity, dimensions, output hashes, rights, semantic role, and fallbacks. Existing SVG/WebP files were promoted byte-for-byte. The seven accepted PNG masters became full-dimension WebP derivatives to meet the repository's 400 KB public-image ceiling; no artwork was regenerated, cropped, or downsampled.
 
-Production source contains no `docs/editorial-drafts` asset reference. Wild Bunch topology is semantic HTML/CSS, so its decorative materials may fail without changing the claim. Specialists switches to a solid black field and an explicit semantic text fallback if any scene asset fails. Both outlined wordmarks retain real hidden heading text, and Klause remains an absolute zero-flow overprint.
+Production source contains no `docs/editorial-drafts` asset reference. Homepage media, including the Wild Bunch Cache and Replay textures, is rooted through `import.meta.env.BASE_URL` so the GitHub Pages fallback profile remains valid. Wild Bunch topology is semantic HTML/CSS, so its decorative materials may fail without changing the claim. Specialists switches to a solid black field and an explicit semantic text fallback if any scene asset fails. Both outlined wordmarks retain real hidden heading text, and Klause remains an absolute zero-flow overprint.
 
 ## Rendered evidence
 
@@ -37,11 +37,12 @@ No production translation defect required Fold 2 to be reopened. The only delibe
 ## Verification record
 
 - Focused Vitest contract: `homepageEdition.test.ts` and `HomepageSections.test.tsx` — 6 tests passed.
-- Homepage Playwright contract: 4 tests passed, including movement order, inward routes, destination-owned teasers, anchor landings, keyboard entry, breakpoint overflow, reduced motion, 2× page scale, failed media, Fold 3 topology, and zero-flow overprint.
+- Homepage Playwright contract: 6 tests cover movement order, inward routes, destination-owned teasers, short-wide and portrait anchor landings, keyboard entry, breakpoint overflow, reduced motion, 2× page scale, failed media, Fold 3 topology, zero-flow overprint, and renderer-robust event-to-Cache arrowhead intersection.
+- Homepage visual regression: four Windows-authored contracts protect the wide opening, Wild Bunch, and Specialists movements plus the portrait Wild Bunch composition. The four baselines were accepted and compared twice without update mode.
 - Rendered inspection: Harley approved the real React page after the accepted-width browser passes and the subsequent production corrections.
 - Public asset quality check: passed with every homepage raster below 400 KB.
-- Final repository-wide hook evidence and GitHub-visible draft-PR state are recorded after the implementation commit.
+- The final repository-wide hook and GitHub exact-head CI are the merge gate; this handoff does not claim hosted green until those complete.
 
 ## Inspection boundary
 
-The accepted React homepage is ready for the normal merge review. Do not reopen the accepted Fold 2 direction unless a future production render demonstrates a genuine defect.
+Do not reopen the accepted Fold 2 direction unless a future production render demonstrates a genuine defect.

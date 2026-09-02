@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import type { WritingHomepageFeature } from './homepageEdition'
 import { homepageAssetPath } from './homepageAssets'
@@ -13,6 +13,11 @@ const events = [
 ] as const
 
 export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepageFeature }): ReactElement {
+  const textureVariables = {
+    '--wild-cache-texture': `url("${homepageAssetPath('wild-bunch-cache-crosshatch.webp')}")`,
+    '--wild-replay-texture': `url("${homepageAssetPath('wild-bunch-replay-leather.webp')}")`,
+  } as CSSProperties
+
   return (
     <section className="home-movement home-project home-project-reverse wild-movement" aria-labelledby="home-wild-title" data-home-movement="wild-bunch" data-visual-contract="homepage-wild-bunch">
       <span className="home-anchor-target" id="wild-bunch" aria-hidden="true" />
@@ -28,7 +33,7 @@ export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepage
             </div>
           </div>
         </div>
-        <div className="home-project-visual"><figure className="wild-proof home-wild-proof" data-wild-proof="true" data-topology="events-cache-state;history-replay-cache-state" aria-labelledby="home-wild-proof-caption">
+        <div className="home-project-visual"><figure className="wild-proof home-wild-proof" data-wild-proof="true" data-topology="events-cache-state;history-replay-cache-state" aria-labelledby="home-wild-proof-caption" style={textureVariables}>
           <figcaption className="visually-hidden" id="home-wild-proof-caption">Six immutable ordered events continually refresh one replaceable Cache. A separate complete-history sweep feeds Replay, which rebuilds that same Cache. Cache alone produces the current State.</figcaption>
           <section className="wild-proof-history" aria-labelledby="home-wild-history-title">
             <h3 id="home-wild-history-title">Immutable event history</h3>

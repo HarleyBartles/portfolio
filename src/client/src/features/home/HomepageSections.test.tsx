@@ -1,11 +1,11 @@
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
-import { defaultHomepageEdition } from './homepageEdition'
+import { defaultHomepageEdition, type PatchHomepageFeature } from './homepageEdition'
 import { HomepageOpening } from './HomepageOpening'
 import { MarketplaceFeature } from './MarketplaceFeature'
 import { ProfessionalClose } from './ProfessionalClose'
-import { SpecialistsPatchFeature } from './SpecialistsPatchFeature'
+import { PatchHomepageSlot } from './PatchHomepageSlot'
 import { WildBunchFeature } from './WildBunchFeature'
 import { WritingFeature } from './WritingFeature'
 
@@ -16,7 +16,7 @@ function renderSections(): ReturnType<typeof render> {
       <MarketplaceFeature />
       <WildBunchFeature nextFeature={defaultHomepageEdition.writing} />
       <WritingFeature feature={defaultHomepageEdition.writing} nextFeature={defaultHomepageEdition.patch} />
-      <SpecialistsPatchFeature feature={defaultHomepageEdition.patch} />
+      <PatchHomepageSlot feature={defaultHomepageEdition.patch} />
       <ProfessionalClose />
     </MemoryRouter>,
   )
@@ -68,5 +68,21 @@ describe('Phase 8 homepage sections', () => {
     expect(within(patch).getByText('PATCH')).toBeInTheDocument()
     expect(within(patch).getByRole('heading', { name: 'The Usual Specialists' })).toBeVisible()
     expect(overprint).toHaveAttribute('data-zero-flow-overprint', 'true')
+    expect(patch).toHaveAttribute('data-patch-presentation', 'usual-specialists')
+  })
+
+  test('selects the Patch presentation slot rather than treating presentation as metadata', () => {
+    const tournament: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      title: 'Tournament of Reasonable Defaults',
+      to: '/patch/tournament-of-reasonable-defaults',
+      inwardLabel: 'Enter the tournament',
+      presentation: 'tournament',
+    }
+    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={tournament} /></MemoryRouter>)
+
+    expect(container.querySelector('[data-patch-presentation="tournament"]')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: tournament.title })).toBeVisible()
+    expect(screen.queryByText('PATCH')).not.toBeInTheDocument()
   })
 })

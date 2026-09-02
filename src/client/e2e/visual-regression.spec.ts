@@ -159,6 +159,25 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await expect(page.locator('[data-visual-contract="vibe-coding-door-road"]')).toHaveScreenshot('article-mobile-header.png')
 })
 
+test('homepage keeps its authored opening, Wild Bunch, and Specialists movements at wide and portrait viewports', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './')
+  await expect(page.locator('[data-visual-contract="homepage-opening"]')).toHaveScreenshot('homepage-opening-wide.png')
+
+  const wildBunch = page.locator('[data-visual-contract="homepage-wild-bunch"]')
+  await waitForImages(wildBunch)
+  await expect(wildBunch).toHaveScreenshot('homepage-wild-bunch-wide.png')
+
+  const specialists = page.locator('[data-visual-contract="homepage-specialists"]')
+  await waitForImages(specialists)
+  await expect(specialists).toHaveScreenshot('homepage-specialists-wide.png')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './')
+  await waitForImages(wildBunch)
+  await expect(wildBunch).toHaveScreenshot('homepage-wild-bunch-portrait.png')
+})
+
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/codex-marketplace')

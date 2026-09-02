@@ -118,6 +118,8 @@
       --sweep-span: 1.25cqw;
       --arrow-head: .62cqw;
       --arrow-span: .72cqw;
+      --wild-cache-texture: none;
+      --wild-replay-texture: none;
       position: relative;
       width: 100%;
       aspect-ratio: 8 / 5;
@@ -143,8 +145,8 @@
     .wild-wire::after { content: ""; position: absolute; left: 100%; top: 0; width: var(--arrow-head); height: var(--arrow-span); background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); transform: translateY(calc(-50% - var(--wire-stroke) / 2)); }
     .wild-live-wire { left: calc(100% + var(--event-border)); top: 50%; z-index: 4; width: calc(3cqw - var(--event-border)); color: #657177; }
     .wild-proof-cache, .wild-proof-replay { position: absolute; z-index: 3; display: grid; place-content: center; gap: 1.2cqw; text-align: center; }
-    .wild-proof-cache { left: 26%; top: 8%; width: 13%; height: 52%; border: .28cqw solid #59564f; background-color: #d9ccb0; background-image: linear-gradient(rgb(244 237 218 / 72%), rgb(224 210 179 / 72%)), url("/media/homepage/wild-bunch-cache-crosshatch.webp"); background-size: auto, cover; background-position: center; }
-    .wild-proof-replay { left: 26%; top: 64%; width: 13%; height: 22%; border: .28cqw solid #171b1c; background-color: #282a29; background-image: linear-gradient(rgb(34 36 35 / 28%), rgb(22 24 23 / 44%)), url("/media/homepage/wild-bunch-replay-leather.webp"); background-size: auto, cover; background-position: center; color: #f4f0e8; }
+    .wild-proof-cache { left: 26%; top: 8%; width: 13%; height: 52%; border: .28cqw solid #59564f; background-color: #d9ccb0; background-image: linear-gradient(rgb(244 237 218 / 72%), rgb(224 210 179 / 72%)), var(--wild-cache-texture); background-size: auto, cover; background-position: center; }
+    .wild-proof-replay { left: 26%; top: 64%; width: 13%; height: 22%; border: .28cqw solid #171b1c; background-color: #282a29; background-image: linear-gradient(rgb(34 36 35 / 28%), rgb(22 24 23 / 44%)), var(--wild-replay-texture); background-size: auto, cover; background-position: center; color: #f4f0e8; }
     .wild-proof-cache h3, .wild-proof-replay h3 { font-size: clamp(19px, 2.05cqw, 30px); line-height: 1; }
     .wild-replay-cache-flow { --arrow-head: .8cqw; --arrow-span: .95cqw; --wire-stroke: .4cqw; left: 32.5%; top: 60%; z-index: 4; width: 0; height: 4%; color: #292d2d; border-top: 0; border-left: var(--wire-stroke) solid currentColor; transform: none; }
     .wild-replay-cache-flow::after { left: 0; top: 0; width: var(--arrow-span); height: var(--arrow-head); clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: translateX(calc(-50% - var(--wire-stroke) / 2)); }

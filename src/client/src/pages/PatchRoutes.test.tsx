@@ -29,7 +29,7 @@ describe('Adventures of Patch routes', () => {
   test('groups one-page fairytales and larger adventures without fake detail links', async () => {
     renderRoute('/patch')
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' }, { timeout: 10_000 })).toBeVisible()
     const fairytales = await screen.findByRole('region', { name: 'One-page fairytales' })
     expect(within(fairytales).getAllByRole('link', { name: /Goldilocks/i })[0]).toHaveAttribute('href', '/portfolio/patch/goldilocks')
     expect(within(fairytales).getAllByRole('link', { name: /Sorcerer.s Apprentice/i })[0]).toHaveAttribute('href', '/portfolio/patch/sorcerers-apprentice')

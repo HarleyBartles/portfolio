@@ -1,3 +1,3 @@
-export function homepageAssetPath(filename: string): string {
-  return `${import.meta.env.BASE_URL}media/homepage/${filename}`
+export function homepageAssetPath(filename: string, baseUrl = import.meta.env.BASE_URL): string {
+  return `${baseUrl}media/homepage/${filename}`
 }

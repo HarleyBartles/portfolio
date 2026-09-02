@@ -4,6 +4,7 @@ import {
   getHomepageEdition,
   type PatchHomepageFeature,
 } from './homepageEdition'
+import { patchHomepagePresentations } from './PatchHomepageSlot'
 
 describe('homepageEdition', () => {
   test('pins the accepted first production edition without runtime randomness', () => {
@@ -47,5 +48,6 @@ describe('homepageEdition', () => {
 
     expect(tournament.incomingTeaser).toBe('Bring reasonable defaults to the tournament')
     expect(tournament.to).toBe('/patch/tournament-of-reasonable-defaults')
+    expect(patchHomepagePresentations[tournament.presentation]).not.toBe(patchHomepagePresentations[defaultHomepageEdition.patch.presentation])
   })
 })

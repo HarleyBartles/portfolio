@@ -8,7 +8,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
   const failMedia = (): void => setMediaFailed(true)
 
   return (
-    <section className={`home-movement patch-movement${mediaFailed ? ' media-off' : ''}`} aria-labelledby="home-specialists-title" data-home-movement="patch" data-visual-contract="homepage-specialists">
+    <section className={`home-movement patch-movement${mediaFailed ? ' media-off' : ''}`} aria-labelledby="home-specialists-title" data-home-movement="patch" data-patch-presentation="usual-specialists" data-visual-contract="homepage-specialists">
       <span className="home-anchor-target" id={feature.anchorId} aria-hidden="true" />
       <div className="specialists-substrate" aria-hidden="true">
         <span className="specialists-substrate__fill" />
