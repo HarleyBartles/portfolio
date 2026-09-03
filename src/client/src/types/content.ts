@@ -15,12 +15,19 @@ export type ContentPresentation =
   | 'patch-tournament'
   | 'patch-lawful-heist'
 
+export type WritingHomepageCopy = {
+  summary: string
+  inwardLabel: string
+  incomingTeaser: string
+}
+
 export type ContentSummary = {
   slug: string
   kind: ContentKind
   title: string
   status: string
   summary: string
+  homepageFeature?: WritingHomepageCopy
   date?: string
   readingMinutes?: number
   presentation?: ContentPresentation

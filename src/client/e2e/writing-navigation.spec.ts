@@ -46,3 +46,65 @@ test('fairytale index and detail expose imagery plus a readable transcript', asy
   await expect(page.getByRole('heading', { level: 2, name: 'Visual transcript' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 })
+
+test('PORT-10 uses the complete writing shell with a coherent article and link contract', async ({ page }) => {
+  const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
+  const response = await page.goto(`./writing/${slug}/`)
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', {
+    level: 1,
+    name: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+  })).toBeVisible()
+  await expect(page.locator('.content-summary')).toHaveText('Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.')
+  await expect(page.locator('.content-page-body p').first()).toContainText('I was looking for a face for The Usual Specialists.')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://harleybartles.com/writing/${slug}`)
+  await expect(page.getByText('As I remember it, anyway.', { exact: true })).toBeVisible()
+  await expect(page.locator('.content-summary')).toHaveCount(1)
+  await expect(page.locator('.content-date')).toContainText('3 September 2026')
+  await expect(page.locator('.content-date')).toContainText('4 min read')
+  const continuations = page.getByRole('navigation', { name: 'Continue reading' })
+  await expect(continuations).toBeVisible()
+  await expect(continuations.getByRole('link', { name: /The Lawful Heist Crew/ })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(continuations.getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute('href', '/projects/adventures-of-patch')
+  await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
+
+  const figures = page.getByRole('figure')
+  await expect(figures).toHaveCount(2)
+  await expect(figures.nth(0)).toHaveAttribute('aria-label', 'How the hierarchy is built')
+  await expect(figures.nth(1)).toHaveAttribute('aria-label', 'A different typographic answer')
+
+  await expect(page.getByRole('link', { name: 'The Usual Specialists' })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(page.getByRole('link', { name: 'Brand Addition' })).toHaveAttribute('href', '/about')
+  for (const name of ['Eurostile', 'Bank Gothic', 'Korolev', 'Chassis', 'Tales from Beyond Science']) {
+    const link = page.getByRole('link', { name: new RegExp(`${name}.*opens in a new tab`, 'i') })
+    await expect(link).toHaveAttribute('target', '_blank')
+    await expect(link).toHaveAttribute('rel', /noopener/)
+  }
+
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  const [studyBox, cameoBox] = await Promise.all([figures.nth(0).boundingBox(), figures.nth(1).boundingBox()])
+  expect(cameoBox!.width).toBeLessThan(studyBox!.width - 16)
+
+  await page.goto('./writing/')
+  await expect(page.getByRole('link', { name: /How The Invisibles’ logo designer/i })).toBeVisible()
+  const sitemap = await (await page.request.get('./sitemap.xml')).text()
+  expect(sitemap).toContain(slug)
+})
+
+test('PORT-10 captions and prose preserve the visual argument when both marks fail', async ({ page }) => {
+  await page.route('**/the-usual-specialists-wordmark.svg', (route) => route.abort())
+  await page.route('**/adventures-of-patch-cliff-drop.svg', (route) => route.abort())
+  await page.goto('./writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists/')
+
+  await expect(page.getByText(/Three shared relationships explain the hierarchy/)).toBeVisible()
+  await expect(page.getByText(/PATCH found a different typographic answer/)).toBeVisible()
+  await expect(page.getByText(/That’s the joke in the mark/)).toBeVisible()
+  await expect(page.getByText(/PATCH went its own way/)).toBeVisible()
+})

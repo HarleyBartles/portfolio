@@ -289,6 +289,23 @@
     "shareAction": "content-end"
   },
   {
+    "id": "writing:how-the-invisibles-logo-designer-influenced-the-usual-specialists",
+    "path": "/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists",
+    "kind": "writing",
+    "title": "How The Invisibles’ logo designer influenced The Usual Specialists | Harley Bartles",
+    "description": "Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Full-stack software engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
     "id": "writing:i-just-write-the-code-is-not-a-full-sentence",
     "path": "/writing/i-just-write-the-code-is-not-a-full-sentence",
     "kind": "writing",

@@ -52,6 +52,22 @@ export const defaultHomepageEdition: HomepageEdition = {
 
 export const homepageEditions: readonly HomepageEdition[] = [defaultHomepageEdition]
 
+export function createWritingHomepageFeature(summary: ContentSummary): WritingHomepageFeature | undefined {
+  if (summary.kind !== 'writing' || summary.homepageFeature === undefined) return undefined
+
+  return {
+    kind: 'writing',
+    anchorId: 'writing',
+    title: summary.title,
+    summary: summary.homepageFeature.summary,
+    to: getContentPath(summary),
+    inwardLabel: summary.homepageFeature.inwardLabel,
+    incomingTeaser: summary.homepageFeature.incomingTeaser,
+  }
+}
+
 export function getHomepageEdition(id = defaultHomepageEdition.id): HomepageEdition {
   return homepageEditions.find((edition) => edition.id === id) ?? defaultHomepageEdition
 }
+import type { ContentSummary } from '../../types/content'
+import { getContentPath } from '../../types/content'

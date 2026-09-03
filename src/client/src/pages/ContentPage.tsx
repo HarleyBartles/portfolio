@@ -14,16 +14,13 @@ import { ShareAction } from '../components/ShareAction'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
-import { AuthoredContinuations } from '../features/writing/AuthoredContinuations'
-import { ContextComplexityArticle } from '../features/writing/ContextComplexityArticle'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
-import { ProductOwnershipArticle } from '../features/writing/ProductOwnershipArticle'
-import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
+import { getWritingArticleBody } from '../features/writing/writingArticleBodies'
+import { WritingArticleShell } from '../features/writing/WritingArticleShell'
 import '../features/writing/WritingPullQuotes.scss'
 import '../styles/interior.scss'
 import type { ContentKind } from '../types/content'
 import { getContentPath } from '../types/content'
-import { formatContentDate, sortWriting } from '../utils/content'
 
 type ContentPageProps = {
   slug: string
@@ -128,10 +125,13 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     ? getWritingPresentation(document.summary.slug)
     : undefined
   const WritingFigure = writingPresentation?.figure.Component
+  const WritingBody = document.summary.kind === 'writing'
+    ? getWritingArticleBody(document.summary.slug)
+    : undefined
 
   const relatedSummaries = navigationQuery.data ?? []
   const fallbackSlugs =
-    document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
+    document.summary.kind !== 'writing' && document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
       ? relatedSummaries
           .filter((item) => item.kind === 'writing' && item.slug !== document.summary.slug)
           .slice(0, 3)
@@ -141,9 +141,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     document.summary.relatedSlugs.length > 0 ? document.summary.relatedSlugs : fallbackSlugs
   const relatedNavigationUnavailable =
     document.summary.relatedSlugs.length > 0 && navigationQuery.isError
-  const kindItems = document.summary.kind === 'writing'
-    ? sortWriting(relatedSummaries)
-    : relatedSummaries.filter((item) => item.kind === document.summary.kind)
+  const kindItems = relatedSummaries.filter((item) => item.kind === document.summary.kind)
   const projectVisualSlugs = new Set<ProjectVisualSlug>([
     'codex-marketplace',
     'agentic-learning-lab',
@@ -163,14 +161,23 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     : document.summary.presentation === 'learning-lab-case-study'
       ? 'learning-lab-case-study-hero'
       : 'content-page-header' : writingPresentation.visualContract
-  const formattedDate = formatContentDate(document.summary.date)
-  const hasTestingEvidencePresentation = document.summary.kind === 'writing'
-    && document.summary.slug === 'the-right-test-isnt-your-favourite-test'
-  const hasProductOwnershipPresentation = document.summary.kind === 'writing'
-    && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
-  const hasContextComplexityPresentation = document.summary.kind === 'writing'
-    && document.summary.slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be'
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
+
+  const articleBody = (
+    <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
+      {Presentation === undefined
+        ? WritingBody === undefined
+          ? <MarkdownContent markdown={document.markdown ?? ''} />
+          : <WritingBody markdown={document.markdown ?? ''} />
+        : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
+    </div>
+  )
+
+  const writingHeaderVisual = WritingFigure === undefined ? undefined : (
+    <div className="content-page-visual content-page-visual--writing">
+      <Suspense fallback={<div className="writing-figure__loading" aria-hidden="true" data-loading="writing-figure" />}><WritingFigure /></Suspense>
+    </div>
+  )
 
   return (
     <SiteLayout>
@@ -185,7 +192,18 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         data-visual-language={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
         data-type-register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
       >
-        <header
+        {document.summary.kind === 'writing' ? (
+          <WritingArticleShell
+            summary={document.summary}
+            summaries={relatedSummaries}
+            navigationUnavailable={navigationQuery.isError}
+            presentation={writingPresentation}
+            visualContract={visualContract}
+            headerVisual={writingHeaderVisual}
+          >
+            {articleBody}
+          </WritingArticleShell>
+        ) : <><header
           className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
           data-visual-contract={visualContract}
           role={writingPresentation === undefined ? undefined : 'region'}
@@ -194,12 +212,6 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
             <h1 id="content-page-title">{document.summary.title}</h1>
-            {document.summary.kind === 'writing' && formattedDate !== null ? (
-              <p className="editorial-meta content-date">
-                <span>{formattedDate}</span>
-                {document.summary.readingMinutes === undefined ? null : <span>{document.summary.readingMinutes} min read</span>}
-              </p>
-            ) : null}
             <p className="content-summary">{document.summary.summary}</p>
             {document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : null}
           </div>
@@ -209,36 +221,20 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           {projectVisualSlug === null ? null : (
             <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" /></div>
           )}
-          {WritingFigure === undefined ? null : (
-            <div className="content-page-visual content-page-visual--writing">
-              <Suspense fallback={<div className="writing-figure__loading" aria-hidden="true" data-loading="writing-figure" />}><WritingFigure /></Suspense>
-            </div>
-          )}
         </header>
-        <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
-          {Presentation === undefined
-            ? hasTestingEvidencePresentation
-              ? <TestingEvidenceArticle markdown={document.markdown ?? ''} />
-              : hasProductOwnershipPresentation
-                ? <ProductOwnershipArticle markdown={document.markdown ?? ''} />
-                : hasContextComplexityPresentation
-                  ? <ContextComplexityArticle markdown={document.markdown ?? ''} />
-                  : <MarkdownContent markdown={document.markdown ?? ''} />
-            : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
-        </div>
-        {document.summary.kind === 'writing' ? null : (
+        {articleBody}
+        {(
           <RelatedContent
             slugs={slugsToShow}
             summaries={relatedSummaries}
             unavailable={relatedNavigationUnavailable}
           />
         )}
-        {writingPresentation === undefined ? <ContentNavigation items={kindItems} currentSlug={document.summary.slug} /> : (
-          <AuthoredContinuations presentation={writingPresentation} summaries={relatedSummaries} />
-        )}
+        <ContentNavigation items={kindItems} currentSlug={document.summary.slug} />
         {routeMetadata?.shareAction === 'content-end' ? (
           <ShareAction title={document.summary.title} path={routeMetadata.path} />
         ) : null}
+        </>}
       </article>
     </SiteLayout>
   )

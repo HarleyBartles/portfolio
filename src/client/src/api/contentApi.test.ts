@@ -25,6 +25,24 @@ describe('content API client', () => {
     })
   })
 
+  test('resolves PORT-10 through the same manifest-backed contract as every writing article', async () => {
+    const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
+    const [document, navigation] = await Promise.all([getContent(slug), getNavigation()])
+
+    expect(document).toMatchObject({
+      summary: {
+        slug,
+        kind: 'writing',
+        title: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+        date: '2026-09-03',
+        readingMinutes: 4,
+      },
+    })
+    expect(document.markdown).not.toMatch(/^Chassis was already winning\./)
+    expect(document.markdown).toContain('I was looking for a face for [**The Usual Specialists**]')
+    expect(navigation.map((item) => item.slug)).toContain(slug)
+  })
+
   test('converts missing slug into a 404 endpoint error without server path leakage', async () => {
     await expect(getContent('not-real')).rejects.toBeInstanceOf(ApiRequestError)
     await expect(getContent('not-real')).rejects.toMatchObject({
