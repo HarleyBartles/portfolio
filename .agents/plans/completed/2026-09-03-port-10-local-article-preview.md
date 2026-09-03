@@ -140,27 +140,27 @@
 - Consumes: the browser-reviewed local preview and focused green evidence.
 - Produces: a clean committed branch, updated draft PR #50, and a running preview for Harley.
 
-- [ ] **Step 1: Complete and archive the plan**
+- [x] **Step 1: Complete and archive the plan**
 
   Mark all task boxes complete, move the plan to `.agents/plans/completed/`, run `py -3 tools/run.py mesh --apply`, and inspect the generated diff.
 
-- [ ] **Step 2: Apply the completion-readiness gate**
+- [x] **Step 2: Apply the completion-readiness gate**
 
   Rate the implementation against the locked prose, preview boundary, link, figure, accessibility, responsive, custody, and no-publication contracts. Continue work below 8/10; target 9/10.
 
-- [ ] **Step 3: Commit normally and let the tracked hook prove the exact staged tree**
+- [x] **Step 3: Commit normally and let the tracked hook prove the exact staged tree**
 
   Stage only the intended PORT-10 files and commit without bypassing `.githooks/pre-commit`. Do not redundantly run the complete CI command immediately before or after the successful hook.
 
-- [ ] **Step 4: Push and verify draft PR #50**
+- [x] **Step 4: Push and verify draft PR #50**
 
   Push the existing branch, verify the GitHub-visible head and draft state, and leave the PR unmerged and not ready.
 
-- [ ] **Step 5: Leave the preview running and report the handoff**
+- [x] **Step 5: Leave the preview running and report the handoff**
 
   Provide the exact local URL, implemented links and figures, observed focused checks, any unresolved visual/source question, and the literal stop statement `Ready for Harley browser review`.
 
-- [ ] **Step 6: Mark Task 4 checklist items complete in the archived plan**
+- [x] **Step 6: Mark Task 4 checklist items complete in the archived plan**
 
 ## Plan readiness
 
