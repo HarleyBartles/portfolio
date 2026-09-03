@@ -8,9 +8,11 @@ Then I noticed who designed it. Rian Hughes.
 
 Hughes designed some very famous comic-book logos, *The Invisibles* among them. I couldn’t tell you what *The Invisibles* logo looks like. Maybe I’ve seen it and forgotten. Maybe I’ve never seen it. Dunno.
 
-Rian Hughes, for me, starts in *2000 AD*, 1992, at the tail end of being ten. [*Tales from Beyond Science* → a page where the reader can actually see Hughes’s artwork.] *Tales from Beyond Science* looked angular as hell. Hard shapes, vivid blocks of colour, pages that didn’t look like anything else I was seeing in *2000 AD*. The stories had a bit of *The Twilight Zone* about them without feeling like somebody doing *The Twilight Zone* again, and some of them were pure nightmare fuel.
+Rian Hughes, for me, starts in *2000 AD*, 1992, at the tail end of being ten. [*Tales from Beyond Science*](https://comicsalliance.com/tales-beyond-science-rian-hughes-mark-millar-preview/) looked angular as hell. Hard shapes, vivid blocks of colour, pages that didn’t look like anything else I was seeing in *2000 AD*. The stories had a bit of *The Twilight Zone* about them without feeling like somebody doing *The Twilight Zone* again, and some of them were pure nightmare fuel.
 
-There was the one where a man works out what men’s nipples are for, cuts his eyes out, and can still see. Then there were the red men who came out of mirrors and took you away if you slipped up and fell asleep with a mirror facing into the room. That is an outrageous thing to put into a ten-year-old’s head. I loved it.
+There was the one where a man works out what men’s nipples are for, cuts his eyes out, and can still see. Then there were the red men who came out of mirrors and took you away if you slipped up and fell asleep with a mirror facing into the room. Somewhere in there too: the mysterious missing sixth toe of Marilyn Monroe and the real whereabouts of the 27 Club.
+
+That is an outrageous thing to put into a ten-year-old’s head. I loved it.
 
 I picked up the whole set again, as I remember it, in my late twenties or early thirties. I’ve reread it every year or two since. Hughes never became one of those artists I remembered fondly and left in childhood. The pages still look brilliant to me.
 
