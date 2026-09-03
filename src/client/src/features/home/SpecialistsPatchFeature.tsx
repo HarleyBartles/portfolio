@@ -1,7 +1,7 @@
 import { useState, type ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import type { PatchHomepageFeature } from './homepageEdition'
-import { homepageAssetPath } from './homepageAssets'
+import { adventuresBrandAssetPath, homepageAssetPath } from './homepageAssets'
 
 export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFeature }): ReactElement {
   const [mediaFailed, setMediaFailed] = useState(false)
@@ -21,7 +21,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
           <figure className="stamp-overprint" data-zero-flow-overprint="true" aria-label="Klause's produced K assent impression crosses the folder and Rollback boundary."><img src={homepageAssetPath('specialists-klause-k.webp')} width="1254" height="1254" loading="lazy" alt="" onError={failMedia} /></figure>
         </div>
         <div className="title-field">
-          <p className="patch-marque"><span className="visually-hidden">PATCH</span><svg className="patch-marque__art" viewBox="0 0 2893 744" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false"><use href={`${homepageAssetPath('patch-wordmark.svg')}#patch-wordmark`} /></svg></p>
+          <p className="patch-marque"><span className="visually-hidden">Adventures of PATCH</span><svg className="patch-marque__art" viewBox="0 0 340 126.2021" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false"><use href={`${adventuresBrandAssetPath('adventures-of-patch-cliff-drop.svg')}#adventures-of-patch-cliff-drop`} /></svg></p>
           <h2 className="wordmark-title" id="home-specialists-title"><span className="visually-hidden">{feature.title}</span><svg className="wordmark-art" viewBox="0 0 1120 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><use href={`${homepageAssetPath('the-usual-specialists-wordmark.svg')}#the-usual-specialists-wordmark`} /></svg></h2>
           <div className="heist-close"><p>One question. Are you in?</p><Link to={feature.to}>{feature.inwardLabel} →</Link><a className="home-next" href="#contact">{feature.closingTeaser} ↓</a></div>
         </div>

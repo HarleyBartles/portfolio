@@ -64,8 +64,10 @@ describe('Phase 8 homepage sections', () => {
     const { container } = renderSections()
     const patch = container.querySelector('[data-home-movement="patch"]') as HTMLElement
     const overprint = patch.querySelector('[data-zero-flow-overprint]') as HTMLElement
+    const seriesMark = patch.querySelector('.patch-marque use') as SVGUseElement
 
-    expect(within(patch).getByText('PATCH')).toBeInTheDocument()
+    expect(within(patch).getByText('Adventures of PATCH')).toBeInTheDocument()
+    expect(seriesMark.getAttribute('href')).toMatch(/\/brand\/adventures-of-patch\/adventures-of-patch-cliff-drop\.svg#adventures-of-patch-cliff-drop$/)
     expect(within(patch).getByRole('heading', { name: 'The Usual Specialists' })).toBeVisible()
     expect(overprint).toHaveAttribute('data-zero-flow-overprint', 'true')
     expect(patch).toHaveAttribute('data-patch-presentation', 'usual-specialists')

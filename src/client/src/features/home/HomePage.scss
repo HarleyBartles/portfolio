@@ -258,8 +258,8 @@
       pointer-events: none;
     }
     .title-field a { pointer-events: auto; }
-    .patch-marque { position: relative; width: clamp(112px, 10vw, 150px); height: 20px; margin: 0; color: var(--paper); }
-    .patch-marque__art { display: block; width: 100%; height: auto; overflow: visible; transform: translateX(6px); }
+    .patch-marque { position: relative; width: clamp(150px, 12vw, 180px); aspect-ratio: 340 / 126.2021; margin: 0; color: var(--paper); }
+    .patch-marque__art { display: block; width: 100%; height: auto; overflow: visible; }
     .wordmark-title { width: min(100%, 620px); margin: auto 0 0; color: var(--paper); }
     .wordmark-art { display: block; width: 100%; height: auto; aspect-ratio: 1120 / 240; overflow: visible; }
     .semantic-wordmark {
@@ -574,7 +574,7 @@
         padding: 26px 28px 30px;
         background: transparent;
       }
-      .patch-marque { width: 94px; }
+      .patch-marque { width: 132px; }
       .wordmark-title { position: relative; z-index: 1; width: calc(119% + 33px); margin-top: clamp(48px, 8vw, 76px); }
       .heist-close { width: 100%; margin-top: 22px; }
       .heist-close p { font-size: clamp(15px, 2.4vw, 18px); line-height: 1.5; white-space: nowrap; }
@@ -624,8 +624,7 @@
         padding: 36px 24px 52px;
         background: transparent;
       }
-      .patch-marque { width: 112px; }
-      .patch-marque__art { transform: translate(6px, 14px); }
+      .patch-marque { width: 150px; }
       .wordmark-title { width: auto; margin-top: auto; }
       .heist-close { gap: 15px; }
       .heist-close p { white-space: normal; }

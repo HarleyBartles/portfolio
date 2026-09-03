@@ -171,11 +171,14 @@ test('homepage keeps its authored opening, Wild Bunch, and Specialists movements
   const specialists = page.locator('[data-visual-contract="homepage-specialists"]')
   await waitForImages(specialists)
   await expect(specialists).toHaveScreenshot('homepage-specialists-wide.png')
+  await expect(specialists.locator('.patch-marque')).toHaveScreenshot('homepage-specialists-lockup-wide.png')
 
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './')
   await waitForImages(wildBunch)
   await expect(wildBunch).toHaveScreenshot('homepage-wild-bunch-portrait.png')
+  await waitForImages(specialists)
+  await expect(specialists.locator('.patch-marque')).toHaveScreenshot('homepage-specialists-lockup-portrait.png')
 })
 
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
