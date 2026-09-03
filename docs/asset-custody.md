@@ -310,7 +310,7 @@ The standalone `PATCH` master at `src/client/public/media/homepage/patch-wordmar
 
 ## PORT-10 outlined-wordmark figures
 
-- The PORT-10 local article preview reuses `src/client/public/media/homepage/the-usual-specialists-wordmark.svg` unchanged for both its finished and construction views. The canonical source remains the first-party outlined `1120 × 240` asset recorded above at SHA-256 `89af7028f4e289044594d7a8a40636128a01e3d973c9c0929d9666dac4a4342c`.
+- The PORT-10 local article preview reuses `src/client/public/media/homepage/the-usual-specialists-wordmark.svg` unchanged for its construction view. The canonical source remains the first-party outlined `1120 × 240` asset recorded above at SHA-256 `89af7028f4e289044594d7a8a40636128a01e3d973c9c0929d9666dac4a4342c`.
 - The construction view is a typed React/CSS overlay, not a new font-derived asset. It adds only three datum rules and semantic HTML labels for the shared left edge, SPECIALISTS cap line, and shared baseline. It does not embed a Chassis binary, create separately addressable glyphs, or alter the canonical outline.
 - The PATCH cameo reuses `src/client/public/brand/adventures-of-patch/adventures-of-patch-cliff-drop.svg` unchanged (`viewBox="0 0 340 126.2021"`, SHA-256 `ef476351980a835195967a88c1807e1c2bbb027c706ad9e6d0d3313c7aff0ef0`). No new ITC Serif Gothic-derived asset is created.
 - Visible captions and the surrounding locked prose preserve the argument if either image request fails. The image alternatives describe the marks' relevant hierarchy without making a font-serving or third-party-art claim.

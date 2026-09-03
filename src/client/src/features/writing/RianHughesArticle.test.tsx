@@ -14,25 +14,23 @@ Middle paragraph.
 Closing paragraph.`
 
 describe('RianHughesArticle', () => {
-  test('turns the two editorial markers into ordered, inspectable wordmark evidence', () => {
+  test('turns the two editorial markers into ordered, inspectable wordmark evidence without a duplicate Specialists figure', () => {
     const { container } = render(
       <MemoryRouter>
         <RianHughesArticle markdown={markdown} />
       </MemoryRouter>,
     )
 
-    const finished = screen.getByRole('figure', { name: 'The finished wordmark' })
     const construction = screen.getByRole('figure', { name: 'How the hierarchy is built' })
     const cameo = screen.getByRole('figure', { name: 'A different typographic answer' })
     const specialistsImages = screen.getAllByRole('img', { name: /The Usual Specialists/i })
 
-    expect(screen.getByText('Opening paragraph.').compareDocumentPosition(finished) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
-    expect(finished.compareDocumentPosition(construction) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(screen.getByText('Opening paragraph.').compareDocumentPosition(construction) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(construction.compareDocumentPosition(screen.getByText('Middle paragraph.')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(screen.getByText('Middle paragraph.').compareDocumentPosition(cameo) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(cameo.compareDocumentPosition(screen.getByText('Closing paragraph.')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 
-    expect(specialistsImages).toHaveLength(2)
+    expect(specialistsImages).toHaveLength(1)
     for (const image of specialistsImages) {
       expect(image).toHaveAttribute('src', '/media/homepage/the-usual-specialists-wordmark.svg')
     }
@@ -45,7 +43,7 @@ describe('RianHughesArticle', () => {
       'src',
       '/brand/adventures-of-patch/adventures-of-patch-cliff-drop.svg',
     )
-    expect(finished).toHaveAccessibleDescription(/THE USUAL stays small/i)
+    expect(screen.queryByRole('figure', { name: 'The finished wordmark' })).not.toBeInTheDocument()
     expect(construction).toHaveAccessibleDescription(/three shared relationships/i)
     expect(cameo).toHaveAccessibleDescription(/Chassis stayed with the Specialists/i)
     expect(container.textContent).not.toContain('specialists-wordmark-study')

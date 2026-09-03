@@ -70,10 +70,9 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
 
   const figures = page.getByRole('figure')
-  await expect(figures).toHaveCount(3)
-  await expect(figures.nth(0)).toHaveAttribute('aria-label', 'The finished wordmark')
-  await expect(figures.nth(1)).toHaveAttribute('aria-label', 'How the hierarchy is built')
-  await expect(figures.nth(2)).toHaveAttribute('aria-label', 'A different typographic answer')
+  await expect(figures).toHaveCount(2)
+  await expect(figures.nth(0)).toHaveAttribute('aria-label', 'How the hierarchy is built')
+  await expect(figures.nth(1)).toHaveAttribute('aria-label', 'A different typographic answer')
 
   await expect(page.getByRole('link', { name: 'The Usual Specialists' })).toHaveAttribute('href', '/patch/lawful-heist')
   await expect(page.getByRole('link', { name: 'Brand Addition' })).toHaveAttribute('href', '/about')
@@ -89,7 +88,7 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   }
 
   await page.setViewportSize({ width: 390, height: 844 })
-  const [studyBox, cameoBox] = await Promise.all([figures.nth(0).boundingBox(), figures.nth(2).boundingBox()])
+  const [studyBox, cameoBox] = await Promise.all([figures.nth(0).boundingBox(), figures.nth(1).boundingBox()])
   expect(cameoBox!.width).toBeLessThan(studyBox!.width - 16)
 
   await page.goto('./writing/')
@@ -103,7 +102,6 @@ test('PORT-10 captions and prose preserve the visual argument when both marks fa
   await page.route('**/adventures-of-patch-cliff-drop.svg', (route) => route.abort())
   await page.goto('./writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists/')
 
-  await expect(page.getByText('The finished mark. THE USUAL stays small; SPECIALISTS carries the job.')).toBeVisible()
   await expect(page.getByText(/Three shared relationships explain the hierarchy/)).toBeVisible()
   await expect(page.getByText(/PATCH found a different typographic answer/)).toBeVisible()
   await expect(page.getByText(/That’s the joke in the mark/)).toBeVisible()

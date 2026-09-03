@@ -169,3 +169,7 @@
 ## Post-review shell correction
 
 Harley rejected the runtime preview-state seam during browser review. The branch itself is the publication boundary, so the final branch implementation composes PORT-10 through the ordinary manifest-backed writing route, generated route metadata, writing index, sitemap, canonical metadata, reading metadata, continuation links, and share action. The shared `WritingArticleShell` now owns that furniture for every writing route; article-specific rendering supplies only the body and optional principal figure. The title-to-opening transition remains deliberate, so PORT-10 opts out of a header summary without opting out of the article shell.
+
+## Post-review figure correction
+
+Harley preferred the construction-overlay Specialists treatment and rejected the adjacent clean duplicate. The final article keeps one Specialists figure with its three-datum overlay, key, caption, and accessible description, followed later by the subordinate PATCH cameo.

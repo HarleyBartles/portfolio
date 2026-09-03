@@ -7,22 +7,6 @@ const patchLockup = `${import.meta.env.BASE_URL}brand/adventures-of-patch/advent
 export function SpecialistsWordmarkStudy(): ReactElement {
   return (
     <section className="rian-wordmark-study" aria-label="The Usual Specialists wordmark study">
-      <figure className="rian-wordmark-figure rian-wordmark-figure--finished" aria-label="The finished wordmark" aria-describedby="rian-finished-caption">
-        <div className="rian-wordmark-plate">
-          <img
-            src={specialistsWordmark}
-            alt="The Usual Specialists wordmark, with THE USUAL set small above the much larger SPECIALISTS."
-            width="1120"
-            height="240"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <figcaption id="rian-finished-caption">
-          The finished mark. THE USUAL stays small; SPECIALISTS carries the job.
-        </figcaption>
-      </figure>
-
       <figure className="rian-wordmark-figure rian-wordmark-figure--construction" aria-label="How the hierarchy is built" aria-describedby="rian-construction-caption">
         <div className="rian-wordmark-plate rian-wordmark-plate--construction">
           <div className="rian-wordmark-canvas">

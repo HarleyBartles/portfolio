@@ -8,6 +8,8 @@
 
 > **Browser-review correction, 2026-09-03:** the branch and draft PR are the preview boundary. Do not add a runtime preview state or suppress normal article furniture. The branch route must render exactly as it would after publication, including canonical writing metadata, reading time, continuation links, sharing, writing-index admission and sitemap admission; publication still requires Harley to merge the reviewed PR.
 
+> **Figure correction, 2026-09-03:** keep only the construction-overlay Specialists figure. Harley preferred it to the clean duplicate during browser review; retain its datum key and explanatory caption.
+
 ## Goal
 
 Stand the locked PORT-10 manuscript up as a real portfolio writing route on this same branch, compose its agreed links and owned figures into the article page, and put the rendered route in a browser for Harley to review.
