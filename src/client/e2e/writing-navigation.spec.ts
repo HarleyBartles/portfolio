@@ -47,7 +47,7 @@ test('fairytale index and detail expose imagery plus a readable transcript', asy
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 })
 
-test('PORT-10 remains a direct noindex preview with a coherent article and link contract', async ({ page }) => {
+test('PORT-10 uses the complete writing shell with a coherent article and link contract', async ({ page }) => {
   const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
   const response = await page.goto(`./writing/${slug}/`)
 
@@ -57,10 +57,17 @@ test('PORT-10 remains a direct noindex preview with a coherent article and link 
     name: 'How The Invisibles’ logo designer influenced The Usual Specialists',
   })).toBeVisible()
   await expect(page.locator('.content-page-body p').first()).toHaveText('Chassis was already winning.')
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://harleybartles.com/writing/${slug}`)
   await expect(page.getByText('As I remember it, anyway.', { exact: true })).toBeVisible()
-  await expect(page.locator('.content-summary, .content-date, .share-action, .content-navigation')).toHaveCount(0)
-  await expect(page.getByRole('navigation', { name: 'Continue reading' })).toHaveCount(0)
+  await expect(page.locator('.content-summary')).toHaveCount(0)
+  await expect(page.locator('.content-date')).toContainText('3 September 2026')
+  await expect(page.locator('.content-date')).toContainText('4 min read')
+  const continuations = page.getByRole('navigation', { name: 'Continue reading' })
+  await expect(continuations).toBeVisible()
+  await expect(continuations.getByRole('link', { name: /The Lawful Heist Crew/ })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(continuations.getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute('href', '/projects/adventures-of-patch')
+  await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
 
   const figures = page.getByRole('figure')
   await expect(figures).toHaveCount(3)
@@ -86,9 +93,9 @@ test('PORT-10 remains a direct noindex preview with a coherent article and link 
   expect(cameoBox!.width).toBeLessThan(studyBox!.width - 16)
 
   await page.goto('./writing/')
-  await expect(page.getByRole('link', { name: /How The Invisibles’ logo designer/i })).toHaveCount(0)
+  await expect(page.getByRole('link', { name: /How The Invisibles’ logo designer/i })).toBeVisible()
   const sitemap = await (await page.request.get('./sitemap.xml')).text()
-  expect(sitemap).not.toContain(slug)
+  expect(sitemap).toContain(slug)
 })
 
 test('PORT-10 captions and prose preserve the visual argument when both marks fail', async ({ page }) => {

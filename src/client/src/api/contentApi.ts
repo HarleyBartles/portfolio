@@ -21,13 +21,7 @@ export function getContent(slug: string): Promise<ContentDocument> {
   const summary = navigation.find((item) => item.slug === slug)
 
   if (summary === undefined) {
-    return import('../data/previews/port10Preview').then(({ getPort10Preview }) => {
-      const preview = getPort10Preview(slug)
-      if (preview === undefined) {
-        throw new ApiRequestError(`/api/content/${encodeURIComponent(slug)}`, 404)
-      }
-      return preview
-    })
+    return Promise.reject(new ApiRequestError(`/api/content/${encodeURIComponent(slug)}`, 404))
   }
 
   return loadDocument(summary)

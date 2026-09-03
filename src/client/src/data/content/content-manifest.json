@@ -129,6 +129,19 @@
       "relatedSlugs": ["goldilocks"]
     },
     {
+      "slug": "how-the-invisibles-logo-designer-influenced-the-usual-specialists",
+      "kind": "writing",
+      "title": "How The Invisibles’ logo designer influenced The Usual Specialists",
+      "date": "2026-09-03",
+      "readingMinutes": 4,
+      "status": "published",
+      "summary": "Chassis was already winning.",
+      "showSummary": false,
+      "path": "writing/2026-09-03-how-the-invisibles-logo-designer-influenced-the-usual-specialists.md",
+      "tags": ["writing", "design", "typography"],
+      "relatedSlugs": ["lawful-heist", "adventures-of-patch"]
+    },
+    {
       "slug": "goldilocks",
       "kind": "patch",
       "title": "Goldilocks - The Right Amount of Guidance",

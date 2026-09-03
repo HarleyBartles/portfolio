@@ -21,6 +21,7 @@ export type ContentSummary = {
   title: string
   status: string
   summary: string
+  showSummary?: boolean
   date?: string
   readingMinutes?: number
   presentation?: ContentPresentation
@@ -66,7 +67,6 @@ export type EditorialWritingSummary = Omit<
 export type ContentDocument = {
   summary: ContentSummary
   markdown?: string
-  publicationState?: 'preview'
 }
 
 export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): string {

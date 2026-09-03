@@ -25,20 +25,21 @@ describe('content API client', () => {
     })
   })
 
-  test('resolves the PORT-10 preview directly without admitting it to published navigation', async () => {
+  test('resolves PORT-10 through the same manifest-backed contract as every writing article', async () => {
     const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
     const [document, navigation] = await Promise.all([getContent(slug), getNavigation()])
 
     expect(document).toMatchObject({
-      publicationState: 'preview',
       summary: {
         slug,
         kind: 'writing',
         title: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+        date: '2026-09-03',
+        readingMinutes: 4,
       },
     })
     expect(document.markdown).toContain('Chassis was already winning.')
-    expect(navigation.map((item) => item.slug)).not.toContain(slug)
+    expect(navigation.map((item) => item.slug)).toContain(slug)
   })
 
   test('converts missing slug into a 404 endpoint error without server path leakage', async () => {

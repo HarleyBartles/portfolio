@@ -118,6 +118,7 @@ export function parseContentSummary(item: unknown): ContentSummary | EditorialWr
     title: String(source.title),
     status: String(source.status),
     summary: String(source.summary),
+    showSummary: source.showSummary === false ? false : undefined,
     date: source.date === undefined ? undefined : String(source.date),
     readingMinutes:
       typeof source.readingMinutes === 'number' ? source.readingMinutes : undefined,
@@ -137,6 +138,7 @@ function itemToSummary(item: unknown): ContentSummary {
       title: parsed.title,
       status: parsed.status,
       summary: parsed.summary,
+      showSummary: parsed.showSummary,
       featured: false,
       tags: parsed.tags,
       relatedSlugs: [],
