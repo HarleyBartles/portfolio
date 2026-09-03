@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { expect, test, vi } from 'vitest'
+import { PortfolioThemeProvider } from '../components'
 import { AboutPage } from './AboutPage'
 import { CvPage } from './CvPage'
 
@@ -9,9 +10,11 @@ const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 
 test('composes a two-page CV from the approved professional facts', () => {
   const { container } = render(
-    <MemoryRouter>
-      <CvPage />
-    </MemoryRouter>,
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <CvPage />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
   )
 
   const pages = container.querySelectorAll('[data-cv-page]')
@@ -73,9 +76,11 @@ test('composes a two-page CV from the approved professional facts', () => {
 
 test('leads About with the next-role conversion and routes its CTA to contact', () => {
   const { container } = render(
-    <MemoryRouter>
-      <AboutPage />
-    </MemoryRouter>,
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
   )
 
   expect(screen.queryByText('A conventional CV download is coming.')).not.toBeInTheDocument()
@@ -127,9 +132,11 @@ test('moves focus to the contact landmark when the next-role CTA is activated', 
   try {
     const user = userEvent.setup()
     const { container } = render(
-      <MemoryRouter>
-        <AboutPage />
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <AboutPage />
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
     await user.click(screen.getByRole('link', { name: 'Get in touch' }))
@@ -150,9 +157,11 @@ test('moves focus to the contact landmark when the next-role CTA is activated', 
 
 test('About lists every project story from the shared project catalogue', () => {
   render(
-    <MemoryRouter>
-      <AboutPage />
-    </MemoryRouter>,
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
   )
 
   const independentWork = screen.getByRole('heading', { name: 'Work I can show you.' }).parentElement

@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { afterEach, describe, expect, test } from 'vitest'
 import { appRoutes } from '../app/router'
 import { createPortfolioQueryClient } from '../app/queryClient'
+import { PortfolioThemeProvider } from '../components'
 
 const routers: ReturnType<typeof createMemoryRouter>[] = []
 
@@ -21,7 +22,9 @@ describe('Project route visuals', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -53,7 +56,9 @@ describe('Project route visuals', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 

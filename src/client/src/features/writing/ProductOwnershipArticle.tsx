@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from 'react'
-import { MarkdownContent } from '../../components/MarkdownContent'
+import { MarkdownContent } from '../../components'
 import './ProductOwnershipArticle.scss'
 
 type ProductOwnershipArticleProps = {

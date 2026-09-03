@@ -1,6 +1,6 @@
 import 'styled-components'
-import type { EditorialTheme } from './editorialTheme'
+import type { PortfolioTheme } from './portfolioTheme'
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends EditorialTheme {}
+  export interface DefaultTheme extends PortfolioTheme {}
 }

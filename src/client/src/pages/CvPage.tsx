@@ -1,12 +1,7 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { EditorialBalancedHeading } from '../components/editorial/EditorialTextWrap'
-import { EditorialThemeProvider } from '../components/editorial/EditorialThemeProvider'
-import { ExternalLink } from '../components/ExternalLink'
-import { SiteLayout } from '../components/SiteLayout'
-import { getProjectSummaries } from '../data/documents'
-import { professionalProfile } from '../data/professionalProfile'
+import { DocumentMetadata, EditorialBalancedHeading, ExternalLink, SiteLayout } from '../components'
+import { getProjectSummaries, professionalProfile } from '../data'
 import { CvDocument, CvSheet } from './cv/CvSurface'
 import './CvPage.scss'
 import '../styles/interior.scss'
@@ -24,8 +19,7 @@ export function CvPage(): ReactElement {
         description="CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation."
         canonicalPath="/cv"
       />
-      <EditorialThemeProvider>
-        <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
+      <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
           <CvSheet data-cv-page="1" aria-labelledby="cv-name">
             <header className="cv-header">
               <div className="cv-header__identity">
@@ -240,8 +234,7 @@ export function CvPage(): ReactElement {
               </a>
             </nav>
           </footer>
-        </CvDocument>
-      </EditorialThemeProvider>
+      </CvDocument>
     </SiteLayout>
   )
 }

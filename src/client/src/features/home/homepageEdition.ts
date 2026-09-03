@@ -69,5 +69,4 @@ export function createWritingHomepageFeature(summary: ContentSummary): WritingHo
 export function getHomepageEdition(id = defaultHomepageEdition.id): HomepageEdition {
   return homepageEditions.find((edition) => edition.id === id) ?? defaultHomepageEdition
 }
-import type { ContentSummary } from '../../types/content'
-import { getContentPath } from '../../types/content'
+import { getContentPath, type ContentSummary } from '../../types'

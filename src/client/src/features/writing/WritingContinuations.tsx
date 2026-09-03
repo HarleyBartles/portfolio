@@ -1,39 +1,75 @@
-import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import type { ContentSummary } from '../../types/content'
-import { getContentPath } from '../../types/content'
+import styled from 'styled-components'
 
-export type WritingContinuationItem = {
+export type WritingContinuation = {
   slug: string
   eyebrow: string
+  title: string
+  href: string
 }
 
 type WritingContinuationsProps = {
-  items: readonly WritingContinuationItem[]
-  summaries: readonly ContentSummary[]
+  items: readonly WritingContinuation[]
 }
 
-export function WritingContinuations({ items, summaries }: WritingContinuationsProps): ReactElement | null {
-  const continuations = items.map((item) => ({
-    ...item,
-    summary: summaries.find((summary) => summary.slug === item.slug),
-  }))
+const Continuations = styled.nav`
+  margin-top: ${({ theme }) => theme.space.xxxl};
 
-  if (continuations.length === 0 || continuations.some(({ summary }) => summary === undefined)) return null
+  h2 {
+    margin: 0 0 ${({ theme }) => theme.space.xs};
+    font-family: ${({ theme }) => theme.font.display};
+  }
+
+  ul {
+    display: grid;
+    gap: ${({ theme }) => theme.space.sm};
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li + li {
+    border-top: 1px solid ${({ theme }) => theme.color.border};
+  }
+
+  a {
+    display: grid;
+    gap: ${({ theme }) => theme.space.one};
+    padding: ${({ theme }) => theme.space.sm} 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover strong {
+    color: ${({ theme }) => theme.color.accent};
+  }
+
+  strong {
+    font-family: ${({ theme }) => theme.font.display};
+    font-size: 1.2rem;
+  }
+
+  .writing-continuations__eyebrow {
+    color: ${({ theme }) => theme.color.accent};
+  }
+`
+
+export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
+  if (items.length === 0) return null
 
   return (
-    <nav className="writing-continuations" aria-label="Continue reading">
+    <Continuations className="writing-continuations" aria-label="Continue reading">
       <h2>Continue reading</h2>
       <ul>
-        {continuations.map(({ slug, eyebrow, summary }) => (
-          <li key={slug}>
-            <Link to={getContentPath(summary!)}>
-              <span className="writing-continuations__eyebrow">{eyebrow}</span>
-              <strong>{summary!.title}</strong>
+        {items.map((item) => (
+          <li key={item.slug}>
+            <Link to={item.href}>
+              <span className="writing-continuations__eyebrow">{item.eyebrow}</span>
+              <strong>{item.title}</strong>
             </Link>
           </li>
         ))}
       </ul>
-    </nav>
+    </Continuations>
   )
 }

@@ -1,5 +1,5 @@
-import type { ContentDocument, ContentSummary } from '../types/content'
-import { loadDocument, navigation } from '../data/documents'
+import type { ContentDocument, ContentSummary } from '../types'
+import { loadDocument, navigation } from '../data'
 
 export class ApiRequestError extends Error {
   readonly endpoint: string

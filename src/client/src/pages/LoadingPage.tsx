@@ -1,7 +1,5 @@
 import type { ReactElement } from 'react'
-import { AccessibleStatus } from '../components/AccessibleStatus'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { SiteLayout } from '../components/SiteLayout'
+import { AccessibleStatus, DocumentMetadata, SiteLayout } from '../components'
 
 type LoadingPageProps = {
   shell?: boolean

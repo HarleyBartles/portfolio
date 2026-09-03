@@ -5,6 +5,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, test, vi } from 'vitest'
 import { createPortfolioQueryClient } from '../app/queryClient'
 import { appRoutes } from '../app/router'
+import { PortfolioThemeProvider } from '../components'
 
 vi.mock('../features/case-study/projectPresentations', async () => {
   const React = await import('react')
@@ -38,7 +39,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -90,7 +93,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -109,7 +114,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -134,7 +141,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -158,7 +167,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -180,7 +191,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -210,7 +223,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -240,7 +255,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -269,7 +286,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -296,7 +315,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 

@@ -4,7 +4,7 @@
 
 ## Governing rule
 
-Source Sans 3 is the site voice. Source Serif 4 is a semantic transition into authored reading, not a prestige accent. Source Code Pro appears when the material itself becomes technical, not as engineering decoration. Judge every edge case by the content's role before choosing a family.
+Source Sans 3 is the site voice. Source Serif 4 is a semantic transition into authored reading, not a prestige accent. Source Code Pro carries genuine technical material and the compact utility register formerly assigned to Fira Code. Judge every edge case by the content's role before choosing a family.
 
 The accompanying [deterministic specimen](./phase-8p-typography-specimen.html) demonstrates typography only. It is not a production page, component library, colour decision, spacing system or layout direction. Production components and layout must not be copied wholesale from it.
 
@@ -45,16 +45,17 @@ Source Serif 4 must not bleed into:
 
 A route being substantial, reflective or visually prominent does not make it an article. Case studies remain in the shared Sans voice unless the wider visual-language contract explicitly introduces a genuine authored article inside them.
 
-### Source Code Pro: technical evidence
+### Source Code Pro: technical and compact utility register
 
-Source Code Pro may own only:
+Source Code Pro may own:
 
 - code;
 - diffs;
 - terminal or command output; and
-- genuinely machine-readable technical evidence.
+- genuinely machine-readable technical evidence;
+- compact folios, dates, status, navigation and controls where the existing utility role was previously Fira Code.
 
-Source Code Pro must not be used for navigation, metadata or labels merely because their subject is technical. General utility text remains Source Sans 3.
+Source Code Pro must not become general body or display text merely because the subject is technical. Meaningful prose, captions and ordinary links remain Source Sans 3 or Source Serif 4 according to their content role.
 
 ## Hierarchy tokens
 
@@ -68,7 +69,7 @@ Source Code Pro must not be used for navigation, metadata or labels merely becau
 | Article lead | Source Serif 4 | `500` | `20px` | `1.35` | `0` | Optional; use only when it improves the opening |
 | Metadata | Source Sans 3 | `600` | `14px` | `1.40` | `0.012em` | Sentence case; meaningful metadata floor |
 | Caption | Source Sans 3 | `400` | `14px` | `1.50` | `0` | Evidence and media captions |
-| Code / diff | Source Code Pro | `400` | `14px` | `1.55` | `0` | Genuine technical material only |
+| Code / utility | Source Code Pro | `400` | `14px` | `1.55` | `0` | Technical material and compact utility register |
 
 Links inherit the family, weight and size of their surrounding role. They must remain visibly underlined in Sans and Serif contexts and must not receive a separate brand-font treatment. Focus indication and accessible contrast remain production requirements.
 
@@ -94,7 +95,7 @@ Links inherit the family, weight and size of their surrounding role. They must r
 ### Must not
 
 - Turn Source Serif 4 into a reusable premium-looking accent.
-- Use Source Code Pro as a general signifier of engineering.
+- Use Source Code Pro as a general signifier of engineering outside the technical and compact utility registers above.
 - Create uppercase, highly tracked label furniture from metadata;
 - copy specimen layout, panels, colours or spacing into production as an implied design system; or
 - substitute a remote, unlicensed or look-alike font without reopening this decision and recording new custody.

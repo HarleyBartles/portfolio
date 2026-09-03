@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../components'
 import { ContextComplexityArticle } from './ContextComplexityArticle'
 
 const markdown = `Opening argument.
@@ -18,7 +19,11 @@ The main argument does not depend on the aside.`
 
 describe('ContextComplexityArticle', () => {
   test('keeps WorkClaw available as a collapsed optional case study without breaking the main argument', () => {
-    render(<ContextComplexityArticle markdown={markdown} />)
+    render(
+      <PortfolioThemeProvider>
+        <ContextComplexityArticle markdown={markdown} />
+      </PortfolioThemeProvider>,
+    )
 
     const aside = screen.getByRole('complementary', { name: 'The packaged organisation' })
     const disclosure = within(aside).getByText('Read the WorkClaw experiment').closest('details')

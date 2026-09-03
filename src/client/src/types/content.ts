@@ -36,6 +36,8 @@ export type ContentSummary = {
   relatedSlugs: string[]
 }
 
+export type ContentSummaryOf<K extends ContentKind> = Omit<ContentSummary, 'kind'> & { kind: K }
+
 export type ArticleVisualId = `${string}-visual`
 
 export type EditorialContinuation = {

@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../components'
 import { TestingEvidenceArticle } from './TestingEvidenceArticle'
 
 const markdown = `Opening argument.
@@ -20,7 +21,11 @@ Closing argument.`
 
 describe('TestingEvidenceArticle', () => {
   test('presents the agentic application as a semantic side lens without disturbing reading order', () => {
-    render(<TestingEvidenceArticle markdown={markdown} />)
+    render(
+      <PortfolioThemeProvider>
+        <TestingEvidenceArticle markdown={markdown} />
+      </PortfolioThemeProvider>,
+    )
 
     const aside = screen.getByRole('complementary', { name: 'Prose can still be tested' })
 

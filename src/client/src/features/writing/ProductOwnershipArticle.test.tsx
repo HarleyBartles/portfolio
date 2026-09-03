@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../components'
 import { ProductOwnershipArticle } from './ProductOwnershipArticle'
 
 const markdown = `Opening argument.
@@ -26,7 +27,11 @@ Closing argument.`
 
 describe('ProductOwnershipArticle', () => {
   test('keeps both supporting stories available as semantic disclosures in reading order', () => {
-    render(<ProductOwnershipArticle markdown={markdown} />)
+    render(
+      <PortfolioThemeProvider>
+        <ProductOwnershipArticle markdown={markdown} />
+      </PortfolioThemeProvider>,
+    )
 
     const sqlAside = screen.getByRole('complementary', { name: 'SQL was my weak point' })
     const sqlDisclosure = within(sqlAside).getByText('The interview and the incident').closest('details')

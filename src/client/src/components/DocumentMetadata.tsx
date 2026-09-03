@@ -1,4 +1,4 @@
-import { useEffect, type ReactElement } from 'react'
+import { useEffect } from 'react'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
 import { buildPublicAssetUrl, buildPublicUrl } from '../data/routes/siteProfile'
 
@@ -77,12 +77,12 @@ export function buildCanonicalUrl(canonicalPath: string): string {
   return buildPublicUrl(path === '' ? '/' : `/${path}`)
 }
 
-export function DocumentMetadata({
+export const DocumentMetadata = ({
   title,
   description,
   canonicalPath,
   noIndex = false,
-}: DocumentMetadataProps): ReactElement {
+}: DocumentMetadataProps) => {
   useEffect(() => {
     const route = getRouteMetadata(normalizeCanonicalPath(canonicalPath))
 

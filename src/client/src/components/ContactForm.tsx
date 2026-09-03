@@ -1,5 +1,5 @@
-import { useState, type FormEvent, type ReactElement } from 'react'
-import { professionalProfile } from '../data/professionalProfile'
+import { useState, type FormEvent } from 'react'
+import { professionalProfile } from '../data'
 import { ExternalLink } from './ExternalLink'
 
 type ContactFormProps = {
@@ -18,7 +18,7 @@ function isSafeEndpoint(endpoint: string | undefined): endpoint is string {
   }
 }
 
-export function ContactForm({ endpoint }: ContactFormProps): ReactElement {
+export const ContactForm = ({ endpoint }: ContactFormProps) => {
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle')
 
   if (!isSafeEndpoint(endpoint)) {

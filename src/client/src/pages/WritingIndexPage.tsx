@@ -1,17 +1,24 @@
 import { useQuery } from '@tanstack/react-query'
-import type { ReactElement } from 'react'
+import styled from 'styled-components'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { EditorialIndexCard } from '../components/EditorialIndexCard'
-import { SiteLayout } from '../components/SiteLayout'
-import { sortWriting } from '../utils/content'
+import { DocumentMetadata, IndexHeader, SiteLayout, WritingIndexEntry } from '../components'
+import { sortWriting } from '../utils'
+import type { ContentSummaryOf } from '../types'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 import '../styles/interior.scss'
 
-export function WritingIndexPage(): ReactElement {
+const WritingList = styled.section`
+  margin-top: clamp(${({ theme }) => theme.space.xxl}, 9vw, ${({ theme }) => theme.space.xxxxl});
+
+  > .eyebrow {
+    margin-bottom: ${({ theme }) => theme.space.m};
+  }
+`
+
+export const WritingIndexPage = () => {
   const navigationQuery = useQuery(contentQueries.navigation())
-  const writing = sortWriting(navigationQuery.data ?? [])
+  const writing = sortWriting(navigationQuery.data ?? []).filter((item): item is ContentSummaryOf<'writing'> => item.kind === 'writing')
 
   return (
     <SiteLayout>
@@ -21,20 +28,20 @@ export function WritingIndexPage(): ReactElement {
         canonicalPath="/writing"
       />
       <section className="content-index writing-index" aria-labelledby="writing-index-title">
-        <header className="index-intro index-intro--split">
-          <div>
-            <p className="eyebrow">Writing / field notes</p>
-            <h1 id="writing-index-title">Writing and Notes</h1>
-          </div>
-          <p className="content-summary">Judgment is easier to inspect when it is written down. These are notes from building agentic workflows, repositories, and review systems in public.</p>
-        </header>
+        <IndexHeader
+          eyebrow="Writing / field notes"
+          title="Writing and Notes"
+          summary="Judgment is easier to inspect when it is written down. These are notes from building agentic workflows, repositories, and review systems in public."
+          layout="split"
+          headingId="writing-index-title"
+        />
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess && writing.length > 0 ? (
-          <section className="writing-list" aria-label="Writing, newest first" data-visual-contract="writing-peer-list">
+          <WritingList className="writing-list" aria-label="Writing, newest first" data-visual-contract="writing-peer-list">
             <p className="eyebrow">All writing / newest first</p>
-            {writing.map((item, index) => <EditorialIndexCard item={item} index={index} key={item.slug} />)}
-          </section>
+            {writing.map((item, index) => <WritingIndexEntry item={item} index={index} key={item.slug} />)}
+          </WritingList>
         ) : null}
       </section>
     </SiteLayout>

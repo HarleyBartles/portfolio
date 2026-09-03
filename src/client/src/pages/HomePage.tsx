@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { SiteLayout } from '../components/SiteLayout'
+import { DocumentMetadata, SiteLayout } from '../components'
 import '../features/home/HomePage.scss'
 import { HomepageOpening } from '../features/home/HomepageOpening'
 import { MarketplaceFeature } from '../features/home/MarketplaceFeature'

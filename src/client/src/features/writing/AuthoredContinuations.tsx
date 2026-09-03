@@ -1,13 +1,9 @@
-import type { ReactElement } from 'react'
-import type { ContentSummary } from '../../types/content'
-import type { WritingPresentation } from './writingPresentations'
-import { WritingContinuations } from './WritingContinuations'
+import { WritingContinuations, type WritingContinuation } from './WritingContinuations'
 
 type AuthoredContinuationsProps = {
-  presentation: WritingPresentation
-  summaries: readonly ContentSummary[]
+  items: readonly WritingContinuation[]
 }
 
-export function AuthoredContinuations({ presentation, summaries }: AuthoredContinuationsProps): ReactElement | null {
-  return <WritingContinuations items={presentation.continuations} summaries={summaries} />
+export const AuthoredContinuations = ({ items }: AuthoredContinuationsProps) => {
+  return <WritingContinuations items={items} />
 }

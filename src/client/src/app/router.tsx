@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
-import { RouteErrorBoundary } from '../components/RouteErrorBoundary'
+import { RouteErrorBoundary } from '../components'
 
 async function loadProjectRoute(): Promise<{ Component: () => ReactElement }> {
   const [{ ProjectPage }, { NotFoundPage }] = await Promise.all([

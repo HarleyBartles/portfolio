@@ -1,18 +1,15 @@
 import type { MouseEvent, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { ContactForm } from '../components/ContactForm'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { EditorialPullQuote } from '../components/editorial/EditorialPullQuote'
-import { EditorialThemeProvider } from '../components/editorial/EditorialThemeProvider'
 import {
+  ContactForm,
+  DocumentMetadata,
+  EditorialPullQuote,
   EditorialDisplayHeading,
   EditorialSingleLineHeading,
-} from '../components/editorial/EditorialTextWrap'
-import { ExternalLink } from '../components/ExternalLink'
-import { SiteLayout } from '../components/SiteLayout'
-import { getProjectSummaries } from '../data/documents'
-import { getEngineeringExperienceLabel, professionalProfile } from '../data/professionalProfile'
-import { siteRuntime } from '../data/siteRuntime'
+  ExternalLink,
+  SiteLayout,
+} from '../components'
+import { getEngineeringExperienceLabel, getProjectSummaries, professionalProfile, siteRuntime } from '../data'
 import { NextRolePanel, ProfessionalStory, ProfessionalStoryContent, ProfessionalStoryRail } from './about/ProfessionalSurface'
 import './AboutPage.scss'
 import '../styles/interior.scss'
@@ -48,8 +45,7 @@ export function AboutPage(): ReactElement {
         description={`Full-stack software engineer with ${experience} of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.`}
         canonicalPath="/about"
       />
-      <EditorialThemeProvider>
-        <article className="about-page" aria-labelledby="about-title" data-type-register="site-sans">
+      <article className="about-page" aria-labelledby="about-title" data-type-register="site-sans">
           <header className="about-intro">
             <div>
               <p className="eyebrow">About</p>
@@ -325,8 +321,7 @@ export function AboutPage(): ReactElement {
             </header>
             <ContactForm endpoint={siteRuntime.contactFormEndpoint} />
           </section>
-        </article>
-      </EditorialThemeProvider>
+      </article>
     </SiteLayout>
   )
 }

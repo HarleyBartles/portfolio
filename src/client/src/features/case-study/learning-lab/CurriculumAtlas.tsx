@@ -1,4 +1,4 @@
-import { ExternalLink } from '../../../components/ExternalLink'
+import { ExternalLink } from '../../../components'
 import { learningLabEvidence, pinnedLearningLabPath } from './learningLabEvidence'
 
 const courseStageLabels = {

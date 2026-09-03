@@ -1,11 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 const expectedFonts = [
-  { family: 'Fraunces', assetName: /fraunces-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Sans 3', assetName: /source-sans-3-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Serif 4', assetName: /source-serif-4-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Code Pro', assetName: /source-code-pro-latin-wght-normal-[^/]+\.woff2$/ },
-  { family: 'Fira Code', assetName: /fira-code-latin-wght-normal-[^/]+\.woff2$/ },
 ] as const
 
 test('production typography is self-hosted and available without a font CDN', async ({ page }, testInfo) => {
@@ -68,6 +66,13 @@ test('interior typography maps content roles to the accepted Source families', a
   await expect(page.locator('code').first()).toHaveCSS('font-family', /Source Code Pro/)
 })
 
+test('homepage typography uses the shared Source families rather than legacy font roles', async ({ page }) => {
+  await page.goto('./')
+  await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
+  await expect(page.locator('.site-header nav a').first()).toHaveCSS('font-family', /Source Code Pro/)
+  await expect(page.locator('.home-article-title').first()).toHaveCSS('font-family', /Source Serif 4/)
+})
+
 test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {
   await page.goto('./about')
   const nextRole = page.locator('[data-visual-contract="about-cv-conversion"]')
@@ -110,5 +115,5 @@ test('interior routes remain usable with Source font requests blocked', async ({
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
   }
 
-  expect(interceptedSourceFonts.size).toBeGreaterThanOrEqual(3)
+  expect(interceptedSourceFonts.size).toBeGreaterThanOrEqual(2)
 })

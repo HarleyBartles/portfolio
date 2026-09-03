@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { ExternalLink } from '../../../components/ExternalLink'
+import { ExternalLink } from '../../../components'
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyDecision } from '../CaseStudyDecision'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'

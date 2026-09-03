@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { EditorialSingleLineHeading } from '../../components/editorial/EditorialTextWrap'
+import { EditorialSingleLineHeading } from '../../components'
 
 export const ProfessionalStory = styled.section`
   display: grid;

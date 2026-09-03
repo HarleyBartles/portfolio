@@ -1,7 +1,6 @@
-import type { ReactElement } from 'react'
-import type { CareerStage } from '../data/professionalProfile'
+import type { CareerStage } from '../data'
 
-export function CareerTimeline({ stages }: { stages: readonly CareerStage[] }): ReactElement {
+export const CareerTimeline = ({ stages }: { stages: readonly CareerStage[] }) => {
   return (
     <ol className="career-timeline" aria-label="Career chronology">
       {stages.map((stage) => {

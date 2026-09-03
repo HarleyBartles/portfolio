@@ -1,4 +1,4 @@
-import type { ContentSummary } from '../types/content'
+import type { ContentSummary } from '../types'
 
 export function formatContentDate(value: string | undefined): string | null {
   if (value === undefined) return null

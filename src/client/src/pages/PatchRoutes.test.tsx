@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { afterEach, describe, expect, test } from 'vitest'
 import { appRoutes } from '../app/router'
 import { createPortfolioQueryClient } from '../app/queryClient'
+import { PortfolioThemeProvider } from '../components'
 
 const routers: ReturnType<typeof createMemoryRouter>[] = []
 
@@ -19,7 +20,9 @@ function renderRoute(path: string) {
   routers.push(router)
   render(
     <QueryClientProvider client={createPortfolioQueryClient()}>
-      <RouterProvider router={router} />
+      <PortfolioThemeProvider>
+        <RouterProvider router={router} />
+      </PortfolioThemeProvider>
     </QueryClientProvider>,
   )
   return router

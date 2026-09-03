@@ -6,14 +6,14 @@ This record covers visual assets copied or derived from Harley Bartles' own repo
 
 The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm packages. Every face uses `font-display: swap`; fallback stacks remain in `src/client/src/styles/_tokens.scss`. The packages retain their licence files and attribution metadata in `node_modules`, and the exact resolved versions are locked in `src/client/package-lock.json`.
 
-### Fraunces
+### Source Sans 3
 
-- Dependency: `@fontsource-variable/fraunces` 5.3.0; upstream font version v38.
-- Files used: `fraunces-latin-wght-normal.woff2` and `fraunces-latin-wght-italic.woff2`.
-- Source: Google Fonts / The Fraunces Project Authors, `github.com/undercasetype/Fraunces`.
-- Licence: SIL Open Font License 1.1; public web embedding and redistribution permitted under the licence.
-- Use and fallback: display headings; Georgia then generic serif.
-- Added: 2026-08-21.
+- Dependency: `@fontsource-variable/source-sans-3` 5.3.0; upstream font version v17.
+- File used: `source-sans-3-latin-wght-normal.woff2`.
+- Source and attribution: Google Fonts / Adobe, `github.com/adobe-fonts/source-sans`.
+- Licence: SIL Open Font License 1.1.
+- Use and fallback: shared site voice; Segoe UI, Arial, then generic sans-serif.
+- Added: 2026-09-03.
 
 ### Source Serif 4
 
@@ -24,14 +24,14 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Use and fallback: body and long-form reading; Iowan Old Style then generic serif.
 - Added: 2026-08-21.
 
-### Fira Code
+### Source Code Pro
 
-- Dependency: `@fontsource-variable/fira-code` 5.3.0; upstream font version v27.
-- File used: `fira-code-latin-wght-normal.woff2`.
-- Source: Google Fonts / The Fira Code Project Authors, `github.com/tonsky/FiraCode`.
+- Dependency: `@fontsource-variable/source-code-pro` 5.3.0; upstream font version v14.
+- File used: `source-code-pro-latin-wght-normal.woff2`.
+- Source and attribution: Google Fonts / Adobe, `github.com/adobe-fonts/source-code-pro`.
 - Licence: SIL Open Font License 1.1.
-- Use and fallback: folios, dates, status, and controls; Cascadia Code, SFMono-Regular, then generic monospace.
-- Added: 2026-08-21.
+- Use and fallback: code, diffs, technical evidence and compact utility text; Cascadia Code, SFMono-Regular, then generic monospace.
+- Added: 2026-09-03.
 
 ## Brand
 
