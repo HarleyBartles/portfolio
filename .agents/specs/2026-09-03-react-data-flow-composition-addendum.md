@@ -10,7 +10,7 @@ The composition-grammar programme is not a CSS migration with React component na
 
 The current homepage is a useful example. `HomePage` composes one large component per movement, which is a good route-level boundary, but several movement components are internally large stretches of class-bound semantic HTML. `WildBunchFeature`, for example, accepts the next Writing feature as a prop and maps event data, but most of the movement's internal grammar is still encoded as one large JSX tree plus external stylesheet knowledge. The migration should preserve the accepted movement while opening meaningful child seams inside it.
 
-Do not respond by manufacturing hooks, contexts or memoization where the UI is static. React pays rent through clear component ownership, explicit data flow, local behaviour, reusable composition and selective performance work where measurement justifies it.
+Do not respond by manufacturing hooks, contexts or memoization where the UI is static. There is not naturally much UI state in this portfolio and that is fine. React pays rent here primarily through composable primitives, explicit props, sensible ownership of structured data, local behaviour where behaviour exists, and selective performance work where measurement justifies it.
 
 ## React ownership model
 
@@ -44,7 +44,30 @@ Callbacks travel down the same way as data. The component that owns a state tran
 
 Repository/server state remains in its existing React Query ownership. Do not copy query data into local state or Context merely to make it feel more React-like.
 
-### 3. State lives as close as possible to where it is consumed and changed
+### 3. Static structured data still has ownership
+
+Do not confuse "no state" with "no React data flow".
+
+Many of the best opportunities in this portfolio are static arrays or structured values that a parent naturally owns and passes into reusable child primitives. A repeated visual sequence should not require each child component to hard-code the one set of labels, events, stages or proof rows that happened to exist on the page where it was first written.
+
+Prefer this shape when the content relationship is real:
+
+```tsx
+const events = [
+  { metadata: 'EVENT 01 · 08:14:03', name: 'GameStarted' },
+  { metadata: 'EVENT 02 · 08:14:19', name: 'StoreItemPurchased' },
+]
+
+<WildBunchReplayProof events={events} />
+```
+
+The parent owns the story-specific data. The child owns how that kind of data is rendered and behaves. This is ordinary composition, not state management, and the array should remain a plain value unless the UI genuinely edits it.
+
+Apply the same principle to repeated navigation items, metadata, evidence rows, stages, actions, captions and other structures where a child can become reusable without becoming generic. Reuse should come from a real typed contract, not from turning every page into configuration or inventing a universal renderer.
+
+A component that is named after one page and hard-codes every datum of that page should be challenged when its actual job is reusable. A component that genuinely represents one unique project artifact may remain specific.
+
+### 4. State lives as close as possible to where it is consumed and changed
 
 Default to local `useState` in the component that owns the behaviour.
 
@@ -56,7 +79,7 @@ Do not hoist state to a page, route or application provider because it might be 
 
 Existing local-state patterns such as share feedback, contact submission state and media-failure handling are the shape to preserve: the behaviour stays close to the UI that owns it.
 
-### 4. Prop drilling is the trigger for narrow Context
+### 5. Prop drilling is the trigger for narrow Context
 
 Passing props through a couple of meaningful component boundaries is normal React and should remain explicit.
 
@@ -71,7 +94,7 @@ Context must be:
 
 Do not introduce a site-wide UI Context, generic store or provider stack as part of this migration unless an observed use case requires it.
 
-### 5. Reducers are an escalation, not a destination
+### 6. Reducers are an escalation, not a destination
 
 Use ordinary local state until state transitions become genuinely coupled or difficult to reason about as independent updates.
 
@@ -79,7 +102,7 @@ A reducer becomes justified only when a component or bounded feature has several
 
 There is no known reducer-shaped problem in the current portfolio. The expected outcome of this programme is probably **no reducer at all**. Do not introduce one to demonstrate React technique.
 
-### 6. Derived values are not state
+### 7. Derived values are not state
 
 If a value can be calculated from current props, query data or local state during render, calculate it during render.
 
@@ -87,17 +110,17 @@ Do not create synchronized duplicate state and an effect to keep it aligned.
 
 Use effects to synchronize with external systems such as browser APIs, subscriptions, timers, storage or imperative libraries. Do not use `useEffect` as a general sequencing mechanism for ordinary component logic.
 
-### 7. Custom hooks follow reusable stateful logic
+### 8. Custom hooks follow reusable stateful logic
 
 Extract a custom hook when stateful behaviour is genuinely reusable, or when separating the behaviour materially clarifies a component while preserving a coherent ownership boundary.
 
 Do not create `useThing` wrappers for one call site simply to reduce line count. A custom hook should name a real reusable behaviour or integration seam.
 
-### 8. Memoization must pay measurable rent
+### 9. Memoization must pay measurable rent
 
 `React.memo`, `useMemo` and `useCallback` are tools, not maturity markers.
 
-Start with correct state placement and useful component boundaries. Those choices often remove unnecessary rerenders without memoization.
+Start with correct state placement, explicit props and useful component boundaries. Those choices often remove unnecessary rerenders without memoization.
 
 Use memoization when profiling or an obvious expensive computation/render path shows that stable inputs are repeatedly causing meaningful work. Use stable callbacks where they are required to preserve an optimized child boundary.
 
@@ -113,7 +136,7 @@ Keep the large route-level movement boundaries where they describe real editoria
 - heading/context/copy groups;
 - route actions and next-movement handoff;
 - project-specific proof/evidence units;
-- repeated lists or sequences driven by typed data;
+- repeated lists or sequences driven by typed parent-owned data;
 - media/fallback units;
 - any interaction or local failure state.
 
@@ -143,34 +166,38 @@ The names above are illustrative, not pre-approved APIs. Local Sol should derive
 During planning and review of each migrated surface, answer these questions explicitly:
 
 1. What are the meaningful component boundaries?
-2. Which values are static content, props, query/server state, local UI state or derived values?
-3. Does each state value live at the nearest component that owns both its use and transitions?
-4. Where siblings share state, is it lifted only to the nearest common ancestor?
-5. Are props still expressing useful ownership, or has pass-through prop drilling appeared?
-6. If Context is proposed, which exact drilling problem does the bounded provider remove?
-7. Is any effect computing or synchronizing something that should simply be derived during render?
-8. If a custom hook is proposed, what reusable stateful behaviour does it own?
-9. If memoization is proposed, what measured or obvious repeated cost does it avoid?
-10. Can the parent component be understood from its children and props without reading their DOM or CSS implementation?
+2. Which values are static content, parent-owned structured data, props, query/server state, local UI state or derived values?
+3. Where repeated content exists, can the parent own the data and pass it to a reusable child instead of the child hard-coding one page's instance?
+4. Does each actual state value live at the nearest component that owns both its use and transitions?
+5. Where siblings share state, is it lifted only to the nearest common ancestor?
+6. Are props still expressing useful ownership, or has pass-through prop drilling appeared?
+7. If Context is proposed, which exact drilling problem does the bounded provider remove?
+8. Is any effect computing or synchronizing something that should simply be derived during render?
+9. If a custom hook is proposed, what reusable stateful behaviour does it own?
+10. If memoization is proposed, what measured or obvious repeated cost does it avoid?
+11. Can the parent component be understood from its children and props without reading their DOM or CSS implementation?
 
 These questions are architecture review, not a demand that every migrated component use every React feature.
 
 ## Guardrails
 
 - Do not add state to static presentation merely to use hooks.
+- Do not turn static arrays into state unless the UI changes them.
 - Do not use Context as a substitute for ordinary props.
 - Do not introduce Redux, Zustand or another global state library for this programme.
 - Do not introduce reducers without a reducer-shaped state problem.
 - Do not duplicate React Query data into local state or Context.
 - Do not memoize by default.
 - Do not build generic component soup in pursuit of reuse statistics.
+- Do not turn every page into a data-driven renderer when the composition is genuinely unique.
 - Do not collapse project-native evidence into generic primitives.
+- Do make parent ownership and child prop contracts explicit where repeated structure already exists.
 - Do make component APIs expose the real decisions a page author should be allowed to make.
 
 ## Authority for local Sol
 
 Read this file immediately after `2026-09-03-react-composition-grammar-design.md` and before writing the JIT plan.
 
-The first plan for Slices A and B should apply these state/data-flow rules even though those slices are expected to be mostly composition and presentation work. It should identify current stateful components encountered in scope and preserve or improve their ownership rather than moving state casually during the styling migration.
+The first plan for Slices A and B should apply these state/data-flow rules even though those slices are expected to be mostly composition and presentation work. It should identify structured data and current stateful components encountered in scope, preserve sensible ownership, and use typed props where that naturally makes child components reusable. Do not manufacture state or generalized configuration to make the migration look more React-like.
 
 Slice G must use this addendum as a primary review lens. Moving homepage CSS without decomposing the large movement internals into meaningful React composition would not complete that slice.
