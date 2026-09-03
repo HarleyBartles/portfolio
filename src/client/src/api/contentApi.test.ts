@@ -25,6 +25,22 @@ describe('content API client', () => {
     })
   })
 
+  test('resolves the PORT-10 preview directly without admitting it to published navigation', async () => {
+    const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
+    const [document, navigation] = await Promise.all([getContent(slug), getNavigation()])
+
+    expect(document).toMatchObject({
+      publicationState: 'preview',
+      summary: {
+        slug,
+        kind: 'writing',
+        title: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+      },
+    })
+    expect(document.markdown).toContain('Chassis was already winning.')
+    expect(navigation.map((item) => item.slug)).not.toContain(slug)
+  })
+
   test('converts missing slug into a 404 endpoint error without server path leakage', async () => {
     await expect(getContent('not-real')).rejects.toBeInstanceOf(ApiRequestError)
     await expect(getContent('not-real')).rejects.toMatchObject({

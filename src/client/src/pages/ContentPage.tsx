@@ -18,6 +18,7 @@ import { AuthoredContinuations } from '../features/writing/AuthoredContinuations
 import { ContextComplexityArticle } from '../features/writing/ContextComplexityArticle'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
 import { ProductOwnershipArticle } from '../features/writing/ProductOwnershipArticle'
+import { RianHughesArticle } from '../features/writing/RianHughesArticle'
 import { TestingEvidenceArticle } from '../features/writing/TestingEvidenceArticle'
 import '../features/writing/WritingPullQuotes.scss'
 import '../styles/interior.scss'
@@ -118,6 +119,8 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     return <ContentNotFoundState />
   }
 
+  const isPreview = document.publicationState === 'preview'
+
   const Presentation = document.summary.presentation === undefined
     ? undefined
     : getProjectPresentation(document.summary.presentation)
@@ -170,20 +173,24 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     && document.summary.slug === 'i-just-write-the-code-is-not-a-full-sentence'
   const hasContextComplexityPresentation = document.summary.kind === 'writing'
     && document.summary.slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be'
+  const hasRianHughesPreview = document.summary.kind === 'writing'
+    && document.summary.slug === 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
 
   return (
     <SiteLayout>
       <DocumentMetadata
         title={`${document.summary.title} | Harley Bartles`}
-        description={document.summary.summary}
+        description={isPreview ? document.summary.title : document.summary.summary}
         canonicalPath={getContentPath(document.summary)}
+        noIndex={isPreview}
       />
       <article
         className={`content-page content-page--${document.summary.kind}`}
         aria-labelledby="content-page-title"
         data-visual-language={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
         data-type-register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
+        data-publication-state={document.publicationState}
       >
         <header
           className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
@@ -194,13 +201,13 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           <div className="content-page-intro">
             <p className="eyebrow">{document.summary.kind}</p>
             <h1 id="content-page-title">{document.summary.title}</h1>
-            {document.summary.kind === 'writing' && formattedDate !== null ? (
+            {!isPreview && document.summary.kind === 'writing' && formattedDate !== null ? (
               <p className="editorial-meta content-date">
                 <span>{formattedDate}</span>
                 {document.summary.readingMinutes === undefined ? null : <span>{document.summary.readingMinutes} min read</span>}
               </p>
             ) : null}
-            <p className="content-summary">{document.summary.summary}</p>
+            {isPreview ? null : <p className="content-summary">{document.summary.summary}</p>}
             {document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : null}
           </div>
           {document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? (
@@ -223,7 +230,9 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
                 ? <ProductOwnershipArticle markdown={document.markdown ?? ''} />
                 : hasContextComplexityPresentation
                   ? <ContextComplexityArticle markdown={document.markdown ?? ''} />
-                  : <MarkdownContent markdown={document.markdown ?? ''} />
+                  : hasRianHughesPreview
+                    ? <RianHughesArticle markdown={document.markdown ?? ''} />
+                    : <MarkdownContent markdown={document.markdown ?? ''} />
             : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
         </div>
         {document.summary.kind === 'writing' ? null : (
@@ -233,7 +242,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
             unavailable={relatedNavigationUnavailable}
           />
         )}
-        {writingPresentation === undefined ? <ContentNavigation items={kindItems} currentSlug={document.summary.slug} /> : (
+        {isPreview ? null : writingPresentation === undefined ? <ContentNavigation items={kindItems} currentSlug={document.summary.slug} /> : (
           <AuthoredContinuations presentation={writingPresentation} summaries={relatedSummaries} />
         )}
         {routeMetadata?.shareAction === 'content-end' ? (

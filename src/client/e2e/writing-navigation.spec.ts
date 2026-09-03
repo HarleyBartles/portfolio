@@ -46,3 +46,59 @@ test('fairytale index and detail expose imagery plus a readable transcript', asy
   await expect(page.getByRole('heading', { level: 2, name: 'Visual transcript' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 })
+
+test('PORT-10 remains a direct noindex preview with a coherent article and link contract', async ({ page }) => {
+  const slug = 'how-the-invisibles-logo-designer-influenced-the-usual-specialists'
+  const response = await page.goto(`./writing/${slug}/`)
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', {
+    level: 1,
+    name: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+  })).toBeVisible()
+  await expect(page.locator('.content-page-body p').first()).toHaveText('Chassis was already winning.')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+  await expect(page.getByText('As I remember it, anyway.', { exact: true })).toBeVisible()
+  await expect(page.locator('.content-summary, .content-date, .share-action, .content-navigation')).toHaveCount(0)
+  await expect(page.getByRole('navigation', { name: 'Continue reading' })).toHaveCount(0)
+
+  const figures = page.getByRole('figure')
+  await expect(figures).toHaveCount(3)
+  await expect(figures.nth(0)).toHaveAttribute('aria-label', 'The finished wordmark')
+  await expect(figures.nth(1)).toHaveAttribute('aria-label', 'How the hierarchy is built')
+  await expect(figures.nth(2)).toHaveAttribute('aria-label', 'A different typographic answer')
+
+  await expect(page.getByRole('link', { name: 'The Usual Specialists' })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(page.getByRole('link', { name: 'Brand Addition' })).toHaveAttribute('href', '/about')
+  for (const name of ['Eurostile', 'Bank Gothic', 'Korolev', 'Chassis', 'Tales from Beyond Science']) {
+    const link = page.getByRole('link', { name: new RegExp(`${name}.*opens in a new tab`, 'i') })
+    await expect(link).toHaveAttribute('target', '_blank')
+    await expect(link).toHaveAttribute('rel', /noopener/)
+  }
+
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  const [studyBox, cameoBox] = await Promise.all([figures.nth(0).boundingBox(), figures.nth(2).boundingBox()])
+  expect(cameoBox!.width).toBeLessThan(studyBox!.width - 16)
+
+  await page.goto('./writing/')
+  await expect(page.getByRole('link', { name: /How The Invisibles’ logo designer/i })).toHaveCount(0)
+  const sitemap = await (await page.request.get('./sitemap.xml')).text()
+  expect(sitemap).not.toContain(slug)
+})
+
+test('PORT-10 captions and prose preserve the visual argument when both marks fail', async ({ page }) => {
+  await page.route('**/the-usual-specialists-wordmark.svg', (route) => route.abort())
+  await page.route('**/adventures-of-patch-cliff-drop.svg', (route) => route.abort())
+  await page.goto('./writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists/')
+
+  await expect(page.getByText('The finished mark. THE USUAL stays small; SPECIALISTS carries the job.')).toBeVisible()
+  await expect(page.getByText(/Three shared relationships explain the hierarchy/)).toBeVisible()
+  await expect(page.getByText(/PATCH found a different typographic answer/)).toBeVisible()
+  await expect(page.getByText(/That’s the joke in the mark/)).toBeVisible()
+  await expect(page.getByText(/PATCH went its own way/)).toBeVisible()
+})

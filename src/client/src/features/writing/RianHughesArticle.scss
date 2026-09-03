@@ -1,0 +1,128 @@
+.rian-wordmark-study {
+  display: grid;
+  width: min(68rem, calc(100vw - (2 * var(--space-6))));
+  gap: clamp(var(--space-8), 6vw, var(--space-12));
+  margin-block: clamp(var(--space-10), 8vw, var(--space-16));
+}
+
+.rian-wordmark-figure,
+.rian-patch-cameo {
+  margin: 0;
+}
+
+.rian-wordmark-plate,
+.rian-patch-cameo__plate {
+  border: 1px solid var(--color-border);
+  padding: clamp(var(--space-5), 5vw, var(--space-10));
+  background: var(--color-surface);
+}
+
+.rian-wordmark-plate {
+  position: relative;
+}
+
+.rian-wordmark-canvas {
+  position: relative;
+}
+
+.rian-wordmark-plate img,
+.rian-patch-cameo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rian-wordmark-plate--construction {
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-accent-soft) 30%, var(--color-surface));
+}
+
+.rian-wordmark-plate--construction img {
+  opacity: 0.68;
+}
+
+.rian-datum {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  background: var(--color-accent);
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.rian-datum--left {
+  top: -0.5rem;
+  bottom: -0.5rem;
+  left: 2.14%;
+  width: 1px;
+}
+
+.rian-datum--cap,
+.rian-datum--baseline {
+  right: -0.5rem;
+  left: -0.5rem;
+  height: 1px;
+}
+
+.rian-datum--cap {
+  top: 36.18%;
+}
+
+.rian-datum--baseline {
+  top: 79.17%;
+}
+
+.rian-datum-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  list-style: none;
+}
+
+.rian-datum-key li {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.rian-datum-key li > span {
+  width: 1.5rem;
+  height: 1px;
+  background: var(--color-accent);
+}
+
+.rian-wordmark-figure figcaption,
+.rian-patch-cameo figcaption {
+  max-width: var(--measure-reading);
+  margin-top: var(--space-3);
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.rian-patch-cameo {
+  width: min(20rem, 100%);
+  margin-block: clamp(var(--space-8), 6vw, var(--space-12));
+}
+
+.rian-patch-cameo__plate {
+  padding: clamp(var(--space-5), 5vw, var(--space-8));
+}
+
+@media (max-width: 36rem) {
+  .rian-wordmark-study {
+    width: 100%;
+  }
+
+  .rian-wordmark-plate,
+  .rian-patch-cameo__plate {
+    padding: var(--space-4);
+  }
+
+}

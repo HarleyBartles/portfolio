@@ -36,15 +36,15 @@
 - Consumes: the locked manuscript and current manifest-backed `getContent`/`getNavigation` contract.
 - Produces: one explicitly registered `ContentDocument` with `publicationState: 'preview'`, resolvable by direct slug but absent from `navigation`.
 
-- [ ] **Step 1: Write failing data and page-boundary tests**
+- [x] **Step 1: Write failing data and page-boundary tests**
 
   Prove the preview slug loads as writing content while `getNavigation()` excludes it. Prove the rendered route has the exact title and opening sentence, `robots=noindex`, and no content summary, date, reading time, share action, chronological navigation, or authored continuations.
 
-- [ ] **Step 2: Run the focused tests and verify RED**
+- [x] **Step 2: Run the focused tests and verify RED**
 
   Run `npm.cmd --prefix src/client test -- src/api/contentApi.test.ts src/pages/ContentPage.test.tsx`; expect the direct route to return not found and the preview assertions to fail.
 
-- [ ] **Step 3: Implement the smallest preview registry and page branch**
+- [x] **Step 3: Implement the smallest preview registry and page branch**
 
   Add the preview document flag and lookup without touching the manifest. Copy the locked public prose into preview Markdown, preserving every paragraph exactly, replacing direction notes only with verified links and two HTML comment placement markers. Use these destinations:
 
@@ -59,11 +59,11 @@
 
   Keep internal links in-app and let `MarkdownContent` provide the existing accessible external-link treatment.
 
-- [ ] **Step 4: Re-run the focused tests and verify GREEN**
+- [x] **Step 4: Re-run the focused tests and verify GREEN**
 
   Re-run the Task 1 Vitest command and require a clean pass.
 
-- [ ] **Step 5: Mark Task 1 checklist items complete in this plan**
+- [x] **Step 5: Mark Task 1 checklist items complete in this plan**
 
 ---
 
@@ -81,27 +81,27 @@
 - Consumes: the two preview Markdown placement markers, `the-usual-specialists-wordmark.svg` (`viewBox 0 0 1120 240`), and `adventures-of-patch-cliff-drop.svg` (`viewBox 0 0 340 126.2021`).
 - Produces: a full-width finished wordmark figure, an immediately following restrained construction figure, and a subordinate PATCH cameo.
 
-- [ ] **Step 1: Write failing article-figure tests**
+- [x] **Step 1: Write failing article-figure tests**
 
   Assert the two markers resolve in reading order; neither marker/note is rendered; both Specialists figures reuse the canonical outlined asset; the construction overlay exposes only the shared left edge, SPECIALISTS cap line, and baseline relationships; the PATCH figure uses the canonical cliff-drop asset; and every figure has a useful visible caption and accessible description.
 
-- [ ] **Step 2: Run the focused test and verify RED**
+- [x] **Step 2: Run the focused test and verify RED**
 
   Run `npm.cmd --prefix src/client test -- src/features/writing/RianHughesArticle.test.tsx src/pages/ContentPage.test.tsx`; expect missing-component and missing-figure failures.
 
-- [ ] **Step 3: Implement typed insertion and restrained figure styling**
+- [x] **Step 3: Implement typed insertion and restrained figure styling**
 
   Split only at the two exact markers and fall back to ordinary Markdown if either marker is absent. Render canonical SVGs through base-path-safe URLs. In the construction view, retain the same outlined geometry and add three meaningful datum rules with adjacent HTML labels; do not use SVG `<text>`, a commercial font, or a dimension-sheet thicket. Give the finished mark inspection width, place construction directly after it, and keep PATCH visibly smaller.
 
-- [ ] **Step 4: Record derived-figure custody**
+- [x] **Step 4: Record derived-figure custody**
 
   Add a custody note that the React construction overlay reuses the unchanged canonical outline and contributes only CSS/SVG datum rules and semantic labels; record source paths, current hashes/viewBoxes, accessibility fallback, and the absence of font binaries or new third-party artwork.
 
-- [ ] **Step 5: Re-run focused tests and verify GREEN**
+- [x] **Step 5: Re-run focused tests and verify GREEN**
 
   Re-run the Task 2 Vitest command and require a clean pass.
 
-- [ ] **Step 6: Mark Task 2 checklist items complete in this plan**
+- [x] **Step 6: Mark Task 2 checklist items complete in this plan**
 
 ---
 
@@ -114,19 +114,19 @@
 - Consumes: the complete preview route from Tasks 1-2.
 - Produces: browser proof that the locked article reads continuously and the evidence choreography survives supported widths and asset failure.
 
-- [ ] **Step 1: Add the focused browser journey**
+- [x] **Step 1: Add the focused browser journey**
 
   Assert direct route status, exact title/opening/final line, figure order, internal versus external link behaviour, `noindex`, absence from `/writing/`, and no horizontal overflow at 1440, 768, 390, and 320 CSS pixels. Abort both canonical logo requests once and prove captions and prose still carry the argument.
 
-- [ ] **Step 2: Build and run the focused browser spec**
+- [x] **Step 2: Build and run the focused browser spec**
 
   Run `npm.cmd --prefix src/client run build`, then `npm.cmd --prefix src/client run test:e2e -- e2e/writing-navigation.spec.ts`; require a clean pass.
 
-- [ ] **Step 3: Inspect the real production-style preview personally**
+- [x] **Step 3: Inspect the real production-style preview personally**
 
   Serve with `npm.cmd --prefix src/client run preview:test`. In the browser inspect `/portfolio/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists/` at 1440, 768, 390, and 320 CSS pixels; read continuously, check title/opening adjacency, paragraph rhythm, figure hierarchy, captions, link behaviour, image-failure resilience, focus visibility, and overflow. Repair only genuine defects, with a failing assertion first where practical.
 
-- [ ] **Step 4: Mark Task 3 checklist items complete in this plan**
+- [x] **Step 4: Mark Task 3 checklist items complete in this plan**
 
 ---
 

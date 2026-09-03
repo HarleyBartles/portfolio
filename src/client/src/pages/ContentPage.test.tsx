@@ -30,6 +30,34 @@ vi.mock('../features/case-study/projectPresentations', async () => {
 import * as presentations from '../features/case-study/projectPresentations'
 
 describe('ContentPage specialist presentation boundary', () => {
+  test('renders the PORT-10 direct preview without publication furniture', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    const title = await screen.findByRole('heading', {
+      level: 1,
+      name: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+    }, { timeout: 5_000 })
+    const article = title.closest('article') as HTMLElement
+    expect(article).toHaveAttribute('data-publication-state', 'preview')
+    expect(within(article).getByText('Chassis was already winning.')).toBeVisible()
+    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+    expect(article.querySelector('.content-summary')).toBeNull()
+    expect(article.querySelector('.content-date')).toBeNull()
+    expect(article.querySelector('.share-action')).toBeNull()
+    expect(article.querySelector('.content-navigation')).toBeNull()
+    expect(within(article).queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
+    expect(container.textContent).not.toContain('min read')
+  })
+
   test('announces a stable loading state until the specialist body is ready', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',

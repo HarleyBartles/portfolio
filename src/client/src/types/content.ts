@@ -66,6 +66,7 @@ export type EditorialWritingSummary = Omit<
 export type ContentDocument = {
   summary: ContentSummary
   markdown?: string
+  publicationState?: 'preview'
 }
 
 export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): string {
