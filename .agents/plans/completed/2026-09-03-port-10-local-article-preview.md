@@ -53,7 +53,7 @@
   - Bank Gothic: `https://www.myfonts.com/collections/bank-gothic-font-grouptype`
   - Korolev: `https://www.myfonts.com/collections/korolev-font-device`
   - Chassis: `https://www.myfonts.com/collections/chassis-font-device`
-  - Tales from Beyond Science: `https://theslingsandarrows.com/tales-from-beyond-science/`
+  - Tales from Beyond Science: `https://comicsalliance.com/tales-beyond-science-rian-hughes-mark-millar-preview/` (final accepted destination because it lets the reader inspect Hughes's art directly)
   - Hughes on type, illustration, and design: `https://www.koreropress.com/news/rian-hughes-interview/`
   - Brand Addition: `/about`
 
@@ -168,7 +168,11 @@
 
 ## Post-review shell correction
 
-Harley rejected the runtime preview-state seam during browser review. The branch itself is the publication boundary, so the final branch implementation composes PORT-10 through the ordinary manifest-backed writing route, generated route metadata, writing index, sitemap, canonical metadata, reading metadata, continuation links, and share action. The shared `WritingArticleShell` now owns that furniture for every writing route; article-specific rendering supplies only the body and optional principal figure. The title-to-opening transition remains deliberate, so PORT-10 opts out of a header summary without opting out of the article shell.
+Harley rejected the runtime preview-state seam during browser review. The branch itself is the publication boundary, so the final branch implementation composes PORT-10 through the ordinary manifest-backed writing route, generated route metadata, writing index, sitemap, canonical metadata, reading metadata, continuation links, and share action. The shared `WritingArticleShell` owns that furniture for every writing route; article-specific rendering supplies only the body and optional principal figure.
+
+Harley subsequently overruled Cloud Sol's recommendation to make the title land directly into `Chassis was already winning.` The title and hook are not closely linked enough to justify a PORT-10 exception. The ordinary title, date/read-time, précis, then manuscript hierarchy remains authoritative, and the shell no longer exposes a summary opt-out.
+
+Once the précis occupied its proper shell position, Harley removed the standalone `Chassis was already winning.` opening as redundant with both the précis and the first paragraph's conclusion that Chassis was ahead. The accepted manuscript now starts with `I was looking for a face for The Usual Specialists.`
 
 ## Post-review figure correction
 

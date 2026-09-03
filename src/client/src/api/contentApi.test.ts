@@ -38,7 +38,8 @@ describe('content API client', () => {
         readingMinutes: 4,
       },
     })
-    expect(document.markdown).toContain('Chassis was already winning.')
+    expect(document.markdown).not.toMatch(/^Chassis was already winning\./)
+    expect(document.markdown).toContain('I was looking for a face for [**The Usual Specialists**]')
     expect(navigation.map((item) => item.slug)).toContain(slug)
   })
 

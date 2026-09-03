@@ -56,11 +56,12 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
     level: 1,
     name: 'How The Invisibles’ logo designer influenced The Usual Specialists',
   })).toBeVisible()
-  await expect(page.locator('.content-page-body p').first()).toHaveText('Chassis was already winning.')
+  await expect(page.locator('.content-summary')).toHaveText('Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.')
+  await expect(page.locator('.content-page-body p').first()).toContainText('I was looking for a face for The Usual Specialists.')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://harleybartles.com/writing/${slug}`)
   await expect(page.getByText('As I remember it, anyway.', { exact: true })).toBeVisible()
-  await expect(page.locator('.content-summary')).toHaveCount(0)
+  await expect(page.locator('.content-summary')).toHaveCount(1)
   await expect(page.locator('.content-date')).toContainText('3 September 2026')
   await expect(page.locator('.content-date')).toContainText('4 min read')
   const continuations = page.getByRole('navigation', { name: 'Continue reading' })

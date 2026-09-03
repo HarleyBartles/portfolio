@@ -1,10 +1,12 @@
 import { describe, expect, test } from 'vitest'
 import {
+  createWritingHomepageFeature,
   defaultHomepageEdition,
   getHomepageEdition,
   type PatchHomepageFeature,
 } from './homepageEdition'
 import { patchHomepagePresentations } from './PatchHomepageSlot'
+import { navigation } from '../../data/documents'
 
 describe('homepageEdition', () => {
   test('pins the accepted first production edition without runtime randomness', () => {
@@ -49,5 +51,20 @@ describe('homepageEdition', () => {
     expect(tournament.incomingTeaser).toBe('Bring reasonable defaults to the tournament')
     expect(tournament.to).toBe('/patch/tournament-of-reasonable-defaults')
     expect(patchHomepagePresentations[tournament.presentation]).not.toBe(patchHomepagePresentations[defaultHomepageEdition.patch.presentation])
+  })
+
+  test('can compose PORT-10 into a future edition without rotating the active edition', () => {
+    const port10 = navigation.find((item) => item.slug === 'how-the-invisibles-logo-designer-influenced-the-usual-specialists')
+
+    expect(createWritingHomepageFeature(port10!)).toEqual({
+      kind: 'writing',
+      anchorId: 'writing',
+      title: 'How The Invisibles’ logo designer influenced The Usual Specialists',
+      summary: 'I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.',
+      to: '/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists',
+      inwardLabel: 'Read the story',
+      incomingTeaser: 'When the caper moves inside the word',
+    })
+    expect(getHomepageEdition()).toBe(defaultHomepageEdition)
   })
 })

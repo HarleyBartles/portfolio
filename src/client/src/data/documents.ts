@@ -37,6 +37,23 @@ function nonemptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
 }
 
+function parseWritingHomepageCopy(item: Record<string, unknown>): ContentSummary['homepageFeature'] {
+  if (item.kind !== 'writing' || item.homepageFeature === null || typeof item.homepageFeature !== 'object') {
+    return undefined
+  }
+
+  const source = item.homepageFeature as Record<string, unknown>
+  if (!nonemptyString(source.summary) || !nonemptyString(source.inwardLabel) || !nonemptyString(source.incomingTeaser)) {
+    return undefined
+  }
+
+  return {
+    summary: source.summary,
+    inwardLabel: source.inwardLabel,
+    incomingTeaser: source.incomingTeaser,
+  }
+}
+
 function parseEditorial(item: Record<string, unknown>): WritingEditorial | undefined {
   const editorial = item.editorial
   if (item.kind !== 'writing' || editorial === null || typeof editorial !== 'object') {
@@ -118,7 +135,7 @@ export function parseContentSummary(item: unknown): ContentSummary | EditorialWr
     title: String(source.title),
     status: String(source.status),
     summary: String(source.summary),
-    showSummary: source.showSummary === false ? false : undefined,
+    homepageFeature: parseWritingHomepageCopy(source),
     date: source.date === undefined ? undefined : String(source.date),
     readingMinutes:
       typeof source.readingMinutes === 'number' ? source.readingMinutes : undefined,
@@ -138,7 +155,7 @@ function itemToSummary(item: unknown): ContentSummary {
       title: parsed.title,
       status: parsed.status,
       summary: parsed.summary,
-      showSummary: parsed.showSummary,
+      homepageFeature: parsed.homepageFeature,
       featured: false,
       tags: parsed.tags,
       relatedSlugs: [],

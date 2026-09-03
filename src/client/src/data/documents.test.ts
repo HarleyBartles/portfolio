@@ -111,6 +111,17 @@ describe('loadDocument', () => {
     })
   })
 
+  test('keeps PORT-10 catalogue copy distinct from its opening hook and carries its future homepage edition copy', () => {
+    expect(navigation.find((item) => item.slug === 'how-the-invisibles-logo-designer-influenced-the-usual-specialists')).toMatchObject({
+      summary: 'Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.',
+      homepageFeature: {
+        summary: 'I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.',
+        inwardLabel: 'Read the story',
+        incomingTeaser: 'When the caper moves inside the word',
+      },
+    })
+  })
+
   test('loads the Why ADRs production article from the public manifest', async () => {
     const whyAdrs = navigation.find((item) => item.slug === 'why-adrs')
 

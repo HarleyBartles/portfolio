@@ -1,7 +1,5 @@
 # How The Invisibles’ logo designer influenced The Usual Specialists
 
-Chassis was already winning.
-
 I was looking for a face for **The Usual Specialists**. *[Internal link: meet the crew.]* The brief, at first, was pretty crude: solid caper, solid crew, solid word. **SPECIALISTS** needed to look like you could hang a tank off it and it wouldn’t budge. As I remember it, Eurostile, Bank Gothic and Korolev were all in the running. Chassis was ahead. *[Each face links out to a good public specimen rather than reproducing it here.]*
 
 Then I noticed who designed it. Rian Hughes.

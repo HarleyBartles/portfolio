@@ -28,14 +28,7 @@ export function WritingArticleShell({
 }: WritingArticleShellProps): ReactElement {
   const formattedDate = formatContentDate(summary.date)
   const hasReadingMetadata = formattedDate !== null || summary.readingMinutes !== undefined
-  const fallbackSlugs = summary.relatedSlugs.length === 0
-    ? summaries
-        .filter((item) => item.kind === 'writing' && item.slug !== summary.slug)
-        .slice(0, 2)
-        .map((item) => item.slug)
-    : []
-  const relatedSlugs = summary.relatedSlugs.length > 0 ? summary.relatedSlugs : fallbackSlugs
-  const continuations: WritingContinuationItem[] = relatedSlugs.flatMap((slug) => {
+  const continuations: WritingContinuationItem[] = summary.relatedSlugs.flatMap((slug) => {
     const related = summaries.find((item) => item.slug === slug)
     if (related === undefined) return []
     const kind = related.kind === 'patch' ? 'Patch story' : related.kind === 'project' ? 'Project story' : 'Article'
@@ -59,13 +52,13 @@ export function WritingArticleShell({
               {summary.readingMinutes === undefined ? null : <span>{summary.readingMinutes} min read</span>}
             </p>
           ) : null}
-          {summary.showSummary === false ? null : <p className="content-summary">{summary.summary}</p>}
+          <p className="content-summary">{summary.summary}</p>
         </div>
         {headerVisual}
       </header>
       {children}
       {presentation === undefined
-        ? navigationUnavailable
+        ? navigationUnavailable && summary.relatedSlugs.length > 0
           ? <section className="writing-continuations" aria-labelledby="writing-continuations-title"><h2 id="writing-continuations-title">Continue reading</h2><p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p></section>
           : <WritingContinuations items={continuations} summaries={summaries} />
         : <AuthoredContinuations presentation={presentation} summaries={summaries} />}

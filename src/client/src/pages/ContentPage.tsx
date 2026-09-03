@@ -131,7 +131,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
 
   const relatedSummaries = navigationQuery.data ?? []
   const fallbackSlugs =
-    document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
+    document.summary.kind !== 'writing' && document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
       ? relatedSummaries
           .filter((item) => item.kind === 'writing' && item.slug !== document.summary.slug)
           .slice(0, 3)

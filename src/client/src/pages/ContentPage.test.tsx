@@ -48,13 +48,20 @@ describe('ContentPage specialist presentation boundary', () => {
     }, { timeout: 5_000 })
     const article = title.closest('article') as HTMLElement
     expect(article).not.toHaveAttribute('data-publication-state')
-    expect(within(article).getByText('Chassis was already winning.')).toBeVisible()
+    const precis = within(article).getByText('Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.')
+    const metadata = article.querySelector('.editorial-meta') as HTMLElement
+    const firstParagraph = article.querySelector('.content-page-body p') as HTMLElement
+    expect(within(article).queryByText('Chassis was already winning.', { exact: true })).not.toBeInTheDocument()
+    expect(firstParagraph).toHaveTextContent('I was looking for a face for The Usual Specialists.')
+    expect(precis).toHaveClass('content-summary')
+    expect(title.compareDocumentPosition(metadata) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(metadata.compareDocumentPosition(precis) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(precis.compareDocumentPosition(firstParagraph) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index')
     expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute(
       'href',
       'https://harleybartles.com/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists',
     )
-    expect(article.querySelector('.content-summary')).toBeNull()
     expect(within(article).getByText('4 min read')).toBeVisible()
     expect(within(article).getByText('3 September 2026')).toBeVisible()
     const related = within(article).getByRole('navigation', { name: 'Continue reading' })
@@ -73,6 +80,25 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(within(article).getByRole('link', { name: /harleybartles.com\/writing\/how-the-invisibles/ })).toBeVisible()
     expect(article.querySelector('.content-navigation')).toBeNull()
     expect(container.querySelectorAll('.editorial-meta')).toHaveLength(1)
+  })
+
+  test('does not invent continuation links for a writing article without authored choices', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/the-right-test-isnt-your-favourite-test'],
+    })
+
+    render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    )
+
+    await screen.findByRole('heading', {
+      level: 1,
+      name: "The right test isn't your favourite test",
+    }, { timeout: 5_000 })
+    expect(screen.queryByRole('navigation', { name: 'Continue reading' })).not.toBeInTheDocument()
   })
 
   test('announces a stable loading state until the specialist body is ready', async () => {

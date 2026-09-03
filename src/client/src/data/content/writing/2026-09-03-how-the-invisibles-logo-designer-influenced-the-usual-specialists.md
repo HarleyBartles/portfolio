@@ -1,7 +1,5 @@
 # How The Invisibles’ logo designer influenced The Usual Specialists
 
-Chassis was already winning.
-
 I was looking for a face for [**The Usual Specialists**](/patch/lawful-heist). The brief, at first, was pretty crude: solid caper, solid crew, solid word. **SPECIALISTS** needed to look like you could hang a tank off it and it wouldn’t budge. As I remember it, [Eurostile](https://www.myfonts.com/collections/eurostile-font-urw/), [Bank Gothic](https://www.myfonts.com/collections/bank-gothic-font-grouptype) and [Korolev](https://www.myfonts.com/collections/korolev-font-device) were all in the running. [Chassis](https://www.myfonts.com/collections/chassis-font-device) was ahead.
 
 Then I noticed who designed it. Rian Hughes.
