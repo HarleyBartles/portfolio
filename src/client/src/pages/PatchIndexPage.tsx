@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata, IndexHeader, PatchStoryIndexEntry, SiteLayout } from '../components'
+import { DocumentMetadata, IndexHeader, PatchStoryIndexEntry, SiteLayout, type PatchStoryMedia } from '../components'
 import { getInFlightWorlds } from '../features/case-study/patch/patchEvidence'
 import '../features/patch-showcase/PatchShowcase.scss'
 import { ErrorPage } from './ErrorPage'
@@ -25,6 +25,11 @@ const statusLabels = {
   'visual-development': 'Visual development',
   'legacy-reference': 'Legacy reference',
 } as const
+
+const fairytaleMedia: Record<string, PatchStoryMedia> = {
+  goldilocks: { alt: 'Three scenes compare too much, too little, and just enough guidance for Patch.', folder: 'goldilocks' },
+  'sorcerers-apprentice': { alt: 'A bounded five-worker delegation expands into an uncontrolled crowd before a delegation policy restores limits.', folder: 'sorcerers-apprentice' },
+}
 
 export const PatchIndexPage = () => {
   const navigationQuery = useQuery(contentQueries.navigation())
@@ -61,7 +66,7 @@ export const PatchIndexPage = () => {
                 <p>One familiar story, one operational lesson, one useful action.</p>
               </div>
               <FairytaleGrid className="editorial-index-grid editorial-index-grid--fairytales">
-                {fairytales.map((item, index) => <PatchStoryIndexEntry item={item} index={index} key={item.slug} />)}
+                {fairytales.map((item, index) => <PatchStoryIndexEntry item={item} index={index} key={item.slug} media={fairytaleMedia[item.slug]} />)}
               </FairytaleGrid>
             </section>
             <section className="patch-index__group" aria-labelledby="patch-adventures-title">

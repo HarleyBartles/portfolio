@@ -31,7 +31,7 @@ test('production typography is self-hosted and available without a font CDN', as
   await page.goto('./about')
   await expect(page.locator('main h1')).toBeVisible()
   await page.goto('./writing/why-adrs/')
-  await expect(page.locator('article.content-page--writing')).toBeVisible()
+  await expect(page.locator('article[data-content-kind="writing"]')).toBeVisible()
   await page.goto('./projects/codex-marketplace/')
   await expect(page.locator('code').first()).toBeVisible()
   const loadedFaces = await page.evaluate(async (families) => {
@@ -58,9 +58,9 @@ test('interior typography maps content roles to the accepted Source families', a
   await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
 
   await page.goto('./writing/why-adrs/')
-  const article = page.locator('article.content-page--writing')
+  const article = page.locator('article[data-content-kind="writing"]')
   await expect(article).toBeVisible()
-  await expect(article.locator('.markdown-content').first()).toHaveCSS('font-family', /Source Serif 4/)
+  await expect(article.locator('.content-prose').first()).toHaveCSS('font-family', /Source Serif 4/)
 
   await page.goto('./projects/codex-marketplace/')
   await expect(page.locator('code').first()).toHaveCSS('font-family', /Source Code Pro/)

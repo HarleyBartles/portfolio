@@ -2,16 +2,29 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { ExternalLink } from './ExternalLink'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-type MarkdownContentProps = {
+export type ContentProseRegister = 'site-sans' | 'article-serif'
+export type ContentProseLayout = 'reading' | 'illustrated-story'
+
+type ContentProseProps = {
   markdown: string
+  register: ContentProseRegister
+  layout?: ContentProseLayout
 }
 
-const MarkdownRoot = styled.div`
-  font-family: ${({ theme }) => theme.font.articleSerif};
-  font-size: ${({ theme }) => theme.type.articleBodySize};
-  line-height: ${({ theme }) => theme.type.articleBodyLeading};
+const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseRegister }>`
+  font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
+  font-size: ${({ $register, theme }) => $register === 'article-serif' ? theme.type.articleBodySize : theme.type.siteBodySize};
+  line-height: ${({ $register, theme }) => $register === 'article-serif' ? theme.type.articleBodyLeading : theme.type.siteBodyLeading};
+
+  ${({ $layout, theme }) => $layout === 'illustrated-story' ? css`
+    > :not(.fairytale-page) {
+      max-width: ${theme.layout.readingMeasure};
+      margin-right: auto;
+      margin-left: auto;
+    }
+  ` : ''}
 
   h2 {
     margin: ${({ theme }) => theme.space.xxl} 0 ${({ theme }) => theme.space.md};
@@ -56,6 +69,42 @@ const MarkdownRoot = styled.div`
     display: block;
     margin: 0;
   }
+
+  ${({ $register, theme }) => $register === 'article-serif' ? css`
+    blockquote {
+      width: 100%;
+      margin: ${theme.space.xl} 0 ${theme.space.l};
+      border-left: 0.3rem solid ${theme.color.accent};
+      padding: ${theme.space.m} ${theme.space.lg};
+      background: color-mix(in srgb, ${theme.color.accentSoft} 36%, transparent);
+      color: ${theme.color.ink};
+
+      @media (min-width: 60rem) {
+        width: min(54rem, calc(100vw - ${theme.space.xxl}));
+      }
+    }
+
+    blockquote p {
+      margin: 0;
+      font-family: ${theme.font.display};
+      font-size: clamp(1.65rem, 3.2vw, 2.7rem);
+      font-style: italic;
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+    }
+
+    blockquote p + p {
+      margin-top: ${theme.space.md};
+      font-family: ${theme.font.code};
+      font-size: 0.72rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+  ` : ''}
 `
 
 function isExternalHttpLink(href: string | undefined): boolean {
@@ -98,9 +147,9 @@ const MarkdownImage = (props: ComponentPropsWithoutRef<'img'>) => {
   return <img {...props} src={src} loading="lazy" decoding="async" />
 }
 
-export const MarkdownContent = ({ markdown }: MarkdownContentProps) => {
+export const ContentProse = ({ markdown, register, layout = 'reading' }: ContentProseProps) => {
   return (
-    <MarkdownRoot className="markdown-content" data-type-register="article-serif">
+    <Prose className="content-prose" data-type-register={register} data-prose-layout={layout} $layout={layout} $register={register}>
       <ReactMarkdown
         components={{
           a: MarkdownLink,
@@ -110,6 +159,6 @@ export const MarkdownContent = ({ markdown }: MarkdownContentProps) => {
       >
         {markdown}
       </ReactMarkdown>
-    </MarkdownRoot>
+    </Prose>
   )
 }

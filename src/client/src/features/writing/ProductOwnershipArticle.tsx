@@ -1,5 +1,5 @@
-import type { ReactElement, ReactNode } from 'react'
-import { MarkdownContent } from '../../components'
+import type { ReactNode } from 'react'
+import { ContentProse } from '../../components'
 import './ProductOwnershipArticle.scss'
 
 type ProductOwnershipArticleProps = {
@@ -22,7 +22,7 @@ const sqlFollowingHeading = '## No dev is an island'
 const webhookHeading = '## The webhook wasn’t early'
 const webhookFollowingHeading = '## The bit before the code'
 
-function EditorialAside({
+const EditorialAside = ({
   body,
   disclosure,
   eyebrow,
@@ -31,7 +31,7 @@ function EditorialAside({
   title,
   variant,
   visual,
-}: EditorialAsideProps): ReactElement {
+}: EditorialAsideProps) => {
   return (
     <aside
       className={`product-ownership-aside product-ownership-aside--${variant}`}
@@ -50,7 +50,7 @@ function EditorialAside({
             <span className="product-ownership-aside__marker" aria-hidden="true" />
           </summary>
           <div className="product-ownership-aside__body">
-            <MarkdownContent markdown={body} />
+            <ContentProse register="article-serif" markdown={body} />
           </div>
         </details>
       </div>
@@ -58,7 +58,7 @@ function EditorialAside({
   )
 }
 
-function WebhookSignalMap(): ReactElement {
+const WebhookSignalMap = () => {
   return (
     <figure className="webhook-signal-map">
       <div className="webhook-signal-map__lane">
@@ -79,7 +79,7 @@ function WebhookSignalMap(): ReactElement {
   )
 }
 
-export function ProductOwnershipArticle({ markdown }: ProductOwnershipArticleProps): ReactElement {
+export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticleProps) => {
   const sqlStart = markdown.indexOf(sqlHeading)
   const sqlFollowingStart = markdown.indexOf(sqlFollowingHeading, sqlStart + sqlHeading.length)
   const webhookStart = markdown.indexOf(webhookHeading, sqlFollowingStart + sqlFollowingHeading.length)
@@ -89,7 +89,7 @@ export function ProductOwnershipArticle({ markdown }: ProductOwnershipArticlePro
   )
 
   if (sqlStart < 0 || sqlFollowingStart < 0 || webhookStart < 0 || webhookFollowingStart < 0) {
-    return <MarkdownContent markdown={markdown} />
+    return <ContentProse register="article-serif" markdown={markdown} />
   }
 
   const opening = markdown.slice(0, sqlStart).trimEnd()
@@ -100,7 +100,7 @@ export function ProductOwnershipArticle({ markdown }: ProductOwnershipArticlePro
 
   return (
     <div className="product-ownership-article">
-      <MarkdownContent markdown={opening} />
+      <ContentProse register="article-serif" markdown={opening} />
       <EditorialAside
         body={sqlAside}
         disclosure="The interview and the incident"
@@ -110,7 +110,7 @@ export function ProductOwnershipArticle({ markdown }: ProductOwnershipArticlePro
         title="SQL was my weak point"
         variant="sql"
       />
-      <MarkdownContent markdown={middle} />
+      <ContentProse register="article-serif" markdown={middle} />
       <EditorialAside
         body={webhookAside}
         disclosure="Follow both signals"
@@ -121,7 +121,7 @@ export function ProductOwnershipArticle({ markdown }: ProductOwnershipArticlePro
         variant="webhook"
         visual={<WebhookSignalMap />}
       />
-      <MarkdownContent markdown={closing} />
+      <ContentProse register="article-serif" markdown={closing} />
     </div>
   )
 }

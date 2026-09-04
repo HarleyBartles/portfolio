@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
-import styled from 'styled-components'
 import { ContentHeader, ShareAction } from '../../components'
 import { AuthoredContinuations } from './AuthoredContinuations'
-import type { WritingContinuation } from './WritingContinuations'
+import { WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
 
 type WritingArticleShellProps = {
   eyebrow: string
@@ -20,21 +19,6 @@ type WritingArticleShellProps = {
     path: string
   }
 }
-
-const UnavailableContinuations = styled.section`
-  margin-top: ${({ theme }) => theme.space.xxxl};
-  border-top: 1px solid ${({ theme }) => theme.color.border};
-  padding-top: ${({ theme }) => theme.space.xl};
-
-  h2 {
-    margin: 0 0 ${({ theme }) => theme.space.sm};
-    font-family: ${({ theme }) => theme.font.display};
-  }
-
-  p {
-    color: ${({ theme }) => theme.color.muted};
-  }
-`
 
 export const WritingArticleShell = ({
   eyebrow,
@@ -63,10 +47,10 @@ export const WritingArticleShell = ({
       />
       {body}
       {continuationsUnavailable ? (
-        <UnavailableContinuations className="writing-continuations" aria-labelledby="writing-continuations-title">
+        <WritingContinuationsUnavailable className="writing-continuations" aria-labelledby="writing-continuations-title">
           <h2 id="writing-continuations-title">Continue reading</h2>
           <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
-        </UnavailableContinuations>
+        </WritingContinuationsUnavailable>
       ) : <AuthoredContinuations items={continuations} />}
       <ShareAction title={share.title} path={share.path} />
     </>

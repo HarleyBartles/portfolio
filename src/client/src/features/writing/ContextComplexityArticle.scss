@@ -101,21 +101,21 @@
   padding-top: var(--space-6);
 }
 
-.context-workclaw-aside .markdown-content {
+.context-workclaw-aside .content-prose {
   max-width: 36rem;
   font-size: 1.05rem;
 }
 
-.context-workclaw-aside .markdown-content p {
+.context-workclaw-aside .content-prose p {
   color: var(--color-surface);
   line-height: 1.58;
 }
 
-.context-workclaw-aside .markdown-content p + p {
+.context-workclaw-aside .content-prose p + p {
   margin-top: var(--space-6);
 }
 
-.context-workclaw-aside .markdown-content a {
+.context-workclaw-aside .content-prose a {
   color: var(--color-accent-soft);
 }
 

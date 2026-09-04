@@ -7,6 +7,7 @@
 .project-visual--wild-bunch-concept {
   position: relative;
   display: block;
+  aspect-ratio: 5 / 3;
   min-width: 0;
   margin: 0;
   overflow: hidden;
@@ -33,10 +34,10 @@
   position: absolute;
   right: var(--space-4);
   bottom: var(--space-4);
-  left: auto;
+  left: var(--space-4);
   padding: var(--space-2) var(--space-3);
   background: rgb(31 36 31 / 82%);
-  color: #f2f0ea;
+  color: var(--color-accent);
   font-family: var(--font-site-sans);
   font-size: var(--type-metadata-size);
 }
@@ -327,8 +328,6 @@
 .content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
   max-width: 10ch;
   color: #18252a;
-  font-size: clamp(3.2rem, 6vw, 6.4rem);
-  line-height: 0.92;
 }
 
 .content-page-header[data-visual-contract="patch-case-study-hero"] .content-summary {
@@ -354,7 +353,6 @@
 
   .content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
     max-width: none;
-    font-size: clamp(2.8rem, 14.5vw, 3.6rem);
   }
 
   .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
@@ -440,10 +438,6 @@
 }
 
 @media (max-width: 44rem) {
-  .project-visual--wild-bunch-concept {
-    aspect-ratio: 4 / 5;
-  }
-
   .project-visual--wild-bunch-concept picture {
     aspect-ratio: auto;
     mask-image: none;

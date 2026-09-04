@@ -289,3 +289,13 @@ starts appearing outside bounded evidence relationships.
 **Consequence:** The movement now introduces the series before the specific adventure, strengthening the hierarchy without changing the scene, copy, destination, or semantic fallback. The before state remains in Git history; focused wide and portrait lockup snapshots are the accepted after-state evidence. Component tests pin the asset route and accessible label.
 
 **Reconsider when:** Another homepage Patch edition is selected, the lockup fails at a supported viewport or zoom level, the series name becomes redundant in context, or the cliff-drop narrative competes with the adventure title.
+
+## 2026-09-04 — The active homepage policy names the durable design contract
+
+**Context:** The homepage was implemented, rendered and accepted with a cool-mineral shared ground, bounded project-native material and a deterministic six-movement edition. The active design policy still described the superseded warm-paper, copper and shuffled-deck homepage as a protected transitional boundary. It also delegated the non-home contract to a completed roadmap phase, forcing workers to reconstruct current rules from historical planning documents. The stale homepage clause protected the visual cluster which had triggered the 50% AI-convergence penalty and contradicted the live accepted route.
+
+**Decision:** State the durable site and route contracts directly in the active policy. Protect the mineral substrate, evidence-earned project colour, relationship-led asymmetry, shared Source family roles and deterministic homepage edition because those choices continue to serve the design invariants. Warm paper, copper punctuation and the shuffled feature deck remain historical evidence only; they have no protected-default status.
+
+**Consequence:** Workers can discover the current contract from active doctrine without treating a roadmap phase as permanent authority. Completed specifications remain unchanged as historical records of how the implementation arrived here; they do not govern current work.
+
+**Reconsider when:** A later homepage direction is rendered, tested against the valuation gate and explicitly accepted by Harley.

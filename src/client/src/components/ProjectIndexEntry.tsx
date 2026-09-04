@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
+import type { ReactNode } from 'react'
 import styled from 'styled-components'
 import { ProjectStatus } from './ProjectStatus'
-import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getContentPath, type ContentSummaryOf } from '../types'
 import { formatContentDate } from '../utils'
 
 type ProjectIndexEntryProps = {
   item: ContentSummaryOf<'project'>
   index: number
+  visual?: ReactNode
 }
 
 const Entry = styled.article`
@@ -87,21 +88,13 @@ const Entry = styled.article`
   }
 `
 
-const projectVisuals = new Set<ProjectVisualSlug>([
-  'codex-marketplace',
-  'agentic-learning-lab',
-  'adventures-of-patch',
-  'wild-bunch',
-])
-
-export const ProjectIndexEntry = ({ item, index }: ProjectIndexEntryProps) => {
+export const ProjectIndexEntry = ({ item, index, visual }: ProjectIndexEntryProps) => {
   const titleId = `project-${item.slug}-title`
   const date = formatContentDate(item.date)
-  const hasVisual = projectVisuals.has(item.slug as ProjectVisualSlug)
 
   return (
     <Entry className="editorial-card editorial-card--project" aria-labelledby={titleId}>
-      {hasVisual ? <Link to={getContentPath(item)} className={`editorial-card-visual editorial-card-visual--${item.slug}`} aria-label={`View ${item.title}`}><ProjectVisual slug={item.slug as ProjectVisualSlug} placement="index" /></Link> : null}
+      {visual === undefined ? null : <Link to={getContentPath(item)} className={`editorial-card-visual editorial-card-visual--${item.slug}`} aria-label={`View ${item.title}`}>{visual}</Link>}
       <div className="editorial-card-copy">
         <p className="eyebrow">{String(index + 1).padStart(2, '0')} / Project</p>
         <h2 id={titleId}><Link to={getContentPath(item)}>{item.title}</Link></h2>

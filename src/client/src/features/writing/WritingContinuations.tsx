@@ -13,7 +13,12 @@ type WritingContinuationsProps = {
 }
 
 const Continuations = styled.nav`
+  display: grid;
+  gap: ${({ theme }) => theme.space.sm};
+  max-width: ${({ theme }) => theme.layout.readingMeasure};
   margin-top: ${({ theme }) => theme.space.xxxl};
+  padding-top: ${({ theme }) => theme.space.xl};
+  border-top: 1px solid ${({ theme }) => theme.color.border};
 
   h2 {
     margin: 0 0 ${({ theme }) => theme.space.xs};
@@ -50,7 +55,29 @@ const Continuations = styled.nav`
   }
 
   .writing-continuations__eyebrow {
+    font-family: ${({ theme }) => theme.font.code};
+    font-size: 0.72rem;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
     color: ${({ theme }) => theme.color.accent};
+  }
+`
+
+export const WritingContinuationsUnavailable = styled.section`
+  display: grid;
+  gap: ${({ theme }) => theme.space.sm};
+  max-width: ${({ theme }) => theme.layout.readingMeasure};
+  margin-top: ${({ theme }) => theme.space.xxxl};
+  padding-top: ${({ theme }) => theme.space.xl};
+  border-top: 1px solid ${({ theme }) => theme.color.border};
+
+  h2 {
+    margin: 0 0 ${({ theme }) => theme.space.sm};
+    font-family: ${({ theme }) => theme.font.display};
+  }
+
+  p {
+    color: ${({ theme }) => theme.color.muted};
   }
 `
 

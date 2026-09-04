@@ -9,25 +9,18 @@ type ContentArticleProps = {
   children: ReactNode
 }
 
-const Article = styled.article<{ $kind: ContentKind }>`
+const Article = styled.article`
   max-width: 76rem;
   padding-block: clamp(4rem, 9vw, 7rem);
-
-  ${({ $kind }) => $kind === 'patch' ? `
-    .content-page-body {
-      max-width: none;
-    }
-  ` : ''}
 `
 
 export const ContentArticle = ({ kind, visualLanguage, register, children }: ContentArticleProps) => (
   <Article
-    className={`content-page content-page--${kind}`}
+    className="content-page"
     aria-labelledby="content-page-title"
     data-visual-language={visualLanguage}
     data-type-register={register}
     data-content-kind={kind}
-    $kind={kind}
   >
     {children}
   </Article>

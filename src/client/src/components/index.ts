@@ -5,9 +5,11 @@ export { ContentLink } from './ContentLink'
 export { ContentNavigation } from './ContentNavigation'
 export { DocumentMetadata } from './DocumentMetadata'
 export { ExternalLink } from './ExternalLink'
-export { MarkdownContent } from './MarkdownContent'
+export { ContentProse } from './ContentProse'
+export type { ContentProseLayout, ContentProseRegister } from './ContentProse'
 export { OrientationStrip } from './OrientationStrip'
 export { PatchStoryIndexEntry } from './PatchStoryIndexEntry'
+export type { PatchStoryMedia } from './PatchStoryIndexEntry'
 export { PortfolioThemeProvider } from './PortfolioThemeProvider'
 export { ProjectIndexEntry } from './ProjectIndexEntry'
 export { ProjectStatus } from './ProjectStatus'
@@ -20,14 +22,16 @@ export { SiteLayout } from './SiteLayout'
 export { StatePanel } from './StatePanel'
 export { WritingIndexEntry } from './WritingIndexEntry'
 
-export { ArticleBody } from './content/ArticleBody'
-export { ContentArticle } from './content/ContentArticle'
-export { ContentHeader } from './content/ContentHeader'
-export { IndexHeader } from './content/IndexHeader'
+export {
+  ArticleBody,
+  ContentArticle,
+  ContentHeader,
+  IndexHeader,
+} from './content'
 
 export {
   EditorialBalancedHeading,
   EditorialDisplayHeading,
   EditorialSingleLineHeading,
-} from './editorial/EditorialTextWrap'
-export { EditorialPullQuote } from './editorial/EditorialPullQuote'
+  EditorialPullQuote,
+} from './editorial'

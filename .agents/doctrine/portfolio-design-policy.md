@@ -2,13 +2,13 @@
 
 Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route boundaries and quality gates. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
 
-## Visual authority and route boundary
+## Current visual contract and route boundary
 
-For non-home routes, the accepted [Phase 8P visual-language contract](../../docs/editorial-drafts/phase-8/phase-8p-visual-language-contract.md) is the active protected visual direction. Its typography contract and subordinate evidence, rhythm, shell and navigation decisions supply the detailed authority. Apply those documents within this policy's portfolio-wide invariants and quality gates.
+Across the site, use a cool-mineral substrate as shared ground. Source Sans 3 carries the site voice, Source Serif 4 is reserved for authored reading, and Source Code Pro carries technical material and compact utility text. Project-native colour and art direction may leave an artefact only when the surrounding evidence earns them, and their authority stays bounded to that relationship.
 
-The current homepage presentation is a transitional `/` boundary. Preserve its warm paper, copper and asymmetrical editorial treatments until the non-home system is implemented, rendered, checked against the valuation gate and accepted by Harley. Typography follows the shared family contract: Source Sans 3 for site voice, Source Serif 4 for authored reading, and Source Code Pro for technical material and compact utility text.
+Non-home routes use a disciplined rectilinear grid, artifact-first evidence, relationship-led cadence and a quiet single-flow shell. Interruptions such as rails, fields and asymmetry are rare and evidence-earned, not route quotas.
 
-If this policy and the accepted Phase 8P authority still appear to conflict within those scopes, stop and raise the mismatch rather than choosing locally.
+The homepage is a deterministic six-movement editorial composition with no autoplay. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
 
 ## Purpose and audience
 
@@ -101,9 +101,9 @@ These portfolio-wide defaults are intentional, but replaceable through the chang
 - explicit hiring and contact language concentrated on About;
 - public deep routes with route-specific metadata and an honest unknown-route fallback.
 
-For non-home routes, protect the accepted Phase 8P direction: a cool-mineral shared substrate; Source Sans 3 as the shared site voice; Source Serif 4 only for authored longform; Source Code Pro for genuine technical material and compact utility furniture; a disciplined rectilinear grid with rare evidence-earned interruption; artifact-first evidence; relationship-led cadence; a quiet single-flow shell; and project-native colour whose authority stays bounded when it leaves an artifact. Project colour, rails, fields, asymmetry and other interruptions are permissions earned by the material, not route quotas.
+For non-home routes, protect the cool-mineral shared substrate; shared Source family roles; disciplined rectilinear grid; artifact-first evidence; relationship-led cadence; quiet single-flow shell; and bounded, evidence-earned use of project-native colour and interruption.
 
-On `/`, preserve the current warm paper, ink, copper and controlled Patch-teal palette; the shared Source Sans 3, Source Serif 4 and Source Code Pro family roles; asymmetrical editorial composition; and manually controlled randomized feature deck with no autoplay. This is a temporary homepage composition protection, not a separate typography system. The homepage may adopt the non-home layout system only after the accepted implementation and Harley's explicit gate.
+On `/`, protect the cool-mineral shared ground; bounded project-native colour and material; shared Source family roles; evidence-earned asymmetry; and the deterministic six-movement edition with no autoplay.
 
 Do not encode these choices as brittle assertions about exact prose, DOM class names, or every colour value. Test the outcomes that make them valuable: accessible controls, route correctness, content integrity, privacy, asset custody, performance budgets, and deliberately chosen visual baselines.
 

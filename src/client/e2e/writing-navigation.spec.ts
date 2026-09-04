@@ -24,8 +24,8 @@ test('authored pull quotes use the wide editorial margin without widening the pr
   await page.setViewportSize({ width: 1600, height: 1000 })
   await page.goto('./writing/why-adrs/')
 
-  const prose = page.locator('.markdown-content > p').first()
-  const pullQuote = page.locator('.markdown-content > blockquote').first()
+  const prose = page.locator('.content-prose > p').first()
+  const pullQuote = page.locator('.content-prose > blockquote').first()
   const [proseBox, wideQuoteBox] = await Promise.all([prose.boundingBox(), pullQuote.boundingBox()])
 
   expect(wideQuoteBox!.width).toBeGreaterThan(proseBox!.width + 100)

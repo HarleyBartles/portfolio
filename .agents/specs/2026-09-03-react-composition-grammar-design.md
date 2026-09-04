@@ -44,7 +44,7 @@ The problem is visible at every level:
 | --- | --- | --- |
 | Shared shell | `SiteLayout`, `SiteHeader`, `SiteFooter` plus global selectors | site identity and navigation depend on external DOM/class contracts |
 | Interior register | `interior.scss` overrides descendant classes under `.site-shell--interior` | route typography and metadata are an override layer rather than component ownership |
-| Writing | `WritingArticleShell`, `MarkdownContent`, continuations/share plus global/article SCSS | approved article hierarchy can be recreated or reordered locally |
+| Writing | `WritingArticleShell`, the former source-named Markdown renderer, continuations/share plus global/article SCSS | approved article hierarchy can be recreated or reordered locally |
 | Indexes | `EditorialIndexCard` plus `content-index`, `index-intro`, `writing-list` selector families | card/list/header grammar is coupled to incidental child structure |
 | About/CV | partial styled-components migration plus local/global selector reach-ins | the proving ground still leaks implementation details across component boundaries |
 | Case studies | thin wrappers such as `CaseStudyBody`, `CaseStudySection`, `CaseStudyDecision`, `CaseStudyEvidence` plus large route SCSS | several "components" are mostly aliases for HTML/class recipes |
@@ -121,7 +121,7 @@ The failure mode is not "there is a `<div>` in TSX". The failure mode is that a 
 
 ### 8. Bespoke evidence stays bespoke
 
-The Phase 8P visual-language contract remains authoritative. Do not flatten code, screenshots, diagrams, documents, Wild Bunch evidence, Patch story compositions or other project-native material into a universal evidence-card component merely to increase reuse.
+The active portfolio design policy protects project-native evidence and bounded art direction. Do not flatten code, screenshots, diagrams, documents, Wild Bunch evidence, Patch story compositions or other project-native material into a universal evidence-card component merely to increase reuse.
 
 Shared primitives should protect common reading grammar around evidence. Project-specific components should own their own styling locally.
 
@@ -130,6 +130,70 @@ Shared primitives should protect common reading grammar around evidence. Project
 Preserve accepted copy, routes, metadata, accessibility, responsive behaviour and visual direction unless migration exposes a genuine defect. Do not use the refactor as permission to restyle pages, standardise earned differences or replace project-native art direction.
 
 A visual change requires the normal portfolio change protocol and Harley's explicit acceptance.
+
+## React data flow and state ownership
+
+This is not a CSS migration with React component names around it. `styled-components` lets a component own its styling contract, but the wider target is a composable React application whose boundaries, data flow and state ownership earn the choice of React.
+
+React pays rent here primarily through composable primitives, explicit props, sensible ownership of structured data, local behaviour where behaviour exists, and selective performance work where measurement justifies it. The portfolio has little UI state, and that is fine. Do not manufacture hooks, Context, reducers or memoization to make static presentation look more sophisticated.
+
+### Compose meaningful primitives
+
+A route, page or large feature should primarily compose smaller components that own real jobs. A child earns extraction when it owns one or more of:
+
+- a reusable semantic or visual contract;
+- a distinct behaviour or state boundary;
+- a typed data contract;
+- a repeated composition;
+- a complex conditional branch;
+- an independently testable evidence or interaction unit;
+- enough internal structure that naming the unit makes the parent easier to understand.
+
+Do not extract wrappers whose only value is replacing `<div>` with a capital letter. Ask whether a reader can understand the parent from component names and props without also knowing the child's DOM and stylesheet.
+
+### Props are the default data flow
+
+Pass data and behaviour down through typed props. A component should receive the content, configuration and callbacks it needs from the owner of that information rather than reaching sideways into unrelated modules or relying on class and DOM conventions.
+
+Use props to make real variation explicit. Do not design speculative APIs for variation the site does not have. Callbacks travel down the same way as data: the component that owns a transition passes the relevant action to the child that triggers it.
+
+Repository and server state remain in the existing React Query ownership. Do not copy query data into local state or Context merely to make it feel more React-like.
+
+### Static structured data still has ownership
+
+Do not confuse "no state" with "no React data flow". Static arrays and structured values belong to the parent that owns the page instance and should be passed into reusable child primitives. A repeated visual sequence should not require the child to hard-code the one set of labels, events, stages or proof rows from its first call site.
+
+The parent owns story-specific data. The child owns how that kind of data is rendered and behaves. Keep the value plain unless the UI genuinely edits it. Apply the same principle to repeated navigation items, metadata, evidence rows, stages, actions, captions and other structures where a real typed contract creates useful reuse. Do not turn every page into configuration or invent a universal renderer.
+
+A component named after one page that hard-codes every datum should be challenged when its rendering job is reusable. A component that genuinely represents one unique project artefact may remain specific.
+
+### State stays close to its behaviour
+
+Default to local `useState` in the component that owns the behaviour. If one component reads and updates the state, keep it there. If siblings need the same state, lift it only to their nearest common ancestor and pass values and callbacks through props.
+
+Do not hoist state to a page, route or application provider because it might be useful later. Existing local-state patterns such as share feedback, contact submission and media-failure handling should remain close to the UI that owns them.
+
+### Context answers real prop drilling
+
+Passing props through a couple of meaningful boundaries is normal React. Consider a narrow Context only when a value or behaviour is repeatedly threaded through components that do not use it solely to reach a deeper subtree.
+
+Any Context must be scoped to the smallest useful subtree, named for the actual concern and justified by observed pass-through plumbing. Do not introduce a site-wide UI Context, generic store or provider stack without a real use case.
+
+### Reducers are an escalation
+
+Use ordinary local state until several related values and named transitions become genuinely coupled or hard to reason about as independent updates. There is no known reducer-shaped problem in this portfolio; the expected outcome may be no reducer at all.
+
+### Derived values are not state
+
+Calculate values from current props, query data or local state during render. Do not create synchronized duplicate state and an effect to keep it aligned. Use effects for external systems such as browser APIs, subscriptions, timers, storage or imperative libraries, not as general sequencing for component logic.
+
+### Custom hooks follow reusable stateful logic
+
+Extract a hook when stateful behaviour is genuinely reusable, or when separating it materially clarifies a component while preserving coherent ownership. Do not create one-call-site `useThing` wrappers merely to reduce line count.
+
+### Memoization must pay measurable rent
+
+Start with correct state placement, explicit props and useful component boundaries. Use `React.memo`, `useMemo`, `useCallback` or stable callbacks only when profiling or an obvious expensive path demonstrates meaningful repeated work. Do not memoize cheap strings, arrays or ordinary handlers by default.
 
 ## Intended end state for stylesheets
 
@@ -187,7 +251,7 @@ Open:
 - `src/client/src/pages/ContentPage.tsx`;
 - `src/client/src/features/writing/WritingArticleShell.tsx`;
 - `WritingContinuations.tsx` and `AuthoredContinuations.tsx`;
-- `src/client/src/components/MarkdownContent.tsx`;
+- `src/client/src/components/ContentProse.tsx`;
 - `ShareAction.tsx`, `ContentNavigation.tsx`, `RelatedContent.tsx`, `ProjectStatus.tsx`;
 - `EditorialIndexCard.tsx`;
 - `WritingIndexPage.tsx`, `ProjectIndexPage.tsx`, `PatchIndexPage.tsx`;
@@ -195,7 +259,7 @@ Open:
 
 The accepted writing hierarchy must become an owned composition rather than a caller recipe: eyebrow/context, title, metadata, précis, body, authored continuation and share furniture. Exact component names are for local planning, but the hierarchy must be hard to accidentally bypass when adding the next article.
 
-`MarkdownContent` should stop relying on route-global descendant typography for ordinary prose. A component-owned prose root or explicit ReactMarkdown element mapping may be appropriate. Preserve internal/external link behaviour and the fairytale media special case unless a better owned primitive replaces it.
+`ContentProse` should own ordinary prose semantics and typography without treating the Markdown source format as the component's page-level identity. Preserve internal/external link behaviour and the fairytale media special case unless a better owned primitive replaces it.
 
 Index surfaces should share only the grammar that is genuinely shared. Writing's peer list, project media cards and Patch stories do not need to become one visually interchangeable card.
 
@@ -250,7 +314,7 @@ Candidates include:
 - `ContextComplexityArticle` and figure;
 - Vibe, ADR, Provisioning and Review Graph figures;
 - PORT-10 `RianHughesArticle` and its wordmark figures;
-- `WritingPullQuotes.scss` and the paired article/figure SCSS files.
+- article-specific styles that still reach into `ContentProse`, plus the paired article/figure SCSS files.
 
 The Rian Hughes article is a useful regression fixture: its final article header/précis/body hierarchy must remain unchanged while its figure styling becomes locally owned.
 
@@ -272,6 +336,10 @@ After the shared component model is stable, migrate the accepted homepage moveme
 
 The homepage may consume true shell/action foundations. It must not accidentally inherit non-home typography, substrate or composition rules merely because those foundations now use styled-components.
 
+Keep the large route-level movement boundaries where they describe real editorial folds. Within each movement, inspect for meaningful seams such as movement framing and anchor ownership; heading, context and copy groups; route actions and next-movement handoff; project-specific proof units; typed repeated lists or sequences; media fallbacks; and local interaction or failure state.
+
+Do not force the movements into one generic feature component. The intended result is that each movement reads as a composition of named pieces and explicit props while project-specific evidence remains as bespoke as its material requires. Merely relocating homepage CSS without addressing a monolithic component's real composition seams does not complete this slice.
+
 ## Migration rules for local implementation
 
 For every slice:
@@ -288,6 +356,22 @@ For every slice:
 10. Inspect real rendering at 1440, 768, 390 and 320 CSS pixels and actual 200% browser zoom. Keep keyboard, reduced-motion, missing-media and direct-route evidence where the affected surface owns those contracts.
 11. Use Windows visual baselines where the existing suite protects the surface. Do not update a baseline merely because implementation changed if the visual result was supposed to remain the same.
 12. Commit through the tracked hook. Do not raise budgets or weaken objective gates to make the refactor green.
+
+For each migrated surface, record the answers to these architecture questions in the plan or review evidence:
+
+1. What are the meaningful component boundaries?
+2. Which values are static content, parent-owned structured data, props, query or server state, local UI state, or derived values?
+3. Can a parent own repeated content and pass it to a reusable child instead of the child hard-coding one page instance?
+4. Does each state value live at the nearest component that owns both its use and transitions?
+5. Is sibling state lifted only to the nearest common ancestor?
+6. Are props expressing useful ownership, or has pass-through prop drilling appeared?
+7. If Context is proposed, which exact drilling problem does the bounded provider remove?
+8. Is an effect synchronizing something that should be derived during render?
+9. If a custom hook is proposed, what reusable stateful behaviour does it own?
+10. If memoization is proposed, what measured or obvious repeated cost does it avoid?
+11. Can the parent be understood from its children and props without reading their DOM or CSS implementation?
+
+These are review questions, not a demand that every component use every React feature.
 
 ## Architecture guard after migration begins
 
@@ -316,9 +400,9 @@ Do not introduce layout shift or a visible unstyled first state. Re-check the di
 Before writing the JIT plan, read in this order:
 
 1. `.agents/specs/2026-09-03-react-composition-grammar-design.md` — this programme and settled architecture.
-2. `.agents/doctrine/portfolio-design-policy.md` — current portfolio-wide invariants and change protocol.
-3. `docs/editorial-drafts/phase-8/phase-8p-visual-language-contract.md` and its referenced typography/shell/rhythm authorities — protected non-home visual direction.
-4. `.agents/specs/2026-08-29-styled-editorial-grammar-design.md` and the August 29 design-decision ledger entry — provenance for the existing typed styled seam.
+2. `.agents/doctrine/portfolio-design-policy.md` — the durable portfolio-wide visual, editorial and quality contract.
+3. `docs/design-decisions.md` — current decisions and their reconsideration triggers.
+4. `.agents/specs/2026-08-29-styled-editorial-grammar-design.md` and completed visual-language specifications only where implementation provenance is needed; they explain history but do not govern current work.
 5. `src/client/README.md`, `_tokens.scss`, the typed theme/provider and build-budget checker — present implementation boundary and performance guard.
 6. The current implementations named in Slice A and Slice B, plus their tests and rendered routes.
 
@@ -342,6 +426,8 @@ Use the existing `codex/react-composition-grammar` branch for the spec and first
 - No ban on semantic HTML.
 - No universal evidence-card treatment.
 - No forced reuse where project-native art direction is the reason a component exists.
+- No manufactured state, Context, reducers, hooks or memoization.
+- No duplicated React Query data or derived values held in synchronized local state.
 - No change to public copy, routes, metadata, privacy contracts or asset custody unless a separate approved defect requires it.
 - No homepage migration in the first implementation.
 - No bundle-budget increase.

@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react'
-import { MarkdownContent } from '../../components'
+import { ContentProse } from '../../components'
 import { PatchLockupCameo, SpecialistsWordmarkStudy } from './RianHughesArticleFigures'
 
 type RianHughesArticleProps = {
@@ -9,12 +8,12 @@ type RianHughesArticleProps = {
 const specialistsMarker = '<!-- specialists-wordmark-study -->'
 const patchMarker = '<!-- patch-lockup-cameo -->'
 
-export function RianHughesArticle({ markdown }: RianHughesArticleProps): ReactElement {
+export const RianHughesArticle = ({ markdown }: RianHughesArticleProps) => {
   const specialistsStart = markdown.indexOf(specialistsMarker)
   const patchStart = markdown.indexOf(patchMarker, specialistsStart + specialistsMarker.length)
 
   if (specialistsStart < 0 || patchStart < 0) {
-    return <MarkdownContent markdown={markdown} />
+    return <ContentProse register="article-serif" markdown={markdown} />
   }
 
   const opening = markdown.slice(0, specialistsStart).trimEnd()
@@ -23,11 +22,11 @@ export function RianHughesArticle({ markdown }: RianHughesArticleProps): ReactEl
 
   return (
     <div className="rian-hughes-article">
-      <MarkdownContent markdown={opening} />
+      <ContentProse register="article-serif" markdown={opening} />
       <SpecialistsWordmarkStudy />
-      <MarkdownContent markdown={middle} />
+      <ContentProse register="article-serif" markdown={middle} />
       <PatchLockupCameo />
-      <MarkdownContent markdown={closing} />
+      <ContentProse register="article-serif" markdown={closing} />
     </div>
   )
 }

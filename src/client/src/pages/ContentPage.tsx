@@ -10,7 +10,9 @@ import {
   ContentHeader,
   ContentNavigation,
   DocumentMetadata,
-  MarkdownContent,
+  ContentProse,
+  type ContentProseLayout,
+  type ContentProseRegister,
   ProjectStatus,
   RelatedContent,
   ShareAction,
@@ -25,7 +27,6 @@ import { getWritingArticleBody, type WritingArticleBodyProps } from '../features
 import { WritingArticleShell } from '../features/writing/WritingArticleShell'
 import { WritingHeaderVisual } from '../features/writing/WritingHeaderVisual'
 import type { WritingContinuation } from '../features/writing/WritingContinuations'
-import '../features/writing/WritingPullQuotes.scss'
 import '../styles/interior.scss'
 import { getContentPath, type ContentKind } from '../types'
 import { formatContentDate } from '../utils'
@@ -118,9 +119,11 @@ type ArticleBodyContentProps = {
   presentation?: ComponentType
   writingBody?: ComponentType<WritingArticleBodyProps>
   markdown: string
+  proseLayout: ContentProseLayout
+  proseRegister: ContentProseRegister
 }
 
-const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBody, markdown }: ArticleBodyContentProps) => {
+const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBody, markdown, proseLayout, proseRegister }: ArticleBodyContentProps) => {
   if (Presentation !== undefined) {
     return <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>
   }
@@ -129,7 +132,7 @@ const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBo
     return <WritingBody markdown={markdown} />
   }
 
-  return <MarkdownContent markdown={markdown} />
+  return <ContentProse layout={proseLayout} register={proseRegister} markdown={markdown} />
 }
 
 export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
@@ -215,8 +218,16 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
 
   const articleBody = (
-    <ArticleBody presentation={Presentation !== undefined}>
-      <ArticleBodyContent presentation={Presentation} writingBody={WritingBody} markdown={document.markdown ?? ''} />
+    <ArticleBody
+      measure={Presentation !== undefined || document.summary.kind === 'patch' ? 'full' : 'reading'}
+    >
+      <ArticleBodyContent
+        presentation={Presentation}
+        writingBody={WritingBody}
+        markdown={document.markdown ?? ''}
+        proseLayout={document.summary.kind === 'patch' ? 'illustrated-story' : 'reading'}
+        proseRegister={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
+      />
     </ArticleBody>
   )
 

@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import styled from 'styled-components'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata, IndexHeader, ProjectIndexEntry, SiteLayout } from '../components'
@@ -40,6 +41,13 @@ const projectIndexOrder = new Map([
   ['codex-marketplace', 3],
 ])
 
+const projectVisualSlugs = new Set<ProjectVisualSlug>([
+  'codex-marketplace',
+  'agentic-learning-lab',
+  'adventures-of-patch',
+  'wild-bunch',
+])
+
 export function orderProjectIndex<T extends { slug: string }>(projects: readonly T[]): T[] {
   return [...projects].sort((left, right) => {
     const leftRank = projectIndexOrder.get(left.slug) ?? Number.MAX_SAFE_INTEGER
@@ -70,7 +78,20 @@ export const ProjectIndexPage = () => {
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess ? (
           <ProjectGrid className="editorial-index-grid editorial-index-grid--projects">
-            {projects.map((item, index) => <ProjectIndexEntry item={item} index={index} key={item.slug} />)}
+            {projects.map((item, index) => {
+              const visualSlug = projectVisualSlugs.has(item.slug as ProjectVisualSlug)
+                ? item.slug as ProjectVisualSlug
+                : undefined
+
+              return (
+                <ProjectIndexEntry
+                  item={item}
+                  index={index}
+                  key={item.slug}
+                  visual={visualSlug === undefined ? undefined : <ProjectVisual slug={visualSlug} placement="index" />}
+                />
+              )
+            })}
           </ProjectGrid>
         ) : null}
       </section>

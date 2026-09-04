@@ -6,12 +6,10 @@ import { formatContentDate } from '../utils'
 type PatchStoryIndexEntryProps = {
   item: ContentSummaryOf<'patch'>
   index: number
+  media?: PatchStoryMedia
 }
 
-const patchStoryMedia: Record<string, { alt: string; folder: string }> = {
-  goldilocks: { alt: 'Three scenes compare too much, too little, and just enough guidance for Patch.', folder: 'goldilocks' },
-  'sorcerers-apprentice': { alt: 'A bounded five-worker delegation expands into an uncontrolled crowd before a delegation policy restores limits.', folder: 'sorcerers-apprentice' },
-}
+export type PatchStoryMedia = { alt: string; folder: string }
 
 const Entry = styled.article`
   min-width: 0;
@@ -102,10 +100,9 @@ function publicPath(path: string): string {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 }
 
-export const PatchStoryIndexEntry = ({ item, index }: PatchStoryIndexEntryProps) => {
+export const PatchStoryIndexEntry = ({ item, index, media }: PatchStoryIndexEntryProps) => {
   const titleId = `patch-${item.slug}-title`
   const date = formatContentDate(item.date)
-  const media = patchStoryMedia[item.slug]
 
   return (
     <Entry className="editorial-card editorial-card--patch" aria-labelledby={titleId}>

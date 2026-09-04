@@ -72,11 +72,13 @@ const Intro = styled.div`
 `
 
 const Title = styled.h1<{ $register: ContentHeaderRegister }>`
-  margin: 0;
-  font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
-  font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
-  line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
-  letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
+  && {
+    margin: 0;
+    font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
+    font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
+    line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
+    letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
+  }
 `
 
 const Summary = styled.p`
