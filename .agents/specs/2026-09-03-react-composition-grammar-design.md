@@ -1,6 +1,6 @@
 # React composition grammar design
 
-**Status:** Ready for local planning.
+**Status:** In implementation. Slices A–B merged in PR #51; Slice C is the current planning boundary.
 
 ## Goal
 
@@ -412,11 +412,11 @@ The generic `web-styling` skill does not reopen the decision to use styled-compo
 
 Local Sol should not turn this spec into a single repository-wide rewrite.
 
-First inspect current main and write a JIT implementation plan for **Slice A and Slice B**. They may be one PR only if the plan demonstrates a coherent, reviewable change with clear internal checkpoints; otherwise split them into two sequential PRs. Do not pull Slice C onward into the first implementation merely because a nearby selector is tempting to clean up.
+Slices A and B merged in PR #51. The next JIT plan is **Slice C — professional surfaces and common states**, including Harley's approved move of Contact from the bottom of About to its own `/contact` route. Preserve the existing Contact hierarchy and treatment during the move; do not use the new route as permission to invent a separate visual language.
 
-The first implementation must leave durable follow-up batons for Slices C–G, updated for anything learned during real migration.
+Slices D–G remain separate durable follow-up batons. Updating the homepage's existing contact destination is part of the route move, but homepage composition and styling remain Slice G.
 
-Use the existing `codex/react-composition-grammar` branch for the spec and first planning work. Regenerate repository indexes through the canonical mesh tooling as part of local planning/implementation rather than hand-editing generated index files.
+Plan and implement Slice C on a fresh branch from merged main. Regenerate repository indexes through the canonical mesh tooling rather than hand-editing generated index files.
 
 ## Non-goals
 
@@ -441,4 +441,4 @@ The success metric is not "zero CSS files" or "zero raw HTML".
 
 It is that the architecture makes the approved thing the easy thing to build.
 
-**Ready for local planning.**
+**Slice C is the current implementation boundary; Slices D–G remain deferred.**
