@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export type PublicationRegister = 'site-sans' | 'article-serif'
 export type EyebrowVariant = 'site' | 'utility'
@@ -124,7 +124,7 @@ export const IndexEntryVisualLink = styled(Link)`
   background: ${({ theme }) => theme.color.tealDeep};
 `
 
-export const ActionButton = styled.button`
+const actionControlStyles = css`
   display: inline-block;
   border: 1px solid ${({ theme }) => theme.color.ink};
   background: ${({ theme }) => theme.color.ink};
@@ -145,6 +145,10 @@ export const ActionButton = styled.button`
     color: ${({ theme }) => theme.color.ink};
   }
 `
+
+export const ActionButton = styled.button`${actionControlStyles}`
+export const ActionAnchor = styled.a`${actionControlStyles}`
+export const ActionRouteLink = styled(Link)`${actionControlStyles}`
 
 export const SectionTitle = styled.h2`
   margin: 0;

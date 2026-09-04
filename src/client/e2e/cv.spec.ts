@@ -67,7 +67,7 @@ test('configured contact submission is intercepted locally with the exact FormDa
       body: JSON.stringify({ ok: true }),
     })
   })
-  await page.goto('./about/')
+  await page.goto('./contact/')
 
   await page.getByLabel('Name').fill('Harley Bartles')
   await page.getByLabel('Reply email').fill('harley@example.test')

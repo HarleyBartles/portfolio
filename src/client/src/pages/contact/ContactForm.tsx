@@ -1,12 +1,45 @@
 import { useState, type FormEvent } from 'react'
-import { professionalProfile } from '../data'
-import { ExternalLink } from './ExternalLink'
+import styled from 'styled-components'
+import { professionalProfile } from '../../data'
+import { ActionButton } from '../../components/content/PublicationPrimitives'
+import { ExternalLink } from '../../components/ExternalLink'
 
 type ContactFormProps = {
   endpoint?: string
 }
 
 type SubmissionState = 'idle' | 'submitting' | 'sent' | 'error'
+
+const Form = styled.form`
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  @media (max-width: 30rem) { grid-template-columns: 1fr; }
+`
+const Field = styled.div<{ $message?: boolean }>`
+  display: grid;
+  gap: var(--space-2);
+  ${({ $message }) => $message ? 'grid-column: 1 / -1;' : ''}
+  label { font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  input, textarea { width: 100%; border: 1px solid var(--color-ink); border-radius: 0; background: rgb(255 250 240 / 72%); padding: var(--space-4); color: var(--color-ink); font: inherit; }
+  textarea { resize: vertical; }
+  input:focus, textarea:focus { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+`
+const Honeypot = styled.div`
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+`
+const SubmitArea = styled.div`
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-5); align-items: center;
+  p { max-width: 35rem; margin: 0; color: var(--color-muted); }
+  [role='alert'] { color: var(--color-accent); }
+`
+const Privacy = styled.p`flex-basis: 100%; font-size: .92rem;`
+const Warning = styled.span`display: block; margin-top: var(--space-2);`
+const Disconnected = styled.aside`
+  align-self: start; border: 1px solid var(--color-ink); background: var(--color-accent-soft); padding: clamp(var(--space-6), 5vw, var(--space-10));
+  h3 { font-size: clamp(1.8rem, 3.5vw, 3rem); }
+`
 
 function isSafeEndpoint(endpoint: string | undefined): endpoint is string {
   if (endpoint === undefined || endpoint.trim() === '') return false
@@ -25,8 +58,8 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
     const { github, linkedin } = professionalProfile.publicLinks
 
     return (
-      <aside className="contact-disconnected" aria-labelledby="contact-disconnected-title">
-        <p className="eyebrow">Delivery status / disconnected</p>
+      <Disconnected aria-labelledby="contact-disconnected-title">
+        <p data-eyebrow>Delivery status / disconnected</p>
         <h3 id="contact-disconnected-title">Contact delivery is not connected yet.</h3>
         <p>
           I will not publish a personal address or pretend a form goes somewhere when it does not.
@@ -39,7 +72,7 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
             {linkedin.label}
           </ExternalLink>.
         </p>
-      </aside>
+      </Disconnected>
     )
   }
 
@@ -70,35 +103,35 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
-      <div className="contact-field">
+    <Form onSubmit={handleSubmit}>
+      <Field>
         <label htmlFor="contact-name">Name</label>
         <input id="contact-name" name="name" type="text" autoComplete="name" maxLength={100} required />
-      </div>
-      <div className="contact-field">
+      </Field>
+      <Field>
         <label htmlFor="contact-email">Reply email</label>
         <input id="contact-email" name="email" type="email" autoComplete="email" maxLength={254} required />
-      </div>
-      <div className="contact-field contact-field--message">
+      </Field>
+      <Field $message>
         <label htmlFor="contact-message">Message</label>
         <textarea id="contact-message" name="message" rows={7} maxLength={5000} required />
-      </div>
-      <div className="contact-honeypot" aria-hidden="true">
+      </Field>
+      <Honeypot aria-hidden="true">
         <label htmlFor="contact-gotcha">Leave this field empty</label>
         <input id="contact-gotcha" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-      <div className="contact-submit">
-        <button className="button-link" type="submit" disabled={submissionState === 'submitting'}>
+      </Honeypot>
+      <SubmitArea>
+        <ActionButton type="submit" disabled={submissionState === 'submitting'}>
           {submissionState === 'submitting' ? 'Sending…' : submissionState === 'error' ? 'Try again' : 'Send message'}
-        </button>
-        <p className="contact-privacy">
+        </ActionButton>
+        <Privacy>
           Your name, reply email, and message are sent to Formspree for delivery. I use them only to reply. Formspree processes submissions under its{' '}
           <ExternalLink href="https://formspree.io/legal/privacy-policy/">privacy policy</ExternalLink>
-          <span className="contact-privacy__warning">Do not send sensitive personal information.</span>
-        </p>
+          <Warning>Do not send sensitive personal information.</Warning>
+        </Privacy>
         {submissionState === 'sent' ? <p role="status">Message sent. Thank you.</p> : null}
         {submissionState === 'error' ? <p role="alert">I could not send that message. Your text is still here; please try again.</p> : null}
-      </div>
-    </form>
+      </SubmitArea>
+    </Form>
   )
 }

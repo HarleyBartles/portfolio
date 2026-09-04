@@ -1,15 +1,14 @@
-import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { DocumentMetadata, EditorialBalancedHeading, ExternalLink, SiteLayout } from '../components'
+import { ActionAnchor, DocumentMetadata, EditorialHeading, ExternalLink, SiteLayout } from '../components'
 import { getProjectSummaries, professionalProfile } from '../data'
-import { CvDocument, CvSheet } from './cv/CvSurface'
+import { CvDocument, CvDownloadFooter, CvEmploymentSection, CvHeader, CvRole, CvRunningTitle, CvScreenControls, CvSection, CvSheet } from './cv/CvSurface'
 import './CvPage.scss'
 import '../styles/interior.scss'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 const projectStories = getProjectSummaries()
 
-export function CvPage(): ReactElement {
+export const CvPage = () => {
   const { github, linkedin } = professionalProfile.publicLinks
 
   return (
@@ -21,16 +20,16 @@ export function CvPage(): ReactElement {
       />
       <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
           <CvSheet data-cv-page="1" aria-labelledby="cv-name">
-            <header className="cv-header">
+            <CvHeader>
               <div className="cv-header__identity">
                 <p className="eyebrow">Curriculum vitae</p>
                 <h1 id="cv-name">Harley Bartles</h1>
               </div>
-              <nav className="cv-screen-controls cv-screen-controls--top" aria-label="Download CV at the top">
-                <a className="button-link" href={pdfHref}>
+              <CvScreenControls className="cv-screen-controls--top" aria-label="Download CV at the top">
+                <ActionAnchor href={pdfHref} download>
                   Download PDF
-                </a>
-              </nav>
+                </ActionAnchor>
+              </CvScreenControls>
               <p className="cv-headline">Full-stack software engineer</p>
               <div className="cv-header__details">
                 <p>
@@ -47,13 +46,13 @@ export function CvPage(): ReactElement {
                     <ExternalLink href={github.href}>GitHub</ExternalLink>
                   </li>
                   <li>
-                    <Link to="/about#contact">Contact</Link>
+                    <Link to="/contact">Contact</Link>
                   </li>
                 </ul>
               </div>
-            </header>
+            </CvHeader>
 
-            <section className="cv-section" aria-labelledby="cv-profile-title">
+            <CvSection aria-labelledby="cv-profile-title">
               <h2 id="cv-profile-title">Profile</h2>
               <p>
                 Full-stack software engineer with 7+ years in production systems. At The Access
@@ -61,15 +60,14 @@ export function CvPage(): ReactElement {
                 a senior full-stack role where end-to-end ownership is expected and there's still
                 something difficult left to learn.
               </p>
-            </section>
+            </CvSection>
 
-            <section
-              className="cv-section cv-section--employment"
+            <CvEmploymentSection
               aria-labelledby="cv-access-title"
             >
               <h2 id="cv-access-title">Professional experience</h2>
               <h3>The Access Group</h3>
-              <p className="cv-role">Software Engineer · September 2021 – present</p>
+              <CvRole>Software Engineer · September 2021 – present</CvRole>
               <p>
                 I joined Recruitment CRM, volunteered for a move to Access Screening in January
                 2023, then moved into Access Checks from its early greenfield stage. I'm now the
@@ -107,22 +105,21 @@ export function CvPage(): ReactElement {
                   while preserving existing single-ID callers.
                 </li>
               </ul>
-            </section>
+            </CvEmploymentSection>
           </CvSheet>
 
           <CvSheet data-cv-page="2" aria-label="CV page 2">
-            <p className="cv-running-title">Harley Bartles · CV · 2 / 2</p>
-            <section
-              className="cv-section cv-section--employment"
+            <CvRunningTitle>Harley Bartles · CV · 2 / 2</CvRunningTitle>
+            <CvEmploymentSection
               aria-labelledby="cv-barbican-title"
             >
-              <EditorialBalancedHeading as="h2" data-text-wrap="balanced" id="cv-barbican-title">
+              <EditorialHeading as="h2" wrap="balanced" id="cv-barbican-title">
                 Barbican Insurance Group → Arch Capital Group
-              </EditorialBalancedHeading>
-              <p className="cv-role">
+              </EditorialHeading>
+              <CvRole>
                 Full Stack Software Engineer (Barbican) · Software Engineer, Level 1 → Level 2
                 (Arch) · February 2019 – September 2021
-              </p>
+              </CvRole>
               <p>
                 My first professional engineering role was at Barbican Insurance Group. I moved
                 with the product after Arch Capital acquired the company and spent roughly two years
@@ -141,18 +138,17 @@ export function CvPage(): ReactElement {
                   I learned that architecture has to earn its place.
                 </li>
               </ul>
-            </section>
+            </CvEmploymentSection>
 
-            <section
-              className="cv-section cv-section--employment"
+            <CvEmploymentSection
               aria-labelledby="cv-brand-title"
             >
               <h2 id="cv-brand-title">Brand Addition</h2>
-              <p className="cv-role">
+              <CvRole>
                 2005–2015: order administration → Account Executive → Account Manager → Team Manager
                 <br />
                 May 2015–January 2019: Web Manager
-              </p>
+              </CvRole>
               <p>
                 I started in order administration, became an Account Executive, then an Account
                 Manager, before moving into team management.
@@ -170,9 +166,9 @@ export function CvPage(): ReactElement {
                   100 multilingual, multicurrency stores.
                 </li>
               </ul>
-            </section>
+            </CvEmploymentSection>
 
-            <section className="cv-section" aria-labelledby="cv-independent-title">
+            <CvSection aria-labelledby="cv-independent-title">
               <h2 id="cv-independent-title">Independent engineering projects</h2>
               <div className="cv-independent-work">
                 {projectStories.map((project) => (
@@ -184,9 +180,9 @@ export function CvPage(): ReactElement {
                   </section>
                 ))}
               </div>
-            </section>
+            </CvSection>
 
-            <section className="cv-section" aria-labelledby="cv-education-title">
+            <CvSection aria-labelledby="cv-education-title">
               <h2 id="cv-education-title">Technical skills</h2>
               <div className="cv-skills">
                 <p>
@@ -224,16 +220,16 @@ export function CvPage(): ReactElement {
                   </div>
                 ))}
               </dl>
-            </section>
+            </CvSection>
           </CvSheet>
-          <footer className="cv-download-footer">
+          <CvDownloadFooter>
             <p>Keep a copy.</p>
-            <nav className="cv-screen-controls cv-screen-controls--bottom" aria-label="Download CV at the end">
-              <a className="button-link" href={pdfHref}>
+            <CvScreenControls className="cv-screen-controls--bottom" aria-label="Download CV at the end">
+              <ActionAnchor href={pdfHref} download>
                 Download PDF
-              </a>
-            </nav>
-          </footer>
+              </ActionAnchor>
+            </CvScreenControls>
+          </CvDownloadFooter>
       </CvDocument>
     </SiteLayout>
   )

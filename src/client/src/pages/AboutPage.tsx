@@ -1,41 +1,24 @@
-import type { MouseEvent, ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import {
-  ContactForm,
+  ActionRouteLink,
   DocumentMetadata,
   EditorialPullQuote,
-  EditorialDisplayHeading,
-  EditorialSingleLineHeading,
+  EditorialHeading,
   ExternalLink,
   SiteLayout,
 } from '../components'
-import { getEngineeringExperienceLabel, getProjectSummaries, professionalProfile, siteRuntime } from '../data'
+import { getEngineeringExperienceLabel, getProjectSummaries, professionalProfile } from '../data'
 import { NextRolePanel, ProfessionalStory, ProfessionalStoryContent, ProfessionalStoryRail } from './about/ProfessionalSurface'
+import { AboutArticle, AboutCareer, AboutIndependent, AboutIndependentRow, AboutIntro, AboutRouteFigure, AboutSectionHeading, AboutTimeline, AboutTimelineAside, AboutTimelineContent, AboutTimelineRail, AboutTimelineStage } from './about/AboutSurface'
 import './AboutPage.scss'
 import '../styles/interior.scss'
 
 const projectStories = getProjectSummaries()
 
-function focusContact(event: MouseEvent<HTMLAnchorElement>): void {
-  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return
+export const AboutPage = () => {
+  const location = useLocation()
+  if (location.hash === '#contact') return <Navigate to="/contact" replace />
 
-  const contact = document.getElementById('contact')
-  if (contact === null) return
-
-  event.preventDefault()
-  window.history.pushState(null, '', '#contact')
-  contact.focus({ preventScroll: true })
-  const reduceMotion = typeof window.matchMedia === 'function'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (typeof contact.scrollIntoView === 'function') {
-    contact.scrollIntoView({
-      behavior: reduceMotion ? 'auto' : 'smooth',
-      block: 'start',
-    })
-  }
-}
-
-export function AboutPage(): ReactElement {
   const experience = getEngineeringExperienceLabel(new Date())
 
   return (
@@ -45,13 +28,13 @@ export function AboutPage(): ReactElement {
         description={`Full-stack software engineer with ${experience} of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.`}
         canonicalPath="/about"
       />
-      <article className="about-page" aria-labelledby="about-title" data-type-register="site-sans">
-          <header className="about-intro">
+      <AboutArticle aria-labelledby="about-title" data-type-register="site-sans">
+          <AboutIntro>
             <div>
               <p className="eyebrow">About</p>
-              <EditorialDisplayHeading as="h1" data-text-wrap="display" id="about-title">
+              <EditorialHeading as="h1" wrap="display" id="about-title">
                 I still like writing code. I just know the job is bigger than that now.
-              </EditorialDisplayHeading>
+              </EditorialHeading>
             </div>
             <div className="about-intro-copy">
               <p className="about-lede">
@@ -61,14 +44,14 @@ export function AboutPage(): ReactElement {
                 support and operation.
               </p>
             </div>
-          </header>
+          </AboutIntro>
 
           <NextRolePanel aria-labelledby="cv-title" data-visual-contract="about-cv-conversion">
             <div>
               <p className="eyebrow">Next role</p>
-              <EditorialDisplayHeading data-text-wrap="display" id="cv-title">
+                <EditorialHeading wrap="display" id="cv-title">
                 I'm looking for a senior full-stack role.
-              </EditorialDisplayHeading>
+                </EditorialHeading>
             </div>
             <div>
               <p>
@@ -84,9 +67,9 @@ export function AboutPage(): ReactElement {
                 <Link className="text-link" to="/cv">
                   Read the CV
                 </Link>
-                <a className="button-link" href="#contact" onClick={focusContact}>
+                <ActionRouteLink to="/contact">
                   Get in touch
-                </a>
+                </ActionRouteLink>
               </div>
             </div>
           </NextRolePanel>
@@ -100,9 +83,9 @@ export function AboutPage(): ReactElement {
               <p>September 2021 – present</p>
             </ProfessionalStoryRail>
             <ProfessionalStoryContent>
-              <EditorialSingleLineHeading data-text-wrap="single-line" id="access-title">
+              <EditorialHeading wrap="single-line" id="access-title">
                 Access Checks, end to end.
-              </EditorialSingleLineHeading>
+              </EditorialHeading>
               <p>
                 Product usually gives me the desired outcome as an epic. I turn that into a delivery
                 plan, make the technical decisions, build it, handle the DevOps, release it, support
@@ -144,10 +127,10 @@ export function AboutPage(): ReactElement {
                 For three related checks, switching Screening to v2 before the remaining v1
                 consumers had moved would have created a technically valid but pointless loop:
               </p>
-              <figure className="about-route" aria-label="Avoided v1-to-v2 migration route">
+              <AboutRouteFigure aria-label="Avoided v1-to-v2 migration route">
                 remaining v1 consumer -&gt; Access Checks v1 -&gt; Access Screening -&gt; Access Checks v2
                 -&gt; direct supplier
-              </figure>
+              </AboutRouteFigure>
               <p>
                 Every hop worked. The route just added latency, failure surface and support opacity
                 for no customer value.
@@ -165,19 +148,19 @@ export function AboutPage(): ReactElement {
             </ProfessionalStoryContent>
           </ProfessionalStory>
 
-          <section className="about-career" aria-labelledby="career-title">
-            <div className="section-heading">
+          <AboutCareer aria-labelledby="career-title">
+            <AboutSectionHeading>
               <p className="eyebrow">Career</p>
-              <EditorialSingleLineHeading data-text-wrap="single-line" id="career-title">
+              <EditorialHeading wrap="single-line" id="career-title">
                 How I got here.
-              </EditorialSingleLineHeading>
-            </div>
-            <div className="career-timeline">
-              <section className="career-timeline__stage">
-                <div className="career-timeline__rail">
+              </EditorialHeading>
+            </AboutSectionHeading>
+            <AboutTimeline>
+              <AboutTimelineStage>
+                <AboutTimelineRail>
                   <p className="eyebrow">September 2021 – present</p>
-                </div>
-                <div className="career-timeline__content">
+                </AboutTimelineRail>
+                <AboutTimelineContent>
                   <h3>The Access Group</h3>
                   <p>
                     I joined Recruitment CRM in 2021, then volunteered to move to Screening in
@@ -188,13 +171,13 @@ export function AboutPage(): ReactElement {
                     I moved into Access Checks from its early greenfield stage and became its sole
                     engineer around May 2026.
                   </p>
-                </div>
-              </section>
-              <section className="career-timeline__stage">
-                <div className="career-timeline__rail">
+                </AboutTimelineContent>
+              </AboutTimelineStage>
+              <AboutTimelineStage>
+                <AboutTimelineRail>
                   <p className="eyebrow">February 2019 – September 2021</p>
-                </div>
-                <div className="career-timeline__content">
+                </AboutTimelineRail>
+                <AboutTimelineContent>
                   <h3>Barbican Insurance Group → Arch Capital Group</h3>
                   <p>
                     I joined Barbican as a Full Stack Software Engineer in my first professional
@@ -212,8 +195,8 @@ export function AboutPage(): ReactElement {
                   <Link className="text-link" to="/writing/why-adrs">
                     Read the LENS handover story in Why ADRs?
                   </Link>
-                </div>
-              </section>
+                </AboutTimelineContent>
+              </AboutTimelineStage>
               <section className="career-timeline__stage">
                 <div className="career-timeline__rail">
                   <p className="eyebrow">July 2005 – January 2019</p>
@@ -240,14 +223,11 @@ export function AboutPage(): ReactElement {
                   </p>
                 </div>
               </section>
-              <aside
-                className="career-timeline__stage career-timeline__stage--aside"
-                aria-labelledby="previous-life-title"
-              >
-                <div className="career-timeline__rail">
+              <AboutTimelineAside aria-labelledby="previous-life-title">
+                <AboutTimelineRail>
                   <p className="eyebrow">In another life</p>
-                </div>
-                <div className="career-timeline__content">
+                </AboutTimelineRail>
+                <AboutTimelineContent>
                   <h3 id="previous-life-title">There was an acting career too.</h3>
                   <p>
                     I acted on and off for about four years, including a role in series three of{' '}
@@ -258,22 +238,22 @@ export function AboutPage(): ReactElement {
                   <ExternalLink className="text-link" href={professionalProfile.publicLinks.imdb.href}>
                     IMDb: Harley Bartles
                   </ExternalLink>
-                </div>
-              </aside>
-            </div>
-          </section>
+                </AboutTimelineContent>
+              </AboutTimelineAside>
+            </AboutTimeline>
+          </AboutCareer>
 
-          <section className="about-independent" aria-labelledby="independent-title">
+          <AboutIndependent aria-labelledby="independent-title">
             <p className="eyebrow">Independent work</p>
-            <EditorialSingleLineHeading data-text-wrap="single-line" id="independent-title">
+            <EditorialHeading wrap="single-line" id="independent-title">
               Work I can show you.
-            </EditorialSingleLineHeading>
+            </EditorialHeading>
             <p>
               Employer systems have sensible confidentiality boundaries. My own projects are where I
               can show my working.
             </p>
             {projectStories.map((project) => (
-              <section className="about-independent__row" key={project.slug}>
+              <AboutIndependentRow key={project.slug}>
                 <h3>
                   <Link to={`/projects/${project.slug}`}>{project.title}</Link>
                 </h3>
@@ -281,9 +261,9 @@ export function AboutPage(): ReactElement {
                 <Link className="text-link" to={`/projects/${project.slug}`}>
                   Read the case study
                 </Link>
-              </section>
+              </AboutIndependentRow>
             ))}
-          </section>
+          </AboutIndependent>
 
           <ProfessionalStory aria-labelledby="study-title" className="about-study">
             <ProfessionalStoryRail data-professional-story-rail>
@@ -291,9 +271,9 @@ export function AboutPage(): ReactElement {
               <p>{professionalProfile.apprenticeship.periodLabel}</p>
             </ProfessionalStoryRail>
             <ProfessionalStoryContent>
-              <EditorialSingleLineHeading data-text-wrap="single-line" id="study-title">
+              <EditorialHeading wrap="single-line" id="study-title">
                 AI Engineer Level 6.
-              </EditorialSingleLineHeading>
+              </EditorialHeading>
               <p>
                 I started QA's Level 6 AI Engineer apprenticeship in February 2026. It runs through
                 January 2028 and is a bachelor's degree-level programme against the Machine Learning
@@ -303,25 +283,7 @@ export function AboutPage(): ReactElement {
             </ProfessionalStoryContent>
           </ProfessionalStory>
 
-          <section
-            className="about-contact"
-            id="contact"
-            tabIndex={-1}
-            aria-labelledby="contact-title"
-          >
-            <header>
-              <p className="eyebrow">Contact</p>
-              <EditorialSingleLineHeading data-text-wrap="single-line" id="contact-title">
-                Get in touch.
-              </EditorialSingleLineHeading>
-              <p>
-                If you're hiring, want to ask about something on the site, or just have an
-                interesting engineering problem, send me a note.
-              </p>
-            </header>
-            <ContactForm endpoint={siteRuntime.contactFormEndpoint} />
-          </section>
-      </article>
+      </AboutArticle>
     </SiteLayout>
   )
 }

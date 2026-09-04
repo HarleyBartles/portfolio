@@ -1,22 +1,20 @@
-import type { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
-import { AccessibleStatus, DocumentMetadata, SiteLayout } from '../components'
+import { DocumentMetadata, SiteLayout, StatePanel } from '../components'
 
 type ErrorPageProps = {
   message?: string
   shell?: boolean
 }
 
-export function ErrorPage({ message, shell = true }: ErrorPageProps): ReactElement {
+export const ErrorPage = ({ message, shell = true }: ErrorPageProps) => {
   const content = (
-    <AccessibleStatus
+    <StatePanel
       id="error-title"
       title="Portfolio content unavailable"
       headingLevel={shell ? 1 : 2}
-      tone="alert"
-    >
-      {message ?? 'Could not load the portfolio content. Please refresh or try again later.'}
-    </AccessibleStatus>
+      announcement="alert"
+      messages={[message ?? 'Could not load the portfolio content. Please refresh or try again later.']}
+      actions={[{ label: 'Go to the homepage', to: '/' }, { label: 'Browse project stories', to: '/projects' }]}
+    />
   )
 
   if (!shell) {
@@ -32,10 +30,6 @@ export function ErrorPage({ message, shell = true }: ErrorPageProps): ReactEleme
         noIndex
       />
       {content}
-      <div className="state-actions" aria-label="Recovery navigation">
-        <Link to="/">Go to the homepage</Link>
-        <Link to="/projects">Browse project stories</Link>
-      </div>
     </SiteLayout>
   )
 }

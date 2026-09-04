@@ -20,7 +20,7 @@
   font-size: var(--type-code-size);
 }
 
-.site-shell--interior :is(.button-link, .text-link) {
+.site-shell--interior .text-link {
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;

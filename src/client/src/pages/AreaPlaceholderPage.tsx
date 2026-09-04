@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { DocumentMetadata, SiteLayout, StatePanel } from '../components'
 
 type AreaPlaceholderPageProps = {
@@ -14,12 +13,12 @@ export const AreaPlaceholderPage = ({ title }: AreaPlaceholderPageProps) => {
         canonicalPath="/"
         noIndex
       />
-      <StatePanel labelledBy="area-placeholder-title">
-        <h1 id="area-placeholder-title">{title}</h1>
-        <p>This section is being prepared.</p>
-        <p>The homepage summary is the current public placeholder until deeper content is published.</p>
-        <Link to="/">Return to the homepage</Link>
-      </StatePanel>
+      <StatePanel
+        id="area-placeholder-title"
+        title={title}
+        messages={['This section is being prepared.', 'The homepage summary is the current public placeholder until deeper content is published.']}
+        actions={[{ label: 'Return to the homepage', to: '/' }]}
+      />
     </SiteLayout>
   )
 }

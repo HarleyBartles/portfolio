@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, useParams, type RouteObject } from 'react-router-dom'
 import App from '../App'
 import { RouteErrorBoundary } from '../components/runtime'
+import { RouteLoadingStatus } from '../components'
 
 async function loadProjectRoute(): Promise<{ Component: () => ReactElement }> {
   const [{ ProjectPage }, { NotFoundPage }] = await Promise.all([
@@ -55,11 +56,7 @@ export const appRoutes: RouteObject[] = [
     path: '/',
     element: <App />,
     errorElement: <RouteErrorBoundary />,
-    hydrateFallbackElement: (
-      <p className="route-loading" role="status" data-route-loading>
-        Preparing the portfolio…
-      </p>
-    ),
+    hydrateFallbackElement: <RouteLoadingStatus>Preparing the portfolio…</RouteLoadingStatus>,
     children: [
       {
         index: true,
@@ -110,6 +107,10 @@ export const appRoutes: RouteObject[] = [
       {
         path: 'cv',
         lazy: async () => ({ Component: (await import('../pages/CvPage')).CvPage }),
+      },
+      {
+        path: 'contact',
+        lazy: async () => ({ Component: (await import('../pages/ContactPage')).ContactPage }),
       },
       {
         path: '*',

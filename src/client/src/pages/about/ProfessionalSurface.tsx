@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { EditorialSingleLineHeading } from '../../components'
 
 export const ProfessionalStory = styled.section`
   display: grid;
@@ -42,7 +41,7 @@ export const ProfessionalStoryContent = styled.div`
     line-height: 0.98;
   }
 
-  ${EditorialSingleLineHeading} {
+  h2[data-text-wrap='single-line'] {
     font-size: clamp(1.25rem, 8.2cqi, 4.2rem);
   }
 
@@ -90,18 +89,6 @@ export const NextRolePanel = styled.aside`
     align-items: center;
     gap: ${({ theme }) => theme.space.md};
     margin-top: ${({ theme }) => theme.space.lg};
-  }
-
-  > div:last-child .button-link {
-    border-color: ${({ theme }) => theme.color.ink};
-    background: ${({ theme }) => theme.color.ink};
-    color: ${({ theme }) => theme.color.surface};
-  }
-
-  > div:last-child .button-link:hover {
-    background: transparent;
-    border-color: ${({ theme }) => theme.color.ink};
-    color: ${({ theme }) => theme.color.ink};
   }
 
   @media (max-width: 68rem) {

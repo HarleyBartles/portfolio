@@ -1,10 +1,19 @@
-import type { ReactNode } from 'react'
+import { ActionRouteLink } from './content/PublicationPrimitives'
 import styled from 'styled-components'
 
+export type StateAction = Readonly<{
+  label: string
+  to: string
+}>
+
 type StatePanelProps = {
-  labelledBy: string
-  children: ReactNode
+  id: string
+  title: string
+  messages: readonly string[]
+  headingLevel?: 1 | 2
+  announcement?: 'none' | 'status' | 'alert'
   routeLoading?: boolean
+  actions?: readonly StateAction[]
 }
 
 const Panel = styled.section`
@@ -29,15 +38,36 @@ const Panel = styled.section`
     line-height: 1.45;
   }
 
-  a {
-    display: inline-block;
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${({ theme }) => theme.space.xs};
     margin-top: ${({ theme }) => theme.space.lg};
-    font-weight: 700;
   }
 `
 
-export const StatePanel = ({ labelledBy, children, routeLoading = false }: StatePanelProps) => (
-  <Panel className="state-panel" aria-labelledby={labelledBy} data-route-loading={routeLoading ? '' : undefined}>
-    {children}
-  </Panel>
-)
+export const StatePanel = ({
+  id,
+  title,
+  messages,
+  headingLevel = 1,
+  announcement = 'none',
+  routeLoading = false,
+  actions = [],
+}: StatePanelProps) => {
+  const Heading = headingLevel === 1 ? 'h1' : 'h2'
+
+  return (
+    <Panel aria-labelledby={id} data-route-loading={routeLoading ? '' : undefined}>
+      <Heading id={id}>{title}</Heading>
+      {messages.map((message, index) => (
+        <p key={message} role={index === 0 && announcement !== 'none' ? announcement : undefined}>{message}</p>
+      ))}
+      {actions.length > 0 && (
+        <nav aria-label="Recovery navigation">
+          {actions.map((action) => <ActionRouteLink key={action.to} to={action.to}>{action.label}</ActionRouteLink>)}
+        </nav>
+      )}
+    </Panel>
+  )
+}

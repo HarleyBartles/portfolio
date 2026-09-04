@@ -9,6 +9,7 @@ const INDEX_ROUTES = [
   ['patch', '/patch', 'index', 'Adventures of Patch | Harley Bartles', 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.'],
   ['about', '/about', 'about', 'About | Harley Bartles', 'Full-stack software engineer with 7+ years of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.'],
   ['cv', '/cv', 'cv', 'CV | Harley Bartles', 'CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation.'],
+  ['contact', '/contact', 'contact', 'Contact | Harley Bartles', 'Contact Harley Bartles about senior full-stack engineering roles, portfolio work or an interesting engineering problem through the configured privacy-preserving form.'],
 ]
 
 const KIND_ROUTE = { project: 'projects', writing: 'writing', patch: 'patch' }

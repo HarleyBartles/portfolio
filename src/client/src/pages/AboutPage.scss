@@ -19,29 +19,6 @@
   padding-block: var(--space-10);
 }
 
-.about-page blockquote[data-type-register='site-sans'] {
-  margin-block: var(--space-8);
-  border: 0;
-  background: transparent;
-  padding: 0;
-}
-
-.about-page blockquote[data-type-register='site-sans'] p {
-  font-family: var(--font-site-sans);
-  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-  font-style: normal;
-  font-weight: 650;
-  letter-spacing: -.015em;
-  line-height: 1.18;
-}
-
-.about-page blockquote[data-type-register='site-sans'] cite {
-  font-family: var(--font-site-sans);
-  font-size: var(--type-metadata-size);
-  letter-spacing: 0;
-  text-transform: none;
-}
-
 .about-study {
   grid-template-columns: 1fr;
 }

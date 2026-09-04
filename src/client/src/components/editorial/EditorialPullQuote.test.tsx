@@ -21,3 +21,16 @@ test('renders the canonical pull quote with an optional attribution', () => {
   expect(styles).toContain('font-weight:600')
   expect(styles).toContain('background:color-mix(in srgb, var(--color-accent-soft) 36%, transparent)')
 })
+
+test('owns the site-sans quote treatment as a typed variant', () => {
+  render(
+    <PortfolioThemeProvider>
+      <EditorialPullQuote typeRegister="site-sans" attribution="Production invariant">No source capture, no success.</EditorialPullQuote>
+    </PortfolioThemeProvider>,
+  )
+
+  const styles = Array.from(document.head.querySelectorAll('style[data-styled]')).map((style) => style.textContent).join('\n')
+  expect(styles).toContain('font-family:var(--font-site-sans)')
+  expect(styles).toContain('font-weight:650')
+  expect(styles).toContain('background:transparent')
+})

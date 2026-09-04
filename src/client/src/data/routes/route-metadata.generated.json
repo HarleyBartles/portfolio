@@ -34,6 +34,23 @@
     "shareAction": "none"
   },
   {
+    "id": "contact",
+    "path": "/contact",
+    "kind": "contact",
+    "title": "Contact | Harley Bartles",
+    "description": "Contact Harley Bartles about senior full-stack engineering roles, portfolio work or an interesting engineering problem through the configured privacy-preserving form.",
+    "indexability": "index",
+    "openGraphType": "website",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Full-stack software engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "none"
+  },
+  {
     "id": "cv",
     "path": "/cv",
     "kind": "cv",

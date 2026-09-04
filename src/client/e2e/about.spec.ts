@@ -17,21 +17,27 @@ test('about page makes the professional proposition and configured conversion ro
   await expect(page.getByText(/Remote-first works best.*My notice period is four weeks/i)).toBeVisible()
   const cvConversion = page.locator('[data-visual-contract="about-cv-conversion"]')
   await expect(cvConversion.getByRole('link', { name: 'Read the CV' })).toHaveAttribute('href', '/cv')
-  await expect(cvConversion.getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '#contact')
+  await expect(cvConversion.getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '/contact')
   await expect(cvConversion.getByRole('link', { name: 'Download PDF' })).toHaveCount(0)
-  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Send message' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Send message' })).toHaveCount(0)
   await expect(page.getByText(/contact delivery is not connected yet/i)).toHaveCount(0)
   await expect(page.locator('a[href^="mailto:"], a[href^="tel:"]')).toHaveCount(0)
   await expect(page.getByText(/technical owner/i)).toHaveCount(0)
 })
 
-test('homepage professional close reaches the contact section', async ({ page }) => {
+test('homepage professional close reaches the contact route', async ({ page }) => {
   await page.goto('./')
 
   await page.getByRole('link', { name: 'Tell me about it →' }).click()
-  await expect(page).toHaveURL(/\/about#contact$/)
-  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toBeVisible()
+  await expect(page).toHaveURL(/\/contact$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Get in touch.' })).toBeVisible()
+})
+
+test('legacy About contact hash redirects to the canonical Contact route', async ({ page }) => {
+  await page.goto('./about/#contact')
+  await expect(page).toHaveURL(/\/contact$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Get in touch.' })).toBeVisible()
 })
 
 test('about intro starts both desktop columns on the same baseline', async ({ page }) => {
@@ -62,7 +68,6 @@ test('about uses a content-led first section and one boundary between structural
       introMinimumHeight: Number.parseFloat(getComputedStyle(document.querySelector('.about-intro')!).minBlockSize),
       articlePaddingBottom: pageStyle.paddingBottom,
       careerPaddingBottom: getComputedStyle(document.querySelector('.about-career')!).paddingBottom,
-      contactPaddingBottom: getComputedStyle(document.querySelector('.about-contact')!).paddingBottom,
       actingBottomBorder: actingStyle.borderBottomWidth,
       independentTopBorder: independentStyle.borderTopWidth,
     }
@@ -72,7 +77,6 @@ test('about uses a content-led first section and one boundary between structural
   expect(layout.introHeight).toBeGreaterThan(0)
   expect(layout.articlePaddingBottom).toBe('0px')
   expect(layout.careerPaddingBottom).toBe('0px')
-  expect(layout.contactPaddingBottom).toBe('40px')
   expect(layout.actingBottomBorder).toBe('0px')
   expect(layout.independentTopBorder).toBe('1px')
 })
@@ -102,7 +106,7 @@ test('about headings declare and satisfy their text-wrap contracts', async ({ pa
   const contracts = {
     display: ['about-title', 'cv-title'],
     balanced: [],
-    singleLine: ['access-title', 'career-title', 'independent-title', 'study-title', 'contact-title'],
+    singleLine: ['access-title', 'career-title', 'independent-title', 'study-title'],
   }
 
   for (const width of [320, 769, 1133, 1440]) {

@@ -77,8 +77,8 @@ test('interior shared controls, captions, and professional metadata do not inher
   await page.goto('./about')
   const nextRole = page.locator('[data-visual-contract="about-cv-conversion"]')
   await expect(nextRole.locator('.text-link')).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.locator('.button-link')).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.locator('.button-link')).toHaveCSS('background-color', 'rgb(31, 36, 31)')
+  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('font-family', /Source Sans 3/)
+  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('background-color', 'rgb(31, 36, 31)')
   await expect(page.locator('[data-professional-rail="chronology"] .eyebrow')).toHaveCSS('color', 'rgb(98, 94, 85)')
 
   await page.goto('./cv')

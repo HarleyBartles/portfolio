@@ -290,6 +290,16 @@ starts appearing outside bounded evidence relationships.
 
 **Reconsider when:** Another homepage Patch edition is selected, the lockup fails at a supported viewport or zoom level, the series name becomes redundant in context, or the cliff-drop narrative competes with the adventure title.
 
+## 2026-09-04 — Contact is a first-class privacy-preserving route
+
+**Context:** Contact was stranded at the bottom of About, coupling the professional assessment surface to the conversion form and making intentional inbound journeys depend on a page hash.
+
+**Decision:** Keep About as the professional assessment surface and move the existing Contact composition to `/contact`. Route-local form state and privacy behaviour remain unchanged. About, the CV and the homepage professional close link to `/contact`; `/about#contact` redirects there for compatibility.
+
+**Consequence:** The contact journey has canonical metadata and a direct route without inventing a second visual language or repeating the form. The route remains discoverable through intentional conversion links and preserves the no-plaintext-contact-data contract.
+
+**Reconsider when:** Navigation research shows the route is undiscoverable, or a stronger privacy-preserving contact service changes the delivery contract.
+
 ## 2026-09-04 — The active policy names one durable site-wide design contract
 
 **Context:** The homepage was implemented, rendered and accepted with a cool-mineral shared ground, bounded project-native material and a deterministic six-movement edition. The active design policy still described the superseded warm-paper, copper and shuffled-deck homepage as a protected transitional boundary. It also separated home and non-home routes after both had converged on the same site-wide visual system, and delegated the interior contract to a completed roadmap phase. That forced workers to reconstruct current rules from historical planning documents and treated the homepage as an intrinsic mini-site rather than a route with its own composition.
