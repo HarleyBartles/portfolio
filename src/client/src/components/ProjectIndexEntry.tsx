@@ -43,8 +43,6 @@ const Copy = styled.div<{ $hasVisual: boolean }>`
   padding-top: ${({ $hasVisual, theme }) => $hasVisual ? theme.space.lg : theme.space.m};
 `
 
-const EntryEyebrow = styled(Eyebrow)``
-
 const EntryTitle = styled(IndexEntryTitle)`
   margin: ${({ theme }) => theme.space.sm} 0 ${({ theme }) => theme.space.md};
 `
@@ -73,7 +71,7 @@ export const ProjectIndexEntry = ({ item, index, visual, statusTone }: ProjectIn
         </VisualLink>
       )}
       <Copy className="editorial-card-copy" $hasVisual={visual !== undefined}>
-        <EntryEyebrow>{String(index + 1).padStart(2, '0')} / Project</EntryEyebrow>
+        <Eyebrow>{String(index + 1).padStart(2, '0')} / Project</Eyebrow>
         <EntryTitle id={titleId} to={path}>{item.title}</EntryTitle>
         <EntryMetadata items={metadata} />
         <IndexEntrySummary>{item.summary}</IndexEntrySummary>

@@ -5,7 +5,7 @@ import { assertCvPdf, MAX_CV_PDF_BYTES } from './generate-cv-pdf.mjs'
 
 
 export const DEFAULT_BUDGETS = Object.freeze({
-  maxJsBytes: 450 * 1024,
+  maxJsBytes: 350 * 1024,
   maxCssBytes: 40 * 1024,
   maxCvPdfBytes: MAX_CV_PDF_BYTES,
 })

@@ -30,14 +30,12 @@ type PageTitleProps = ComponentPropsWithoutRef<'h1'> & {
 }
 
 const PageTitleHeading = styled.h1<{ $register: PublicationRegister }>`
-  && {
-    margin: 0;
-    font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
-    font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
-    line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
-    letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
-    text-wrap: balance;
-  }
+  margin: 0;
+  font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
+  font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
+  line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
+  letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
+  text-wrap: balance;
 `
 
 export const PageTitle = ({ register, ...props }: PageTitleProps) => (
@@ -124,6 +122,28 @@ export const IndexEntryVisualLink = styled(Link)`
   display: block;
   overflow: hidden;
   background: ${({ theme }) => theme.color.tealDeep};
+`
+
+export const ActionButton = styled.button`
+  display: inline-block;
+  border: 1px solid ${({ theme }) => theme.color.ink};
+  background: ${({ theme }) => theme.color.ink};
+  padding: ${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.m};
+  color: ${({ theme }) => theme.color.surface};
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color ${({ theme }) => theme.motion.fast}, color ${({ theme }) => theme.motion.fast};
+
+  &:hover {
+    background: transparent;
+    color: ${({ theme }) => theme.color.ink};
+  }
 `
 
 export const SectionTitle = styled.h2`

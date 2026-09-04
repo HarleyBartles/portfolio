@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { buildPublicUrl } from '../data/routes/siteProfile'
-import { Eyebrow } from './content'
+import { ActionButton, Eyebrow } from './content'
 
 type ShareActionProps = {
   title: string
@@ -29,10 +29,6 @@ const ShareSection = styled.section`
     gap: ${({ theme }) => theme.space.sm};
     justify-items: start;
     margin-top: ${({ theme }) => theme.space.xs};
-  }
-
-  .share-action__controls .button-link {
-    cursor: pointer;
   }
 
   .share-action__url {
@@ -79,9 +75,9 @@ export const ShareAction = ({ title, path }: ShareActionProps) => {
       <h2 id="share-action-title">Keep the receipt</h2>
       <ShareCopy>Share the canonical link, or keep it somewhere useful for later.</ShareCopy>
       <div className="share-action__controls">
-        <button type="button" className="button-link" onClick={() => void share()}>
+        <ActionButton type="button" onClick={() => void share()}>
           {supportsNativeShare ? 'Share this article' : 'Copy article link'}
-        </button>
+        </ActionButton>
         <a href={url} className="share-action__url">{url}</a>
       </div>
       <p className="visually-hidden" role="status" aria-live="polite">{status}</p>

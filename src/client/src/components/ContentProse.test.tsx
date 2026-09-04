@@ -13,11 +13,15 @@ test('maps markdown to owned prose semantics and link/media contracts', () => {
     </PortfolioThemeProvider>,
   )
 
-  expect(screen.getByRole('heading', { level: 2, name: 'Heading' })).toBeInTheDocument()
+  const heading = screen.getByRole('heading', { level: 2, name: 'Heading' })
+  const ordinaryImage = screen.getByRole('img', { name: 'Ordinary image' })
+  expect(heading).toBeInTheDocument()
+  expect(heading).not.toHaveAttribute('node')
   expect(screen.getByRole('heading', { level: 3, name: 'Subheading' })).toBeInTheDocument()
   expect(screen.getByRole('link', { name: 'an internal link' })).toHaveAttribute('href', '/about')
   expect(screen.getByRole('link', { name: /an external link/ })).toHaveAttribute('target', '_blank')
-  expect(screen.getByRole('img', { name: 'Ordinary image' })).toHaveAttribute('loading', 'lazy')
+  expect(ordinaryImage).toHaveAttribute('loading', 'lazy')
+  expect(ordinaryImage).not.toHaveAttribute('node')
   expect(screen.getByRole('img', { name: 'Fairytale page' }).closest('picture')).toHaveClass('fairytale-page')
   expect(screen.queryByText('raw html skipped')).toBeNull()
   expect(document.querySelector('[data-type-register="site-sans"]')).toBeInTheDocument()

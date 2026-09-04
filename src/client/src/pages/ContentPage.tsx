@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { type ComponentType, Suspense } from 'react'
+import { lazy, type ComponentType, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
@@ -20,7 +20,7 @@ import {
   StatePanel,
 } from '../components'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
-import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
+import type { ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
 import { getWritingArticleBody, type WritingArticleBodyProps } from '../features/writing/writingArticleBodies'
@@ -30,6 +30,11 @@ import type { WritingContinuation } from '../features/writing/WritingContinuatio
 import '../styles/interior.scss'
 import { getContentPath, type ContentKind } from '../types'
 import { formatContentDate } from '../utils'
+
+const LazyProjectVisual = lazy(async () => {
+  const module = await import('../features/home/ProjectVisual')
+  return { default: module.ProjectVisual }
+})
 
 type ContentPageProps = {
   slug: string
@@ -112,6 +117,8 @@ const SpecialistPresentationLoading = () => {
     </section>
   )
 }
+
+const ProjectVisualLoading = () => <div aria-hidden="true" data-loading="project-visual" />
 
 type ArticleBodyContentProps = {
   presentation?: ComponentType
@@ -232,6 +239,11 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
   const writingHeaderVisual = WritingFigure === undefined ? undefined : <WritingHeaderVisual Figure={WritingFigure} />
 
   const writingMetadata = document.summary.kind === 'writing' ? getWritingMetadata(document.summary) : undefined
+  const projectHeaderVisual = projectVisualSlug === null ? undefined : (
+    <Suspense fallback={<ProjectVisualLoading />}>
+      <LazyProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" />
+    </Suspense>
+  )
 
   return (
     <SiteLayout>
@@ -266,7 +278,7 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
           summary={document.summary.summary}
           status={document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
           statusAnchor={document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
-          visual={projectVisualSlug === null ? undefined : <ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" />}
+          visual={projectHeaderVisual}
           visualContract={visualContract}
           register="site-sans"
         />

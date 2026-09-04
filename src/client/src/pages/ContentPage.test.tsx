@@ -153,7 +153,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(within(header).getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
     expect(within(header).getByText(/controlled creative pipeline/i)).toBeVisible()
     expect(within(header).getByText('active project')).toBeVisible()
-    const image = within(header).getByRole('img', { name: /Patch carries an index card and folded map/i })
+    const image = await within(header).findByRole('img', { name: /Patch carries an index card and folded map/i })
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()

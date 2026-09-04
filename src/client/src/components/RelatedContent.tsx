@@ -34,10 +34,6 @@ const RelatedSection = styled.section`
   }
 `
 
-const RelatedTitle = styled(SectionTitle)`
-  margin-top: 0;
-`
-
 export const RelatedContent = ({
   slugs,
   summaries,
@@ -50,7 +46,7 @@ export const RelatedContent = ({
   if (unavailable) {
     return (
       <RelatedSection className="related-content" aria-labelledby="related-content-title">
-        <RelatedTitle id="related-content-title">Related content</RelatedTitle>
+        <SectionTitle id="related-content-title">Related content</SectionTitle>
         <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
       </RelatedSection>
     )
@@ -66,7 +62,7 @@ export const RelatedContent = ({
 
   return (
     <RelatedSection as="nav" className="related-content" aria-label="Related content">
-      <RelatedTitle>Related content</RelatedTitle>
+      <SectionTitle>Related content</SectionTitle>
       <ul>
         {relatedItems.map((item) => (
           <li key={item.slug}>

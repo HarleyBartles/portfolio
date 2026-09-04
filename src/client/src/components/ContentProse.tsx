@@ -14,6 +14,10 @@ type ContentProseProps = {
   layout?: ContentProseLayout
 }
 
+type MarkdownNodeProps = {
+  node?: unknown
+}
+
 const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseRegister }>`
   font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
   font-size: ${({ $register, theme }) => $register === 'article-serif' ? theme.type.articleBodySize : theme.type.siteBodySize};
@@ -108,7 +112,7 @@ function isExternalHttpLink(href: string | undefined): boolean {
   return href !== undefined && /^https?:\/\//i.test(href)
 }
 
-const MarkdownLink = (props: ComponentPropsWithoutRef<'a'>) => {
+const MarkdownLink = ({ node: _node, ...props }: ComponentPropsWithoutRef<'a'> & MarkdownNodeProps) => {
   const href = props.href ?? ''
 
   if (href.startsWith('/')) {
@@ -122,7 +126,7 @@ const MarkdownLink = (props: ComponentPropsWithoutRef<'a'>) => {
   return <a href={href}>{props.children}</a>
 }
 
-const MarkdownImage = (props: ComponentPropsWithoutRef<'img'>) => {
+const MarkdownImage = ({ node: _node, ...props }: ComponentPropsWithoutRef<'img'> & MarkdownNodeProps) => {
   const base = import.meta.env.BASE_URL
   const src =
     props.src !== undefined && props.src.startsWith('/') && !props.src.startsWith(base)
@@ -144,13 +148,17 @@ const MarkdownImage = (props: ComponentPropsWithoutRef<'img'>) => {
   return <img {...props} src={src} loading="lazy" decoding="async" />
 }
 
+const MarkdownHeading = ({ node: _node, ...props }: ComponentPropsWithoutRef<'h2'> & MarkdownNodeProps) => (
+  <ProseSectionTitle {...props} />
+)
+
 export const ContentProse = ({ markdown, register, layout = 'reading' }: ContentProseProps) => {
   return (
     <Prose className="content-prose" data-type-register={register} data-prose-layout={layout} $layout={layout} $register={register}>
       <ReactMarkdown
         components={{
           a: MarkdownLink,
-          h2: ProseSectionTitle,
+          h2: MarkdownHeading,
           img: MarkdownImage,
         }}
         skipHtml

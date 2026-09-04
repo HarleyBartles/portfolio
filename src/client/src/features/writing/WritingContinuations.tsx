@@ -71,10 +71,6 @@ export const WritingContinuationsUnavailable = styled(ContinuationFrame)`
   }
 `
 
-const ContinuationEyebrow = ({ children }: { children: string }) => (
-  <Eyebrow as="span" variant="utility">{children}</Eyebrow>
-)
-
 export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
   if (items.length === 0) return null
 
@@ -85,7 +81,7 @@ export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
         {items.map((item) => (
           <li key={item.slug}>
             <Link to={item.href}>
-              <ContinuationEyebrow>{item.eyebrow}</ContinuationEyebrow>
+              <Eyebrow as="span" variant="utility">{item.eyebrow}</Eyebrow>
               <strong>{item.title}</strong>
             </Link>
           </li>

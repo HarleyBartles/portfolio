@@ -25,6 +25,7 @@ export { StatePanel } from './StatePanel'
 export { WritingIndexEntry } from './WritingIndexEntry'
 
 export {
+  ActionButton,
   ArticleBody,
   ContentArticle,
   ContentHeader,
