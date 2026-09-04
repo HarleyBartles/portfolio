@@ -5,6 +5,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, test, vi } from 'vitest'
 import { createPortfolioQueryClient } from '../app/queryClient'
 import { appRoutes } from '../app/router'
+import { PortfolioThemeProvider } from '../components'
 
 vi.mock('../features/case-study/projectPresentations', async () => {
   const React = await import('react')
@@ -38,7 +39,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -49,7 +52,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const article = title.closest('article') as HTMLElement
     expect(article).not.toHaveAttribute('data-publication-state')
     const precis = within(article).getByText('Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.')
-    const metadata = article.querySelector('.editorial-meta') as HTMLElement
+    const metadata = article.querySelector('[data-metadata-row]') as HTMLElement
     const firstParagraph = article.querySelector('.content-page-body p') as HTMLElement
     expect(within(article).queryByText('Chassis was already winning.', { exact: true })).not.toBeInTheDocument()
     expect(firstParagraph).toHaveTextContent('I was looking for a face for The Usual Specialists.')
@@ -73,13 +76,13 @@ describe('ContentPage specialist presentation boundary', () => {
       'href',
       '/portfolio/projects/adventures-of-patch',
     )
-    expect(within(related).getByText('Patch story', { selector: '.writing-continuations__eyebrow' })).toBeVisible()
-    expect(within(related).getByText('Project story', { selector: '.writing-continuations__eyebrow' })).toBeVisible()
+    expect(within(related).getByText('Patch story', { selector: '[data-eyebrow]' })).toBeVisible()
+    expect(within(related).getByText('Project story', { selector: '[data-eyebrow]' })).toBeVisible()
     expect(within(article).getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
     expect(within(article).getByRole('button', { name: 'Copy article link' })).toBeVisible()
     expect(within(article).getByRole('link', { name: /harleybartles.com\/writing\/how-the-invisibles/ })).toBeVisible()
     expect(article.querySelector('.content-navigation')).toBeNull()
-    expect(container.querySelectorAll('.editorial-meta')).toHaveLength(1)
+    expect(container.querySelectorAll('[data-metadata-row]')).toHaveLength(1)
   })
 
   test('does not invent continuation links for a writing article without authored choices', async () => {
@@ -90,7 +93,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -109,7 +114,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -134,7 +141,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -144,7 +153,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(within(header).getByRole('heading', { level: 1, name: 'Adventures of Patch' })).toBeVisible()
     expect(within(header).getByText(/controlled creative pipeline/i)).toBeVisible()
     expect(within(header).getByText('active project')).toBeVisible()
-    const image = within(header).getByRole('img', { name: /Patch carries an index card and folded map/i })
+    const image = await within(header).findByRole('img', { name: /Patch carries an index card and folded map/i })
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()
@@ -158,7 +167,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -180,7 +191,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -210,7 +223,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -221,7 +236,7 @@ describe('ContentPage specialist presentation boundary', () => {
 
     expect(await screen.findByText('Everybody thinks CQRS and event sourcing are theatre until somebody asks for a full audit history.')).toBeVisible()
     expect(screen.getByText("You know DDD, right? It's textbook DDD.")).toBeVisible()
-    expect(container.querySelectorAll('.markdown-content blockquote')).toHaveLength(3)
+    expect(container.querySelectorAll('.content-prose blockquote')).toHaveLength(3)
     const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
     const links = within(continuations).getAllByRole('link')
     expect(links).toHaveLength(2)
@@ -240,7 +255,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -269,7 +286,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const { container } = render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 
@@ -296,7 +315,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     render(
       <QueryClientProvider client={createPortfolioQueryClient()}>
-        <RouterProvider router={router} />
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
       </QueryClientProvider>,
     )
 

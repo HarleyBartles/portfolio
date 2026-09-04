@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react'
-import type { ContentSummary } from '../types/content'
+import type { ContentSummary } from '../types'
 import { ContentLink } from './ContentLink'
 
 type OrientationArea = {
@@ -42,7 +41,7 @@ const orientationAreas = [
   },
 ] satisfies OrientationArea[]
 
-export function OrientationStrip(props: { items: ContentSummary[] }): ReactElement {
+export const OrientationStrip = (props: { items: ContentSummary[] }) => {
   const availableAreas = orientationAreas
     .map((area) => ({
       ...area,

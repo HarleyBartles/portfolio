@@ -1,0 +1,225 @@
+/*
+ * Project detail header geometry belongs to the route composition, not to the
+ * lazy visual implementation. Keeping this contract here means the first
+ * render has the final hero shape before ProjectVisual (and its CSS) resolves.
+ */
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] {
+  --wild-bunch-field-color: #d4cbc0;
+  --wild-bunch-field-width: 55%;
+  --wild-bunch-intro-width: 43%;
+  --wild-bunch-image-width: 64%;
+
+  position: relative;
+  isolation: isolate;
+  display: block;
+  margin-bottom: clamp(var(--space-20), 10vw, 7rem);
+  padding-bottom: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"]::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 auto 0 0;
+  width: var(--wild-bunch-field-width);
+  background: var(--wild-bunch-field-color);
+  content: '';
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-intro {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-10);
+  left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: calc(var(--wild-bunch-intro-width) + var(--space-8));
+  min-width: 20rem;
+  background: transparent;
+  padding: var(--space-6);
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-status-anchor {
+  position: absolute;
+  z-index: 3;
+  bottom: var(--space-4);
+  left: calc(100% - var(--wild-bunch-image-width));
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-status-anchor .content-status {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  background: var(--color-surface);
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-visual {
+  width: var(--wild-bunch-image-width);
+  margin-left: auto;
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] h1 {
+  max-width: 8ch;
+}
+
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(var(--space-8), 5vw, var(--space-16));
+  align-items: stretch;
+  padding: clamp(var(--space-8), 6vw, var(--space-16));
+  background: var(--color-interior-canvas);
+  border: 1px solid var(--color-border);
+}
+
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] .content-page-intro { align-self: center; }
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] .content-page-visual { min-width: 0; }
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] h1 { max-width: 8ch; }
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+  min-height: clamp(32rem, 52vw, 43rem);
+  padding: 0;
+  overflow: hidden;
+  background: var(--color-interior-canvas);
+  border: 1px solid var(--color-border);
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual,
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+  grid-area: 1 / 1;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
+  min-width: 0;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+  z-index: 1;
+  align-self: center;
+  justify-self: end;
+  width: min(46%, 35rem);
+  margin-right: clamp(var(--space-6), 6vw, var(--space-20));
+  padding: var(--space-8) 0;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
+  max-width: 10ch;
+  color: #18252a;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .content-summary {
+  max-width: 32rem;
+  color: #344247;
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+}
+
+.project-visual-loading {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  background: var(--color-interior-canvas);
+}
+
+.content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .project-visual-loading {
+  aspect-ratio: 5 / 3;
+  background: var(--wild-bunch-field-color);
+}
+
+.content-page-header[data-visual-contract="learning-lab-case-study-hero"] .project-visual-loading {
+  min-height: clamp(20rem, 32vw, 30rem);
+  background: #163f42;
+}
+
+.content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual-loading {
+  min-height: clamp(18rem, 32vw, 28rem);
+  background: var(--color-interior-canvas);
+}
+
+@media (max-width: 64rem) {
+  .content-page-header[data-visual-contract="learning-lab-case-study-hero"] { grid-template-columns: 1fr; padding: var(--space-7); }
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"] {
+    --wild-bunch-field-width: 100%;
+    --wild-bunch-intro-width: 100%;
+    --wild-bunch-image-width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: var(--space-12);
+    padding: var(--space-7);
+    background: #ded7cc;
+  }
+
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"]::before {
+    display: none;
+  }
+
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-intro {
+    position: static;
+    min-width: 0;
+    width: auto;
+    background: transparent;
+    padding: var(--space-6);
+  }
+
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-status-anchor {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    margin: 0;
+    transform: none;
+  }
+
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"] .content-page-visual {
+    width: calc(100% + (2 * var(--space-7)));
+    margin-inline: calc(var(--space-7) * -1);
+    margin-bottom: calc(var(--space-7) * -1);
+  }
+
+  .content-page-header[data-visual-contract="wild-bunch-case-study-hero"] h1 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 56rem) {
+  .content-page-header[data-visual-contract="learning-lab-case-study-hero"] h1 { max-width: none; }
+}
+
+@media (max-width: 44rem) {
+  .content-page-header[data-visual-contract="patch-case-study-hero"] {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: var(--space-8) var(--space-6) 0;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-intro {
+    min-width: 0;
+    width: auto;
+    margin: 0 0 var(--space-6);
+    padding: 0;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] h1 {
+    max-width: none;
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .content-page-visual {
+    width: calc(100% + (2 * var(--space-6)));
+    margin-inline: calc(var(--space-6) * -1);
+  }
+
+  .content-page-header[data-visual-contract="patch-case-study-hero"] .project-visual-loading {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+}

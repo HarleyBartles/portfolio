@@ -216,10 +216,6 @@
   text-underline-offset: 0.2em;
 }
 
-.content-page--patch .content-page-body--presentation {
-  max-width: none;
-}
-
 .patch-index {
   display: grid;
   gap: clamp(var(--space-16), 8vw, var(--space-24));

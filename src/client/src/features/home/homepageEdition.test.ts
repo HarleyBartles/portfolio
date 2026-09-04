@@ -6,7 +6,7 @@ import {
   type PatchHomepageFeature,
 } from './homepageEdition'
 import { patchHomepagePresentations } from './PatchHomepageSlot'
-import { navigation } from '../../data/documents'
+import { navigation } from '../../data'
 
 describe('homepageEdition', () => {
   test('pins the accepted first production edition without runtime randomness', () => {

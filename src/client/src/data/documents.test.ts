@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import type { ContentSummary, EditorialWritingSummary } from '../types/content'
+import type { ContentSummary, EditorialWritingSummary } from '../types'
 import { loadDocument, navigation, parseContentSummary, prepareMarkdown } from './documents'
 
 const editorialWritingFixture = {

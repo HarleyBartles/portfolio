@@ -56,7 +56,7 @@ def check_jsx_anchors(errors: list[str], source_root: Path = SRC_CLIENT) -> None
     for path in source_root.rglob("*.tsx"):
         if path.name == "ExternalLink.tsx":
             continue
-        if path.name == "MarkdownContent.tsx":
+        if path.name == "ContentProse.tsx":
             continue
         text = path.read_text(encoding="utf-8")
         for tag in ANCHOR_TAG_RE.findall(text):

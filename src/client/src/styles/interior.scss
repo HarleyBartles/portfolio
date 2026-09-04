@@ -1,44 +1,4 @@
-@font-face {
-  font-family: 'Source Sans 3';
-  src: url('@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2') format('woff2-variations');
-  font-weight: 200 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Source Code Pro';
-  src: url('@fontsource-variable/source-code-pro/files/source-code-pro-latin-wght-normal.woff2') format('woff2-variations');
-  font-weight: 200 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-.site-shell--interior {
-  --font-display: var(--font-site-sans);
-  --font-body: var(--font-site-sans);
-  background: var(--color-interior-canvas);
-  font-family: var(--font-site-sans);
-  font-size: var(--type-site-body-size);
-  line-height: var(--type-site-body-leading);
-}
-
-.site-shell--interior > main {
-  min-width: 0;
-}
-
-.site-shell--interior .content-page--writing {
-  --font-display: var(--font-article-serif);
-  --font-body: var(--font-article-serif);
-}
-
-.site-shell--interior .content-page--writing .markdown-content {
-  font-family: var(--font-article-serif);
-  font-size: var(--type-article-body-size);
-  line-height: var(--type-article-body-leading);
-}
-
-.site-shell--interior :is(.eyebrow, .feature-meta, .article-date, .content-date, .content-status, .editorial-meta) {
+.site-shell--interior :is(.eyebrow, .feature-meta, .article-date) {
   overflow-wrap: anywhere;
   color: var(--color-muted);
   font-family: var(--font-site-sans);
@@ -49,51 +9,15 @@
   text-transform: none;
 }
 
-.site-shell--interior :is(.content-index h1, .content-page--project h1, .about-page h1) {
+.site-shell--interior .about-page h1 {
   font-size: var(--type-site-display-size);
   line-height: var(--type-site-display-leading);
-  letter-spacing: var(--type-site-display-tracking);
-}
-
-.site-shell--interior .content-page--writing h1 {
-  font-size: clamp(38px, 4.2vw, 52px);
-  line-height: 1.04;
   letter-spacing: var(--type-site-display-tracking);
 }
 
 .site-shell--interior :is(code, pre, [data-diff], [data-command-output], [data-machine-readable-evidence]) {
   font-family: var(--font-technical);
   font-size: var(--type-code-size);
-}
-
-.site-shell--interior .site-mark {
-  display: flex;
-  min-width: 0;
-  max-width: 100%;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.site-shell--interior .site-identity-name {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  color: var(--color-ink);
-  font-family: var(--font-site-sans);
-  font-size: var(--type-metadata-size);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: .012em;
-}
-
-.site-shell--interior .site-header nav a {
-  font-family: var(--font-site-sans);
-  font-size: var(--type-metadata-size);
-  font-weight: 600;
-  letter-spacing: .012em;
-}
-
-.site-shell--interior .site-header nav a::after {
-  background: currentColor;
 }
 
 .site-shell--interior :is(.button-link, .text-link) {
@@ -115,9 +39,4 @@
   letter-spacing: 0;
   line-height: 1.5;
   text-transform: none;
-}
-
-.site-shell--interior .content-status span,
-.site-shell--interior .editorial-meta span + span::before {
-  color: currentColor;
 }

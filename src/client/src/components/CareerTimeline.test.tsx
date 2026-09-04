@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
-import { professionalProfile } from '../data/professionalProfile'
+import { professionalProfile } from '../data'
 import { CareerTimeline } from './CareerTimeline'
 
 describe('CareerTimeline', () => {

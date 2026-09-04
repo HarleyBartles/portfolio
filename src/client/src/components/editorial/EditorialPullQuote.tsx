@@ -38,7 +38,7 @@ type EditorialPullQuoteProps = {
   typeRegister?: 'article-serif' | 'site-sans'
 }
 
-export function EditorialPullQuote({ children, attribution, typeRegister = 'article-serif' }: EditorialPullQuoteProps) {
+export const EditorialPullQuote = ({ children, attribution, typeRegister = 'article-serif' }: EditorialPullQuoteProps) => {
   return (
     <Quote data-type-register={typeRegister}>
       <p>{children}</p>

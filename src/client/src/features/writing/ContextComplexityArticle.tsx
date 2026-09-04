@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react'
-import { MarkdownContent } from '../../components/MarkdownContent'
+import { ContentProse } from '../../components'
 import './ContextComplexityArticle.scss'
 
 type ContextComplexityArticleProps = {
@@ -9,7 +8,7 @@ type ContextComplexityArticleProps = {
 const workClawHeading = '## I tried the packaged version'
 const followingHeading = '## A role is not a sign on the wall'
 
-function WorkClawAside({ body }: { body: string }): ReactElement {
+const WorkClawAside = ({ body }: { body: string }) => {
   return (
     <aside className="context-workclaw-aside" aria-labelledby="context-workclaw-title">
       <header>
@@ -25,19 +24,19 @@ function WorkClawAside({ body }: { body: string }): ReactElement {
           <span className="context-workclaw-aside__marker" aria-hidden="true" />
         </summary>
         <div className="context-workclaw-aside__body">
-          <MarkdownContent markdown={body} />
+          <ContentProse register="article-serif" markdown={body} />
         </div>
       </details>
     </aside>
   )
 }
 
-export function ContextComplexityArticle({ markdown }: ContextComplexityArticleProps): ReactElement {
+export const ContextComplexityArticle = ({ markdown }: ContextComplexityArticleProps) => {
   const workClawStart = markdown.indexOf(workClawHeading)
   const followingStart = markdown.indexOf(followingHeading, workClawStart + workClawHeading.length)
 
   if (workClawStart < 0 || followingStart < 0) {
-    return <MarkdownContent markdown={markdown} />
+    return <ContentProse register="article-serif" markdown={markdown} />
   }
 
   const opening = markdown.slice(0, workClawStart).trimEnd()
@@ -46,9 +45,9 @@ export function ContextComplexityArticle({ markdown }: ContextComplexityArticleP
 
   return (
     <div className="context-complexity-article">
-      <MarkdownContent markdown={opening} />
+      <ContentProse register="article-serif" markdown={opening} />
       <WorkClawAside body={workClaw} />
-      <MarkdownContent markdown={closing} />
+      <ContentProse register="article-serif" markdown={closing} />
     </div>
   )
 }

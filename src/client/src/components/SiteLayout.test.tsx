@@ -5,32 +5,37 @@ import { MemoryRouter } from 'react-router-dom'
 import { ErrorPage } from '../pages/ErrorPage'
 import { LoadingPage } from '../pages/LoadingPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
+import { PortfolioThemeProvider } from './PortfolioThemeProvider'
 import { SiteLayout } from './SiteLayout'
 
 describe('SiteLayout', () => {
   test('uses the interior surface and exposes the site identity', () => {
     render(
-      <MemoryRouter>
-        <SiteLayout surface="interior">
-          <p>Interior</p>
-        </SiteLayout>
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <SiteLayout surface="interior">
+            <p>Interior</p>
+          </SiteLayout>
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
-    expect(document.querySelector('.site-shell--interior')).toBeInTheDocument()
+    expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'interior')
     expect(screen.getByText('Harley Bartles')).toBeVisible()
   })
 
   test('uses the home surface without a visible site identity', () => {
     render(
-      <MemoryRouter>
-        <SiteLayout surface="home">
-          <p>Home</p>
-        </SiteLayout>
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <SiteLayout surface="home">
+            <p>Home</p>
+          </SiteLayout>
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
-    expect(document.querySelector('.site-shell--home')).toBeInTheDocument()
+    expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'home')
     expect(screen.queryByText('Harley Bartles')).not.toBeInTheDocument()
   })
 
@@ -38,17 +43,20 @@ describe('SiteLayout', () => {
     const user = userEvent.setup()
 
     render(
-      <MemoryRouter>
-        <SiteLayout>
-          <h1>Portfolio content</h1>
-        </SiteLayout>
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <SiteLayout>
+            <h1>Portfolio content</h1>
+          </SiteLayout>
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content')
     expect(screen.getByRole('main')).toHaveTextContent('Portfolio content')
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
+    expect(document.querySelectorAll('[data-site-frame]')).toHaveLength(3)
 
     const skipLink = screen.getByRole('link', { name: 'Skip to content' })
     expect(skipLink).toHaveAttribute('href', '#main-content')
@@ -64,6 +72,9 @@ describe('SiteLayout', () => {
 
     const footerLinks = screen.getByRole('list', { name: 'Footer links' })
     expect(within(footerLinks).getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv')
+    const githubLink = within(footerLinks).getByRole('link', { name: 'GitHub (opens in a new tab)' })
+    expect(githubLink).toHaveAttribute('target', '_blank')
+    expect(githubLink).toHaveAttribute('rel', expect.stringContaining('noopener'))
 
     await user.tab()
     expect(skipLink).toHaveFocus()
@@ -77,11 +88,13 @@ describe('SiteLayout', () => {
 
   test('renders direct loading, error, and not-found surfaces', () => {
     render(
-      <MemoryRouter>
-        <LoadingPage />
-        <ErrorPage />
-        <NotFoundPage />
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <LoadingPage />
+          <ErrorPage />
+          <NotFoundPage />
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
     const loadingStatus = screen.getByRole('status')

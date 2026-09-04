@@ -1,11 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 const expectedFonts = [
-  { family: 'Fraunces', assetName: /fraunces-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Sans 3', assetName: /source-sans-3-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Serif 4', assetName: /source-serif-4-latin-wght-normal-[^/]+\.woff2$/ },
   { family: 'Source Code Pro', assetName: /source-code-pro-latin-wght-normal-[^/]+\.woff2$/ },
-  { family: 'Fira Code', assetName: /fira-code-latin-wght-normal-[^/]+\.woff2$/ },
 ] as const
 
 test('production typography is self-hosted and available without a font CDN', async ({ page }, testInfo) => {
@@ -33,7 +31,7 @@ test('production typography is self-hosted and available without a font CDN', as
   await page.goto('./about')
   await expect(page.locator('main h1')).toBeVisible()
   await page.goto('./writing/why-adrs/')
-  await expect(page.locator('article.content-page--writing')).toBeVisible()
+  await expect(page.locator('article[data-content-kind="writing"]')).toBeVisible()
   await page.goto('./projects/codex-marketplace/')
   await expect(page.locator('code').first()).toBeVisible()
   const loadedFaces = await page.evaluate(async (families) => {
@@ -60,12 +58,19 @@ test('interior typography maps content roles to the accepted Source families', a
   await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
 
   await page.goto('./writing/why-adrs/')
-  const article = page.locator('article.content-page--writing')
+  const article = page.locator('article[data-content-kind="writing"]')
   await expect(article).toBeVisible()
-  await expect(article.locator('.markdown-content').first()).toHaveCSS('font-family', /Source Serif 4/)
+  await expect(article.locator('.content-prose').first()).toHaveCSS('font-family', /Source Serif 4/)
 
   await page.goto('./projects/codex-marketplace/')
   await expect(page.locator('code').first()).toHaveCSS('font-family', /Source Code Pro/)
+})
+
+test('homepage typography uses the shared Source families rather than legacy font roles', async ({ page }) => {
+  await page.goto('./')
+  await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
+  await expect(page.locator('.site-header nav a').first()).toHaveCSS('font-family', /Source Code Pro/)
+  await expect(page.locator('.home-article-title').first()).toHaveCSS('font-family', /Source Serif 4/)
 })
 
 test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {
@@ -110,5 +115,5 @@ test('interior routes remain usable with Source font requests blocked', async ({
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
   }
 
-  expect(interceptedSourceFonts.size).toBeGreaterThanOrEqual(3)
+  expect(interceptedSourceFonts.size).toBeGreaterThanOrEqual(2)
 })

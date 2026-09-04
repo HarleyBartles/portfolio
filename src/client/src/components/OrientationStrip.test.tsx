@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
-import type { ContentSummary } from '../types/content'
+import type { ContentSummary } from '../types'
 import { OrientationStrip } from './OrientationStrip'
 
 const project: ContentSummary = {

@@ -24,8 +24,8 @@ test('authored pull quotes use the wide editorial margin without widening the pr
   await page.setViewportSize({ width: 1600, height: 1000 })
   await page.goto('./writing/why-adrs/')
 
-  const prose = page.locator('.markdown-content > p').first()
-  const pullQuote = page.locator('.markdown-content > blockquote').first()
+  const prose = page.locator('.content-prose > p').first()
+  const pullQuote = page.locator('.content-prose > blockquote').first()
   const [proseBox, wideQuoteBox] = await Promise.all([prose.boundingBox(), pullQuote.boundingBox()])
 
   expect(wideQuoteBox!.width).toBeGreaterThan(proseBox!.width + 100)
@@ -62,8 +62,8 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://harleybartles.com/writing/${slug}`)
   await expect(page.getByText('As I remember it, anyway.', { exact: true })).toBeVisible()
   await expect(page.locator('.content-summary')).toHaveCount(1)
-  await expect(page.locator('.content-date')).toContainText('3 September 2026')
-  await expect(page.locator('.content-date')).toContainText('4 min read')
+  await expect(page.locator('[data-metadata-row]')).toContainText('3 September 2026')
+  await expect(page.locator('[data-metadata-row]')).toContainText('4 min read')
   const continuations = page.getByRole('navigation', { name: 'Continue reading' })
   await expect(continuations).toBeVisible()
   await expect(continuations.getByRole('link', { name: /The Lawful Heist Crew/ })).toHaveAttribute('href', '/patch/lawful-heist')

@@ -1,8 +1,6 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { AccessibleStatus } from '../components/AccessibleStatus'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { SiteLayout } from '../components/SiteLayout'
+import { AccessibleStatus, DocumentMetadata, SiteLayout } from '../components'
 
 type ErrorPageProps = {
   message?: string

@@ -1,6 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../components'
 import { RianHughesArticle } from './RianHughesArticle'
 
 const markdown = `Opening paragraph.
@@ -16,9 +17,11 @@ Closing paragraph.`
 describe('RianHughesArticle', () => {
   test('turns the two editorial markers into ordered, inspectable wordmark evidence without a duplicate Specialists figure', () => {
     const { container } = render(
-      <MemoryRouter>
-        <RianHughesArticle markdown={markdown} />
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <RianHughesArticle markdown={markdown} />
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
     const construction = screen.getByRole('figure', { name: 'How the hierarchy is built' })
@@ -52,9 +55,11 @@ describe('RianHughesArticle', () => {
 
   test('falls back to continuous Markdown when an insertion marker is missing', () => {
     render(
-      <MemoryRouter>
-        <RianHughesArticle markdown="A plain article without editorial markers." />
-      </MemoryRouter>,
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <RianHughesArticle markdown="A plain article without editorial markers." />
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
     )
 
     expect(screen.getByText('A plain article without editorial markers.')).toBeVisible()

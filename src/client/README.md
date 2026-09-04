@@ -6,9 +6,13 @@ This folder contains the React client application for the portfolio website.
 
 - Repository content is loaded lazily through `src/api/contentApi.ts` and React Query. Do not copy content into React Context or add a runtime API without a concrete requirement.
 - React Context is reserved for shared UI or application state after a real use case exists.
-- Sass owns design tokens and global foundations in `src/styles`.
-- `styled-components` is reserved for component-scoped dynamic styles. Do not use it as a second global theme system.
+- Sass owns design-token declarations, font faces and document foundations in `src/styles`.
+- `styled-components` owns reusable React component contracts and their scoped styling; the typed portfolio theme is a
+  CSS-variable mirror, not a second token-value authority.
+- React Context is reserved for shared UI or application state after a real use case exists. Static structured data stays
+  with its parent and is passed through typed props.
 - Keep feature UI out of this foundation layer until a task explicitly asks for portfolio pages or components.
+- Import roots stay deliberate: consumers outside `components`, `data`, `styles`, `types`, or `utils` use that subtree's `index.ts`; files inside a subtree may import local implementation modules. Feature directories remain route-local so a barrel cannot accidentally defeat lazy loading.
 
 ## Local Commands
 

@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react'
-import { MarkdownContent } from '../../components/MarkdownContent'
+import { ContentProse } from '../../components'
 import './TestingEvidenceArticle.scss'
 
 type TestingEvidenceArticleProps = {
@@ -9,12 +8,12 @@ type TestingEvidenceArticleProps = {
 const agenticHeading = '## Prose can still be tested'
 const closingHeading = '## Green only earns the confidence it earned'
 
-export function TestingEvidenceArticle({ markdown }: TestingEvidenceArticleProps): ReactElement {
+export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps) => {
   const agenticStart = markdown.indexOf(agenticHeading)
   const closingStart = markdown.indexOf(closingHeading, agenticStart + agenticHeading.length)
 
   if (agenticStart < 0 || closingStart < 0) {
-    return <MarkdownContent markdown={markdown} />
+    return <ContentProse register="article-serif" markdown={markdown} />
   }
 
   const opening = markdown.slice(0, agenticStart).trimEnd()
@@ -25,15 +24,15 @@ export function TestingEvidenceArticle({ markdown }: TestingEvidenceArticleProps
 
   return (
     <div className="testing-evidence-article">
-      <MarkdownContent markdown={opening} />
+      <ContentProse register="article-serif" markdown={opening} />
       <aside className="testing-evidence-lens" aria-labelledby="testing-evidence-lens-title">
         <header>
           <p className="testing-evidence-lens__eyebrow">Applied to agentic systems</p>
           <h2 id="testing-evidence-lens-title">Prose can still be tested</h2>
         </header>
-        <MarkdownContent markdown={agenticLens} />
+        <ContentProse register="article-serif" markdown={agenticLens} />
       </aside>
-      <MarkdownContent markdown={closing} />
+      <ContentProse register="article-serif" markdown={closing} />
     </div>
   )
 }

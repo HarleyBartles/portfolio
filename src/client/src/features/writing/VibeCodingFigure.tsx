@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import './VibeCodingFigure.scss'
 
 const responsibilities = [
   'edge cases',
@@ -10,7 +10,7 @@ const responsibilities = [
   'access control',
 ] as const
 
-export function VibeCodingFigure(): ReactElement {
+export const VibeCodingFigure = () => {
   return (
     <figure className="vibe-coding-figure" aria-describedby="vibe-coding-figure-caption">
       <div className="vibe-coding-figure__door">

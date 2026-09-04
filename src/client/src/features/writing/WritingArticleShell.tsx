@@ -1,68 +1,57 @@
-import type { ReactElement, ReactNode } from 'react'
-import { ShareAction } from '../../components/ShareAction'
-import type { ContentSummary } from '../../types/content'
-import { getContentPath } from '../../types/content'
-import { formatContentDate } from '../../utils/content'
-import { AuthoredContinuations } from './AuthoredContinuations'
-import { WritingContinuations, type WritingContinuationItem } from './WritingContinuations'
-import type { WritingPresentation } from './writingPresentations'
+import type { ReactNode } from 'react'
+import { ContentHeader, ShareAction } from '../../components'
+import { WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
 
 type WritingArticleShellProps = {
-  summary: ContentSummary
-  summaries: readonly ContentSummary[]
-  navigationUnavailable: boolean
-  presentation?: WritingPresentation
+  eyebrow: string
+  title: string
+  summary: string
+  metadata?: readonly ReactNode[]
   visualContract: string
+  regionLabel?: string
   headerVisual?: ReactNode
-  children: ReactNode
+  body: ReactNode
+  continuations: readonly WritingContinuation[]
+  continuationsUnavailable?: boolean
+  share: {
+    title: string
+    path: string
+  }
 }
 
-export function WritingArticleShell({
+export const WritingArticleShell = ({
+  eyebrow,
+  title,
   summary,
-  summaries,
-  navigationUnavailable,
-  presentation,
+  metadata,
   visualContract,
+  regionLabel,
   headerVisual,
-  children,
-}: WritingArticleShellProps): ReactElement {
-  const formattedDate = formatContentDate(summary.date)
-  const hasReadingMetadata = formattedDate !== null || summary.readingMinutes !== undefined
-  const continuations: WritingContinuationItem[] = summary.relatedSlugs.flatMap((slug) => {
-    const related = summaries.find((item) => item.slug === slug)
-    if (related === undefined) return []
-    const kind = related.kind === 'patch' ? 'Patch story' : related.kind === 'project' ? 'Project story' : 'Article'
-    return [{ slug, eyebrow: kind }]
-  })
-
+  body,
+  continuations,
+  continuationsUnavailable = false,
+  share,
+}: WritingArticleShellProps) => {
   return (
     <>
-      <header
-        className={`content-page-header${headerVisual === undefined ? '' : ' content-page-header--visual'}`}
-        data-visual-contract={visualContract}
-        role={presentation === undefined ? undefined : 'region'}
-        aria-label={presentation?.regionLabel}
-      >
-        <div className="content-page-intro">
-          <p className="eyebrow">writing</p>
-          <h1 id="content-page-title">{summary.title}</h1>
-          {hasReadingMetadata ? (
-            <p className="editorial-meta content-date">
-              {formattedDate === null ? null : <span>{formattedDate}</span>}
-              {summary.readingMinutes === undefined ? null : <span>{summary.readingMinutes} min read</span>}
-            </p>
-          ) : null}
-          <p className="content-summary">{summary.summary}</p>
-        </div>
-        {headerVisual}
-      </header>
-      {children}
-      {presentation === undefined
-        ? navigationUnavailable && summary.relatedSlugs.length > 0
-          ? <section className="writing-continuations" aria-labelledby="writing-continuations-title"><h2 id="writing-continuations-title">Continue reading</h2><p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p></section>
-          : <WritingContinuations items={continuations} summaries={summaries} />
-        : <AuthoredContinuations presentation={presentation} summaries={summaries} />}
-      <ShareAction title={summary.title} path={getContentPath(summary)} />
+      <ContentHeader
+        eyebrow={eyebrow}
+        title={title}
+        summary={summary}
+        metadata={metadata}
+        visual={headerVisual}
+        visualContract={visualContract}
+        regionLabel={regionLabel}
+        register="article-serif"
+      />
+      {body}
+      {continuationsUnavailable ? (
+        <WritingContinuationsUnavailable className="writing-continuations" aria-labelledby="writing-continuations-title">
+          <h2 id="writing-continuations-title">Continue reading</h2>
+          <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
+        </WritingContinuationsUnavailable>
+      ) : <WritingContinuations items={continuations} />}
+      <ShareAction title={share.title} path={share.path} />
     </>
   )
 }

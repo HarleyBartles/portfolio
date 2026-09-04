@@ -5,7 +5,7 @@ import type {
   EditorialContinuation,
   EditorialWritingSummary,
   WritingEditorial,
-} from '../types/content'
+} from '../types'
 import manifest from './content/content-manifest.json'
 
 const markdownLoaders = import.meta.glob('./content/**/*.md', {

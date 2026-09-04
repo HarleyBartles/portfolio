@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../PortfolioThemeProvider'
 import { EditorialPullQuote } from './EditorialPullQuote'
-import { EditorialThemeProvider } from './EditorialThemeProvider'
 
 test('renders the canonical pull quote with an optional attribution', () => {
   render(
-    <EditorialThemeProvider>
+    <PortfolioThemeProvider>
       <EditorialPullQuote attribution="Production invariant">No source capture, no success.</EditorialPullQuote>
-    </EditorialThemeProvider>,
+    </PortfolioThemeProvider>,
   )
 
   expect(screen.getByRole('blockquote')).toHaveTextContent('No source capture, no success.')

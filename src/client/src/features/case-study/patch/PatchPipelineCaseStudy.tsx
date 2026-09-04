@@ -1,6 +1,6 @@
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
-import { ExternalLink } from '../../../components/ExternalLink'
+import { ExternalLink } from '../../../components'
 import { Link } from 'react-router-dom'
 import { PatchProductionFlow } from './PatchProductionFlow'
 import { getPatchAssetPath, getPatchMediaByPath, getPatchRepositoryEvidence } from './patchEvidence'

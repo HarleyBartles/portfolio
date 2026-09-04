@@ -21,9 +21,9 @@ If the sources appear to disagree, follow the contract and raise the mismatch.
 |---|---|
 | Shared site, interface, project, About, case-study, metadata or non-article prose | Source Sans 3 |
 | Genuine authored long-form article content | Source Serif 4 |
-| Code, diff, terminal output or machine-readable technical material | Source Code Pro |
+| Code, diff, terminal output, machine-readable technical material or compact utility furniture | Source Code Pro |
 
-Technical subject matter does not make labels, captions, navigation or metadata technical material. "Editorial," "premium," "reflective" or visually prominent does not make content authored long-form.
+Technical subject matter does not make body copy or captions technical material. Compact navigation, folios, dates, status and controls belong to the Source Code Pro utility register; "editorial," "premium," "reflective" or visually prominent does not make content authored long-form.
 
 A quotation enters the Serif register only when the quoted content itself genuinely belongs to the authored-reading register. Being first-person, pulled out, or decorative is insufficient. If that judgement is not clear from the content and route, stop and raise a Phase 8P design gap.
 

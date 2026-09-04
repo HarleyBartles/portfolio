@@ -1,8 +1,8 @@
-import type { ComponentPropsWithoutRef, ReactElement } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 
 type ExternalLinkProps = Omit<ComponentPropsWithoutRef<'a'>, 'rel' | 'target'>
 
-export function ExternalLink({ children, className, ...props }: ExternalLinkProps): ReactElement {
+export const ExternalLink = ({ children, className, ...props }: ExternalLinkProps) => {
   const suppliedLabel = props['aria-label']
   const accessibleLabel = suppliedLabel === undefined
     ? undefined

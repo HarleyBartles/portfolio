@@ -1,6 +1,6 @@
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudySection } from '../CaseStudySection'
-import { ExternalLink } from '../../../components/ExternalLink'
+import { ExternalLink } from '../../../components'
 import { CurriculumAtlas } from './CurriculumAtlas'
 import { LabAnatomy } from './LabAnatomy'
 import { LabPromotionFlow } from './LabPromotionFlow'

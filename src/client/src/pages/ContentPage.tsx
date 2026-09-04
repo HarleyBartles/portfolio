@@ -1,33 +1,62 @@
 import { useQuery } from '@tanstack/react-query'
-import { Suspense, type ReactElement } from 'react'
+import { lazy, type ComponentType, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
-import { AccessibleStatus } from '../components/AccessibleStatus'
-import { ContentNavigation } from '../components/ContentNavigation'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { MarkdownContent } from '../components/MarkdownContent'
-import { ProjectStatus } from '../components/ProjectStatus'
-import { RelatedContent } from '../components/RelatedContent'
-import { SiteLayout } from '../components/SiteLayout'
-import { ShareAction } from '../components/ShareAction'
+import {
+  AccessibleStatus,
+  ArticleBody,
+  ContentArticle,
+  ContentHeader,
+  ContentNavigation,
+  DocumentMetadata,
+  ContentProse,
+  type ContentProseLayout,
+  type ContentProseRegister,
+  ProjectStatus,
+  RelatedContent,
+  ShareAction,
+  SiteLayout,
+  StatePanel,
+} from '../components'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
-import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
+import type { ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
-import { getWritingArticleBody } from '../features/writing/writingArticleBodies'
+import { getWritingArticleBody, type WritingArticleBodyProps } from '../features/writing/writingArticleBodies'
 import { WritingArticleShell } from '../features/writing/WritingArticleShell'
-import '../features/writing/WritingPullQuotes.scss'
+import { WritingHeaderVisual } from '../features/writing/WritingHeaderVisual'
+import type { WritingContinuation } from '../features/writing/WritingContinuations'
 import '../styles/interior.scss'
-import type { ContentKind } from '../types/content'
-import { getContentPath } from '../types/content'
+import { getContentPath, type ContentKind } from '../types'
+import { formatContentDate } from '../utils'
+
+const LazyProjectVisual = lazy(async () => {
+  const module = await import('../features/home/ProjectVisual')
+  return { default: module.ProjectVisual }
+})
 
 type ContentPageProps = {
   slug: string
   expectedKind?: ContentKind
 }
 
-function ContentLoadingState(): ReactElement {
+type WritingMetadataProps = {
+  date?: string
+  readingMinutes?: number
+}
+
+const getWritingMetadata = ({ date, readingMinutes }: WritingMetadataProps) => {
+  const formattedDate = formatContentDate(date)
+  const items = [
+    ...(formattedDate === null ? [] : [formattedDate]),
+    ...(readingMinutes === undefined ? [] : [`${readingMinutes} min read`]),
+  ]
+
+  return items.length === 0 ? undefined : items
+}
+
+const ContentLoadingState = () => {
   return (
     <SiteLayout>
       <DocumentMetadata
@@ -43,7 +72,7 @@ function ContentLoadingState(): ReactElement {
   )
 }
 
-function ContentErrorState(): ReactElement {
+const ContentErrorState = () => {
   return (
     <SiteLayout>
       <DocumentMetadata
@@ -63,7 +92,7 @@ function ContentErrorState(): ReactElement {
   )
 }
 
-function ContentNotFoundState(): ReactElement {
+const ContentNotFoundState = () => {
   return (
     <SiteLayout>
       <DocumentMetadata
@@ -72,16 +101,16 @@ function ContentNotFoundState(): ReactElement {
         canonicalPath="/"
         noIndex
       />
-      <section className="state-panel" aria-labelledby="content-not-found-title">
+      <StatePanel labelledBy="content-not-found-title">
         <h1 id="content-not-found-title">Page not found</h1>
         <p>This portfolio story is not available.</p>
         <Link to="/">Return to the homepage</Link>
-      </section>
+      </StatePanel>
     </SiteLayout>
   )
 }
 
-function SpecialistPresentationLoading(): ReactElement {
+const SpecialistPresentationLoading = () => {
   return (
     <section className="specialist-presentation-loading">
       <p role="status" aria-label="Loading case study presentation" data-loading="specialist-presentation">Loading case study presentation</p>
@@ -89,7 +118,29 @@ function SpecialistPresentationLoading(): ReactElement {
   )
 }
 
-export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElement {
+const ProjectVisualLoading = () => <div className="project-visual-loading" aria-hidden="true" data-loading="project-visual" />
+
+type ArticleBodyContentProps = {
+  presentation?: ComponentType
+  writingBody?: ComponentType<WritingArticleBodyProps>
+  markdown: string
+  proseLayout: ContentProseLayout
+  proseRegister: ContentProseRegister
+}
+
+const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBody, markdown, proseLayout, proseRegister }: ArticleBodyContentProps) => {
+  if (Presentation !== undefined) {
+    return <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>
+  }
+
+  if (WritingBody !== undefined) {
+    return <WritingBody markdown={markdown} />
+  }
+
+  return <ContentProse layout={proseLayout} register={proseRegister} markdown={markdown} />
+}
+
+export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
   const contentQuery = useQuery(contentQueries.document(slug))
   const navigationQuery = useQuery(contentQueries.navigation())
 
@@ -141,6 +192,15 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
     document.summary.relatedSlugs.length > 0 ? document.summary.relatedSlugs : fallbackSlugs
   const relatedNavigationUnavailable =
     document.summary.relatedSlugs.length > 0 && navigationQuery.isError
+  const continuationItems: WritingContinuation[] = (writingPresentation?.continuations ?? document.summary.relatedSlugs.map((slug) => ({ slug }))).flatMap((item) => {
+    const related = relatedSummaries.find((summary) => summary.slug === item.slug)
+    return related === undefined ? [] : [{
+      slug: related.slug,
+      eyebrow: 'eyebrow' in item && item.eyebrow !== undefined ? item.eyebrow : related.kind === 'patch' ? 'Patch story' : related.kind === 'project' ? 'Project story' : 'Article',
+      title: related.title,
+      href: getContentPath(related),
+    }]
+  })
   const kindItems = relatedSummaries.filter((item) => item.kind === document.summary.kind)
   const projectVisualSlugs = new Set<ProjectVisualSlug>([
     'codex-marketplace',
@@ -151,7 +211,6 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
     ? document.summary.slug as ProjectVisualSlug
     : null
-  const hasHeaderVisual = projectVisualSlug !== null || WritingFigure !== undefined
   const visualContract = writingPresentation === undefined ? document.summary.presentation === 'marketplace-case-study'
     ? 'marketplace-case-study-hero'
     : document.summary.presentation === 'patch-pipeline-case-study'
@@ -164,19 +223,26 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
 
   const articleBody = (
-    <div className={`content-page-body${Presentation === undefined ? '' : ' content-page-body--presentation'}`}>
-      {Presentation === undefined
-        ? WritingBody === undefined
-          ? <MarkdownContent markdown={document.markdown ?? ''} />
-          : <WritingBody markdown={document.markdown ?? ''} />
-        : <Suspense fallback={<SpecialistPresentationLoading />}><Presentation /></Suspense>}
-    </div>
+    <ArticleBody
+      measure={Presentation !== undefined || document.summary.kind === 'patch' ? 'full' : 'reading'}
+    >
+      <ArticleBodyContent
+        presentation={Presentation}
+        writingBody={WritingBody}
+        markdown={document.markdown ?? ''}
+        proseLayout={document.summary.kind === 'patch' ? 'illustrated-story' : 'reading'}
+        proseRegister={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
+      />
+    </ArticleBody>
   )
 
-  const writingHeaderVisual = WritingFigure === undefined ? undefined : (
-    <div className="content-page-visual content-page-visual--writing">
-      <Suspense fallback={<div className="writing-figure__loading" aria-hidden="true" data-loading="writing-figure" />}><WritingFigure /></Suspense>
-    </div>
+  const writingHeaderVisual = WritingFigure === undefined ? undefined : <WritingHeaderVisual Figure={WritingFigure} />
+
+  const writingMetadata = document.summary.kind === 'writing' ? getWritingMetadata(document.summary) : undefined
+  const projectHeaderVisual = projectVisualSlug === null ? undefined : (
+    <Suspense fallback={<ProjectVisualLoading />}>
+      <LazyProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" />
+    </Suspense>
   )
 
   return (
@@ -186,42 +252,36 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
         description={document.summary.summary}
         canonicalPath={getContentPath(document.summary)}
       />
-      <article
-        className={`content-page content-page--${document.summary.kind}`}
-        aria-labelledby="content-page-title"
-        data-visual-language={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
-        data-type-register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
+      <ContentArticle
+        kind={document.summary.kind}
+        visualLanguage={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
+        register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
       >
         {document.summary.kind === 'writing' ? (
           <WritingArticleShell
-            summary={document.summary}
-            summaries={relatedSummaries}
-            navigationUnavailable={navigationQuery.isError}
-            presentation={writingPresentation}
+            eyebrow="writing"
+            title={document.summary.title}
+            summary={document.summary.summary}
+            metadata={writingMetadata}
             visualContract={visualContract}
+            regionLabel={writingPresentation?.regionLabel}
             headerVisual={writingHeaderVisual}
-          >
-            {articleBody}
-          </WritingArticleShell>
-        ) : <><header
-          className={`content-page-header${hasHeaderVisual ? ' content-page-header--visual' : ''}`}
-          data-visual-contract={visualContract}
-          role={writingPresentation === undefined ? undefined : 'region'}
-          aria-label={writingPresentation?.regionLabel}
-        >
-          <div className="content-page-intro">
-            <p className="eyebrow">{document.summary.kind}</p>
-            <h1 id="content-page-title">{document.summary.title}</h1>
-            <p className="content-summary">{document.summary.summary}</p>
-            {document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : null}
-          </div>
-          {document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? (
-            <div className="content-page-status-anchor"><ProjectStatus status={document.summary.status} /></div>
-          ) : null}
-          {projectVisualSlug === null ? null : (
-            <div className="content-page-visual"><ProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" /></div>
-          )}
-        </header>
+            body={articleBody}
+            continuations={continuationItems}
+            continuationsUnavailable={navigationQuery.isError && document.summary.relatedSlugs.length > 0}
+            share={{ title: document.summary.title, path: getContentPath(document.summary) }}
+          />
+        ) : <>
+        <ContentHeader
+          eyebrow={document.summary.kind}
+          title={document.summary.title}
+          summary={document.summary.summary}
+          status={document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
+          statusAnchor={document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
+          visual={projectHeaderVisual}
+          visualContract={visualContract}
+          register="site-sans"
+        />
         {articleBody}
         {(
           <RelatedContent
@@ -235,7 +295,7 @@ export function ContentPage({ slug, expectedKind }: ContentPageProps): ReactElem
           <ShareAction title={document.summary.title} path={routeMetadata.path} />
         ) : null}
         </>}
-      </article>
+      </ContentArticle>
     </SiteLayout>
   )
 }

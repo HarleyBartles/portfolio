@@ -1,10 +1,8 @@
-import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { DocumentMetadata } from '../components/DocumentMetadata'
-import { SiteLayout } from '../components/SiteLayout'
+import { DocumentMetadata, SiteLayout, StatePanel } from '../components'
 import '../styles/interior.scss'
 
-export function NotFoundPage(): ReactElement {
+export const NotFoundPage = () => {
   return (
     <SiteLayout>
       <DocumentMetadata
@@ -13,11 +11,11 @@ export function NotFoundPage(): ReactElement {
         canonicalPath="/"
         noIndex
       />
-      <section className="state-panel" aria-labelledby="not-found-title">
+      <StatePanel labelledBy="not-found-title">
         <h1 id="not-found-title">Page not found</h1>
         <p>This portfolio page is not available yet.</p>
         <Link to="/">Return to the homepage</Link>
-      </section>
+      </StatePanel>
     </SiteLayout>
   )
 }

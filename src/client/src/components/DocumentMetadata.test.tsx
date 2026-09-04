@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { afterEach, describe, expect, test } from 'vitest'
 import { DocumentMetadata } from './DocumentMetadata'
 import { RouteErrorBoundary } from './RouteErrorBoundary'
+import { PortfolioThemeProvider } from './PortfolioThemeProvider'
 
 function readMeta(name: string): HTMLMetaElement | null {
   return document.head.querySelector(`meta[name="${name}"]`)
@@ -87,7 +88,11 @@ describe('RouteErrorBoundary', () => {
       },
     ])
 
-    render(<RouterProvider router={router} />)
+    render(
+      <PortfolioThemeProvider>
+        <RouterProvider router={router} />
+      </PortfolioThemeProvider>,
+    )
 
     const alert = await screen.findByRole('alert')
     expect(alert).toHaveTextContent(/could not load this portfolio route/i)

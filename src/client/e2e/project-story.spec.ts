@@ -39,6 +39,82 @@ async function tabToLink(page: import('@playwright/test').Page, linkName: string
   throw new Error(`Keyboard traversal did not reach ${linkName}`)
 }
 
+test('project header keeps its first-paint geometry while the visual chunk is pending', async ({ page }) => {
+  let releaseVisual: (() => void) | undefined
+  const visualReady = new Promise<void>((resolve) => {
+    releaseVisual = resolve
+  })
+
+  await page.route('**/*ProjectVisual-*.js', async (route) => {
+    const response = await route.fetch()
+    await visualReady
+    await route.fulfill({ response })
+  })
+
+  const navigation = page.goto(wildBunchPath)
+  const header = page.locator('[data-visual-contract="wild-bunch-case-study-hero"]')
+  await expect(header).toBeVisible()
+  await expect(page.locator('[data-loading="project-visual"]')).toBeVisible()
+
+  const geometry = await header.evaluate((element) => {
+    const style = getComputedStyle(element)
+    const intro = element.querySelector('.content-page-intro')
+    return {
+      display: style.display,
+      borderBottomWidth: style.borderBottomWidth,
+      paddingBottom: style.paddingBottom,
+      introPosition: intro === null ? null : getComputedStyle(intro).position,
+    }
+  })
+
+  expect(geometry).toEqual({
+    display: 'block',
+    borderBottomWidth: '0px',
+    paddingBottom: '0px',
+    introPosition: 'absolute',
+  })
+
+  releaseVisual?.()
+  await navigation
+  await expect(header.getByRole('img', { name: /Concept art of a lone rider entering/i })).toBeVisible()
+})
+
+test('Marketplace header reserves its generic visual measure while the visual chunk is pending', async ({ page }) => {
+  let releaseVisual: (() => void) | undefined
+  const visualReady = new Promise<void>((resolve) => {
+    releaseVisual = resolve
+  })
+
+  await page.route('**/*ProjectVisual-*.js', async (route) => {
+    const response = await route.fetch()
+    await visualReady
+    await route.fulfill({ response })
+  })
+
+  const navigation = page.goto('./projects/codex-marketplace')
+  const header = page.locator('[data-visual-contract="marketplace-case-study-hero"]')
+  await expect(header).toBeVisible()
+  await expect(page.locator('[data-loading="project-visual"]')).toBeVisible()
+
+  const geometry = await header.locator('[data-loading="project-visual"]').evaluate((element) => {
+    const bounds = element.getBoundingClientRect()
+    const style = getComputedStyle(element)
+    return {
+      aspectRatio: bounds.width / bounds.height,
+      cssAspectRatio: style.aspectRatio,
+      height: bounds.height,
+    }
+  })
+
+  expect(geometry.cssAspectRatio).toBe('5 / 3')
+  expect(geometry.height).toBeGreaterThan(0)
+  expect(geometry.aspectRatio).toBeCloseTo(5 / 3, 2)
+
+  releaseVisual?.()
+  await navigation
+  await expect(header.getByRole('figure', { name: /Marketplace baseline plugins/i })).toBeVisible()
+})
+
 test('visitor opens the Wild Bunch route with its Western hook, status, and inspectable evidence', async ({ page }) => {
   const response = await page.goto(wildBunchPath)
 
