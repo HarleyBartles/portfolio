@@ -12,7 +12,7 @@ test('renders article header, body, continuations and one share section in order
           eyebrow="writing"
           title="A durable article"
           summary="A concise article proposition."
-          metadata={<><span>3 September 2026</span><span>5 min read</span></>}
+          metadata={['3 September 2026', '5 min read']}
           visualContract="article-introduction"
           regionLabel="Article introduction"
           continuations={[{ slug: 'next', eyebrow: 'Continue', title: 'The next article', href: '/writing/next' }]}

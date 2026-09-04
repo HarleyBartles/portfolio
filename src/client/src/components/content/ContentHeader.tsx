@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react'
 import styled from 'styled-components'
+import { Eyebrow, MetadataRow, PageLead, PageTitle, type PublicationRegister } from './PublicationPrimitives'
 
-export type ContentHeaderRegister = 'site-sans' | 'article-serif'
+export type ContentHeaderRegister = PublicationRegister
 
 type ContentHeaderProps = {
   eyebrow: string
   title: string
   summary: string
-  metadata?: ReactNode
+  metadata?: readonly ReactNode[]
   status?: ReactNode
   statusAnchor?: ReactNode
   visual?: ReactNode
@@ -44,49 +45,18 @@ const Header = styled.header<{ $hasVisual: boolean }>`
 
 const Intro = styled.div`
   min-width: 0;
-
-  > .eyebrow {
-    margin: 0 0 ${({ theme }) => theme.space.sm};
-  }
-
-  > .content-header__metadata {
-    display: flex;
-    flex-wrap: wrap;
-    gap: ${({ theme }) => theme.space.xs} ${({ theme }) => theme.space.lg};
-    margin: ${({ theme }) => theme.space.md} 0 0;
-    overflow-wrap: anywhere;
-    color: ${({ theme }) => theme.color.muted};
-    font-family: ${({ theme }) => theme.font.siteSans};
-    font-size: ${({ theme }) => theme.type.metadataSize};
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: .012em;
-    text-transform: none;
-  }
-
-  > .content-header__metadata span + span::before {
-    content: '·';
-    margin-right: ${({ theme }) => theme.space.lg};
-    color: currentColor;
-  }
 `
 
-const Title = styled.h1<{ $register: ContentHeaderRegister }>`
-  && {
-    margin: 0;
-    font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
-    font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
-    line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
-    letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
-  }
+const HeaderEyebrow = styled(Eyebrow)`
+  margin-bottom: ${({ theme }) => theme.space.sm};
 `
 
-const Summary = styled.p`
-  max-width: 42rem;
+const HeaderMetadata = styled(MetadataRow)`
+  margin-top: ${({ theme }) => theme.space.md};
+`
+
+const Summary = styled(PageLead)`
   margin: ${({ theme }) => theme.space.lg} 0 0;
-  color: ${({ theme }) => theme.color.muted};
-  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-  line-height: 1.45;
 `
 
 const Visual = styled.div`
@@ -120,9 +90,9 @@ export const ContentHeader = ({
       $hasVisual={hasVisual}
     >
       <Intro className="content-page-intro">
-        <p className="eyebrow">{eyebrow}</p>
-        <Title id="content-page-title" $register={register}>{title}</Title>
-        {metadata === undefined ? null : <p className="content-header__metadata editorial-meta content-date">{metadata}</p>}
+        <HeaderEyebrow>{eyebrow}</HeaderEyebrow>
+        <PageTitle id="content-page-title" register={register}>{title}</PageTitle>
+        {metadata === undefined ? null : <HeaderMetadata items={metadata} />}
         <Summary className="content-summary">{summary}</Summary>
         {status}
       </Intro>

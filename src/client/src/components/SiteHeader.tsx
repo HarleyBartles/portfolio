@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { SiteFrame } from './SiteFrame'
 
 const primaryLinks = [
   { to: '/projects', label: 'Projects' },
@@ -26,12 +27,10 @@ const SkipLink = styled.a`
   }
 `
 
-const Header = styled.header`
+const Header = styled(SiteFrame).attrs({ as: 'header' })`
   position: relative;
   z-index: 10;
   display: flex;
-  width: min(calc(100% - ${({ theme }) => theme.space.lg} - ${({ theme }) => theme.space.lg}), ${({ theme }) => theme.layout.maxWidth});
-  margin-inline: auto;
   gap: ${({ theme }) => theme.space.lg};
   align-items: center;
   justify-content: space-between;
@@ -39,7 +38,6 @@ const Header = styled.header`
   padding-block: ${({ theme }) => theme.space.m};
 
   @media (max-width: 46rem) {
-    width: min(calc(100% - ${({ theme }) => theme.space.md} - ${({ theme }) => theme.space.md}), ${({ theme }) => theme.layout.maxWidth});
     align-items: flex-start;
   }
 
@@ -161,7 +159,7 @@ export const SiteHeader = ({ showName = false }: { showName?: boolean }) => {
       <SkipLink className="skip-link" href="#main-content">
         Skip to content
       </SkipLink>
-      <Header className="site-header">
+      <Header className="site-header" data-site-frame>
         <SiteMark className="site-mark" to="/" aria-label="Harley Bartles, home" $showName={showName}>
           <img src={`${import.meta.env.BASE_URL}brand/hb-mark.svg`} alt="" width="52" height="52" />
           {showName ? <SiteIdentityName className="site-identity-name">Harley Bartles</SiteIdentityName> : null}

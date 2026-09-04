@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import styled from 'styled-components'
 import { SiteFooter } from './SiteFooter'
+import { SiteFrame } from './SiteFrame'
 import { SiteHeader } from './SiteHeader'
 
 export type SiteSurface = 'home' | 'interior'
@@ -20,15 +21,7 @@ const SiteShell = styled.div<{ $surface: SiteSurface }>`
   ` : ''}
 `
 
-const Main = styled.main`
-  width: min(calc(100% - ${({ theme }) => theme.space.lg} - ${({ theme }) => theme.space.lg}), ${({ theme }) => theme.layout.maxWidth});
-  min-width: 0;
-  margin-inline: auto;
-
-  @media (max-width: 46rem) {
-    width: min(calc(100% - ${({ theme }) => theme.space.md} - ${({ theme }) => theme.space.md}), ${({ theme }) => theme.layout.maxWidth});
-  }
-`
+const Main = styled(SiteFrame).attrs({ as: 'main' })``
 
 export const SiteLayout = ({ children, surface = 'interior' }: {
   children: ReactNode
@@ -42,7 +35,7 @@ export const SiteLayout = ({ children, surface = 'interior' }: {
       $surface={surface}
     >
       <SiteHeader showName={surface === 'interior'} />
-      <Main className="site-main" id="main-content">{children}</Main>
+      <Main className="site-main" id="main-content" data-site-frame>{children}</Main>
       <SiteFooter />
     </SiteShell>
   )

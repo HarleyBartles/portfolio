@@ -43,14 +43,12 @@ type WritingMetadataProps = {
 
 const getWritingMetadata = ({ date, readingMinutes }: WritingMetadataProps) => {
   const formattedDate = formatContentDate(date)
-  if (formattedDate === null && readingMinutes === undefined) return undefined
+  const items = [
+    ...(formattedDate === null ? [] : [formattedDate]),
+    ...(readingMinutes === undefined ? [] : [`${readingMinutes} min read`]),
+  ]
 
-  return (
-    <>
-      {formattedDate === null ? null : <span>{formattedDate}</span>}
-      {readingMinutes === undefined ? null : <span>{readingMinutes} min read</span>}
-    </>
-  )
+  return items.length === 0 ? undefined : items
 }
 
 const ContentLoadingState = () => {

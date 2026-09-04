@@ -1,17 +1,12 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ExternalLink } from './ExternalLink'
+import { SiteFrame } from './SiteFrame'
 
-const Footer = styled.footer`
-  width: min(calc(100% - ${({ theme }) => theme.space.lg} - ${({ theme }) => theme.space.lg}), ${({ theme }) => theme.layout.maxWidth});
-  margin-inline: auto;
+const Footer = styled(SiteFrame).attrs({ as: 'footer' })`
   border-top: 1px solid rgb(31 36 31 / 22%);
   padding-block: ${({ theme }) => theme.space.xl};
   color: ${({ theme }) => theme.color.muted};
-
-  @media (max-width: 46rem) {
-    width: min(calc(100% - ${({ theme }) => theme.space.md} - ${({ theme }) => theme.space.md}), ${({ theme }) => theme.layout.maxWidth});
-  }
 `
 
 const FooterLinks = styled.ul`
@@ -37,7 +32,7 @@ const FooterCopyright = styled.p`
 
 export const SiteFooter = () => {
   return (
-    <Footer className="site-footer">
+    <Footer className="site-footer" data-site-frame>
       <FooterLinks className="footer-links" aria-label="Footer links">
         <li><ExternalLink href="https://github.com/HarleyBartles">GitHub</ExternalLink></li>
         <li><Link to="/projects">Projects</Link></li>

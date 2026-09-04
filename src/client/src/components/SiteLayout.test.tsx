@@ -56,6 +56,7 @@ describe('SiteLayout', () => {
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content')
     expect(screen.getByRole('main')).toHaveTextContent('Portfolio content')
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
+    expect(document.querySelectorAll('[data-site-frame]')).toHaveLength(3)
 
     const skipLink = screen.getByRole('link', { name: 'Skip to content' })
     expect(skipLink).toHaveAttribute('href', '#main-content')

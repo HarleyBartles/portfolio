@@ -17,7 +17,7 @@ test('renders the content hierarchy and optional slots in semantic order', () =>
     eyebrow: 'project',
     title: 'A public project',
     summary: 'A concise project proposition.',
-    metadata: <span>September 2026</span>,
+    metadata: ['September 2026'],
     status: <p data-testid="status">Status live</p>,
     visual: <div data-testid="visual">Evidence</div>,
     visualContract: 'project-hero',

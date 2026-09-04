@@ -1,4 +1,4 @@
-.site-shell--interior :is(.eyebrow, .feature-meta, .article-date, .content-date, .content-status, .editorial-meta) {
+.site-shell--interior :is(.eyebrow, .feature-meta, .article-date) {
   overflow-wrap: anywhere;
   color: var(--color-muted);
   font-family: var(--font-site-sans);
@@ -9,7 +9,7 @@
   text-transform: none;
 }
 
-.site-shell--interior :is(.content-index h1, .about-page h1) {
+.site-shell--interior .about-page h1 {
   font-size: var(--type-site-display-size);
   line-height: var(--type-site-display-leading);
   letter-spacing: var(--type-site-display-tracking);
@@ -39,9 +39,4 @@
   letter-spacing: 0;
   line-height: 1.5;
   text-transform: none;
-}
-
-.site-shell--interior .content-status span,
-.site-shell--interior .editorial-meta span + span::before {
-  color: currentColor;
 }

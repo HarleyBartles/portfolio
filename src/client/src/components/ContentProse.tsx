@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { ExternalLink } from './ExternalLink'
 import styled, { css } from 'styled-components'
+import { SectionTitle } from './content/PublicationPrimitives'
 
 export type ContentProseRegister = 'site-sans' | 'article-serif'
 export type ContentProseLayout = 'reading' | 'illustrated-story'
@@ -25,14 +26,6 @@ const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseR
       margin-left: auto;
     }
   ` : ''}
-
-  h2 {
-    margin: ${({ theme }) => theme.space.xxl} 0 ${({ theme }) => theme.space.md};
-    font-family: ${({ theme }) => theme.font.display};
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
-    line-height: 1.03;
-    letter-spacing: -0.035em;
-  }
 
   h3 {
     margin: ${({ theme }) => theme.space.xl} 0 ${({ theme }) => theme.space.sm};
@@ -107,6 +100,10 @@ const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseR
   ` : ''}
 `
 
+const ProseSectionTitle = styled(SectionTitle)`
+  margin: ${({ theme }) => theme.space.xxl} 0 ${({ theme }) => theme.space.md};
+`
+
 function isExternalHttpLink(href: string | undefined): boolean {
   return href !== undefined && /^https?:\/\//i.test(href)
 }
@@ -153,6 +150,7 @@ export const ContentProse = ({ markdown, register, layout = 'reading' }: Content
       <ReactMarkdown
         components={{
           a: MarkdownLink,
+          h2: ProseSectionTitle,
           img: MarkdownImage,
         }}
         skipHtml

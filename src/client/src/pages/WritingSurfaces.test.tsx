@@ -50,7 +50,7 @@ describe('Writing discovery surfaces', () => {
 
     expect(article).toHaveAttribute('data-visual-language', 'authored-longform')
     expect(article).toHaveAttribute('data-type-register', 'article-serif')
-    expect(screen.getByText(/min read/).closest('.editorial-meta')).toBeInTheDocument()
+    expect(screen.getByText(/min read/).closest('[data-metadata-row]')).toBeInTheDocument()
   })
 
   test('uses the selected Writing edition on the homepage without restoring a featured deck', async () => {

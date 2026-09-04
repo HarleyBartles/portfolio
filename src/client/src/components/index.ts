@@ -13,10 +13,12 @@ export type { PatchStoryMedia } from './PatchStoryIndexEntry'
 export { PortfolioThemeProvider } from './PortfolioThemeProvider'
 export { ProjectIndexEntry } from './ProjectIndexEntry'
 export { ProjectStatus } from './ProjectStatus'
+export type { ProjectStatusTone } from './ProjectStatus'
 export { RelatedContent } from './RelatedContent'
 export { RouteErrorBoundary } from './RouteErrorBoundary'
 export { ShareAction } from './ShareAction'
 export { SiteFooter } from './SiteFooter'
+export { SiteFrame } from './SiteFrame'
 export { SiteHeader } from './SiteHeader'
 export { SiteLayout } from './SiteLayout'
 export { StatePanel } from './StatePanel'
@@ -26,8 +28,17 @@ export {
   ArticleBody,
   ContentArticle,
   ContentHeader,
+  Eyebrow,
+  IndexEntrySummary,
+  IndexEntryTitle,
+  IndexEntryVisualLink,
   IndexHeader,
+  MetadataRow,
+  PageLead,
+  PageTitle,
+  SectionTitle,
 } from './content'
+export type { EyebrowVariant, PublicationRegister } from './content'
 
 export {
   EditorialBalancedHeading,

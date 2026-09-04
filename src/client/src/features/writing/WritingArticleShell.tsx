@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react'
 import { ContentHeader, ShareAction } from '../../components'
-import { AuthoredContinuations } from './AuthoredContinuations'
-import { WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
+import { WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
 
 type WritingArticleShellProps = {
   eyebrow: string
   title: string
   summary: string
-  metadata?: ReactNode
+  metadata?: readonly ReactNode[]
   visualContract: string
   regionLabel?: string
   headerVisual?: ReactNode
@@ -51,7 +50,7 @@ export const WritingArticleShell = ({
           <h2 id="writing-continuations-title">Continue reading</h2>
           <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
         </WritingContinuationsUnavailable>
-      ) : <AuthoredContinuations items={continuations} />}
+      ) : <WritingContinuations items={continuations} />}
       <ShareAction title={share.title} path={share.path} />
     </>
   )

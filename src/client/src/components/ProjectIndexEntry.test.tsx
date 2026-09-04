@@ -27,5 +27,7 @@ test('renders a visual supplied by the project index page', () => {
     </PortfolioThemeProvider>,
   )
 
-  expect(screen.getByTestId('project-visual')).toBeInTheDocument()
+  const visual = screen.getByTestId('project-visual')
+  expect(visual).toBeInTheDocument()
+  expect(visual.closest('[data-visual-slot]')).toBeInTheDocument()
 })

@@ -1,14 +1,14 @@
 # Portfolio Design Policy
 
-Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route boundaries and quality gates. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
+Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route composition and quality gates. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
 
-## Current visual contract and route boundary
+## Current visual contract
 
 Across the site, use a cool-mineral substrate as shared ground. Source Sans 3 carries the site voice, Source Serif 4 is reserved for authored reading, and Source Code Pro carries technical material and compact utility text. Project-native colour and art direction may leave an artefact only when the surrounding evidence earns them, and their authority stays bounded to that relationship.
 
-Non-home routes use a disciplined rectilinear grid, artifact-first evidence, relationship-led cadence and a quiet single-flow shell. Interruptions such as rails, fields and asymmetry are rare and evidence-earned, not route quotas.
+The shared composition grammar favours a disciplined rectilinear grid, artifact-first evidence, relationship-led cadence and a quiet reading flow. Individual routes may own different arrangements when their content earns them; interruptions such as rails, fields and asymmetry are evidence-led decisions, not route quotas or a boundary between separate visual systems.
 
-The homepage is a deterministic six-movement editorial composition with no autoplay. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
+Within that same site-wide system, the homepage owns a deterministic six-movement editorial composition with no autoplay. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
 
 ## Purpose and audience
 
@@ -101,9 +101,7 @@ These portfolio-wide defaults are intentional, but replaceable through the chang
 - explicit hiring and contact language concentrated on About;
 - public deep routes with route-specific metadata and an honest unknown-route fallback.
 
-For non-home routes, protect the cool-mineral shared substrate; shared Source family roles; disciplined rectilinear grid; artifact-first evidence; relationship-led cadence; quiet single-flow shell; and bounded, evidence-earned use of project-native colour and interruption.
-
-On `/`, protect the cool-mineral shared ground; bounded project-native colour and material; shared Source family roles; evidence-earned asymmetry; and the deterministic six-movement edition with no autoplay.
+Across every route, protect the cool-mineral shared substrate; shared Source family roles; disciplined composition; artifact-first evidence; relationship-led cadence; readable flow; and bounded, evidence-earned use of project-native colour and interruption. A route may carry its own choreography without becoming a separate visual system. The homepage additionally protects its deterministic six-movement edition with no autoplay.
 
 Do not encode these choices as brittle assertions about exact prose, DOM class names, or every colour value. Test the outcomes that make them valuable: accessible controls, route correctness, content integrity, privacy, asset custody, performance budgets, and deliberately chosen visual baselines.
 

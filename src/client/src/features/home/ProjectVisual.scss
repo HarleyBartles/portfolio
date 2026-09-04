@@ -280,15 +280,7 @@
 }
 
 @media (min-width: 46.01rem) {
-  .editorial-index-grid--projects .editorial-card-visual {
-    height: clamp(13rem, 24vw, 18rem);
-  }
-
-  .editorial-index-grid--projects .editorial-card-visual > .project-visual {
-    height: 100%;
-  }
-
-  .editorial-index-grid--projects .project-visual--patch-index {
+  .project-visual--patch-index {
     aspect-ratio: auto;
   }
 }

@@ -104,8 +104,6 @@ ul {
 .eyebrow,
 .feature-meta,
 .article-date,
-.content-date,
-.content-status,
 .project-visual figcaption {
   color: var(--color-accent);
   font-family: var(--font-code);
@@ -174,8 +172,6 @@ ul {
 }
 
 .section-heading h2,
-.content-index h1,
-.content-page h1,
 .about-page h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -1170,10 +1166,6 @@ ul {
     animation-iteration-count: 1 !important;
   }
 
-  .editorial-card-visual:hover .project-visual,
-  .editorial-card-visual:hover .editorial-card-media {
-    transform: none;
-  }
 }
 
 /* Phase 1: About is the site's explicit professional reading surface. */

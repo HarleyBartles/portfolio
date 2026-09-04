@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
 import styled from 'styled-components'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata, IndexHeader, ProjectIndexEntry, SiteLayout } from '../components'
+import { DocumentMetadata, IndexHeader, ProjectIndexEntry, SiteLayout, type ProjectStatusTone } from '../components'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 import { getProjectSummaries } from '../data'
@@ -48,6 +48,10 @@ const projectVisualSlugs = new Set<ProjectVisualSlug>([
   'wild-bunch',
 ])
 
+const projectStatusTones: Partial<Record<string, ProjectStatusTone>> = {
+  'adventures-of-patch': 'active-project',
+}
+
 export function orderProjectIndex<T extends { slug: string }>(projects: readonly T[]): T[] {
   return [...projects].sort((left, right) => {
     const leftRank = projectIndexOrder.get(left.slug) ?? Number.MAX_SAFE_INTEGER
@@ -88,6 +92,7 @@ export const ProjectIndexPage = () => {
                   item={item}
                   index={index}
                   key={item.slug}
+                  statusTone={projectStatusTones[item.slug]}
                   visual={visualSlug === undefined ? undefined : <ProjectVisual slug={visualSlug} placement="index" />}
                 />
               )

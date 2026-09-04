@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { buildPublicUrl } from '../data/routes/siteProfile'
+import { Eyebrow } from './content'
 
 type ShareActionProps = {
   title: string
@@ -23,10 +24,6 @@ const ShareSection = styled.section`
     font-size: clamp(1.45rem, 3vw, 2rem);
   }
 
-  > p:not(.eyebrow):not(.visually-hidden) {
-    color: ${({ theme }) => theme.color.muted};
-  }
-
   .share-action__controls {
     display: grid;
     gap: ${({ theme }) => theme.space.sm};
@@ -45,6 +42,10 @@ const ShareSection = styled.section`
     font-family: ${({ theme }) => theme.font.code};
     font-size: 0.72rem;
   }
+`
+
+const ShareCopy = styled.p`
+  color: ${({ theme }) => theme.color.muted};
 `
 
 export const ShareAction = ({ title, path }: ShareActionProps) => {
@@ -74,9 +75,9 @@ export const ShareAction = ({ title, path }: ShareActionProps) => {
 
   return (
     <ShareSection className="share-action" aria-labelledby="share-action-title">
-      <p className="eyebrow">Pass it on</p>
+      <Eyebrow>Pass it on</Eyebrow>
       <h2 id="share-action-title">Keep the receipt</h2>
-      <p>Share the canonical link, or keep it somewhere useful for later.</p>
+      <ShareCopy>Share the canonical link, or keep it somewhere useful for later.</ShareCopy>
       <div className="share-action__controls">
         <button type="button" className="button-link" onClick={() => void share()}>
           {supportsNativeShare ? 'Share this article' : 'Copy article link'}

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Eyebrow, PageLead, PageTitle } from './PublicationPrimitives'
 
 type IndexHeaderProps = {
   eyebrow: string
@@ -29,26 +30,22 @@ const Header = styled.header<{ $layout: 'single' | 'split' }>`
 
 const Copy = styled.div`
   min-width: 0;
-
-  > .eyebrow {
-    margin: 0 0 ${({ theme }) => theme.space.md};
-  }
 `
 
-const Summary = styled.p<{ $layout: 'single' | 'split' }>`
-  max-width: 42rem;
+const HeaderEyebrow = styled(Eyebrow)`
+  margin-bottom: ${({ theme }) => theme.space.md};
+`
+
+const Summary = styled(PageLead)<{ $layout: 'single' | 'split' }>`
   margin: ${({ $layout, theme }) => $layout === 'split' ? '0' : `${theme.space.lg} 0 0`};
-  color: ${({ theme }) => theme.color.muted};
-  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-  line-height: 1.45;
 `
 
 export const IndexHeader = ({ eyebrow, title, summary, layout = 'single', headingId = 'index-header-title' }: IndexHeaderProps) => {
   return (
     <Header className={`index-intro${layout === 'split' ? ' index-intro--split' : ''}`} data-index-layout={layout} $layout={layout}>
       <Copy>
-        <p className="eyebrow">{eyebrow}</p>
-        <h1 id={headingId}>{title}</h1>
+        <HeaderEyebrow>{eyebrow}</HeaderEyebrow>
+        <PageTitle id={headingId} register="site-sans">{title}</PageTitle>
       </Copy>
       <Summary className="content-summary" $layout={layout}>{summary}</Summary>
     </Header>

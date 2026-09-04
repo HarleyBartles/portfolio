@@ -52,7 +52,7 @@ describe('ContentPage specialist presentation boundary', () => {
     const article = title.closest('article') as HTMLElement
     expect(article).not.toHaveAttribute('data-publication-state')
     const precis = within(article).getByText('Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.')
-    const metadata = article.querySelector('.editorial-meta') as HTMLElement
+    const metadata = article.querySelector('[data-metadata-row]') as HTMLElement
     const firstParagraph = article.querySelector('.content-page-body p') as HTMLElement
     expect(within(article).queryByText('Chassis was already winning.', { exact: true })).not.toBeInTheDocument()
     expect(firstParagraph).toHaveTextContent('I was looking for a face for The Usual Specialists.')
@@ -76,13 +76,13 @@ describe('ContentPage specialist presentation boundary', () => {
       'href',
       '/portfolio/projects/adventures-of-patch',
     )
-    expect(within(related).getByText('Patch story', { selector: '.writing-continuations__eyebrow' })).toBeVisible()
-    expect(within(related).getByText('Project story', { selector: '.writing-continuations__eyebrow' })).toBeVisible()
+    expect(within(related).getByText('Patch story', { selector: '[data-eyebrow]' })).toBeVisible()
+    expect(within(related).getByText('Project story', { selector: '[data-eyebrow]' })).toBeVisible()
     expect(within(article).getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
     expect(within(article).getByRole('button', { name: 'Copy article link' })).toBeVisible()
     expect(within(article).getByRole('link', { name: /harleybartles.com\/writing\/how-the-invisibles/ })).toBeVisible()
     expect(article.querySelector('.content-navigation')).toBeNull()
-    expect(container.querySelectorAll('.editorial-meta')).toHaveLength(1)
+    expect(container.querySelectorAll('[data-metadata-row]')).toHaveLength(1)
   })
 
   test('does not invent continuation links for a writing article without authored choices', async () => {

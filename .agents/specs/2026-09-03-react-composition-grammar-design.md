@@ -50,7 +50,7 @@ The problem is visible at every level:
 | Case studies | thin wrappers such as `CaseStudyBody`, `CaseStudySection`, `CaseStudyDecision`, `CaseStudyEvidence` plus large route SCSS | several "components" are mostly aliases for HTML/class recipes |
 | Authored article figures | paired TSX/SCSS files | article-specific components own semantics but not yet their complete visual contract |
 | Patch showcase | large bespoke TSX/SCSS compositions | art direction is valid, but ownership is still split across markup and external CSS |
-| Homepage | about 53 KB across `HomePage.scss` and `ProjectVisual.scss`, plus movement components | large accepted bespoke system; high migration risk and a separate protected visual boundary |
+| Homepage | about 53 KB across `HomePage.scss` and `ProjectVisual.scss`, plus movement components | large accepted route-owned composition within the shared site system; high migration risk |
 
 `global.scss` currently owns both legitimate document foundations and a large amount of component implementation: shell, navigation, common labels, links, content headers, summaries, metadata, statuses, Markdown prose, index cards, writing lists, content navigation, About, CV and print behaviour. `interior.scss` then changes many of those classes through route-wide descendant selectors. This is the central debt.
 
@@ -250,7 +250,7 @@ Open:
 
 - `src/client/src/pages/ContentPage.tsx`;
 - `src/client/src/features/writing/WritingArticleShell.tsx`;
-- `WritingContinuations.tsx` and `AuthoredContinuations.tsx`;
+- `WritingContinuations.tsx` (the forwarding `AuthoredContinuations` wrapper is retired in Slice B);
 - `src/client/src/components/ContentProse.tsx`;
 - `ShareAction.tsx`, `ContentNavigation.tsx`, `RelatedContent.tsx`, `ProjectStatus.tsx`;
 - `EditorialIndexCard.tsx`;
@@ -328,13 +328,13 @@ Preserve comic/evidence choreography, asset custody, missing-media behaviour and
 
 ### Slice G — homepage, last
 
-The homepage is deliberately last and should be its own plan/PR.
+The homepage is deliberately last and should be handled in its own bounded plan/PR.
 
-`HomePage.scss` and `ProjectVisual.scss` together account for more than 50 KB of the audited stylesheet source, but `/` is a protected visual boundary with a distinct accepted direction and edition seam. It is the wrong proving ground for the architecture migration.
+`HomePage.scss` and `ProjectVisual.scss` together account for more than 50 KB of the audited stylesheet source, and `/` has substantial route-owned choreography and an edition seam. It is the wrong proving ground for the first architecture migration, but it remains part of the same site-wide visual system.
 
 After the shared component model is stable, migrate the accepted homepage movements to self-owned components without changing their appearance, choreography, current edition, destination-owned teaser model or visual-regression contracts.
 
-The homepage may consume true shell/action foundations. It must not accidentally inherit non-home typography, substrate or composition rules merely because those foundations now use styled-components.
+The homepage may consume true shell/action foundations and belongs to the same site-wide typography and substrate system. Its route-owned movement choreography must not be flattened merely because those foundations now use styled-components.
 
 Keep the large route-level movement boundaries where they describe real editorial folds. Within each movement, inspect for meaningful seams such as movement framing and anchor ownership; heading, context and copy groups; route actions and next-movement handoff; project-specific proof units; typed repeated lists or sequences; media fallbacks; and local interaction or failure state.
 

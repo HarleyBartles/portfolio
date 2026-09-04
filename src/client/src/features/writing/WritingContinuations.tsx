@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Eyebrow } from '../../components'
 
 export type WritingContinuation = {
   slug: string
@@ -12,13 +13,16 @@ type WritingContinuationsProps = {
   items: readonly WritingContinuation[]
 }
 
-const Continuations = styled.nav`
+const ContinuationFrame = styled.section`
   display: grid;
   gap: ${({ theme }) => theme.space.sm};
   max-width: ${({ theme }) => theme.layout.readingMeasure};
   margin-top: ${({ theme }) => theme.space.xxxl};
   padding-top: ${({ theme }) => theme.space.xl};
   border-top: 1px solid ${({ theme }) => theme.color.border};
+`
+
+const Continuations = styled(ContinuationFrame).attrs({ as: 'nav' })`
 
   h2 {
     margin: 0 0 ${({ theme }) => theme.space.xs};
@@ -54,23 +58,9 @@ const Continuations = styled.nav`
     font-size: 1.2rem;
   }
 
-  .writing-continuations__eyebrow {
-    font-family: ${({ theme }) => theme.font.code};
-    font-size: 0.72rem;
-    letter-spacing: 0.035em;
-    text-transform: uppercase;
-    color: ${({ theme }) => theme.color.accent};
-  }
 `
 
-export const WritingContinuationsUnavailable = styled.section`
-  display: grid;
-  gap: ${({ theme }) => theme.space.sm};
-  max-width: ${({ theme }) => theme.layout.readingMeasure};
-  margin-top: ${({ theme }) => theme.space.xxxl};
-  padding-top: ${({ theme }) => theme.space.xl};
-  border-top: 1px solid ${({ theme }) => theme.color.border};
-
+export const WritingContinuationsUnavailable = styled(ContinuationFrame)`
   h2 {
     margin: 0 0 ${({ theme }) => theme.space.sm};
     font-family: ${({ theme }) => theme.font.display};
@@ -80,6 +70,10 @@ export const WritingContinuationsUnavailable = styled.section`
     color: ${({ theme }) => theme.color.muted};
   }
 `
+
+const ContinuationEyebrow = ({ children }: { children: string }) => (
+  <Eyebrow as="span" variant="utility">{children}</Eyebrow>
+)
 
 export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
   if (items.length === 0) return null
@@ -91,7 +85,7 @@ export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
         {items.map((item) => (
           <li key={item.slug}>
             <Link to={item.href}>
-              <span className="writing-continuations__eyebrow">{item.eyebrow}</span>
+              <ContinuationEyebrow>{item.eyebrow}</ContinuationEyebrow>
               <strong>{item.title}</strong>
             </Link>
           </li>

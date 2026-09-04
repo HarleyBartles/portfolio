@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { getContentPath, type ContentSummary } from '../types'
+import { SectionTitle } from './content'
 
 type RelatedContentProps = {
   slugs: string[]
@@ -12,14 +13,6 @@ const RelatedSection = styled.section`
   margin-top: ${({ theme }) => theme.space.xxxl};
   border-top: 1px solid rgb(31 36 31 / 22%);
   padding-top: ${({ theme }) => theme.space.xl};
-
-  h2 {
-    margin-top: 0;
-    font-family: ${({ theme }) => theme.font.display};
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
-    line-height: 1.03;
-    letter-spacing: -0.035em;
-  }
 
   ul {
     display: grid;
@@ -41,6 +34,10 @@ const RelatedSection = styled.section`
   }
 `
 
+const RelatedTitle = styled(SectionTitle)`
+  margin-top: 0;
+`
+
 export const RelatedContent = ({
   slugs,
   summaries,
@@ -53,7 +50,7 @@ export const RelatedContent = ({
   if (unavailable) {
     return (
       <RelatedSection className="related-content" aria-labelledby="related-content-title">
-        <h2 id="related-content-title">Related content</h2>
+        <RelatedTitle id="related-content-title">Related content</RelatedTitle>
         <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
       </RelatedSection>
     )
@@ -69,7 +66,7 @@ export const RelatedContent = ({
 
   return (
     <RelatedSection as="nav" className="related-content" aria-label="Related content">
-      <h2>Related content</h2>
+      <RelatedTitle>Related content</RelatedTitle>
       <ul>
         {relatedItems.map((item) => (
           <li key={item.slug}>

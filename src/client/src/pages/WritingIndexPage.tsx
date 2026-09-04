@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata, IndexHeader, SiteLayout, WritingIndexEntry } from '../components'
+import { DocumentMetadata, Eyebrow, IndexHeader, SiteLayout, WritingIndexEntry } from '../components'
 import { sortWriting } from '../utils'
 import type { ContentSummaryOf } from '../types'
 import { ErrorPage } from './ErrorPage'
@@ -10,10 +10,10 @@ import '../styles/interior.scss'
 
 const WritingList = styled.section`
   margin-top: clamp(${({ theme }) => theme.space.xxl}, 9vw, ${({ theme }) => theme.space.xxxxl});
+`
 
-  > .eyebrow {
-    margin-bottom: ${({ theme }) => theme.space.m};
-  }
+const WritingListEyebrow = styled(Eyebrow)`
+  margin-bottom: ${({ theme }) => theme.space.m};
 `
 
 export const WritingIndexPage = () => {
@@ -39,7 +39,7 @@ export const WritingIndexPage = () => {
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess && writing.length > 0 ? (
           <WritingList className="writing-list" aria-label="Writing, newest first" data-visual-contract="writing-peer-list">
-            <p className="eyebrow">All writing / newest first</p>
+            <WritingListEyebrow>All writing / newest first</WritingListEyebrow>
             {writing.map((item, index) => <WritingIndexEntry item={item} index={index} key={item.slug} />)}
           </WritingList>
         ) : null}

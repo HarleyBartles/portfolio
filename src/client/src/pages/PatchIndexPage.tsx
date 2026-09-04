@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata, IndexHeader, PatchStoryIndexEntry, SiteLayout, type PatchStoryMedia } from '../components'
+import { DocumentMetadata, Eyebrow, IndexHeader, PatchStoryIndexEntry, SiteLayout, type PatchStoryMedia } from '../components'
 import { getInFlightWorlds } from '../features/case-study/patch/patchEvidence'
 import '../features/patch-showcase/PatchShowcase.scss'
 import { ErrorPage } from './ErrorPage'
@@ -61,7 +61,7 @@ export const PatchIndexPage = () => {
           <>
             <section className="patch-index__group" aria-labelledby="patch-fairytales-title">
               <div className="patch-index__group-heading">
-                <p className="eyebrow">Short form</p>
+                <Eyebrow>Short form</Eyebrow>
                 <h2 id="patch-fairytales-title">One-page fairytales</h2>
                 <p>One familiar story, one operational lesson, one useful action.</p>
               </div>
@@ -71,7 +71,7 @@ export const PatchIndexPage = () => {
             </section>
             <section className="patch-index__group" aria-labelledby="patch-adventures-title">
               <div className="patch-index__group-heading">
-                <p className="eyebrow">Long form</p>
+                <Eyebrow>Long form</Eyebrow>
                 <h2 id="patch-adventures-title">Larger adventures</h2>
                 <p>Broader worlds with room for the failure modes, the joke and the engineering consequence.</p>
               </div>
