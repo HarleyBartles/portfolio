@@ -118,7 +118,7 @@ const SpecialistPresentationLoading = () => {
   )
 }
 
-const ProjectVisualLoading = () => <div aria-hidden="true" data-loading="project-visual" />
+const ProjectVisualLoading = () => <div className="project-visual-loading" aria-hidden="true" data-loading="project-visual" />
 
 type ArticleBodyContentProps = {
   presentation?: ComponentType
