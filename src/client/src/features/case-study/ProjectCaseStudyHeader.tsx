@@ -154,39 +154,37 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
   ` : ''}
 
   ${({ $layout }) => $layout === 'patch' ? css`
-    isolation: isolate;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(17rem, 5fr) minmax(18rem, 5fr);
     gap: 0;
     align-items: stretch;
-    min-height: clamp(32rem, 52vw, 43rem);
     padding: 0;
     overflow: hidden;
-    background: var(--color-interior-canvas);
+    background: var(--color-patch-field);
     border: 1px solid var(--color-border);
-
-    ${Visual},
-    ${Intro} {
-      grid-area: 1 / 1;
-    }
 
     ${Visual} {
       min-width: 0;
+      grid-row: 1 / 3;
+      order: 1;
     }
 
     ${Intro} {
-      z-index: 1;
-      align-self: center;
-      justify-self: end;
-      width: min(46%, 35rem);
-      margin-right: clamp(var(--space-6), 6vw, var(--space-20));
-      padding: var(--space-8) 0;
+      align-self: end;
+      order: 2;
+      padding: clamp(var(--space-8), 6vw, var(--space-16)) clamp(var(--space-8), 6vw, var(--space-16)) var(--space-6);
+    }
+
+    ${StatusAnchor} {
+      align-self: start;
+      order: 3;
+      padding: 0 clamp(var(--space-8), 6vw, var(--space-16)) clamp(var(--space-8), 6vw, var(--space-16));
     }
 
   ` : ''}
 
   @media (max-width: 64rem) {
-    ${({ $hasVisual }) => $hasVisual ? 'grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);' : ''}
+    ${({ $hasVisual, $layout }) => $hasVisual && $layout !== 'patch' ? 'grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);' : ''}
 
     ${({ $layout }) => $layout === 'learning-lab' ? css`
       grid-template-columns: 1fr;
@@ -246,20 +244,26 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       padding: var(--space-8) var(--space-6) 0;
 
       ${Intro} {
+        order: 1;
         min-width: 0;
-        width: auto;
         margin: 0 0 var(--space-6);
         padding: 0;
       }
 
       ${Visual} {
-        width: calc(100% + (2 * var(--space-6)));
-        margin-inline: calc(var(--space-6) * -1);
+        order: 2;
+        width: 100%;
+        margin: 0;
+      }
+
+      ${StatusAnchor} {
+        order: 3;
+        padding: var(--space-6) 0 var(--space-8);
       }
 
       ${VisualFallback} {
         min-height: 0;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 5 / 4;
       }
     ` : ''}
   }
@@ -293,9 +297,9 @@ export function ProjectCaseStudyHeader({
         {eyebrow === undefined ? null : <HeaderEyebrow>{eyebrow}</HeaderEyebrow>}
         <HeaderTitle id="content-page-title" register="site-sans" $layout={layout}>{title}</HeaderTitle>
         <Summary $layout={layout}>{summary}</Summary>
-        {layout === 'wild-bunch' ? null : <ProjectStatus status={status} />}
+        {layout === 'wild-bunch' || layout === 'patch' ? null : <ProjectStatus status={status} />}
       </Intro>
-      {layout === 'wild-bunch' ? <StatusAnchor data-project-case-study-status><HeaderStatus status={status} /></StatusAnchor> : null}
+      {layout === 'wild-bunch' || layout === 'patch' ? <StatusAnchor data-project-case-study-status><HeaderStatus status={status} /></StatusAnchor> : null}
       {hasVisual ? <Visual data-project-case-study-visual>{renderedVisual}</Visual> : null}
     </Header>
   )

@@ -26,17 +26,17 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
     return (
       <picture
         className={`project-visual project-visual--patch${placement === 'index' ? ' project-visual--patch-index' : ''}${placement === 'case-study-hero' ? ' project-visual--patch-case-study' : ''}`}
-        data-visual-contract={placement === 'index' ? 'adventures-of-patch-index-crop' : 'adventures-of-patch-preview'}
+        data-visual-contract={placement === 'index' ? 'adventures-of-patch-index-whole-character' : 'adventures-of-patch-preview'}
       >
-        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.avif')} type="image/avif" />
-        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.webp')} type="image/webp" />
-        <source srcSet={assetPath('/media/patch/patch-hero-720.avif')} type="image/avif" />
-        <source srcSet={assetPath('/media/patch/patch-hero-720.webp')} type="image/webp" />
+        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1000.avif')} type="image/avif" />
+        <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1000.webp')} type="image/webp" />
+        <source srcSet={assetPath('/media/patch/patch-hero-500.avif')} type="image/avif" />
+        <source srcSet={assetPath('/media/patch/patch-hero-500.webp')} type="image/webp" />
         <img
-          src={assetPath('/media/patch/patch-hero-720.webp')}
+          src={assetPath('/media/patch/patch-hero-500.webp')}
           alt="Patch carries an index card and folded map, ready to turn an engineering lesson into a story."
-          width="720"
-          height="403"
+          width="500"
+          height="672"
           loading={eager ? 'eager' : 'lazy'}
           fetchPriority={eager ? 'high' : 'auto'}
         />

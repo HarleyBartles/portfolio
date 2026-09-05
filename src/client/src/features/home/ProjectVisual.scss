@@ -81,27 +81,33 @@
   height: 100%;
 }
 
+.project-visual--patch {
+  display: block;
+}
+
 .project-visual--patch img {
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .project-visual--patch-index {
+  position: relative;
   display: grid;
   place-items: center;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #fbf8ee;
+  background: var(--color-patch-field);
 }
 
 .project-visual--patch-index img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
-  transform: translateX(20%);
 }
 
 @media (min-width: 45rem) {
@@ -118,20 +124,27 @@
   }
 }
 
-@media (min-width: 46.01rem) {
-  .project-visual--patch-index {
-    aspect-ratio: auto;
-  }
+.project-visual--patch-case-study {
+  background: var(--color-patch-field);
+}
+
+.project-visual--patch-case-study img {
+  object-position: center;
 }
 
 @media (max-width: 44rem) {
-  .project-visual--patch-case-study,
-  .project-visual--patch-case-study img {
+  .project-visual--patch-case-study {
     height: auto;
+    aspect-ratio: auto;
+    background: var(--color-patch-field);
   }
 
   .project-visual--patch-case-study img {
-    object-fit: contain;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(36rem, 70vh);
+    margin-inline: auto;
   }
 }
 

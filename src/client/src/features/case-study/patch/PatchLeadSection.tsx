@@ -13,6 +13,15 @@ type PatchLeadSectionProps = {
 
 const LeadSection = styled(CaseStudySection)`
   min-width: 0;
+
+  h2 {
+    max-width: 14ch;
+    margin: 0 0 var(--space-6);
+    color: var(--color-ink);
+    font-size: clamp(2.25rem, 5vw, 4.8rem);
+    line-height: .98;
+    text-wrap: balance;
+  }
 `
 
 const LeadBody = styled.div`

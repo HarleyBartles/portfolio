@@ -9,6 +9,12 @@ import { PatchLeadSection } from './PatchLeadSection'
 import { getPatchAssetPath, getPatchMediaByPath, getPatchRepositoryEvidence } from './patchEvidence'
 import styled from 'styled-components'
 
+const PatchBoundaryEvidence = styled(CaseStudyEvidence)`
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgb(21 63 66 / 30%);
+`
+
 const Patch = styled.div`
   --patch-teal: #0d7476;
   --patch-teal-deep: #153f42;
@@ -19,7 +25,7 @@ const Patch = styled.div`
   margin-inline: auto;
   padding-block: clamp(var(--space-12), 7vw, var(--space-24));
 
-  h2 {
+  .patch-movement__copy > h2 {
     max-width: 14ch;
     margin: 0 0 var(--space-6);
     color: var(--color-ink);
@@ -27,9 +33,6 @@ const Patch = styled.div`
     line-height: 0.98;
     text-wrap: balance;
   }
-
-  h3 { text-wrap: balance; }
-  p { max-width: 67ch; }
 
   .patch-snapshot {
     padding-block: var(--space-5);
@@ -311,7 +314,7 @@ export function PatchPipelineCaseStudy() {
         <PatchLeadSection className="patch-movement patch-boundary" title="What reaches the public record" titleId="patch-boundary-title">
           <p>I use Linear to shape and sequence work, GitHub to prove what has landed, and the published catalogue to mark what&apos;s ready for an audience. The planning surface contains provisional thinking; the public repository carries the smaller set I&apos;m prepared to call evidence.</p>
           <p>Manifests and sidecars record source, status and acceptance. Deterministic receipts record the transforms that produced each public file. That boundary keeps private workshop material private and makes every public claim inspectable at one exact revision.</p>
-          <CaseStudyEvidence variant="boundary" auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
+          <PatchBoundaryEvidence auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
         </PatchLeadSection>
 
         <PatchLeadSection className="patch-movement patch-close" title="Controlled creative production" titleId="patch-close-title">

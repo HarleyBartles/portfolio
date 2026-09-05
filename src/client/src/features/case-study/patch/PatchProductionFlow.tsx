@@ -23,10 +23,10 @@ const Flow = styled.ol`
   > li { padding: var(--space-8) var(--space-6); border-bottom: 1px solid rgb(255 250 240 / 32%); counter-increment: production-stage; }
   > li:not(:nth-child(3n + 1)) { border-left: 1px solid rgb(255 250 240 / 32%); }
   h3 { color: var(--color-surface); text-wrap: balance; }
-  h3::before { display: block; margin-bottom: var(--space-3); color: #75d4d0; font-family: var(--font-code); font-size: .75rem; content: "0" counter(production-stage); }
+  h3::before { display: block; margin-bottom: var(--space-3); color: var(--color-surface); font-family: var(--font-code); font-size: .75rem; content: "0" counter(production-stage); }
   p, dd { color: rgb(255 250 240 / 82%); }
   dl { margin: var(--space-5) 0 0; }
-  dt { margin-top: var(--space-3); color: #75d4d0; font-family: var(--font-code); font-size: .69rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  dt { margin-top: var(--space-3); color: var(--color-surface); font-family: var(--font-code); font-size: .69rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
   dd { margin: var(--space-1) 0 0; font-size: .9rem; line-height: 1.48; }
   @media (max-width: 58rem) {
     grid-template-columns: repeat(2, minmax(0, 1fr));

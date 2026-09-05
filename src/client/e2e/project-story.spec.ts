@@ -433,13 +433,30 @@ test('visitor reaches Adventures of Patch through client navigation and receives
   }
 })
 
+test('project index contains the complete Patch asset without crop or translation', async ({ page }) => {
+  await page.setViewportSize({ width: 688, height: 912 })
+  await page.goto('./projects/')
+
+  const frame = page.locator('[data-visual-contract="adventures-of-patch-index-whole-character"]')
+  const image = frame.getByRole('img')
+  await expect(image).toBeVisible()
+
+  const treatment = await image.evaluate((element) => ({
+    fit: getComputedStyle(element).objectFit,
+    position: getComputedStyle(element).objectPosition,
+    transform: getComputedStyle(element).transform,
+  }))
+
+  expect(treatment).toEqual({ fit: 'contain', position: '50% 50%', transform: 'none' })
+})
+
 test('Adventures of Patch exposes intrinsic media dimensions with one eager hero and lazy evidence', async ({ page }) => {
   await page.goto(patchPath)
 
   const heroRegion = page.locator('[data-visual-contract="patch-case-study-hero"]')
   const hero = heroRegion.getByRole('img')
-  await expect(hero).toHaveAttribute('width', '720')
-  await expect(hero).toHaveAttribute('height', '403')
+  await expect(hero).toHaveAttribute('width', '500')
+  await expect(hero).toHaveAttribute('height', '672')
   await expect(hero).toHaveAttribute('loading', 'eager')
   await expect(hero).toHaveAttribute('fetchpriority', 'high')
   await expect(page.locator('main img[loading="eager"]')).toHaveCount(1)
@@ -449,12 +466,12 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
     const intro = header.querySelector('[data-project-case-study-intro]')!.getBoundingClientRect()
     const bounds = header.getBoundingClientRect()
     return {
-      visualWidthDelta: Math.abs(visual.width - bounds.width),
+      visualShare: visual.width / bounds.width,
       introStart: (intro.x - bounds.x) / bounds.width,
     }
   })
-  expect(desktopComposition.visualWidthDelta).toBeLessThanOrEqual(2)
-  expect(desktopComposition.introStart).toBeGreaterThan(0.44)
+  expect(desktopComposition.visualShare).toBeCloseTo(0.5, 1)
+  expect(desktopComposition.introStart).toBeGreaterThanOrEqual(0.49)
 
   const evidence = page.locator('.patch-case-study img')
   await expect(evidence).toHaveCount(2)
@@ -464,6 +481,84 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
     await expect(image).toHaveAttribute('height', /^\d+$/)
   }
   await expect(page.locator('.patch-case-study figcaption')).toHaveCount(2)
+})
+
+test('Adventures of Patch keeps its cropped artwork and copy in deliberate columns through tablet widths', async ({ page }) => {
+  await page.goto(patchPath)
+
+  for (const width of [705, 738, 1024]) {
+    await page.setViewportSize({ width, height: 862 })
+
+    const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+    await expect(hero.getByRole('img')).toBeVisible()
+    const geometry = await hero.evaluate((element) => {
+      const intro = element.querySelector('[data-project-case-study-intro]')!
+      const visual = element.querySelector('[data-project-case-study-visual]')!
+      const image = visual.querySelector('img')!
+      const bounds = element.getBoundingClientRect()
+      const introBounds = intro.getBoundingClientRect()
+      const visualBounds = visual.getBoundingClientRect()
+      return {
+        display: getComputedStyle(element).display,
+        imageObjectFit: getComputedStyle(image).objectFit,
+        imageObjectPosition: getComputedStyle(image).objectPosition,
+        introStart: (introBounds.left - bounds.left) / bounds.width,
+        visualShare: visualBounds.width / bounds.width,
+        imageContained: image.getBoundingClientRect().left >= visualBounds.left
+          && image.getBoundingClientRect().right <= visualBounds.right
+          && image.getBoundingClientRect().top >= visualBounds.top
+          && image.getBoundingClientRect().bottom <= visualBounds.bottom,
+      }
+    })
+
+    expect(geometry).toMatchObject({
+      display: 'grid',
+      imageObjectFit: 'contain',
+      imageObjectPosition: '50% 50%',
+      imageContained: true,
+    })
+    expect(geometry.visualShare).toBeCloseTo(0.5, 1)
+    expect(geometry.introStart).toBeGreaterThanOrEqual(0.49)
+  }
+})
+
+test('Adventures of Patch stacks its whole hero at the shared narrow breakpoint', async ({ page }) => {
+  await page.setViewportSize({ width: 704, height: 862 })
+  await page.goto(patchPath)
+
+  const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+  await expect(hero.getByRole('img')).toBeVisible()
+  const geometry = await hero.evaluate((element) => {
+    const intro = element.querySelector('[data-project-case-study-intro]')!
+    const visual = element.querySelector('[data-project-case-study-visual]')!
+    const status = element.querySelector('[data-project-case-study-status]')!
+    const image = visual.querySelector('img')!
+    const visualBounds = visual.getBoundingClientRect()
+    return {
+      display: getComputedStyle(element).display,
+      flexDirection: getComputedStyle(element).flexDirection,
+      introBottom: intro.getBoundingClientRect().bottom,
+      introTop: intro.getBoundingClientRect().top,
+      titleMaxWidth: getComputedStyle(intro.querySelector('h1')!).maxWidth,
+      visualTop: visualBounds.top,
+      visualBottom: visualBounds.bottom,
+      statusTop: status.getBoundingClientRect().top,
+      imageObjectFit: getComputedStyle(image).objectFit,
+      imageObjectPosition: getComputedStyle(image).objectPosition,
+      imageTransform: getComputedStyle(image).transform,
+    }
+  })
+
+  expect(geometry).toMatchObject({
+    display: 'flex',
+    flexDirection: 'column',
+    titleMaxWidth: 'none',
+    imageObjectFit: 'contain',
+    imageObjectPosition: '50% 50%',
+  })
+  expect(geometry.visualTop).toBeGreaterThan(geometry.introBottom)
+  expect(geometry.statusTop).toBeGreaterThanOrEqual(geometry.visualBottom)
+  expect(geometry.imageTransform).toBe('none')
 })
 
 test('Identity Emporium role kits share one deliberate image frame', async ({ page }) => {
@@ -528,15 +623,19 @@ test('Adventures of Patch remains complete at narrow and zoom-proxy widths with 
     await expectNoHorizontalOverflow(page)
 
     const geometry = await heroImage.evaluate((image) => {
-      const box = image.getBoundingClientRect()
+      const frame = image.closest('picture')!.getBoundingClientRect()
+      const style = getComputedStyle(image)
       return {
-        objectFit: getComputedStyle(image).objectFit,
-        renderedRatio: box.width / box.height,
-        intrinsicRatio: (image as HTMLImageElement).naturalWidth / (image as HTMLImageElement).naturalHeight,
+        frameRatio: frame.width / frame.height,
+        objectFit: style.objectFit,
+        objectPosition: style.objectPosition,
+        transform: style.transform,
       }
     })
     expect(geometry.objectFit).toBe('contain')
-    expect(Math.abs(geometry.renderedRatio - geometry.intrinsicRatio)).toBeLessThan(0.02)
+    expect(geometry.objectPosition).toBe('50% 50%')
+    expect(geometry.frameRatio).toBeCloseTo(500 / 672, 2)
+    expect(geometry.transform).toBe('none')
 
     for (const heading of [
       'The day the database disappeared',

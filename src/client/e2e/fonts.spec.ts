@@ -100,10 +100,11 @@ test('interior project heroes use the accepted material treatments with a local 
   )
   expect(edgeBlend).toContain('linear-gradient')
 
-  for (const path of ['./projects/agentic-learning-lab/', './projects/adventures-of-patch/']) {
-    await page.goto(path)
-    await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(230, 234, 235)')
-  }
+  await page.goto('./projects/agentic-learning-lab/')
+  await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(230, 234, 235)')
+
+  await page.goto('./projects/adventures-of-patch/')
+  await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(251, 248, 238)')
 })
 
 test('interior routes remain usable with Source font requests blocked', async ({ page }) => {

@@ -11,21 +11,29 @@ import { MarketplaceDistributionMap } from './MarketplaceDistributionMap'
 const repositoryUrl = 'https://github.com/HarleyBartles/agent-asset-marketplace'
 const repoStandardsUrl = `${repositoryUrl}/blob/52866dfb13b257c8d7d98fbb6155f96a7a8ca07e/codex-marketplace/plugins/repo-worker-pack/skills/repo-standards/SKILL.md`
 
+const MarketplaceSectionTitle = styled.h2`
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: .98;
+`
+
+const MarketplaceModelCell = styled.div`
+  padding: var(--space-7);
+
+  h2,
+  p { margin-top: 0; }
+`
+
+const MarketplaceDecisionCell = styled.div`
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-6);
+`
+
 const Marketplace = styled.section`
   display: grid;
   gap: clamp(var(--space-12), 9vw, var(--space-20));
   max-width: 70rem;
   margin-inline: auto;
-
-  > section:not(.marketplace-case-study__model, .marketplace-case-study__decisions, [data-case-study-section-layout]) {
-    max-width: var(--measure-reading);
-  }
-
-  h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: .98;
-  }
 
   .marketplace-case-study__model {
     display: grid;
@@ -33,17 +41,8 @@ const Marketplace = styled.section`
     border-block: 1px solid var(--color-ink);
   }
 
-  .marketplace-case-study__model > div {
-    padding: var(--space-7);
-  }
-
-  .marketplace-case-study__model > div + div {
+  .marketplace-case-study__model > ${MarketplaceModelCell} + ${MarketplaceModelCell} {
     border-left: 1px solid var(--color-ink);
-  }
-
-  .marketplace-case-study__model h2,
-  .marketplace-case-study__model p {
-    margin-top: 0;
   }
 
   .case-study-trace {
@@ -61,16 +60,11 @@ const Marketplace = styled.section`
     gap: 0 var(--space-8);
   }
 
-  .marketplace-decisions-grid > [data-case-study-decision] {
-    border-top: 1px solid var(--color-border);
-    padding-block: var(--space-6);
-  }
-
   @media (max-width: 44rem) {
     .marketplace-case-study__model,
     .marketplace-decisions-grid { grid-template-columns: 1fr; }
 
-    .marketplace-case-study__model > div + div {
+    .marketplace-case-study__model > ${MarketplaceModelCell} + ${MarketplaceModelCell} {
       border-top: 1px solid var(--color-ink);
       border-left: 0;
     }
@@ -95,9 +89,9 @@ export function MarketplaceCaseStudy(): ReactElement {
         <MarketplaceDistributionMap />
 
         <section className="marketplace-case-study__model" aria-label="Three-layer operating model" data-visual-contract="marketplace-operating-model">
-          <div><Eyebrow>01 · shared</Eyebrow><h2>Baseline</h2><p><code>repo-worker-pack</code>, <code>superpowers-plus</code>, and <code>mcp-usage-pack</code> cover recurring worker, execution, and connector concerns.</p></div>
-          <div><Eyebrow>02 · chosen</Eyebrow><h2>Selected</h2><p>Repositories add specialist plugins only when their domain warrants them. A selection is evidence of context, not a universal default.</p></div>
-          <div><Eyebrow>03 · retained</Eyebrow><h2>Local</h2><p>Repository-specific doctrine, commands, skills, and plugins stay beside the work whose exceptions they explain.</p></div>
+          <MarketplaceModelCell><Eyebrow>01 · shared</Eyebrow><h2>Baseline</h2><p><code>repo-worker-pack</code>, <code>superpowers-plus</code>, and <code>mcp-usage-pack</code> cover recurring worker, execution, and connector concerns.</p></MarketplaceModelCell>
+          <MarketplaceModelCell><Eyebrow>02 · chosen</Eyebrow><h2>Selected</h2><p>Repositories add specialist plugins only when their domain warrants them. A selection is evidence of context, not a universal default.</p></MarketplaceModelCell>
+          <MarketplaceModelCell><Eyebrow>03 · retained</Eyebrow><h2>Local</h2><p>Repository-specific doctrine, commands, skills, and plugins stay beside the work whose exceptions they explain.</p></MarketplaceModelCell>
         </section>
 
         <CaseStudySection title="One skill, a local overlay, and a checkable workflow" layout="lead">
@@ -113,13 +107,13 @@ export function MarketplaceCaseStudy(): ReactElement {
         </CaseStudySection>
 
         <section className="marketplace-case-study__decisions" aria-labelledby="marketplace-decisions-title">
-          <h2 id="marketplace-decisions-title">Decisions that keep the boundary useful</h2>
+          <MarketplaceSectionTitle id="marketplace-decisions-title">Decisions that keep the boundary useful</MarketplaceSectionTitle>
           <div className="marketplace-decisions-grid">
-            <CaseStudyDecision decision="Curation over accumulation" reason="A catalogue is useful only when every entry earns its maintenance cost." consequence="The shared surface stays smaller and easier to inspect." />
-            <CaseStudyDecision decision="First-party direction" reason="The system needs a coherent operating model while preserving transparent derivative provenance." consequence="Ownership is clearer without hiding the lineage of work such as superpowers-plus." />
-            <CaseStudyDecision decision="Source separate from installed copies" reason="Authored plugin source and generated consumer installations answer different questions." consequence="A convenient local copy cannot become a false publication claim." />
-            <CaseStudyDecision decision="Explicit pins" reason="Repository state should be inspectable instead of implying automatic global synchronisation." consequence="Different revisions remain visible and reviewable." />
-            <CaseStudyDecision decision="Local custody" reason="Domain knowledge loses meaning when detached from its repository." consequence="Projects reuse the baseline without surrendering their exceptions." />
+            <MarketplaceDecisionCell><CaseStudyDecision decision="Curation over accumulation" reason="A catalogue is useful only when every entry earns its maintenance cost." consequence="The shared surface stays smaller and easier to inspect." /></MarketplaceDecisionCell>
+            <MarketplaceDecisionCell><CaseStudyDecision decision="First-party direction" reason="The system needs a coherent operating model while preserving transparent derivative provenance." consequence="Ownership is clearer without hiding the lineage of work such as superpowers-plus." /></MarketplaceDecisionCell>
+            <MarketplaceDecisionCell><CaseStudyDecision decision="Source separate from installed copies" reason="Authored plugin source and generated consumer installations answer different questions." consequence="A convenient local copy cannot become a false publication claim." /></MarketplaceDecisionCell>
+            <MarketplaceDecisionCell><CaseStudyDecision decision="Explicit pins" reason="Repository state should be inspectable instead of implying automatic global synchronisation." consequence="Different revisions remain visible and reviewable." /></MarketplaceDecisionCell>
+            <MarketplaceDecisionCell><CaseStudyDecision decision="Local custody" reason="Domain knowledge loses meaning when detached from its repository." consequence="Projects reuse the baseline without surrendering their exceptions." /></MarketplaceDecisionCell>
           </div>
         </section>
 

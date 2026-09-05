@@ -85,24 +85,24 @@ describe('ProjectVisual', () => {
     const image = screen.getByRole('img', { name: /Patch carries an index card and folded map/i })
     const picture = image.closest('picture')
 
-    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-720.webp')
-    expect(image).toHaveAttribute('width', '720')
-    expect(image).toHaveAttribute('height', '403')
+    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-500.webp')
+    expect(image).toHaveAttribute('width', '500')
+    expect(image).toHaveAttribute('height', '672')
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(picture?.querySelectorAll('source')).toHaveLength(4)
     expect(picture).not.toHaveTextContent(/detective|cowboy|chef|mechanic/i)
   })
 
-  test('marks the Patch projects-index crop without changing the accepted source asset', () => {
+  test('marks the Patch projects-index whole-character treatment', () => {
     render(<ProjectVisual slug="adventures-of-patch" placement="index" />)
 
     const image = screen.getByRole('img', { name: /Patch carries an index card and folded map/i })
     const picture = image.closest('picture')
 
     expect(picture).toHaveClass('project-visual--patch-index')
-    expect(picture).toHaveAttribute('data-visual-contract', 'adventures-of-patch-index-crop')
-    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-720.webp')
+    expect(picture).toHaveAttribute('data-visual-contract', 'adventures-of-patch-index-whole-character')
+    expect(image).toHaveAttribute('src', '/media/patch/patch-hero-500.webp')
   })
 
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {
