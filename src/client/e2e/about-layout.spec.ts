@@ -33,5 +33,5 @@ test('about page keeps its conversion heading and story rails structurally clear
   expect(quoteType.style).toBe('normal')
 
   await expect(page.getByText("The round trip we didn't ship", { exact: true })).toHaveCount(0)
-  await expect(page.locator('figure.about-route')).toHaveCount(1)
+  await expect(page.locator('figure[aria-label="Avoided v1-to-v2 migration route"]')).toHaveCount(1)
 })

@@ -16,12 +16,6 @@ export const CvSheet = styled.section`
     margin-top: ${({ theme }) => theme.space.xxl};
   }
 
-  /* The header's rule introduces the first content section; don't draw it twice. */
-  & > .cv-header + .cv-section {
-    border-top: 0;
-    margin-top: 0;
-  }
-
   @media (max-width: 46rem) {
     width: 100%;
     border-inline: 0;
@@ -50,11 +44,3 @@ export const CvSheet = styled.section`
     }
   }
 `
-
-export const CvHeader = styled.header.attrs({ className: 'cv-header' })``
-export const CvSection = styled.section.attrs({ className: 'cv-section' })``
-export const CvEmploymentSection = styled(CvSection).attrs({ className: 'cv-section cv-section--employment' })``
-export const CvRunningTitle = styled.p.attrs({ className: 'cv-running-title' })``
-export const CvRole = styled.p.attrs({ className: 'cv-role' })``
-export const CvDownloadFooter = styled.footer.attrs({ className: 'cv-download-footer' })``
-export const CvScreenControls = styled.nav.attrs({ className: 'cv-screen-controls' })``

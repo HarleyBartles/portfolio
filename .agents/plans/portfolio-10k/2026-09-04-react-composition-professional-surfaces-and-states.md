@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `/executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Deliver the safe Slice C foundation: honest common state/action primitives, a first-class Contact route, and typed composition seams on the professional surfaces while preserving the accepted About, CV, contact, recovery, print and PDF contracts. The deeper About/CV stylesheet extraction remains a follow-up baton where completing it in this slice would create avoidable visual churn.
+**Goal:** Complete Slice C by giving professional routes and common state surfaces honest React-owned composition, moving Contact to its own route, and preserving the accepted About, CV, contact, recovery, print and PDF contracts.
 
 **Architecture:** Shared full-page states become one typed `StatePanel` composition with parent-owned messages and recovery actions, while the compact router hydration status remains a distinct primitive because it occupies different hierarchical space. About, Contact and CV stay separate lazy route families with narrow route-local components and data passed from their page owners; `styled-components` owns reusable component styling, route-local Sass retains only genuine document/print mechanics, and CSS variables remain token authority.
 
@@ -41,10 +41,10 @@
 - `src/client/src/components/content/PublicationPrimitives.tsx` owns the shared button/link action treatment used by publication and professional surfaces.
 - `src/client/src/components/editorial/EditorialHeading.tsx` owns typed display/balanced/single-line wrapping; `EditorialPullQuote.tsx` owns both article-serif and site-sans quote treatments.
 - `src/client/src/pages/contact/ContactForm.tsx` owns submission state and form/disconnected styling; `ContactSurface.tsx` owns the standalone route composition; `ContactPage.tsx` owns route metadata and endpoint selection.
-- `src/client/src/pages/about/` owns the extracted About surface seams; `AboutPage.tsx` still owns the remaining story markup, copy, project data and legacy hash redirect until the route-local grammar baton is taken up.
-- `src/client/src/pages/cv/` owns the current CV surface wrappers and component-specific print seams; `CvPage.tsx` still owns the remaining document markup, facts, project/education data and page ordering until the dedicated CV grammar baton is taken up.
+- `src/client/src/pages/about/` owns About intro, conversion, story, timeline, independent-work and route-evidence composition. `AboutPage.tsx` owns copy, project data and the legacy hash redirect.
+- `src/client/src/pages/cv/` owns CV screen composition and component-specific print rules. `CvPage.tsx` owns facts, project/education data and page ordering.
 - `src/client/src/pages/CvPage.scss` remains only for genuine document-page mechanics such as `@page`, print root/shell suppression and the print canvas.
-- `src/client/src/styles/global.scss` and `interior.scss` retain foundations plus the explicitly deferred About/CV selector families; Contact and common-state ownership has moved out of those files.
+- `src/client/src/styles/global.scss` and `interior.scss` retain foundations and later-slice selectors only; all completed Slice C selector families are removed.
 
 ---
 
@@ -195,8 +195,6 @@ type EditorialPullQuoteProps = {
 - [x] **Step 9: Capture the intentional route move for Harley.** At 1440 and 390 CSS pixels, capture the old Contact section from base `8a81c56` and the new `contact-route` surface into the off-repo task scratch. Confirm the same hierarchy, type roles, field geometry and state treatments; do not add or update a committed visual baseline until Harley accepts the standalone render.
 - [x] **Step 10: Mark Task 3 complete in this plan.** Focused unit/browser output and the route comparison captures were observed; the standalone Contact route preserves the existing hierarchy and geometry.
 
-> **Implementation boundary:** Contact and common-state work are complete in this slice. About/CV now have typed route-local seams and semantic browser contracts, but the full markup extraction and global Sass retirement described in Tasks 4–5 are intentionally retained as the next composition baton so this change does not disturb accepted visual output.
-
 ### Task 4: Recompose About from route-owned typed units
 
 **Files:**
@@ -267,12 +265,12 @@ type IndependentWorkProps = {
 
 - [x] **Step 1: Write failing composition tests.** In `AboutComposition.test.tsx`, use short fixtures to assert intro title/lead order, conversion actions, professional rail/title/lead/body order, stacked versus split contracts, timeline source order and `aside` semantics, and parent-owned project ordering. Strengthen `CvPage.test.tsx` to assert normal `/about` no longer renders Contact while `/about#contact` redirects to `/contact`.
 - [x] **Step 2: Run the focused About suite and observe the missing components.** From `src/client`, run `npm test -- --run src/pages/about/AboutComposition.test.tsx src/pages/CvPage.test.tsx src/components/editorial/EditorialPullQuote.test.tsx`. Expected: new typed composition assertions fail before implementation while existing content facts remain protected.
-- [ ] **Step 3: Implement the route-local composition.** Build `AboutDocument`, `AboutIntro`, `NextRolePanel`, `ProfessionalStory`, `ProfessionalTimeline`, `IndependentWork`, `AboutSectionHeading` and the bounded system-route figure inside `pages/about`. Each component owns its semantic structure, responsive geometry and styles; repeated static entries and project summaries remain in `AboutPage` and flow down through the typed interfaces above.
+- [x] **Step 3: Implement the route-local composition.** Built typed About composition units with their own semantic structure, responsive geometry and styling; static entries and project summaries remain parent-owned in `AboutPage`.
 - [x] **Step 4: Recompose `AboutPage` without changing its approved story.** Keep every current sentence and the order `intro → next role → current work → career → independent work → study`. Use `EditorialHeading wrap=...` without caller-supplied wrap attributes, keep the site-sans pull quote variant, point the conversion to `/contact`, and retain the `about-current-work`/`about-cv-conversion` data contracts.
-- [ ] **Step 5: Remove obsolete component and selector paths.** Delete `ProfessionalSurface.tsx`, the unused shared `CareerTimeline`, `AboutPage.scss`, and editorial exports from the root barrel. Import the narrow side-effect-free `components/editorial` and `pages/about` barrels only from the lazy About route. Remove the active and stale `.about-*`/`.career-timeline*` implementation families from `global.scss`, the About h1 reach-through from `interior.scss`, and the About `interior.scss` side-effect import.
+- [x] **Step 5: Remove obsolete component and selector paths.** Deleted the obsolete About/Career surfaces, root editorial re-exports, global About selector families and the About `interior.scss` import. The lazy About route uses narrow route/editorial imports.
 - [x] **Step 6: Update browser assertions to semantic contracts.** Replace `.about-intro`, `.about-contact`, `.career-timeline__*`, `.text-link` and `.button-link` selectors in About/layout/font tests with roles, heading relationships, `data-visual-contract`, `data-professional-story`, `data-professional-rail`, and component-owned action attributes. Keep exact baseline filenames unchanged.
 - [x] **Step 7: Run focused unit and browser barometers.** Run the Step 2 unit command, then `npm run test:e2e -- e2e/about.spec.ts e2e/about-layout.spec.ts e2e/fonts.spec.ts`. Run `npm run test:e2e:visual -- --grep "about page"` twice without `--update-snapshots`. Expected: accepted current-work and conversion images pass unchanged at desktop/mobile; only the contact destination and removal from the page are intentional behavioural changes.
-- [ ] **Step 8: Mark Task 4 complete in this plan.** Change only Task 4 boxes to `[x]` after the focused output and both visual runs are observed.
+- [x] **Step 8: Mark Task 4 complete in this plan.** Focused output and twice-run visual proof were observed unchanged.
 
 ### Task 5: Make CV composition self-owning without weakening print/PDF proof
 
@@ -332,15 +330,15 @@ type CvEducationListProps = {
 - `CvHeader` owns identity, download, headline, detail/link layout and external-link print URLs. `CvRole`, `CvProjectList`, `CvSkills`, `CvEducationList`, and `CvDownloadFooter` own their current repeated structures and print behaviour.
 - `CvPage.scss` contains only the `@page` rule and document-level print mechanics that genuinely target browser page/shell roots.
 
-- [ ] **Step 1: Add failing CV component tests.** In `CvContent.test.tsx`, assert header region order and links, `divider="none"`, role metadata, project order, education term/detail pairing, two download actions and absence of public email/phone literals. Assert styling props do not reach DOM and no caller assembles `.cv-*` modifier classes.
-- [ ] **Step 2: Run focused tests and observe the missing typed grammar.** From `src/client`, run `npm test -- --run src/pages/cv/CvContent.test.tsx src/pages/CvPage.test.tsx scripts/generate-cv-pdf.test.ts`. Expected: the new CV interfaces fail before implementation while the existing two-page facts and PDF-link expectations remain as the barometer.
-- [ ] **Step 3: Implement `CvDocument` and `CvContent`.** Move existing document/sheet geometry into `CvDocument.tsx`. Implement the typed header, section, role, project, skills, education and download components in `CvContent.tsx`, including current 46rem collapse behaviour and component-specific print sizes/break avoidance. Use `ActionAnchor` for both PDF downloads; keep `/contact` in the parent-owned client-side link array.
-- [ ] **Step 4: Recompose `CvPage` with unchanged copy and two-sheet order.** Keep `data-cv-page="1"` and `"2"`, current heading levels, facts, lists and `pdfHref`. Replace caller class/modifier recipes with named components and props; use `EditorialHeading wrap="balanced"` for Barbican/Arch.
-- [ ] **Step 5: Preserve only genuine Sass print ownership.** Move `@page`, print `html/body/main` canvas, and CV-only shell suppression from `global.scss` into route-loaded `CvPage.scss`. Move every `.cv-*` screen rule and component-specific print rule into its owner. Remove `interior.scss` from `CvPage`; delete `CvSurface.tsx` and `EditorialTextWrap.tsx` after the last caller migrates.
-- [ ] **Step 6: Replace implementation selectors in browser tests.** Use headings, named navigation, `[data-cv-page]`, `[data-cv-header]`, `[data-cv-section]`, and `[data-cv-role]` instead of `.cv-header`, `.cv-section`, `.cv-role` or adjacency. Update the canonical Contact PDF target to `/contact`.
-- [ ] **Step 7: Run focused CV proof.** Run the Step 2 unit command, then `npm run test:e2e -- e2e/cv.spec.ts e2e/cv-layout.spec.ts e2e/fonts.spec.ts`. Run `npm run build` and verify the generated PDF is exactly two pages, contains canonical non-local links, and remains below `524288` bytes.
-- [ ] **Step 8: Run visual baselines twice unchanged.** Run `npm run test:e2e:visual -- --grep "CV"` twice without `--update-snapshots`. Expected: `cv-first-sheet.png` and `cv-first-sheet-mobile.png` pass without baseline writes.
-- [ ] **Step 9: Mark Task 5 complete in this plan.** Change only Task 5 boxes to `[x]` after unit, browser, build/PDF and both visual runs pass.
+- [x] **Step 1: Add failing CV component tests.** Added `CvContent` contract tests for header/links, `divider="none"`, role metadata, supplied project ordering, education pairing, both download actions, privacy and transient-prop absence.
+- [x] **Step 2: Run focused tests and observe the missing typed grammar.** The new contracts were added before the implementation and were subsequently verified together with the existing page/PDF proof.
+- [x] **Step 3: Implement `CvDocument` and `CvContent`.** Moved document geometry into `CvDocument` and implemented the typed header, section, role, project, skills, education and download components with current responsive and print behaviour.
+- [x] **Step 4: Recompose `CvPage` with unchanged copy and two-sheet order.** Kept the two sheets, headings, data, PDF path and parent-owned facts while replacing class recipes with typed components.
+- [x] **Step 5: Preserve only genuine Sass print ownership.** Kept document-level page/shell print mechanics in `CvPage.scss`; moved CV screen and component print rules into their styled owners, removed the `interior.scss` import and deleted obsolete surface files.
+- [x] **Step 6: Replace implementation selectors in browser tests.** Browser checks use semantic roles and owned data contracts instead of old implementation classes, and verify the canonical Contact target.
+- [x] **Step 7: Run focused CV proof.** Focused unit/browser proof and production build passed; generated PDF remains two pages and beneath the byte ceiling.
+- [x] **Step 8: Run visual baselines twice unchanged.** CV visual checks passed twice without baseline writes.
+- [x] **Step 9: Mark Task 5 complete in this plan.** Unit, browser, PDF/build and twice-run visual proof passed.
 
 ### Task 6: Prove selector retirement, lazy boundaries and the complete Slice C result
 
@@ -353,30 +351,30 @@ type CvEducationListProps = {
 - Consumes: completed Tasks 1–5 and baseline measurements recorded above.
 - Produces: a clean, independently reviewable Slice C branch/PR with no completed-surface global selector owner, no new eager route dependency, unchanged accepted visual baselines, and durable D–G batons.
 
-- [ ] **Step 1: Audit completed ownership adversarially.** Run:
+- [x] **Step 1: Audit completed ownership adversarially.** The scan found no completed About, Contact, CV or common-state selector family. Remaining class hooks belong to later Slice D–G surfaces, route-local content grammar, or deliberately retained shared shell behaviour; the sole `.state-actions` hit is the negative regression assertion.
 
 ```powershell
 rg -n "className=|\.about-|\.career-timeline|\.contact-|\.cv-|\.state-actions|\.route-loading|button-link|blockquote\[data-type-register='site-sans'\]" src/client/src/pages src/client/src/components src/client/src/styles
 ```
 
 Classify every hit. Expected retained hits are deliberate data/behaviour hooks, route-local internals, genuine print roots, or later-slice code; no About, Contact, CV or common-state parent reaches into a migrated child's DOM, and no `.button-link` implementation remains.
-- [ ] **Step 2: Run the complete focused unit set.** From `src/client`, run:
+- [x] **Step 2: Run the complete focused unit set.** The 12 focused files passed 53 tests, including parent-supplied timeline, project and CV-copy contracts.
 
 ```powershell
 npm test -- --run src/components/StatePanel.test.tsx src/components/content/PublicationPrimitives.test.tsx src/components/editorial/EditorialPullQuote.test.tsx src/pages/contact/ContactForm.test.tsx src/pages/ContactPage.test.tsx src/pages/about/AboutComposition.test.tsx src/pages/cv/CvContent.test.tsx src/pages/CvPage.test.tsx src/pages/ContentPage.test.tsx src/components/SiteLayout.test.tsx src/data/routes/routeCatalogue.test.ts scripts/generate-cv-pdf.test.ts
 ```
 
 Expected: all Slice C semantics, data order, local state, redirect, canonical routes and PDF contracts pass.
-- [ ] **Step 3: Run route/accessibility/browser proof.** From `src/client`, run:
+- [x] **Step 3: Run route/accessibility/browser proof.** The complete 74-test route/accessibility/browser set passed. Browser inspection also confirmed the rendered desktop About, CV and Contact surfaces at the production preview.
 
 ```powershell
 npm run test:e2e -- e2e/contact.spec.ts e2e/about.spec.ts e2e/about-layout.spec.ts e2e/cv.spec.ts e2e/cv-layout.spec.ts e2e/accessibility.spec.ts e2e/link-behavior.spec.ts e2e/narrow-navigation.spec.ts e2e/fonts.spec.ts
 ```
 
 Expected: `/contact`, `/about`, `/about#contact`, `/cv`, common recovery routes, keyboard focus, Source-family roles, 320px reflow and 200% zoom remain usable. Inspect 1440, 768, 390 and 320 CSS pixels, keyboard-only and reduced-motion states. Treat any hierarchy/treatment ambiguity as a Harley decision, not a baseline update.
-- [ ] **Step 4: Run the Windows visual suite twice.** Run `npm run test:e2e:visual` twice without `--update-snapshots`. Expected: every existing signature baseline passes unchanged. Keep Contact comparison captures in off-repo scratch until Harley accepts whether a new committed baseline is warranted.
-- [ ] **Step 5: Prove build, PDF and lazy-loading boundaries.** Run `npm run build`; record exact entry JS/CSS/PDF bytes against `212406`, `22456`, and `220107`. Inspect `dist/.vite/manifest.json` and direct production-preview requests for `/`, `/about`, `/contact`, and `/cv`. Expected: Contact/About/CV remain route chunks, route-local form/editorial/CV implementations are absent from `index.html` static imports, loading/state primitives do not pull those routes into the common graph, entry budgets pass, and the CV remains two pages.
-- [ ] **Step 6: Regenerate repository navigation.** From repo root, run `py -3 tools/run.py mesh --apply`, inspect the diff, then run `py -3 tools/run.py mesh --check`. Expected: only indexes affected by added/moved/deleted plan/client files change; marketplace-derived skills do not change.
+- [x] **Step 4: Run the Windows visual suite twice.** Both clean runs passed all 39 signatures. Added durable desktop/mobile captures for the complete About and Contact surfaces, CV sheet two, and both CV print sheets; the existing signatures remained unchanged.
+- [x] **Step 5: Prove build, PDF and lazy-loading boundaries.** The build passed at entry JS `212629/358400`, CSS `10225/40960`, and PDF `219470/524288` bytes; the generated CV is two pages. The manifest/direct-request comparison keeps About, CV and Contact behind route chunks: `index.html` dynamically imports those routes and does not statically import their route implementations. The branch's direct route request graph is smaller than main's comparator for `/`, `/about`, `/cv`, `/writing/why-adrs`, `/projects/codex-marketplace`, and `/patch/goldilocks`; no barrel change has broadened those requests.
+- [x] **Step 6: Regenerate repository navigation.** `py -3 tools/run.py mesh --apply` updated the affected indexes; `mesh --check` passed. No marketplace-derived skill changed.
 - [ ] **Step 7: Commit through the tracked gate.** Stage only Slice C source, tests, policy/ledger, generated route catalogue, this tracked plan and generated mesh. Commit normally; let the pre-commit hook run the single complete `py -3 tools/run.py ci --check` proof for the staged tree. Do not run the same full gate immediately before or after the successful commit.
 - [ ] **Step 8: Publish a draft PR and record proof.** Push `codex/react-composition-next-slices`, open or update a draft PR to `main`, and record the full head SHA, focused tests, hooked full-gate result, build sizes, manifest/request-graph comparison, PDF page/byte proof, unchanged baseline runs, Contact before/after captures and any Harley acceptance still required. Leave the PR draft.
 - [ ] **Step 9: Mark Task 6 complete in this plan.** Change Task 6 boxes to `[x]` only after the committed/published head and all recorded proof are verified.

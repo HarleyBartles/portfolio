@@ -9,12 +9,6 @@
   text-transform: none;
 }
 
-.site-shell--interior .about-page h1 {
-  font-size: var(--type-site-display-size);
-  line-height: var(--type-site-display-leading);
-  letter-spacing: var(--type-site-display-tracking);
-}
-
 .site-shell--interior :is(code, pre, [data-diff], [data-command-output], [data-machine-readable-evidence]) {
   font-family: var(--font-technical);
   font-size: var(--type-code-size);

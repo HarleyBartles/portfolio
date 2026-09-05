@@ -1,4 +1,5 @@
-import { DocumentMetadata, EditorialHeading, Eyebrow, PageLead, SiteLayout } from '../components'
+import { DocumentMetadata, Eyebrow, PageLead, SiteLayout } from '../components'
+import { EditorialHeading } from '../components/editorial'
 import { siteRuntime } from '../data'
 import { ContactForm, ContactSurface } from './contact'
 

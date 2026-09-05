@@ -41,9 +41,3 @@ export {
   SectionTitle,
 } from './content'
 export type { EyebrowVariant, PublicationRegister } from './content'
-
-export {
-  EditorialHeading,
-  EditorialPullQuote,
-} from './editorial'
-export type { EditorialHeadingWrap } from './editorial'

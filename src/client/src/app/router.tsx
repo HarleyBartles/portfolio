@@ -1,54 +1,60 @@
-import type { ReactElement } from 'react'
-import { createBrowserRouter, Navigate, useParams, type RouteObject } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Navigate,
+  useParams,
+  type RouteObject,
+} from 'react-router-dom'
 import App from '../App'
 import { RouteErrorBoundary } from '../components/runtime'
-import { RouteLoadingStatus } from '../components'
+import { RouteLoadingStatus } from '../components/RouteLoadingStatus'
 
-async function loadProjectRoute(): Promise<{ Component: () => ReactElement }> {
+const loadProjectRoute = async () => {
   const [{ ProjectPage }, { NotFoundPage }] = await Promise.all([
     import('../pages/ProjectPage'),
     import('../pages/NotFoundPage'),
   ])
 
   return {
-    Component: function ProjectRoutePage(): ReactElement {
+    Component: () => {
       const { slug } = useParams()
       return slug === undefined ? <NotFoundPage /> : <ProjectPage slug={slug} />
     },
   }
 }
 
-async function loadWritingRoute(): Promise<{ Component: () => ReactElement }> {
+const loadWritingRoute = async () => {
   const [{ WritingPage }, { NotFoundPage }] = await Promise.all([
     import('../pages/WritingPage'),
     import('../pages/NotFoundPage'),
   ])
 
   return {
-    Component: function WritingRoutePage(): ReactElement {
+    Component: () => {
       const { slug } = useParams()
       return slug === undefined ? <NotFoundPage /> : <WritingPage slug={slug} />
     },
   }
 }
 
-async function loadPatchRoute(): Promise<{ Component: () => ReactElement }> {
+const loadPatchRoute = async () => {
   const [{ PatchPage }, { NotFoundPage }] = await Promise.all([
     import('../pages/PatchPage'),
     import('../pages/NotFoundPage'),
   ])
 
   return {
-    Component: function PatchRoutePage(): ReactElement {
+    Component: () => {
       const { slug } = useParams()
       return slug === undefined ? <NotFoundPage /> : <PatchPage slug={slug} />
     },
   }
 }
 
-function LegacyFairytaleRedirect(): ReactElement {
+const LegacyFairytaleRedirect = () => {
   const { slug } = useParams()
-  return <Navigate to={slug === undefined ? '/patch' : `/patch/${slug}`} replace />
+  return (
+    <Navigate to={slug === undefined ? '/patch' : `/patch/${slug}`} replace />
+  )
 }
 
 export const appRoutes: RouteObject[] = [
@@ -56,16 +62,21 @@ export const appRoutes: RouteObject[] = [
     path: '/',
     element: <App />,
     errorElement: <RouteErrorBoundary />,
-    hydrateFallbackElement: <RouteLoadingStatus>Preparing the portfolio…</RouteLoadingStatus>,
+    hydrateFallbackElement: (
+      <RouteLoadingStatus>Preparing the portfolio…</RouteLoadingStatus>
+    ),
     children: [
       {
         index: true,
-        lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }),
+        lazy: async () => ({
+          Component: (await import('../pages/HomePage')).HomePage,
+        }),
       },
       {
         path: 'projects',
         lazy: async () => ({
-          Component: (await import('../pages/ProjectIndexPage')).ProjectIndexPage,
+          Component: (await import('../pages/ProjectIndexPage'))
+            .ProjectIndexPage,
         }),
       },
       {
@@ -75,7 +86,8 @@ export const appRoutes: RouteObject[] = [
       {
         path: 'writing',
         lazy: async () => ({
-          Component: (await import('../pages/WritingIndexPage')).WritingIndexPage,
+          Component: (await import('../pages/WritingIndexPage'))
+            .WritingIndexPage,
         }),
       },
       {
@@ -102,19 +114,27 @@ export const appRoutes: RouteObject[] = [
       },
       {
         path: 'about',
-        lazy: async () => ({ Component: (await import('../pages/AboutPage')).AboutPage }),
+        lazy: async () => ({
+          Component: (await import('../pages/AboutPage')).AboutPage,
+        }),
       },
       {
         path: 'cv',
-        lazy: async () => ({ Component: (await import('../pages/CvPage')).CvPage }),
+        lazy: async () => ({
+          Component: (await import('../pages/CvPage')).CvPage,
+        }),
       },
       {
         path: 'contact',
-        lazy: async () => ({ Component: (await import('../pages/ContactPage')).ContactPage }),
+        lazy: async () => ({
+          Component: (await import('../pages/ContactPage')).ContactPage,
+        }),
       },
       {
         path: '*',
-        lazy: async () => ({ Component: (await import('../pages/NotFoundPage')).NotFoundPage }),
+        lazy: async () => ({
+          Component: (await import('../pages/NotFoundPage')).NotFoundPage,
+        }),
       },
     ],
   },

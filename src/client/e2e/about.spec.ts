@@ -42,9 +42,9 @@ test('legacy About contact hash redirects to the canonical Contact route', async
 
 test('about intro starts both desktop columns on the same baseline', async ({ page }) => {
   await page.goto('./about/')
-  await expect(page.locator('.about-intro')).toBeVisible()
+  await expect(page.locator('[data-visual-contract="about-intro"]')).toBeVisible()
 
-  const [headingColumn, copyColumn] = await page.locator('.about-intro > div').all()
+  const [headingColumn, copyColumn] = await page.locator('[data-visual-contract="about-intro"] > div').all()
   const [headingBox, copyBox] = await Promise.all([headingColumn.boundingBox(), copyColumn.boundingBox()])
 
   expect(headingBox).not.toBeNull()
@@ -54,20 +54,20 @@ test('about intro starts both desktop columns on the same baseline', async ({ pa
 
 test('about uses a content-led first section and one boundary between structural sections', async ({ page }) => {
   await page.goto('./about/')
-  await expect(page.locator('.about-intro')).toBeVisible()
+  await expect(page.locator('[data-visual-contract="about-intro"]')).toBeVisible()
 
   const layout = await page.evaluate(() => {
-    const intro = document.querySelector('.about-intro')?.getBoundingClientRect()
-    const pageStyle = getComputedStyle(document.querySelector('.about-page')!)
-    const actingStyle = getComputedStyle(document.querySelector('.career-timeline__stage--aside')!)
-    const independentStyle = getComputedStyle(document.querySelector('.about-independent')!)
+    const intro = document.querySelector('[data-visual-contract="about-intro"]')?.getBoundingClientRect()
+    const pageStyle = getComputedStyle(document.querySelector('article[aria-labelledby="about-title"]')!)
+    const actingStyle = getComputedStyle(document.querySelector('aside[aria-labelledby="previous-life-title"]')!)
+    const independentStyle = getComputedStyle(document.querySelector('section[aria-labelledby="independent-title"]')!)
 
     return {
       introBottom: intro?.bottom,
       introHeight: intro?.height,
-      introMinimumHeight: Number.parseFloat(getComputedStyle(document.querySelector('.about-intro')!).minBlockSize),
+      introMinimumHeight: Number.parseFloat(getComputedStyle(document.querySelector('[data-visual-contract="about-intro"]')!).minBlockSize),
       articlePaddingBottom: pageStyle.paddingBottom,
-      careerPaddingBottom: getComputedStyle(document.querySelector('.about-career')!).paddingBottom,
+      careerPaddingBottom: getComputedStyle(document.querySelector('section[aria-labelledby="career-title"]')!).paddingBottom,
       actingBottomBorder: actingStyle.borderBottomWidth,
       independentTopBorder: independentStyle.borderTopWidth,
     }
@@ -142,7 +142,7 @@ test('about lets the independent preamble use its available width and protects t
   await page.setViewportSize({ width: 1161, height: 912 })
   await page.goto('./about/')
 
-  const independentPreamble = page.locator('.about-independent > p:not(.eyebrow)')
+  const independentPreamble = page.locator('[data-independent-preamble]')
   const studyTitle = page.locator('#study-title')
 
   await expect(independentPreamble).toBeVisible()
@@ -158,7 +158,7 @@ test('about lets the independent preamble use its available width and protects t
     }
 
     return {
-      independentPreambleLines: lineCount('.about-independent > p:not(.eyebrow)'),
+      independentPreambleLines: lineCount('[data-independent-preamble]'),
       studyTitleLines: lineCount('#study-title'),
       viewportWidth: window.innerWidth,
       documentWidth: document.documentElement.scrollWidth,

@@ -23,13 +23,21 @@ async function waitForImages(region: ReturnType<Page['locator']>): Promise<void>
 }
 
 async function waitForWildBunchStyles(page: Page): Promise<void> {
-  const figure = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
-  await expect.poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(87, 76, 63)')
+  const figure = page.getByRole('figure', {
+    name: 'Controlled determinism from a compact world contract',
+  })
+  await expect
+    .poll(() => figure.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .toBe('rgb(87, 76, 63)')
 }
 
 async function waitForPatchStyles(page: Page): Promise<void> {
-  const production = page.getByRole('region', { name: 'The production system is the project' })
-  await expect.poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(21, 63, 66)')
+  const production = page.getByRole('region', {
+    name: 'The production system is the project',
+  })
+  await expect
+    .poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .toBe('rgb(21, 63, 66)')
 }
 
 async function waitForTournamentStyles(page: Page): Promise<void> {
@@ -39,7 +47,9 @@ async function waitForTournamentStyles(page: Page): Promise<void> {
 
 async function waitForLawfulHeistStyles(page: Page): Promise<void> {
   const rollback = page.locator('.heist-recruit--rollback')
-  await expect.poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(24, 33, 28)')
+  await expect
+    .poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .toBe('rgb(24, 33, 28)')
 }
 
 async function waitForLearningLabStyles(page: Page): Promise<void> {
@@ -48,8 +58,16 @@ async function waitForLearningLabStyles(page: Page): Promise<void> {
 }
 
 const nonHomeProof = [
-  { path: './projects/wild-bunch', contract: 'wild-bunch-case-study-hero', register: 'site-sans' },
-  { path: './writing/why-adrs', contract: 'decision-memory', register: 'article-serif' },
+  {
+    path: './projects/wild-bunch',
+    contract: 'wild-bunch-case-study-hero',
+    register: 'site-sans',
+  },
+  {
+    path: './writing/why-adrs',
+    contract: 'decision-memory',
+    register: 'article-serif',
+  },
   { path: './about', contract: 'about-current-work', register: 'site-sans' },
 ] as const
 
@@ -75,21 +93,26 @@ for (const route of nonHomeProof) {
         const heading = document.querySelector('main h1')
         const surface = document.querySelector(`[data-visual-contract="${contract}"]`)
         if (heading === null || surface === null) return false
-        return heading === surface
-          || surface.contains(heading)
-          || heading.contains(surface)
-          || Boolean(heading.compareDocumentPosition(surface) & Node.DOCUMENT_POSITION_FOLLOWING)
+        return (
+          heading === surface ||
+          surface.contains(heading) ||
+          heading.contains(surface) ||
+          Boolean(heading.compareDocumentPosition(surface) & Node.DOCUMENT_POSITION_FOLLOWING)
+        )
       }, route.contract)
       expect(contractFollowsHeading).toBe(true)
 
       await page.keyboard.press('Tab')
       const focused = page.locator(':focus')
       await expect(focused).toBeVisible()
-      expect(await focused.evaluate((element) => {
-        const style = getComputedStyle(element)
-        return (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0)
-          || style.boxShadow !== 'none'
-      })).toBe(true)
+      expect(
+        await focused.evaluate((element) => {
+          const style = getComputedStyle(element)
+          return (
+            (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0) || style.boxShadow !== 'none'
+          )
+        }),
+      ).toBe(true)
     })
   }
 }
@@ -138,11 +161,51 @@ test('CV keeps its first A4 sheet hierarchy on desktop', async ({ page }) => {
   await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet.png')
 })
 
+test('About keeps its complete professional composition on desktop and mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './about')
+  await expect(page.locator('main')).toHaveScreenshot('about-professional-flow.png')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './about')
+  await expect(page.locator('main')).toHaveScreenshot('about-professional-flow-mobile.png')
+})
+
+test('CV keeps its second sheet hierarchy on desktop and mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './cv')
+  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet.png')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './cv')
+  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet-mobile.png')
+})
+
+test('Contact keeps its dedicated route composition on desktop and mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './contact')
+  await expect(page.locator('main')).toHaveScreenshot('contact-route.png')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './contact')
+  await expect(page.locator('main')).toHaveScreenshot('contact-route-mobile.png')
+})
+
+test('CV preserves both A4 sheets in print media', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1100 })
+  await openStable(page, './cv')
+  await page.emulateMedia({ media: 'print' })
+  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet-print.png')
+  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet-print.png')
+})
+
 test('about page keeps the CV conversion area usable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './about')
 
-  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion-mobile.png')
+  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot(
+    'about-cv-conversion-mobile.png',
+  )
 })
 
 test('CV keeps its first sheet readable on mobile', async ({ page }) => {
@@ -156,10 +219,14 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
-  await expect(page.locator('[data-visual-contract="vibe-coding-door-road"]')).toHaveScreenshot('article-mobile-header.png')
+  await expect(page.locator('[data-visual-contract="vibe-coding-door-road"]')).toHaveScreenshot(
+    'article-mobile-header.png',
+  )
 })
 
-test('homepage keeps its authored opening, Wild Bunch, and Specialists movements at wide and portrait viewports', async ({ page }) => {
+test('homepage keeps its authored opening, Wild Bunch, and Specialists movements at wide and portrait viewports', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './')
   await expect(page.locator('[data-visual-contract="homepage-opening"]')).toHaveScreenshot('homepage-opening-wide.png')
@@ -184,12 +251,18 @@ test('homepage keeps its authored opening, Wild Bunch, and Specialists movements
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/codex-marketplace')
-  await expect(page.locator('[data-visual-contract="marketplace-case-study-hero"]')).toHaveScreenshot('marketplace-case-study-hero.png')
-  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot('marketplace-distribution-map.png')
+  await expect(page.locator('[data-visual-contract="marketplace-case-study-hero"]')).toHaveScreenshot(
+    'marketplace-case-study-hero.png',
+  )
+  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot(
+    'marketplace-distribution-map.png',
+  )
 
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './projects/codex-marketplace')
-  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot('marketplace-distribution-map-mobile.png')
+  await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot(
+    'marketplace-distribution-map-mobile.png',
+  )
 })
 
 test('Wild Bunch keeps its town hero and controlled-determinism evidence on desktop', async ({ page }) => {
@@ -201,7 +274,9 @@ test('Wild Bunch keeps its town hero and controlled-determinism evidence on desk
   await waitForImages(hero)
   await expect(hero).toHaveScreenshot('wild-bunch-town-hero.png')
 
-  const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
+  const determinism = page.getByRole('figure', {
+    name: 'Controlled determinism from a compact world contract',
+  })
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism.png')
 })
 
@@ -210,7 +285,9 @@ test('Wild Bunch keeps event history and product evidence legible on desktop', a
   await openStable(page, './projects/wild-bunch')
   await waitForWildBunchStyles(page)
 
-  const eventFlow = page.getByRole('figure', { name: 'Ordered event history from action to reconstruction' })
+  const eventFlow = page.getByRole('figure', {
+    name: 'Ordered event history from action to reconstruction',
+  })
   await expect(eventFlow).toHaveScreenshot('wild-bunch-event-flow.png')
 
   const productEvidence = page.locator('.wild-bunch-product-evidence')
@@ -223,7 +300,9 @@ test('Wild Bunch keeps its stacked composition legible on mobile', async ({ page
   await openStable(page, './projects/wild-bunch')
   await waitForWildBunchStyles(page)
 
-  const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
+  const determinism = page.getByRole('figure', {
+    name: 'Controlled determinism from a compact world contract',
+  })
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism-mobile.png')
 })
 
@@ -236,7 +315,9 @@ test('Adventures of Patch keeps its hero and accountable origin on desktop', asy
   await waitForImages(hero)
   await expect(hero).toHaveScreenshot('patch-hero.png')
 
-  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  const origin = page.getByRole('region', {
+    name: 'The day the database disappeared',
+  })
   await waitForImages(origin)
   await expect(origin).toHaveScreenshot('patch-origin.png')
 })
@@ -246,20 +327,30 @@ test('Adventures of Patch keeps its production system and showcase handoff legib
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
 
-  const production = page.getByRole('region', { name: 'The production system is the project' })
+  const production = page.getByRole('region', {
+    name: 'The production system is the project',
+  })
   await expect(production).toHaveScreenshot('patch-production-system.png')
 
-  const handoff = page.getByRole('region', { name: 'The stories have their own home' })
+  const handoff = page.getByRole('region', {
+    name: 'The stories have their own home',
+  })
   await expect(handoff).toHaveScreenshot('patch-showcase-handoff.png')
 })
 
-test('Adventures of Patch keeps its evidence boundary and controlled-production close distinct on desktop', async ({ page }) => {
+test('Adventures of Patch keeps its evidence boundary and controlled-production close distinct on desktop', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
 
-  await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot('patch-evidence-boundary.png')
-  await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot('patch-controlled-production.png')
+  await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot(
+    'patch-evidence-boundary.png',
+  )
+  await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot(
+    'patch-controlled-production.png',
+  )
 })
 
 test('Learning Lab keeps its engineering proposition, curriculum atlas and lab system on desktop', async ({ page }) => {
@@ -274,11 +365,15 @@ test('Learning Lab keeps its engineering proposition, curriculum atlas and lab s
     clip: await clipBetween(page, '[data-visual-contract="learning-lab-case-study-hero"]', '.learning-lab-origin'),
   })
 
-  await expect(page.locator('[data-visual-contract="learning-lab-atlas"]')).toHaveScreenshot('learning-lab-curriculum-atlas.png')
+  await expect(page.locator('[data-visual-contract="learning-lab-atlas"]')).toHaveScreenshot(
+    'learning-lab-curriculum-atlas.png',
+  )
 
   const representatives = page.locator('.representative-labs')
   await waitForImages(representatives)
-  await expect(page.locator('[data-visual-contract="learning-lab-system"]')).toHaveScreenshot('learning-lab-lab-system.png')
+  await expect(page.locator('[data-visual-contract="learning-lab-system"]')).toHaveScreenshot(
+    'learning-lab-lab-system.png',
+  )
   await expect(origin).toBeAttached()
 })
 
@@ -308,7 +403,9 @@ test('Adventures of Patch leads with its origin story before the compact mobile 
   await waitForPatchStyles(page)
 
   const snapshot = page.getByRole('region', { name: 'Project snapshot' })
-  const origin = page.getByRole('region', { name: 'The day the database disappeared' })
+  const origin = page.getByRole('region', {
+    name: 'The day the database disappeared',
+  })
   const [snapshotBox, originBox] = await Promise.all([snapshot.boundingBox(), origin.boundingBox()])
 
   expect(snapshotBox).not.toBeNull()

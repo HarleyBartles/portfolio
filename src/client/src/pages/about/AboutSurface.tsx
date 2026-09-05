@@ -1,14 +1,17 @@
 import styled from 'styled-components'
 
-export const AboutArticle = styled.article.attrs({ className: 'about-page' })``
-export const AboutIntro = styled.header.attrs({ className: 'about-intro' })``
-export const AboutCareer = styled.section.attrs({ className: 'about-career' })``
-export const AboutIndependent = styled.section.attrs({ className: 'about-independent' })``
-export const AboutRouteFigure = styled.figure.attrs({ className: 'about-route' })``
-export const AboutSectionHeading = styled.div.attrs({ className: 'section-heading' })``
-export const AboutTimeline = styled.div.attrs({ className: 'career-timeline' })``
-export const AboutTimelineStage = styled.section.attrs({ className: 'career-timeline__stage' })``
-export const AboutTimelineAside = styled.aside.attrs({ className: 'career-timeline__stage career-timeline__stage--aside' })``
-export const AboutTimelineRail = styled.div.attrs({ className: 'career-timeline__rail' })``
-export const AboutTimelineContent = styled.div.attrs({ className: 'career-timeline__content' })``
-export const AboutIndependentRow = styled.section.attrs({ className: 'about-independent__row' })``
+export const AboutArticle = styled.article`
+  max-width: 76rem;
+  padding-bottom: 0;
+`
+
+export const AboutRouteFigure = styled.figure`
+  margin: var(--space-6) 0;
+  overflow-wrap: anywhere;
+  border-block: 1px solid var(--color-border);
+  color: var(--color-ink);
+  font-family: var(--font-site-sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  padding: var(--space-3);
+`
