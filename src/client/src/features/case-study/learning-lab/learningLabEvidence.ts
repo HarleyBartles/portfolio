@@ -52,12 +52,6 @@ export type LearningLabEvidence = Readonly<{
 export const learningLabEvidence = evidence as LearningLabEvidence
 export const learningLabModules = learningLabEvidence.courses.flatMap((course) => course.modules)
 
-export function formatLearningLabDelivery(delivery: LearningLabEvidence['delivery']): string {
-  return delivery.status === 'planned'
-    ? `First live delivery planned for ${delivery.display}.`
-    : `Delivery began in ${delivery.display}.`
-}
-
 export function pinnedLearningLabPath(path = ''): string {
   const suffix = path === '' ? '' : `/${path}`
   return `${learningLabEvidence.repositoryUrl}/tree/${learningLabEvidence.sourceRevision}${suffix}`

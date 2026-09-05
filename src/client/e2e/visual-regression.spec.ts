@@ -32,9 +32,7 @@ async function waitForWildBunchStyles(page: Page): Promise<void> {
 }
 
 async function waitForPatchStyles(page: Page): Promise<void> {
-  const production = page.getByRole('region', {
-    name: 'The production system is the project',
-  })
+  const production = page.locator('.patch-production')
   await expect
     .poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor))
     .toBe('rgb(21, 63, 66)')

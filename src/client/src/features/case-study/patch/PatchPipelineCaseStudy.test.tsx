@@ -45,7 +45,7 @@ describe('PatchPipelineCaseStudy', () => {
     expect(document.body.textContent).not.toMatch(/—|coming soon|content factory|production studio/i)
   })
 
-  test('uses the shared wide-screen lead hierarchy before full-width systems', () => {
+  test('preserves the Patch lead hierarchy before full-width systems', () => {
     renderCaseStudy()
 
     const splitHeadings = [
@@ -57,8 +57,9 @@ describe('PatchPipelineCaseStudy', () => {
 
     splitHeadings.forEach((name) => {
       const heading = screen.getByRole('heading', { level: 2, name })
-      expect(heading.closest('.case-study-lead')).not.toBeNull()
-      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+      const section = heading.closest('[data-patch-lead-composition]')
+      expect(section).not.toBeNull()
+      expect(section?.querySelector('[data-patch-lead-body]')).not.toBeNull()
     })
   })
 
@@ -72,6 +73,7 @@ describe('PatchPipelineCaseStudy', () => {
     expect(screen.queryByRole('list', { name: 'Fairytale plans' })).not.toBeInTheDocument()
 
     expect(screen.queryByText(/PATCH-\d+/i)).not.toBeInTheDocument()
+    expect(document.querySelector('.patch-section-number')).not.toBeInTheDocument()
     expect(screen.queryByText(/\d+%/)).not.toBeInTheDocument()
     expect(screen.queryByText(/coming soon/i)).not.toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()

@@ -24,7 +24,7 @@ const RelatedSection = styled.section`
   }
 
   li {
-    background: rgb(255 250 240 / 72%);
+    background: ${({ theme }) => theme.color.interiorCanvas};
     padding: ${({ theme }) => theme.space.lg};
   }
 

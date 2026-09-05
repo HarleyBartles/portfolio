@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">HB monogram</title>
+  <rect width="64" height="64" fill="#e6eaeb" />
   <rect x="2" y="2" width="60" height="60" fill="none" stroke="#1f241f" stroke-width="3" />
   <path d="M17 16v32M17 32h15M32 16v32" fill="none" stroke="#1f241f" stroke-width="4" stroke-linecap="square" />
   <path d="M38 16v32M38 17h7.5c5 0 8 2.8 8 7.1 0 4.1-2.9 7.2-8 7.2H38M38 31.3h8.5c5.3 0 8.5 3.1 8.5 8 0 5.2-3.2 8.7-8.5 8.7H38" fill="none" stroke="#b25632" stroke-width="4" stroke-linejoin="round" />

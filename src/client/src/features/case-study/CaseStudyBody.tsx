@@ -1,6 +1,12 @@
-import type { ReactNode } from 'react'
-import './CaseStudyBody.scss'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import styled from 'styled-components'
 
-export function CaseStudyBody({ children }: { children: ReactNode }) {
-  return <div className="case-study-body">{children}</div>
+const Body = styled.div`
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+`
+
+export function CaseStudyBody({ children, ...props }: ComponentPropsWithoutRef<'div'> & { children: ReactNode }) {
+  return <Body {...props}>{children}</Body>
 }

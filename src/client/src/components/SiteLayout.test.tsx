@@ -64,6 +64,7 @@ describe('SiteLayout', () => {
     const markImage = siteMark.querySelector('img')
     expect(markImage).toHaveAttribute('src', '/brand/hb-mark.svg')
     expect(markImage).toHaveAttribute('alt', '')
+    expect(markImage).toHaveAttribute('data-mark-background', 'mineral')
 
     const navigation = screen.getByRole('navigation', { name: /primary/i })
     const navLinks = within(navigation).getAllByRole('link')

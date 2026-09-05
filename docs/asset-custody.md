@@ -41,12 +41,13 @@ The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm pac
 - Source: hand-authored for this portfolio on 2026-08-21.
 - Rights: Harley Bartles' original portfolio identity.
 - Format and dimensions: vector SVG, `64 × 64` view box.
+- Presentation contract: the mark carries an opaque cool-mineral `#e6eaeb` field so the SVG favicon and future dark-theme tab surfaces retain a legible, theme-independent identity.
 - Fallback: the home link retains the accessible name `Harley Bartles, home` when the image cannot load.
 
 ### HB device-icon fallbacks
 
 - Public files: `src/client/public/brand/hb-mark-32.png` and `src/client/public/brand/hb-mark-180.png`.
-- Source and rights: derived on 29 August 2026 from the hand-authored Harley Bartles SVG mark above; the same original portfolio identity rights apply.
+- Source and rights: derived on 5 September 2026 from the hand-authored Harley Bartles SVG mark above; the same original portfolio identity rights apply.
 - Transformation: local Sharp 0.34.5 rasterisation at exact `32 × 32` and `180 × 180` PNG sizes, respectively; no external source material or generated imagery was used.
 - Use and fallback: the SVG remains the preferred favicon; the 32-pixel PNG supports older favicon consumers and the 180-pixel PNG serves Apple touch-icon discovery. Neither asset carries essential text or alters the accessible home-link fallback.
 
@@ -270,7 +271,7 @@ These crops remove application-shell chrome while preserving the product surface
 - Sources: `src/client/assets/wild-bunch/concept-art/town-arrival-landscape.png` (`1672 × 941`, SHA-256 `9d592f8840034dc9be94c541d2e1fb744f5cba55663e5881730c338628cfc21e`) and `src/client/assets/wild-bunch/concept-art/town-arrival-portrait.png` (`1122 × 1402`, SHA-256 `6caa63f62e91da216054c864893e277f085b30f0b3149aacafac61c9b25456c2`).
 - Provenance and rights: generated with OpenAI's built-in image-generation tool under Harley's direction; copyright Harley Bartles, all rights reserved. `src/client/assets/wild-bunch/concept-art/generation-receipt.json` preserves the accepted prompts, selections, risk review and intended claims. User-supplied references guided mood and subject only and are not retained.
 - Public derivatives: `src/client/public/media/wild-bunch/town-arrival-landscape.avif` (`1440 × 810`, 121,640 bytes), `src/client/public/media/wild-bunch/town-arrival-landscape.webp` (`1440 × 810`, 169,746 bytes), `src/client/public/media/wild-bunch/town-arrival-portrait.avif` (`720 × 900`, 81,615 bytes), and `src/client/public/media/wild-bunch/town-arrival-portrait.webp` (`720 × 900`, 109,312 bytes).
-- Transformation: deterministic Sharp resize to the accepted responsive compositions, AVIF quality 55 or WebP quality 80, with metadata stripped. `src/client/public/media/wild-bunch/concept-art-derivatives.json` records output identity and bytes.
+- Transformation: deterministic Sharp resize to the accepted responsive compositions, AVIF quality 55 or WebP quality 80, with metadata stripped. The landscape's baked one-sided density loss is blended into the adjacent project field by the case-study hero's local edge overlay; the portrait remains clean-edge. `src/client/public/media/wild-bunch/concept-art-derivatives.json` records output identity and bytes.
 - Claim boundary: bespoke visual-direction concept art for an early-alpha game, not a gameplay capture or evidence of implemented graphics. The landscape uses one-sided tintype emulsion loss; the portrait is a clean-edge re-composition of the same arrival moment.
 - Added: 2026-08-30.
 

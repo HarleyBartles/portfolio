@@ -1,22 +1,75 @@
-import type { ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import styled from 'styled-components'
 
-type CaseStudySectionProps = {
+export type CaseStudySectionLayout = 'flow' | 'lead' | 'lead-prose'
+
+type CaseStudySectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'title'> & {
   title: string
+  headingId?: string
+  layout?: CaseStudySectionLayout
   children: ReactNode
-  layout?: 'flow' | 'lead' | 'lead-prose'
 }
 
-export function CaseStudySection({ title, children, layout = 'flow' }: CaseStudySectionProps) {
-  const id = `case-study-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+const Section = styled.section<{ $layout: CaseStudySectionLayout }>`
+  ${({ $layout }) => $layout === 'lead' || $layout === 'lead-prose' ? `
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(var(--space-6), 5vw, var(--space-16));
+    align-items: start;
+    max-width: none;
+  ` : ''}
 
-  if (layout === 'lead' || layout === 'lead-prose') {
-    return (
-      <section className={`case-study-lead${layout === 'lead-prose' ? ' case-study-lead--prose' : ''}`} aria-labelledby={id}>
-        <div className="case-study-lead__heading"><h2 id={id}>{title}</h2></div>
-        <div className="case-study-lead__body">{children}</div>
-      </section>
-    )
+  ${({ $layout }) => $layout === 'lead-prose' ? `
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+  ` : ''}
+
+  > [data-case-study-section-heading],
+  > [data-case-study-section-body] {
+    min-width: 0;
   }
 
-  return <section aria-labelledby={id}><h2 id={id}>{title}</h2>{children}</section>
+  > [data-case-study-section-heading] > h2 {
+    max-width: none;
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  > [data-case-study-section-body] > :first-child {
+    margin-top: 0;
+  }
+
+  > [data-case-study-section-body] > :last-child {
+    margin-bottom: 0;
+  }
+
+  > [data-case-study-section-body] p {
+    max-width: none;
+  }
+
+  @media (max-width: 44rem) {
+    ${({ $layout }) => $layout === 'lead' || $layout === 'lead-prose' ? `
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    ` : ''}
+
+    > [data-case-study-section-heading] > h2 {
+      margin-bottom: 0;
+    }
+  }
+`
+
+export function CaseStudySection({ title, headingId, children, layout = 'flow', ...props }: CaseStudySectionProps) {
+  const id = headingId ?? `case-study-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+
+  if (layout === 'lead' || layout === 'lead-prose') {
+    return <Section {...props} $layout={layout} aria-labelledby={id} data-case-study-section-layout={layout}>
+      <div data-case-study-section-heading><h2 id={id}>{title}</h2></div>
+      <div data-case-study-section-body>{children}</div>
+    </Section>
+  }
+
+  return <Section {...props} $layout={layout} aria-labelledby={id} data-case-study-section-layout={layout}><h2 id={id}>{title}</h2>{children}</Section>
 }

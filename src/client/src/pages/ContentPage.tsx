@@ -11,7 +11,6 @@ import {
   ContentProse,
   type ContentProseLayout,
   type ContentProseRegister,
-  ProjectStatus,
   RelatedContent,
   ShareAction,
   SiteLayout,
@@ -19,6 +18,7 @@ import {
 } from '../components'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
 import type { ProjectVisualSlug } from '../features/home/ProjectVisual'
+import { ProjectCaseStudyHeader, type ProjectCaseStudyHeaderLayout } from '../features/case-study/ProjectCaseStudyHeader'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
 import { getWritingArticleBody, type WritingArticleBodyProps } from '../features/writing/writingArticleBodies'
@@ -109,8 +109,6 @@ const SpecialistPresentationLoading = () => {
     </section>
   )
 }
-
-const ProjectVisualLoading = () => <div className="project-visual-loading" aria-hidden="true" data-loading="project-visual" />
 
 type ArticleBodyContentProps = {
   presentation?: ComponentType
@@ -212,6 +210,13 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
     : document.summary.presentation === 'learning-lab-case-study'
       ? 'learning-lab-case-study-hero'
       : 'content-page-header' : writingPresentation.visualContract
+  const projectHeaderLayout: ProjectCaseStudyHeaderLayout = document.summary.presentation === 'learning-lab-case-study'
+    ? 'learning-lab'
+    : document.summary.presentation === 'wild-bunch-case-study'
+      ? 'wild-bunch'
+      : document.summary.presentation === 'patch-pipeline-case-study'
+        ? 'patch'
+        : 'standard'
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
 
   const articleBody = (
@@ -232,9 +237,7 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
 
   const writingMetadata = document.summary.kind === 'writing' ? getWritingMetadata(document.summary) : undefined
   const projectHeaderVisual = projectVisualSlug === null ? undefined : (
-    <Suspense fallback={<ProjectVisualLoading />}>
-      <LazyProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" />
-    </Suspense>
+    <LazyProjectVisual slug={projectVisualSlug} eager={projectVisualSlug === 'wild-bunch' || projectVisualSlug === 'adventures-of-patch' || projectVisualSlug === 'agentic-learning-lab'} placement="case-study-hero" />
   )
 
   return (
@@ -264,16 +267,22 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
             share={{ title: document.summary.title, path: getContentPath(document.summary) }}
           />
         ) : <>
-        <ContentHeader
+        {document.summary.kind === 'project' ? <ProjectCaseStudyHeader
           eyebrow={document.summary.kind}
           title={document.summary.title}
           summary={document.summary.summary}
-          status={document.summary.kind === 'project' && projectVisualSlug !== 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
-          statusAnchor={document.summary.kind === 'project' && projectVisualSlug === 'wild-bunch' ? <ProjectStatus status={document.summary.status} /> : undefined}
+          status={document.summary.status}
+          layout={projectHeaderLayout}
+          visual={projectHeaderVisual}
+          visualContract={visualContract}
+        /> : <ContentHeader
+          eyebrow={document.summary.kind}
+          title={document.summary.title}
+          summary={document.summary.summary}
           visual={projectHeaderVisual}
           visualContract={visualContract}
           register="site-sans"
-        />
+        />}
         {articleBody}
         {(
           <RelatedContent

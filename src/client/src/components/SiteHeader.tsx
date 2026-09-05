@@ -158,7 +158,13 @@ export const SiteHeader = ({ showName = false }: { showName?: boolean }) => {
       </SkipLink>
       <Header className="site-header" data-site-frame>
         <SiteMark className="site-mark" to="/" aria-label="Harley Bartles, home" $showName={showName}>
-          <img src={`${import.meta.env.BASE_URL}brand/hb-mark.svg`} alt="" width="52" height="52" />
+          <img
+            src={`${import.meta.env.BASE_URL}brand/hb-mark.svg`}
+            alt=""
+            width="52"
+            height="52"
+            data-mark-background="mineral"
+          />
           {showName ? <SiteIdentityName className="site-identity-name">Harley Bartles</SiteIdentityName> : null}
         </SiteMark>
         <PrimaryNav aria-label="Primary">

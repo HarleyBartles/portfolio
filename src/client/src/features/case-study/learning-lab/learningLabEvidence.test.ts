@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { formatLearningLabDelivery, learningLabEvidence, learningLabModules } from './learningLabEvidence'
+import { learningLabEvidence, learningLabModules } from './learningLabEvidence'
 
 describe('Learning Lab evidence', () => {
   test('pins one immutable curriculum snapshot', () => {
@@ -24,8 +24,4 @@ describe('Learning Lab evidence', () => {
     expect(learningLabEvidence.courses[2].modules).toEqual([])
   })
 
-  test('derives public delivery copy from the authored delivery union', () => {
-    expect(formatLearningLabDelivery({ status: 'planned', target: '2026-08', display: 'late August 2026' })).toBe('First live delivery planned for late August 2026.')
-    expect(formatLearningLabDelivery({ status: 'started', startedOn: '2026-09-14', display: 'September 2026' })).toBe('Delivery began in September 2026.')
-  })
 })
