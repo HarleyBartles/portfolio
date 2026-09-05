@@ -58,7 +58,7 @@ test('project header keeps its first-paint geometry while the visual chunk is pe
 
   const geometry = await header.evaluate((element) => {
     const style = getComputedStyle(element)
-    const intro = element.querySelector('.content-page-intro')
+    const intro = element.querySelector('[data-project-case-study-intro]')
     return {
       display: style.display,
       borderBottomWidth: style.borderBottomWidth,
@@ -77,6 +77,29 @@ test('project header keeps its first-paint geometry while the visual chunk is pe
   releaseVisual?.()
   await navigation
   await expect(header.getByRole('img', { name: /Concept art of a lone rider entering/i })).toBeVisible()
+})
+
+test('direct route loads keep case-study presentation chunks isolated', async ({ context }) => {
+  const routes = [
+    { path: './projects/codex-marketplace/', heading: 'Agent Asset Marketplace', chunk: 'MarketplaceCaseStudy', siblings: ['LearningLabCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
+    { path: learningLabPath, heading: 'Agentic Learning Lab', chunk: 'LearningLabCaseStudy', siblings: ['MarketplaceCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
+    { path: wildBunchPath, heading: 'Wild Bunch', chunk: 'WildBunchCaseStudy', siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'PatchPipelineCaseStudy'] },
+    { path: patchPath, heading: 'Adventures of Patch', chunk: 'PatchPipelineCaseStudy', siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'WildBunchCaseStudy'] },
+    { path: './writing/use-superpowers/', heading: 'Use Superpowers', chunk: null, siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
+    { path: './patch/tournament-of-reasonable-defaults/', heading: 'Tournament of Reasonable Defaults', chunk: null, siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
+  ] as const
+
+  for (const route of routes) {
+    const page = await context.newPage()
+    const requested: string[] = []
+    page.on('request', (request) => requested.push(request.url()))
+    await page.goto(route.path)
+    await expect(page.getByRole('heading', { level: 1, name: route.heading })).toBeVisible()
+
+    if (route.chunk !== null) expect(requested.some((url) => url.includes(route.chunk))).toBe(true)
+    for (const sibling of route.siblings) expect(requested.some((url) => url.includes(sibling))).toBe(false)
+    await page.close()
+  }
 })
 
 test('Marketplace header reserves its generic visual measure while the visual chunk is pending', async ({ page }) => {
@@ -122,7 +145,18 @@ test('visitor opens the Wild Bunch route with its Western hook, status, and insp
   await expect(page.getByRole('heading', { level: 1, name: 'Wild Bunch' })).toBeVisible()
   await expect(page.locator('.content-status')).toHaveText(/Status\s*pre-alpha/)
   await expect(page.getByText(/wrong name on the crime: yours/i)).toBeVisible()
-  await expect(page.getByLabel('Wild Bunch early-alpha town-arrival concept art')).toBeVisible()
+  const visual = page.getByLabel('Wild Bunch early-alpha town-arrival concept art')
+  const caption = visual.locator('figcaption')
+  await expect(visual).toBeVisible()
+  await expect(caption).toHaveText('Concept art / early-alpha visual direction')
+
+  const visualBox = await visual.boundingBox()
+  const captionBox = await caption.boundingBox()
+  expect(visualBox).not.toBeNull()
+  expect(captionBox).not.toBeNull()
+  expect(captionBox!.width).toBeLessThan(visualBox!.width / 2)
+  expect(captionBox!.x).toBeGreaterThan(visualBox!.x + visualBox!.width / 2)
+  expect(captionBox!.x + captionBox!.width).toBeCloseTo(visualBox!.x + visualBox!.width - 16, 0)
 
   const repository = page.getByRole('link', { name: 'Wild Bunch source snapshot (pinned revision)' })
   const history = page.getByRole('link', { name: 'Historical Wild Bunch archive' })
@@ -151,6 +185,32 @@ test('visitor opens the Wild Bunch route with its Western hook, status, and insp
   await expect(page.getByRole('figure', { name: 'Session-audit development-build evidence' })).toHaveCount(0)
   await expect(page.getByRole('figure', { name: 'Wanted-notice development-build evidence' })).toBeVisible()
   await expect(page.getByRole('figure', { name: 'Case-file development-build evidence' })).toBeVisible()
+})
+
+test('Wild Bunch keeps its mobile status and visual-direction tags outside the image overlay', async ({ page }) => {
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto(wildBunchPath)
+
+    const status = page.locator('[data-project-case-study-status] .content-status')
+    const visual = page.getByLabel('Wild Bunch early-alpha town-arrival concept art')
+    const image = visual.getByRole('img')
+    const caption = visual.locator('figcaption')
+    const [statusBox, imageBox, captionBox] = await Promise.all([
+      status.boundingBox(),
+      image.boundingBox(),
+      caption.boundingBox(),
+    ])
+
+    expect(statusBox).not.toBeNull()
+    expect(imageBox).not.toBeNull()
+    expect(captionBox).not.toBeNull()
+    expect(statusBox!.y + statusBox!.height).toBeLessThanOrEqual(imageBox!.y)
+    expect(captionBox!.y).toBeGreaterThanOrEqual(imageBox!.y + imageBox!.height)
+    expect(captionBox!.x + captionBox!.width).toBeCloseTo(imageBox!.x + imageBox!.width, 0)
+    expect(captionBox!.width).toBeLessThan(imageBox!.width)
+    await expectNoHorizontalOverflow(page)
+  }
 })
 
 test('visitor reaches the Wild Bunch story through client navigation and receives the semantic architecture in source order', async ({ page }) => {
@@ -195,6 +255,52 @@ test('Wild Bunch architecture figures retain their designed internal spacing', a
 
     expect(padding.every((value) => value >= 24)).toBe(true)
   }
+})
+
+test('Wild Bunch opens its lead prose into the available desktop field', async ({ page }) => {
+  await page.setViewportSize({ width: 1086, height: 912 })
+  await page.goto(wildBunchPath)
+
+  const section = page.locator('[data-story-movement="origin"] [data-case-study-section-layout="lead"]')
+  const body = section.locator('[data-case-study-section-body]')
+  const sectionBox = await section.boundingBox()
+  const bodyBox = await body.boundingBox()
+
+  expect(sectionBox).not.toBeNull()
+  expect(bodyBox).not.toBeNull()
+  expect(sectionBox!.width).toBeGreaterThan(800)
+  expect(bodyBox!.width).toBeGreaterThan(400)
+})
+
+test('Wild Bunch keeps related content on the mineral route surface', async ({ page }) => {
+  await page.setViewportSize({ width: 893, height: 912 })
+  await page.goto(wildBunchPath)
+
+  const related = page.getByRole('navigation', { name: 'Related content' })
+  const card = related.locator('li').first()
+  await expect.poll(async () => {
+    const [cardBackground, shellBackground] = await Promise.all([
+      card.evaluate((element) => getComputedStyle(element).backgroundColor),
+      page.locator('.site-shell.site-shell--interior').evaluate((element) => getComputedStyle(element).backgroundColor),
+    ])
+
+    return cardBackground && cardBackground === shellBackground ? cardBackground : null
+  }).toBe('rgb(230, 234, 235)')
+
+})
+
+test('Learning Lab lets the representative authority experiment use the full desktop field', async ({ page }) => {
+  await page.setViewportSize({ width: 1086, height: 912 })
+  await page.goto(learningLabPath)
+
+  const lab = page.locator('.representative-lab[data-lab="7"]')
+  const body = lab.locator('dl')
+  const [labBox, bodyBox] = await Promise.all([lab.boundingBox(), body.boundingBox()])
+
+  expect(labBox).not.toBeNull()
+  expect(bodyBox).not.toBeNull()
+  expect(bodyBox!.x).toBeCloseTo(labBox!.x, 0)
+  expect(bodyBox!.width).toBeCloseTo(labBox!.width, 0)
 })
 
 test('Wild Bunch keeps the canonical UUID on one line whenever the plate can hold it', async ({ page }) => {
@@ -339,8 +445,8 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
   await expect(page.locator('main img[loading="eager"]')).toHaveCount(1)
 
   const desktopComposition = await heroRegion.evaluate((header) => {
-    const visual = header.querySelector('.content-page-visual')!.getBoundingClientRect()
-    const intro = header.querySelector('.content-page-intro')!.getBoundingClientRect()
+    const visual = header.querySelector('[data-project-case-study-visual]')!.getBoundingClientRect()
+    const intro = header.querySelector('[data-project-case-study-intro]')!.getBoundingClientRect()
     const bounds = header.getBoundingClientRect()
     return {
       visualWidthDelta: Math.abs(visual.width - bounds.width),
@@ -518,8 +624,8 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
 
   const opening = page.getByRole('heading', { name: 'Experience made transferable' }).locator('..').locator('..')
   const [openingHeading, openingBody] = await Promise.all([
-    opening.locator('.case-study-lead__heading').boundingBox(),
-    opening.locator('.case-study-lead__body').boundingBox(),
+    opening.locator('[data-case-study-section-heading]').boundingBox(),
+    opening.locator('[data-case-study-section-body]').boundingBox(),
   ])
   expect(openingHeading).not.toBeNull()
   expect(openingBody).not.toBeNull()
@@ -527,32 +633,30 @@ test('visitor opens the Learning Lab as an honest engineering-led curriculum cas
 
   const method = page.getByRole('heading', { name: 'The method built the method' }).locator('..').locator('..')
   const [methodHeading, methodBody] = await Promise.all([
-    method.locator('.case-study-lead__heading').boundingBox(),
-    method.locator('.case-study-lead__body').boundingBox(),
+    method.locator('[data-case-study-section-heading]').boundingBox(),
+    method.locator('[data-case-study-section-body]').boundingBox(),
   ])
   expect(methodHeading).not.toBeNull()
   expect(methodBody).not.toBeNull()
   expect(methodBody!.width).toBeGreaterThan(methodHeading!.width * 1.4)
 
   const stateHeader = page.locator('.learning-lab-state > header')
-  const [stateHeadingGroup, stateDelivery, stateKicker, stateTitle] = await Promise.all([
+  const [stateHeadingGroup, stateKicker, stateTitle] = await Promise.all([
     stateHeader.locator('.learning-lab-state__heading').boundingBox(),
-    stateHeader.locator(':scope > p').boundingBox(),
     stateHeader.locator('.learning-lab-kicker').boundingBox(),
     stateHeader.getByRole('heading', { name: 'A dated body of working practice' }).boundingBox(),
   ])
   expect(stateHeadingGroup).not.toBeNull()
-  expect(stateDelivery).not.toBeNull()
   expect(stateKicker).not.toBeNull()
   expect(stateTitle).not.toBeNull()
-  expect(stateHeadingGroup!.width).toBeGreaterThan(stateDelivery!.width)
+  await expect(stateHeader.locator(':scope > p')).toHaveCount(0)
   expect(Math.abs(stateKicker!.x - stateTitle!.x)).toBeLessThan(2)
   expect(stateTitle!.y - (stateKicker!.y + stateKicker!.height)).toBeLessThan(32)
   expect(stateTitle!.height).toBeLessThan(55)
 
   await expect(page.getByText(/I'm going to teach my brother a few things about using agentic AI/)).toHaveCount(1)
   await expect(page.getByText(/a love letter to my brother/)).toHaveCount(1)
-  await expect(page.getByText(/First live delivery planned for September 2026/)).toBeVisible()
+  await expect(page.getByText('First live delivery planned for September 2026.')).toHaveCount(0)
   await expect(page.getByRole('link', { name: /View the public repository/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the integrity run/ })).toBeVisible()
   await expect(page.getByRole('link', { name: /Inspect the pinned curriculum shape/ })).toBeVisible()
@@ -721,7 +825,7 @@ test('sibling case studies share one evidence-caption treatment', async ({ page 
 })
 
 test('case-study insets punctuate the body without becoming opening furniture', async ({ page }) => {
-  const calloutSignature = async () => page.locator('.case-study-callout').evaluate((callout) => {
+  const calloutSignature = async () => page.locator('[data-case-study-callout]').evaluate((callout) => {
     const style = getComputedStyle(callout)
     return {
       borderLeftWidth: style.borderLeftWidth,
@@ -731,15 +835,15 @@ test('case-study insets punctuate the body without becoming opening furniture', 
   })
 
   await page.goto('./projects/codex-marketplace/')
-  await expect(page.locator('.case-study-callout')).toHaveCount(1)
-  await expect(page.locator('.marketplace-case-study > .case-study-callout')).toHaveCount(1)
-  expect(await page.locator('.case-study-callout').evaluate((callout) => callout.previousElementSibling?.tagName)).toBe('SECTION')
+  await expect(page.locator('[data-case-study-callout]')).toHaveCount(1)
+  await expect(page.locator('.marketplace-case-study > [data-case-study-callout]')).toHaveCount(1)
+  expect(await page.locator('[data-case-study-callout]').evaluate((callout) => callout.previousElementSibling?.tagName)).toBe('SECTION')
   const marketplaceCallout = await calloutSignature()
 
   await page.goto(patchPath)
-  await expect(page.locator('.case-study-callout')).toHaveCount(1)
-  await expect(page.locator('.patch-case-study > .case-study-callout')).toHaveCount(1)
-  expect(await page.locator('.case-study-callout').evaluate((callout) => callout.previousElementSibling?.className)).toBe('patch-movement patch-first-deck')
+  await expect(page.locator('[data-case-study-callout]')).toHaveCount(1)
+  await expect(page.locator('.patch-case-study > [data-case-study-callout]')).toHaveCount(1)
+  expect(await page.locator('[data-case-study-callout]').evaluate((callout) => callout.previousElementSibling?.className)).toBe('patch-movement patch-first-deck')
   const patchCallout = await calloutSignature()
 
   expect(patchCallout).toEqual(marketplaceCallout)

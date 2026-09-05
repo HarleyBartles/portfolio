@@ -2,6 +2,19 @@ import { expect, test } from '@playwright/test'
 
 const movementOrder = ['opening', 'marketplace', 'wild-bunch', 'writing', 'patch', 'professional-close']
 
+test('shared masthead mark has no route-surface fill', async ({ page }) => {
+  await page.goto('./')
+
+  await expect(page.locator('.site-mark img')).toHaveCSS('box-shadow', 'none')
+
+  const markResponse = await page.request.get(new URL('brand/hb-mark.svg', page.url()).toString())
+  expect(markResponse.ok()).toBe(true)
+  const mark = await markResponse.text()
+
+  expect(mark).toContain('fill="none" stroke="#1f241f"')
+  expect(mark).not.toContain('fill="#fffaf0"')
+})
+
 test('homepage presents the accepted deterministic edition in editorial order', async ({ page }) => {
   await page.goto('./')
 

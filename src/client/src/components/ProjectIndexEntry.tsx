@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Eyebrow, IndexEntrySummary, IndexEntryTitle, IndexEntryVisualLink, MetadataRow } from './content'
+import { IndexEntrySummary, IndexEntryTitle, IndexEntryVisualLink, MetadataRow } from './content'
 import { ProjectStatus, type ProjectStatusTone } from './ProjectStatus'
 import { getContentPath, type ContentSummaryOf } from '../types'
 import { formatContentDate } from '../utils'
 
 type ProjectIndexEntryProps = {
   item: ContentSummaryOf<'project'>
-  index: number
   visual?: ReactNode
   statusTone?: ProjectStatusTone
 }
@@ -55,7 +54,7 @@ const Entry = styled.article`
   min-width: 0;
 `
 
-export const ProjectIndexEntry = ({ item, index, visual, statusTone }: ProjectIndexEntryProps) => {
+export const ProjectIndexEntry = ({ item, visual, statusTone }: ProjectIndexEntryProps) => {
   const titleId = `project-${item.slug}-title`
   const path = getContentPath(item)
   const date = formatContentDate(item.date)
@@ -71,7 +70,6 @@ export const ProjectIndexEntry = ({ item, index, visual, statusTone }: ProjectIn
         </VisualLink>
       )}
       <Copy className="editorial-card-copy" $hasVisual={visual !== undefined}>
-        <Eyebrow>{String(index + 1).padStart(2, '0')} / Project</Eyebrow>
         <EntryTitle id={titleId} to={path}>{item.title}</EntryTitle>
         <EntryMetadata items={metadata} />
         <IndexEntrySummary>{item.summary}</IndexEntrySummary>

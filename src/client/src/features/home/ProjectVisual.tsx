@@ -25,7 +25,7 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
   if (slug === 'adventures-of-patch') {
     return (
       <picture
-        className={`project-visual project-visual--patch${placement === 'index' ? ' project-visual--patch-index' : ''}`}
+        className={`project-visual project-visual--patch${placement === 'index' ? ' project-visual--patch-index' : ''}${placement === 'case-study-hero' ? ' project-visual--patch-case-study' : ''}`}
         data-visual-contract={placement === 'index' ? 'adventures-of-patch-index-crop' : 'adventures-of-patch-preview'}
       >
         <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1440.avif')} type="image/avif" />
@@ -48,7 +48,7 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
     return (
       <div className="project-visual project-visual--learning-lab" data-visual-contract="learning-lab-inspection-hero">
         <LearningLabImage id="engineering-control-workbench" eager={eager} />
-        <LearningLoop />
+        <LearningLoop placement={placement} />
       </div>
     )
   }

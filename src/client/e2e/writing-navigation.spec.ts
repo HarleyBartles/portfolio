@@ -20,6 +20,18 @@ test('visitor opens the agentic-organisation article and finds its authored cont
   await expect(continuations.getByRole('link', { name: /engineer the route, not the theatre/i })).toBeVisible()
 })
 
+test('client route transitions start the destination at the top of the page', async ({ page }) => {
+  await page.goto('./')
+  await page.locator('[data-home-movement="writing"]').scrollIntoViewIfNeeded()
+  await page.evaluate(() => window.scrollBy(0, 200))
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+
+  await page.getByRole('link', { name: 'Read the story →' }).click()
+  await expect(page).toHaveURL(/\/writing\/use-superpowers\/?$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Use Superpowers' })).toBeVisible()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+})
+
 test('Use Superpowers keeps the ordinary article shell and opens its Astra disclosure', async ({ page }) => {
   const response = await page.goto('./writing/use-superpowers/')
 

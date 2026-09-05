@@ -9,7 +9,6 @@ test('renders a visual supplied by the project index page', () => {
     <PortfolioThemeProvider>
       <MemoryRouter>
         <ProjectIndexEntry
-          index={0}
           item={{
             kind: 'project',
             slug: 'custom-project',
@@ -30,4 +29,28 @@ test('renders a visual supplied by the project index page', () => {
   const visual = screen.getByTestId('project-visual')
   expect(visual).toBeInTheDocument()
   expect(visual.closest('[data-visual-slot]')).toBeInTheDocument()
+})
+
+test('does not add a positional project label to the card', () => {
+  render(
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <ProjectIndexEntry
+          item={{
+            kind: 'project',
+            slug: 'custom-project',
+            title: 'Custom project',
+            summary: 'A project summary.',
+            date: '2026-01-01',
+            status: 'live',
+            featured: false,
+            tags: [],
+            relatedSlugs: [],
+          }}
+        />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
+  )
+
+  expect(screen.queryByText(/Project$/)).not.toBeInTheDocument()
 })

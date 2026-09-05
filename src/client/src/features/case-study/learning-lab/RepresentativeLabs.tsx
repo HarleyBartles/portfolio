@@ -1,3 +1,6 @@
+import styled from 'styled-components'
+import { LearningLabImage } from './LearningLabImage'
+
 const labs = [
   {
     id: '3',
@@ -28,9 +31,37 @@ const labs = [
   },
 ] as const
 
+const Labs = styled.section`
+  > header { max-width: 48rem; margin-bottom: var(--space-8); }
+  > header h2 { margin: 0; }
+  .representative-labs__cases { display: grid; gap: clamp(var(--space-12), 7vw, var(--space-20)); }
+  .representative-lab { display: grid; grid-template-columns: minmax(14rem, 0.62fr) minmax(0, 1.38fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); }
+  .representative-lab header { padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+  .representative-lab header p { margin: 0 0 var(--space-3); color: var(--learning-copper); font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; letter-spacing: .012em; }
+  .representative-lab h3 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 0.98; }
+  .representative-lab dl { margin: 0; }
+  .representative-lab dl div { display: grid; grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr); gap: var(--space-5); padding: var(--space-4) 0; border-top: 1px solid var(--color-border); }
+  .representative-lab dt { font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  .representative-lab dd { margin: 0; }
+  .representative-lab[data-lab='7'] { grid-template-columns: minmax(14rem, 0.62fr) minmax(0, 1.38fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); }
+  .representative-lab[data-lab='7'] [data-learning-lab-image-id='authority-transfer'] { grid-area: auto; min-height: 0; }
+  .representative-lab[data-lab='7'] header { grid-area: auto; margin: 0; padding: var(--space-5) 0 0; color: var(--color-ink); }
+  .representative-lab[data-lab='7'] header p { color: var(--learning-copper); }
+  .representative-lab[data-lab='7'] dl { grid-column: 1 / -1; margin: 0; padding: 0; }
+
+  @media (max-width: 44rem) {
+    .representative-lab { grid-template-columns: 1fr; }
+    .representative-lab dl div { grid-template-columns: 1fr; gap: var(--space-2); }
+    .representative-lab[data-lab='7'] { display: flex; flex-direction: column; }
+    .representative-lab[data-lab='7'] header { order: 0; margin: 0; padding: var(--space-6); }
+    .representative-lab[data-lab='7'] [data-learning-lab-image-id='authority-transfer'] { order: 1; min-height: 0; }
+    .representative-lab[data-lab='7'] dl { order: 2; margin: 0; padding: var(--space-6) 0 0; }
+  }
+`
+
 export function RepresentativeLabs() {
   return (
-    <section className="representative-labs" aria-labelledby="representative-labs-title">
+    <Labs className="representative-labs" aria-labelledby="representative-labs-title">
       <header><p className="learning-lab-kicker">Three experiments as proof</p><h2 id="representative-labs-title">The judgment lives in the mechanics</h2></header>
       <div className="representative-labs__cases">
         {labs.map((lab) => (
@@ -47,7 +78,6 @@ export function RepresentativeLabs() {
           </article>
         ))}
       </div>
-    </section>
+    </Labs>
   )
 }
-import { LearningLabImage } from './LearningLabImage'

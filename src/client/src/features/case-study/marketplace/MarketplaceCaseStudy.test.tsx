@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../../components'
 import { MarketplaceCaseStudy } from './MarketplaceCaseStudy'
 
 describe('MarketplaceCaseStudy', () => {
   test('tells the approved operating model and dated audit story in source order', () => {
-    const { container } = render(<MarketplaceCaseStudy />)
+    const { container } = render(<PortfolioThemeProvider><MarketplaceCaseStudy /></PortfolioThemeProvider>)
 
     expect(container.querySelector('[data-project-field]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
@@ -29,7 +30,7 @@ describe('MarketplaceCaseStudy', () => {
   })
 
   test('uses the shared case-study hierarchy for prose-led sections', () => {
-    render(<MarketplaceCaseStudy />)
+    render(<PortfolioThemeProvider><MarketplaceCaseStudy /></PortfolioThemeProvider>)
 
     ;[
       'When repeated instruction becomes infrastructure',
@@ -37,8 +38,8 @@ describe('MarketplaceCaseStudy', () => {
       'Used, pinned, and still evolving',
     ].forEach((name) => {
       const heading = screen.getByRole('heading', { level: 2, name })
-      expect(heading.closest('.case-study-lead')).not.toBeNull()
-      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+      expect(heading.closest('[data-case-study-section-layout="lead"]')).not.toBeNull()
+      expect(heading.closest('[data-case-study-section-layout="lead"]')?.querySelector('[data-case-study-section-body]')).not.toBeNull()
     })
   })
 })

@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { ExternalLink } from '../../../components'
+import styled from 'styled-components'
 import { CaseStudyBody } from '../CaseStudyBody'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
 import { CaseStudySection } from '../CaseStudySection'
@@ -11,7 +12,6 @@ import {
   WildBunchTownEvidence,
   WildBunchTrailMapEvidence,
 } from './WildBunchProductEvidence'
-import './WildBunchCaseStudy.scss'
 
 const repositoryUrl = 'https://github.com/HarleyBartles/wild-bunch'
 const localSetupUrl = `${repositoryUrl}#run-the-pre-alpha-locally`
@@ -23,10 +23,78 @@ const graphEvidenceUrl = `${sourceRoot}/tests/WildBunch.GameContent.Tests/TrailG
 const persistedWorldEvidenceUrl = `${sourceRoot}/src/WildBunch.Domain/World/WorldSnapshot.cs`
 const developerToolingEvidenceUrl = `${sourceRoot}/src/WildBunch.Web/src/dev/DevOverlay.tsx`
 
+const WildBunch = styled.section`
+  --wild-bunch-color-faded-gold: #e6bf6d;
+  --wild-bunch-color-earth: #574c3f;
+  --wild-bunch-color-field: #ded7cc;
+
+  display: grid;
+  gap: clamp(var(--space-12), 8vw, var(--space-20));
+  max-width: 82rem;
+  margin-inline: auto;
+
+  h2,
+  h3 { font-family: var(--font-display); }
+
+  .wild-bunch-story-movement,
+  .wild-bunch-build-evidence,
+  .wild-bunch-source-note,
+  .wild-bunch-story-movement__lead,
+  .wild-bunch-story-movement__afterword,
+  .wild-bunch-story-movement__proof { min-width: 0; }
+
+  .wild-bunch-build-evidence { width: min(100%, 68rem); margin: calc(clamp(var(--space-6), 4vw, var(--space-10)) * -1) 0 0 auto; }
+  .wild-bunch-story-movement[data-project-field='constructed-world'] { padding: clamp(var(--space-6), 4vw, var(--space-10)); background: var(--wild-bunch-color-field); }
+  .wild-bunch-story-movement > section,
+  .wild-bunch-source-note > section { max-width: var(--measure-reading); }
+  .wild-bunch-story-movement p,
+  .wild-bunch-source-note p { max-width: var(--measure-reading); }
+  .wild-bunch-source-note { padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+
+  .wild-bunch-dossier { padding: var(--space-6); border-block: 1px solid var(--color-border); }
+  .wild-bunch-dossier h3 { margin-top: 0; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.05; }
+  .wild-bunch-dossier dl { display: grid; grid-template-columns: minmax(7rem, .65fr) minmax(0, 2fr); gap: var(--space-4) var(--space-5); margin: 0; }
+  .wild-bunch-dossier dt { color: var(--color-muted); font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  .wild-bunch-dossier dd { margin: 0; }
+
+  @media (min-width: 60rem) {
+    .wild-bunch-story-movement > section,
+    .wild-bunch-source-note > section { max-width: none; }
+
+    .wild-bunch-story-movement--determinism > section,
+    .wild-bunch-story-movement--event-history > section,
+    .wild-bunch-story-movement--knowledge-boundary > section {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(28rem, 1.1fr);
+      column-gap: clamp(var(--space-8), 6vw, var(--space-16));
+      align-items: start;
+      max-width: none;
+    }
+
+    .wild-bunch-story-movement--determinism .wild-bunch-codec-map { width: 122%; margin-left: -19.5%; margin-right: -2.5%; }
+    .wild-bunch-story-movement--determinism h2,
+    .wild-bunch-story-movement--event-history h2,
+    .wild-bunch-story-movement--knowledge-boundary h2,
+    .wild-bunch-story-movement__lead,
+    .wild-bunch-story-movement__afterword { grid-column: 1; }
+    .wild-bunch-story-movement__proof--determinism,
+    .wild-bunch-story-movement__proof--flow,
+    .wild-bunch-story-movement__proof--product { grid-column: 2; grid-row: 2; }
+    .wild-bunch-story-movement__proof--map,
+    .wild-bunch-story-movement__proof--audit { grid-column: 1 / -1; margin-block: var(--space-3) var(--space-6); }
+    .wild-bunch-story-movement--event-history .wild-bunch-dossier { grid-column: 2; align-self: start; }
+  }
+
+  @media (max-width: 44rem) {
+    .wild-bunch-dossier dl { grid-template-columns: 1fr; }
+    .wild-bunch-dossier dd { margin-top: calc(-1 * var(--space-2)); }
+  }
+`
+
 export function WildBunchCaseStudy(): ReactElement {
   return (
     <CaseStudyBody>
-      <section
+      <WildBunch
         aria-label="Wild Bunch case study"
         className="case-study wild-bunch-case-study wild-bunch-case-study--composed"
         data-visual-contract="wild-bunch-evidence-ledger"
@@ -141,7 +209,7 @@ export function WildBunchCaseStudy(): ReactElement {
             <CaseStudyEvidence auditDate="21 August 2026" href={pinnedRepositoryUrl} label="Wild Bunch source snapshot (pinned revision)" />
           </CaseStudySection>
         </div>
-      </section>
+      </WildBunch>
     </CaseStudyBody>
   )
 }

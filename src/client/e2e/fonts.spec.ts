@@ -90,15 +90,19 @@ test('interior shared controls, captions, and professional metadata do not inher
   await expect(caption).toHaveCSS('font-weight', '400')
   await expect(caption).toHaveCSS('letter-spacing', 'normal')
   await expect(caption).toHaveCSS('text-transform', 'none')
+  await expect(caption).toHaveCSS('color', 'rgb(255, 250, 240)')
 })
 
-test('interior project heroes use the accepted material treatments without old paper fields or a CSS feather', async ({ page }) => {
+test('interior project heroes use the accepted material treatments with a local Wild Bunch edge blend', async ({ page }) => {
   await page.goto('./projects/wild-bunch/')
-  await expect(page.locator('.project-visual--wild-bunch-concept picture')).toHaveCSS('mask-image', 'none')
+  const edgeBlend = await page.locator('.project-visual--wild-bunch-concept picture').evaluate((picture) =>
+    getComputedStyle(picture, '::after').backgroundImage,
+  )
+  expect(edgeBlend).toContain('linear-gradient')
 
   for (const path of ['./projects/agentic-learning-lab/', './projects/adventures-of-patch/']) {
     await page.goto(path)
-    await expect(page.locator('.content-page-header')).toHaveCSS('background-color', 'rgb(230, 234, 235)')
+    await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(230, 234, 235)')
   }
 })
 

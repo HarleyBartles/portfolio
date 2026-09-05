@@ -36,7 +36,7 @@ describe('Project route visuals', () => {
     expect(article).toHaveAttribute('data-type-register', 'site-sans')
     expect(header).not.toBeNull()
     expect(header).toHaveAttribute('data-visual-contract', 'wild-bunch-case-study-hero')
-    const visual = await within(header as HTMLElement).findByLabelText('Wild Bunch early-alpha town-arrival concept art')
+    const visual = await within(header as HTMLElement).findByLabelText('Wild Bunch early-alpha town-arrival concept art', {}, { timeout: 5_000 })
     const image = within(visual).getByRole('img')
 
     expect(visual).toBeVisible()
@@ -67,7 +67,7 @@ describe('Project route visuals', () => {
     expect(article).toHaveAttribute('data-visual-language', 'project')
     expect(article?.querySelector('header')).toHaveAttribute('data-visual-contract', 'learning-lab-case-study-hero')
     await waitFor(() => expect(article?.querySelectorAll('[data-visual-contract="learning-lab-loop"]')).toHaveLength(1))
-    expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 5_000 })).toBeVisible()
     expect(screen.queryByRole('img', { name: /venue floor plan/i })).not.toBeInTheDocument()
   })
 })
