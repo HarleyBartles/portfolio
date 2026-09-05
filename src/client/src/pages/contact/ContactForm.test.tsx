@@ -4,7 +4,12 @@ import { afterEach, describe, expect, test, vi } from 'vitest'
 import { ContactForm } from './ContactForm'
 import { PortfolioThemeProvider } from '../../components/PortfolioThemeProvider'
 
-const renderContactForm = (endpoint?: string) => render(<PortfolioThemeProvider><ContactForm endpoint={endpoint} /></PortfolioThemeProvider>)
+const renderContactForm = (endpoint?: string) =>
+  render(
+    <PortfolioThemeProvider>
+      <ContactForm endpoint={endpoint} />
+    </PortfolioThemeProvider>,
+  )
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -16,6 +21,7 @@ describe('ContactForm', () => {
     (endpoint) => {
       renderContactForm(endpoint)
 
+      expect(screen.getByText('Delivery status / disconnected')).toHaveAttribute('data-eyebrow')
       expect(screen.getByText(/contact delivery is not connected yet/i)).toBeVisible()
       expect(screen.getByRole('link', { name: /github profile/i })).toHaveAttribute(
         'href',
@@ -83,7 +89,10 @@ describe('ContactForm', () => {
   test('disables only the submit control and prevents duplicate delivery while sending', async () => {
     let resolveDelivery: ((response: Response) => void) | undefined
     const fetchMock = vi.fn().mockImplementation(
-      () => new Promise<Response>((resolve) => { resolveDelivery = resolve }),
+      () =>
+        new Promise<Response>((resolve) => {
+          resolveDelivery = resolve
+        }),
     )
     vi.stubGlobal('fetch', fetchMock)
     renderContactForm('https://forms.example.test/contact')
@@ -94,7 +103,9 @@ describe('ContactForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Send message' }))
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
-    expect(screen.getByRole('button', { name: 'Sending…' })).toBeDisabled()
+    const pendingButton = screen.getByRole('button', { name: 'Sending…' })
+    expect(pendingButton).toBeDisabled()
+    expect(pendingButton).toHaveStyle({ cursor: 'wait', opacity: '.62' })
     expect(screen.getByLabelText('Name')).toBeEnabled()
     expect(screen.getByLabelText('Reply email')).toBeEnabled()
     expect(screen.getByLabelText('Message')).toBeEnabled()

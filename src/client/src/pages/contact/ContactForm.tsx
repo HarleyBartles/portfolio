@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import styled from 'styled-components'
 import { professionalProfile } from '../../data'
-import { ActionButton } from '../../components/content/PublicationPrimitives'
+import { ActionButton, Eyebrow } from '../../components/content/PublicationPrimitives'
 import { ExternalLink } from '../../components/ExternalLink'
 
 type ContactFormProps = {
@@ -15,30 +15,88 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
-  @media (max-width: 30rem) { grid-template-columns: 1fr; }
+  @media (max-width: 30rem) {
+    grid-template-columns: 1fr;
+  }
 `
 const Field = styled.div<{ $message?: boolean }>`
   display: grid;
   gap: var(--space-2);
-  ${({ $message }) => $message ? 'grid-column: 1 / -1;' : ''}
-  label { font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
-  input, textarea { width: 100%; border: 1px solid var(--color-ink); border-radius: 0; background: rgb(255 250 240 / 72%); padding: var(--space-4); color: var(--color-ink); font: inherit; }
-  textarea { resize: vertical; }
-  input:focus, textarea:focus { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+  ${({ $message }) => ($message ? 'grid-column: 1 / -1;' : '')}
+  label {
+    font-family: var(--font-site-sans);
+    font-size: var(--type-metadata-size);
+    font-weight: 700;
+  }
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid var(--color-ink);
+    border-radius: 0;
+    background: rgb(255 250 240 / 72%);
+    padding: var(--space-4);
+    color: var(--color-ink);
+    font: inherit;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:focus,
+  textarea:focus {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
 `
 const Honeypot = styled.div`
-  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 `
 const SubmitArea = styled.div`
-  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-5); align-items: center;
-  p { max-width: 35rem; margin: 0; color: var(--color-muted); }
-  [role='alert'] { color: var(--color-accent); }
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+  p {
+    max-width: 35rem;
+    margin: 0;
+    color: var(--color-muted);
+  }
+  [role='alert'] {
+    color: var(--color-accent);
+  }
 `
-const Privacy = styled.p`flex-basis: 100%; font-size: .92rem;`
-const Warning = styled.span`display: block; margin-top: var(--space-2);`
+const Privacy = styled.p`
+  flex-basis: 100%;
+  font-size: 0.92rem;
+`
+const Warning = styled.span`
+  display: block;
+  margin-top: var(--space-2);
+`
+const DisconnectedEyebrow = styled(Eyebrow)`
+  margin-bottom: var(--space-4);
+`
 const Disconnected = styled.aside`
-  align-self: start; border: 1px solid var(--color-ink); background: var(--color-accent-soft); padding: clamp(var(--space-6), 5vw, var(--space-10));
-  h3 { font-size: clamp(1.8rem, 3.5vw, 3rem); }
+  align-self: start;
+  border: 1px solid var(--color-ink);
+  background: var(--color-accent-soft);
+  padding: clamp(var(--space-6), 5vw, var(--space-10));
+  h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  > p:last-child {
+    margin-bottom: 0;
+  }
 `
 
 function isSafeEndpoint(endpoint: string | undefined): endpoint is string {
@@ -59,18 +117,12 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
 
     return (
       <Disconnected aria-labelledby="contact-disconnected-title">
-        <p data-eyebrow>Delivery status / disconnected</p>
+        <DisconnectedEyebrow>Delivery status / disconnected</DisconnectedEyebrow>
         <h3 id="contact-disconnected-title">Contact delivery is not connected yet.</h3>
         <p>
-          I will not publish a personal address or pretend a form goes somewhere when it does not.
-          For now, the honest routes are my{' '}
-          <ExternalLink href={github.href}>
-            GitHub profile
-          </ExternalLink>{' '}
-          and{' '}
-          <ExternalLink href={linkedin.href}>
-            {linkedin.label}
-          </ExternalLink>.
+          I will not publish a personal address or pretend a form goes somewhere when it does not. For now, the honest
+          routes are my <ExternalLink href={github.href}>GitHub profile</ExternalLink> and{' '}
+          <ExternalLink href={linkedin.href}>{linkedin.label}</ExternalLink>.
         </p>
       </Disconnected>
     )
@@ -125,12 +177,15 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
           {submissionState === 'submitting' ? 'Sending…' : submissionState === 'error' ? 'Try again' : 'Send message'}
         </ActionButton>
         <Privacy>
-          Your name, reply email, and message are sent to Formspree for delivery. I use them only to reply. Formspree processes submissions under its{' '}
+          Your name, reply email, and message are sent to Formspree for delivery. I use them only to reply. Formspree
+          processes submissions under its{' '}
           <ExternalLink href="https://formspree.io/legal/privacy-policy/">privacy policy</ExternalLink>
           <Warning>Do not send sensitive personal information.</Warning>
         </Privacy>
         {submissionState === 'sent' ? <p role="status">Message sent. Thank you.</p> : null}
-        {submissionState === 'error' ? <p role="alert">I could not send that message. Your text is still here; please try again.</p> : null}
+        {submissionState === 'error' ? (
+          <p role="alert">I could not send that message. Your text is still here; please try again.</p>
+        ) : null}
       </SubmitArea>
     </Form>
   )

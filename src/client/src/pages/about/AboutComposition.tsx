@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { ExternalLink, Eyebrow } from '../../components'
+import { ExternalLink, Eyebrow, PageTitle } from '../../components'
 import { EditorialHeading } from '../../components/editorial'
 import type { ContentSummary } from '../../types'
 
@@ -16,12 +16,8 @@ const Intro = styled.header`
     grid-template-columns: 1fr;
   }
 `
-const IntroTitle = styled(EditorialHeading)`
+const IntroTitle = styled(PageTitle)`
   margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--type-site-display-size);
-  line-height: var(--type-site-display-leading);
-  letter-spacing: var(--type-site-display-tracking);
 `
 const IntroCopy = styled.div`
   border-top: 1px solid var(--color-ink);
@@ -49,7 +45,7 @@ export const AboutIntro = ({
   <Intro data-visual-contract="about-intro">
     <div>
       <Eyebrow>{eyebrow}</Eyebrow>
-      <IntroTitle forwardedAs="h1" wrap="display" id={headingId}>
+      <IntroTitle register="site-sans" data-text-wrap="display" id={headingId}>
         {title}
       </IntroTitle>
     </div>
@@ -104,10 +100,7 @@ export const NextRolePanel = ({
   body: readonly ReactNode[]
   actions: ReactNode
 }) => (
-  <Conversion
-    aria-labelledby={headingId}
-    data-visual-contract="about-cv-conversion"
-  >
+  <Conversion aria-labelledby={headingId} data-visual-contract="about-cv-conversion">
     <div>
       <ConversionEyebrow>{eyebrow}</ConversionEyebrow>
       <ConversionTitle wrap="display" id={headingId}>
@@ -125,8 +118,7 @@ export const NextRolePanel = ({
 
 const Story = styled.section<{ $layout: 'split' | 'stacked' }>`
   display: grid;
-  grid-template-columns: ${({ $layout }) =>
-    $layout === 'stacked' ? '1fr' : 'minmax(10rem, 3fr) minmax(0, 7fr)'};
+  grid-template-columns: ${({ $layout }) => ($layout === 'stacked' ? '1fr' : 'minmax(10rem, 3fr) minmax(0, 7fr)')};
   gap: clamp(var(--space-8), 6vw, var(--space-20));
   border-top: 1px solid var(--color-ink);
   padding: clamp(var(--space-12), 6vw, var(--space-16)) 0 var(--space-10);
@@ -198,11 +190,7 @@ export const ProfessionalStory = ({
     data-professional-story={layout}
     $layout={layout}
   >
-    <Rail
-      data-professional-rail={railKind}
-      data-professional-story-rail
-      $kind={railKind}
-    >
+    <Rail data-professional-rail={railKind} data-professional-story-rail $kind={railKind}>
       <RailEyebrow>{eyebrow}</RailEyebrow>
       {period === undefined ? null : <Period>{period}</Period>}
     </Rail>
@@ -285,11 +273,7 @@ export const ProfessionalTimeline = ({
     </AboutSectionHeading>
     <div>
       {entries.map(({ id, period, title, body, kind }) => (
-        <Stage
-          as={kind === 'aside' ? 'aside' : 'section'}
-          key={id}
-          aria-labelledby={id}
-        >
+        <Stage as={kind === 'aside' ? 'aside' : 'section'} key={id} aria-labelledby={id}>
           <div>
             <Eyebrow>{period}</Eyebrow>
           </div>
@@ -369,14 +353,10 @@ export const IndependentWork = ({
     {projects.map((project) => (
       <ProjectRow key={project.slug}>
         <ProjectTitle>
-          <ProjectLink to={`/projects/${project.slug}`}>
-            {project.title}
-          </ProjectLink>
+          <ProjectLink to={`/projects/${project.slug}`}>{project.title}</ProjectLink>
         </ProjectTitle>
         <ProjectSummary>{project.summary}</ProjectSummary>
-        <ProfessionalLink to={`/projects/${project.slug}`}>
-          Read the case study
-        </ProfessionalLink>
+        <ProfessionalLink to={`/projects/${project.slug}`}>Read the case study</ProfessionalLink>
       </ProjectRow>
     ))}
   </Independent>

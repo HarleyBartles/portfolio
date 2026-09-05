@@ -1,16 +1,44 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+async function expectContactArrival(page: Page): Promise<void> {
+  const surface = page.getByRole('region', { name: 'Get in touch.' })
+  const heading = page.getByRole('heading', { level: 1, name: 'Get in touch.' })
+
+  await expect(surface).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => document.activeElement?.getAttribute('data-visual-contract')))
+    .toBe('contact-route')
+  await expect
+    .poll(async () => {
+      const box = await surface.boundingBox()
+      return box === null ? false : box.y >= 0 && box.y < 700
+    })
+    .toBe(true)
+  await expect(heading).toBeVisible()
+}
 
 test('about page makes the professional proposition and configured conversion routes explicit', async ({ page }) => {
   const response = await page.goto('./about/')
 
   expect(response?.status()).toBe(200)
-  await expect(page.getByRole('heading', { level: 1, name: 'I still like writing code. I just know the job is bigger than that now.' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'I still like writing code. I just know the job is bigger than that now.',
+    }),
+  ).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Access Checks, end to end.' })).toBeVisible()
   await expect(page.getByText('No source capture, no success.')).toBeVisible()
-  await expect(page.getByText('Access Checks is a .NET API on Azure Functions, with a React and .NET portal for API consumers, usage and webhook subscriptions.')).toBeVisible()
+  await expect(
+    page.getByText(
+      'Access Checks is a .NET API on Azure Functions, with a React and .NET portal for API consumers, usage and webhook subscriptions.',
+    ),
+  ).toBeVisible()
   await expect(page.getByText(/\.NET 8 API/)).toHaveCount(0)
   await expect(page.getByRole('heading', { level: 2, name: 'AI Engineer Level 6.' })).toBeVisible()
-  await expect(page.getByText(/2005–2015: order administration → Account Executive → Account Manager → Team Manager/)).toBeVisible()
+  await expect(
+    page.getByText(/2005–2015: order administration → Account Executive → Account Manager → Team Manager/),
+  ).toBeVisible()
   await expect(page.getByText(/May 2015–January 2019: Web Manager/)).toBeVisible()
   await expect(page.getByText('In another life')).toBeVisible()
   await expect(page.getByRole('link', { name: 'IMDb: Harley Bartles (opens in a new tab)' })).toBeVisible()
@@ -31,13 +59,23 @@ test('homepage professional close reaches the contact route', async ({ page }) =
 
   await page.getByRole('link', { name: 'Tell me about it →' }).click()
   await expect(page).toHaveURL(/\/contact$/)
-  await expect(page.getByRole('heading', { level: 1, name: 'Get in touch.' })).toBeVisible()
+  await expectContactArrival(page)
+})
+
+test('About CTA keyboard activation arrives at Contact with focus and scroll position', async ({ page }) => {
+  await page.goto('./about/')
+  const cta = page.locator('[data-visual-contract="about-cv-conversion"]').getByRole('link', { name: 'Get in touch' })
+  await cta.focus()
+  await cta.press('Enter')
+
+  await expect(page).toHaveURL(/\/contact$/)
+  await expectContactArrival(page)
 })
 
 test('legacy About contact hash redirects to the canonical Contact route', async ({ page }) => {
   await page.goto('./about/#contact')
   await expect(page).toHaveURL(/\/contact$/)
-  await expect(page.getByRole('heading', { level: 1, name: 'Get in touch.' })).toBeVisible()
+  await expectContactArrival(page)
 })
 
 test('about intro starts both desktop columns on the same baseline', async ({ page }) => {
@@ -65,9 +103,12 @@ test('about uses a content-led first section and one boundary between structural
     return {
       introBottom: intro?.bottom,
       introHeight: intro?.height,
-      introMinimumHeight: Number.parseFloat(getComputedStyle(document.querySelector('[data-visual-contract="about-intro"]')!).minBlockSize),
+      introMinimumHeight: Number.parseFloat(
+        getComputedStyle(document.querySelector('[data-visual-contract="about-intro"]')!).minBlockSize,
+      ),
       articlePaddingBottom: pageStyle.paddingBottom,
-      careerPaddingBottom: getComputedStyle(document.querySelector('section[aria-labelledby="career-title"]')!).paddingBottom,
+      careerPaddingBottom: getComputedStyle(document.querySelector('section[aria-labelledby="career-title"]')!)
+        .paddingBottom,
       actingBottomBorder: actingStyle.borderBottomWidth,
       independentTopBorder: independentStyle.borderTopWidth,
     }
