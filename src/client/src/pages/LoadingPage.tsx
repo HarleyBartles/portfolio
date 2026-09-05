@@ -1,15 +1,12 @@
-import type { ReactElement } from 'react'
-import { AccessibleStatus, DocumentMetadata, SiteLayout } from '../components'
+import { DocumentMetadata, SiteLayout, StatePanel } from '../components'
 
 type LoadingPageProps = {
   shell?: boolean
 }
 
-export function LoadingPage({ shell = true }: LoadingPageProps): ReactElement {
+export const LoadingPage = ({ shell = true }: LoadingPageProps) => {
   const content = (
-    <AccessibleStatus id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2} routeLoading>
-      Loading portfolio navigation.
-    </AccessibleStatus>
+    <StatePanel id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2} announcement="status" routeLoading messages={['Loading portfolio navigation.']} />
   )
 
   if (!shell) {

@@ -16,12 +16,6 @@ export const CvSheet = styled.section`
     margin-top: ${({ theme }) => theme.space.xxl};
   }
 
-  /* The header's rule introduces the first content section; don't draw it twice. */
-  & > .cv-header + .cv-section {
-    border-top: 0;
-    margin-top: 0;
-  }
-
   @media (max-width: 46rem) {
     width: 100%;
     border-inline: 0;

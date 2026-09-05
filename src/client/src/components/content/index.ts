@@ -4,6 +4,8 @@ export { ContentHeader } from './ContentHeader'
 export { IndexHeader } from './IndexHeader'
 export {
   ActionButton,
+  ActionAnchor,
+  ActionRouteLink,
   Eyebrow,
   IndexEntrySummary,
   IndexEntryTitle,

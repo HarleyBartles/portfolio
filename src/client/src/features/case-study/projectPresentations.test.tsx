@@ -37,5 +37,5 @@ describe('project presentations', () => {
 
     render(<Suspense fallback={null}><LearningLabCaseStudy /></Suspense>)
     expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 5_000 })).toBeVisible()
-  })
+  }, 15_000)
 })

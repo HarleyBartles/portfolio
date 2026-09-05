@@ -14,7 +14,7 @@ Within that same site-wide system, the homepage owns a deterministic six-movemen
 
 The portfolio should make a hiring manager, interviewer, or senior engineer want to inspect the work. It presents Harley as a senior software engineer building reliable agentic systems through projects, technical writing, teaching material, and memorable visual explanation.
 
-The site should feel like an authored editorial engineering field journal, not a product landing-page template. Most pages exist to make an idea or piece of work intrinsically useful. The About page is the deliberate place where the subtext becomes explicit: assess Harley for work, understand how he operates, and make contact safely.
+The site should feel like an authored editorial engineering field journal, not a product landing-page template. Most pages exist to make an idea or piece of work intrinsically useful. About is the deliberate professional assessment surface: assess Harley for work and understand how he operates. Contact is a distinct privacy-preserving conversion route reached from About, the CV and intentional homepage close links.
 
 Audience priority is:
 
@@ -98,7 +98,7 @@ These portfolio-wide defaults are intentional, but replaceable through the chang
 
 - the designed HB SVG mark;
 - project-native media and responsive derivatives under repository custody;
-- explicit hiring and contact language concentrated on About;
+- explicit hiring language on About, with contact behaviour owned by the privacy-preserving Contact route;
 - public deep routes with route-specific metadata and an honest unknown-route fallback.
 
 Across every route, protect the cool-mineral shared substrate; shared Source family roles; disciplined composition; artifact-first evidence; relationship-led cadence; readable flow; and bounded, evidence-earned use of project-native colour and interruption. A route may carry its own choreography without becoming a separate visual system. The homepage additionally protects its deterministic six-movement edition with no autoplay.

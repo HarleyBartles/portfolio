@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test('the CV header owns the boundary before the opening profile section', async ({ page }) => {
   await page.goto('./cv/')
 
-  const openingSection = page.locator('.cv-header + .cv-section')
+  const openingSection = page.locator('[data-cv-section][data-divider="none"]')
 
   await expect(openingSection).toHaveCount(1)
   await expect(openingSection).toHaveCSS('border-top-width', '0px')
@@ -13,7 +13,7 @@ test('the CV availability line uses the available desktop header width', async (
   await page.setViewportSize({ width: 980, height: 750 })
   await page.goto('./cv/')
 
-  const availability = page.locator('.cv-header__details > p')
+  const availability = page.locator('[data-cv-availability]')
   const metrics = await availability.evaluate((element) => {
     const style = getComputedStyle(element)
     return {
@@ -29,10 +29,10 @@ test('the CV name owns a full desktop header row', async ({ page }) => {
   await page.setViewportSize({ width: 980, height: 750 })
   await page.goto('./cv/')
 
-  const layout = await page.locator('.cv-header').evaluate((header) => {
+  const layout = await page.locator('[data-cv-header]').evaluate((header) => {
     const name = header.querySelector('h1')
-    const headline = header.querySelector('.cv-headline')
-    const details = header.querySelector('.cv-header__details')
+    const headline = header.querySelector('[data-cv-headline]')
+    const details = header.querySelector('[data-cv-details]')
     if (name === null || headline === null || details === null) throw new Error('Expected CV header content')
 
     const nameStyle = getComputedStyle(name)

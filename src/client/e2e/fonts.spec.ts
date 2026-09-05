@@ -76,13 +76,13 @@ test('homepage typography uses the shared Source families rather than legacy fon
 test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {
   await page.goto('./about')
   const nextRole = page.locator('[data-visual-contract="about-cv-conversion"]')
-  await expect(nextRole.locator('.text-link')).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.locator('.button-link')).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.locator('.button-link')).toHaveCSS('background-color', 'rgb(31, 36, 31)')
-  await expect(page.locator('[data-professional-rail="chronology"] .eyebrow')).toHaveCSS('color', 'rgb(98, 94, 85)')
+  await expect(nextRole.getByRole('link', { name: 'Read the CV' })).toHaveCSS('font-family', /Source Sans 3/)
+  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('font-family', /Source Sans 3/)
+  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('background-color', 'rgb(31, 36, 31)')
+  await expect(page.locator('[data-professional-rail="chronology"] [data-eyebrow]')).toHaveCSS('color', 'rgb(98, 94, 85)')
 
   await page.goto('./cv')
-  await expect(page.locator('.cv-role').first()).toHaveCSS('color', 'rgb(98, 94, 85)')
+  await expect(page.locator('[data-cv-role]').first()).toHaveCSS('color', 'rgb(98, 94, 85)')
 
   await page.goto('./projects/wild-bunch/')
   const caption = page.locator('.project-visual--wild-bunch-concept figcaption')

@@ -1,6 +1,3 @@
 export { EditorialPullQuote } from './EditorialPullQuote'
-export {
-  EditorialBalancedHeading,
-  EditorialDisplayHeading,
-  EditorialSingleLineHeading,
-} from './EditorialTextWrap'
+export { EditorialHeading } from './EditorialHeading'
+export type { EditorialHeadingWrap } from './EditorialHeading'

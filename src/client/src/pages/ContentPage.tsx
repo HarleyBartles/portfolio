@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { lazy, type ComponentType, Suspense } from 'react'
-import { Link } from 'react-router-dom'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
 import {
-  AccessibleStatus,
   ArticleBody,
   ContentArticle,
   ContentHeader,
@@ -65,9 +63,7 @@ const ContentLoadingState = () => {
         canonicalPath="/"
         noIndex
       />
-      <AccessibleStatus id="content-loading-title" title="Preparing the portfolio" routeLoading>
-        Loading portfolio content.
-      </AccessibleStatus>
+      <StatePanel id="content-loading-title" title="Preparing the portfolio" announcement="status" routeLoading messages={['Loading portfolio content.']} />
     </SiteLayout>
   )
 }
@@ -81,13 +77,13 @@ const ContentErrorState = () => {
         canonicalPath="/"
         noIndex
       />
-      <AccessibleStatus id="content-error-title" title="Portfolio content unavailable" tone="alert">
-        Could not load this portfolio story. Please refresh or try again later.
-      </AccessibleStatus>
-      <div className="state-actions" aria-label="Recovery navigation">
-        <Link to="/">Go to the homepage</Link>
-        <Link to="/projects">Browse project stories</Link>
-      </div>
+      <StatePanel
+        id="content-error-title"
+        title="Portfolio content unavailable"
+        announcement="alert"
+        messages={['Could not load this portfolio story. Please refresh or try again later.']}
+        actions={[{ label: 'Go to the homepage', to: '/' }, { label: 'Browse project stories', to: '/projects' }]}
+      />
     </SiteLayout>
   )
 }
@@ -101,11 +97,7 @@ const ContentNotFoundState = () => {
         canonicalPath="/"
         noIndex
       />
-      <StatePanel labelledBy="content-not-found-title">
-        <h1 id="content-not-found-title">Page not found</h1>
-        <p>This portfolio story is not available.</p>
-        <Link to="/">Return to the homepage</Link>
-      </StatePanel>
+      <StatePanel id="content-not-found-title" title="Page not found" messages={['This portfolio story is not available.']} actions={[{ label: 'Return to the homepage', to: '/' }]} />
     </SiteLayout>
   )
 }

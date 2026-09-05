@@ -1,44 +1,88 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+async function expectContactArrival(page: Page): Promise<void> {
+  const surface = page.getByRole('region', { name: 'Get in touch.' })
+  const heading = page.getByRole('heading', { level: 1, name: 'Get in touch.' })
+
+  await expect(surface).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => document.activeElement?.getAttribute('data-visual-contract')))
+    .toBe('contact-route')
+  await expect
+    .poll(async () => {
+      const box = await surface.boundingBox()
+      return box === null ? false : box.y >= 0 && box.y < 700
+    })
+    .toBe(true)
+  await expect(heading).toBeVisible()
+}
 
 test('about page makes the professional proposition and configured conversion routes explicit', async ({ page }) => {
   const response = await page.goto('./about/')
 
   expect(response?.status()).toBe(200)
-  await expect(page.getByRole('heading', { level: 1, name: 'I still like writing code. I just know the job is bigger than that now.' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'I still like writing code. I just know the job is bigger than that now.',
+    }),
+  ).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Access Checks, end to end.' })).toBeVisible()
   await expect(page.getByText('No source capture, no success.')).toBeVisible()
-  await expect(page.getByText('Access Checks is a .NET API on Azure Functions, with a React and .NET portal for API consumers, usage and webhook subscriptions.')).toBeVisible()
+  await expect(
+    page.getByText(
+      'Access Checks is a .NET API on Azure Functions, with a React and .NET portal for API consumers, usage and webhook subscriptions.',
+    ),
+  ).toBeVisible()
   await expect(page.getByText(/\.NET 8 API/)).toHaveCount(0)
   await expect(page.getByRole('heading', { level: 2, name: 'AI Engineer Level 6.' })).toBeVisible()
-  await expect(page.getByText(/2005–2015: order administration → Account Executive → Account Manager → Team Manager/)).toBeVisible()
+  await expect(
+    page.getByText(/2005–2015: order administration → Account Executive → Account Manager → Team Manager/),
+  ).toBeVisible()
   await expect(page.getByText(/May 2015–January 2019: Web Manager/)).toBeVisible()
   await expect(page.getByText('In another life')).toBeVisible()
   await expect(page.getByRole('link', { name: 'IMDb: Harley Bartles (opens in a new tab)' })).toBeVisible()
   await expect(page.getByText(/Remote-first works best.*My notice period is four weeks/i)).toBeVisible()
   const cvConversion = page.locator('[data-visual-contract="about-cv-conversion"]')
   await expect(cvConversion.getByRole('link', { name: 'Read the CV' })).toHaveAttribute('href', '/cv')
-  await expect(cvConversion.getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '#contact')
+  await expect(cvConversion.getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '/contact')
   await expect(cvConversion.getByRole('link', { name: 'Download PDF' })).toHaveCount(0)
-  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Send message' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Send message' })).toHaveCount(0)
   await expect(page.getByText(/contact delivery is not connected yet/i)).toHaveCount(0)
   await expect(page.locator('a[href^="mailto:"], a[href^="tel:"]')).toHaveCount(0)
   await expect(page.getByText(/technical owner/i)).toHaveCount(0)
 })
 
-test('homepage professional close reaches the contact section', async ({ page }) => {
+test('homepage professional close reaches the contact route', async ({ page }) => {
   await page.goto('./')
 
   await page.getByRole('link', { name: 'Tell me about it →' }).click()
-  await expect(page).toHaveURL(/\/about#contact$/)
-  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toBeVisible()
+  await expect(page).toHaveURL(/\/contact$/)
+  await expectContactArrival(page)
+})
+
+test('About CTA keyboard activation arrives at Contact with focus and scroll position', async ({ page }) => {
+  await page.goto('./about/')
+  const cta = page.locator('[data-visual-contract="about-cv-conversion"]').getByRole('link', { name: 'Get in touch' })
+  await cta.focus()
+  await cta.press('Enter')
+
+  await expect(page).toHaveURL(/\/contact$/)
+  await expectContactArrival(page)
+})
+
+test('legacy About contact hash redirects to the canonical Contact route', async ({ page }) => {
+  await page.goto('./about/#contact')
+  await expect(page).toHaveURL(/\/contact$/)
+  await expectContactArrival(page)
 })
 
 test('about intro starts both desktop columns on the same baseline', async ({ page }) => {
   await page.goto('./about/')
-  await expect(page.locator('.about-intro')).toBeVisible()
+  await expect(page.locator('[data-visual-contract="about-intro"]')).toBeVisible()
 
-  const [headingColumn, copyColumn] = await page.locator('.about-intro > div').all()
+  const [headingColumn, copyColumn] = await page.locator('[data-visual-contract="about-intro"] > div').all()
   const [headingBox, copyBox] = await Promise.all([headingColumn.boundingBox(), copyColumn.boundingBox()])
 
   expect(headingBox).not.toBeNull()
@@ -48,21 +92,23 @@ test('about intro starts both desktop columns on the same baseline', async ({ pa
 
 test('about uses a content-led first section and one boundary between structural sections', async ({ page }) => {
   await page.goto('./about/')
-  await expect(page.locator('.about-intro')).toBeVisible()
+  await expect(page.locator('[data-visual-contract="about-intro"]')).toBeVisible()
 
   const layout = await page.evaluate(() => {
-    const intro = document.querySelector('.about-intro')?.getBoundingClientRect()
-    const pageStyle = getComputedStyle(document.querySelector('.about-page')!)
-    const actingStyle = getComputedStyle(document.querySelector('.career-timeline__stage--aside')!)
-    const independentStyle = getComputedStyle(document.querySelector('.about-independent')!)
+    const intro = document.querySelector('[data-visual-contract="about-intro"]')?.getBoundingClientRect()
+    const pageStyle = getComputedStyle(document.querySelector('article[aria-labelledby="about-title"]')!)
+    const actingStyle = getComputedStyle(document.querySelector('aside[aria-labelledby="previous-life-title"]')!)
+    const independentStyle = getComputedStyle(document.querySelector('section[aria-labelledby="independent-title"]')!)
 
     return {
       introBottom: intro?.bottom,
       introHeight: intro?.height,
-      introMinimumHeight: Number.parseFloat(getComputedStyle(document.querySelector('.about-intro')!).minBlockSize),
+      introMinimumHeight: Number.parseFloat(
+        getComputedStyle(document.querySelector('[data-visual-contract="about-intro"]')!).minBlockSize,
+      ),
       articlePaddingBottom: pageStyle.paddingBottom,
-      careerPaddingBottom: getComputedStyle(document.querySelector('.about-career')!).paddingBottom,
-      contactPaddingBottom: getComputedStyle(document.querySelector('.about-contact')!).paddingBottom,
+      careerPaddingBottom: getComputedStyle(document.querySelector('section[aria-labelledby="career-title"]')!)
+        .paddingBottom,
       actingBottomBorder: actingStyle.borderBottomWidth,
       independentTopBorder: independentStyle.borderTopWidth,
     }
@@ -72,7 +118,6 @@ test('about uses a content-led first section and one boundary between structural
   expect(layout.introHeight).toBeGreaterThan(0)
   expect(layout.articlePaddingBottom).toBe('0px')
   expect(layout.careerPaddingBottom).toBe('0px')
-  expect(layout.contactPaddingBottom).toBe('40px')
   expect(layout.actingBottomBorder).toBe('0px')
   expect(layout.independentTopBorder).toBe('1px')
 })
@@ -102,7 +147,7 @@ test('about headings declare and satisfy their text-wrap contracts', async ({ pa
   const contracts = {
     display: ['about-title', 'cv-title'],
     balanced: [],
-    singleLine: ['access-title', 'career-title', 'independent-title', 'study-title', 'contact-title'],
+    singleLine: ['access-title', 'career-title', 'independent-title', 'study-title'],
   }
 
   for (const width of [320, 769, 1133, 1440]) {
@@ -138,7 +183,7 @@ test('about lets the independent preamble use its available width and protects t
   await page.setViewportSize({ width: 1161, height: 912 })
   await page.goto('./about/')
 
-  const independentPreamble = page.locator('.about-independent > p:not(.eyebrow)')
+  const independentPreamble = page.locator('[data-independent-preamble]')
   const studyTitle = page.locator('#study-title')
 
   await expect(independentPreamble).toBeVisible()
@@ -154,7 +199,7 @@ test('about lets the independent preamble use its available width and protects t
     }
 
     return {
-      independentPreambleLines: lineCount('.about-independent > p:not(.eyebrow)'),
+      independentPreambleLines: lineCount('[data-independent-preamble]'),
       studyTitleLines: lineCount('#study-title'),
       viewportWidth: window.innerWidth,
       documentWidth: document.documentElement.scrollWidth,

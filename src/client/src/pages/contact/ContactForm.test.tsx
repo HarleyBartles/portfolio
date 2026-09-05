@@ -2,6 +2,14 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { ContactForm } from './ContactForm'
+import { PortfolioThemeProvider } from '../../components/PortfolioThemeProvider'
+
+const renderContactForm = (endpoint?: string) =>
+  render(
+    <PortfolioThemeProvider>
+      <ContactForm endpoint={endpoint} />
+    </PortfolioThemeProvider>,
+  )
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -11,8 +19,9 @@ describe('ContactForm', () => {
   test.each([undefined, '', 'http://forms.example.test/contact', 'not-a-url'])(
     'keeps delivery disconnected for a missing or unsafe endpoint: %s',
     (endpoint) => {
-      render(<ContactForm endpoint={endpoint} />)
+      renderContactForm(endpoint)
 
+      expect(screen.getByText('Delivery status / disconnected')).toHaveAttribute('data-eyebrow')
       expect(screen.getByText(/contact delivery is not connected yet/i)).toBeVisible()
       expect(screen.getByRole('link', { name: /github profile/i })).toHaveAttribute(
         'href',
@@ -27,7 +36,7 @@ describe('ContactForm', () => {
   )
 
   test('renders bounded required fields, privacy notice, and a Formspree honeypot only for an HTTPS endpoint', () => {
-    const { container } = render(<ContactForm endpoint="https://forms.example.test/contact" />)
+    const { container } = renderContactForm('https://forms.example.test/contact')
 
     expect(screen.getByLabelText('Name')).toBeRequired()
     expect(screen.getByLabelText('Name')).toHaveAttribute('maxlength', '100')
@@ -43,17 +52,16 @@ describe('ContactForm', () => {
       'href',
       'https://formspree.io/legal/privacy-policy/',
     )
-    const privacyNotice = container.querySelector('.contact-privacy')
-    const privacyWarning = container.querySelector('.contact-privacy__warning')
-    expect(privacyWarning).toHaveTextContent('Do not send sensitive personal information.')
-    expect(privacyNotice?.innerHTML).not.toContain('</a>.')
+    const privacyWarning = screen.getByText('Do not send sensitive personal information.')
+    expect(privacyWarning).toBeVisible()
+    expect(privacyWarning.parentElement?.innerHTML).not.toContain('</a>.')
     expect(screen.getByRole('button', { name: 'Send message' })).toBeEnabled()
   })
 
   test('submits the form and confirms delivery without exposing an address', async () => {
     const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 204 }))
     vi.stubGlobal('fetch', fetchMock)
-    render(<ContactForm endpoint="https://forms.example.test/contact" />)
+    renderContactForm('https://forms.example.test/contact')
 
     await userEvent.type(screen.getByLabelText('Name'), 'Ada Lovelace')
     await userEvent.type(screen.getByLabelText('Reply email'), 'ada@example.test')
@@ -81,10 +89,13 @@ describe('ContactForm', () => {
   test('disables only the submit control and prevents duplicate delivery while sending', async () => {
     let resolveDelivery: ((response: Response) => void) | undefined
     const fetchMock = vi.fn().mockImplementation(
-      () => new Promise<Response>((resolve) => { resolveDelivery = resolve }),
+      () =>
+        new Promise<Response>((resolve) => {
+          resolveDelivery = resolve
+        }),
     )
     vi.stubGlobal('fetch', fetchMock)
-    render(<ContactForm endpoint="https://forms.example.test/contact" />)
+    renderContactForm('https://forms.example.test/contact')
 
     await userEvent.type(screen.getByLabelText('Name'), 'Dorothy Vaughan')
     await userEvent.type(screen.getByLabelText('Reply email'), 'dorothy@example.test')
@@ -92,7 +103,9 @@ describe('ContactForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Send message' }))
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
-    expect(screen.getByRole('button', { name: 'Sending…' })).toBeDisabled()
+    const pendingButton = screen.getByRole('button', { name: 'Sending…' })
+    expect(pendingButton).toBeDisabled()
+    expect(pendingButton).toHaveStyle({ cursor: 'wait', opacity: '.62' })
     expect(screen.getByLabelText('Name')).toBeEnabled()
     expect(screen.getByLabelText('Reply email')).toBeEnabled()
     expect(screen.getByLabelText('Message')).toBeEnabled()
@@ -105,7 +118,7 @@ describe('ContactForm', () => {
 
   test('keeps the visitor in control when delivery fails', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(null, { status: 503 })))
-    render(<ContactForm endpoint="https://forms.example.test/contact" />)
+    renderContactForm('https://forms.example.test/contact')
 
     await userEvent.type(screen.getByLabelText('Name'), 'Grace Hopper')
     await userEvent.type(screen.getByLabelText('Reply email'), 'grace@example.test')

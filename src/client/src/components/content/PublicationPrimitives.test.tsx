@@ -3,6 +3,9 @@ import { MemoryRouter } from 'react-router-dom'
 import { expect, test } from 'vitest'
 import { PortfolioThemeProvider } from '../PortfolioThemeProvider'
 import {
+  ActionAnchor,
+  ActionButton,
+  ActionRouteLink,
   Eyebrow,
   IndexEntrySummary,
   IndexEntryTitle,
@@ -34,6 +37,24 @@ test('exposes the shared publication hierarchy as semantic primitives', () => {
   expect(screen.getByRole('link', { name: 'An index entry' })).toHaveAttribute('href', '/projects/example')
   expect(screen.getByText('A useful summary.').tagName).toBe('P')
   expect(screen.getByRole('heading', { level: 2, name: 'Related content' })).toBeInTheDocument()
+})
+
+test('shares the bounded action treatment without leaking styling props', () => {
+  render(
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <ActionButton type="button">Submit</ActionButton>
+        <ActionAnchor href="/cv.pdf" download>Download CV</ActionAnchor>
+        <ActionRouteLink to="/contact">Contact</ActionRouteLink>
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
+  )
+
+  expect(screen.getByRole('button', { name: 'Submit' })).toHaveAttribute('type', 'button')
+  expect(screen.getByRole('link', { name: 'Download CV' })).toHaveAttribute('download')
+  expect(screen.getByRole('link', { name: 'Download CV' })).toHaveAttribute('href', '/cv.pdf')
+  expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact')
+  expect(document.querySelector('[data-variant]')).not.toBeInTheDocument()
 })
 
 test('renders parent-owned metadata values with one shared row contract', () => {

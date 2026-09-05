@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export type PublicationRegister = 'site-sans' | 'article-serif'
 export type EyebrowVariant = 'site' | 'utility'
@@ -12,13 +12,13 @@ type EyebrowProps = ComponentPropsWithoutRef<'p'> & {
 
 const EyebrowText = styled.p<{ $variant: EyebrowVariant }>`
   margin: 0;
-  color: ${({ $variant, theme }) => $variant === 'utility' ? theme.color.accent : theme.color.muted};
-  font-family: ${({ $variant, theme }) => $variant === 'utility' ? theme.font.code : theme.font.siteSans};
-  font-size: ${({ $variant, theme }) => $variant === 'utility' ? '0.72rem' : theme.type.metadataSize};
-  font-weight: ${({ $variant }) => $variant === 'utility' ? '400' : '600'};
-  line-height: ${({ $variant }) => $variant === 'utility' ? '1.62' : '1.4'};
-  letter-spacing: ${({ $variant }) => $variant === 'utility' ? '0.035em' : '.012em'};
-  text-transform: ${({ $variant }) => $variant === 'utility' ? 'uppercase' : 'none'};
+  color: ${({ $variant, theme }) => ($variant === 'utility' ? theme.color.accent : theme.color.muted)};
+  font-family: ${({ $variant, theme }) => ($variant === 'utility' ? theme.font.code : theme.font.siteSans)};
+  font-size: ${({ $variant, theme }) => ($variant === 'utility' ? '0.72rem' : theme.type.metadataSize)};
+  font-weight: ${({ $variant }) => ($variant === 'utility' ? '400' : '600')};
+  line-height: ${({ $variant }) => ($variant === 'utility' ? '1.62' : '1.4')};
+  letter-spacing: ${({ $variant }) => ($variant === 'utility' ? '0.035em' : '.012em')};
+  text-transform: ${({ $variant }) => ($variant === 'utility' ? 'uppercase' : 'none')};
 `
 
 export const Eyebrow = ({ variant = 'site', ...props }: EyebrowProps) => (
@@ -31,9 +31,11 @@ type PageTitleProps = ComponentPropsWithoutRef<'h1'> & {
 
 const PageTitleHeading = styled.h1<{ $register: PublicationRegister }>`
   margin: 0;
-  font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
-  font-size: ${({ $register, theme }) => $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
-  line-height: ${({ $register, theme }) => $register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading};
+  font-family: ${({ $register, theme }) =>
+    $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
+  font-size: ${({ $register, theme }) =>
+    $register === 'article-serif' ? 'clamp(38px, 4.2vw, 52px)' : theme.type.siteDisplaySize};
+  line-height: ${({ $register, theme }) => ($register === 'article-serif' ? '1.04' : theme.type.siteDisplayLeading)};
   letter-spacing: ${({ theme }) => theme.type.siteDisplayTracking};
   text-wrap: balance;
 `
@@ -65,7 +67,7 @@ const Metadata = styled.p`
   font-size: ${({ theme }) => theme.type.metadataSize};
   font-weight: 600;
   line-height: 1.4;
-  letter-spacing: .012em;
+  letter-spacing: 0.012em;
   text-transform: none;
 
   > span + span::before {
@@ -80,7 +82,9 @@ export const MetadataRow = ({ items, ...props }: MetadataRowProps) => {
 
   return (
     <Metadata {...props} data-metadata-row>
-      {items.map((item, index) => <span key={index}>{item}</span>)}
+      {items.map((item, index) => (
+        <span key={index}>{item}</span>
+      ))}
     </Metadata>
   )
 }
@@ -110,7 +114,9 @@ const IndexTitle = styled.h2`
 `
 
 export const IndexEntryTitle = ({ children, to, ...props }: IndexEntryTitleProps) => (
-  <IndexTitle {...props}><Link to={to}>{children}</Link></IndexTitle>
+  <IndexTitle {...props}>
+    <Link to={to}>{children}</Link>
+  </IndexTitle>
 )
 
 export const IndexEntrySummary = styled.p`
@@ -124,7 +130,7 @@ export const IndexEntryVisualLink = styled(Link)`
   background: ${({ theme }) => theme.color.tealDeep};
 `
 
-export const ActionButton = styled.button`
+const actionControlStyles = css`
   display: inline-block;
   border: 1px solid ${({ theme }) => theme.color.ink};
   background: ${({ theme }) => theme.color.ink};
@@ -138,12 +144,28 @@ export const ActionButton = styled.button`
   text-transform: none;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color ${({ theme }) => theme.motion.fast}, color ${({ theme }) => theme.motion.fast};
+  transition:
+    background-color ${({ theme }) => theme.motion.fast},
+    color ${({ theme }) => theme.motion.fast};
 
   &:hover {
     background: transparent;
     color: ${({ theme }) => theme.color.ink};
   }
+`
+
+export const ActionButton = styled.button`
+  ${actionControlStyles}
+  &:disabled {
+    cursor: wait;
+    opacity: 0.62;
+  }
+`
+export const ActionAnchor = styled.a`
+  ${actionControlStyles}
+`
+export const ActionRouteLink = styled(Link)`
+  ${actionControlStyles}
 `
 
 export const SectionTitle = styled.h2`

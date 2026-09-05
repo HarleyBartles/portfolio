@@ -1,7 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { expect, test, vi } from 'vitest'
+import { expect, test } from 'vitest'
 import { PortfolioThemeProvider } from '../components'
 import { AboutPage } from './AboutPage'
 import { CvPage } from './CvPage'
@@ -88,11 +87,11 @@ test('leads About with the next-role conversion and routes its CTA to contact', 
   expect(conversion).not.toBeNull()
   if (conversion === null) return
   expect(within(conversion).getByRole('link', { name: 'Read the CV' })).toHaveAttribute('href', '/cv')
-  expect(within(conversion).getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '#contact')
+  expect(within(conversion).getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '/contact')
   expect(within(conversion).queryByRole('link', { name: 'Download PDF' })).not.toBeInTheDocument()
   expect(within(conversion).getByText(/notice period is four weeks/i)).toBeVisible()
   expect(screen.queryByText(/my formal title is software engineer/i)).not.toBeInTheDocument()
-  expect(screen.getByRole('button', { name: 'Send message' })).toBeVisible()
+  expect(screen.queryByRole('button', { name: 'Send message' })).not.toBeInTheDocument()
   expect(screen.queryByText(/contact delivery is not connected yet/i)).not.toBeInTheDocument()
   expect(screen.getByText('No source capture, no success.').closest('blockquote')).toHaveAttribute(
     'data-type-register',
@@ -115,44 +114,6 @@ test('leads About with the next-role conversion and routes its CTA to contact', 
     'There was an acting career too.',
   ])
   expect(within(career).getByRole('heading', { name: 'There was an acting career too.' })).toBeVisible()
-})
-
-test('moves focus to the contact landmark when the next-role CTA is activated', async () => {
-  const scrollIntoView = vi.fn()
-  const originalMatchMedia = window.matchMedia
-  const originalScrollIntoView = HTMLElement.prototype.scrollIntoView
-  Object.defineProperty(window, 'matchMedia', {
-    configurable: true,
-    value: vi.fn().mockReturnValue({ matches: true }),
-  })
-  Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
-    configurable: true,
-    value: scrollIntoView,
-  })
-  try {
-    const user = userEvent.setup()
-    const { container } = render(
-      <PortfolioThemeProvider>
-        <MemoryRouter>
-          <AboutPage />
-        </MemoryRouter>
-      </PortfolioThemeProvider>,
-    )
-
-    await user.click(screen.getByRole('link', { name: 'Get in touch' }))
-
-    const contact = container.querySelector<HTMLElement>('#contact')
-    expect(contact).not.toBeNull()
-    expect(contact).toHaveFocus()
-    expect(window.location.hash).toBe('#contact')
-    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'auto', block: 'start' })
-  } finally {
-    Object.defineProperty(window, 'matchMedia', { configurable: true, value: originalMatchMedia })
-    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
-      configurable: true,
-      value: originalScrollIntoView,
-    })
-  }
 })
 
 test('About lists every project story from the shared project catalogue', () => {

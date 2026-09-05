@@ -23,10 +23,7 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
 
   expect(response?.status()).toBe(200)
   await expect(page).toHaveTitle('CV | Harley Bartles')
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-    'href',
-    'https://harleybartles.com/cv',
-  )
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://harleybartles.com/cv')
   await expect(page.getByRole('heading', { level: 1, name: 'Harley Bartles' })).toBeVisible()
   await expect(page.getByText('Full-stack software engineer', { exact: true })).toBeVisible()
   await expect(page.getByText('Software Engineer · September 2021 – present')).toBeVisible()
@@ -35,11 +32,14 @@ test('CV route presents the two-page hiring document and its generated PDF', asy
   await expect(page.getByText('Seven GCSEs', { exact: true })).toBeVisible()
   await expect(page.getByText(/acting|shameless/i)).toHaveCount(0)
 
-  const pageRegions = await page.locator('[data-cv-page]').evaluateAll((regions) => (
-    regions.map((region) => region.getAttribute('data-cv-page'))
-  ))
+  const pageRegions = await page
+    .locator('[data-cv-page]')
+    .evaluateAll((regions) => regions.map((region) => region.getAttribute('data-cv-page')))
   expect(pageRegions).toEqual(['1', '2'])
-  await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
+  await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'About' })).toHaveAttribute(
+    'href',
+    '/about',
+  )
   const pdfLinks = page.getByRole('link', { name: 'Download PDF' })
   await expect(pdfLinks).toHaveCount(2)
   for (const pdfLink of await pdfLinks.all()) {
@@ -67,7 +67,7 @@ test('configured contact submission is intercepted locally with the exact FormDa
       body: JSON.stringify({ ok: true }),
     })
   })
-  await page.goto('./about/')
+  await page.goto('./contact/')
 
   await page.getByLabel('Name').fill('Harley Bartles')
   await page.getByLabel('Reply email').fill('harley@example.test')
@@ -85,4 +85,69 @@ test('configured contact submission is intercepted locally with the exact FormDa
       name: 'Harley Bartles',
     },
   })
+})
+
+test('non-CV print treatment is stable after navigating from CV', async ({ page }) => {
+  await page.goto('./projects/codex-marketplace')
+  await expect(page.locator('main')).toBeVisible()
+  await page.emulateMedia({ media: 'print' })
+  const directPrint = await page.evaluate(() => {
+    const read = (selector: string) => {
+      const element = document.querySelector(selector)
+      if (element === null) throw new Error(`Missing ${selector}`)
+      const style = getComputedStyle(element)
+      return {
+        background: style.backgroundColor,
+        color: style.color,
+        fontSize: style.fontSize,
+        lineHeight: style.lineHeight,
+        display: style.display,
+        width: style.width,
+        padding: style.padding,
+      }
+    }
+
+    return {
+      body: read('body'),
+      main: read('main'),
+      header: read('.site-header'),
+      footer: read('.site-footer'),
+      link: read('main a'),
+    }
+  })
+
+  await page.emulateMedia({ media: 'screen' })
+  await page.goto('./cv')
+  await expect(page.locator('main')).toBeVisible()
+  await page.getByRole('link', { name: 'Agent Asset Marketplace', exact: true }).click()
+  await expect(page).toHaveURL(/\/projects\/codex-marketplace$/)
+  await expect(page.locator('main')).toBeVisible()
+  await page.emulateMedia({ media: 'print' })
+
+  const navigatedPrint = await page.evaluate(() => {
+    const read = (selector: string) => {
+      const element = document.querySelector(selector)
+      if (element === null) throw new Error(`Missing ${selector}`)
+      const style = getComputedStyle(element)
+      return {
+        background: style.backgroundColor,
+        color: style.color,
+        fontSize: style.fontSize,
+        lineHeight: style.lineHeight,
+        display: style.display,
+        width: style.width,
+        padding: style.padding,
+      }
+    }
+
+    return {
+      body: read('body'),
+      main: read('main'),
+      header: read('.site-header'),
+      footer: read('.site-footer'),
+      link: read('main a'),
+    }
+  })
+
+  expect(navigatedPrint).toEqual(directPrint)
 })
