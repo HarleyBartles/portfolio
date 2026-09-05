@@ -12,7 +12,7 @@ export function MarketplaceFeature(): ReactElement {
           <h2 className="home-section-title" id="home-marketplace-title">A strong system, changed by using it.</h2>
           <p className="home-body">I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work; Handoff Gates makes one boundary explicit: work does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
           <div className="home-route-actions">
-            <Link className="home-cta" to="/writing/use-superpowers">Read Use Superpowers →</Link>
+            <Link className="home-cta" to="/writing/use-superpowers">Read the story →</Link>
             <a className="home-next" href="#wild-bunch">I tried to break my own event-sourcing claim ↓</a>
           </div>
         </div>
