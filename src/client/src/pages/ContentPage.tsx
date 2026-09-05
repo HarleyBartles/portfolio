@@ -254,7 +254,6 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
       >
         {document.summary.kind === 'writing' ? (
           <WritingArticleShell
-            eyebrow="writing"
             title={document.summary.title}
             summary={document.summary.summary}
             metadata={writingMetadata}
@@ -268,7 +267,6 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
           />
         ) : <>
         {document.summary.kind === 'project' ? <ProjectCaseStudyHeader
-          eyebrow={document.summary.kind}
           title={document.summary.title}
           summary={document.summary.summary}
           status={document.summary.status}
@@ -276,7 +274,6 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
           visual={projectHeaderVisual}
           visualContract={visualContract}
         /> : <ContentHeader
-          eyebrow={document.summary.kind}
           title={document.summary.title}
           summary={document.summary.summary}
           visual={projectHeaderVisual}

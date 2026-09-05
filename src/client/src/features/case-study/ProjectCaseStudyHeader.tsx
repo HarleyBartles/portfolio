@@ -6,7 +6,7 @@ import { Eyebrow, PageLead, PageTitle, ProjectStatus } from '../../components'
 export type ProjectCaseStudyHeaderLayout = 'standard' | 'learning-lab' | 'wild-bunch' | 'patch'
 
 export type ProjectCaseStudyHeaderProps = {
-  eyebrow: string
+  eyebrow?: string
   title: string
   summary: string
   status: string
@@ -15,6 +15,61 @@ export type ProjectCaseStudyHeaderProps = {
   visual?: ReactNode
   visualFallback?: ReactNode
 }
+
+const Intro = styled.div`
+  min-width: 0;
+`
+
+const HeaderTitle = styled(PageTitle)<{ $layout: ProjectCaseStudyHeaderLayout }>`
+  max-width: ${({ $layout }) => $layout === 'patch' ? '10ch' : $layout === 'learning-lab' || $layout === 'wild-bunch' ? '8ch' : 'none'};
+  ${({ $layout }) => $layout === 'patch' ? 'color: #18252a;' : ''}
+
+  @media (max-width: 56rem) {
+    ${({ $layout }) => $layout === 'learning-lab' ? 'max-width: none;' : ''}
+  }
+
+  @media (max-width: 44rem) {
+    ${({ $layout }) => $layout === 'patch' || $layout === 'wild-bunch' ? 'max-width: none;' : ''}
+  }
+`
+
+const HeaderEyebrow = styled(Eyebrow)`
+  margin-bottom: ${({ theme }) => theme.space.sm};
+`
+
+const Summary = styled(PageLead)<{ $layout: ProjectCaseStudyHeaderLayout }>`
+  margin: ${({ theme }) => theme.space.lg} 0 0;
+  ${({ $layout }) => $layout === 'patch' ? `
+    max-width: 32rem;
+    color: #344247;
+    font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+  ` : ''}
+`
+
+const Visual = styled.div`
+  min-width: 0;
+`
+
+const StatusAnchor = styled.div`
+  min-width: 0;
+`
+
+const HeaderStatus = styled(ProjectStatus)`
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  background: var(--color-surface);
+`
+
+const VisualFallback = styled.div<{ $layout: ProjectCaseStudyHeaderLayout }>`
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  background: ${({ $layout }) => $layout === 'wild-bunch' ? 'var(--wild-bunch-field-color, #d4cbc0)' : $layout === 'learning-lab' ? '#163f42' : 'var(--color-interior-canvas)'};
+
+  ${({ $layout }) => $layout === 'learning-lab' ? 'min-height: clamp(20rem, 32vw, 30rem);' : ''}
+  ${({ $layout }) => $layout === 'patch' ? 'min-height: clamp(18rem, 32vw, 28rem);' : ''}
+`
 
 const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual: boolean }>`
   position: relative;
@@ -39,16 +94,12 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
     background: ${theme.color.interiorCanvas};
     border: 1px solid ${theme.color.border};
 
-    [data-project-case-study-intro] {
+    ${Intro} {
       align-self: center;
     }
 
-    [data-project-case-study-visual] {
+    ${Visual} {
       min-width: 0;
-    }
-
-    [data-project-case-study-intro] h1 {
-      max-width: 8ch;
     }
   ` : ''}
 
@@ -74,7 +125,7 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       content: '';
     }
 
-    [data-project-case-study-intro] {
+    ${Intro} {
       position: absolute;
       z-index: 2;
       top: var(--space-10);
@@ -89,27 +140,16 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       padding: var(--space-6);
     }
 
-    [data-project-case-study-status] {
+    ${StatusAnchor} {
       position: absolute;
       z-index: 3;
       bottom: var(--space-4);
       left: calc(100% - var(--wild-bunch-image-width));
     }
 
-    [data-project-case-study-status] .content-status {
-      width: max-content;
-      max-width: 100%;
-      margin: 0;
-      background: var(--color-surface);
-    }
-
-    [data-project-case-study-visual] {
+    ${Visual} {
       width: var(--wild-bunch-image-width);
       margin-left: auto;
-    }
-
-    [data-project-case-study-intro] h1 {
-      max-width: 8ch;
     }
   ` : ''}
 
@@ -125,16 +165,16 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
     background: var(--color-interior-canvas);
     border: 1px solid var(--color-border);
 
-    [data-project-case-study-visual],
-    [data-project-case-study-intro] {
+    ${Visual},
+    ${Intro} {
       grid-area: 1 / 1;
     }
 
-    [data-project-case-study-visual] {
+    ${Visual} {
       min-width: 0;
     }
 
-    [data-project-case-study-intro] {
+    ${Intro} {
       z-index: 1;
       align-self: center;
       justify-self: end;
@@ -143,16 +183,6 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       padding: var(--space-8) 0;
     }
 
-    [data-project-case-study-intro] h1 {
-      max-width: 10ch;
-      color: #18252a;
-    }
-
-    [data-project-case-study-intro] [data-type-register] + p {
-      max-width: 32rem;
-      color: #344247;
-      font-size: clamp(1.05rem, 1.6vw, 1.28rem);
-    }
   ` : ''}
 
   @media (max-width: 64rem) {
@@ -179,7 +209,7 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
         display: none;
       }
 
-      [data-project-case-study-intro] {
+      ${Intro} {
         position: static;
         min-width: 0;
         width: auto;
@@ -187,34 +217,19 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
         padding: var(--space-6);
       }
 
-      [data-project-case-study-status] {
+      ${StatusAnchor} {
         position: static;
         order: 2;
         margin: 0;
       }
 
-      [data-project-case-study-status] .content-status {
-        margin-top: 0;
-      }
-
-      [data-project-case-study-visual] {
+      ${Visual} {
         order: 3;
         width: calc(100% + (2 * var(--space-7)));
         margin-inline: calc(var(--space-7) * -1);
         margin-bottom: calc(var(--space-7) * -1);
       }
 
-      [data-project-case-study-intro] h1 {
-        max-width: none;
-      }
-    ` : ''}
-  }
-
-  @media (max-width: 56rem) {
-    ${({ $layout }) => $layout === 'learning-lab' ? css`
-      [data-project-case-study-intro] h1 {
-        max-width: none;
-      }
     ` : ''}
   }
 
@@ -230,58 +245,24 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       min-height: 0;
       padding: var(--space-8) var(--space-6) 0;
 
-      [data-project-case-study-intro] {
+      ${Intro} {
         min-width: 0;
         width: auto;
         margin: 0 0 var(--space-6);
         padding: 0;
       }
 
-      [data-project-case-study-intro] h1 {
-        max-width: none;
-      }
-
-      [data-project-case-study-visual] {
+      ${Visual} {
         width: calc(100% + (2 * var(--space-6)));
         margin-inline: calc(var(--space-6) * -1);
       }
 
-      [data-project-case-study-visual-fallback] {
+      ${VisualFallback} {
         min-height: 0;
         aspect-ratio: 16 / 9;
       }
     ` : ''}
   }
-`
-
-const Intro = styled.div`
-  min-width: 0;
-`
-
-const HeaderEyebrow = styled(Eyebrow)`
-  margin-bottom: ${({ theme }) => theme.space.sm};
-`
-
-const Summary = styled(PageLead)`
-  margin: ${({ theme }) => theme.space.lg} 0 0;
-`
-
-const Visual = styled.div`
-  min-width: 0;
-`
-
-const StatusAnchor = styled.div`
-  min-width: 0;
-`
-
-const VisualFallback = styled.div<{ $layout: ProjectCaseStudyHeaderLayout }>`
-  width: 100%;
-  height: auto;
-  aspect-ratio: 5 / 3;
-  background: ${({ $layout }) => $layout === 'wild-bunch' ? 'var(--wild-bunch-field-color, #d4cbc0)' : $layout === 'learning-lab' ? '#163f42' : 'var(--color-interior-canvas)'};
-
-  ${({ $layout }) => $layout === 'learning-lab' ? 'min-height: clamp(20rem, 32vw, 30rem);' : ''}
-  ${({ $layout }) => $layout === 'patch' ? 'min-height: clamp(18rem, 32vw, 28rem);' : ''}
 `
 
 export function ProjectCaseStudyHeader({
@@ -309,12 +290,12 @@ export function ProjectCaseStudyHeader({
       $hasVisual={hasVisual}
     >
       <Intro data-project-case-study-intro>
-        <HeaderEyebrow>{eyebrow}</HeaderEyebrow>
-        <PageTitle id="content-page-title" register="site-sans">{title}</PageTitle>
-        <Summary>{summary}</Summary>
+        {eyebrow === undefined ? null : <HeaderEyebrow>{eyebrow}</HeaderEyebrow>}
+        <HeaderTitle id="content-page-title" register="site-sans" $layout={layout}>{title}</HeaderTitle>
+        <Summary $layout={layout}>{summary}</Summary>
         {layout === 'wild-bunch' ? null : <ProjectStatus status={status} />}
       </Intro>
-      {layout === 'wild-bunch' ? <StatusAnchor data-project-case-study-status><ProjectStatus status={status} /></StatusAnchor> : null}
+      {layout === 'wild-bunch' ? <StatusAnchor data-project-case-study-status><HeaderStatus status={status} /></StatusAnchor> : null}
       {hasVisual ? <Visual data-project-case-study-visual>{renderedVisual}</Visual> : null}
     </Header>
   )

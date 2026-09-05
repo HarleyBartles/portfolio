@@ -71,7 +71,6 @@ const WildBunch = styled.section`
       max-width: none;
     }
 
-    .wild-bunch-story-movement--determinism .wild-bunch-codec-map { width: 122%; margin-left: -19.5%; margin-right: -2.5%; }
     .wild-bunch-story-movement--determinism h2,
     .wild-bunch-story-movement--event-history h2,
     .wild-bunch-story-movement--knowledge-boundary h2,

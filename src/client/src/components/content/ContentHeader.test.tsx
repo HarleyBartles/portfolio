@@ -14,7 +14,6 @@ function renderHeader(props: ComponentProps<typeof ContentHeader>) {
 
 test('renders the content hierarchy and optional slots in semantic order', () => {
   renderHeader({
-    eyebrow: 'project',
     title: 'A public project',
     summary: 'A concise project proposition.',
     metadata: ['September 2026'],
@@ -26,7 +25,7 @@ test('renders the content hierarchy and optional slots in semantic order', () =>
   })
 
   expect(screen.getByRole('heading', { level: 1, name: 'A public project' })).toBeInTheDocument()
-  expect(screen.getByText('project')).toBeInTheDocument()
+  expect(screen.queryByText('project')).not.toBeInTheDocument()
   expect(screen.getByText('September 2026')).toBeInTheDocument()
   expect(screen.getByText('A concise project proposition.')).toBeInTheDocument()
   expect(screen.getByTestId('status')).toBeInTheDocument()
@@ -38,7 +37,6 @@ test('renders the content hierarchy and optional slots in semantic order', () =>
 
 test('does not render an empty metadata node', () => {
   renderHeader({
-    eyebrow: 'writing',
     title: 'An article',
     summary: 'A reading proposition.',
     visualContract: 'article-header',
@@ -46,5 +44,6 @@ test('does not render an empty metadata node', () => {
   })
 
   expect(document.querySelector('.content-header__metadata')).toBeNull()
+  expect(document.querySelector('[data-eyebrow]')).toBeNull()
   expect(document.querySelector('[data-type-register="article-serif"]')).not.toBeNull()
 })

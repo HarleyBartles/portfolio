@@ -3,6 +3,7 @@ import styled from 'styled-components'
 type ProjectStatusProps = {
   status: string
   tone?: ProjectStatusTone
+  className?: string
 }
 
 export type ProjectStatusTone = 'live' | 'attention' | 'active-project' | 'default'
@@ -36,7 +37,7 @@ const Status = styled.p<{ $tone: ProjectStatusTone }>`
       : ''}
 `
 
-export const ProjectStatus = ({ status, tone: requestedTone }: ProjectStatusProps) => {
+export const ProjectStatus = ({ status, tone: requestedTone, className }: ProjectStatusProps) => {
   const normalizedStatus = status.trim()
 
   if (normalizedStatus.length === 0) {
@@ -52,7 +53,7 @@ export const ProjectStatus = ({ status, tone: requestedTone }: ProjectStatusProp
   const tone = requestedTone ?? inferredTone
 
   return (
-    <Status className="content-status" data-status={normalizedStatusKey} data-tone={tone} $tone={tone}>
+    <Status className={`content-status${className === undefined ? '' : ` ${className}`}`} data-status={normalizedStatusKey} data-tone={tone} $tone={tone}>
       <span>Status</span>
       {normalizedStatus}
     </Status>

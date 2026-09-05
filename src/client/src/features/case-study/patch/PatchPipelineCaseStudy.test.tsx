@@ -57,9 +57,9 @@ describe('PatchPipelineCaseStudy', () => {
 
     splitHeadings.forEach((name) => {
       const heading = screen.getByRole('heading', { level: 2, name })
-      const section = heading.closest('[data-patch-lead-composition]')
+      const section = heading.closest('[data-case-study-section-layout="lead"]')
       expect(section).not.toBeNull()
-      expect(section?.querySelector('[data-patch-lead-body]')).not.toBeNull()
+      expect(section?.querySelector('[data-case-study-section-body]')).not.toBeNull()
     })
   })
 

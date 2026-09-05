@@ -5,7 +5,7 @@ import { Eyebrow, MetadataRow, PageLead, PageTitle, type PublicationRegister } f
 export type ContentHeaderRegister = PublicationRegister
 
 type ContentHeaderProps = {
-  eyebrow: string
+  eyebrow?: string
   title: string
   summary: string
   metadata?: readonly ReactNode[]
@@ -90,7 +90,7 @@ export const ContentHeader = ({
       $hasVisual={hasVisual}
     >
       <Intro className="content-page-intro">
-        <HeaderEyebrow>{eyebrow}</HeaderEyebrow>
+        {eyebrow === undefined ? null : <HeaderEyebrow>{eyebrow}</HeaderEyebrow>}
         <PageTitle id="content-page-title" register={register}>{title}</PageTitle>
         {metadata === undefined ? null : <HeaderMetadata items={metadata} />}
         <Summary className="content-summary">{summary}</Summary>

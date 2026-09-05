@@ -2,15 +2,18 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import styled from 'styled-components'
 
 export type CaseStudySectionLayout = 'flow' | 'lead' | 'lead-prose'
+export type CaseStudySectionTone = 'default' | 'inverse'
 
 type CaseStudySectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'title'> & {
   title: string
   headingId?: string
   layout?: CaseStudySectionLayout
+  tone?: CaseStudySectionTone
   children: ReactNode
 }
 
-const Section = styled.section<{ $layout: CaseStudySectionLayout }>`
+const Section = styled.section<{ $layout: CaseStudySectionLayout; $tone: CaseStudySectionTone }>`
+  color: ${({ $tone }) => $tone === 'inverse' ? 'rgb(255 250 240 / 82%)' : 'inherit'};
   ${({ $layout }) => $layout === 'lead' || $layout === 'lead-prose' ? `
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -35,6 +38,7 @@ const Section = styled.section<{ $layout: CaseStudySectionLayout }>`
     font-size: clamp(2rem, 4vw, 3.5rem);
     line-height: 0.98;
     text-wrap: balance;
+    color: ${({ $tone }) => $tone === 'inverse' ? 'var(--color-surface)' : 'var(--color-ink)'};
   }
 
   > [data-case-study-section-body] > :first-child {
@@ -47,7 +51,10 @@ const Section = styled.section<{ $layout: CaseStudySectionLayout }>`
 
   > [data-case-study-section-body] p {
     max-width: none;
+    color: ${({ $tone }) => $tone === 'inverse' ? 'rgb(255 250 240 / 82%)' : 'inherit'};
   }
+
+  > [data-case-study-section-body] dd { color: ${({ $tone }) => $tone === 'inverse' ? 'rgb(255 250 240 / 82%)' : 'inherit'}; }
 
   @media (max-width: 44rem) {
     ${({ $layout }) => $layout === 'lead' || $layout === 'lead-prose' ? `
@@ -61,15 +68,15 @@ const Section = styled.section<{ $layout: CaseStudySectionLayout }>`
   }
 `
 
-export function CaseStudySection({ title, headingId, children, layout = 'flow', ...props }: CaseStudySectionProps) {
+export function CaseStudySection({ title, headingId, children, layout = 'flow', tone = 'default', ...props }: CaseStudySectionProps) {
   const id = headingId ?? `case-study-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 
   if (layout === 'lead' || layout === 'lead-prose') {
-    return <Section {...props} $layout={layout} aria-labelledby={id} data-case-study-section-layout={layout}>
+    return <Section {...props} $layout={layout} $tone={tone} aria-labelledby={id} data-case-study-section-layout={layout}>
       <div data-case-study-section-heading><h2 id={id}>{title}</h2></div>
       <div data-case-study-section-body>{children}</div>
     </Section>
   }
 
-  return <Section {...props} $layout={layout} aria-labelledby={id} data-case-study-section-layout={layout}><h2 id={id}>{title}</h2>{children}</Section>
+  return <Section {...props} $layout={layout} $tone={tone} aria-labelledby={id} data-case-study-section-layout={layout}><h2 id={id}>{title}</h2>{children}</Section>
 }

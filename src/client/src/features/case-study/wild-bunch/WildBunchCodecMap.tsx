@@ -84,9 +84,9 @@ const Map = styled.div`
   }
 `
 
-export function WildBunchCodecMap(): ReactElement {
+export function WildBunchCodecMap({ className }: { className?: string } = {}): ReactElement {
   return (
-    <Map aria-labelledby="wild-bunch-codec-map-title" className="wild-bunch-codec-map" role="group">
+    <Map aria-labelledby="wild-bunch-codec-map-title" className={`wild-bunch-codec-map${className === undefined ? '' : ` ${className}`}`} role="group">
       <p className="wild-bunch-codec-map__eyebrow" id="wild-bunch-codec-map-title">Resolver version 17 UUID bit allocation</p>
       <code className="wild-bunch-codec-map__uuid">
         <span>00000000-0000-0000-</span><span>0000-00012ed0a54e</span>

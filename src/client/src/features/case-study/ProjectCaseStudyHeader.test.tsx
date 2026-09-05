@@ -13,7 +13,6 @@ describe('ProjectCaseStudyHeader', () => {
     const { container } = render(
       <PortfolioThemeProvider>
         <ProjectCaseStudyHeader
-          eyebrow="project"
           title={title}
           summary="A project summary with an explicit visual boundary."
           status="active project"
@@ -29,6 +28,7 @@ describe('ProjectCaseStudyHeader', () => {
     expect(header).toHaveAttribute('data-project-case-study-layout', layout)
     expect(header).toHaveAttribute('data-visual-contract', visualContract)
     expect(screen.getByRole('heading', { level: 1, name: title })).toBeVisible()
+    expect(screen.queryByText('project')).not.toBeInTheDocument()
     expect(screen.getByText('A project summary with an explicit visual boundary.')).toBeVisible()
     expect(screen.getByText('active project')).toBeVisible()
     expect(screen.getByTestId('test-visual')).toBeVisible()
@@ -39,7 +39,6 @@ describe('ProjectCaseStudyHeader', () => {
     render(
       <PortfolioThemeProvider>
         <ProjectCaseStudyHeader
-          eyebrow="project"
           title="Marketplace baseline"
           summary="A project summary."
           status="live"

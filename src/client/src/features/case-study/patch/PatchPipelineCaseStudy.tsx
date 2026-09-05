@@ -77,8 +77,7 @@ const Patch = styled.div`
 
   .patch-movement { min-width: 0; }
 
-  .patch-movement__copy,
-  [data-case-study-section-body] { max-width: var(--measure-reading); }
+  .patch-movement__copy { max-width: var(--measure-reading); }
 
   .patch-origin,
   .patch-first-deck {
@@ -150,66 +149,6 @@ const Patch = styled.div`
     font-style: italic;
   }
 
-  .patch-production {
-    padding: clamp(var(--space-8), 6vw, var(--space-16));
-    color: var(--color-surface);
-    background: var(--patch-teal-deep);
-  }
-
-  .patch-production [data-patch-lead-copy] { margin-bottom: var(--space-10); }
-
-  .patch-production h2,
-  .patch-production h3 { color: var(--color-surface); }
-
-  .patch-production p,
-  .patch-production dd { color: rgb(255 250 240 / 82%); }
-
-  .patch-production dt { color: #75d4d0; }
-
-  .patch-production__flow {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid rgb(255 250 240 / 32%);
-    list-style: none;
-    counter-reset: production-stage;
-  }
-
-  .patch-production__flow li {
-    padding: var(--space-8) var(--space-6);
-    border-bottom: 1px solid rgb(255 250 240 / 32%);
-    counter-increment: production-stage;
-  }
-
-  .patch-production__flow li:not(:nth-child(3n + 1)) { border-left: 1px solid rgb(255 250 240 / 32%); }
-
-  .patch-production__flow h3::before {
-    display: block;
-    margin-bottom: var(--space-3);
-    color: #75d4d0;
-    font-family: var(--font-code);
-    font-size: 0.75rem;
-    content: "0" counter(production-stage);
-  }
-
-  .patch-production__flow dl { margin: var(--space-5) 0 0; }
-
-  .patch-production__flow dt {
-    margin-top: var(--space-3);
-    font-family: var(--font-code);
-    font-size: 0.69rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .patch-production__flow dd {
-    margin: var(--space-1) 0 0;
-    font-size: 0.9rem;
-    line-height: 1.48;
-  }
-
   .patch-showcase-link,
   .patch-source-link {
     color: var(--patch-teal-deep);
@@ -239,12 +178,6 @@ const Patch = styled.div`
     border-block: 1px solid var(--color-border);
   }
 
-  .patch-boundary [data-evidence-custody="provenance"] {
-    margin-top: var(--space-8);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgb(21 63 66 / 30%);
-  }
-
   .patch-close {
     padding: clamp(var(--space-8), 7vw, var(--space-20));
     border-top: 1px solid var(--color-border);
@@ -262,10 +195,6 @@ const Patch = styled.div`
 
     .patch-frame-gate__close { grid-column: auto; }
 
-    .patch-production__flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-    .patch-production__flow li:not(:nth-child(3n + 1)) { border-left: 0; }
-    .patch-production__flow li:nth-child(even) { border-left: 1px solid rgb(255 250 240 / 32%); }
   }
 
   @media (max-width: 44rem) {
@@ -273,7 +202,6 @@ const Patch = styled.div`
     padding-block: var(--space-12);
 
     .patch-snapshot dl,
-    .patch-production__flow,
     .patch-frame-gate__questions { grid-template-columns: 1fr; }
 
     .patch-snapshot dl div,
@@ -291,12 +219,10 @@ const Patch = styled.div`
     .patch-snapshot dt { margin-right: var(--space-2); }
 
     .patch-frame-gate,
-    .patch-production,
     .patch-boundary,
     .patch-close { padding: var(--space-8) var(--space-5); }
 
-    .patch-frame-gate__questions li:nth-child(even),
-    .patch-production__flow li:nth-child(even) { border-left: 0; }
+    .patch-frame-gate__questions li:nth-child(even) { border-left: 0; }
   }
 `
 
@@ -385,7 +311,7 @@ export function PatchPipelineCaseStudy() {
         <PatchLeadSection className="patch-movement patch-boundary" title="What reaches the public record" titleId="patch-boundary-title">
           <p>I use Linear to shape and sequence work, GitHub to prove what has landed, and the published catalogue to mark what&apos;s ready for an audience. The planning surface contains provisional thinking; the public repository carries the smaller set I&apos;m prepared to call evidence.</p>
           <p>Manifests and sidecars record source, status and acceptance. Deterministic receipts record the transforms that produced each public file. That boundary keeps private workshop material private and makes every public claim inspectable at one exact revision.</p>
-          <CaseStudyEvidence auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
+          <CaseStudyEvidence variant="boundary" auditDate="24 August 2026" href={pinnedRepositoryUrl} label="Inspect the audited Adventures of Patch source" />
         </PatchLeadSection>
 
         <PatchLeadSection className="patch-movement patch-close" title="Controlled creative production" titleId="patch-close-title">

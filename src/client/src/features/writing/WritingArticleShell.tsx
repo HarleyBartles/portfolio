@@ -3,7 +3,6 @@ import { ContentHeader, ShareAction } from '../../components'
 import { WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
 
 type WritingArticleShellProps = {
-  eyebrow: string
   title: string
   summary: string
   metadata?: readonly ReactNode[]
@@ -20,7 +19,6 @@ type WritingArticleShellProps = {
 }
 
 export const WritingArticleShell = ({
-  eyebrow,
   title,
   summary,
   metadata,
@@ -35,7 +33,6 @@ export const WritingArticleShell = ({
   return (
     <>
       <ContentHeader
-        eyebrow={eyebrow}
         title={title}
         summary={summary}
         metadata={metadata}

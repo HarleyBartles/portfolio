@@ -17,6 +17,14 @@ const Figure = styled.figure`
   code { overflow-wrap: anywhere; color: var(--color-surface); }
 `
 
+const ExpandedCodecMap = styled(WildBunchCodecMap)`
+  @media (min-width: 60rem) {
+    width: 122%;
+    margin-left: -19.5%;
+    margin-right: -2.5%;
+  }
+`
+
 export function WildBunchDeterminismFigure(): ReactElement {
   return (
     <Figure aria-label="Controlled determinism from a compact world contract" className="wild-bunch-determinism-figure" data-relationship="ordered-semantic-stages">
@@ -26,7 +34,7 @@ export function WildBunchDeterminismFigure(): ReactElement {
       <ol>
         <li>
           <h3>Directly packed world contract</h3>
-          <WildBunchCodecMap />
+          <ExpandedCodecMap />
           <p>At the pinned revision, 33 directly packed UUID bits describe world-owned choices and 95 reserved bits remain outside the current codec.</p>
         </li>
         <li>
