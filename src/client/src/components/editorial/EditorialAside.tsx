@@ -17,7 +17,7 @@ const Aside = styled.aside`
     width: min(64rem, calc(100vw - var(--space-12)));
   }
 
-  @media (min-width: 72rem) {
+  @media (min-width: 60rem) {
     grid-template-columns: minmax(22rem, 1.05fr) minmax(22rem, 0.95fr);
     gap: clamp(var(--space-8), 5vw, var(--space-14));
   }
@@ -28,7 +28,7 @@ const Header = styled.header`
   padding: clamp(var(--space-5), 3vw, var(--space-7));
   padding-bottom: 0;
 
-  @media (min-width: 72rem) {
+  @media (min-width: 60rem) {
     padding-bottom: clamp(var(--space-5), 3vw, var(--space-7));
   }
 `
@@ -67,7 +67,7 @@ const Content = styled.div`
   min-width: 0;
   padding: 0 clamp(var(--space-5), 3vw, var(--space-7)) clamp(var(--space-5), 3vw, var(--space-7));
 
-  @media (min-width: 72rem) {
+  @media (min-width: 60rem) {
     padding-top: clamp(var(--space-5), 3vw, var(--space-7));
   }
 `

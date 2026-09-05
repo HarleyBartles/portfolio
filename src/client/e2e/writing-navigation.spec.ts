@@ -146,6 +146,22 @@ test('shared editorial asides break right from the reading measure and stack bef
     expect(titleMetrics.height).toBeLessThanOrEqual(titleMetrics.lineHeight * 2 + 1)
   }
 
+  await page.setViewportSize({ width: 1024, height: 900 })
+
+  for (const consumer of consumers) {
+    await page.goto(consumer.path)
+    const aside = page.getByRole('complementary', { name: consumer.title })
+    const [headerBox, disclosureBox, template] = await Promise.all([
+      aside.locator(':scope > header').boundingBox(),
+      aside.locator('[data-editorial-aside-disclosure]').boundingBox(),
+      aside.evaluate((element) => getComputedStyle(element).gridTemplateColumns),
+    ])
+
+    expect(template.trim().split(/\s+/)).toHaveLength(2)
+    expect(disclosureBox!.x).toBeGreaterThan(headerBox!.x + 100)
+    expect(Math.abs(disclosureBox!.y - headerBox!.y)).toBeLessThanOrEqual(32)
+  }
+
   await page.setViewportSize({ width: 768, height: 900 })
 
   for (const consumer of consumers) {
