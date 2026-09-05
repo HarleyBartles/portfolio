@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useId } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Aside = styled.aside`
   display: grid;
@@ -13,26 +13,23 @@ const Aside = styled.aside`
   overflow-wrap: anywhere;
   grid-template-areas:
     'header'
-    'precis'
     'content';
 
   @media (min-width: 60rem) {
     width: min(64rem, calc(100vw - var(--space-12)));
     grid-template-columns: minmax(18rem, 0.8fr) minmax(22rem, 1.2fr);
     grid-template-areas:
-      'header precis'
+      'header header'
       'content content';
   }
 
   @media (min-width: 72rem) {
     grid-template-columns: minmax(22rem, 1.05fr) minmax(22rem, 0.95fr);
-    grid-template-areas:
-      'header content'
-      'precis content';
+    grid-template-areas: 'header content';
   }
 `
 
-const Header = styled.header`
+const Header = styled.header<{ $hasEyebrow: boolean }>`
   grid-area: header;
   padding: clamp(var(--space-5), 3vw, var(--space-7));
   padding-bottom: 0;
@@ -40,9 +37,34 @@ const Header = styled.header`
   @media (min-width: 60rem) {
     align-self: start;
   }
+
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.8fr) minmax(22rem, 1.2fr);
+    ${({ $hasEyebrow }) => ($hasEyebrow
+      ? css`
+          grid-template-rows: auto auto;
+          grid-template-areas:
+            'eyebrow .'
+            'heading .';
+        `
+      : css`
+          grid-template-areas: 'heading .';
+        `)}
+  }
+`
+
+const Heading = styled.div`
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    grid-area: heading;
+  }
 `
 
 const Eyebrow = styled.p`
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    grid-area: eyebrow;
+  }
+
   margin: 0;
   color: ${({ theme }) => theme.color.inkSecondary};
   font-family: ${({ theme }) => theme.font.code};
@@ -63,27 +85,23 @@ const Title = styled.h2`
   line-height: 1.04;
 `
 
-const Precis = styled.p`
-  grid-area: precis;
+const Precis = styled.p<{ $hasEyebrow: boolean }>`
   max-width: 32rem;
-  margin: var(--space-5) clamp(var(--space-5), 3vw, var(--space-7)) 0;
+  margin: var(--space-5) 0 0;
   color: ${({ theme }) => theme.color.inkSecondary};
   font-family: ${({ theme }) => theme.font.articleSerif};
   font-size: 1rem;
   line-height: 1.55;
 
-  @media (min-width: 60rem) {
-    align-self: start;
-    margin-top: 0;
-  }
-
   @media (min-width: 60rem) and (max-width: 71.99rem) {
-    align-self: center;
-    padding-top: 0;
+    grid-column: 2;
+    grid-row: ${({ $hasEyebrow }) => ($hasEyebrow ? 2 : 1)};
+    align-self: start;
+    margin-top: var(--space-3);
   }
 
   @media (min-width: 72rem) {
-    padding-top: clamp(var(--space-5), 3vw, var(--space-7));
+    margin-top: clamp(var(--space-5), 3vw, var(--space-7));
   }
 `
 
@@ -220,11 +238,13 @@ export const EditorialAside = ({
 
   return (
     <Aside aria-labelledby={titleId} data-editorial-aside>
-      <Header>
+      <Header $hasEyebrow={eyebrow !== undefined}>
         {eyebrow === undefined ? null : <Eyebrow>{eyebrow}</Eyebrow>}
-        <Title id={titleId}>{title}</Title>
+        <Heading>
+          <Title id={titleId}>{title}</Title>
+        </Heading>
+        <Precis $hasEyebrow={eyebrow !== undefined}>{precis}</Precis>
       </Header>
-      <Precis>{precis}</Precis>
       <Content>
         {visual}
         <Details data-editorial-aside-disclosure>

@@ -167,8 +167,7 @@ test('shared editorial asides break right from the reading measure and stack bef
 
     expect(template.trim().split(/\s+/)).toHaveLength(2)
     expect(precisBox!.x).toBeGreaterThan(titleBox!.x + 100)
-    expect(precisBox!.y).toBeLessThan(titleBox!.y + titleBox!.height)
-    expect(titleBox!.y).toBeLessThan(precisBox!.y + precisBox!.height)
+    expect(Math.abs(precisBox!.y - titleBox!.y)).toBeLessThanOrEqual(1)
     expect(summaryBox!.x).toBeCloseTo(titleBox!.x, 0)
     const firstRowBottom = Math.max(titleBox!.y + titleBox!.height, precisBox!.y + precisBox!.height)
     expect(summaryBox!.y - firstRowBottom).toBeGreaterThanOrEqual(32)
@@ -177,6 +176,7 @@ test('shared editorial asides break right from the reading measure and stack bef
     await summary.click()
     const bodyBox = await disclosure.locator('[data-editorial-aside-body]').boundingBox()
     expect(bodyBox!.x).toBeGreaterThan(summaryBox!.x + 100)
+    expect(bodyBox!.x).toBeCloseTo(precisBox!.x, 0)
   }
 
   await page.setViewportSize({ width: 768, height: 900 })
@@ -194,6 +194,34 @@ test('shared editorial asides break right from the reading measure and stack bef
     expect(asideBox!.width).toBeCloseTo(proseBox!.width, 0)
     expect(template.trim().split(/\s+/)).toHaveLength(1)
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+})
+
+test('expanded wide editorial asides keep the précis with the title', async ({ page }) => {
+  const consumers = [
+    { path: './writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', title: 'The packaged organisation', precis: /My hand-rolled version charged repository complexity/ },
+    { path: './writing/use-superpowers/', title: 'When “most capable” changes overnight', precis: /A model release can change what a relative instruction means/ },
+  ]
+
+  await page.setViewportSize({ width: 1440, height: 900 })
+
+  for (const consumer of consumers) {
+    await page.goto(consumer.path)
+    const aside = page.getByRole('complementary', { name: consumer.title })
+    const title = aside.getByRole('heading', { level: 2, name: consumer.title })
+    const precis = aside.getByText(consumer.precis, { exact: true })
+    const summary = aside.locator('summary')
+
+    await summary.click()
+
+    const [titleBox, precisBox] = await Promise.all([
+      title.boundingBox(),
+      precis.boundingBox(),
+    ])
+    const gap = precisBox!.y - (titleBox!.y + titleBox!.height)
+
+    expect(gap).toBeGreaterThanOrEqual(0)
+    expect(gap).toBeLessThanOrEqual(96)
   }
 })
 
