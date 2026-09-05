@@ -32,7 +32,7 @@ export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps
         precis={testingPrecis}
         title="Prose can still be tested"
       >
-        <ContentProse register="article-serif" markdown={agenticLens.replace(`${testingPrecis}\n\n`, '')} />
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={agenticLens.replace(`${testingPrecis}\n\n`, '')} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>

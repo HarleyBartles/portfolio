@@ -70,6 +70,7 @@ test('every current writing aside uses the canonical editorial disclosure', asyn
 
     await expect(aside).toHaveAttribute('data-editorial-aside', 'true')
     await expect(disclosure).toHaveCount(1)
+    await expect(aside.locator('[data-prose-treatment="editorial-aside"]')).toHaveCount(1)
     await expect(disclosure).not.toHaveAttribute('open', '')
     await expect(page.locator('article details:not([data-editorial-aside-disclosure])')).toHaveCount(0)
   }

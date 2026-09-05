@@ -24,7 +24,7 @@ I still wanted a clean line between upstream and my changes, so I kept an immuta
 
 By then, my clean line between upstream and my changes had acquired enough machinery to become clownshoes.\*
 
-\*clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.
+\**clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.*
 
 ## Can the next agent move?
 

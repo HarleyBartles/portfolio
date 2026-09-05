@@ -31,7 +31,7 @@ describe('UseSuperpowersArticle', () => {
     )
 
     const disclosure = document.querySelector('[data-editorial-aside-disclosure]') as HTMLDetailsElement
-    const optionalBody = disclosure.querySelector('.content-prose') as HTMLElement
+    const optionalBody = disclosure.querySelector('[data-prose-treatment="editorial-aside"]') as HTMLElement
     expect(disclosure).not.toHaveAttribute('open')
     expect(disclosure.closest('[data-editorial-aside]')).not.toBeNull()
     expect(screen.getByRole('heading', { level: 2, name: 'When “most capable” changes overnight' })).toBeVisible()
@@ -52,7 +52,7 @@ describe('UseSuperpowersArticle', () => {
     )
 
     const summary = screen.getByText('Read the Astra audit').closest('summary') as HTMLElement
-    const optionalBody = summary.closest('details')?.querySelector('.content-prose') as HTMLElement
+    const optionalBody = summary.closest('details')?.querySelector('[data-prose-treatment="editorial-aside"]') as HTMLElement
     const disclosure = summary.closest('details') as HTMLDetailsElement
     expect(summary).toBeVisible()
     expect(disclosure).not.toHaveAttribute('open')

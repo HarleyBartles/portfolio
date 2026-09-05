@@ -39,3 +39,15 @@ test('keeps authored Markdown in the explicit article-serif register', () => {
 
   expect(document.querySelector('[data-type-register="article-serif"]')).toBeInTheDocument()
 })
+
+test('exposes the narrow typed treatment for prose embedded in an editorial aside', () => {
+  render(
+    <PortfolioThemeProvider>
+      <MemoryRouter>
+        <ContentProse treatment="editorial-aside" register="article-serif" markdown="Aside body copy" />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
+  )
+
+  expect(document.querySelector('[data-prose-treatment="editorial-aside"]')).toBeInTheDocument()
+})

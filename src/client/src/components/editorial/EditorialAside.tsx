@@ -194,27 +194,6 @@ const Body = styled.div`
     max-width: none;
     margin-left: 40%;
   }
-
-  .content-prose {
-    font-size: 1.05rem;
-  }
-
-  .content-prose p {
-    color: ${({ theme }) => theme.color.ink};
-    line-height: 1.58;
-  }
-
-  .content-prose p:first-child {
-    margin-top: 0;
-  }
-
-  .content-prose p + p {
-    margin-top: var(--space-6);
-  }
-
-  .content-prose a {
-    color: ${({ theme }) => theme.color.ink};
-  }
 `
 
 export type EditorialAsideProps = {

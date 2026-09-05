@@ -60,7 +60,7 @@ export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticlePro
         precis="At interview, I stepped away from a SQL question. In production, I later turned a several-minute operation into a couple of seconds. The same boundary mistake sat underneath both moments."
         title="SQL was my weak point"
       >
-        <ContentProse register="article-serif" markdown={sqlAside} />
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={sqlAside} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={middle} />
       <EditorialAside
@@ -70,7 +70,7 @@ export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticlePro
         title="The webhook wasn’t early"
         visual={<WebhookSignalMap />}
       >
-        <ContentProse register="article-serif" markdown={webhookAside} />
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={webhookAside} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>

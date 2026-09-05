@@ -67,7 +67,12 @@ describe('ContentPage specialist presentation boundary', () => {
       'https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md',
     )
     expect(within(article).getByText('By then, my clean line between upstream and my changes had acquired enough machinery to become clownshoes.*')).toBeVisible()
-    expect(within(article).getByText('*clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.')).toBeVisible()
+    const footnote = within(article).getByText(
+      '*clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.',
+      { selector: '[data-editorial-footnote]' },
+    )
+    expect(footnote).toBeVisible()
+    expect(footnote).toHaveAttribute('data-type-register', 'article-serif')
     expect(within(article).getByText(/effectively first-party authorship with extra indirection/)).toBeVisible()
     expect(within(article).getByRole('link', { name: /Eric Provencher’s article about auditing skills for Astra/ })).toHaveAttribute('target', '_blank')
     const audit = within(article).getByText(/The Astra question is only one part of a wider audit/)

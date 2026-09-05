@@ -29,7 +29,7 @@ export const ContextComplexityArticle = ({ markdown }: ContextComplexityArticleP
         precis="My hand-rolled version charged repository complexity. WorkClaw charged runtime spend. Neither bought enough coordination to justify an organisation around this novel."
         title="The packaged organisation"
       >
-        <ContentProse register="article-serif" markdown={workClaw} />
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={workClaw} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>
