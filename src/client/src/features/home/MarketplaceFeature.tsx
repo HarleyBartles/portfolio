@@ -8,11 +8,11 @@ export function MarketplaceFeature(): ReactElement {
       <span className="home-anchor-target" id="marketplace" aria-hidden="true" />
       <div className="home-frame home-project-grid market-grid">
         <div className="home-project-copy">
-          <p className="home-eyebrow">Agent Asset Marketplace · Superpowers+</p>
+          <p className="home-eyebrow">Agent Asset Marketplace · superpowers-plus</p>
           <h2 className="home-section-title" id="home-marketplace-title">A strong system, changed by using it.</h2>
-          <p className="home-body">I use obra/superpowers as a strong base system. Superpowers+ is my plugin around the way I actually work; Handoff Gates makes one boundary explicit: work does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
+          <p className="home-body">I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work; Handoff Gates makes one boundary explicit: work does not move on because its producer says it is done. The next worker has to be able to continue without improvising.</p>
           <div className="home-route-actions">
-            <Link className="home-cta" to="/projects/codex-marketplace">Inspect the case study →</Link>
+            <Link className="home-cta" to="/writing/use-superpowers">Read Use Superpowers →</Link>
             <a className="home-next" href="#wild-bunch">I tried to break my own event-sourcing claim ↓</a>
           </div>
         </div>

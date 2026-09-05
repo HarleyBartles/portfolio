@@ -35,9 +35,9 @@ describe('Writing discovery surfaces', () => {
     const list = await screen.findByRole('region', { name: 'Writing, newest first' }, { timeout: 5_000 })
     const articles = within(list).getAllByRole('article')
 
-    expect(within(articles[0]).getByRole('heading', { name: 'How The Invisibles’ logo designer influenced The Usual Specialists' })).toBeVisible()
-    expect(within(articles[1]).getByRole('heading', { name: '"I just write the code" is not a full sentence' })).toBeVisible()
-    expect(within(articles[2]).getByRole('heading', { name: "The right test isn't your favourite test" })).toBeVisible()
+    expect(within(articles[0]).getByRole('heading', { name: 'Use Superpowers' })).toBeVisible()
+    expect(within(articles[1]).getByRole('heading', { name: 'How The Invisibles’ logo designer influenced The Usual Specialists' })).toBeVisible()
+    expect(within(articles[2]).getByRole('heading', { name: '"I just write the code" is not a full sentence' })).toBeVisible()
     expect(list).not.toHaveTextContent('Archive')
     expect(list.querySelector('[data-visual-contract="writing-editorial-lead"]')).toBeNull()
   })

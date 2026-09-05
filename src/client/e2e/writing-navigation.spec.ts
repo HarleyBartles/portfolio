@@ -20,6 +20,37 @@ test('visitor opens the agentic-organisation article and finds its authored cont
   await expect(continuations.getByRole('link', { name: /engineer the route, not the theatre/i })).toBeVisible()
 })
 
+test('Use Superpowers keeps the ordinary article shell and opens its Astra disclosure', async ({ page }) => {
+  const response = await page.goto('./writing/use-superpowers/')
+
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', { level: 1, name: 'Use Superpowers' })).toBeVisible()
+  await expect(page.locator('[data-metadata-row]')).toContainText('5 September 2026')
+  await expect(page.locator('[data-metadata-row]')).toContainText('5 min read')
+  await expect(page.locator('[data-visual-language="authored-longform"][data-type-register="article-serif"]')).toBeVisible()
+
+  const disclosure = page.locator('details.use-superpowers-disclosure')
+  await expect(disclosure).not.toHaveAttribute('open', '')
+  await expect(disclosure.getByText('When “most capable” changes overnight', { exact: true })).toBeVisible()
+  await expect(disclosure.getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.', { exact: true })).toBeVisible()
+  await expect(disclosure.getByText(/When I started `selecting-a-subagent`/)).not.toBeVisible()
+
+  await disclosure.locator('summary').focus()
+  await page.keyboard.press('Enter')
+  await expect(disclosure).toHaveAttribute('open', '')
+  await expect(disclosure.locator('.content-prose')).toBeVisible()
+  await expect(disclosure.locator('.content-prose')).toContainText('When I started selecting-a-subagent')
+
+  await expect(page.getByRole('link', { name: /If you write a loop/ })).toHaveAttribute('href', '/writing/graph-iterative-review')
+  await expect(page.getByRole('link', { name: 'Agent Asset Marketplace', exact: true })).toHaveAttribute('href', '/projects/codex-marketplace')
+  await expect(page.getByRole('link', { name: 'Read Use Superpowers →' })).toHaveCount(0)
+
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+})
+
 test('authored pull quotes use the wide editorial margin without widening the prose', async ({ page }) => {
   await page.setViewportSize({ width: 1600, height: 1000 })
   await page.goto('./writing/why-adrs/')

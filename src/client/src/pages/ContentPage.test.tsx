@@ -31,6 +31,43 @@ vi.mock('../features/case-study/projectPresentations', async () => {
 import * as presentations from '../features/case-study/projectPresentations'
 
 describe('ContentPage specialist presentation boundary', () => {
+  test('composes Use Superpowers through the shared writing shell with a closed disclosure', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/use-superpowers'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
+      </QueryClientProvider>,
+    )
+
+    const title = await screen.findByRole('heading', { level: 1, name: 'Use Superpowers' }, { timeout: 5_000 })
+    const article = title.closest('article') as HTMLElement
+    const disclosureTitle = within(article).getByRole('heading', { level: 2, name: 'When “most capable” changes overnight' })
+    const disclosure = disclosureTitle.closest('details') as HTMLDetailsElement
+
+    expect(article).toHaveAttribute('data-visual-language', 'authored-longform')
+    expect(article).toHaveAttribute('data-type-register', 'article-serif')
+    expect(within(article).getByText('I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.')).toHaveClass('content-summary')
+    expect(within(article).getByText('5 September 2026')).toBeVisible()
+    expect(within(article).getByText('5 min read')).toBeVisible()
+    expect(disclosure).not.toHaveAttribute('open')
+    expect(within(disclosure).getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.')).toBeVisible()
+    expect(disclosure.querySelector('.content-prose')).not.toBeVisible()
+    expect(within(article).getByRole('link', { name: /If you write a loop/ })).toHaveAttribute('href', '/portfolio/writing/graph-iterative-review')
+    expect(within(article).getByRole('link', { name: 'Agent Asset Marketplace' })).toHaveAttribute('href', '/portfolio/projects/codex-marketplace')
+    expect(within(article).getByRole('link', { name: /Eric Provencher’s article about auditing skills for Astra/ })).toHaveAttribute('target', '_blank')
+    const audit = within(article).getByText(/The Astra question is only one part of a wider audit/)
+    expect(audit.closest('a')).toBeNull()
+    expect(container.querySelector('[data-measure="reading"]')).toBeInTheDocument()
+    const continuations = within(article).getByRole('navigation', { name: 'Continue reading' })
+    expect(within(continuations).getByRole('link', { name: /Agent Asset Marketplace/ })).toHaveAttribute('href', '/portfolio/projects/codex-marketplace')
+  })
+
   test('composes PORT-10 through the complete shared writing article shell', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',

@@ -36,7 +36,7 @@ describe('Phase 8 homepage sections', () => {
       'professional-close',
     ])
     expect(screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
-    expect(screen.getByRole('link', { name: /Inspect the case study/ })).toHaveAttribute('href', '/projects/codex-marketplace')
+    expect(screen.getByRole('link', { name: 'Read Use Superpowers →' })).toHaveAttribute('href', '/writing/use-superpowers')
     expect(screen.getByRole('link', { name: /Follow the trail/ })).toHaveAttribute('href', '/projects/wild-bunch')
     expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
     expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
