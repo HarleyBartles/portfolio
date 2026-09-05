@@ -21,7 +21,9 @@ function escapeHtml(value) {
 function canonicalUrl(origin, baseUrl, route) {
   const normalizedOrigin = origin.replace(/\/$/, '')
   const normalizedBase = baseUrl === '/' ? '' : `/${baseUrl.replace(/^\//, '').replace(/\/$/, '')}`
-  return route === '/' ? `${normalizedOrigin}${normalizedBase}/` : `${normalizedOrigin}${normalizedBase}${route}`
+  return route === '/' && normalizedBase === ''
+    ? normalizedOrigin
+    : `${normalizedOrigin}${normalizedBase}${route}`
 }
 
 function renderMetadata(template, metadata, origin, baseUrl) {
