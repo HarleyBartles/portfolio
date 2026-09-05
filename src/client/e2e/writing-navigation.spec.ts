@@ -29,10 +29,13 @@ test('Use Superpowers keeps the ordinary article shell and opens its Astra discl
   await expect(page.locator('[data-metadata-row]')).toContainText('5 min read')
   await expect(page.locator('[data-visual-language="authored-longform"][data-type-register="article-serif"]')).toBeVisible()
 
-  const disclosure = page.locator('details.use-superpowers-disclosure')
+  const aside = page.getByRole('complementary', { name: 'When “most capable” changes overnight' })
+  const disclosure = aside.locator('[data-editorial-aside-disclosure]')
+  await expect(aside).toHaveAttribute('data-editorial-aside', 'true')
   await expect(disclosure).not.toHaveAttribute('open', '')
-  await expect(disclosure.getByText('When “most capable” changes overnight', { exact: true })).toBeVisible()
-  await expect(disclosure.getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.', { exact: true })).toBeVisible()
+  await expect(aside.getByText('When “most capable” changes overnight', { exact: true })).toBeVisible()
+  await expect(aside.getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.', { exact: true })).toBeVisible()
+  await expect(disclosure.getByText('Read the Astra audit', { exact: true })).toBeVisible()
   await expect(disclosure.getByText(/When I started `selecting-a-subagent`/)).not.toBeVisible()
 
   await disclosure.locator('summary').focus()
@@ -47,6 +50,116 @@ test('Use Superpowers keeps the ordinary article shell and opens its Astra discl
 
   for (const width of [1440, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 900 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  }
+})
+
+test('every current writing aside uses the canonical editorial disclosure', async ({ page }) => {
+  const consumers = [
+    { path: './writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', title: 'The packaged organisation' },
+    { path: './writing/i-just-write-the-code-is-not-a-full-sentence/', title: 'SQL was my weak point' },
+    { path: './writing/i-just-write-the-code-is-not-a-full-sentence/', title: 'The webhook wasn’t early' },
+    { path: './writing/the-right-test-isnt-your-favourite-test/', title: 'Prose can still be tested' },
+    { path: './writing/use-superpowers/', title: 'When “most capable” changes overnight' },
+  ]
+
+  for (const consumer of consumers) {
+    await page.goto(consumer.path)
+    const aside = page.getByRole('complementary', { name: consumer.title })
+    const disclosure = aside.locator('[data-editorial-aside-disclosure]')
+
+    await expect(aside).toHaveAttribute('data-editorial-aside', 'true')
+    await expect(disclosure).toHaveCount(1)
+    await expect(disclosure).not.toHaveAttribute('open', '')
+    await expect(page.locator('article details:not([data-editorial-aside-disclosure])')).toHaveCount(0)
+  }
+})
+
+test('WorkClaw and Astra share keyboard disclosure and responsive field grammar', async ({ page }) => {
+  const inspectAside = async (path: string, title: string) => {
+    await page.goto(path)
+    const aside = page.getByRole('complementary', { name: title })
+    const disclosure = aside.locator('[data-editorial-aside-disclosure]')
+    await expect(disclosure).not.toHaveAttribute('open', '')
+    return {
+      aside,
+      disclosure,
+      grammar: await aside.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return {
+          backgroundColor: style.backgroundColor,
+          borderTopColor: style.borderTopColor,
+          borderTopWidth: style.borderTopWidth,
+          display: style.display,
+        }
+      }),
+    }
+  }
+
+  await page.setViewportSize({ width: 1440, height: 900 })
+  const astra = await inspectAside('./writing/use-superpowers/', 'When “most capable” changes overnight')
+  const workClaw = await inspectAside('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', 'The packaged organisation')
+
+  expect(workClaw.grammar).toEqual(astra.grammar)
+  await workClaw.disclosure.locator('summary').focus()
+  await page.keyboard.press('Space')
+  await expect(workClaw.disclosure).toHaveAttribute('open', '')
+  await expect(workClaw.disclosure.getByRole('link', { name: 'WorkClaw' })).toBeVisible()
+
+  for (const width of [768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 })
+    const resizedWorkClaw = await inspectAside('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', 'The packaged organisation')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+    const resizedAstra = await inspectAside('./writing/use-superpowers/', 'When “most capable” changes overnight')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+    expect(resizedWorkClaw.grammar).toEqual(resizedAstra.grammar)
+  }
+})
+
+test('shared editorial asides break right from the reading measure and stack before their lanes cramp', async ({ page }) => {
+  const consumers = [
+    { path: './writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', title: 'The packaged organisation' },
+    { path: './writing/use-superpowers/', title: 'When “most capable” changes overnight' },
+  ]
+
+  await page.setViewportSize({ width: 1440, height: 900 })
+
+  for (const consumer of consumers) {
+    await page.goto(consumer.path)
+    const aside = page.getByRole('complementary', { name: consumer.title })
+    const prose = page.locator('.content-page-body .content-prose').first()
+    const title = aside.getByRole('heading', { level: 2, name: consumer.title })
+    const [asideBox, proseBox, titleMetrics] = await Promise.all([
+      aside.boundingBox(),
+      prose.boundingBox(),
+      title.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return {
+          height: element.getBoundingClientRect().height,
+          lineHeight: Number.parseFloat(style.lineHeight),
+        }
+      }),
+    ])
+
+    expect(asideBox!.x).toBeCloseTo(proseBox!.x, 0)
+    expect(asideBox!.width).toBeGreaterThan(proseBox!.width + 200)
+    expect(titleMetrics.height).toBeLessThanOrEqual(titleMetrics.lineHeight * 2 + 1)
+  }
+
+  await page.setViewportSize({ width: 768, height: 900 })
+
+  for (const consumer of consumers) {
+    await page.goto(consumer.path)
+    const aside = page.getByRole('complementary', { name: consumer.title })
+    const prose = page.locator('.content-page-body .content-prose').first()
+    const [asideBox, proseBox, template] = await Promise.all([
+      aside.boundingBox(),
+      prose.boundingBox(),
+      aside.evaluate((element) => getComputedStyle(element).gridTemplateColumns),
+    ])
+
+    expect(asideBox!.width).toBeCloseTo(proseBox!.width, 0)
+    expect(template.trim().split(/\s+/)).toHaveLength(1)
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   }
 })

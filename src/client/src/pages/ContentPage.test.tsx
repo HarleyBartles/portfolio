@@ -48,18 +48,27 @@ describe('ContentPage specialist presentation boundary', () => {
     const title = await screen.findByRole('heading', { level: 1, name: 'Use Superpowers' }, { timeout: 5_000 })
     const article = title.closest('article') as HTMLElement
     const disclosureTitle = within(article).getByRole('heading', { level: 2, name: 'When “most capable” changes overnight' })
-    const disclosure = disclosureTitle.closest('details') as HTMLDetailsElement
+    const aside = disclosureTitle.closest('[data-editorial-aside]') as HTMLElement
+    const disclosure = aside.querySelector('[data-editorial-aside-disclosure]') as HTMLDetailsElement
 
     expect(article).toHaveAttribute('data-visual-language', 'authored-longform')
     expect(article).toHaveAttribute('data-type-register', 'article-serif')
+    expect(aside).toHaveAttribute('data-editorial-aside')
     expect(within(article).getByText('I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.')).toHaveClass('content-summary')
     expect(within(article).getByText('5 September 2026')).toBeVisible()
     expect(within(article).getByText('5 min read')).toBeVisible()
     expect(disclosure).not.toHaveAttribute('open')
-    expect(within(disclosure).getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.')).toBeVisible()
+    expect(within(aside).getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.')).toBeVisible()
     expect(disclosure.querySelector('.content-prose')).not.toBeVisible()
     expect(within(article).getByRole('link', { name: /If you write a loop/ })).toHaveAttribute('href', '/portfolio/writing/graph-iterative-review')
     expect(within(article).getByRole('link', { name: 'Agent Asset Marketplace' })).toHaveAttribute('href', '/portfolio/projects/codex-marketplace')
+    expect(within(article).getByRole('link', { name: /adaptation overlays/ })).toHaveAttribute(
+      'href',
+      'https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md',
+    )
+    expect(within(article).getByText('By then, my clean line between upstream and my changes had acquired enough machinery to become clownshoes.*')).toBeVisible()
+    expect(within(article).getByText('*clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.')).toBeVisible()
+    expect(within(article).getByText(/effectively first-party authorship with extra indirection/)).toBeVisible()
     expect(within(article).getByRole('link', { name: /Eric Provencher’s article about auditing skills for Astra/ })).toHaveAttribute('target', '_blank')
     const audit = within(article).getByText(/The Astra question is only one part of a wider audit/)
     expect(audit.closest('a')).toBeNull()

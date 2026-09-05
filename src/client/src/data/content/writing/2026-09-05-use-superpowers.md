@@ -20,7 +20,11 @@ I liked the idea enough to [raise it upstream](https://github.com/obra/superpowe
 
 The issue was eventually closed. The maintainer agreed there was a genuine gap, but preferred narrow, skill-local checks over a general orientation skill without RED/GREEN evals. They were right not to take it. I was right to keep it.
 
-I still wanted a clean line between upstream and my changes, so I kept an immutable Superpowers snapshot and applied mine through adaptation overlays. As those changes accumulated, preserving that line needed projection tooling, provenance records and drift handling.
+I still wanted a clean line between upstream and my changes, so I kept an immutable Superpowers snapshot and applied mine through [adaptation overlays](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md). As those changes accumulated, preserving that line needed projection tooling, provenance records, drift handling and, eventually, a tool to heal the overlays when upstream moved underneath them.
+
+By then, my clean line between upstream and my changes had acquired enough machinery to become clownshoes.\*
+
+\*clownshoes, n.: the state of getting in your own way by solving problems that exist only because you put them there.
 
 ## Can the next agent move?
 

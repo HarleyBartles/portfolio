@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { PortfolioThemeProvider } from '../../components'
 import { TestingEvidenceArticle } from './TestingEvidenceArticle'
@@ -20,7 +20,7 @@ A skill is prose. I still test what it makes an agent do.
 Closing argument.`
 
 describe('TestingEvidenceArticle', () => {
-  test('presents the agentic application as a semantic side lens without disturbing reading order', () => {
+  test('keeps the agentic application as a collapsed shared aside without disturbing reading order', () => {
     render(
       <PortfolioThemeProvider>
         <TestingEvidenceArticle markdown={markdown} />
@@ -28,10 +28,17 @@ describe('TestingEvidenceArticle', () => {
     )
 
     const aside = screen.getByRole('complementary', { name: 'Prose can still be tested' })
+    const disclosure = within(aside).getByText('Read the applied test lens').closest('details') as HTMLDetailsElement
 
+    expect(aside).toHaveAttribute('data-editorial-aside')
+    expect(disclosure).toHaveAttribute('data-editorial-aside-disclosure')
     expect(screen.getByText('Opening argument.').compareDocumentPosition(aside) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(within(aside).getByText('Applied to agentic systems')).toBeVisible()
     expect(within(aside).getByText('A skill is prose. I still test what it makes an agent do.')).toBeVisible()
+    expect(disclosure).not.toHaveAttribute('open')
+    expect(within(aside).getByText('Observe RED.')).not.toBeVisible()
+    fireEvent.click(within(aside).getByText('Read the applied test lens'))
+    expect(disclosure).toHaveAttribute('open')
     expect(within(aside).getByText('Observe RED.')).toBeVisible()
     expect(within(aside).getByText('Earn GREEN.')).toBeVisible()
     expect(within(aside).getByText('Assume staleness.')).toBeVisible()

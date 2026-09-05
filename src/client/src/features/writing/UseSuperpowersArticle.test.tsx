@@ -30,11 +30,13 @@ describe('UseSuperpowersArticle', () => {
       </PortfolioThemeProvider>,
     )
 
-    const disclosure = document.querySelector('details') as HTMLDetailsElement
+    const disclosure = document.querySelector('[data-editorial-aside-disclosure]') as HTMLDetailsElement
     const optionalBody = disclosure.querySelector('.content-prose') as HTMLElement
     expect(disclosure).not.toHaveAttribute('open')
+    expect(disclosure.closest('[data-editorial-aside]')).not.toBeNull()
     expect(screen.getByRole('heading', { level: 2, name: 'When “most capable” changes overnight' })).toBeVisible()
     expect(screen.getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.')).toBeVisible()
+    expect(screen.getByText('Read the Astra audit')).toBeVisible()
     expect(optionalBody).not.toBeVisible()
     expect(screen.getByText('Opening argument.')).toBeVisible()
     expect(screen.getByText('The Astra question is only one part of a wider audit: what should change when the frontier moves, and what should stay stable for the models already doing the work.')).toBeVisible()
@@ -49,7 +51,7 @@ describe('UseSuperpowersArticle', () => {
       </PortfolioThemeProvider>,
     )
 
-    const summary = screen.getByText('When “most capable” changes overnight').closest('summary') as HTMLElement
+    const summary = screen.getByText('Read the Astra audit').closest('summary') as HTMLElement
     const optionalBody = summary.closest('details')?.querySelector('.content-prose') as HTMLElement
     const disclosure = summary.closest('details') as HTMLDetailsElement
     expect(summary).toBeVisible()

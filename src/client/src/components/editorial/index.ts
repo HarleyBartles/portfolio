@@ -1,3 +1,5 @@
 export { EditorialPullQuote } from './EditorialPullQuote'
+export { EditorialAside } from './EditorialAside'
+export type { EditorialAsideProps } from './EditorialAside'
 export { EditorialHeading } from './EditorialHeading'
 export type { EditorialHeadingWrap } from './EditorialHeading'

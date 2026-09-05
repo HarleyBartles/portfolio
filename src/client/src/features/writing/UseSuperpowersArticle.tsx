@@ -1,5 +1,5 @@
 import { ContentProse } from '../../components'
-import './UseSuperpowersArticle.scss'
+import { EditorialAside } from '../../components/editorial'
 
 type UseSuperpowersArticleProps = {
   markdown: string
@@ -35,13 +35,13 @@ export const UseSuperpowersArticle = ({ markdown }: UseSuperpowersArticleProps) 
   return (
     <div className="use-superpowers-article">
       <ContentProse register="article-serif" markdown={opening} />
-      <details className="use-superpowers-disclosure">
-        <summary>
-          <span className="use-superpowers-disclosure__title" role="heading" aria-level={2}>{disclosureTitle}</span>
-          <span className="use-superpowers-disclosure__precis">{disclosurePrecis}</span>
-        </summary>
+      <EditorialAside
+        disclosureLabel="Read the Astra audit"
+        precis={disclosurePrecis}
+        title={disclosureTitle}
+      >
         <ContentProse register="article-serif" markdown={optionalBody} />
-      </details>
+      </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>
   )

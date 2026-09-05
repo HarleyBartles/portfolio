@@ -33,14 +33,14 @@
 - Produces: `EditorialAside` and `EditorialAsideProps` from `components/editorial`, accepting `title`, `precis`, `disclosureLabel`, `children`, optional `eyebrow`, and optional `visual`.
 - Consumes: the existing portfolio theme and `ContentProse` consumers passed as children.
 
-- [ ] **Step 1: Write the failing primitive tests.** Cover semantic complementary naming, optional eyebrow, native collapsed disclosure, only disclosure body hidden while closed, click/Enter/Space interaction, and visible focus semantics.
-- [ ] **Step 2: Run the new test file and confirm it fails because the primitive does not exist.**
+- [x] **Step 1: Write the failing primitive tests.** Cover semantic complementary naming, optional eyebrow, native collapsed disclosure, only disclosure body hidden while closed, click/Enter/Space interaction, and visible focus semantics.
+- [x] **Step 2: Run the new test file and confirm it fails because the primitive does not exist.**
 
   Run: `npm test -- --run src/components/editorial/EditorialAside.test.tsx`
 
-- [ ] **Step 3: Implement the minimal typed styled-components primitive.** Use native details for the concrete disclosure consumers; keep the field, rule, measure, title, precis, utility control, body, narrow-width and reduced-motion grammar in this component.
-- [ ] **Step 4: Export the component and prop type from `components/editorial/index.ts`.**
-- [ ] **Step 5: Run the primitive test file and mark Task 1 steps complete.**
+- [x] **Step 3: Implement the minimal typed styled-components primitive.** Use native details for the concrete disclosure consumers; keep the field, rule, measure, title, precis, utility control, body, narrow-width and reduced-motion grammar in this component.
+- [x] **Step 4: Export the component and prop type from `components/editorial/index.ts`.**
+- [x] **Step 5: Run the primitive test file and mark Task 1 steps complete.**
 
 ### Task 2: Migrate every audited published-writing consumer
 
@@ -59,13 +59,13 @@
 - Consumes: `EditorialAside` from `../../components/editorial` with Task 1's exact props.
 - Produces: five collapsed-first `data-editorial-aside` article instances: WorkClaw, Astra, SQL, webhook and the testing lens.
 
-- [ ] **Step 1: Write/adjust failing consumer tests.** Assert the five actual instances are shared semantic asides, no article-local shell remains, WorkClaw retains copy and collapsed disclosure, Astra retains title/precis/control-only closed state, and the testing lens now matches that collapsed-first treatment.
-- [ ] **Step 2: Run those focused feature tests and confirm they fail against the current local implementations.**
+- [x] **Step 1: Write/adjust failing consumer tests.** Assert the five actual instances are shared semantic asides, no article-local shell remains, WorkClaw retains copy and collapsed disclosure, Astra retains title/precis/control-only closed state, and the testing lens now matches that collapsed-first treatment.
+- [x] **Step 2: Run those focused feature tests and confirm they fail against the current local implementations.**
 
   Run: `npm test -- --run src/features/writing/ContextComplexityArticle.test.tsx src/features/writing/ProductOwnershipArticle.test.tsx src/features/writing/TestingEvidenceArticle.test.tsx src/features/writing/UseSuperpowersArticle.test.tsx`
 
-- [ ] **Step 3: Replace each local aside shell with `EditorialAside`.** Preserve the webhook signal map as the sole concrete `visual` consumer, preserve all body markdown and surrounding article order, and remove superseded aside shell CSS.
-- [ ] **Step 4: Run the focused feature tests and mark Task 2 steps complete.**
+- [x] **Step 3: Replace each local aside shell with `EditorialAside`.** Preserve the webhook signal map as the sole concrete `visual` consumer, preserve all body markdown and surrounding article order, and remove superseded aside shell CSS.
+- [x] **Step 4: Run the focused feature tests and mark Task 2 steps complete.**
 
 ### Task 3: Validate reading, accessibility and responsive shared grammar
 
@@ -78,16 +78,16 @@
 - Consumes: the shared `data-editorial-aside` marker and native summary semantics from Tasks 1–2.
 - Produces: automated proof for both required articles, all five corpus consumers, keyboard disclosure behavior, 1440/768/390/320 no-overflow checks and common aside geometry.
 
-- [ ] **Step 1: Write/adjust failing route and browser tests.** Use role/text locators for real article titles and disclosure labels; assert native Enter and Space toggles, closed Astra body, WorkClaw body after opening, all body instances use the shared marker, and both routes stay within the viewport at required widths.
-- [ ] **Step 2: Run focused Vitest and Playwright tests to demonstrate the pre-migration failure where applicable.**
+- [x] **Step 1: Write/adjust failing route and browser tests.** Use role/text locators for real article titles and disclosure labels; assert native Enter and Space toggles, closed Astra body, WorkClaw body after opening, all body instances use the shared marker, and both routes stay within the viewport at required widths.
+- [x] **Step 2: Run focused Vitest and Playwright tests to demonstrate the pre-migration failure where applicable.**
 
   Run: `npm test -- --run src/pages/ContentPage.test.tsx src/features/writing/ContextComplexityArticle.test.tsx src/features/writing/UseSuperpowersArticle.test.tsx`
 
   Run: `npm run test:e2e -- e2e/writing-navigation.spec.ts`
 
-- [ ] **Step 3: Make only the implementation/test corrections required for green behavior.**
-- [ ] **Step 4: Re-run the focused checks and perform live browser review at 1440, 768, 390 and 320 CSS pixels, keyboard-only, reduced motion, and actual native 200% zoom.**
-- [ ] **Step 5: Mark Task 3 steps complete.**
+- [x] **Step 3: Make only the implementation/test corrections required for green behavior.**
+- [x] **Step 4: Re-run the focused checks and perform live browser review at 1440, 768, 390 and 320 CSS pixels, keyboard-only, reduced motion, and actual native 200% zoom.**
+- [x] **Step 5: Mark Task 3 steps complete.**
 
 ### Task 4: Record the grammar and publish the draft update
 
@@ -100,18 +100,32 @@
 **Interfaces:**
 - Produces: durable rule naming `src/client/src/components/editorial/EditorialAside.tsx` / `components/editorial` as the only article-aside path, with `EditorialPullQuote` as the existing conceptual precedent.
 
-- [ ] **Step 1: Add the doctrine rule and a dated decision-ledger entry.** State that article-local aside shells/styles are prohibited unless a deliberately new grammar is designed and approved.
-- [ ] **Step 2: Regenerate indexes and inspect the generated diff.**
+- [x] **Step 1: Add the doctrine rule and a dated decision-ledger entry.** State that article-local aside shells/styles are prohibited unless a deliberately new grammar is designed and approved.
+- [x] **Step 2: Regenerate indexes and inspect the generated diff.**
 
   Run: `py -3 tools/run.py mesh --apply`
 
-- [ ] **Step 3: Move the completed plan, regenerate indexes again, then review the complete staged diff.**
-- [ ] **Step 4: Commit the intended tree with the normal hook; do not bypass it.**
+- [x] **Step 3: Move the completed plan, regenerate indexes again, then review the complete staged diff.**
+- [x] **Step 4: Commit the intended tree with the normal hook; do not bypass it.**
 
   Run: `git add -A; git commit -m "refactor: share editorial article asides"`
 
-- [ ] **Step 5: Push the branch, reread and update draft PR #53, then verify its remote head SHA, draft state and mergeability.**
-- [ ] **Step 6: Mark Task 4 steps complete.**
+- [x] **Step 5: Push the branch, reread and update draft PR #53, then verify its remote head SHA, draft state and mergeability.**
+- [x] **Step 6: Mark Task 4 steps complete.**
+
+### Task 5: Integrate the approved Use Superpowers amendment
+
+**Files:**
+- Modify: `src/client/src/data/content/writing/2026-09-05-use-superpowers.md`
+- Modify: `src/client/src/pages/ContentPage.test.tsx`
+
+**Interfaces:**
+- Consumes: the approved copy and its direct public receipt at `HarleyBartles/agent-asset-marketplace/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md`.
+- Produces: the exact two-paragraph `clownshoes` admission and literal asterisk definition without creating a new footnote presentation system.
+
+- [x] **Step 1: Replace only the approved clean-line paragraph, retain the later first-party-authorship payoff, and link `adaptation overlays` directly to the upgrade-machinery plan.**
+- [x] **Step 2: Extend the route test to pin the receipt, approved asterisk definition and separate sober payoff.**
+- [x] **Step 3: Run the focused route test and mark Task 5 steps complete.**
 
 ## Validation and handoff
 
@@ -122,3 +136,9 @@
 - Publication proof: `git push origin harleydbartles/port-13-use-superpowers`, then `gh pr view 53 --json headRefOid,isDraft,mergeStateStatus,url`.
 
 **Plan confidence:** 9/10. The audit has identified every current writing-body aside and the canonical editorial export seam. The only concrete visual variation retained is the existing webhook signal map passed as content, rather than a new aside visual variant.
+
+## Approved geometry correction
+
+- [x] Make the shared aside retain the article column's left edge while breaking right into a wide editorial field only when the viewport can support it.
+- [x] Stack the shared header and disclosure lanes before either becomes cramped; preserve viewport-safe single-column behavior at 768, 390, 320 and 200% zoom.
+- [x] Add production-browser proof for both WorkClaw and Astra that the wide field is materially broader than prose, left-aligned and free of fragmented title wrapping.

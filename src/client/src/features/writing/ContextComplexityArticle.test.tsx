@@ -28,6 +28,8 @@ describe('ContextComplexityArticle', () => {
     const aside = screen.getByRole('complementary', { name: 'The packaged organisation' })
     const disclosure = within(aside).getByText('Read the WorkClaw experiment').closest('details')
 
+    expect(aside).toHaveAttribute('data-editorial-aside')
+    expect(disclosure).toHaveAttribute('data-editorial-aside-disclosure')
     expect(screen.getByText('The main story continues.').compareDocumentPosition(aside) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(within(aside).getByText('Same abstraction, different bill')).toBeVisible()
     expect(within(aside).getByText(/hand-rolled version charged repository complexity/i)).toBeVisible()
