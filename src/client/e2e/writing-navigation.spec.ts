@@ -151,15 +151,32 @@ test('shared editorial asides break right from the reading measure and stack bef
   for (const consumer of consumers) {
     await page.goto(consumer.path)
     const aside = page.getByRole('complementary', { name: consumer.title })
-    const [headerBox, disclosureBox, template] = await Promise.all([
-      aside.locator(':scope > header').boundingBox(),
-      aside.locator('[data-editorial-aside-disclosure]').boundingBox(),
+    const title = aside.getByRole('heading', { level: 2, name: consumer.title })
+    const precis = consumer.title === 'The packaged organisation'
+      ? aside.getByText(/My hand-rolled version charged repository complexity/, { exact: true })
+      : aside.getByText(/A model release can change what a relative instruction means/, { exact: true })
+    const disclosure = aside.locator('[data-editorial-aside-disclosure]')
+    const summary = disclosure.locator('summary')
+    const [asideBox, titleBox, precisBox, summaryBox, template] = await Promise.all([
+      aside.boundingBox(),
+      title.boundingBox(),
+      precis.boundingBox(),
+      summary.boundingBox(),
       aside.evaluate((element) => getComputedStyle(element).gridTemplateColumns),
     ])
 
     expect(template.trim().split(/\s+/)).toHaveLength(2)
-    expect(disclosureBox!.x).toBeGreaterThan(headerBox!.x + 100)
-    expect(Math.abs(disclosureBox!.y - headerBox!.y)).toBeLessThanOrEqual(32)
+    expect(precisBox!.x).toBeGreaterThan(titleBox!.x + 100)
+    expect(precisBox!.y).toBeLessThan(titleBox!.y + titleBox!.height)
+    expect(titleBox!.y).toBeLessThan(precisBox!.y + precisBox!.height)
+    expect(summaryBox!.x).toBeCloseTo(titleBox!.x, 0)
+    const firstRowBottom = Math.max(titleBox!.y + titleBox!.height, precisBox!.y + precisBox!.height)
+    expect(summaryBox!.y - firstRowBottom).toBeGreaterThanOrEqual(32)
+    expect(asideBox!.y + asideBox!.height - (summaryBox!.y + summaryBox!.height)).toBeGreaterThanOrEqual(32)
+
+    await summary.click()
+    const bodyBox = await disclosure.locator('[data-editorial-aside-body]').boundingBox()
+    expect(bodyBox!.x).toBeGreaterThan(summaryBox!.x + 100)
   }
 
   await page.setViewportSize({ width: 768, height: 900 })

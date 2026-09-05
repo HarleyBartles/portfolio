@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 const Aside = styled.aside`
   display: grid;
-  gap: var(--space-6);
   width: 100%;
   margin: var(--space-16) 0 var(--space-14);
   border: 1px solid ${({ theme }) => theme.color.border};
@@ -12,24 +11,34 @@ const Aside = styled.aside`
   background: color-mix(in srgb, ${({ theme }) => theme.color.accentSoft} 18%, ${({ theme }) => theme.color.surface});
   color: ${({ theme }) => theme.color.ink};
   overflow-wrap: anywhere;
+  grid-template-areas:
+    'header'
+    'precis'
+    'content';
 
   @media (min-width: 60rem) {
     width: min(64rem, calc(100vw - var(--space-12)));
+    grid-template-columns: minmax(18rem, 0.8fr) minmax(22rem, 1.2fr);
+    grid-template-areas:
+      'header precis'
+      'content content';
   }
 
-  @media (min-width: 60rem) {
+  @media (min-width: 72rem) {
     grid-template-columns: minmax(22rem, 1.05fr) minmax(22rem, 0.95fr);
-    gap: clamp(var(--space-8), 5vw, var(--space-14));
+    grid-template-areas:
+      'header content'
+      'precis content';
   }
 `
 
 const Header = styled.header`
-  align-self: start;
+  grid-area: header;
   padding: clamp(var(--space-5), 3vw, var(--space-7));
   padding-bottom: 0;
 
   @media (min-width: 60rem) {
-    padding-bottom: clamp(var(--space-5), 3vw, var(--space-7));
+    align-self: start;
   }
 `
 
@@ -55,25 +64,46 @@ const Title = styled.h2`
 `
 
 const Precis = styled.p`
+  grid-area: precis;
   max-width: 32rem;
-  margin: var(--space-5) 0 0;
+  margin: var(--space-5) clamp(var(--space-5), 3vw, var(--space-7)) 0;
   color: ${({ theme }) => theme.color.inkSecondary};
   font-family: ${({ theme }) => theme.font.articleSerif};
   font-size: 1rem;
   line-height: 1.55;
+
+  @media (min-width: 60rem) {
+    align-self: start;
+    margin-top: 0;
+  }
+
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    align-self: center;
+    padding-top: 0;
+  }
+
+  @media (min-width: 72rem) {
+    padding-top: clamp(var(--space-5), 3vw, var(--space-7));
+  }
 `
 
 const Content = styled.div`
+  grid-area: content;
   min-width: 0;
-  padding: 0 clamp(var(--space-5), 3vw, var(--space-7)) clamp(var(--space-5), 3vw, var(--space-7));
+  padding: var(--space-5) clamp(var(--space-5), 3vw, var(--space-7)) clamp(var(--space-5), 3vw, var(--space-7));
 
-  @media (min-width: 60rem) {
-    padding-top: clamp(var(--space-5), 3vw, var(--space-7));
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    padding-top: clamp(var(--space-10), 5vw, var(--space-12));
+    padding-bottom: clamp(var(--space-10), 5vw, var(--space-12));
   }
 `
 
 const Details = styled.details`
   min-width: 0;
+
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    display: block;
+  }
 
   summary {
     display: flex;
@@ -142,6 +172,11 @@ const Body = styled.div`
   max-width: 38rem;
   padding-top: var(--space-6);
 
+  @media (min-width: 60rem) and (max-width: 71.99rem) {
+    max-width: none;
+    margin-left: 40%;
+  }
+
   .content-prose {
     font-size: 1.05rem;
   }
@@ -188,8 +223,8 @@ export const EditorialAside = ({
       <Header>
         {eyebrow === undefined ? null : <Eyebrow>{eyebrow}</Eyebrow>}
         <Title id={titleId}>{title}</Title>
-        <Precis>{precis}</Precis>
       </Header>
+      <Precis>{precis}</Precis>
       <Content>
         {visual}
         <Details data-editorial-aside-disclosure>
