@@ -10,6 +10,30 @@ test('writing index presents a featured essay and consistent human dates', async
   await expect(featured.getByText('6 min read', { exact: true })).toBeVisible()
 })
 
+test('writing cards align title and précis while keeping metadata as the left-lane footer', async ({ page }) => {
+  await page.goto('./writing/')
+
+  const card = page.getByRole('article', { name: /Use Superpowers/i })
+  const title = card.getByRole('heading', { level: 2, name: 'Use Superpowers' })
+  const precis = card.locator('.editorial-card-copy > p').last()
+  const metadata = card.locator('[data-metadata-row]')
+
+  await expect(title).toBeVisible()
+  await expect(precis).toBeVisible()
+  await expect(metadata).toBeVisible()
+
+  const desktop = await Promise.all([title.boundingBox(), precis.boundingBox(), metadata.boundingBox()])
+  expect(Math.abs((desktop[0]?.y ?? 0) - (desktop[1]?.y ?? 0))).toBeLessThanOrEqual(1)
+  expect((desktop[2]?.y ?? 0)).toBeGreaterThan((desktop[0]?.y ?? 0) + (desktop[0]?.height ?? 0))
+
+  await page.setViewportSize({ width: 390, height: 900 })
+  const mobile = await Promise.all([title.boundingBox(), metadata.boundingBox(), precis.boundingBox()])
+  expect((mobile[0]?.y ?? 0)).toBeLessThan((mobile[1]?.y ?? 0))
+  expect((mobile[1]?.y ?? 0)).toBeLessThan((mobile[2]?.y ?? 0))
+  expect(Math.abs((mobile[0]?.x ?? 0) - (mobile[1]?.x ?? 0))).toBeLessThanOrEqual(1)
+  expect(Math.abs((mobile[1]?.x ?? 0) - (mobile[2]?.x ?? 0))).toBeLessThanOrEqual(1)
+})
+
 test('visitor opens the agentic-organisation article and finds its authored continuations', async ({ page }) => {
   const response = await page.goto('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/')
 
