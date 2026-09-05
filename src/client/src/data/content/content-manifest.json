@@ -146,6 +146,18 @@
       "relatedSlugs": ["lawful-heist", "adventures-of-patch"]
     },
     {
+      "slug": "use-superpowers",
+      "kind": "writing",
+      "title": "Use Superpowers",
+      "date": "2026-09-05",
+      "readingMinutes": 5,
+      "status": "published",
+      "summary": "I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.",
+      "path": "writing/2026-09-05-use-superpowers.md",
+      "tags": ["writing", "agentic-engineering", "skills"],
+      "relatedSlugs": ["codex-marketplace"]
+    },
+    {
       "slug": "goldilocks",
       "kind": "patch",
       "title": "Goldilocks - The Right Amount of Guidance",

@@ -1,5 +1,5 @@
 import { ContentProse } from '../../components'
-import './TestingEvidenceArticle.scss'
+import { EditorialAside } from '../../components/editorial'
 
 type TestingEvidenceArticleProps = {
   markdown: string
@@ -7,6 +7,7 @@ type TestingEvidenceArticleProps = {
 
 const agenticHeading = '## Prose can still be tested'
 const closingHeading = '## Green only earns the confidence it earned'
+const testingPrecis = 'A skill is prose. I still test what it makes an agent do.'
 
 export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps) => {
   const agenticStart = markdown.indexOf(agenticHeading)
@@ -25,13 +26,14 @@ export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps
   return (
     <div className="testing-evidence-article">
       <ContentProse register="article-serif" markdown={opening} />
-      <aside className="testing-evidence-lens" aria-labelledby="testing-evidence-lens-title">
-        <header>
-          <p className="testing-evidence-lens__eyebrow">Applied to agentic systems</p>
-          <h2 id="testing-evidence-lens-title">Prose can still be tested</h2>
-        </header>
-        <ContentProse register="article-serif" markdown={agenticLens} />
-      </aside>
+      <EditorialAside
+        disclosureLabel="Read the applied test lens"
+        eyebrow="Applied to agentic systems"
+        precis={testingPrecis}
+        title="Prose can still be tested"
+      >
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={agenticLens.replace(`${testingPrecis}\n\n`, '')} />
+      </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>
   )

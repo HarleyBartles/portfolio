@@ -7,18 +7,20 @@ import { SectionTitle } from './content/PublicationPrimitives'
 
 export type ContentProseRegister = 'site-sans' | 'article-serif'
 export type ContentProseLayout = 'reading' | 'illustrated-story'
+export type ContentProseTreatment = 'default' | 'editorial-aside'
 
 type ContentProseProps = {
   markdown: string
   register: ContentProseRegister
   layout?: ContentProseLayout
+  treatment?: ContentProseTreatment
 }
 
 type MarkdownNodeProps = {
   node?: unknown
 }
 
-const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseRegister }>`
+const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseRegister; $treatment: ContentProseTreatment }>`
   font-family: ${({ $register, theme }) => $register === 'article-serif' ? theme.font.articleSerif : theme.font.siteSans};
   font-size: ${({ $register, theme }) => $register === 'article-serif' ? theme.type.articleBodySize : theme.type.siteBodySize};
   line-height: ${({ $register, theme }) => $register === 'article-serif' ? theme.type.articleBodyLeading : theme.type.siteBodyLeading};
@@ -46,6 +48,26 @@ const Prose = styled.div<{ $layout: ContentProseLayout; $register: ContentProseR
   p {
     margin: ${({ theme }) => theme.space.m} 0 0;
   }
+
+  ${({ $treatment, theme }) => $treatment === 'editorial-aside' ? css`
+    font-size: 1.05rem;
+
+    p {
+      line-height: 1.58;
+    }
+
+    p:first-child {
+      margin-top: 0;
+    }
+
+    p + p {
+      margin-top: var(--space-6);
+    }
+
+    a {
+      color: ${theme.color.ink};
+    }
+  ` : ''}
 
   img {
     width: 100%;
@@ -152,9 +174,17 @@ const MarkdownHeading = ({ node: _node, ...props }: ComponentPropsWithoutRef<'h2
   <ProseSectionTitle {...props} />
 )
 
-export const ContentProse = ({ markdown, register, layout = 'reading' }: ContentProseProps) => {
+export const ContentProse = ({ markdown, register, layout = 'reading', treatment = 'default' }: ContentProseProps) => {
   return (
-    <Prose className="content-prose" data-type-register={register} data-prose-layout={layout} $layout={layout} $register={register}>
+    <Prose
+      className="content-prose"
+      data-type-register={register}
+      data-prose-layout={layout}
+      data-prose-treatment={treatment}
+      $layout={layout}
+      $register={register}
+      $treatment={treatment}
+    >
       <ReactMarkdown
         components={{
           a: MarkdownLink,

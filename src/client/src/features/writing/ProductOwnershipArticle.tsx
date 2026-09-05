@@ -1,62 +1,15 @@
-import type { ReactNode } from 'react'
 import { ContentProse } from '../../components'
+import { EditorialAside } from '../../components/editorial'
 import './ProductOwnershipArticle.scss'
 
 type ProductOwnershipArticleProps = {
   markdown: string
 }
 
-type EditorialAsideProps = {
-  body: string
-  disclosure: string
-  eyebrow: string
-  id: string
-  standfirst: string
-  title: string
-  variant: 'sql' | 'webhook'
-  visual?: ReactNode
-}
-
 const sqlHeading = '## SQL was my weak point'
 const sqlFollowingHeading = '## No dev is an island'
 const webhookHeading = '## The webhook wasn’t early'
 const webhookFollowingHeading = '## The bit before the code'
-
-const EditorialAside = ({
-  body,
-  disclosure,
-  eyebrow,
-  id,
-  standfirst,
-  title,
-  variant,
-  visual,
-}: EditorialAsideProps) => {
-  return (
-    <aside
-      className={`product-ownership-aside product-ownership-aside--${variant}`}
-      aria-labelledby={id}
-    >
-      <header>
-        <p className="product-ownership-aside__eyebrow">{eyebrow}</p>
-        <h2 id={id}>{title}</h2>
-        <p className="product-ownership-aside__standfirst">{standfirst}</p>
-      </header>
-      <div className="product-ownership-aside__content">
-        {visual}
-        <details className="product-ownership-aside__details">
-          <summary>
-            <span>{disclosure}</span>
-            <span className="product-ownership-aside__marker" aria-hidden="true" />
-          </summary>
-          <div className="product-ownership-aside__body">
-            <ContentProse register="article-serif" markdown={body} />
-          </div>
-        </details>
-      </div>
-    </aside>
-  )
-}
 
 const WebhookSignalMap = () => {
   return (
@@ -102,25 +55,23 @@ export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticlePro
     <div className="product-ownership-article">
       <ContentProse register="article-serif" markdown={opening} />
       <EditorialAside
-        body={sqlAside}
-        disclosure="The interview and the incident"
+        disclosureLabel="The interview and the incident"
         eyebrow="One problem, two mistakes"
-        id="product-ownership-sql-title"
-        standfirst="At interview, I stepped away from a SQL question. In production, I later turned a several-minute operation into a couple of seconds. The same boundary mistake sat underneath both moments."
+        precis="At interview, I stepped away from a SQL question. In production, I later turned a several-minute operation into a couple of seconds. The same boundary mistake sat underneath both moments."
         title="SQL was my weak point"
-        variant="sql"
-      />
+      >
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={sqlAside} />
+      </EditorialAside>
       <ContentProse register="article-serif" markdown={middle} />
       <EditorialAside
-        body={webhookAside}
-        disclosure="Follow both signals"
+        disclosureLabel="Follow both signals"
         eyebrow="Three systems, one assumption"
-        id="product-ownership-webhook-title"
-        standfirst="Our API emitted its webhook only after the supplier reported a terminal status. The consumer expected a separate SDK redirect to happen first, a guarantee nobody had made."
+        precis="Our API emitted its webhook only after the supplier reported a terminal status. The consumer expected a separate SDK redirect to happen first, a guarantee nobody had made."
         title="The webhook wasn’t early"
-        variant="webhook"
         visual={<WebhookSignalMap />}
-      />
+      >
+        <ContentProse register="article-serif" treatment="editorial-aside" markdown={webhookAside} />
+      </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
     </div>
   )

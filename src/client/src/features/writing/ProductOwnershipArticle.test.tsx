@@ -38,6 +38,10 @@ describe('ProductOwnershipArticle', () => {
     const webhookAside = screen.getByRole('complementary', { name: 'The webhook wasn’t early' })
     const webhookDisclosure = within(webhookAside).getByText('Follow both signals').closest('details')
 
+    expect(sqlAside).toHaveAttribute('data-editorial-aside')
+    expect(webhookAside).toHaveAttribute('data-editorial-aside')
+    expect(sqlDisclosure).toHaveAttribute('data-editorial-aside-disclosure')
+    expect(webhookDisclosure).toHaveAttribute('data-editorial-aside-disclosure')
     expect(screen.getByText('Opening argument.').compareDocumentPosition(sqlAside) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(within(sqlAside).getByText('One problem, two mistakes')).toBeVisible()
     expect(within(sqlAside).getByText(/several-minute operation into a couple of seconds/)).toBeVisible()

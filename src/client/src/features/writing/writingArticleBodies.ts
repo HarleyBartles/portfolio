@@ -3,6 +3,7 @@ import { ContextComplexityArticle } from './ContextComplexityArticle'
 import { ProductOwnershipArticle } from './ProductOwnershipArticle'
 import { RianHughesArticle } from './RianHughesArticle'
 import { TestingEvidenceArticle } from './TestingEvidenceArticle'
+import { UseSuperpowersArticle } from './UseSuperpowersArticle'
 
 export type WritingArticleBodyProps = {
   markdown: string
@@ -13,6 +14,7 @@ const writingArticleBodies = {
   'i-just-write-the-code-is-not-a-full-sentence': ProductOwnershipArticle,
   'i-made-agentic-engineering-harder-than-it-needed-to-be': ContextComplexityArticle,
   'how-the-invisibles-logo-designer-influenced-the-usual-specialists': RianHughesArticle,
+  'use-superpowers': UseSuperpowersArticle,
 } as const satisfies Record<string, ComponentType<WritingArticleBodyProps>>
 
 export function getWritingArticleBody(slug: string): ComponentType<WritingArticleBodyProps> | undefined {

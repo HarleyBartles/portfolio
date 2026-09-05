@@ -391,6 +391,23 @@
     "shareAction": "content-end"
   },
   {
+    "id": "writing:use-superpowers",
+    "path": "/writing/use-superpowers",
+    "kind": "writing",
+    "title": "Use Superpowers | Harley Bartles",
+    "description": "I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Full-stack software engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
     "id": "writing:why-adrs",
     "path": "/writing/why-adrs",
     "kind": "writing",
