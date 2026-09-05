@@ -164,6 +164,25 @@ test('shared editorial asides break right from the reading measure and stack bef
   }
 })
 
+test('Astra title reflows naturally in the narrow shared aside', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 900 })
+  await page.goto('./writing/use-superpowers/')
+
+  const title = page.getByRole('complementary', { name: 'When “most capable” changes overnight' })
+    .getByRole('heading', { level: 2, name: 'When “most capable” changes overnight' })
+  const metrics = await title.evaluate((element) => {
+    const style = getComputedStyle(element)
+    return {
+      height: element.getBoundingClientRect().height,
+      lineHeight: Number.parseFloat(style.lineHeight),
+      textWrap: style.textWrap,
+    }
+  })
+
+  expect(metrics.textWrap).toBe('wrap')
+  expect(metrics.height).toBeLessThanOrEqual(metrics.lineHeight * 2 + 1)
+})
+
 test('authored pull quotes use the wide editorial margin without widening the prose', async ({ page }) => {
   await page.setViewportSize({ width: 1600, height: 1000 })
   await page.goto('./writing/why-adrs/')

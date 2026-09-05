@@ -52,7 +52,6 @@ const Title = styled.h2`
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.04;
-  text-wrap: balance;
 `
 
 const Precis = styled.p`
