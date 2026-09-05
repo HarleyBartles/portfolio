@@ -1,19 +1,14 @@
 import styled from 'styled-components'
-import { Eyebrow, IndexEntrySummary, IndexEntryTitle, MetadataRow } from './content'
+import { IndexEntrySummary, IndexEntryTitle, MetadataRow } from './content'
 import { getContentPath, type ContentSummaryOf } from '../types'
 import { formatContentDate } from '../utils'
 
 type WritingIndexEntryProps = {
   item: ContentSummaryOf<'writing'>
-  index: number
 }
 
 const Copy = styled.div`
   display: contents;
-`
-
-const EntryEyebrow = styled(Eyebrow)`
-  grid-column: 1;
 `
 
 const EntryTitle = styled(IndexEntryTitle)`
@@ -50,7 +45,7 @@ const Entry = styled.article`
   }
 `
 
-export const WritingIndexEntry = ({ item, index }: WritingIndexEntryProps) => {
+export const WritingIndexEntry = ({ item }: WritingIndexEntryProps) => {
   const titleId = `writing-${item.slug}-title`
   const date = formatContentDate(item.date)
   const metadata = date === null
@@ -60,7 +55,6 @@ export const WritingIndexEntry = ({ item, index }: WritingIndexEntryProps) => {
   return (
     <Entry className="editorial-card editorial-card--writing" aria-labelledby={titleId}>
       <Copy className="editorial-card-copy">
-        <EntryEyebrow>{String(index + 1).padStart(2, '0')} / writing</EntryEyebrow>
         <EntryTitle id={titleId} to={getContentPath(item)}>{item.title}</EntryTitle>
         <EntryMetadata items={metadata} />
         <EntrySummary>{item.summary}</EntrySummary>
