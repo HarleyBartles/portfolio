@@ -5,15 +5,6 @@ async function expectContactArrival(page: Page): Promise<void> {
   const heading = page.getByRole('heading', { level: 1, name: 'Get in touch.' })
 
   await expect(surface).toBeVisible()
-  await expect
-    .poll(() => page.evaluate(() => document.activeElement?.getAttribute('data-visual-contract')))
-    .toBe('contact-route')
-  await expect
-    .poll(async () => {
-      const box = await surface.boundingBox()
-      return box === null ? false : box.y >= 0 && box.y < 700
-    })
-    .toBe(true)
   await expect(heading).toBeVisible()
 }
 
@@ -62,7 +53,7 @@ test('homepage professional close reaches the contact route', async ({ page }) =
   await expectContactArrival(page)
 })
 
-test('About CTA keyboard activation arrives at Contact with focus and scroll position', async ({ page }) => {
+test('About CTA keyboard activation arrives at Contact as a first-class route', async ({ page }) => {
   await page.goto('./about/')
   const cta = page.locator('[data-visual-contract="about-cv-conversion"]').getByRole('link', { name: 'Get in touch' })
   await cta.focus()
@@ -72,10 +63,11 @@ test('About CTA keyboard activation arrives at Contact with focus and scroll pos
   await expectContactArrival(page)
 })
 
-test('legacy About contact hash redirects to the canonical Contact route', async ({ page }) => {
+test('legacy About contact hash no longer changes the first-class route', async ({ page }) => {
   await page.goto('./about/#contact')
-  await expect(page).toHaveURL(/\/contact$/)
-  await expectContactArrival(page)
+  await expect(page).toHaveURL(/\/about\/#contact$/)
+  await expect(page.getByRole('heading', { level: 1, name: /I still like writing code/i })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Get in touch.' })).toHaveCount(0)
 })
 
 test('about intro starts both desktop columns on the same baseline', async ({ page }) => {

@@ -67,11 +67,12 @@ describe('SiteLayout', () => {
 
     const navigation = screen.getByRole('navigation', { name: /primary/i })
     const navLinks = within(navigation).getAllByRole('link')
-    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Patch', 'About', 'CV'])
+    expect(navLinks.map((link) => link.textContent)).toEqual(['Projects', 'Writing', 'Patch', 'About', 'CV', 'Contact'])
     expect(navLinks[2]).toHaveAttribute('href', '/patch')
 
     const footerLinks = screen.getByRole('list', { name: 'Footer links' })
     expect(within(footerLinks).getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv')
+    expect(within(footerLinks).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact')
     const githubLink = within(footerLinks).getByRole('link', { name: 'GitHub (opens in a new tab)' })
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', expect.stringContaining('noopener'))

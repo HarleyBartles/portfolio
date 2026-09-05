@@ -8,6 +8,7 @@ const primaryLinks = [
   { to: '/patch', label: 'Patch' },
   { to: '/about', label: 'About' },
   { to: '/cv', label: 'CV' },
+  { to: '/contact', label: 'Contact' },
 ] as const
 
 const SkipLink = styled.a`
@@ -64,10 +65,6 @@ const SiteMark = styled(NavLink)<{ $showName: boolean }>`
 
   &:hover {
     transform: rotate(-2deg);
-  }
-
-  &[aria-current='page'] img {
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.color.accentSoft};
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -9,7 +9,7 @@ import { PDFDocument } from 'pdf-lib'
 
 export const MAX_CV_PDF_BYTES = 512 * 1024
 
-const DEFAULT_PREVIEW_URL = 'http://127.0.0.1:4173'
+const DEFAULT_PREVIEW_URL = 'http://127.0.0.1:4175'
 const EXPECTED_PAGE_REGIONS = ['1', '2']
 const LOCALHOST_URL_PATTERN = /https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?(?:[/?#]|$)/i
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
@@ -58,8 +58,8 @@ export function startPreviewProcess(
 ) {
   const command = platform === 'win32' ? (process.env.ComSpec ?? 'cmd.exe') : 'npm'
   const previewArguments = platform === 'win32'
-    ? ['/d', '/s', '/c', 'npm.cmd run preview:test']
-    : ['run', 'preview:test']
+    ? ['/d', '/s', '/c', 'npm.cmd run preview:pdf']
+    : ['run', 'preview:pdf']
 
   return spawnProcess(command, previewArguments, {
     cwd: clientRoot,
