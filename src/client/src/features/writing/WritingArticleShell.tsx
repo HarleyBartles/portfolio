@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { ShareAction } from '../../components'
-import { WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
+import { ContinuationHeading, WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
 import { WritingArticleHeader, type WritingArticleHeaderLayout } from './WritingArticleHeader'
 
 type WritingArticleShellProps = {
@@ -47,7 +47,7 @@ export const WritingArticleShell = ({
       {body}
       {continuationsUnavailable ? (
         <WritingContinuationsUnavailable className="writing-continuations" aria-labelledby="writing-continuations-title">
-          <h2 id="writing-continuations-title">Continue reading</h2>
+          <ContinuationHeading id="writing-continuations-title">Continue reading</ContinuationHeading>
           <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
         </WritingContinuationsUnavailable>
       ) : <WritingContinuations items={continuations} />}

@@ -176,6 +176,14 @@ The focused review found five implementation-level regressions in the first crac
 
 No snapshot was updated and no new design doctrine was promoted. These corrections remain part of the reversible first-crack diff for Harley's batch visual sign-off.
 
+### Visual sign-off correction
+
+The first visual review found that the continuation surface made its container label louder than the choices it introduced: the rendered `Continue reading` heading measured 27px while the destination titles measured 19.2px. The semantic heading was valid, but the visual falsifier was clear: the eye encountered an instruction before the two actionable destinations.
+
+Decision: `refine-local`. Keep the `h2` and accessible navigation name, move the label into the existing quiet utility register, increase destination titles to a restrained 1.25–1.5rem display range, and give each link more vertical hit area. Apply the same heading owner to the unavailable state so the component cannot split its hierarchy. This is a local continuation-surface correction, not a new site-wide type role or snapshot baseline.
+
+Rollback: restore the prior `WritingContinuations` heading and link rules only if paired visual review shows the demoted label no longer identifies the region or the larger destinations harm narrow wrapping, keyboard focus, or reading order.
+
 ## Task 1: Establish Baseline and Complete the Decision Record
 
 **Skills:** `/executing-plans`, `/applying-portfolio-visual-language`, `/designing-premium-sites`, `/playwright-testing`
