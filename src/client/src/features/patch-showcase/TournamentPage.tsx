@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { CaseStudyMediaCaption } from '../case-study/CaseStudyMediaCaption'
 import { PatchShowcasePicture } from './PatchShowcaseEvidence'
 import './PatchShowcase.scss'
 
@@ -34,7 +35,7 @@ export function TournamentPage() {
         <EventHeader number="01" title="The Seven-Day Sprint" task="the last 7 days" />
         <figure className="tournament-event__hero">
           <PatchShowcasePicture path="src/client/public/media/patch/patch-tournament-seven-day-1200.avif" alt="A race starts on a single track before splitting towards several finish arches reached by different seven-day routes." />
-          <figcaption className="case-study-media-caption">The starting line is perfectly legible. A little distance exposes several equally plausible routes.</figcaption>
+          <CaseStudyMediaCaption>The starting line is perfectly legible. A little distance exposes several equally plausible routes.</CaseStudyMediaCaption>
         </figure>
         <div className="tournament-event__story">
           <p>Bit treats today and the six preceding days as the reporting window. Bot chooses seven complete prior days. Either report could be reasonable, but neither establishes what the facilitator meant.</p>
@@ -62,11 +63,11 @@ export function TournamentPage() {
         <div className="tournament-event__maze-pair">
           <figure>
             <PatchShowcasePicture path="src/client/public/media/patch/patch-tournament-maze-1120.avif" alt="An overhead view of a hedge maze containing four different objects that could reasonably be called the prize." />
-            <figcaption className="case-study-media-caption">The maze contains four plausible prizes, not one obvious target.</figcaption>
+            <CaseStudyMediaCaption>The maze contains four plausible prizes, not one obvious target.</CaseStudyMediaCaption>
           </figure>
           <figure>
             <PatchShowcasePicture path="src/client/public/media/patch/patch-tournament-maze-map-1200.avif" alt="Patch's notebook map records routes to all four plausible prizes and marks the choice as unresolved." />
-            <figcaption className="case-study-media-caption">Patch turns an ambiguous run into a decision-ready map.</figcaption>
+            <CaseStudyMediaCaption>Patch turns an ambiguous run into a decision-ready map.</CaseStudyMediaCaption>
           </figure>
         </div>
         <div className="tournament-event__story tournament-event__story--wide">
@@ -80,7 +81,7 @@ export function TournamentPage() {
         <EventHeader number="04" title="The Long Course" task="Cross the finish line" />
         <figure className="tournament-event__hero">
           <PatchShowcasePicture path="src/client/public/media/patch/patch-tournament-long-course-1200.avif" alt="A race route crosses a road marking while hazard tape surrounds a hole beside the course." />
-          <figcaption className="case-study-media-caption">The course offers two quick ways to satisfy the wording and miss the work.</figcaption>
+          <CaseStudyMediaCaption>The course offers two quick ways to satisfy the wording and miss the work.</CaseStudyMediaCaption>
         </figure>
         <div className="tournament-event__failures" aria-label="Bit and Bot cross the wrong lines">
           <figure>

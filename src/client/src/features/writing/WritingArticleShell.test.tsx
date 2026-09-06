@@ -9,7 +9,6 @@ test('renders article header, body, continuations and one share section in order
     <PortfolioThemeProvider>
       <MemoryRouter>
         <WritingArticleShell
-          eyebrow="writing"
           title="A durable article"
           summary="A concise article proposition."
           metadata={['3 September 2026', '5 min read']}
@@ -25,6 +24,7 @@ test('renders article header, body, continuations and one share section in order
   )
 
   expect(screen.getByRole('heading', { level: 1, name: 'A durable article' })).toBeInTheDocument()
+  expect(screen.queryByText('writing')).not.toBeInTheDocument()
   expect(screen.getByTestId('article-body')).toBeInTheDocument()
   expect(screen.getByRole('link', { name: /ContinueThe next article/ })).toHaveAttribute('href', '/writing/next')
   expect(screen.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeInTheDocument()

@@ -34,6 +34,10 @@ export function buildPublicUrl(path: string, profileId?: SiteProfileId): string 
   const route = normalizePath(path)
   const basePath = profile.basePath === '/' ? '' : profile.basePath.slice(0, -1)
 
+  if (route === '/' && basePath === '') {
+    return profile.canonicalOrigin
+  }
+
   return `${profile.canonicalOrigin}${basePath}${route}`
 }
 

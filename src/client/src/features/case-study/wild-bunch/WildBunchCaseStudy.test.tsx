@@ -1,13 +1,16 @@
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../../components'
 import { WildBunchCaseStudy } from './WildBunchCaseStudy'
 
 function renderCaseStudy() {
   return render(
-    <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}>
-      <WildBunchCaseStudy />
-    </MemoryRouter>,
+    <PortfolioThemeProvider>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/wild-bunch']}>
+        <WildBunchCaseStudy />
+      </MemoryRouter>
+    </PortfolioThemeProvider>,
   )
 }
 
@@ -90,8 +93,8 @@ describe('WildBunchCaseStudy', () => {
       'Inspect it. Run it.',
     ].forEach((name) => {
       const heading = screen.getByRole('heading', { level: 2, name })
-      expect(heading.closest('.case-study-lead')).not.toBeNull()
-      expect(heading.closest('.case-study-lead')?.querySelector('.case-study-lead__body')).not.toBeNull()
+      expect(heading.closest('[data-case-study-section-layout="lead"]')).not.toBeNull()
+      expect(heading.closest('[data-case-study-section-layout="lead"]')?.querySelector('[data-case-study-section-body]')).not.toBeNull()
     })
   })
 

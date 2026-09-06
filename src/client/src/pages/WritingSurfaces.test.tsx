@@ -38,6 +38,7 @@ describe('Writing discovery surfaces', () => {
     expect(within(articles[0]).getByRole('heading', { name: 'Use Superpowers' })).toBeVisible()
     expect(within(articles[1]).getByRole('heading', { name: 'How The Invisibles’ logo designer influenced The Usual Specialists' })).toBeVisible()
     expect(within(articles[2]).getByRole('heading', { name: '"I just write the code" is not a full sentence' })).toBeVisible()
+    expect(list).not.toHaveTextContent(/\d{2} \/ writing/)
     expect(list).not.toHaveTextContent('Archive')
     expect(list.querySelector('[data-visual-contract="writing-editorial-lead"]')).toBeNull()
   })

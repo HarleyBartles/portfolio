@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { ContactForm } from './ContactForm'
@@ -40,10 +40,13 @@ describe('ContactForm', () => {
 
     expect(screen.getByLabelText('Name')).toBeRequired()
     expect(screen.getByLabelText('Name')).toHaveAttribute('maxlength', '100')
+    expect(screen.getByLabelText('Name')).toHaveAttribute('title', 'So I know what to call you')
     expect(screen.getByLabelText('Reply email')).toBeRequired()
     expect(screen.getByLabelText('Reply email')).toHaveAttribute('maxlength', '254')
+    expect(screen.getByLabelText('Reply email')).toHaveAttribute('title', 'So I know where to reply to')
     expect(screen.getByLabelText('Message')).toBeRequired()
     expect(screen.getByLabelText('Message')).toHaveAttribute('maxlength', '5000')
+    expect(screen.getByLabelText('Message')).toHaveAttribute('title', "So I know what we're talking about")
     const honeypot = container.querySelector('input[name="_gotcha"]')
     expect(honeypot).toBeInTheDocument()
     expect(honeypot).toHaveAttribute('tabindex', '-1')
@@ -56,6 +59,17 @@ describe('ContactForm', () => {
     expect(privacyWarning).toBeVisible()
     expect(privacyWarning.parentElement?.innerHTML).not.toContain('</a>.')
     expect(screen.getByRole('button', { name: 'Send message' })).toBeEnabled()
+  })
+
+  test('uses contextual native validation messages and clears them when a field changes', () => {
+    renderContactForm('https://forms.example.test/contact')
+
+    const name = screen.getByLabelText('Name')
+    fireEvent.invalid(name)
+    expect(name).toHaveProperty('validationMessage', 'So I know what to call you')
+
+    fireEvent.input(name, { target: { value: 'Ada' } })
+    expect(name).toHaveProperty('validationMessage', '')
   })
 
   test('submits the form and confirms delivery without exposing an address', async () => {

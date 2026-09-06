@@ -54,7 +54,8 @@ const fixtureManifest = {
 
 describe('Patch asset processor', () => {
   it('locks the reviewed derivative definitions', () => {
-    expect(PATCH_DERIVATIVES.hero.widths).toEqual([720, 1440])
+    expect(PATCH_DERIVATIVES.hero.widths).toEqual([500, 1000])
+    expect(PATCH_DERIVATIVES.hero.sourceCrop).toEqual({ left: 0, top: 0, width: 1000, height: 1344 })
     expect(PATCH_DERIVATIVES.hero.formats).toEqual(['avif', 'webp'])
     expect(PATCH_DERIVATIVES.clubDb.slides).toEqual([2, 4, 14])
     expect(PATCH_DERIVATIVES.introducingPagePortrait.sourcePath).toBe('published/misc/introducing-patch/page__v1-mobile.png')

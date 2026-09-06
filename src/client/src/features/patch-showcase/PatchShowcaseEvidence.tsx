@@ -1,4 +1,5 @@
 import { getPatchAssetPath, getPatchMediaByPath } from '../case-study/patch/patchEvidence'
+import { CaseStudyMediaCaption } from '../case-study/CaseStudyMediaCaption'
 
 export function PatchShowcasePicture({ path, alt }: { path: string; alt: string }) {
   const avif = getPatchMediaByPath(path)
@@ -49,7 +50,7 @@ export function IdentityEmporiumEvidence() {
       <ul className="identity-evidence__roles" aria-label="Patch role kits">
         {identityRoles.map((role) => <li key={role.name}><PatchShowcasePicture path={role.path} alt={role.alt} /><span>{role.name}</span></li>)}
       </ul>
-      <figcaption className="case-study-media-caption">Preparation gives capability a useful shape. Judgement keeps it relevant once the work begins.</figcaption>
+      <CaseStudyMediaCaption>Preparation gives capability a useful shape. Judgement keeps it relevant once the work begins.</CaseStudyMediaCaption>
     </figure>
   )
 }

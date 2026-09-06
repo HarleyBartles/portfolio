@@ -120,7 +120,7 @@ describe('generateCvPdf', () => {
 
     expect(startPreviewProcess('/client', { platform: 'linux', spawnProcess })).toBe(preview)
 
-    expect(spawnProcess).toHaveBeenCalledWith('npm', ['run', 'preview:test'], {
+    expect(spawnProcess).toHaveBeenCalledWith('npm', ['run', 'preview:pdf'], {
       cwd: '/client',
       detached: true,
       stdio: 'inherit',
@@ -185,9 +185,9 @@ describe('generateCvPdf', () => {
       assertPdfPageCount,
     })
 
-    expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4173/cv/', { waitUntil: 'networkidle' })
+    expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4175/cv/', { waitUntil: 'networkidle' })
     expect(page.evaluate).toHaveBeenCalledOnce()
-    expect(rewriteLinksForPdf).toHaveBeenCalledWith(page, 'http://127.0.0.1:4173')
+    expect(rewriteLinksForPdf).toHaveBeenCalledWith(page, 'http://127.0.0.1:4175')
     expect(page.emulateMedia).toHaveBeenCalledWith({ media: 'print' })
     expect(page.pdf).toHaveBeenCalledWith(expect.objectContaining({
       format: 'A4',

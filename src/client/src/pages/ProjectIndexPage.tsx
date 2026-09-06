@@ -82,7 +82,7 @@ export const ProjectIndexPage = () => {
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess ? (
           <ProjectGrid className="editorial-index-grid editorial-index-grid--projects">
-            {projects.map((item, index) => {
+            {projects.map((item) => {
               const visualSlug = projectVisualSlugs.has(item.slug as ProjectVisualSlug)
                 ? item.slug as ProjectVisualSlug
                 : undefined
@@ -90,7 +90,6 @@ export const ProjectIndexPage = () => {
               return (
                 <ProjectIndexEntry
                   item={item}
-                  index={index}
                   key={item.slug}
                   statusTone={projectStatusTones[item.slug]}
                   visual={visualSlug === undefined ? undefined : <ProjectVisual slug={visualSlug} placement="index" />}

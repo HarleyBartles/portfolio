@@ -13,6 +13,7 @@ test('presents Contact as a canonical site-sans route with the privacy-preservin
     </PortfolioThemeProvider>,
   )
 
+  expect(screen.getByRole('region', { name: 'Get in touch.' })).not.toHaveAttribute('tabindex')
   expect(screen.getByRole('heading', { level: 1, name: 'Get in touch.' })).toHaveAttribute('data-text-wrap', 'single-line')
   expect(screen.getByLabelText('Name')).toBeRequired()
   expect(screen.queryByText(/mailto:|tel:/i)).not.toBeInTheDocument()

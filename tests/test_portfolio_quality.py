@@ -308,7 +308,7 @@ class PortfolioFixture:
                     "width": 1,
                     "height": 1,
                     "bytes": asset.stat().st_size,
-                    "custody": "Introducing Patch source base, mobile-safe crop.",
+                    "custody": "Introducing Patch source base, whole-character horizontal crop.",
                     "sourceType": "repository-evidence",
                     "sourceStatus": "accepted",
                     "sourceRevision": revision,

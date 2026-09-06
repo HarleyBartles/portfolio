@@ -158,15 +158,44 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
     <Form onSubmit={handleSubmit}>
       <Field>
         <label htmlFor="contact-name">Name</label>
-        <input id="contact-name" name="name" type="text" autoComplete="name" maxLength={100} required />
+        <input
+          id="contact-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          maxLength={100}
+          title="So I know what to call you"
+          onInvalid={(event) => event.currentTarget.setCustomValidity('So I know what to call you')}
+          onInput={(event) => event.currentTarget.setCustomValidity('')}
+          required
+        />
       </Field>
       <Field>
         <label htmlFor="contact-email">Reply email</label>
-        <input id="contact-email" name="email" type="email" autoComplete="email" maxLength={254} required />
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          maxLength={254}
+          title="So I know where to reply to"
+          onInvalid={(event) => event.currentTarget.setCustomValidity('So I know where to reply to')}
+          onInput={(event) => event.currentTarget.setCustomValidity('')}
+          required
+        />
       </Field>
       <Field $message>
         <label htmlFor="contact-message">Message</label>
-        <textarea id="contact-message" name="message" rows={7} maxLength={5000} required />
+        <textarea
+          id="contact-message"
+          name="message"
+          rows={7}
+          maxLength={5000}
+          title="So I know what we're talking about"
+          onInvalid={(event) => event.currentTarget.setCustomValidity("So I know what we're talking about")}
+          onInput={(event) => event.currentTarget.setCustomValidity('')}
+          required
+        />
       </Field>
       <Honeypot aria-hidden="true">
         <label htmlFor="contact-gotcha">Leave this field empty</label>

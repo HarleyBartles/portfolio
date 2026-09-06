@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { PortfolioThemeProvider } from '../../../components'
 import { LearningLabCaseStudy } from './LearningLabCaseStudy'
 
 describe('LearningLabCaseStudy', () => {
   test('puts the origin quote before prose that refers back to it', () => {
-    render(<LearningLabCaseStudy />)
+    render(<PortfolioThemeProvider><LearningLabCaseStudy /></PortfolioThemeProvider>)
 
     const quote = screen.getByText(/I'm going to teach my brother a few things about using agentic AI/)
     const referringProse = screen.getByText(/I wrote those words at the start of the first curriculum-design conversation/)
@@ -13,7 +14,7 @@ describe('LearningLabCaseStudy', () => {
   })
 
   test('opens with engineering lineage and preserves the bounded human origin', () => {
-    const { container } = render(<LearningLabCaseStudy />)
+    const { container } = render(<PortfolioThemeProvider><LearningLabCaseStudy /></PortfolioThemeProvider>)
     expect(container.querySelector('[data-project-field]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 2, name: 'Experience made transferable' })).toBeVisible()
@@ -29,14 +30,14 @@ describe('LearningLabCaseStudy', () => {
   })
 
   test('closes with honest evidence and bounded public claims', () => {
-    const { container } = render(<LearningLabCaseStudy />)
+    const { container } = render(<PortfolioThemeProvider><LearningLabCaseStudy /></PortfolioThemeProvider>)
     expect(container.textContent?.match(/I'm going to teach my brother a few things about using agentic AI/g)).toHaveLength(1)
     expect(container.textContent?.match(/a love letter to my brother/g)).toHaveLength(1)
     expect(container.textContent?.match(/I was a software engineer before I became an agentic engineer\./g)).toHaveLength(1)
     expect(container.textContent?.match(/The method built the method/g)).toHaveLength(1)
     expect(screen.getByText(/The founding prompt left the learning plan open/)).toBeVisible()
     expect(screen.getByText(/I was writing the course while sitting partly in the learner's chair/)).toBeVisible()
-    expect(screen.getByText(/First live delivery planned for September 2026/)).toBeVisible()
+    expect(screen.queryByText(/First live delivery planned for September 2026/)).not.toBeInTheDocument()
     expect(screen.getByText(/Course 1 is complete\. Course 2 is substantially planned\. Course 3 is little more than an outline today\./)).toBeVisible()
     expect(screen.getByText(/3d8e92c/)).toBeVisible()
     expect(screen.getByRole('link', { name: /inspect the course-numbering change/i })).toHaveAttribute(
@@ -53,7 +54,7 @@ describe('LearningLabCaseStudy', () => {
   })
 
   test('uses responsive concept art as evidence without rasterising the argument', () => {
-    render(<LearningLabCaseStudy />)
+    render(<PortfolioThemeProvider><LearningLabCaseStudy /></PortfolioThemeProvider>)
 
     const image = screen.getByRole('img', { name: /fractured test piece remains inside a clear containment rig/i })
     expect(image).toHaveAttribute('src', '/media/learning-lab/safe-breakage-rig-mobile-720.webp')

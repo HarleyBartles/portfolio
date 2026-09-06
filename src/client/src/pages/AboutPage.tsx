@@ -1,4 +1,3 @@
-import { Navigate, useLocation } from 'react-router-dom'
 import { ActionRouteLink, DocumentMetadata, SiteLayout } from '../components'
 import {
   getEngineeringExperienceLabel,
@@ -121,9 +120,6 @@ const careerEntries: readonly ProfessionalTimelineEntry[] = [
 ]
 
 export const AboutPage = () => {
-  const location = useLocation()
-  if (location.hash === '#contact') return <Navigate to="/contact" replace />
-
   const experience = getEngineeringExperienceLabel(new Date())
 
   return (

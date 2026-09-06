@@ -1,4 +1,6 @@
 import type { ReactElement } from 'react'
+import { CaseStudyMediaCaption } from '../CaseStudyMediaCaption'
+import styled from 'styled-components'
 
 type Capture = {
   figureLabel: string
@@ -9,6 +11,24 @@ type Capture = {
   compact: { width: number; height: number }
 }
 
+const CaptureFigure = styled.figure`
+  margin: 0;
+
+  picture,
+  img { width: 100%; }
+  img { height: auto; }
+  &.wild-bunch-evidence--dustwell-town-hub-focus { max-width: 50rem; margin-inline: auto; }
+  &.wild-bunch-evidence--trail-map-focus { max-width: 37.5rem; margin-inline: auto; }
+  &.wild-bunch-evidence--wanted-notice-focus { max-width: 36.875rem; margin-inline: auto; }
+`
+
+const ProductEvidence = styled.section`
+  display: grid;
+  gap: var(--space-5);
+
+  > h3 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.25rem); }
+`
+
 export function getWildBunchAssetPath(path: string, baseUrl = import.meta.env.BASE_URL): string {
   return `${baseUrl}${path.replace(/^\//, '')}`
 }
@@ -17,7 +37,7 @@ function ResponsiveCapture({ figureLabel, alt, caption, name, wide, compact }: C
   const path = getWildBunchAssetPath(`/media/wild-bunch/${name}`)
 
   return (
-    <figure aria-label={figureLabel} className={`wild-bunch-evidence wild-bunch-evidence--${name}`}>
+    <CaptureFigure aria-label={figureLabel} className={`wild-bunch-evidence wild-bunch-evidence--${name}`}>
       <picture>
         <source media="(min-width: 960px)" srcSet={`${path}-${wide.width}.avif`} type="image/avif" />
         <source media="(min-width: 960px)" srcSet={`${path}-${wide.width}.webp`} type="image/webp" />
@@ -31,8 +51,8 @@ function ResponsiveCapture({ figureLabel, alt, caption, name, wide, compact }: C
           width={compact.width}
         />
       </picture>
-      <figcaption className="case-study-media-caption">{caption}</figcaption>
-    </figure>
+      <CaseStudyMediaCaption>{caption}</CaseStudyMediaCaption>
+    </CaptureFigure>
   )
 }
 
@@ -64,7 +84,7 @@ export function WildBunchTownEvidence(): ReactElement {
 
 export function WildBunchProductEvidence(): ReactElement {
   return (
-    <section aria-label="Player-safe investigation evidence" className="wild-bunch-product-evidence">
+    <ProductEvidence aria-label="Player-safe investigation evidence" className="wild-bunch-product-evidence">
       <h3>Player-safe investigation evidence</h3>
       <ResponsiveCapture
         alt="A populated Sheriff Office wanted notice with player-facing clues."
@@ -82,6 +102,6 @@ export function WildBunchProductEvidence(): ReactElement {
         name="case-file"
         wide={{ width: 960, height: 733 }}
       />
-    </section>
+    </ProductEvidence>
   )
 }

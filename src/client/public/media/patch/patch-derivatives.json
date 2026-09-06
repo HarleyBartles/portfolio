@@ -6,8 +6,8 @@
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
       "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
-      "width": 720,
-      "height": 403,
+      "width": 500,
+      "height": 672,
       "format": "avif",
       "encoding": {
         "quality": 52,
@@ -15,20 +15,25 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "hero",
-      "path": "src/client/public/media/patch/patch-hero-720.avif",
-      "crop": "mobile_safe_patch",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 1000,
+        "height": 1344
+      },
+      "path": "src/client/public/media/patch/patch-hero-500.avif",
       "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 6218,
-      "outputSha256": "5999c4fab6dda4056ed3df0818a678a036e5918234da9a0a9068855aa978782f"
+      "bytes": 10879,
+      "outputSha256": "92dce9a929b9335957f5e23262cc01997ef4739c91d295bb09b672ea5ee517d7"
     },
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
       "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
-      "width": 720,
-      "height": 403,
+      "width": 500,
+      "height": 672,
       "format": "webp",
       "encoding": {
         "quality": 78,
@@ -36,20 +41,25 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "hero",
-      "path": "src/client/public/media/patch/patch-hero-720.webp",
-      "crop": "mobile_safe_patch",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 1000,
+        "height": 1344
+      },
+      "path": "src/client/public/media/patch/patch-hero-500.webp",
       "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 10998,
-      "outputSha256": "7dd7b216285f2378ac503c1cca3cf1bf27ec65980fccc3be2a3c1faf3542244e"
+      "bytes": 19950,
+      "outputSha256": "0374f613ec00d9e1c65ba508e020f1b5724d8cc4e054de01ad9edec85c1650af"
     },
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
       "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
-      "width": 1440,
-      "height": 806,
+      "width": 1000,
+      "height": 1344,
       "format": "avif",
       "encoding": {
         "quality": 52,
@@ -57,20 +67,25 @@
         "chromaSubsampling": "4:2:0"
       },
       "byteBudgetClass": "hero",
-      "path": "src/client/public/media/patch/patch-hero-1440.avif",
-      "crop": "mobile_safe_patch",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 1000,
+        "height": 1344
+      },
+      "path": "src/client/public/media/patch/patch-hero-1000.avif",
       "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 12247,
-      "outputSha256": "709795a199818eb5cf8c5345cfd02a11b9b4c884c3cd6105b22846f87a41f453"
+      "bytes": 21642,
+      "outputSha256": "40a28622cbc5fa33f6d744088a2e644cdf0f6c834bc8cdd5644f6ff35e7d45ae"
     },
     {
       "family": "hero",
       "sourcePath": "published/misc/introducing-patch/source_images/page_base_desktop__v1.png",
       "sourceRevision": "13bf77adc63cf5c8f49363cedd5dd392822b8375",
       "sourceStatus": "accepted",
-      "width": 1440,
-      "height": 806,
+      "width": 1000,
+      "height": 1344,
       "format": "webp",
       "encoding": {
         "quality": 78,
@@ -78,12 +93,17 @@
         "smartSubsample": true
       },
       "byteBudgetClass": "hero",
-      "path": "src/client/public/media/patch/patch-hero-1440.webp",
-      "crop": "mobile_safe_patch",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 1000,
+        "height": 1344
+      },
+      "path": "src/client/public/media/patch/patch-hero-1000.webp",
       "sourceGitObjectId": "8b8ade2990cc0abd91ae6927ef37648199e65449",
       "sourceSha256": "1bd8c2e3bfe53de50185c3159babd4347f6957baa11a27e3c0a5bc0f54d8008d",
-      "bytes": 26590,
-      "outputSha256": "6752b212bb8d613f2be4e530deff30afbe02201d8906767e2607afdf36ca8e23"
+      "bytes": 46962,
+      "outputSha256": "c2bd015216c35e0e04a36302912602469c7564d56b877f483b54956061760072"
     },
     {
       "family": "introducingPage",

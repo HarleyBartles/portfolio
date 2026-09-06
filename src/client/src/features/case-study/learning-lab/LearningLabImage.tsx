@@ -1,3 +1,5 @@
+import styled from 'styled-components'
+
 type LearningLabImageId = 'engineering-control-workbench' | 'safe-breakage-rig' | 'authority-transfer'
 
 type LearningLabImageProps = {
@@ -5,6 +7,23 @@ type LearningLabImageProps = {
   className?: string
   eager?: boolean
 }
+
+const Image = styled.picture`
+  display: block;
+  width: 100%;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 44rem) {
+    &[data-learning-lab-image-id='safe-breakage-rig'] img,
+    &[data-learning-lab-image-id='authority-transfer'] img { height: auto; }
+  }
+`
 
 const images = {
   'engineering-control-workbench': {
@@ -39,7 +58,7 @@ export function LearningLabImage({ id, className, eager = false }: LearningLabIm
   const pictureClassName = ['learning-lab-image', `learning-lab-image--${id}`, className].filter(Boolean).join(' ')
 
   return (
-    <picture className={pictureClassName}>
+    <Image className={pictureClassName} data-learning-lab-image-id={id}>
       <source media="(min-width: 45rem)" srcSet={assetPath(`/media/learning-lab/${image.desktop}.avif`)} type="image/avif" />
       <source media="(min-width: 45rem)" srcSet={assetPath(`/media/learning-lab/${image.desktop}.webp`)} type="image/webp" />
       <source srcSet={assetPath(`/media/learning-lab/${image.mobile}.avif`)} type="image/avif" />
@@ -53,6 +72,6 @@ export function LearningLabImage({ id, className, eager = false }: LearningLabIm
         fetchPriority={eager ? 'high' : 'auto'}
         decoding="async"
       />
-    </picture>
+    </Image>
   )
 }

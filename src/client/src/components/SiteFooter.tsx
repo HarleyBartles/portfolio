@@ -39,6 +39,7 @@ export const SiteFooter = () => {
         <li><Link to="/writing">Writing</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/cv">CV</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
       </FooterLinks>
       <FooterCopyright className="footer-copyright">© 2026 Harley Bartles.</FooterCopyright>
     </Footer>

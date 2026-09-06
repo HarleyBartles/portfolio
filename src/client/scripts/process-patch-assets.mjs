@@ -34,7 +34,14 @@ const encoding = {
 }
 
 export const PATCH_DERIVATIVES = {
-  hero: { sourcePath: 'published/misc/introducing-patch/source_images/page_base_desktop__v1.png', sourceStatus: 'accepted', widths: [720, 1440], formats, byteBudgetClass: 'hero', crop: 'mobile_safe_patch' },
+  hero: {
+    sourcePath: 'published/misc/introducing-patch/source_images/page_base_desktop__v1.png',
+    sourceStatus: 'accepted',
+    widths: [500, 1000],
+    formats,
+    byteBudgetClass: 'hero',
+    sourceCrop: { left: 0, top: 0, width: 1000, height: 1344 },
+  },
   introducingPage: { sourcePath: 'published/misc/introducing-patch/page__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
   introducingPagePortrait: { sourcePath: 'published/misc/introducing-patch/page__v1-mobile.png', sourceStatus: 'published', widths: [640], formats, byteBudgetClass: 'page' },
   goldilocks: { sourcePath: 'published/fairytales/goldilocks/page__right_amount_of_guidance__v1.png', sourceStatus: 'published', widths: [640, 1200], formats, byteBudgetClass: 'page' },
@@ -137,12 +144,13 @@ export function buildDerivativeManifest(sourceManifest) {
       sourceRevision: PATCH_SOURCE_REVISION,
       sourceStatus: definition.sourceStatus,
       width,
-      height: definition.frame?.height ?? definition.cropFrame?.height ?? heightFor(source, width),
+      height: definition.frame?.height ?? definition.cropFrame?.height ?? heightFor(definition.sourceCrop ?? source, width),
       format,
       encoding: encoding[format],
       byteBudgetClass: definition.byteBudgetClass,
       ...(definition.frame ? { frame: definition.frame } : {}),
       ...(definition.cropFrame ? { cropFrame: definition.cropFrame } : {}),
+      ...(definition.sourceCrop ? { sourceCrop: definition.sourceCrop } : {}),
       path: `src/client/public/media/patch/${outputStem(family, slide)}-${width}.${format}`,
       ...(definition.crop ? { crop: definition.crop } : {}),
     }))))
@@ -248,6 +256,14 @@ async function loadSourceInputs({ sourceRoot: suppliedSourceRoot }, renderClubDb
 }
 
 async function renderDerivative(entry, info) {
+  if (entry.sourceCrop) {
+    return sharp(info.buffer)
+      .rotate()
+      .extract(entry.sourceCrop)
+      .resize({ width: entry.width, withoutEnlargement: true })
+      .toFormat(entry.format, entry.encoding)
+      .toBuffer()
+  }
   if (entry.cropFrame) {
     return sharp(info.buffer)
       .rotate()

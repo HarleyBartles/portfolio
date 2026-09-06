@@ -1,18 +1,112 @@
 import { CaseStudyBody } from '../CaseStudyBody'
+import { CaseStudyCallout } from '../CaseStudyCallout'
 import { CaseStudySection } from '../CaseStudySection'
 import { ExternalLink } from '../../../components'
+import styled from 'styled-components'
 import { CurriculumAtlas } from './CurriculumAtlas'
 import { LabAnatomy } from './LabAnatomy'
 import { LabPromotionFlow } from './LabPromotionFlow'
 import { LearningLabImage } from './LearningLabImage'
 import { RepresentativeLabs } from './RepresentativeLabs'
-import { formatLearningLabDelivery, learningLabEvidence, pinnedLearningLabPath } from './learningLabEvidence'
-import './LearningLabCaseStudy.scss'
+import { learningLabEvidence, pinnedLearningLabPath } from './learningLabEvidence'
+
+const LearningLab = styled.div`
+  --learning-copper: #a24f32;
+  --learning-teal: #0d5d60;
+  display: grid;
+  gap: clamp(var(--space-16), 9vw, var(--space-24));
+
+  .learning-lab-thesis {
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.8vw, 2.25rem);
+    line-height: 1.12;
+  }
+
+  .learning-lab-origin {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    grid-template-areas: 'copy quote';
+    gap: clamp(var(--space-8), 6vw, var(--space-16));
+    align-items: center;
+  }
+
+  .learning-lab-origin > div { grid-area: copy; }
+
+  .learning-lab-kicker {
+    margin: 0 0 var(--space-3);
+    color: var(--learning-teal);
+    font-family: var(--font-site-sans);
+    font-size: var(--type-metadata-size);
+    font-weight: 700;
+    letter-spacing: .012em;
+  }
+
+  .learning-lab-origin blockquote {
+    grid-area: quote;
+    margin: 0;
+    padding: clamp(var(--space-6), 4vw, var(--space-10));
+    border-left: .25rem solid var(--color-border);
+    color: var(--color-ink);
+    font-family: var(--font-site-sans);
+    font-size: clamp(1.4rem, 2.6vw, 2.15rem);
+    line-height: 1.16;
+  }
+
+  .learning-lab-system {
+    display: grid;
+    gap: clamp(var(--space-16), 9vw, var(--space-24));
+  }
+
+  .learning-lab-safety {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(18rem, .75fr);
+    gap: clamp(var(--space-8), 6vw, var(--space-16));
+    align-items: center;
+  }
+
+  .learning-lab-safety__copy { min-width: 0; }
+
+  .learning-lab-state {
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .learning-lab-state > header h2 { margin: 0; }
+  .learning-lab-state__heading { min-width: 0; }
+
+  .learning-lab-state > dl {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: var(--space-8) 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .learning-lab-state > dl > div { min-width: 0; padding: var(--space-5); border-right: 1px solid var(--color-border); }
+  .learning-lab-state > dl > div:first-child { padding-left: 0; }
+  .learning-lab-state > dl > div:last-child { padding-right: 0; border-right: 0; }
+  .learning-lab-state dt { font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  .learning-lab-state dd { margin: var(--space-3) 0 0; }
+  .learning-lab-state dd p { margin-bottom: 0; }
+
+  @media (max-width: 60rem) {
+    .learning-lab-state > dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .learning-lab-state > dl > div:nth-child(2) { border-right: 0; }
+  }
+
+  @media (max-width: 44rem) {
+    .learning-lab-origin { grid-template-columns: 1fr; grid-template-areas: 'quote' 'copy'; }
+    .learning-lab-safety { display: flex; flex-direction: column; min-height: 0; }
+    .learning-lab-safety__copy { width: auto; margin: 0; padding: var(--space-7); box-shadow: none; }
+    .learning-lab-state > dl > div,
+    .learning-lab-state > dl > div:first-child,
+    .learning-lab-state > dl > div:last-child { padding: var(--space-5) 0; border-right: 0; border-bottom: 1px solid var(--color-border); }
+  }
+`
 
 export function LearningLabCaseStudy() {
   return (
     <CaseStudyBody>
-      <div className="learning-lab-case-study">
+      <LearningLab className="learning-lab-case-study">
         <CaseStudySection title="Experience made transferable" layout="lead-prose">
           <p className="learning-lab-thesis">The learner is not the agent&apos;s hands. They learn to direct, inspect, verify, recover, and direct again.</p>
           <p>I was a software engineer before I became an agentic engineer. Source truth, controlled variables, durable state, bounded authority, inspected evidence and recoverable failure were already ordinary parts of my work. The machinery changed. Those responsibilities came with me.</p>
@@ -46,7 +140,7 @@ export function LearningLabCaseStudy() {
             <h2 id="learning-lab-safety-title">Safe enough to learn by breaking things</h2>
             <p>A learner should be able to make a mess without losing the last state they understood. Lab 4 builds that recovery model with tracked and untracked files, inspected diffs, deliberate commits and the separate act of publishing a commit.</p>
             <p>The lesson uses one repository, one main line of history and one agent changing it at a time. That constraint keeps the experiment legible. Concurrency, branches and worktree isolation wait until the learner has a recovery model sturdy enough to carry them.</p>
-            <p className="case-study-callout">What is the blast radius, and do I have a recovery path?</p>
+            <CaseStudyCallout>What is the blast radius, and do I have a recovery path?</CaseStudyCallout>
           </div>
         </section>
 
@@ -63,7 +157,6 @@ export function LearningLabCaseStudy() {
               <p className="learning-lab-kicker">Honest present state</p>
               <h2 id="learning-lab-state-title">A dated body of working practice</h2>
             </div>
-            <p>{formatLearningLabDelivery(learningLabEvidence.delivery)}</p>
           </header>
           <dl>
             <div><dt>Curriculum</dt><dd>Course 1 is complete. Course 2 is substantially planned. Course 3 is little more than an outline today.</dd></div>
@@ -72,7 +165,7 @@ export function LearningLabCaseStudy() {
             <div><dt>Licence</dt><dd><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.policyPath)} aria-label="Read the licence policy">Read the licence policy</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.curriculum.path)} aria-label="CC BY 4.0 curriculum licence">CC BY 4.0 curriculum licence</ExternalLink><br /><ExternalLink href={pinnedLearningLabPath(learningLabEvidence.licensing.tooling.path)} aria-label="MIT tooling licence">MIT tooling licence</ExternalLink><p>With those scopes explicit, the curriculum and its standalone tools are freely licensed for reuse.</p></dd></div>
           </dl>
         </section>
-      </div>
+      </LearningLab>
     </CaseStudyBody>
   )
 }

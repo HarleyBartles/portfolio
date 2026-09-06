@@ -132,7 +132,7 @@ PATCH_ADVENTURE_PLANS = [
     ("Hall of Mirrors", "Separate observation, inference, assumption, contradiction, and uncertainty before proposing a bounded hypothesis and next check."),
 ]
 PATCH_CUSTODY_BY_FAMILY = {
-    "hero": "Introducing Patch source base, mobile-safe crop.",
+    "hero": "Introducing Patch source base, whole-character horizontal crop.",
     "introducingPage": "Published Introducing Patch page derivative.",
     "introducingPagePortrait": "Published Introducing Patch portrait page derivative.",
     "goldilocks": "Published Goldilocks page derivative.",

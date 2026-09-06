@@ -46,7 +46,7 @@ function outputPath(id, extension) {
 }
 
 function expectedSpecs() {
-  return Object.entries(assets).flatMap(([id, asset]) => formats.map(({ extension }) => ({
+  const imageDerivatives = Object.entries(assets).flatMap(([id, asset]) => formats.map(({ extension }) => ({
     id,
     sourceSha256: asset.sourceSha256,
     path: publicPath(outputPath(id, extension)),
@@ -54,6 +54,7 @@ function expectedSpecs() {
     height: asset.outputHeight,
     format: extension,
   })))
+  return imageDerivatives
 }
 
 async function readJson(filePath, label) {

@@ -11,7 +11,7 @@ describe('site deployment profile', () => {
       canonicalOrigin: 'https://harleybartles.com',
       basePath: '/',
     })
-    expect(buildPublicUrl('/')).toBe('https://harleybartles.com/')
+    expect(buildPublicUrl('/')).toBe('https://harleybartles.com')
     expect(buildPublicUrl('/writing/why-adrs')).toBe('https://harleybartles.com/writing/why-adrs')
     expect(buildPublicAssetUrl('/brand/social-card.png')).toBe(
       'https://harleybartles.com/brand/social-card.png',
