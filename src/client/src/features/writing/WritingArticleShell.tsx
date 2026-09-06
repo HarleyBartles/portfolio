@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react'
-import { ContentHeader, ShareAction } from '../../components'
+import { ShareAction } from '../../components'
 import { WritingContinuations, WritingContinuationsUnavailable, type WritingContinuation } from './WritingContinuations'
+import { WritingArticleHeader, type WritingArticleHeaderLayout } from './WritingArticleHeader'
 
 type WritingArticleShellProps = {
   title: string
   summary: string
   metadata?: readonly ReactNode[]
   visualContract: string
+  layout: WritingArticleHeaderLayout
   regionLabel?: string
   headerVisual?: ReactNode
   body: ReactNode
@@ -23,6 +25,7 @@ export const WritingArticleShell = ({
   summary,
   metadata,
   visualContract,
+  layout,
   regionLabel,
   headerVisual,
   body,
@@ -32,14 +35,14 @@ export const WritingArticleShell = ({
 }: WritingArticleShellProps) => {
   return (
     <>
-      <ContentHeader
+      <WritingArticleHeader
         title={title}
         summary={summary}
         metadata={metadata}
         visual={headerVisual}
         visualContract={visualContract}
         regionLabel={regionLabel}
-        register="article-serif"
+        layout={layout}
       />
       {body}
       {continuationsUnavailable ? (

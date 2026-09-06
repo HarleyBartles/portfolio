@@ -21,7 +21,7 @@ export const ContextComplexityArticle = ({ markdown }: ContextComplexityArticleP
   const closing = markdown.slice(followingStart).trimStart()
 
   return (
-    <div className="context-complexity-article">
+    <>
       <ContentProse register="article-serif" markdown={opening} />
       <EditorialAside
         disclosureLabel="Read the WorkClaw experiment"
@@ -32,6 +32,6 @@ export const ContextComplexityArticle = ({ markdown }: ContextComplexityArticleP
         <ContentProse register="article-serif" treatment="editorial-aside" markdown={workClaw} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
-    </div>
+    </>
   )
 }

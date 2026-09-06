@@ -13,6 +13,7 @@ test('renders article header, body, continuations and one share section in order
           summary="A concise article proposition."
           metadata={['3 September 2026', '5 min read']}
           visualContract="article-introduction"
+          layout="standard"
           regionLabel="Article introduction"
           continuations={[{ slug: 'next', eyebrow: 'Continue', title: 'The next article', href: '/writing/next' }]}
           share={{ title: 'A durable article', path: '/writing/durable-article' }}

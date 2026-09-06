@@ -1,4 +1,5 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
+import type { WritingArticleHeaderLayout } from './WritingArticleHeader'
 
 type WritingFigure = {
   id: `${string}-visual`
@@ -15,6 +16,7 @@ type WritingContinuation = {
 export type WritingPresentation = {
   regionLabel: string
   visualContract: string
+  layout: WritingArticleHeaderLayout
   figure: WritingFigure
   continuations: readonly [WritingContinuation, WritingContinuation]
 }
@@ -23,6 +25,7 @@ const writingPresentations = {
   'agentic-engineering-vs-vibe-coding': {
     regionLabel: 'Vibe article introduction',
     visualContract: 'vibe-coding-door-road',
+    layout: 'vibe-door-road',
     figure: {
       id: 'vibe-coding-door-road-visual',
       description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.',
@@ -36,6 +39,7 @@ const writingPresentations = {
   'why-adrs': {
     regionLabel: 'Why ADRs? article introduction',
     visualContract: 'decision-memory',
+    layout: 'decision-memory',
     figure: {
       id: 'decision-memory-visual',
       description: 'A decision record carries context, rejected alternatives, evidence, consequences and reconsideration triggers forward to the next engineer.',
@@ -49,6 +53,7 @@ const writingPresentations = {
   'provisioning-is-not-accumulation': {
     regionLabel: 'Provisioning article introduction',
     visualContract: 'capability-read-path',
+    layout: 'capability-read-path',
     figure: {
       id: 'capability-read-path-visual',
       description: 'A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.',
@@ -62,6 +67,7 @@ const writingPresentations = {
   'graph-iterative-review': {
     regionLabel: 'Review graph article introduction',
     visualContract: 'review-graph-authority',
+    layout: 'review-graph-authority',
     figure: {
       id: 'review-graph-authority-visual',
       description: 'A trustworthy review graph turns recorded state into one lawful next action or an honest blocked exit.',
@@ -75,6 +81,7 @@ const writingPresentations = {
   'i-made-agentic-engineering-harder-than-it-needed-to-be': {
     regionLabel: 'Agent organisation article introduction',
     visualContract: 'agent-organisation-overhead',
+    layout: 'agent-organisation-overhead',
     figure: {
       id: 'agent-organisation-overhead-visual',
       description: 'Will turned Harley’s intent into a small cross-repository organisation. Chris directed Rooms through three department heads while Patch represented another project under Will.',

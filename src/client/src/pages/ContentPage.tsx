@@ -21,8 +21,9 @@ import type { ProjectVisualSlug } from '../features/home/ProjectVisual'
 import { ProjectCaseStudyHeader, type ProjectCaseStudyHeaderLayout } from '../features/case-study/ProjectCaseStudyHeader'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
-import { getWritingArticleBody, type WritingArticleBodyProps } from '../features/writing/writingArticleBodies'
+import { getWritingArticleBody, type WritingArticleBody } from '../features/writing/writingArticleBodies'
 import { WritingArticleShell } from '../features/writing/WritingArticleShell'
+import { WritingArticleBodyLoading } from '../features/writing/WritingArticleBodyLoading'
 import { WritingHeaderVisual } from '../features/writing/WritingHeaderVisual'
 import type { WritingContinuation } from '../features/writing/WritingContinuations'
 import '../styles/interior.scss'
@@ -112,7 +113,7 @@ const SpecialistPresentationLoading = () => {
 
 type ArticleBodyContentProps = {
   presentation?: ComponentType
-  writingBody?: ComponentType<WritingArticleBodyProps>
+  writingBody?: WritingArticleBody
   markdown: string
   proseLayout: ContentProseLayout
   proseRegister: ContentProseRegister
@@ -124,7 +125,7 @@ const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBo
   }
 
   if (WritingBody !== undefined) {
-    return <WritingBody markdown={markdown} />
+    return <Suspense fallback={<WritingArticleBodyLoading />}><WritingBody markdown={markdown} /></Suspense>
   }
 
   return <ContentProse layout={proseLayout} register={proseRegister} markdown={markdown} />
@@ -210,6 +211,7 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
     : document.summary.presentation === 'learning-lab-case-study'
       ? 'learning-lab-case-study-hero'
       : 'content-page-header' : writingPresentation.visualContract
+  const writingHeaderLayout = writingPresentation?.layout ?? 'standard'
   const projectHeaderLayout: ProjectCaseStudyHeaderLayout = document.summary.presentation === 'learning-lab-case-study'
     ? 'learning-lab'
     : document.summary.presentation === 'wild-bunch-case-study'
@@ -258,6 +260,7 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
             summary={document.summary.summary}
             metadata={writingMetadata}
             visualContract={visualContract}
+            layout={writingHeaderLayout}
             regionLabel={writingPresentation?.regionLabel}
             headerVisual={writingHeaderVisual}
             body={articleBody}

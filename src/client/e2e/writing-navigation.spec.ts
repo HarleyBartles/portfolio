@@ -369,3 +369,35 @@ test('PORT-10 captions and prose preserve the visual argument when both marks fa
   await expect(page.getByText(/That’s the joke in the mark/)).toBeVisible()
   await expect(page.getByText(/PATCH went its own way/)).toBeVisible()
 })
+
+test('direct specialist routes request only their selected article body chunk', async ({ page }) => {
+  const scriptRequests = new Set<string>()
+  page.on('request', (request) => {
+    if (request.resourceType() === 'script') scriptRequests.add(new URL(request.url()).pathname)
+  })
+
+  await page.goto('./writing/i-just-write-the-code-is-not-a-full-sentence/', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1, name: '"I just write the code" is not a full sentence' })).toBeVisible()
+
+  const requestPaths = [...scriptRequests]
+  expect(requestPaths.some((path) => path.includes('ProductOwnershipArticle-'))).toBe(true)
+  expect(requestPaths.some((path) => path.includes('TestingEvidenceArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('ContextComplexityArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('RianHughesArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('UseSuperpowersArticle-'))).toBe(false)
+})
+
+test('ordinary writing routes do not request specialist article body chunks', async ({ page }) => {
+  const scriptRequests = new Set<string>()
+  page.on('request', (request) => {
+    if (request.resourceType() === 'script') scriptRequests.add(new URL(request.url()).pathname)
+  })
+
+  await page.goto('./writing/why-adrs/', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1, name: 'Why ADRs?' })).toBeVisible()
+
+  const requestPaths = [...scriptRequests]
+  for (const bodyChunk of ['TestingEvidenceArticle-', 'ProductOwnershipArticle-', 'ContextComplexityArticle-', 'RianHughesArticle-', 'UseSuperpowersArticle-']) {
+    expect(requestPaths.some((path) => path.includes(bodyChunk))).toBe(false)
+  }
+})
