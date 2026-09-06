@@ -114,6 +114,10 @@ const CameoPlate = styled(Plate)`
     width: 100%;
     height: auto;
   }
+
+  @media (max-width: 36rem) {
+    padding: var(--space-4);
+  }
 `
 
 export function SpecialistsWordmarkStudy(): ReactElement {
