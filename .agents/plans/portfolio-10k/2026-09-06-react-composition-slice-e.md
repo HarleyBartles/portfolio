@@ -451,10 +451,10 @@ This log is the implementation record for the autonomous first crack. These are 
 - [x] Run `py -3 tools/run.py mesh --apply`, then `py -3 tools/run.py mesh --check`; check exits zero.
 - [x] Run `git diff --check`; no whitespace errors.
 - [x] Review `git diff --stat`, `git diff --name-status`, and `git status --short` for scope.
-- [ ] Mark all completed task checkboxes `[x]`, stage the intended tree, and commit normally so the tracked pre-commit hook runs the single complete `ci --check` gate.
-- [ ] Record the commit SHA and hook result in the PR body. Do not rerun full CI immediately after a successful hooked commit.
-- [ ] Push with upstream tracking and update the existing draft PR. Keep base `main` and draft state.
-- [ ] Verify remote head SHA, base branch, draft state, and hosted checks before handing back to Harley.
+- [x] Mark all completed execution checkboxes `[x]`, stage the intended tree, and commit normally so the tracked pre-commit hook runs the single complete `ci --check` gate; implementation commit `92bb40293d21dcad5261dabe776d1eb29671dd93` passed.
+- [x] Record the implementation commit SHA and hook result in the PR body. Do not rerun full CI immediately after a successful hooked commit.
+- [x] Push with upstream tracking and update the existing draft PR. Keep base `main` and draft state.
+- [x] Verify remote head SHA, base branch, draft state, and hosted checks; remote head matched the implementation commit and PR #55 remained open/draft against `main` (hosted workflows skipped while draft).
 
 **Expected result:** Slice E has a validated, reversible first crack in the draft PR, with the decision log and visual evidence ready for Harley's batch sign-off. Do not update protected snapshots, promote new doctrine, or merge until that sign-off.
 
