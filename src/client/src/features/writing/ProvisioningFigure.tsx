@@ -30,7 +30,7 @@ const Figure = styled.figure`
   }
 `
 
-const Stage = styled.section<{ $active?: boolean }>`
+const Stage = styled.section<{ $active?: boolean; $connectsForward: boolean }>`
   position: relative;
   display: grid;
   gap: var(--space-3);
@@ -41,28 +41,28 @@ const Stage = styled.section<{ $active?: boolean }>`
   background: ${({ $active }) => $active ? 'var(--color-ink)' : 'color-mix(in srgb, var(--color-surface) 78%, transparent)'};
   color: ${({ $active }) => $active ? 'var(--color-surface)' : 'var(--color-ink)'};
 
-  &::after {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 1px;
-    height: var(--space-6);
-    background: var(--color-accent);
-    content: '';
-  }
-
-  ${({ $active }) => $active ? `
-    &::after { background: var(--color-accent); }
+  ${({ $connectsForward }) => $connectsForward ? `
+    &::after {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 1px;
+      height: var(--space-6);
+      background: var(--color-accent);
+      content: '';
+    }
   ` : ''}
 
   @media (min-width: 60rem) {
-    &::after {
-      top: 50%;
-      right: calc(-1 * var(--space-6));
-      left: auto;
-      width: var(--space-6);
-      height: 1px;
-    }
+    ${({ $connectsForward }) => $connectsForward ? `
+      &::after {
+        top: 50%;
+        right: calc(-1 * var(--space-6));
+        left: auto;
+        width: var(--space-6);
+        height: 1px;
+      }
+    ` : ''}
   }
 `
 
@@ -142,7 +142,7 @@ const Caption = styled.figcaption`
 export function ProvisioningFigure(): ReactElement {
   return (
     <Figure aria-describedby="capability-path-caption">
-      <Stage data-capability-store>
+      <Stage aria-labelledby="capability-path-store" data-capability-store data-connects-forward="true" $connectsForward>
         <Marker>Available</Marker>
         <Heading id="capability-path-store">Capability store</Heading>
         <Capabilities>
@@ -150,7 +150,7 @@ export function ProvisioningFigure(): ReactElement {
         </Capabilities>
       </Stage>
 
-      <Stage $active>
+      <Stage aria-labelledby="capability-path-active" data-connects-forward="true" $active $connectsForward>
         <Marker $active>Activated</Marker>
         <Heading id="capability-path-active">This task’s read path</Heading>
         <ActiveList>
@@ -158,7 +158,7 @@ export function ProvisioningFigure(): ReactElement {
         </ActiveList>
       </Stage>
 
-      <Stage>
+      <Stage aria-labelledby="capability-path-worker" data-connects-forward="false" $connectsForward={false}>
         <Marker>Working</Marker>
         <Heading id="capability-path-worker">Current agent</Heading>
         <Description>Enough context for the next useful move.</Description>

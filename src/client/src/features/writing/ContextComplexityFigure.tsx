@@ -225,7 +225,7 @@ function OrganisationNode({ name, role }: OrganisationNodeProps): ReactElement {
 export function ContextComplexityFigure(): ReactElement {
   return (
     <figure aria-labelledby="context-org-chart-caption">
-      <Canvas>
+      <Canvas aria-hidden="true">
         <Eyebrow>The standing organisation</Eyebrow>
         <RootNode><strong>Will</strong><span>Harley’s will, made concrete</span></RootNode>
         <Portfolio>

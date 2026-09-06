@@ -12,6 +12,7 @@ describe('WritingArticleBodyLoading', () => {
     )
 
     expect(screen.getByRole('status', { name: 'Loading article' })).toBeVisible()
+    expect(container.querySelector('section')).not.toHaveAttribute('aria-label')
     expect(container.querySelector('[data-loading="specialist-presentation"]')).toBeNull()
     expect(container.querySelector('article')).toBeNull()
   })

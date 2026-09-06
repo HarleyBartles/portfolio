@@ -162,6 +162,20 @@ This log is the implementation record for the autonomous first crack. These are 
 
 **Evidence record:** the initial pre-change build showed the specialist bodies inside the `ContentPage` path with no emitted specialist-body chunks. The first-crack build emits dedicated `TestingEvidenceArticle`, `ProductOwnershipArticle`, `ContextComplexityArticle`, `RianHughesArticle`, and `UseSuperpowersArticle` chunks, while `ContentPage` falls from 31.09 kB to 27.61 kB. Browser request-graph tests prove the Product route requests only `ProductOwnershipArticle` among specialist bodies and `/writing/why-adrs` requests none. The full first-crack route matrix checked all eight target routes at 1440, 768, 390, and 320 CSS pixels with no overflow. Representative paired screenshots were captured by Playwright as `slice-e-baseline-vibe-1440.png` and `slice-e-first-crack-{vibe,adrs,provisioning,context,product,review,rian}-{1440,390}.png` in the Playwright evidence directory outside the repository.
 
+### Code-review closure record
+
+The focused review found five implementation-level regressions in the first crack. These are closure corrections, not new visual proposals: preserve the approved output while restoring explicit ownership and accessible structure.
+
+| Finding | Closure decision | Falsifier / proof |
+| --- | --- | --- |
+| Header layout rules reached through `${Intro} h1` selectors | Keep layout geometry on `Header`; move title-specific variants into a typed `HeaderTitle` owner. | If the title treatment changes outside its declared layout or a child-DOM selector returns, the correction fails. The header test/build and browser matrix must pass. |
+| Provisioning emitted a terminal connector and lost section names | Give each stage its own `aria-labelledby`; make forward connection explicit and false for the terminal stage. | If the terminal stage still advertises a connector, or any stage loses its region name, the focused test fails. |
+| Context hierarchy canvas was exposed as content | Restore `aria-hidden` to the visual canvas; expose the figure through its caption. | If the figure's accessible name disappears or the canvas is not hidden, the focused accessibility test fails. |
+| Rian construction tint leaked into the Patch cameo | Keep a neutral canonical `Plate`, then earn `ConstructionPlate` tint/overflow locally and keep `CameoPlate`'s distinct padding. | If the cameo inherits construction tint or the construction plate loses its evidence treatment, the component ownership is wrong; the focused article test and visual check must catch it. |
+| Loading section duplicated the status accessible name | Remove the wrapper label; keep one named `role=status`. | If a second “Loading article” landmark appears, the loading test fails. |
+
+No snapshot was updated and no new design doctrine was promoted. These corrections remain part of the reversible first-crack diff for Harley's batch visual sign-off.
+
 ## Task 1: Establish Baseline and Complete the Decision Record
 
 **Skills:** `/executing-plans`, `/applying-portfolio-visual-language`, `/designing-premium-sites`, `/playwright-testing`

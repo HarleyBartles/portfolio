@@ -8,7 +8,7 @@ const LoadingSection = styled.section`
 
 export function WritingArticleBodyLoading() {
   return (
-    <LoadingSection aria-label="Loading article">
+    <LoadingSection>
       <p role="status" aria-label="Loading article">Loading article</p>
     </LoadingSection>
   )

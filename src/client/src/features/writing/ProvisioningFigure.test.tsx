@@ -14,5 +14,9 @@ describe('ProvisioningFigure', () => {
     expect(screen.getByText('Repository law')).toBeVisible()
     expect(screen.getByText('Repository boundary')).toBeVisible()
     expect(screen.getByText('Enough context for the next useful move.')).toBeVisible()
+
+    expect(screen.getByRole('region', { name: 'Capability store' })).toHaveAttribute('data-connects-forward', 'true')
+    expect(screen.getByRole('region', { name: 'This task’s read path' })).toHaveAttribute('data-connects-forward', 'true')
+    expect(screen.getByRole('region', { name: 'Current agent' })).toHaveAttribute('data-connects-forward', 'false')
   })
 })

@@ -22,11 +22,16 @@ const WordmarkFigure = styled.figure`
 const Plate = styled.div`
   border: 1px solid var(--color-border);
   padding: clamp(var(--space-5), 5vw, var(--space-10));
-  background: color-mix(in srgb, var(--color-accent-soft) 30%, var(--color-surface));
+  background: var(--color-surface);
 
   @media (max-width: 36rem) {
     padding: var(--space-4);
   }
+`
+
+const ConstructionPlate = styled(Plate)`
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-accent-soft) 30%, var(--color-surface));
 `
 
 const WordmarkCanvas = styled.div`
@@ -115,7 +120,7 @@ export function SpecialistsWordmarkStudy(): ReactElement {
   return (
     <Study aria-label="The Usual Specialists wordmark study">
       <WordmarkFigure aria-label="How the hierarchy is built" aria-describedby="rian-construction-caption">
-        <Plate>
+        <ConstructionPlate>
           <WordmarkCanvas>
             <img
               src={specialistsWordmark}
@@ -129,7 +134,7 @@ export function SpecialistsWordmarkStudy(): ReactElement {
             <HorizontalDatum $top="36.18%" data-testid="wordmark-datum" aria-hidden="true" />
             <HorizontalDatum $top="79.17%" data-testid="wordmark-datum" aria-hidden="true" />
           </WordmarkCanvas>
-        </Plate>
+        </ConstructionPlate>
         <DatumKey aria-label="Construction relationships">
           <li><span aria-hidden="true" />shared left edge</li>
           <li><span aria-hidden="true" />SPECIALISTS cap line</li>

@@ -24,6 +24,25 @@ const Intro = styled.div`
   min-width: 0;
 `
 
+const HeaderTitle = styled(PageTitle)<{ $layout: WritingArticleHeaderLayout }>`
+  ${({ $layout }) => $layout === 'vibe-door-road' ? css`
+    max-width: 13ch;
+  ` : ''}
+
+  ${({ $layout }) => $layout === 'capability-read-path' ? css`
+    font-size: clamp(2.7rem, 5.2vw, 4.6rem);
+  ` : ''}
+
+  ${({ $layout }) => $layout === 'review-graph-authority' ? css`
+    max-width: 21ch;
+    font-size: clamp(2.5rem, 4.8vw, 4.6rem);
+  ` : ''}
+
+  @media (max-width: 46rem) {
+    max-width: none;
+  }
+`
+
 const HeaderMetadata = styled(MetadataRow)`
   margin-top: ${({ theme }) => theme.space.md};
 `
@@ -62,7 +81,6 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
       grid-template-columns: 1fr;
     }
 
-    ${Intro} h1 { max-width: 13ch; }
   ` : ''}
 
   ${({ $layout }) => $layout === 'decision-memory' || $layout === 'capability-read-path' ? css`
@@ -73,7 +91,6 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
 
   ${({ $layout }) => $layout === 'capability-read-path' ? css`
     align-items: start;
-    ${Intro} h1 { font-size: clamp(2.7rem, 5.2vw, 4.6rem); }
   ` : ''}
 
   ${({ $layout }) => $layout === 'review-graph-authority' ? css`
@@ -82,7 +99,6 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
     gap: var(--space-8);
     align-items: start;
     ${Intro} { max-width: min(48rem, 100%); }
-    ${Intro} h1 { max-width: 21ch; font-size: clamp(2.5rem, 4.8vw, 4.6rem); }
   ` : ''}
 
   ${({ $layout }) => $layout === 'agent-organisation-overhead' ? css`
@@ -103,7 +119,6 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
       grid-template-columns: 1fr;
       gap: ${theme.space.xl};
     ` : ''}
-    ${Intro} h1 { max-width: none; }
   }
 `
 
@@ -130,7 +145,7 @@ export function WritingArticleHeader({
       $layout={layout}
     >
       <Intro className="writing-article-header__intro">
-        <PageTitle id="content-page-title" register="article-serif">{title}</PageTitle>
+        <HeaderTitle id="content-page-title" register="article-serif" $layout={layout}>{title}</HeaderTitle>
         {metadata === undefined ? null : <HeaderMetadata items={metadata} />}
         <Summary className="content-summary writing-article-header__summary">{summary}</Summary>
       </Intro>
