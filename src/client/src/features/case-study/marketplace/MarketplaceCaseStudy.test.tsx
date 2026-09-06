@@ -42,4 +42,17 @@ describe('MarketplaceCaseStudy', () => {
       expect(heading.closest('[data-case-study-section-layout="lead"]')?.querySelector('[data-case-study-section-body]')).not.toBeNull()
     })
   })
+
+  test('keeps the operating-model titles in the accepted Marketplace display register', () => {
+    render(<PortfolioThemeProvider><MarketplaceCaseStudy /></PortfolioThemeProvider>)
+
+    for (const name of ['Baseline', 'Selected', 'Local']) {
+      expect(screen.getByRole('heading', { level: 2, name })).toHaveStyle({
+        fontFamily: 'var(--font-display)',
+        fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        lineHeight: '.98',
+        marginTop: '0',
+      })
+    }
+  })
 })

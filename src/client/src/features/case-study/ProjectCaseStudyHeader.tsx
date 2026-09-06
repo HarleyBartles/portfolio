@@ -68,7 +68,7 @@ const VisualFallback = styled.div<{ $layout: ProjectCaseStudyHeaderLayout }>`
   background: ${({ $layout }) => $layout === 'wild-bunch' ? 'var(--wild-bunch-field-color, #d4cbc0)' : $layout === 'learning-lab' ? '#163f42' : 'var(--color-interior-canvas)'};
 
   ${({ $layout }) => $layout === 'learning-lab' ? 'min-height: clamp(20rem, 32vw, 30rem);' : ''}
-  ${({ $layout }) => $layout === 'patch' ? 'min-height: clamp(18rem, 32vw, 28rem);' : ''}
+  ${({ $layout }) => $layout === 'patch' ? 'height: 100%; min-height: 0; aspect-ratio: auto;' : ''}
 `
 
 const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual: boolean }>`
@@ -262,8 +262,11 @@ const Header = styled.header<{ $layout: ProjectCaseStudyHeaderLayout; $hasVisual
       }
 
       ${VisualFallback} {
+        width: min(100%, 26.7857rem, 52.0833vh);
+        height: auto;
         min-height: 0;
-        aspect-ratio: 5 / 4;
+        margin-inline: auto;
+        aspect-ratio: 500 / 672;
       }
     ` : ''}
   }

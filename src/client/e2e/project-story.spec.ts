@@ -138,6 +138,67 @@ test('Marketplace header reserves its generic visual measure while the visual ch
   await expect(header.getByRole('figure', { name: /Marketplace baseline plugins/i })).toBeVisible()
 })
 
+test('Patch preserves hero geometry and source order while its portrait visual is pending', async ({ browser }) => {
+  for (const width of [1024, 704]) {
+    const page = await browser.newPage({ viewport: { width, height: 862 } })
+    let releaseVisual: (() => void) | undefined
+    const visualReady = new Promise<void>((resolve) => {
+      releaseVisual = resolve
+    })
+
+    await page.route('**/*ProjectVisual-*.js', async (route) => {
+      const response = await route.fetch()
+      await visualReady
+      await route.fulfill({ response })
+    })
+
+    const navigation = page.goto(patchPath)
+    const hero = page.locator('[data-visual-contract="patch-case-study-hero"]')
+    const intro = hero.locator('[data-project-case-study-intro]')
+    const visual = hero.locator('[data-project-case-study-visual]')
+    const status = hero.locator('[data-project-case-study-status]')
+    await expect(hero).toBeVisible()
+    await expect(page.locator('[data-loading="project-visual"]')).toBeVisible()
+
+    const pending = await hero.evaluate((element) => {
+      const bounds = (selector: string) => element.querySelector(selector)!.getBoundingClientRect()
+      const heroBounds = element.getBoundingClientRect()
+      return {
+        height: heroBounds.height,
+        intro: bounds('[data-project-case-study-intro]'),
+        visual: bounds('[data-project-case-study-visual]'),
+        status: bounds('[data-project-case-study-status]'),
+      }
+    })
+
+    if (width <= 704) {
+      expect(pending.intro.bottom).toBeLessThanOrEqual(pending.visual.top)
+      expect(pending.visual.bottom).toBeLessThanOrEqual(pending.status.top)
+    } else {
+      expect(pending.visual.width / (await hero.boundingBox())!.width).toBeCloseTo(0.5, 1)
+    }
+
+    releaseVisual?.()
+    await navigation
+    await expect(visual.getByRole('img', { name: /Patch carries an index card and folded map/i })).toBeVisible()
+
+    const resolved = await hero.evaluate((element) => {
+      const bounds = (selector: string) => element.querySelector(selector)!.getBoundingClientRect()
+      return {
+        height: element.getBoundingClientRect().height,
+        intro: bounds('[data-project-case-study-intro]'),
+        visual: bounds('[data-project-case-study-visual]'),
+        status: bounds('[data-project-case-study-status]'),
+      }
+    })
+
+    expect(Math.abs(resolved.height - pending.height), JSON.stringify({ width, pending, resolved })).toBeLessThanOrEqual(1)
+    expect(Math.abs(resolved.intro.top - pending.intro.top)).toBeLessThanOrEqual(1)
+    expect(Math.abs(resolved.status.top - pending.status.top)).toBeLessThanOrEqual(1)
+    await page.close()
+  }
+})
+
 test('visitor opens the Wild Bunch route with its Western hook, status, and inspectable evidence', async ({ page }) => {
   const response = await page.goto(wildBunchPath)
 
@@ -483,7 +544,7 @@ test('Adventures of Patch exposes intrinsic media dimensions with one eager hero
   await expect(page.locator('.patch-case-study figcaption')).toHaveCount(2)
 })
 
-test('Adventures of Patch keeps its cropped artwork and copy in deliberate columns through tablet widths', async ({ page }) => {
+test('Adventures of Patch keeps its whole character and copy in deliberate columns through tablet widths', async ({ page }) => {
   await page.goto(patchPath)
 
   for (const width of [705, 738, 1024]) {

@@ -17,6 +17,13 @@ const MarketplaceSectionTitle = styled.h2`
   line-height: .98;
 `
 
+const MarketplaceModelTitle = styled.h2`
+  margin-top: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: .98;
+`
+
 const MarketplaceModelCell = styled.div`
   padding: var(--space-7);
 
@@ -89,9 +96,9 @@ export function MarketplaceCaseStudy(): ReactElement {
         <MarketplaceDistributionMap />
 
         <section className="marketplace-case-study__model" aria-label="Three-layer operating model" data-visual-contract="marketplace-operating-model">
-          <MarketplaceModelCell><Eyebrow>01 · shared</Eyebrow><h2>Baseline</h2><p><code>repo-worker-pack</code>, <code>superpowers-plus</code>, and <code>mcp-usage-pack</code> cover recurring worker, execution, and connector concerns.</p></MarketplaceModelCell>
-          <MarketplaceModelCell><Eyebrow>02 · chosen</Eyebrow><h2>Selected</h2><p>Repositories add specialist plugins only when their domain warrants them. A selection is evidence of context, not a universal default.</p></MarketplaceModelCell>
-          <MarketplaceModelCell><Eyebrow>03 · retained</Eyebrow><h2>Local</h2><p>Repository-specific doctrine, commands, skills, and plugins stay beside the work whose exceptions they explain.</p></MarketplaceModelCell>
+          <MarketplaceModelCell><Eyebrow>01 · shared</Eyebrow><MarketplaceModelTitle>Baseline</MarketplaceModelTitle><p><code>repo-worker-pack</code>, <code>superpowers-plus</code>, and <code>mcp-usage-pack</code> cover recurring worker, execution, and connector concerns.</p></MarketplaceModelCell>
+          <MarketplaceModelCell><Eyebrow>02 · chosen</Eyebrow><MarketplaceModelTitle>Selected</MarketplaceModelTitle><p>Repositories add specialist plugins only when their domain warrants them. A selection is evidence of context, not a universal default.</p></MarketplaceModelCell>
+          <MarketplaceModelCell><Eyebrow>03 · retained</Eyebrow><MarketplaceModelTitle>Local</MarketplaceModelTitle><p>Repository-specific doctrine, commands, skills, and plugins stay beside the work whose exceptions they explain.</p></MarketplaceModelCell>
         </section>
 
         <CaseStudySection title="One skill, a local overlay, and a checkable workflow" layout="lead">
