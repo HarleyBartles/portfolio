@@ -160,8 +160,9 @@ These are starting hypotheses, not immutable conclusions. Luna may change an act
 **Untracked evidence scope:** browser screenshots in an off-repository temporary directory. Use Playwright-injected CSS or DOM neutralisation for counterfactuals; reload the page after each experiment so no mutation survives into implementation.
 
 - [ ] Run `git fetch origin main codex/react-composition-slice-e-plan --prune`.
-- [ ] In PowerShell set `$planningBaseline = '5cdf3dcfa3faa1d98d119154203f40727bbfcb63'` and `$approvedPlanHead = git rev-parse origin/codex/react-composition-slice-e-plan`.
-- [ ] Require `git rev-parse origin/main` and `git merge-base HEAD origin/main` to equal `$planningBaseline`, and require `git rev-parse HEAD` to equal `$approvedPlanHead`. If any comparison fails, stop and report the branch drift to Harley. Branch `HEAD` is expected to be ahead of `main`.
+- [ ] The execution handoff must provide the exact Harley-reviewed plan commit SHA as environment variable `SLICE_E_APPROVED_PLAN_HEAD`. Do not derive approval from the mutable branch tip.
+- [ ] In PowerShell set `$planningBaseline = '5cdf3dcfa3faa1d98d119154203f40727bbfcb63'` and `$approvedPlanHead = $env:SLICE_E_APPROVED_PLAN_HEAD`; if `$approvedPlanHead` is empty, stop and request the reviewed SHA from Harley.
+- [ ] Require `git rev-parse origin/main` and `git merge-base HEAD origin/main` to equal `$planningBaseline`, and require both `git rev-parse HEAD` and `git rev-parse origin/codex/react-composition-slice-e-plan` to equal `$approvedPlanHead`. If any comparison fails, stop and report the branch drift to Harley. Branch `HEAD` is expected to be ahead of `main`.
 - [ ] Run `npm ci` from `src/client` only if `node_modules` is absent.
 - [ ] From `src/client`, run `npm run build`, then start `npm run preview:e2e` in a dedicated terminal. Use `http://127.0.0.1:4174/` as the preview origin.
 - [ ] Capture baseline screenshots outside the repository for each target route at 1440, 768, 390, and 320 CSS pixels, plus one actual browser 200% zoom pass at desktop width.
@@ -218,7 +219,8 @@ These are starting hypotheses, not immutable conclusions. Luna may change an act
 - Export `WritingArticleHeaderLayout` from `WritingArticleHeader.tsx`.
 - Allowed values: `standard`, `vibe-door-road`, `decision-memory`, `capability-read-path`, `review-graph-authority`, `agent-organisation-overhead`.
 - `WritingArticleHeader` receives title, summary, metadata, optional visual, region label, visual contract, and layout.
-- `writingPresentations.ts` supplies the layout value; `ContentPage.tsx` performs no route-name branching.
+- Existing `writingPresentations.ts` entries supply their specialist non-standard layout. When a writing route has no presentation entry, pass `standard`; do not add dummy presentation-registry entries solely to carry `standard`.
+- `ContentPage.tsx` performs no route-name branching; derive the writing header layout generically as `writingPresentation?.layout ?? 'standard'`.
 
 - [ ] Write failing tests for standard/visual headers, semantic order, optional visual omission, and layout marker.
 - [ ] Implement the smallest component that passes them using named styled components.
@@ -452,4 +454,4 @@ Before execution begins, Harley should be able to answer yes to all of these:
 
 ## Execution Handoff
 
-After plan approval, invoke `/executing-plans` with a `gpt-5.6-luna` orchestrator at `high` reasoning. Execute Task 1, stop at the mandatory Harley decision gate, then execute Tasks 2-8 sequentially after acceptance. If the orchestrator delegates, every worker is also `gpt-5.6-luna` at `high` reasoning; workers return packets to Luna, and Luna reviews each packet and diff before dispatching the next one. Stop for Harley at the explicit Global Constraints gates or when the retry threshold is reached.
+After plan approval, invoke `/executing-plans` with a `gpt-5.6-luna` orchestrator at `high` reasoning. Supply the exact reviewed PR head SHA as `SLICE_E_APPROVED_PLAN_HEAD`; the worker must not infer approval from the current remote branch tip. Execute Task 1, stop at the mandatory Harley decision gate, then execute Tasks 2-8 sequentially after acceptance. If the orchestrator delegates, every worker is also `gpt-5.6-luna` at `high` reasoning; workers return packets to Luna, and Luna reviews each packet and diff before dispatching the next one. Stop for Harley at the explicit Global Constraints gates or when the retry threshold is reached.
