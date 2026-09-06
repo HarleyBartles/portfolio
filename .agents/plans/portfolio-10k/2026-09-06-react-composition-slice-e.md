@@ -34,9 +34,9 @@ Use one `gpt-5.6-luna` agent at `high` reasoning for each task packet, in order.
 3. the current `git status --short`;
 4. the previous task's return packet.
 
-Do not ask Luna to rediscover the roadmap or architecture. The Sol orchestrator owns dependency order, reviews each diff, and resolves cross-task design consistency. Luna owns bounded, reversible implementation and may make the creative decisions explicitly allowed by each packet.
+Do not ask the Luna orchestrator or its Luna workers to rediscover the roadmap or architecture. The Luna orchestrator owns dependency order, dispatches bounded packets, reviews each worker diff, and resolves cross-task design consistency. Every delegated worker uses `gpt-5.6-luna`; no Terra or Sol worker is part of this execution model. Luna workers own bounded, reversible implementation and may make the creative decisions explicitly allowed by each packet.
 
-Task 1 is a mandatory proposal gate, not implementation authority. Luna evaluates and recommends; Sol presents the completed matrix and browser-only before/after evidence to Harley. Task 2 must not start until Harley has accepted the visible actions. Ownership-only `keep-essential` migrations may then proceed; visible `refine-local`, `remove-furniture`, and `promote-canonical` actions may proceed only when their matrix rows carry Harley's acceptance.
+Task 1 is a mandatory proposal gate, not implementation authority. The Luna orchestrator presents the completed matrix and browser-only before/after evidence to Harley. Task 2 must not start until Harley has accepted the visible actions. Ownership-only `keep-essential` migrations may then proceed; visible `refine-local`, `remove-furniture`, and `promote-canonical` actions may proceed only when their matrix rows carry Harley's acceptance.
 
 After every task, Luna must return exactly:
 
@@ -46,7 +46,7 @@ After every task, Luna must return exactly:
 - screenshots inspected;
 - remaining risks or a literal `none`.
 
-If a focused test fails twice for the same reason, stop changing code, record the exact failure, and return control to Sol. Do not broaden the write set to “fix the suite.”
+If a focused test fails twice for the same reason, stop changing code, record the exact failure, and return it to the Luna orchestrator. Do not broaden the write set to “fix the suite.”
 
 ### Research spike: planning for Luna
 
@@ -65,7 +65,7 @@ Inference for this repository: positive taste language alone is too easy for a s
 ## Global Constraints
 
 - Work only in the existing linked worktree on branch `codex/react-composition-slice-e-plan`.
-- Start execution by fetching and checking whether `origin/main` moved. If it moved, stop for Sol to rebase or recreate the worktree.
+- Start execution by fetching and checking whether `origin/main` moved. If it moved, stop and report the drift to Harley; do not silently rebase or recreate the approved plan branch.
 - Do not change article facts, claims, dates, links, quotations, continuation destinations, asset files, licences, analytics, contact behaviour, or route inventory.
 - Do not redesign `ContentProse`, `EditorialAside`, global typography, navigation, the homepage, or project case studies.
 - `UseSuperpowersArticle` already consumes shared prose and aside owners without article SCSS. Treat it as an audited no-op and regression fixture, not an invitation to manufacture a Slice E change.
@@ -75,7 +75,7 @@ Inference for this repository: positive taste language alone is too easy for a s
 - Never preserve a quirk merely because a snapshot contains it. Never change a snapshot merely to make a failing test green.
 - Significant new visual direction, public-copy changes, asset custody/licensing changes, or a conflict with the active design policy stops for Harley.
 - Luna may propose any creative action in the matrix but may not establish an accepted visual baseline. Harley accepts or rejects every visible `refine-local`, `remove-furniture`, and `promote-canonical` proposal before implementation.
-- If Harley accepts a collection of changes that establishes a material new standardisation rule, Sol must append one dated entry to `docs/design-decisions.md` with rationale and a reconsideration trigger before Task 2. A local implementation decision that does not change policy stays in this plan's decision record.
+- If Harley accepts a collection of changes that establishes a material new standardisation rule, the Luna orchestrator must append one dated entry to `docs/design-decisions.md` with rationale and a reconsideration trigger before Task 2. A local implementation decision that does not change policy stays in this plan's decision record.
 - Use focused checks while iterating. The normal staged commit must run the tracked pre-commit hook as the sole complete local CI gate; do not run `ci --check` immediately before or after that commit.
 - Hard ceiling values may not increase: JavaScript 358400 bytes, CSS 40960 bytes, CV PDF 524288 bytes, CV exactly 2 pages. Actual JS/CSS byte counts may move during CSS-to-JS ownership transfer while remaining below those ceilings.
 - Check off each completed checkbox in this file before the implementation handoff.
@@ -161,7 +161,7 @@ These are starting hypotheses, not immutable conclusions. Luna may change an act
 
 - [ ] Run `git fetch origin main codex/react-composition-slice-e-plan --prune`.
 - [ ] In PowerShell set `$planningBaseline = '5cdf3dcfa3faa1d98d119154203f40727bbfcb63'` and `$approvedPlanHead = git rev-parse origin/codex/react-composition-slice-e-plan`.
-- [ ] Require `git rev-parse origin/main` and `git merge-base HEAD origin/main` to equal `$planningBaseline`, and require `git rev-parse HEAD` to equal `$approvedPlanHead`. If any comparison fails, stop for Sol to rebase or refresh the approved plan head. Branch `HEAD` is expected to be ahead of `main`.
+- [ ] Require `git rev-parse origin/main` and `git merge-base HEAD origin/main` to equal `$planningBaseline`, and require `git rev-parse HEAD` to equal `$approvedPlanHead`. If any comparison fails, stop and report the branch drift to Harley. Branch `HEAD` is expected to be ahead of `main`.
 - [ ] Run `npm ci` from `src/client` only if `node_modules` is absent.
 - [ ] From `src/client`, run `npm run build`, then start `npm run preview:e2e` in a dedicated terminal. Use `http://127.0.0.1:4174/` as the preview origin.
 - [ ] Capture baseline screenshots outside the repository for each target route at 1440, 768, 390, and 320 CSS pixels, plus one actual browser 200% zoom pass at desktop width.
@@ -185,12 +185,12 @@ These are starting hypotheses, not immutable conclusions. Luna may change an act
 
 ### Mandatory Harley decision gate
 
-**Sol gate write scope:** `.agents/plans/portfolio-10k/2026-09-06-react-composition-slice-e.md`, plus `docs/design-decisions.md` only when Harley accepts a material new standardisation rule.
+**Luna orchestrator gate write scope:** `.agents/plans/portfolio-10k/2026-09-06-react-composition-slice-e.md`, plus `docs/design-decisions.md` only when Harley accepts a material new standardisation rule.
 
-- [ ] Sol presents the completed matrix and paired before/after evidence to Harley.
-- [ ] Harley accepts, rejects, or amends every proposed visible `refine-local`, `remove-furniture`, and `promote-canonical` action. Sol records that disposition in the matrix.
-- [ ] If the accepted set creates a material standardisation rule, Sol adds a dated `docs/design-decisions.md` entry with rationale and reconsideration trigger; otherwise Sol records “No ledger change: local implementation decisions only.”
-- [ ] Sol commits and pushes the accepted decision record before dispatching Task 2.
+- [ ] The Luna orchestrator presents the completed matrix and paired before/after evidence to Harley.
+- [ ] Harley accepts, rejects, or amends every proposed visible `refine-local`, `remove-furniture`, and `promote-canonical` action. The Luna orchestrator records that disposition in the matrix.
+- [ ] If the accepted set creates a material standardisation rule, the Luna orchestrator adds a dated `docs/design-decisions.md` entry with rationale and reconsideration trigger; otherwise it records “No ledger change: local implementation decisions only.”
+- [ ] The Luna orchestrator commits and pushes the accepted decision record before dispatching Task 2.
 
 **Stop condition:** do not start Task 2 until all four Harley-gate checkboxes are complete.
 
@@ -293,7 +293,7 @@ These are starting hypotheses, not immutable conclusions. Luna may change an act
 - [ ] Run `rg -n "testing-evidence-article|context-complexity-article" src/client/src src/client/e2e` and record every consumer before editing.
 - [ ] Add or strengthen tests for article semantics, fallback-to-whole-markdown behaviour, and aside order before changing implementation.
 - [ ] For `ProductOwnershipArticle`, replace selectors with locally named styled components because the signal map has a real visual contract.
-- [ ] If the audit confirms the Testing Evidence and Context Complexity outer classes have no consumer, remove the dead class hooks and use a fragment or the simplest semantic HTML that preserves source order. If a consumer exists, stop and report it to Sol; do not manufacture a styled owner.
+- [ ] If the audit confirms the Testing Evidence and Context Complexity outer classes have no consumer, remove the dead class hooks and use a fragment or the simplest semantic HTML that preserves source order. If a consumer exists, stop and report it to the Luna orchestrator; do not manufacture a styled owner.
 - [ ] Apply each Harley-accepted keep/refine/remove decision; preserve screen-reader reading order.
 - [ ] Remove the Product Ownership Sass import and delete the file only after `rg` proves no selectors remain.
 - [ ] Run `npm test -- --run src/features/writing/ProductOwnershipArticle.test.tsx src/features/writing/TestingEvidenceArticle.test.tsx src/features/writing/ContextComplexityArticle.test.tsx`.
@@ -447,9 +447,9 @@ Before execution begins, Harley should be able to answer yes to all of these:
 - [ ] Can Luna independently identify and propose removal of valueless furniture, with Harley accepting visible baseline changes once at the Task 1 gate rather than through repeated implementation interruptions?
 - [ ] Are public facts, assets, site-wide identity, and high-risk taste decisions still protected?
 - [ ] Does each special treatment have to earn either local exception or canonical promotion?
-- [ ] Does every task return enough evidence for Sol to catch drift before the next task?
+- [ ] Does every task return enough evidence for the Luna orchestrator to catch drift before the next task?
 - [ ] Is full CI run once through the normal commit hook rather than duplicated?
 
 ## Execution Handoff
 
-After plan approval, invoke `/executing-plans` with `gpt-5.6-luna` at `high` reasoning. Execute Task 1, stop at the mandatory Harley decision gate, then execute Tasks 2-8 sequentially after acceptance. Sol reviews each return packet and diff before dispatching the next packet. Stop for Harley at the explicit Global Constraints gates or when the retry threshold is reached.
+After plan approval, invoke `/executing-plans` with a `gpt-5.6-luna` orchestrator at `high` reasoning. Execute Task 1, stop at the mandatory Harley decision gate, then execute Tasks 2-8 sequentially after acceptance. If the orchestrator delegates, every worker is also `gpt-5.6-luna` at `high` reasoning; workers return packets to Luna, and Luna reviews each packet and diff before dispatching the next one. Stop for Harley at the explicit Global Constraints gates or when the retry threshold is reached.
