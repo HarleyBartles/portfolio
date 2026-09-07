@@ -9,15 +9,15 @@ const Tournament = styled.section`
   .tournament-showcase__lead, .tournament-showcase__case-study-link { max-width: 48rem; }
   .tournament-showcase__lead > p:nth-child(2) { margin-block: var(--space-4); font-family: var(--font-site-sans); font-size: clamp(1.35rem, 2.4vw, 1.9rem); line-height: 1.35; }
   .tournament-showcase__status-note { max-width: 42rem; color: var(--color-muted); }
-  .patch-status, .tournament-event__number, .tournament-event__task span, .tournament-event__lesson span { color: var(--patch-teal); font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  .patch-status, .tournament-event__number, .tournament-event__task span, .tournament-event__lesson span { color: var(--patch-teal); font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; letter-spacing: .012em; text-transform: none; }
   .tournament-event { display: grid; gap: clamp(var(--space-7), 5vw, var(--space-12)); padding-top: var(--space-8); border-top: 1px solid var(--color-ink); }
   .tournament-event__header { display: grid; grid-template-columns: minmax(0,.68fr) minmax(16rem,1.32fr); column-gap: var(--space-10); }
   .tournament-event__header > * { grid-column: 2; } .tournament-event__number { grid-column: 1; grid-row: 1 / span 3; margin: 0; }
   .tournament-event__header h2 { max-width: 13ch; margin: 0; font-size: clamp(2.5rem, 7vw, 6rem); line-height: .96; }
   .tournament-event__task { max-width: 34rem; margin: var(--space-5) 0 0; font-size: clamp(1.1rem, 2vw, 1.35rem); }
   .tournament-event__task span { display: block; margin-bottom: var(--space-2); }
-  .tournament-event figure, .tournament-event picture, .tournament-event img { display: block; width: 100%; margin: 0; } .tournament-event img { height: auto; }
-  .tournament-event__hero, .tournament-event__maze-pair, .tournament-event__failures, .tournament-event__consultation { overflow: hidden; border: 1px solid var(--color-border); }
+  .tournament-event figure { margin: 0; } .tournament-event picture, .tournament-event img { display: block; width: 100%; } .tournament-event img { height: auto; }
+  .tournament-event__hero, .tournament-event__maze-pair, .tournament-event__failures, .tournament-event__consultation { overflow: hidden; border: 1px solid var(--color-border); background: transparent; }
   .tournament-event__story { max-width: 43rem; margin-left: auto; font-size: clamp(1.05rem,1.7vw,1.22rem); } .tournament-event__story p + p { margin-top: var(--space-5); }
   .tournament-event__story--wide { max-width: 52rem; }
   .tournament-event__lesson { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: var(--space-8); align-items: end; padding: var(--space-6) 0; border-block: 1px solid var(--color-ink); }
@@ -27,9 +27,9 @@ const Tournament = styled.section`
   .tournament-event__maze-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1px; background: var(--color-border); } .tournament-event__maze-pair figure { display: grid; grid-template-rows: 1fr auto; background: var(--color-surface); }
   .tournament-event__failures { display: grid; grid-template-columns: .92fr 1.08fr; gap: 1px; background: var(--color-border); } .tournament-event__failures figure { display: grid; grid-template-rows: minmax(0,1fr) auto; background: #fff; }
   .tournament-event__failures picture { height: clamp(21rem,44vw,38rem); } .tournament-event__failures img { height: 100%; object-fit: contain; object-position: center bottom; }
-  .tournament-event__failures figcaption { min-height: 4.5rem; padding: var(--space-4); border-top: 1px solid var(--color-border); } .tournament-event__failures strong { display: block; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); }
+  .tournament-event__failures figcaption { min-height: 4.5rem; padding: var(--space-4); border-top: 1px solid var(--color-border); color: var(--color-ink); } .tournament-event__failures strong { display: block; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); letter-spacing: .012em; text-transform: none; }
   .tournament-event__consultation { grid-template-columns: minmax(0,1.4fr) minmax(18rem,.6fr); }
-  .tournament-showcase__case-study-link { padding-top: var(--space-8); border-top: 1px solid var(--color-ink); } .tournament-showcase__case-study-link a { color: var(--patch-teal-deep); font-weight: 700; }
+  .tournament-showcase__case-study-link { padding-top: var(--space-8); border-top: 1px solid var(--color-ink); } .tournament-showcase__case-study-link a { color: var(--patch-teal-deep); font-weight: 700; text-decoration-thickness: .12em; text-underline-offset: .2em; }
   @media (max-width: 44rem) { .tournament-event__header { grid-template-columns: 1fr; } .tournament-event__header > *, .tournament-event__number { grid-column: 1; grid-row: auto; } .tournament-event__header h2 { max-width: 11ch; } .tournament-event__split, .tournament-event__consultation, .tournament-event__maze-pair { grid-template-columns: 1fr; } .tournament-event__failures picture { height: clamp(14rem,70vw,22rem); } .tournament-event__lesson { grid-template-columns: 1fr; gap: var(--space-4); } .tournament-event__lesson span { justify-self: start; } }
 `
 
