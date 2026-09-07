@@ -138,6 +138,23 @@ test('writing index keeps its newest-first editorial composition', async ({ page
   await expect(page.locator('[data-visual-contract="writing-peer-list"]')).toHaveScreenshot('writing-peer-list.png')
 })
 
+test('writing continuations keep their earned destination-object hierarchy', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1100 })
+  await openStable(page, './writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists')
+
+  const continuations = page.getByRole('navigation', { name: 'Continue reading' })
+  const choices = continuations.getByRole('link')
+  await expect(continuations).toHaveScreenshot('writing-continuations.png')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openStable(page, './writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists')
+  await expect(continuations).toHaveScreenshot('writing-continuations-mobile.png')
+
+  await choices.first().focus()
+  await expect(choices.first()).toBeFocused()
+  expect(await choices.first().evaluate((element) => getComputedStyle(element).outlineWidth)).toBe('3px')
+})
+
 test('about page keeps the current-work argument', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './about')

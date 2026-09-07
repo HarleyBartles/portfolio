@@ -8,6 +8,7 @@ describe('ContextComplexityFigure', () => {
 
     expect(screen.getByRole('figure', { name: /Will made Harley’s intent concrete/i })).toBeInTheDocument()
     expect(screen.getByText('Will')).toBeVisible()
+    expect(screen.getByText('The standing organisation').closest('[aria-hidden="true"]')).not.toBeNull()
     expect(screen.getByText('Chris')).toBeVisible()
     expect(screen.getByText('Albert')).toBeVisible()
     expect(screen.getByText('Brian')).toBeVisible()

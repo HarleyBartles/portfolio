@@ -1,6 +1,64 @@
 import { ContentProse } from '../../components'
 import { EditorialAside } from '../../components/editorial'
-import './ProductOwnershipArticle.scss'
+import styled from 'styled-components'
+
+const SignalMap = styled.figure`
+  margin: 0 0 var(--space-6);
+  border: 1px solid var(--color-ink);
+  background: var(--color-surface);
+`
+
+const SignalLane = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+
+  > span:first-child {
+    grid-column: 1 / -1;
+    color: var(--color-accent);
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  > span[aria-hidden='true'] {
+    color: var(--color-accent);
+    font-family: var(--font-code);
+  }
+`
+
+const SignalBoundary = styled.p`
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-surface);
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+`
+
+const SignalCaption = styled.figcaption`
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  line-height: 1.45;
+`
 
 type ProductOwnershipArticleProps = {
   markdown: string
@@ -13,22 +71,22 @@ const webhookFollowingHeading = '## The bit before the code'
 
 const WebhookSignalMap = () => {
   return (
-    <figure className="webhook-signal-map">
-      <div className="webhook-signal-map__lane">
+    <SignalMap>
+      <SignalLane>
         <span>Status path</span>
         <strong>Supplier records an outcome</strong>
         <span aria-hidden="true">→</span>
         <strong>Our API fires its webhook</strong>
-      </div>
-      <p className="webhook-signal-map__boundary">No ordering guarantee between paths</p>
-      <div className="webhook-signal-map__lane">
+      </SignalLane>
+      <SignalBoundary>No ordering guarantee between paths</SignalBoundary>
+      <SignalLane>
         <span>Journey path</span>
         <strong>Supplier SDK ends its flow</strong>
         <span aria-hidden="true">→</span>
         <strong>Candidate returns to consumer</strong>
-      </div>
-      <figcaption>One supplier, two signals, and an ordering assumption between them.</figcaption>
-    </figure>
+      </SignalLane>
+      <SignalCaption>One supplier, two signals, and an ordering assumption between them.</SignalCaption>
+    </SignalMap>
   )
 }
 
@@ -52,7 +110,7 @@ export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticlePro
   const closing = markdown.slice(webhookFollowingStart).trimStart()
 
   return (
-    <div className="product-ownership-article">
+    <>
       <ContentProse register="article-serif" markdown={opening} />
       <EditorialAside
         disclosureLabel="The interview and the incident"
@@ -73,6 +131,6 @@ export const ProductOwnershipArticle = ({ markdown }: ProductOwnershipArticlePro
         <ContentProse register="article-serif" treatment="editorial-aside" markdown={webhookAside} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
-    </div>
+    </>
   )
 }

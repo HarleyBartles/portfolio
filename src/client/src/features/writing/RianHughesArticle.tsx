@@ -21,12 +21,12 @@ export const RianHughesArticle = ({ markdown }: RianHughesArticleProps) => {
   const closing = markdown.slice(patchStart + patchMarker.length).trimStart()
 
   return (
-    <div className="rian-hughes-article">
+    <>
       <ContentProse register="article-serif" markdown={opening} />
       <SpecialistsWordmarkStudy />
       <ContentProse register="article-serif" markdown={middle} />
       <PatchLockupCameo />
       <ContentProse register="article-serif" markdown={closing} />
-    </div>
+    </>
   )
 }

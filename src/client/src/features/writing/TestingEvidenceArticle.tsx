@@ -24,7 +24,7 @@ export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps
   const closing = markdown.slice(closingStart).trimStart()
 
   return (
-    <div className="testing-evidence-article">
+    <>
       <ContentProse register="article-serif" markdown={opening} />
       <EditorialAside
         disclosureLabel="Read the applied test lens"
@@ -35,6 +35,6 @@ export const TestingEvidenceArticle = ({ markdown }: TestingEvidenceArticleProps
         <ContentProse register="article-serif" treatment="editorial-aside" markdown={agenticLens.replace(`${testingPrecis}\n\n`, '')} />
       </EditorialAside>
       <ContentProse register="article-serif" markdown={closing} />
-    </div>
+    </>
   )
 }

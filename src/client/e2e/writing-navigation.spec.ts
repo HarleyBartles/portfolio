@@ -369,3 +369,115 @@ test('PORT-10 captions and prose preserve the visual argument when both marks fa
   await expect(page.getByText(/That’s the joke in the mark/)).toBeVisible()
   await expect(page.getByText(/PATCH went its own way/)).toBeVisible()
 })
+
+test('Provisioning reflows its progression from the figure width before capability labels collide', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('./writing/provisioning-is-not-accumulation/', { waitUntil: 'networkidle' })
+
+  const figure = page.locator('[data-visual-contract="capability-read-path"] figure')
+  await expect(figure).toBeVisible()
+
+  const stages = [
+    figure.getByRole('region', { name: 'Capability store' }),
+    figure.getByRole('region', { name: 'This task’s read path' }),
+    figure.getByRole('region', { name: 'Current agent' }),
+  ]
+  const desktopStageBoxes = await Promise.all(stages.map((stage) => stage.boundingBox()))
+  expect(new Set(desktopStageBoxes.map((box) => box!.y)).size).toBe(1)
+
+  await figure.evaluate((element) => { element.style.width = '26.5rem' })
+  const constrainedStageBoxes = await Promise.all(stages.map((stage) => stage.boundingBox()))
+  expect(constrainedStageBoxes[0]!.y).toBeLessThan(constrainedStageBoxes[1]!.y)
+  expect(constrainedStageBoxes[1]!.y).toBeLessThan(constrainedStageBoxes[2]!.y)
+
+  const labelsFit = await figure.locator('[data-capability-store] li').evaluateAll((labels) =>
+    labels.every((label) => label.scrollWidth <= label.clientWidth),
+  )
+  expect(labelsFit).toBe(true)
+  await expect(figure.getByRole('region', { name: 'Current agent' })).toHaveAttribute('data-connects-forward', 'false')
+
+  await figure.evaluate((element) => { element.style.removeProperty('width') })
+  await page.setViewportSize({ width: 390, height: 900 })
+  const mobileStageBoxes = await Promise.all(stages.map((stage) => stage.boundingBox()))
+  expect(mobileStageBoxes[0]!.y).toBeLessThan(mobileStageBoxes[1]!.y)
+  expect(mobileStageBoxes[1]!.y).toBeLessThan(mobileStageBoxes[2]!.y)
+  expect(await figure.locator('[data-capability-store] li').evaluateAll((labels) =>
+    labels.every((label) => label.scrollWidth <= label.clientWidth),
+  )).toBe(true)
+  expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+})
+
+test('Context hierarchy reflows from the figure width while retaining readable reporting branches', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', { waitUntil: 'networkidle' })
+
+  const figure = page.locator('[data-visual-contract="agent-organisation-overhead"] figure')
+  await expect(figure).toBeVisible()
+  const desktopProjects = await figure.locator('section').all()
+  const desktopProjectBoxes = await Promise.all(desktopProjects.map((project) => project.boundingBox()))
+  expect(new Set(desktopProjectBoxes.map((box) => box!.y)).size).toBe(1)
+
+  await figure.evaluate((element) => { element.style.width = '27.25rem' })
+
+  const projects = figure.locator('section')
+  const roomsBox = await projects.filter({ hasText: 'Rooms' }).first().boundingBox()
+  const patchBox = await projects.filter({ hasText: 'Adventures of Patch' }).first().boundingBox()
+  expect(roomsBox!.y).toBeLessThan(patchBox!.y)
+
+  const departments = figure.locator('strong').filter({ hasText: /^(Albert|Brian|Derek)$/ })
+  const departmentNodes = await departments.evaluateAll((names) => names.map((name) => {
+    const node = name.parentElement!
+    const bounds = node.getBoundingClientRect()
+    return { y: bounds.y, fits: node.scrollWidth <= node.clientWidth }
+  }))
+  expect(departmentNodes.map(({ y }) => y)).toEqual([...departmentNodes.map(({ y }) => y)].sort((a, b) => a - b))
+  expect(new Set(departmentNodes.map(({ y }) => y)).size).toBe(3)
+  expect(departmentNodes.every(({ fits }) => fits)).toBe(true)
+  await expect(figure.locator('[aria-hidden="true"]').first()).toHaveAttribute('aria-hidden', 'true')
+
+  await figure.evaluate((element) => { element.style.removeProperty('width') })
+  await page.setViewportSize({ width: 390, height: 900 })
+  const mobileProjects = await figure.locator('section').all()
+  const mobileProjectBoxes = await Promise.all(mobileProjects.map((project) => project.boundingBox()))
+  expect(mobileProjectBoxes[0]!.y).toBeLessThan(mobileProjectBoxes[1]!.y)
+  const mobileDepartmentNodes = await departments.evaluateAll((names) => names.map((name) => {
+    const node = name.parentElement!
+    const bounds = node.getBoundingClientRect()
+    return { y: bounds.y, fits: node.scrollWidth <= node.clientWidth }
+  }))
+  expect(new Set(mobileDepartmentNodes.map(({ y }) => y)).size).toBe(3)
+  expect(mobileDepartmentNodes.every(({ fits }) => fits)).toBe(true)
+  expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+})
+
+test('direct specialist routes request only their selected article body chunk', async ({ page }) => {
+  const scriptRequests = new Set<string>()
+  page.on('request', (request) => {
+    if (request.resourceType() === 'script') scriptRequests.add(new URL(request.url()).pathname)
+  })
+
+  await page.goto('./writing/i-just-write-the-code-is-not-a-full-sentence/', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1, name: '"I just write the code" is not a full sentence' })).toBeVisible()
+
+  const requestPaths = [...scriptRequests]
+  expect(requestPaths.some((path) => path.includes('ProductOwnershipArticle-'))).toBe(true)
+  expect(requestPaths.some((path) => path.includes('TestingEvidenceArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('ContextComplexityArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('RianHughesArticle-'))).toBe(false)
+  expect(requestPaths.some((path) => path.includes('UseSuperpowersArticle-'))).toBe(false)
+})
+
+test('ordinary writing routes do not request specialist article body chunks', async ({ page }) => {
+  const scriptRequests = new Set<string>()
+  page.on('request', (request) => {
+    if (request.resourceType() === 'script') scriptRequests.add(new URL(request.url()).pathname)
+  })
+
+  await page.goto('./writing/why-adrs/', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1, name: 'Why ADRs?' })).toBeVisible()
+
+  const requestPaths = [...scriptRequests]
+  for (const bodyChunk of ['TestingEvidenceArticle-', 'ProductOwnershipArticle-', 'ContextComplexityArticle-', 'RianHughesArticle-', 'UseSuperpowersArticle-']) {
+    expect(requestPaths.some((path) => path.includes(bodyChunk))).toBe(false)
+  }
+})
