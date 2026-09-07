@@ -549,27 +549,27 @@ Acceptance points:
 - Update any Slice F decision/plan status section required by repo runbooks.
 - Move this plan to the repo's completed-plan surface only when implementation is actually complete and the repo's plan lifecycle requires that move; do not pre-archive it.
 
-- [ ] Task 8 complete: all 15 acceptance points are proven, the hook is green, budgets are green, visual checks are stable, and the worktree is clean.
+- [x] Task 8 complete: all 15 acceptance points are proven, the hook is green, budgets are green, visual checks are stable, and the worktree is clean.
 
 ## Completion contract
 
 Slice F is complete only when all of the following are true:
 
-- [ ] `/patch/the-usual-specialists` is canonical.
-- [ ] `/patch/lawful-heist` is compatibility-only and redirects to the canonical route.
-- [ ] The legacy static document canonicalises to the new route.
-- [ ] No first-party live link targets `/patch/lawful-heist`.
-- [ ] Adventures of PATCH lockup is visible on Patch index and every Patch story.
-- [ ] The Usual Specialists wordmark is canonical brand custody and appears on its story page.
-- [ ] Identity, Tournament, Specialists and Patch index own their composition in React/styled-components.
-- [ ] `PatchShowcase.scss` and `LawfulHeistPage.scss` are deleted.
-- [ ] `patch-lawful-heist` is no longer current presentation vocabulary.
-- [ ] Story copy/evidence/media order is preserved.
-- [ ] `PatchShowcasePicture` still fails loudly on missing evidence.
-- [ ] Specialist routes remain lazy and do not load sibling chunks.
-- [ ] Patch accessibility and responsive/zoom checks are green.
-- [ ] Windows visual baselines are accepted and pass twice without update.
-- [ ] Build budgets and canonical hooked CI are green.
+- [x] `/patch/the-usual-specialists` is canonical.
+- [x] `/patch/lawful-heist` is compatibility-only and redirects to the canonical route.
+- [x] The legacy static document canonicalises to the new route.
+- [x] No first-party live link targets `/patch/lawful-heist`.
+- [x] Adventures of PATCH lockup is visible on Patch index and every Patch story.
+- [x] The Usual Specialists wordmark is canonical brand custody and appears on its story page.
+- [x] Identity, Tournament, Specialists and Patch index own their composition in React/styled-components.
+- [x] `PatchShowcase.scss` and `LawfulHeistPage.scss` are deleted.
+- [x] `patch-lawful-heist` is no longer current presentation vocabulary.
+- [x] Story copy/evidence/media order is preserved.
+- [x] `PatchShowcasePicture` still fails loudly on missing evidence.
+- [x] Specialist routes remain lazy and do not load sibling chunks.
+- [x] Patch accessibility and responsive/zoom checks are green.
+- [x] Windows visual baselines are accepted and pass twice without update.
+- [x] Build budgets and canonical hooked CI are green.
 
 ## Non-goals
 
