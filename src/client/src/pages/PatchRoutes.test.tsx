@@ -40,9 +40,9 @@ describe('Adventures of Patch routes', () => {
     const adventures = screen.getByRole('region', { name: 'Larger adventures' })
     expect(within(adventures).getByRole('link', { name: /Identity Emporium/i })).toHaveAttribute('href', '/portfolio/patch/identity-emporium')
     const tournament = within(adventures).getByRole('article', { name: 'Tournament of Reasonable Defaults' })
-    const heist = within(adventures).getByRole('article', { name: 'Lawful Heist' })
+    const heist = within(adventures).getByRole('article', { name: 'The Usual Specialists' })
     expect(within(tournament).getByRole('link', { name: /Tournament of Reasonable Defaults/i })).toHaveAttribute('href', '/portfolio/patch/tournament-of-reasonable-defaults')
-    expect(within(heist).getByRole('link', { name: /Lawful Heist/i })).toHaveAttribute('href', '/portfolio/patch/lawful-heist')
+    expect(within(heist).getByRole('link', { name: /The Usual Specialists/i })).toHaveAttribute('href', '/portfolio/patch/the-usual-specialists')
     expect(tournament).toHaveTextContent(/visual development/i)
     expect(heist).toHaveTextContent(/advanced visual pre-production/i)
   })
@@ -69,11 +69,18 @@ describe('Adventures of Patch routes', () => {
     expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
   })
 
-  test('publishes the Lawful Heist recruitment dossier on its own route', async () => {
-    renderRoute('/patch/lawful-heist')
+  test('redirects the legacy Specialists route to the canonical route', async () => {
+    const router = renderRoute('/patch/lawful-heist')
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'The Lawful Heist Crew' })).toBeVisible()
-    expect(await screen.findByText(/six specialists/i)).toBeVisible()
+    await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })
+    expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
+  })
+
+  test('publishes the Usual Specialists recruitment dossier on its canonical route', async () => {
+    renderRoute('/patch/the-usual-specialists')
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    expect((await screen.findAllByText(/six specialists/i))[0]).toBeVisible()
     const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
     expect(within(story).getAllByRole('article')).toHaveLength(6)
     expect(screen.getByText('Advanced visual pre-production')).toBeVisible()

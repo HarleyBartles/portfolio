@@ -7,6 +7,7 @@ const LEGACY_ROUTES = [
   { route: '/fairytales', canonicalRoute: '/patch', title: 'Adventures of Patch | Harley Bartles', description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.' },
   { route: '/fairytales/goldilocks', canonicalRoute: '/patch/goldilocks', slug: 'goldilocks' },
   { route: '/fairytales/sorcerers-apprentice', canonicalRoute: '/patch/sorcerers-apprentice', slug: 'sorcerers-apprentice' },
+  { route: '/patch/lawful-heist', canonicalRoute: '/patch/the-usual-specialists', slug: 'the-usual-specialists' },
 ]
 
 function escapeHtml(value) {

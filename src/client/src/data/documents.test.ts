@@ -77,7 +77,7 @@ describe('loadDocument', () => {
     const marketplace = navigation.find((item) => item.slug === 'codex-marketplace')
     const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')
     const learningLab = navigation.find((item) => item.slug === 'agentic-learning-lab')
-    const lawfulHeist = navigation.find((item) => item.slug === 'lawful-heist')
+    const lawfulHeist = navigation.find((item) => item.slug === 'the-usual-specialists')
 
     expect(marketplace).toBeDefined()
     expect(marketplace?.presentation).toBe('marketplace-case-study')

@@ -212,7 +212,7 @@ Browser proof:
 
 `feat: make The Usual Specialists the canonical Patch route`
 
-- [ ] Task 2 complete: new route is canonical everywhere, old route redirects, static compatibility exists, and every Patch story has the series mark.
+- [x] Task 2 complete: new route is canonical everywhere, old route redirects, static compatibility exists, and every Patch story has the series mark.
 
 ## Task 3 — Migrate Identity Emporium to self-owned styled composition
 
