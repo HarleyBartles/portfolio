@@ -252,7 +252,7 @@ npm test -- --run src/features/patch-showcase/IdentityEmporiumPage.test.tsx src/
 
 `refactor: give Identity Emporium local composition ownership`
 
-- [ ] Task 3 complete: Identity has no shared Sass dependency, preserves evidence behaviour and passes responsive/semantic checks.
+- [x] Task 3 complete: Identity has no shared Sass dependency, preserves evidence behaviour and passes responsive/semantic checks.
 
 ## Task 4 — Migrate Tournament to self-owned styled composition
 
