@@ -39,12 +39,12 @@ async function waitForPatchStyles(page: Page): Promise<void> {
 }
 
 async function waitForTournamentStyles(page: Page): Promise<void> {
-  const event = page.locator('.tournament-event').first()
+  const event = page.locator('[data-patch-event]').first()
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
-async function waitForLawfulHeistStyles(page: Page): Promise<void> {
-  const rollback = page.locator('.heist-recruit--rollback')
+async function waitForSpecialistsStyles(page: Page): Promise<void> {
+  const rollback = page.locator('[data-specialist="rollback"]')
   await expect
     .poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor))
     .toBe('rgb(24, 33, 28)')
@@ -434,7 +434,7 @@ test('Tournament keeps its opening ambiguity and stakeholder consultation legibl
   await openStable(page, './patch/tournament-of-reasonable-defaults')
   await waitForTournamentStyles(page)
 
-  const opening = page.locator('.tournament-event--seven-day')
+  const opening = page.locator('[data-patch-event="seven-day"]')
   await waitForImages(opening)
   await expect(opening).toHaveScreenshot('patch-tournament-seven-day.png')
 
@@ -456,9 +456,9 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
 test('The Usual Specialists keeps Rollback at the dominant end of agent scale', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './patch/the-usual-specialists')
-  await waitForLawfulHeistStyles(page)
+  await waitForSpecialistsStyles(page)
 
-  const rollback = page.locator('.heist-recruit--rollback')
+  const rollback = page.locator('[data-specialist="rollback"]')
   await waitForImages(rollback)
   await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
 })

@@ -16,7 +16,7 @@ describe('Usual Specialists crew story', () => {
     expect(story.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     const profiles = within(story).getAllByRole('article')
     expect(profiles).toHaveLength(6)
-    expect(profiles.map((profile) => profile.getAttribute('data-patch-specialist'))).toEqual(['index', 'silk', 'writ', 'klause', 'rollback', 'receipt'])
+    expect(profiles.map((profile) => profile.getAttribute('data-specialist'))).toEqual(['index', 'silk', 'writ', 'klause', 'rollback', 'receipt'])
     expect(profiles.map((profile) => within(profile).getByRole('heading', { level: 2 }).textContent)).toEqual([
       'Index', 'Silk', 'Writ', 'Klause', 'Rollback', 'Receipt',
     ])

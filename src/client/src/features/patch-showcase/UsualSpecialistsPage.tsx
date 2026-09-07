@@ -186,7 +186,7 @@ function CrewMember({ member }: { member: (typeof crew)[number] }) {
   const variant = member.id as RecruitVariant
 
   return (
-    <Recruit $variant={variant} className={`heist-recruit heist-recruit--${member.id}`} data-patch-specialist={member.id}>
+    <Recruit $variant={variant} className={`heist-recruit heist-recruit--${member.id}`} data-specialist={member.id}>
       <RecruitHeader $variant={variant} className="heist-recruit__header">
         <p className="heist-recruit__number">Recruit {member.number}</p>
         <p className="heist-recruit__responsibility">{member.responsibility}</p>
