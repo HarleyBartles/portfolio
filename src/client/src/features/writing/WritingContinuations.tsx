@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export type WritingContinuation = {
   slug: string
-  eyebrow: string
+  contextLabel: string
   title: string
   href: string
 }
@@ -111,7 +111,7 @@ export const WritingContinuations = ({ items }: WritingContinuationsProps) => {
         {items.map((item) => (
           <ContinuationItem key={item.slug}>
             <ContinuationLink to={item.href}>
-              <ContinuationTaxonomy data-eyebrow>{item.eyebrow}</ContinuationTaxonomy>
+              <ContinuationTaxonomy>{item.contextLabel}</ContinuationTaxonomy>
               <ContinuationTitle>{item.title}</ContinuationTitle>
             </ContinuationLink>
           </ContinuationItem>

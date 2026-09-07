@@ -188,6 +188,12 @@ Falsifier / proof: the treatment fails if the section heading can be mistaken fo
 
 Rollback: restore the prior continuation component only if paired visual review finds that the fields have become louder than the article ending or too product-like. Do not restore Code Pro taxonomy or rule-separated pseudo-objects merely to reduce the cards' weight; retune the local border, surface mix, spacing, or minimum height first.
 
+### Hygiene closure
+
+The accepted continuation treatment exposed two stale implementation names. The supporting destination field is now `contextLabel`, because it can be a taxonomy label (`Patch story`) or an authored contextual prompt (`Follow the review machinery`); it is not consistently an eyebrow. The continuation renderer no longer emits `data-eyebrow`, which had no local contract. This is a semantic cleanup only; the visible field and its accepted visual role remain unchanged.
+
+The Vibe article's end-of-piece writing-process note and its preceding Markdown rule were removed. They described production process rather than the article's proposition, created an isolated disclosure-like interruption, and did not earn a separate boundary in the shared writing grammar. The article now moves directly from its closing argument into continuation navigation.
+
 ## Task 1: Establish Baseline and Complete the Decision Record
 
 **Skills:** `/executing-plans`, `/applying-portfolio-visual-language`, `/designing-premium-sites`, `/playwright-testing`

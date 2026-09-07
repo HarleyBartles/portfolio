@@ -11,8 +11,8 @@ describe('writing presentations', () => {
         description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.',
       },
       continuations: [
-        { slug: 'graph-iterative-review', eyebrow: 'Follow the review machinery', rationale: 'Follow the review machinery' },
-        { slug: 'provisioning-is-not-accumulation', eyebrow: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
+        { slug: 'graph-iterative-review', contextLabel: 'Follow the review machinery', rationale: 'Follow the review machinery' },
+        { slug: 'provisioning-is-not-accumulation', contextLabel: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
       ],
     })
   })
@@ -26,8 +26,8 @@ describe('writing presentations', () => {
         description: 'A decision record carries context, rejected alternatives, evidence, consequences and reconsideration triggers forward to the next engineer.',
       },
       continuations: [
-        { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
-        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
+        { slug: 'wild-bunch', contextLabel: 'See the decision under pressure', rationale: 'See the decision under pressure' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
       ],
     })
     expect(getWritingPresentation('unknown-writing-slug')).toBeUndefined()
@@ -44,8 +44,8 @@ describe('writing presentations', () => {
         description: 'A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.',
       },
       continuations: [
-        { slug: 'goldilocks', eyebrow: 'See the argument in one page' },
-        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Separate context from durable state' },
+        { slug: 'goldilocks', contextLabel: 'See the argument in one page' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Separate context from durable state' },
       ],
     })
   })
@@ -61,8 +61,8 @@ describe('writing presentations', () => {
         description: 'A trustworthy review graph turns recorded state into one lawful next action or an honest blocked exit.',
       },
       continuations: [
-        { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary' },
-        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Keep the evidence durable' },
+        { slug: 'provisioning-is-not-accumulation', contextLabel: 'See the environment boundary' },
+        { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Keep the evidence durable' },
       ],
     })
   })

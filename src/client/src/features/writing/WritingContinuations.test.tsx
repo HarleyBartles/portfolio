@@ -12,13 +12,13 @@ const renderContinuations = () => render(
         items={[
           {
             slug: 'lawful-heist',
-            eyebrow: 'Patch story',
+            contextLabel: 'Patch story',
             title: 'The Lawful Heist Crew',
             href: '/patch/lawful-heist',
           },
           {
             slug: 'adventures-of-patch',
-            eyebrow: 'Project story',
+            contextLabel: 'Project story',
             title: 'Adventures of Patch',
             href: '/projects/adventures-of-patch',
           },
@@ -47,6 +47,7 @@ test('uses a sans section heading to name a grid of whole-object destination lin
     fontSize: 'var(--type-metadata-size)',
     fontWeight: '600',
   })
+  expect(taxonomy).not.toHaveAttribute('data-eyebrow')
   expect(patchLink).toHaveAttribute('href', '/patch/lawful-heist')
   expect(patchLink).toContainElement(taxonomy)
   expect(patchLink).toContainElement(within(patchLink).getByText('The Lawful Heist Crew'))

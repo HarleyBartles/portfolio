@@ -9,7 +9,7 @@ type WritingFigure = {
 
 type WritingContinuation = {
   slug: string
-  eyebrow: string
+  contextLabel: string
   rationale: string
 }
 
@@ -32,8 +32,8 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./VibeCodingFigure')).VibeCodingFigure })),
     },
     continuations: [
-      { slug: 'graph-iterative-review', eyebrow: 'Follow the review machinery', rationale: 'Follow the review machinery' },
-      { slug: 'provisioning-is-not-accumulation', eyebrow: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
+      { slug: 'graph-iterative-review', contextLabel: 'Follow the review machinery', rationale: 'Follow the review machinery' },
+      { slug: 'provisioning-is-not-accumulation', contextLabel: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
     ],
   },
   'why-adrs': {
@@ -46,8 +46,8 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./WhyAdrsFigure')).WhyAdrsFigure })),
     },
     continuations: [
-      { slug: 'wild-bunch', eyebrow: 'See the decision under pressure', rationale: 'See the decision under pressure' },
-      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
+      { slug: 'wild-bunch', contextLabel: 'See the decision under pressure', rationale: 'See the decision under pressure' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Carry the memory into agentic work', rationale: 'Carry the memory into agentic work' },
     ],
   },
   'provisioning-is-not-accumulation': {
@@ -60,8 +60,8 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./ProvisioningFigure')).ProvisioningFigure })),
     },
     continuations: [
-      { slug: 'goldilocks', eyebrow: 'See the argument in one page', rationale: 'See the argument in one page' },
-      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Separate context from durable state', rationale: 'Separate context from durable state' },
+      { slug: 'goldilocks', contextLabel: 'See the argument in one page', rationale: 'See the argument in one page' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Separate context from durable state', rationale: 'Separate context from durable state' },
     ],
   },
   'graph-iterative-review': {
@@ -74,8 +74,8 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./ReviewGraphFigure')).ReviewGraphFigure })),
     },
     continuations: [
-      { slug: 'provisioning-is-not-accumulation', eyebrow: 'See the environment boundary', rationale: 'See the environment boundary' },
-      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', eyebrow: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
+      { slug: 'provisioning-is-not-accumulation', contextLabel: 'See the environment boundary', rationale: 'See the environment boundary' },
+      { slug: 'i-made-agentic-engineering-harder-than-it-needed-to-be', contextLabel: 'Keep the evidence durable', rationale: 'Keep the evidence durable' },
     ],
   },
   'i-made-agentic-engineering-harder-than-it-needed-to-be': {
@@ -88,8 +88,8 @@ const writingPresentations = {
       Component: lazy(async () => ({ default: (await import('./ContextComplexityFigure')).ContextComplexityFigure })),
     },
     continuations: [
-      { slug: 'provisioning-is-not-accumulation', eyebrow: 'Provision only what the work needs', rationale: 'Provision only what the work needs' },
-      { slug: 'graph-iterative-review', eyebrow: 'Engineer the route, not the theatre', rationale: 'Engineer the route, not the theatre' },
+      { slug: 'provisioning-is-not-accumulation', contextLabel: 'Provision only what the work needs', rationale: 'Provision only what the work needs' },
+      { slug: 'graph-iterative-review', contextLabel: 'Engineer the route, not the theatre', rationale: 'Engineer the route, not the theatre' },
     ],
   },
 } as const satisfies Record<string, WritingPresentation>

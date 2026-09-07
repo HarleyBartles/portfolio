@@ -53,7 +53,3 @@ Then there's the deeper question. If the acceleration keeps going, is there a fu
 I think the right response to vibe coding is generosity. Let it be how people get started, how product and engineering stop talking past each other, and how a founder finds out whether the idea is worth building. Then, when it matters, bring in the people who can make it last.
 
 The engineers I admire aren't the ones who mock the vibe. They're the ones who understand what it's for and then quietly do the work that turns a good feeling into a good system. That's the craft, and that's the long road I'm still walking.
-
----
-
-*I wrote the first draft of this piece, then shaped it for clarity with the help of the [writing-with-clarity](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/writing-pack/skills/writing-with-clarity/SKILL.md) skill and the [unslop writing profile](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/unslop-plus/skills/unslop-profiles/references/profiles/writing.md).*

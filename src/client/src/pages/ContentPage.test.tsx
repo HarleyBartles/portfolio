@@ -128,8 +128,12 @@ describe('ContentPage specialist presentation boundary', () => {
       'href',
       '/portfolio/projects/adventures-of-patch',
     )
-    expect(within(related).getByText('Patch story', { selector: '[data-eyebrow]' })).toBeVisible()
-    expect(within(related).getByText('Project story', { selector: '[data-eyebrow]' })).toBeVisible()
+    const patchContextLabel = within(related).getByText('Patch story')
+    const projectContextLabel = within(related).getByText('Project story')
+    expect(patchContextLabel).toBeVisible()
+    expect(projectContextLabel).toBeVisible()
+    expect(patchContextLabel).not.toHaveAttribute('data-eyebrow')
+    expect(projectContextLabel).not.toHaveAttribute('data-eyebrow')
     expect(within(article).getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
     expect(within(article).getByRole('button', { name: 'Copy article link' })).toBeVisible()
     expect(within(article).getByRole('link', { name: /harleybartles.com\/writing\/how-the-invisibles/ })).toBeVisible()
@@ -264,6 +268,8 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(links[1]).toHaveAttribute('href', '/portfolio/writing/provisioning-is-not-accumulation')
     expect(links[1]).toHaveTextContent('Follow the environment boundary')
     expect(links[1]).toHaveTextContent('Provisioning is not accumulation')
+    expect(container.querySelector('.content-page-body hr')).toBeNull()
+    expect(screen.queryByText(/I wrote the first draft of this piece/)).not.toBeInTheDocument()
     expect(container.querySelector('.content-navigation')).toBeNull()
   })
 

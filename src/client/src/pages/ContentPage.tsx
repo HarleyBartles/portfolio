@@ -187,7 +187,7 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
     const related = relatedSummaries.find((summary) => summary.slug === item.slug)
     return related === undefined ? [] : [{
       slug: related.slug,
-      eyebrow: 'eyebrow' in item && item.eyebrow !== undefined ? item.eyebrow : related.kind === 'patch' ? 'Patch story' : related.kind === 'project' ? 'Project story' : 'Article',
+      contextLabel: 'contextLabel' in item && item.contextLabel !== undefined ? item.contextLabel : related.kind === 'patch' ? 'Patch story' : related.kind === 'project' ? 'Project story' : 'Article',
       title: related.title,
       href: getContentPath(related),
     }]
