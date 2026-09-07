@@ -6,6 +6,11 @@ type OrganisationNodeProps = {
   role: string
 }
 
+const Figure = styled.figure`
+  container-name: context-figure;
+  container-type: inline-size;
+`
+
 const Canvas = styled.div`
   position: relative;
   padding: clamp(var(--space-5), 3.5vw, var(--space-8));
@@ -68,7 +73,7 @@ const Portfolio = styled.div`
     content: '';
   }
 
-  @media (max-width: 39rem) {
+  @container context-figure (max-width: 39rem) {
     grid-template-columns: 1fr;
     margin-top: var(--space-6);
     margin-left: var(--space-4);
@@ -126,7 +131,7 @@ const Branches = styled.div`
     }
   }
 
-  @media (max-width: 39rem) {
+  @container context-figure (max-width: 39rem) {
     display: none;
   }
 `
@@ -161,7 +166,7 @@ const Project = styled.section`
     content: '';
   }
 
-  @media (max-width: 39rem) {
+  @container context-figure (max-width: 39rem) {
     &::before {
       top: var(--space-6);
       left: calc(var(--space-5) * -1);
@@ -189,7 +194,7 @@ const Departments = styled.div`
     content: '';
   }
 
-  @media (max-width: 25rem) {
+  @container context-figure (max-width: 34rem) {
     grid-template-columns: 1fr;
     margin-left: var(--space-4);
     padding-left: var(--space-5);
@@ -224,7 +229,7 @@ function OrganisationNode({ name, role }: OrganisationNodeProps): ReactElement {
 
 export function ContextComplexityFigure(): ReactElement {
   return (
-    <figure aria-labelledby="context-org-chart-caption">
+    <Figure aria-labelledby="context-org-chart-caption">
       <Canvas aria-hidden="true">
         <Eyebrow>The standing organisation</Eyebrow>
         <RootNode><strong>Will</strong><span>Harley’s will, made concrete</span></RootNode>
@@ -248,6 +253,6 @@ export function ContextComplexityFigure(): ReactElement {
       <Caption id="context-org-chart-caption">
         Will made Harley’s intent concrete. Under him, Rooms had a Project Director and three department heads; Patch represented another repository. A lot of organisation had gathered around “do some work please”.
       </Caption>
-    </figure>
+    </Figure>
   )
 }

@@ -194,6 +194,16 @@ The accepted continuation treatment exposed two stale implementation names. The 
 
 The Vibe article's end-of-piece writing-process note and its preceding Markdown rule were removed. They described production process rather than the article's proposition, created an isolated disclosure-like interruption, and did not earn a separate boundary in the shared writing grammar. The article now moves directly from its closing argument into continuation navigation.
 
+### Actual 200% zoom closure
+
+Opera at actual 200% zoom exposed two component-width failures that viewport media queries did not protect. The browser reported a 960px CSS viewport while the header composition left Provisioning only 423px and Context Complexity 436px of actual figure width. Provisioning still used its three-stage row, reducing capability cells to about 48px while their contents required up to 79px. Context still used its two-project row and three-department row, reducing department nodes to about 55px and allowing node content to escape.
+
+Provisioning now treats the figure as a named inline-size container. Its Available → Activated → Working flow is vertical by default and becomes the accepted three-stage row only once the figure itself reaches 45rem. The capability collection remains two columns where supported and becomes one column below a 30rem figure width. Connector orientation follows the same 45rem container threshold, preserving a horizontal progression at the normal 737px figure width and a vertical progression at the measured 423px zoom width. Stage semantics, current text sizes, the dark active stage and the terminal `data-connects-forward="false"` contract remain unchanged.
+
+Context Complexity now gives the figure its own inline-size container and routes its existing responsive grammar through that container rather than the viewport. Below 39rem, Rooms and Adventures of Patch become a vertical project branch; below 34rem, Albert, Brian and Derek become a vertical department branch with the existing accent connector line. The accepted 672px desktop figure remains two projects with three department columns. At the measured 436px zoom width, projects and departments stack with every node fully contained. The canvas remains `aria-hidden="true"`, the caption remains the accessible representation, and no grid or shadow furniture returns.
+
+Focused Playwright regressions constrain each figure to its observed zoom width, prove the wide compositions remain horizontal, prove the narrow compositions remain contained without page overflow, and retain the connector/accessibility invariants. Actual Opera inspection at 100% and 200% confirmed the same states.
+
 ## Task 1: Establish Baseline and Complete the Decision Record
 
 **Skills:** `/executing-plans`, `/applying-portfolio-visual-language`, `/designing-premium-sites`, `/playwright-testing`

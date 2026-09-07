@@ -19,14 +19,17 @@ const Figure = styled.figure`
   min-width: 0;
   margin: 0;
   color: var(--color-ink);
+  container-name: provisioning-figure;
+  container-type: inline-size;
+`
 
-  @media (min-width: 60rem) {
+const StageFlow = styled.div`
+  display: grid;
+  gap: var(--space-5);
+
+  @container provisioning-figure (min-width: 45rem) {
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.94fr) minmax(0, 0.82fr);
     align-items: stretch;
-  }
-
-  @media (max-width: 30rem) {
-    [data-capability-store] ul { grid-template-columns: 1fr; }
   }
 `
 
@@ -53,7 +56,7 @@ const Stage = styled.section<{ $active?: boolean; $connectsForward: boolean }>`
     }
   ` : ''}
 
-  @media (min-width: 60rem) {
+  @container provisioning-figure (min-width: 45rem) {
     ${({ $connectsForward }) => $connectsForward ? `
       &::after {
         top: 50%;
@@ -99,6 +102,10 @@ const Capabilities = styled.ul`
     letter-spacing: 0.035em;
     line-height: 1.35;
   }
+
+  @container provisioning-figure (max-width: 30rem) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const ActiveList = styled.ul`
@@ -133,36 +140,34 @@ const Caption = styled.figcaption`
   font-size: 0.7rem;
   letter-spacing: 0.035em;
   line-height: 1.5;
-
-  @media (min-width: 60rem) {
-    grid-column: 1 / -1;
-  }
 `
 
 export function ProvisioningFigure(): ReactElement {
   return (
     <Figure aria-describedby="capability-path-caption">
-      <Stage aria-labelledby="capability-path-store" data-capability-store data-connects-forward="true" $connectsForward>
-        <Marker>Available</Marker>
-        <Heading id="capability-path-store">Capability store</Heading>
-        <Capabilities>
-          {storedCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
-        </Capabilities>
-      </Stage>
+      <StageFlow>
+        <Stage aria-labelledby="capability-path-store" data-capability-store data-connects-forward="true" $connectsForward>
+          <Marker>Available</Marker>
+          <Heading id="capability-path-store">Capability store</Heading>
+          <Capabilities>
+            {storedCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
+          </Capabilities>
+        </Stage>
 
-      <Stage aria-labelledby="capability-path-active" data-connects-forward="true" $active $connectsForward>
-        <Marker $active>Activated</Marker>
-        <Heading id="capability-path-active">This task’s read path</Heading>
-        <ActiveList>
-          {activeKnowledge.map((item) => <li key={item}>{item}</li>)}
-        </ActiveList>
-      </Stage>
+        <Stage aria-labelledby="capability-path-active" data-connects-forward="true" $active $connectsForward>
+          <Marker $active>Activated</Marker>
+          <Heading id="capability-path-active">This task’s read path</Heading>
+          <ActiveList>
+            {activeKnowledge.map((item) => <li key={item}>{item}</li>)}
+          </ActiveList>
+        </Stage>
 
-      <Stage aria-labelledby="capability-path-worker" data-connects-forward="false" $connectsForward={false}>
-        <Marker>Working</Marker>
-        <Heading id="capability-path-worker">Current agent</Heading>
-        <Description>Enough context for the next useful move.</Description>
-      </Stage>
+        <Stage aria-labelledby="capability-path-worker" data-connects-forward="false" $connectsForward={false}>
+          <Marker>Working</Marker>
+          <Heading id="capability-path-worker">Current agent</Heading>
+          <Description>Enough context for the next useful move.</Description>
+        </Stage>
+      </StageFlow>
 
       <Caption id="capability-path-caption">A deep capability store feeds only the relevant guidance into a narrow active path for the current agent.</Caption>
     </Figure>
