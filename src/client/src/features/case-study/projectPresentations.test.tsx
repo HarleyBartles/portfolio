@@ -10,16 +10,16 @@ describe('project presentations', () => {
     const MarketplaceCaseStudy = getProjectPresentation('marketplace-case-study')
     const WildBunchCaseStudy = getProjectPresentation('wild-bunch-case-study')
     const PatchPipelineCaseStudy = getProjectPresentation('patch-pipeline-case-study')
-    const LawfulHeistPage = getProjectPresentation('patch-lawful-heist')
+    const UsualSpecialistsPage = getProjectPresentation('patch-usual-specialists')
     const LearningLabCaseStudy = getProjectPresentation('learning-lab-case-study')
 
     expect(MarketplaceCaseStudy).toBeDefined()
     expect(WildBunchCaseStudy).toBeDefined()
     expect(PatchPipelineCaseStudy).toBeDefined()
-    expect(LawfulHeistPage).toBeDefined()
+    expect(UsualSpecialistsPage).toBeDefined()
     expect(LearningLabCaseStudy).toBeDefined()
     expect(getProjectPresentation('not-a-presentation')).toBeUndefined()
-    if (MarketplaceCaseStudy === undefined || WildBunchCaseStudy === undefined || PatchPipelineCaseStudy === undefined || LawfulHeistPage === undefined || LearningLabCaseStudy === undefined) {
+    if (MarketplaceCaseStudy === undefined || WildBunchCaseStudy === undefined || PatchPipelineCaseStudy === undefined || UsualSpecialistsPage === undefined || LearningLabCaseStudy === undefined) {
       throw new Error('Specialist project presentations should be registered')
     }
 
@@ -33,7 +33,7 @@ describe('project presentations', () => {
     render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/adventures-of-patch']}><Suspense fallback={null}><PatchPipelineCaseStudy /></Suspense></MemoryRouter></PortfolioThemeProvider>)
     expect(await screen.findByRole('heading', { level: 2, name: 'The day the database disappeared' }, { timeout: 5_000 })).toBeVisible()
 
-    render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/lawful-heist']}><Suspense fallback={null}><LawfulHeistPage /></Suspense></MemoryRouter></PortfolioThemeProvider>)
+    render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}><Suspense fallback={null}><UsualSpecialistsPage /></Suspense></MemoryRouter></PortfolioThemeProvider>)
     expect(await screen.findByRole('heading', { level: 2, name: 'Index' }, { timeout: 5_000 })).toBeVisible()
 
     render(<PortfolioThemeProvider><Suspense fallback={null}><LearningLabCaseStudy /></Suspense></PortfolioThemeProvider>)

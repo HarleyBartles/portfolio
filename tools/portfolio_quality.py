@@ -259,11 +259,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-lawful-heist"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-usual-specialists"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "patch":
+            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "patch":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
-            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "project":
+            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
         if has_path:

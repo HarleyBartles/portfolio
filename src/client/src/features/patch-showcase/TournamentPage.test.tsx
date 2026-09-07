@@ -7,7 +7,7 @@ describe('Tournament of Reasonable Defaults', () => {
   test('preserves the four-event progression, outcomes and honest development boundary', () => {
     const { container } = render(<MemoryRouter><TournamentPage /></MemoryRouter>)
 
-    expect(container.querySelector('.tournament-showcase')).toHaveAttribute('data-type-register', 'site-sans')
+    expect(container.querySelector('[data-visual-contract="patch-tournament"]')).toHaveAttribute('data-type-register', 'site-sans')
     expect(container.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
 
     expect(screen.getByText('Visual development')).toBeVisible()
@@ -15,6 +15,8 @@ describe('Tournament of Reasonable Defaults', () => {
 
     const events = screen.getAllByRole('article')
     expect(events).toHaveLength(4)
+    expect(events.every((event) => event.hasAttribute('data-patch-event'))).toBe(true)
+    expect(screen.getByTestId('tournament-consultation')).toBeVisible()
     expect(events.map((event) => within(event).getByRole('heading', { level: 2 }).textContent)).toEqual([
       'The Seven-Day Sprint',
       'The Industry Standard High Jump',

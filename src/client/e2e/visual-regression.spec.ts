@@ -438,7 +438,7 @@ test('Tournament keeps its opening ambiguity and stakeholder consultation legibl
   await waitForImages(opening)
   await expect(opening).toHaveScreenshot('patch-tournament-seven-day.png')
 
-  const consultation = page.locator('.tournament-event__consultation')
+  const consultation = page.locator('[data-testid="tournament-consultation"]')
   await waitForImages(consultation)
   await expect(consultation).toHaveScreenshot('patch-tournament-consultation.png')
 })
@@ -453,9 +453,9 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
   await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
 })
 
-test('Lawful Heist keeps Rollback at the dominant end of agent scale', async ({ page }) => {
+test('The Usual Specialists keeps Rollback at the dominant end of agent scale', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './patch/lawful-heist')
+  await openStable(page, './patch/the-usual-specialists')
   await waitForLawfulHeistStyles(page)
 
   const rollback = page.locator('.heist-recruit--rollback')

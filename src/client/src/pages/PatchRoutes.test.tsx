@@ -81,7 +81,7 @@ describe('Adventures of Patch routes', () => {
 
     expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
     expect((await screen.findAllByText(/six specialists/i))[0]).toBeVisible()
-    const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
+    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' })
     expect(within(story).getAllByRole('article')).toHaveLength(6)
     expect(screen.getByText('Advanced visual pre-production')).toBeVisible()
     expect(screen.getByAltText(/completed recruitment folder/i)).toBeVisible()

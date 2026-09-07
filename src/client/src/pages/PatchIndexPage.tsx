@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { contentQueries } from '../app/queryClient'
-import { DocumentMetadata, Eyebrow, IndexHeader, PatchStoryIndexEntry, SiteLayout, type PatchStoryMedia } from '../components'
+import { DocumentMetadata, Eyebrow, PatchStoryIndexEntry, SiteLayout, type PatchStoryMedia } from '../components'
+import { PatchSeriesLockup } from '../features/patch-brand/PatchBrand'
 import { getInFlightWorlds } from '../features/case-study/patch/patchEvidence'
-import '../features/patch-showcase/PatchShowcase.scss'
 import { ErrorPage } from './ErrorPage'
 import { LoadingPage } from './LoadingPage'
 import type { ContentSummaryOf } from '../types'
@@ -18,6 +18,18 @@ const FairytaleGrid = styled.div`
   @media (max-width: 46rem) {
     grid-template-columns: 1fr;
   }
+`
+
+const PatchIndex = styled.section`
+  display: grid; gap: clamp(var(--space-16), 8vw, var(--space-24));
+  .patch-index__header { display: grid; grid-template-columns: minmax(12rem,.7fr) minmax(0,1.3fr); gap: var(--space-8); align-items: end; }
+  .patch-index__mark { width: min(18rem, 100%); color: var(--color-ink); }
+  .patch-index__intro h1 { margin: var(--space-3) 0 var(--space-4); font-size: clamp(2.8rem, 6vw, 5.25rem); }
+  .patch-index__intro p:last-child { color: var(--color-muted); }
+  .patch-index__group { display: grid; gap: var(--space-10); } .patch-index__group-heading { max-width: 46rem; } .patch-index__group-heading h2 { margin: var(--space-3) 0 var(--space-4); font-size: clamp(2.4rem,6vw,5.25rem); } .patch-index__group-heading p:last-child { color: var(--color-muted); }
+  .patch-index__adventures { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); border-top: 1px solid var(--color-ink); } .patch-index__adventures article { grid-column: span 4; padding: var(--space-7) var(--space-6) var(--space-8) 0; border-bottom: 1px solid var(--color-ink); } .patch-index__adventures article + article { padding-left: var(--space-6); border-left: 1px solid var(--color-border); } .patch-index__adventures h3 { margin: var(--space-3) 0 var(--space-4); font-size: clamp(1.65rem,3vw,2.5rem); } .patch-index__adventures h3 a { color: var(--color-ink); text-decoration-color: var(--color-accent); } .patch-index__adventures p { margin: 0; } .patch-index .patch-status { color: #0d7476; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; } .patch-index__evidence { margin-top: var(--space-5) !important; color: var(--color-muted); }
+  @media (max-width: 58rem) { .patch-index__adventures article { grid-column: span 12; padding-inline: 0; border-left: 0 !important; } }
+  @media (max-width: 44rem) { .patch-index__header { grid-template-columns: 1fr; } }
 `
 
 const statusLabels = {
@@ -47,14 +59,8 @@ export const PatchIndexPage = () => {
         description="Visual stories that turn agentic-engineering practice into memorable, inspectable lessons."
         canonicalPath="/patch"
       />
-      <section className="content-index patch-index" aria-labelledby="patch-index-title">
-        <IndexHeader
-          eyebrow="Adventures of Patch / visual lessons"
-          title="Adventures of Patch"
-          summary="Small fairytales and larger adventures about how agents interpret work, where they go wrong and what useful intervention looks like."
-          layout="split"
-          headingId="patch-index-title"
-        />
+      <PatchIndex className="content-index patch-index" aria-labelledby="patch-index-title" data-testid="patch-index" data-visual-contract="patch-index">
+        <header className="patch-index__header"><div className="patch-index__mark"><PatchSeriesLockup /></div><div className="patch-index__intro"><Eyebrow>Visual lessons</Eyebrow><h1 id="patch-index-title">Adventures of Patch</h1><p>Small fairytales and larger adventures about how agents interpret work, where they go wrong and what useful intervention looks like.</p></div></header>
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}
         {navigationQuery.isError ? <ErrorPage shell={false} /> : null}
         {navigationQuery.isSuccess ? (
@@ -93,7 +99,7 @@ export const PatchIndexPage = () => {
             </section>
           </>
         ) : null}
-      </section>
+      </PatchIndex>
     </SiteLayout>
   )
 }

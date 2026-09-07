@@ -673,7 +673,7 @@ class PortfolioQualityTests(unittest.TestCase):
                 self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
 
     def test_patch_showcase_accepts_authored_presentations(self) -> None:
-        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-lawful-heist"):
+        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-usual-specialists"):
             with self.subTest(presentation=presentation):
                 def mutate(fixture: PortfolioFixture) -> None:
                     source = fixture.content / str(fixture.items[0]["path"])

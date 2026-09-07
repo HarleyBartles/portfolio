@@ -99,7 +99,7 @@ describe('loadDocument', () => {
       markdown: undefined,
     })
 
-    expect(lawfulHeist?.presentation).toBe('patch-lawful-heist')
+    expect(lawfulHeist?.presentation).toBe('patch-usual-specialists')
   })
 
   test('continues to load ordinary Markdown documents', async () => {

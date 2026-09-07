@@ -1,6 +1,30 @@
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import { PatchShowcasePicture } from './PatchShowcaseEvidence'
-import './LawfulHeistPage.scss'
+
+const Story = styled.section`
+  color: #18211c;
+  display: grid; gap: clamp(var(--space-16), 9vw, var(--space-24)); padding-block: var(--space-12) var(--space-20);
+  figure, blockquote { margin: 0; } picture, img { display: block; width: 100%; } img { height: auto; }
+  .lawful-heist__lead { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(16rem,.65fr); gap: var(--space-6) var(--space-12); align-items: end; max-width: 68rem; }
+  .lawful-heist__lead .patch-status { grid-column: 1 / -1; color: #0d7476; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; }
+  .lawful-heist__lead > p:nth-child(2) { margin: 0; font-family: var(--font-site-sans); font-size: clamp(1.65rem,3.4vw,3rem); line-height: 1.16; }
+  .lawful-heist__lead > p:last-child { max-width: 24rem; margin: 0; padding-left: var(--space-6); border-left: 1px solid var(--patch-teal); color: var(--color-muted); font-family: var(--font-site-sans); font-size: .92rem; }
+  .lawful-heist__folder { position: relative; overflow: hidden; border-block: 1px solid var(--color-border); } .lawful-heist__folder figcaption, .heist-recruit__scene figcaption { max-width: 22rem; padding: var(--space-3) 0; color: var(--color-muted); font-family: var(--font-site-sans); font-size: var(--type-caption-size); }
+  .lawful-heist__crew { display: grid; gap: clamp(var(--space-16),10vw,var(--space-24)); }
+  .heist-recruit { position: relative; display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); padding-top: var(--space-10); border-top: 1px solid #18211c; }
+  .heist-recruit__header { grid-column: 1 / span 5; grid-row: 1; align-self: center; padding: clamp(var(--space-6),4vw,var(--space-10)); color: var(--color-surface); background: #18211c; z-index: 2; }
+  .heist-recruit__number, .heist-recruit__responsibility { margin: 0; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700; } .heist-recruit__number { color: #71d0cd; } .heist-recruit__responsibility { margin-top: var(--space-5); color: rgb(255 255 255 / 72%); }
+  .heist-recruit h2 { max-width: 9ch; margin: var(--space-2) 0 var(--space-5); font-size: clamp(3rem,7vw,6.4rem); line-height: .88; } .heist-recruit blockquote { max-width: 26rem; padding-top: var(--space-4); border-top: 1px solid currentColor; font-family: var(--font-site-sans); font-size: clamp(1.1rem,2vw,1.45rem); } .heist-recruit blockquote p { margin: 0; }
+  .heist-recruit__portrait { grid-column: 4 / span 8; grid-row: 1; aspect-ratio: 1; overflow: hidden; background: #fff; } .heist-recruit__portrait picture, .heist-recruit__portrait img { height: 100%; } .heist-recruit__portrait img { object-fit: cover; }
+  .heist-recruit__story { grid-column: 6 / span 6; grid-row: 2; max-width: 43rem; margin-top: calc(-1 * var(--space-10)); padding: clamp(var(--space-6),4vw,var(--space-10)); background: var(--color-interior-canvas); font-size: clamp(1.05rem,1.6vw,1.2rem); z-index: 2; } .heist-recruit__story p + p { margin-top: var(--space-5); }
+  .heist-recruit__marker { grid-column: 10 / span 3; grid-row: 1; align-self: end; margin: 0 0 calc(-1 * var(--space-8)) var(--space-4); transform: rotate(2deg); z-index: 3; }
+  .heist-recruit--silk .heist-recruit__header, .heist-recruit--klause .heist-recruit__header { grid-column: 8 / -1; } .heist-recruit--silk .heist-recruit__portrait, .heist-recruit--klause .heist-recruit__portrait { grid-column: 1 / span 9; } .heist-recruit--silk .heist-recruit__story, .heist-recruit--klause .heist-recruit__story { grid-column: 2 / span 6; } .heist-recruit--silk .heist-recruit__marker, .heist-recruit--klause .heist-recruit__marker { grid-column: 1 / span 3; justify-self: start; }
+  .heist-recruit--writ { padding: clamp(var(--space-8),6vw,var(--space-14)); color: var(--color-surface); background: #406a78; border-top: 0; } .heist-recruit--writ .heist-recruit__story { color: #18211c; background: var(--color-interior-canvas); } .heist-recruit--rollback { padding: 0; color: var(--color-surface); background: #18211c; border-top: 0; } .heist-recruit--rollback .heist-recruit__scene { grid-column: 4 / -1; grid-row: 1; min-height: clamp(32rem,58vw,52rem); } .heist-recruit--rollback .heist-recruit__scene picture, .heist-recruit--rollback .heist-recruit__scene img { height: 100%; } .heist-recruit--rollback .heist-recruit__scene img { object-fit: cover; } .heist-recruit--rollback .heist-recruit__story { grid-column: 1 / span 7; color: var(--color-surface); background: rgb(24 33 28 / 96%); }
+  .heist-recruit--receipt { align-items: end; background: linear-gradient(90deg,transparent 0 18%,rgb(212 164 59 / 18%) 18% 100%); }
+  .lawful-heist__assembled { display: grid; grid-template-columns: minmax(16rem,.55fr) minmax(0,1.45fr); gap: var(--space-10); align-items: center; } .lawful-heist__assembled h2 { margin: var(--space-3) 0 var(--space-5); font-size: clamp(2.4rem,5vw,4.6rem); } .lawful-heist__case-study-link { max-width: 48rem; padding-top: var(--space-8); border-top: 1px solid #18211c; } .lawful-heist__case-study-link a { color: #153f42; font-weight: 700; }
+  @media (max-width: 42rem) { .lawful-heist__lead, .lawful-heist__assembled { grid-template-columns: 1fr; } .heist-recruit { grid-template-columns: repeat(2,minmax(0,1fr)); } .heist-recruit__header, .heist-recruit--silk .heist-recruit__header, .heist-recruit--klause .heist-recruit__header, .heist-recruit--writ .heist-recruit__header, .heist-recruit--rollback .heist-recruit__header, .heist-recruit--receipt .heist-recruit__header { grid-column: 1 / -1; grid-row: 1; width: 92%; margin-bottom: calc(-1 * var(--space-5)); } .heist-recruit__portrait, .heist-recruit--silk .heist-recruit__portrait, .heist-recruit--klause .heist-recruit__portrait, .heist-recruit--writ .heist-recruit__portrait, .heist-recruit--rollback .heist-recruit__scene, .heist-recruit--receipt .heist-recruit__scene { grid-column: 1 / -1; grid-row: 2; } .heist-recruit__story, .heist-recruit--silk .heist-recruit__story, .heist-recruit--klause .heist-recruit__story, .heist-recruit--writ .heist-recruit__story, .heist-recruit--rollback .heist-recruit__story { grid-column: 1 / -1; grid-row: 3; margin: 0; } .heist-recruit__marker { grid-column: 2; grid-row: 2; width: 64%; margin: calc(-1 * var(--space-4)) var(--space-3) 0 0; justify-self: end; } .heist-recruit--rollback .heist-recruit__scene { min-height: 24rem; } }
+`
 
 const crew = [
   {
@@ -134,9 +158,9 @@ function CrewMember({ member }: { member: (typeof crew)[number] }) {
   )
 }
 
-export function LawfulHeistPage() {
+export function UsualSpecialistsPage() {
   return (
-    <section className="lawful-heist" aria-label="The Lawful Heist Crew adventure" data-type-register="site-sans">
+    <Story className="lawful-heist" aria-label="The Usual Specialists adventure" data-type-register="site-sans" data-visual-contract="patch-usual-specialists">
       <header className="lawful-heist__lead">
         <p className="patch-status">Advanced visual pre-production</p>
         <p>Patch has a lawful route into a protected vault and six names on a folder. The job is to recruit the specialists who can prove the route, test it, authorise it, choose it, recover it and leave a record.</p>
@@ -168,6 +192,6 @@ export function LawfulHeistPage() {
         <p>The production system behind the crew and their story has its own engineering case study.</p>
         <Link to="/projects/adventures-of-patch">Read the Adventures of Patch engineering case study</Link>
       </div>
-    </section>
+    </Story>
   )
 }

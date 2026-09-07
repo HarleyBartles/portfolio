@@ -4,20 +4,20 @@ import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { getProjectPresentation } from '../case-study/projectPresentations'
 
-describe('Lawful Heist crew story', () => {
+describe('Usual Specialists crew story', () => {
   test('recruits six specialists in the approved functional order', async () => {
-    const LawfulHeistPage = getProjectPresentation('patch-lawful-heist')
+    const UsualSpecialistsPage = getProjectPresentation('patch-usual-specialists')
 
-    expect(LawfulHeistPage).toBeDefined()
-    if (LawfulHeistPage === undefined) throw new Error('Lawful Heist presentation should be registered')
+    expect(UsualSpecialistsPage).toBeDefined()
+    if (UsualSpecialistsPage === undefined) throw new Error('Usual Specialists presentation should be registered')
 
     render(
-      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/lawful-heist']}>
-        <Suspense fallback={null}><LawfulHeistPage /></Suspense>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
+        <Suspense fallback={null}><UsualSpecialistsPage /></Suspense>
       </MemoryRouter>,
     )
 
-    const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
+    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' })
     expect(story).toHaveAttribute('data-type-register', 'site-sans')
     expect(story.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     const profiles = within(story).getAllByRole('article')

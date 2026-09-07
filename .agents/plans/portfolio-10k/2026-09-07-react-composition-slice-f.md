@@ -303,7 +303,7 @@ Visual policy:
 
 `refactor: give Tournament local composition ownership`
 
-- [ ] Task 4 complete: Tournament owns its composition, body visuals remain equivalent, and visual tests use semantic contracts.
+- [x] Task 4 complete: Tournament owns its composition, body visuals remain equivalent, and visual tests use semantic contracts.
 
 ## Task 5 — Rename and migrate The Usual Specialists implementation
 
@@ -352,7 +352,7 @@ npm run test:e2e:visual -- e2e/visual-regression.spec.ts --grep "Usual Specialis
 
 `refactor: make The Usual Specialists own its story composition`
 
-- [ ] Task 5 complete: current implementation/public vocabulary is Specialists-native, Sass is gone, and lawful-heist survives only as explicit compatibility/provenance.
+- [x] Task 5 complete: current implementation/public vocabulary is Specialists-native, Sass is gone, and lawful-heist survives only as explicit compatibility/provenance.
 
 ## Task 6 — Rebrand the Patch index as the series front door
 
@@ -393,7 +393,7 @@ npm run test:e2e:visual -- e2e/visual-regression.spec.ts --grep "Patch index"
 
 `refactor: make Patch index the branded series front door`
 
-- [ ] Task 6 complete: `/patch` is visibly the Adventures of Patch series index, keeps semantic heading structure, and links only to canonical story routes.
+- [x] Task 6 complete: `/patch` is visibly the Adventures of Patch series index, keeps semantic heading structure, and links only to canonical story routes.
 
 ## Task 7 — Delete shared Patch Sass and prove route/presentation isolation
 
@@ -454,7 +454,7 @@ py -3 tools/run.py mesh --check
 
 `refactor: retire shared Patch showcase Sass`
 
-- [ ] Task 7 complete: both Patch Sass files are gone, every specialist route remains lazy/isolated, and Patch accessibility/visual coverage is complete.
+- [x] Task 7 complete: both Patch Sass files are gone, every specialist route remains lazy/isolated, and Patch accessibility/visual coverage is complete.
 
 ## Task 8 — Final Slice F validation and closeout
 
