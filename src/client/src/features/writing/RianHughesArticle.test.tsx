@@ -35,16 +35,16 @@ describe('RianHughesArticle', () => {
 
     expect(specialistsImages).toHaveLength(1)
     for (const image of specialistsImages) {
-      expect(image).toHaveAttribute('src', '/media/homepage/the-usual-specialists-wordmark.svg')
+      expect(image.querySelector('use')).toHaveAttribute('href', '/brand/adventures-of-patch/the-usual-specialists-wordmark.svg#the-usual-specialists-wordmark')
     }
     expect(within(construction).getByText('shared left edge')).toBeVisible()
     expect(within(construction).getByText('SPECIALISTS cap line')).toBeVisible()
     expect(within(construction).getByText('shared baseline')).toBeVisible()
     expect(within(construction).getAllByTestId('wordmark-datum')).toHaveLength(3)
 
-    expect(within(cameo).getByRole('img', { name: /Adventures of Patch cliff-drop lockup/i })).toHaveAttribute(
-      'src',
-      '/brand/adventures-of-patch/adventures-of-patch-cliff-drop.svg',
+    expect(within(cameo).getByRole('img', { name: /Adventures of Patch cliff-drop lockup/i }).querySelector('use')).toHaveAttribute(
+      'href',
+      '/brand/adventures-of-patch/adventures-of-patch-cliff-drop.svg#adventures-of-patch-cliff-drop',
     )
     expect(screen.queryByRole('figure', { name: 'The finished wordmark' })).not.toBeInTheDocument()
     expect(construction).toHaveAccessibleDescription(/three shared relationships/i)

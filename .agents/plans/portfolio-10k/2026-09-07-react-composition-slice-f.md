@@ -155,7 +155,7 @@ npm test -- --run src/features/patch-brand/PatchBrand.test.tsx src/features/home
 
 `refactor: give Patch brand assets canonical custody`
 
-- [ ] Task 1 complete: brand assets have one canonical home, tests are green, documentation reflects custody, and no duplicate Specialists wordmark remains.
+- [x] Task 1 complete: brand assets have one canonical home, tests are green, documentation reflects custody, and no duplicate Specialists wordmark remains.
 
 ## Task 2 — Make The Usual Specialists canonical and put Patch identity on every story route
 

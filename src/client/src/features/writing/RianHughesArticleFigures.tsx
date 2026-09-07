@@ -1,8 +1,6 @@
 import type { ReactElement } from 'react'
 import styled from 'styled-components'
-
-const specialistsWordmark = `${import.meta.env.BASE_URL}media/homepage/the-usual-specialists-wordmark.svg`
-const patchLockup = `${import.meta.env.BASE_URL}brand/adventures-of-patch/adventures-of-patch-cliff-drop.svg`
+import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../patch-brand/PatchBrand'
 
 const Study = styled.section`
   display: grid;
@@ -37,7 +35,7 @@ const ConstructionPlate = styled(Plate)`
 const WordmarkCanvas = styled.div`
   position: relative;
 
-  img {
+  svg {
     display: block;
     width: 100%;
     height: auto;
@@ -109,7 +107,7 @@ const Cameo = styled.figure`
 const CameoPlate = styled(Plate)`
   padding: clamp(var(--space-5), 5vw, var(--space-8));
 
-  img {
+  svg {
     display: block;
     width: 100%;
     height: auto;
@@ -126,14 +124,7 @@ export function SpecialistsWordmarkStudy(): ReactElement {
       <WordmarkFigure aria-label="How the hierarchy is built" aria-describedby="rian-construction-caption">
         <ConstructionPlate>
           <WordmarkCanvas>
-            <img
-              src={specialistsWordmark}
-              alt="The Usual Specialists wordmark with a restrained three-line construction overlay."
-              width="1120"
-              height="240"
-              loading="lazy"
-              decoding="async"
-            />
+            <UsualSpecialistsWordmark aria-label="The Usual Specialists wordmark with a restrained three-line construction overlay." />
             <LeftDatum data-testid="wordmark-datum" aria-hidden="true" />
             <HorizontalDatum $top="36.18%" data-testid="wordmark-datum" aria-hidden="true" />
             <HorizontalDatum $top="79.17%" data-testid="wordmark-datum" aria-hidden="true" />
@@ -156,14 +147,7 @@ export function PatchLockupCameo(): ReactElement {
   return (
     <Cameo aria-label="A different typographic answer" aria-describedby="rian-patch-caption">
       <CameoPlate>
-        <img
-          src={patchLockup}
-          alt="Adventures of Patch cliff-drop lockup, with the final s dropped vertically above PATCH."
-          width="340"
-          height="127"
-          loading="lazy"
-          decoding="async"
-        />
+        <PatchSeriesLockup aria-label="Adventures of Patch cliff-drop lockup, with the final s dropped vertically above PATCH." />
       </CameoPlate>
       <Caption id="rian-patch-caption">
         PATCH found a different typographic answer. Chassis stayed with the Specialists.
