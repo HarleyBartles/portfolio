@@ -463,6 +463,25 @@ test('The Usual Specialists keeps Rollback at the dominant end of agent scale', 
   await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
 })
 
+test('Patch index keeps its branded series front door at wide and mobile viewports', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport)
+    await openStable(page, './patch')
+    const index = page.locator('[data-visual-contract="patch-index"]')
+    await expect(index).toHaveScreenshot(`patch-index-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
+})
+
+test('Identity Emporium keeps its evidence composition at wide and mobile viewports', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport)
+    await openStable(page, './patch/identity-emporium')
+    await waitForImages(page.locator('[data-visual-contract="patch-identity-emporium"]'))
+    const identity = page.locator('[data-visual-contract="patch-identity-emporium"]')
+    await expect(identity).toHaveScreenshot(`patch-identity-emporium-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
+})
+
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 })
   await openStable(page, './projects/adventures-of-patch')

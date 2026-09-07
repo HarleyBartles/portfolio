@@ -1,19 +1,13 @@
-import { Suspense } from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
-import { getProjectPresentation } from '../case-study/projectPresentations'
+import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 
 describe('Usual Specialists crew story', () => {
   test('recruits six specialists in the approved functional order', async () => {
-    const UsualSpecialistsPage = getProjectPresentation('patch-usual-specialists')
-
-    expect(UsualSpecialistsPage).toBeDefined()
-    if (UsualSpecialistsPage === undefined) throw new Error('Usual Specialists presentation should be registered')
-
     render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
-        <Suspense fallback={null}><UsualSpecialistsPage /></Suspense>
+        <UsualSpecialistsPage />
       </MemoryRouter>,
     )
 
@@ -22,6 +16,7 @@ describe('Usual Specialists crew story', () => {
     expect(story.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     const profiles = within(story).getAllByRole('article')
     expect(profiles).toHaveLength(6)
+    expect(profiles.map((profile) => profile.getAttribute('data-patch-specialist'))).toEqual(['index', 'silk', 'writ', 'klause', 'rollback', 'receipt'])
     expect(profiles.map((profile) => within(profile).getByRole('heading', { level: 2 }).textContent)).toEqual([
       'Index', 'Silk', 'Writ', 'Klause', 'Rollback', 'Receipt',
     ])

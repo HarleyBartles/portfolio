@@ -21,13 +21,22 @@ const IdentityEvidence = styled.figure`
   .identity-evidence__failure-pair > div { display: grid; min-width: 0; background: #fff; }
   .identity-evidence__failure-pair picture { height: 100%; }
   .identity-evidence__failure-pair img { object-position: center bottom; }
+  .identity-evidence__failure-pair > div:last-child img { inset: auto auto var(--space-4) 50%; width: 90%; height: 80%; transform: translateX(-50%); }
   .identity-evidence__source-pair p { margin: 0; padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); font-family: var(--font-site-sans); font-size: var(--type-caption-size); }
   .identity-evidence__roles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin: 1px 0 0; padding: 0; background: rgb(73 50 20 / 25%); list-style: none; }
   .identity-evidence__roles li { display: grid; grid-template-rows: auto auto; min-width: 0; background: var(--color-surface); }
   .identity-evidence__roles picture { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; background: #fff; }
   .identity-evidence__roles img { position: absolute; inset: var(--space-3); width: calc(100% - (2 * var(--space-3))); height: calc(100% - (2 * var(--space-3))); object-fit: contain; }
   .identity-evidence__roles span { padding: var(--space-3); border-top: 1px solid var(--color-border); font-family: var(--font-site-sans); font-size: var(--type-caption-size); font-weight: 700; text-align: center; }
-  @media (max-width: 44rem) { .identity-evidence__logic, .identity-evidence__source-pair { grid-template-columns: 1fr; } .identity-evidence__failure-pair { height: clamp(10rem, 44vw, 12rem); } .identity-evidence__roles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 44rem) {
+    .identity-evidence__logic, .identity-evidence__source-pair { grid-template-columns: 1fr; }
+    .identity-evidence__source-pair > div:first-child picture { height: auto; aspect-ratio: 5 / 4; }
+    .identity-evidence__failure-pair { grid-template-columns: minmax(0,2fr) minmax(0,1fr); height: clamp(10rem,44vw,12rem); }
+    .identity-evidence__failure-pair > div:last-child img { width: 100%; height: 90%; }
+    .identity-evidence__logic > div { border-top: 1px solid rgb(255 250 240 / 22%); border-left: 0; }
+    .identity-evidence__logic > div:first-child { border-top: 0; }
+    .identity-evidence__roles { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
 `
 
 export function PatchShowcasePicture({ path, alt }: { path: string; alt: string }) {

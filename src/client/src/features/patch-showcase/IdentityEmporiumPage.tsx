@@ -16,10 +16,6 @@ const Story = styled.section`
   .identity-showcase__case-study-link { padding-top: var(--space-8); border-top: 1px solid var(--color-ink); }
   .identity-showcase__case-study-link a { color: var(--patch-teal-deep); font-weight: 700; text-decoration-thickness: .12em; text-underline-offset: .2em; }
 
-  @media (max-width: 44rem) {
-    .identity-evidence__logic, .identity-evidence__source-pair { grid-template-columns: 1fr; }
-    .identity-evidence__roles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
 `
 
 export function IdentityEmporiumPage() {
