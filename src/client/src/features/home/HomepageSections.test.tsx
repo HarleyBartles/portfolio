@@ -122,6 +122,21 @@ describe('Phase 8 homepage sections', () => {
     expect(container.querySelector('[data-wild-reading-card]')).toBeInTheDocument()
   })
 
+  test('owns the Wild Bunch movement rail without relying on the route stylesheet', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <WildBunchFeature nextFeature={defaultHomepageEdition.writing} />
+      </MemoryRouter>,
+    )
+    const movement = container.querySelector('[data-home-movement="wild-bunch"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const readingCard = movement.querySelector('[data-wild-reading-card]') as HTMLElement
+
+    expect(movement).toHaveStyle({ position: 'relative', overflow: 'hidden' })
+    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
+    expect(readingCard).toHaveStyle({ zIndex: '4', marginRight: '24px' })
+  })
+
   test('keeps Specialists presentation separate from semantic title and document flow', () => {
     const { container } = renderSections()
     const patch = container.querySelector('[data-home-movement="patch"]') as HTMLElement

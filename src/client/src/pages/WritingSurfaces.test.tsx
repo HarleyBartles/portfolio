@@ -12,12 +12,26 @@ afterEach(() => {
   routers.splice(0).forEach((router) => router.dispose())
 })
 
-function renderRoute(path: string) {
+async function waitForRouterInitialization(router: ReturnType<typeof createMemoryRouter>): Promise<void> {
+  if (router.state.initialized) return
+
+  await new Promise<void>((resolve) => {
+    const unsubscribe = router.subscribe((state) => {
+      if (!state.initialized) return
+      unsubscribe()
+      resolve()
+    })
+  })
+}
+
+async function renderRoute(path: string) {
   const router = createMemoryRouter(appRoutes, {
     basename: '/portfolio',
     initialEntries: [`/portfolio${path}`],
   })
   routers.push(router)
+
+  await waitForRouterInitialization(router)
 
   render(
     <QueryClientProvider client={createPortfolioQueryClient()}>
@@ -30,7 +44,7 @@ function renderRoute(path: string) {
 
 describe('Writing discovery surfaces', () => {
   test('presents peer articles newest first without a permanent featured essay', async () => {
-    renderRoute('/writing')
+    await renderRoute('/writing')
 
     const list = await screen.findByRole('region', { name: 'Writing, newest first' }, { timeout: 5_000 })
     const articles = within(list).getAllByRole('article')
@@ -44,7 +58,7 @@ describe('Writing discovery surfaces', () => {
   })
 
   test('marks an authored article as longform and keeps reading time in metadata', async () => {
-    renderRoute('/writing/why-adrs')
+    await renderRoute('/writing/why-adrs')
 
     const title = await screen.findByRole('heading', { level: 1, name: 'Why ADRs?' })
     const article = title.closest('article')
@@ -55,7 +69,7 @@ describe('Writing discovery surfaces', () => {
   })
 
   test('uses the selected Writing edition on the homepage without restoring a featured deck', async () => {
-    renderRoute('/')
+    await renderRoute('/')
 
     const heading = await screen.findByRole('heading', { level: 2, name: 'I made agentic engineering harder than it needed to be' })
     const section = heading.closest('section')

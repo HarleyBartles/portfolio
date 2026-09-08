@@ -548,7 +548,7 @@ export function WildBunchProof(props: WildBunchProofProps): ReactElement
 - Parent ownership: keep the six event descriptors and state-node labels in `WildBunchFeature.tsx` and pass them explicitly to `WildBunchProof`.
 - Local proof ownership: texture asset paths, proof-only decorative wires, and cache/replay/state layout remain inside the proof component/styles.
 
-- [ ] **Step 1: Write focused proof tests against the current semantic contract**
+- [x] **Step 1: Write focused proof tests against the current semantic contract**
 
 ```tsx
 render(<WildBunchProof events={eventsFixture} stateNodes={stateFixture} />)
@@ -565,11 +565,11 @@ expect(container.querySelector('[data-wild-proof]')).toHaveAttribute(
 
 Also prove event order and state-node label order match the parent-provided arrays.
 
-- [ ] **Step 2: Extract the semantic proof component before changing geometry**
+- [x] **Step 2: Extract the semantic proof component before changing geometry**
 
 Move the current `figure` subtree into `WildBunchProof.tsx`. Keep the movement heading/copy/route actions in `WildBunchFeature`. Do not introduce state/effects; the proof is deterministic render output from props.
 
-- [ ] **Step 3: Port the Wild Bunch topology CSS into owned styled pieces**
+- [x] **Step 3: Port the Wild Bunch topology CSS into owned styled pieces**
 
 `WildBunchProof.styles.ts` must contain named styled nodes for history, event list/event, live wire, history sweep, cache, replay, state, state texture, and connector flows. Preserve the current container-query units, exact proof aspect ratios, and all four authored layout regimes:
 
@@ -584,15 +584,15 @@ Move the current `figure` subtree into `WildBunchProof.tsx`. Keep the movement h
 
 Do not normalise these into a single generic breakpoint because the proof changes topology.
 
-- [ ] **Step 4: Give the Wild Bunch movement itself local composition ownership**
+- [x] **Step 4: Give the Wild Bunch movement itself local composition ownership**
 
 In `WildBunchFeature.tsx`, own the eyebrow/copy/proof rail and `WildReadingCard` layout. Preserve `display: contents` regimes where they are necessary to the accepted source-order-to-grid relationship; do not use DOM reordering.
 
-- [ ] **Step 5: Remove all Wild Bunch Sass selectors and private class-only hooks**
+- [x] **Step 5: Remove all Wild Bunch Sass selectors and private class-only hooks**
 
 After local ownership is green, remove `.wild-*`, `.home-wild-*`, and Wild-specific `.home-project-*` rules from `HomePage.scss`. Remove classNames that no longer serve styling or another legitimate behaviour contract; keep the durable `data-*` hooks.
 
-- [ ] **Step 6: Run the proof unit suite and the full Wild Bunch geometry stress test**
+- [x] **Step 6: Run the proof unit suite and the full Wild Bunch geometry stress test**
 
 ```powershell
 cd src/client
@@ -603,7 +603,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 Expected: both `homepage-wild-bunch-wide.png` and `homepage-wild-bunch-portrait.png` remain unchanged.
 
-- [ ] **Step 7: Mark Task 5 complete in this plan**
+- [x] **Step 7: Mark Task 5 complete in this plan**
 
 Change every Task 5 checkbox to `[x]` only after all Wild Bunch geometry and screenshots are green.
 
