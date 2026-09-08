@@ -237,6 +237,27 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.queryByText('PATCH')).not.toBeInTheDocument()
   })
 
+  test('keeps the Tournament homepage CTA inside the router basename', () => {
+    const tournament: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      title: 'Tournament of Reasonable Defaults',
+      to: '/patch/tournament-of-reasonable-defaults',
+      inwardLabel: 'Enter the tournament',
+      presentation: 'tournament',
+    }
+
+    render(
+      <MemoryRouter basename="/portfolio" initialEntries={["/portfolio/"]}>
+        <PatchHomepageSlot feature={tournament} />
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByRole('link', { name: 'Enter the tournament →' })).toHaveAttribute(
+      'href',
+      '/portfolio/patch/tournament-of-reasonable-defaults',
+    )
+  })
+
   test('owns the Tournament section rail without relying on the route stylesheet', () => {
     const tournament: PatchHomepageFeature = {
       ...defaultHomepageEdition.patch,

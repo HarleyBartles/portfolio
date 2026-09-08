@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import styled from 'styled-components'
 import type { PatchHomepageFeature } from './homepageEdition'
-import { HomeAnchorTarget, HomeCtaAnchor, HomeEyebrow, HomeFrame, HomeSectionTitle } from './HomePrimitives'
+import { HomeAnchorTarget, HomeEyebrow, HomeFrame, HomeRouteLink, HomeSectionTitle } from './HomePrimitives'
 
 const TournamentMovement = styled.section`
   position: relative;
@@ -24,7 +24,7 @@ export function TournamentPatchFeature({ feature }: { feature: PatchHomepageFeat
       <HomeFrame>
         <HomeEyebrow>Patch</HomeEyebrow>
         <HomeSectionTitle id="home-tournament-title">{feature.title}</HomeSectionTitle>
-        <HomeCtaAnchor href={feature.to}>{feature.inwardLabel} →</HomeCtaAnchor>
+        <HomeRouteLink to={feature.to}>{feature.inwardLabel} →</HomeRouteLink>
       </HomeFrame>
     </TournamentMovement>
   )

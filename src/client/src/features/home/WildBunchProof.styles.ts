@@ -356,10 +356,6 @@ export const ProofCache = styled(ProofBlock)`
   background-size: auto, cover;
   background-position: center;
 
-  .media-off & {
-    background-image: none;
-  }
-
   @media (min-width: 901px) and (max-width: 1279px) {
     left: 35%;
     width: 14%;
@@ -392,10 +388,6 @@ export const ProofReplay = styled(ProofBlock)`
   background-size: auto, cover;
   background-position: center;
   color: #f4f0e8;
-
-  .media-off & {
-    background-image: none;
-  }
 
   @media (min-width: 901px) and (max-width: 1279px) {
     left: 35%;
@@ -530,10 +522,6 @@ export const StateTexture = styled.picture`
     width: 100%;
     height: 100%;
     object-fit: fill;
-  }
-
-  .media-off & {
-    display: none;
   }
 
   @media (max-width: 900px) {

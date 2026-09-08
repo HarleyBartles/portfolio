@@ -1038,6 +1038,10 @@ git log -1 --oneline
 
 Expected: no uncommitted files; final commit exists on `codex/react-composition-slice-g-plan`.
 
+**Review follow-up evidence — bounded Vitest timeouts**
+
+During the normal tracked-hook pressure gate, the default 5-second Vitest ceiling was reproduced as load-sensitive failure in `WritingSurfaces.test.tsx` and `HomepageSections.test.tsx`. `WritingSurfaces` first gained explicit router-initialization synchronization; the remaining observed full-hook timing pressure was then bounded with local per-test `10_000` timeouts on the two affected tests. These are evidence-backed, test-local concessions rather than speculative global timeout inflation. Subsequent normal full-hook runs passed 88 test files / 243 tests, so the local 10-second ceilings are retained for the reproduced canonical-hook load condition.
+
 - [x] **Step 5: Mark Task 11 complete in this plan before its final lifecycle archive commit**
 
 The implementation is not complete until the plan task tracking itself reflects the executed evidence.
