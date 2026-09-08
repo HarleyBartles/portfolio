@@ -307,7 +307,7 @@ export const HomeAnchorTarget: StyledComponent<'span', ...>
 
 Exact styled-components utility types may be inferred rather than exported explicitly; the component names/HTML semantics above are the contract.
 
-- [ ] **Step 1: Write failing shell/primitive tests**
+- [x] **Step 1: Write failing shell/primitive tests**
 
 Prove `surface="home"` produces the current mineral background/site-sans surface and a full-width main while `surface="interior"` retains its existing framed behaviour. Prove `HomeFrame` exposes `data-home-frame`, and home actions remain text links rather than filled publication buttons.
 
@@ -324,7 +324,7 @@ expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'h
 expect(screen.getByText('Home frame')).toHaveAttribute('data-home-frame')
 ```
 
-- [ ] **Step 2: Put the home surface contract in `SiteLayout`**
+- [x] **Step 2: Put the home surface contract in `SiteLayout`**
 
 Extend the existing `$surface` styled branch instead of styling `.site-shell--home` from the route stylesheet. Preserve current values:
 
@@ -348,7 +348,7 @@ overflow-x: hidden;
 
 Pass `$surface={surface}` to `Main`. Do not change the `SiteLayout` public prop API.
 
-- [ ] **Step 3: Create homepage-local frame/type/action primitives with current values**
+- [x] **Step 3: Create homepage-local frame/type/action primitives with current values**
 
 `HomeFrame` may wrap `SiteFrame`, but must override the homepage's accepted frame transition at `800px`; do not inherit `SiteFrame`'s `46rem` breakpoint as a visual change:
 
@@ -364,7 +364,7 @@ export const HomeFrame = styled(SiteFrame).attrs({ 'data-home-frame': true })`
 
 Port the exact current `.home-eyebrow`, `.home-display`, `.home-section-title`, `.home-body`, `.home-route-actions`, `.home-cta`, and `.home-next` declarations into named primitives. Use theme font/color tokens where they resolve to the same accepted value; do not substitute a near-equivalent publication primitive.
 
-- [ ] **Step 4: Replace only the shared primitive class usage in movement JSX**
+- [x] **Step 4: Replace only the shared primitive class usage in movement JSX**
 
 During this staged migration, residual movement Sass still contains nested selectors such as `.wild-grid ... .home-section-title`, `.home-article-summary .home-cta`, and `.heist-close .home-next`. Preserve those old class names temporarily as compatibility hooks on the new primitives until the movement that owns the nested selector migrates. They are not stable tests or architecture; Task 10 removes any remaining bridge classes.
 
@@ -380,11 +380,11 @@ Example:
 
 `HomeFrame` may likewise retain `className="home-frame"` while residual movement selectors such as `.opening .home-frame` still exist. Keep each movement's section/grid/composition styling in its current owner/Sass until that movement's task, then remove its compatibility classes together with those selectors.
 
-- [ ] **Step 5: Remove only the now-owned shared Sass rules**
+- [x] **Step 5: Remove only the now-owned shared Sass rules**
 
 Remove the root home shell/main selectors and the primitive declarations they replaced. Keep all movement/grid/breakpoint rules still consumed by unmigrated features. Do not delete `HomePage.scss` yet.
 
-- [ ] **Step 6: Verify shared grammar and the full homepage stress contract**
+- [x] **Step 6: Verify shared grammar and the full homepage stress contract**
 
 ```powershell
 cd src/client
@@ -395,7 +395,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 Expected: screenshots unchanged.
 
-- [ ] **Step 7: Mark Task 2 complete in this plan**
+- [x] **Step 7: Mark Task 2 complete in this plan**
 
 Change every Task 2 checkbox to `[x]` only after tests and visual comparison are green.
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { PatchHomepageFeature } from './homepageEdition'
 import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../patch-brand/PatchBrand'
 import { homepageAssetPath } from './homepageAssets'
+import { HomeAnchorTarget, HomeNextAnchor } from './HomePrimitives'
 
 export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFeature }): ReactElement {
   const [mediaFailed, setMediaFailed] = useState(false)
@@ -10,7 +11,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
 
   return (
     <section className={`home-movement patch-movement${mediaFailed ? ' media-off' : ''}`} aria-labelledby="home-specialists-title" data-home-movement="patch" data-patch-presentation="usual-specialists" data-visual-contract="homepage-specialists">
-      <span className="home-anchor-target" id={feature.anchorId} aria-hidden="true" />
+      <HomeAnchorTarget className="home-anchor-target" id={feature.anchorId} aria-hidden="true" />
       <div className="specialists-substrate" aria-hidden="true">
         <span className="specialists-substrate__fill" />
         <img className="specialists-substrate__edge specialists-substrate__edge--left" src={homepageAssetPath('specialists-torn-edge-left.webp')} width="724" height="2172" loading="lazy" decoding="async" alt="" onError={failMedia} />
@@ -24,7 +25,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
         <div className="title-field">
           <p className="patch-marque" data-patch-series-lockup><span className="visually-hidden">Adventures of PATCH</span><PatchSeriesLockup className="patch-marque__art" decorative /></p>
           <h2 className="wordmark-title" id="home-specialists-title"><span className="visually-hidden">{feature.title}</span><UsualSpecialistsWordmark className="wordmark-art" decorative /></h2>
-          <div className="heist-close"><p>One question. Are you in?</p><Link to={feature.to}>{feature.inwardLabel} →</Link><a className="home-next" href="#contact">{feature.closingTeaser} ↓</a></div>
+          <div className="heist-close"><p>One question. Are you in?</p><Link to={feature.to}>{feature.inwardLabel} →</Link><HomeNextAnchor className="home-next" href="#contact">{feature.closingTeaser} ↓</HomeNextAnchor></div>
         </div>
         <figure className="detail detail-eye"><div className="detail__crop"><img src={homepageAssetPath('specialists-silk.webp')} width="1983" height="793" loading="lazy" alt="Silk's eyes open in restrained surprise when the lawful route survives her pressure test." onError={failMedia} /></div></figure>
         <figure className="detail detail-lockdown"><div className="detail__crop"><img src={homepageAssetPath('specialists-rollback.webp')} width="1536" height="1024" loading="lazy" alt="Rollback's heavy gloved hand presses the amber lockdown control." onError={failMedia} /></div></figure>

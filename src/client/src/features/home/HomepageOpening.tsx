@@ -1,13 +1,14 @@
 import type { ReactElement } from 'react'
+import { HomeCtaAnchor, HomeDisplayTitle, HomeEyebrow, HomeFrame } from './HomePrimitives'
 
 export function HomepageOpening(): ReactElement {
   return (
     <section className="home-movement opening" aria-labelledby="home-opening-title" data-home-movement="opening" data-visual-contract="homepage-opening">
-      <div className="home-frame" data-home-frame>
+      <HomeFrame className="home-frame">
         <div className="opening-grid">
         <div className="opening-title">
-          <p className="home-eyebrow">Harley Bartles · Full-stack software engineer</p>
-          <h1 className="home-display" id="home-opening-title">Engineering the whole problem, not just the code.</h1>
+          <HomeEyebrow className="home-eyebrow">Harley Bartles · Full-stack software engineer</HomeEyebrow>
+          <HomeDisplayTitle className="home-display" id="home-opening-title">Engineering the whole problem, not just the code.</HomeDisplayTitle>
         </div>
         <div className="opening-proof">
           <ul aria-label="Professional proof">
@@ -16,10 +17,10 @@ export function HomepageOpening(): ReactElement {
             <li>Technical design → delivery → release → support → operation.</li>
             <li>Recently designed and delivered the service behind 2 additional paid screening checks.</li>
           </ul>
-          <a className="home-cta" href="#marketplace">See the work ↓</a>
+          <HomeCtaAnchor className="home-cta" href="#marketplace">See the work ↓</HomeCtaAnchor>
         </div>
         </div>
-      </div>
+      </HomeFrame>
     </section>
   )
 }

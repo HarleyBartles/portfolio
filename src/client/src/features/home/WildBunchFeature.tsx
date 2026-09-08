@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import type { WritingHomepageFeature } from './homepageEdition'
 import { homepageAssetPath } from './homepageAssets'
+import { HomeAnchorTarget, HomeBody, HomeEyebrow, HomeFrame, HomeNextAnchor, HomeRouteActions, HomeRouteLink, HomeSectionTitle } from './HomePrimitives'
 
 const events = [
   ['EVENT 01 · 08:14:03', 'GameStarted'],
@@ -20,17 +20,17 @@ export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepage
 
   return (
     <section className="home-movement home-project home-project-reverse wild-movement" aria-labelledby="home-wild-title" data-home-movement="wild-bunch" data-visual-contract="homepage-wild-bunch">
-      <span className="home-anchor-target" id="wild-bunch" aria-hidden="true" />
-      <div className="home-frame home-project-grid wild-grid" data-home-frame>
-        <p className="home-eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
+      <HomeAnchorTarget className="home-anchor-target" id="wild-bunch" aria-hidden="true" />
+      <HomeFrame className="home-frame home-project-grid wild-grid">
+        <HomeEyebrow className="home-eyebrow">Wild Bunch · C# / .NET / PostgreSQL</HomeEyebrow>
         <div className="home-project-copy wild-copy-rail">
-          <h2 className="home-section-title" id="home-wild-title">I only get to call the replay exact because it's falsifiable.</h2>
+          <HomeSectionTitle className="home-section-title" id="home-wild-title">I only get to call the replay exact because it's falsifiable.</HomeSectionTitle>
           <div className="wild-reading-card" data-wild-reading-card>
-            <p className="home-body">I said events were the source of truth. Then I audited the replay and found they weren't. I fixed the gaps until I could throw the snapshot away and reconstruct the same session from the event stream.</p>
-            <div className="home-route-actions">
-              <Link className="home-cta" to="/projects/wild-bunch">Follow the trail →</Link>
-              <a className="home-next" href={`#${nextFeature.anchorId}`}>{nextFeature.incomingTeaser} ↓</a>
-            </div>
+            <HomeBody className="home-body">I said events were the source of truth. Then I audited the replay and found they weren't. I fixed the gaps until I could throw the snapshot away and reconstruct the same session from the event stream.</HomeBody>
+            <HomeRouteActions className="home-route-actions">
+              <HomeRouteLink className="home-cta" to="/projects/wild-bunch">Follow the trail →</HomeRouteLink>
+              <HomeNextAnchor className="home-next" href={`#${nextFeature.anchorId}`}>{nextFeature.incomingTeaser} ↓</HomeNextAnchor>
+            </HomeRouteActions>
           </div>
         </div>
         <div className="home-project-visual"><figure className="wild-proof home-wild-proof" data-wild-proof="true" data-topology="events-cache-state;history-replay-cache-state" aria-labelledby="home-wild-proof-caption" style={textureVariables}>
@@ -60,7 +60,7 @@ export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepage
             <ul className="wild-state-nodes" aria-label="Examples of current derived state">{['Player', 'World', 'Clock', 'Journey', 'Case file', 'Pursuit'].map((label) => <li className={`wild-state-node--${label.toLowerCase().replace(' file', '')}`} key={label}>{label}</li>)}</ul>
           </section>
         </figure></div>
-      </div>
+      </HomeFrame>
     </section>
   )
 }
