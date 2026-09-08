@@ -22,7 +22,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
           <figure className="stamp-overprint" data-zero-flow-overprint="true" aria-label="Klause's produced K assent impression crosses the folder and Rollback boundary."><img src={homepageAssetPath('specialists-klause-k.webp')} width="1254" height="1254" loading="lazy" alt="" onError={failMedia} /></figure>
         </div>
         <div className="title-field">
-          <p className="patch-marque"><span className="visually-hidden">Adventures of PATCH</span><PatchSeriesLockup className="patch-marque__art" decorative /></p>
+          <p className="patch-marque" data-patch-series-lockup><span className="visually-hidden">Adventures of PATCH</span><PatchSeriesLockup className="patch-marque__art" decorative /></p>
           <h2 className="wordmark-title" id="home-specialists-title"><span className="visually-hidden">{feature.title}</span><UsualSpecialistsWordmark className="wordmark-art" decorative /></h2>
           <div className="heist-close"><p>One question. Are you in?</p><Link to={feature.to}>{feature.inwardLabel} →</Link><a className="home-next" href="#contact">{feature.closingTeaser} ↓</a></div>
         </div>

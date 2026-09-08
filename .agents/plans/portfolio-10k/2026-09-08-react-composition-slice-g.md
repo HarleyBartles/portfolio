@@ -1,6 +1,6 @@
 # React Composition Slice G — Homepage Ownership Migration Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: use `/subagent-driven-development` to implement this plan task-by-task, `/test-driven-development` for each code task, and `/verification-before-completion` before any completion claim. Steps use checkbox (`- [ ]`) syntax for tracking. Execute tasks sequentially; do not fan out workers against the shared homepage Sass surface.
+> **Execution mode:** use `/executing-plans` inline in this session, `/test-driven-development` for each code task, and `/verification-before-completion` before any completion claim. Steps use checkbox (`- [ ]`) syntax for tracking. Execute tasks sequentially; do not fan out workers against the shared homepage Sass surface.
 
 **Goal:** Migrate the accepted six-movement homepage and the adjacent `ProjectVisual` stylesheet seam to self-owned React/styled-components composition without changing the homepage's appearance, choreography, deterministic edition, teaser ownership, responsive decisions, visual baselines, loading boundaries, or accessibility behaviour.
 
@@ -8,7 +8,7 @@
 
 **Tech Stack:** React 19, TypeScript 6, React Router 7, styled-components 6, Vitest/Testing Library, Playwright 1.61, Vite 8, Sass only for non-Slice-G surfaces, Windows-authored visual baselines.
 
-**Execution Strategy:** `subagent-driven-development`. This is one coherent homepage subsystem with reviewable movement-sized tasks, not a roadmap split. Run one implementation worker/task at a time under one Sol orchestrator because tasks progressively remove selectors from the same `HomePage.scss`; each task must finish green before the next starts. `ProjectVisual` remains a later bounded sidecar task because its Sass is named by Slice G but its runtime consumers are no longer homepage-only.
+**Execution Strategy:** `executing-plans`, inline. This is one coherent homepage subsystem with reviewable movement-sized tasks, not a roadmap split. Execute one task at a time in this session because tasks progressively remove selectors from the same `HomePage.scss`; each task must finish green before the next starts. `ProjectVisual` remains a later bounded sidecar task because its Sass is named by Slice G but its runtime consumers are no longer homepage-only.
 
 ## Global Constraints
 
@@ -182,7 +182,7 @@ Task 0 is complete as a diagnostic gate because repeated focused and full-load p
 - Consumes: current six-movement DOM, current authored breakpoint regimes, current semantic headings/links, and current visual baselines.
 - Produces: stable test hooks used by later tasks: `data-home-frame`, `data-wild-event`, `data-wild-wire`, `data-wild-reading-card`, `data-wild-cache`, `data-wild-replay`, `data-wild-state`, and `data-patch-series-lockup` where geometry genuinely matters.
 
-- [ ] **Step 1: Add stable visual-contract attributes without changing layout**
+- [x] **Step 1: Add stable visual-contract attributes without changing layout**
 
 Use attributes on the current elements before the styled-components migration, for example:
 
@@ -205,7 +205,7 @@ Use attributes on the current elements before the styled-components migration, f
 
 Do not add `data-*` attributes for every nested node. Add them only where a semantic/visual relationship is part of the accepted contract and existing tests currently need a private class to locate it.
 
-- [ ] **Step 2: Strengthen unit structure tests before selector retirement**
+- [x] **Step 2: Strengthen unit structure tests before selector retirement**
 
 Replace `.home-wild-event` counting with the durable event hook and add frame/slot assertions:
 
@@ -217,7 +217,7 @@ expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0
 
 Keep the existing exact movement order and destination-owned continuation assertions.
 
-- [ ] **Step 3: Expand the browser stress matrix to the authored breakpoint cliffs**
+- [x] **Step 3: Expand the browser stress matrix to the authored breakpoint cliffs**
 
 Replace the existing width list with:
 
@@ -242,11 +242,11 @@ const homepageStressWidths = [
 
 At every width prove `scrollWidth <= clientWidth`, all six movements remain present/in order, and the primary movement headings are attached. Retain the existing reduced-motion anchor checks.
 
-- [ ] **Step 4: Migrate geometry probes from incidental classes to durable contracts**
+- [x] **Step 4: Migrate geometry probes from incidental classes to durable contracts**
 
 Use `[data-home-frame]`, `[data-wild-event]`, `[data-wild-wire]`, `[data-wild-cache]`, `[data-wild-replay]`, `[data-wild-state]`, and `[data-wild-reading-card]` in `homepage.spec.ts`. Preserve the existing numerical geometry assertions: editorial frame width/left edge, wire-to-cache termination, copy/proof ordering, and state relationship at the same regimes.
 
-- [ ] **Step 5: Add route-laziness proof for the homepage itself**
+- [x] **Step 5: Add route-laziness proof for the homepage itself**
 
 In `homepage.spec.ts`, use a fresh page/context request log:
 
@@ -259,7 +259,7 @@ expect(requested.some((url) => /HomePage-.*\.js/.test(url))).toBe(false)
 
 Then open `/` in a fresh page and require the emitted `HomePage-*.js` chunk to be requested. Do not assert Vite hash values.
 
-- [ ] **Step 6: Run the pre-migration stress suite against the current Sass implementation**
+- [x] **Step 6: Run the pre-migration stress suite against the current Sass implementation**
 
 ```powershell
 cd src/client
@@ -270,7 +270,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 Expected: all tests pass with the existing screenshots unchanged. If the strengthened test reveals a current product defect, stop that assertion from becoming migration scope and route the defect through the normal design/change decision before changing public output.
 
-- [ ] **Step 7: Mark Task 1 complete in this plan**
+- [x] **Step 7: Mark Task 1 complete in this plan**
 
 Change every Task 1 checkbox to `[x]` only after the strengthened contract passes on the untouched visual implementation.
 

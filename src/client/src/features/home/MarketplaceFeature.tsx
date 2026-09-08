@@ -6,7 +6,7 @@ export function MarketplaceFeature(): ReactElement {
   return (
     <section className="home-movement home-project marketplace-movement" aria-labelledby="home-marketplace-title" data-home-movement="marketplace" data-visual-contract="homepage-marketplace">
       <span className="home-anchor-target" id="marketplace" aria-hidden="true" />
-      <div className="home-frame home-project-grid market-grid">
+      <div className="home-frame home-project-grid market-grid" data-home-frame>
         <div className="home-project-copy">
           <p className="home-eyebrow">Agent Asset Marketplace · superpowers-plus</p>
           <h2 className="home-section-title" id="home-marketplace-title">A strong system, changed by using it.</h2>

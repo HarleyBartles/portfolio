@@ -21,11 +21,11 @@ export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepage
   return (
     <section className="home-movement home-project home-project-reverse wild-movement" aria-labelledby="home-wild-title" data-home-movement="wild-bunch" data-visual-contract="homepage-wild-bunch">
       <span className="home-anchor-target" id="wild-bunch" aria-hidden="true" />
-      <div className="home-frame home-project-grid wild-grid">
+      <div className="home-frame home-project-grid wild-grid" data-home-frame>
         <p className="home-eyebrow">Wild Bunch · C# / .NET / PostgreSQL</p>
         <div className="home-project-copy wild-copy-rail">
           <h2 className="home-section-title" id="home-wild-title">I only get to call the replay exact because it's falsifiable.</h2>
-          <div className="wild-reading-card">
+          <div className="wild-reading-card" data-wild-reading-card>
             <p className="home-body">I said events were the source of truth. Then I audited the replay and found they weren't. I fixed the gaps until I could throw the snapshot away and reconstruct the same session from the event stream.</p>
             <div className="home-route-actions">
               <Link className="home-cta" to="/projects/wild-bunch">Follow the trail →</Link>
@@ -39,21 +39,21 @@ export function WildBunchFeature({ nextFeature }: { nextFeature: WritingHomepage
             <h3 id="home-wild-history-title">Immutable event history</h3>
             <ol className="wild-event-list">
               {events.map(([metadata, name], index) => (
-                <li className="home-wild-event" key={name}>
+                <li className="home-wild-event" data-wild-event key={name}>
                   <span className="wild-history-read" aria-hidden="true" />
                   <span className="wild-event-meta">{metadata}</span>
                   <strong className="wild-event-name">{name}</strong>
-                  <span className={`wild-wire wild-live-wire wild-live-wire--${index + 1} home-wild-live-wire home-wild-live-wire--${index + 1}`} aria-hidden="true" />
+                  <span className={`wild-wire wild-live-wire wild-live-wire--${index + 1} home-wild-live-wire home-wild-live-wire--${index + 1}`} data-wild-wire aria-hidden="true" />
                 </li>
               ))}
             </ol>
           </section>
           <span className="wild-history-sweep home-wild-history-sweep" aria-hidden="true" />
-          <section className="wild-proof-cache" aria-labelledby="home-wild-cache-title"><h3 id="home-wild-cache-title">Cache</h3></section>
-          <section className="wild-proof-replay" aria-labelledby="home-wild-replay-title"><h3 id="home-wild-replay-title">Replay</h3></section>
+          <section className="wild-proof-cache" data-wild-cache aria-labelledby="home-wild-cache-title"><h3 id="home-wild-cache-title">Cache</h3></section>
+          <section className="wild-proof-replay" data-wild-replay aria-labelledby="home-wild-replay-title"><h3 id="home-wild-replay-title">Replay</h3></section>
           <span className="wild-wire wild-replay-cache-flow home-wild-replay-cache-flow" aria-hidden="true" />
           <span className="wild-wire wild-cache-state-flow home-wild-cache-state-flow" aria-hidden="true" />
-          <section className="wild-proof-state" aria-labelledby="home-wild-state-title">
+          <section className="wild-proof-state" data-wild-state aria-labelledby="home-wild-state-title">
             <picture className="wild-state-texture" aria-hidden="true"><source media="(max-width: 900px)" srcSet={homepageAssetPath('wild-bunch-state-vertical.webp')} /><img src={homepageAssetPath('wild-bunch-state.webp')} alt="" loading="lazy" decoding="async" /></picture>
             <h3 id="home-wild-state-title">State</h3>
             <p className="wild-state-value"><strong>Current view</strong></p>

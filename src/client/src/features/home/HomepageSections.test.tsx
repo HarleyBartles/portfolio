@@ -40,6 +40,7 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: /Follow the trail/ })).toHaveAttribute('href', '/projects/wild-bunch')
     expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
     expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
+    expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0)
   })
 
   test('renders each continuation from the destination feature metadata', () => {
@@ -53,20 +54,27 @@ describe('Phase 8 homepage sections', () => {
     const { container } = renderSections()
     const proof = container.querySelector('[data-wild-proof]') as HTMLElement
 
-    expect(proof.querySelectorAll('.home-wild-event')).toHaveLength(6)
+    expect(proof.querySelectorAll('[data-wild-event]')).toHaveLength(6)
+    expect(proof.querySelectorAll('[data-wild-wire]')).toHaveLength(6)
     expect(within(proof).getByRole('heading', { name: 'Replay' })).toBeVisible()
     expect(within(proof).getByRole('heading', { name: 'Cache' })).toBeVisible()
     expect(within(proof).getByRole('heading', { name: 'State' })).toBeVisible()
     expect(proof).toHaveAttribute('data-topology', 'events-cache-state;history-replay-cache-state')
+    expect(proof.querySelector('[data-wild-cache]')).toBeInTheDocument()
+    expect(proof.querySelector('[data-wild-replay]')).toBeInTheDocument()
+    expect(proof.querySelector('[data-wild-state]')).toBeInTheDocument()
+    expect(container.querySelector('[data-wild-reading-card]')).toBeInTheDocument()
   })
 
   test('keeps Specialists presentation separate from semantic title and document flow', () => {
     const { container } = renderSections()
     const patch = container.querySelector('[data-home-movement="patch"]') as HTMLElement
     const overprint = patch.querySelector('[data-zero-flow-overprint]') as HTMLElement
-    const seriesMark = patch.querySelector('.patch-marque use') as SVGUseElement
+    const seriesLockup = patch.querySelector('[data-patch-series-lockup]') as HTMLElement
+    const seriesMark = seriesLockup.querySelector('use') as SVGUseElement
 
     expect(within(patch).getByText('Adventures of PATCH')).toBeInTheDocument()
+    expect(seriesLockup).toBeInTheDocument()
     expect(seriesMark.getAttribute('href')).toMatch(/\/brand\/adventures-of-patch\/adventures-of-patch-cliff-drop\.svg#adventures-of-patch-cliff-drop$/)
     expect(within(patch).getByRole('heading', { name: 'The Usual Specialists' })).toBeVisible()
     expect(overprint).toHaveAttribute('data-zero-flow-overprint', 'true')

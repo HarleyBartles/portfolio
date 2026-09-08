@@ -3,7 +3,7 @@ import type { ReactElement } from 'react'
 export function HomepageOpening(): ReactElement {
   return (
     <section className="home-movement opening" aria-labelledby="home-opening-title" data-home-movement="opening" data-visual-contract="homepage-opening">
-      <div className="home-frame">
+      <div className="home-frame" data-home-frame>
         <div className="opening-grid">
         <div className="opening-title">
           <p className="home-eyebrow">Harley Bartles · Full-stack software engineer</p>
