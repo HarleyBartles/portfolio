@@ -327,7 +327,7 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   await expect(page.locator('[data-metadata-row]')).toContainText('4 min read')
   const continuations = page.getByRole('navigation', { name: 'Continue reading' })
   await expect(continuations).toBeVisible()
-  await expect(continuations.getByRole('link', { name: /The Lawful Heist Crew/ })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(continuations.getByRole('link', { name: /The Usual Specialists/ })).toHaveAttribute('href', '/patch/the-usual-specialists')
   await expect(continuations.getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute('href', '/projects/adventures-of-patch')
   await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
 
@@ -336,7 +336,7 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   await expect(figures.nth(0)).toHaveAttribute('aria-label', 'How the hierarchy is built')
   await expect(figures.nth(1)).toHaveAttribute('aria-label', 'A different typographic answer')
 
-  await expect(page.getByRole('link', { name: 'The Usual Specialists' })).toHaveAttribute('href', '/patch/lawful-heist')
+  await expect(page.getByRole('link', { name: 'The Usual Specialists', exact: true })).toHaveAttribute('href', '/patch/the-usual-specialists')
   await expect(page.getByRole('link', { name: 'Brand Addition' })).toHaveAttribute('href', '/about')
   for (const name of ['Eurostile', 'Bank Gothic', 'Korolev', 'Chassis', 'Tales from Beyond Science']) {
     const link = page.getByRole('link', { name: new RegExp(`${name}.*opens in a new tab`, 'i') })

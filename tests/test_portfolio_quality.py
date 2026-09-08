@@ -264,7 +264,7 @@ class PortfolioFixture:
             ],
             "inFlight": [
                 {
-                    "title": "Lawful Heist",
+                    "title": "The Usual Specialists",
                     "status": "advanced-visual-preproduction",
                     "lesson": "Lawful authority can cross a protected boundary without an invisible bypass.",
                     "currentEvidence": "Approved specialist reference sheets.",
@@ -673,7 +673,7 @@ class PortfolioQualityTests(unittest.TestCase):
                 self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
 
     def test_patch_showcase_accepts_authored_presentations(self) -> None:
-        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-lawful-heist"):
+        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-usual-specialists"):
             with self.subTest(presentation=presentation):
                 def mutate(fixture: PortfolioFixture) -> None:
                     source = fixture.content / str(fixture.items[0]["path"])
@@ -1236,7 +1236,7 @@ class PortfolioQualityTests(unittest.TestCase):
             "connector identifier": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "connector_id=private"), "private coordinate or credential"),
             "file URL": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "file:///var/private/receipt"), "private coordinate or credential"),
             "Unix coordinate": (lambda evidence: evidence["pipeline"][0].__setitem__("input", "/var/private/receipt"), "private coordinate or credential"),
-            "wrong in-flight status": (lambda evidence: evidence["inFlight"][0].__setitem__("status", "visual-development"), "Lawful Heist must use status"),
+            "wrong in-flight status": (lambda evidence: evidence["inFlight"][0].__setitem__("status", "visual-development"), "The Usual Specialists must use status"),
             "media without dimensions and custody": (lambda evidence: evidence["media"][0].update(
                 {"width": 0, "height": 0, "custody": ""}
             ), "requires positive intrinsic dimensions"),

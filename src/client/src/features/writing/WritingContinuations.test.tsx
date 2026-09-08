@@ -11,10 +11,10 @@ const renderContinuations = () => render(
       <WritingContinuations
         items={[
           {
-            slug: 'lawful-heist',
+            slug: 'the-usual-specialists',
             contextLabel: 'Patch story',
-            title: 'The Lawful Heist Crew',
-            href: '/patch/lawful-heist',
+            title: 'The Usual Specialists',
+            href: '/patch/the-usual-specialists',
           },
           {
             slug: 'adventures-of-patch',
@@ -33,7 +33,7 @@ test('uses a sans section heading to name a grid of whole-object destination lin
 
   const heading = screen.getByRole('heading', { level: 2, name: 'Continue reading' })
   const navigation = screen.getByRole('navigation', { name: 'Continue reading' })
-  const patchLink = within(navigation).getByRole('link', { name: /Patch story\s*The Lawful Heist Crew/i })
+  const patchLink = within(navigation).getByRole('link', { name: /Patch story\s*The Usual Specialists/i })
   const taxonomy = within(patchLink).getByText('Patch story')
 
   expect(navigation).toHaveAttribute('aria-labelledby', heading.id)
@@ -48,9 +48,9 @@ test('uses a sans section heading to name a grid of whole-object destination lin
     fontWeight: '600',
   })
   expect(taxonomy).not.toHaveAttribute('data-eyebrow')
-  expect(patchLink).toHaveAttribute('href', '/patch/lawful-heist')
+  expect(patchLink).toHaveAttribute('href', '/patch/the-usual-specialists')
   expect(patchLink).toContainElement(taxonomy)
-  expect(patchLink).toContainElement(within(patchLink).getByText('The Lawful Heist Crew'))
+  expect(patchLink).toContainElement(within(patchLink).getByText('The Usual Specialists'))
 })
 
 test('keeps continuation choices in source order for keyboard navigation', async () => {

@@ -119,11 +119,11 @@
     "shareAction": "content-end"
   },
   {
-    "id": "patch:lawful-heist",
-    "path": "/patch/lawful-heist",
+    "id": "patch:sorcerers-apprentice",
+    "path": "/patch/sorcerers-apprentice",
     "kind": "patch",
-    "title": "The Lawful Heist Crew | Harley Bartles",
-    "description": "Six specialists turn a lawful vault override into a plan whose execution should be almost offensively boring.",
+    "title": "The Sorcerer's Apprentice - Delegation Without Boundaries | Harley Bartles",
+    "description": "Delegation needs a boundary, not just permission.",
     "indexability": "index",
     "openGraphType": "website",
     "socialImage": {
@@ -136,11 +136,11 @@
     "shareAction": "content-end"
   },
   {
-    "id": "patch:sorcerers-apprentice",
-    "path": "/patch/sorcerers-apprentice",
+    "id": "patch:the-usual-specialists",
+    "path": "/patch/the-usual-specialists",
     "kind": "patch",
-    "title": "The Sorcerer's Apprentice - Delegation Without Boundaries | Harley Bartles",
-    "description": "Delegation needs a boundary, not just permission.",
+    "title": "The Usual Specialists | Harley Bartles",
+    "description": "Six specialists turn a lawful vault override into a plan whose execution should be almost offensively boring.",
     "indexability": "index",
     "openGraphType": "website",
     "socialImage": {

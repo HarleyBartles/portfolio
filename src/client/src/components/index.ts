@@ -1,5 +1,7 @@
 export { RouteLoadingStatus } from './RouteLoadingStatus'
 export { ContentLink } from './ContentLink'
+export { ContentContinuations } from './ContentContinuations'
+export type { ContentContinuation } from './ContentContinuations'
 export { ContentNavigation } from './ContentNavigation'
 export { DocumentMetadata } from './DocumentMetadata'
 export { ExternalLink } from './ExternalLink'

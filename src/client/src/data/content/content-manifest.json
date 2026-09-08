@@ -143,7 +143,7 @@
       },
       "path": "writing/2026-09-03-how-the-invisibles-logo-designer-influenced-the-usual-specialists.md",
       "tags": ["writing", "design", "typography"],
-      "relatedSlugs": ["lawful-heist", "adventures-of-patch"]
+      "relatedSlugs": ["the-usual-specialists", "adventures-of-patch"]
     },
     {
       "slug": "use-superpowers",
@@ -198,12 +198,12 @@
       "relatedSlugs": ["identity-emporium", "adventures-of-patch"]
     },
     {
-      "slug": "lawful-heist",
+      "slug": "the-usual-specialists",
       "kind": "patch",
-      "title": "The Lawful Heist Crew",
+      "title": "The Usual Specialists",
       "status": "advanced visual pre-production",
       "summary": "Six specialists turn a lawful vault override into a plan whose execution should be almost offensively boring.",
-      "presentation": "patch-lawful-heist",
+      "presentation": "patch-usual-specialists",
       "tags": ["patch", "agentic-engineering", "authority", "audit", "recovery"],
       "relatedSlugs": ["tournament-of-reasonable-defaults", "identity-emporium", "adventures-of-patch"]
     }

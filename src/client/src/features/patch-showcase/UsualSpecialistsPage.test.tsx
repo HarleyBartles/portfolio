@@ -1,27 +1,22 @@
-import { Suspense } from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
-import { getProjectPresentation } from '../case-study/projectPresentations'
+import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 
-describe('Lawful Heist crew story', () => {
+describe('Usual Specialists crew story', () => {
   test('recruits six specialists in the approved functional order', async () => {
-    const LawfulHeistPage = getProjectPresentation('patch-lawful-heist')
-
-    expect(LawfulHeistPage).toBeDefined()
-    if (LawfulHeistPage === undefined) throw new Error('Lawful Heist presentation should be registered')
-
     render(
-      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/lawful-heist']}>
-        <Suspense fallback={null}><LawfulHeistPage /></Suspense>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
+        <UsualSpecialistsPage />
       </MemoryRouter>,
     )
 
-    const story = await screen.findByRole('region', { name: 'The Lawful Heist Crew adventure' })
+    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' })
     expect(story).toHaveAttribute('data-type-register', 'site-sans')
     expect(story.querySelector('[data-evidence-frame="universal"]')).not.toBeInTheDocument()
     const profiles = within(story).getAllByRole('article')
     expect(profiles).toHaveLength(6)
+    expect(profiles.map((profile) => profile.getAttribute('data-specialist'))).toEqual(['index', 'silk', 'writ', 'klause', 'rollback', 'receipt'])
     expect(profiles.map((profile) => within(profile).getByRole('heading', { level: 2 }).textContent)).toEqual([
       'Index', 'Silk', 'Writ', 'Klause', 'Rollback', 'Receipt',
     ])

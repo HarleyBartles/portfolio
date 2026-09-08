@@ -35,9 +35,9 @@ describe('route document generator', () => {
             summary: 'A specific article summary.',
           },
           {
-            slug: 'lawful-heist',
+            slug: 'the-usual-specialists',
             kind: 'patch',
-            title: 'The Lawful Heist Crew',
+            title: 'The Usual Specialists',
             summary: 'Six specialists make a lawful override routine.',
           },
         ],
@@ -75,9 +75,9 @@ describe('route document generator', () => {
     expect(article).toContain(
       'https://harleybartles.com/writing/agentic-engineering-vs-vibe-coding',
     )
-    expect(lawfulHeist).toContain('<title>The Lawful Heist Crew | Harley Bartles</title>')
+    expect(lawfulHeist).toContain('<title>The Usual Specialists | Harley Bartles</title>')
     expect(lawfulHeist).toContain('Six specialists make a lawful override routine.')
-    expect(lawfulHeist).toContain('https://harleybartles.com/patch/lawful-heist')
+    expect(lawfulHeist).toContain('https://harleybartles.com/patch/the-usual-specialists')
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
     expect(fallback).not.toContain('rel="canonical"')
     expect(fallback).toContain('name="robots" content="noindex, nofollow"')

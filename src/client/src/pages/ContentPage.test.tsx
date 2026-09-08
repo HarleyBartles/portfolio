@@ -120,9 +120,9 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(within(article).getByText('4 min read')).toBeVisible()
     expect(within(article).getByText('3 September 2026')).toBeVisible()
     const related = within(article).getByRole('navigation', { name: 'Continue reading' })
-    expect(within(related).getByRole('link', { name: /The Lawful Heist Crew/ })).toHaveAttribute(
+    expect(within(related).getByRole('link', { name: /The Usual Specialists/ })).toHaveAttribute(
       'href',
-      '/portfolio/patch/lawful-heist',
+      '/portfolio/patch/the-usual-specialists',
     )
     expect(within(related).getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute(
       'href',

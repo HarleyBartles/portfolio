@@ -25,7 +25,7 @@ describe('homepageEdition', () => {
         kind: 'patch',
         anchorId: 'patch',
         title: 'The Usual Specialists',
-        to: '/patch/lawful-heist',
+        to: '/patch/the-usual-specialists',
         inwardLabel: 'Meet the crew',
         incomingTeaser: 'Meet The Usual Specialists',
         closingTeaser: "Then tell me what you're building",

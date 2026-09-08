@@ -13,7 +13,7 @@ export type ContentPresentation =
   | 'learning-lab-case-study'
   | 'patch-identity-emporium'
   | 'patch-tournament'
-  | 'patch-lawful-heist'
+  | 'patch-usual-specialists'
 
 export type WritingHomepageCopy = {
   summary: string

@@ -106,7 +106,7 @@ PATCH_STATUSES = {
 PATCH_SOURCE_TYPES = {"repository-evidence", "public-artefact", "user-supplied-professional-project-context", "generated-pose"}
 PATCH_SOURCE_STATES = {"accepted", "published", "advanced_visual_preproduction", "visual_development", "legacy_reference"}
 PATCH_IN_FLIGHT_STATUSES = {
-    "Lawful Heist": "advanced-visual-preproduction",
+    "The Usual Specialists": "advanced-visual-preproduction",
     "Tournament of Reasonable Defaults": "visual-development",
     "Identity Emporium": "visual-development",
 }
@@ -259,11 +259,11 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
 
         if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-lawful-heist"}:
+            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-usual-specialists"}:
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "patch":
+            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "patch":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
-            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-lawful-heist"} and kind != "project":
+            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "project":
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
 
         if has_path:
@@ -1047,7 +1047,7 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "published must match the four approved title and path pairs"))
     in_flight = evidence.get("inFlight")
     if not isinstance(in_flight, list) or [record.get("title") if isinstance(record, dict) else None for record in in_flight] != [
-        "Lawful Heist", "Tournament of Reasonable Defaults", "Identity Emporium",
+        "The Usual Specialists", "Tournament of Reasonable Defaults", "Identity Emporium",
     ]:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "inFlight must contain the three approved worlds in order"))
     else:

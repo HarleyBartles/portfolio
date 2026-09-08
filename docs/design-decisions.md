@@ -319,3 +319,8 @@ starts appearing outside bounded evidence relationships.
 **Consequence:** Readers encounter one recognisable aside device without flattening the writing itself. A new article cannot quietly invent another callout, and the same component-owned precedent already governing `EditorialPullQuote` is explicit for asides. The product-ownership signal map remains local content inside the shared primitive, not a competing aside design.
 
 **Reconsider when:** A published article needs a materially different semantic relationship that the shared aside cannot express. That proposal must name the relationship, render its behavior at desktop, narrow widths and 200% zoom, and receive explicit approval before a new primitive or local treatment is introduced.
+## 2026-09-07 — Patch brand custody and persistent series identity
+
+The Adventures of PATCH cliff-drop lockup is the persistent series mark for the Patch index and story pages. The Usual Specialists outlined wordmark is its secondary story mark, now held with the Adventures of Patch brand assets rather than homepage media. Both remain external outlined SVGs with semantic text fallbacks; consuming compositions control presentation through `currentColor`.
+
+Reconsider if the Adventures of Patch series develops a governed brand repository or if a future route needs a materially different identity relationship.

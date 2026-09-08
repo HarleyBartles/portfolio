@@ -39,12 +39,12 @@ async function waitForPatchStyles(page: Page): Promise<void> {
 }
 
 async function waitForTournamentStyles(page: Page): Promise<void> {
-  const event = page.locator('.tournament-event').first()
+  const event = page.locator('[data-patch-event]').first()
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
-async function waitForLawfulHeistStyles(page: Page): Promise<void> {
-  const rollback = page.locator('.heist-recruit--rollback')
+async function waitForSpecialistsStyles(page: Page): Promise<void> {
+  const rollback = page.locator('[data-specialist="rollback"]')
   await expect
     .poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor))
     .toBe('rgb(24, 33, 28)')
@@ -434,11 +434,11 @@ test('Tournament keeps its opening ambiguity and stakeholder consultation legibl
   await openStable(page, './patch/tournament-of-reasonable-defaults')
   await waitForTournamentStyles(page)
 
-  const opening = page.locator('.tournament-event--seven-day')
+  const opening = page.locator('[data-patch-event="seven-day"]')
   await waitForImages(opening)
   await expect(opening).toHaveScreenshot('patch-tournament-seven-day.png')
 
-  const consultation = page.locator('.tournament-event__consultation')
+  const consultation = page.locator('[data-testid="tournament-consultation"]')
   await waitForImages(consultation)
   await expect(consultation).toHaveScreenshot('patch-tournament-consultation.png')
 })
@@ -453,14 +453,33 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
   await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
 })
 
-test('Lawful Heist keeps Rollback at the dominant end of agent scale', async ({ page }) => {
+test('The Usual Specialists keeps Rollback at the dominant end of agent scale', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './patch/lawful-heist')
-  await waitForLawfulHeistStyles(page)
+  await openStable(page, './patch/the-usual-specialists')
+  await waitForSpecialistsStyles(page)
 
-  const rollback = page.locator('.heist-recruit--rollback')
+  const rollback = page.locator('[data-specialist="rollback"]')
   await waitForImages(rollback)
   await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
+})
+
+test('Patch index keeps its branded series front door at wide and mobile viewports', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport)
+    await openStable(page, './patch')
+    const index = page.locator('[data-visual-contract="patch-index"]')
+    await expect(index).toHaveScreenshot(`patch-index-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
+})
+
+test('Identity Emporium keeps its evidence composition at wide and mobile viewports', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport)
+    await openStable(page, './patch/identity-emporium')
+    await waitForImages(page.locator('[data-visual-contract="patch-identity-emporium"]'))
+    const identity = page.locator('[data-visual-contract="patch-identity-emporium"]')
+    await expect(identity).toHaveScreenshot(`patch-identity-emporium-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
 })
 
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {

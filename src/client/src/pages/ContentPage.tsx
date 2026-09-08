@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { lazy, type ComponentType, Suspense } from 'react'
+import { lazy, type ComponentType, type ReactNode, Suspense } from 'react'
 import { ApiRequestError } from '../api/contentApi'
 import { contentQueries } from '../app/queryClient'
 import {
@@ -38,6 +38,7 @@ const LazyProjectVisual = lazy(async () => {
 type ContentPageProps = {
   slug: string
   expectedKind?: ContentKind
+  headerVisual?: ReactNode
 }
 
 type WritingMetadataProps = {
@@ -131,7 +132,7 @@ const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBo
   return <ContentProse layout={proseLayout} register={proseRegister} markdown={markdown} />
 }
 
-export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
+export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPageProps) => {
   const contentQuery = useQuery(contentQueries.document(slug))
   const navigationQuery = useQuery(contentQueries.navigation())
 
@@ -274,12 +275,12 @@ export const ContentPage = ({ slug, expectedKind }: ContentPageProps) => {
           summary={document.summary.summary}
           status={document.summary.status}
           layout={projectHeaderLayout}
-          visual={projectHeaderVisual}
+          visual={headerVisual ?? projectHeaderVisual}
           visualContract={visualContract}
         /> : <ContentHeader
           title={document.summary.title}
           summary={document.summary.summary}
-          visual={projectHeaderVisual}
+          visual={headerVisual ?? projectHeaderVisual}
           visualContract={visualContract}
           register="site-sans"
         />}
