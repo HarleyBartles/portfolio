@@ -660,7 +660,7 @@ Change every Task 6 checkbox to `[x]` only after destination-owned teaser tests 
 - Consumes: `HomeFrame`, `HomeEyebrow`, React Router `Link`.
 - Produces: `ProfessionalClose` with `id="contact"`, unchanged heading/copy, and routes `/contact`, `/cv`, `/about`.
 
-- [ ] **Step 1: Add explicit close-route semantics**
+- [x] **Step 1: Add explicit close-route semantics**
 
 ```tsx
 expect(screen.getByRole('link', { name: 'Tell me about it →' })).toHaveAttribute('href', '/contact')
@@ -668,11 +668,11 @@ expect(screen.getByRole('link', { name: 'Read my CV →' })).toHaveAttribute('hr
 expect(screen.getByRole('link', { name: 'About me →' })).toHaveAttribute('href', '/about')
 ```
 
-- [ ] **Step 2: Port the close's two-rail composition locally**
+- [x] **Step 2: Port the close's two-rail composition locally**
 
 Define `ProfessionalCloseMovement`, `ProfessionalCloseGrid`, `ProfessionalCloseCopy`, `ProfessionalCloseActions`, and `ProfessionalActionRow`. Preserve the current 7/4 column relationship, top rule, heading clamp, wrap behaviour, `<=800` stack, and no bottom border.
 
-- [ ] **Step 3: Remove close Sass and verify anchors/frame**
+- [x] **Step 3: Remove close Sass and verify anchors/frame**
 
 Remove Professional-Close compatibility classNames in the same patch as their last Sass selectors, then run:
 
@@ -682,7 +682,7 @@ npm test -- --run src/features/home/HomepageSections.test.tsx
 npm run test:e2e -- e2e/homepage.spec.ts --grep "editorial order|breakpoint edges|editorial frame|semantic content"
 ```
 
-- [ ] **Step 4: Mark Task 7 complete in this plan**
+- [x] **Step 4: Mark Task 7 complete in this plan**
 
 Change every Task 7 checkbox to `[x]` after the close retains its accepted conversion and frame relationship.
 

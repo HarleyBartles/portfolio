@@ -106,6 +106,27 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: `${defaultHomepageEdition.patch.incomingTeaser} ↓` })).toHaveAttribute('href', '#patch')
   })
 
+  test('keeps the Professional Close conversion routes explicit', () => {
+    render(<MemoryRouter><ProfessionalClose /></MemoryRouter>)
+
+    expect(screen.getByRole('link', { name: 'Tell me about it →' })).toHaveAttribute('href', '/contact')
+    expect(screen.getByRole('link', { name: 'Read my CV →' })).toHaveAttribute('href', '/cv')
+    expect(screen.getByRole('link', { name: 'About me →' })).toHaveAttribute('href', '/about')
+  })
+
+  test('owns the Professional Close two-rail composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><ProfessionalClose /></MemoryRouter>)
+    const movement = container.querySelector('[data-home-movement="professional-close"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const heading = within(movement).getByRole('heading', { level: 2 })
+    const actions = screen.getByText(/If that looks like the kind of engineering/).parentElement as HTMLElement
+
+    expect(movement).toHaveStyle({ paddingTop: 'clamp(86px, 11vw, 150px)', borderBottomWidth: '0px' })
+    expect(frame).toHaveStyle({ display: 'grid', alignItems: 'end' })
+    expect(heading).toHaveStyle({ maxWidth: '12ch', fontSize: 'clamp(42px, 5.4vw, 72px)', lineHeight: '.98' })
+    expect(actions).toHaveStyle({ paddingTop: '18px' })
+  })
+
   test('renders the Writing fold from destination-owned edition metadata', () => {
     const feature = {
       ...defaultHomepageEdition.writing,
