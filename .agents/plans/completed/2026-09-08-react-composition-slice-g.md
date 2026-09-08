@@ -1029,7 +1029,7 @@ git commit -m "refactor: complete React composition Slice G"
 
 If the hook rejects the commit, use its independent-failure report for focused repair, restage, and retry normally. Never use `--no-verify`.
 
-- [ ] **Step 4: Verify the committed worktree is clean**
+- [x] **Step 4: Verify the committed worktree is clean**
 
 ```powershell
 git status --short
@@ -1038,7 +1038,7 @@ git log -1 --oneline
 
 Expected: no uncommitted files; final commit exists on `codex/react-composition-slice-g-plan`.
 
-- [ ] **Step 5: Mark Task 11 complete in this plan before its final lifecycle archive commit**
+- [x] **Step 5: Mark Task 11 complete in this plan before its final lifecycle archive commit**
 
 The implementation is not complete until the plan task tracking itself reflects the executed evidence.
 
@@ -1046,28 +1046,28 @@ The implementation is not complete until the plan task tracking itself reflects 
 
 Slice G is complete only when all of the following are true:
 
-- [ ] The two pre-existing unit flakes are either reproduced and stabilised independently or remain explicitly falsified by repeated focused/full-load proof; they are not misreported as Slice G regressions.
-- [ ] `HomePage` remains a six-movement orchestrator in the accepted order.
-- [ ] `defaultHomepageEdition` remains deterministic and destination-owned teaser copy remains in descriptors.
-- [ ] No autoplay/random/date/cookie/network edition machinery exists.
-- [ ] The home shell/frame/type/action grammar is owned by `SiteLayout` plus home-local primitives, without imposing publication-button styling on the homepage.
-- [ ] Opening owns its composition locally.
-- [ ] Marketplace owns its overlap/art choreography locally.
-- [ ] Wild Bunch owns a dedicated typed proof composition with unchanged topology and repeated data order.
-- [ ] Writing owns its serif editorial fold locally.
-- [ ] Professional Close owns its conversion fold locally.
-- [ ] Patch presentation selection remains registry-driven and hidden from `HomePage`.
-- [ ] Specialists retains local media-failure state, canonical brand marks, overprint, evidence choreography, and fallback semantics.
-- [ ] `ProjectVisual` retains its current module/API and lazy `ContentPage` boundary while owning styles locally.
-- [ ] `HomePage.scss` and `ProjectVisual.scss` are deleted with no live imports.
-- [ ] Incidental style-only classes are retired where durable semantic/data contracts replace them.
-- [ ] Breakpoint-edge stress tests cover the accepted authored cliffs and no horizontal overflow appears.
-- [ ] Keyboard, focus, reduced motion, anchor landings, media failure, and actual 200% zoom remain usable.
-- [ ] Existing homepage visual baselines pass twice on Windows without snapshot update.
-- [ ] HomePage and ProjectVisual route-chunk size movement is measured/explained; hard entry JS/CSS/PDF budgets remain unchanged and green.
-- [ ] Homepage and ProjectVisual route/direct-load lazy boundaries remain intact with no visible unstyled first state.
-- [ ] Repo mesh/whitespace checks are green and generated indices were not hand-edited.
-- [ ] Final commits use the tracked pre-commit hook and the worktree is clean.
+- [x] The two pre-existing unit flakes are either reproduced and stabilised independently or remain explicitly falsified by repeated focused/full-load proof; they are not misreported as Slice G regressions.
+- [x] `HomePage` remains a six-movement orchestrator in the accepted order.
+- [x] `defaultHomepageEdition` remains deterministic and destination-owned teaser copy remains in descriptors.
+- [x] No autoplay/random/date/cookie/network edition machinery exists.
+- [x] The home shell/frame/type/action grammar is owned by `SiteLayout` plus home-local primitives, without imposing publication-button styling on the homepage.
+- [x] Opening owns its composition locally.
+- [x] Marketplace owns its overlap/art choreography locally.
+- [x] Wild Bunch owns a dedicated typed proof composition with unchanged topology and repeated data order.
+- [x] Writing owns its serif editorial fold locally.
+- [x] Professional Close owns its conversion fold locally.
+- [x] Patch presentation selection remains registry-driven and hidden from `HomePage`.
+- [x] Specialists retains local media-failure state, canonical brand marks, overprint, evidence choreography, and fallback semantics.
+- [x] `ProjectVisual` retains its current module/API and lazy `ContentPage` boundary while owning styles locally.
+- [x] `HomePage.scss` and `ProjectVisual.scss` are deleted with no live imports.
+- [x] Incidental style-only classes are retired where durable semantic/data contracts replace them.
+- [x] Breakpoint-edge stress tests cover the accepted authored cliffs and no horizontal overflow appears.
+- [x] Keyboard, focus, reduced motion, anchor landings, media failure, and actual 200% zoom remain usable.
+- [x] Existing homepage visual baselines pass twice on Windows without snapshot update.
+- [x] HomePage and ProjectVisual route-chunk size movement is measured/explained; hard entry JS/CSS/PDF budgets remain unchanged and green.
+- [x] Homepage and ProjectVisual route/direct-load lazy boundaries remain intact with no visible unstyled first state.
+- [x] Repo mesh/whitespace checks are green and generated indices were not hand-edited.
+- [x] Final commits use the tracked pre-commit hook and the worktree is clean.
 
 ## Non-goals
 
