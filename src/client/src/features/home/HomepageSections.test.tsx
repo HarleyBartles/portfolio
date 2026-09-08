@@ -106,6 +106,42 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: `${defaultHomepageEdition.patch.incomingTeaser} ↓` })).toHaveAttribute('href', '#patch')
   })
 
+  test('renders the Writing fold from destination-owned edition metadata', () => {
+    const feature = {
+      ...defaultHomepageEdition.writing,
+      title: 'A deliberately different Writing title',
+      to: '/writing/deliberately-different',
+      inwardLabel: 'Read this one',
+    }
+    const nextFeature: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      incomingTeaser: 'Continue to the authored Patch proof',
+    }
+
+    render(<MemoryRouter><WritingFeature feature={feature} nextFeature={nextFeature} /></MemoryRouter>)
+
+    expect(screen.getByRole('heading', { level: 2, name: feature.title })).toBeVisible()
+    expect(screen.getByRole('link', { name: `${feature.inwardLabel} →` })).toHaveAttribute('href', feature.to)
+    expect(screen.getByRole('link', { name: `${nextFeature.incomingTeaser} ↓` })).toHaveAttribute('href', `#${nextFeature.anchorId}`)
+  })
+
+  test('owns the Writing editorial composition without relying on the route stylesheet', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <WritingFeature feature={defaultHomepageEdition.writing} nextFeature={defaultHomepageEdition.patch} />
+      </MemoryRouter>,
+    )
+    const movement = container.querySelector('[data-home-movement="writing"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const heading = within(movement).getByRole('heading', { level: 2 })
+    const summary = within(movement).getByText(defaultHomepageEdition.writing.summary)
+
+    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(96px, 13vw, 180px)' })
+    expect(frame).toHaveStyle({ display: 'grid' })
+    expect(heading).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', lineHeight: '.94' })
+    expect(summary).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', fontSize: '20px', lineHeight: '1.5' })
+  })
+
   test('keeps the Wild Bunch topology semantic and ordered', () => {
     const { container } = renderSections()
     const proof = container.querySelector('[data-wild-proof]') as HTMLElement

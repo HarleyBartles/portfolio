@@ -70,7 +70,7 @@ test('homepage typography uses the shared Source families rather than legacy fon
   await page.goto('./')
   await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
   await expect(page.locator('.site-header nav a').first()).toHaveCSS('font-family', /Source Code Pro/)
-  await expect(page.locator('.home-article-title').first()).toHaveCSS('font-family', /Source Serif 4/)
+  await expect(page.locator('[data-home-movement="writing"] h2')).toHaveCSS('font-family', /Source Serif 4/)
 })
 
 test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {

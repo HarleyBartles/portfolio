@@ -622,15 +622,15 @@ Change every Task 5 checkbox to `[x]` only after all Wild Bunch geometry and scr
 - Consumes: `WritingHomepageFeature`, `PatchHomepageFeature`, `HomeFrame`, `HomeEyebrow`, `HomeRouteActions`, `HomeRouteLink`, `HomeNextAnchor`, `HomeAnchorTarget`.
 - Produces: unchanged `WritingFeature({ feature, nextFeature })` with Source Serif 4 title/summary treatment and destination-owned continuation.
 
-- [ ] **Step 1: Strengthen Writing ownership tests**
+- [x] **Step 1: Strengthen Writing ownership tests**
 
 Prove the title comes from `feature.title`, the inward route comes from `feature.to`, and continuation text/href comes from `nextFeature.incomingTeaser`/`nextFeature.anchorId`.
 
-- [ ] **Step 2: Port the Writing fold to local styled-components**
+- [x] **Step 2: Port the Writing fold to local styled-components**
 
 Define `WritingMovement`, `WritingGrid`, `WritingLabel`, `WritingTitle`, and `WritingSummary`. Preserve the current 12-column positions, `clamp(58px, 7.4vw, 104px)` title, Source Serif 4 register, summary rail, `<=800`, `521..800`, and `<=480` behaviour exactly.
 
-- [ ] **Step 3: Remove Writing Sass and run stress proof**
+- [x] **Step 3: Remove Writing Sass and run stress proof**
 
 Remove Writing-specific compatibility classNames in the same patch as their last Sass selectors, then run:
 
@@ -641,7 +641,7 @@ npm run test:e2e -- e2e/homepage.spec.ts --grep "editorial order|breakpoint edge
 npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 ```
 
-- [ ] **Step 4: Mark Task 6 complete in this plan**
+- [x] **Step 4: Mark Task 6 complete in this plan**
 
 Change every Task 6 checkbox to `[x]` only after destination-owned teaser tests and homepage visual proof remain green.
 
