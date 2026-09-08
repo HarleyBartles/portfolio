@@ -29,22 +29,42 @@ function renderRoute(path: string) {
 }
 
 describe('Adventures of Patch routes', () => {
-  test('groups one-page fairytales and larger adventures without fake detail links', async () => {
+  test('introduces Patch before offering adventures and fairytales', async () => {
     renderRoute('/patch')
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Adventures of Patch' }, { timeout: 10_000 })).toBeVisible()
-    const fairytales = await screen.findByRole('region', { name: 'One-page fairytales' })
+    const patchIndex = screen.getByTestId('patch-index')
+    const introduction = await screen.findByRole('region', { name: 'Introducing Patch' })
+    expect(within(introduction).getByRole('img', { name: /Patch carries an index card and folded map/i })).toHaveAttribute('src', '/media/patch/patch-hero-500.webp')
+    expect(within(introduction).queryByText(/Meet Patch first\. Pick an adventure when you.re ready\./i)).not.toBeInTheDocument()
+    expect(window.getComputedStyle(patchIndex).getPropertyValue('--patch-paper').trim()).toBe('#f7f4ec')
+
+    const adventures = await screen.findByRole('region', { name: 'Adventures' })
+    const fairytales = await screen.findByRole('region', { name: 'Patch fairytales' })
+    expect(introduction.compareDocumentPosition(adventures) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(adventures.compareDocumentPosition(fairytales) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+
     expect(within(fairytales).getAllByRole('link', { name: /Goldilocks/i })[0]).toHaveAttribute('href', '/portfolio/patch/goldilocks')
     expect(within(fairytales).getAllByRole('link', { name: /Sorcerer.s Apprentice/i })[0]).toHaveAttribute('href', '/portfolio/patch/sorcerers-apprentice')
 
-    const adventures = screen.getByRole('region', { name: 'Larger adventures' })
-    expect(within(adventures).getByRole('link', { name: /Identity Emporium/i })).toHaveAttribute('href', '/portfolio/patch/identity-emporium')
+    expect(within(adventures).getByRole('link', { name: 'Identity Emporium' })).toHaveAttribute('href', '/portfolio/patch/identity-emporium')
     const tournament = within(adventures).getByRole('article', { name: 'Tournament of Reasonable Defaults' })
     const heist = within(adventures).getByRole('article', { name: 'The Usual Specialists' })
-    expect(within(tournament).getByRole('link', { name: /Tournament of Reasonable Defaults/i })).toHaveAttribute('href', '/portfolio/patch/tournament-of-reasonable-defaults')
-    expect(within(heist).getByRole('link', { name: /The Usual Specialists/i })).toHaveAttribute('href', '/portfolio/patch/the-usual-specialists')
-    expect(tournament).toHaveTextContent(/visual development/i)
-    expect(heist).toHaveTextContent(/advanced visual pre-production/i)
+    const goldilocks = within(fairytales).getByRole('article', { name: /Goldilocks/i })
+    const tournamentCopy = tournament.querySelector('.patch-index__adventure-copy')
+    expect(within(tournament).getByRole('link', { name: 'Tournament of Reasonable Defaults' })).toHaveAttribute('href', '/portfolio/patch/tournament-of-reasonable-defaults')
+    expect(within(heist).getByRole('link', { name: 'View The Usual Specialists' })).toHaveAttribute('href', '/portfolio/patch/the-usual-specialists')
+    expect(within(heist).getByRole('img', { name: /completed Usual Specialists recruitment folder/i })).toHaveAttribute('loading', 'lazy')
+    expect(within(tournament).getByRole('img', { name: /consulting tournament officials/i })).toHaveAttribute('loading', 'lazy')
+    expect(within(adventures).getByRole('img', { name: /choosing task-specific preparation/i })).toHaveAttribute('loading', 'lazy')
+    expect(window.getComputedStyle(tournament).alignContent).toBe('start')
+    expect(tournamentCopy).not.toBeNull()
+    expect(window.getComputedStyle(tournamentCopy as HTMLElement).alignContent).toBe('start')
+    expect(goldilocks).toHaveClass('editorial-card--patch')
+    expect(within(adventures).queryByText(/visual development/i)).not.toBeInTheDocument()
+    expect(within(adventures).queryByText(/advanced visual pre-production/i)).not.toBeInTheDocument()
+    expect(within(tournament).queryByText(/Four event environments/i)).not.toBeInTheDocument()
+    expect(within(adventures).queryByText(/The cowboy assets make the distinction visible/i)).not.toBeInTheDocument()
   })
 
   test('publishes the Tournament progression on its own route', async () => {

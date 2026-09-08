@@ -17,6 +17,10 @@ const Lead = styled.header`
   gap: var(--space-6) var(--space-12);
   align-items: end;
   max-width: 68rem;
+
+  @media (max-width: 54rem) {
+    grid-template-columns: 1fr;
+  }
 `
 const LeadStatus = styled.p`
   grid-column: 1 / -1; margin: 0; color: #0d7476; font-family: var(--font-site-sans); font-size: var(--type-metadata-size); font-weight: 700;
@@ -61,7 +65,7 @@ const RecruitPortrait = styled.figure<{ $variant: RecruitVariant }>`
   grid-column: 4 / span 8; grid-row: 1; aspect-ratio: 1; overflow: hidden; margin: 0; background: #fff;
   ${({ $variant }) => ['silk', 'klause'].includes($variant) && 'grid-column: 1 / span 9;'}
   ${({ $variant }) => $variant === 'writ' && 'grid-column: 4 / -1;'}
-  ${({ $variant }) => $variant === 'rollback' && 'grid-column: 7 / span 5; grid-row: 2; aspect-ratio: 4 / 5; min-height: 40rem; margin-top: calc(-1 * var(--space-20)); z-index: 2;'}
+  ${({ $variant }) => $variant === 'rollback' && 'grid-column: 7 / span 5; grid-row: 2; aspect-ratio: 4 / 5; min-height: min(40rem, 50vw); margin-top: calc(-1 * var(--space-20)); z-index: 2;'}
   picture, img { display: block; width: 100%; height: 100%; } img { object-fit: cover; object-position: center; }
   @media (max-width: 54rem) { ${({ $variant }) => $variant === 'rollback' && 'grid-column: 6 / -1; min-height: 0;'} }
   @media (max-width: 42rem) { grid-column: 1 / -1; grid-row: 2; ${({ $variant }) => $variant === 'rollback' && 'grid-row: 3; min-height: 0; margin: 0;'} }

@@ -24,8 +24,9 @@ describe('ContentNavigation', () => {
   test('links to the previous and next entries around the current story', () => {
     render(<PortfolioThemeProvider><MemoryRouter><ContentNavigation items={articles} currentSlug="second" /></MemoryRouter></PortfolioThemeProvider>)
 
-    expect(screen.getByRole('link', { name: /previous.*first note/i })).toHaveAttribute('href', '/writing/first')
-    expect(screen.getByRole('link', { name: /next.*third note/i })).toHaveAttribute('href', '/writing/third')
+    expect(screen.getByRole('heading', { level: 2, name: 'Continue reading' })).toBeVisible()
+    expect(screen.getByRole('link', { name: /previous\s*first note/i })).toHaveAttribute('href', '/writing/first')
+    expect(screen.getByRole('link', { name: /next\s*third note/i })).toHaveAttribute('href', '/writing/third')
   })
 
   test('does not wrap at archive boundaries', () => {

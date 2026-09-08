@@ -267,10 +267,10 @@ npm test -- --run src/features/patch-showcase/IdentityEmporiumPage.test.tsx src/
 
 Preserve the four events and exact story payload:
 
-1. Seven-Day App Build — `Build me an app in seven days.` — `No medal`.
-2. High Jump — `Build a login page.` — `No medal`.
-3. Under-specified Maze — `Write me an API for users.` — `Bronze`.
-4. Long Course with Consultation — `Implement GET /users/{id}.` — `Gold`.
+1. The Seven-Day Sprint — `the last 7 days` — `No medal`.
+2. The Industry Standard High Jump — `Clear the industry standard` — `No medal`.
+3. The Maze of Reasonable Defaults — `Get to the exit with the prize` — `Bronze`.
+4. The Long Course — `Cross the finish line` — `Gold`.
 
 Add:
 
@@ -367,7 +367,7 @@ npm run test:e2e:visual -- e2e/visual-regression.spec.ts --grep "Usual Specialis
 
 1. Require visible Adventures of PATCH series lockup on `/patch`.
 2. Keep a semantic H1 `Adventures of Patch`; it may be visually hidden if the outlined mark is the visual title.
-3. Preserve the current fairytale/in-flight grouping and lesson/status information.
+3. Preserve the fairytale/adventure grouping and lesson information. Status/current-evidence copy may remain on story/source surfaces and is intentionally omitted from the redesigned index cards.
 4. Require the current Specialists index link to `/patch/the-usual-specialists`.
 5. Add `data-visual-contract="patch-index"`.
 
