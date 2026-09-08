@@ -991,7 +991,7 @@ Change every Task 10 checkbox to `[x]` only after unit, browser, visual, bundle,
 - Consumes: the complete Slice G tree from Tasks 0-10.
 - Produces: one clean hooked commit state suitable for code review; no weakened budgets, no snapshot laundering, no uncommitted generated drift.
 
-- [ ] **Step 1: Review Slice G against the programme architecture questions**
+- [x] **Step 1: Review Slice G against the programme architecture questions**
 
 Record answers in the task return:
 
@@ -1002,7 +1002,7 @@ Record answers in the task return:
 5. Effects/hooks/memoization: no new ones exist without an observed synchronisation/reuse/performance need.
 6. Parent readability: `HomePage`, `WildBunchFeature`, and `SpecialistsPatchFeature` can be understood from named children/props without reading a global stylesheet.
 
-- [ ] **Step 2: Run final residue searches**
+- [x] **Step 2: Run final residue searches**
 
 ```powershell
 rg -n "HomePage\.scss|ProjectVisual\.scss" src/client
@@ -1016,7 +1016,7 @@ Interpretation:
 - Deterministic edition/teaser ownership remains explicit.
 - No new homepage rotation/autoplay persistence machinery has appeared.
 
-- [ ] **Step 3: Stage the complete intended tree and commit normally**
+- [x] **Step 3: Stage the complete intended tree and commit normally**
 
 Do not manually run full canonical CI immediately before this commit. Stage the complete tree, inspect it, then commit normally so the tracked pre-commit hook validates the staged snapshot:
 
