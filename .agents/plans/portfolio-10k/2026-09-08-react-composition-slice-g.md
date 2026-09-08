@@ -871,7 +871,7 @@ Change every Task 9 checkbox to `[x]` only after `ProjectVisual.scss` is gone an
 </SiteLayout>
 ```
 
-- [ ] **Step 1: Prove both retired Sass surfaces have no live consumers**
+- [x] **Step 1: Prove both retired Sass surfaces have no live consumers**
 
 From repo root:
 
@@ -882,18 +882,18 @@ rg -n "home-wild-event|home-wild-live-wire|wild-reading-card|wild-proof-cache|wi
 
 Interpretation: no Sass import remains. Any old class-name match must have a legitimate remaining runtime purpose; otherwise remove it and use the stable `data-*` contract already established in Task 1/8.
 
-- [ ] **Step 2: Delete `HomePage.scss` and its import only after the residue search is understood**
+- [x] **Step 2: Delete `HomePage.scss` and its import only after the residue search is understood**
 
 Do not delete first and repair missing styles by eye. Every selector family must already have an owning styled component.
 
-- [ ] **Step 3: Run the complete focused Slice G unit set**
+- [x] **Step 3: Run the complete focused Slice G unit set**
 
 ```powershell
 cd src/client
 npm test -- --run src/components/SiteLayout.test.tsx src/features/home/HomePrimitives.test.tsx src/features/home/homepageEdition.test.ts src/features/home/HomepageSections.test.tsx src/features/home/WildBunchProof.test.tsx src/features/home/ProjectVisual.test.tsx src/pages/ContentPage.test.tsx src/pages/PatchRoutes.test.tsx
 ```
 
-- [ ] **Step 4: Run the complete homepage stress browser suite**
+- [x] **Step 4: Run the complete homepage stress browser suite**
 
 ```powershell
 npm run test:e2e -- e2e/homepage.spec.ts
@@ -902,7 +902,7 @@ npm run test:e2e -- e2e/project-story.spec.ts --grep "ProjectVisual|first-paint 
 
 Require all breakpoint-edge width checks, reduced motion, anchors, frame geometry, Wild Bunch connector geometry, media-failure fallback, keyboard/focus behaviour, homepage route-laziness, and ProjectVisual direct-route isolation to pass.
 
-- [ ] **Step 5: Run the protected homepage visual test twice without update**
+- [x] **Step 5: Run the protected homepage visual test twice without update**
 
 On Windows:
 
@@ -913,7 +913,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 Both runs must pass against the existing files. A diff is a migration defect by default; do not run `--update-snapshots` to make this task green.
 
-- [ ] **Step 6: Build and record bundle movement**
+- [x] **Step 6: Build and record bundle movement**
 
 ```powershell
 npm run build
@@ -935,7 +935,7 @@ foreach ($key in $keys) {
 
 Compare against the pre-Slice-G numbers in this plan. Entry hard budgets must remain green. Explain route-chunk CSS-to-JS movement in the task return; do not accept an unexplained large increase merely because the hard entry ceiling still passes.
 
-- [ ] **Step 7: Perform manual rendered stress acceptance**
+- [x] **Step 7: Perform manual rendered stress acceptance**
 
 In a real desktop browser using the production build/preview, inspect `/` at:
 
@@ -960,7 +960,7 @@ At minimum verify:
 9. Focus remains visible and reading/focus order follows source order.
 10. No visible unstyled first state or layout shift appears on direct load.
 
-- [ ] **Step 8: Apply/check repo mesh only through its owner command if plan/file references made it stale**
+- [x] **Step 8: Apply/check repo mesh only through its owner command if plan/file references made it stale**
 
 From repo root:
 
@@ -972,7 +972,7 @@ git diff --check
 
 Do not hand-edit generated `INDEX.md` files.
 
-- [ ] **Step 9: Mark Task 10 complete in this plan**
+- [x] **Step 9: Mark Task 10 complete in this plan**
 
 Change every Task 10 checkbox to `[x]` only after unit, browser, visual, bundle, manual zoom, mesh, and whitespace proof are complete.
 
