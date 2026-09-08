@@ -815,21 +815,21 @@ export function ProjectVisual(props: ProjectVisualProps): ReactElement
 - `ProjectIndexPage` may continue its direct route-local import.
 - `ContentPage` must continue `lazy(async () => import('../features/home/ProjectVisual'))` and must not receive an eager import through another module.
 
-- [ ] **Step 1: Replace class-based unit expectations with contract/behaviour expectations**
+- [x] **Step 1: Replace class-based unit expectations with contract/behaviour expectations**
 
 For Wild Bunch index and Patch index placements, assert `data-visual-contract`, accessible labels, picture/source count, and computed layout outcomes rather than `toHaveClass('project-visual--...')` where the class is only a Sass hook.
 
-- [ ] **Step 2: Port the stylesheet to named styled wrappers**
+- [x] **Step 2: Port the stylesheet to named styled wrappers**
 
 Create named components for Wild Bunch preview/concept, Learning Lab visual, Patch visual/index/case-study placement, captions, Marketplace diagram, and essay/diagram visual treatments. Preserve the exact `45rem`, `44rem`, `56rem`, and `64rem` media decisions currently in `ProjectVisual.scss`.
 
 Where placement changes styling, use typed transient props such as `$placement: 'preview' | 'index' | 'case-study-hero'`; do not rebuild modifier class strings.
 
-- [ ] **Step 3: Remove the Sass import and delete `ProjectVisual.scss`**
+- [x] **Step 3: Remove the Sass import and delete `ProjectVisual.scss`**
 
 `ProjectVisual.tsx` should import only `ProjectVisual.styles.ts` plus current feature dependencies. Do not create a shared eager barrel.
 
-- [ ] **Step 4: Prove non-home visual semantics and direct-route chunk isolation**
+- [x] **Step 4: Prove non-home visual semantics and direct-route chunk isolation**
 
 ```powershell
 cd src/client
@@ -839,7 +839,7 @@ npm run test:e2e -- e2e/project-story.spec.ts --grep "ProjectVisual|first-paint 
 
 The existing `**/*ProjectVisual-*.js` delayed-load tests must still intercept a real requested chunk on direct project routes. Project detail routes must not render a visible unstyled first state or collapse reserved header geometry while that chunk is pending.
 
-- [ ] **Step 5: Mark Task 9 complete in this plan**
+- [x] **Step 5: Mark Task 9 complete in this plan**
 
 Change every Task 9 checkbox to `[x]` only after `ProjectVisual.scss` is gone and lazy direct-route proof remains green.
 

@@ -1,7 +1,20 @@
 import type { ReactElement } from 'react'
 import { LearningLabImage } from '../case-study/learning-lab/LearningLabImage'
 import { LearningLoop } from '../case-study/learning-lab/LearningLoop'
-import './ProjectVisual.scss'
+import {
+  DecisionDiagramVisual,
+  EssayVisual,
+  LearningLabVisual,
+  MarketplaceCaption,
+  MarketplaceNodes,
+  MarketplaceVisual,
+  PatchVisual,
+  WildBunchConceptCaption,
+  WildBunchConceptVisual,
+  WildBunchPreviewCaption,
+  WildBunchPreviewVisual,
+  type ProjectVisualPlacement,
+} from './ProjectVisual.styles'
 
 export type ProjectVisualSlug =
   | 'codex-marketplace'
@@ -14,7 +27,7 @@ export type ProjectVisualSlug =
 type ProjectVisualProps = {
   slug: ProjectVisualSlug
   eager?: boolean
-  placement?: 'preview' | 'index' | 'case-study-hero'
+  placement?: ProjectVisualPlacement
 }
 
 function assetPath(path: string): string {
@@ -24,8 +37,8 @@ function assetPath(path: string): string {
 export function ProjectVisual({ slug, eager = false, placement = 'preview' }: ProjectVisualProps): ReactElement {
   if (slug === 'adventures-of-patch') {
     return (
-      <picture
-        className={`project-visual project-visual--patch${placement === 'index' ? ' project-visual--patch-index' : ''}${placement === 'case-study-hero' ? ' project-visual--patch-case-study' : ''}`}
+      <PatchVisual
+        $placement={placement}
         data-visual-contract={placement === 'index' ? 'adventures-of-patch-index-whole-character' : 'adventures-of-patch-preview'}
       >
         <source media="(min-width: 45rem)" srcSet={assetPath('/media/patch/patch-hero-1000.avif')} type="image/avif" />
@@ -40,36 +53,36 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
           loading={eager ? 'eager' : 'lazy'}
           fetchPriority={eager ? 'high' : 'auto'}
         />
-      </picture>
+      </PatchVisual>
     )
   }
 
   if (slug === 'agentic-learning-lab') {
     return (
-      <div className="project-visual project-visual--learning-lab" data-visual-contract="learning-lab-inspection-hero">
+      <LearningLabVisual data-visual-contract="learning-lab-inspection-hero">
         <LearningLabImage id="engineering-control-workbench" eager={eager} />
         <LearningLoop placement={placement} />
-      </div>
+      </LearningLabVisual>
     )
   }
 
   if (slug === 'codex-marketplace') {
     return (
-      <figure className="project-visual project-visual--marketplace" aria-label="Marketplace baseline plugins with selected and local repository boundaries.">
-        <div className="marketplace-nodes">
+      <MarketplaceVisual aria-label="Marketplace baseline plugins with selected and local repository boundaries.">
+        <MarketplaceNodes>
           <span>repo-worker-pack</span><span>superpowers-plus</span><span>mcp-usage-pack</span>
-        </div>
-        <figcaption><strong>17</strong> plugins <i>/</i> <strong>74</strong> entries <small>selected + local</small></figcaption>
-      </figure>
+        </MarketplaceNodes>
+        <MarketplaceCaption><strong>17</strong> plugins <i>/</i> <strong>74</strong> entries <small>selected + local</small></MarketplaceCaption>
+      </MarketplaceVisual>
     )
   }
 
   if (slug === 'wild-bunch') {
     if (placement === 'case-study-hero' || placement === 'index') {
       return (
-        <figure
+        <WildBunchConceptVisual
+          $placement={placement}
           aria-label="Wild Bunch early-alpha town-arrival concept art"
-          className={`project-visual project-visual--wild-bunch-concept${placement === 'index' ? ' project-visual--wild-bunch-concept-index' : ''}`}
           data-visual-contract="wild-bunch-concept-art"
         >
           <picture>
@@ -86,15 +99,14 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
               fetchPriority={eager ? 'high' : 'auto'}
             />
           </picture>
-          {placement === 'index' ? null : <figcaption>Concept art / early-alpha visual direction</figcaption>}
-        </figure>
+          {placement === 'index' ? null : <WildBunchConceptCaption>Concept art / early-alpha visual direction</WildBunchConceptCaption>}
+        </WildBunchConceptVisual>
       )
     }
 
     return (
-      <figure
+      <WildBunchPreviewVisual
         aria-label="Wild Bunch generated-town development-build preview"
-        className="project-visual project-visual--wild-bunch"
         data-visual-contract="wild-bunch-development-build-preview"
       >
         <picture>
@@ -111,22 +123,22 @@ export function ProjectVisual({ slug, eager = false, placement = 'preview' }: Pr
             fetchPriority={eager ? 'high' : 'auto'}
           />
         </picture>
-        <figcaption>Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns.</figcaption>
-      </figure>
+        <WildBunchPreviewCaption>Dustwell is one generated town in this seeded map-world. Its layout persists when the player leaves and returns.</WildBunchPreviewCaption>
+      </WildBunchPreviewVisual>
     )
   }
 
   if (slug === 'i-made-agentic-engineering-harder-than-it-needed-to-be') {
     return (
-      <figure className="project-visual project-visual--diagram" role="img" aria-label="Context flows into a decision, while durable state is written to a file.">
+      <DecisionDiagramVisual role="img" aria-label="Context flows into a decision, while durable state is written to a file.">
         <span>CONTEXT</span><b aria-hidden="true">→</b><span>DECISION</span><i aria-hidden="true">/</i><span>STATE</span><b aria-hidden="true">→</b><span>FILE</span>
-      </figure>
+      </DecisionDiagramVisual>
     )
   }
 
   return (
-    <figure className="project-visual project-visual--essay" role="img" aria-label="An editorial contrast between agentic engineering and vibe coding.">
+    <EssayVisual role="img" aria-label="An editorial contrast between agentic engineering and vibe coding.">
       <span>VIBE</span><i>is not the enemy of</i><strong>CRAFT</strong>
-    </figure>
+    </EssayVisual>
   )
 }
