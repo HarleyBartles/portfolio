@@ -414,7 +414,7 @@ Change every Task 2 checkbox to `[x]` only after tests and visual comparison are
 - Consumes: `HomeFrame`, `HomeEyebrow`, `HomeDisplayTitle`, `HomeCtaAnchor`.
 - Produces: `HomepageOpening(): ReactElement` with unchanged `data-home-movement="opening"`, `data-visual-contract="homepage-opening"`, heading ID/name, proof-list semantics, and `#marketplace` CTA.
 
-- [ ] **Step 1: Add opening structure assertions before moving styles**
+- [x] **Step 1: Add opening structure assertions before moving styles**
 
 Prove the `Professional proof` list has four items, H1 text/ID remain unchanged, and the movement contains one `data-home-frame`.
 
@@ -424,7 +424,7 @@ expect(within(proof).getAllByRole('listitem')).toHaveLength(4)
 expect(screen.getByRole('link', { name: 'See the work ↓' })).toHaveAttribute('href', '#marketplace')
 ```
 
-- [ ] **Step 2: Translate opening layout into local named styled pieces**
+- [x] **Step 2: Translate opening layout into local named styled pieces**
 
 Define `OpeningMovement`, `OpeningGrid`, `OpeningTitle`, and `OpeningProof` in `HomepageOpening.tsx`. Port the exact current min-height, align-items, 12-column grid, 7/5 split, proof rule/list spacing, and `800`/`480` responsive behaviour from the opening selector block in `HomePage.scss`.
 
@@ -442,11 +442,11 @@ const OpeningMovement = styled.section`
 
 Keep the exact current padding/type values by moving them from Sass rather than re-tuning them.
 
-- [ ] **Step 3: Remove opening-only Sass selectors**
+- [x] **Step 3: Remove opening-only Sass selectors**
 
 Remove `.opening`, `.opening-grid`, `.opening-title`, `.opening-proof` and their responsive descendants only after the component renders through local styled ownership. At the same time remove opening-only compatibility classNames that no longer have another consumer; keep `data-home-frame` as the test contract.
 
-- [ ] **Step 4: Verify opening at stress widths and unchanged snapshot**
+- [x] **Step 4: Verify opening at stress widths and unchanged snapshot**
 
 ```powershell
 cd src/client
@@ -455,7 +455,7 @@ npm run test:e2e -- e2e/homepage.spec.ts --grep "editorial order|breakpoint edge
 npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 ```
 
-- [ ] **Step 5: Mark Task 3 complete in this plan**
+- [x] **Step 5: Mark Task 3 complete in this plan**
 
 Change every Task 3 checkbox to `[x]` after the opening screenshot remains unchanged.
 

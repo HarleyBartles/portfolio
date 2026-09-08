@@ -6,18 +6,6 @@
     .lede { margin: 0; font-size: clamp(19px, 2vw, 23px); line-height: 1.46; }
     .small { color: var(--muted); font-size: 14px; line-height: 1.5; }
 
-    .opening { min-height: calc(100svh - 86px); display: flex; align-items: center; }
-    .opening .home-frame { padding: clamp(62px, 9vw, 120px) 0 clamp(56px, 8vw, 104px); }
-    .opening-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 28px; align-items: end; }
-    .opening-title { grid-column: 1 / span 7; }
-    .opening-title .home-display { max-width: 9ch; }
-    .opening-proof { grid-column: 8 / span 5; padding-top: 20px; border-top: 1px solid var(--rule-strong); }
-    .opening-proof ul { margin: 0; padding: 0; list-style: none; }
-    .opening-proof li { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: clamp(17px, 1.55vw, 20px); line-height: 1.35; }
-    .opening-proof li:first-child { padding-top: 0; }
-    .opening-proof li:last-child { border-bottom: 0; }
-    .opening-proof .small { margin: 0 0 14px; font-weight: 600; }
-
     .home-project { padding: clamp(82px, 10vw, 142px) 0; }
     .marketplace-movement { min-height: calc(100svh - 56px); display: flex; align-items: center; overflow: hidden; }
     .marketplace-movement .home-frame { flex: 1; }
@@ -344,10 +332,7 @@
       .masthead { align-items: flex-start; flex-wrap: wrap; gap: 12px 18px; }
       .primary { width: 100%; }
       .primary ul { justify-content: flex-start; gap: 8px 18px; }
-      .opening { min-height: auto; }
-      .opening-grid, .home-project-grid, .home-writing-feature-grid, .home-professional-close-grid { display: block; }
-      .opening-title .home-display { max-width: 10ch; font-size: clamp(48px, 14vw, 72px); }
-      .opening-proof { margin-top: 44px; }
+      .home-project-grid, .home-writing-feature-grid, .home-professional-close-grid { display: block; }
       .home-project { padding: 76px 0; }
       .home-project-copy { max-width: 36rem; }
       .home-project-visual { margin-top: 36px; }
@@ -377,7 +362,6 @@
     @media (max-width: 480px) {
       .wire-note { font-size: 12px; }
       .identity-name { display: none; }
-      .opening .home-frame { padding: 58px 0 70px; }
       .home-anchor-target--writing { top: 0; }
       .market-grid .home-project-copy .home-eyebrow, .market-grid .home-project-copy .home-section-title,
       .market-grid .home-project-copy .home-body { padding-inline: 20px; }

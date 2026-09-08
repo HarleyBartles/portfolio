@@ -43,6 +43,31 @@ describe('Phase 8 homepage sections', () => {
     expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0)
   })
 
+  test('keeps the opening proof and first-fold semantics intact', () => {
+    const { container } = renderSections()
+    const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement
+    const proof = screen.getByRole('list', { name: 'Professional proof' })
+    const heading = screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })
+
+    expect(within(proof).getAllByRole('listitem')).toHaveLength(4)
+    expect(heading).toHaveAttribute('id', 'home-opening-title')
+    expect(screen.getByRole('link', { name: 'See the work ↓' })).toHaveAttribute('href', '#marketplace')
+    expect(opening.querySelectorAll('[data-home-frame]')).toHaveLength(1)
+  })
+
+  test('owns the opening composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><HomepageOpening /></MemoryRouter>)
+    const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement
+    const frame = opening.querySelector('[data-home-frame]') as HTMLElement
+    const heading = screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })
+    const proof = screen.getByRole('list', { name: 'Professional proof' })
+
+    expect(opening).toHaveStyle({ display: 'flex', alignItems: 'center' })
+    expect(frame).toHaveStyle({ paddingTop: 'clamp(62px, 9vw, 120px)' })
+    expect(heading).toHaveStyle({ maxWidth: '9ch' })
+    expect(proof).toHaveStyle({ margin: '0', padding: '0', listStyle: 'none' })
+  })
+
   test('renders each continuation from the destination feature metadata', () => {
     renderSections()
 
