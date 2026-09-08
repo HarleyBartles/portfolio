@@ -55,6 +55,37 @@ describe('Phase 8 homepage sections', () => {
     expect(opening.querySelectorAll('[data-home-frame]')).toHaveLength(1)
   })
 
+  test('keeps Marketplace asset art direction and inward routes intact', () => {
+    const { container } = render(<MemoryRouter><MarketplaceFeature /></MemoryRouter>)
+    const marketplace = container.querySelector('[data-home-movement="marketplace"]') as HTMLElement
+    const picture = marketplace.querySelector('picture') as HTMLPictureElement
+    const sources = [...picture.querySelectorAll('source')]
+    const image = within(marketplace).getByRole('img', {
+      name: 'A calm modular route system becomes stronger where one close-tolerance Superpowers Plus intervention lets the route continue across the composition.',
+    })
+
+    expect(sources).toHaveLength(2)
+    expect(sources[0]).toHaveAttribute('media', '(max-width: 480px)')
+    expect(sources[0]).toHaveAttribute('srcset', expect.stringContaining('marketplace-superpowers-plus-narrow.svg'))
+    expect(sources[1]).toHaveAttribute('media', '(max-width: 900px)')
+    expect(sources[1]).toHaveAttribute('srcset', expect.stringContaining('marketplace-superpowers-plus-intermediate.svg'))
+    expect(image).toHaveAttribute('src', expect.stringContaining('marketplace-superpowers-plus-wide.svg'))
+    expect(within(marketplace).getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', '/writing/use-superpowers')
+    expect(within(marketplace).getByRole('link', { name: 'I tried to break my own event-sourcing claim ↓' })).toHaveAttribute('href', '#wild-bunch')
+  })
+
+  test('owns Marketplace overlap composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><MarketplaceFeature /></MemoryRouter>)
+    const marketplace = container.querySelector('[data-home-movement="marketplace"]') as HTMLElement
+    const frame = marketplace.querySelector('[data-home-frame]') as HTMLElement
+    const image = within(marketplace).getByRole('img')
+    const picture = image.closest('picture') as HTMLElement
+
+    expect(marketplace).toHaveStyle({ display: 'flex', alignItems: 'center', overflow: 'hidden' })
+    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
+    expect(picture).toHaveStyle({ display: 'block', width: '100%', height: '100%' })
+  })
+
   test('owns the opening composition without relying on the route stylesheet', () => {
     const { container } = render(<MemoryRouter><HomepageOpening /></MemoryRouter>)
     const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement

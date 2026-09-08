@@ -474,11 +474,11 @@ Change every Task 3 checkbox to `[x]` after the opening screenshot remains uncha
 - Consumes: `HomeAnchorTarget`, `HomeEyebrow`, `HomeSectionTitle`, `HomeBody`, `HomeRouteActions`, `HomeRouteLink`, `HomeNextAnchor`, `homepageAssetPath`.
 - Produces: `MarketplaceFeature(): ReactElement` with unchanged `#marketplace` anchor, `/writing/use-superpowers` route, `#wild-bunch` continuation, and three responsive SVG sources.
 
-- [ ] **Step 1: Characterise asset/source and route ownership in unit tests**
+- [x] **Step 1: Characterise asset/source and route ownership in unit tests**
 
 Prove the Marketplace picture keeps `480px` narrow and `900px` intermediate source media and the same accessible `img` alt text; keep route/continuation assertions.
 
-- [ ] **Step 2: Replace the global overlap recipe with named local pieces**
+- [x] **Step 2: Replace the global overlap recipe with named local pieces**
 
 Define `MarketplaceMovement`, `MarketplaceGrid`, `MarketplaceCopy`, `MarketplaceVisual`, and `MarketplaceAsset`. Port the exact current full-bleed 12-column overlap, copy substrate, rotated art transforms, and the `<=800`/`<=480` source-order choreography.
 
@@ -496,11 +496,11 @@ const MarketplaceGrid = styled(HomeFrame)`
 
 Do not replace the movement with a generic project card or generic two-column feature.
 
-- [ ] **Step 3: Remove Marketplace Sass only after local ownership is complete**
+- [x] **Step 3: Remove Marketplace Sass only after local ownership is complete**
 
 Remove `.home-project` rules only where no later movement still needs them; otherwise leave the shared residue until its last consumer migrates. Remove `.marketplace-movement`, `.market-grid`, `.market-asset`, and Marketplace-specific responsive descendants in this task. Remove Marketplace compatibility classNames whose last Sass consumer disappeared in the same patch.
 
-- [ ] **Step 4: Run focused stress/browser proof**
+- [x] **Step 4: Run focused stress/browser proof**
 
 ```powershell
 cd src/client
@@ -511,7 +511,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 The protected homepage snapshot test includes neighbouring movement geometry; any diff is a migration defect unless independently approved.
 
-- [ ] **Step 5: Mark Task 4 complete in this plan**
+- [x] **Step 5: Mark Task 4 complete in this plan**
 
 Change every Task 4 checkbox to `[x]` only after the stress matrix is green.
 
