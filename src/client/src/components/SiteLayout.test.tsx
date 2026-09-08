@@ -35,8 +35,21 @@ describe('SiteLayout', () => {
       </PortfolioThemeProvider>,
     )
 
-    expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'home')
+    const shell = screen.getByTestId('site-shell')
+    const main = screen.getByRole('main')
+
+    expect(shell).toHaveAttribute('data-site-surface', 'home')
     expect(screen.queryByText('Harley Bartles')).not.toBeInTheDocument()
+    expect(shell).toHaveStyle({
+      background: 'var(--color-interior-canvas)',
+      color: '#172127',
+      fontFamily: 'var(--font-site-sans)',
+      overflowX: 'hidden',
+    })
+    expect(main).toHaveStyle({
+      width: '100%',
+      maxWidth: 'none',
+    })
   })
 
   test('renders semantic page landmarks with understandable navigation', async () => {

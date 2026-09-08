@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { defaultHomepageEdition, type PatchHomepageFeature } from './homepageEdition'
@@ -40,6 +40,63 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: /Follow the trail/ })).toHaveAttribute('href', '/projects/wild-bunch')
     expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
     expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
+    expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0)
+  }, 10_000)
+
+  test('keeps the opening proof and first-fold semantics intact', () => {
+    const { container } = renderSections()
+    const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement
+    const proof = screen.getByRole('list', { name: 'Professional proof' })
+    const heading = screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })
+
+    expect(within(proof).getAllByRole('listitem')).toHaveLength(4)
+    expect(heading).toHaveAttribute('id', 'home-opening-title')
+    expect(screen.getByRole('link', { name: 'See the work ↓' })).toHaveAttribute('href', '#marketplace')
+    expect(opening.querySelectorAll('[data-home-frame]')).toHaveLength(1)
+  })
+
+  test('keeps Marketplace asset art direction and inward routes intact', () => {
+    const { container } = render(<MemoryRouter><MarketplaceFeature /></MemoryRouter>)
+    const marketplace = container.querySelector('[data-home-movement="marketplace"]') as HTMLElement
+    const picture = marketplace.querySelector('picture') as HTMLPictureElement
+    const sources = [...picture.querySelectorAll('source')]
+    const image = within(marketplace).getByRole('img', {
+      name: 'A calm modular route system becomes stronger where one close-tolerance Superpowers Plus intervention lets the route continue across the composition.',
+    })
+
+    expect(sources).toHaveLength(2)
+    expect(sources[0]).toHaveAttribute('media', '(max-width: 480px)')
+    expect(sources[0]).toHaveAttribute('srcset', expect.stringContaining('marketplace-superpowers-plus-narrow.svg'))
+    expect(sources[1]).toHaveAttribute('media', '(max-width: 900px)')
+    expect(sources[1]).toHaveAttribute('srcset', expect.stringContaining('marketplace-superpowers-plus-intermediate.svg'))
+    expect(image).toHaveAttribute('src', expect.stringContaining('marketplace-superpowers-plus-wide.svg'))
+    expect(within(marketplace).getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', '/writing/use-superpowers')
+    expect(within(marketplace).getByRole('link', { name: 'I tried to break my own event-sourcing claim ↓' })).toHaveAttribute('href', '#wild-bunch')
+  })
+
+  test('owns Marketplace overlap composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><MarketplaceFeature /></MemoryRouter>)
+    const marketplace = container.querySelector('[data-home-movement="marketplace"]') as HTMLElement
+    const frame = marketplace.querySelector('[data-home-frame]') as HTMLElement
+    const image = within(marketplace).getByRole('img')
+    const picture = image.closest('picture') as HTMLElement
+
+    expect(marketplace).toHaveStyle({ display: 'flex', alignItems: 'center', overflow: 'hidden' })
+    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
+    expect(picture).toHaveStyle({ display: 'block', width: '100%', height: '100%' })
+  })
+
+  test('owns the opening composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><HomepageOpening /></MemoryRouter>)
+    const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement
+    const frame = opening.querySelector('[data-home-frame]') as HTMLElement
+    const heading = screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })
+    const proof = screen.getByRole('list', { name: 'Professional proof' })
+
+    expect(opening).toHaveStyle({ display: 'flex', alignItems: 'center' })
+    expect(frame).toHaveStyle({ paddingTop: 'clamp(62px, 9vw, 120px)' })
+    expect(heading).toHaveStyle({ maxWidth: '9ch' })
+    expect(proof).toHaveStyle({ margin: '0', padding: '0', listStyle: 'none' })
   })
 
   test('renders each continuation from the destination feature metadata', () => {
@@ -49,28 +106,120 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: `${defaultHomepageEdition.patch.incomingTeaser} ↓` })).toHaveAttribute('href', '#patch')
   })
 
+  test('keeps the Professional Close conversion routes explicit', () => {
+    render(<MemoryRouter><ProfessionalClose /></MemoryRouter>)
+
+    expect(screen.getByRole('link', { name: 'Tell me about it →' })).toHaveAttribute('href', '/contact')
+    expect(screen.getByRole('link', { name: 'Read my CV →' })).toHaveAttribute('href', '/cv')
+    expect(screen.getByRole('link', { name: 'About me →' })).toHaveAttribute('href', '/about')
+  })
+
+  test('owns the Professional Close two-rail composition without relying on the route stylesheet', () => {
+    const { container } = render(<MemoryRouter><ProfessionalClose /></MemoryRouter>)
+    const movement = container.querySelector('[data-home-movement="professional-close"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const heading = within(movement).getByRole('heading', { level: 2 })
+    const actions = screen.getByText(/If that looks like the kind of engineering/).parentElement as HTMLElement
+
+    expect(movement).toHaveStyle({ paddingTop: 'clamp(86px, 11vw, 150px)', borderBottomWidth: '0px' })
+    expect(frame).toHaveStyle({ display: 'grid', alignItems: 'end' })
+    expect(heading).toHaveStyle({ maxWidth: '12ch', fontSize: 'clamp(42px, 5.4vw, 72px)', lineHeight: '.98' })
+    expect(actions).toHaveStyle({ paddingTop: '18px' })
+  })
+
+  test('renders the Writing fold from destination-owned edition metadata', () => {
+    const feature = {
+      ...defaultHomepageEdition.writing,
+      title: 'A deliberately different Writing title',
+      to: '/writing/deliberately-different',
+      inwardLabel: 'Read this one',
+    }
+    const nextFeature: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      incomingTeaser: 'Continue to the authored Patch proof',
+    }
+
+    render(<MemoryRouter><WritingFeature feature={feature} nextFeature={nextFeature} /></MemoryRouter>)
+
+    expect(screen.getByRole('heading', { level: 2, name: feature.title })).toBeVisible()
+    expect(screen.getByRole('link', { name: `${feature.inwardLabel} →` })).toHaveAttribute('href', feature.to)
+    expect(screen.getByRole('link', { name: `${nextFeature.incomingTeaser} ↓` })).toHaveAttribute('href', `#${nextFeature.anchorId}`)
+  })
+
+  test('owns the Writing editorial composition without relying on the route stylesheet', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <WritingFeature feature={defaultHomepageEdition.writing} nextFeature={defaultHomepageEdition.patch} />
+      </MemoryRouter>,
+    )
+    const movement = container.querySelector('[data-home-movement="writing"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const heading = within(movement).getByRole('heading', { level: 2 })
+    const summary = within(movement).getByText(defaultHomepageEdition.writing.summary)
+
+    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(96px, 13vw, 180px)' })
+    expect(frame).toHaveStyle({ display: 'grid' })
+    expect(heading).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', lineHeight: '.94' })
+    expect(summary).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', fontSize: '20px', lineHeight: '1.5' })
+  })
+
   test('keeps the Wild Bunch topology semantic and ordered', () => {
     const { container } = renderSections()
     const proof = container.querySelector('[data-wild-proof]') as HTMLElement
 
-    expect(proof.querySelectorAll('.home-wild-event')).toHaveLength(6)
+    expect(proof.querySelectorAll('[data-wild-event]')).toHaveLength(6)
+    expect(proof.querySelectorAll('[data-wild-wire]')).toHaveLength(6)
     expect(within(proof).getByRole('heading', { name: 'Replay' })).toBeVisible()
     expect(within(proof).getByRole('heading', { name: 'Cache' })).toBeVisible()
     expect(within(proof).getByRole('heading', { name: 'State' })).toBeVisible()
     expect(proof).toHaveAttribute('data-topology', 'events-cache-state;history-replay-cache-state')
+    expect(proof.querySelector('[data-wild-cache]')).toBeInTheDocument()
+    expect(proof.querySelector('[data-wild-replay]')).toBeInTheDocument()
+    expect(proof.querySelector('[data-wild-state]')).toBeInTheDocument()
+    expect(container.querySelector('[data-wild-reading-card]')).toBeInTheDocument()
+  })
+
+  test('owns the Wild Bunch movement rail without relying on the route stylesheet', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <WildBunchFeature nextFeature={defaultHomepageEdition.writing} />
+      </MemoryRouter>,
+    )
+    const movement = container.querySelector('[data-home-movement="wild-bunch"]') as HTMLElement
+    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
+    const readingCard = movement.querySelector('[data-wild-reading-card]') as HTMLElement
+
+    expect(movement).toHaveStyle({ position: 'relative', overflow: 'hidden' })
+    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
+    expect(readingCard).toHaveStyle({ zIndex: '4', marginRight: '24px' })
   })
 
   test('keeps Specialists presentation separate from semantic title and document flow', () => {
     const { container } = renderSections()
     const patch = container.querySelector('[data-home-movement="patch"]') as HTMLElement
     const overprint = patch.querySelector('[data-zero-flow-overprint]') as HTMLElement
-    const seriesMark = patch.querySelector('.patch-marque use') as SVGUseElement
+    const seriesLockup = patch.querySelector('[data-patch-series-lockup]') as HTMLElement
+    const seriesMark = seriesLockup.querySelector('use') as SVGUseElement
 
     expect(within(patch).getByText('Adventures of PATCH')).toBeInTheDocument()
+    expect(seriesLockup).toBeInTheDocument()
     expect(seriesMark.getAttribute('href')).toMatch(/\/brand\/adventures-of-patch\/adventures-of-patch-cliff-drop\.svg#adventures-of-patch-cliff-drop$/)
     expect(within(patch).getByRole('heading', { name: 'The Usual Specialists' })).toBeVisible()
     expect(overprint).toHaveAttribute('data-zero-flow-overprint', 'true')
     expect(patch).toHaveAttribute('data-patch-presentation', 'usual-specialists')
+  })
+
+  test('owns Specialists media failure and fallback locally without changing the selected edition', () => {
+    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={defaultHomepageEdition.patch} /></MemoryRouter>)
+    const patch = container.querySelector('[data-patch-presentation="usual-specialists"]') as HTMLElement
+    const hero = within(patch).getByRole('img', { name: /completed recruitment folder/i }).closest('figure') as HTMLElement
+    const fallback = within(patch).getByText('Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.')
+
+    fireEvent.error(within(hero).getByRole('img'))
+
+    expect(patch).toHaveAttribute('data-patch-presentation', defaultHomepageEdition.patch.presentation)
+    expect(hero).toHaveStyle({ display: 'none' })
+    expect(fallback).toHaveStyle({ display: 'grid' })
   })
 
   test('selects the Patch presentation slot rather than treating presentation as metadata', () => {
@@ -86,5 +235,40 @@ describe('Phase 8 homepage sections', () => {
     expect(container.querySelector('[data-patch-presentation="tournament"]')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: tournament.title })).toBeVisible()
     expect(screen.queryByText('PATCH')).not.toBeInTheDocument()
+  })
+
+  test('keeps the Tournament homepage CTA inside the router basename', () => {
+    const tournament: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      title: 'Tournament of Reasonable Defaults',
+      to: '/patch/tournament-of-reasonable-defaults',
+      inwardLabel: 'Enter the tournament',
+      presentation: 'tournament',
+    }
+
+    render(
+      <MemoryRouter basename="/portfolio" initialEntries={["/portfolio/"]}>
+        <PatchHomepageSlot feature={tournament} />
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByRole('link', { name: 'Enter the tournament →' })).toHaveAttribute(
+      'href',
+      '/portfolio/patch/tournament-of-reasonable-defaults',
+    )
+  })
+
+  test('owns the Tournament section rail without relying on the route stylesheet', () => {
+    const tournament: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      title: 'Tournament of Reasonable Defaults',
+      to: '/patch/tournament-of-reasonable-defaults',
+      inwardLabel: 'Enter the tournament',
+      presentation: 'tournament',
+    }
+    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={tournament} /></MemoryRouter>)
+    const movement = container.querySelector('[data-patch-presentation="tournament"]') as HTMLElement
+
+    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(76px, 9vw, 124px)' })
   })
 })

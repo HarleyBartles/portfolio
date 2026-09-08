@@ -70,7 +70,7 @@ test('homepage typography uses the shared Source families rather than legacy fon
   await page.goto('./')
   await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
   await expect(page.locator('.site-header nav a').first()).toHaveCSS('font-family', /Source Code Pro/)
-  await expect(page.locator('.home-article-title').first()).toHaveCSS('font-family', /Source Serif 4/)
+  await expect(page.locator('[data-home-movement="writing"] h2')).toHaveCSS('font-family', /Source Serif 4/)
 })
 
 test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {
@@ -85,17 +85,21 @@ test('interior shared controls, captions, and professional metadata do not inher
   await expect(page.locator('[data-cv-role]').first()).toHaveCSS('color', 'rgb(98, 94, 85)')
 
   await page.goto('./projects/wild-bunch/')
-  const caption = page.locator('.project-visual--wild-bunch-concept figcaption')
+  const caption = page.locator('[data-visual-contract="wild-bunch-concept-art"] figcaption')
   await expect(caption).toHaveCSS('font-family', /Source Sans 3/)
   await expect(caption).toHaveCSS('font-weight', '400')
   await expect(caption).toHaveCSS('letter-spacing', 'normal')
   await expect(caption).toHaveCSS('text-transform', 'none')
   await expect(caption).toHaveCSS('color', 'rgb(255, 250, 240)')
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('./projects/wild-bunch/')
+  await expect(page.locator('[data-visual-contract="wild-bunch-concept-art"] figcaption')).toHaveCSS('line-height', '21px')
 })
 
 test('interior project heroes use the accepted material treatments with a local Wild Bunch edge blend', async ({ page }) => {
   await page.goto('./projects/wild-bunch/')
-  const edgeBlend = await page.locator('.project-visual--wild-bunch-concept picture').evaluate((picture) =>
+  const edgeBlend = await page.locator('[data-visual-contract="wild-bunch-concept-art"] picture').evaluate((picture) =>
     getComputedStyle(picture, '::after').backgroundImage,
   )
   expect(edgeBlend).toContain('linear-gradient')

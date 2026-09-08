@@ -5,6 +5,7 @@ import { ProjectVisual } from './ProjectVisual'
 describe('ProjectVisual', () => {
   test('pairs the semantic learning loop with responsive inspection imagery', () => {
     const { container } = render(<ProjectVisual slug="agentic-learning-lab" eager />)
+    const visual = container.firstElementChild as HTMLElement
 
     expect(container.querySelector('[data-visual-contract="learning-lab-loop"]')).not.toBeNull()
     expect(screen.getByText('Direct')).toBeVisible()
@@ -17,10 +18,12 @@ describe('ProjectVisual', () => {
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(image.closest('picture')?.querySelectorAll('source')).toHaveLength(4)
     expect(container).not.toHaveTextContent(/venue plan/i)
+    expect(visual).toHaveStyle({ position: 'relative', display: 'grid', overflow: 'hidden' })
   })
 
   test('summarises the Marketplace core with selected and local boundaries', () => {
     render(<ProjectVisual slug="codex-marketplace" />)
+    const visual = screen.getByLabelText('Marketplace baseline plugins with selected and local repository boundaries.')
 
     expect(screen.getByText('repo-worker-pack')).toBeVisible()
     expect(screen.getByText('superpowers-plus')).toBeVisible()
@@ -28,6 +31,20 @@ describe('ProjectVisual', () => {
     expect(screen.getByText('selected + local')).toBeVisible()
     expect(screen.getByText('17')).toBeVisible()
     expect(screen.getByText('74')).toBeVisible()
+    expect(visual).toHaveStyle({ position: 'relative', display: 'grid', overflow: 'hidden' })
+  })
+
+  test('owns the essay and decision-diagram visual treatments locally', () => {
+    const diagramRender = render(<ProjectVisual slug="i-made-agentic-engineering-harder-than-it-needed-to-be" />)
+    const diagram = screen.getByRole('img', { name: 'Context flows into a decision, while durable state is written to a file.' })
+
+    expect(diagram).toHaveStyle({ display: 'flex', justifyContent: 'center' })
+
+    diagramRender.unmount()
+    render(<ProjectVisual slug="agentic-engineering-vs-vibe-coding" />)
+    const essay = screen.getByRole('img', { name: 'An editorial contrast between agentic engineering and vibe coding.' })
+
+    expect(essay).toHaveStyle({ display: 'flex', flexDirection: 'column', justifyContent: 'center' })
   })
 
   test('uses a responsive generated-town development-build preview instead of a reserved frame', () => {
@@ -69,14 +86,13 @@ describe('ProjectVisual', () => {
     render(<ProjectVisual slug="wild-bunch" placement="index" />)
 
     const visual = screen.getByLabelText('Wild Bunch early-alpha town-arrival concept art')
+    const image = screen.getByRole('img', { name: /concept art of a lone rider entering/i })
 
-    expect(visual).toHaveClass('project-visual--wild-bunch-concept-index')
     expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-concept-art')
-    expect(screen.getByRole('img', { name: /concept art of a lone rider entering/i })).toHaveAttribute(
-      'src',
-      '/media/wild-bunch/town-arrival-portrait.webp',
-    )
+    expect(image).toHaveAttribute('src', '/media/wild-bunch/town-arrival-portrait.webp')
+    expect(visual.querySelectorAll('picture source')).toHaveLength(4)
     expect(visual.querySelector('figcaption')).toBeNull()
+    expect(visual).toHaveStyle({ position: 'relative', display: 'block', overflow: 'hidden' })
   })
 
   test('uses the Introducing Patch composition for the project preview and route hero', () => {
@@ -100,9 +116,10 @@ describe('ProjectVisual', () => {
     const image = screen.getByRole('img', { name: /Patch carries an index card and folded map/i })
     const picture = image.closest('picture')
 
-    expect(picture).toHaveClass('project-visual--patch-index')
     expect(picture).toHaveAttribute('data-visual-contract', 'adventures-of-patch-index-whole-character')
     expect(image).toHaveAttribute('src', '/media/patch/patch-hero-500.webp')
+    expect(picture?.querySelectorAll('source')).toHaveLength(4)
+    expect(picture).toHaveStyle({ position: 'relative', display: 'grid', overflow: 'hidden' })
   })
 
   test('owns the shared Wild Bunch preview treatment at its consumer import seam', () => {
