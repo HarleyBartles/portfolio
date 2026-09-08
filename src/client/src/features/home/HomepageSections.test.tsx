@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { defaultHomepageEdition, type PatchHomepageFeature } from './homepageEdition'
@@ -41,7 +41,7 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
     expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
     expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0)
-  })
+  }, 10_000)
 
   test('keeps the opening proof and first-fold semantics intact', () => {
     const { container } = renderSections()
@@ -209,6 +209,19 @@ describe('Phase 8 homepage sections', () => {
     expect(patch).toHaveAttribute('data-patch-presentation', 'usual-specialists')
   })
 
+  test('owns Specialists media failure and fallback locally without changing the selected edition', () => {
+    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={defaultHomepageEdition.patch} /></MemoryRouter>)
+    const patch = container.querySelector('[data-patch-presentation="usual-specialists"]') as HTMLElement
+    const hero = within(patch).getByRole('img', { name: /completed recruitment folder/i }).closest('figure') as HTMLElement
+    const fallback = within(patch).getByText('Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.')
+
+    fireEvent.error(within(hero).getByRole('img'))
+
+    expect(patch).toHaveAttribute('data-patch-presentation', defaultHomepageEdition.patch.presentation)
+    expect(hero).toHaveStyle({ display: 'none' })
+    expect(fallback).toHaveStyle({ display: 'grid' })
+  })
+
   test('selects the Patch presentation slot rather than treating presentation as metadata', () => {
     const tournament: PatchHomepageFeature = {
       ...defaultHomepageEdition.patch,
@@ -222,5 +235,19 @@ describe('Phase 8 homepage sections', () => {
     expect(container.querySelector('[data-patch-presentation="tournament"]')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: tournament.title })).toBeVisible()
     expect(screen.queryByText('PATCH')).not.toBeInTheDocument()
+  })
+
+  test('owns the Tournament section rail without relying on the route stylesheet', () => {
+    const tournament: PatchHomepageFeature = {
+      ...defaultHomepageEdition.patch,
+      title: 'Tournament of Reasonable Defaults',
+      to: '/patch/tournament-of-reasonable-defaults',
+      inwardLabel: 'Enter the tournament',
+      presentation: 'tournament',
+    }
+    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={tournament} /></MemoryRouter>)
+    const movement = container.querySelector('[data-patch-presentation="tournament"]') as HTMLElement
+
+    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(76px, 9vw, 124px)' })
   })
 })

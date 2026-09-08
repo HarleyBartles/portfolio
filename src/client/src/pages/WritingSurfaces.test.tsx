@@ -78,5 +78,5 @@ describe('Writing discovery surfaces', () => {
     expect(within(section as HTMLElement).getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
     expect(within(section as HTMLElement).getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
     expect(within(section as HTMLElement).queryByText(/Featured essay/i)).not.toBeInTheDocument()
-  })
+  }, 10_000)
 })

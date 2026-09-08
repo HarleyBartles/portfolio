@@ -30,7 +30,7 @@ const decorativeImageSelectors = [
   '.site-mark > img',
   '.marketplace-map__plugins img',
   '[aria-hidden="true"] img',
-  '.stamp-overprint img',
+  '[data-zero-flow-overprint] img',
 ] as const
 
 function toTestPath(path: string): string {

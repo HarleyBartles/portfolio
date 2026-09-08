@@ -717,15 +717,15 @@ export const patchHomepagePresentations: Record<
 
 `PatchHomepageSlot({ feature })` remains unchanged. `SpecialistsPatchFeature({ feature })` retains its local `mediaFailed` boolean and `failMedia` transition.
 
-- [ ] **Step 1: Strengthen registry and failure-state tests before migration**
+- [x] **Step 1: Strengthen registry and failure-state tests before migration**
 
 Keep the existing tournament-vs-Specialists registry assertion. Add explicit tests that Specialists renders the canonical series lockup/wordmark, `data-zero-flow-overprint="true"`, and fallback copy after an owned media error without changing the selected edition.
 
-- [ ] **Step 2: Extract the tournament presentation from the registry module**
+- [x] **Step 2: Extract the tournament presentation from the registry module**
 
 Move the existing local `TournamentPatchFeature` into `TournamentPatchFeature.tsx`. It may consume shared home primitives but owns its section/frame/layout. `PatchHomepageSlot.tsx` should become registry + selection only.
 
-- [ ] **Step 3: Name the Specialists composition pieces while keeping state local**
+- [x] **Step 3: Name the Specialists composition pieces while keeping state local**
 
 `SpecialistsPatchFeature.styles.ts` should expose named styled pieces used by the parent, including substrate, substrate edge/fill, heist movement, hero composition/plate, title field, series lockup wrapper, wordmark title, close, detail frame/crop variants, overprint, and media fallback.
 
@@ -752,15 +752,15 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
 
 Do not convert `mediaFailed` into a global class recipe. Pass `$mediaFailed` only to the styled owners that need it.
 
-- [ ] **Step 4: Port exact Specialists art direction and breakpoint regimes**
+- [x] **Step 4: Port exact Specialists art direction and breakpoint regimes**
 
 Preserve the existing project-earned colours, tear widths/reveals, absolute wide composition, `<=1099` grid reflow, `<=520` narrow composition, and the media-off fallback layout exactly. Preserve the overprint's absolute zero-flow relationship to the hero composition.
 
-- [ ] **Step 5: Replace visual-test class hooks with stable Patch contracts**
+- [x] **Step 5: Replace visual-test class hooks with stable Patch contracts**
 
 Add `data-patch-series-lockup` to the lockup wrapper and use it for the existing lockup screenshots. Keep `data-zero-flow-overprint`, `data-patch-presentation`, and `data-visual-contract="homepage-specialists"`.
 
-- [ ] **Step 6: Remove Patch homepage Sass and run failure/geometry/visual proof**
+- [x] **Step 6: Remove Patch homepage Sass and run failure/geometry/visual proof**
 
 Remove Patch-homepage compatibility classNames only when their last Sass selector has moved to the named styled owner, then run:
 
@@ -773,7 +773,7 @@ npm run test:e2e:visual -- --grep "homepage keeps its authored opening"
 
 Expected: Specialists wide/lockup wide/lockup portrait screenshots remain unchanged; media-abort fallback remains visible and usable.
 
-- [ ] **Step 7: Mark Task 8 complete in this plan**
+- [x] **Step 7: Mark Task 8 complete in this plan**
 
 Change every Task 8 checkbox to `[x]` only after both presentation values remain supported and Specialists failure state is green.
 

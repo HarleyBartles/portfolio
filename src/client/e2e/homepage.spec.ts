@@ -90,7 +90,10 @@ test('Wild Bunch and Specialists preserve their authored structural contracts', 
 
   const overprint = page.locator('[data-zero-flow-overprint]')
   await expect(overprint).toBeVisible()
-  expect(await overprint.evaluate((element) => ({ position: getComputedStyle(element).position, offsetParent: element.offsetParent?.className }))).toEqual({ position: 'absolute', offsetParent: 'hero-composition' })
+  expect(await overprint.evaluate((element) => ({
+    position: getComputedStyle(element).position,
+    offsetParentIsHeroComposition: element.offsetParent?.hasAttribute('data-patch-hero-composition') ?? false,
+  }))).toEqual({ position: 'absolute', offsetParentIsHeroComposition: true })
   await expect(page.getByRole('heading', { level: 2, name: 'The Usual Specialists' })).toBeAttached()
 })
 
