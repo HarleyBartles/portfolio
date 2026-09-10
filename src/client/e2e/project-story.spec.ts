@@ -104,60 +104,6 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
   }
 })
 
-test('The Usual Specialists stacks its lead at the authored narrow breakpoint', async ({ browser }) => {
-  for (const width of [768, 390, 320]) {
-    const page = await browser.newPage({ viewport: { width, height: 844 } })
-    await page.goto('./patch/the-usual-specialists')
-
-    const story = page.getByRole('region', { name: 'The Usual Specialists adventure' })
-    const lead = story.locator('header').first()
-    const statement = lead.locator('p').nth(1)
-    const note = lead.locator('p').nth(2)
-
-    await expect(story).toBeVisible()
-
-    const geometry = await lead.evaluate((element) => {
-      const bounds = (node: Element) => node.getBoundingClientRect()
-      const paragraphs = element.querySelectorAll('p')
-      const leadBounds = bounds(element)
-      const statementBounds = bounds(paragraphs[1])
-      const noteBounds = bounds(paragraphs[2])
-      return {
-        columns: getComputedStyle(element).gridTemplateColumns,
-        leadWidth: leadBounds.width,
-        statementWidth: statementBounds.width,
-        statementBottom: statementBounds.bottom,
-        noteTop: noteBounds.top,
-      }
-    })
-
-    expect(geometry.columns.trim().split(/\s+/)).toHaveLength(1)
-    expect(geometry.statementWidth).toBeGreaterThanOrEqual(geometry.leadWidth * 0.9)
-    expect(geometry.statementBottom).toBeLessThanOrEqual(geometry.noteTop)
-    expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
-
-    await expect(statement).toBeVisible()
-    await expect(note).toBeVisible()
-    await page.close()
-  }
-})
-
-test('The Usual Specialists keeps Rollback inside the story at zoom-pressure width', async ({ page }) => {
-  await page.setViewportSize({ width: 960, height: 844 })
-  await page.goto('./patch/the-usual-specialists')
-
-  const story = page.getByRole('region', { name: 'The Usual Specialists adventure' })
-  const rollback = story.locator('[data-specialist="rollback"]')
-  const portrait = rollback.locator('.heist-recruit__portrait')
-  await expect(portrait).toBeVisible()
-
-  const geometry = await Promise.all([story.boundingBox(), portrait.boundingBox()])
-  expect(geometry[0]).not.toBeNull()
-  expect(geometry[1]).not.toBeNull()
-  expect(geometry[1]!.x + geometry[1]!.width).toBeLessThanOrEqual(geometry[0]!.x + geometry[0]!.width)
-  await expectNoHorizontalOverflow(page)
-})
-
 test('Patch family preserves authored reflow and avoids overflow at 768px and 320px', async ({ page }) => {
   const columnCount = async (selector: string) => page.locator(selector).first().evaluate((element) =>
     getComputedStyle(element).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length,
@@ -184,10 +130,6 @@ test('Patch family preserves authored reflow and avoids overflow at 768px and 32
     expect(await columnCount('.tournament-event__header')).toBe(width === 768 ? 2 : 1)
     await expectNoHorizontalOverflow(page)
 
-    await page.goto('./patch/the-usual-specialists')
-    await expect(page.getByRole('region', { name: 'The Usual Specialists adventure' })).toBeVisible()
-    expect(await columnCount('[aria-label="The Usual Specialists adventure"] > header')).toBe(1)
-    await expectNoHorizontalOverflow(page)
   }
 })
 

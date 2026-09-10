@@ -43,13 +43,6 @@ async function waitForTournamentStyles(page: Page): Promise<void> {
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
-async function waitForSpecialistsStyles(page: Page): Promise<void> {
-  const rollback = page.locator('[data-specialist="rollback"]')
-  await expect
-    .poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor))
-    .toBe('rgb(24, 33, 28)')
-}
-
 async function waitForLearningLabStyles(page: Page): Promise<void> {
   const safety = page.locator('.learning-lab-safety')
   await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).display)).toMatch(/^(grid|flex)$/)
@@ -451,16 +444,6 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
   const story = page.locator('article.content-page')
   await waitForImages(story)
   await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
-})
-
-test('The Usual Specialists keeps Rollback at the dominant end of agent scale', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './patch/the-usual-specialists')
-  await waitForSpecialistsStyles(page)
-
-  const rollback = page.locator('[data-specialist="rollback"]')
-  await waitForImages(rollback)
-  await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
 })
 
 test('Patch index keeps its branded series front door at wide and mobile viewports', async ({ page }) => {

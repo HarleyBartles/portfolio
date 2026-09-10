@@ -425,7 +425,7 @@ Expected: the tracked hook passes for the exact staged plan; `git status --short
 - Consumes: existing `presentation: 'patch-usual-specialists'`, `getProjectPresentation()`, `SiteLayout`, route metadata and legacy `/patch/lawful-heist` redirect.
 - Produces: `UsualSpecialistsPage` as the route-owned story root with `data-visual-contract="patch-usual-specialists-index-draft"` and semantic `#content-page-title`; an interior `SiteLayout` full-width-main option; a `ContentPage` branch that does not wrap this presentation in the obsolete generic content header/body/tail.
 
-- [ ] **Step 1: Remove the old page-specific test contracts and write the new unit RED**
+- [x] **Step 1: Remove the old page-specific test contracts and write the new unit RED**
 
 Recreate `UsualSpecialistsPage.test.tsx` from scratch. The first test should require the new root and require old six-profile output to be absent:
 
@@ -439,7 +439,7 @@ expect(story.querySelectorAll('[data-specialist]')).toHaveLength(0)
 expect(within(story).queryByText('Advanced visual pre-production')).not.toBeInTheDocument()
 ```
 
-- [ ] **Step 2: Run the new page test and observe RED against the old implementation**
+- [x] **Step 2: Run the new page test and observe RED against the old implementation**
 
 Run:
 
@@ -450,7 +450,7 @@ npm test -- --run src/features/patch-showcase/UsualSpecialistsPage.test.tsx
 
 Expected: FAIL because the old page is a region with six `[data-specialist]` articles and does not expose the new route-owned contract.
 
-- [ ] **Step 3: Write route/shell RED tests before changing shared infrastructure**
+- [x] **Step 3: Write route/shell RED tests before changing shared infrastructure**
 
 Add a `SiteLayout.test.tsx` case that requires `surface="interior"` to retain the interior header identity while `mainFrame="full"` makes `main` full width. Add a `ContentPage.test.tsx`/`PatchRoutes.test.tsx` case that requires the Specialists presentation to render without `.content-page-header`, `.content-navigation`, or `Related content` around it while metadata/site chrome remain present.
 
@@ -471,7 +471,7 @@ npm test -- --run src/components/SiteLayout.test.tsx src/pages/ContentPage.test.
 
 Expected: RED on the newly added full-width/route-owned assertions while the existing shared route/redirect expectations remain intact.
 
-- [ ] **Step 4: Replace the old production page wholesale with the minimal new skeleton and add the narrow route-owned seam**
+- [x] **Step 4: Replace the old production page wholesale with the minimal new skeleton and add the narrow route-owned seam**
 
 Do not edit the old `crew` array or styled dossier pieces into a new shape. Replace the file content. The minimum page is:
 
@@ -495,11 +495,11 @@ and branch `ContentPage` so a `patch-usual-specialists` presentation is rendered
 
 Do not generalise this into a registry rewrite in Task 1. One explicit presentation-ownership predicate is enough until a second route needs the same capability.
 
-- [ ] **Step 5: Remove obsolete browser/screenshot contracts**
+- [x] **Step 5: Remove obsolete browser/screenshot contracts**
 
 Delete only the old Specialists layout/rollback tests and old Rollback baseline listed above. Preserve direct-route chunk isolation, redirect coverage, accessibility coverage and all unrelated Patch visual baselines.
 
-- [ ] **Step 6: Run focused GREEN proof**
+- [x] **Step 6: Run focused GREEN proof**
 
 ```powershell
 cd src/client
@@ -509,7 +509,7 @@ npm run test:e2e -- e2e/project-story.spec.ts --grep "direct route loads|Usual S
 
 Expected: all focused tests pass; direct route remains lazy; old six-profile dossier is no longer asserted or rendered.
 
-- [ ] **Step 7: Mark Task 1 checkboxes complete and commit normally**
+- [x] **Step 7: Mark Task 1 checkboxes complete and commit normally**
 
 ```powershell
 git add src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx src/client/src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/client/src/components/SiteLayout.tsx src/client/src/components/SiteLayout.test.tsx src/client/src/pages/ContentPage.tsx src/client/src/pages/ContentPage.test.tsx src/client/src/pages/PatchRoutes.test.tsx src/client/e2e/project-story.spec.ts src/client/e2e/visual-regression.spec.ts src/client/e2e/visual-regression.spec.ts-snapshots/patch-lawful-heist-rollback.png .agents/plans/2026-09-10-port-17-index-react-first-draft.md
