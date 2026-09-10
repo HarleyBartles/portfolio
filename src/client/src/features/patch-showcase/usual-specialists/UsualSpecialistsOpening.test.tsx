@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
-import { EXPECTED_WIREFRAME_ROPE_PATH, usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { EXPECTED_WIREFRAME_ROPE_PATH } from './SpecialistsJourneyRope'
+import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 describe('Usual Specialists opening', () => {
   test('renders the accepted opening and temporary rope contract', () => {

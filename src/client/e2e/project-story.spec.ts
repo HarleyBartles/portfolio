@@ -106,7 +106,7 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
 
 test('The Usual Specialists preserves the accepted Index composition across authored responsive bands', async ({ page }) => {
   const specialistsPath = './patch/the-usual-specialists/'
-  const widths = [2560, 1921, 1920, 1600, 1599, 1440, 1401, 1400, 901, 900, 768, 721, 720, 390, 320] as const
+  const widths = [2560, 1921, 1920, 1600, 1599, 1440, 1401, 1400, 1399, 901, 900, 768, 721, 720, 621, 620, 391, 390, 320] as const
   const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
   const box = async (locator: import('@playwright/test').Locator) => {
     const value = await locator.boundingBox()

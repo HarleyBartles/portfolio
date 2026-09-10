@@ -22,4 +22,27 @@ describe('Index chapter', () => {
     expect(chapter.querySelector('[data-index-substrate="assent-note"]')).toBeInTheDocument()
     expect(document.querySelector('[data-specialist-chapter="silk"]')).toBeNull()
   })
+
+  test('keeps every traversal image lazy and asynchronously decoded', () => {
+    render(<IndexChapter />)
+
+    const chapter = screen.getByRole('region', { name: 'Index' })
+    const traversalImages = chapter.querySelectorAll<HTMLImageElement>('[data-index-traversal]')
+
+    expect(traversalImages).toHaveLength(7)
+    for (const image of traversalImages) {
+      expect(image).toHaveAttribute('loading', 'lazy')
+      expect(image).toHaveAttribute('decoding', 'async')
+    }
+  })
+
+  test('reserves the INDEX wordmark aspect ratio before the SVG loads', () => {
+    render(<IndexChapter />)
+
+    const chapter = screen.getByRole('region', { name: 'Index' })
+    const wordmark = chapter.querySelector<HTMLImageElement>('[data-index-lockup] img')
+
+    expect(wordmark).not.toBeNull()
+    expect(getComputedStyle(wordmark!).aspectRatio).toBe('521.7171/103.332')
+  })
 })
