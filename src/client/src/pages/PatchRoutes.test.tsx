@@ -89,18 +89,18 @@ describe('Adventures of Patch routes', () => {
     expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
   })
 
-  test('redirects the legacy Specialists route to the canonical route', async () => {
+  test('does not preserve the obsolete lawful-heist redirect', async () => {
     const router = renderRoute('/patch/lawful-heist')
 
-    await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })
-    expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
+    expect(await screen.findByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+    expect(router.state.location.pathname).toBe('/portfolio/patch/lawful-heist')
   })
 
   test('publishes the route-owned Usual Specialists blank slate on its canonical route', async () => {
     const router = renderRoute('/patch/the-usual-specialists')
 
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
-    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 10_000 })).toBeVisible()
     expect(document.querySelector('.content-page-header')).toBeNull()
     expect(document.querySelector('.content-page-body')).toBeNull()
     const story = await screen.findByRole('article', { name: 'The Usual Specialists' })

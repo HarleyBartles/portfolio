@@ -29,6 +29,7 @@ const viewports = [
 const decorativeImageSelectors = [
   '.site-mark > img',
   '.marketplace-map__plugins img',
+  'img[aria-hidden="true"]',
   '[aria-hidden="true"] img',
   '[data-zero-flow-overprint] img',
 ] as const

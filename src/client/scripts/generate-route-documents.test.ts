@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises'
+import { access, mkdtemp, readFile, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, test } from 'vitest'
@@ -59,7 +59,6 @@ describe('route document generator', () => {
       'utf8',
     )
     const fallback = await readFile(path.join(distRoot, '404.html'), 'utf8')
-    const lawfulHeist = await readFile(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'), 'utf8')
 
     expect(projects).toContain('<title>Project Stories | Harley Bartles</title>')
     expect(projects).toContain('https://harleybartles.com/projects')
@@ -75,9 +74,7 @@ describe('route document generator', () => {
     expect(article).toContain(
       'https://harleybartles.com/writing/agentic-engineering-vs-vibe-coding',
     )
-    expect(lawfulHeist).toContain('<title>The Usual Specialists | Harley Bartles</title>')
-    expect(lawfulHeist).toContain('Six specialists make a lawful override routine.')
-    expect(lawfulHeist).toContain('https://harleybartles.com/patch/the-usual-specialists')
+    await expect(access(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'))).rejects.toThrow()
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
     expect(fallback).not.toContain('rel="canonical"')
     expect(fallback).toContain('name="robots" content="noindex, nofollow"')

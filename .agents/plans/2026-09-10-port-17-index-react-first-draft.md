@@ -34,7 +34,7 @@
 - Meaningful copy must never be clipped by the viewport at any supported width.
 - Supported visual review widths include the authored ultrawide ceiling: `2560`, `1920`, `1600`, `1440`, `768`, `390`, and `320` CSS px. Breakpoint-edge stress also covers `2560`, `1921/1920`, `1600/1599`, `1401/1400`, `1400/1399`, `901/900`, `721/720`, `621/620`, and `391/390` where relevant. `2560` is the design ceiling, not an exotic overflow check.
 - Actual browser **200% zoom** is a manual acceptance gate. A narrow viewport proxy does not replace it.
-- Preserve keyboard usability, reduced-motion parity, route metadata, the canonical `/patch/the-usual-specialists` path, and the `/patch/lawful-heist` redirect.
+- Preserve keyboard usability, reduced-motion parity, route metadata, and the canonical `/patch/the-usual-specialists` path. Harley explicitly retired the obsolete `/patch/lawful-heist` redirect on 2026-09-10; do not preserve or regenerate it.
 - The site header and footer remain shared site chrome. The generic content title/summary header and standard related/navigation tail do not sit inside the route-owned Specialists story while this long-running draft is incomplete.
 - Do not render dead chapter links for unimplemented chapters. The six-item wireframe chapter rail is deferred until those destinations exist.
 - All public image URLs must be base-path safe for GitHub Pages.
@@ -379,7 +379,7 @@ Translate these HTML-wireframe selectors into directly owned styled components. 
 The following old contracts describe the page being intentionally replaced and must not constrain the new design:
 
 - Delete and recreate `src/client/src/features/patch-showcase/UsualSpecialistsPage.test.tsx`; no old six-profile assertions survive.
-- Replace the old dossier assertions in `src/client/src/pages/PatchRoutes.test.tsx` with the new Index-draft route contract; keep the canonical route and legacy redirect tests.
+- Replace the old dossier assertions in `src/client/src/pages/PatchRoutes.test.tsx` with the new Index-draft route contract; keep the canonical route. The obsolete `/patch/lawful-heist` redirect is intentionally removed by later human override.
 - Delete the old `The Usual Specialists stacks its lead at the authored narrow breakpoint` test from `src/client/e2e/project-story.spec.ts`.
 - Delete the old `The Usual Specialists keeps Rollback inside the story at zoom-pressure width` test.
 - Remove only the Specialists-specific assertion from the general Patch-family reflow test and replace it with the new route-owned no-overflow contract in the new Specialists test block.
@@ -422,7 +422,7 @@ Expected: the tracked hook passes for the exact staged plan; `git status --short
 - Delete: `src/client/e2e/visual-regression.spec.ts-snapshots/patch-lawful-heist-rollback.png`
 
 **Interfaces:**
-- Consumes: existing `presentation: 'patch-usual-specialists'`, `getProjectPresentation()`, `SiteLayout`, route metadata and legacy `/patch/lawful-heist` redirect.
+- Consumes: existing `presentation: 'patch-usual-specialists'`, `getProjectPresentation()`, `SiteLayout` and route metadata. The former `/patch/lawful-heist` redirect is no longer part of the contract.
 - Produces: `UsualSpecialistsPage` as the route-owned story root with `data-visual-contract="patch-usual-specialists-index-draft"` and semantic `#content-page-title`; an interior `SiteLayout` full-width-main option; a `ContentPage` branch that does not wrap this presentation in the obsolete generic content header/body/tail.
 
 - [x] **Step 1: Remove the old page-specific test contracts and write the new unit RED**
@@ -469,7 +469,7 @@ cd src/client
 npm test -- --run src/components/SiteLayout.test.tsx src/pages/ContentPage.test.tsx src/pages/PatchRoutes.test.tsx
 ```
 
-Expected: RED on the newly added full-width/route-owned assertions while the existing shared route/redirect expectations remain intact.
+Expected: RED on the newly added full-width/route-owned assertions while the shared canonical-route expectations remain intact.
 
 - [x] **Step 4: Replace the old production page wholesale with the minimal new skeleton and add the narrow route-owned seam**
 
@@ -497,7 +497,7 @@ Do not generalise this into a registry rewrite in Task 1. One explicit presentat
 
 - [x] **Step 5: Remove obsolete browser/screenshot contracts**
 
-Delete only the old Specialists layout/rollback tests and old Rollback baseline listed above. Preserve direct-route chunk isolation, redirect coverage, accessibility coverage and all unrelated Patch visual baselines.
+Delete only the old Specialists layout/rollback tests and old Rollback baseline listed above. Preserve direct-route chunk isolation, accessibility coverage and all unrelated Patch visual baselines. Do not preserve the retired `/patch/lawful-heist` redirect.
 
 - [x] **Step 6: Run focused GREEN proof**
 
@@ -721,7 +721,7 @@ git commit -m "feat: add Specialists opening composition"
 - Consumes: `usualSpecialistsAssetPath`, accepted Index/Patch assets, exact base/ultrawide/1399/900/720/390 geometry above.
 - Produces: the self-contained `IndexChapter` vertical slice; stable hooks `data-specialist-chapter="index"`, `data-index-story-card`, `data-index-lockup`, `data-index-traversal`, `data-substrate` on traversal figures, and `data-index-substrate` on chapter-owned document surfaces. No parent/orchestrator selector is part of this interface.
 
-- [ ] **Step 1: Write the Index semantic/source-order RED**
+- [x] **Step 1: Write the Index semantic/source-order RED**
 
 Require the chapter before implementation:
 
@@ -744,7 +744,7 @@ cd src/client
 npm test -- --run src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx
 ```
 
-- [ ] **Step 2: Implement semantic structure and explicit asset ownership first**
+- [x] **Step 2: Implement semantic structure and explicit asset ownership first**
 
 Build `IndexChapter` with:
 
@@ -762,7 +762,7 @@ Expose chapter-owned substrate hooks for relationship tests without leaking styl
 
 Keep `IndexChapter.styles.ts` private to this slice. Define directly styled owners such as `IndexWalk`, `IndexReturn`, `PatchReturn`, `MainDocument`, `BlueCarrier`, `StoryCard`, `AssentNote` and the other chapter-local surfaces; attach the relevant geometry to those owners. Do not translate the scratch HTML literally into descendant selectors such as `.index-main > .index-traversal--index-walk`, and do not export chapter-internal styled components for `UsualSpecialistsPage` to target.
 
-- [ ] **Step 3: Port the wide/base layout and layering**
+- [x] **Step 3: Port the wide/base layout and layering**
 
 Implement the base variables and positions from the accepted visual contract. Preserve z-order so:
 
@@ -774,7 +774,7 @@ Implement the base variables and positions from the accepted visual contract. Pr
 
 No mirroring transform is allowed in the base/wide choreography.
 
-- [ ] **Step 4: Port the approved `1401-2560` ultrawide composition as chapter-owned styled components**
+- [x] **Step 4: Port the approved `1401-2560` ultrawide composition as chapter-owned styled components**
 
 Implement the exact authored ultrawide contract above. Required outcomes:
 
@@ -788,26 +788,26 @@ Implement the exact authored ultrawide contract above. Required outcomes:
 
 The return pair is the **only** character-mirroring exception in this slice. Apply the transform in each figure's own styled component; no parent selector applies it.
 
-- [ ] **Step 5: Port `<=1399` and `<=900` without changing the locked choreography**
+- [x] **Step 5: Port `<=1399` and `<=900` without changing the locked choreography**
 
 Use the exact variable values, character widths and Index-1 interpolation above. Patch 2 stays present through the 721-900 band. Preserve shared `12px` pair footline compensation and Index 2's `108px` offset.
 
-- [ ] **Step 6: Port `<=720` mobile composition**
+- [x] **Step 6: Port `<=720` mobile composition**
 
 Use `--index-mobile-traversal-lift: 19%`. Hide Index 1, Index 2 and Patch 2; show Index 3 high-step and Patch 1 on the blue carrier at the approved same-plane scale. Keep the story card absolute and the graph-paper relation to its top edge.
 
-- [ ] **Step 7: Port `<=390` corrections and final typography values**
+- [x] **Step 7: Port `<=390` corrections and final typography values**
 
 Apply only the approved narrower corrections: `-10px` extra Index 3 lift, left positions, mark safe-area formula, `.7rem` handwriting span and inherited `1.1rem` strong line. Do not invent a new 320-specific design regime.
 
-- [ ] **Step 8: Prove the unit contract GREEN**
+- [x] **Step 8: Prove the unit contract GREEN**
 
 ```powershell
 cd src/client
 npm test -- --run src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists/UsualSpecialistsOpening.test.tsx
 ```
 
-- [ ] **Step 9: Mark Task 4 complete and commit normally**
+- [x] **Step 9: Mark Task 4 complete and commit normally**
 
 ```powershell
 git add src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx src/client/src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/client/src/features/patch-showcase/usual-specialists .agents/plans/2026-09-10-port-17-index-react-first-draft.md

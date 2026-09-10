@@ -101,10 +101,6 @@ export const appRoutes: RouteObject[] = [
         }),
       },
       {
-        path: 'patch/lawful-heist',
-        element: <Navigate to="/patch/the-usual-specialists" replace />,
-      },
-      {
         path: 'patch/:slug',
         lazy: loadPatchRoute,
       },
