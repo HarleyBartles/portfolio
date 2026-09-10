@@ -1,6 +1,6 @@
 # PORT-17 Index React First Draft Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `/subagent-driven-development` to implement this plan task-by-task and `/test-driven-development` for every production change. Use `/verification-before-completion` before completion claims. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Execution lane:** Harley explicitly overrode the original `/subagent-driven-development` recommendation on 2026-09-10. Continue this plan inline with `/executing-plans`, while retaining `/test-driven-development` for every production change and `/verification-before-completion` before completion claims. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the existing `/patch/the-usual-specialists` presentation with the accepted PORT-16 opening, apartment establishing composition, Index chapter, and temporary wireframe rope as the first React draft of the new Specialists page.
 
@@ -8,7 +8,7 @@
 
 **Tech Stack:** React 19, TypeScript 6, React Router 7, styled-components 6, Vitest/Testing Library, Playwright 1.61, Vite 8, Sharp 0.34.5, Windows-authored visual baselines.
 
-**Execution Strategy:** `subagent-driven-development`, sequential. Every production-changing task uses a real RED/GREEN cycle and an independent review gate; the later browser/visual verification task writes assertions before any browser-only repair and does not manufacture a failure when the translation is already correct. Tasks share one route and must land in order. Do not parallelise edits against `ContentPage`, `UsualSpecialistsPage`, or the same visual composition files.
+**Execution Strategy:** `executing-plans`, sequential, by explicit human override of the earlier `subagent-driven-development` recommendation. Every production-changing task uses a real RED/GREEN cycle; the later browser/visual verification task writes assertions before any browser-only repair and does not manufacture a failure when the translation is already correct. Tasks share one route and must land in order. Do not parallelise edits against `ContentPage`, `UsualSpecialistsPage`, or the same visual composition files.
 
 **Spec:** Linear `PORT-17` plus the locked accepted PORT-16 Index wireframe at `Z:\_agent-scratch\portfolio\usual-specialists-wireframe\usual-specialists-wireframe-index-approved.html` (SHA-256 `f4cd2e71a672d2ea8275e6d27bfffec6f9c39f6c078be66d1d77610b1897e0eb`). The accepted contract is restated below so execution does not depend on guessing from the disposable wireframe.
 
@@ -535,7 +535,7 @@ Let the tracked hook own the complete staged-tree CI gate.
 - Consumes: the exact source table and hashes in this plan, Sharp 0.34.5, PORT-16 provenance, accepted outline SVG.
 - Produces: base-path-safe public assets and `usual-specialists-derivatives.json`; `npm run media:usual-specialists:apply`; `npm run media:usual-specialists:check`.
 
-- [ ] **Step 1: Write the processor unit RED before adding the processor**
+- [x] **Step 1: Write the processor unit RED before adding the processor**
 
 Create `process-usual-specialists-assets.test.ts` with tests requiring:
 
@@ -559,7 +559,7 @@ npm test -- --run scripts/process-usual-specialists-assets.test.ts
 
 Expected: RED because the processor module does not exist.
 
-- [ ] **Step 2: Copy the accepted masters byte-for-byte and prove their identity before processing**
+- [x] **Step 2: Copy the accepted masters byte-for-byte and prove their identity before processing**
 
 Create the source directory and copy exactly the fourteen PNGs from the accepted wireframe source root using the exact source-custody mapping above. Verify every SHA-256 against this plan before continuing. The copied masters total 27,747,221 bytes; a different total is a stop sign until the discrepancy is explained.
 
@@ -567,11 +567,11 @@ Copy `index-wordmark-chassis-outline.svg` byte-for-byte to `src/client/public/me
 
 Do **not** copy any font file from `C:\Windows\Fonts` or any other machine-local font location.
 
-- [ ] **Step 3: Add the accepted source manifest**
+- [x] **Step 3: Add the accepted source manifest**
 
 `accepted-assets.json` records, for every master: stable id, original wireframe filename, repository source path, SHA-256, intrinsic width/height, accepted status, rights owner Harley Bartles, and the relevant PORT-16/Linear provenance document id where known. Missing prompt/seed history is omitted rather than reconstructed.
 
-- [ ] **Step 4: Implement the minimum deterministic processor and scripts**
+- [x] **Step 4: Implement the minimum deterministic processor and scripts**
 
 The processor must:
 
@@ -592,7 +592,7 @@ Add package scripts:
 
 and add `npm run media:usual-specialists:check` to `build` before `tsc -b`.
 
-- [ ] **Step 5: Run the processor unit test RED->GREEN, apply once, then check**
+- [x] **Step 5: Run the processor unit test RED->GREEN, apply once, then check**
 
 ```powershell
 cd src/client
@@ -603,7 +603,7 @@ npm run media:usual-specialists:check
 
 Expected: unit tests pass; check is churn-free; all public derivatives are below the current image ceiling.
 
-- [ ] **Step 6: Prove no prohibited font was introduced**
+- [x] **Step 6: Prove no prohibited font was introduced**
 
 ```powershell
 $fontFiles = Get-ChildItem src/client/assets/patch/the-usual-specialists,src/client/public/media/patch/the-usual-specialists -Recurse -File -Include *.ttf,*.otf,*.woff,*.woff2,*.eot
@@ -618,11 +618,11 @@ if ($runtimeFontLoad) { $runtimeFontLoad; throw 'PORT-17 introduced a prohibited
 
 Expected: all three guards produce no prohibited match. Plain `Chassis` text inside the accepted outlined SVG provenance metadata is allowed; a font binary, dependency, `@font-face`, data font, or Chassis URL is not.
 
-- [ ] **Step 7: Update asset custody documentation**
+- [x] **Step 7: Update asset custody documentation**
 
 Record the accepted source identity, non-public master/public derivative split, WebP settings, generated-image provenance boundary, and explicit outlined-SVG/no-font-binary rule in `docs/asset-custody.md`.
 
-- [ ] **Step 8: Regenerate the mesh, mark Task 2 complete, and commit normally**
+- [x] **Step 8: Regenerate the mesh, mark Task 2 complete, and commit normally**
 
 ```powershell
 py -3 tools/run.py index-mesh --apply
