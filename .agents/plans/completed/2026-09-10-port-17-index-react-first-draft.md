@@ -1022,7 +1022,7 @@ Update all executed Task 1-5 checkboxes to `[x]`, include concise observed comma
 - Final production build -> green; `UsualSpecialistsPage-BLAyOTus.js` `19.22 kB` raw / `4.97 kB` gzip; entry JS `212552/358400` bytes; CSS `8344/40960` bytes; CV PDF `219470/524288` bytes and 2 pages.
 - Human visual authority remains Harley's 2026-09-10 approval after the mineral-ground correction: `Looks good. Approved. Continue`.
 
-- [ ] **Step 4: Commit the design decision and verified implementation state normally**
+- [x] **Step 4: Commit the design decision and verified implementation state normally**
 
 ```powershell
 git add docs/design-decisions.md .agents/plans/2026-09-10-port-17-index-react-first-draft.md src/client
@@ -1031,7 +1031,9 @@ git commit -m "docs: record accepted Specialists Index draft"
 
 The hook must pass. Never bypass it.
 
-- [ ] **Step 5: Verify clean branch state and publish a draft PR**
+Task 6 design-decision state committed normally as `401ded1cdfb7b853fa91b774193f48cb3c45e104` (`docs: record accepted Specialists Index draft`). The first commit attempt was blocked by one non-reproducible Writing-index Playwright timeout after `185/186` journeys; the isolated unchanged journey then passed in `269ms`. The unchanged commit was retried through the tracked hook and passed the complete gate, including all `186` Playwright journeys.
+
+- [x] **Step 5: Verify clean branch state and publish a draft PR**
 
 Verify:
 
@@ -1080,7 +1082,9 @@ Use the repo PR template and the repo's GitHub publication route. After creation
 
 Compare `headRefOid` from `gh pr view` with `git rev-parse HEAD`; they must match before continuing.
 
-- [ ] **Step 6: Complete and archive the plan only after draft-PR readback**
+Publication proof: GitHub draft PR `#58`, `https://github.com/HarleyBartles/portfolio/pull/58`, base `main`, head `codex/port-17-index-react`. Initial published `headRefOid` was `401ded1cdfb7b853fa91b774193f48cb3c45e104`, exactly matching local `HEAD`. `origin/main` was refreshed immediately before publication and remained the original plan base `7187b68bb39885495edbc5ef67664b1e8d38fd7e`; the branch was exactly eight commits ahead and zero behind.
+
+- [x] **Step 6: Complete and archive the plan only after draft-PR readback**
 
 After the draft PR exists and its published head matches the local branch:
 
