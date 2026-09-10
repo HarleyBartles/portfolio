@@ -16,6 +16,7 @@ async function openStable(page: Page, path: string): Promise<void> {
 
 async function waitForImages(region: ReturnType<Page['locator']>): Promise<void> {
   for (const image of await region.locator('img').all()) {
+    if (!(await image.isVisible())) continue
     await image.scrollIntoViewIfNeeded()
     await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
   }
@@ -462,6 +463,16 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
     await waitForImages(page.locator('[data-visual-contract="patch-identity-emporium"]'))
     const identity = page.locator('[data-visual-contract="patch-identity-emporium"]')
     await expect(identity).toHaveScreenshot(`patch-identity-emporium-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
+})
+
+test('Specialists Index draft keeps the approved composition across protected viewports', async ({ page }) => {
+  for (const width of [2560, 1600, 1440, 768, 390, 320] as const) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await openStable(page, './patch/the-usual-specialists')
+    const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+    await waitForImages(story)
+    await expect(story).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`)
   }
 })
 

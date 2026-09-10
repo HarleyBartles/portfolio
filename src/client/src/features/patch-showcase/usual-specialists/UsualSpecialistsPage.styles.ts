@@ -10,7 +10,7 @@ export const SpecialistsStory = styled.article`
   position: relative;
   overflow: clip;
   color: var(--specialists-ink);
-  background: var(--specialists-paper);
+  background: var(--color-interior-canvas);
 `
 
 export const RopeClip = styled.div`

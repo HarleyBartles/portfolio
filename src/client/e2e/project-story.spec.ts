@@ -104,6 +104,137 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
   }
 })
 
+test('The Usual Specialists preserves the accepted Index composition across authored responsive bands', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const widths = [2560, 1921, 1920, 1600, 1599, 1440, 1401, 1400, 901, 900, 768, 721, 720, 390, 320] as const
+  const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
+  const box = async (locator: import('@playwright/test').Locator) => {
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  const expectInsideViewport = async (locator: import('@playwright/test').Locator, width: number, label: string) => {
+    const bounds = await box(locator)
+    expect(bounds.x, JSON.stringify({ width, label, bounds })).toBeGreaterThanOrEqual(-1)
+    expect(bounds.x + bounds.width, JSON.stringify({ width, label, bounds })).toBeLessThanOrEqual(width + 1)
+  }
+  const expectVisibleTraversal = async (names: readonly string[]) => {
+    for (const name of names) await expect(traversal(name)).toBeVisible()
+  }
+  const expectHiddenTraversal = async (names: readonly string[]) => {
+    for (const name of names) await expect(traversal(name)).toBeHidden()
+  }
+
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+
+    const heading = page.getByRole('heading', { level: 1, name: 'The Usual Specialists' })
+    const index = page.getByRole('region', { name: 'Index' })
+    await expect(heading).toBeVisible()
+    await expect(index).toBeVisible()
+    const storySurface = await page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]').evaluate((element) => {
+      const probe = document.createElement('div')
+      probe.style.backgroundColor = 'var(--color-interior-canvas)'
+      element.appendChild(probe)
+      const result = {
+        actual: getComputedStyle(element).backgroundColor,
+        expected: getComputedStyle(probe).backgroundColor,
+      }
+      probe.remove()
+      return result
+    })
+    expect(storySurface.actual, JSON.stringify({ width, storySurface })).toBe(storySurface.expected)
+    await expectNoHorizontalOverflow(page)
+    await expectInsideViewport(page.locator('[data-index-story-card]'), width, 'story-card')
+    await expectInsideViewport(page.locator('[data-index-lockup]'), width, 'index-lockup')
+
+    expect(await heading.evaluate((element, indexElement) => (
+      element.compareDocumentPosition(indexElement as Node) & Node.DOCUMENT_POSITION_FOLLOWING
+    ) !== 0, await index.elementHandle())).toBe(true)
+    await expect(page.locator('[data-specialist-chapter="silk"], [data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
+
+    if (width <= 720) {
+      await expectVisibleTraversal(['index-high-step', 'patch-follow'])
+      await expectHiddenTraversal(['index-walk', 'index-inspect', 'patch-peer', 'index-return', 'patch-return'])
+    } else if (width < 1600) {
+      await expectVisibleTraversal(['index-walk', 'index-inspect', 'patch-follow', 'patch-peer'])
+      await expectHiddenTraversal(['index-high-step', 'index-return', 'patch-return'])
+    } else {
+      await expectVisibleTraversal(['index-walk', 'index-inspect', 'patch-follow', 'patch-peer', 'index-return', 'patch-return'])
+      await expectHiddenTraversal(['index-high-step'])
+    }
+  }
+
+  for (const width of [900, 768] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    const indexInspect = await box(traversal('index-inspect'))
+    const patchPeer = await box(traversal('patch-peer'))
+    expect(Math.abs((indexInspect.y + indexInspect.height) - (patchPeer.y + patchPeer.height))).toBeLessThanOrEqual(16)
+  }
+
+  for (const width of [720, 390] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    const carrier = await box(page.locator('[data-index-substrate="blue-carrier"]'))
+    for (const name of ['index-high-step', 'patch-follow'] as const) {
+      const figure = await box(traversal(name))
+      const centre = { x: figure.x + figure.width / 2, y: figure.y + figure.height / 2 }
+      expect(centre.x).toBeGreaterThanOrEqual(carrier.x)
+      expect(centre.x).toBeLessThanOrEqual(carrier.x + carrier.width)
+      expect(centre.y).toBeGreaterThanOrEqual(carrier.y)
+      expect(centre.y).toBeLessThanOrEqual(carrier.y + carrier.height)
+    }
+  }
+})
+
+test('The Usual Specialists keeps the accepted Index traversal relationships through ultrawide', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
+  const box = async (locator: import('@playwright/test').Locator) => {
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  const horizontalGap = (ahead: { x: number }, follower: { x: number; width: number }) =>
+    ahead.x - (follower.x + follower.width)
+  const gapAt = async (width: number) => {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    return horizontalGap(await box(traversal('index-walk')), await box(traversal('patch-follow')))
+  }
+
+  const separationAt1400 = await gapAt(1400)
+  for (const width of [1401, 1440, 1599, 1600, 1920, 1921, 2560] as const) {
+    expect(await gapAt(width)).toBeLessThanOrEqual(separationAt1400 + 2)
+  }
+
+  await page.setViewportSize({ width: 1599, height: 1100 })
+  await page.goto(specialistsPath)
+  await expect(traversal('index-return')).toBeHidden()
+  await expect(traversal('patch-return')).toBeHidden()
+
+  for (const width of [1600, 1920, 1921, 2560] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    const main = await box(page.locator('[data-index-substrate="desk-diagram"]'))
+    const carrier = await box(page.locator('[data-index-substrate="blue-carrier"]'))
+    const graphPaper = await box(page.locator('[data-index-substrate="graph-paper"]'))
+    const indexReturn = await box(traversal('index-return'))
+    const patchReturn = await box(traversal('patch-return'))
+
+    expect(carrier.x).toBeLessThan(main.x)
+    expect(graphPaper.x).toBeLessThan(main.x)
+    expect(indexReturn.x).toBeGreaterThanOrEqual(main.x - 2)
+    expect(indexReturn.x + indexReturn.width).toBeLessThanOrEqual(main.x + main.width + 2)
+    expect(patchReturn.x).toBeGreaterThanOrEqual(main.x - 2)
+    expect(patchReturn.x + patchReturn.width).toBeLessThanOrEqual(main.x + main.width + 2)
+    expect(indexReturn.x).toBeLessThan(patchReturn.x)
+    expect(indexReturn.y).toBeLessThan(patchReturn.y)
+  }
+})
+
 test('Patch family preserves authored reflow and avoids overflow at 768px and 320px', async ({ page }) => {
   const columnCount = async (selector: string) => page.locator(selector).first().evaluate((element) =>
     getComputedStyle(element).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length,

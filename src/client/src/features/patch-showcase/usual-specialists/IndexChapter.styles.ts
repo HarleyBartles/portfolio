@@ -106,14 +106,17 @@ export const MainDocument = styled.div`
   right: calc(-1 * var(--index-main-overhang));
   min-height: clamp(640px, 44vw, 780px);
   --index-main-overhang: 3vw;
+  --index-main-left: 0px;
 
   @media (min-width: 1401px) {
-    left: clamp(50px, calc(25vw - 300px), 180px);
+    --index-main-left: clamp(50px, calc(25vw - 300px), 180px);
+    left: var(--index-main-left);
     right: -42px;
   }
 
   @media (min-width: 1921px) {
-    left: clamp(180px, calc(12vw - 50.4px), 257px);
+    --index-main-left: clamp(180px, calc(12vw - 50.4px), 257px);
+    left: var(--index-main-left);
   }
 
   @media (max-width: 720px) {
@@ -149,7 +152,7 @@ export const StoryCard = styled.div`
   }
 
   @media (min-width: 1401px) {
-    left: clamp(801px, calc(12vw + 633px), 940px);
+    left: calc(clamp(801px, calc(12vw + 633px), 940px) - var(--index-main-left));
     right: auto;
   }
 

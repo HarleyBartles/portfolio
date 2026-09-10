@@ -137,7 +137,7 @@ Planning inspection showed every full-size source encoded with these settings is
 
 ### Opening
 
-- Page ground: warm paper `#f2ecdf`; ink `#20231f`; rope `#aa302d`; Index ink `#17364d`.
+- Page ground: standard site mineral `var(--color-interior-canvas)` (`#e6eaeb` in the current token set); ink `#20231f`; rope `#aa302d`; Index ink `#17364d`. Keep warm paper `#f2ecdf` only on actual paper/document objects and cards where the document-world composition earns it. Harley explicitly retired the route-wide cream treatment during React visual review on 2026-09-10.
 - Opening top padding: `clamp(34px, 6vw, 76px)`.
 - Lockup is a vertical flex composition with `gap: clamp(14px, 2vw, 24px)` and `padding-bottom: 34px`.
 - `PatchSeriesLockup`: width `min(35%, 390px)`, aligned right.
@@ -149,7 +149,7 @@ Planning inspection showed every full-size source encoded with these settings is
 - Threshold copy on wide layouts: top `15%`, left at the content gutter, width `min(34rem, 42vw)`, `24px 26px` padding, paper field `rgb(242 236 223 / 91%)`, subtle border/shadow.
 - At `<=900`: threshold copy width `min(30rem, 58vw)`.
 - At `<=620`: threshold `min-height: 690px`; copy uses left/right gutter, top `18%`, auto width.
-- Preserve the accepted opening precis verbatim: `Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable — mostly by carrying on with their actual jobs while he talks.`
+- Preserve the corrected opening precis verbatim: `Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable - mostly by carrying on with their actual jobs while he talks.` Harley explicitly rejected the em dash and any encoded workaround on 2026-09-10.
 - Preserve the accepted threshold eyebrow verbatim: `The adventure / recruitment pass`.
 - Preserve the accepted threshold heading verbatim: `One ordinary apartment. Six rooms bent to purpose.`
 - Preserve the accepted threshold body verbatim: `Patch moves through the safehouse with a folder and an unheard pitch. Each Specialist exposes the missing layer by doing the work they already do. The assent marker lands when the role makes itself unavoidable.`
@@ -822,13 +822,15 @@ git commit -m "feat: stand up accepted Index chapter"
 - Modify: `src/client/e2e/project-story.spec.ts`
 - Modify only if needed for explicit decorative classification: `src/client/e2e/accessibility.spec.ts`
 - Modify: `src/client/e2e/visual-regression.spec.ts`
+- Modify after browser-only defects were observed: `src/client/src/features/patch-showcase/usual-specialists/IndexChapter.styles.ts`
+- Modify after Harley's visual-review correction: `src/client/src/features/patch-showcase/usual-specialists/UsualSpecialistsPage.styles.ts`
 - Create after Harley approval: `src/client/e2e/visual-regression.spec.ts-snapshots/patch-usual-specialists-index-{2560,1600,1440,768,390,320}.png`
 
 **Interfaces:**
 - Consumes: stable visual/substrate hooks from Tasks 3-4 and the accepted responsive contract.
 - Produces: objective breakpoint/overflow assertions plus Windows visual baselines for the approved React translation.
 
-- [ ] **Step 1: Write browser assertions for the new route before any browser-only repair**
+- [x] **Step 1: Write browser assertions for the new route before any browser-only repair**
 
 Add a dedicated Specialists block that visits `/patch/the-usual-specialists` and checks `2560`, `1921`, `1920`, `1600`, `1599`, `1440`, `1401`, `1400`, `768`, `390`, `320` plus the existing narrow breakpoint edges.
 
@@ -842,7 +844,7 @@ await expectNoHorizontalOverflow(page)
 
 Require story-card bounds and `[data-index-lockup]` bounds to remain inside the viewport. Require source order opening -> Index and require no Silk/Writ/Klause/Rollback/Receipt chapter roots.
 
-- [ ] **Step 2: Add band-specific traversal assertions**
+- [x] **Step 2: Add band-specific traversal assertions**
 
 For widths `721-1599`, Index 1 + Index 2 + Patch 1 + Patch 2 are displayed while Index 3 + Index return + Patch return are hidden. At `1600-2560`, Index 1 + Index 2 + Patch 1 + Patch 2 + Index return + Patch return are displayed while Index 3 remains hidden. At 720 and below, Index 3 + Patch 1 are displayed and the other five traversal figures are hidden.
 
@@ -877,7 +879,7 @@ At `1600`, `1920`, `1921` and `2560`, use `[data-index-substrate="desk-diagram"]
 
 These assertions protect relationships, not every CSS pixel.
 
-- [ ] **Step 3: Run the responsive/browser proof and repair only observed translation defects**
+- [x] **Step 3: Run the responsive/browser proof and repair only observed translation defects**
 
 ```powershell
 cd src/client
@@ -886,7 +888,7 @@ npm run test:e2e -- e2e/project-story.spec.ts --grep "Usual Specialists|direct r
 
 These are verification assertions added after the core chapter implementation, so they may already pass. Do not manufacture a failure merely to create a RED. If an assertion exposes a mismatch with the accepted wireframe, preserve TDD for that repair: keep the failing assertion as the observed RED, then change only the owning chapter styled component until it is GREEN. Do not weaken the assertion to accept a different composition.
 
-- [ ] **Step 4: Run automated accessibility on the route**
+- [x] **Step 4: Run automated accessibility on the route**
 
 ```powershell
 cd src/client
@@ -895,7 +897,7 @@ npm run test:e2e -- e2e/accessibility.spec.ts --grep "Usual Specialists"
 
 Do not add accessibility exclusions to hide defects. Decorative traversal/paper imagery must be classified explicitly and semantic copy remains available.
 
-- [ ] **Step 5: Serve the built route and perform the required human visual review**
+- [x] **Step 5: Serve the built route and perform the required human visual review**
 
 Build and serve through the repo-owned preview flow:
 
@@ -921,7 +923,7 @@ Review against the locked Index-approved wireframe, not against the removed old 
 
 **STOP for Harley's explicit React visual approval before authoring new pixel baselines.**
 
-- [ ] **Step 6: After approval, write the six visual-regression tests and author the accepted Windows baselines**
+- [x] **Step 6: After approval, write the six visual-regression tests and author the accepted Windows baselines**
 
 Use the route root contract:
 
@@ -940,7 +942,7 @@ npm run test:e2e:visual -- --grep "Specialists Index draft"
 npm run test:e2e:visual -- --grep "Specialists Index draft"
 ```
 
-- [ ] **Step 7: Run the focused build/budget proof**
+- [x] **Step 7: Run the focused build/budget proof**
 
 ```powershell
 cd src/client
@@ -949,6 +951,18 @@ npm run build
 ```
 
 Record the `UsualSpecialistsPage` route chunk size and entry JS/CSS budget output in the plan execution notes. A passing global budget does not excuse an unexplained large route chunk.
+
+### Task 5 execution evidence
+
+- Responsive/browser proof: `npm run test:e2e -- e2e/project-story.spec.ts --grep "Usual Specialists|direct route loads"` -> `3 passed`. The assertions cover authored responsive bands, ultrawide traversal relationships, route chunk isolation, source order, no later Specialist chapter roots, stable substrate ownership and the normal site mineral route ground.
+- The browser proof exposed one translation defect at `1401px`: the Index story card's accepted stage coordinate was being offset a second time by its moving `MainDocument` parent. The failing viewport assertion was retained; `IndexChapter.styles.ts` now exposes `--index-main-left` and subtracts that parent offset from the accepted story-card clamp. Focused proof returned green without weakening the assertion.
+- Harley retired the route-wide cream treatment during React visual review. A browser assertion first failed with route background `rgb(242, 236, 223)` against the site mineral token `rgb(230, 234, 235)`. `UsualSpecialistsPage.styles.ts` now uses `var(--color-interior-canvas)` for the route ground while actual paper/document/card surfaces retain warm paper. The focused browser test and Specialists accessibility proof returned green.
+- Accessibility proof: `npm run test:e2e -- e2e/accessibility.spec.ts --grep "Usual Specialists"` -> `2 passed` for desktop and mobile WCAG 2.2 AA coverage, with no exclusions added.
+- Human visual gate: after wide, ultrawide, desktop/tablet/mobile, breakpoint-edge and actual 200% zoom review, including the mineral-ground correction, Harley said `Looks good. Approved. Continue` on 2026-09-10. This explicitly cleared the Step 5 baseline-authoring gate.
+- Visual baseline authoring: added one `Specialists Index draft` visual test protecting exactly `2560`, `1600`, `1440`, `768`, `390`, and `320` CSS px and authored the six approved Windows baselines once with `--update-snapshots`. The first authoring attempt exposed a test-helper defect because `waitForImages` tried to scroll responsive traversal images intentionally hidden by CSS; the helper now skips non-visible images while still waiting for every image that can affect captured pixels. No production style or screenshot threshold changed for this repair.
+- Visual stability proof: `npm run test:e2e:visual -- --grep "Specialists Index draft"` -> `1 passed`, then the same non-update command again -> `1 passed`. No snapshot update mode was used for either comparison.
+- Final media proof: `npm run media:usual-specialists:check` -> `Usual Specialists derivatives are current.`
+- Final build/budget proof: `npm run build` -> green; `UsualSpecialistsPage-BLAyOTus.js` `19.22 kB` raw / `4.97 kB` gzip; entry JS `212552/358400` bytes; CSS `8344/40960` bytes; CV PDF `219470/524288` bytes and 2 pages.
 
 - [ ] **Step 8: Mark Task 5 complete and commit normally**
 
