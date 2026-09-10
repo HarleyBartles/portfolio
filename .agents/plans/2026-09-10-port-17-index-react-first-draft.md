@@ -964,12 +964,14 @@ Record the `UsualSpecialistsPage` route chunk size and entry JS/CSS budget outpu
 - Final media proof: `npm run media:usual-specialists:check` -> `Usual Specialists derivatives are current.`
 - Final build/budget proof: `npm run build` -> green; `UsualSpecialistsPage-BLAyOTus.js` `19.22 kB` raw / `4.97 kB` gzip; entry JS `212552/358400` bytes; CSS `8344/40960` bytes; CV PDF `219470/524288` bytes and 2 pages.
 
-- [ ] **Step 8: Mark Task 5 complete and commit normally**
+- [x] **Step 8: Mark Task 5 complete and commit normally**
 
 ```powershell
 git add src/client/e2e/project-story.spec.ts src/client/e2e/accessibility.spec.ts src/client/e2e/visual-regression.spec.ts src/client/e2e/visual-regression.spec.ts-snapshots .agents/plans/2026-09-10-port-17-index-react-first-draft.md
 git commit -m "test: lock accepted Specialists Index draft"
 ```
+
+Task 5 committed normally as `ed04b6565a200a309f7fa9b89807095cc6b404a1` (`test: lock accepted Specialists Index draft`). The tracked hook passed the complete local gate: 75 repository tests, 252 Vitest tests, production build/budgets and 186 Playwright journeys.
 
 ---
 
@@ -985,13 +987,13 @@ git commit -m "test: lock accepted Specialists Index draft"
 - Consumes: Harley's approved React rendering, green focused/browser/visual proof and successful normal hooked commits.
 - Produces: durable repo decision, completed Index implementation plan, pushed branch and draft PR linked to PORT-17 while leaving the broader Specialists page explicitly incomplete.
 
-- [ ] **Step 1: Add the dated design-decision entry**
+- [x] **Step 1: Add the dated design-decision entry**
 
 Record that `/patch/the-usual-specialists` now follows the accepted PORT-16 document-world chapter composition instead of the retired six-profile dossier; opening + Index are implemented first; later chapters are appended only after wireframe approval; the red rope is temporary; wordmarks publish as outlined SVGs with no commercial font binary.
 
 Reconsideration trigger: reopen the Index composition only if a real browser/accessibility/performance constraint makes the accepted geometry unworkable, or Harley explicitly reopens the design.
 
-- [ ] **Step 2: Run final focused verification before the closing commit**
+- [x] **Step 2: Run final focused verification before the closing commit**
 
 Run the complete affected unit files, Specialists `project-story` tests, accessibility route, media check, build/budgets, and Windows Specialists visual test twice. Do not run the full canonical CI here if the next action is a normal commit; the hook owns that full run.
 
@@ -1006,9 +1008,19 @@ npm run media:usual-specialists:check
 npm run build
 ```
 
-- [ ] **Step 3: Mark Tasks 1-5 complete and record final verification evidence**
+- [x] **Step 3: Mark Tasks 1-5 complete and record final verification evidence**
 
 Update all executed Task 1-5 checkboxes to `[x]`, include concise observed command evidence and Harley's approval note, and leave Task 6 open while publication is still pending.
+
+### Task 6 closing verification evidence
+
+- Affected unit files: the exact eight-file Task 6 command -> `8 passed` files, `33 passed` tests.
+- Specialists browser proof: `npm run test:e2e -- e2e/project-story.spec.ts --grep "Usual Specialists|direct route loads"` -> `3 passed`.
+- Specialists accessibility: `npm run test:e2e -- e2e/accessibility.spec.ts --grep "Usual Specialists"` -> `2 passed`.
+- Windows visual regression, no update mode: first `Specialists Index draft` run -> `1 passed`; second identical run -> `1 passed`.
+- Media custody check: `npm run media:usual-specialists:check` -> `Usual Specialists derivatives are current.`
+- Final production build -> green; `UsualSpecialistsPage-BLAyOTus.js` `19.22 kB` raw / `4.97 kB` gzip; entry JS `212552/358400` bytes; CSS `8344/40960` bytes; CV PDF `219470/524288` bytes and 2 pages.
+- Human visual authority remains Harley's 2026-09-10 approval after the mineral-ground correction: `Looks good. Approved. Continue`.
 
 - [ ] **Step 4: Commit the design decision and verified implementation state normally**
 
