@@ -650,7 +650,7 @@ Before staging, update Task 2 Steps 1-8 to `[x]` in the plan. `index-mesh --appl
 - Consumes: Task 1's route-owned `UsualSpecialistsPage` skeleton/full-width shell seam, `PatchSeriesLockup`, `UsualSpecialistsWordmark`, Task 2 public derivative receipt and the accepted opening/rope contract.
 - Produces: `usualSpecialistsAssetPath(filename, baseUrl?)`, `UsualSpecialistsOpening`, page-wide paper/rope clip primitives.
 
-- [ ] **Step 1: Write failing tests for the opening before rendering it**
+- [x] **Step 1: Write failing tests for the opening before rendering it**
 
 The opening test requires:
 
@@ -674,32 +674,32 @@ cd src/client
 npm test -- --run src/features/patch-showcase/usual-specialists/UsualSpecialistsOpening.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx
 ```
 
-- [ ] **Step 2: Implement the semantic opening and reuse canonical wordmark components**
+- [x] **Step 2: Implement the semantic opening and reuse canonical wordmark components**
 
 Use a real visible `h1#content-page-title` as the Specialists wordmark container: its semantic text lives in a visually-hidden internal span and the decorative `UsualSpecialistsWordmark` SVG supplies the visible outlined artwork inside the same heading. This follows the existing homepage wordmark pattern, keeps the heading itself visible for route checks, and avoids rendering a duplicate live-text title next to the accepted mark. Render `PatchSeriesLockup` separately as decorative artwork. Add stable `data-patch-series-lockup` and `data-specialists-wordmark` hooks; do not expose a styling class or `data-testid` as the public contract.
 
 Do not use Chassis as live text anywhere in the opening.
 
-- [ ] **Step 3: Port the accepted opening geometry exactly**
+- [x] **Step 3: Port the accepted opening geometry exactly**
 
 Translate the Opening contract above into the private `UsualSpecialistsOpening.styles.ts` owned by `UsualSpecialistsOpening.tsx`. `UsualSpecialistsPage.styles.ts` may own only the page root, route-level CSS custom properties/gutters, clipping/surface mechanics and journey-rope/clip overlay that genuinely span chapter boundaries. It must not target `UsualSpecialistsOpening` or `IndexChapter` descendants; chapter slices read any shared CSS variables intrinsically.
 
 Use the accepted apartment derivative as a real image with width/height attributes, eager loading and high fetch priority.
 
-- [ ] **Step 4: Port the temporary rope without changing its geometry**
+- [x] **Step 4: Port the temporary rope without changing its geometry**
 
 Render the exact SVG path and line treatment. Put the 3300 px rope inside a clip wrapper whose visible height ends with the currently implemented story. The clip wrapper may reveal more of the same path when future chapter siblings extend the route; it must not compress the SVG vertically.
 
 Keep the rope and anchor out of the accessibility tree and pointer interaction.
 
-- [ ] **Step 5: Run focused GREEN tests**
+- [x] **Step 5: Run focused GREEN tests**
 
 ```powershell
 cd src/client
 npm test -- --run src/features/patch-showcase/usual-specialists/UsualSpecialistsOpening.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx
 ```
 
-- [ ] **Step 6: Mark Task 3 complete and commit normally**
+- [x] **Step 6: Mark Task 3 complete and commit normally**
 
 ```powershell
 git add src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx src/client/src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/client/src/features/patch-showcase/usual-specialists .agents/plans/2026-09-10-port-17-index-react-first-draft.md
