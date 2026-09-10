@@ -416,7 +416,7 @@ Expected: the tracked hook passes for the exact staged plan; `git status --short
 - Modify: `src/client/src/pages/ContentPage.tsx`
 - Modify: `src/client/src/pages/ContentPage.test.tsx`
 - Modify: `src/client/src/pages/PatchRoutes.test.tsx`
-- Verify unchanged: `src/client/src/features/case-study/projectPresentations.test.tsx`
+- Modify: `src/client/src/features/case-study/projectPresentations.test.tsx` - update the stale retired `h2 Index` assertion to the route-owned `h1 The Usual Specialists`; production registry and lazy-loading behavior remain unchanged.
 - Modify: `src/client/e2e/project-story.spec.ts`
 - Modify: `src/client/e2e/visual-regression.spec.ts`
 - Delete: `src/client/e2e/visual-regression.spec.ts-snapshots/patch-lawful-heist-rollback.png`
