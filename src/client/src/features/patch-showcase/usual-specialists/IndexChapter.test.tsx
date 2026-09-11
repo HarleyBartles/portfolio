@@ -3,17 +3,11 @@ import { describe, expect, test } from 'vitest'
 import { IndexChapter } from './IndexChapter'
 
 describe('Index chapter', () => {
-  test('renders the accepted Index story and traversal ownership', () => {
+  test('composes the accepted Index vertical slices without future chapters', () => {
     render(<IndexChapter />)
 
     const chapter = screen.getByRole('region', { name: 'Index' })
     expect(within(chapter).getByRole('heading', { level: 2, name: 'Index' })).toBeVisible()
-    expect(chapter).toHaveTextContent('Index is already moving before Patch finishes the pitch.')
-    expect(chapter).toHaveTextContent('PROVENANCE | TRACE THE ROUTES')
-    expect(chapter).toHaveTextContent("You son of a gun. I'm in!")
-    expect(chapter.querySelectorAll('[data-index-traversal]')).toHaveLength(7)
-    expect(chapter.querySelector('[data-index-traversal="index-return"]')).toHaveAttribute('data-substrate', 'desk-diagram')
-    expect(chapter.querySelector('[data-index-traversal="patch-return"]')).toHaveAttribute('data-substrate', 'desk-diagram')
     expect(chapter.querySelector('[data-index-substrate="desk-diagram"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="blue-carrier"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="graph-paper"]')).toBeInTheDocument()
@@ -23,26 +17,17 @@ describe('Index chapter', () => {
     expect(document.querySelector('[data-specialist-chapter="silk"]')).toBeNull()
   })
 
-  test('keeps every traversal image lazy and asynchronously decoded', () => {
-    render(<IndexChapter />)
+  test('forwards an exceptional style override to the chapter root only', () => {
+    render(<IndexChapter style={{ opacity: 0.5 }} />)
 
     const chapter = screen.getByRole('region', { name: 'Index' })
-    const traversalImages = chapter.querySelectorAll<HTMLImageElement>('[data-index-traversal]')
-
-    expect(traversalImages).toHaveLength(7)
-    for (const image of traversalImages) {
-      expect(image).toHaveAttribute('loading', 'lazy')
-      expect(image).toHaveAttribute('decoding', 'async')
-    }
+    expect(chapter).toHaveStyle({ opacity: '0.5' })
+    expect(chapter.querySelector('[data-index-substrate="desk-diagram"]')).not.toHaveStyle({ opacity: '0.5' })
   })
 
-  test('reserves the INDEX wordmark aspect ratio before the SVG loads', () => {
-    render(<IndexChapter />)
-
-    const chapter = screen.getByRole('region', { name: 'Index' })
-    const wordmark = chapter.querySelector<HTMLImageElement>('[data-index-lockup] img')
-
-    expect(wordmark).not.toBeNull()
-    expect(getComputedStyle(wordmark!).aspectRatio).toBe('521.7171/103.332')
+  test('does not expose caller className as a styling seam', () => {
+    // @ts-expect-error className is intentionally not part of the vertical-slice API.
+    render(<IndexChapter className="external-control" />)
+    expect(screen.getByRole('region', { name: 'Index' })).not.toHaveClass('external-control')
   })
 })

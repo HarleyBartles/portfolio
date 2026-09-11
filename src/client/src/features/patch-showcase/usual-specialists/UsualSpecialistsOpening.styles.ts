@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../patch-brand/PatchBrand'
 
 export const Opening = styled.header`
   padding-top: clamp(34px, 6vw, 76px);
@@ -32,12 +31,6 @@ export const SeriesLockupField = styled.div`
   }
 `
 
-export const SeriesMark = styled(PatchSeriesLockup)`
-  display: block;
-  width: 100%;
-  height: auto;
-`
-
 export const OpeningTitle = styled.h1`
   width: min(100%, 1120px);
   margin: 0;
@@ -47,12 +40,6 @@ export const OpeningTitle = styled.h1`
 export const SpecialistsWordmarkField = styled.span`
   display: block;
   width: 100%;
-`
-
-export const SpecialistsMark = styled(UsualSpecialistsWordmark)`
-  display: block;
-  width: 100%;
-  height: auto;
 `
 
 export const OpeningPrecis = styled.p`

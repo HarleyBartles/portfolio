@@ -1,4 +1,4 @@
-﻿# Specialists Vertical Slice Component Contracts Implementation Plan
+# Specialists Vertical Slice Component Contracts Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `/executing-plans` to implement this plan sequentially. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -37,11 +37,11 @@
 - Consumes: the user-approved component ownership rules in this conversation.
 - Produces: durable agent guidance for React component ownership, props, styling escape hatches, and test colocation.
 
-- [ ] **Step 1: Add a React vertical-slice section to the code-style runbook**
+- [x] **Step 1: Add a React vertical-slice section to the code-style runbook**
 
 Record all of these rules explicitly: parent owns whole-child composition; child owns internal composition; no caller `className`; standard `style?: React.CSSProperties` is root-only and exceptional; semantic typed props express supported variants; no coordinate props for child internals; no cross-boundary internal-geometry CSS variables; one colocated test file per component contract.
 
-- [ ] **Step 2: Verify the guidance is reachable through the existing repo router**
+- [x] **Step 2: Verify the guidance is reachable through the existing repo router**
 
 Run:
 
@@ -51,7 +51,7 @@ py -3 tools/run.py mesh --check
 
 Expected: PASS with the existing `AGENTS.md` code-style pointer remaining valid.
 
-- [ ] **Step 3: Mark Task 1 complete in this plan**
+- [x] **Step 3: Mark Task 1 complete in this plan**
 
 Change this task's checklist boxes to `[x]` after the guidance and reachability check pass.
 
@@ -71,13 +71,13 @@ Change this task's checklist boxes to `[x]` after the guidance and reachability 
 - Consumes: existing traversal image semantics and the locked temporary rope geometry.
 - Produces: `IndexTraversal` as a typed function component with `src`, traversal/substrate identifiers, optional root `style`, fixed decorative/lazy image semantics; `SpecialistsJourneyRope` with optional root `style` and no external class seam.
 
-- [ ] **Step 1: Write failing direct contract tests for `IndexTraversal` and `SpecialistsJourneyRope`**
+- [x] **Step 1: Write failing direct contract tests for `IndexTraversal` and `SpecialistsJourneyRope`**
 
 `IndexTraversal.test.tsx` must render the component directly and prove width `320`, height `480`, `loading="lazy"`, `decoding="async"`, empty alt, `aria-hidden="true"`, supplied traversal/substrate data attributes, and forwarding of a root `style` override.
 
 `SpecialistsJourneyRope.test.tsx` must render the component directly and prove the temporary marker, decorative semantics, locked path, `viewBox="0 0 1000 3300"`, `preserveAspectRatio="none"`, and forwarding of a root `style` override.
 
-- [ ] **Step 2: Run the two new tests and confirm they fail for the missing typed APIs**
+- [x] **Step 2: Run the two new tests and confirm they fail for the missing typed APIs**
 
 Run:
 
@@ -87,19 +87,19 @@ npm --prefix src/client test -- --run src/features/patch-showcase/usual-speciali
 
 Expected: FAIL before implementation.
 
-- [ ] **Step 3: Implement the typed leaf APIs without `className`**
+- [x] **Step 3: Implement the typed leaf APIs without `className`**
 
 Convert `IndexTraversal` from an exported styled component to a function component whose internal styled image remains private. Accept typed semantic identifiers plus `style?: React.CSSProperties`; apply `style` only to the root image. Convert `SpecialistsJourneyRope` to accept only optional root `style` and apply it to `RopeClip`.
 
-- [ ] **Step 4: Replace `styled(IndexTraversal)` use with parent-owned placement wrappers inside owning components**
+- [x] **Step 4: Replace `styled(IndexTraversal)` use with parent-owned placement wrappers inside owning components**
 
 Each component that composes a traversal owns a styled placement wrapper; the traversal leaf itself owns only its image contract.
 
-- [ ] **Step 5: Slim the opening test to composition ownership**
+- [x] **Step 5: Slim the opening test to composition ownership**
 
 `UsualSpecialistsOpening.test.tsx` should prove the opening composes a rope but must no longer assert the rope path. Add direct root-style forwarding coverage for `UsualSpecialistsOpening` itself.
 
-- [ ] **Step 6: Run the focused leaf/opening tests**
+- [x] **Step 6: Run the focused leaf/opening tests**
 
 Run:
 
@@ -109,7 +109,7 @@ npm --prefix src/client test -- --run src/features/patch-showcase/usual-speciali
 
 Expected: PASS.
 
-- [ ] **Step 7: Mark Task 2 complete in this plan**
+- [x] **Step 7: Mark Task 2 complete in this plan**
 
 Change this task's checklist boxes to `[x]` after the focused tests pass.
 
@@ -135,7 +135,7 @@ Change this task's checklist boxes to `[x]` after the focused tests pass.
 - Consumes: Task 2 `IndexTraversal` typed API.
 - Produces: six opaque vertical-slice components that accept optional root `style`, expose no `className`, own their internal assets/copy/traversal geometry, and can be understood/tested independently.
 
-- [ ] **Step 1: Write one failing colocated test per component**
+- [x] **Step 1: Write one failing colocated test per component**
 
 Each test must render exactly its named component directly and prove only that component's public/internal contract: root substrate identity, owned semantic/decorative media, intrinsic image dimensions/loading behaviour, owned copy, owned traversal children where applicable, and forwarding of a root `style` override.
 
@@ -143,7 +143,7 @@ Each test must render exactly its named component directly and prove only that c
 
 `IndexAssentNote.test.tsx` owns the exact semantic text `You son of a gun. I'm in!` and decorative presentation-copy relationship.
 
-- [ ] **Step 2: Run the six direct tests and confirm the current `className` APIs fail the new contract**
+- [x] **Step 2: Run the six direct tests and confirm the current `className` APIs fail the new contract**
 
 Run:
 
@@ -153,21 +153,21 @@ npm --prefix src/client test -- --run src/features/patch-showcase/usual-speciali
 
 Expected: FAIL before implementation.
 
-- [ ] **Step 3: Replace `className` props with optional root `style` props**
+- [x] **Step 3: Replace `className` props with optional root `style` props**
 
 Use a typed props object containing `style?: React.CSSProperties` for each component. Apply it only to the component root. Do not expose coordinate props or an external styling hook.
 
-- [ ] **Step 4: Move internal-geometry CSS variables into their owning child**
+- [x] **Step 4: Move internal-geometry CSS variables into their owning child**
 
 Move `--index-mobile-traversal-lift` behaviour into `IndexBlueCarrier`; move `--index-03-pair-footline-drop` into `IndexObservation`; eliminate `--index-main-left` as a parent-to-child internal-layout input by expressing the equivalent responsive relationship inside `IndexDeskDocument`.
 
-- [ ] **Step 5: Run the six direct tests**
+- [x] **Step 5: Run the six direct tests**
 
 Run the Task 3 test command again.
 
 Expected: PASS.
 
-- [ ] **Step 6: Mark Task 3 complete in this plan**
+- [x] **Step 6: Mark Task 3 complete in this plan**
 
 Change this task's checklist boxes to `[x]` after the direct tests pass.
 
@@ -186,23 +186,23 @@ Change this task's checklist boxes to `[x]` after the direct tests pass.
 - Consumes: the opaque child slices from Tasks 2 and 3.
 - Produces: `IndexChapter` and `UsualSpecialistsPage` with optional root `style`, parent-owned placement wrappers, no `styled(child)` composition, and compositor tests that do not assert child internals.
 
-- [ ] **Step 1: Add root-style contract assertions to the chapter and page tests**
+- [x] **Step 1: Add root-style contract assertions to the chapter and page tests**
 
 Both tests should prove an exceptional `style` override reaches that component's own root.
 
-- [ ] **Step 2: Replace `styled(Index...)` exports with parent-owned placement wrappers**
+- [x] **Step 2: Replace `styled(Index...)` exports with parent-owned placement wrappers**
 
 `IndexChapter.styles.ts` should export wrapper elements for the main document, blue carrier, graph paper, observation, macguffin, and assent note. The wrappers own whole-child position, width, rotation/scale if applicable, and z-order. They must not reach into child internals.
 
-- [ ] **Step 3: Compose opaque children inside those wrappers**
+- [x] **Step 3: Compose opaque children inside those wrappers**
 
 `IndexChapter.tsx` should render each child inside its placement wrapper. Add optional root `style` and forward it only to `Chapter`. Add optional root `style` to `UsualSpecialistsPage` and forward it only to `SpecialistsStory`.
 
-- [ ] **Step 4: Slim `IndexChapter.test.tsx` to the compositor contract**
+- [x] **Step 4: Slim `IndexChapter.test.tsx` to the compositor contract**
 
 Keep the Index region/heading, expected child slices, source-order/story-level content necessary to identify the chapter, and absence of future chapters. Remove assertions now owned by child tests, including traversal-image loading details and INDEX wordmark aspect ratio.
 
-- [ ] **Step 5: Run all Specialists unit tests**
+- [x] **Step 5: Run all Specialists unit tests**
 
 Run:
 
@@ -212,7 +212,7 @@ npm --prefix src/client test -- --run src/features/patch-showcase/UsualSpecialis
 
 Expected: PASS.
 
-- [ ] **Step 6: Mark Task 4 complete in this plan**
+- [x] **Step 6: Mark Task 4 complete in this plan**
 
 Change this task's checklist boxes to `[x]` after the Specialists unit suite passes.
 
@@ -229,7 +229,7 @@ Change this task's checklist boxes to `[x]` after the Specialists unit suite pas
 - Consumes: Tasks 1-4 completed source and tests.
 - Produces: clean committed branch, unchanged approved visual baselines, refreshed mesh, and PR #58 pointing at the verified head.
 
-- [ ] **Step 1: Run the focused structural browser proof**
+- [x] **Step 1: Run the focused structural browser proof**
 
 Run:
 
@@ -239,7 +239,7 @@ npm --prefix src/client run test:e2e -- e2e/project-story.spec.ts --grep "Usual 
 
 Expected: all Specialists structural tests PASS across the authored responsive bands and ultrawide relationships.
 
-- [ ] **Step 2: Run focused accessibility proof**
+- [x] **Step 2: Run focused accessibility proof**
 
 Run:
 
@@ -249,7 +249,7 @@ npm --prefix src/client run test:e2e -- e2e/accessibility.spec.ts --grep "Usual 
 
 Expected: desktop and mobile Specialists WCAG checks PASS.
 
-- [ ] **Step 3: Run the protected visual regression without update mode**
+- [x] **Step 3: Run the protected visual regression without update mode**
 
 Run:
 
@@ -259,7 +259,7 @@ npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft"
 
 Expected: PASS against all existing protected Specialists baselines with no snapshot update.
 
-- [ ] **Step 4: Regenerate the index mesh**
+- [x] **Step 4: Regenerate the index mesh**
 
 Run:
 
@@ -270,7 +270,7 @@ py -3 tools/run.py mesh --check
 
 Expected: generated navigation includes the new colocated tests and remains valid.
 
-- [ ] **Step 5: Mark all plan tasks complete and move this plan to completed custody**
+- [x] **Step 5: Mark all plan tasks complete and move this plan to completed custody**
 
 Move this file to `.agents/plans/completed/2026-09-11-specialists-vertical-slice-component-contracts.md`, then rerun `py -3 tools/run.py index-mesh --apply` so links point at completed custody.
 

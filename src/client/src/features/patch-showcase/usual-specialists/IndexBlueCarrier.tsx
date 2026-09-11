@@ -1,11 +1,12 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Carrier = styled.div`
+  position: relative;
+  width: 100%;
   aspect-ratio: 3 / 2;
-  transform: rotate(-7deg);
-  transform-origin: center;
 `
 
 const CarrierArt = styled.img`
@@ -81,7 +82,9 @@ const IndexLockup = styled.div`
   }
 `
 
-const PatchFollow = styled(IndexTraversal)`
+const PatchFollowPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
   top: 34%;
   right: -1%;
   width: 100px;
@@ -93,7 +96,7 @@ const PatchFollow = styled(IndexTraversal)`
   }
 
   @media (max-width: 720px) {
-    top: calc(33% - var(--index-mobile-traversal-lift));
+    top: calc(33% - 19%);
     right: auto;
     left: 26%;
     width: 82px;
@@ -104,27 +107,33 @@ const PatchFollow = styled(IndexTraversal)`
   }
 `
 
-const IndexHighStep = styled(IndexTraversal)`
+const IndexHighStepPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
   display: none;
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
   @media (max-width: 720px) {
     display: block;
-    top: calc(0px - var(--index-mobile-traversal-lift));
+    top: -19%;
     left: 73%;
     width: 74px;
   }
 
   @media (max-width: 390px) {
-    top: calc(0px - var(--index-mobile-traversal-lift) - 10px);
+    top: calc(-19% - 10px);
     left: 64%;
   }
 `
 
-export const IndexBlueCarrier = ({ className }: { className?: string }) => {
+type IndexBlueCarrierProps = {
+  style?: CSSProperties
+}
+
+export const IndexBlueCarrier = ({ style }: IndexBlueCarrierProps) => {
   return (
-    <Carrier className={className} data-index-substrate="blue-carrier">
+    <Carrier data-index-substrate="blue-carrier" style={style}>
       <CarrierArt
         src={usualSpecialistsAssetPath('index-blue-carrier.webp')}
         width="1240"
@@ -133,8 +142,12 @@ export const IndexBlueCarrier = ({ className }: { className?: string }) => {
         decoding="async"
         alt="A blue working sheet crossing the main route diagram."
       />
-      <PatchFollow data-index-traversal="patch-follow" data-substrate="blue-carrier" src={usualSpecialistsAssetPath('patch-follow.webp')} />
-      <IndexHighStep data-index-traversal="index-high-step" data-substrate="blue-carrier" src={usualSpecialistsAssetPath('index-high-step.webp')} />
+      <PatchFollowPlacement>
+        <IndexTraversal traversal="patch-follow" substrate="blue-carrier" src={usualSpecialistsAssetPath('patch-follow.webp')} />
+      </PatchFollowPlacement>
+      <IndexHighStepPlacement>
+        <IndexTraversal traversal="index-high-step" substrate="blue-carrier" src={usualSpecialistsAssetPath('index-high-step.webp')} />
+      </IndexHighStepPlacement>
       <IndexLockup data-index-lockup>
         <img src={usualSpecialistsAssetPath('index-wordmark.svg')} loading="lazy" decoding="async" alt="" aria-hidden="true" />
         <span>PROVENANCE | TRACE THE ROUTES</span>

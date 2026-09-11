@@ -1,13 +1,14 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Document = styled.div`
+  position: relative;
+  width: 100%;
   min-height: clamp(640px, 44vw, 780px);
-  --index-main-overhang: 3vw;
 
   @media (max-width: 720px) {
-    --index-main-overhang: 12vw;
     min-height: 700px;
   }
 `
@@ -23,7 +24,7 @@ const DocumentArt = styled.img`
 const StoryCard = styled.div`
   position: absolute;
   z-index: 13;
-  right: calc(var(--index-main-overhang) + var(--specialists-gutter));
+  right: calc(3vw + var(--specialists-gutter));
   bottom: 30px;
   width: min(35rem, 44%);
   max-width: calc(100vw - (var(--specialists-gutter) * 2));
@@ -38,8 +39,12 @@ const StoryCard = styled.div`
   }
 
   @media (min-width: 1401px) {
-    left: calc(clamp(801px, calc(12vw + 633px), 940px) - var(--index-main-left));
+    left: calc(clamp(801px, calc(12vw + 633px), 940px) - clamp(50px, calc(25vw - 300px), 180px));
     right: auto;
+  }
+
+  @media (min-width: 1921px) {
+    left: calc(clamp(801px, calc(12vw + 633px), 940px) - clamp(180px, calc(12vw - 50.4px), 257px));
   }
 
   @media (max-width: 900px) {
@@ -47,6 +52,7 @@ const StoryCard = styled.div`
   }
 
   @media (max-width: 720px) {
+    right: calc(12vw + var(--specialists-gutter));
     bottom: 24px;
     width: 330px;
     margin: 0;
@@ -57,7 +63,9 @@ const StoryCard = styled.div`
   }
 `
 
-const IndexWalk = styled(IndexTraversal)`
+const IndexWalkPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
   top: 17%;
   right: 18%;
   width: 94px;
@@ -79,7 +87,9 @@ const IndexWalk = styled(IndexTraversal)`
   }
 `
 
-const IndexReturn = styled(IndexTraversal)`
+const IndexReturnPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
   display: none;
 
   @media (min-width: 1600px) {
@@ -92,7 +102,9 @@ const IndexReturn = styled(IndexTraversal)`
   }
 `
 
-const PatchReturn = styled(IndexTraversal)`
+const PatchReturnPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
   display: none;
 
   @media (min-width: 1600px) {
@@ -106,9 +118,13 @@ const PatchReturn = styled(IndexTraversal)`
   }
 `
 
-export const IndexDeskDocument = ({ className }: { className?: string }) => {
+type IndexDeskDocumentProps = {
+  style?: CSSProperties
+}
+
+export const IndexDeskDocument = ({ style }: IndexDeskDocumentProps) => {
   return (
-    <Document className={className} data-index-substrate="desk-diagram">
+    <Document data-index-substrate="desk-diagram" style={style}>
       <DocumentArt
         src={usualSpecialistsAssetPath('index-desktop-base.webp')}
         width="1672"
@@ -117,9 +133,15 @@ export const IndexDeskDocument = ({ className }: { className?: string }) => {
         decoding="async"
         alt="A layered desk diagram of route records and working documents used by Index to trace provenance."
       />
-      <IndexWalk data-index-traversal="index-walk" data-substrate="desk-diagram" src={usualSpecialistsAssetPath('index-walk.webp')} />
-      <PatchReturn data-index-traversal="patch-return" data-substrate="desk-diagram" src={usualSpecialistsAssetPath('patch-return.webp')} />
-      <IndexReturn data-index-traversal="index-return" data-substrate="desk-diagram" src={usualSpecialistsAssetPath('index-return.webp')} />
+      <IndexWalkPlacement>
+        <IndexTraversal traversal="index-walk" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-walk.webp')} />
+      </IndexWalkPlacement>
+      <PatchReturnPlacement>
+        <IndexTraversal traversal="patch-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('patch-return.webp')} />
+      </PatchReturnPlacement>
+      <IndexReturnPlacement>
+        <IndexTraversal traversal="index-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-return.webp')} />
+      </IndexReturnPlacement>
       <StoryCard data-index-story-card>
         <p>Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until one route holds together.</p>
       </StoryCard>

@@ -1,8 +1,11 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Observation = styled.div`
+  position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
 `
 
@@ -20,13 +23,15 @@ const ObservationFrame = styled.div`
   }
 `
 
-const PatchPeer = styled(IndexTraversal)`
-  top: calc(-156px + var(--index-03-pair-footline-drop));
+const PatchPeerPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: calc(-156px + 12px);
   left: 0;
   width: 104px;
 
   @media (max-width: 900px) {
-    top: calc(-147px + var(--index-03-pair-footline-drop));
+    top: calc(-147px + 12px);
     width: 98px;
   }
 
@@ -35,8 +40,10 @@ const PatchPeer = styled(IndexTraversal)`
   }
 `
 
-const IndexInspect = styled(IndexTraversal)`
-  top: calc(-131px + var(--index-03-pair-footline-drop));
+const IndexInspectPlacement = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: calc(-131px + 12px);
   left: 108px;
   width: 102px;
 
@@ -49,11 +56,19 @@ const IndexInspect = styled(IndexTraversal)`
   }
 `
 
-export const IndexObservation = ({ className }: { className?: string }) => {
+type IndexObservationProps = {
+  style?: CSSProperties
+}
+
+export const IndexObservation = ({ style }: IndexObservationProps) => {
   return (
-    <Observation className={className} data-index-substrate="commission-03">
-      <PatchPeer data-index-traversal="patch-peer" data-substrate="commission-03-baseline" src={usualSpecialistsAssetPath('patch-leaning.webp')} />
-      <IndexInspect data-index-traversal="index-inspect" data-substrate="commission-03-baseline" src={usualSpecialistsAssetPath('index-inspect.webp')} />
+    <Observation data-index-substrate="commission-03" style={style}>
+      <PatchPeerPlacement>
+        <IndexTraversal traversal="patch-peer" substrate="commission-03-baseline" src={usualSpecialistsAssetPath('patch-leaning.webp')} />
+      </PatchPeerPlacement>
+      <IndexInspectPlacement>
+        <IndexTraversal traversal="index-inspect" substrate="commission-03-baseline" src={usualSpecialistsAssetPath('index-inspect.webp')} />
+      </IndexInspectPlacement>
       <ObservationFrame>
         <img
           src={usualSpecialistsAssetPath('index-observation.webp')}

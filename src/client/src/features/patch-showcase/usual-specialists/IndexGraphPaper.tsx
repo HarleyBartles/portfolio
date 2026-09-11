@@ -1,9 +1,11 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const GraphPaper = styled.div`
+  position: relative;
+  width: 100%;
   aspect-ratio: 3 / 2;
-  transform: rotate(2deg);
 
   img {
     display: block;
@@ -13,9 +15,13 @@ const GraphPaper = styled.div`
   }
 `
 
-export const IndexGraphPaper = ({ className }: { className?: string }) => {
+type IndexGraphPaperProps = {
+  style?: CSSProperties
+}
+
+export const IndexGraphPaper = ({ style }: IndexGraphPaperProps) => {
   return (
-    <GraphPaper className={className} data-index-substrate="graph-paper">
+    <GraphPaper data-index-substrate="graph-paper" style={style}>
       <img
         src={usualSpecialistsAssetPath('index-graph-paper.webp')}
         width="1140"

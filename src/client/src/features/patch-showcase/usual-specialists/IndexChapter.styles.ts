@@ -1,10 +1,4 @@
 import styled from 'styled-components'
-import { IndexAssentNote } from './IndexAssentNote'
-import { IndexBlueCarrier } from './IndexBlueCarrier'
-import { IndexDeskDocument } from './IndexDeskDocument'
-import { IndexGraphPaper } from './IndexGraphPaper'
-import { IndexMacguffin } from './IndexMacguffin'
-import { IndexObservation } from './IndexObservation'
 
 export const Chapter = styled.section`
   position: relative;
@@ -27,7 +21,6 @@ export const ChapterNumber = styled.span`
 export const Stage = styled.div`
   position: relative;
   min-height: 980px;
-  --index-03-pair-footline-drop: 12px;
   --index-03-left: calc(50% - 430px);
   --index-03-top: 590px;
   --index-03-width: 560px;
@@ -37,7 +30,6 @@ export const Stage = styled.div`
   --index-note-left: calc(50% + 20px);
   --index-note-top: 765px;
   --index-note-width: 220px;
-  --index-mobile-traversal-lift: 0%;
 
   @media (min-width: 1401px) {
     --index-03-left: clamp(270px, calc(5vw + 200px), 328px);
@@ -71,7 +63,6 @@ export const Stage = styled.div`
   }
 
   @media (max-width: 720px) {
-    --index-mobile-traversal-lift: 19%;
     --index-03-left: -40px;
     --index-03-top: 718px;
     --index-03-width: 660px;
@@ -97,35 +88,35 @@ export const Stage = styled.div`
   }
 `
 
-export const MainDocument = styled(IndexDeskDocument)`
+export const MainDocumentPlacement = styled.div`
   position: absolute;
   top: 0;
   left: max(var(--specialists-gutter), calc((100vw - 1160px) / 2 - 70px));
-  right: calc(-1 * var(--index-main-overhang));
-  --index-main-left: 0px;
+  right: -3vw;
 
   @media (min-width: 1401px) {
-    --index-main-left: clamp(50px, calc(25vw - 300px), 180px);
-    left: var(--index-main-left);
+    left: clamp(50px, calc(25vw - 300px), 180px);
     right: -42px;
   }
 
   @media (min-width: 1921px) {
-    --index-main-left: clamp(180px, calc(12vw - 50.4px), 257px);
-    left: var(--index-main-left);
+    left: clamp(180px, calc(12vw - 50.4px), 257px);
   }
 
   @media (max-width: 720px) {
     left: 0;
+    right: -12vw;
   }
 `
 
-export const BlueCarrier = styled(IndexBlueCarrier)`
+export const BlueCarrierPlacement = styled.div`
   position: absolute;
   z-index: 9;
   top: 232px;
   left: 44px;
   width: 620px;
+  transform: rotate(-7deg);
+  transform-origin: center;
 
   @media (min-width: 1401px) {
     left: clamp(44px, calc(25vw - 306px), 174px);
@@ -152,12 +143,13 @@ export const BlueCarrier = styled(IndexBlueCarrier)`
   }
 `
 
-export const GraphPaper = styled(IndexGraphPaper)`
+export const GraphPaperPlacement = styled.div`
   position: absolute;
   z-index: 9;
   top: 445px;
   left: 100px;
   width: 570px;
+  transform: rotate(2deg);
 
   @media (max-width: 900px) {
     left: 18px;
@@ -176,14 +168,14 @@ export const GraphPaper = styled(IndexGraphPaper)`
   }
 `
 
-export const Observation = styled(IndexObservation)`
+export const ObservationPlacement = styled.div`
   position: absolute;
   top: var(--index-03-top);
   left: var(--index-03-left);
   width: var(--index-03-width);
 `
 
-export const Macguffin = styled(IndexMacguffin)`
+export const MacguffinPlacement = styled.div`
   position: absolute;
   z-index: 11;
   top: var(--index-04-top);
@@ -191,10 +183,11 @@ export const Macguffin = styled(IndexMacguffin)`
   width: var(--index-04-width);
 `
 
-export const AssentNote = styled(IndexAssentNote)`
+export const AssentNotePlacement = styled.div`
   position: absolute;
   z-index: 12;
   top: var(--index-note-top);
   left: var(--index-note-left);
   width: var(--index-note-width);
+  transform: rotate(-5deg);
 `

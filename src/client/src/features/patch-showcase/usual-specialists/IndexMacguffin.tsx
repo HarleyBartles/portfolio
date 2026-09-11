@@ -1,7 +1,10 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Macguffin = styled.div`
+  position: relative;
+  width: 100%;
   min-height: 255px;
   overflow: hidden;
 
@@ -14,9 +17,13 @@ const Macguffin = styled.div`
   }
 `
 
-export const IndexMacguffin = ({ className }: { className?: string }) => {
+type IndexMacguffinProps = {
+  style?: CSSProperties
+}
+
+export const IndexMacguffin = ({ style }: IndexMacguffinProps) => {
   return (
-    <Macguffin className={className} data-index-substrate="commission-04">
+    <Macguffin data-index-substrate="commission-04" style={style}>
       <img
         src={usualSpecialistsAssetPath('index-macguffin.webp')}
         width="1200"

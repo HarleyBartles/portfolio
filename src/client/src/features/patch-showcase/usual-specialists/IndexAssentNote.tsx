@@ -1,9 +1,11 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const AssentNote = styled.div`
+  position: relative;
+  width: 100%;
   aspect-ratio: 1373 / 1145;
-  transform: rotate(-5deg);
 
   > img {
     display: block;
@@ -78,9 +80,13 @@ const AssentCopy = styled.span`
   }
 `
 
-export const IndexAssentNote = ({ className }: { className?: string }) => {
+type IndexAssentNoteProps = {
+  style?: CSSProperties
+}
+
+export const IndexAssentNote = ({ style }: IndexAssentNoteProps) => {
   return (
-    <AssentNote className={className} data-index-substrate="assent-note">
+    <AssentNote data-index-substrate="assent-note" style={style}>
       <img src={usualSpecialistsAssetPath('index-assent-note.webp')} width="480" height="400" loading="lazy" decoding="async" alt="" aria-hidden="true" />
       <span className="visually-hidden">You son of a gun. I'm in!</span>
       <AssentCopy aria-hidden="true">

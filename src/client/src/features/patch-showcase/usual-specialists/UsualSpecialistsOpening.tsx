@@ -1,4 +1,5 @@
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
+import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../patch-brand/PatchBrand'
 import { SpecialistsJourneyRope } from './SpecialistsJourneyRope'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
@@ -7,8 +8,6 @@ import {
   OpeningPrecis,
   OpeningTitle,
   SeriesLockupField,
-  SeriesMark,
-  SpecialistsMark,
   SpecialistsWordmarkField,
   Threshold,
   ThresholdArt,
@@ -16,17 +15,21 @@ import {
   ThresholdEyebrow,
 } from './UsualSpecialistsOpening.styles'
 
-export const UsualSpecialistsOpening = (): ReactElement => {
+type UsualSpecialistsOpeningProps = {
+  style?: CSSProperties
+}
+
+export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps): ReactElement => {
   return (
-    <Opening>
+    <Opening style={style}>
       <OpeningLockup>
         <SeriesLockupField data-patch-series-lockup>
-          <SeriesMark decorative />
+          <PatchSeriesLockup decorative />
         </SeriesLockupField>
         <OpeningTitle id="content-page-title">
           <span className="visually-hidden">The Usual Specialists</span>
           <SpecialistsWordmarkField data-specialists-wordmark aria-hidden="true">
-            <SpecialistsMark decorative />
+            <UsualSpecialistsWordmark decorative />
           </SpecialistsWordmarkField>
         </OpeningTitle>
         <OpeningPrecis>Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>

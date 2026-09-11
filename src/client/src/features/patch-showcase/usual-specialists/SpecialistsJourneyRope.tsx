@@ -1,6 +1,11 @@
+import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 
 export const EXPECTED_WIREFRAME_ROPE_PATH = 'M 115 0 C 122 350 140 700 160 1000 C 175 1350 205 1700 225 2000 C 232 2250 235 2600 236 3000 C 237 3130 292 3215 308 3150 C 321 3098 276 3062 252 3102 C 235 3130 248 3174 273 3178'
+
+type SpecialistsJourneyRopeProps = {
+  style?: CSSProperties
+}
 
 const RopeClip = styled.div`
   position: absolute;
@@ -53,9 +58,9 @@ const JourneyRope = styled.svg`
   }
 `
 
-export const SpecialistsJourneyRope = () => {
+export const SpecialistsJourneyRope = ({ style }: SpecialistsJourneyRopeProps) => {
   return (
-    <RopeClip aria-hidden="true" data-temporary-wireframe-rope="true">
+    <RopeClip aria-hidden="true" data-temporary-wireframe-rope="true" style={style}>
       <RopeAnchor />
       <JourneyRope viewBox="0 0 1000 3300" preserveAspectRatio="none">
         <path d={EXPECTED_WIREFRAME_ROPE_PATH} />
