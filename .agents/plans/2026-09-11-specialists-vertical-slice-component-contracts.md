@@ -281,6 +281,8 @@ The first `reviewer-strong` pass found three Important ownership leaks plus prem
 
 The repaired slice passes 12 Specialists test files / 28 tests, 2 focused structural browser tests, 2 focused accessibility tests, and the protected Specialists visual regression at all six existing widths without snapshot updates.
 
+A focused `reviewer-fixes` pass then found one remaining duplicated ownership detail: `DeskComposition` and `IndexDeskDocument` both carried the same desk height values. The follow-up repair makes the chapter composition the sole owner of those whole-child dimensions and makes `IndexDeskDocument` fill its parent. The direct desk/chapter tests pass 5/5, the Specialists structural browser proof passes 2/2, and the protected Specialists visual regression passes unchanged.
+
 - [ ] **Step 5: Stage the complete intended tree and commit normally**
 
 Use a normal commit such as:

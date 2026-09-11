@@ -100,6 +100,7 @@ export const DeskComposition = styled.div`
 export const MainDocumentPlacement = styled.div`
   position: absolute;
   top: 0;
+  height: 100%;
   left: max(var(--specialists-gutter), calc((100vw - 1160px) / 2 - 70px));
   right: -3vw;
 

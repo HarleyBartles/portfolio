@@ -6,11 +6,7 @@ import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 const Document = styled.div`
   position: relative;
   width: 100%;
-  min-height: clamp(640px, 44vw, 780px);
-
-  @media (max-width: 720px) {
-    min-height: 700px;
-  }
+  height: 100%;
 `
 
 const DocumentArt = styled.img`

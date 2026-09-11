@@ -8,6 +8,7 @@ describe('IndexDeskDocument', () => {
 
     const root = container.querySelector('[data-index-substrate="desk-diagram"]')
     expect(root).toHaveStyle({ opacity: '0.5' })
+    expect(root).toHaveStyle({ height: '100%' })
     expect(screen.getByRole('img', { name: /layered desk diagram/i })).toHaveAttribute('loading', 'lazy')
     expect(screen.getByRole('img', { name: /layered desk diagram/i })).toHaveAttribute('decoding', 'async')
     expect(root?.querySelector('[data-index-story-card]')).not.toBeInTheDocument()
