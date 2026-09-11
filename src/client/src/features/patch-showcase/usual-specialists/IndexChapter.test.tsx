@@ -8,7 +8,11 @@ describe('Index chapter', () => {
 
     const chapter = screen.getByRole('region', { name: 'Index' })
     expect(within(chapter).getByRole('heading', { level: 2, name: 'Index' })).toBeVisible()
-    expect(chapter.querySelector('[data-index-substrate="desk-diagram"]')).toBeInTheDocument()
+    const deskDocument = chapter.querySelector<HTMLElement>('[data-index-substrate="desk-diagram"]')
+    const storyCard = chapter.querySelector<HTMLElement>('[data-index-story-card]')
+    expect(deskDocument).toBeInTheDocument()
+    expect(storyCard).toBeInTheDocument()
+    expect(deskDocument).not.toContainElement(storyCard)
     expect(chapter.querySelector('[data-index-substrate="blue-carrier"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="graph-paper"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="commission-03"]')).toBeInTheDocument()

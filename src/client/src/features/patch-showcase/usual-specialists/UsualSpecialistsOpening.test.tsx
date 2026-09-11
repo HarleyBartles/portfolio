@@ -15,6 +15,7 @@ describe('Usual Specialists opening', () => {
     const pageTitle = screen.getByRole('heading', { level: 1, name: 'The Usual Specialists' })
     expect(pageTitle).toBeVisible()
     expect(pageTitle).toHaveAccessibleName('The Usual Specialists')
+    expect(screen.getByText('Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable - mostly by carrying on with their actual jobs while he talks.')).toBeVisible()
     expect(container.querySelector('[data-patch-series-lockup]')).toBeInTheDocument()
     expect(pageTitle.querySelector('[data-specialists-wordmark]')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('img', { name: /ordinary apartment safehouse/i })).toHaveAttribute('fetchpriority', 'high')

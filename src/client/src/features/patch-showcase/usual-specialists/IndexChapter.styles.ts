@@ -88,6 +88,15 @@ export const Stage = styled.div`
   }
 `
 
+export const DeskComposition = styled.div`
+  position: relative;
+  height: clamp(640px, 44vw, 780px);
+
+  @media (max-width: 720px) {
+    height: 700px;
+  }
+`
+
 export const MainDocumentPlacement = styled.div`
   position: absolute;
   top: 0;
@@ -111,7 +120,7 @@ export const MainDocumentPlacement = styled.div`
 
 export const BlueCarrierPlacement = styled.div`
   position: absolute;
-  z-index: 9;
+  z-index: 8;
   top: 232px;
   left: 44px;
   width: 620px;
@@ -157,7 +166,7 @@ export const GraphPaperPlacement = styled.div`
   }
 
   @media (max-width: 720px) {
-    top: anchor(--index-story-card top);
+    top: anchor(--index-story-card-placement top);
     left: -18px;
     width: 520px;
   }
@@ -165,6 +174,35 @@ export const GraphPaperPlacement = styled.div`
   @media (max-width: 390px) {
     left: -42px;
     width: 460px;
+  }
+`
+
+export const StoryCardPlacement = styled.div`
+  position: absolute;
+  z-index: 13;
+  right: var(--specialists-gutter);
+  bottom: 30px;
+  width: min(35rem, 44%);
+  max-width: calc(100vw - (var(--specialists-gutter) * 2));
+  anchor-name: --index-story-card-placement;
+
+  @media (min-width: 1401px) {
+    left: clamp(801px, calc(12vw + 633px), 940px);
+    right: auto;
+  }
+
+  @media (max-width: 900px) {
+    width: 430px;
+  }
+
+  @media (max-width: 720px) {
+    right: var(--specialists-gutter);
+    bottom: 24px;
+    width: 330px;
+  }
+
+  @media (max-width: 390px) {
+    width: 260px;
   }
 `
 

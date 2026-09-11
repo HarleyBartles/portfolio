@@ -21,48 +21,6 @@ const DocumentArt = styled.img`
   object-fit: cover;
 `
 
-const StoryCard = styled.div`
-  position: absolute;
-  z-index: 13;
-  right: calc(3vw + var(--specialists-gutter));
-  bottom: 30px;
-  width: min(35rem, 44%);
-  max-width: calc(100vw - (var(--specialists-gutter) * 2));
-  padding: 22px 24px;
-  border: 1px solid rgb(32 35 31 / 52%);
-  background: rgb(242 236 223 / 94%);
-  box-shadow: 9px 11px 0 rgb(0 0 0 / 9%);
-  anchor-name: --index-story-card;
-
-  p {
-    margin: 0;
-  }
-
-  @media (min-width: 1401px) {
-    left: calc(clamp(801px, calc(12vw + 633px), 940px) - clamp(50px, calc(25vw - 300px), 180px));
-    right: auto;
-  }
-
-  @media (min-width: 1921px) {
-    left: calc(clamp(801px, calc(12vw + 633px), 940px) - clamp(180px, calc(12vw - 50.4px), 257px));
-  }
-
-  @media (max-width: 900px) {
-    width: 430px;
-  }
-
-  @media (max-width: 720px) {
-    right: calc(12vw + var(--specialists-gutter));
-    bottom: 24px;
-    width: 330px;
-    margin: 0;
-  }
-
-  @media (max-width: 390px) {
-    width: 260px;
-  }
-`
-
 const IndexWalkPlacement = styled.div`
   position: absolute;
   z-index: 10;
@@ -142,9 +100,6 @@ export const IndexDeskDocument = ({ style }: IndexDeskDocumentProps) => {
       <IndexReturnPlacement>
         <IndexTraversal traversal="index-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-return.webp')} />
       </IndexReturnPlacement>
-      <StoryCard data-index-story-card>
-        <p>Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until one route holds together.</p>
-      </StoryCard>
     </Document>
   )
 }

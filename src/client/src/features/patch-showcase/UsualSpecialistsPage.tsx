@@ -9,7 +9,7 @@ type UsualSpecialistsPageProps = {
 
 export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
   return (
-    <SpecialistsStory aria-labelledby="content-page-title" data-visual-contract="patch-usual-specialists-index-draft" style={style}>
+    <SpecialistsStory aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index-draft" style={style}>
       <UsualSpecialistsOpening />
       <IndexChapter />
     </SpecialistsStory>

@@ -5,16 +5,19 @@ import { IndexDeskDocument } from './IndexDeskDocument'
 import { IndexGraphPaper } from './IndexGraphPaper'
 import { IndexMacguffin } from './IndexMacguffin'
 import { IndexObservation } from './IndexObservation'
+import { IndexStoryCard } from './IndexStoryCard'
 import {
   AssentNotePlacement,
   BlueCarrierPlacement,
   Chapter,
   ChapterNumber,
+  DeskComposition,
   GraphPaperPlacement,
   MacguffinPlacement,
   MainDocumentPlacement,
   ObservationPlacement,
   Stage,
+  StoryCardPlacement,
 } from './IndexChapter.styles'
 
 type IndexChapterProps = {
@@ -27,15 +30,20 @@ export const IndexChapter = ({ style }: IndexChapterProps): ReactElement => {
       <h2 className="visually-hidden" id="specialists-index-title">Index</h2>
       <ChapterNumber aria-hidden="true">01</ChapterNumber>
       <Stage>
-        <MainDocumentPlacement>
-          <IndexDeskDocument />
-        </MainDocumentPlacement>
+        <DeskComposition>
+          <MainDocumentPlacement>
+            <IndexDeskDocument />
+          </MainDocumentPlacement>
+          <StoryCardPlacement>
+            <IndexStoryCard />
+          </StoryCardPlacement>
+          <GraphPaperPlacement>
+            <IndexGraphPaper />
+          </GraphPaperPlacement>
+        </DeskComposition>
         <BlueCarrierPlacement>
           <IndexBlueCarrier />
         </BlueCarrierPlacement>
-        <GraphPaperPlacement>
-          <IndexGraphPaper />
-        </GraphPaperPlacement>
         <ObservationPlacement>
           <IndexObservation />
         </ObservationPlacement>

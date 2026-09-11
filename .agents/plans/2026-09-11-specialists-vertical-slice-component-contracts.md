@@ -270,11 +270,18 @@ py -3 tools/run.py mesh --check
 
 Expected: generated navigation includes the new colocated tests and remains valid.
 
-- [x] **Step 5: Mark all plan tasks complete and move this plan to completed custody**
+- [x] **Review correction checkpoint: resolve the first whole-branch review findings**
 
-Move this file to `.agents/plans/completed/2026-09-11-specialists-vertical-slice-component-contracts.md`, then rerun `py -3 tools/run.py index-mesh --apply` so links point at completed custody.
+The first `reviewer-strong` pass found three Important ownership leaks plus premature completed-plan custody. Reopen this plan, then keep the repair narrow:
 
-- [ ] **Step 6: Stage the complete intended tree and commit normally**
+- make the page article own its accessible name instead of referencing an opening-owned heading id;
+- make the Index story card an opaque vertical slice and keep its relationship with graph paper entirely in parent-owned chapter placement wrappers;
+- keep exact opening copy and rope assertions in `UsualSpecialistsOpening.test.tsx`, not the page compositor test;
+- rerun the Specialists unit suite, focused structural browser proof, focused accessibility proof, and protected visual regression without update mode.
+
+The repaired slice passes 12 Specialists test files / 28 tests, 2 focused structural browser tests, 2 focused accessibility tests, and the protected Specialists visual regression at all six existing widths without snapshot updates.
+
+- [ ] **Step 5: Stage the complete intended tree and commit normally**
 
 Use a normal commit such as:
 
@@ -285,13 +292,17 @@ git commit -m "refactor: enforce Specialists vertical slice contracts"
 
 Expected: the tracked hook runs the complete canonical gate and the commit succeeds. Do not run the full CI command immediately before or after this normal hooked commit.
 
-- [ ] **Step 7: Push and verify PR #58**
+- [ ] **Step 6: Push and verify PR #58**
 
 Push `codex/port-17-index-react`, verify GitHub reports the exact local head SHA for PR #58, keep the PR open and draft, and update the PR body with the new component-contract architecture and fresh validation evidence.
 
-- [ ] **Step 8: Report completion-readiness**
+- [ ] **Step 7: Report completion-readiness**
 
 Rate the implementation against `.agents/runbooks/code-review.md`; target at least 9/10 before handing off.
+
+- [ ] **Step 8: Mark all plan tasks complete and move this plan to completed custody**
+
+Only after Steps 5-7 are complete, move this file to `.agents/plans/completed/2026-09-11-specialists-vertical-slice-component-contracts.md`, rerun `py -3 tools/run.py index-mesh --apply`, and publish the resulting final docs-only custody commit so the PR head and navigation remain truthful.
 
 ## Plan readiness
 
