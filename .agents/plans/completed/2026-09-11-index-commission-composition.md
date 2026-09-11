@@ -570,7 +570,7 @@ py -3 tools/run.py mesh --check
 
 Expected: generated indexes include the new commission component/test/plan paths and `mesh --check` passes.
 
-- [ ] **Step 6: Stage only the intended implementation package and commit normally**
+- [x] **Step 6: Stage only the intended implementation package and commit normally**
 
 Stage the exact intended source/test/generated-navigation files after live approval and visual-regression disposition. Do not stage unrelated work.
 
@@ -582,11 +582,11 @@ git commit -m "refactor: compose Index commission evidence"
 
 Expected: the tracked pre-commit hook runs the complete canonical local gate and the commit succeeds. Do not use `--no-verify`, and do not run `py -3 tools/run.py ci --check` immediately before or after the normal hooked commit.
 
-- [ ] **Step 7: Push the existing branch and refresh draft PR #58 proof**
+- [x] **Step 7: Push the existing branch and refresh draft PR #58 proof**
 
 Push `codex/port-17-index-react`, verify PR #58's published head matches the exact local commit SHA, and update its evidence/body only as needed to describe the new `IndexCommissionComposition` ownership and fresh validation. Keep PR #58 OPEN and DRAFT and retain the partial-page caveat.
 
-- [ ] **Step 8: Close only this implementation plan's custody after publication proof**
+- [x] **Step 8: Close only this implementation plan's custody after publication proof**
 
 After the source commit is pushed and PR #58 is verified at that head, move:
 
@@ -609,7 +609,7 @@ py -3 tools/run.py mesh --check
 
 Commit and push that docs-only custody change normally if the repo's tracked state requires it. Completing this narrow plan does not mean the full Specialists page is complete and does not make PR #58 ready for review.
 
-- [ ] **Step 9: Mark Task 3 complete before moving the plan**
+- [x] **Step 9: Mark Task 3 complete before moving the plan**
 
 Change Task 3's checklist boxes to `[x]` only after live user approval, focused visual-regression disposition, normal hooked source commit, push/PR head verification, and plan-custody closeout all succeed.
 
