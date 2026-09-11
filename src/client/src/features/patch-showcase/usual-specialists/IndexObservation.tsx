@@ -49,7 +49,7 @@ const IndexInspect = styled(IndexTraversal)`
   }
 `
 
-export function IndexObservation({ className }: { className?: string }) {
+export const IndexObservation = ({ className }: { className?: string }) => {
   return (
     <Observation className={className} data-index-substrate="commission-03">
       <PatchPeer data-index-traversal="patch-peer" data-substrate="commission-03-baseline" src={usualSpecialistsAssetPath('patch-leaning.webp')} />

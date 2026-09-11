@@ -16,7 +16,7 @@ import {
   ThresholdEyebrow,
 } from './UsualSpecialistsOpening.styles'
 
-export function UsualSpecialistsOpening(): ReactElement {
+export const UsualSpecialistsOpening = (): ReactElement => {
   return (
     <Opening>
       <OpeningLockup>

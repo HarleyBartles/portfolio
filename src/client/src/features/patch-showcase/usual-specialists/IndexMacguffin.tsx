@@ -14,7 +14,7 @@ const Macguffin = styled.div`
   }
 `
 
-export function IndexMacguffin({ className }: { className?: string }) {
+export const IndexMacguffin = ({ className }: { className?: string }) => {
   return (
     <Macguffin className={className} data-index-substrate="commission-04">
       <img

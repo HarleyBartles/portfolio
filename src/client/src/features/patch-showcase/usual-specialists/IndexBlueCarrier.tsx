@@ -122,7 +122,7 @@ const IndexHighStep = styled(IndexTraversal)`
   }
 `
 
-export function IndexBlueCarrier({ className }: { className?: string }) {
+export const IndexBlueCarrier = ({ className }: { className?: string }) => {
   return (
     <Carrier className={className} data-index-substrate="blue-carrier">
       <CarrierArt

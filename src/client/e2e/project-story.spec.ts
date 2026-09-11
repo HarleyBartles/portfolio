@@ -26,11 +26,11 @@ const learningLabModules = [
   'Retrospective: how this repo was built',
 ] as const
 
-async function expectNoHorizontalOverflow(page: import('@playwright/test').Page): Promise<void> {
+const expectNoHorizontalOverflow = async (page: import('@playwright/test').Page): Promise<void> => {
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
 }
 
-async function tabToLink(page: import('@playwright/test').Page, linkName: string): Promise<void> {
+const tabToLink = async (page: import('@playwright/test').Page, linkName: string): Promise<void> => {
   const link = page.getByRole('link', { name: linkName, exact: true })
   for (let press = 0; press < 30; press += 1) {
     await page.keyboard.press('Tab')

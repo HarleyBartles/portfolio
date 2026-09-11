@@ -13,7 +13,7 @@ const GraphPaper = styled.div`
   }
 `
 
-export function IndexGraphPaper({ className }: { className?: string }) {
+export const IndexGraphPaper = ({ className }: { className?: string }) => {
   return (
     <GraphPaper className={className} data-index-substrate="graph-paper">
       <img

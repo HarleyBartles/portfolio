@@ -11,7 +11,7 @@ import {
   Stage,
 } from './IndexChapter.styles'
 
-export function IndexChapter(): ReactElement {
+export const IndexChapter = (): ReactElement => {
   return (
     <Chapter aria-labelledby="specialists-index-title" data-specialist-chapter="index">
       <h2 className="visually-hidden" id="specialists-index-title">Index</h2>

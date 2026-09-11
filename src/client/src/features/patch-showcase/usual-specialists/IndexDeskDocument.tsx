@@ -106,7 +106,7 @@ const PatchReturn = styled(IndexTraversal)`
   }
 `
 
-export function IndexDeskDocument({ className }: { className?: string }) {
+export const IndexDeskDocument = ({ className }: { className?: string }) => {
   return (
     <Document className={className} data-index-substrate="desk-diagram">
       <DocumentArt

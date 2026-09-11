@@ -78,7 +78,7 @@ const AssentCopy = styled.span`
   }
 `
 
-export function IndexAssentNote({ className }: { className?: string }) {
+export const IndexAssentNote = ({ className }: { className?: string }) => {
   return (
     <AssentNote className={className} data-index-substrate="assent-note">
       <img src={usualSpecialistsAssetPath('index-assent-note.webp')} width="480" height="400" loading="lazy" decoding="async" alt="" aria-hidden="true" />

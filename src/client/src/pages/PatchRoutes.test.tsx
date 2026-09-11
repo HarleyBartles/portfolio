@@ -12,7 +12,7 @@ afterEach(() => {
   routers.splice(0).forEach((router) => router.dispose())
 })
 
-function renderRoute(path: string) {
+const renderRoute = (path: string) => {
   const router = createMemoryRouter(appRoutes, {
     basename: '/portfolio',
     initialEntries: [`/portfolio${path}`],

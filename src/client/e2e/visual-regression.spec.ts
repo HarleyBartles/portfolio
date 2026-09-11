@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 test.use({ reducedMotion: 'reduce' })
 test.skip(process.platform !== 'win32', 'Visual baselines are authored and compared on Windows only')
 
-async function openStable(page: Page, path: string): Promise<void> {
+const openStable = async (page: Page, path: string): Promise<void> => {
   await page.addInitScript(() => {
     Math.random = () => 0.314159
   })
@@ -14,7 +14,7 @@ async function openStable(page: Page, path: string): Promise<void> {
   await page.locator('.skip-link').evaluate((element) => element.setAttribute('hidden', ''))
 }
 
-async function waitForImages(region: ReturnType<Page['locator']>): Promise<void> {
+const waitForImages = async (region: ReturnType<Page['locator']>): Promise<void> => {
   for (const image of await region.locator('img').all()) {
     if (!(await image.isVisible())) continue
     await image.scrollIntoViewIfNeeded()
@@ -23,7 +23,7 @@ async function waitForImages(region: ReturnType<Page['locator']>): Promise<void>
   await region.scrollIntoViewIfNeeded()
 }
 
-async function waitForWildBunchStyles(page: Page): Promise<void> {
+const waitForWildBunchStyles = async (page: Page): Promise<void> => {
   const figure = page.getByRole('figure', {
     name: 'Controlled determinism from a compact world contract',
   })
@@ -32,19 +32,19 @@ async function waitForWildBunchStyles(page: Page): Promise<void> {
     .toBe('rgb(87, 76, 63)')
 }
 
-async function waitForPatchStyles(page: Page): Promise<void> {
+const waitForPatchStyles = async (page: Page): Promise<void> => {
   const production = page.locator('.patch-production')
   await expect
     .poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor))
     .toBe('rgb(21, 63, 66)')
 }
 
-async function waitForTournamentStyles(page: Page): Promise<void> {
+const waitForTournamentStyles = async (page: Page): Promise<void> => {
   const event = page.locator('[data-patch-event]').first()
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
-async function waitForLearningLabStyles(page: Page): Promise<void> {
+const waitForLearningLabStyles = async (page: Page): Promise<void> => {
   const safety = page.locator('.learning-lab-safety')
   await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).display)).toMatch(/^(grid|flex)$/)
 }
@@ -109,7 +109,7 @@ for (const route of nonHomeProof) {
   }
 }
 
-async function clipBetween(page: Page, firstSelector: string, lastSelector: string) {
+const clipBetween = async (page: Page, firstSelector: string, lastSelector: string) => {
   await page.evaluate(() => scrollTo(0, 0))
   const [first, last] = await Promise.all([
     page.locator(firstSelector).boundingBox(),

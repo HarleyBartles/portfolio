@@ -36,25 +36,25 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'patch-return', source: 'patch-return.png', output: 'patch-return.webp', width: 320, format: 'webp' },
 ])
 
-function fail(message) {
+const fail = (message) => {
   throw new Error(message)
 }
 
-function sha256(buffer) {
+const sha256 = (buffer) => {
   return createHash('sha256').update(buffer).digest('hex')
 }
 
-function repositoryPath(filePath) {
+const repositoryPath = (filePath) => {
   return path.relative(repositoryRoot, filePath).split(path.sep).join('/')
 }
 
-export function assertSourceIdentity(actual, expected, id) {
+export const assertSourceIdentity = (actual, expected, id) => {
   if (actual.sha256 !== expected.sha256) fail(`Usual Specialists source SHA-256 drifted for ${id}.`)
   if (actual.width !== expected.width || actual.height !== expected.height) fail(`Usual Specialists source dimensions drifted for ${id}.`)
   if (actual.format !== 'png') fail(`Usual Specialists source format drifted for ${id}.`)
 }
 
-export function assertDerivativeReceipt(expected, actual) {
+export const assertDerivativeReceipt = (expected, actual) => {
   if (!Array.isArray(actual)) fail('Usual Specialists derivative receipt is malformed.')
   const actualByOutput = new Map(actual.map((entry) => [entry.output, entry]))
   if (actualByOutput.size !== actual.length) fail('Usual Specialists derivative receipt contains duplicate outputs.')
@@ -70,7 +70,7 @@ export function assertDerivativeReceipt(expected, actual) {
   }
 }
 
-async function readJson(filePath, label) {
+const readJson = async (filePath, label) => {
   try {
     return JSON.parse(await readFile(filePath, 'utf8'))
   } catch (error) {
@@ -78,7 +78,7 @@ async function readJson(filePath, label) {
   }
 }
 
-async function loadAcceptedSources() {
+const loadAcceptedSources = async () => {
   const manifest = await readJson(acceptedAssetsPath, 'Usual Specialists accepted source manifest')
   if (!Array.isArray(manifest.assets) || manifest.assets.length !== USUAL_SPECIALISTS_ASSETS.length) {
     fail(`Usual Specialists accepted source manifest must contain ${USUAL_SPECIALISTS_ASSETS.length} assets.`)
@@ -104,7 +104,7 @@ async function loadAcceptedSources() {
   return sources
 }
 
-function expectedDerivative(asset, accepted) {
+const expectedDerivative = (asset, accepted) => {
   const width = Math.min(asset.width, accepted.width)
   const height = Math.round((accepted.height / accepted.width) * width)
   return {
@@ -120,14 +120,14 @@ function expectedDerivative(asset, accepted) {
   }
 }
 
-async function renderDerivative(source) {
+const renderDerivative = async (source) => {
   return sharp(source.buffer)
     .resize({ width: source.asset.width, withoutEnlargement: true })
     .webp(USUAL_SPECIALISTS_WEBP_OPTIONS)
     .toBuffer()
 }
 
-async function checkOutput(entry, source, receiptEntry) {
+const checkOutput = async (entry, source, receiptEntry) => {
   const destination = path.join(outputRoot, entry.output)
   await access(destination).catch((error) => fail(`Usual Specialists derivative is missing ${entry.output}: ${error.message}`))
   const [actual, metadata, fileStats, expectedBuffer] = await Promise.all([
@@ -142,7 +142,7 @@ async function checkOutput(entry, source, receiptEntry) {
   if (!actual.equals(expectedBuffer)) fail(`Usual Specialists derivative output is stale for ${entry.output}.`)
 }
 
-async function check() {
+const check = async () => {
   const sources = await loadAcceptedSources()
   const receipt = await readJson(receiptPath, 'Usual Specialists derivative receipt')
   if (receipt.generatedBy !== 'src/client/scripts/process-usual-specialists-assets.mjs' || !Array.isArray(receipt.derivatives)) fail('Usual Specialists derivative receipt is stale or malformed.')
@@ -156,7 +156,7 @@ async function check() {
   }
 }
 
-async function apply() {
+const apply = async () => {
   const sources = await loadAcceptedSources()
   await mkdir(outputRoot, { recursive: true })
   const derivatives = []
@@ -175,7 +175,7 @@ async function apply() {
   await check()
 }
 
-function parseMode(args) {
+const parseMode = (args) => {
   if (args.length !== 1 || !['--apply', '--check'].includes(args[0])) fail('Use exactly one of --apply or --check.')
   return args[0]
 }

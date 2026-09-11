@@ -53,7 +53,7 @@ const JourneyRope = styled.svg`
   }
 `
 
-export function SpecialistsJourneyRope() {
+export const SpecialistsJourneyRope = () => {
   return (
     <RopeClip aria-hidden="true" data-temporary-wireframe-rope="true">
       <RopeAnchor />
