@@ -283,7 +283,7 @@ The repaired slice passes 12 Specialists test files / 28 tests, 2 focused struct
 
 A focused `reviewer-fixes` pass then found one remaining duplicated ownership detail: `DeskComposition` and `IndexDeskDocument` both carried the same desk height values. The follow-up repair makes the chapter composition the sole owner of those whole-child dimensions and makes `IndexDeskDocument` fill its parent. The direct desk/chapter tests pass 5/5, the Specialists structural browser proof passes 2/2, and the protected Specialists visual regression passes unchanged.
 
-- [ ] **Step 5: Stage the complete intended tree and commit normally**
+- [x] **Step 5: Stage the complete intended tree and commit normally**
 
 Use a normal commit such as:
 
@@ -294,15 +294,17 @@ git commit -m "refactor: enforce Specialists vertical slice contracts"
 
 Expected: the tracked hook runs the complete canonical gate and the commit succeeds. Do not run the full CI command immediately before or after this normal hooked commit.
 
-- [ ] **Step 6: Push and verify PR #58**
+- [x] **Step 6: Push and verify PR #58**
 
 Push `codex/port-17-index-react`, verify GitHub reports the exact local head SHA for PR #58, keep the PR open and draft, and update the PR body with the new component-contract architecture and fresh validation evidence.
 
-- [ ] **Step 7: Report completion-readiness**
+- [x] **Step 7: Report completion-readiness**
 
 Rate the implementation against `.agents/runbooks/code-review.md`; target at least 9/10 before handing off.
 
-- [ ] **Step 8: Mark all plan tasks complete and move this plan to completed custody**
+- Completion-readiness: **9.5/10**. The implementation remains within the approved PORT-17 Index milestone, the latest source commit passed the complete tracked hook, the draft PR points at that exact source head, the first whole-branch review findings and the focused follow-up finding are all closed, and protected visual baselines remain unchanged. A final direct whole-branch review of `origin/main...70d11173b942d67f1dec3d8e42cd569f7de3d10f` found no Critical, Important, or Minor findings. A separately dispatched `reviewer-strong` also completed substantive read-only inspection and its recorded checks found the core ownership seams clean, but its final textual verdict was rejected by the tool safety layer; that blocked return is not represented here as an independent clean verdict.
+
+- [x] **Step 8: Mark all plan tasks complete and move this plan to completed custody**
 
 Only after Steps 5-7 are complete, move this file to `.agents/plans/completed/2026-09-11-specialists-vertical-slice-component-contracts.md`, rerun `py -3 tools/run.py index-mesh --apply`, and publish the resulting final docs-only custody commit so the PR head and navigation remain truthful.
 
