@@ -1,21 +1,17 @@
 import type { CSSProperties, ReactElement } from 'react'
-import { IndexAssentNote } from './IndexAssentNote'
 import { IndexBlueCarrier } from './IndexBlueCarrier'
+import { IndexCommissionComposition } from './IndexCommissionComposition'
 import { IndexDeskDocument } from './IndexDeskDocument'
 import { IndexGraphPaper } from './IndexGraphPaper'
-import { IndexMacguffin } from './IndexMacguffin'
-import { IndexObservation } from './IndexObservation'
 import { IndexStoryCard } from './IndexStoryCard'
 import {
-  AssentNotePlacement,
   BlueCarrierPlacement,
   Chapter,
   ChapterNumber,
+  CommissionCompositionPlacement,
   DeskComposition,
   GraphPaperPlacement,
-  MacguffinPlacement,
   MainDocumentPlacement,
-  ObservationPlacement,
   Stage,
   StoryCardPlacement,
 } from './IndexChapter.styles'
@@ -44,15 +40,9 @@ export const IndexChapter = ({ style }: IndexChapterProps): ReactElement => {
         <BlueCarrierPlacement>
           <IndexBlueCarrier />
         </BlueCarrierPlacement>
-        <ObservationPlacement>
-          <IndexObservation />
-        </ObservationPlacement>
-        <AssentNotePlacement>
-          <IndexAssentNote />
-        </AssentNotePlacement>
-        <MacguffinPlacement>
-          <IndexMacguffin />
-        </MacguffinPlacement>
+        <CommissionCompositionPlacement>
+          <IndexCommissionComposition />
+        </CommissionCompositionPlacement>
       </Stage>
     </Chapter>
   )

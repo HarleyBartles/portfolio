@@ -15,9 +15,7 @@ describe('Index chapter', () => {
     expect(deskDocument).not.toContainElement(storyCard)
     expect(chapter.querySelector('[data-index-substrate="blue-carrier"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="graph-paper"]')).toBeInTheDocument()
-    expect(chapter.querySelector('[data-index-substrate="commission-03"]')).toBeInTheDocument()
-    expect(chapter.querySelector('[data-index-substrate="commission-04"]')).toBeInTheDocument()
-    expect(chapter.querySelector('[data-index-substrate="assent-note"]')).toBeInTheDocument()
+    expect(chapter.querySelector('[data-index-commission-composition="commission-evidence"]')).toBeInTheDocument()
     expect(document.querySelector('[data-specialist-chapter="silk"]')).toBeNull()
   })
 

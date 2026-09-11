@@ -206,7 +206,7 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
   }
 
   const separationAt1400 = await gapAt(1400)
-  for (const width of [1401, 1440, 1599, 1600, 1920, 1921, 2560] as const) {
+  for (const width of [1401, 1440, 1599, 1600, 1920] as const) {
     expect(await gapAt(width)).toBeLessThanOrEqual(separationAt1400 + 2)
   }
 
@@ -215,7 +215,7 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
   await expect(traversal('index-return')).toBeHidden()
   await expect(traversal('patch-return')).toBeHidden()
 
-  for (const width of [1600, 1920, 1921, 2560] as const) {
+  for (const width of [1600, 1920, 1921, 2048, 2160, 2304, 2400, 2560] as const) {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPath)
     const main = await box(page.locator('[data-index-substrate="desk-diagram"]'))
@@ -225,13 +225,139 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
     const patchReturn = await box(traversal('patch-return'))
 
     expect(carrier.x).toBeLessThan(main.x)
-    expect(graphPaper.x).toBeLessThan(main.x)
+    if (width <= 1920) expect(graphPaper.x).toBeLessThan(main.x)
+    else expect(graphPaper.x).toBeGreaterThan(main.x)
     expect(indexReturn.x).toBeGreaterThanOrEqual(main.x - 2)
     expect(indexReturn.x + indexReturn.width).toBeLessThanOrEqual(main.x + main.width + 2)
     expect(patchReturn.x).toBeGreaterThanOrEqual(main.x - 2)
     expect(patchReturn.x + patchReturn.width).toBeLessThanOrEqual(main.x + main.width + 2)
     expect(indexReturn.x).toBeLessThan(patchReturn.x)
     expect(indexReturn.y).toBeLessThan(patchReturn.y)
+  }
+})
+
+test('The Usual Specialists switches the lower Patch across the upper Patch at the ultrawide boundary without collapsing their visual separation', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const minimumPatchGap = 48
+  const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
+  const box = async (locator: import('@playwright/test').Locator) => {
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  const geometryAt = async (width: number) => {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    return {
+      lowerPatch: await box(traversal('patch-peer')),
+      upperPatch: await box(traversal('patch-follow')),
+      blueCarrier: await box(page.locator('[data-index-substrate="blue-carrier"]')),
+      graphPaper: await box(page.locator('[data-index-substrate="graph-paper"]')),
+    }
+  }
+
+  const at1920 = await geometryAt(1920)
+  expect(at1920.upperPatch.x - (at1920.lowerPatch.x + at1920.lowerPatch.width)).toBeGreaterThanOrEqual(minimumPatchGap)
+
+  const ultrawide = []
+  for (const width of [1921, 2048, 2160, 2304, 2400, 2560] as const) {
+    const geometry = await geometryAt(width)
+    ultrawide.push({ width, ...geometry })
+    expect(
+      geometry.lowerPatch.x - (geometry.upperPatch.x + geometry.upperPatch.width),
+      JSON.stringify({ width, lowerPatch: geometry.lowerPatch, upperPatch: geometry.upperPatch }),
+    ).toBeGreaterThanOrEqual(minimumPatchGap)
+    expect(
+      geometry.blueCarrier.x,
+      JSON.stringify({ width, blueCarrier: geometry.blueCarrier, at1920: at1920.blueCarrier }),
+    ).toBeLessThanOrEqual(at1920.blueCarrier.x + 2)
+  }
+
+  const graphOffsetAt1921 = ultrawide[0].graphPaper.x - ultrawide[0].blueCarrier.x
+  for (const geometry of ultrawide) {
+    expect(
+      Math.abs((geometry.graphPaper.x - geometry.blueCarrier.x) - graphOffsetAt1921),
+      JSON.stringify({ width: geometry.width, graphPaper: geometry.graphPaper, blueCarrier: geometry.blueCarrier }),
+    ).toBeLessThanOrEqual(2)
+  }
+  expect(Math.abs(ultrawide.at(-1)!.blueCarrier.x - at1920.blueCarrier.x)).toBeLessThanOrEqual(2)
+})
+
+test('The Usual Specialists keeps Commission 03 character evidence legible through the ultrawide overlap', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const minimumArtCellOverlap = 24
+  const box = async (locator: import('@playwright/test').Locator) => {
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  const overlapArea = (
+    first: { x: number; y: number; width: number; height: number },
+    second: { x: number; y: number; width: number; height: number },
+  ) => {
+    const width = Math.max(0, Math.min(first.x + first.width, second.x + second.width) - Math.max(first.x, second.x))
+    const height = Math.max(0, Math.min(first.y + first.height, second.y + second.height) - Math.max(first.y, second.y))
+    return width * height
+  }
+
+  let macguffinOffsetAt1921: { x: number; y: number } | null = null
+  let assentOffsetAt1921: { x: number; y: number } | null = null
+  for (const width of [1921, 2048, 2160, 2304, 2400, 2560] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    const observation = await box(page.locator('[data-index-substrate="commission-03"]'))
+    const macguffin = await box(page.locator('[data-index-substrate="commission-04"]'))
+    const assentNote = await box(page.locator('[data-index-substrate="assent-note"]'))
+
+    const patchRegion = {
+      x: observation.x + observation.width * 0.65,
+      y: observation.y + observation.height * 0.32,
+      width: observation.width * 0.18,
+      height: observation.height * 0.50,
+    }
+    const indexFaceRegion = {
+      x: observation.x + observation.width * 0.32,
+      y: observation.y + observation.height * 0.32,
+      width: observation.width * 0.26,
+      height: observation.height * 0.41,
+    }
+
+    const patchCoverage = overlapArea(patchRegion, macguffin) / (patchRegion.width * patchRegion.height)
+    const artCellOverlap = observation.x + observation.width - macguffin.x
+    const overlapStart = macguffin.x
+    const overlapEnd = observation.x + observation.width
+    const assentNoteCenterX = assentNote.x + assentNote.width / 2
+    const macguffinOffset = { x: macguffin.x - observation.x, y: macguffin.y - observation.y }
+    const assentOffset = { x: assentNote.x - observation.x, y: assentNote.y - observation.y }
+    if (width === 1921) {
+      macguffinOffsetAt1921 = macguffinOffset
+      assentOffsetAt1921 = assentOffset
+    } else {
+      expect(
+        Math.abs(macguffinOffset.x - macguffinOffsetAt1921!.x),
+        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1921 }),
+      ).toBeLessThanOrEqual(2)
+      expect(
+        Math.abs(macguffinOffset.y - macguffinOffsetAt1921!.y),
+        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1921 }),
+      ).toBeLessThanOrEqual(2)
+      expect(
+        Math.abs(assentOffset.x - assentOffsetAt1921!.x),
+        JSON.stringify({ width, assentOffset, assentOffsetAt1921 }),
+      ).toBeLessThanOrEqual(2)
+      expect(
+        Math.abs(assentOffset.y - assentOffsetAt1921!.y),
+        JSON.stringify({ width, assentOffset, assentOffsetAt1921 }),
+      ).toBeLessThanOrEqual(2)
+    }
+    expect(artCellOverlap, JSON.stringify({ width, observation, macguffin })).toBeGreaterThanOrEqual(minimumArtCellOverlap)
+    expect(assentNoteCenterX, JSON.stringify({ width, assentNote, overlapStart, overlapEnd })).toBeGreaterThanOrEqual(overlapStart)
+    expect(assentNoteCenterX, JSON.stringify({ width, assentNote, overlapStart, overlapEnd })).toBeLessThanOrEqual(overlapEnd)
+    expect(overlapArea(assentNote, observation), JSON.stringify({ width, assentNote, observation })).toBeGreaterThan(0)
+    expect(overlapArea(assentNote, macguffin), JSON.stringify({ width, assentNote, macguffin })).toBeGreaterThan(0)
+    expect(patchCoverage, JSON.stringify({ width, patchRegion, macguffin })).toBeLessThanOrEqual(0.5)
+    expect(overlapArea(indexFaceRegion, macguffin), JSON.stringify({ width, indexFaceRegion, macguffin })).toBe(0)
+    expect(overlapArea(indexFaceRegion, assentNote), JSON.stringify({ width, indexFaceRegion, assentNote })).toBe(0)
   }
 })
 
