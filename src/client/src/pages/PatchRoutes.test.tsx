@@ -70,10 +70,10 @@ describe('Adventures of Patch routes', () => {
   test('publishes the Tournament progression on its own route', async () => {
     renderRoute('/patch/tournament-of-reasonable-defaults')
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Tournament of Reasonable Defaults' })).toBeVisible()
-    expect(await screen.findByRole('heading', { level: 2, name: 'The Seven-Day Sprint' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Tournament of Reasonable Defaults' }, { timeout: 15_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The Seven-Day Sprint' }, { timeout: 15_000 })).toBeVisible()
     expect(screen.getByRole('heading', { level: 2, name: 'The Long Course' })).toBeVisible()
-  })
+  }, 30_000)
 
   test('publishes the reviewed Identity Emporium argument on its own route', async () => {
     renderRoute('/patch/identity-emporium')

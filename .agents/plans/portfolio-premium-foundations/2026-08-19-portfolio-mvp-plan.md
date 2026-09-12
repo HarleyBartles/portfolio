@@ -181,4 +181,4 @@
 - [ ] **Step 2: Stage and commit the implementation branch normally; let the tracked hook run the complete gate once.**
 - [ ] **Step 3: Push the proven commit and open a PR. Do not repeat the complete local gate before pushing or after the successful hook.**
 - [ ] **Step 4: Merge only after the hosted checks confirm the exact head.**
-- [ ] **Step 5: Move this plan to `.agents/plans/completed/` and update any index/roadmap links.**
+- [ ] **Step 5: On completion, promote durable decisions and remove this plan from the tracked tree under `.agents/doctrine/completed-artifacts.md`; update any roadmap references to Git history/current authority.**

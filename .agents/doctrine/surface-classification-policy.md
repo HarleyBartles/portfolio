@@ -25,9 +25,8 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `.agents/skills/<repo-owned>/` | Repo-owned skills (unprefixed unless overriding a marketplace skill) | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
 | `.agents/plans/` | In-flight and epic plans | Authored plans |
-| `.agents/plans/completed/` | Historical implementation plans | Authored plans |
 | `.agents/specs/` | In-flight design specs | Authored specs |
-| `.agents/specs/completed/` | Historical design specs | Authored specs |
+| `_agent-scratch/<repo-name>/completed/` | Optional disposable convenience copies of completed planning artifacts | Non-evidentiary scratch |
 | `.agents/sdd/` | Legacy ignored local SDD workspace; new SDD output goes off-repo | Ignored workspace |
 | `tools/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
 
@@ -42,7 +41,7 @@ authority.
 - Put a repeatable Portfolio procedure in `.agents/runbooks/` only when it does not need skill invocation or composition.
 - Put a triggerable, composable Portfolio capability in `.agents/skills/` under a repo-owned name only when a real repeated use case justifies it.
 - Put implementation of a capability in repository code or `tools/`, not in an installed skill tree.
-- Keep plans in the tracked plan home and temporary execution material in the off-repo scratch workspace described by `.agents/doctrine/non-repo-locations-policy.md`.
+- Keep only in-flight plans/specs in their tracked homes. On completion, promote durable decisions, remove the completed artifacts from Git, and use the off-repo scratch workspace described by `.agents/doctrine/non-repo-locations-policy.md` only for optional convenience copies.
 
 Do not create parallel `policies/`, `contracts/`, `reports/`, `receipts/`,
 `reference/`, `playbooks/`, or actor/domain taxonomies without a separately
