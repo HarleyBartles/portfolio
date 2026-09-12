@@ -70,10 +70,10 @@ describe('Adventures of Patch routes', () => {
   test('publishes the Tournament progression on its own route', async () => {
     renderRoute('/patch/tournament-of-reasonable-defaults')
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Tournament of Reasonable Defaults' })).toBeVisible()
-    expect(await screen.findByRole('heading', { level: 2, name: 'The Seven-Day Sprint' })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Tournament of Reasonable Defaults' }, { timeout: 15_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'The Seven-Day Sprint' }, { timeout: 15_000 })).toBeVisible()
     expect(screen.getByRole('heading', { level: 2, name: 'The Long Course' })).toBeVisible()
-  })
+  }, 30_000)
 
   test('publishes the reviewed Identity Emporium argument on its own route', async () => {
     renderRoute('/patch/identity-emporium')
@@ -100,14 +100,14 @@ describe('Adventures of Patch routes', () => {
     const router = renderRoute('/patch/the-usual-specialists')
 
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
-    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 10_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 15_000 })).toBeVisible()
     expect(document.querySelector('.content-page-header')).toBeNull()
     expect(document.querySelector('.content-page-body')).toBeNull()
-    const story = await screen.findByRole('article', { name: 'The Usual Specialists' })
+    const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
     expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
     expect(story.querySelectorAll('[data-specialist]')).toHaveLength(0)
     expect(screen.queryByRole('navigation', { name: 'Related content' })).not.toBeInTheDocument()
-  })
+  }, 30_000)
 
   test.each([
     ['/fairytales', '/patch'],

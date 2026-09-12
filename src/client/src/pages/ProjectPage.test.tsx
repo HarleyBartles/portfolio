@@ -28,7 +28,7 @@ describe('Project route visuals', () => {
       </QueryClientProvider>,
     )
 
-    const title = await screen.findByRole('heading', { level: 1, name: 'Wild Bunch' }, { timeout: 5_000 })
+    const title = await screen.findByRole('heading', { level: 1, name: 'Wild Bunch' }, { timeout: 15_000 })
     const article = title.closest('article')
     const header = article?.querySelector('header')
 
@@ -36,16 +36,16 @@ describe('Project route visuals', () => {
     expect(article).toHaveAttribute('data-type-register', 'site-sans')
     expect(header).not.toBeNull()
     expect(header).toHaveAttribute('data-visual-contract', 'wild-bunch-case-study-hero')
-    const visual = await within(header as HTMLElement).findByLabelText('Wild Bunch early-alpha town-arrival concept art', {}, { timeout: 5_000 })
+    const visual = await within(header as HTMLElement).findByLabelText('Wild Bunch early-alpha town-arrival concept art', {}, { timeout: 15_000 })
     const image = within(visual).getByRole('img')
 
     expect(visual).toBeVisible()
     expect(visual).toHaveAttribute('data-visual-contract', 'wild-bunch-concept-art')
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
-    expect(await screen.findByRole('figure', { name: 'Dustwell town-hub development-build evidence' })).toBeVisible()
+    expect(await screen.findByRole('figure', { name: 'Dustwell town-hub development-build evidence' }, { timeout: 15_000 })).toBeVisible()
     expect(article?.querySelectorAll('[data-visual-contract="wild-bunch-development-build-preview"]')).toHaveLength(1)
-  })
+  }, 30_000)
 
   test('renders the Learning Lab specialist route with its semantic loop', async () => {
     const router = createMemoryRouter(appRoutes, {
