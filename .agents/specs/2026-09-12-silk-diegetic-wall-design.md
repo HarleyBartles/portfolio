@@ -75,6 +75,34 @@ The parent Silk composition owns each aperture's placement, size, rotation and z
 
 Desktop, tablet and compact authored states may use different aperture silhouettes. Do not merely scale one tear if doing so destroys the intended composition.
 
+### Commission 05 locked composition amendment — 13 September 2026
+
+The first commissioned mineral-wall rim proved the page-as-wall direction but also exposed a stricter physical contract. Commission 05 is no longer implemented by stretching the generic aperture primitive to whatever rectangle the page gives it. It is a dedicated composition with an intrinsic design coordinate system derived from the selected `1672 × 941` rim asset.
+
+The parent Silk chapter owns only the whole Commission 05 object's page placement, rendered width and z-order. `SilkCommission05Composition` owns its intrinsic aspect ratio, internal world viewport, scene overscan, parallax target, traversal layer, rim and internal z-order. The parent must not set an independent child height, skew the child, reach through to its internals or change the component's aspect ratio.
+
+The selected rim is a transparent RGBA asset with transparent page-facing space outside the broken plaster and a transparent aperture through the centre. The world plate therefore cannot simply fill the rim's entire bounding box: doing so allows world pixels to appear through the outer transparency. Instead, Commission 05 owns an invisible rectangular **world viewport** entirely inside the region separated from the rim's outer transparency. The rim sits above that viewport and hides the viewport's rectangular edges while its central transparency reveals the world.
+
+Alpha-topology measurement of the `1672 × 941` evaluation source at a transparent-alpha threshold of `<16` found a large safe rectangle containing the image centre at source coordinates `x=162..1574`, `y=144..858` (`84.51% × 75.98%`). The authored viewport must stay conservatively inside that measured region. Initial locked insets are therefore approximately `10.5%` left, `6.5%` right, `16%` top and `9.5%` bottom; the source-alpha contract must be tested so a later asset or CSS edit cannot move the viewport into the outer transparent component unnoticed.
+
+The behind-wall scene is an ordinary rectangular landscape plate, not another irregular mask. For the wireframe proof it is a deliberately plain corridor-coloured diagnostic rectangle with a conspicuous source-perimeter band. That band should never be visible in a correct composition. Later Commission 05 art replaces only this internal scene plate.
+
+The scene plate is rendered larger than the world viewport. `object-fit: cover` semantics own the crop for real imagery; the scene box supplies explicit hidden overscan above and below the viewport so the parallax transform never exposes a source edge. Parallax travel is clamped to the smaller of the authored motion request and the measured rendered bleed after a safety margin. If the available bleed becomes insufficient at a responsive state, motion reduces rather than exposing the scene edge.
+
+The physical invariants are:
+
+* the rim and whole Commission 05 composition always scale uniformly at `1672 / 941`;
+* neither React nor CSS may independently stretch width and height or skew the rim;
+* the world viewport never reaches the rim's outer transparent component;
+* the scene plate covers the viewport plus hidden overscan, and its source perimeter never becomes visible through the central aperture;
+* world pixels can never appear through the rim's outer transparency;
+* only the scene plate translates for parallax; viewport and rim remain page-locked;
+* the traversal layer may cross the world/page threshold and may be re-occluded by the rim;
+* reduced motion produces zero relative scene travel;
+* responsive page placement uses only the existing Specialists responsive vocabulary, and above 2560 the authored geometry still freezes.
+
+The generic `SilkWallAperture` remains appropriate for the still-provisional Commission 07 breach and Commission 08 slit. Do not force Commission 05 back through that generic API merely to avoid a dedicated vertical slice. If Commission 07 later proves the same fixed-ratio/frame/viewport architecture with real commissioned art, generalise from the two proven cases then.
+
 ## Parallax law
 
 Parallax exists only to sell physical depth behind an aperture.
