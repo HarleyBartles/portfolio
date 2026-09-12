@@ -211,6 +211,31 @@ describe('generateCvPdf', () => {
     )
   })
 
+  test('clears the Windows termination timeout after the owned preview exits', async () => {
+    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
+    const cleanup = new EventEmitter()
+    const timeoutHandle = Symbol('timeout')
+    const scheduleTimeout = vi.fn(() => timeoutHandle)
+    const cancelTimeout = vi.fn()
+    const spawnProcess = vi.fn(() => {
+      queueMicrotask(() => {
+        cleanup.emit('exit', 0)
+        setTimeout(() => preview.emit('exit', 0), 0)
+      })
+      return cleanup
+    })
+
+    await stopPreviewProcess(preview, {
+      platform: 'win32',
+      spawnProcess,
+      scheduleTimeout,
+      cancelTimeout,
+    })
+
+    expect(scheduleTimeout).toHaveBeenCalledOnce()
+    expect(cancelTimeout).toHaveBeenCalledWith(timeoutHandle)
+  })
+
   test('rewrites preview-server links to the canonical public origin before printing', async () => {
     document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.com/cv">'
     document.body.innerHTML = '<a href="http://127.0.0.1:4173/about#contact">Contact</a>'

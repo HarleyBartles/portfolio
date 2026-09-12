@@ -147,7 +147,13 @@ async function waitForPreviewServer(previewUrl, previewProcess, timeoutMs = 30_0
 
 export async function stopPreviewProcess(
   previewProcess,
-  { platform = process.platform, spawnProcess = spawn, terminateProcess = process.kill } = {},
+  {
+    platform = process.platform,
+    spawnProcess = spawn,
+    terminateProcess = process.kill,
+    scheduleTimeout = setTimeout,
+    cancelTimeout = clearTimeout,
+  } = {},
 ) {
   if (previewProcess === undefined || previewProcess.exitCode !== null) {
     return
@@ -160,13 +166,22 @@ export async function stopPreviewProcess(
       throw new Error(`taskkill failed for CV PDF preview process ${previewProcess.pid} with exit code ${cleanupExitCode}`)
     }
     if (previewProcess.exitCode === null) {
-      await Promise.race([
-        once(previewProcess, 'exit'),
-        new Promise((_, reject) => setTimeout(
-          () => reject(new Error(`CV PDF preview process ${previewProcess.pid} did not exit after taskkill`)),
-          5_000,
-        )),
-      ])
+      let timeoutHandle
+      try {
+        await Promise.race([
+          once(previewProcess, 'exit'),
+          new Promise((_, reject) => {
+            timeoutHandle = scheduleTimeout(
+              () => reject(new Error(`CV PDF preview process ${previewProcess.pid} did not exit after taskkill`)),
+              5_000,
+            )
+          }),
+        ])
+      } finally {
+        if (timeoutHandle !== undefined) {
+          cancelTimeout(timeoutHandle)
+        }
+      }
     }
     return
   }
