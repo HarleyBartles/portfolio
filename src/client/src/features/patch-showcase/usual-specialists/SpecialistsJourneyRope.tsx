@@ -28,7 +28,7 @@ const RopeAnchor = styled.span`
   background: #80776b;
   box-shadow: 0 3px 0 rgb(0 0 0 / 20%);
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     left: 8%;
   }
 `
@@ -53,7 +53,7 @@ const JourneyRope = styled.svg`
     filter: drop-shadow(3px 0 3px rgb(0 0 0 / 18%));
   }
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     left: -18vw;
     width: 226vw;
   }

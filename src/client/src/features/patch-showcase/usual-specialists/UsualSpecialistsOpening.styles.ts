@@ -4,7 +4,7 @@ import { specialistsMedia } from './specialistsResponsive'
 export const Opening = styled.header`
   padding-top: clamp(34px, 6vw, 76px);
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     padding-top: 26px;
   }
 `
@@ -27,7 +27,7 @@ export const SeriesLockupField = styled.div`
     width: min(42%, 340px);
   }
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     width: min(54%, 280px);
   }
 `
@@ -52,7 +52,7 @@ export const OpeningPrecis = styled.p`
     width: min(62%, 33rem);
   }
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     width: 82%;
     margin-top: 8px;
   }
@@ -65,7 +65,7 @@ export const Threshold = styled.div`
   border-block: 1px solid var(--specialists-ink);
   overflow: visible;
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     min-height: 690px;
   }
 `
@@ -107,7 +107,7 @@ export const ThresholdCopy = styled.div`
     width: min(30rem, 58vw);
   }
 
-  @media ${specialistsMedia.openingAtMostNarrow} {
+  @media ${specialistsMedia.atMostCompact} {
     top: 18%;
     right: var(--specialists-gutter);
     left: var(--specialists-gutter);

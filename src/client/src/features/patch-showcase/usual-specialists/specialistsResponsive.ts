@@ -1,18 +1,16 @@
 export const SPECIALISTS_WIDTHS = {
   minimum: 320,
   narrowMax: 390,
-  openingNarrowMax: 620,
   compactMax: 720,
   midMax: 900,
   wideMin: 1400,
   expandedMin: 1600,
-  ultrawideMin: 1921,
+  ultrawideMin: 1920,
   ceiling: 2560,
 } as const
 
 export const specialistsMedia = {
   atMostNarrow: `(max-width: ${SPECIALISTS_WIDTHS.narrowMax}px)`,
-  openingAtMostNarrow: `(max-width: ${SPECIALISTS_WIDTHS.openingNarrowMax}px)`,
   atMostCompact: `(max-width: ${SPECIALISTS_WIDTHS.compactMax}px)`,
   atMostMid: `(max-width: ${SPECIALISTS_WIDTHS.midMax}px)`,
   belowWide: `(max-width: ${SPECIALISTS_WIDTHS.wideMin - 1}px)`,

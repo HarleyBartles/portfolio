@@ -5,7 +5,7 @@ import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 describe('Usual Specialists opening', () => {
-  test('renders the accepted opening and composes the temporary rope', () => {
+  test('renders the accepted opening without owning the cross-chapter rope', () => {
     const { container } = render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
         <UsualSpecialistsOpening />
@@ -19,7 +19,7 @@ describe('Usual Specialists opening', () => {
     expect(container.querySelector('[data-patch-series-lockup]')).toBeInTheDocument()
     expect(pageTitle.querySelector('[data-specialists-wordmark]')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('img', { name: /ordinary apartment safehouse/i })).toHaveAttribute('fetchpriority', 'high')
-    expect(container.querySelector('[data-temporary-wireframe-rope="true"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-temporary-wireframe-rope="true"]')).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Silk' })).not.toBeInTheDocument()
   })
 
@@ -32,7 +32,6 @@ describe('Usual Specialists opening', () => {
 
     const opening = container.querySelector('header')
     expect(opening).toHaveStyle({ opacity: '0.5' })
-    expect(container.querySelector('[data-temporary-wireframe-rope="true"]')).not.toHaveStyle({ opacity: '0.5' })
   })
 
   test('does not expose caller className as a styling seam', () => {

@@ -472,7 +472,8 @@ test('Specialists Index draft keeps the approved composition across protected vi
     await openStable(page, './patch/the-usual-specialists')
     const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
     await waitForImages(story)
-    await expect(story).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`)
+    const indexMilestone = page.locator('[data-specialists-index-milestone]')
+    await expect(indexMilestone).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`)
   }
 })
 

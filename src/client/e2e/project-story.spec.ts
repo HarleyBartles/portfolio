@@ -152,7 +152,8 @@ test('The Usual Specialists preserves the accepted Index composition across auth
     expect(await heading.evaluate((element, indexElement) => (
       element.compareDocumentPosition(indexElement as Node) & Node.DOCUMENT_POSITION_FOLLOWING
     ) !== 0, await index.elementHandle())).toBe(true)
-    await expect(page.locator('[data-specialist-chapter="silk"], [data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
+    await expect(page.locator('[data-specialist-chapter="silk"]')).toBeVisible()
+    await expect(page.locator('[data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
 
     if (width <= 720) {
       await expectVisibleTraversal(['index-high-step', 'patch-follow'])
@@ -189,6 +190,201 @@ test('The Usual Specialists preserves the accepted Index composition across auth
   }
 })
 
+test('The Usual Specialists keeps Silk as apertures through the mineral page across authored responsive bands', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const box = async (locator: import('@playwright/test').Locator) => {
+    await expect(locator).toBeVisible()
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  for (const width of [2880, 2561, 2560, 1920, 1600, 1440, 901, 900, 768, 721, 720, 390, 320] as const) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await page.goto(specialistsPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    await expect(silk).toBeVisible()
+    const stage = await box(silk.locator('[data-silk-stage]'))
+    const nameMark = await box(silk.locator('[data-silk-name-mark]'))
+    const commission05 = await box(silk.locator('[data-silk-commission="05"]'))
+    const story = await box(silk.locator('[data-silk-story-card]'))
+    const traversal = await box(silk.locator('[data-silk-commission="06"]'))
+    const commission07 = await box(silk.locator('[data-silk-commission="07"]'))
+    const receipt = await box(silk.locator('[data-silk-receipt-peekthrough]'))
+    const commission08 = await box(silk.locator('[data-silk-commission="08"]'))
+    const commission09 = await box(silk.locator('[data-silk-commission="09"]'))
+    const corridorAperture = silk.locator('[data-silk-commission="05"] [data-silk-aperture]')
+    const breachAperture = silk.locator('[data-silk-commission="07"] [data-silk-aperture]')
+    const reactionSlit = silk.locator('[data-silk-commission="08"] [data-silk-aperture]')
+
+    await expectNoHorizontalOverflow(page)
+    await expect(corridorAperture).toHaveAttribute('data-silk-aperture-variant', 'corridor')
+    await expect(breachAperture).toHaveAttribute('data-silk-aperture-variant', 'breach')
+    await expect(reactionSlit).toHaveAttribute('data-silk-aperture-variant', 'slit')
+    for (const aperture of [corridorAperture, breachAperture, reactionSlit]) {
+      expect(await aperture.evaluate((element) => getComputedStyle(element).borderStyle)).toBe('none')
+    }
+
+    expect(commission05.y, JSON.stringify({ width, commission05, stage })).toBeGreaterThanOrEqual(stage.y)
+    expect(commission07.y, JSON.stringify({ width, commission07, commission05 })).toBeGreaterThan(commission05.y)
+    expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y)
+    expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeLessThan(commission05.y + commission05.height)
+    expect(traversal.y + traversal.height, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y + commission05.height)
+    expect(story.y, JSON.stringify({ width, story, commission05 })).toBeGreaterThan(commission05.y)
+    expect(receipt.y, JSON.stringify({ width, receipt, commission07 })).toBeGreaterThan(commission07.y)
+    expect(nameMark.y, JSON.stringify({ width, nameMark, stage })).toBeGreaterThanOrEqual(stage.y)
+    expect(commission09.y, JSON.stringify({ width, commission08, commission09 })).toBeGreaterThan(commission08.y)
+    expect(commission08.height, JSON.stringify({ width, commission08, commission09 })).toBeLessThan(commission09.height)
+    expect(commission09.y + commission09.height).toBeLessThanOrEqual(stage.y + stage.height + 1)
+  }
+})
+
+test('The Usual Specialists keeps the physical route crossing the clean SILK mark while rope implementation is modularized', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+
+  for (const width of [2880, 2561, 2560, 1920, 1600, 1440, 901, 900, 768, 721, 720, 390, 320] as const) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await page.goto(specialistsPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    const rope = page.locator('[data-temporary-wireframe-rope="true"] path').first()
+    const nameMark = page.locator('[data-silk-name-mark]')
+    const traversal = page.locator('[data-silk-commission="06"]')
+    await expect(rope).toBeAttached()
+    await expect(nameMark).toBeVisible()
+    await expect(traversal).toBeVisible()
+    await nameMark.scrollIntoViewIfNeeded()
+
+    const geometry = await rope.evaluate((pathElement, nameElement) => {
+      const path = pathElement as SVGPathElement
+      const svg = path.ownerSVGElement
+      const matrix = svg?.getScreenCTM()
+      const name = (nameElement as HTMLElement).getBoundingClientRect()
+      if (matrix === null || matrix === undefined) throw new Error('Journey rope has no screen transform')
+
+      const screenPoint = (length: number) => {
+        const point = path.getPointAtLength(length)
+        return new DOMPoint(point.x, point.y).matrixTransform(matrix)
+      }
+      const total = path.getTotalLength()
+      const nearestAtY = (targetY: number) => {
+        let nearest = screenPoint(0)
+        for (let step = 1; step <= 1000; step += 1) {
+          const candidate = screenPoint((total * step) / 1000)
+          if (Math.abs(candidate.y - targetY) < Math.abs(nearest.y - targetY)) nearest = candidate
+        }
+        return nearest
+      }
+      const nameCentreY = name.top + name.height / 2
+      const nameCrossing = nearestAtY(nameCentreY)
+
+      return {
+        name: { left: name.left, right: name.right, top: name.top, bottom: name.bottom, centreY: nameCentreY },
+        nameCrossing,
+      }
+    }, await nameMark.elementHandle())
+
+    expect(Math.abs(geometry.nameCrossing.y - geometry.name.centreY), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(8)
+    expect(geometry.nameCrossing.x, JSON.stringify({ width, geometry })).toBeGreaterThan(geometry.name.left)
+    expect(geometry.nameCrossing.x, JSON.stringify({ width, geometry })).toBeLessThan(geometry.name.right)
+  }
+})
+
+test('The Usual Specialists moves only the world behind the first Silk aperture on normal scroll', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('./patch/the-usual-specialists/')
+
+  const aperture = page.locator('[data-silk-commission="05"] [data-silk-aperture]')
+  const world = aperture.locator('[data-silk-aperture-world]')
+  const rim = aperture.locator('[data-silk-aperture-rim]')
+  await aperture.scrollIntoViewIfNeeded()
+  await expect(aperture).toBeVisible()
+
+  const capture = async () => {
+    await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).not.toBeNull()
+    return aperture.evaluate((element) => {
+      const world = element.querySelector<HTMLElement>('[data-silk-aperture-world]')!
+      const rim = element.querySelector<HTMLElement>('[data-silk-aperture-rim]')!
+      const root = element.getBoundingClientRect()
+      const rimBox = rim.getBoundingClientRect()
+      return {
+        offset: Number.parseFloat(world.dataset.silkParallaxOffset ?? '0'),
+        rimOffsetY: rimBox.y - root.y,
+      }
+    })
+  }
+
+  const before = await capture()
+  await page.evaluate(() => window.scrollBy(0, 420))
+  await expect.poll(async () => (await capture()).offset).not.toBeCloseTo(before.offset, 1)
+  const after = await capture()
+
+  expect(Math.abs(after.offset)).toBeLessThanOrEqual(16.1)
+  expect(Math.abs(after.offset - before.offset)).toBeGreaterThan(2)
+  expect(Math.abs(after.rimOffsetY - before.rimOffsetY)).toBeLessThanOrEqual(0.5)
+})
+
+test('The Usual Specialists disables Silk aperture parallax for reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('./patch/the-usual-specialists/')
+
+  const aperture = page.locator('[data-silk-commission="05"] [data-silk-aperture]')
+  const world = aperture.locator('[data-silk-aperture-world]')
+  await aperture.scrollIntoViewIfNeeded()
+  await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).toBe('0.00')
+  await page.evaluate(() => window.scrollBy(0, 420))
+  await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).toBe('0.00')
+  await expect(world).toHaveCSS('transform', 'none')
+})
+
+test('The Usual Specialists has no authored composition transition at 620', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const capture = async (width: 621 | 620) => {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+
+    const rope = page.locator('[data-temporary-wireframe-rope="true"] path')
+    const nameMark = page.locator('[data-silk-name-mark]')
+    const thresholdCopy = page.locator('[data-specialists-threshold-copy]')
+    await expect(rope).toHaveCount(1)
+    await expect(nameMark).toBeVisible()
+    await expect(thresholdCopy).toBeVisible()
+
+    const ropeCrossing = await rope.evaluate((pathElement, nameElement) => {
+      const path = pathElement as SVGPathElement
+      const matrix = path.ownerSVGElement?.getScreenCTM()
+      const name = (nameElement as HTMLElement).getBoundingClientRect()
+      if (matrix === null || matrix === undefined) throw new Error('Journey rope has no screen transform')
+
+      const screenPoint = (length: number) => {
+        const point = path.getPointAtLength(length)
+        return new DOMPoint(point.x, point.y).matrixTransform(matrix)
+      }
+      const targetY = name.top + name.height / 2
+      const total = path.getTotalLength()
+      let nearest = screenPoint(0)
+      for (let step = 1; step <= 1000; step += 1) {
+        const candidate = screenPoint((total * step) / 1000)
+        if (Math.abs(candidate.y - targetY) < Math.abs(nearest.y - targetY)) nearest = candidate
+      }
+
+      return { x: nearest.x, y: nearest.y }
+    }, await nameMark.elementHandle())
+    const threshold = await thresholdCopy.boundingBox()
+    expect(threshold).not.toBeNull()
+    return { ropeCrossing, threshold: threshold! }
+  }
+
+  const at621 = await capture(621)
+  const at620 = await capture(620)
+  expect(Math.abs(at620.ropeCrossing.x - at621.ropeCrossing.x), JSON.stringify({ at621, at620 })).toBeLessThanOrEqual(3)
+  expect(Math.abs(at620.ropeCrossing.y - at621.ropeCrossing.y), JSON.stringify({ at621, at620 })).toBeLessThanOrEqual(3)
+  expect(Math.abs(at620.threshold.x - at621.threshold.x), JSON.stringify({ at621, at620 })).toBeLessThanOrEqual(3)
+  expect(Math.abs(at620.threshold.width - at621.threshold.width), JSON.stringify({ at621, at620 })).toBeLessThanOrEqual(3)
+})
+
 test('The Usual Specialists keeps the accepted Index traversal relationships through ultrawide', async ({ page }) => {
   const specialistsPath = './patch/the-usual-specialists/'
   const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
@@ -206,7 +402,7 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
   }
 
   const separationAt1400 = await gapAt(1400)
-  for (const width of [1401, 1440, 1599, 1600, 1920] as const) {
+  for (const width of [1401, 1440, 1599, 1600, 1919] as const) {
     expect(await gapAt(width)).toBeLessThanOrEqual(separationAt1400 + 2)
   }
 
@@ -225,7 +421,7 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
     const patchReturn = await box(traversal('patch-return'))
 
     expect(carrier.x).toBeLessThan(main.x)
-    if (width <= 1920) expect(graphPaper.x).toBeLessThan(main.x)
+    if (width < 1920) expect(graphPaper.x).toBeLessThan(main.x)
     else expect(graphPaper.x).toBeGreaterThan(main.x)
     expect(indexReturn.x).toBeGreaterThanOrEqual(main.x - 2)
     expect(indexReturn.x + indexReturn.width).toBeLessThanOrEqual(main.x + main.width + 2)
@@ -256,11 +452,11 @@ test('The Usual Specialists switches the lower Patch across the upper Patch at t
     }
   }
 
-  const at1920 = await geometryAt(1920)
-  expect(at1920.upperPatch.x - (at1920.lowerPatch.x + at1920.lowerPatch.width)).toBeGreaterThanOrEqual(minimumPatchGap)
+  const at1919 = await geometryAt(1919)
+  expect(at1919.upperPatch.x - (at1919.lowerPatch.x + at1919.lowerPatch.width)).toBeGreaterThanOrEqual(minimumPatchGap)
 
   const ultrawide = []
-  for (const width of [1921, 2048, 2160, 2304, 2400, 2560] as const) {
+  for (const width of [1920, 2048, 2160, 2304, 2400, 2560] as const) {
     const geometry = await geometryAt(width)
     ultrawide.push({ width, ...geometry })
     expect(
@@ -269,18 +465,18 @@ test('The Usual Specialists switches the lower Patch across the upper Patch at t
     ).toBeGreaterThanOrEqual(minimumPatchGap)
     expect(
       geometry.blueCarrier.x,
-      JSON.stringify({ width, blueCarrier: geometry.blueCarrier, at1920: at1920.blueCarrier }),
-    ).toBeLessThanOrEqual(at1920.blueCarrier.x + 2)
+      JSON.stringify({ width, blueCarrier: geometry.blueCarrier, at1919: at1919.blueCarrier }),
+    ).toBeLessThanOrEqual(at1919.blueCarrier.x + 2)
   }
 
-  const graphOffsetAt1921 = ultrawide[0].graphPaper.x - ultrawide[0].blueCarrier.x
+  const graphOffsetAt1920 = ultrawide[0].graphPaper.x - ultrawide[0].blueCarrier.x
   for (const geometry of ultrawide) {
     expect(
-      Math.abs((geometry.graphPaper.x - geometry.blueCarrier.x) - graphOffsetAt1921),
+      Math.abs((geometry.graphPaper.x - geometry.blueCarrier.x) - graphOffsetAt1920),
       JSON.stringify({ width: geometry.width, graphPaper: geometry.graphPaper, blueCarrier: geometry.blueCarrier }),
     ).toBeLessThanOrEqual(2)
   }
-  expect(Math.abs(ultrawide.at(-1)!.blueCarrier.x - at1920.blueCarrier.x)).toBeLessThanOrEqual(2)
+  expect(Math.abs(ultrawide.at(-1)!.blueCarrier.x - at1919.blueCarrier.x)).toBeLessThanOrEqual(2)
 })
 
 test('The Usual Specialists keeps Commission 03 character evidence legible through the ultrawide overlap', async ({ page }) => {
@@ -300,9 +496,9 @@ test('The Usual Specialists keeps Commission 03 character evidence legible throu
     return width * height
   }
 
-  let macguffinOffsetAt1921: { x: number; y: number } | null = null
-  let assentOffsetAt1921: { x: number; y: number } | null = null
-  for (const width of [1921, 2048, 2160, 2304, 2400, 2560] as const) {
+  let macguffinOffsetAt1920: { x: number; y: number } | null = null
+  let assentOffsetAt1920: { x: number; y: number } | null = null
+  for (const width of [1920, 2048, 2160, 2304, 2400, 2560] as const) {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPath)
     const observation = await box(page.locator('[data-index-substrate="commission-03"]'))
@@ -329,25 +525,25 @@ test('The Usual Specialists keeps Commission 03 character evidence legible throu
     const assentNoteCenterX = assentNote.x + assentNote.width / 2
     const macguffinOffset = { x: macguffin.x - observation.x, y: macguffin.y - observation.y }
     const assentOffset = { x: assentNote.x - observation.x, y: assentNote.y - observation.y }
-    if (width === 1921) {
-      macguffinOffsetAt1921 = macguffinOffset
-      assentOffsetAt1921 = assentOffset
+    if (width === 1920) {
+      macguffinOffsetAt1920 = macguffinOffset
+      assentOffsetAt1920 = assentOffset
     } else {
       expect(
-        Math.abs(macguffinOffset.x - macguffinOffsetAt1921!.x),
-        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1921 }),
+        Math.abs(macguffinOffset.x - macguffinOffsetAt1920!.x),
+        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1920 }),
       ).toBeLessThanOrEqual(2)
       expect(
-        Math.abs(macguffinOffset.y - macguffinOffsetAt1921!.y),
-        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1921 }),
+        Math.abs(macguffinOffset.y - macguffinOffsetAt1920!.y),
+        JSON.stringify({ width, macguffinOffset, macguffinOffsetAt1920 }),
       ).toBeLessThanOrEqual(2)
       expect(
-        Math.abs(assentOffset.x - assentOffsetAt1921!.x),
-        JSON.stringify({ width, assentOffset, assentOffsetAt1921 }),
+        Math.abs(assentOffset.x - assentOffsetAt1920!.x),
+        JSON.stringify({ width, assentOffset, assentOffsetAt1920 }),
       ).toBeLessThanOrEqual(2)
       expect(
-        Math.abs(assentOffset.y - assentOffsetAt1921!.y),
-        JSON.stringify({ width, assentOffset, assentOffsetAt1921 }),
+        Math.abs(assentOffset.y - assentOffsetAt1920!.y),
+        JSON.stringify({ width, assentOffset, assentOffsetAt1920 }),
       ).toBeLessThanOrEqual(2)
     }
     expect(artCellOverlap, JSON.stringify({ width, observation, macguffin })).toBeGreaterThanOrEqual(minimumArtCellOverlap)

@@ -1,6 +1,5 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../patch-brand/PatchBrand'
-import { SpecialistsJourneyRope } from './SpecialistsJourneyRope'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
   Opening,
@@ -44,7 +43,6 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
           fetchPriority="high"
           alt="An ordinary apartment safehouse threshold repurposed room by room for the Specialists."
         />
-        <SpecialistsJourneyRope />
         <ThresholdCopy data-specialists-threshold-copy>
           <ThresholdEyebrow>The adventure / recruitment pass</ThresholdEyebrow>
           <h2>One ordinary apartment. Six rooms bent to purpose.</h2>

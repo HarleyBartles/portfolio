@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 
 describe('Usual Specialists route-owned story', () => {
-  test('composes the accepted opening as the route-owned Index draft', () => {
+  test('composes Silk immediately after Index without later Specialist chapters', () => {
     render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
         <UsualSpecialistsPage />
@@ -16,8 +16,22 @@ describe('Usual Specialists route-owned story', () => {
     expect(story).toHaveAttribute('aria-label', 'The Usual Specialists')
     expect(story).not.toHaveAttribute('aria-labelledby')
     expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
-    expect(story.querySelector('[data-specialist-chapter="index"]')).toBeInTheDocument()
-    expect(story.querySelector('[data-specialist-chapter="silk"]')).not.toBeInTheDocument()
+    const index = story.querySelector<HTMLElement>('[data-specialist-chapter="index"]')
+    const silk = story.querySelector<HTMLElement>('[data-specialist-chapter="silk"]')
+    const opening = story.querySelector('header')
+    const rope = story.querySelector<HTMLElement>('[data-temporary-wireframe-rope="true"]')
+    const indexMilestone = story.querySelector<HTMLElement>('[data-specialists-index-milestone]')
+    expect(opening).toBeInTheDocument()
+    expect(rope).toBeInTheDocument()
+    expect(opening).not.toContainElement(rope)
+    expect(indexMilestone).toBeInTheDocument()
+    expect(indexMilestone).toContainElement(opening)
+    expect(indexMilestone).toContainElement(index)
+    expect(indexMilestone).not.toContainElement(silk)
+    expect(index).toBeInTheDocument()
+    expect(silk).toBeInTheDocument()
+    expect(index!.compareDocumentPosition(silk!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
+    expect(story.querySelector('[data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).not.toBeInTheDocument()
     expect(within(story).queryByText('Advanced visual pre-production')).not.toBeInTheDocument()
   })
 
