@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
+import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Observation = styled.div`
@@ -30,12 +31,12 @@ const PatchPeerPlacement = styled.div`
   left: 0;
   width: 104px;
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     top: calc(-147px + 12px);
     width: 98px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     display: none;
   }
 `
@@ -47,11 +48,11 @@ const IndexInspectPlacement = styled.div`
   left: 108px;
   width: 102px;
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     width: 96px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     display: none;
   }
 `

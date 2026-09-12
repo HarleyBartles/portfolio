@@ -42,7 +42,7 @@
 - Produces `specialistsMedia` strings: `atMostNarrow`, `openingAtMostNarrow`, `atMostCompact`, `atMostMid`, `belowWide`, `atLeastWide`, `atLeastExpanded`, `atLeastUltrawide`, and `beyondCeiling`.
 - Produces `SpecialistsCanvas`, a centred `width: min(100%, 2560px)` composition container under the full-width `SpecialistsStory` article, with stable `data-specialists-canvas="authored"` hook in JSX.
 
-- [ ] **Step 1: Write the failing responsive-contract unit test**
+- [x] **Step 1: Write the failing responsive-contract unit test**
 
 Create `specialistsResponsive.test.ts`:
 
@@ -69,7 +69,7 @@ describe('Specialists responsive contract', () => {
 })
 ```
 
-- [ ] **Step 2: Run the unit test and prove RED**
+- [x] **Step 2: Run the unit test and prove RED**
 
 Run:
 
@@ -79,11 +79,11 @@ npm --prefix src/client test -- --run src/features/patch-showcase/usual-speciali
 
 Expected: FAIL because `./specialistsResponsive` does not exist.
 
-- [ ] **Step 3: Implement the responsive module and authored canvas**
+- [x] **Step 3: Implement the responsive module and authored canvas**
 
 Create `specialistsResponsive.ts` with the exact constants above and media strings derived from those constants. Add `SpecialistsCanvas` to `UsualSpecialistsPage.styles.ts` with `width: min(100%, 2560px)`, `margin-inline: auto`, and `position: relative`. Wrap `UsualSpecialistsOpening` and `IndexChapter` in that canvas in `UsualSpecialistsPage.tsx` and add `data-specialists-canvas="authored"`.
 
-- [ ] **Step 4: Run focused component/unit proof**
+- [x] **Step 4: Run focused component/unit proof**
 
 Run:
 
@@ -93,7 +93,7 @@ npm --prefix src/client test -- --run src/features/patch-showcase/usual-speciali
 
 Expected: PASS.
 
-- [ ] **Step 5: Mark Task 1 checklist complete in this plan**
+- [x] **Step 5: Mark Task 1 checklist complete in this plan**
 
 Change Task 1's five checkboxes to `[x]` after observing the stated proof.
 
@@ -117,11 +117,11 @@ Change Task 1's five checkboxes to `[x]` after observing the stated proof.
 - The existing `620` opening/rope rules consume only `specialistsMedia.openingAtMostNarrow`; no Index chapter file may consume that exception.
 - Existing `min-width: 1401px` rules become `@media ${specialistsMedia.atLeastWide}` (`1400px`). Existing `max-width: 1399px` rules become `@media ${specialistsMedia.belowWide}`.
 
-- [ ] **Step 1: Refactor media-query literals without changing owned geometry values**
+- [x] **Step 1: Refactor media-query literals without changing owned geometry values**
 
 Import `specialistsMedia` into each listed style-bearing file and replace its route-local breakpoint literals with the matching named query. Preserve all property values other than changing the wide threshold from `1401` to `1400`.
 
-- [ ] **Step 2: Prove no raw authored breakpoint queries remain in current Specialists production files**
+- [x] **Step 2: Prove no raw authored breakpoint queries remain in current Specialists production files**
 
 Run:
 
@@ -131,7 +131,7 @@ rg -n "@media \\((?:min|max)-width: (?:390|620|720|900|1399|1401|1600|1921)px\\)
 
 Expected: no matches. `specialistsResponsive.ts` is the single source containing the numeric media strings.
 
-- [ ] **Step 3: Run the focused Specialists unit suite**
+- [x] **Step 3: Run the focused Specialists unit suite**
 
 Run:
 
@@ -141,7 +141,7 @@ npm --prefix src/client test -- --run src/features/patch-showcase/UsualSpecialis
 
 Expected: PASS.
 
-- [ ] **Step 4: Run existing responsive browser relationships before adding ceiling behaviour**
+- [x] **Step 4: Run existing responsive browser relationships before adding ceiling behaviour**
 
 Run:
 
@@ -151,7 +151,7 @@ npm --prefix src/client run test:e2e -- e2e/project-story.spec.ts --grep "The Us
 
 Expected: existing Specialists structural suite PASS, including `1399/1400/1401`, `1599/1600`, and `1920/1921` coverage.
 
-- [ ] **Step 5: Mark Task 2 checklist complete in this plan**
+- [x] **Step 5: Mark Task 2 checklist complete in this plan**
 
 Change Task 2's five checkboxes to `[x]` after observing the stated proof.
 
@@ -168,11 +168,12 @@ Change Task 2's five checkboxes to `[x]` after observing the stated proof.
 - Consumes `SpecialistsCanvas` and `specialistsMedia.beyondCeiling`.
 - Above `2560`, only exterior canvas margin changes. The following existing unbounded viewport formulas are explicitly frozen at their `2560` results:
   - opening threshold-copy left edge: `580px` relative to authored canvas;
+  - Index desk-document left edge: `256.8px` relative to authored canvas;
   - Index story-card left edge: `1927.2px` relative to authored canvas;
   - Index commission-composition left edge: `1184px` relative to authored canvas.
-- Existing clamped ultrawide formulas remain unchanged because they already reach a finite cap by the authored ceiling.
+- Other clamped ultrawide formulas remain unchanged because they already reach a finite cap by the authored ceiling.
 
-- [ ] **Step 1: Add a failing browser test for the explicit ceiling**
+- [x] **Step 1: Add a failing browser test for the explicit ceiling**
 
 In `project-story.spec.ts`, add one Specialists test that captures at `2560` the canvas-relative bounding boxes of `[data-patch-series-lockup]`, `[data-specialists-wordmark]`, `[data-index-substrate="desk-diagram"]`, `[data-index-substrate="blue-carrier"]`, `[data-index-substrate="graph-paper"]`, `[data-index-story-card]`, `[data-index-commission-composition="commission-evidence"]`, and representative traversal figures. Recheck at `2561`, `2880`, and `3440`.
 
@@ -185,7 +186,7 @@ expect(Math.abs(canvas.x - ((width - 2560) / 2))).toBeLessThanOrEqual(1)
 
 Compare each element's `{ x: bounds.x - canvas.x, y: bounds.y - canvas.y, width: bounds.width, height: bounds.height }` to its `2560` reference within `2px`. Also require no horizontal document overflow.
 
-- [ ] **Step 2: Run the ceiling test and prove RED**
+- [x] **Step 2: Run the ceiling test and prove RED**
 
 Run:
 
@@ -195,13 +196,16 @@ npm --prefix src/client run test:e2e -- e2e/project-story.spec.ts --grep "freeze
 
 Expected: FAIL because at least threshold/story/commission viewport-driven geometry continues beyond the current ceiling.
 
-- [ ] **Step 3: Add minimal above-ceiling overrides**
+- [x] **Step 3: Add minimal above-ceiling overrides**
 
 Use `@media ${specialistsMedia.beyondCeiling}` only in the owning style components:
 
 ```css
 /* UsualSpecialistsOpening.styles.ts / ThresholdCopy */
 left: 580px;
+
+/* IndexChapter.styles.ts / MainDocumentPlacement */
+left: 256.8px;
 
 /* IndexChapter.styles.ts / StoryCardPlacement */
 left: 1927.2px;
@@ -212,7 +216,7 @@ left: 1184px;
 
 Do not duplicate already-clamped geometry and do not add a transform/scale to the whole page.
 
-- [ ] **Step 4: Run the ceiling and existing Specialists browser proof**
+- [x] **Step 4: Run the ceiling and existing Specialists browser proof**
 
 Run:
 
@@ -222,7 +226,7 @@ npm --prefix src/client run test:e2e -- e2e/project-story.spec.ts --grep "The Us
 
 Expected: all focused Specialists tests PASS.
 
-- [ ] **Step 5: Run protected visual regression without update mode**
+- [x] **Step 5: Run protected visual regression without update mode**
 
 Run:
 
@@ -232,7 +236,7 @@ npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft"
 
 Expected: PASS unchanged at `2560`, `1600`, `1440`, `768`, `390`, and `320`. Any diff is a regression and must be diagnosed; do not update snapshots in this task.
 
-- [ ] **Step 6: Mark Task 3 checklist complete in this plan**
+- [x] **Step 6: Mark Task 3 checklist complete in this plan**
 
 Change Task 3's six checkboxes to `[x]` after observing the stated proof.
 
@@ -249,7 +253,7 @@ Change Task 3's six checkboxes to `[x]` after observing the stated proof.
 - Consumes the completed implementation and focused proof from Tasks 1-3.
 - Produces a normal hooked source commit, exact pushed head, draft PR evidence, then a docs-only custody commit if moving the plan changes the tree.
 
-- [ ] **Step 1: Regenerate and verify the repo mesh before the source commit**
+- [x] **Step 1: Regenerate and verify the repo mesh before the source commit**
 
 Run from repo root:
 
@@ -261,7 +265,7 @@ git diff --check
 
 Expected: mesh check and diff check PASS.
 
-- [ ] **Step 2: Perform a fresh-context read-only review**
+- [x] **Step 2: Perform a fresh-context read-only review**
 
 Review the full responsive-strategy diff against the approved spec, with emphasis on breakpoint ownership, no visual drift through `2560`, true ceiling lock above `2560`, vertical-slice ownership, and browser-test quality. Resolve any Critical/Important findings and re-run the smallest affected proof.
 

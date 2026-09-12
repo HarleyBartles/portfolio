@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
+import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const AssentNote = styled.div`
@@ -53,7 +54,7 @@ const AssentCopy = styled.span`
     transform: rotate(.8deg);
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     span {
       font-size: 1rem;
     }
@@ -63,7 +64,7 @@ const AssentCopy = styled.span`
     }
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     span {
       font-size: .9rem;
     }
@@ -73,7 +74,7 @@ const AssentCopy = styled.span`
     }
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     span {
       font-size: .7rem;
     }

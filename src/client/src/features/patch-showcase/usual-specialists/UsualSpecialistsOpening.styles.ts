@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import { specialistsMedia } from './specialistsResponsive'
 
 export const Opening = styled.header`
   padding-top: clamp(34px, 6vw, 76px);
 
-  @media (max-width: 620px) {
+  @media ${specialistsMedia.openingAtMostNarrow} {
     padding-top: 26px;
   }
 `
@@ -22,11 +23,11 @@ export const SeriesLockupField = styled.div`
   width: min(35%, 390px);
   margin-left: auto;
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     width: min(42%, 340px);
   }
 
-  @media (max-width: 620px) {
+  @media ${specialistsMedia.openingAtMostNarrow} {
     width: min(54%, 280px);
   }
 `
@@ -47,11 +48,11 @@ export const OpeningPrecis = styled.p`
   margin: 2px 0 0 auto;
   font-size: clamp(1.05rem, 1.7vw, 1.36rem);
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     width: min(62%, 33rem);
   }
 
-  @media (max-width: 620px) {
+  @media ${specialistsMedia.openingAtMostNarrow} {
     width: 82%;
     margin-top: 8px;
   }
@@ -64,7 +65,7 @@ export const Threshold = styled.div`
   border-block: 1px solid var(--specialists-ink);
   overflow: visible;
 
-  @media (max-width: 620px) {
+  @media ${specialistsMedia.openingAtMostNarrow} {
     min-height: 690px;
   }
 `
@@ -98,11 +99,15 @@ export const ThresholdCopy = styled.div`
     margin: 0;
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.beyondCeiling} {
+    left: 580px;
+  }
+
+  @media ${specialistsMedia.atMostMid} {
     width: min(30rem, 58vw);
   }
 
-  @media (max-width: 620px) {
+  @media ${specialistsMedia.openingAtMostNarrow} {
     top: 18%;
     right: var(--specialists-gutter);
     left: var(--specialists-gutter);

@@ -45,7 +45,7 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
           alt="An ordinary apartment safehouse threshold repurposed room by room for the Specialists."
         />
         <SpecialistsJourneyRope />
-        <ThresholdCopy>
+        <ThresholdCopy data-specialists-threshold-copy>
           <ThresholdEyebrow>The adventure / recruitment pass</ThresholdEyebrow>
           <h2>One ordinary apartment. Six rooms bent to purpose.</h2>
           <p>Patch moves through the safehouse with a folder and an unheard pitch. Each Specialist exposes the missing layer by doing the work they already do. The assent marker lands when the role makes itself unavoidable.</p>

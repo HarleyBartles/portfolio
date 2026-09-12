@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { specialistsMedia } from './specialistsResponsive'
 
 export const Chapter = styled.section`
   position: relative;
@@ -22,15 +23,15 @@ export const Stage = styled.div`
   position: relative;
   min-height: 980px;
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     min-height: 1119px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     min-height: 1295px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     min-height: 1215px;
   }
 `
@@ -39,7 +40,7 @@ export const DeskComposition = styled.div`
   position: relative;
   height: clamp(640px, 44vw, 780px);
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     height: 700px;
   }
 `
@@ -51,16 +52,20 @@ export const MainDocumentPlacement = styled.div`
   left: max(var(--specialists-gutter), calc((100vw - 1160px) / 2 - 70px));
   right: -3vw;
 
-  @media (min-width: 1401px) {
+  @media ${specialistsMedia.atLeastWide} {
     left: clamp(50px, calc(25vw - 300px), 180px);
     right: -42px;
   }
 
-  @media (min-width: 1921px) {
+  @media ${specialistsMedia.atLeastUltrawide} {
     left: clamp(180px, calc(12vw - 50.4px), 257px);
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.beyondCeiling} {
+    left: 256.8px;
+  }
+
+  @media ${specialistsMedia.atMostCompact} {
     left: 0;
     right: -12vw;
   }
@@ -75,26 +80,26 @@ export const BlueCarrierPlacement = styled.div`
   transform: rotate(-7deg);
   transform-origin: center;
 
-  @media (min-width: 1401px) {
+  @media ${specialistsMedia.atLeastWide} {
     left: clamp(44px, calc(25vw - 306px), 174px);
   }
 
-  @media (min-width: 1921px) {
+  @media ${specialistsMedia.atLeastUltrawide} {
     left: clamp(70px, calc(28.3vw - 474px), 174px);
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     left: -6px;
     width: 540px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     top: 250px;
     left: -70px;
     width: 520px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     left: -78px;
     width: 450px;
   }
@@ -108,22 +113,22 @@ export const GraphPaperPlacement = styled.div`
   width: 570px;
   transform: rotate(2deg);
 
-  @media (min-width: 1921px) {
+  @media ${specialistsMedia.atLeastUltrawide} {
     left: clamp(330px, calc(28.3vw - 214px), 434px);
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     left: 18px;
     width: 540px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     top: anchor(--index-story-card-placement top);
     left: -18px;
     width: 520px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     left: -42px;
     width: 460px;
   }
@@ -138,26 +143,30 @@ export const StoryCardPlacement = styled.div`
   max-width: calc(100vw - (var(--specialists-gutter) * 2));
   anchor-name: --index-story-card-placement;
 
-  @media (min-width: 1401px) {
+  @media ${specialistsMedia.atLeastWide} {
     left: clamp(801px, calc(12vw + 633px), 940px);
     right: auto;
   }
 
-  @media (min-width: 1921px) {
+  @media ${specialistsMedia.atLeastUltrawide} {
     left: calc(92vw - 428px);
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.beyondCeiling} {
+    left: 1927.2px;
+  }
+
+  @media ${specialistsMedia.atMostMid} {
     width: 430px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     right: var(--specialists-gutter);
     bottom: 24px;
     width: 330px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     width: 260px;
   }
 `
@@ -168,28 +177,32 @@ export const CommissionCompositionPlacement = styled.div`
   top: 590px;
   left: calc(50% - 430px);
 
-  @media (min-width: 1401px) {
+  @media ${specialistsMedia.atLeastWide} {
     left: clamp(270px, calc(5vw + 200px), 328px);
   }
 
-  @media (min-width: 1921px) {
+  @media ${specialistsMedia.atLeastUltrawide} {
     left: calc(50vw - 96px);
   }
 
-  @media (max-width: 1399px) {
+  @media ${specialistsMedia.beyondCeiling} {
+    left: 1184px;
+  }
+
+  @media ${specialistsMedia.belowWide} {
     left: calc(50% - 390px);
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     left: 40px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     top: 718px;
     left: -40px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     left: -110px;
   }
 `

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
+import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Carrier = styled.div`
@@ -51,7 +52,7 @@ const IndexLockup = styled.div`
     white-space: nowrap;
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     top: 60px;
     right: 30px;
     width: 12.88rem;
@@ -61,7 +62,7 @@ const IndexLockup = styled.div`
     }
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     top: 72px;
     right: max(48px, calc(466px - 100vw));
     width: 11.89rem;
@@ -71,7 +72,7 @@ const IndexLockup = styled.div`
     }
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     top: 68px;
     right: max(42px, calc(388px - 100vw));
     width: 10.57rem;
@@ -91,18 +92,18 @@ const PatchFollowPlacement = styled.div`
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     width: 94px;
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     top: calc(33% - 19%);
     right: auto;
     left: 26%;
     width: 82px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     left: 29%;
   }
 `
@@ -114,14 +115,14 @@ const IndexHighStepPlacement = styled.div`
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     display: block;
     top: -19%;
     left: 73%;
     width: 74px;
   }
 
-  @media (max-width: 390px) {
+  @media ${specialistsMedia.atMostNarrow} {
     top: calc(-19% - 10px);
     left: 64%;
   }

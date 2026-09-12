@@ -361,6 +361,73 @@ test('The Usual Specialists keeps Commission 03 character evidence legible throu
   }
 })
 
+test('The Usual Specialists freezes its authored 2560 geometry above the ceiling', async ({ page }) => {
+  const specialistsPath = './patch/the-usual-specialists/'
+  const targets = [
+    ['series-lockup', '[data-patch-series-lockup]'],
+    ['specialists-wordmark', '[data-specialists-wordmark]'],
+    ['threshold-copy', '[data-specialists-threshold-copy]'],
+    ['desk-diagram', '[data-index-substrate="desk-diagram"]'],
+    ['blue-carrier', '[data-index-substrate="blue-carrier"]'],
+    ['graph-paper', '[data-index-substrate="graph-paper"]'],
+    ['story-card', '[data-index-story-card]'],
+    ['commission-evidence', '[data-index-commission-composition="commission-evidence"]'],
+    ['index-walk', '[data-index-traversal="index-walk"]'],
+    ['patch-follow', '[data-index-traversal="patch-follow"]'],
+    ['index-return', '[data-index-traversal="index-return"]'],
+    ['patch-return', '[data-index-traversal="patch-return"]'],
+  ] as const
+  const box = async (locator: import('@playwright/test').Locator) => {
+    await expect(locator).toBeVisible()
+    const value = await locator.boundingBox()
+    expect(value).not.toBeNull()
+    return value!
+  }
+  const captureAt = async (width: number) => {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPath)
+    await expect(page.getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+
+    const canvas = await box(page.locator('[data-specialists-canvas="authored"]'))
+    const geometry = Object.fromEntries(await Promise.all(targets.map(async ([label, selector]) => {
+      const bounds = await box(page.locator(selector))
+      return [label, {
+        x: bounds.x - canvas.x,
+        y: bounds.y - canvas.y,
+        width: bounds.width,
+        height: bounds.height,
+      }]
+    }))) as Record<(typeof targets)[number][0], { x: number; y: number; width: number; height: number }>
+    const hasHorizontalOverflow = await page.locator('html').evaluate((element) => element.scrollWidth > element.clientWidth)
+    return { canvas, geometry, hasHorizontalOverflow }
+  }
+
+  const reference = await captureAt(2560)
+  expect(reference.canvas.width).toBeCloseTo(2560, 0)
+  expect(reference.canvas.x).toBeCloseTo(0, 0)
+  expect(reference.hasHorizontalOverflow).toBe(false)
+
+  for (const width of [2561, 2880, 3440] as const) {
+    const current = await captureAt(width)
+    expect(current.canvas.width).toBeCloseTo(2560, 0)
+    expect(Math.abs(current.canvas.x - ((width - 2560) / 2))).toBeLessThanOrEqual(1)
+    expect(current.hasHorizontalOverflow).toBe(false)
+    expect(
+      Math.abs(current.geometry['desk-diagram'].x - reference.geometry['desk-diagram'].x),
+      JSON.stringify({ width, current: current.geometry['desk-diagram'], reference: reference.geometry['desk-diagram'] }),
+    ).toBeLessThanOrEqual(0.05)
+
+    for (const [label] of targets) {
+      for (const dimension of ['x', 'y', 'width', 'height'] as const) {
+        expect(
+          Math.abs(current.geometry[label][dimension] - reference.geometry[label][dimension]),
+          JSON.stringify({ width, label, dimension, current: current.geometry[label], reference: reference.geometry[label] }),
+        ).toBeLessThanOrEqual(2)
+      }
+    }
+  }
+})
+
 test('Patch family preserves authored reflow and avoids overflow at 768px and 320px', async ({ page }) => {
   const columnCount = async (selector: string) => page.locator(selector).first().evaluate((element) =>
     getComputedStyle(element).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length,

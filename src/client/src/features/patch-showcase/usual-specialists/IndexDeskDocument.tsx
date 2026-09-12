@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexTraversal } from './IndexTraversal'
+import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Document = styled.div`
@@ -24,19 +25,19 @@ const IndexWalkPlacement = styled.div`
   right: 18%;
   width: 94px;
 
-  @media (min-width: 1401px) {
+  @media ${specialistsMedia.atLeastWide} {
     right: auto;
     left: 1047px;
   }
 
-  @media (max-width: 900px) {
+  @media ${specialistsMedia.atMostMid} {
     top: 25%;
     right: 18%;
     width: 88px;
     transform: translateY(clamp(0px, calc(350px - 38.8889vw), 70px));
   }
 
-  @media (max-width: 720px) {
+  @media ${specialistsMedia.atMostCompact} {
     display: none;
   }
 `
@@ -46,7 +47,7 @@ const IndexReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @media (min-width: 1600px) {
+  @media ${specialistsMedia.atLeastExpanded} {
     display: block;
     top: 50%;
     left: clamp(1240px, 78%, 1780px);
@@ -61,7 +62,7 @@ const PatchReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @media (min-width: 1600px) {
+  @media ${specialistsMedia.atLeastExpanded} {
     z-index: 9;
     display: block;
     top: 55%;
