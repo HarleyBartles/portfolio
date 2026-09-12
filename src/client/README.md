@@ -48,8 +48,9 @@ npm run test:e2e
 npm run test:e2e:visual
 ```
 
-`npm run test:e2e` uses `playwright.config.ts` to build and start the Vite
-preview server, then exercises the public journeys with Chromium. Content is
+`npm run test:e2e` builds the site, holds a task-owned Vite preview on an
+OS-assigned loopback port, then exercises the public journeys with Chromium.
+The preview is closed even when Playwright fails. Content is
 compiled from `src/data/content/`; the deployed site has no runtime backend.
 
 `npm run test:e2e:visual` is the canonical pixel-baseline check. Windows is

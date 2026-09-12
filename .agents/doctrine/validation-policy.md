@@ -8,6 +8,8 @@ Use this reference when deciding what to verify for repo-starter work.
 - The tracked pre-commit hook enforces `py -3 tools/run.py ci --check`, including Playwright browser journeys. A commit that passes locally should reach hosted CI for confirmation, not predictable failure discovery.
 - Focused repository, Python, client, build, and browser checks remain the iteration tools. There is no separate `precommit` runner target; the hook owns staged-tree orchestration around `ci --apply` and `ci --check --diagnostics`.
 - Do not run the complete command immediately before a normal hooked commit or immediately after it passes. Invoke it directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity.
+- The canonical gate gives Vitest and Playwright one visible framework-native retry. It does not retry deterministic checks or the gate as a whole. A retry-rescued test remains actionable nondeterminism evidence.
+- The canonical Playwright phase consumes the production build already proved by the preceding build step. Standalone browser commands retain their own build prerequisite.
 
 ## Validation principles
 
@@ -20,6 +22,7 @@ Use this reference when deciding what to verify for repo-starter work.
 - Automated gates protect objective contracts: executable behaviour, route integrity, accessibility, privacy, asset custody, and budgets. They do not freeze exact prose, CSS classes, component structure, or every visual value.
 - Approved visual baselines protect stable, representative surfaces from accidental drift. Updating a baseline is allowed when the pull request explains and reviews the new design.
 - The deployed product is static GitHub Pages output. Validation follows the live React/Vite architecture and must not retain a server toolchain after the runtime server has been removed.
+- Build-owned preview servers must use task-owned process and port lifecycles, release them on success and failure, and never terminate an unrelated listener merely to make validation pass.
 
 ## Proof
 
