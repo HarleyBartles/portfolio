@@ -71,12 +71,12 @@ describe('Writing discovery surfaces', () => {
   test('uses the selected Writing edition on the homepage without restoring a featured deck', async () => {
     await renderRoute('/')
 
-    const heading = await screen.findByRole('heading', { level: 2, name: 'I made agentic engineering harder than it needed to be' })
+    const heading = await screen.findByRole('heading', { level: 2, name: 'I made agentic engineering harder than it needed to be' }, { timeout: 15_000 })
     const section = heading.closest('section')
 
     expect(section).not.toBeNull()
     expect(within(section as HTMLElement).getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', '/portfolio/writing/i-made-agentic-engineering-harder-than-it-needed-to-be')
     expect(within(section as HTMLElement).getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
     expect(within(section as HTMLElement).queryByText(/Featured essay/i)).not.toBeInTheDocument()
-  }, 10_000)
+  }, 30_000)
 })

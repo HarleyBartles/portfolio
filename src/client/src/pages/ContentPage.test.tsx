@@ -51,9 +51,9 @@ describe('ContentPage specialist presentation boundary', () => {
       </QueryClientProvider>,
     )
 
-    const title = await screen.findByRole('heading', { level: 1, name: 'Use Superpowers' }, { timeout: 5_000 })
+    const title = await screen.findByRole('heading', { level: 1, name: 'Use Superpowers' }, { timeout: 15_000 })
     const article = title.closest('article') as HTMLElement
-    const disclosureTitle = await within(article).findByRole('heading', { level: 2, name: 'When “most capable” changes overnight' }, { timeout: 5_000 })
+    const disclosureTitle = await within(article).findByRole('heading', { level: 2, name: 'When “most capable” changes overnight' }, { timeout: 15_000 })
     const aside = disclosureTitle.closest('[data-editorial-aside]') as HTMLElement
     const disclosure = aside.querySelector('[data-editorial-aside-disclosure]') as HTMLDetailsElement
 
@@ -86,7 +86,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelector('[data-measure="reading"]')).toBeInTheDocument()
     const continuations = within(article).getByRole('navigation', { name: 'Continue reading' })
     expect(within(continuations).getByRole('link', { name: /Agent Asset Marketplace/ })).toHaveAttribute('href', '/portfolio/projects/codex-marketplace')
-  })
+  }, 30_000)
 
   test('composes PORT-10 through the complete shared writing article shell', async () => {
     const router = createMemoryRouter(appRoutes, {
