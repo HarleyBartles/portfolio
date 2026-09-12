@@ -7,10 +7,9 @@ const LEGACY_ROUTES = [
   { route: '/fairytales', canonicalRoute: '/patch', title: 'Adventures of Patch | Harley Bartles', description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.' },
   { route: '/fairytales/goldilocks', canonicalRoute: '/patch/goldilocks', slug: 'goldilocks' },
   { route: '/fairytales/sorcerers-apprentice', canonicalRoute: '/patch/sorcerers-apprentice', slug: 'sorcerers-apprentice' },
-  { route: '/patch/lawful-heist', canonicalRoute: '/patch/the-usual-specialists', slug: 'the-usual-specialists' },
 ]
 
-function escapeHtml(value) {
+const escapeHtml = (value) => {
   return String(value)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
@@ -19,7 +18,7 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;')
 }
 
-function canonicalUrl(origin, baseUrl, route) {
+const canonicalUrl = (origin, baseUrl, route) => {
   const normalizedOrigin = origin.replace(/\/$/, '')
   const normalizedBase = baseUrl === '/' ? '' : `/${baseUrl.replace(/^\//, '').replace(/\/$/, '')}`
   return route === '/' && normalizedBase === ''
@@ -27,7 +26,7 @@ function canonicalUrl(origin, baseUrl, route) {
     : `${normalizedOrigin}${normalizedBase}${route}`
 }
 
-function renderMetadata(template, metadata, origin, baseUrl) {
+const renderMetadata = (template, metadata, origin, baseUrl) => {
   if (metadata.indexability === 'noindex') {
     const cleanTemplate = template
       .replace(/\s*<link\s+rel=["']canonical["'][^>]*>/gi, '')
@@ -75,7 +74,7 @@ function renderMetadata(template, metadata, origin, baseUrl) {
     .replace('</head>', `    ${socialTags}\n  </head>`)
 }
 
-export async function buildRouteDocuments({ distRoot, manifestPath, baseUrl, origin }) {
+export const buildRouteDocuments = async ({ distRoot, manifestPath, baseUrl, origin }) => {
   const [template, manifestText] = await Promise.all([
     readFile(path.join(distRoot, 'index.html'), 'utf8'),
     readFile(manifestPath, 'utf8'),

@@ -12,7 +12,7 @@ afterEach(() => {
   routers.splice(0).forEach((router) => router.dispose())
 })
 
-function renderRoute(path: string) {
+const renderRoute = (path: string) => {
   const router = createMemoryRouter(appRoutes, {
     basename: '/portfolio',
     initialEntries: [`/portfolio${path}`],
@@ -89,24 +89,25 @@ describe('Adventures of Patch routes', () => {
     expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
   })
 
-  test('redirects the legacy Specialists route to the canonical route', async () => {
+  test('does not preserve the obsolete lawful-heist redirect', async () => {
     const router = renderRoute('/patch/lawful-heist')
 
-    await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })
+    expect(await screen.findByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+    expect(router.state.location.pathname).toBe('/portfolio/patch/lawful-heist')
+  })
+
+  test('publishes the route-owned Usual Specialists blank slate on its canonical route', async () => {
+    const router = renderRoute('/patch/the-usual-specialists')
+
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
-  })
-
-  test('publishes the Usual Specialists recruitment dossier on its canonical route', async () => {
-    renderRoute('/patch/the-usual-specialists')
-
-    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
-    expect((await screen.findAllByText(/six specialists/i))[0]).toBeVisible()
-    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' })
-    expect(within(story).getAllByRole('article')).toHaveLength(6)
-    expect(screen.getByText('Advanced visual pre-production')).toBeVisible()
-    expect(screen.getByAltText(/completed recruitment folder/i)).toBeVisible()
-    expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
-  })
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 15_000 })).toBeVisible()
+    expect(document.querySelector('.content-page-header')).toBeNull()
+    expect(document.querySelector('.content-page-body')).toBeNull()
+    const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
+    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
+    expect(story.querySelectorAll('[data-specialist]')).toHaveLength(0)
+    expect(screen.queryByRole('navigation', { name: 'Related content' })).not.toBeInTheDocument()
+  }, 30_000)
 
   test.each([
     ['/fairytales', '/patch'],

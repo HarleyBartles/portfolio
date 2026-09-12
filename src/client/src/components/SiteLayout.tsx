@@ -5,6 +5,7 @@ import { SiteFrame } from './SiteFrame'
 import { SiteHeader } from './SiteHeader'
 
 export type SiteSurface = 'home' | 'interior'
+export type SiteMainFrame = 'contained' | 'full'
 
 const SiteShell = styled.div<{ $surface: SiteSurface }>`
   min-height: 100vh;
@@ -37,16 +38,17 @@ const SiteShell = styled.div<{ $surface: SiteSurface }>`
     `}
 `
 
-const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface }>`
-  ${({ $surface }) => $surface === 'home' ? `
+const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface; $mainFrame: SiteMainFrame }>`
+  ${({ $surface, $mainFrame }) => $surface === 'home' || $mainFrame === 'full' ? `
     width: 100%;
     max-width: none;
   ` : ''}
 `
 
-export const SiteLayout = ({ children, surface = 'interior' }: {
+export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contained' }: {
   children: ReactNode
   surface?: SiteSurface
+  mainFrame?: SiteMainFrame
 }) => {
   return (
     <SiteShell
@@ -56,7 +58,7 @@ export const SiteLayout = ({ children, surface = 'interior' }: {
       $surface={surface}
     >
       <SiteHeader showName={surface === 'interior'} />
-      <Main className="site-main" id="main-content" data-site-frame $surface={surface}>{children}</Main>
+      <Main className="site-main" id="main-content" data-site-frame $surface={surface} $mainFrame={mainFrame}>{children}</Main>
       <SiteFooter />
     </SiteShell>
   )

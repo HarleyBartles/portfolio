@@ -21,7 +21,13 @@ vi.mock('../features/case-study/projectPresentations', async () => {
         ? () => React.createElement('p', undefined, 'Patch specialist body')
         : presentation === 'learning-lab-case-study'
           ? () => React.createElement('p', undefined, 'Learning Lab specialist body')
-        : undefined,
+          : presentation === 'patch-usual-specialists'
+            ? () => React.createElement(
+              'article',
+              { 'aria-labelledby': 'content-page-title', 'data-visual-contract': 'patch-usual-specialists-index-draft' },
+              React.createElement('h1', { id: 'content-page-title' }, 'The Usual Specialists'),
+            )
+            : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
       default: () => React.createElement('h2', undefined, 'Specialist body ready'),
     }),
@@ -187,6 +193,30 @@ describe('ContentPage specialist presentation boundary', () => {
 
     expect(await screen.findByRole('heading', { level: 2, name: 'Specialist body ready' }, { timeout: 5_000 })).toBeVisible()
     expect(screen.queryByRole('status', { name: 'Loading case study presentation' })).not.toBeInTheDocument()
+  })
+
+  test('renders the Specialists presentation as the route body under shared metadata and site chrome', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/patch/the-usual-specialists'],
+    })
+
+    const { container } = render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
+      </QueryClientProvider>,
+    )
+
+    const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 5_000 })
+    expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    expect(screen.getByText('Harley Bartles')).toBeVisible()
+    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute('href', 'https://harleybartles.com/patch/the-usual-specialists')
+    expect(container.querySelector('.content-page-header')).toBeNull()
+    expect(container.querySelector('.content-page-body')).toBeNull()
+    expect(container.querySelector('.content-navigation')).toBeNull()
+    expect(screen.queryByRole('navigation', { name: 'Related content' })).not.toBeInTheDocument()
   })
 
   test('art directs the Patch header while keeping route copy as selectable HTML', async () => {

@@ -221,6 +221,7 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
         ? 'patch'
         : 'standard'
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
+  const routeOwnsFrame = document.summary.presentation === 'patch-usual-specialists'
 
   const articleBody = (
     <ArticleBody
@@ -244,13 +245,17 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
   )
 
   return (
-    <SiteLayout>
+    <SiteLayout mainFrame={routeOwnsFrame ? 'full' : 'contained'}>
       <DocumentMetadata
         title={`${document.summary.title} | Harley Bartles`}
         description={document.summary.summary}
         canonicalPath={getContentPath(document.summary)}
       />
-      <ContentArticle
+      {routeOwnsFrame && Presentation !== undefined ? (
+        <Suspense fallback={<SpecialistPresentationLoading />}>
+          <Presentation />
+        </Suspense>
+      ) : <ContentArticle
         kind={document.summary.kind}
         visualLanguage={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
         register={document.summary.kind === 'writing' ? 'article-serif' : 'site-sans'}
@@ -297,7 +302,7 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
           <ShareAction title={document.summary.title} path={routeMetadata.path} />
         ) : null}
         </>}
-      </ContentArticle>
+      </ContentArticle>}
     </SiteLayout>
   )
 }

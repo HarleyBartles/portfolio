@@ -29,15 +29,16 @@ const viewports = [
 const decorativeImageSelectors = [
   '.site-mark > img',
   '.marketplace-map__plugins img',
+  'img[aria-hidden="true"]',
   '[aria-hidden="true"] img',
   '[data-zero-flow-overprint] img',
 ] as const
 
-function toTestPath(path: string): string {
+const toTestPath = (path: string): string => {
   return path === '/' ? './' : path.replace(/^\//, '')
 }
 
-async function expectIntentionalImageAlternatives(page: Page): Promise<void> {
+const expectIntentionalImageAlternatives = async (page: Page): Promise<void> => {
   const images = await page.locator('img').evaluateAll((elements, decorativeSelectors) =>
     elements.map((element) => ({
       alt: element.getAttribute('alt'),
@@ -63,7 +64,7 @@ async function expectIntentionalImageAlternatives(page: Page): Promise<void> {
   ).toEqual([])
 }
 
-async function expectNoAutomatedViolations(page: Page): Promise<void> {
+const expectNoAutomatedViolations = async (page: Page): Promise<void> => {
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()

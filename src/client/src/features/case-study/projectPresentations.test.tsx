@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { PortfolioThemeProvider } from '../../components'
-import { UsualSpecialistsPage as UsualSpecialistsStory } from '../patch-showcase/UsualSpecialistsPage'
 import { getProjectPresentation } from './projectPresentations'
 
 describe('project presentations', () => {
@@ -34,8 +33,8 @@ describe('project presentations', () => {
     render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/projects/adventures-of-patch']}><Suspense fallback={null}><PatchPipelineCaseStudy /></Suspense></MemoryRouter></PortfolioThemeProvider>)
     expect(await screen.findByRole('heading', { level: 2, name: 'The day the database disappeared' }, { timeout: 15_000 })).toBeVisible()
 
-    render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}><UsualSpecialistsStory /></MemoryRouter></PortfolioThemeProvider>)
-    expect(await screen.findByRole('heading', { level: 2, name: 'Index' }, { timeout: 15_000 })).toBeVisible()
+    render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}><Suspense fallback={null}><UsualSpecialistsPage /></Suspense></MemoryRouter></PortfolioThemeProvider>)
+    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 15_000 })).toBeVisible()
 
     render(<PortfolioThemeProvider><Suspense fallback={null}><LearningLabCaseStudy /></Suspense></PortfolioThemeProvider>)
     expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 15_000 })).toBeVisible()

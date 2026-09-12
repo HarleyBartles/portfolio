@@ -24,6 +24,25 @@ describe('SiteLayout', () => {
     expect(screen.getByText('Harley Bartles')).toBeVisible()
   })
 
+  test('lets an interior route own the full main frame without losing site identity', () => {
+    render(
+      <PortfolioThemeProvider>
+        <MemoryRouter>
+          <SiteLayout surface="interior" mainFrame="full">
+            <p>Route-owned story</p>
+          </SiteLayout>
+        </MemoryRouter>
+      </PortfolioThemeProvider>,
+    )
+
+    expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'interior')
+    expect(screen.getByText('Harley Bartles')).toBeVisible()
+    expect(screen.getByRole('main')).toHaveStyle({
+      width: '100%',
+      maxWidth: 'none',
+    })
+  })
+
   test('uses the home surface without a visible site identity', () => {
     render(
       <PortfolioThemeProvider>

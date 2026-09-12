@@ -324,3 +324,23 @@ starts appearing outside bounded evidence relationships.
 The Adventures of PATCH cliff-drop lockup is the persistent series mark for the Patch index and story pages. The Usual Specialists outlined wordmark is its secondary story mark, now held with the Adventures of Patch brand assets rather than homepage media. Both remain external outlined SVGs with semantic text fallbacks; consuming compositions control presentation through `currentColor`.
 
 Reconsider if the Adventures of Patch series develops a governed brand repository or if a future route needs a materially different identity relationship.
+
+## 2026-09-10 — The Usual Specialists grows from approved document-world chapters
+
+**Context:** The previous React presentation treated The Usual Specialists as a six-profile dossier. PORT-16 established a different visual and narrative grammar: an apartment safehouse opening followed by document-world chapters whose paper stacks, traversal figures and evidence relationships are approved one chapter at a time before implementation.
+
+**Decision:** `/patch/the-usual-specialists` follows the accepted PORT-16 document-world composition. The first React milestone contains only the opening, apartment threshold, Index chapter and a temporary red rope path. Later Specialist chapters are appended only after their wireframes are reviewed and approved. The route uses the normal site mineral canvas as its ground, while actual documents and cards retain their warm paper surfaces. Story and series wordmarks publish as outlined SVG assets with live semantic text; commercial font binaries are not part of the route. The approved opening precis uses a literal hyphen rather than an em dash.
+
+**Consequence:** The route can evolve chapter by chapter without reviving the retired dossier or pretending unfinished sections exist. The current red rope remains explicitly temporary, visual regression protects only the accepted Index milestone, and future chapter work returns to wireframing before React integration.
+
+**Reconsider when:** A real browser, accessibility or performance constraint makes the accepted Index geometry unworkable, or Harley explicitly reopens the design.
+
+## 2026-09-12 — Silk reveals the mineral page as safehouse plaster
+
+**Context:** The first Silk wireframe successfully established its story beats, rope crossing, responsive choreography and accepted surprised-eyes reuse, but the rectangular Commission 05/07/08/09 image cells made the chapter feel too polite. Earlier safehouse comic mockups had a stronger idea: Silk pressure-tests the route by physically breaking through the structure that contains the story.
+
+**Decision:** Keep Index exactly as accepted and make Silk the chapter that reveals the Portfolio's cool-mineral route surface as literal safehouse plaster. Commission 05 and 07 become world/depth plates seen through irregular apertures rather than framed images. The clean `SILK` mark, story copy and chapter structure stay on the page plane; local rope and transparent Silk traversal assets can cross between the world behind the wall and the page surface; foreground plaster/brick rims and practical rope anchors can re-occlude those traversal layers to prove depth. The accepted surprised-eyes image becomes a narrow plaster slit. A subtle bounded scroll parallax may move the first aperture's world plane by roughly 20–40 CSS pixels while the rim remains fixed, with `prefers-reduced-motion` disabling the effect completely. The earlier rectangular Silk wireframe is historical evidence, not current composition authority.
+
+**Consequence:** Silk gets a web-native version of the original frame-breaking idea without turning the route into a literal comic-page skin. The mineral substrate remains the shared site ground and is only made explicitly diegetic where Silk's boundary-testing story earns it. Asset commissioning must separate world plates from page-surface infrastructure, keep the rope modular, and prove aperture/rope/traversal geometry in React before generating the remaining Silk art. Protected Index snapshots remain unchanged.
+
+**Reconsider when:** The page-as-wall metaphor stops reading at 320px or actual 200% zoom, parallax needs scroll-jacking or large continuous transforms to be noticeable, aperture assets create unmanageable bleed/performance costs, or the depth illusion can only work by redesigning Index or using brittle pixel-perfect registration between independent assets.

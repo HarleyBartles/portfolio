@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 test.use({ reducedMotion: 'reduce' })
 test.skip(process.platform !== 'win32', 'Visual baselines are authored and compared on Windows only')
 
-async function openStable(page: Page, path: string): Promise<void> {
+const openStable = async (page: Page, path: string): Promise<void> => {
   await page.addInitScript(() => {
     Math.random = () => 0.314159
   })
@@ -14,15 +14,16 @@ async function openStable(page: Page, path: string): Promise<void> {
   await page.locator('.skip-link').evaluate((element) => element.setAttribute('hidden', ''))
 }
 
-async function waitForImages(region: ReturnType<Page['locator']>): Promise<void> {
+const waitForImages = async (region: ReturnType<Page['locator']>): Promise<void> => {
   for (const image of await region.locator('img').all()) {
+    if (!(await image.isVisible())) continue
     await image.scrollIntoViewIfNeeded()
     await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
   }
   await region.scrollIntoViewIfNeeded()
 }
 
-async function waitForWildBunchStyles(page: Page): Promise<void> {
+const waitForWildBunchStyles = async (page: Page): Promise<void> => {
   const figure = page.getByRole('figure', {
     name: 'Controlled determinism from a compact world contract',
   })
@@ -31,26 +32,19 @@ async function waitForWildBunchStyles(page: Page): Promise<void> {
     .toBe('rgb(87, 76, 63)')
 }
 
-async function waitForPatchStyles(page: Page): Promise<void> {
+const waitForPatchStyles = async (page: Page): Promise<void> => {
   const production = page.locator('.patch-production')
   await expect
     .poll(() => production.evaluate((element) => getComputedStyle(element).backgroundColor))
     .toBe('rgb(21, 63, 66)')
 }
 
-async function waitForTournamentStyles(page: Page): Promise<void> {
+const waitForTournamentStyles = async (page: Page): Promise<void> => {
   const event = page.locator('[data-patch-event]').first()
   await expect.poll(() => event.evaluate((element) => getComputedStyle(element).display)).toBe('grid')
 }
 
-async function waitForSpecialistsStyles(page: Page): Promise<void> {
-  const rollback = page.locator('[data-specialist="rollback"]')
-  await expect
-    .poll(() => rollback.evaluate((element) => getComputedStyle(element).backgroundColor))
-    .toBe('rgb(24, 33, 28)')
-}
-
-async function waitForLearningLabStyles(page: Page): Promise<void> {
+const waitForLearningLabStyles = async (page: Page): Promise<void> => {
   const safety = page.locator('.learning-lab-safety')
   await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).display)).toMatch(/^(grid|flex)$/)
 }
@@ -115,7 +109,7 @@ for (const route of nonHomeProof) {
   }
 }
 
-async function clipBetween(page: Page, firstSelector: string, lastSelector: string) {
+const clipBetween = async (page: Page, firstSelector: string, lastSelector: string) => {
   await page.evaluate(() => scrollTo(0, 0))
   const [first, last] = await Promise.all([
     page.locator(firstSelector).boundingBox(),
@@ -453,16 +447,6 @@ test('Tournament keeps the complete four-event progression on mobile', async ({ 
   await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
 })
 
-test('The Usual Specialists keeps Rollback at the dominant end of agent scale', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './patch/the-usual-specialists')
-  await waitForSpecialistsStyles(page)
-
-  const rollback = page.locator('[data-specialist="rollback"]')
-  await waitForImages(rollback)
-  await expect(rollback).toHaveScreenshot('patch-lawful-heist-rollback.png')
-})
-
 test('Patch index keeps its branded series front door at wide and mobile viewports', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport)
@@ -479,6 +463,17 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
     await waitForImages(page.locator('[data-visual-contract="patch-identity-emporium"]'))
     const identity = page.locator('[data-visual-contract="patch-identity-emporium"]')
     await expect(identity).toHaveScreenshot(`patch-identity-emporium-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+  }
+})
+
+test('Specialists Index draft keeps the approved composition across protected viewports', async ({ page }) => {
+  for (const width of [2560, 1600, 1440, 768, 390, 320] as const) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await openStable(page, './patch/the-usual-specialists')
+    const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+    await waitForImages(story)
+    const indexMilestone = page.locator('[data-specialists-index-milestone]')
+    await expect(indexMilestone).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`)
   }
 })
 
