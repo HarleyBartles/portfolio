@@ -155,7 +155,19 @@ export async function stopPreviewProcess(
 
   if (platform === 'win32' && previewProcess.pid !== undefined) {
     const cleanup = spawnProcess('taskkill.exe', ['/pid', String(previewProcess.pid), '/t', '/f'], { stdio: 'ignore' })
-    await once(cleanup, 'exit')
+    const [cleanupExitCode] = await once(cleanup, 'exit')
+    if (cleanupExitCode !== 0) {
+      throw new Error(`taskkill failed for CV PDF preview process ${previewProcess.pid} with exit code ${cleanupExitCode}`)
+    }
+    if (previewProcess.exitCode === null) {
+      await Promise.race([
+        once(previewProcess, 'exit'),
+        new Promise((_, reject) => setTimeout(
+          () => reject(new Error(`CV PDF preview process ${previewProcess.pid} did not exit after taskkill`)),
+          5_000,
+        )),
+      ])
+    }
     return
   }
 

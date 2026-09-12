@@ -183,16 +183,32 @@ describe('generateCvPdf', () => {
   })
 
   test('stops the Windows preview process tree', async () => {
-    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
+    const preview = Object.assign(new EventEmitter(), { exitCode: null as number | null, pid: 1234 })
     const cleanup = new EventEmitter()
     const spawnProcess = vi.fn(() => {
-      queueMicrotask(() => cleanup.emit('exit', 0))
+      queueMicrotask(() => {
+        preview.exitCode = 0
+        cleanup.emit('exit', 0)
+      })
       return cleanup
     })
 
     await stopPreviewProcess(preview, { platform: 'win32', spawnProcess })
 
     expect(spawnProcess).toHaveBeenCalledWith('taskkill.exe', ['/pid', '1234', '/t', '/f'], { stdio: 'ignore' })
+  })
+
+  test('reports a failed Windows preview cleanup', async () => {
+    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
+    const cleanup = new EventEmitter()
+    const spawnProcess = vi.fn(() => {
+      queueMicrotask(() => cleanup.emit('exit', 1))
+      return cleanup
+    })
+
+    await expect(stopPreviewProcess(preview, { platform: 'win32', spawnProcess })).rejects.toThrow(
+      'taskkill failed for CV PDF preview process 1234 with exit code 1',
+    )
   })
 
   test('rewrites preview-server links to the canonical public origin before printing', async () => {

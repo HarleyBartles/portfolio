@@ -40,21 +40,28 @@ export async function findAvailableE2ePort(host = '127.0.0.1') {
   })
 }
 
-export async function runE2e(arguments_ = process.argv.slice(2), findPort = findAvailableE2ePort) {
-  if (npmCli === undefined) {
+export async function runE2e(
+  arguments_ = process.argv.slice(2),
+  {
+    findPort = findAvailableE2ePort,
+    npmCommand = npmCli,
+    runCommand = runNode,
+  } = {},
+) {
+  if (npmCommand === undefined) {
     throw new Error('run-e2e.mjs must be launched through an npm script so the npm CLI can be resolved portably.')
   }
 
   const plan = planE2eRun(arguments_)
+  if (plan.shouldBuild) {
+    runCommand([npmCommand, 'run', 'build'], 'E2E production build')
+  }
   const previewPort = await findPort()
   const playwrightEnvironment = {
     ...process.env,
     PORTFOLIO_E2E_PORT: String(previewPort),
   }
-  if (plan.shouldBuild) {
-    runNode([npmCli, 'run', 'build'], 'E2E production build')
-  }
-  runNode([
+  runCommand([
     path.join(clientRoot, 'node_modules', '@playwright', 'test', 'cli.js'),
     'test',
     ...plan.playwrightArguments,

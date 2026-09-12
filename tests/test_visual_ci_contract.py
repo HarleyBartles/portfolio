@@ -148,6 +148,7 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertIn("./node_modules/vite/bin/vite.js", playwright_config)
         self.assertIn("preview --host 127.0.0.1 --port ${clientPort} --strictPort", playwright_config)
         self.assertNotIn("npm run build", playwright_config)
+        self.assertNotIn("retries: process.env.CI", playwright_config)
         self.assertIn("test.skip(process.platform !== 'win32'", visual_spec)
         self.assertNotIn("visualSnapshot", visual_spec)
         self.assertNotIn("-linux.png", visual_spec)

@@ -27,4 +27,30 @@ describe('run-e2e command planning', () => {
     expect(port).toBeTypeOf('number')
     expect(port).toBeGreaterThan(0)
   })
+
+  test('allocates the preview port after a standalone build completes', async () => {
+    vi.stubEnv('npm_execpath', undefined)
+    const { runE2e } = await import('./run-e2e.mjs') as {
+      runE2e: (
+        arguments_: string[],
+        dependencies: {
+          findPort: () => Promise<number>
+          npmCommand: string
+          runCommand: (arguments_: string[], label: string) => void
+        },
+      ) => Promise<void>
+    }
+    const events: string[] = []
+
+    await runE2e(['e2e/about.spec.ts'], {
+      npmCommand: '/npm',
+      runCommand: (_arguments, label) => events.push(label),
+      findPort: async () => {
+        events.push('allocate preview port')
+        return 43126
+      },
+    })
+
+    expect(events).toEqual(['E2E production build', 'allocate preview port', 'Playwright'])
+  })
 })
