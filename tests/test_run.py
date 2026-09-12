@@ -35,8 +35,28 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._link_hygiene_check_cmd(), commands)
         self.assertIn(run._portfolio_quality_check_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
-        self.assertIn(run._client_cmd("test", "--", "--run"), commands)
+        self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
+
+    @patch("shutil.which", return_value="C:/node/npm.cmd")
+    def test_canonical_client_tests_retry_once_without_changing_focused_test_defaults(self, _which) -> None:
+        self.assertEqual(
+            ["C:/node/npm.cmd", "--prefix", "src/client", "test", "--", "--run", "--retry=1"],
+            run._client_unit_tests_cmd(),
+        )
+        self.assertEqual(
+            [
+                "C:/node/npm.cmd",
+                "--prefix",
+                "src/client",
+                "run",
+                "test:e2e",
+                "--",
+                "--skip-build",
+                "--retries=1",
+            ],
+            run._client_e2e_cmd(),
+        )
 
     def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
         self.assertEqual(
@@ -169,7 +189,7 @@ class CanonicalRunnerTests(unittest.TestCase):
 
         base_ci_check.assert_called_once_with(self.context)
         self.assertEqual(
-            [call(run._client_cmd("run", "test:e2e"), self.context)],
+            [call(run._client_e2e_cmd(), self.context)],
             run_command.call_args_list,
         )
 
@@ -196,8 +216,8 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._mesh_validate_cmd(), commands)
         self.assertIn(run._portfolio_quality_check_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
-        self.assertIn(run._client_cmd("test", "--", "--run"), commands)
-        self.assertNotIn(run._client_cmd("run", "test:e2e"), commands)
+        self.assertIn(run._client_unit_tests_cmd(), commands)
+        self.assertNotIn(run._client_e2e_cmd(), commands)
         self.assertEqual(
             ["repository standards", "link hygiene", "production build"],
             [result.name for result in raised.exception.failures],

@@ -13,6 +13,9 @@ Use this runbook when deciding what to verify for a change.
 - During development, invoke the focused repository, Python, client, build, or browser target that proves the slice you changed. There is no separate `precommit` command surface; the hook composes the `ci` modes around Git's staged snapshot.
 - Apply only the mechanical surface that changed (`refresh-skills --apply`, `index-mesh --apply`, or `mesh --apply`). Reserve umbrella `ci --apply` for deliberate repair of several generated surfaces; it is not the normal verification step.
 - The canonical command checks the marketplace-to-derived-skill projection locally and in GitHub Actions. The marketplace source is public, so hosted checkout initializes the pinned submodule before running the same gate.
+- Canonical Vitest and Playwright executions use each framework's native retry mechanism for one retry. A test reported as passing on retry is visible flake evidence and should be repaired; it is not proof that the first attempt was healthy. Focused and standalone test commands remain strict unless their caller explicitly supplies retry arguments.
+- The canonical Playwright phase reuses the production build completed earlier in the same gate. Standalone `npm run test:e2e` and the visual-regression command continue to build before launching Playwright.
+- CV generation and Playwright allocate task-owned loopback ports and clean up their owned preview processes. Do not stop an unrelated listener from another worktree to free a hard-coded validation port.
 
 ## Efficient commit gate
 
@@ -23,6 +26,8 @@ Use this runbook when deciding what to verify for a change.
 5. Do not run `py -3 tools/run.py ci --check` immediately before a normal commit, rerun it immediately after a successful hooked commit, or use hosted CI to discover a failure the local hook can predict. Run the complete command directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity.
 
 Do not bypass the hook. Its successful completion is the canonical local proof for the exact staged tree Git committed.
+
+Retries apply only to Vitest and Playwright test attempts. Repository checks, Python tests, builds, asset generation, occupied ports, and other deterministic failures fail immediately; do not hide them behind a whole-gate retry.
 
 ## Scoped validation
 

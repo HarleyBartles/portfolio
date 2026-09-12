@@ -12,6 +12,7 @@ import {
   generateCvPdf,
   rewritePreviewLinksForPdf,
   assertPreviewPortAvailable,
+  findAvailablePreviewUrl,
   startPreviewProcess,
   stopPreviewProcess,
 } from './generate-cv-pdf.mjs'
@@ -86,6 +87,14 @@ describe('assertCvPdf', () => {
 })
 
 describe('generateCvPdf', () => {
+  test('selects an available loopback port for each preview', async () => {
+    const previewUrl = await findAvailablePreviewUrl()
+
+    expect(new URL(previewUrl).hostname).toBe('127.0.0.1')
+    expect(Number(new URL(previewUrl).port)).toBeGreaterThan(0)
+    await expect(assertPreviewPortAvailable(previewUrl)).resolves.toBeUndefined()
+  })
+
   test('rejects an occupied preview port before starting a CV PDF preview', async () => {
     const server = createServer()
     await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve))
@@ -114,15 +123,52 @@ describe('generateCvPdf', () => {
     expect(startPreview).not.toHaveBeenCalled()
   })
 
-  test('starts the POSIX preview in its own process group', () => {
+  test('starts the POSIX Vite preview directly in its own process group', () => {
     const preview = { exitCode: null, pid: 1234 }
     const spawnProcess = vi.fn(() => preview)
 
-    expect(startPreviewProcess('/client', { platform: 'linux', spawnProcess })).toBe(preview)
+    expect(startPreviewProcess('/client', 'http://127.0.0.1:43123', {
+      platform: 'linux',
+      processPath: '/node',
+      spawnProcess,
+    })).toBe(preview)
 
-    expect(spawnProcess).toHaveBeenCalledWith('npm', ['run', 'preview:pdf'], {
+    expect(spawnProcess).toHaveBeenCalledWith('/node', [
+      path.join('/client', 'node_modules', 'vite', 'bin', 'vite.js'),
+      'preview',
+      '--host',
+      '127.0.0.1',
+      '--port',
+      '43123',
+      '--strictPort',
+    ], {
       cwd: '/client',
       detached: true,
+      stdio: 'inherit',
+    })
+  })
+
+  test('starts the Windows Vite preview as the owned process rather than a command-shell wrapper', () => {
+    const preview = { exitCode: null, pid: 1234 }
+    const spawnProcess = vi.fn(() => preview)
+
+    expect(startPreviewProcess('C:\\client', 'http://127.0.0.1:43124', {
+      platform: 'win32',
+      processPath: 'C:\\node.exe',
+      spawnProcess,
+    })).toBe(preview)
+
+    expect(spawnProcess).toHaveBeenCalledWith('C:\\node.exe', [
+      path.join('C:\\client', 'node_modules', 'vite', 'bin', 'vite.js'),
+      'preview',
+      '--host',
+      '127.0.0.1',
+      '--port',
+      '43124',
+      '--strictPort',
+    ], {
+      cwd: 'C:\\client',
+      detached: false,
       stdio: 'inherit',
     })
   })
@@ -176,6 +222,7 @@ describe('generateCvPdf', () => {
 
     await generateCvPdf({
       pdfPath,
+      previewUrl: 'http://127.0.0.1:4175',
       assertPreviewPort: vi.fn(async () => {}),
       startPreview,
       waitForPreview,
@@ -211,6 +258,7 @@ describe('generateCvPdf', () => {
 
     await expect(generateCvPdf({
       pdfPath,
+      previewUrl: 'http://127.0.0.1:4175',
       assertPreviewPort: vi.fn(async () => {}),
       startPreview: vi.fn(async () => preview),
       waitForPreview: vi.fn(async () => {}),
@@ -221,6 +269,24 @@ describe('generateCvPdf', () => {
     expect(page.pdf).not.toHaveBeenCalled()
     expect(page.close).toHaveBeenCalledOnce()
     expect(browser.close).toHaveBeenCalledOnce()
+    expect(stopPreview).toHaveBeenCalledWith(preview)
+  })
+
+  test('stops its preview when readiness fails', async () => {
+    const preview = { name: 'preview' }
+    const stopPreview = vi.fn(async () => {})
+
+    await expect(generateCvPdf({
+      clientRoot: '/client',
+      findPreviewUrl: vi.fn(async () => 'http://127.0.0.1:43125'),
+      assertPreviewPort: vi.fn(async () => {}),
+      startPreview: vi.fn(async () => preview),
+      waitForPreview: vi.fn(async () => {
+        throw new Error('preview failed before readiness')
+      }),
+      stopPreview,
+    })).rejects.toThrow('preview failed before readiness')
+
     expect(stopPreview).toHaveBeenCalledWith(preview)
   })
 })

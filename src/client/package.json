@@ -17,12 +17,10 @@
     "media:learning-lab:apply": "node scripts/process-learning-lab-assets.mjs --apply",
     "media:learning-lab:check": "node scripts/process-learning-lab-assets.mjs --check",
     "preview:test": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
-    "preview:e2e": "vite preview --host 127.0.0.1 --port 4174 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "node scripts/run-e2e.mjs",
-    "test:e2e:visual": "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts",
-    "preview:pdf": "vite preview --host 127.0.0.1 --port 4175 --strictPort"
+    "test:e2e:visual": "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts"
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": "^5.3.0",

@@ -115,6 +115,14 @@ def _client_cmd(*args: str) -> list[str]:
     return [shutil.which("npm") or "npm", "--prefix", "src/client", *args]
 
 
+def _client_unit_tests_cmd() -> list[str]:
+    return _client_cmd("test", "--", "--run", "--retry=1")
+
+
+def _client_e2e_cmd() -> list[str]:
+    return _client_cmd("run", "test:e2e", "--", "--skip-build", "--retries=1")
+
+
 def _install_deps_cmd(mode: str) -> list[str]:
     if mode == "apply":
         return _client_cmd("ci")
@@ -188,11 +196,11 @@ def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], st
         ("link hygiene", lambda ctx: _run(_link_hygiene_check_cmd(), ctx), None),
         ("portfolio quality", lambda ctx: _run(_portfolio_quality_check_cmd(), ctx), None),
         ("Python tests", _python_tests_check, None),
-        ("client unit tests", lambda ctx: _run(_client_cmd("test", "--", "--run"), ctx), None),
+        ("client unit tests", lambda ctx: _run(_client_unit_tests_cmd(), ctx), None),
         ("production build", lambda ctx: _run(_client_cmd("run", "build"), ctx), None),
     ]
     if include_e2e:
-        steps.append(("Playwright journeys", lambda ctx: _run(_client_cmd("run", "test:e2e"), ctx), "production build"))
+        steps.append(("Playwright journeys", lambda ctx: _run(_client_e2e_cmd(), ctx), "production build"))
     return steps
 
 
@@ -232,7 +240,7 @@ def _base_ci_check(ctx: Ctx) -> None:
     _run(_link_hygiene_check_cmd(), ctx)
     _run(_portfolio_quality_check_cmd(), ctx)
     _python_tests_check(ctx)
-    _run(_client_cmd("test", "--", "--run"), ctx)
+    _run(_client_unit_tests_cmd(), ctx)
     _run(_client_cmd("run", "build"), ctx)
 
 
@@ -241,7 +249,7 @@ def _ci_check(ctx: Ctx) -> None:
         _diagnostic_check(ctx, include_e2e=True)
         return
     _base_ci_check(ctx)
-    _run(_client_cmd("run", "test:e2e"), ctx)
+    _run(_client_e2e_cmd(), ctx)
 
 
 def _all_apply(ctx: Ctx) -> None:

@@ -9,7 +9,6 @@ import { PDFDocument } from 'pdf-lib'
 
 export const MAX_CV_PDF_BYTES = 512 * 1024
 
-const DEFAULT_PREVIEW_URL = 'http://127.0.0.1:4175'
 const EXPECTED_PAGE_REGIONS = ['1', '2']
 const LOCALHOST_URL_PATTERN = /https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?(?:[/?#]|$)/i
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
@@ -52,16 +51,48 @@ export async function assertCvPdfPageCount(pdfPath, expectedPageCount = 2) {
   return pageCount
 }
 
+export async function findAvailablePreviewUrl(
+  host = '127.0.0.1',
+  { createNetworkServer = createServer } = {},
+) {
+  const port = await new Promise((resolve, reject) => {
+    const server = createNetworkServer()
+    server.once('error', reject)
+    server.listen(0, host, () => {
+      const address = server.address()
+      if (address === null || typeof address === 'string') {
+        server.close()
+        reject(new Error('CV PDF preview could not allocate a TCP port'))
+        return
+      }
+      server.close((error) => error === undefined ? resolve(address.port) : reject(error))
+    })
+  })
+
+  return `http://${host}:${port}`
+}
+
 export function startPreviewProcess(
   clientRoot,
-  { platform = process.platform, spawnProcess = spawn } = {},
+  previewUrl,
+  {
+    platform = process.platform,
+    processPath = process.execPath,
+    spawnProcess = spawn,
+  } = {},
 ) {
-  const command = platform === 'win32' ? (process.env.ComSpec ?? 'cmd.exe') : 'npm'
-  const previewArguments = platform === 'win32'
-    ? ['/d', '/s', '/c', 'npm.cmd run preview:pdf']
-    : ['run', 'preview:pdf']
+  const url = new URL(previewUrl)
+  const previewArguments = [
+    path.join(clientRoot, 'node_modules', 'vite', 'bin', 'vite.js'),
+    'preview',
+    '--host',
+    url.hostname,
+    '--port',
+    url.port,
+    '--strictPort',
+  ]
 
-  return spawnProcess(command, previewArguments, {
+  return spawnProcess(processPath, previewArguments, {
     cwd: clientRoot,
     detached: platform !== 'win32',
     stdio: 'inherit',
@@ -164,7 +195,8 @@ export async function rewritePreviewLinksForPdf(page, previewUrl) {
 export async function generateCvPdf({
   clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   pdfPath = path.join(clientRoot, 'dist', 'harley-bartles-cv.pdf'),
-  previewUrl = DEFAULT_PREVIEW_URL,
+  previewUrl,
+  findPreviewUrl = findAvailablePreviewUrl,
   assertPreviewPort = assertPreviewPortAvailable,
   startPreview = startPreviewProcess,
   waitForPreview = waitForPreviewServer,
@@ -178,13 +210,14 @@ export async function generateCvPdf({
   let page
 
   try {
-    await assertPreviewPort(previewUrl)
-    previewProcess = await startPreview(clientRoot)
-    await waitForPreview(previewUrl, previewProcess)
+    const resolvedPreviewUrl = previewUrl ?? await findPreviewUrl()
+    await assertPreviewPort(resolvedPreviewUrl)
+    previewProcess = await startPreview(clientRoot, resolvedPreviewUrl)
+    await waitForPreview(resolvedPreviewUrl, previewProcess)
     browser = await launchBrowser()
     page = await browser.newPage()
 
-    await page.goto(`${previewUrl}${activeBasePath === '/' ? '' : activeBasePath.slice(0, -1)}/cv/`, { waitUntil: 'networkidle' })
+    await page.goto(`${resolvedPreviewUrl}${activeBasePath === '/' ? '' : activeBasePath.slice(0, -1)}/cv/`, { waitUntil: 'networkidle' })
     const pageRegions = await page.evaluate(async () => {
       await document.fonts.ready
       return Array.from(document.querySelectorAll('[data-cv-page]')).map((element) => element.getAttribute('data-cv-page'))
@@ -196,7 +229,7 @@ export async function generateCvPdf({
       )
     }
 
-    await rewriteLinksForPdf(page, previewUrl)
+    await rewriteLinksForPdf(page, resolvedPreviewUrl)
     await page.emulateMedia({ media: 'print' })
     await page.pdf({
       path: pdfPath,

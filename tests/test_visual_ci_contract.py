@@ -143,8 +143,11 @@ class VisualCiContractTests(unittest.TestCase):
             package["scripts"].get("test:e2e:visual"),
         )
         self.assertEqual("node scripts/run-e2e.mjs", package["scripts"].get("test:e2e"))
-        self.assertIn("command: 'npm run preview:e2e'", playwright_config)
-        self.assertNotIn("npm run build && npm run preview:e2e", playwright_config)
+        self.assertNotIn("preview:e2e", package["scripts"])
+        self.assertIn("process.env.PORTFOLIO_E2E_PORT", playwright_config)
+        self.assertIn("./node_modules/vite/bin/vite.js", playwright_config)
+        self.assertIn("preview --host 127.0.0.1 --port ${clientPort} --strictPort", playwright_config)
+        self.assertNotIn("npm run build", playwright_config)
         self.assertIn("test.skip(process.platform !== 'win32'", visual_spec)
         self.assertNotIn("visualSnapshot", visual_spec)
         self.assertNotIn("-linux.png", visual_spec)

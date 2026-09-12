@@ -1,8 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
 import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
-const clientPort = 4174
+const clientPort = Number.parseInt(process.env.PORTFOLIO_E2E_PORT ?? '4174', 10)
+if (!Number.isInteger(clientPort) || clientPort < 1 || clientPort > 65_535) {
+  throw new Error(`Invalid PORTFOLIO_E2E_PORT: ${process.env.PORTFOLIO_E2E_PORT}`)
+}
 const clientOrigin = `http://127.0.0.1:${clientPort}`
+const nodePath = JSON.stringify(process.execPath)
+const viteCliPath = JSON.stringify(fileURLToPath(new URL('./node_modules/vite/bin/vite.js', import.meta.url)))
 const siteConfig = JSON.parse(readFileSync(new URL('./site.config.json', import.meta.url), 'utf8')) as {
   activeProfile: 'custom-domain' | 'github-pages-fallback'
   profiles: Record<'custom-domain' | 'github-pages-fallback', { basePath: string }>
@@ -38,7 +44,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'npm run preview:e2e',
+      command: `${nodePath} ${viteCliPath} preview --host 127.0.0.1 --port ${clientPort} --strictPort`,
       url: clientOrigin,
       timeout: 120_000,
       reuseExistingServer: false,
