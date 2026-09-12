@@ -5,7 +5,7 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 ## 1.1 - Skills - umbrella
 
 - **Status:** done
-- **Plan file:** [2026-08-12-phase-1-1-designing-premium-sites.md](../completed/2026-08-12-phase-1-1-designing-premium-sites.md)
+- **Plan record:** Git history; completed artifact removed from the tracked tree.
 - **Commit:** `2ffd822`
 - **PR:** #7
 - **Rating:** 9/10
@@ -14,7 +14,7 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 ## 1.2 - Skills - pattern skills
 
 - **Status:** done
-- **Plan file:** [2026-08-13-phase-1-2-pattern-skills.md](../completed/2026-08-13-phase-1-2-pattern-skills.md)
+- **Plan record:** Git history; completed artifact removed from the tracked tree.
 - **Commit:** `800e685`
 - **PR:** #9
 - **Rating:** 9/10
@@ -23,7 +23,7 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 ## 2 - Subagent profiles
 
 - **Status:** done
-- **Plan file:** [2026-08-19-phase-2-subagent-profiles.md](../completed/2026-08-19-phase-2-subagent-profiles.md)
+- **Plan record:** Git history; completed artifact removed from the tracked tree.
 - **Commit:** `a8d863c`
 - **PR:** #10
 - **Rating:** 9/10
@@ -32,7 +32,7 @@ Live work log for the foundation epic. Each item is a plan. Plans move from `pen
 ## 3 - Runbooks
 
 - **Status:** done
-- **Plan file:** [2026-08-19-phase-3-runbooks.md](../completed/2026-08-19-phase-3-runbooks.md)
+- **Plan record:** Git history; completed artifact removed from the tracked tree.
 - **Commit:** `6db0be7`
 - **PR:** #11
 - **Rating:** 9/10

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import os
+import json
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -32,6 +34,22 @@ def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subpro
         text=True,
         capture_output=True,
         check=False,
+    )
+
+
+def write_command_declaration(repo: Path, runner: Path) -> None:
+    declaration = repo / ".agents/contracts/repo-standards-commands.json"
+    declaration.parent.mkdir(parents=True, exist_ok=True)
+    declaration.write_text(
+        json.dumps(
+            {
+                "apply": [sys.executable, str(runner), "--apply"],
+                "check": [sys.executable, str(runner), "--check"],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
     )
 
 
@@ -86,8 +104,12 @@ class PreCommitHookTests(unittest.TestCase):
 
     def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
         hook = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
+        declaration = (ROOT / ".agents/contracts/repo-standards-commands.json").read_text(encoding="utf-8")
 
-        self.assertIn('"${PYTHON[@]}" tools/run.py ci --check --diagnostics', hook)
+        self.assertIn('COMMAND_DECLARATION="$REPO_ROOT/.agents/contracts/repo-standards-commands.json"', hook)
+        self.assertIn("run_declared apply", hook)
+        self.assertIn("run_declared check", hook)
+        self.assertIn('"check": ["@python", "tools/run.py", "ci", "--check", "--diagnostics"]', declaration)
         self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
 
     def test_hook_commands_resolve_the_linked_worktree(self) -> None:
@@ -122,33 +144,32 @@ class PreCommitHookTests(unittest.TestCase):
             self.assertEqual(run_git(nested_repo, "commit", "-m", "nested").returncode, 0)
             nested_head = run_git(nested_repo, "rev-parse", "HEAD").stdout.strip()
 
+            runner = temporary_root / "declared_runner.py"
+            runner.write_text(
+                """import os
+import subprocess
+import sys
+from pathlib import Path
+
+if "--check" in sys.argv:
+    root = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
+    nested_head = subprocess.check_output(["git", "-C", os.environ["NESTED_REPO"], "rev-parse", "HEAD"], text=True).strip()
+    Path(os.environ["OBSERVED_ROOT"]).write_text(root + "\\n", encoding="utf-8")
+    Path(os.environ["OBSERVED_HEAD"]).write_text(nested_head + "\\n", encoding="utf-8")
+""",
+                encoding="utf-8",
+            )
             run_git(repo, "config", "core.hooksPath", ".githooks")
             hook = worktree / ".githooks/pre-commit"
             hook.parent.mkdir()
             shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
             hook.chmod(0o755)
-            fake_bin = temporary_root / "fake-bin"
-            fake_bin.mkdir()
-            fake_runner = """#!/usr/bin/env sh
-case "$*" in
-  *"ci --check"*)
-    git rev-parse --show-toplevel > "$OBSERVED_ROOT"
-    git -C "$NESTED_REPO" rev-parse HEAD > "$OBSERVED_HEAD"
-    ;;
-esac
-exit 0
-"""
-            for executable in ("py", "python3", "python"):
-                path = fake_bin / executable
-                path.write_text(fake_runner, encoding="utf-8", newline="\n")
-                path.chmod(0o755)
-
             tracked_in_worktree.write_text("ready\n", encoding="utf-8")
-            run_git(worktree, "add", "tracked.txt")
+            write_command_declaration(worktree, runner)
+            run_git(worktree, "add", "tracked.txt", ".agents/contracts/repo-standards-commands.json")
             observed_root = temporary_root / "observed-root.txt"
             observed_head = temporary_root / "observed-head.txt"
             env = os.environ.copy()
-            env["PATH"] = f"{fake_bin}{os.pathsep}{env['PATH']}"
             env["OBSERVED_ROOT"] = str(observed_root)
             env["OBSERVED_HEAD"] = str(observed_head)
             env["NESTED_REPO"] = str(nested_repo)
@@ -261,34 +282,28 @@ exit 0
             generated = repo / "docs/INDEX.md"
             generated.parent.mkdir()
             generated.write_text("initial\n", encoding="utf-8")
-            run_git(repo, "add", "tracked.txt", "docs/INDEX.md")
+            runner = temporary_root / "declared_runner.py"
+            runner.write_text(
+                """import shutil
+import sys
+from pathlib import Path
+
+if "--apply" in sys.argv:
+    shutil.copyfile("tracked.txt", "docs/INDEX.md")
+elif "--check" in sys.argv and "BROKEN" in Path("tracked.txt").read_text(encoding="utf-8"):
+    print("staged check saw BROKEN", file=sys.stderr)
+    raise SystemExit(17)
+""",
+                encoding="utf-8",
+            )
+            write_command_declaration(repo, runner)
+            run_git(repo, "add", "tracked.txt", "docs/INDEX.md", ".agents/contracts/repo-standards-commands.json")
             self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
 
             hook = repo / ".git/hooks/pre-commit"
             hook.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
             hook.chmod(0o755)
-
-            fake_bin = temporary_root / "fake-bin"
-            fake_bin.mkdir()
-            fake_runner = """#!/usr/bin/env sh
-case "$*" in
-  *"ci --apply"*)
-    cp tracked.txt docs/INDEX.md
-    ;;
-  *"ci --check"*)
-    if grep -q BROKEN tracked.txt; then
-      echo "staged check saw BROKEN" >&2
-      exit 17
-    fi
-    ;;
-esac
-exit 0
-"""
-            for executable in ("py", "python3", "python"):
-                path = fake_bin / executable
-                path.write_text(fake_runner, encoding="utf-8", newline="\n")
-                path.chmod(0o755)
 
             tracked.write_text("BROKEN staged content\n", encoding="utf-8")
             run_git(repo, "add", "tracked.txt")
@@ -297,7 +312,6 @@ exit 0
             untracked.write_text("keep me\n", encoding="utf-8")
 
             env = os.environ.copy()
-            env["PATH"] = f"{fake_bin}{os.pathsep}{env['PATH']}"
             result = run_git(repo, "commit", "-m", "must fail", env=env)
 
             self.assertNotEqual(result.returncode, 0)
@@ -320,28 +334,24 @@ exit 0
 
             tracked = repo / "tracked.txt"
             tracked.write_text("initial\n", encoding="utf-8")
-            run_git(repo, "add", "tracked.txt")
+            runner = temporary_root / "declared_runner.py"
+            runner.write_text(
+                """import sys
+from pathlib import Path
+
+if "--check" in sys.argv:
+    Path("tracked.txt").write_text("gate mutation\\n", encoding="utf-8")
+""",
+                encoding="utf-8",
+            )
+            write_command_declaration(repo, runner)
+            run_git(repo, "add", "tracked.txt", ".agents/contracts/repo-standards-commands.json")
             self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
 
             hook = repo / ".git/hooks/pre-commit"
             hook.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
             hook.chmod(0o755)
-
-            fake_bin = temporary_root / "fake-bin"
-            fake_bin.mkdir()
-            fake_runner = """#!/usr/bin/env sh
-case "$*" in
-  *"ci --check"*)
-    printf 'gate mutation\n' > tracked.txt
-    ;;
-esac
-exit 0
-"""
-            for executable in ("py", "python3", "python"):
-                path = fake_bin / executable
-                path.write_text(fake_runner, encoding="utf-8", newline="\n")
-                path.chmod(0o755)
 
             tracked.write_text("staged content\n", encoding="utf-8")
             run_git(repo, "add", "tracked.txt")
@@ -350,7 +360,6 @@ exit 0
             draft.write_text("keep me\n", encoding="utf-8")
 
             env = os.environ.copy()
-            env["PATH"] = f"{fake_bin}{os.pathsep}{env['PATH']}"
             result = run_git(repo, "commit", "-m", "restore must fail safely", env=env)
 
             self.assertNotEqual(result.returncode, 0)
