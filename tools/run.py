@@ -116,7 +116,7 @@ def _client_cmd(*args: str) -> list[str]:
 
 
 def _client_unit_tests_cmd() -> list[str]:
-    return _client_cmd("test", "--", "--run", "--retry=1")
+    return _client_cmd("test", "--", "--run", "--retry=1", "--reporter=verbose")
 
 
 def _client_e2e_cmd() -> list[str]:

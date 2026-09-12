@@ -2,11 +2,13 @@ import { defineConfig, devices } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-const clientPort = Number.parseInt(process.env.PORTFOLIO_E2E_PORT ?? '4174', 10)
-if (!Number.isInteger(clientPort) || clientPort < 1 || clientPort > 65_535) {
-  throw new Error(`Invalid PORTFOLIO_E2E_PORT: ${process.env.PORTFOLIO_E2E_PORT}`)
+const configuredOrigin = process.env.PORTFOLIO_E2E_ORIGIN
+const clientOrigin = configuredOrigin ?? 'http://127.0.0.1:4174'
+const parsedOrigin = new URL(clientOrigin)
+if (parsedOrigin.protocol !== 'http:' || parsedOrigin.hostname !== '127.0.0.1' || parsedOrigin.port === '') {
+  throw new Error(`Invalid PORTFOLIO_E2E_ORIGIN: ${configuredOrigin}`)
 }
-const clientOrigin = `http://127.0.0.1:${clientPort}`
+const useExternalServer = process.env.PORTFOLIO_E2E_EXTERNAL_SERVER === 'true'
 const nodePath = JSON.stringify(process.execPath)
 const viteCliPath = JSON.stringify(fileURLToPath(new URL('./node_modules/vite/bin/vite.js', import.meta.url)))
 const siteConfig = JSON.parse(readFileSync(new URL('./site.config.json', import.meta.url), 'utf8')) as {
@@ -42,9 +44,9 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: [
+  webServer: useExternalServer ? undefined : [
     {
-      command: `${nodePath} ${viteCliPath} preview --host 127.0.0.1 --port ${clientPort} --strictPort`,
+      command: `${nodePath} ${viteCliPath} preview --host 127.0.0.1 --port ${parsedOrigin.port} --strictPort`,
       url: clientOrigin,
       timeout: 120_000,
       reuseExistingServer: false,

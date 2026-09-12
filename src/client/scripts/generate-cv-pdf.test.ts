@@ -1,7 +1,5 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { EventEmitter } from 'node:events'
-import { createServer } from 'node:net'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { PDFDocument } from 'pdf-lib'
@@ -11,10 +9,6 @@ import {
   assertCvPdfPageCount,
   generateCvPdf,
   rewritePreviewLinksForPdf,
-  assertPreviewPortAvailable,
-  findAvailablePreviewUrl,
-  startPreviewProcess,
-  stopPreviewProcess,
 } from './generate-cv-pdf.mjs'
 
 const temporaryRoots: string[] = []
@@ -87,153 +81,37 @@ describe('assertCvPdf', () => {
 })
 
 describe('generateCvPdf', () => {
-  test('selects an available loopback port for each preview', async () => {
-    const previewUrl = await findAvailablePreviewUrl()
-
-    expect(new URL(previewUrl).hostname).toBe('127.0.0.1')
-    expect(Number(new URL(previewUrl).port)).toBeGreaterThan(0)
-    await expect(assertPreviewPortAvailable(previewUrl)).resolves.toBeUndefined()
-  })
-
-  test('rejects an occupied preview port before starting a CV PDF preview', async () => {
-    const server = createServer()
-    await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve))
-    const address = server.address()
-    if (address === null || typeof address === 'string') throw new Error('Expected a TCP port')
-
-    try {
-      await expect(assertPreviewPortAvailable(`http://127.0.0.1:${address.port}`)).rejects.toThrow(
-        'CV PDF preview port is already in use',
-      )
-    } finally {
-      await new Promise<void>((resolve, reject) => server.close((error) => error === undefined ? resolve() : reject(error)))
-    }
-  })
-
-  test('does not create a preview process when the preview port is unavailable', async () => {
-    const startPreview = vi.fn()
+  test('uses and closes the same owned preview server when generation fails', async () => {
+    const preview = { origin: 'http://127.0.0.1:43125', server: { name: 'preview' } }
+    const closeOwnedPreview = vi.fn(async () => {})
+    const { browser } = browserFixture(['2', '1'])
 
     await expect(generateCvPdf({
-      assertPreviewPort: vi.fn(async () => {
-        throw new Error('CV PDF preview port is already in use')
-      }),
-      startPreview,
-    })).rejects.toThrow('CV PDF preview port is already in use')
+      pdfPath: await temporaryPdf(Buffer.alloc(0)),
+      startOwnedPreview: vi.fn(async () => preview),
+      closeOwnedPreview,
+      launchBrowser: vi.fn(async () => browser),
+    })).rejects.toThrow('expected CV page regions')
 
-    expect(startPreview).not.toHaveBeenCalled()
+    expect(closeOwnedPreview).toHaveBeenCalledWith(preview.server)
   })
 
-  test('starts the POSIX Vite preview directly in its own process group', () => {
-    const preview = { exitCode: null, pid: 1234 }
-    const spawnProcess = vi.fn(() => preview)
+  test('preserves both the primary generation failure and cleanup failure', async () => {
+    const preview = { origin: 'http://127.0.0.1:43125', server: { name: 'preview' } }
+    const { browser } = browserFixture(['2', '1'])
 
-    expect(startPreviewProcess('/client', 'http://127.0.0.1:43123', {
-      platform: 'linux',
-      processPath: '/node',
-      spawnProcess,
-    })).toBe(preview)
+    const failure = await generateCvPdf({
+      pdfPath: await temporaryPdf(Buffer.alloc(0)),
+      startOwnedPreview: vi.fn(async () => preview),
+      closeOwnedPreview: vi.fn(async () => { throw new Error('preview cleanup failed') }),
+      launchBrowser: vi.fn(async () => browser),
+    }).catch((error: unknown) => error)
 
-    expect(spawnProcess).toHaveBeenCalledWith('/node', [
-      path.join('/client', 'node_modules', 'vite', 'bin', 'vite.js'),
-      'preview',
-      '--host',
-      '127.0.0.1',
-      '--port',
-      '43123',
-      '--strictPort',
-    ], {
-      cwd: '/client',
-      detached: true,
-      stdio: 'inherit',
-    })
-  })
-
-  test('starts the Windows Vite preview as the owned process rather than a command-shell wrapper', () => {
-    const preview = { exitCode: null, pid: 1234 }
-    const spawnProcess = vi.fn(() => preview)
-
-    expect(startPreviewProcess('C:\\client', 'http://127.0.0.1:43124', {
-      platform: 'win32',
-      processPath: 'C:\\node.exe',
-      spawnProcess,
-    })).toBe(preview)
-
-    expect(spawnProcess).toHaveBeenCalledWith('C:\\node.exe', [
-      path.join('C:\\client', 'node_modules', 'vite', 'bin', 'vite.js'),
-      'preview',
-      '--host',
-      '127.0.0.1',
-      '--port',
-      '43124',
-      '--strictPort',
-    ], {
-      cwd: 'C:\\client',
-      detached: false,
-      stdio: 'inherit',
-    })
-  })
-
-  test('stops the POSIX preview process group so Vite cannot outlive the PDF generator', async () => {
-    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
-    const terminateProcess = vi.fn(() => queueMicrotask(() => preview.emit('exit', null)))
-
-    await stopPreviewProcess(preview, { platform: 'linux', terminateProcess })
-
-    expect(terminateProcess).toHaveBeenCalledWith(-1234, 'SIGTERM')
-  })
-
-  test('stops the Windows preview process tree', async () => {
-    const preview = Object.assign(new EventEmitter(), { exitCode: null as number | null, pid: 1234 })
-    const cleanup = new EventEmitter()
-    const spawnProcess = vi.fn(() => {
-      queueMicrotask(() => {
-        preview.exitCode = 0
-        cleanup.emit('exit', 0)
-      })
-      return cleanup
-    })
-
-    await stopPreviewProcess(preview, { platform: 'win32', spawnProcess })
-
-    expect(spawnProcess).toHaveBeenCalledWith('taskkill.exe', ['/pid', '1234', '/t', '/f'], { stdio: 'ignore' })
-  })
-
-  test('reports a failed Windows preview cleanup', async () => {
-    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
-    const cleanup = new EventEmitter()
-    const spawnProcess = vi.fn(() => {
-      queueMicrotask(() => cleanup.emit('exit', 1))
-      return cleanup
-    })
-
-    await expect(stopPreviewProcess(preview, { platform: 'win32', spawnProcess })).rejects.toThrow(
-      'taskkill failed for CV PDF preview process 1234 with exit code 1',
-    )
-  })
-
-  test('clears the Windows termination timeout after the owned preview exits', async () => {
-    const preview = Object.assign(new EventEmitter(), { exitCode: null, pid: 1234 })
-    const cleanup = new EventEmitter()
-    const timeoutHandle = Symbol('timeout')
-    const scheduleTimeout = vi.fn(() => timeoutHandle)
-    const cancelTimeout = vi.fn()
-    const spawnProcess = vi.fn(() => {
-      queueMicrotask(() => {
-        cleanup.emit('exit', 0)
-        setTimeout(() => preview.emit('exit', 0), 0)
-      })
-      return cleanup
-    })
-
-    await stopPreviewProcess(preview, {
-      platform: 'win32',
-      spawnProcess,
-      scheduleTimeout,
-      cancelTimeout,
-    })
-
-    expect(scheduleTimeout).toHaveBeenCalledOnce()
-    expect(cancelTimeout).toHaveBeenCalledWith(timeoutHandle)
+    expect(failure).toBeInstanceOf(AggregateError)
+    expect((failure as AggregateError).errors.map((error) => (error as Error).message)).toEqual([
+      'expected CV page regions ["1", "2"], received ["2", "1"]',
+      'preview cleanup failed',
+    ])
   })
 
   test('rewrites preview-server links to the canonical public origin before printing', async () => {
@@ -253,22 +131,18 @@ describe('generateCvPdf', () => {
 
   test('requires two ordered CV pages and closes every resource after success', async () => {
     const pdfPath = await temporaryPdf(Buffer.alloc(0))
-    const preview = { name: 'preview' }
-    const startPreview = vi.fn(async () => preview)
-    const waitForPreview = vi.fn(async () => {})
-    const stopPreview = vi.fn(async () => {})
+    const preview = { origin: 'http://127.0.0.1:4175', server: { name: 'preview' } }
+    const startOwnedPreview = vi.fn(async () => preview)
+    const closeOwnedPreview = vi.fn(async () => {})
     const rewriteLinksForPdf = vi.fn(async () => {})
     const assertPdfPageCount = vi.fn(async () => 2)
     const { browser, page } = browserFixture(['1', '2'])
 
     await generateCvPdf({
       pdfPath,
-      previewUrl: 'http://127.0.0.1:4175',
-      assertPreviewPort: vi.fn(async () => {}),
-      startPreview,
-      waitForPreview,
+      startOwnedPreview,
       launchBrowser: vi.fn(async () => browser),
-      stopPreview,
+      closeOwnedPreview,
       rewriteLinksForPdf,
       assertPdfPageCount,
     })
@@ -288,46 +162,26 @@ describe('generateCvPdf', () => {
     expect(await readFile(pdfPath, 'utf8')).toContain('%PDF')
     expect(page.close).toHaveBeenCalledOnce()
     expect(browser.close).toHaveBeenCalledOnce()
-    expect(stopPreview).toHaveBeenCalledWith(preview)
+    expect(closeOwnedPreview).toHaveBeenCalledWith(preview.server)
   })
 
   test('closes every resource when CV page regions are invalid', async () => {
     const pdfPath = await temporaryPdf(Buffer.alloc(0))
-    const preview = { name: 'preview' }
-    const stopPreview = vi.fn(async () => {})
+    const preview = { origin: 'http://127.0.0.1:4175', server: { name: 'preview' } }
+    const closeOwnedPreview = vi.fn(async () => {})
     const { browser, page } = browserFixture(['2', '1'])
 
     await expect(generateCvPdf({
       pdfPath,
-      previewUrl: 'http://127.0.0.1:4175',
-      assertPreviewPort: vi.fn(async () => {}),
-      startPreview: vi.fn(async () => preview),
-      waitForPreview: vi.fn(async () => {}),
+      startOwnedPreview: vi.fn(async () => preview),
       launchBrowser: vi.fn(async () => browser),
-      stopPreview,
+      closeOwnedPreview,
     })).rejects.toThrow('expected CV page regions ["1", "2"], received ["2", "1"]')
 
     expect(page.pdf).not.toHaveBeenCalled()
     expect(page.close).toHaveBeenCalledOnce()
     expect(browser.close).toHaveBeenCalledOnce()
-    expect(stopPreview).toHaveBeenCalledWith(preview)
+    expect(closeOwnedPreview).toHaveBeenCalledWith(preview.server)
   })
 
-  test('stops its preview when readiness fails', async () => {
-    const preview = { name: 'preview' }
-    const stopPreview = vi.fn(async () => {})
-
-    await expect(generateCvPdf({
-      clientRoot: '/client',
-      findPreviewUrl: vi.fn(async () => 'http://127.0.0.1:43125'),
-      assertPreviewPort: vi.fn(async () => {}),
-      startPreview: vi.fn(async () => preview),
-      waitForPreview: vi.fn(async () => {
-        throw new Error('preview failed before readiness')
-      }),
-      stopPreview,
-    })).rejects.toThrow('preview failed before readiness')
-
-    expect(stopPreview).toHaveBeenCalledWith(preview)
-  })
 })

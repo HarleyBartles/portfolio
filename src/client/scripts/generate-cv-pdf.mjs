@@ -1,11 +1,9 @@
-import { spawn } from 'node:child_process'
-import { once } from 'node:events'
 import { existsSync, readFileSync, statSync } from 'node:fs'
-import { createServer } from 'node:net'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
 import { PDFDocument } from 'pdf-lib'
+import { closeOwnedPreview, startOwnedPreview } from './owned-preview.mjs'
 
 export const MAX_CV_PDF_BYTES = 512 * 1024
 
@@ -51,150 +49,6 @@ export async function assertCvPdfPageCount(pdfPath, expectedPageCount = 2) {
   return pageCount
 }
 
-export async function findAvailablePreviewUrl(
-  host = '127.0.0.1',
-  { createNetworkServer = createServer } = {},
-) {
-  const port = await new Promise((resolve, reject) => {
-    const server = createNetworkServer()
-    server.once('error', reject)
-    server.listen(0, host, () => {
-      const address = server.address()
-      if (address === null || typeof address === 'string') {
-        server.close()
-        reject(new Error('CV PDF preview could not allocate a TCP port'))
-        return
-      }
-      server.close((error) => error === undefined ? resolve(address.port) : reject(error))
-    })
-  })
-
-  return `http://${host}:${port}`
-}
-
-export function startPreviewProcess(
-  clientRoot,
-  previewUrl,
-  {
-    platform = process.platform,
-    processPath = process.execPath,
-    spawnProcess = spawn,
-  } = {},
-) {
-  const url = new URL(previewUrl)
-  const previewArguments = [
-    path.join(clientRoot, 'node_modules', 'vite', 'bin', 'vite.js'),
-    'preview',
-    '--host',
-    url.hostname,
-    '--port',
-    url.port,
-    '--strictPort',
-  ]
-
-  return spawnProcess(processPath, previewArguments, {
-    cwd: clientRoot,
-    detached: platform !== 'win32',
-    stdio: 'inherit',
-  })
-}
-
-export async function assertPreviewPortAvailable(previewUrl) {
-  const url = new URL(previewUrl)
-  const host = url.hostname
-  const port = Number(url.port || (url.protocol === 'https:' ? 443 : 80))
-
-  await new Promise((resolve, reject) => {
-    const server = createServer()
-
-    server.once('error', () => {
-      reject(new Error(`CV PDF preview port is already in use: ${host}:${port}`))
-    })
-    server.listen(port, host, () => {
-      server.close((error) => {
-        if (error === undefined) {
-          resolve()
-          return
-        }
-        reject(error)
-      })
-    })
-  })
-}
-
-async function waitForPreviewServer(previewUrl, previewProcess, timeoutMs = 30_000) {
-  const deadline = Date.now() + timeoutMs
-
-  while (Date.now() < deadline) {
-    if (previewProcess.exitCode !== null) {
-      throw new Error(`CV PDF preview exited before it was ready (exit code ${previewProcess.exitCode})`)
-    }
-
-    try {
-      const response = await fetch(previewUrl)
-      if (response.ok) {
-        return
-      }
-    } catch {
-      // The polling loop owns readiness; the preview process may still be starting.
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 100))
-  }
-
-  throw new Error(`CV PDF preview did not become ready within ${timeoutMs}ms`)
-}
-
-export async function stopPreviewProcess(
-  previewProcess,
-  {
-    platform = process.platform,
-    spawnProcess = spawn,
-    terminateProcess = process.kill,
-    scheduleTimeout = setTimeout,
-    cancelTimeout = clearTimeout,
-  } = {},
-) {
-  if (previewProcess === undefined || previewProcess.exitCode !== null) {
-    return
-  }
-
-  if (platform === 'win32' && previewProcess.pid !== undefined) {
-    const cleanup = spawnProcess('taskkill.exe', ['/pid', String(previewProcess.pid), '/t', '/f'], { stdio: 'ignore' })
-    const [cleanupExitCode] = await once(cleanup, 'exit')
-    if (cleanupExitCode !== 0) {
-      throw new Error(`taskkill failed for CV PDF preview process ${previewProcess.pid} with exit code ${cleanupExitCode}`)
-    }
-    if (previewProcess.exitCode === null) {
-      let timeoutHandle
-      try {
-        await Promise.race([
-          once(previewProcess, 'exit'),
-          new Promise((_, reject) => {
-            timeoutHandle = scheduleTimeout(
-              () => reject(new Error(`CV PDF preview process ${previewProcess.pid} did not exit after taskkill`)),
-              5_000,
-            )
-          }),
-        ])
-      } finally {
-        if (timeoutHandle !== undefined) {
-          cancelTimeout(timeoutHandle)
-        }
-      }
-    }
-    return
-  }
-
-  const exited = once(previewProcess, 'exit')
-  if (previewProcess.pid !== undefined) {
-    terminateProcess(-previewProcess.pid, 'SIGTERM')
-  } else {
-    previewProcess.kill('SIGTERM')
-  }
-  await exited
-}
-
 export async function rewritePreviewLinksForPdf(page, previewUrl) {
   const previewOrigin = new URL(previewUrl).origin
   const linkTargets = await page.evaluate((localOrigin) => {
@@ -222,29 +76,24 @@ export async function rewritePreviewLinksForPdf(page, previewUrl) {
 export async function generateCvPdf({
   clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   pdfPath = path.join(clientRoot, 'dist', 'harley-bartles-cv.pdf'),
-  previewUrl,
-  findPreviewUrl = findAvailablePreviewUrl,
-  assertPreviewPort = assertPreviewPortAvailable,
-  startPreview = startPreviewProcess,
-  waitForPreview = waitForPreviewServer,
+  startOwnedPreview: openPreview = startOwnedPreview,
+  closeOwnedPreview: closePreview = closeOwnedPreview,
   launchBrowser = () => chromium.launch(),
-  stopPreview = stopPreviewProcess,
   rewriteLinksForPdf = rewritePreviewLinksForPdf,
   assertPdfPageCount = assertCvPdfPageCount,
 } = {}) {
-  let previewProcess
+  let preview
   let browser
   let page
 
+  let result
+  let primaryError
   try {
-    const resolvedPreviewUrl = previewUrl ?? await findPreviewUrl()
-    await assertPreviewPort(resolvedPreviewUrl)
-    previewProcess = await startPreview(clientRoot, resolvedPreviewUrl)
-    await waitForPreview(resolvedPreviewUrl, previewProcess)
+    preview = await openPreview(clientRoot)
     browser = await launchBrowser()
     page = await browser.newPage()
 
-    await page.goto(`${resolvedPreviewUrl}${activeBasePath === '/' ? '' : activeBasePath.slice(0, -1)}/cv/`, { waitUntil: 'networkidle' })
+    await page.goto(`${preview.origin}${activeBasePath === '/' ? '' : activeBasePath.slice(0, -1)}/cv/`, { waitUntil: 'networkidle' })
     const pageRegions = await page.evaluate(async () => {
       await document.fonts.ready
       return Array.from(document.querySelectorAll('[data-cv-page]')).map((element) => element.getAttribute('data-cv-page'))
@@ -256,7 +105,7 @@ export async function generateCvPdf({
       )
     }
 
-    await rewriteLinksForPdf(page, resolvedPreviewUrl)
+    await rewriteLinksForPdf(page, preview.origin)
     await page.emulateMedia({ media: 'print' })
     await page.pdf({
       path: pdfPath,
@@ -269,18 +118,21 @@ export async function generateCvPdf({
 
     const pdfBytes = assertCvPdf(pdfPath)
     const pdfPages = await assertPdfPageCount(pdfPath)
-    return { pdfPath, pdfBytes, pdfPages }
-  } finally {
-    try {
-      await page?.close()
-    } finally {
-      try {
-        await browser?.close()
-      } finally {
-        await stopPreview(previewProcess)
-      }
-    }
+    result = { pdfPath, pdfBytes, pdfPages }
+  } catch (error) {
+    primaryError = error
   }
+
+  const cleanupErrors = []
+  for (const cleanup of [() => page?.close(), () => browser?.close(), () => closePreview(preview?.server)]) {
+    try { await cleanup() } catch (error) { cleanupErrors.push(error) }
+  }
+  if (primaryError !== undefined && cleanupErrors.length > 0) {
+    throw new AggregateError([primaryError, ...cleanupErrors], 'CV PDF generation and cleanup failed')
+  }
+  if (primaryError !== undefined) throw primaryError
+  if (cleanupErrors.length > 0) throw new AggregateError(cleanupErrors, 'CV PDF cleanup failed')
+  return result
 }
 
 const scriptPath = process.argv[1] === undefined ? '' : pathToFileURL(path.resolve(process.argv[1])).href

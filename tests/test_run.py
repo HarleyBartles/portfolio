@@ -41,7 +41,16 @@ class CanonicalRunnerTests(unittest.TestCase):
     @patch("shutil.which", return_value="C:/node/npm.cmd")
     def test_canonical_client_tests_retry_once_without_changing_focused_test_defaults(self, _which) -> None:
         self.assertEqual(
-            ["C:/node/npm.cmd", "--prefix", "src/client", "test", "--", "--run", "--retry=1"],
+            [
+                "C:/node/npm.cmd",
+                "--prefix",
+                "src/client",
+                "test",
+                "--",
+                "--run",
+                "--retry=1",
+                "--reporter=verbose",
+            ],
             run._client_unit_tests_cmd(),
         )
         self.assertEqual(
