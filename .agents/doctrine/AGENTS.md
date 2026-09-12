@@ -12,7 +12,7 @@ This directory holds the repo's durable doctrine: policies, contracts, rule sets
 - Use when you need the navigation contract for docs and indexes: [`mesh-policy.md`](./mesh-policy.md).
 - Use before any repository hygiene, layout, or local capability-custody decision: [`surface-classification-policy.md`](./surface-classification-policy.md), [`non-repo-locations-policy.md`](./non-repo-locations-policy.md), and [`marketplace-custody-policy.md`](./marketplace-custody-policy.md).
 - Use before routing through runbooks: [`repo-runbook-policy.md`](./repo-runbook-policy.md) and [`../runbooks/AGENTS.md`](../runbooks/AGENTS.md).
-- Use before considering a plan complete: [`completed-plans.md`](./completed-plans.md).
+- Use before completing or removing a planning artifact: [`completed-artifacts.md`](./completed-artifacts.md).
 
 ## Working Rules
 

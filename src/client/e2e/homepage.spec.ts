@@ -44,9 +44,11 @@ test('homepage presents the accepted deterministic edition in editorial order', 
   await page.goto('./')
 
   await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
+  const skipLink = page.getByRole('link', { name: 'Skip to content' })
+  await expect(skipLink).toBeAttached()
   await page.locator('body').focus()
   await page.keyboard.press('Tab')
-  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused()
+  await expect(skipLink).toBeFocused()
   await expect(page.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
   await expect(page.locator('[data-home-movement]')).toHaveCount(6)
   expect(await page.locator('[data-home-movement]').evaluateAll((elements) => elements.map((element) => element.getAttribute('data-home-movement')))).toEqual(movementOrder)

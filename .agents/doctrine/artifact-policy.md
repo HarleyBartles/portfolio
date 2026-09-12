@@ -16,12 +16,15 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
   override or variant of a shared marketplace skill) and marketplace-derived skills
   described by `.provenance.json`.
 - `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. Completed plans
-  move to `.agents/plans/completed/`.
+  leave the tracked tree; Git history is the immutable record.
 - `.agents/plans/<epic-name>/` holds a multi-plan epic roadmap and its plans while the
-  epic is in flight; move completed plans to `.agents/plans/completed/`.
-- `.agents/plans/completed/` holds historical, completed implementation plans.
-- `.agents/specs/` holds in-flight design specs and is tracked.
-- `.agents/specs/completed/` holds historical, completed design specs.
+  epic is in flight. Completed child plans leave the tracked tree unless they remain
+  actively required by the in-flight roadmap.
+- `.agents/specs/` holds in-flight design specs and is tracked. Completed specs leave
+  the tracked tree after enduring decisions are promoted to current doctrine or ADRs.
+- Optional convenience copies of completed planning artifacts may live only in the
+  central disposable `_agent-scratch/<repo-name>/completed/` store described by
+  `.agents/doctrine/completed-artifacts.md`; they are not evidence.
 - `.agents/sdd/` is a legacy, ignored local-only workspace. New SDD outputs and
   temporary execution artifacts live outside the repo tree per
   `.agents/doctrine/non-repo-locations-policy.md`.

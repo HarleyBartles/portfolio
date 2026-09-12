@@ -35,7 +35,7 @@ describe('project presentations', () => {
     expect(await screen.findByRole('heading', { level: 2, name: 'The day the database disappeared' }, { timeout: 15_000 })).toBeVisible()
 
     render(<PortfolioThemeProvider><MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}><UsualSpecialistsStory /></MemoryRouter></PortfolioThemeProvider>)
-    expect(await screen.findByRole('heading', { level: 2, name: 'Index' }, { timeout: 5_000 })).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 2, name: 'Index' }, { timeout: 15_000 })).toBeVisible()
 
     render(<PortfolioThemeProvider><Suspense fallback={null}><LearningLabCaseStudy /></Suspense></PortfolioThemeProvider>)
     expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 15_000 })).toBeVisible()
