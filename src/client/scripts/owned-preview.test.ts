@@ -1,4 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
+import path from 'node:path'
 // @ts-expect-error Production utility is plain ESM for direct Node execution.
 import { startOwnedPreview } from './owned-preview.mjs'
 
@@ -8,7 +9,7 @@ describe('owned Vite preview', () => {
     const startPreview = vi.fn(async () => server)
     await expect(startOwnedPreview('/client', { startPreview })).resolves.toEqual({ origin: 'http://127.0.0.1:43125', server })
     expect(startPreview).toHaveBeenCalledWith({
-      root: '/client', configFile: 'vite.config.ts', preview: { host: '127.0.0.1', port: 0, strictPort: true },
+      root: '/client', configFile: path.join('/client', 'vite.config.ts'), preview: { host: '127.0.0.1', port: 0, strictPort: true },
     })
   })
 

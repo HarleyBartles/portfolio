@@ -1,9 +1,10 @@
 import { preview as vitePreview } from 'vite'
+import path from 'node:path'
 
 export async function startOwnedPreview(clientRoot, { startPreview = vitePreview } = {}) {
   const server = await startPreview({
     root: clientRoot,
-    configFile: 'vite.config.ts',
+    configFile: path.join(clientRoot, 'vite.config.ts'),
     preview: { host: '127.0.0.1', port: 0, strictPort: true },
   })
   const address = server.httpServer.address()
