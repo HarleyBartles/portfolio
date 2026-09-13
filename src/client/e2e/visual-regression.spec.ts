@@ -469,7 +469,7 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
 test('Specialists Index draft keeps the approved composition across protected viewports', async ({ page }) => {
   for (const width of [2560, 1600, 1440, 768, 390, 320] as const) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await openStable(page, './patch/the-usual-specialists')
+    await openStable(page, './patch/the-usual-specialists/next')
     const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
     await waitForImages(story)
     const indexMilestone = page.locator('[data-specialists-index-milestone]')

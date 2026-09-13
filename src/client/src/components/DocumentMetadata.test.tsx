@@ -61,6 +61,36 @@ describe('DocumentMetadata', () => {
     expect(readMeta('twitter:card')).toHaveAttribute('content', 'summary_large_image')
   })
 
+  test('removes publication identity when a public document becomes a no-index preview', () => {
+    const { rerender } = render(
+      <DocumentMetadata
+        title="Project Stories | Harley Bartles"
+        description="Selected public engineering project stories from Harley Bartles."
+        canonicalPath="/projects"
+      />,
+    )
+
+    expect(readCanonical()).not.toBeNull()
+    expect(readProperty('og:url')).not.toBeNull()
+    expect(readProperty('og:image')).not.toBeNull()
+    expect(readMeta('twitter:image')).not.toBeNull()
+
+    rerender(
+      <DocumentMetadata
+        title="The Usual Specialists Preview | Harley Bartles"
+        description="Unlinked preview of the in-progress document-world edition of The Usual Specialists."
+        canonicalPath="/patch/the-usual-specialists/next/"
+        noIndex
+      />,
+    )
+
+    expect(readMeta('robots')).toHaveAttribute('content', 'noindex, nofollow')
+    expect(readCanonical()).toBeNull()
+    expect(readProperty('og:url')).toBeNull()
+    expect(readProperty('og:image')).toBeNull()
+    expect(readMeta('twitter:image')).toBeNull()
+  })
+
   test('normalizes canonical paths without exposing server paths or query details', () => {
     render(
       <DocumentMetadata

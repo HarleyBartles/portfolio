@@ -44,11 +44,19 @@ describe('route document generator', () => {
       }),
     )
 
-    await buildRouteDocuments({
+    const result = await buildRouteDocuments({
       distRoot,
       manifestPath,
       baseUrl: '/',
       origin: 'https://harleybartles.com',
+      previewRoutes: [
+        {
+          path: '/patch/the-usual-specialists/next/',
+          title: 'The Usual Specialists Preview | Harley Bartles',
+          description: 'Unlinked preview of the in-progress document-world edition of The Usual Specialists.',
+          indexability: 'noindex',
+        },
+      ],
     })
 
     const projects = await readFile(path.join(distRoot, 'projects', 'index.html'), 'utf8')
@@ -56,6 +64,10 @@ describe('route document generator', () => {
     const cv = await readFile(path.join(distRoot, 'cv', 'index.html'), 'utf8')
     const article = await readFile(
       path.join(distRoot, 'writing', 'agentic-engineering-vs-vibe-coding', 'index.html'),
+      'utf8',
+    )
+    const preview = await readFile(
+      path.join(distRoot, 'patch', 'the-usual-specialists', 'next', 'index.html'),
       'utf8',
     )
     const fallback = await readFile(path.join(distRoot, '404.html'), 'utf8')
@@ -74,6 +86,14 @@ describe('route document generator', () => {
     expect(article).toContain(
       'https://harleybartles.com/writing/agentic-engineering-vs-vibe-coding',
     )
+    expect(preview).toContain('<title>The Usual Specialists Preview | Harley Bartles</title>')
+    expect(preview).toContain('name="robots" content="noindex, nofollow"')
+    expect(preview).not.toContain('rel="canonical"')
+    expect(preview).not.toContain('property="og:url"')
+    expect(preview).not.toContain('property="og:image"')
+    expect(preview).not.toContain('name="twitter:image"')
+    expect(result.publicRoutes).not.toContain('/patch/the-usual-specialists/next/')
+    expect(result.previewRoutes).toEqual(['/patch/the-usual-specialists/next/'])
     await expect(access(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'))).rejects.toThrow()
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
     expect(fallback).not.toContain('rel="canonical"')

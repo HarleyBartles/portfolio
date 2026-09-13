@@ -57,6 +57,7 @@ test('homepage presents the accepted deterministic edition in editorial order', 
   await expect(page.getByRole('link', { name: 'Follow the trail →' })).toHaveAttribute('href', /projects\/wild-bunch$/)
   await expect(page.getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', /writing\/i-made-agentic-engineering-harder-than-it-needed-to-be$/)
   await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
+  await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
   await expect(page.getByRole('link', { name: 'When the process becomes the problem ↓' })).toHaveAttribute('href', '#writing')
   await expect(page.getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
 })

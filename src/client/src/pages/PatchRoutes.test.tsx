@@ -96,17 +96,38 @@ describe('Adventures of Patch routes', () => {
     expect(router.state.location.pathname).toBe('/portfolio/patch/lawful-heist')
   })
 
-  test('publishes the route-owned Usual Specialists blank slate on its canonical route', async () => {
+  test('keeps the published Usual Specialists experience on its canonical route', async () => {
     const router = renderRoute('/patch/the-usual-specialists')
 
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
     expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 15_000 })).toBeVisible()
-    expect(document.querySelector('.content-page-header')).toBeNull()
-    expect(document.querySelector('.content-page-body')).toBeNull()
+    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' }, { timeout: 15_000 })
+    expect(within(story).getAllByRole('article')).toHaveLength(6)
+    expect(within(story).getByText('Advanced visual pre-production')).toBeVisible()
+    expect(within(story).getByRole('img', { name: /completed recruitment folder/i })).toBeVisible()
+    expect(document.querySelector('[data-visual-contract="patch-usual-specialists-index-draft"]')).toBeNull()
+    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index')
+    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://harleybartles.com/patch/the-usual-specialists',
+    )
+    expect(document.querySelector('.content-page-header')).not.toBeNull()
+    expect(document.querySelector('.content-page-body')).not.toBeNull()
+  }, 30_000)
+
+  test('serves the in-progress Usual Specialists V2 only on the unlinked preview route', async () => {
+    const router = renderRoute('/patch/the-usual-specialists/next/')
+
+    expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists/next/')
     const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
     expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
-    expect(story.querySelectorAll('[data-specialist]')).toHaveLength(0)
-    expect(screen.queryByRole('navigation', { name: 'Related content' })).not.toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="index"]')).toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="silk"]')).toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="writ"]')).not.toBeInTheDocument()
+    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull()
+    expect(document.querySelector('.content-page-header')).toBeNull()
+    expect(document.querySelector('.content-page-body')).toBeNull()
   }, 30_000)
 
   test.each([

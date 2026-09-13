@@ -6,7 +6,7 @@ import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 describe('Usual Specialists route-owned story', () => {
   test('composes Silk immediately after Index without later Specialist chapters', () => {
     render(
-      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists/next/']}>
         <UsualSpecialistsPage />
       </MemoryRouter>,
     )
@@ -46,7 +46,7 @@ describe('Usual Specialists route-owned story', () => {
 
   test('forwards an exceptional style override to the page root only', () => {
     render(
-      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists/next/']}>
         <UsualSpecialistsPage style={{ opacity: 0.5 }} />
       </MemoryRouter>,
     )
@@ -58,7 +58,7 @@ describe('Usual Specialists route-owned story', () => {
 
   test('does not expose caller className as a styling seam', () => {
     render(
-      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
+      <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists/next/']}>
         {/* @ts-expect-error className is intentionally not part of the vertical-slice API. */}
         <UsualSpecialistsPage className="external-control" />
       </MemoryRouter>,

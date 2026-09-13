@@ -3,6 +3,8 @@ import { expect, test } from '@playwright/test'
 const wildBunchPath = './projects/wild-bunch/'
 const patchPath = './projects/adventures-of-patch/'
 const learningLabPath = './projects/agentic-learning-lab/'
+const specialistsCanonicalPath = './patch/the-usual-specialists/'
+const specialistsPreviewPath = './patch/the-usual-specialists/next/'
 
 const learningLabModules = [
   'From chatbot to worker',
@@ -80,15 +82,20 @@ test('project header keeps its first-paint geometry while the visual chunk is pe
 })
 
 test('direct route loads keep case-study presentation chunks isolated', async ({ context }) => {
+  const requestedChunk = (requested: readonly string[], chunk: string) => requested.some((url) => {
+    const filename = new URL(url).pathname.split('/').at(-1) ?? ''
+    return filename.startsWith(`${chunk}-`)
+  })
   const routes = [
     { path: './projects/codex-marketplace/', heading: 'Agent Asset Marketplace', chunk: 'MarketplaceCaseStudy', siblings: ['LearningLabCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
     { path: learningLabPath, heading: 'Agentic Learning Lab', chunk: 'LearningLabCaseStudy', siblings: ['MarketplaceCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
     { path: wildBunchPath, heading: 'Wild Bunch', chunk: 'WildBunchCaseStudy', siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'PatchPipelineCaseStudy'] },
     { path: patchPath, heading: 'Adventures of Patch', chunk: 'PatchPipelineCaseStudy', siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'WildBunchCaseStudy'] },
     { path: './writing/use-superpowers/', heading: 'Use Superpowers', chunk: null, siblings: ['MarketplaceCaseStudy', 'LearningLabCaseStudy', 'WildBunchCaseStudy', 'PatchPipelineCaseStudy'] },
-    { path: './patch/identity-emporium/', heading: 'Identity Emporium', chunk: 'IdentityEmporiumPage', siblings: ['TournamentPage', 'UsualSpecialistsPage'] },
-    { path: './patch/tournament-of-reasonable-defaults/', heading: 'Tournament of Reasonable Defaults', chunk: 'TournamentPage', siblings: ['IdentityEmporiumPage', 'UsualSpecialistsPage'] },
-    { path: './patch/the-usual-specialists/', heading: 'The Usual Specialists', chunk: 'UsualSpecialistsPage', siblings: ['IdentityEmporiumPage', 'TournamentPage'] },
+    { path: './patch/identity-emporium/', heading: 'Identity Emporium', chunk: 'IdentityEmporiumPage', siblings: ['TournamentPage', 'LegacyUsualSpecialistsPage', 'UsualSpecialistsPage'] },
+    { path: './patch/tournament-of-reasonable-defaults/', heading: 'Tournament of Reasonable Defaults', chunk: 'TournamentPage', siblings: ['IdentityEmporiumPage', 'LegacyUsualSpecialistsPage', 'UsualSpecialistsPage'] },
+    { path: specialistsCanonicalPath, heading: 'The Usual Specialists', chunk: 'LegacyUsualSpecialistsPage', siblings: ['IdentityEmporiumPage', 'TournamentPage', 'UsualSpecialistsPage'] },
+    { path: specialistsPreviewPath, heading: 'The Usual Specialists', chunk: 'UsualSpecialistsPage', siblings: ['IdentityEmporiumPage', 'TournamentPage', 'LegacyUsualSpecialistsPage'] },
   ] as const
 
   for (const route of routes) {
@@ -98,14 +105,14 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
     await page.goto(route.path)
     await expect(page.getByRole('heading', { level: 1, name: route.heading })).toBeVisible()
 
-    if (route.chunk !== null) expect(requested.some((url) => url.includes(route.chunk))).toBe(true)
-    for (const sibling of route.siblings) expect(requested.some((url) => url.includes(sibling))).toBe(false)
+    if (route.chunk !== null) expect(requestedChunk(requested, route.chunk)).toBe(true)
+    for (const sibling of route.siblings) expect(requestedChunk(requested, sibling)).toBe(false)
     await page.close()
   }
 })
 
 test('The Usual Specialists preserves the accepted Index composition across authored responsive bands', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const widths = [2560, 1921, 1920, 1600, 1599, 1440, 1401, 1400, 1399, 901, 900, 768, 721, 720, 621, 620, 391, 390, 320] as const
   const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
   const box = async (locator: import('@playwright/test').Locator) => {
@@ -191,7 +198,7 @@ test('The Usual Specialists preserves the accepted Index composition across auth
 })
 
 test('The Usual Specialists keeps Silk as apertures through the mineral page across authored responsive bands', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const box = async (locator: import('@playwright/test').Locator) => {
     await expect(locator).toBeVisible()
     const value = await locator.boundingBox()
@@ -301,7 +308,7 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
 
   for (const width of [1400, 1440, 1599] as const) {
     await page.setViewportSize({ width, height: 1100 })
-    await page.goto('./patch/the-usual-specialists/')
+    await page.goto(specialistsPreviewPath)
 
     const opening = page.locator('[data-specialists-rope-piece="opening"]')
     const index = page.locator('[data-specialists-rope-piece="index"]')
@@ -432,7 +439,7 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
 
 test('The Usual Specialists authors the three-layer Index to Silk lock proof at 1440', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
-  await page.goto('./patch/the-usual-specialists/')
+  await page.goto(specialistsPreviewPath)
 
   const crossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
   const fallbackAnchor = crossing.locator('[data-specialists-crossing-anchor="index-silk"]')
@@ -516,7 +523,7 @@ test('The Usual Specialists preserves rope topology across authored responsive b
 
   for (const width of widths) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await page.goto('./patch/the-usual-specialists/')
+    await page.goto(specialistsPreviewPath)
 
     const opening = page.locator('[data-specialists-rope-piece="opening"]')
     const index = page.locator('[data-specialists-rope-piece="index"]')
@@ -674,7 +681,7 @@ test('The Usual Specialists preserves rope topology across authored responsive b
 test('The Usual Specialists layers Silk-owned rope below traversal and below the authored crossing lock', async ({ page }) => {
   for (const width of [1440, 390] as const) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await page.goto('./patch/the-usual-specialists/')
+    await page.goto(specialistsPreviewPath)
 
     const silk = page.getByRole('region', { name: 'Silk' })
     const traversalComposition = silk.locator('[data-silk-traversal-composition]')
@@ -712,7 +719,7 @@ test('The Usual Specialists layers Silk-owned rope below traversal and below the
 test('The Usual Specialists keeps the Index-to-Silk crossing outside the clipped Index milestone', async ({ page }) => {
   for (const width of [1440, 390] as const) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await page.goto('./patch/the-usual-specialists/')
+    await page.goto(specialistsPreviewPath)
 
     const milestone = page.locator('[data-specialists-index-milestone]')
     const crossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
@@ -740,7 +747,7 @@ test('The Usual Specialists keeps the Index-to-Silk crossing outside the clipped
 test('The Usual Specialists moves only the world behind the first Silk aperture on normal scroll', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('./patch/the-usual-specialists/')
+  await page.goto(specialistsPreviewPath)
 
   const composition = page.locator('[data-silk-commission="05"] [data-silk-commission-05-composition]')
   const viewport = composition.locator('[data-silk-commission-05-world-viewport]')
@@ -795,7 +802,7 @@ test('The Usual Specialists moves only the world behind the first Silk aperture 
 test('The Usual Specialists disables Silk aperture parallax for reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('./patch/the-usual-specialists/')
+  await page.goto(specialistsPreviewPath)
 
   const composition = page.locator('[data-silk-commission="05"] [data-silk-commission-05-composition]')
   const scene = composition.locator('[data-silk-commission-05-scene]')
@@ -807,7 +814,7 @@ test('The Usual Specialists disables Silk aperture parallax for reduced motion',
 })
 
 test('The Usual Specialists has no authored composition transition at 620', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const capture = async (width: 621 | 620) => {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPath)
@@ -839,7 +846,7 @@ test('The Usual Specialists has no authored composition transition at 620', asyn
 })
 
 test('The Usual Specialists keeps the accepted Index traversal relationships through ultrawide', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
   const box = async (locator: import('@playwright/test').Locator) => {
     const value = await locator.boundingBox()
@@ -886,7 +893,7 @@ test('The Usual Specialists keeps the accepted Index traversal relationships thr
 })
 
 test('The Usual Specialists switches the lower Patch across the upper Patch at the ultrawide boundary without collapsing their visual separation', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const minimumPatchGap = 48
   const traversal = (name: string) => page.locator(`[data-index-traversal="${name}"]`)
   const box = async (locator: import('@playwright/test').Locator) => {
@@ -933,7 +940,7 @@ test('The Usual Specialists switches the lower Patch across the upper Patch at t
 })
 
 test('The Usual Specialists keeps Commission 03 character evidence legible through the ultrawide overlap', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const minimumArtCellOverlap = 24
   const box = async (locator: import('@playwright/test').Locator) => {
     const value = await locator.boundingBox()
@@ -1011,7 +1018,7 @@ test('The Usual Specialists keeps Commission 03 character evidence legible throu
 })
 
 test('The Usual Specialists freezes its authored 2560 geometry above the ceiling', async ({ page }) => {
-  const specialistsPath = './patch/the-usual-specialists/'
+  const specialistsPath = specialistsPreviewPath
   const targets = [
     ['series-lockup', '[data-patch-series-lockup]'],
     ['specialists-wordmark', '[data-specialists-wordmark]'],

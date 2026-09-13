@@ -60,7 +60,7 @@
 - Consumes: the exact published pre-PORT-17 component on `main`, the manifest presentation identity `patch-usual-specialists`, and the ordinary `ContentPage` composition that `main` used for the published page.
 - Produces: a frozen `LegacyUsualSpecialistsPage` rendered by the canonical manifest-backed route inside the same ordinary content shell visitors currently know, while leaving the V2 `UsualSpecialistsPage` source untouched and ready for the explicit preview route in Task 2.
 
-- [ ] **Step 1: Write the canonical-route regression first.**
+- [x] **Step 1: Write the canonical-route regression first.**
 
 Replace the current V2-specific canonical test in `PatchRoutes.test.tsx` with a legacy-publication contract. Keep the existing `/patch/lawful-heist` 404 test unchanged.
 
@@ -90,7 +90,7 @@ expect(document.querySelector('.content-page-header')).not.toBeNull()
 expect(document.querySelector('.content-page-body')).not.toBeNull()
 ```
 
-- [ ] **Step 2: Run the canonical route test and verify RED.**
+- [x] **Step 2: Run the canonical route test and verify RED.**
 
 ```powershell
 npm --prefix src/client test -- --run src/pages/PatchRoutes.test.tsx
@@ -98,7 +98,7 @@ npm --prefix src/client test -- --run src/pages/PatchRoutes.test.tsx
 
 Expected: the canonical Specialists test fails because the current route still renders V2 full-frame.
 
-- [ ] **Step 3: Recover the legacy component byte-for-byte from `main`, then rename only its export.**
+- [x] **Step 3: Recover the legacy component byte-for-byte from `main`, then rename only its export.**
 
 Use Git as source custody rather than reconstructing the old page from memory. A Windows-safe raw-byte recovery command is:
 
@@ -121,7 +121,7 @@ Prove the production file differs from `main` only by that export rename:
 py -3 -c "import pathlib, subprocess; source=subprocess.check_output(['git','show','main:src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx']).decode('utf-8'); expected=source.replace('export function UsualSpecialistsPage()', 'export function LegacyUsualSpecialistsPage()'); actual=pathlib.Path(r'src/client/src/features/patch-showcase/LegacyUsualSpecialistsPage.tsx').read_text(encoding='utf-8'); assert actual == expected"
 ```
 
-- [ ] **Step 4: Recover and rename the published legacy component test.**
+- [x] **Step 4: Recover and rename the published legacy component test.**
 
 Recover `main:src/client/src/features/patch-showcase/UsualSpecialistsPage.test.tsx` into `LegacyUsualSpecialistsPage.test.tsx`, then make only the identity changes needed to import/render `LegacyUsualSpecialistsPage` and describe it as the frozen published story.
 
@@ -140,7 +140,7 @@ expect(within(story).getByRole('link', { name: /engineering case study/i })).toH
 )
 ```
 
-- [ ] **Step 5: Point the canonical presentation identity at the frozen component.**
+- [x] **Step 5: Point the canonical presentation identity at the frozen component.**
 
 In `projectPresentations.ts`, change only the `patch-usual-specialists` entry:
 
@@ -159,7 +159,7 @@ expect(within(story).getAllByRole('article')).toHaveLength(6)
 
 Do not register V2 as another presentation identity.
 
-- [ ] **Step 6: Remove the V2-only full-frame bypass from manifest-backed `ContentPage`.**
+- [x] **Step 6: Remove the V2-only full-frame bypass from manifest-backed `ContentPage`.**
 
 The current branch added this V2-specific canonical behavior:
 
@@ -201,7 +201,7 @@ Return the manifest-backed route to the ordinary `main` composition:
 
 Do not invent a generic frame-mode field in the presentation registry for this migration. V2 full-frame ownership moves to the explicit preview route in Task 2. Final cutover can deliberately restore V2 full-frame ownership when it switches the canonical presentation later.
 
-- [ ] **Step 7: Update the `ContentPage` canonical boundary test.**
+- [x] **Step 7: Update the `ContentPage` canonical boundary test.**
 
 Change the `patch-usual-specialists` presentation mock to a minimal legacy-shaped region, for example:
 
@@ -229,7 +229,7 @@ expect(container.querySelector('.content-page-body')).not.toBeNull()
 expect(screen.getByRole('region', { name: 'The Usual Specialists adventure' })).toBeVisible()
 ```
 
-- [ ] **Step 8: Run the focused canonical suite.**
+- [x] **Step 8: Run the focused canonical suite.**
 
 ```powershell
 npm --prefix src/client test -- --run src/features/patch-showcase/LegacyUsualSpecialistsPage.test.tsx src/features/case-study/projectPresentations.test.tsx src/pages/ContentPage.test.tsx src/pages/PatchRoutes.test.tsx
@@ -237,9 +237,11 @@ npm --prefix src/client test -- --run src/features/patch-showcase/LegacyUsualSpe
 
 Expected: all pass, including the still-existing `/patch/lawful-heist` 404 assertion.
 
-- [ ] **Step 9: Mark Task 1 complete in this plan only after the focused suite is green.**
+- [x] **Step 9: Mark Task 1 complete in this plan only after the focused suite is green.**
 
 Change every Task 1 checkbox above from `[ ]` to `[x]` only after the exact recovered legacy source has been verified against `main` and the focused suite passes. If execution commits are authorized, include this plan-progress edit in the Task 1 commit rather than leaving tracking dirt behind.
+
+> **Execution ruling (2026-09-13):** The attempted Task 1-only normal commit was correctly rejected by the complete hook because the existing V2 Playwright and protected-visual tests still targeted the canonical route that Task 1 had just restored to legacy. Tasks 1-4 therefore form one gate-coupled migration checkpoint in this execution. Do not bypass the hook or weaken those tests; complete the approved preview route and route-test migration before retrying the normal commit.
 
 ### Task 2: Add the explicit V2 preview route with runtime no-index metadata
 
@@ -256,7 +258,7 @@ Change every Task 1 checkbox above from `[ ]` to `[x]` only after the exact reco
 - Consumes: the unchanged V2 `UsualSpecialistsPage`, `SiteLayout mainFrame="full"`, existing `DocumentMetadata noIndex`, and one authored preview-route registration.
 - Produces: a directly addressable `/patch/the-usual-specialists/next/` route that owns V2 without participating in manifest/content discovery or canonical metadata.
 
-- [ ] **Step 1: Add the one explicit preview-route registration outside the content manifest.**
+- [x] **Step 1: Add the one explicit preview-route registration outside the content manifest.**
 
 Create `src/client/src/data/routes/preview-routes.json` with no content kind, slug, related content, share action, social image, or canonical identity:
 
@@ -273,7 +275,7 @@ Create `src/client/src/data/routes/preview-routes.json` with no content kind, sl
 
 This file is the cross-runtime source for preview deployment metadata. It is **not** input to `generate-route-catalogue.mjs`.
 
-- [ ] **Step 2: Write the preview route wrapper contract.**
+- [x] **Step 2: Write the preview route wrapper contract.**
 
 Create `UsualSpecialistsPreviewPage.test.tsx` around a fake `Presentation` component and require:
 
@@ -302,7 +304,7 @@ expect(screen.getByRole('main')).toHaveStyle({ width: '100%', maxWidth: 'none' }
 
 Use the same `SiteLayout` full-frame style assertion already owned by `SiteLayout.test.tsx`; do not add a public CSS class solely for this test.
 
-- [ ] **Step 3: Implement the specific preview wrapper.**
+- [x] **Step 3: Implement the specific preview wrapper.**
 
 `UsualSpecialistsPreviewPage.tsx` should accept the already-resolved V2 component from the router so the router can lazy-load V2 directly:
 
@@ -338,7 +340,7 @@ export const UsualSpecialistsPreviewPage = ({ Presentation }: UsualSpecialistsPr
 
 Do not add content navigation, related content, share actions, or a preview banner around V2. The preview should render the exact V2 composition under its intended site chrome.
 
-- [ ] **Step 4: Add the explicit router entry and lazy-load V2 directly.**
+- [x] **Step 4: Add the explicit router entry and lazy-load V2 directly.**
 
 Add a route loader in `app/router.tsx`:
 
@@ -368,7 +370,7 @@ Register the exact explicit path next to the Patch routes:
 
 Place it before `patch/:slug` for human readability even though React Router route ranking makes the nested explicit path unambiguous.
 
-- [ ] **Step 5: Strengthen the existing `DocumentMetadata` no-index proof.**
+- [x] **Step 5: Strengthen the existing `DocumentMetadata` no-index proof.**
 
 In `DocumentMetadata.test.tsx`, first render a public route to seed canonical/social metadata, then rerender a no-index preview and assert the existing cleanup semantics remove publication identity:
 
@@ -399,7 +401,7 @@ expect(readMeta('twitter:image')).toBeNull()
 
 Do not create a preview-specific metadata component.
 
-- [ ] **Step 6: Add canonical/preview route separation proof.**
+- [x] **Step 6: Add canonical/preview route separation proof.**
 
 In `PatchRoutes.test.tsx`, retain the Task 1 canonical legacy test and add a separate preview test:
 
@@ -420,7 +422,7 @@ expect(document.querySelector('.content-page-body')).toBeNull()
 
 The two route tests must make it impossible for canonical and preview ownership to swap silently.
 
-- [ ] **Step 7: Retarget the V2 component-only router context.**
+- [x] **Step 7: Retarget the V2 component-only router context.**
 
 In `UsualSpecialistsPage.test.tsx`, change its three `MemoryRouter` initial entries from canonical to preview:
 
@@ -430,7 +432,7 @@ initialEntries={['/portfolio/patch/the-usual-specialists/next/']}
 
 Do not change any V2 structure, ownership, or visual assertions.
 
-- [ ] **Step 8: Run the runtime preview suite.**
+- [x] **Step 8: Run the runtime preview suite.**
 
 ```powershell
 npm --prefix src/client test -- --run src/components/DocumentMetadata.test.tsx src/pages/UsualSpecialistsPreviewPage.test.tsx src/pages/PatchRoutes.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx
@@ -438,7 +440,7 @@ npm --prefix src/client test -- --run src/components/DocumentMetadata.test.tsx s
 
 Expected: canonical legacy and preview V2 both pass, and the preview has no canonical identity.
 
-- [ ] **Step 9: Mark Task 2 complete and record the intentional stage boundary.**
+- [x] **Step 9: Mark Task 2 complete and record the intentional stage boundary.**
 
 Change the Task 2 checkboxes to `[x]` only after the runtime preview suite is green. Task 2 intentionally establishes the React route before Task 3 teaches static/deployed route tooling about it; the tree remains buildable, but the preview is not publication-ready until Task 3 completes. Do not publish or hand off between those stages as though the preview deployment contract were finished. If commits are authorized, include this plan-progress edit with the Task 2 commit.
 
@@ -457,7 +459,7 @@ Change the Task 2 checkboxes to `[x]` only after the runtime preview suite is gr
 - Consumes: `preview-routes.json`, the existing static no-index metadata branch, the manifest-backed public route catalogue, and the deployed-route HTTP checker.
 - Produces: a generated static preview document and a deployed-preview validation lane that is explicitly separate from public route discovery.
 
-- [ ] **Step 1: Extend the route-document generator test first.**
+- [x] **Step 1: Extend the route-document generator test first.**
 
 Update the `buildRouteDocuments()` test fixture to pass the authored preview route and require a static file at:
 
@@ -478,7 +480,7 @@ expect(preview).not.toContain('name="twitter:image"')
 
 Also require the normal manifest-derived route set to remain unchanged and separate from the preview route set.
 
-- [ ] **Step 2: Make preview routes an explicit separate input to `buildRouteDocuments`.**
+- [x] **Step 2: Make preview routes an explicit separate input to `buildRouteDocuments`.**
 
 Change the function shape from one implicit route set to explicit public/preview inputs:
 
@@ -519,7 +521,7 @@ Pass that exact `previewRoutes` array to `buildRouteDocuments`.
 
 The preview config is consumed here only to create directly addressable static HTML. Do not pass it to `buildRouteCatalogue()`.
 
-- [ ] **Step 3: Prove the public route catalogue excludes the preview.**
+- [x] **Step 3: Prove the public route catalogue excludes the preview.**
 
 Extend `routeCatalogue.test.ts`:
 
@@ -530,7 +532,7 @@ expect(getRouteMetadata('/patch/the-usual-specialists/next/')).toBeUndefined()
 
 Do not modify `generate-route-catalogue.mjs` or add the preview to `route-metadata.generated.json`.
 
-- [ ] **Step 4: Extend the deployed-route parser with robots metadata.**
+- [x] **Step 4: Extend the deployed-route parser with robots metadata.**
 
 Add the tracked preview source beside the existing manifest constant:
 
@@ -555,7 +557,7 @@ if tag.lower() == "meta" and (attributes.get("name") or "").lower() == "robots":
 
 Do not change the canonical validation for public routes.
 
-- [ ] **Step 5: Add a separate preview-route expectation and inspection path.**
+- [x] **Step 5: Add a separate preview-route expectation and inspection path.**
 
 Keep `expected_public_routes(manifest)` unchanged. Add a small preview helper that consumes the separate config rather than the manifest:
 
@@ -596,7 +598,7 @@ preview_routes = json.loads(DEFAULT_PREVIEW_ROUTES.read_text(encoding="utf-8"))
 
 Keep `expected_public_routes()` manifest-only.
 
-- [ ] **Step 6: Extend Python route-checker tests.**
+- [x] **Step 6: Extend Python route-checker tests.**
 
 In `tests/test_public_routes.py`:
 
@@ -609,7 +611,7 @@ In `tests/test_public_routes.py`:
 
 Do not weaken any existing public-route or custom-404 assertion.
 
-- [ ] **Step 7: Add explicit sitemap/public-route exclusion proof.**
+- [x] **Step 7: Add explicit sitemap/public-route exclusion proof.**
 
 In `tests/test_seo_routes.py`, add a preview exclusion test against both public-route authorities and the generated sitemap:
 
@@ -626,7 +628,7 @@ self.assertNotIn('/patch/the-usual-specialists/next', sitemap)
 
 This test should pass without modifying `refresh_seo_files.py`, `site_profile.py`, or the sitemap generator because preview routes never enter `route-metadata.generated.json`.
 
-- [ ] **Step 8: Run the focused tooling suite.**
+- [x] **Step 8: Run the focused tooling suite.**
 
 ```powershell
 npm --prefix src/client test -- --run scripts/generate-route-documents.test.ts src/data/routes/routeCatalogue.test.ts
@@ -655,7 +657,7 @@ git diff -- src/client/src/data/routes/route-metadata.generated.json src/client/
 
 Expected: no diff caused by preview registration.
 
-- [ ] **Step 9: Mark Task 3 complete only after static and deployed-route contracts are green.**
+- [x] **Step 9: Mark Task 3 complete only after static and deployed-route contracts are green.**
 
 Change the Task 3 checkboxes to `[x]` only after the route-document tests, Python checker tests, production build, emitted preview inspection, and public-authority no-diff check all pass. If commits are authorized, include this plan-progress edit with the Task 3 commit.
 
@@ -675,7 +677,7 @@ Change the Task 3 checkboxes to `[x]` only after the route-document tests, Pytho
 - Consumes: canonical legacy route from Task 1, preview runtime/static route from Tasks 2-3, and the existing PORT-17 browser/visual contracts.
 - Produces: one browser owner for V2 (`/next/`), one canonical owner for legacy (`/patch/the-usual-specialists/`), unchanged V2 snapshots, and focused proof that no discovery surface links to the preview.
 
-- [ ] **Step 1: Introduce canonical/preview test constants in `project-story.spec.ts`.**
+- [x] **Step 1: Introduce canonical/preview test constants in `project-story.spec.ts`.**
 
 Near the existing route constants add:
 
@@ -688,7 +690,7 @@ Replace every V2-specific `./patch/the-usual-specialists/` navigation in this fi
 
 Do not change any geometry table, tolerance, breakpoint, selector, or production value while making this route-only migration.
 
-- [ ] **Step 2: Split chunk-isolation proof between legacy canonical and V2 preview.**
+- [x] **Step 2: Split chunk-isolation proof between legacy canonical and V2 preview.**
 
 The existing chunk helper uses substring matching, which would confuse `UsualSpecialistsPage` with `LegacyUsualSpecialistsPage`. First tighten it to asset-filename prefix matching:
 
@@ -718,7 +720,7 @@ Then replace the current single Specialists route row with two route owners:
 
 Use `requestedChunk()` for positive and sibling assertions. This proves canonical direct loads do not fetch V2 and preview direct loads do not fetch legacy.
 
-- [ ] **Step 3: Retarget protected visual regression without changing snapshots.**
+- [x] **Step 3: Retarget protected visual regression without changing snapshots.**
 
 In `visual-regression.spec.ts`, change only the route in the existing protected Specialists test:
 
@@ -739,7 +741,7 @@ patch-usual-specialists-index-320.png
 
 Any pixel diff is a migration regression. Do not update the baseline.
 
-- [ ] **Step 4: Keep canonical legacy accessibility and add V2 preview accessibility.**
+- [x] **Step 4: Keep canonical legacy accessibility and add V2 preview accessibility.**
 
 In `accessibility.spec.ts`, keep the canonical Specialists route in the general WCAG route list but rename it clearly as legacy during migration, then add the preview route:
 
@@ -760,7 +762,7 @@ test('The Usual Specialists V2 preview gives every image an intentional text alt
 
 Do not add preview to `route-metadata.generated.json` just to make the existing loop discover it.
 
-- [ ] **Step 5: Add focused discovery-isolation assertions to the owning surfaces.**
+- [x] **Step 5: Add focused discovery-isolation assertions to the owning surfaces.**
 
 The existing tests already prove public links target canonical Specialists. Keep those positive assertions and add one negative preview-link assertion per owning surface rather than scanning every page in the site.
 
@@ -802,7 +804,7 @@ expect(article.querySelector('a[href*="/patch/the-usual-specialists/next"]')).to
 
 Do not alter production navigation copy or destinations; these are regression assertions around the already-canonical links.
 
-- [ ] **Step 6: Run focused runtime/browser route proof.**
+- [x] **Step 6: Run focused runtime/browser route proof.**
 
 Vitest:
 
@@ -818,7 +820,7 @@ npm --prefix src/client run test:e2e -- --grep "direct route loads keep case-stu
 
 Require the complete Specialists subset to pass against its new route ownership without geometry changes.
 
-- [ ] **Step 7: Run the protected V2 visual test without updating snapshots.**
+- [x] **Step 7: Run the protected V2 visual test without updating snapshots.**
 
 ```powershell
 npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition across protected viewports"
@@ -826,7 +828,7 @@ npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft k
 
 Expected: PASS against `/next/` with all existing snapshots unchanged.
 
-- [ ] **Step 8: Run the focused accessibility and discovery suites.**
+- [x] **Step 8: Run the focused accessibility and discovery suites.**
 
 ```powershell
 npm --prefix src/client run test:e2e -- --grep "The Usual Specialists canonical adventure|The Usual Specialists V2 preview|PORT-10 uses the complete writing shell|homepage routes the accepted movements"
@@ -834,7 +836,7 @@ npm --prefix src/client run test:e2e -- --grep "The Usual Specialists canonical 
 
 If the homepage test name differs from the grep fragment at execution time, resolve it from the live test file and run that one named owning test; do not broaden the route migration to unrelated homepage work.
 
-- [ ] **Step 9: Mark Task 4 complete only after V2 route migration is fully proved.**
+- [x] **Step 9: Mark Task 4 complete only after V2 route migration is fully proved.**
 
 Change the Task 4 checkboxes to `[x]` only after the structural/responsive suite, protected screenshots, accessibility checks, and focused discovery-isolation assertions are green. If commits are authorized, include this plan-progress edit with the Task 4 commit.
 
@@ -849,7 +851,7 @@ Change the Task 4 checkboxes to `[x]` only after the structural/responsive suite
 - Consumes: completed Tasks 1-4.
 - Produces: a review-ready foundation/migration slice with clean generated navigation, canonical legacy protection, deployed unlinked preview protection, unchanged V2 visual evidence, and no future-Specialist scope creep.
 
-- [ ] **Step 1: Regenerate the tracked mesh after new files exist.**
+- [x] **Step 1: Regenerate the tracked mesh after new files exist.**
 
 Run the narrow owner command:
 
@@ -859,7 +861,7 @@ py -3 tools/run.py mesh --apply
 
 Inspect the generated diff. Do not hand-edit `INDEX.md` files.
 
-- [ ] **Step 2: Prove the exclusion invariants directly from source/generated authorities.**
+- [x] **Step 2: Prove the exclusion invariants directly from source/generated authorities.**
 
 ```powershell
 rg -n "the-usual-specialists/next" src/client/src/data/content/content-manifest.json src/client/src/data/routes/route-metadata.generated.json src/client/public/sitemap.xml
@@ -875,14 +877,14 @@ rg -n "the-usual-specialists/next" src/client/src/app/router.tsx src/client/src/
 
 Review every match; none should be a public discovery link.
 
-- [ ] **Step 3: Run focused unit/tooling validation.**
+- [x] **Step 3: Run focused unit/tooling validation.**
 
 ```powershell
 npm --prefix src/client test -- --run src/components/DocumentMetadata.test.tsx src/features/case-study/projectPresentations.test.tsx src/features/patch-showcase/LegacyUsualSpecialistsPage.test.tsx src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/pages/UsualSpecialistsPreviewPage.test.tsx src/pages/ContentPage.test.tsx src/pages/PatchRoutes.test.tsx src/pages/PatchIndexPage.test.tsx scripts/generate-route-documents.test.ts src/data/routes/routeCatalogue.test.ts
 py -3 -m unittest tests.test_public_routes tests.test_seo_routes
 ```
 
-- [ ] **Step 4: Run the production build and inspect preview output.**
+- [x] **Step 4: Run the production build and inspect preview output.**
 
 ```powershell
 npm --prefix src/client run build
@@ -890,7 +892,7 @@ npm --prefix src/client run build
 
 Require budgets to stay green. Then inspect the emitted preview document and verify the canonical generated route document still carries its existing public canonical metadata.
 
-- [ ] **Step 5: Run the V2 Specialists browser and protected visual suites.**
+- [x] **Step 5: Run the V2 Specialists browser and protected visual suites.**
 
 ```powershell
 npm --prefix src/client run test:e2e -- --grep "The Usual Specialists|direct route loads keep case-study presentation chunks isolated"
@@ -899,7 +901,7 @@ npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft k
 
 Expected: all route, responsive, rope, Silk, ultrawide, ceiling, accessibility, and protected visual evidence remains green on `/next/`; the canonical route is separately proved legacy.
 
-- [ ] **Step 6: Inspect the complete implementation diff before any commit.**
+- [x] **Step 6: Inspect the complete implementation diff before any commit.**
 
 ```powershell
 git diff --check

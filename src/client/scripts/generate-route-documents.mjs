@@ -74,7 +74,13 @@ const renderMetadata = (template, metadata, origin, baseUrl) => {
     .replace('</head>', `    ${socialTags}\n  </head>`)
 }
 
-export const buildRouteDocuments = async ({ distRoot, manifestPath, baseUrl, origin }) => {
+export const buildRouteDocuments = async ({
+  distRoot,
+  manifestPath,
+  baseUrl,
+  origin,
+  previewRoutes = [],
+}) => {
   const [template, manifestText] = await Promise.all([
     readFile(path.join(distRoot, 'index.html'), 'utf8'),
     readFile(manifestPath, 'utf8'),
@@ -87,7 +93,8 @@ export const buildRouteDocuments = async ({ distRoot, manifestPath, baseUrl, ori
       : contentEntries.find((item) => item.path === legacy.canonicalRoute)
     return source === undefined ? [] : [{ ...source, path: legacy.route, canonicalRoute: legacy.canonicalRoute }]
   })
-  const entries = [...contentEntries, ...legacyEntries]
+  const publicEntries = [...contentEntries, ...legacyEntries]
+  const entries = [...publicEntries, ...previewRoutes]
 
   for (const metadata of entries) {
     const html = renderMetadata(template, metadata, origin, baseUrl)
@@ -115,7 +122,10 @@ export const buildRouteDocuments = async ({ distRoot, manifestPath, baseUrl, ori
   )
   await writeFile(path.join(distRoot, '404.html'), notFound)
 
-  return entries.map((entry) => entry.path)
+  return {
+    publicRoutes: publicEntries.map((entry) => entry.path),
+    previewRoutes: previewRoutes.map((entry) => entry.path),
+  }
 }
 
 const scriptPath = process.argv[1] === undefined ? '' : pathToFileURL(path.resolve(process.argv[1])).href
@@ -124,11 +134,16 @@ if (scriptPath === import.meta.url) {
   const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
   const siteConfig = JSON.parse(await readFile(path.join(clientRoot, 'site.config.json'), 'utf8'))
   const profile = siteConfig.profiles[siteConfig.activeProfile]
+  const previewRoutesPath = path.join(clientRoot, 'src', 'data', 'routes', 'preview-routes.json')
+  const previewRoutes = JSON.parse(await readFile(previewRoutesPath, 'utf8'))
   const routes = await buildRouteDocuments({
     distRoot: path.join(clientRoot, 'dist'),
     manifestPath: path.join(clientRoot, 'src', 'data', 'content', 'content-manifest.json'),
     baseUrl: profile.basePath,
     origin: profile.canonicalOrigin,
+    previewRoutes,
   })
-  console.log(`[generate-route-documents] wrote ${routes.length} known routes and 404.html`)
+  console.log(
+    `[generate-route-documents] wrote ${routes.publicRoutes.length} public/compatibility routes, ${routes.previewRoutes.length} preview route, and 404.html`,
+  )
 }

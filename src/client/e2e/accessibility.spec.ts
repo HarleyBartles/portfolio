@@ -10,7 +10,8 @@ const routes = [
   { name: 'Patch index', path: 'patch' },
   { name: 'Identity Emporium adventure', path: 'patch/identity-emporium' },
   { name: 'Tournament adventure', path: 'patch/tournament-of-reasonable-defaults' },
-  { name: 'The Usual Specialists adventure', path: 'patch/the-usual-specialists' },
+  { name: 'The Usual Specialists canonical adventure', path: 'patch/the-usual-specialists' },
+  { name: 'The Usual Specialists V2 preview', path: 'patch/the-usual-specialists/next/' },
   { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
   { name: 'Agentic Learning Lab', path: 'projects/agentic-learning-lab' },
   { name: 'writing', path: 'writing' },
@@ -112,4 +113,10 @@ test.describe('site-wide image alternatives', () => {
       await expectIntentionalImageAlternatives(page)
     })
   }
+
+  test('The Usual Specialists V2 preview gives every image an intentional text alternative', async ({ page }) => {
+    await page.goto('patch/the-usual-specialists/next/')
+    await expect(page.locator('main h1').first()).toBeVisible()
+    await expectIntentionalImageAlternatives(page)
+  })
 })

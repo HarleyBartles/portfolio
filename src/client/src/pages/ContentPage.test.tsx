@@ -23,9 +23,9 @@ vi.mock('../features/case-study/projectPresentations', async () => {
           ? () => React.createElement('p', undefined, 'Learning Lab specialist body')
           : presentation === 'patch-usual-specialists'
             ? () => React.createElement(
-              'article',
-              { 'aria-labelledby': 'content-page-title', 'data-visual-contract': 'patch-usual-specialists-index-draft' },
-              React.createElement('h1', { id: 'content-page-title' }, 'The Usual Specialists'),
+              'section',
+              { 'aria-label': 'The Usual Specialists adventure', 'data-visual-contract': 'patch-usual-specialists' },
+              React.createElement('p', undefined, 'Frozen legacy specialists body'),
             )
             : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
@@ -130,6 +130,7 @@ describe('ContentPage specialist presentation boundary', () => {
       'href',
       '/portfolio/patch/the-usual-specialists',
     )
+    expect(article.querySelector('a[href*="/patch/the-usual-specialists/next"]')).toBeNull()
     expect(within(related).getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute(
       'href',
       '/portfolio/projects/adventures-of-patch',
@@ -195,7 +196,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(screen.queryByRole('status', { name: 'Loading case study presentation' })).not.toBeInTheDocument()
   })
 
-  test('renders the Specialists presentation as the route body under shared metadata and site chrome', async () => {
+  test('renders the canonical Specialists presentation inside the ordinary content shell', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/patch/the-usual-specialists'],
@@ -209,14 +210,14 @@ describe('ContentPage specialist presentation boundary', () => {
       </QueryClientProvider>,
     )
 
-    const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 5_000 })
-    expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' }, { timeout: 5_000 })
+    expect(screen.getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    expect(within(story).getByText('Frozen legacy specialists body')).toBeVisible()
     expect(screen.getByText('Harley Bartles')).toBeVisible()
+    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index')
     expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute('href', 'https://harleybartles.com/patch/the-usual-specialists')
-    expect(container.querySelector('.content-page-header')).toBeNull()
-    expect(container.querySelector('.content-page-body')).toBeNull()
-    expect(container.querySelector('.content-navigation')).toBeNull()
-    expect(screen.queryByRole('navigation', { name: 'Related content' })).not.toBeInTheDocument()
+    expect(container.querySelector('.content-page-header')).not.toBeNull()
+    expect(container.querySelector('.content-page-body')).not.toBeNull()
   })
 
   test('art directs the Patch header while keeping route copy as selectable HTML', async () => {

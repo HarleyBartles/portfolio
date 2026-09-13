@@ -328,6 +328,7 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   const continuations = page.getByRole('navigation', { name: 'Continue reading' })
   await expect(continuations).toBeVisible()
   await expect(continuations.getByRole('link', { name: /The Usual Specialists/ })).toHaveAttribute('href', '/patch/the-usual-specialists')
+  await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
   await expect(continuations.getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute('href', '/projects/adventures-of-patch')
   await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
 
