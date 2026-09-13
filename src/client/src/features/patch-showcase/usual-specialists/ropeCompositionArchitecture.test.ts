@@ -87,4 +87,21 @@ describe('Specialists rope composition architecture', () => {
       expect(() => readSource(filename), filename).toThrow()
     }
   })
+  test('keeps the rope start anchor as an opaque child with parent-owned placement', () => {
+    const opening = readSource('./UsualSpecialistsOpening.tsx')
+    const openingStyles = readSource('./UsualSpecialistsOpening.styles.ts')
+
+    expect(() => readSource('./SpecialistsRopeStartAnchor.tsx')).not.toThrow()
+    const anchor = readSource('./SpecialistsRopeStartAnchor.tsx')
+
+    expect(opening).toContain('<SpecialistsRopeStartAnchor />')
+    expect(openingStyles).not.toMatch(/styled\(SpecialistsRopeStartAnchor\)/)
+    expect(openingStyles).not.toMatch(/\[data-specialists-rope-start-anchor[^\]]*\]/)
+    expect(anchor).toContain('style?: CSSProperties')
+    expect(anchor).not.toContain('className')
+    expect(anchor).not.toContain('position:')
+    expect(anchor).not.toContain('transform:')
+    expect(openingStyles).toContain('OpeningRopeAnchorPlacement = styled.div')
+    expect(openingStyles).toContain('translate(-50%, -5%) scale(0.65) rotate(5.5deg)')
+  })
 })

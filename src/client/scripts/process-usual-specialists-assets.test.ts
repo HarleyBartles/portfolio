@@ -10,8 +10,9 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(28)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(29)
     expect(outputs).toContain('safehouse-threshold.webp')
+    expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
     expect(outputs).toContain('index-return.webp')
     expect(outputs).toContain('patch-return.webp')
@@ -32,6 +33,13 @@ describe('Usual Specialists asset processor', () => {
       'rope-taut-offset.webp',
     ]))
     expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
+    const openingAnchor = USUAL_SPECIALISTS_ASSETS.find(({ id }) => id === 'opening-rope-start-anchor')
+    expect(openingAnchor).toMatchObject({
+      source: 'opening-rope-start-anchor.png',
+      output: 'opening-rope-start-anchor.webp',
+      width: 640,
+      crop: { left: 0, top: 0, width: 1254, height: 1205 },
+    })
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 

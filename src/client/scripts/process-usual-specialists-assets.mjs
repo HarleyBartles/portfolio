@@ -25,6 +25,14 @@ export const USUAL_SPECIALISTS_WEBP_OPTIONS = Object.freeze({
 
 export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'safehouse-threshold', source: 'safehouse-threshold.png', output: 'safehouse-threshold.webp', width: 1672, format: 'webp' },
+  {
+    id: 'opening-rope-start-anchor',
+    source: 'opening-rope-start-anchor.png',
+    output: 'opening-rope-start-anchor.webp',
+    width: 640,
+    crop: { left: 0, top: 0, width: 1254, height: 1205 },
+    format: 'webp',
+  },
   { id: 'index-desktop-base', source: 'index-desktop-base.png', output: 'index-desktop-base.webp', width: 1672, format: 'webp' },
   { id: 'index-assent-note', source: 'index-assent-note.png', output: 'index-assent-note.webp', width: 480, format: 'webp' },
   { id: 'index-blue-carrier', source: 'index-blue-carrier.png', output: 'index-blue-carrier.webp', width: 1240, format: 'webp' },
@@ -186,8 +194,10 @@ const loadAcceptedSources = async () => {
 }
 
 const expectedDerivative = (asset, accepted) => {
-  const width = Math.min(asset.width, accepted.width)
-  const height = Math.round((accepted.height / accepted.width) * width)
+  const sourceWidth = asset.crop?.width ?? accepted.width
+  const sourceHeight = asset.crop?.height ?? accepted.height
+  const width = Math.min(asset.width, sourceWidth)
+  const height = Math.round((sourceHeight / sourceWidth) * width)
   return {
     id: asset.id,
     sourcePath: accepted.repositorySourcePath,
@@ -202,7 +212,9 @@ const expectedDerivative = (asset, accepted) => {
 }
 
 const renderDerivative = async (source) => {
-  return sharp(source.buffer)
+  const image = sharp(source.buffer)
+  if (source.asset.crop) image.extract(source.asset.crop)
+  return image
     .resize({ width: source.asset.width, withoutEnlargement: true })
     .webp(USUAL_SPECIALISTS_WEBP_OPTIONS)
     .toBuffer()

@@ -272,6 +272,35 @@ test('The Usual Specialists authors the opening to Index lock in three responsiv
   }
 })
 
+test('The Usual Specialists keeps the accepted rope-start anchor treatment across its authored scale bands', async ({ page }) => {
+  for (const width of [390, 391, 900, 901] as const) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await page.goto(specialistsPreviewPath)
+
+    const placement = page.locator('[data-specialists-rope-anchor="opening-start"]')
+    const anchor = placement.locator('[data-specialists-rope-start-anchor]')
+    const image = anchor.locator('[data-specialists-rope-start-anchor-image]')
+
+    await expect(placement).toBeVisible()
+    await expect(anchor).toBeVisible()
+    await expect(image).toBeVisible()
+
+    const geometry = await placement.evaluate((element) => {
+      const style = getComputedStyle(element)
+      const transform = new DOMMatrixReadOnly(style.transform)
+      return {
+        rotationDeg: Math.atan2(transform.b, transform.a) * (180 / Math.PI),
+        scale: Math.hypot(transform.a, transform.b),
+      }
+    })
+
+    const expectedScale = width <= 390 ? 0.5 : width <= 900 ? 0.55 : 0.65
+    expect(Math.abs(geometry.rotationDeg - 5.5), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(0.05)
+    expect(Math.abs(geometry.scale - expectedScale), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(0.005)
+    await expect(image).toHaveAttribute('src', /opening-rope-start-anchor\.webp$/)
+  }
+})
+
 test('The Usual Specialists keeps Silk as apertures through the mineral page across authored responsive bands', async ({ page }) => {
   const specialistsPath = specialistsPreviewPath
   const box = async (locator: import('@playwright/test').Locator) => {

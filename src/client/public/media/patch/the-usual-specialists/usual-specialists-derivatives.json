@@ -20,6 +20,24 @@
       "outputSha256": "60b17293e2179d0dcdc4cf31f8b3dd52ab7e22c7fb6c921ffee56946c8560478"
     },
     {
+      "id": "opening-rope-start-anchor",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/opening-rope-start-anchor.png",
+      "sourceSha256": "d0b72fc149a5bf740a77c6d67d707741470a5ad68daa08ff30f3411759d20aa2",
+      "output": "opening-rope-start-anchor.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/opening-rope-start-anchor.webp",
+      "width": 640,
+      "height": 615,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 65306,
+      "outputSha256": "cdc963cee3911f219ce3195b47756f1b83f0312ccad4337273b8cee12c7c36e7"
+    },
+    {
       "id": "index-desktop-base",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-desktop-base.png",
       "sourceSha256": "807de074c28b1ef2450d24aae4eff2b70b2da8b9c23942d750493d2f8c7a1019",

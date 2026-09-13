@@ -12,6 +12,17 @@
       "provenanceIssue": "PORT-16"
     },
     {
+      "id": "opening-rope-start-anchor",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 09_35_07 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/opening-rope-start-anchor.png",
+      "sha256": "d0b72fc149a5bf740a77c6d67d707741470a5ad68daa08ff30f3411759d20aa2",
+      "width": 1254,
+      "height": 1254,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-17"
+    },
+    {
       "id": "index-desktop-base",
       "originalWireframeFilename": "commission-02-base-candidate-03.png",
       "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-desktop-base.png",
