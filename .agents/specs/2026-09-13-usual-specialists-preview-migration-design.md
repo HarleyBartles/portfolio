@@ -1,8 +1,8 @@
 # The Usual Specialists preview migration design
 
-**Status:** Design approved; written spec awaiting review.
+**Status:** Approved design; migration implemented and review-complete locally on 13 September 2026. Publication remains separately gated.
 
-**Planning handoff readiness:** 9/10. The migration boundary, route ownership, metadata contract, PR slicing and cutover sequence are explicit. Harley approved the design in chat on 2026-09-13. Planning should begin only after Harley reviews this written spec.
+**Implementation closeout:** The migration boundary, route ownership, metadata contract, PR slicing and cutover sequence were approved and executed on the existing PORT-17 branch. Final local review found no Critical or Important implementation issues; push, PR-state changes and merge remain separate authority gates.
 
 **Scope:** Make the long-running PORT-17 work mergeable without replacing the currently published The Usual Specialists page before the new six-Specialist edition is complete.
 

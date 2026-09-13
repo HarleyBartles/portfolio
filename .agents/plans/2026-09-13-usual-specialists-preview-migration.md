@@ -912,13 +912,13 @@ git diff -- src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx src/
 
 Expected for the final command: no V2 production geometry/content diff. Route ownership changes should not alter the accepted V2 implementation.
 
-- [ ] **Step 7: Run the complete canonical gate through the normal staged commit path.**
+- [x] **Step 7: Run the complete canonical gate through the normal staged commit path.**
 
 Stage the exact intended implementation tree and inspect `git diff --cached --name-status`. Then make the authorized normal commit and let the tracked pre-commit hook own the one complete staged-tree `py -3 tools/run.py ci --check` gate. Do **not** run the canonical full gate immediately before the commit, and do not bypass the hook with `--no-verify`.
 
 If implementation commit authority has not been granted, stop before this step and report the completed focused evidence plus the missing authority. Do not call the migration complete or hand it to code review from an uncommitted dirty tree.
 
-- [ ] **Step 8: Perform the final migration-boundary review.**
+- [x] **Step 8: Perform the final migration-boundary review.**
 
 Read the final diff against `.agents/runbooks/code-style.md` and `.agents/runbooks/code-review.md` and verify all of these are true:
 
@@ -937,7 +937,7 @@ No new generic preview framework was introduced for unrelated pages.
 
 Target implementation readiness before code review: `9/10` or higher.
 
-- [ ] **Step 9: Commit only under current execution authority; publication remains separately gated.**
+- [x] **Step 9: Commit only under current execution authority; publication remains separately gated.**
 
 If Harley has explicitly authorized implementation commits for this execution, use bounded normal commits and the tracked hook. A sensible sequence is:
 
@@ -951,7 +951,7 @@ Generated mesh files belong with the task that creates/removes the indexed files
 
 Do **not** push merely because local commits are authorized. Push, PR-state changes, merge, and branch closeout remain separate authority gates.
 
-- [ ] **Step 10: Close the plan tracking surface.**
+- [x] **Step 10: Close the plan tracking surface.**
 
 After the authorized implementation commit succeeds and its pre-commit gate is green, change every remaining Task 5 checkbox to `[x]`. Because the successful commit itself could not truthfully contain a pre-checked "commit succeeded" box, make one final bounded documentation closeout commit containing only this plan-progress update and any mechanically regenerated plan index if it changed:
 
