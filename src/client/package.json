@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:wild-bunch-concept:check && npm run media:wild-bunch-evidence-crops:check && npm run media:learning-lab:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
+    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:wild-bunch-concept:check && npm run media:wild-bunch-evidence-crops:check && npm run media:learning-lab:check && npm run media:usual-specialists:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
     "routes:apply": "node scripts/generate-route-catalogue.mjs",
     "routes:check": "node scripts/generate-route-catalogue.mjs --check",
     "media:wild-bunch:apply": "node scripts/process-wild-bunch-captures.mjs --apply",
@@ -16,6 +16,8 @@
     "media:wild-bunch-evidence-crops:check": "node scripts/process-wild-bunch-evidence-crops.mjs --check",
     "media:learning-lab:apply": "node scripts/process-learning-lab-assets.mjs --apply",
     "media:learning-lab:check": "node scripts/process-learning-lab-assets.mjs --check",
+    "media:usual-specialists:apply": "node scripts/process-usual-specialists-assets.mjs --apply",
+    "media:usual-specialists:check": "node scripts/process-usual-specialists-assets.mjs --check",
     "preview:test": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -9,7 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Iterator
 
-from tools.check_public_routes import check_public_routes, expected_public_routes
+from tools.check_public_routes import check_public_routes, expected_preview_routes, expected_public_routes
 
 
 def page(title: str, canonical: str) -> bytes:
@@ -17,6 +17,21 @@ def page(title: str, canonical: str) -> bytes:
         '<!doctype html><html lang="en"><head>'
         f'<title>{title}</title><link rel="canonical" href="{canonical}">'
         '</head><body><main>Portfolio</main></body></html>'
+    ).encode()
+
+
+def preview_page(
+    title: str,
+    *,
+    robots: str | None = 'noindex, nofollow',
+    canonical: str | None = None,
+) -> bytes:
+    robots_tag = '' if robots is None else f'<meta name="robots" content="{robots}">'
+    canonical_tag = '' if canonical is None else f'<link rel="canonical" href="{canonical}">'
+    return (
+        '<!doctype html><html lang="en"><head>'
+        f'<title>{title}</title>{robots_tag}{canonical_tag}'
+        '</head><body><main>Preview</main></body></html>'
     ).encode()
 
 
@@ -60,6 +75,7 @@ class PublicRouteTests(unittest.TestCase):
                 {'kind': 'patch', 'slug': 'goldilocks'},
             ]
         }
+        self.preview_routes = [{'path': '/patch/the-usual-specialists/next/'}]
 
     def valid_responses(self, origin: str) -> dict[str, list[tuple[int, str, bytes, dict[str, str]]]]:
         responses = {}
@@ -75,6 +91,9 @@ class PublicRouteTests(unittest.TestCase):
             responses[request_path] = [(200, 'text/html; charset=utf-8', page(f'{route} title', canonical), {})]
         responses['/portfolio/__portfolio-route-smoke__'] = [
             (404, 'text/html; charset=utf-8', page('Page Not Found | Harley Bartles', origin), {})
+        ]
+        responses['/portfolio/patch/the-usual-specialists/next/'] = [
+            (200, 'text/html; charset=utf-8', preview_page('Specialists preview'), {})
         ]
         return responses
 
@@ -95,12 +114,19 @@ class PublicRouteTests(unittest.TestCase):
                 '/writing/useful-note',
             ],
         )
+        self.assertNotIn('/patch/the-usual-specialists/next/', expected_public_routes(self.manifest))
+        self.assertEqual(expected_preview_routes(self.preview_routes), ['/patch/the-usual-specialists/next/'])
 
     def test_checker_requests_every_known_route_and_custom_unknown_fallback(self) -> None:
         responses: dict[str, list[tuple[int, str, bytes, dict[str, str]]]] = {}
         with serving(responses) as (origin, requests):
             responses.update(self.valid_responses(origin))
-            findings = check_public_routes(origin, self.manifest, retries=0)
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=self.preview_routes,
+                retries=0,
+            )
 
         self.assertEqual(findings, [])
         self.assertEqual(
@@ -117,6 +143,7 @@ class PublicRouteTests(unittest.TestCase):
                 '/portfolio/patch/goldilocks',
                 '/portfolio/projects/proof-project',
                 '/portfolio/writing/useful-note',
+                '/portfolio/patch/the-usual-specialists/next/',
                 '/portfolio/__portfolio-route-smoke__',
             },
         )
@@ -127,7 +154,12 @@ class PublicRouteTests(unittest.TestCase):
             responses.update(self.valid_responses(origin))
             responses['/portfolio/about'] = [(200, 'text/html', page('About', f'{origin}/wrong'), {})]
             responses['/portfolio/writing'] = [(200, 'application/json', b'{}', {})]
-            findings = check_public_routes(origin, self.manifest, retries=0)
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=self.preview_routes,
+                retries=0,
+            )
 
         self.assertTrue(any('/about' in finding and 'canonical' in finding for finding in findings))
         self.assertTrue(any('/writing' in finding and 'Content-Type' in finding for finding in findings))
@@ -140,7 +172,12 @@ class PublicRouteTests(unittest.TestCase):
             responses['/portfolio/about'] = [(503, 'text/html', page('Unavailable', f'{origin}/about'), {})]
             responses['/portfolio/projects'] = [(302, 'text/html', b'', {'Location': '/portfolio/projects'})]
             responses['/portfolio/writing'] = [(200, 'text/html', github_404, {})]
-            findings = check_public_routes(origin, self.manifest, retries=0)
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=self.preview_routes,
+                retries=0,
+            )
 
         self.assertTrue(any('/about' in finding and 'HTTP 503' in finding for finding in findings))
         self.assertTrue(any('/projects' in finding and 'redirect' in finding.lower() for finding in findings))
@@ -154,10 +191,66 @@ class PublicRouteTests(unittest.TestCase):
                 (503, 'text/html', page('Unavailable', f'{origin}/about'), {}),
                 (200, 'text/html', page('About', f'{origin}/about'), {}),
             ]
-            findings = check_public_routes(origin, self.manifest, retries=1, retry_delay=0)
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=self.preview_routes,
+                retries=1,
+                retry_delay=0,
+            )
 
         self.assertEqual(findings, [])
         self.assertEqual(requests.count('/portfolio/about'), 2)
+
+    def test_checker_rejects_preview_canonical_and_wrong_or_missing_robots(self) -> None:
+        preview_routes = [
+            {'path': '/preview-canonical/'},
+            {'path': '/preview-wrong-robots/'},
+            {'path': '/preview-missing-robots/'},
+        ]
+        responses: dict[str, list[tuple[int, str, bytes, dict[str, str]]]] = {}
+        with serving(responses) as (origin, _requests):
+            responses.update(self.valid_responses(origin))
+            responses['/portfolio/preview-canonical/'] = [
+                (200, 'text/html', preview_page('Canonical preview', canonical=f'{origin}/preview-canonical/'), {})
+            ]
+            responses['/portfolio/preview-wrong-robots/'] = [
+                (200, 'text/html', preview_page('Wrong robots', robots='index'), {})
+            ]
+            responses['/portfolio/preview-missing-robots/'] = [
+                (200, 'text/html', preview_page('Missing robots', robots=None), {})
+            ]
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=preview_routes,
+                retries=0,
+            )
+
+        self.assertTrue(any('/preview-canonical/' in finding and 'canonical' in finding for finding in findings))
+        self.assertTrue(any('/preview-wrong-robots/' in finding and 'robots' in finding for finding in findings))
+        self.assertTrue(any('/preview-missing-robots/' in finding and 'robots' in finding for finding in findings))
+
+    def test_checker_rejects_non_html_and_github_error_preview_documents(self) -> None:
+        preview_routes = [
+            {'path': '/preview-json/'},
+            {'path': '/preview-github-error/'},
+        ]
+        github_404 = b'<html><head><title>Page not found - GitHub Pages</title></head><body>There is no GitHub Pages site here.</body></html>'
+        responses: dict[str, list[tuple[int, str, bytes, dict[str, str]]]] = {}
+        with serving(responses) as (origin, _requests):
+            responses.update(self.valid_responses(origin))
+            responses['/portfolio/preview-json/'] = [(200, 'application/json', b'{}', {})]
+            responses['/portfolio/preview-github-error/'] = [(200, 'text/html', github_404, {})]
+            findings = check_public_routes(
+                origin,
+                self.manifest,
+                preview_routes=preview_routes,
+                retries=0,
+            )
+
+        self.assertTrue(any('/preview-json/' in finding and 'Content-Type' in finding for finding in findings))
+        self.assertTrue(any('/preview-github-error/' in finding and 'GitHub Pages' in finding for finding in findings))
 
     def test_manifest_file_shape_matches_library_input(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

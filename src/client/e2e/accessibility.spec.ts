@@ -10,7 +10,8 @@ const routes = [
   { name: 'Patch index', path: 'patch' },
   { name: 'Identity Emporium adventure', path: 'patch/identity-emporium' },
   { name: 'Tournament adventure', path: 'patch/tournament-of-reasonable-defaults' },
-  { name: 'The Usual Specialists adventure', path: 'patch/the-usual-specialists' },
+  { name: 'The Usual Specialists canonical adventure', path: 'patch/the-usual-specialists' },
+  { name: 'The Usual Specialists V2 preview', path: 'patch/the-usual-specialists/next/' },
   { name: 'Wild Bunch case study', path: 'projects/wild-bunch' },
   { name: 'Agentic Learning Lab', path: 'projects/agentic-learning-lab' },
   { name: 'writing', path: 'writing' },
@@ -29,15 +30,16 @@ const viewports = [
 const decorativeImageSelectors = [
   '.site-mark > img',
   '.marketplace-map__plugins img',
+  'img[aria-hidden="true"]',
   '[aria-hidden="true"] img',
   '[data-zero-flow-overprint] img',
 ] as const
 
-function toTestPath(path: string): string {
+const toTestPath = (path: string): string => {
   return path === '/' ? './' : path.replace(/^\//, '')
 }
 
-async function expectIntentionalImageAlternatives(page: Page): Promise<void> {
+const expectIntentionalImageAlternatives = async (page: Page): Promise<void> => {
   const images = await page.locator('img').evaluateAll((elements, decorativeSelectors) =>
     elements.map((element) => ({
       alt: element.getAttribute('alt'),
@@ -63,7 +65,7 @@ async function expectIntentionalImageAlternatives(page: Page): Promise<void> {
   ).toEqual([])
 }
 
-async function expectNoAutomatedViolations(page: Page): Promise<void> {
+const expectNoAutomatedViolations = async (page: Page): Promise<void> => {
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()
@@ -111,4 +113,10 @@ test.describe('site-wide image alternatives', () => {
       await expectIntentionalImageAlternatives(page)
     })
   }
+
+  test('The Usual Specialists V2 preview gives every image an intentional text alternative', async ({ page }) => {
+    await page.goto('patch/the-usual-specialists/next/')
+    await expect(page.locator('main h1').first()).toBeVisible()
+    await expectIntentionalImageAlternatives(page)
+  })
 })

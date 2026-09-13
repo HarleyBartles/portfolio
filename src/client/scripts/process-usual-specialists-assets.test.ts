@@ -1,0 +1,51 @@
+import { describe, expect, it } from 'vitest'
+import {
+  USUAL_SPECIALISTS_ASSETS,
+  USUAL_SPECIALISTS_WEBP_OPTIONS,
+  assertDerivativeReceipt,
+  assertSourceIdentity,
+} from './process-usual-specialists-assets.mjs'
+
+describe('Usual Specialists asset processor', () => {
+  it('locks the accepted WebP derivative contract', () => {
+    const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
+
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(28)
+    expect(outputs).toContain('safehouse-threshold.webp')
+    expect(outputs).toContain('index-high-step.webp')
+    expect(outputs).toContain('index-return.webp')
+    expect(outputs).toContain('patch-return.webp')
+    expect(outputs).toContain('silk-commission-05-aperture-rim-heavy.webp')
+    expect(outputs).toContain('silk-commission-05-aperture-rim-heavy-portrait.webp')
+    expect(outputs).toContain('silk-commission-05-corridor.webp')
+    expect(outputs).toContain('silk-index-crossing-anchor-ring.webp')
+    expect(outputs).toContain('silk-index-crossing-knot-foreground.webp')
+    expect(outputs).toContain('silk-index-crossing-knot-foreground-crop.webp')
+    expect(outputs).toContain('silk-index-crossing-ring-occluder.webp')
+    expect(outputs).toEqual(expect.arrayContaining([
+      'rope-loose-a.webp',
+      'rope-loose-b.webp',
+      'rope-loose-c.webp',
+      'rope-terminal-curl.webp',
+      'rope-taut-straight.webp',
+      'rope-taut-bow.webp',
+      'rope-taut-offset.webp',
+    ]))
+    expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
+    expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
+  })
+
+  it('rejects source SHA drift', () => {
+    const expected = { sha256: 'approved-sha', width: 1024, height: 1536 }
+    const actual = { sha256: 'different-sha', width: 1024, height: 1536 }
+
+    expect(() => assertSourceIdentity(actual, expected, 'index-walk')).toThrow('SHA-256')
+  })
+
+  it('rejects missing and extra derivative receipt entries', () => {
+    const expected = [{ output: 'index-walk.webp', sourceSha256: 'source-sha', width: 320, height: 480, format: 'webp' }]
+
+    expect(() => assertDerivativeReceipt(expected, [])).toThrow('missing')
+    expect(() => assertDerivativeReceipt(expected, [...expected, { ...expected[0], output: 'extra.webp' }])).toThrow('extra')
+  })
+})

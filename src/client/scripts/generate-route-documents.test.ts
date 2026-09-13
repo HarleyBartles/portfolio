@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises'
+import { access, mkdtemp, readFile, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, test } from 'vitest'
@@ -44,11 +44,19 @@ describe('route document generator', () => {
       }),
     )
 
-    await buildRouteDocuments({
+    const result = await buildRouteDocuments({
       distRoot,
       manifestPath,
       baseUrl: '/',
       origin: 'https://harleybartles.com',
+      previewRoutes: [
+        {
+          path: '/patch/the-usual-specialists/next/',
+          title: 'The Usual Specialists Preview | Harley Bartles',
+          description: 'Unlinked preview of the in-progress document-world edition of The Usual Specialists.',
+          indexability: 'noindex',
+        },
+      ],
     })
 
     const projects = await readFile(path.join(distRoot, 'projects', 'index.html'), 'utf8')
@@ -58,8 +66,11 @@ describe('route document generator', () => {
       path.join(distRoot, 'writing', 'agentic-engineering-vs-vibe-coding', 'index.html'),
       'utf8',
     )
+    const preview = await readFile(
+      path.join(distRoot, 'patch', 'the-usual-specialists', 'next', 'index.html'),
+      'utf8',
+    )
     const fallback = await readFile(path.join(distRoot, '404.html'), 'utf8')
-    const lawfulHeist = await readFile(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'), 'utf8')
 
     expect(projects).toContain('<title>Project Stories | Harley Bartles</title>')
     expect(projects).toContain('https://harleybartles.com/projects')
@@ -75,9 +86,15 @@ describe('route document generator', () => {
     expect(article).toContain(
       'https://harleybartles.com/writing/agentic-engineering-vs-vibe-coding',
     )
-    expect(lawfulHeist).toContain('<title>The Usual Specialists | Harley Bartles</title>')
-    expect(lawfulHeist).toContain('Six specialists make a lawful override routine.')
-    expect(lawfulHeist).toContain('https://harleybartles.com/patch/the-usual-specialists')
+    expect(preview).toContain('<title>The Usual Specialists Preview | Harley Bartles</title>')
+    expect(preview).toContain('name="robots" content="noindex, nofollow"')
+    expect(preview).not.toContain('rel="canonical"')
+    expect(preview).not.toContain('property="og:url"')
+    expect(preview).not.toContain('property="og:image"')
+    expect(preview).not.toContain('name="twitter:image"')
+    expect(result.publicRoutes).not.toContain('/patch/the-usual-specialists/next/')
+    expect(result.previewRoutes).toEqual(['/patch/the-usual-specialists/next/'])
+    await expect(access(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'))).rejects.toThrow()
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
     expect(fallback).not.toContain('rel="canonical"')
     expect(fallback).toContain('name="robots" content="noindex, nofollow"')

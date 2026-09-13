@@ -20,4 +20,9 @@ describe('resolved route catalogue', () => {
   test('does not turn an unknown route into a canonical public claim', () => {
     expect(getRouteMetadata('/does-not-exist')).toBeUndefined()
   })
+
+  test('does not admit the unlinked Specialists preview into the public route catalogue', () => {
+    expect(getRouteMetadata('/patch/the-usual-specialists/next')).toBeUndefined()
+    expect(getRouteMetadata('/patch/the-usual-specialists/next/')).toBeUndefined()
+  })
 })

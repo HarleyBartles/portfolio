@@ -1,0 +1,509 @@
+{
+  "generatedBy": "src/client/scripts/process-usual-specialists-assets.mjs",
+  "derivatives": [
+    {
+      "id": "safehouse-threshold",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/safehouse-threshold.png",
+      "sourceSha256": "6e862160a1f6bd5cc2c5f09da560f665d9bf83aae36a6eca8cd14f5fe791f10c",
+      "output": "safehouse-threshold.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/safehouse-threshold.webp",
+      "width": 1672,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 81728,
+      "outputSha256": "60b17293e2179d0dcdc4cf31f8b3dd52ab7e22c7fb6c921ffee56946c8560478"
+    },
+    {
+      "id": "index-desktop-base",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-desktop-base.png",
+      "sourceSha256": "807de074c28b1ef2450d24aae4eff2b70b2da8b9c23942d750493d2f8c7a1019",
+      "output": "index-desktop-base.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-desktop-base.webp",
+      "width": 1672,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 267232,
+      "outputSha256": "ffe29cb393e7f4ac511774a7c08d676bb51ab47b96ce7c23cae3ca751c15e369"
+    },
+    {
+      "id": "index-assent-note",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-assent-note.png",
+      "sourceSha256": "c2e4efd4c213d44e2fcbb05edece10a31ac31466b46a4b0987d5b61c68ba4bc7",
+      "output": "index-assent-note.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-assent-note.webp",
+      "width": 480,
+      "height": 400,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 19774,
+      "outputSha256": "337087aa40a9d9f1b742f645c70431f6d4088d6414f21cc82886340ec17774fa"
+    },
+    {
+      "id": "index-blue-carrier",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-blue-carrier.png",
+      "sourceSha256": "be536fe598e746a8769891502aa66959f1845e55c7edd221d59b04cc91296a23",
+      "output": "index-blue-carrier.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-blue-carrier.webp",
+      "width": 1240,
+      "height": 827,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 234064,
+      "outputSha256": "5fdac28b93d3d7f98f38459bf32e4254861bd8f5d2aa5c5bd31b3663a01618b8"
+    },
+    {
+      "id": "index-graph-paper",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-graph-paper.png",
+      "sourceSha256": "0f5fb6c12e144ff9e4b721d8996e17eba02c79bd53c3139a4d8616e01ebdb206",
+      "output": "index-graph-paper.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-graph-paper.webp",
+      "width": 1140,
+      "height": 760,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 124350,
+      "outputSha256": "f62e739fb6d4b3ee721755f0ce9e7a5ea56c8978664a4f72c7bec3016b0703f6"
+    },
+    {
+      "id": "index-observation",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-observation.png",
+      "sourceSha256": "7a7a4f7b5576b7a5b57df865f2828d5827abffc806665e451f915b3beb1318f3",
+      "output": "index-observation.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-observation.webp",
+      "width": 1320,
+      "height": 660,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 63796,
+      "outputSha256": "ee834b83f5197aa4d8a1d5dbafff0a8aa0c39b11afcfeb7715c32079a4bf89e1"
+    },
+    {
+      "id": "index-macguffin",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-macguffin.png",
+      "sourceSha256": "0dbccb6e015804d0a65ecd46c0fd23b8c60101d42c01a1bc8269c6129c76832d",
+      "output": "index-macguffin.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-macguffin.webp",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 123632,
+      "outputSha256": "1273413eb3ba95099661280b1c3cbed4c58a4655a20ad57aefaf1f420235b4c6"
+    },
+    {
+      "id": "index-walk",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-walk.png",
+      "sourceSha256": "d33f60c03c2f7d82bf16de8bb3244fac22c1ddde2f1ee903c2d6b779eec46970",
+      "output": "index-walk.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-walk.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 23988,
+      "outputSha256": "8b37a32cb73d25f30b1f008e302b248200956e39cc19dcb2ea020c766913663a"
+    },
+    {
+      "id": "index-inspect",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-inspect.png",
+      "sourceSha256": "b8b8e2210f04c722d8a7054168f182445dda74ed9318b8eade0c86f185c8e40e",
+      "output": "index-inspect.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-inspect.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 26130,
+      "outputSha256": "a98577d2c784ff7585299a2590d23576f1cc705bf0e5552f3084232b993944be"
+    },
+    {
+      "id": "index-high-step",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-high-step.png",
+      "sourceSha256": "507270ea3beba6d0467500be973839c7221158be935350b8010208c77b4b2946",
+      "output": "index-high-step.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-high-step.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 28168,
+      "outputSha256": "08b90b913bac29fad51256e406dd2827a537f23aea475b447998d6ae7c5ed3da"
+    },
+    {
+      "id": "index-return",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-return.png",
+      "sourceSha256": "cd501efacab482ee34364e2b98c79ebf7f712954c5fab193b7809f199b5bf56c",
+      "output": "index-return.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-return.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 21380,
+      "outputSha256": "d8d38c070adfcb55c42f498968dfd3350bd691441cd29221c47fe10f1be738b2"
+    },
+    {
+      "id": "patch-follow",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-follow.png",
+      "sourceSha256": "2f93ebd8b5da683792874ce4d060d89511e5b738d6ccaabb8e407748adb0ec87",
+      "output": "patch-follow.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/patch-follow.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 25768,
+      "outputSha256": "1b70f3b0983090a633b05d08f3744d5b44d4ada8b3c94e77864a1be86ddc3e0d"
+    },
+    {
+      "id": "patch-leaning",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-leaning.png",
+      "sourceSha256": "e382059bdd34d97358237fdf51c14130a5e5e5f1728e5e953411eebaa61ad615",
+      "output": "patch-leaning.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/patch-leaning.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 24674,
+      "outputSha256": "e54e54260e538fea5acba820ac35a8b72994d28751e3bd1a107c10d68a8cf8b3"
+    },
+    {
+      "id": "patch-return",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-return.png",
+      "sourceSha256": "1df2c4860d1277092f29f83a8388c7c1750b94ed0eb3fd9f915ab338889044b2",
+      "output": "patch-return.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/patch-return.webp",
+      "width": 320,
+      "height": 480,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 23466,
+      "outputSha256": "b50a44b7751cb82845d75bb216a00d1289267a71004875e57edcba3ffe82b5e0"
+    },
+    {
+      "id": "silk-commission-05-aperture-rim-heavy",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png",
+      "sourceSha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+      "output": "silk-commission-05-aperture-rim-heavy.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy.webp",
+      "width": 1672,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 304212,
+      "outputSha256": "200297769213061c382e690a85d0ea12924d4f52f2abdf82ceefefd86ea37269"
+    },
+    {
+      "id": "silk-commission-05-aperture-rim-heavy-portrait",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png",
+      "sourceSha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+      "output": "silk-commission-05-aperture-rim-heavy-portrait.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy-portrait.webp",
+      "width": 1122,
+      "height": 1402,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 341272,
+      "outputSha256": "70c306c8734d470f0b3e6b87e3e94e2a0663e453a2509c38d97229c1afbeac26"
+    },
+    {
+      "id": "silk-commission-05-corridor",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-corridor.png",
+      "sourceSha256": "cd49b14b67e465df2e69391a670caee88b8f0dd9596ae29c16f0a84e85a8dd99",
+      "output": "silk-commission-05-corridor.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-corridor.webp",
+      "width": 1086,
+      "height": 1448,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 223800,
+      "outputSha256": "35747a59e79ef7a686da977714f849bfb94db32d60139ce70c7d6bb1f15f2076"
+    },
+    {
+      "id": "silk-index-crossing-anchor-ring",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
+      "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",
+      "output": "silk-index-crossing-anchor-ring.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-anchor-ring.webp",
+      "width": 512,
+      "height": 512,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 60082,
+      "outputSha256": "0c5d19b6f443d883ffc43b62d25322efdcf78e5e073ecaaeac1b5e1d86f45892"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground.png",
+      "sourceSha256": "d4569f4aee02d1dcf4641775d4da75da04d26c32457ba71aa5e5053cea3c0f6e",
+      "output": "silk-index-crossing-knot-foreground.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-knot-foreground.webp",
+      "width": 1145,
+      "height": 1373,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 78560,
+      "outputSha256": "24444da5dc59bb6b048376b1373c23b9193ae7151c153d40e14666a8edb5fcd8"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground-crop",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground-crop.png",
+      "sourceSha256": "3a30bdc80657c00e9b05c9fe1456ae72ccf0b8753b9dadf2636fe33512260dca",
+      "output": "silk-index-crossing-knot-foreground-crop.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-knot-foreground-crop.webp",
+      "width": 470,
+      "height": 920,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 61332,
+      "outputSha256": "af5e94818899a81bb900d16b71773b037086632edd0aca72e1c2cdd2f9801129"
+    },
+    {
+      "id": "silk-index-crossing-ring-occluder",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-ring-occluder.png",
+      "sourceSha256": "ff2038d675f9d3640ed2f1b70e1d325dff6a985e1ecb3ad757846e82642f6b62",
+      "output": "silk-index-crossing-ring-occluder.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-ring-occluder.webp",
+      "width": 512,
+      "height": 512,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 10764,
+      "outputSha256": "26493a08e4f7f21560b93c462d0e4f3a301418764b2af314aa0f234e562e2469"
+    },
+    {
+      "id": "rope-loose-a",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-loose-a.png",
+      "sourceSha256": "d4ba691cf2d9c86894626f0aeadff58a1032309a29d2a36be109f875e0ca4527",
+      "output": "rope-loose-a.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-loose-a.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 71874,
+      "outputSha256": "4cafce4c9e94f6a625953463fdfcac91aea4c1c6fca12d1d8f413e10e10b5f51"
+    },
+    {
+      "id": "rope-loose-b",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-loose-b.png",
+      "sourceSha256": "1863eb310292e131d613bf2af166a3922cfd469edf10b853f23222920e53b5a9",
+      "output": "rope-loose-b.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-loose-b.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 85432,
+      "outputSha256": "fe5a27aef4c696f55e350d7e89e49bf77b989e6bc71ef61e5c0278103a973a7d"
+    },
+    {
+      "id": "rope-loose-c",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-loose-c.png",
+      "sourceSha256": "f6f416ff4eaf56ec2f7fad278e49f1c54d0e235fb91cb9f3b014620413da2a99",
+      "output": "rope-loose-c.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-loose-c.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 83220,
+      "outputSha256": "b1818e5e84867db2551a1e21697b9acc0903006e06e12a351d050635229041ff"
+    },
+    {
+      "id": "rope-terminal-curl",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-terminal-curl.png",
+      "sourceSha256": "00bf95bb9db2d41a14a0d0b19f581fcb45cf2f34018a6ae08d2cdadeecd46265",
+      "output": "rope-terminal-curl.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-terminal-curl.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 91744,
+      "outputSha256": "c12e0e9bbedcd6dcce3b5472ffdf563bbfd7b56fcf4f73cade2149fccbc6b175"
+    },
+    {
+      "id": "rope-taut-straight",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-taut-straight.png",
+      "sourceSha256": "6f1431adda556f333008a4fee99630e4c81f78bb537cc7273656cae94b07f425",
+      "output": "rope-taut-straight.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-taut-straight.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 70056,
+      "outputSha256": "c90aab2de9ca3698ea7f75da94921fc263dc9bacc9c988dddcd9eed48ed376e1"
+    },
+    {
+      "id": "rope-taut-bow",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-taut-bow.png",
+      "sourceSha256": "78b18d98ddbb3bb461116bffee00252b75a1a7c081c0b5941c671cf2acf3819c",
+      "output": "rope-taut-bow.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-taut-bow.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 78014,
+      "outputSha256": "186618f906d1262d71177943a4f6eb787b08f0e5dfc312c4c3e290ed7f79162f"
+    },
+    {
+      "id": "rope-taut-offset",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/rope/rope-taut-offset.png",
+      "sourceSha256": "3162b6b79d94ded1ff4443bad179caf9909afe5c1dcbca01231d54d51afbf3dc",
+      "output": "rope-taut-offset.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/rope-taut-offset.webp",
+      "width": 724,
+      "height": 2172,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 71482,
+      "outputSha256": "ad7ecf6f6c6c852543ac356ea46e29d8bbc95ce7ce7cddeacd6189a9b8f01979"
+    }
+  ]
+}

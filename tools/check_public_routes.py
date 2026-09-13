@@ -16,6 +16,7 @@ from typing import Any, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
+DEFAULT_PREVIEW_ROUTES = ROOT / "src" / "client" / "src" / "data" / "routes" / "preview-routes.json"
 INDEX_ROUTES = ("/", "/about", "/cv", "/fairytales", "/patch", "/projects", "/writing")
 KIND_ROOT = {"project": "projects", "writing": "writing", "patch": "patch"}
 LEGACY_ROUTE_CANONICALS = {
@@ -31,6 +32,7 @@ class DocumentMetadataParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.canonical: str | None = None
+        self.robots: str | None = None
         self.in_title = False
         self.title_parts: list[str] = []
 
@@ -44,6 +46,8 @@ class DocumentMetadataParser(HTMLParser):
             self.in_title = True
         if tag.lower() == "link" and "canonical" in (attributes.get("rel") or "").lower().split():
             self.canonical = attributes.get("href")
+        if tag.lower() == "meta" and (attributes.get("name") or "").lower() == "robots":
+            self.robots = attributes.get("content")
 
     def handle_endtag(self, tag: str) -> None:
         if tag.lower() == "title":
@@ -72,6 +76,15 @@ def expected_public_routes(manifest: Mapping[str, Any]) -> list[str]:
             content_routes.append(f"/{root}/{slug}")
     legacy_routes = [route for route, canonical in LEGACY_ROUTE_CANONICALS.items() if canonical == "/patch" or canonical in content_routes]
     return [*INDEX_ROUTES, *sorted(set(content_routes + legacy_routes) - set(INDEX_ROUTES))]
+
+
+def expected_preview_routes(preview_routes: Sequence[Mapping[str, Any]]) -> list[str]:
+    """Return deployed preview routes without promoting them to public routes."""
+    return [
+        route["path"]
+        for route in preview_routes
+        if isinstance(route.get("path"), str) and route["path"]
+    ]
 
 
 def _request_url(origin: str, route: str) -> str:
@@ -149,10 +162,33 @@ def _inspect_html(route: str, result: FetchResult, expected_canonical: str, *, u
     return findings
 
 
+def _inspect_preview_html(route: str, result: FetchResult) -> list[str]:
+    findings: list[str] = []
+    if result.content_type != "text/html":
+        findings.append(f"{route}: Content-Type is {result.content_type or 'missing'}, expected text/html")
+        return findings
+
+    text = result.body.decode("utf-8", errors="replace")
+    if _looks_like_github_error(text):
+        findings.append(f"{route}: response is the generic GitHub Pages error document")
+        return findings
+
+    parser = DocumentMetadataParser()
+    parser.feed(text)
+    if not parser.title:
+        findings.append(f"{route}: HTML has no nonempty title")
+    if parser.robots != "noindex, nofollow":
+        findings.append(f"{route}: robots is {parser.robots!r}, expected 'noindex, nofollow'")
+    if parser.canonical is not None:
+        findings.append(f"{route}: preview route must not declare a canonical URL")
+    return findings
+
+
 def check_public_routes(
     origin: str,
     manifest: Mapping[str, Any],
     *,
+    preview_routes: Sequence[Mapping[str, Any]] = (),
     retries: int = 2,
     retry_delay: float = 1.0,
     timeout: float = 15.0,
@@ -173,6 +209,20 @@ def check_public_routes(
             continue
         canonical_route = LEGACY_ROUTE_CANONICALS.get(route, route)
         findings.extend(_inspect_html(route, result, _canonical_url(origin, canonical_route), unknown=False))
+
+    for route in expected_preview_routes(preview_routes):
+        url = _request_url(origin, route)
+        try:
+            result = _fetch(url, retries=retries, retry_delay=retry_delay, timeout=timeout)
+        except urllib.error.URLError as error:
+            findings.append(f"{route}: network failure: {error.reason}")
+            continue
+
+        if result.status != 200:
+            qualifier = " redirect response" if 300 <= result.status < 400 else ""
+            findings.append(f"{route}: HTTP {result.status}{qualifier}; preview routes must return 200")
+            continue
+        findings.extend(_inspect_preview_html(route, result))
 
     unknown_url = _request_url(origin, UNKNOWN_ROUTE)
     try:
@@ -203,9 +253,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    preview_routes = json.loads(DEFAULT_PREVIEW_ROUTES.read_text(encoding="utf-8"))
     findings = check_public_routes(
         args.origin,
         manifest,
+        preview_routes=preview_routes,
         retries=max(0, args.retries),
         retry_delay=max(0, args.retry_delay),
         timeout=args.timeout,
@@ -217,7 +269,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     print(
-        f"[tools/check_public_routes] {len(expected_public_routes(manifest))} known routes and custom 404 OK"
+        f"[tools/check_public_routes] {len(expected_public_routes(manifest))} public routes, "
+        f"{len(expected_preview_routes(preview_routes))} preview routes, and custom 404 OK"
     )
     return 0
 

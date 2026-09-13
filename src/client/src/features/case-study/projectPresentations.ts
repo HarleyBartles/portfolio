@@ -6,7 +6,7 @@ const projectPresentations = {
   'patch-pipeline-case-study': lazy(async () => ({ default: (await import('./patch/PatchPipelineCaseStudy')).PatchPipelineCaseStudy })),
   'patch-identity-emporium': lazy(async () => ({ default: (await import('../patch-showcase/IdentityEmporiumPage')).IdentityEmporiumPage })),
   'patch-tournament': lazy(async () => ({ default: (await import('../patch-showcase/TournamentPage')).TournamentPage })),
-  'patch-usual-specialists': lazy(async () => ({ default: (await import('../patch-showcase/UsualSpecialistsPage')).UsualSpecialistsPage })),
+  'patch-usual-specialists': lazy(async () => ({ default: (await import('../patch-showcase/LegacyUsualSpecialistsPage')).LegacyUsualSpecialistsPage })),
   'learning-lab-case-study': lazy(async () => ({ default: (await import('./learning-lab/LearningLabCaseStudy')).LearningLabCaseStudy })),
 } as const satisfies Record<string, ComponentType>
 

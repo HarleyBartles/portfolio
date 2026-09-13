@@ -50,6 +50,19 @@ const loadPatchRoute = async () => {
   }
 }
 
+const loadUsualSpecialistsPreviewRoute = async () => {
+  const [{ UsualSpecialistsPage }, { UsualSpecialistsPreviewPage }] = await Promise.all([
+    import('../features/patch-showcase/UsualSpecialistsPage'),
+    import('../pages/UsualSpecialistsPreviewPage'),
+  ])
+
+  return {
+    Component: () => (
+      <UsualSpecialistsPreviewPage Presentation={UsualSpecialistsPage} />
+    ),
+  }
+}
+
 const LegacyFairytaleRedirect = () => {
   const { slug } = useParams()
   return (
@@ -101,8 +114,8 @@ export const appRoutes: RouteObject[] = [
         }),
       },
       {
-        path: 'patch/lawful-heist',
-        element: <Navigate to="/patch/the-usual-specialists" replace />,
+        path: 'patch/the-usual-specialists/next',
+        lazy: loadUsualSpecialistsPreviewRoute,
       },
       {
         path: 'patch/:slug',

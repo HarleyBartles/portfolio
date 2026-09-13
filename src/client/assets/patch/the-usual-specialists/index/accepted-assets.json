@@ -1,0 +1,163 @@
+{
+  "assets": [
+    {
+      "id": "safehouse-threshold",
+      "originalWireframeFilename": "commission-01-current.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/safehouse-threshold.png",
+      "sha256": "6e862160a1f6bd5cc2c5f09da560f665d9bf83aae36a6eca8cd14f5fe791f10c",
+      "width": 1672,
+      "height": 941,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-desktop-base",
+      "originalWireframeFilename": "commission-02-base-candidate-03.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-desktop-base.png",
+      "sha256": "807de074c28b1ef2450d24aae4eff2b70b2da8b9c23942d750493d2f8c7a1019",
+      "width": 1672,
+      "height": 941,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-assent-note",
+      "originalWireframeFilename": "commission-02-index-assent-note-candidate-03.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-assent-note.png",
+      "sha256": "c2e4efd4c213d44e2fcbb05edece10a31ac31466b46a4b0987d5b61c68ba4bc7",
+      "width": 1373,
+      "height": 1145,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-blue-carrier",
+      "originalWireframeFilename": "commission-02-index-carrier-blue-candidate.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-blue-carrier.png",
+      "sha256": "be536fe598e746a8769891502aa66959f1845e55c7edd221d59b04cc91296a23",
+      "width": 1536,
+      "height": 1024,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-graph-paper",
+      "originalWireframeFilename": "commission-02-index-graph-paper-spill-candidate-01.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-graph-paper.png",
+      "sha256": "0f5fb6c12e144ff9e4b721d8996e17eba02c79bd53c3139a4d8616e01ebdb206",
+      "width": 1536,
+      "height": 1024,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-observation",
+      "originalWireframeFilename": "commission-03-index-inset-candidate-01.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-observation.png",
+      "sha256": "7a7a4f7b5576b7a5b57df865f2828d5827abffc806665e451f915b3beb1318f3",
+      "width": 1774,
+      "height": 887,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-macguffin",
+      "originalWireframeFilename": "commission-04-index-macguffin-accepted.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-macguffin.png",
+      "sha256": "0dbccb6e015804d0a65ecd46c0fd23b8c60101d42c01a1bc8269c6129c76832d",
+      "width": 1536,
+      "height": 1024,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "index-walk",
+      "originalWireframeFilename": "commission-index-pilot-traversal-01.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-walk.png",
+      "sha256": "d33f60c03c2f7d82bf16de8bb3244fac22c1ddde2f1ee903c2d6b779eec46970",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "a6163be5-3bdd-425a-b144-b00e3a88423d"
+    },
+    {
+      "id": "index-inspect",
+      "originalWireframeFilename": "index-traversal-02-low-inspection.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-inspect.png",
+      "sha256": "b8b8e2210f04c722d8a7054168f182445dda74ed9318b8eade0c86f185c8e40e",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "a6163be5-3bdd-425a-b144-b00e3a88423d"
+    },
+    {
+      "id": "index-high-step",
+      "originalWireframeFilename": "index-traversal-03-high-step.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-high-step.png",
+      "sha256": "507270ea3beba6d0467500be973839c7221158be935350b8010208c77b4b2946",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "a6163be5-3bdd-425a-b144-b00e3a88423d"
+    },
+    {
+      "id": "index-return",
+      "originalWireframeFilename": "index-traversal-05-rear-progression.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/index-return.png",
+      "sha256": "cd501efacab482ee34364e2b98c79ebf7f712954c5fab193b7809f199b5bf56c",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "a6163be5-3bdd-425a-b144-b00e3a88423d"
+    },
+    {
+      "id": "patch-follow",
+      "originalWireframeFilename": "patch-traversal-01-following.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-follow.png",
+      "sha256": "2f93ebd8b5da683792874ce4d060d89511e5b738d6ccaabb8e407748adb0ec87",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "patch-leaning",
+      "originalWireframeFilename": "patch-traversal-02-leaning.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-leaning.png",
+      "sha256": "e382059bdd34d97358237fdf51c14130a5e5e5f1728e5e953411eebaa61ad615",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
+      "id": "patch-return",
+      "originalWireframeFilename": "patch-traversal-05-rear.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/index/patch-return.png",
+      "sha256": "1df2c4860d1277092f29f83a8388c7c1750b94ed0eb3fd9f915ab338889044b2",
+      "width": 1024,
+      "height": 1536,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "72833c08-cbbe-4674-889a-9024c307c415"
+    }
+  ]
+}

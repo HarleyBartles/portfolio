@@ -12,4 +12,5 @@ test('brands the Patch index as the series front door', async () => {
   expect(screen.getByTestId('patch-index')).toHaveAttribute('data-visual-contract', 'patch-index')
   expect(screen.getByRole('img', { name: 'Adventures of PATCH' })).toBeVisible()
   expect(await screen.findByRole('link', { name: 'View The Usual Specialists' })).toHaveAttribute('href', '/patch/the-usual-specialists')
+  expect(document.querySelector('a[href*="/patch/the-usual-specialists/next"]')).toBeNull()
 })
