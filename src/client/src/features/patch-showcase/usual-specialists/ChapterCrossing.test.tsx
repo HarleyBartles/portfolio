@@ -12,6 +12,18 @@ describe('ChapterCrossing', () => {
     expect(root?.querySelector('[data-specialists-crossing-anchor]')).toHaveAttribute('data-specialists-crossing-anchor', crossing)
   })
 
+  test('selects the authored Index to Silk lock without leaking its internal layers into this compositor test', () => {
+    const { container } = render(<ChapterCrossing crossing="index-silk" />)
+
+    expect(container.querySelector('[data-index-silk-crossing-lock]')).toBeInTheDocument()
+  })
+
+  test('does not use the Index to Silk lock for the opening to Index crossing', () => {
+    const { container } = render(<ChapterCrossing crossing="opening-index" />)
+
+    expect(container.querySelector('[data-index-silk-crossing-lock]')).not.toBeInTheDocument()
+  })
+
   test('does not expose caller className as a styling seam', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
     const { container } = render(<ChapterCrossing crossing="opening-index" className="external-control" />)

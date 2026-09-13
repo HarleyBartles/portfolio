@@ -98,6 +98,8 @@ export const IndexWideRopeMaterial = styled.div`
 
   @media ${specialistsMedia.wideBand} {
     display: block;
+    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.indexBowScaleX});
+    transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.indexBowAnchorX} 0;
   }
 `
 

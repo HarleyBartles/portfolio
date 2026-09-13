@@ -8,6 +8,8 @@ import {
   SILK_COMMISSION_05_FRAME_WIDTH,
   SILK_COMMISSION_05_PARALLAX_TRAVEL,
   SILK_COMMISSION_05_PARALLAX_SAFETY_MARGIN,
+  SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT,
+  SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH,
   SILK_COMMISSION_05_PORTRAIT_VIEWPORT,
   SILK_COMMISSION_05_SCENE_OVERSCAN,
   SILK_COMMISSION_05_VIEWPORT,
@@ -16,6 +18,10 @@ import {
 const sourcePath = path.resolve(
   process.cwd(),
   'assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png',
+)
+const portraitSourcePath = path.resolve(
+  process.cwd(),
+  'assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png',
 )
 
 describe('Silk Commission 05 geometry', () => {
@@ -30,12 +36,12 @@ describe('Silk Commission 05 geometry', () => {
     expect(safeTotalTravel).toBeGreaterThanOrEqual(128)
   })
 
-  test('rotates the authored viewport with the temporary compact portrait frame', () => {
+  test('uses the commissioned portrait viewport', () => {
     expect(SILK_COMMISSION_05_PORTRAIT_VIEWPORT).toEqual({
-      left: 121,
-      right: 811,
-      top: 200,
-      bottom: 1500,
+      left: 170,
+      right: 957,
+      top: 150,
+      bottom: 1242,
     })
   })
 
@@ -65,6 +71,34 @@ describe('Silk Commission 05 geometry', () => {
         expect(alphaAt(left + offset, y), `left coverage leaked at y=${y}, offset=${offset}`)
           .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
         expect(alphaAt(right - offset, y), `right coverage leaked at y=${y}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
+      }
+    }
+  })
+
+  test('keeps every hard portrait viewport edge hidden beneath the commissioned portrait frame', async () => {
+    const { data, info } = await sharp(portraitSourcePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+
+    expect(info.width).toBe(SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH)
+    expect(info.height).toBe(SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT)
+
+    const alphaAt = (x: number, y: number): number =>
+      data[(y * info.width + x) * info.channels + 3] ?? 0
+
+    const { left, right, top, bottom } = SILK_COMMISSION_05_PORTRAIT_VIEWPORT
+    for (let x = left; x <= right; x += 1) {
+      for (let offset = 0; offset < SILK_COMMISSION_05_FRAME_COVERAGE_BAND; offset += 1) {
+        expect(alphaAt(x, top + offset), `portrait top coverage leaked at x=${x}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
+        expect(alphaAt(x, bottom - offset), `portrait bottom coverage leaked at x=${x}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
+      }
+    }
+    for (let y = top; y <= bottom; y += 1) {
+      for (let offset = 0; offset < SILK_COMMISSION_05_FRAME_COVERAGE_BAND; offset += 1) {
+        expect(alphaAt(left + offset, y), `portrait left coverage leaked at y=${y}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
+        expect(alphaAt(right - offset, y), `portrait right coverage leaked at y=${y}, offset=${offset}`)
           .toBeGreaterThanOrEqual(SILK_COMMISSION_05_FRAME_ALPHA_THRESHOLD)
       }
     }

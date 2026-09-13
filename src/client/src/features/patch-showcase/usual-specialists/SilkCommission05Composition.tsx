@@ -6,6 +6,7 @@ import {
 import {
   Composition,
   Frame,
+  PortraitFrame,
   SceneImage,
   WorldViewport,
 } from './SilkCommission05Composition.styles'
@@ -49,6 +50,14 @@ export const SilkCommission05Composition = ({ style }: SilkCommission05Compositi
         alt=""
         aria-hidden="true"
         data-silk-commission-05-frame
+      />
+      <PortraitFrame
+        src={usualSpecialistsAssetPath('silk-commission-05-aperture-rim-heavy-portrait.webp')}
+        width="1122"
+        height="1402"
+        alt=""
+        aria-hidden="true"
+        data-silk-commission-05-portrait-frame
       />
     </Composition>
   )

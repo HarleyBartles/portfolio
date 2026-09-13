@@ -38,6 +38,7 @@ export const CrossingAnchor = styled.span<{ $crossing: ChapterCrossingId }>`
   transform: translate(-50%, -50%);
 
   @media ${specialistsMedia.wideBand} {
+    display: ${({ $crossing }) => $crossing === 'index-silk' ? 'none' : 'block'};
     left: ${({ $crossing }) => chapterCrossingPort($crossing, 'wideBand')};
   }
 

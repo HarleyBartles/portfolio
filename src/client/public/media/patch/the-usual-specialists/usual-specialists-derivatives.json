@@ -272,6 +272,24 @@
       "outputSha256": "200297769213061c382e690a85d0ea12924d4f52f2abdf82ceefefd86ea37269"
     },
     {
+      "id": "silk-commission-05-aperture-rim-heavy-portrait",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png",
+      "sourceSha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+      "output": "silk-commission-05-aperture-rim-heavy-portrait.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy-portrait.webp",
+      "width": 1122,
+      "height": 1402,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 341272,
+      "outputSha256": "70c306c8734d470f0b3e6b87e3e94e2a0663e453a2509c38d97229c1afbeac26"
+    },
+    {
       "id": "silk-commission-05-corridor",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-corridor.png",
       "sourceSha256": "cd49b14b67e465df2e69391a670caee88b8f0dd9596ae29c16f0a84e85a8dd99",
@@ -288,6 +306,78 @@
       },
       "bytes": 223800,
       "outputSha256": "35747a59e79ef7a686da977714f849bfb94db32d60139ce70c7d6bb1f15f2076"
+    },
+    {
+      "id": "silk-index-crossing-anchor-ring",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
+      "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",
+      "output": "silk-index-crossing-anchor-ring.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-anchor-ring.webp",
+      "width": 512,
+      "height": 512,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 60082,
+      "outputSha256": "0c5d19b6f443d883ffc43b62d25322efdcf78e5e073ecaaeac1b5e1d86f45892"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground.png",
+      "sourceSha256": "d4569f4aee02d1dcf4641775d4da75da04d26c32457ba71aa5e5053cea3c0f6e",
+      "output": "silk-index-crossing-knot-foreground.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-knot-foreground.webp",
+      "width": 1145,
+      "height": 1373,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 78560,
+      "outputSha256": "24444da5dc59bb6b048376b1373c23b9193ae7151c153d40e14666a8edb5fcd8"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground-crop",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground-crop.png",
+      "sourceSha256": "3a30bdc80657c00e9b05c9fe1456ae72ccf0b8753b9dadf2636fe33512260dca",
+      "output": "silk-index-crossing-knot-foreground-crop.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-knot-foreground-crop.webp",
+      "width": 470,
+      "height": 920,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 61332,
+      "outputSha256": "af5e94818899a81bb900d16b71773b037086632edd0aca72e1c2cdd2f9801129"
+    },
+    {
+      "id": "silk-index-crossing-ring-occluder",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-ring-occluder.png",
+      "sourceSha256": "ff2038d675f9d3640ed2f1b70e1d325dff6a985e1ecb3ad757846e82642f6b62",
+      "output": "silk-index-crossing-ring-occluder.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-index-crossing-ring-occluder.webp",
+      "width": 512,
+      "height": 512,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 10764,
+      "outputSha256": "26493a08e4f7f21560b93c462d0e4f3a301418764b2af314aa0f234e562e2469"
     },
     {
       "id": "rope-loose-a",

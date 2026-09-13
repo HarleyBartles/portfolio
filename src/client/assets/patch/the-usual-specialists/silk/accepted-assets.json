@@ -13,6 +13,17 @@
       "provenanceDocumentId": "710a99b4-7218-4eab-930a-fea7d4a9ae78"
     },
     {
+      "id": "silk-commission-05-aperture-rim-heavy-portrait",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 11_29_15 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png",
+      "sha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+      "width": 1122,
+      "height": 1402,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16"
+    },
+    {
       "id": "silk-commission-05-corridor",
       "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 01_52_44 AM.png",
       "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-corridor.png",
@@ -23,6 +34,58 @@
       "rightsOwner": "Harley Bartles",
       "provenanceIssue": "PORT-16",
       "provenanceDocumentId": "b4956d48-8d2a-4dbc-9811-0adf212eac2f"
+    },
+    {
+      "id": "silk-index-crossing-anchor-ring",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 01_15_55 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
+      "sha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",
+      "width": 1254,
+      "height": 1254,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "generationId": "53aeb49a-239e-4134-8093-eaec0e43fd15"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 01_42_49 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground.png",
+      "sha256": "d4569f4aee02d1dcf4641775d4da75da04d26c32457ba71aa5e5053cea3c0f6e",
+      "width": 1145,
+      "height": 1373,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "generationId": "0a2b91e7-3255-4d38-9f51-8c447e55d77c"
+    },
+    {
+      "id": "silk-index-crossing-knot-foreground-crop",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-knot-foreground-crop.png",
+      "sha256": "3a30bdc80657c00e9b05c9fe1456ae72ccf0b8753b9dadf2636fe33512260dca",
+      "width": 470,
+      "height": 920,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "derivedFrom": "silk-index-crossing-knot-foreground",
+      "derivation": "Deterministic Sharp extraction x=390, y=100, width=470, height=920."
+    },
+    {
+      "id": "silk-index-crossing-ring-occluder",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-ring-occluder.png",
+      "sha256": "ff2038d675f9d3640ed2f1b70e1d325dff6a985e1ecb3ad757846e82642f6b62",
+      "width": 1254,
+      "height": 1254,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "derivedFrom": "silk-index-crossing-anchor-ring",
+      "derivation": "Deterministic same-canvas alpha mask retaining the lower/front ring arc."
     }
   ]
 }

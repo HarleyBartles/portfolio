@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import {
   SILK_COMMISSION_05_FRAME_HEIGHT,
   SILK_COMMISSION_05_FRAME_WIDTH,
+  SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT,
+  SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH,
   SILK_COMMISSION_05_PORTRAIT_VIEWPORT_INSETS,
   SILK_COMMISSION_05_SCENE_OVERSCAN,
   SILK_COMMISSION_05_VIEWPORT_INSETS,
@@ -13,8 +15,14 @@ export const Composition = styled.div`
   width: 100%;
   aspect-ratio: ${SILK_COMMISSION_05_FRAME_WIDTH} / ${SILK_COMMISSION_05_FRAME_HEIGHT};
 
+  @media ${specialistsMedia.atMostCompact} {
+    overflow: clip;
+    width: 116%;
+    margin-left: -8%;
+  }
+
   @media ${specialistsMedia.atMostNarrow} {
-    aspect-ratio: ${SILK_COMMISSION_05_FRAME_HEIGHT} / ${SILK_COMMISSION_05_FRAME_WIDTH};
+    aspect-ratio: ${SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH} / ${SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT};
   }
 `
 
@@ -62,13 +70,21 @@ export const Frame = styled.img`
   pointer-events: none;
 
   @media ${specialistsMedia.atMostNarrow} {
-    inset: auto;
-    top: 50%;
-    left: 50%;
-    width: ${(SILK_COMMISSION_05_FRAME_WIDTH / SILK_COMMISSION_05_FRAME_HEIGHT) * 100}%;
-    height: auto;
-    max-width: none;
-    transform: translate(-50%, -50%) rotate(90deg);
-    transform-origin: 50% 50%;
+    display: none;
+  }
+`
+
+export const PortraitFrame = styled.img`
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+
+  @media ${specialistsMedia.atMostNarrow} {
+    display: block;
   }
 `

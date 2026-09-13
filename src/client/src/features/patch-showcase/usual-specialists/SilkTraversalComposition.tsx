@@ -8,6 +8,7 @@ import { specialistsMedia } from './specialistsResponsive'
 export const SILK_ROPE_VIEWBOX = { width: 1000, height: 1800 } as const
 export const SILK_COMMISSION_06_ROPE_PORT = { x: 250, y: 580 } as const
 export const SILK_COMMISSION_06_COMPACT_ROPE_PORT = { x: 244, y: 440 } as const
+const SILK_WIDE_BAND_LOCK_PORT_LEFT = '329.2px'
 
 const COMMISSION_06_PORT_LEFT = `${(SILK_COMMISSION_06_ROPE_PORT.x / SILK_ROPE_VIEWBOX.width) * 100}%`
 const COMMISSION_06_PORT_TOP = `${(SILK_COMMISSION_06_ROPE_PORT.y / SILK_ROPE_VIEWBOX.height) * 100}%`
@@ -49,6 +50,7 @@ const UpperRopePlacement = styled.div`
   }
 
   @media ${specialistsMedia.wideBand} {
+    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.materialWidth}px;
   }
 `
@@ -58,6 +60,11 @@ const UpperRopeMaterial = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+
+  @media ${specialistsMedia.wideBand} {
+    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.straightScaleX});
+    transform-origin: 50% 100%;
+  }
 `
 
 const LowerRopePlacement = styled.div`
@@ -86,8 +93,18 @@ const LowerRopePlacement = styled.div`
   }
 
   @media ${specialistsMedia.wideBand} {
+    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalEntryOffset}px;
+  }
+`
+
+const LowerRopeMaterial = styled.div`
+  width: 100%;
+
+  @media ${specialistsMedia.wideBand} {
+    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.terminalScaleX});
+    transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.terminalAnchorX} 0;
   }
 `
 
@@ -141,6 +158,10 @@ const RopeJoinPort = styled.span`
   transform: translate(-50%, -50%);
   ${chapterCrossingPortCss('index-silk')}
 
+  @media ${specialistsMedia.wideBand} {
+    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
+  }
+
   @media ${specialistsMedia.compactLandscape} {
     top: ${COMMISSION_06_COMPACT_PORT_TOP};
   }
@@ -154,7 +175,9 @@ export const SilkTraversalComposition = ({ style }: SilkTraversalCompositionProp
       </UpperRopeMaterial>
     </UpperRopePlacement>
     <LowerRopePlacement aria-hidden="true" data-silk-rope-segment="lower" data-specialists-rope-piece="silk-lower">
-      <RopePiece variant="terminal-curl" />
+      <LowerRopeMaterial>
+        <RopePiece variant="terminal-curl" />
+      </LowerRopeMaterial>
     </LowerRopePlacement>
     <RopeJoinPort aria-hidden="true" data-silk-rope-join-port />
     <Traversal data-silk-commission="06">

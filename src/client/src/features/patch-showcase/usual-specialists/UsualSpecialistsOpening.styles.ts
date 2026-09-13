@@ -69,6 +69,9 @@ export const OpeningRopeTile = styled.div`
   }
 
   @media ${specialistsMedia.wideBand} {
+    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.straightScaleX});
+    transform-origin: 50% 0;
+
     & + & {
       display: none;
     }

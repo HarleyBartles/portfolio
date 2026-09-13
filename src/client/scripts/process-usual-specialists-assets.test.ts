@@ -10,13 +10,18 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(23)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(28)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('index-high-step.webp')
     expect(outputs).toContain('index-return.webp')
     expect(outputs).toContain('patch-return.webp')
     expect(outputs).toContain('silk-commission-05-aperture-rim-heavy.webp')
+    expect(outputs).toContain('silk-commission-05-aperture-rim-heavy-portrait.webp')
     expect(outputs).toContain('silk-commission-05-corridor.webp')
+    expect(outputs).toContain('silk-index-crossing-anchor-ring.webp')
+    expect(outputs).toContain('silk-index-crossing-knot-foreground.webp')
+    expect(outputs).toContain('silk-index-crossing-knot-foreground-crop.webp')
+    expect(outputs).toContain('silk-index-crossing-ring-occluder.webp')
     expect(outputs).toEqual(expect.arrayContaining([
       'rope-loose-a.webp',
       'rope-loose-b.webp',

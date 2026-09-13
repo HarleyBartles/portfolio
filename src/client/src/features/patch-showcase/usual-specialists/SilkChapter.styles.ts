@@ -86,10 +86,8 @@ export const CorridorAperturePlacement = styled.div`
   }
 
   @media ${specialistsMedia.atMostNarrow} {
-    right: 0;
     left: 0;
-    width: 280px;
-    margin-inline: auto;
+    width: 100%;
   }
 `
 
