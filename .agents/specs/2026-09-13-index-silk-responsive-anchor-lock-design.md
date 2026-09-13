@@ -1,8 +1,8 @@
 # Index-to-Silk responsive anchor-lock design
 
-**Status:** Approved direction; written-spec review pending.
+**Status:** Approved.
 
-**Planning handoff readiness:** 8/10. The responsive ownership model, route-state rules, physical invariants, accepted wide reference treatment, and test strategy are explicit. Implementation should not begin until Harley reviews this written spec and confirms the responsive direction as captured here.
+**Planning handoff readiness:** 9/10. Harley approved this written responsive direction on 2026-09-13; the responsive ownership model, route-state rules, physical invariants, accepted wide reference treatment, and test strategy are explicit.
 
 ## Goal
 
