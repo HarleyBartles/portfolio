@@ -7,8 +7,11 @@ import sharp from 'sharp'
 
 const clientRoot = path.resolve(import.meta.dirname, '..')
 const repositoryRoot = path.resolve(clientRoot, '..', '..')
-const sourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usual-specialists', 'index')
-const acceptedAssetsPath = path.join(sourceRoot, 'accepted-assets.json')
+const specialistsSourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usual-specialists')
+const acceptedPackageRoots = Object.freeze({
+  index: path.join(specialistsSourceRoot, 'index'),
+  silk: path.join(specialistsSourceRoot, 'silk'),
+})
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
 
@@ -34,6 +37,22 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'patch-follow', source: 'patch-follow.png', output: 'patch-follow.webp', width: 320, format: 'webp' },
   { id: 'patch-leaning', source: 'patch-leaning.png', output: 'patch-leaning.webp', width: 320, format: 'webp' },
   { id: 'patch-return', source: 'patch-return.png', output: 'patch-return.webp', width: 320, format: 'webp' },
+  {
+    id: 'silk-commission-05-aperture-rim-heavy',
+    sourcePackage: 'silk',
+    source: 'silk-commission-05-aperture-rim-heavy.png',
+    output: 'silk-commission-05-aperture-rim-heavy.webp',
+    width: 1672,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-05-corridor',
+    sourcePackage: 'silk',
+    source: 'silk-commission-05-corridor.png',
+    output: 'silk-commission-05-corridor.webp',
+    width: 1086,
+    format: 'webp',
+  },
 ])
 
 const fail = (message) => {
@@ -78,23 +97,37 @@ const readJson = async (filePath, label) => {
   }
 }
 
+const sourcePackageFor = (asset) => asset.sourcePackage ?? 'index'
+
 const loadAcceptedSources = async () => {
-  const manifest = await readJson(acceptedAssetsPath, 'Usual Specialists accepted source manifest')
-  if (!Array.isArray(manifest.assets) || manifest.assets.length !== USUAL_SPECIALISTS_ASSETS.length) {
-    fail(`Usual Specialists accepted source manifest must contain ${USUAL_SPECIALISTS_ASSETS.length} assets.`)
+  const manifests = new Map()
+  for (const packageName of new Set(USUAL_SPECIALISTS_ASSETS.map(sourcePackageFor))) {
+    const packageRoot = acceptedPackageRoots[packageName]
+    if (!packageRoot) fail(`Unknown Usual Specialists source package: ${packageName}.`)
+    const packageAssets = USUAL_SPECIALISTS_ASSETS.filter((asset) => sourcePackageFor(asset) === packageName)
+    const manifest = await readJson(
+      path.join(packageRoot, 'accepted-assets.json'),
+      `Usual Specialists ${packageName} accepted source manifest`,
+    )
+    if (!Array.isArray(manifest.assets) || manifest.assets.length !== packageAssets.length) {
+      fail(`Usual Specialists ${packageName} accepted source manifest must contain ${packageAssets.length} assets.`)
+    }
+    const byId = new Map(manifest.assets.map((entry) => [entry.id, entry]))
+    if (byId.size !== manifest.assets.length) fail(`Usual Specialists ${packageName} accepted source manifest contains duplicate ids.`)
+    manifests.set(packageName, byId)
   }
-  const byId = new Map(manifest.assets.map((entry) => [entry.id, entry]))
-  if (byId.size !== manifest.assets.length) fail('Usual Specialists accepted source manifest contains duplicate ids.')
 
   const sources = new Map()
   for (const asset of USUAL_SPECIALISTS_ASSETS) {
-    const accepted = byId.get(asset.id)
+    const packageName = sourcePackageFor(asset)
+    const packageRoot = acceptedPackageRoots[packageName]
+    const accepted = manifests.get(packageName)?.get(asset.id)
     if (!accepted) fail(`Usual Specialists accepted source manifest is missing ${asset.id}.`)
-    const expectedRepositoryPath = repositoryPath(path.join(sourceRoot, asset.source))
+    const sourcePath = path.join(packageRoot, asset.source)
+    const expectedRepositoryPath = repositoryPath(sourcePath)
     if (accepted.repositorySourcePath !== expectedRepositoryPath || accepted.status !== 'accepted' || accepted.rightsOwner !== 'Harley Bartles') {
       fail(`Usual Specialists accepted source custody drifted for ${asset.id}.`)
     }
-    const sourcePath = path.join(sourceRoot, asset.source)
     const buffer = await readFile(sourcePath).catch((error) => fail(`Cannot read Usual Specialists source ${asset.source}: ${error.message}`))
     const metadata = await sharp(buffer).metadata()
     const actual = { sha256: sha256(buffer), width: metadata.width, height: metadata.height, format: metadata.format }

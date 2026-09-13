@@ -4,6 +4,7 @@ import { IndexChapter } from './usual-specialists/IndexChapter'
 import { SilkChapter } from './usual-specialists/SilkChapter'
 import { SpecialistsJourneyRope } from './usual-specialists/SpecialistsJourneyRope'
 import {
+  IndexMilestoneBoundary,
   JourneyRopePlacement,
   OpeningComposition,
   SpecialistsCanvas,
@@ -18,7 +19,7 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
   return (
     <SpecialistsStory aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index-draft" style={style}>
       <SpecialistsCanvas data-specialists-canvas="authored">
-        <div data-specialists-index-milestone>
+        <IndexMilestoneBoundary data-specialists-index-milestone>
           <OpeningComposition>
             <UsualSpecialistsOpening />
             <JourneyRopePlacement>
@@ -26,7 +27,7 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
             </JourneyRopePlacement>
           </OpeningComposition>
           <IndexChapter />
-        </div>
+        </IndexMilestoneBoundary>
         <SilkChapter />
       </SpecialistsCanvas>
     </SpecialistsStory>

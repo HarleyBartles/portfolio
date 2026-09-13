@@ -59,40 +59,39 @@ export const NameMark = styled.img`
 
 export const CorridorAperturePlacement = styled.div`
   position: absolute;
-  z-index: 3;
   top: 136px;
-  right: -4%;
   left: 17%;
-  height: 510px;
+  width: min(82%, 1140px);
+
+  @media ${specialistsMedia.atLeastWide} {
+    width: 1050px;
+  }
+
+  @media ${specialistsMedia.atLeastExpanded} {
+    width: 1120px;
+  }
+
+  @media ${specialistsMedia.atLeastUltrawide} {
+    width: 1200px;
+  }
 
   @media ${specialistsMedia.atMostMid} {
-    left: 12%;
+    left: 8%;
+    width: 88%;
   }
 
   @media ${specialistsMedia.atMostCompact} {
     top: 146px;
-    right: -10%;
-    left: -8%;
-    height: 450px;
+    left: 0;
+    width: 100%;
   }
-`
 
-export const CorridorWorld = styled.div`
-  position: absolute;
-  inset: 0;
-  display: grid;
-  padding: 8% 9%;
-  align-items: end;
-  background:
-    linear-gradient(90deg, rgb(35 31 27 / 35%), transparent 13% 84%, rgb(35 31 27 / 30%)),
-    repeating-linear-gradient(90deg, transparent 0 11%, rgb(47 41 35 / 16%) 11.3% 11.7%, transparent 12% 22%),
-    linear-gradient(180deg, #806b58 0 18%, #9c8064 18% 63%, #5f4c3c 63% 100%);
-  color: #f2ecdf;
-  font-family: var(--font-site-sans);
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  @media ${specialistsMedia.atMostNarrow} {
+    right: 0;
+    left: 0;
+    width: 280px;
+    margin-inline: auto;
+  }
 `
 
 export const StoryCard = styled.div`
@@ -140,35 +139,6 @@ export const Role = styled.p`
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
-`
-
-export const Traversal = styled.div`
-  position: absolute;
-  top: 40%;
-  left: calc(var(--silk-rope-x) - 5%);
-  display: grid;
-  width: 156px;
-  height: 420px;
-  padding: 14px;
-  place-items: center;
-  border: 2px dashed var(--specialists-ink);
-  border-radius: 46% 44% 34% 31%;
-  background: rgb(230 234 235 / 50%);
-  transform: rotate(8deg);
-  transform-origin: 50% 16%;
-  font-family: var(--font-site-sans);
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-align: center;
-  text-transform: uppercase;
-
-  @media ${specialistsMedia.atMostCompact} {
-    top: 46%;
-    left: max(2rem, 8%);
-    width: 118px;
-    height: 350px;
-  }
 `
 
 export const BreachAperturePlacement = styled.div`

@@ -11,6 +11,7 @@ export const SPECIALISTS_WIDTHS = {
 
 export const specialistsMedia = {
   atMostNarrow: `(max-width: ${SPECIALISTS_WIDTHS.narrowMax}px)`,
+  compactLandscape: `(min-width: 391px) and (max-width: ${SPECIALISTS_WIDTHS.compactMax}px)`,
   atMostCompact: `(max-width: ${SPECIALISTS_WIDTHS.compactMax}px)`,
   atMostMid: `(max-width: ${SPECIALISTS_WIDTHS.midMax}px)`,
   belowWide: `(max-width: ${SPECIALISTS_WIDTHS.wideMin - 1}px)`,

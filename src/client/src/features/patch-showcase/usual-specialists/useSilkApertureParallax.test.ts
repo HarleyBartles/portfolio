@@ -1,7 +1,33 @@
 import { describe, expect, test } from 'vitest'
-import { calculateSilkParallaxOffset } from './useSilkApertureParallax'
+import {
+  calculateSafeSilkParallaxTravel,
+  calculateSilkParallaxOffset,
+} from './useSilkApertureParallax'
 
 describe('Silk aperture parallax calculation', () => {
+  test('clamps requested travel to the scene bleed that remains after the safety margin', () => {
+    expect(calculateSafeSilkParallaxTravel({
+      requestedTravel: 32,
+      safetyMargin: 8,
+      sceneHeight: 464,
+      viewportHeight: 400,
+    })).toBe(32)
+
+    expect(calculateSafeSilkParallaxTravel({
+      requestedTravel: 32,
+      safetyMargin: 8,
+      sceneHeight: 440,
+      viewportHeight: 400,
+    })).toBe(24)
+
+    expect(calculateSafeSilkParallaxTravel({
+      requestedTravel: 32,
+      safetyMargin: 8,
+      sceneHeight: 410,
+      viewportHeight: 400,
+    })).toBe(0)
+  })
+
   test('moves through a bounded range as the aperture crosses the viewport', () => {
     const common = {
       active: true,

@@ -1,0 +1,28 @@
+{
+  "assets": [
+    {
+      "id": "silk-commission-05-aperture-rim-heavy",
+      "originalWireframeFilename": "ChatGPT Image Sep 12, 2026, 11_58_50 PM (3).png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png",
+      "sha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+      "width": 1672,
+      "height": 941,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "710a99b4-7218-4eab-930a-fea7d4a9ae78"
+    },
+    {
+      "id": "silk-commission-05-corridor",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 01_52_44 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-corridor.png",
+      "sha256": "cd49b14b67e465df2e69391a670caee88b8f0dd9596ae29c16f0a84e85a8dd99",
+      "width": 1086,
+      "height": 1448,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "b4956d48-8d2a-4dbc-9811-0adf212eac2f"
+    }
+  ]
+}

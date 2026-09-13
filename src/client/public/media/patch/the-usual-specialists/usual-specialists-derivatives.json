@@ -252,6 +252,42 @@
       },
       "bytes": 23466,
       "outputSha256": "b50a44b7751cb82845d75bb216a00d1289267a71004875e57edcba3ffe82b5e0"
+    },
+    {
+      "id": "silk-commission-05-aperture-rim-heavy",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png",
+      "sourceSha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+      "output": "silk-commission-05-aperture-rim-heavy.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy.webp",
+      "width": 1672,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 304212,
+      "outputSha256": "200297769213061c382e690a85d0ea12924d4f52f2abdf82ceefefd86ea37269"
+    },
+    {
+      "id": "silk-commission-05-corridor",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-corridor.png",
+      "sourceSha256": "cd49b14b67e465df2e69391a670caee88b8f0dd9596ae29c16f0a84e85a8dd99",
+      "output": "silk-commission-05-corridor.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-corridor.webp",
+      "width": 1086,
+      "height": 1448,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 223800,
+      "outputSha256": "35747a59e79ef7a686da977714f849bfb94db32d60139ce70c7d6bb1f15f2076"
     }
   ]
 }

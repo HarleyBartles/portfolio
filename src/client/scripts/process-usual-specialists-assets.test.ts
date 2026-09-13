@@ -8,11 +8,13 @@ import {
 
 describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(14)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(16)
     expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('safehouse-threshold.webp')
     expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('index-high-step.webp')
     expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('index-return.webp')
     expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('patch-return.webp')
+    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('silk-commission-05-aperture-rim-heavy.webp')
+    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('silk-commission-05-corridor.webp')
     expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })

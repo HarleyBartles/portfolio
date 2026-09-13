@@ -25,6 +25,11 @@ export const OpeningComposition = styled.div`
   position: relative;
 `
 
+export const IndexMilestoneBoundary = styled.div`
+  position: relative;
+  overflow: clip;
+`
+
 export const JourneyRopePlacement = styled.div`
   position: absolute;
   right: 0;

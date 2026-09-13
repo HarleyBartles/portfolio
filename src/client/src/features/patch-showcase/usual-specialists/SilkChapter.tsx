@@ -1,4 +1,6 @@
 import type { CSSProperties, ReactElement } from 'react'
+import { SilkCommission05Composition } from './SilkCommission05Composition'
+import { SilkTraversalComposition } from './SilkTraversalComposition'
 import { SilkWallAperture } from './SilkWallAperture'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
@@ -7,7 +9,6 @@ import {
   Chapter,
   ChapterNumber,
   CorridorAperturePlacement,
-  CorridorWorld,
   Eyebrow,
   HandoffBeat,
   NameMark,
@@ -17,7 +18,6 @@ import {
   Role,
   Stage,
   StoryCard,
-  Traversal,
 } from './SilkChapter.styles'
 
 type SilkChapterProps = {
@@ -25,12 +25,6 @@ type SilkChapterProps = {
 }
 
 export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
-  const traversal = (
-    <Traversal data-silk-commission="06">
-      Commission 06 / threshold-crossing Silk traversal
-    </Traversal>
-  )
-
   return (
     <Chapter aria-labelledby="specialists-silk-title" data-specialist-chapter="silk" style={style}>
       <h2 className="visually-hidden" id="specialists-silk-title">Silk</h2>
@@ -45,12 +39,10 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
           data-silk-name-mark
         />
 
+        <SilkTraversalComposition />
+
         <CorridorAperturePlacement data-silk-aperture-owner="05" data-silk-commission="05">
-          <SilkWallAperture variant="corridor" maxParallaxTravel={32} crossing={traversal}>
-            <CorridorWorld>
-              Corridor world behind mineral page / pressure test already underway
-            </CorridorWorld>
-          </SilkWallAperture>
+          <SilkCommission05Composition />
         </CorridorAperturePlacement>
 
         <StoryCard data-silk-story-card>

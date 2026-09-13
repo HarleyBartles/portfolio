@@ -9,14 +9,35 @@ type CalculateSilkParallaxOffsetArgs = {
   viewportHeight: number
 }
 
+type CalculateSafeSilkParallaxTravelArgs = {
+  requestedTravel: number
+  safetyMargin: number
+  sceneHeight: number
+  viewportHeight: number
+}
+
 type UseSilkApertureParallaxArgs = {
   maxTravel: number
   rootRef: RefObject<HTMLElement | null>
+  safetyMargin?: number
+  viewportRef?: RefObject<HTMLElement | null>
   worldRef: RefObject<HTMLElement | null>
 }
 
 const clamp = (value: number, minimum: number, maximum: number): number =>
   Math.min(maximum, Math.max(minimum, value))
+
+export const calculateSafeSilkParallaxTravel = ({
+  requestedTravel,
+  safetyMargin,
+  sceneHeight,
+  viewportHeight,
+}: CalculateSafeSilkParallaxTravelArgs): number => {
+  if (requestedTravel <= 0 || sceneHeight <= 0 || viewportHeight <= 0) return 0
+
+  const safeTravel = Math.max(0, sceneHeight - viewportHeight - (2 * Math.max(0, safetyMargin)))
+  return Math.min(requestedTravel, safeTravel)
+}
 
 export const calculateSilkParallaxOffset = ({
   active,
@@ -35,6 +56,8 @@ export const calculateSilkParallaxOffset = ({
 export const useSilkApertureParallax = ({
   maxTravel,
   rootRef,
+  safetyMargin = 0,
+  viewportRef,
   worldRef,
 }: UseSilkApertureParallaxArgs): void => {
   useEffect(() => {
@@ -49,11 +72,20 @@ export const useSilkApertureParallax = ({
     const update = () => {
       frame = 0
       const bounds = root.getBoundingClientRect()
+      const viewport = viewportRef?.current
+      const safeTravel = viewport === undefined || viewport === null
+        ? maxTravel
+        : calculateSafeSilkParallaxTravel({
+            requestedTravel: maxTravel,
+            safetyMargin,
+            sceneHeight: world.offsetHeight,
+            viewportHeight: viewport.clientHeight,
+          })
       const offset = calculateSilkParallaxOffset({
         active,
         elementHeight: bounds.height,
         elementTop: bounds.top,
-        maxTravel,
+        maxTravel: safeTravel,
         reducedMotion: motionQuery?.matches ?? false,
         viewportHeight: window.innerHeight,
       })
@@ -86,5 +118,5 @@ export const useSilkApertureParallax = ({
       motionQuery?.removeEventListener?.('change', scheduleUpdate)
       if (frame !== 0) window.cancelAnimationFrame(frame)
     }
-  }, [maxTravel, rootRef, worldRef])
+  }, [maxTravel, rootRef, safetyMargin, viewportRef, worldRef])
 }

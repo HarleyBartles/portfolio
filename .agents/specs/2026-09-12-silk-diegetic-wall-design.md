@@ -49,14 +49,15 @@ The following decisions remain authoritative:
 
 ## Layer model
 
-Silk's chapter uses four conceptual planes:
+Silk's chapter uses five explicit paint strata, from back to front:
 
-1. **Mineral page plane** — the normal route surface, clean `SILK` mark, chapter numeral, editorial copy and story card.
-2. **Behind-wall world plane** — Commission 05/07 environment plates visible only through authored apertures. This plane may move subtly with scroll.
-3. **Traversal plane** — rope segments and transparent Silk/character assets that can cross between world and page space.
-4. **Foreground rim/anchor plane** — broken plaster/brick rim pieces and rope-anchor hardware that re-occlude parts of Silk/rope and prove physical depth.
+1. **Behind-wall world plane** — Commission 05/07 environment plates visible only through authored apertures. This plane may move subtly with scroll.
+2. **Mineral page / aperture plane** — the normal route surface, broken plaster/brick rims, clean `SILK` mark, chapter numeral, editorial copy and story card.
+3. **Silk rope plane** — the chapter-owned physical red route, painted above every aperture/frame and above the `SILK` wordmark wherever it crosses them.
+4. **Silk cutout plane** — Commission 06's transparent traversal asset, painted above the rope and therefore also above the aperture/frame beneath it.
+5. **Anchor hardware plane** — physical rope anchors painted above the rope at route handoff/attachment points.
 
-The implementation should make those planes explicit enough to test. Do not fake depth by drawing every layer into one scene image.
+The implementation should make those strata explicit enough to test. Do not fake depth by drawing every layer into one scene image, and do not reintroduce a foreground rim above the Silk rope or cutout merely to simulate threshold depth.
 
 ## Aperture architecture
 
@@ -66,12 +67,12 @@ The primitive owns:
 
 * clipping the world/depth child into an irregular authored hole;
 * a stable page-plane aperture boundary;
-* a separate foreground-rim layer that can occlude traversal content;
+* a separate wall-rim layer above the world plate but below the chapter-owned Silk rope/cutout stack;
 * a bounded transform target for subtle parallax;
 * reduced-motion fallback;
 * data hooks for browser geometry/motion tests.
 
-The parent Silk composition owns each aperture's placement, size, rotation and z-order. The aperture child owns its internal clipping, rim relationship and world-plane transform.
+The parent Silk composition owns each aperture's placement, size, rotation and chapter-level z-order. The aperture child owns its internal clipping, world/rim relationship and world-plane transform, but its rim must remain below the Silk rope/cutout strata defined above.
 
 Desktop, tablet and compact authored states may use different aperture silhouettes. Do not merely scale one tear if doing so destroys the intended composition.
 
@@ -79,11 +80,13 @@ Desktop, tablet and compact authored states may use different aperture silhouett
 
 The first commissioned mineral-wall rim proved the page-as-wall direction but also exposed a stricter physical contract. Commission 05 is no longer implemented by stretching the generic aperture primitive to whatever rectangle the page gives it. It is a dedicated composition with an intrinsic design coordinate system derived from the selected `1672 × 941` rim asset.
 
-The parent Silk chapter owns only the whole Commission 05 object's page placement, rendered width and z-order. `SilkCommission05Composition` owns its intrinsic aspect ratio, internal world viewport, scene overscan, parallax target, traversal layer, rim and internal z-order. The parent must not set an independent child height, skew the child, reach through to its internals or change the component's aspect ratio.
+The parent Silk chapter owns the whole Commission 05 object's page placement, rendered width and ordinary page stacking. `SilkCommission05Composition` owns its intrinsic aspect ratio, internal world viewport, scene overscan, parallax target and broken-wall rim. It does **not** own Silk or the rope. The parent must not set an independent child height, skew the child or reach through to its geometry.
 
-The selected rim is a transparent RGBA asset with transparent page-facing space outside the broken plaster and a transparent aperture through the centre. The world plate therefore cannot simply fill the rim's entire bounding box: doing so allows world pixels to appear through the outer transparency. Instead, Commission 05 owns an invisible rectangular **world viewport** entirely inside the region separated from the rim's outer transparency. The rim sits above that viewport and hides the viewport's rectangular edges while its central transparency reveals the world.
+The selected rim is a transparent RGBA asset with transparent page-facing space outside the broken plaster and a transparent aperture through the centre. The world plate therefore cannot simply fill the rim's entire bounding box: doing so allows world pixels to appear through the outer transparency. Instead, Commission 05 owns an invisible rectangular **world viewport** whose complete perimeter sits beneath opaque wall material. The rim sits above that viewport and hides the viewport's rectangular edges while its central transparency reveals the world.
 
-Alpha-topology measurement of the `1672 × 941` evaluation source at a transparent-alpha threshold of `<16` found a large safe rectangle containing the image centre at source coordinates `x=162..1574`, `y=144..858` (`84.51% × 75.98%`). The authored viewport must stay conservatively inside that measured region. Initial locked insets are therefore approximately `10.5%` left, `6.5%` right, `16%` top and `9.5%` bottom; the source-alpha contract must be tested so a later asset or CSS edit cannot move the viewport into the outer transparent component unnoticed.
+The initially selected regular-treatment frame was tested against this stronger contract and rejected for Commission 05: across the useful aperture width its best top-edge row was only about `96.7%` covered at alpha `>=64`, including a `13px` transparent gap. That is enough to expose a straight scene-plate crop edge and break the wall illusion.
+
+The heavy-treatment `1672 × 941` frame is the active Commission 05 evaluation candidate. The first exact-edge proof (`alpha >=64`, `x=200..1500`, `y=118..797`) still allowed a thin diagnostic strip to show at the bottom because exact mathematical coverage was not enough visual occlusion. The strengthened contract now requires an **8px inward coverage band** on all four sides at `alpha >=250`. The proven viewport is `x=200..1500`, `y=130..820`, approximately `11.96%` left, `10.23%` right, `13.82%` top and `12.75%` bottom. The source-alpha contract tests the complete 8px band so a later asset or CSS edit cannot move a hard crop edge or diagnostic edge into visible transparency unnoticed.
 
 The behind-wall scene is an ordinary rectangular landscape plate, not another irregular mask. For the wireframe proof it is a deliberately plain corridor-coloured diagnostic rectangle with a conspicuous source-perimeter band. That band should never be visible in a correct composition. Later Commission 05 art replaces only this internal scene plate.
 
@@ -93,15 +96,41 @@ The physical invariants are:
 
 * the rim and whole Commission 05 composition always scale uniformly at `1672 / 941`;
 * neither React nor CSS may independently stretch width and height or skew the rim;
-* the world viewport never reaches the rim's outer transparent component;
+* the world viewport's rectangular perimeter plus an 8px inward safety band remain under near-opaque frame material (`alpha >=250`), sealing outer transparency away from the scene plate;
 * the scene plate covers the viewport plus hidden overscan, and its source perimeter never becomes visible through the central aperture;
 * world pixels can never appear through the rim's outer transparency;
 * only the scene plate translates for parallax; viewport and rim remain page-locked;
-* the traversal layer may cross the world/page threshold and may be re-occluded by the rim;
+* Commission 05 owns no traversal/crossing child; Silk and the rope are chapter-level physical layers so they can cross multiple page objects without being trapped inside the frame's stacking context;
 * reduced motion produces zero relative scene travel;
 * responsive page placement uses only the existing Specialists responsive vocabulary, and above 2560 the authored geometry still freezes.
 
+For the current wireframe only, widths `391px` and above keep the landscape `1672 / 941` frame. At the existing narrow boundary (`390px` and below), the same heavy frame is rotated 90 degrees as a temporary portrait proxy, the world viewport coordinates rotate with it, and the scene plate remains upright. Production narrow art will be separately authored in portrait rather than shipping this rotated proxy.
+
 The generic `SilkWallAperture` remains appropriate for the still-provisional Commission 07 breach and Commission 08 slit. Do not force Commission 05 back through that generic API merely to avoid a dedicated vertical slice. If Commission 07 later proves the same fixed-ratio/frame/viewport architecture with real commissioned art, generalise from the two proven cases then.
+
+### Silk chapter rope and foreground-depth amendment — 13 September 2026
+
+The temporary page-spanning `SpecialistsJourneyRope` proved route continuity through Opening and Index but is the wrong ownership model for Silk. One cross-chapter SVG cannot participate correctly in Silk's local physical depth once the rope must sit in front of some chapter objects and behind others. Do not solve that by raising or lowering the global rope's z-index: that risks changing the accepted Index composition and still cannot express Silk's stack cleanly.
+
+Silk therefore owns its own route/traversal composition. Until the commissioned rope kit and Commission 06 cutout exist, `SilkTraversalComposition` owns the simple red SVG route, the Commission 06 placeholder/asset registration and the entry anchor in one coordinate system. It begins at a deliberate visual handoff from the pre-Silk route. `SilkChapter` may position or scale the whole composition only; it must not position the rope and Silk independently. The existing global route terminates before Silk rather than continuing through the chapter.
+
+That handoff is a geometric seam, not a visual approximation. The last visible point of the clipped Opening/Index rope and the first point of the Silk-local rope must meet at the Index/Silk boundary, and the entry anchor must be centred over that same join. Responsive authoring may change the controlling composition internally, but it may not open a visible gap between the two rope segments.
+
+The Silk chapter's physical paint order is, from back to front:
+
+1. behind-wall scenes and mineral page substrate;
+2. broken-wall apertures/frames, ordinary chapter content and the `SILK` wordmark;
+3. the Silk-owned red rope segment;
+4. Silk's Commission 06 cutout/traversal;
+5. physical anchor hardware.
+
+The rope must visibly cross **over** the `SILK` wordmark and over every aperture/frame it traverses. The rope sits on top of everything else in the Silk chapter except the Silk cutout and anchor points, which both paint above it. These are physical invariants, not incidental DOM order or equal-z-index tie breaking.
+
+Commission 06 is geometrically attached to that rope, not independently positioned near it. `SilkTraversalComposition` owns both sides of the registration contract: an authored rope attachment coordinate and the Silk cutout's explicit harness/contact port. Those points coincide inside the composition's coordinate system and therefore move/scale atomically at every supported responsive width. `SilkChapter` has no API for separate Commission 06 top/left choreography. Any future commissioned Commission 06 asset must register its harness/contact point to this same internal port.
+
+`SilkCommission05Composition` must not accept or render a traversal/crossing child. `SilkTraversalComposition` is its chapter-level sibling, so the entire rope/Silk assembly can sit above Commission 05 while preserving its own internal order of rope < Silk < anchors. Silk's z-order is chapter-local; do not introduce a site-wide CSS-variable control API or shared page-wide z-index vocabulary merely to make the rope work.
+
+For this migration, Opening and Index retain the existing protected route implementation. The chapter-owned rope architecture starts at Silk to avoid reopening accepted Index geometry merely to tidy ownership. A later dedicated cleanup may migrate Opening and Index to the same chapter-owned primitive once their handoff geometry is explicitly authored and protected.
 
 ## Parallax law
 
@@ -116,7 +145,8 @@ Implementation requirements:
 * only the behind-wall world layer translates;
 * the aperture mask/rim remains fixed to the page plane;
 * motion is directly derived from normal document scroll; no scroll-jacking, inertial lag, spring animation or mouse-follow effect;
-* total relative travel should remain subtle, approximately 20–40 CSS px while an aperture crosses the active viewport region;
+* total relative travel should remain restrained by default; Commission 05 is explicitly authored at 128 CSS px total (`±64px`) after in-situ review found both 32px and 64px total travel too subtle;
+* Commission 05's accepted portrait scene and hidden overscan must retain enough reserve for that full 128 CSS px total travel without exposing a source edge;
 * motion is bounded so image bleed never exposes an empty edge;
 * off-screen work should be avoided by observing aperture visibility;
 * `prefers-reduced-motion: reduce` disables the relative transform entirely;
@@ -139,7 +169,7 @@ Add generous parallax/crop overscan around all sides. The model must not generat
 
 ### Commission 06
 
-Commission 06 remains transparent and rope-free, but it is now specifically a **threshold-crossing traversal**. Silk should plausibly bridge the first aperture: some anatomy can read behind the foreground plaster rim while the rest projects onto the mineral page. The final prompt must use an accepted aperture/rope geometry guide rather than a generic panel-overlap guide.
+Commission 06 remains transparent and rope-free, but it is now specifically a **threshold-crossing traversal**. Silk should plausibly bridge the first aperture by overlapping both the revealed world area and the mineral page while the whole cutout remains above the chapter-owned rope and wall rim in the approved paint stack. The final prompt must use an accepted aperture/rope geometry guide rather than a generic panel-overlap guide.
 
 ### Commission 07
 
@@ -207,7 +237,10 @@ Replace them with objective physical laws:
 * the first and second world plates are clipped by apertures rather than rendered as ordinary bordered figures;
 * the aperture rim stays page-locked while the world layer translates under normal scrolling;
 * reduced motion produces zero parallax transform;
-* Commission 06 crosses the first aperture boundary and paints above the local rope but can be re-occluded by the rim;
+* Commission 06 crosses the first aperture boundary and paints above both the local rope and the wall rim;
+* Commission 06 and the Silk rope are descendants of one controlling traversal composition, with no separate page-owned positioning seam;
+* Commission 06's explicit rope-attachment port stays registered to the authored Silk rope within a small browser-layout tolerance at every protected width;
+* the clipped Opening/Index rope endpoint, Silk-local rope start and entry-anchor centre form one continuous boundary handoff at every protected width;
 * the rope crosses the real `SILK` mark;
 * local chapter rope ports remain close enough for commissioned boundary anchors to cover their overlaps;
 * Commission 08 still uses the accepted `specialists-silk.webp` source behind the reaction slit;
@@ -220,6 +253,8 @@ Do not retain the old "exactly one page-spanning rope SVG" assertion. Test perce
 ## Asset custody
 
 Do not add the rejected first Commission 05 generation to accepted production custody.
+
+As of 13 September 2026, the final Commission 05 corridor world plate and the heavy Commission 05 mineral-wall frame are accepted production masters. They live in the dedicated Silk source package under its own `accepted-assets.json`; the regular frame remains rejected comparison evidence in candidate custody. The accepted corridor uses 128 CSS px total parallax travel (`±64px`) with enough hidden bleed to retain the 8px safety reserve at both extrema.
 
 Silk accepted masters should live in a dedicated chapter source package rather than being appended blindly to the Index-only accepted-assets manifest. The production processor may be generalized by chapter or gain a sibling Silk processor, but whichever route is chosen must preserve:
 
