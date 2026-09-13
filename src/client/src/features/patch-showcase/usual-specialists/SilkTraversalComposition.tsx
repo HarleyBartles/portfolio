@@ -1,6 +1,5 @@
 import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
-import { chapterCrossingPortCss } from './chapterCrossingGeometry'
 import { RopePiece } from './RopePiece'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
@@ -8,12 +7,40 @@ import { specialistsMedia } from './specialistsResponsive'
 export const SILK_ROPE_VIEWBOX = { width: 1000, height: 1800 } as const
 export const SILK_COMMISSION_06_ROPE_PORT = { x: 250, y: 580 } as const
 export const SILK_COMMISSION_06_COMPACT_ROPE_PORT = { x: 244, y: 440 } as const
-const SILK_WIDE_BAND_LOCK_PORT_LEFT = '329.2px'
 
 const COMMISSION_06_PORT_LEFT = `${(SILK_COMMISSION_06_ROPE_PORT.x / SILK_ROPE_VIEWBOX.width) * 100}%`
 const COMMISSION_06_PORT_TOP = `${(SILK_COMMISSION_06_ROPE_PORT.y / SILK_ROPE_VIEWBOX.height) * 100}%`
 const COMMISSION_06_COMPACT_PORT_LEFT = `${(SILK_COMMISSION_06_COMPACT_ROPE_PORT.x / SILK_ROPE_VIEWBOX.width) * 100}%`
 const COMMISSION_06_COMPACT_PORT_TOP = `${(SILK_COMMISSION_06_COMPACT_ROPE_PORT.y / SILK_ROPE_VIEWBOX.height) * 100}%`
+
+type RopeAxisX =
+  | { kind: 'absolute-px'; value: number }
+  | { kind: 'percent-plus-px'; percent: number; offsetPx: number }
+
+type RopeAxisState = 'narrow' | 'compactLandscape' | 'mid' | 'default' | 'wide'
+
+type RopeAxisProps = {
+  $defaultX: RopeAxisX
+  $wideX: RopeAxisX
+  $midX: RopeAxisX
+  $compactX: RopeAxisX
+  $narrowX: RopeAxisX
+}
+
+const SILK_ROPE_AXIS = {
+  narrow: { kind: 'percent-plus-px', percent: 4.516, offsetPx: 12.57 },
+  compactLandscape: { kind: 'percent-plus-px', percent: 4.7144, offsetPx: 7.65 },
+  mid: { kind: 'percent-plus-px', percent: 20.9075, offsetPx: 12.8 },
+  default: { kind: 'percent-plus-px', percent: 22.1358, offsetPx: 13 },
+  wide: { kind: 'absolute-px', value: 329.2 },
+} as const satisfies Record<RopeAxisState, RopeAxisX>
+
+const ropeAxisXCss = (x: RopeAxisX): string => (
+  x.kind === 'absolute-px'
+    ? `${x.value}px`
+    : `calc(${x.percent}% + ${x.offsetPx}px)`
+)
+
 type SilkTraversalCompositionProps = {
   style?: CSSProperties
 }
@@ -25,16 +52,41 @@ const Composition = styled.div`
   pointer-events: none;
 `
 
+const SilkRopeAxis = styled.div<RopeAxisProps>`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: ${({ $defaultX }) => ropeAxisXCss($defaultX)};
+  width: 0;
+  pointer-events: none;
+
+  @media ${specialistsMedia.atLeastWide} {
+    left: ${({ $wideX }) => ropeAxisXCss($wideX)};
+  }
+
+  @media ${specialistsMedia.atMostMid} {
+    left: ${({ $midX }) => ropeAxisXCss($midX)};
+  }
+
+  @media ${specialistsMedia.compactLandscape} {
+    left: ${({ $compactX }) => ropeAxisXCss($compactX)};
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    left: ${({ $narrowX }) => ropeAxisXCss($narrowX)};
+  }
+`
+
 const UpperRopePlacement = styled.div`
   position: absolute;
   z-index: 0;
   top: -62px;
+  left: 0;
   width: ${SPECIALISTS_ROPE_GEOMETRY.default.materialWidth}px;
   height: calc(${COMMISSION_06_PORT_TOP} + 62px);
   overflow: hidden;
   transform: translateX(-50%);
   transform-origin: 50% 0;
-  ${chapterCrossingPortCss('index-silk')}
 
   @media ${specialistsMedia.atMostMid} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
@@ -49,8 +101,7 @@ const UpperRopePlacement = styled.div`
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
   }
 
-  @media ${specialistsMedia.wideBand} {
-    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
+  @media ${specialistsMedia.atLeastWide} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.materialWidth}px;
   }
 `
@@ -60,21 +111,18 @@ const UpperRopeMaterial = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-
-  @media ${specialistsMedia.wideBand} {
-    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.straightScaleX});
-    transform-origin: 50% 100%;
-  }
+  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
+  transform-origin: 50% 100%;
 `
 
 const LowerRopePlacement = styled.div`
   position: absolute;
   z-index: 0;
   top: ${COMMISSION_06_PORT_TOP};
+  left: 0;
   width: ${SPECIALISTS_ROPE_GEOMETRY.default.terminalWidth}px;
   margin-left: ${SPECIALISTS_ROPE_GEOMETRY.default.terminalEntryOffset}px;
   transform: translateX(-50%);
-  ${chapterCrossingPortCss('index-silk')}
 
   @media ${specialistsMedia.atMostMid} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.mid.terminalWidth}px;
@@ -92,8 +140,7 @@ const LowerRopePlacement = styled.div`
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalEntryOffset}px;
   }
 
-  @media ${specialistsMedia.wideBand} {
-    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
+  @media ${specialistsMedia.atLeastWide} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalEntryOffset}px;
   }
@@ -101,11 +148,8 @@ const LowerRopePlacement = styled.div`
 
 const LowerRopeMaterial = styled.div`
   width: 100%;
-
-  @media ${specialistsMedia.wideBand} {
-    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.terminalScaleX});
-    transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.terminalAnchorX} 0;
-  }
+  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.terminalScaleX});
+  transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.paracord.terminalAnchorX} 0;
 `
 
 const Traversal = styled.div`
@@ -153,14 +197,10 @@ const TraversalRopePort = styled.span`
 const RopeJoinPort = styled.span`
   position: absolute;
   top: ${COMMISSION_06_PORT_TOP};
+  left: 0;
   width: 2px;
   height: 2px;
   transform: translate(-50%, -50%);
-  ${chapterCrossingPortCss('index-silk')}
-
-  @media ${specialistsMedia.wideBand} {
-    left: ${SILK_WIDE_BAND_LOCK_PORT_LEFT};
-  }
 
   @media ${specialistsMedia.compactLandscape} {
     top: ${COMMISSION_06_COMPACT_PORT_TOP};
@@ -169,17 +209,26 @@ const RopeJoinPort = styled.span`
 
 export const SilkTraversalComposition = ({ style }: SilkTraversalCompositionProps): ReactElement => (
   <Composition data-silk-traversal-composition style={style}>
-    <UpperRopePlacement aria-hidden="true" data-silk-rope-segment="upper" data-specialists-rope-piece="silk-upper">
-      <UpperRopeMaterial>
-        <RopePiece variant="taut-straight" />
-      </UpperRopeMaterial>
-    </UpperRopePlacement>
-    <LowerRopePlacement aria-hidden="true" data-silk-rope-segment="lower" data-specialists-rope-piece="silk-lower">
-      <LowerRopeMaterial>
-        <RopePiece variant="terminal-curl" />
-      </LowerRopeMaterial>
-    </LowerRopePlacement>
-    <RopeJoinPort aria-hidden="true" data-silk-rope-join-port />
+    <SilkRopeAxis
+      $defaultX={SILK_ROPE_AXIS.default}
+      $wideX={SILK_ROPE_AXIS.wide}
+      $midX={SILK_ROPE_AXIS.mid}
+      $compactX={SILK_ROPE_AXIS.compactLandscape}
+      $narrowX={SILK_ROPE_AXIS.narrow}
+      data-silk-rope-axis
+    >
+      <UpperRopePlacement aria-hidden="true" data-silk-rope-segment="upper" data-specialists-rope-piece="silk-upper">
+        <UpperRopeMaterial>
+          <RopePiece variant="taut-straight" />
+        </UpperRopeMaterial>
+      </UpperRopePlacement>
+      <LowerRopePlacement aria-hidden="true" data-silk-rope-segment="lower" data-specialists-rope-piece="silk-lower">
+        <LowerRopeMaterial>
+          <RopePiece variant="terminal-curl" />
+        </LowerRopeMaterial>
+      </LowerRopePlacement>
+      <RopeJoinPort aria-hidden="true" data-silk-rope-join-port />
+    </SilkRopeAxis>
     <Traversal data-silk-commission="06">
       <TraversalRopePort aria-hidden="true" data-silk-traversal-rope-port />
       Commission 06 / threshold-crossing Silk traversal

@@ -24,7 +24,7 @@ export const SPECIALISTS_ROPE_GEOMETRY = {
     terminalWidth: 396,
     terminalEntryOffset: 38,
   },
-  wideBandParacord: {
+  paracord: {
     straightScaleX: 0.5,
     indexBowScaleX: 0.455,
     indexBowAnchorX: '39.5%',

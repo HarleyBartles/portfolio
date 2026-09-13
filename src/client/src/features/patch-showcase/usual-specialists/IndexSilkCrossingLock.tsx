@@ -1,22 +1,13 @@
 import type { ReactElement } from 'react'
 import styled from 'styled-components'
-import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Lock = styled.span`
-  position: absolute;
-  z-index: 60;
-  top: 100%;
-  left: 329px;
-  display: none;
+  position: relative;
+  display: block;
   width: 176px;
   height: 154px;
   pointer-events: none;
-  transform: translate(-50%, -50%) rotate(2.5deg) scale(.9);
-
-  @media ${specialistsMedia.wideBand} {
-    display: block;
-  }
 `
 
 const Layer = styled.span`

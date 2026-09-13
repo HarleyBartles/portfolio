@@ -39,7 +39,7 @@ export const IndexRopePlacement = styled.div`
   transform-origin: 50% 0;
   ${chapterCrossingPortCss('opening-index')}
 
-  @media ${specialistsMedia.wideBand} {
+  @media ${specialistsMedia.atLeastWide} {
     top: -2px;
     left: calc(${CHAPTER_CROSSING_PORTS['opening-index'].wideBand} + 44px);
     width: auto;
@@ -77,8 +77,10 @@ export const IndexResponsiveRopeMaterial = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
+  transform-origin: 50% 0;
 
-  @media ${specialistsMedia.wideBand} {
+  @media ${specialistsMedia.atLeastWide} {
     display: none;
   }
 `
@@ -95,11 +97,11 @@ export const IndexRopeTile = styled.div`
 export const IndexWideRopeMaterial = styled.div`
   display: none;
   width: 100%;
+  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.indexBowScaleX});
+  transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexBowAnchorX} 0;
 
-  @media ${specialistsMedia.wideBand} {
+  @media ${specialistsMedia.atLeastWide} {
     display: block;
-    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.indexBowScaleX});
-    transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.indexBowAnchorX} 0;
   }
 `
 

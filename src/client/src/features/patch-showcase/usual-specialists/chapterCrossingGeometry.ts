@@ -1,7 +1,7 @@
 import { css } from 'styled-components'
 import { specialistsMedia } from './specialistsResponsive'
 
-export type ChapterCrossingId = 'opening-index' | 'index-silk'
+export type ChapterCrossingId = 'opening-index'
 
 type ChapterCrossingPortState = 'default' | 'wideBand' | 'mid' | 'compactLandscape' | 'narrow'
 
@@ -14,13 +14,6 @@ export const CHAPTER_CROSSING_PORTS = {
     compactLandscape: '8%',
     narrow: '8%',
   },
-  'index-silk': {
-    default: '22.1358%',
-    wideBand: '320px',
-    mid: '20.9075%',
-    compactLandscape: '4.7144%',
-    narrow: '4.516%',
-  },
 } as const
 
 export const chapterCrossingPort = (crossing: ChapterCrossingId, state: ChapterCrossingPortState): string => {
@@ -32,7 +25,7 @@ export const chapterCrossingPort = (crossing: ChapterCrossingId, state: ChapterC
 export const chapterCrossingPortCss = (crossing: ChapterCrossingId) => css`
   left: ${chapterCrossingPort(crossing, 'default')};
 
-  @media ${specialistsMedia.wideBand} {
+  @media ${specialistsMedia.atLeastWide} {
     left: ${chapterCrossingPort(crossing, 'wideBand')};
   }
 

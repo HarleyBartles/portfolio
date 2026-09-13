@@ -3,6 +3,7 @@ import { UsualSpecialistsOpening } from './usual-specialists/UsualSpecialistsOpe
 import { IndexChapter } from './usual-specialists/IndexChapter'
 import { SilkChapter } from './usual-specialists/SilkChapter'
 import { ChapterCrossing } from './usual-specialists/ChapterCrossing'
+import { IndexSilkCrossing } from './usual-specialists/IndexSilkCrossing'
 import { SpecialistsChapterNav } from './usual-specialists/SpecialistsChapterNav'
 import {
   IndexMilestoneBoundary,
@@ -27,7 +28,7 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
           <ChapterCrossing crossing="opening-index" />
           <IndexChapter />
         </IndexMilestoneBoundary>
-        <ChapterCrossing crossing="index-silk" />
+        <IndexSilkCrossing />
         <SilkChapter />
       </SpecialistsCanvas>
     </SpecialistsStory>

@@ -38,4 +38,14 @@ describe('IndexSilkCrossingLock', () => {
 
     expect(container.querySelector('[data-index-silk-crossing-lock]')).not.toHaveClass('external-control')
   })
+
+  test('owns internal registration without owning page-level placement', () => {
+    const { container } = render(<IndexSilkCrossingLock />)
+    const root = container.querySelector<HTMLElement>('[data-index-silk-crossing-lock]')!
+    const style = getComputedStyle(root)
+
+    expect(style.position).not.toBe('absolute')
+    expect(style.left).toBe('auto')
+    expect(style.top).toBe('auto')
+  })
 })

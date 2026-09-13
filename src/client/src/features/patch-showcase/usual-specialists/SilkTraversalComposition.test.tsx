@@ -16,8 +16,13 @@ describe('SilkTraversalComposition', () => {
     const traversal = root?.querySelector('[data-silk-commission="06"]')
     const traversalPort = root?.querySelector('[data-silk-traversal-rope-port]')
     const ropeJoinPort = root?.querySelector('[data-silk-rope-join-port]')
+    const ropeAxis = root?.querySelector('[data-silk-rope-axis]')
 
     expect(root).toHaveStyle({ opacity: '0.5' })
+    expect(ropeAxis).toBeInTheDocument()
+    expect(ropeAxis).toContainElement(upperRope as HTMLElement)
+    expect(ropeAxis).toContainElement(lowerRope as HTMLElement)
+    expect(ropeAxis).toContainElement(ropeJoinPort as HTMLElement)
     expect(upperRope?.querySelector('[data-specialists-rope-variant="taut-straight"]')).toBeInTheDocument()
     expect(lowerRope?.querySelector('[data-specialists-rope-variant="terminal-curl"]')).toBeInTheDocument()
     expect(traversal).toHaveTextContent('threshold-crossing Silk traversal')

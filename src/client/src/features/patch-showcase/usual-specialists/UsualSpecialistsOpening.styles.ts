@@ -52,7 +52,7 @@ export const OpeningRopePlacement = styled.div`
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
   }
 
-  @media ${specialistsMedia.wideBand} {
+  @media ${specialistsMedia.atLeastWide} {
     display: block;
     width: auto;
     aspect-ratio: 724 / 2172;
@@ -63,15 +63,14 @@ export const OpeningRopePlacement = styled.div`
 export const OpeningRopeTile = styled.div`
   flex: 0 0 auto;
   width: 100%;
+  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
+  transform-origin: 50% 0;
 
   & + & {
     margin-top: -2px;
   }
 
-  @media ${specialistsMedia.wideBand} {
-    transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.wideBandParacord.straightScaleX});
-    transform-origin: 50% 0;
-
+  @media ${specialistsMedia.atLeastWide} {
     & + & {
       display: none;
     }

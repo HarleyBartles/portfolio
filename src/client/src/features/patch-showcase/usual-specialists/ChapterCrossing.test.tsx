@@ -3,25 +3,13 @@ import { describe, expect, test } from 'vitest'
 import { ChapterCrossing } from './ChapterCrossing'
 
 describe('ChapterCrossing', () => {
-  test.each(['opening-index', 'index-silk'] as const)('owns the %s rule and future-anchor port', (crossing) => {
-    const { container } = render(<ChapterCrossing crossing={crossing} style={{ opacity: 0.5 }} />)
+  test('owns the ordinary opening to Index rule and future-anchor port', () => {
+    const { container } = render(<ChapterCrossing crossing="opening-index" style={{ opacity: 0.5 }} />)
 
-    const root = container.querySelector(`[data-specialists-chapter-crossing="${crossing}"]`)
+    const root = container.querySelector('[data-specialists-chapter-crossing="opening-index"]')
     expect(root).toHaveStyle({ opacity: '0.5' })
     expect(root?.querySelector('[data-specialists-crossing-rule]')).toBeInTheDocument()
-    expect(root?.querySelector('[data-specialists-crossing-anchor]')).toHaveAttribute('data-specialists-crossing-anchor', crossing)
-  })
-
-  test('selects the authored Index to Silk lock without leaking its internal layers into this compositor test', () => {
-    const { container } = render(<ChapterCrossing crossing="index-silk" />)
-
-    expect(container.querySelector('[data-index-silk-crossing-lock]')).toBeInTheDocument()
-  })
-
-  test('does not use the Index to Silk lock for the opening to Index crossing', () => {
-    const { container } = render(<ChapterCrossing crossing="opening-index" />)
-
-    expect(container.querySelector('[data-index-silk-crossing-lock]')).not.toBeInTheDocument()
+    expect(root?.querySelector('[data-specialists-crossing-anchor]')).toHaveAttribute('data-specialists-crossing-anchor', 'opening-index')
   })
 
   test('does not expose caller className as a styling seam', () => {
