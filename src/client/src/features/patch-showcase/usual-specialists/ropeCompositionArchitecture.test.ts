@@ -35,26 +35,19 @@ describe('Specialists rope composition architecture', () => {
     }
   })
 
-  test('keeps Index to Silk placement local to its owning compositors', () => {
-    const chapterCrossingStyles = readSource('./ChapterCrossing.styles.ts')
-    const indexSilkCrossing = readSource('./IndexSilkCrossing.tsx')
-    const indexSilkCrossingStyles = readSource('./IndexSilkCrossing.styles.ts')
+  test('keeps crossing placement local to the connector without styling through its child', () => {
+    const connector = readSource('./CrossSectionConnector.tsx')
     const silkTraversal = readSource('./SilkTraversalComposition.tsx')
 
-    expect(chapterCrossingStyles).not.toContain('IndexSilk')
-    expect(chapterCrossingStyles).not.toContain('index-silk')
     expect(silkTraversal).not.toContain('indexSilkRouteGeometry')
-    expect(indexSilkCrossing).not.toContain('indexSilkRouteGeometry')
-    expect(indexSilkCrossingStyles).not.toMatch(/styled\(IndexSilkCrossingLock\)/)
-    expect(indexSilkCrossingStyles).not.toMatch(/\[data-index-silk-crossing-lock[^\]]*\]/)
+    expect(connector).not.toContain('indexSilkRouteGeometry')
+    expect(connector).not.toMatch(/styled\(SpecialistsCrossingLockup\)/)
+    expect(connector).not.toMatch(/\[data-specialists-crossing-lockup[^\]]*\]/)
 
     for (const filename of [
-      './ChapterCrossing.styles.ts',
-      './ChapterCrossing.tsx',
+      './CrossSectionConnector.tsx',
       './IndexChapter.styles.ts',
-      './IndexSilkCrossing.styles.ts',
-      './IndexSilkCrossing.tsx',
-      './IndexSilkCrossingLock.tsx',
+      './SpecialistsCrossingLockup.tsx',
       './SilkTraversalComposition.tsx',
       './UsualSpecialistsOpening.styles.ts',
     ]) {
@@ -62,5 +55,36 @@ describe('Specialists rope composition architecture', () => {
     }
 
     expect(() => readSource('./indexSilkRouteGeometry.ts')).toThrow()
+  })
+
+  test('composes both crossings through one connector and one opaque lockup child', () => {
+    const page = readSource('../UsualSpecialistsPage.tsx')
+
+    expect(page.match(/<CrossSectionConnector\b/g)).toHaveLength(2)
+    expect(page).not.toContain('<ChapterCrossing')
+    expect(page).not.toContain('<IndexSilkCrossing')
+
+    expect(() => readSource('./CrossSectionConnector.tsx')).not.toThrow()
+    expect(() => readSource('./SpecialistsCrossingLockup.tsx')).not.toThrow()
+
+    const connector = readSource('./CrossSectionConnector.tsx')
+    const lockup = readSource('./SpecialistsCrossingLockup.tsx')
+
+    expect(connector).toContain('<SpecialistsCrossingLockup />')
+    expect(connector).not.toMatch(/styled\(SpecialistsCrossingLockup\)/)
+    expect(connector).not.toMatch(/\[data-specialists-crossing-lockup[^\]]*\]/)
+    expect(lockup).toContain('style?: CSSProperties')
+    expect(lockup).not.toContain('className')
+
+    for (const filename of [
+      './ChapterCrossing.tsx',
+      './ChapterCrossing.styles.ts',
+      './ChapterCrossingSurface.styles.ts',
+      './IndexSilkCrossing.tsx',
+      './IndexSilkCrossing.styles.ts',
+      './IndexSilkCrossingLock.tsx',
+    ]) {
+      expect(() => readSource(filename), filename).toThrow()
+    }
   })
 })

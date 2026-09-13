@@ -197,6 +197,81 @@ test('The Usual Specialists preserves the accepted Index composition across auth
   }
 })
 
+test('The Usual Specialists authors the opening to Index lock in three responsive treatments beneath the chapter nav', async ({ page }) => {
+  const widths = [390, 391, 720, 721, 768, 1399, 1400, 2560, 2561] as const
+
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await page.goto(specialistsPreviewPath)
+
+    const openingCrossing = page.locator('[data-specialists-chapter-crossing="opening-index"]')
+    const lockPlacement = openingCrossing.locator('[data-specialists-crossing-lock-placement="opening-index"]')
+    const nav = page.locator('[data-specialists-chapter-nav]')
+    const openingRope = page.locator('[data-specialists-rope-piece="opening"]')
+    const indexRope = page.locator('[data-specialists-rope-piece="index"]')
+
+    for (const locator of [lockPlacement, nav, openingRope, indexRope]) {
+      await expect(locator).toBeVisible()
+    }
+
+    const geometry = await page.evaluate(() => {
+      const placement = (piece: string) => document.querySelector<HTMLElement>(`[data-specialists-rope-piece="${piece}"]`)!
+      const image = (piece: string) => Array.from(placement(piece).querySelectorAll<HTMLImageElement>('img'))
+        .find((candidate) => candidate.getClientRects().length > 0)!
+      const point = (piece: string, xRatio: number, yRatio: number) => {
+        const marker = document.createElement('span')
+        marker.style.position = 'absolute'
+        marker.style.left = `${xRatio * 100}%`
+        marker.style.top = `${yRatio * 100}%`
+        marker.style.width = '1px'
+        marker.style.height = '1px'
+        placement(piece).append(marker)
+        const box = marker.getBoundingClientRect()
+        marker.remove()
+        return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
+      }
+      const openingCrossing = document.querySelector<HTMLElement>('[data-specialists-chapter-crossing="opening-index"]')!
+      const openingLock = document.querySelector<HTMLElement>('[data-specialists-crossing-lock-placement="opening-index"]')!
+      const openingLockStyle = getComputedStyle(openingLock)
+      const transform = new DOMMatrixReadOnly(openingLockStyle.transform)
+      const indexVariant = image('index').dataset.specialistsRopeVariant
+      const indexEntryRatio = indexVariant === 'taut-bow' ? 282.5 / 724 : 362.5 / 724
+      const navElement = document.querySelector<HTMLElement>('[data-specialists-chapter-nav]')!
+      const indexRopeElement = placement('index')
+
+      return {
+        crossingWidth: openingCrossing.getBoundingClientRect().width,
+        lockLeftPx: Number.parseFloat(openingLockStyle.left),
+        openingExit: point('opening', 362.5 / 724, 1),
+        indexEntry: point('index', indexEntryRatio, 0),
+        rotationDeg: Math.atan2(transform.b, transform.a) * (180 / Math.PI),
+        scale: Math.hypot(transform.a, transform.b),
+        layers: {
+          nav: Number.parseInt(getComputedStyle(navElement).zIndex, 10),
+          lock: Number.parseInt(getComputedStyle(openingLock).zIndex, 10),
+          indexRope: Number.parseInt(getComputedStyle(indexRopeElement).zIndex, 10),
+        },
+      }
+    })
+
+    expect(
+      Math.hypot(geometry.openingExit.x - geometry.indexEntry.x, geometry.openingExit.y - geometry.indexEntry.y),
+      JSON.stringify({ width, geometry }),
+    ).toBeLessThanOrEqual(18)
+    expect(geometry.layers.nav, JSON.stringify({ width, geometry })).toBeGreaterThan(geometry.layers.lock)
+    expect(geometry.layers.lock, JSON.stringify({ width, geometry })).toBeGreaterThan(geometry.layers.indexRope)
+
+    const expected = width <= 720
+      ? { leftPx: geometry.crossingWidth * 0.08 + 5, rotationDeg: 10, scale: 0.7 }
+      : width >= 1400
+        ? { leftPx: 170, rotationDeg: 4, scale: 0.9 }
+        : { leftPx: geometry.crossingWidth * 0.11 + 6, rotationDeg: 8, scale: 0.75 }
+    expect(Math.abs(geometry.lockLeftPx - expected.leftPx), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(0.05)
+    expect(Math.abs(geometry.rotationDeg - expected.rotationDeg), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(0.05)
+    expect(Math.abs(geometry.scale - expected.scale), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(0.005)
+  }
+})
+
 test('The Usual Specialists keeps Silk as apertures through the mineral page across authored responsive bands', async ({ page }) => {
   const specialistsPath = specialistsPreviewPath
   const box = async (locator: import('@playwright/test').Locator) => {
@@ -314,8 +389,11 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
     const index = page.locator('[data-specialists-rope-piece="index"]')
     const silkUpper = page.locator('[data-specialists-rope-piece="silk-upper"]')
     const silkLower = page.locator('[data-specialists-rope-piece="silk-lower"]')
+    const openingCrossing = page.locator('[data-specialists-chapter-crossing="opening-index"]')
+    const indexSilkCrossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
     for (const rope of [opening, index, silkUpper, silkLower]) await expect(rope).toBeVisible()
-    await expect(page.locator('[data-index-silk-crossing-lock]')).toBeVisible()
+    await expect(openingCrossing.locator('[data-specialists-crossing-lockup]')).toBeVisible()
+    await expect(indexSilkCrossing.locator('[data-specialists-crossing-lockup]')).toBeVisible()
     await expect(page.locator('[data-specialists-crossing-anchor="index-silk"]')).toBeHidden()
     await page.locator('[data-specialists-chapter-nav]').scrollIntoViewIfNeeded()
 
@@ -343,17 +421,16 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
       const box = (selector: string) => document.querySelector<HTMLElement>(selector)!.getBoundingClientRect()
       const openingCrossing = box('[data-specialists-chapter-crossing="opening-index"]')
       const indexSilkCrossing = box('[data-specialists-chapter-crossing="index-silk"]')
-      const openingAnchor = centre('[data-specialists-crossing-anchor="opening-index"]')
-      const indexSilkAnchorSelector = '[data-index-silk-crossing-lock]'
-      const indexSilkAnchor = centre(indexSilkAnchorSelector)
-      const knotTop = centre('[data-index-silk-lock-knot-top-port]')
-      const knotBottom = centre('[data-index-silk-lock-knot-bottom-port]')
+      const indexSilkAnchorSelector = '[data-specialists-crossing-lockup]'
+      const indexSilkAnchor = centre(`[data-specialists-chapter-crossing="index-silk"] ${indexSilkAnchorSelector}`)
+      const knotTop = centre('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lock-knot-top-port]')
+      const knotBottom = centre('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lock-knot-bottom-port]')
       const nav = document.querySelector<HTMLElement>('[data-specialists-chapter-nav]')!
       const openingRopeLayer = document.querySelector<HTMLElement>('[data-specialists-opening-rope-layer]')!
       const openingCrossingRule = document.querySelector<HTMLElement>('[data-specialists-chapter-crossing="opening-index"] [data-specialists-crossing-rule]')!
       const indexSilkCrossingRule = document.querySelector<HTMLElement>('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-rule]')!
-      const openingCrossingAnchor = document.querySelector<HTMLElement>('[data-specialists-crossing-anchor="opening-index"]')!
-      const indexSilkCrossingAnchor = document.querySelector<HTMLElement>('[data-index-silk-lock-placement]')!
+      const openingCrossingAnchor = document.querySelector<HTMLElement>('[data-specialists-crossing-lock-placement="opening-index"]')!
+      const indexSilkCrossingAnchor = document.querySelector<HTMLElement>('[data-specialists-crossing-lock-placement="index-silk"]')!
       const zIndex = (element: HTMLElement) => Number.parseInt(getComputedStyle(element).zIndex, 10)
       const renderedMaterialWidth = (piece: string) => {
         const placementElement = placement(piece)
@@ -378,7 +455,6 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
       return {
         openingCrossingBottom: openingCrossing.bottom,
         indexSilkCrossingBottom: indexSilkCrossing.bottom,
-        openingAnchor,
         indexSilkAnchor,
         knotTop,
         knotBottom,
@@ -413,10 +489,8 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
 
   const distance = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.hypot(a.x - b.x, a.y - b.y)
   for (const sample of samples) {
-    expect(Math.abs(sample.openingAnchor.y - sample.openingCrossingBottom), JSON.stringify(samples)).toBeLessThanOrEqual(1)
     expect(Math.abs(sample.indexSilkAnchor.y - sample.indexSilkCrossingBottom), JSON.stringify(samples)).toBeLessThanOrEqual(1)
-    expect(distance(sample.openingExit, sample.openingAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
-    expect(distance(sample.indexEntry, sample.openingAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
+    expect(distance(sample.openingExit, sample.indexEntry), JSON.stringify(samples)).toBeLessThanOrEqual(18)
     expect(distance(sample.indexExit, sample.knotTop), JSON.stringify(samples)).toBeLessThanOrEqual(6)
     expect(Math.abs(sample.silkEntry.x - sample.knotBottom.x), JSON.stringify(samples)).toBeLessThanOrEqual(3)
     expect(distance(sample.silkJoin.upper, sample.silkJoin.port), JSON.stringify(samples)).toBeLessThanOrEqual(2)
@@ -428,11 +502,10 @@ test('The Usual Specialists locks wide-band rope handoffs through the authored I
     expect(sample.layers.openingRule, JSON.stringify(samples)).toBeLessThan(sample.layers.openingRope)
     expect(sample.layers.indexSilkRule, JSON.stringify(samples)).toBeLessThan(8)
     expect(sample.layers.nav, JSON.stringify(samples)).toBeGreaterThan(sample.layers.openingRope)
-    expect(sample.layers.openingAnchor, JSON.stringify(samples)).toBeGreaterThan(sample.layers.nav)
+    expect(sample.layers.nav, JSON.stringify(samples)).toBeGreaterThan(sample.layers.openingAnchor)
     expect(sample.layers.indexSilkAnchor, JSON.stringify(samples)).toBeGreaterThan(20)
   }
 
-  expect(Math.max(...samples.map((sample) => sample.openingAnchor.x)) - Math.min(...samples.map((sample) => sample.openingAnchor.x)), JSON.stringify(samples)).toBeLessThanOrEqual(1)
   expect(Math.max(...samples.map((sample) => sample.indexSilkAnchor.x)) - Math.min(...samples.map((sample) => sample.indexSilkAnchor.x)), JSON.stringify(samples)).toBeLessThanOrEqual(1)
   expect(Math.abs(samples[0].indexSilkAnchor.x - 329), JSON.stringify(samples)).toBeLessThanOrEqual(1)
 })
@@ -443,15 +516,15 @@ test('The Usual Specialists authors the three-layer Index to Silk lock proof at 
 
   const crossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
   const fallbackAnchor = crossing.locator('[data-specialists-crossing-anchor="index-silk"]')
-  const lock = crossing.locator('[data-index-silk-crossing-lock]')
-  const anchor = lock.locator('[data-index-silk-lock-layer="anchor"]')
-  const foregroundRope = lock.locator('[data-index-silk-lock-layer="foreground-rope"]')
-  const foregroundRing = lock.locator('[data-index-silk-lock-layer="foreground-ring"]')
-  const anchorImage = lock.locator('[data-index-silk-lock-anchor-image]')
-  const knot = lock.locator('[data-index-silk-lock-knot-image]')
-  const ringOccluder = lock.locator('[data-index-silk-lock-ring-occluder-image]')
-  const knotTop = lock.locator('[data-index-silk-lock-knot-top-port]')
-  const knotBottom = lock.locator('[data-index-silk-lock-knot-bottom-port]')
+  const lock = crossing.locator('[data-specialists-crossing-lockup]')
+  const anchor = lock.locator('[data-specialists-crossing-lock-layer="anchor"]')
+  const foregroundRope = lock.locator('[data-specialists-crossing-lock-layer="foreground-rope"]')
+  const foregroundRing = lock.locator('[data-specialists-crossing-lock-layer="foreground-ring"]')
+  const anchorImage = lock.locator('[data-specialists-crossing-lock-anchor-image]')
+  const knot = lock.locator('[data-specialists-crossing-lock-knot-image]')
+  const ringOccluder = lock.locator('[data-specialists-crossing-lock-ring-occluder-image]')
+  const knotTop = lock.locator('[data-specialists-crossing-lock-knot-top-port]')
+  const knotBottom = lock.locator('[data-specialists-crossing-lock-knot-bottom-port]')
 
   await expect(lock).toBeVisible()
   await expect(fallbackAnchor).toBeHidden()
@@ -476,7 +549,7 @@ test('The Usual Specialists authors the three-layer Index to Silk lock proof at 
   expect(Math.abs(lockCentre.y - crossingBox!.y - crossingBox!.height)).toBeLessThanOrEqual(1)
 
   const layers = await lock.evaluate((root) => {
-    const zIndex = (name: string) => Number.parseInt(getComputedStyle(root.querySelector<HTMLElement>(`[data-index-silk-lock-layer="${name}"]`)!).zIndex, 10)
+    const zIndex = (name: string) => Number.parseInt(getComputedStyle(root.querySelector<HTMLElement>(`[data-specialists-crossing-lock-layer="${name}"]`)!).zIndex, 10)
     return {
       anchor: zIndex('anchor'),
       foregroundRope: zIndex('foreground-rope'),
@@ -529,8 +602,11 @@ test('The Usual Specialists preserves rope topology across authored responsive b
     const index = page.locator('[data-specialists-rope-piece="index"]')
     const silkUpper = page.locator('[data-specialists-rope-piece="silk-upper"]')
     const silkLower = page.locator('[data-specialists-rope-piece="silk-lower"]')
+    const openingCrossing = page.locator('[data-specialists-chapter-crossing="opening-index"]')
+    const indexSilkCrossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
     for (const rope of [opening, index, silkUpper, silkLower]) await expect(rope).toBeVisible()
-    await expect(page.locator('[data-index-silk-crossing-lock]')).toBeVisible()
+    await expect(openingCrossing.locator('[data-specialists-crossing-lockup]')).toBeVisible()
+    await expect(indexSilkCrossing.locator('[data-specialists-crossing-lockup]')).toBeVisible()
     await expect(page.locator('[data-specialists-crossing-anchor="index-silk"]')).toBeHidden()
 
     const geometry = await page.evaluate(() => {
@@ -560,13 +636,13 @@ test('The Usual Specialists preserves rope topology across authored responsive b
       const openingRopeLayer = box('[data-specialists-opening-rope-layer]')
       const openingCrossing = box('[data-specialists-chapter-crossing="opening-index"]')
       const indexSilkCrossing = box('[data-specialists-chapter-crossing="index-silk"]')
-      const indexSilkLockPlacement = document.querySelector<HTMLElement>('[data-index-silk-lock-placement]')!
+      const openingIndexLockPlacement = document.querySelector<HTMLElement>('[data-specialists-crossing-lock-placement="opening-index"]')!
+      const indexSilkLockPlacement = document.querySelector<HTMLElement>('[data-specialists-crossing-lock-placement="index-silk"]')!
       const indexSilkLockPlacementBox = indexSilkLockPlacement.getBoundingClientRect()
       const lockTransform = new DOMMatrixReadOnly(getComputedStyle(indexSilkLockPlacement).transform)
-      const openingAnchor = centre('[data-specialists-crossing-anchor="opening-index"]')
-      const indexSilkAnchor = centre('[data-index-silk-crossing-lock]')
-      const knotTop = centre('[data-index-silk-lock-knot-top-port]')
-      const knotBottom = centre('[data-index-silk-lock-knot-bottom-port]')
+      const indexSilkAnchor = centre('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lockup]')
+      const knotTop = centre('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lock-knot-top-port]')
+      const knotBottom = centre('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lock-knot-bottom-port]')
       const openingRopeLayerElement = document.querySelector<HTMLElement>('[data-specialists-opening-rope-layer]')!
       const navElement = document.querySelector<HTMLElement>('[data-specialists-chapter-nav]')!
       const zIndex = (element: HTMLElement) => Number.parseInt(getComputedStyle(element).zIndex, 10)
@@ -597,7 +673,6 @@ test('The Usual Specialists preserves rope topology across authored responsive b
         indexSilkCrossingBottom: indexSilkCrossing.bottom,
         indexSilkCrossingLeft: indexSilkCrossing.left,
         indexSilkCrossingWidth: indexSilkCrossing.width,
-        openingAnchor,
         indexSilkAnchor,
         indexSilkLockPlacement: {
           centre: {
@@ -631,6 +706,7 @@ test('The Usual Specialists preserves rope topology across authored responsive b
           background: getComputedStyle(navElement).backgroundColor,
           zIndex: zIndex(navElement),
         },
+        openingIndexLockZ: zIndex(openingIndexLockPlacement),
         openingRopeLayer: {
           top: openingRopeLayer.top,
           bottom: openingRopeLayer.bottom,
@@ -653,9 +729,7 @@ test('The Usual Specialists preserves rope topology across authored responsive b
     expect(Math.abs(sample.indexSilkLockPlacement.centre.y - expectedLockY), JSON.stringify(sample)).toBeLessThanOrEqual(1)
     expect(Math.abs(sample.indexSilkLockPlacement.rotationDeg - expectedLock.rotationDeg), JSON.stringify(sample)).toBeLessThanOrEqual(0.05)
     expect(Math.abs(sample.indexSilkLockPlacement.scale - expectedLock.scale), JSON.stringify(sample)).toBeLessThanOrEqual(0.005)
-    expect(Math.abs(sample.openingAnchor.y - sample.openingCrossingBottom), JSON.stringify(sample)).toBeLessThanOrEqual(1)
-    expect(distance(sample.openingExit, sample.openingAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
-    expect(distance(sample.indexEntry, sample.openingAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
+    expect(distance(sample.openingExit, sample.indexEntry), JSON.stringify(sample)).toBeLessThanOrEqual(18)
     expect(distance(sample.indexExit, sample.knotTop), JSON.stringify(sample)).toBeLessThanOrEqual(6)
     expect(Math.abs(sample.silkEntry.x - sample.knotBottom.x), JSON.stringify(sample)).toBeLessThanOrEqual(3)
     expect(distance(sample.silkJoin.upper, sample.silkJoin.port), JSON.stringify(sample)).toBeLessThanOrEqual(2)
@@ -667,12 +741,12 @@ test('The Usual Specialists preserves rope topology across authored responsive b
     expect(sample.overflow, JSON.stringify(sample)).toBeLessThanOrEqual(0)
     expect(sample.openingRopeLayer.bottom, JSON.stringify(sample)).toBeGreaterThanOrEqual(sample.nav.bottom)
     expect(sample.nav.zIndex, JSON.stringify(sample)).toBeGreaterThan(sample.openingRopeLayer.zIndex)
+    expect(sample.nav.zIndex, JSON.stringify(sample)).toBeGreaterThan(sample.openingIndexLockZ)
     expect(sample.nav.background, JSON.stringify(sample)).toBe('rgb(230, 234, 235)')
   }
 
   const ceiling = samples.find((sample) => sample.width === 2560)!
   const beyondCeiling = samples.find((sample) => sample.width === 2561)!
-  expect(Math.abs((ceiling.openingAnchor.x - ceiling.canvasLeft) - (beyondCeiling.openingAnchor.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
   expect(Math.abs((ceiling.indexSilkAnchor.x - ceiling.canvasLeft) - (beyondCeiling.indexSilkAnchor.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
   expect(Math.abs((ceiling.knotTop.x - ceiling.canvasLeft) - (beyondCeiling.knotTop.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
   expect(Math.abs((ceiling.knotBottom.x - ceiling.canvasLeft) - (beyondCeiling.knotBottom.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
@@ -690,7 +764,7 @@ test('The Usual Specialists layers Silk-owned rope below traversal and below the
     const nameMark = silk.locator('[data-silk-name-mark]')
     const frame = silk.locator('[data-silk-commission-05-frame]')
     const traversal = silk.locator('[data-silk-commission="06"]')
-    const crossingLock = page.locator('[data-index-silk-lock-placement]')
+    const crossingLock = page.locator('[data-specialists-crossing-lock-placement="index-silk"]')
 
     const layer = async (locator: import('@playwright/test').Locator): Promise<number> =>
       Number.parseInt(await locator.evaluate((element) => getComputedStyle(element).zIndex), 10)

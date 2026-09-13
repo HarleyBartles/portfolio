@@ -1,12 +1,21 @@
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+
+export const SPECIALISTS_CROSSING_LOCKUP_SIZE = {
+  width: 176,
+  height: 154,
+} as const
+
+type SpecialistsCrossingLockupProps = {
+  style?: CSSProperties
+}
 
 const Lock = styled.span`
   position: relative;
   display: block;
-  width: 176px;
-  height: 154px;
+  width: ${SPECIALISTS_CROSSING_LOCKUP_SIZE.width}px;
+  height: ${SPECIALISTS_CROSSING_LOCKUP_SIZE.height}px;
   pointer-events: none;
 `
 
@@ -71,31 +80,31 @@ const RingOccluderImage = styled.img`
   transform: translate(-50%, -50%);
 `
 
-export const IndexSilkCrossingLock = (): ReactElement => (
-  <Lock aria-hidden="true" data-index-silk-crossing-lock>
-    <AnchorLayer data-index-silk-lock-layer="anchor">
+export const SpecialistsCrossingLockup = ({ style }: SpecialistsCrossingLockupProps): ReactElement => (
+  <Lock aria-hidden="true" data-specialists-crossing-lockup style={style}>
+    <AnchorLayer data-specialists-crossing-lock-layer="anchor">
       <AnchorImage
         alt=""
-        data-index-silk-lock-anchor-image
-        data-index-silk-lock-ring
+        data-specialists-crossing-lock-anchor-image
+        data-specialists-crossing-lock-ring
         decoding="async"
         src={usualSpecialistsAssetPath('silk-index-crossing-anchor-ring.webp')}
       />
     </AnchorLayer>
-    <ForegroundRopeLayer data-index-silk-lock-layer="foreground-rope">
+    <ForegroundRopeLayer data-specialists-crossing-lock-layer="foreground-rope">
       <KnotImage
         alt=""
-        data-index-silk-lock-knot-image
+        data-specialists-crossing-lock-knot-image
         decoding="async"
         src={usualSpecialistsAssetPath('silk-index-crossing-knot-foreground-crop.webp')}
       />
-      <KnotTopPort data-index-silk-lock-knot-top-port />
-      <KnotBottomPort data-index-silk-lock-knot-bottom-port />
+      <KnotTopPort data-specialists-crossing-lock-knot-top-port />
+      <KnotBottomPort data-specialists-crossing-lock-knot-bottom-port />
     </ForegroundRopeLayer>
-    <ForegroundRingLayer data-index-silk-lock-layer="foreground-ring">
+    <ForegroundRingLayer data-specialists-crossing-lock-layer="foreground-ring">
       <RingOccluderImage
         alt=""
-        data-index-silk-lock-ring-occluder-image
+        data-specialists-crossing-lock-ring-occluder-image
         decoding="async"
         src={usualSpecialistsAssetPath('silk-index-crossing-ring-occluder.webp')}
       />
