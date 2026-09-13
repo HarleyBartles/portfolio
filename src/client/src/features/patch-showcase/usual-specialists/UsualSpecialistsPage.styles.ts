@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { SPECIALISTS_WIDTHS } from './specialistsResponsive'
-import { specialistsMedia } from './specialistsResponsive'
 
 export const SpecialistsStory = styled.article`
   --specialists-paper: #f2ecdf;
@@ -27,18 +26,4 @@ export const OpeningComposition = styled.div`
 
 export const IndexMilestoneBoundary = styled.div`
   position: relative;
-  overflow: clip;
-`
-
-export const JourneyRopePlacement = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 1px;
-  left: 0;
-  height: calc(clamp(540px, 68vw, 820px) - 2px);
-  pointer-events: none;
-
-  @media ${specialistsMedia.atMostCompact} {
-    height: 688px;
-  }
 `

@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { IndexChapter } from './IndexChapter'
 
 describe('Index chapter', () => {
-  test('composes the accepted Index vertical slices without future chapters', () => {
+  test('composes the accepted Index vertical slices and owns its rope segment', () => {
     render(<IndexChapter />)
 
     const chapter = screen.getByRole('region', { name: 'Index' })
@@ -16,6 +16,11 @@ describe('Index chapter', () => {
     expect(chapter.querySelector('[data-index-substrate="blue-carrier"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-substrate="graph-paper"]')).toBeInTheDocument()
     expect(chapter.querySelector('[data-index-commission-composition="commission-evidence"]')).toBeInTheDocument()
+    const indexRope = chapter.querySelector('[data-specialists-rope-piece="index"]')
+    const responsiveRope = indexRope?.querySelector('[data-index-rope-material="responsive"]')
+    const wideRope = indexRope?.querySelector('[data-index-rope-material="wide"]')
+    expect(responsiveRope?.querySelectorAll('[data-specialists-rope-variant="taut-straight"]')).toHaveLength(3)
+    expect(wideRope?.querySelector('[data-specialists-rope-variant="taut-bow"]')).toBeInTheDocument()
     expect(document.querySelector('[data-specialist-chapter="silk"]')).toBeNull()
   })
 

@@ -1,4 +1,10 @@
 import styled from 'styled-components'
+import {
+  CHAPTER_CROSSING_HEIGHT,
+  CHAPTER_CROSSING_PORTS,
+  chapterCrossingPortCss,
+} from './chapterCrossingGeometry'
+import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
 export const Chapter = styled.section`
@@ -17,6 +23,82 @@ export const ChapterNumber = styled.span`
   opacity: .06;
   pointer-events: none;
   user-select: none;
+`
+
+export const IndexRopePlacement = styled.div`
+  --index-rope-delta-x: 11.1358vw;
+  --index-rope-delta-y: calc(1148px + clamp(74px, 10vw, 132px));
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  width: ${SPECIALISTS_ROPE_GEOMETRY.default.materialWidth}px;
+  height: hypot(var(--index-rope-delta-x), var(--index-rope-delta-y));
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) rotate(atan2(calc(0px - var(--index-rope-delta-x)), var(--index-rope-delta-y)));
+  transform-origin: 50% 0;
+  ${chapterCrossingPortCss('opening-index')}
+
+  @media ${specialistsMedia.wideBand} {
+    top: -2px;
+    left: calc(${CHAPTER_CROSSING_PORTS['opening-index'].wideBand} + 44px);
+    width: auto;
+    height: calc(100% + ${CHAPTER_CROSSING_HEIGHT + 4}px);
+    aspect-ratio: 724 / 2172;
+    overflow: visible;
+    transform: translateX(-50%) rotate(-7.1deg);
+  }
+
+  @media ${specialistsMedia.atMostMid} {
+    --index-rope-delta-x: 9.9075vw;
+    --index-rope-delta-y: calc(1287px + clamp(74px, 10vw, 132px));
+    width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.compactLandscape} {
+    --index-rope-delta-x: -3.2856vw;
+    --index-rope-delta-y: 1537px;
+    width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    --index-rope-delta-x: -3.484vw;
+    --index-rope-delta-y: 1457px;
+    width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.beyondCeiling} {
+    --index-rope-delta-x: 285.07648px;
+    --index-rope-delta-y: 1280px;
+  }
+`
+
+export const IndexResponsiveRopeMaterial = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  @media ${specialistsMedia.wideBand} {
+    display: none;
+  }
+`
+
+export const IndexRopeTile = styled.div`
+  flex: 0 0 auto;
+  width: 100%;
+
+  & + & {
+    margin-top: -2px;
+  }
+`
+
+export const IndexWideRopeMaterial = styled.div`
+  display: none;
+  width: 100%;
+
+  @media ${specialistsMedia.wideBand} {
+    display: block;
+  }
 `
 
 export const Stage = styled.div`

@@ -16,6 +16,7 @@ export const specialistsMedia = {
   atMostMid: `(max-width: ${SPECIALISTS_WIDTHS.midMax}px)`,
   belowWide: `(max-width: ${SPECIALISTS_WIDTHS.wideMin - 1}px)`,
   atLeastWide: `(min-width: ${SPECIALISTS_WIDTHS.wideMin}px)`,
+  wideBand: `(min-width: ${SPECIALISTS_WIDTHS.wideMin}px) and (max-width: ${SPECIALISTS_WIDTHS.expandedMin - 1}px)`,
   atLeastExpanded: `(min-width: ${SPECIALISTS_WIDTHS.expandedMin}px)`,
   atLeastUltrawide: `(min-width: ${SPECIALISTS_WIDTHS.ultrawideMin}px)`,
   beyondCeiling: `(min-width: ${SPECIALISTS_WIDTHS.ceiling + 1}px)`,

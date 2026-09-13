@@ -255,273 +255,326 @@ test('The Usual Specialists keeps the physical route crossing the clean SILK mar
     await page.goto(specialistsPath)
 
     const silk = page.getByRole('region', { name: 'Silk' })
-    const rope = silk.locator('[data-silk-journey-rope-path]')
+    const rope = silk.locator('[data-specialists-rope-piece="silk-upper"]')
     const nameMark = silk.locator('[data-silk-name-mark]')
     const traversal = silk.locator('[data-silk-commission="06"]')
-    await expect(rope).toBeAttached()
+    await expect(rope).toBeVisible()
     await expect(nameMark).toBeVisible()
     await expect(traversal).toBeVisible()
     await nameMark.scrollIntoViewIfNeeded()
 
-    const geometry = await rope.evaluate((pathElement, nameElement) => {
-      const path = pathElement as SVGPathElement
-      const svg = path.ownerSVGElement
-      const matrix = svg?.getScreenCTM()
+    const geometry = await rope.evaluate((ropeElement, nameElement) => {
+      const rope = ropeElement.getBoundingClientRect()
       const name = (nameElement as HTMLElement).getBoundingClientRect()
-      if (matrix === null || matrix === undefined) throw new Error('Silk rope has no screen transform')
-
-      const screenPoint = (length: number) => {
-        const point = path.getPointAtLength(length)
-        return new DOMPoint(point.x, point.y).matrixTransform(matrix)
-      }
-      const total = path.getTotalLength()
-      const nearestAtY = (targetY: number) => {
-        let nearest = screenPoint(0)
-        for (let step = 1; step <= 1000; step += 1) {
-          const candidate = screenPoint((total * step) / 1000)
-          if (Math.abs(candidate.y - targetY) < Math.abs(nearest.y - targetY)) nearest = candidate
-        }
-        return nearest
-      }
       const nameCentreY = name.top + name.height / 2
-      const nameCrossing = nearestAtY(nameCentreY)
+      const ropeCentreX = rope.left + rope.width * (362.5 / 724)
 
       return {
         name: { left: name.left, right: name.right, top: name.top, bottom: name.bottom, centreY: nameCentreY },
-        nameCrossing,
+        rope: { left: rope.left, right: rope.right, top: rope.top, bottom: rope.bottom, centreX: ropeCentreX },
       }
     }, await nameMark.elementHandle())
 
-    expect(Math.abs(geometry.nameCrossing.y - geometry.name.centreY), JSON.stringify({ width, geometry })).toBeLessThanOrEqual(8)
-    expect(geometry.nameCrossing.x, JSON.stringify({ width, geometry })).toBeGreaterThan(geometry.name.left)
-    expect(geometry.nameCrossing.x, JSON.stringify({ width, geometry })).toBeLessThan(geometry.name.right)
+    expect(geometry.name.centreY, JSON.stringify({ width, geometry })).toBeGreaterThanOrEqual(geometry.rope.top)
+    expect(geometry.name.centreY, JSON.stringify({ width, geometry })).toBeLessThanOrEqual(geometry.rope.bottom)
+    expect(geometry.rope.centreX, JSON.stringify({ width, geometry })).toBeGreaterThan(geometry.name.left)
+    expect(geometry.rope.centreX, JSON.stringify({ width, geometry })).toBeLessThan(geometry.name.right)
   }
 })
 
-test('The Usual Specialists authors the Silk rope above wall and wordmark but below Silk and anchors', async ({ page }) => {
+test('The Usual Specialists locks wide-band rope handoffs to crossing-owned ports', async ({ page }) => {
+  const samples = []
+
+  for (const width of [1400, 1440, 1599] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto('./patch/the-usual-specialists/')
+
+    const opening = page.locator('[data-specialists-rope-piece="opening"]')
+    const index = page.locator('[data-specialists-rope-piece="index"]')
+    const silkUpper = page.locator('[data-specialists-rope-piece="silk-upper"]')
+    const silkLower = page.locator('[data-specialists-rope-piece="silk-lower"]')
+    for (const rope of [opening, index, silkUpper, silkLower]) await expect(rope).toBeVisible()
+    await page.locator('[data-specialists-chapter-nav]').scrollIntoViewIfNeeded()
+
+    const geometry = await page.evaluate(() => {
+      const placement = (piece: string) => document.querySelector<HTMLElement>(`[data-specialists-rope-piece="${piece}"]`)!
+      const image = (piece: string) => Array.from(placement(piece).querySelectorAll<HTMLImageElement>('img'))
+        .find((candidate) => candidate.getClientRects().length > 0)!
+      const point = (piece: string, xRatio: number, yRatio: number) => {
+        const marker = document.createElement('span')
+        marker.style.position = 'absolute'
+        marker.style.left = `${xRatio * 100}%`
+        marker.style.top = `${yRatio * 100}%`
+        marker.style.width = '1px'
+        marker.style.height = '1px'
+        marker.style.pointerEvents = 'none'
+        placement(piece).append(marker)
+        const box = marker.getBoundingClientRect()
+        marker.remove()
+        return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
+      }
+      const centre = (selector: string) => {
+        const box = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect()
+        return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
+      }
+      const box = (selector: string) => document.querySelector<HTMLElement>(selector)!.getBoundingClientRect()
+      const openingCrossing = box('[data-specialists-chapter-crossing="opening-index"]')
+      const indexSilkCrossing = box('[data-specialists-chapter-crossing="index-silk"]')
+      const openingAnchor = centre('[data-specialists-crossing-anchor="opening-index"]')
+      const indexSilkAnchor = centre('[data-specialists-crossing-anchor="index-silk"]')
+      const nav = document.querySelector<HTMLElement>('[data-specialists-chapter-nav]')!
+      const openingRopeLayer = document.querySelector<HTMLElement>('[data-specialists-opening-rope-layer]')!
+      const openingCrossingRule = document.querySelector<HTMLElement>('[data-specialists-chapter-crossing="opening-index"] [data-specialists-crossing-rule]')!
+      const indexSilkCrossingRule = document.querySelector<HTMLElement>('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-rule]')!
+      const openingCrossingAnchor = document.querySelector<HTMLElement>('[data-specialists-crossing-anchor="opening-index"]')!
+      const indexSilkCrossingAnchor = document.querySelector<HTMLElement>('[data-specialists-crossing-anchor="index-silk"]')!
+      const zIndex = (element: HTMLElement) => Number.parseInt(getComputedStyle(element).zIndex, 10)
+      const cssWidth = (piece: string) => Number.parseFloat(getComputedStyle(image(piece)).width)
+      const indexVariant = image('index').dataset.specialistsRopeVariant
+      const indexEntryRatio = indexVariant === 'taut-bow' ? 282.5 / 724 : 362.5 / 724
+      const indexExitRatio = indexVariant === 'taut-bow' ? 289 / 724 : 362.5 / 724
+      const indexThicknessRatio = indexVariant === 'taut-bow' ? 44 / 724 : 52 / 724
+
+      return {
+        openingCrossingBottom: openingCrossing.bottom,
+        indexSilkCrossingBottom: indexSilkCrossing.bottom,
+        openingAnchor,
+        indexSilkAnchor,
+        openingExit: point('opening', 362.5 / 724, 1),
+        indexEntry: point('index', indexEntryRatio, 0),
+        indexExit: point('index', indexExitRatio, 1),
+        silkEntry: point('silk-upper', 359.5 / 724, 0),
+        silkJoin: {
+          port: centre('[data-silk-rope-join-port]'),
+          upper: point('silk-upper', 362.5 / 724, 1),
+          lower: point('silk-lower', 292 / 724, 0),
+        },
+        thickness: {
+          opening: cssWidth('opening') * (52 / 724),
+          index: cssWidth('index') * indexThicknessRatio,
+          silkUpper: cssWidth('silk-upper') * (52 / 724),
+          silkLower: cssWidth('silk-lower') * (43 / 724),
+        },
+        layers: {
+          nav: zIndex(nav),
+          openingRope: zIndex(openingRopeLayer),
+          openingRule: zIndex(openingCrossingRule),
+          indexSilkRule: zIndex(indexSilkCrossingRule),
+          openingAnchor: zIndex(openingCrossingAnchor),
+          indexSilkAnchor: zIndex(indexSilkCrossingAnchor),
+        },
+      }
+    })
+
+    samples.push({ width, ...geometry })
+  }
+
+  const distance = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.hypot(a.x - b.x, a.y - b.y)
+  for (const sample of samples) {
+    expect(Math.abs(sample.openingAnchor.y - sample.openingCrossingBottom), JSON.stringify(samples)).toBeLessThanOrEqual(1)
+    expect(Math.abs(sample.indexSilkAnchor.y - sample.indexSilkCrossingBottom), JSON.stringify(samples)).toBeLessThanOrEqual(1)
+    expect(distance(sample.openingExit, sample.openingAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
+    expect(distance(sample.indexEntry, sample.openingAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
+    expect(distance(sample.indexExit, sample.indexSilkAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
+    expect(distance(sample.silkEntry, sample.indexSilkAnchor), JSON.stringify(samples)).toBeLessThanOrEqual(18)
+    expect(distance(sample.silkJoin.upper, sample.silkJoin.port), JSON.stringify(samples)).toBeLessThanOrEqual(2)
+    expect(distance(sample.silkJoin.lower, sample.silkJoin.port), JSON.stringify(samples)).toBeLessThanOrEqual(2)
+    expect(distance(sample.silkJoin.upper, sample.silkJoin.lower), JSON.stringify(samples)).toBeLessThanOrEqual(2)
+    const thicknesses = Object.values(sample.thickness)
+    expect(Math.max(...thicknesses) - Math.min(...thicknesses), JSON.stringify(samples)).toBeLessThanOrEqual(5)
+    expect(sample.layers.openingRule, JSON.stringify(samples)).toBeLessThan(sample.layers.openingRope)
+    expect(sample.layers.indexSilkRule, JSON.stringify(samples)).toBeLessThan(8)
+    expect(sample.layers.nav, JSON.stringify(samples)).toBeGreaterThan(sample.layers.openingRope)
+    expect(sample.layers.openingAnchor, JSON.stringify(samples)).toBeGreaterThan(sample.layers.nav)
+    expect(sample.layers.indexSilkAnchor, JSON.stringify(samples)).toBeGreaterThan(20)
+  }
+
+  expect(Math.max(...samples.map((sample) => sample.openingAnchor.x)) - Math.min(...samples.map((sample) => sample.openingAnchor.x)), JSON.stringify(samples)).toBeLessThanOrEqual(1)
+  expect(Math.max(...samples.map((sample) => sample.indexSilkAnchor.x)) - Math.min(...samples.map((sample) => sample.indexSilkAnchor.x)), JSON.stringify(samples)).toBeLessThanOrEqual(1)
+})
+
+test('The Usual Specialists preserves rope topology across authored responsive boundaries', async ({ page }) => {
+  const widths = [390, 391, 720, 721, 900, 901, 1399, 1400, 1599, 1600, 1919, 1920, 2560, 2561] as const
+  const samples = []
+
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
+    await page.goto('./patch/the-usual-specialists/')
+
+    const opening = page.locator('[data-specialists-rope-piece="opening"]')
+    const index = page.locator('[data-specialists-rope-piece="index"]')
+    const silkUpper = page.locator('[data-specialists-rope-piece="silk-upper"]')
+    const silkLower = page.locator('[data-specialists-rope-piece="silk-lower"]')
+    for (const rope of [opening, index, silkUpper, silkLower]) await expect(rope).toBeVisible()
+
+    const geometry = await page.evaluate(() => {
+      const placement = (piece: string) => document.querySelector<HTMLElement>(`[data-specialists-rope-piece="${piece}"]`)!
+      const image = (piece: string) => Array.from(placement(piece).querySelectorAll<HTMLImageElement>('img'))
+        .find((candidate) => candidate.getClientRects().length > 0)!
+      const point = (piece: string, xRatio: number, yRatio: number) => {
+        const marker = document.createElement('span')
+        marker.style.position = 'absolute'
+        marker.style.left = `${xRatio * 100}%`
+        marker.style.top = `${yRatio * 100}%`
+        marker.style.width = '1px'
+        marker.style.height = '1px'
+        marker.style.pointerEvents = 'none'
+        placement(piece).append(marker)
+        const box = marker.getBoundingClientRect()
+        marker.remove()
+        return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
+      }
+      const centre = (selector: string) => {
+        const box = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect()
+        return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
+      }
+      const box = (selector: string) => document.querySelector<HTMLElement>(selector)!.getBoundingClientRect()
+      const canvas = box('[data-specialists-canvas="authored"]')
+      const nav = box('[data-specialists-chapter-nav]')
+      const openingRopeLayer = box('[data-specialists-opening-rope-layer]')
+      const openingCrossing = box('[data-specialists-chapter-crossing="opening-index"]')
+      const indexSilkCrossing = box('[data-specialists-chapter-crossing="index-silk"]')
+      const openingAnchor = centre('[data-specialists-crossing-anchor="opening-index"]')
+      const indexSilkAnchor = centre('[data-specialists-crossing-anchor="index-silk"]')
+      const openingRopeLayerElement = document.querySelector<HTMLElement>('[data-specialists-opening-rope-layer]')!
+      const navElement = document.querySelector<HTMLElement>('[data-specialists-chapter-nav]')!
+      const zIndex = (element: HTMLElement) => Number.parseInt(getComputedStyle(element).zIndex, 10)
+      const cssWidth = (piece: string) => Number.parseFloat(getComputedStyle(image(piece)).width)
+
+      const indexVariant = image('index').dataset.specialistsRopeVariant
+      const indexEntryRatio = indexVariant === 'taut-bow' ? 282.5 / 724 : 362.5 / 724
+      const indexExitRatio = indexVariant === 'taut-bow' ? 289 / 724 : 362.5 / 724
+      const indexThicknessRatio = indexVariant === 'taut-bow' ? 44 / 724 : 52 / 724
+
+      return {
+        canvasLeft: canvas.left,
+        openingCrossingBottom: openingCrossing.bottom,
+        indexSilkCrossingBottom: indexSilkCrossing.bottom,
+        openingAnchor,
+        indexSilkAnchor,
+        openingExit: point('opening', 362.5 / 724, 1),
+        indexEntry: point('index', indexEntryRatio, 0),
+        indexExit: point('index', indexExitRatio, 1),
+        silkEntry: point('silk-upper', 359.5 / 724, 0),
+        silkJoin: {
+          port: centre('[data-silk-rope-join-port]'),
+          upper: point('silk-upper', 362.5 / 724, 1),
+          lower: point('silk-lower', 292 / 724, 0),
+        },
+        thickness: {
+          opening: cssWidth('opening') * (52 / 724),
+          index: cssWidth('index') * indexThicknessRatio,
+          silkUpper: cssWidth('silk-upper') * (52 / 724),
+          silkLower: cssWidth('silk-lower') * (43 / 724),
+        },
+        nav: {
+          top: nav.top,
+          bottom: nav.bottom,
+          background: getComputedStyle(navElement).backgroundColor,
+          zIndex: zIndex(navElement),
+        },
+        openingRopeLayer: {
+          top: openingRopeLayer.top,
+          bottom: openingRopeLayer.bottom,
+          zIndex: zIndex(openingRopeLayerElement),
+        },
+      }
+    })
+
+    samples.push({ width, ...geometry })
+  }
+
+  const distance = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.hypot(a.x - b.x, a.y - b.y)
+  for (const sample of samples) {
+    expect(Math.abs(sample.openingAnchor.y - sample.openingCrossingBottom), JSON.stringify(sample)).toBeLessThanOrEqual(1)
+    expect(Math.abs(sample.indexSilkAnchor.y - sample.indexSilkCrossingBottom), JSON.stringify(sample)).toBeLessThanOrEqual(1)
+    expect(distance(sample.openingExit, sample.openingAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
+    expect(distance(sample.indexEntry, sample.openingAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
+    expect(distance(sample.indexExit, sample.indexSilkAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
+    expect(distance(sample.silkEntry, sample.indexSilkAnchor), JSON.stringify(sample)).toBeLessThanOrEqual(18)
+    expect(distance(sample.silkJoin.upper, sample.silkJoin.port), JSON.stringify(sample)).toBeLessThanOrEqual(2)
+    expect(distance(sample.silkJoin.lower, sample.silkJoin.port), JSON.stringify(sample)).toBeLessThanOrEqual(2)
+    expect(distance(sample.silkJoin.upper, sample.silkJoin.lower), JSON.stringify(sample)).toBeLessThanOrEqual(2)
+    const thicknesses = Object.values(sample.thickness)
+    expect(Math.max(...thicknesses) - Math.min(...thicknesses), JSON.stringify(sample)).toBeLessThanOrEqual(5)
+    expect(sample.openingRopeLayer.bottom, JSON.stringify(sample)).toBeGreaterThanOrEqual(sample.nav.bottom)
+    expect(sample.nav.zIndex, JSON.stringify(sample)).toBeGreaterThan(sample.openingRopeLayer.zIndex)
+    expect(sample.nav.background, JSON.stringify(sample)).toBe('rgb(230, 234, 235)')
+  }
+
+  const ceiling = samples.find((sample) => sample.width === 2560)!
+  const beyondCeiling = samples.find((sample) => sample.width === 2561)!
+  const narrow = samples.find((sample) => sample.width === 390)!
+  const approvedWide = samples.find((sample) => sample.width === 1400)!
+  for (const key of Object.keys(narrow.thickness) as Array<keyof typeof narrow.thickness>) {
+    expect(narrow.thickness[key], JSON.stringify({ narrow, approvedWide, key })).toBeLessThan(approvedWide.thickness[key])
+  }
+  expect(Math.abs((ceiling.openingAnchor.x - ceiling.canvasLeft) - (beyondCeiling.openingAnchor.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
+  expect(Math.abs((ceiling.indexSilkAnchor.x - ceiling.canvasLeft) - (beyondCeiling.indexSilkAnchor.x - beyondCeiling.canvasLeft)), JSON.stringify({ ceiling, beyondCeiling })).toBeLessThanOrEqual(.05)
+})
+
+test('The Usual Specialists layers Silk-owned rope below traversal and below the crossing anchor', async ({ page }) => {
   for (const width of [1440, 390] as const) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
     await page.goto('./patch/the-usual-specialists/')
 
     const silk = page.getByRole('region', { name: 'Silk' })
     const traversalComposition = silk.locator('[data-silk-traversal-composition]')
-    const entryRopeRoot = silk.locator('[data-silk-journey-rope-entry]')
-    const entryRopePath = silk.locator('[data-silk-journey-rope-entry-path]')
-    const ropeRoot = silk.locator('[data-silk-journey-rope]')
-    const ropePath = silk.locator('[data-silk-journey-rope-path]')
+    const upperRope = silk.locator('[data-specialists-rope-piece="silk-upper"]')
+    const lowerRope = silk.locator('[data-specialists-rope-piece="silk-lower"]')
     const nameMark = silk.locator('[data-silk-name-mark]')
     const frame = silk.locator('[data-silk-commission-05-frame]')
     const traversal = silk.locator('[data-silk-commission="06"]')
-    const anchor = silk.locator('[data-silk-rope-anchor]')
+    const crossingAnchor = page.locator('[data-specialists-crossing-anchor="index-silk"]')
 
     const layer = async (locator: import('@playwright/test').Locator): Promise<number> =>
       Number.parseInt(await locator.evaluate((element) => getComputedStyle(element).zIndex), 10)
     const compositionZ = await layer(traversalComposition)
     const nameZ = await layer(nameMark)
     const frameZ = await layer(frame)
-    const entryRopeZ = await layer(entryRopeRoot)
-    const ropeZ = await layer(ropeRoot)
+    const upperRopeZ = await layer(upperRope)
+    const lowerRopeZ = await layer(lowerRope)
     const traversalZ = await layer(traversal)
-    const anchorZ = await layer(anchor)
+    const anchorZ = await layer(crossingAnchor)
 
     expect(nameZ, JSON.stringify({ width, nameZ, compositionZ })).toBeLessThan(compositionZ)
     expect(frameZ, JSON.stringify({ width, frameZ, compositionZ })).toBeLessThan(compositionZ)
-    expect(ropeZ, JSON.stringify({ width, ropeZ, traversalZ })).toBeLessThan(traversalZ)
-    expect(entryRopeZ, JSON.stringify({ width, entryRopeZ, anchorZ })).toBeLessThan(anchorZ)
+    expect(upperRopeZ, JSON.stringify({ width, upperRopeZ, traversalZ })).toBeLessThan(traversalZ)
+    expect(lowerRopeZ, JSON.stringify({ width, lowerRopeZ, traversalZ })).toBeLessThan(traversalZ)
+    expect(anchorZ, JSON.stringify({ width, anchorZ, compositionZ })).toBeGreaterThan(compositionZ)
     expect(await traversalComposition.evaluate((root) => (
-      root.contains(root.querySelector('[data-silk-journey-rope]'))
+      root.contains(root.querySelector('[data-specialists-rope-piece="silk-upper"]'))
+      && root.contains(root.querySelector('[data-specialists-rope-piece="silk-lower"]'))
       && root.contains(root.querySelector('[data-silk-commission="06"]'))
-      && root.contains(root.querySelector('[data-silk-rope-anchor]'))
+      && !root.contains(root.querySelector('[data-specialists-crossing-anchor]'))
     ))).toBe(true)
-
-    const overlaps = await ropePath.evaluate((pathElement, elements) => {
-      const path = pathElement as SVGPathElement
-      const matrix = path.ownerSVGElement?.getScreenCTM()
-      if (matrix === null || matrix === undefined) throw new Error('Silk rope has no screen transform')
-      const boxes = (elements as HTMLElement[]).map((element) => element.getBoundingClientRect())
-      const screenPoint = (length: number) => {
-        const point = path.getPointAtLength(length)
-        return new DOMPoint(point.x, point.y).matrixTransform(matrix)
-      }
-      const total = path.getTotalLength()
-      const points = Array.from({ length: 1201 }, (_, step) => screenPoint((total * step) / 1200))
-      const intersects = (box: DOMRect) => points.some((point) => (
-        point.x >= box.left && point.x <= box.right && point.y >= box.top && point.y <= box.bottom
-      ))
-      return {
-        name: intersects(boxes[0]),
-        frame: intersects(boxes[1]),
-        traversal: intersects(boxes[2]),
-      }
-    }, [
-      await nameMark.elementHandle(),
-      await frame.elementHandle(),
-      await traversal.elementHandle(),
-    ])
-
-    const anchorOverlap = await entryRopePath.evaluate((pathElement, anchorElement) => {
-      const path = pathElement as SVGPathElement
-      const matrix = path.ownerSVGElement?.getScreenCTM()
-      if (matrix === null || matrix === undefined) throw new Error('Silk entry rope has no screen transform')
-      const anchorBox = (anchorElement as HTMLElement).getBoundingClientRect()
-      const total = path.getTotalLength()
-      for (let step = 0; step <= 200; step += 1) {
-        const point = path.getPointAtLength((total * step) / 200)
-        const screen = new DOMPoint(point.x, point.y).matrixTransform(matrix)
-        if (screen.x >= anchorBox.left && screen.x <= anchorBox.right && screen.y >= anchorBox.top && screen.y <= anchorBox.bottom) return true
-      }
-      return false
-    }, await anchor.elementHandle())
-
-    expect(overlaps.name, JSON.stringify({ width, overlaps })).toBe(true)
-    expect(overlaps.frame, JSON.stringify({ width, overlaps })).toBe(true)
-    expect(overlaps.traversal, JSON.stringify({ width, overlaps })).toBe(true)
-    expect(anchorOverlap, JSON.stringify({ width, anchorOverlap })).toBe(true)
   }
 })
 
-test('The Usual Specialists locks Commission 06 to the Silk rope geometry', async ({ page }) => {
-  for (const width of [1440, 768, 391, 390, 320] as const) {
-    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await page.goto('./patch/the-usual-specialists/')
-
-    const silk = page.getByRole('region', { name: 'Silk' })
-    const traversalComposition = silk.locator('[data-silk-traversal-composition]')
-    const ropePath = silk.locator('[data-silk-journey-rope-path]')
-    const traversalPort = silk.locator('[data-silk-traversal-rope-port]')
-    await expect(traversalComposition).toBeVisible()
-    await expect(traversalPort).toBeAttached()
-    expect(await traversalPort.evaluate((port, root) => (root as HTMLElement).contains(port), await traversalComposition.elementHandle())).toBe(true)
-
-    const distance = await ropePath.evaluate((pathElement, portElement) => {
-      const path = pathElement as SVGPathElement
-      const matrix = path.ownerSVGElement?.getScreenCTM()
-      if (matrix === null || matrix === undefined) throw new Error('Silk rope has no screen transform')
-      const port = (portElement as HTMLElement).getBoundingClientRect()
-      const target = { x: port.left + port.width / 2, y: port.top + port.height / 2 }
-      const total = path.getTotalLength()
-      let nearest = Number.POSITIVE_INFINITY
-      for (let step = 0; step <= 1600; step += 1) {
-        const point = path.getPointAtLength((total * step) / 1600)
-        const screen = new DOMPoint(point.x, point.y).matrixTransform(matrix)
-        nearest = Math.min(nearest, Math.hypot(screen.x - target.x, screen.y - target.y))
-      }
-      return nearest
-    }, await traversalPort.elementHandle())
-
-    expect(distance, JSON.stringify({ width, distance })).toBeLessThanOrEqual(4)
-  }
-})
-
-test('The Usual Specialists joins the Index rope directly into the Silk traversal composition', async ({ page }) => {
-  const seams: Array<{
-    width: number
-    boundaryY: number
-    legacyBoundaryPoint: { x: number; y: number }
-    entryStart: { x: number; y: number }
-    entryEnd: { x: number; y: number }
-    silkStart: { x: number; y: number }
-    anchorCentre: { x: number; y: number }
-  }> = []
-
-  for (const width of [1440, 768, 391, 390, 320] as const) {
-    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await page.goto('./patch/the-usual-specialists/')
-
-    const milestone = page.locator('[data-specialists-index-milestone]')
-    const legacyPath = page.locator('[data-temporary-wireframe-rope="true"] path')
-    const silk = page.getByRole('region', { name: 'Silk' })
-    const entryPath = silk.locator('[data-silk-journey-rope-entry-path]')
-    const silkPath = silk.locator('[data-silk-journey-rope-path]')
-    const anchor = silk.locator('[data-silk-rope-anchor]')
-    await expect(entryPath).toBeAttached()
-
-    const seam = await legacyPath.evaluate((legacyPathElement, elements) => {
-      const legacyPath = legacyPathElement as SVGPathElement
-      const [milestoneElement, entryPathElement, silkPathElement, anchorElement] = elements as [HTMLElement, SVGPathElement, SVGPathElement, HTMLElement]
-      const legacyMatrix = legacyPath.ownerSVGElement?.getScreenCTM()
-      const entryMatrix = entryPathElement.ownerSVGElement?.getScreenCTM()
-      const silkMatrix = silkPathElement.ownerSVGElement?.getScreenCTM()
-      if (legacyMatrix === null || legacyMatrix === undefined) throw new Error('Legacy rope has no screen transform')
-      if (entryMatrix === null || entryMatrix === undefined) throw new Error('Silk entry rope has no screen transform')
-      if (silkMatrix === null || silkMatrix === undefined) throw new Error('Silk rope has no screen transform')
-
-      const milestoneBox = milestoneElement.getBoundingClientRect()
-      const boundaryY = milestoneBox.bottom
-      const legacyTotal = legacyPath.getTotalLength()
-      let legacyBoundaryPoint = new DOMPoint(0, 0).matrixTransform(legacyMatrix)
-      for (let step = 0; step <= 2400; step += 1) {
-        const point = legacyPath.getPointAtLength((legacyTotal * step) / 2400)
-        const screen = new DOMPoint(point.x, point.y).matrixTransform(legacyMatrix)
-        if (Math.abs(screen.y - boundaryY) < Math.abs(legacyBoundaryPoint.y - boundaryY)) legacyBoundaryPoint = screen
-      }
-
-      const entryStart = entryPathElement.getPointAtLength(0)
-      const entryEnd = entryPathElement.getPointAtLength(entryPathElement.getTotalLength())
-      const entryStartScreen = new DOMPoint(entryStart.x, entryStart.y).matrixTransform(entryMatrix)
-      const entryEndScreen = new DOMPoint(entryEnd.x, entryEnd.y).matrixTransform(entryMatrix)
-      const silkStart = silkPathElement.getPointAtLength(0)
-      const silkStartScreen = new DOMPoint(silkStart.x, silkStart.y).matrixTransform(silkMatrix)
-      const anchorBox = anchorElement.getBoundingClientRect()
-      const anchorCentre = {
-        x: anchorBox.left + anchorBox.width / 2,
-        y: anchorBox.top + anchorBox.height / 2,
-      }
-
-      return {
-        boundaryY,
-        legacyBoundaryPoint: { x: legacyBoundaryPoint.x, y: legacyBoundaryPoint.y },
-        entryStart: { x: entryStartScreen.x, y: entryStartScreen.y },
-        entryEnd: { x: entryEndScreen.x, y: entryEndScreen.y },
-        silkStart: { x: silkStartScreen.x, y: silkStartScreen.y },
-        anchorCentre,
-      }
-    }, [
-      await milestone.elementHandle(),
-      await entryPath.elementHandle(),
-      await silkPath.elementHandle(),
-      await anchor.elementHandle(),
-    ])
-
-    seams.push({ width, ...seam })
-  }
-
-  for (const seam of seams) {
-    expect(Math.abs(seam.legacyBoundaryPoint.y - seam.boundaryY), JSON.stringify(seams)).toBeLessThanOrEqual(3)
-    expect(Math.hypot(
-      seam.legacyBoundaryPoint.x - seam.entryStart.x,
-      seam.legacyBoundaryPoint.y - seam.entryStart.y,
-    ), JSON.stringify(seams)).toBeLessThanOrEqual(4)
-    expect(Math.hypot(
-      seam.entryEnd.x - seam.silkStart.x,
-      seam.entryEnd.y - seam.silkStart.y,
-    ), JSON.stringify(seams)).toBeLessThanOrEqual(4)
-    expect(Math.hypot(
-      seam.anchorCentre.x - seam.entryStart.x,
-      seam.anchorCentre.y - seam.entryStart.y,
-    ), JSON.stringify(seams)).toBeLessThanOrEqual(4)
-  }
-})
-
-test('The Usual Specialists clips the legacy rope at the Silk chapter boundary', async ({ page }) => {
+test('The Usual Specialists keeps the Index-to-Silk crossing outside the clipped Index milestone', async ({ page }) => {
   for (const width of [1440, 390] as const) {
     await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
     await page.goto('./patch/the-usual-specialists/')
 
     const milestone = page.locator('[data-specialists-index-milestone]')
+    const crossing = page.locator('[data-specialists-chapter-crossing="index-silk"]')
     const silk = page.getByRole('region', { name: 'Silk' })
-    const legacyRope = page.locator('[data-temporary-wireframe-rope="true"]')
 
-    await expect(milestone).toHaveCSS('overflow', 'clip')
-    expect(await legacyRope.evaluate((element) => element.closest('[data-specialists-index-milestone]') !== null)).toBe(true)
+    expect(await crossing.evaluate((element) => element.closest('[data-specialists-index-milestone]') === null)).toBe(true)
 
     const milestoneBox = await milestone.boundingBox()
+    const crossingBox = await crossing.boundingBox()
     const silkBox = await silk.boundingBox()
     expect(milestoneBox).not.toBeNull()
+    expect(crossingBox).not.toBeNull()
     expect(silkBox).not.toBeNull()
     expect(
-      Math.abs(milestoneBox!.y + milestoneBox!.height - silkBox!.y),
-      JSON.stringify({ width, milestoneBox, silkBox }),
+      Math.abs(milestoneBox!.y + milestoneBox!.height - crossingBox!.y),
+      JSON.stringify({ width, milestoneBox, crossingBox, silkBox }),
+    ).toBeLessThanOrEqual(1)
+    expect(
+      Math.abs(crossingBox!.y + crossingBox!.height - silkBox!.y),
+      JSON.stringify({ width, milestoneBox, crossingBox, silkBox }),
     ).toBeLessThanOrEqual(1)
   }
 })
@@ -601,32 +654,18 @@ test('The Usual Specialists has no authored composition transition at 620', asyn
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPath)
 
-    const rope = page.locator('[data-silk-journey-rope-path]')
+    const rope = page.locator('[data-specialists-rope-piece="silk-upper"]')
     const nameMark = page.locator('[data-silk-name-mark]')
     const thresholdCopy = page.locator('[data-specialists-threshold-copy]')
     await expect(rope).toHaveCount(1)
     await expect(nameMark).toBeVisible()
     await expect(thresholdCopy).toBeVisible()
 
-    const ropeCrossing = await rope.evaluate((pathElement, nameElement) => {
-      const path = pathElement as SVGPathElement
-      const matrix = path.ownerSVGElement?.getScreenCTM()
+    const ropeCrossing = await rope.evaluate((ropeElement, nameElement) => {
+      const rope = ropeElement.getBoundingClientRect()
       const name = (nameElement as HTMLElement).getBoundingClientRect()
-      if (matrix === null || matrix === undefined) throw new Error('Silk rope has no screen transform')
-
-      const screenPoint = (length: number) => {
-        const point = path.getPointAtLength(length)
-        return new DOMPoint(point.x, point.y).matrixTransform(matrix)
-      }
       const targetY = name.top + name.height / 2
-      const total = path.getTotalLength()
-      let nearest = screenPoint(0)
-      for (let step = 1; step <= 1000; step += 1) {
-        const candidate = screenPoint((total * step) / 1000)
-        if (Math.abs(candidate.y - targetY) < Math.abs(nearest.y - targetY)) nearest = candidate
-      }
-
-      return { x: nearest.x, y: nearest.y }
+      return { x: rope.left + rope.width * (362.5 / 724), y: targetY }
     }, await nameMark.elementHandle())
     const threshold = await thresholdCopy.boundingBox()
     expect(threshold).not.toBeNull()

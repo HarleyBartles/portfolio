@@ -1,0 +1,15 @@
+{
+  "generatedWith": "OpenAI image generation",
+  "generatedOn": "2026-09-13",
+  "rightsOwner": "Harley Bartles",
+  "intent": "Selectable transparent red rope pieces for chapter-owned route composition.",
+  "generationIds": {
+    "rope-loose-a": "e1b6b077-7135-494c-8e91-a22b2458d5fa",
+    "rope-loose-b": "6453704d-cbb8-4384-83ea-9844d7db94a3",
+    "rope-loose-c": "6fbe0ac8-29b1-4140-bf99-ef73969d5ffb",
+    "rope-terminal-curl": "18fa6a3d-fe64-4012-9e12-f5b810b0f752",
+    "rope-taut-straight": "4833b1bc-6df0-46ba-8041-cbe4cbb5d50b",
+    "rope-taut-bow": "83ae9397-3d88-431e-b6dd-a6326814bb44",
+    "rope-taut-offset": "1ce3c03f-aca8-49c2-9b58-a2b804bede42"
+  }
+}

@@ -5,7 +5,6 @@ export const Chapter = styled.section`
   position: relative;
   padding-top: 62px;
   padding-bottom: clamp(82px, 11vw, 148px);
-  border-top: 1px solid rgb(32 35 31 / 30%);
   background:
     radial-gradient(circle at 14% 16%, rgb(255 255 255 / 15%) 0 1px, transparent 1.4px),
     radial-gradient(circle at 71% 64%, rgb(32 35 31 / 5%) 0 1px, transparent 1.4px),

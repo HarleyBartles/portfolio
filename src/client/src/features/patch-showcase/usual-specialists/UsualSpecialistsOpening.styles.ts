@@ -1,12 +1,92 @@
 import styled from 'styled-components'
+import { CHAPTER_CROSSING_HEIGHT, chapterCrossingPortCss } from './chapterCrossingGeometry'
+import { SPECIALISTS_CHAPTER_NAV_HEIGHT } from './SpecialistsChapterNav.styles'
+import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
+const OPENING_INDEX_TRANSITION_HEIGHT = SPECIALISTS_CHAPTER_NAV_HEIGHT + CHAPTER_CROSSING_HEIGHT
+
 export const Opening = styled.header`
+  position: relative;
   padding-top: clamp(34px, 6vw, 76px);
 
   @media ${specialistsMedia.atMostCompact} {
     padding-top: 26px;
   }
+`
+
+export const OpeningRopeLayer = styled.div`
+  position: absolute;
+  z-index: 9;
+  right: 0;
+  bottom: -${OPENING_INDEX_TRANSITION_HEIGHT}px;
+  left: 0;
+  height: calc(clamp(540px, 68vw, 820px) + 72px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
+  pointer-events: none;
+
+  @media ${specialistsMedia.atMostCompact} {
+    height: calc(762px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
+  }
+`
+
+export const OpeningRopePlacement = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  width: ${SPECIALISTS_ROPE_GEOMETRY.default.materialWidth}px;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(-50%);
+  ${chapterCrossingPortCss('opening-index')}
+
+  @media ${specialistsMedia.atMostMid} {
+    width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.compactLandscape} {
+    width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
+  }
+
+  @media ${specialistsMedia.wideBand} {
+    display: block;
+    width: auto;
+    aspect-ratio: 724 / 2172;
+    overflow: visible;
+  }
+`
+
+export const OpeningRopeTile = styled.div`
+  flex: 0 0 auto;
+  width: 100%;
+
+  & + & {
+    margin-top: -2px;
+  }
+
+  @media ${specialistsMedia.wideBand} {
+    & + & {
+      display: none;
+    }
+  }
+`
+
+export const OpeningRopeAnchor = styled.span`
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  border: 7px solid #5f5850;
+  border-radius: 50%;
+  background: #80776b;
+  box-shadow: 0 3px 0 rgb(0 0 0 / 20%);
+  transform: translate(-50%, -50%);
+  ${chapterCrossingPortCss('opening-index')}
 `
 
 export const OpeningLockup = styled.div`
@@ -62,7 +142,7 @@ export const Threshold = styled.div`
   position: relative;
   width: 100%;
   min-height: clamp(540px, 68vw, 820px);
-  border-block: 1px solid var(--specialists-ink);
+  border-top: 1px solid var(--specialists-ink);
   overflow: visible;
 
   @media ${specialistsMedia.atMostCompact} {

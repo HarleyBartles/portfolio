@@ -14,6 +14,7 @@ describe('Specialists responsive contract', () => {
       ceiling: 2560,
     })
     expect(specialistsMedia.atLeastWide).toBe('(min-width: 1400px)')
+    expect(specialistsMedia.wideBand).toBe('(min-width: 1400px) and (max-width: 1599px)')
     expect(specialistsMedia.atLeastExpanded).toBe('(min-width: 1600px)')
     expect(specialistsMedia.atLeastUltrawide).toBe('(min-width: 1920px)')
     expect(specialistsMedia.beyondCeiling).toBe('(min-width: 2561px)')

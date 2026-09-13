@@ -5,7 +5,7 @@ import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 describe('Usual Specialists opening', () => {
-  test('renders the accepted opening without owning the cross-chapter rope', () => {
+  test('owns the opening rope from a page anchor above the threshold image', () => {
     const { container } = render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
         <UsualSpecialistsOpening />
@@ -19,7 +19,13 @@ describe('Usual Specialists opening', () => {
     expect(container.querySelector('[data-patch-series-lockup]')).toBeInTheDocument()
     expect(pageTitle.querySelector('[data-specialists-wordmark]')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('img', { name: /ordinary apartment safehouse/i })).toHaveAttribute('fetchpriority', 'high')
-    expect(container.querySelector('[data-temporary-wireframe-rope="true"]')).not.toBeInTheDocument()
+    const opening = container.querySelector('header')
+    const threshold = screen.getByRole('img', { name: /ordinary apartment safehouse/i }).parentElement
+    const rope = opening?.querySelector('[data-specialists-rope-piece="opening"]')
+    const anchor = opening?.querySelector<HTMLElement>('[data-specialists-rope-anchor="opening-start"]') ?? null
+    expect(rope?.querySelectorAll('[data-specialists-rope-variant="taut-straight"]')).toHaveLength(2)
+    expect(anchor).toBeInTheDocument()
+    expect(threshold).not.toContainElement(anchor)
     expect(screen.queryByRole('link', { name: 'Silk' })).not.toBeInTheDocument()
   })
 

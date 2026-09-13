@@ -8,13 +8,24 @@ import {
 
 describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(16)
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('safehouse-threshold.webp')
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('index-high-step.webp')
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('index-return.webp')
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('patch-return.webp')
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('silk-commission-05-aperture-rim-heavy.webp')
-    expect(USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)).toContain('silk-commission-05-corridor.webp')
+    const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
+
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(23)
+    expect(outputs).toContain('safehouse-threshold.webp')
+    expect(outputs).toContain('index-high-step.webp')
+    expect(outputs).toContain('index-return.webp')
+    expect(outputs).toContain('patch-return.webp')
+    expect(outputs).toContain('silk-commission-05-aperture-rim-heavy.webp')
+    expect(outputs).toContain('silk-commission-05-corridor.webp')
+    expect(outputs).toEqual(expect.arrayContaining([
+      'rope-loose-a.webp',
+      'rope-loose-b.webp',
+      'rope-loose-c.webp',
+      'rope-terminal-curl.webp',
+      'rope-taut-straight.webp',
+      'rope-taut-bow.webp',
+      'rope-taut-offset.webp',
+    ]))
     expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })

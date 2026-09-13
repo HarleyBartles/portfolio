@@ -2,10 +2,10 @@ import type { CSSProperties } from 'react'
 import { UsualSpecialistsOpening } from './usual-specialists/UsualSpecialistsOpening'
 import { IndexChapter } from './usual-specialists/IndexChapter'
 import { SilkChapter } from './usual-specialists/SilkChapter'
-import { SpecialistsJourneyRope } from './usual-specialists/SpecialistsJourneyRope'
+import { ChapterCrossing } from './usual-specialists/ChapterCrossing'
+import { SpecialistsChapterNav } from './usual-specialists/SpecialistsChapterNav'
 import {
   IndexMilestoneBoundary,
-  JourneyRopePlacement,
   OpeningComposition,
   SpecialistsCanvas,
   SpecialistsStory,
@@ -22,12 +22,12 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
         <IndexMilestoneBoundary data-specialists-index-milestone>
           <OpeningComposition>
             <UsualSpecialistsOpening />
-            <JourneyRopePlacement>
-              <SpecialistsJourneyRope />
-            </JourneyRopePlacement>
           </OpeningComposition>
+          <SpecialistsChapterNav />
+          <ChapterCrossing crossing="opening-index" />
           <IndexChapter />
         </IndexMilestoneBoundary>
+        <ChapterCrossing crossing="index-silk" />
         <SilkChapter />
       </SpecialistsCanvas>
     </SpecialistsStory>

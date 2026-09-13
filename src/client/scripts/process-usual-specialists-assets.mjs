@@ -11,6 +11,7 @@ const specialistsSourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usua
 const acceptedPackageRoots = Object.freeze({
   index: path.join(specialistsSourceRoot, 'index'),
   silk: path.join(specialistsSourceRoot, 'silk'),
+  rope: path.join(specialistsSourceRoot, 'rope'),
 })
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
@@ -53,6 +54,13 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     width: 1086,
     format: 'webp',
   },
+  { id: 'rope-loose-a', sourcePackage: 'rope', source: 'rope-loose-a.png', output: 'rope-loose-a.webp', width: 724, format: 'webp' },
+  { id: 'rope-loose-b', sourcePackage: 'rope', source: 'rope-loose-b.png', output: 'rope-loose-b.webp', width: 724, format: 'webp' },
+  { id: 'rope-loose-c', sourcePackage: 'rope', source: 'rope-loose-c.png', output: 'rope-loose-c.webp', width: 724, format: 'webp' },
+  { id: 'rope-terminal-curl', sourcePackage: 'rope', source: 'rope-terminal-curl.png', output: 'rope-terminal-curl.webp', width: 724, format: 'webp' },
+  { id: 'rope-taut-straight', sourcePackage: 'rope', source: 'rope-taut-straight.png', output: 'rope-taut-straight.webp', width: 724, format: 'webp' },
+  { id: 'rope-taut-bow', sourcePackage: 'rope', source: 'rope-taut-bow.png', output: 'rope-taut-bow.webp', width: 724, format: 'webp' },
+  { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
 const fail = (message) => {

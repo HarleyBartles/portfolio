@@ -26,7 +26,7 @@ type SilkChapterProps = {
 
 export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
   return (
-    <Chapter aria-labelledby="specialists-silk-title" data-specialist-chapter="silk" style={style}>
+    <Chapter aria-labelledby="specialists-silk-title" data-specialist-chapter="silk" id="silk" style={style}>
       <h2 className="visually-hidden" id="specialists-silk-title">Silk</h2>
       <ChapterNumber aria-hidden="true" data-silk-chapter-number>02</ChapterNumber>
       <Stage data-silk-stage>
