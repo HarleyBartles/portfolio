@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
 import { RopePiece } from './RopePiece'
+import { SilkTraversalCutout } from './SilkTraversalCutout'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
@@ -152,36 +153,26 @@ const LowerRopeMaterial = styled.div`
   transform-origin: ${SPECIALISTS_ROPE_GEOMETRY.paracord.terminalAnchorX} 0;
 `
 
-const Traversal = styled.div`
+const TraversalPlacement = styled.div`
   position: absolute;
   z-index: 1;
   top: ${COMMISSION_06_PORT_TOP};
   left: ${COMMISSION_06_PORT_LEFT};
-  display: grid;
-  width: 156px;
-  height: 420px;
-  padding: 14px;
-  place-items: center;
-  border: 2px dashed var(--specialists-ink);
-  border-radius: 46% 44% 34% 31%;
-  background: rgb(230 234 235 / 50%);
+  width: 320px;
   transform: translate(-50%, -16%) rotate(8deg);
   transform-origin: 50% 16%;
-  font-family: var(--font-site-sans);
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-align: center;
-  text-transform: uppercase;
 
   @media ${specialistsMedia.atMostCompact} {
-    width: 118px;
-    height: 350px;
+    width: 240px;
   }
 
   @media ${specialistsMedia.compactLandscape} {
     top: ${COMMISSION_06_COMPACT_PORT_TOP};
     left: ${COMMISSION_06_COMPACT_PORT_LEFT};
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    width: 220px;
   }
 `
 
@@ -229,9 +220,9 @@ export const SilkTraversalComposition = ({ style }: SilkTraversalCompositionProp
       </LowerRopePlacement>
       <RopeJoinPort aria-hidden="true" data-silk-rope-join-port />
     </SilkRopeAxis>
-    <Traversal data-silk-commission="06">
+    <TraversalPlacement data-silk-commission="06">
       <TraversalRopePort aria-hidden="true" data-silk-traversal-rope-port />
-      Commission 06 / threshold-crossing Silk traversal
-    </Traversal>
+      <SilkTraversalCutout />
+    </TraversalPlacement>
   </Composition>
 )

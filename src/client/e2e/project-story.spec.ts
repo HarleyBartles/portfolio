@@ -370,8 +370,8 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
       expect(Math.abs(portraitFrame.width - commission05CompositionBox.width)).toBeLessThanOrEqual(1)
     } else {
       expect(commission05.x, JSON.stringify({ width, commission05, stage })).toBeGreaterThanOrEqual(stage.x)
-      expect(commission05.x + commission05.width, JSON.stringify({ width, commission05, stage }))
-        .toBeLessThanOrEqual(stage.x + stage.width + 1)
+      // Above the compact band the authored 17% placement deliberately lets the
+      // first aperture overscan the stage on the right; the chapter owns clipping.
       if (width <= 720) {
         const landscapeFrame = await box(commission05Frame)
         expect(
@@ -404,6 +404,26 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
     expect(commission09.y, JSON.stringify({ width, commission08, commission09 })).toBeGreaterThan(commission08.y)
     expect(commission08.height, JSON.stringify({ width, commission08, commission09 })).toBeLessThan(commission09.height)
     expect(commission09.y + commission09.height).toBeLessThanOrEqual(stage.y + stage.height + 1)
+  }
+})
+
+test('The Usual Specialists keeps the first Silk aperture width continuous through 900/901 and caps it at 1200px', async ({ page }) => {
+  const samples = [900, 901, 1200, 1363, 1364, 1399, 1400, 1440, 1920, 2560, 2880] as const
+
+  for (const width of samples) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPreviewPath)
+
+    const aperture = page.getByRole('region', { name: 'Silk' }).locator('[data-silk-commission="05"]')
+    await expect(aperture).toBeVisible()
+    const box = await aperture.boundingBox()
+    expect(box).not.toBeNull()
+    const expectedWidth = width >= 1400 ? 1200 : Math.min(width * 0.88, 1200)
+    expect(Math.abs(box!.width - expectedWidth), JSON.stringify({ width, box, expectedWidth })).toBeLessThanOrEqual(1)
+    if (width === 900 || width === 901) {
+      const left = Number.parseFloat(await aperture.evaluate((element) => getComputedStyle(element).left))
+      expect(Math.abs(left - (width * 0.17)), JSON.stringify({ width, left })).toBeLessThanOrEqual(1)
+    }
   }
 })
 

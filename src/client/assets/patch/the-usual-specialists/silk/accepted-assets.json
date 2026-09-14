@@ -86,6 +86,32 @@
       "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
       "derivedFrom": "silk-index-crossing-anchor-ring",
       "derivation": "Deterministic same-canvas alpha mask retaining the lower/front ring arc."
+    },
+    {
+      "id": "silk-commission-06-threshold-crossing",
+      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 10_36_59 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-threshold-crossing.png",
+      "sha256": "06187f3eeba16b4c1eac91507c20e998b601ecbf2b51451ae6bbc029407050cd",
+      "width": 1122,
+      "height": 1402,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "f4fb6aeb-c989-4934-a038-7cd80d8d073f",
+      "generationId": "18d4a48f-cf8a-4dbe-b12c-d85657dca42b"
+    },
+    {
+      "id": "silk-commission-06-abseil-hands-free",
+      "originalWireframeFilename": "ChatGPT Image Sep 14, 2026, 07_18_46 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-abseil-hands-free.png",
+      "sha256": "5506559006e668913bd58f32473eb2781cd32921331cdb6888789b68501fc0fa",
+      "width": 1145,
+      "height": 1374,
+      "status": "accepted",
+      "rightsOwner": "Harley Bartles",
+      "provenanceIssue": "PORT-16",
+      "provenanceDocumentId": "f4fb6aeb-c989-4934-a038-7cd80d8d073f",
+      "generationId": "10d1bdb0-bdc5-4265-9250-38bb8f042b13"
     }
   ]
 }

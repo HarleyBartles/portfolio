@@ -60,7 +60,9 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(story).toHaveTextContent('Try to break the route')
     expect(story).toHaveTextContent('Silk sees Index’s route and launches before Patch can properly begin.')
 
-    expect(traversal).toHaveTextContent('threshold-crossing Silk traversal')
+    const traversalImage = traversal?.querySelector<HTMLImageElement>('[data-silk-traversal-cutout-image]')
+    expect(traversalImage).toHaveAttribute('src', expect.stringContaining('silk-commission-06-abseil-hands-free.webp'))
+    expect(traversalImage).toHaveAttribute('alt', '')
     expect(commission07).toHaveTextContent(/service-void world behind mineral page/i)
     expect(receipt).toHaveTextContent('Receipt peek-through')
     const reactionImage = within(commission08!).getByRole('img', { name: /Silk's eyes open in restrained surprise/i })

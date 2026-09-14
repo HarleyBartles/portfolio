@@ -10,7 +10,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(29)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(31)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -19,6 +19,8 @@ describe('Usual Specialists asset processor', () => {
     expect(outputs).toContain('silk-commission-05-aperture-rim-heavy.webp')
     expect(outputs).toContain('silk-commission-05-aperture-rim-heavy-portrait.webp')
     expect(outputs).toContain('silk-commission-05-corridor.webp')
+    expect(outputs).toContain('silk-commission-06-threshold-crossing.webp')
+    expect(outputs).toContain('silk-commission-06-abseil-hands-free.webp')
     expect(outputs).toContain('silk-index-crossing-anchor-ring.webp')
     expect(outputs).toContain('silk-index-crossing-knot-foreground.webp')
     expect(outputs).toContain('silk-index-crossing-knot-foreground-crop.webp')
@@ -39,6 +41,20 @@ describe('Usual Specialists asset processor', () => {
       output: 'opening-rope-start-anchor.webp',
       width: 640,
       crop: { left: 0, top: 0, width: 1254, height: 1205 },
+    })
+    const silkTraversal = USUAL_SPECIALISTS_ASSETS.find(({ id }) => id === 'silk-commission-06-threshold-crossing')
+    expect(silkTraversal).toMatchObject({
+      sourcePackage: 'silk',
+      source: 'silk-commission-06-threshold-crossing.png',
+      output: 'silk-commission-06-threshold-crossing.webp',
+      width: 720,
+    })
+    const silkAbseil = USUAL_SPECIALISTS_ASSETS.find(({ id }) => id === 'silk-commission-06-abseil-hands-free')
+    expect(silkAbseil).toMatchObject({
+      sourcePackage: 'silk',
+      source: 'silk-commission-06-abseil-hands-free.png',
+      output: 'silk-commission-06-abseil-hands-free.webp',
+      width: 720,
     })
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })

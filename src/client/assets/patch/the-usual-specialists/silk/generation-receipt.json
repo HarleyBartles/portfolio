@@ -1,0 +1,21 @@
+{
+  "generatedWith": "OpenAI image generation",
+  "generatedOn": "2026-09-13",
+  "rightsOwner": "Harley Bartles",
+  "assets": {
+    "silk-commission-06-threshold-crossing": {
+      "generationId": "18d4a48f-cf8a-4dbe-b12c-d85657dca42b",
+      "seed": null,
+      "originalScratchFilename": "ChatGPT Image Sep 13, 2026, 10_36_59 PM.png",
+      "prompt": "Create a single transparent-background character cutout asset of Silk for the Adventures of Patch / The Usual Specialists project.\n\nUse all supplied images with the following roles. Image A is the accepted Silk hero sheet and primary identity authority. Image B is the accepted Silk hero pose and secondary identity/style authority. Images C through K are composition and movement references only for the idea of crossing a boundary/gutter/aperture; they are NOT identity authority and must NOT change Silk into the older black-and-red character shown there. Treat the black/red figure language in Images C through K as obsolete. Preserve the modern accepted Silk identity from Images A and B.\n\nRender the same accepted Silk v1 Threadline Inspector character: compact Patch-scale proportions, calm and practical presence, solid grey hooded soft-shell outfit with no bright light panels, pale faceplate with narrow dark eyes, exactly one antenna, sturdy compact footwear, fitted practical belts/harness, compact reel pack on her back with a visible wound red thread spool, restrained utility details, and overall continuity with the approved turnaround/action sheet. Keep her clearly feminine/tomboy-coded in the quiet practical sense established by the references, but do not exaggerate or stylize her.\n\nThis is a continuity task, not a redesign. Make her a clean cutout on transparency, no environment, no background, no floor, no wall panel, no caption boxes, no frame borders, no text labels.\n\nPose and composition: Silk is performing a controlled technical threshold crossing / crawl-through. She should read as halfway through an opening, as if crossing a gutter or aperture. Make it a compact awkward squeeze-through pose rather than a glamorous action stunt. Her center of gravity is low. Leading upper body and one arm have crossed forward; trailing leg and some rear body weight are still behind. One working hand reaches forward to test or brace against the next surface; the other stays closer to the harness/line-control area. Head slightly dipped toward the work, focused and unshowy. The pose should clearly imply panel-crossing / aperture-crossing behaviour even though no environment is shown.\n\nImportant rope rules: this asset is for later compositing, so do NOT render a long route rope, hanging rope, free tail, wall anchors, probes, or environmental connection points. No emitted rope line crossing the canvas. The red thread may only appear as the wound spool in the reel pack and at most a very short controlled local segment near her working hand/harness if needed, but ideally keep all external rope pixels absent. React/layout will provide the real rope later.\n\nStyle/finish: match the approved Silk references — clean readable silhouette, controlled comic-adjacent/adventure illustration finish, purposeful detail, soft controlled shading, clear edges, not photoreal, not gritty noir, not glossy toy render, not generic mascot simplification. Avoid superhero, ninja, spider-themed, or acrobatic vibes. Avoid the obsolete black/red body design from the composition references.\n\nOutput a single full-body-to-near-full-body cutout with enough empty transparent margin around the silhouette for later page compositing."
+    },
+    "silk-commission-06-abseil-hands-free": {
+      "generationId": "10d1bdb0-bdc5-4265-9250-38bb8f042b13",
+      "seed": null,
+      "originalScratchFilename": "ChatGPT Image Sep 14, 2026, 07_18_46 AM.png",
+      "prompt": null,
+      "promptRetention": "The image tool inferred the approved conversational edit brief; no literal prompt string was retained.",
+      "briefSummary": "Preserve the strong right-facing abseil composition; correct Silk to the canonical squat proportions by shortening upper/lower arms and thighs/shins; keep both hands free; treat the existing red-string reel pack as the motorised lowering system; add no separate motor gadget and no generated route-rope pixels."
+    }
+  }
+}

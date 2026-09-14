@@ -326,6 +326,42 @@
       "outputSha256": "35747a59e79ef7a686da977714f849bfb94db32d60139ce70c7d6bb1f15f2076"
     },
     {
+      "id": "silk-commission-06-threshold-crossing",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-threshold-crossing.png",
+      "sourceSha256": "06187f3eeba16b4c1eac91507c20e998b601ecbf2b51451ae6bbc029407050cd",
+      "output": "silk-commission-06-threshold-crossing.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-06-threshold-crossing.webp",
+      "width": 720,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 74352,
+      "outputSha256": "e69225a46dc78ec96437ff9b0a24aef09970abb815176bc0ad20c9805f7fbdde"
+    },
+    {
+      "id": "silk-commission-06-abseil-hands-free",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-abseil-hands-free.png",
+      "sourceSha256": "5506559006e668913bd58f32473eb2781cd32921331cdb6888789b68501fc0fa",
+      "output": "silk-commission-06-abseil-hands-free.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-06-abseil-hands-free.webp",
+      "width": 720,
+      "height": 864,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 62234,
+      "outputSha256": "392e1955acfa3d0813bca76a1005405684d55dcefc5b9a0f6526671850a7c45a"
+    },
+    {
       "id": "silk-index-crossing-anchor-ring",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
       "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",

@@ -71,6 +71,22 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     format: 'webp',
   },
   {
+    id: 'silk-commission-06-threshold-crossing',
+    sourcePackage: 'silk',
+    source: 'silk-commission-06-threshold-crossing.png',
+    output: 'silk-commission-06-threshold-crossing.webp',
+    width: 720,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-06-abseil-hands-free',
+    sourcePackage: 'silk',
+    source: 'silk-commission-06-abseil-hands-free.png',
+    output: 'silk-commission-06-abseil-hands-free.webp',
+    width: 720,
+    format: 'webp',
+  },
+  {
     id: 'silk-index-crossing-anchor-ring',
     sourcePackage: 'silk',
     source: 'silk-index-crossing-anchor-ring.png',

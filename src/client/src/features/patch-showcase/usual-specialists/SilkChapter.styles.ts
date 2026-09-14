@@ -60,23 +60,10 @@ export const CorridorAperturePlacement = styled.div`
   position: absolute;
   top: 136px;
   left: 17%;
-  width: min(82%, 1140px);
+  width: min(88%, 1200px);
 
   @media ${specialistsMedia.atLeastWide} {
-    width: 1050px;
-  }
-
-  @media ${specialistsMedia.atLeastExpanded} {
-    width: 1120px;
-  }
-
-  @media ${specialistsMedia.atLeastUltrawide} {
     width: 1200px;
-  }
-
-  @media ${specialistsMedia.atMostMid} {
-    left: 8%;
-    width: 88%;
   }
 
   @media ${specialistsMedia.atMostCompact} {
