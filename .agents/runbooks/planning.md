@@ -2,6 +2,10 @@
 
 Use this runbook when turning an approved design spec into an implementation plan for the portfolio repository.
 
+## Required skills
+
+- `writing-plans` owns the planning stage and its baseline.
+
 ## Read First
 
 - `AGENTS.md` for the repo-wide routing points.

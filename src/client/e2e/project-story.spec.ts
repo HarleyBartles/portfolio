@@ -324,20 +324,23 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
     const receipt = await box(silk.locator('[data-silk-receipt-peekthrough]'))
     const commission08 = await box(silk.locator('[data-silk-commission="08"]'))
     const commission09 = await box(silk.locator('[data-silk-commission="09"]'))
-    const commission05Composition = silk.locator('[data-silk-commission="05"] [data-silk-commission-05-composition]')
+    const commission05Composition = silk.locator('[data-silk-commission="05"] [data-silk-aperture-composition]')
     const commission05Frame = commission05Composition.locator('[data-silk-commission-05-frame]')
     const commission05PortraitFrame = commission05Composition.locator('[data-silk-commission-05-portrait-frame]')
-    const breachAperture = silk.locator('[data-silk-commission="07"] [data-silk-aperture]')
+    const commission07Composition = silk.locator('[data-silk-commission="07"] [data-silk-aperture-composition]')
+    const commission07Frame = commission07Composition.locator('[data-silk-commission-07-review-frame]')
+    const commission07Viewport = commission07Composition.locator('[data-silk-commission-07-review-viewport]')
+    const commission07ViewportDiagnostic = commission07Composition.locator('[data-silk-aperture-viewport-diagnostic]')
     const reactionSlit = silk.locator('[data-silk-commission="08"] [data-silk-aperture]')
 
     await expectNoHorizontalOverflow(page)
     await expect(commission05Composition).toBeVisible()
     const commission05CompositionBox = await box(commission05Composition)
-    await expect(breachAperture).toHaveAttribute('data-silk-aperture-variant', 'breach')
+    await expect(commission05Composition).toHaveAttribute('data-silk-aperture-composition-variant', 'commission-05')
+    await expect(commission07Composition).toBeVisible()
+    await expect(commission07Composition).toHaveAttribute('data-silk-aperture-composition-variant', 'commission-07-review')
     await expect(reactionSlit).toHaveAttribute('data-silk-aperture-variant', 'slit')
-    for (const aperture of [breachAperture, reactionSlit]) {
-      expect(await aperture.evaluate((element) => getComputedStyle(element).borderStyle)).toBe('none')
-    }
+    expect(await reactionSlit.evaluate((element) => getComputedStyle(element).borderStyle)).toBe('none')
 
     const expectedCommission05Ratio = width <= 390 ? 1024 / 1536 : 1672 / 941
     expect(
@@ -394,6 +397,43 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
         expect(Math.abs(landscapeFrame.width - commission05CompositionBox.width)).toBeLessThanOrEqual(1)
       }
     }
+    const commission07CompositionBox = await box(commission07Composition)
+    const commission07FrameBox = await box(commission07Frame)
+    const commission07ViewportBox = await box(commission07Viewport)
+    const expectedCommission07Ratio = 1671 / 941
+    expect(
+      Math.abs((commission07CompositionBox.width / commission07CompositionBox.height) - expectedCommission07Ratio),
+      JSON.stringify({ width, commission07CompositionBox, expectedCommission07Ratio }),
+    ).toBeLessThanOrEqual(0.01)
+    expect(Math.abs(commission07FrameBox.x - commission07CompositionBox.x)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07FrameBox.y - commission07CompositionBox.y)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07FrameBox.width - commission07CompositionBox.width)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07FrameBox.height - commission07CompositionBox.height)).toBeLessThanOrEqual(1)
+    const expectedCommission07Viewport = {
+      x: commission07CompositionBox.x + ((112 / 1671) * commission07CompositionBox.width),
+      y: commission07CompositionBox.y + ((166 / 941) * commission07CompositionBox.height),
+      width: (1410 / 1671) * commission07CompositionBox.width,
+      height: (646 / 941) * commission07CompositionBox.height,
+    }
+    expect(Math.abs(commission07ViewportBox.x - expectedCommission07Viewport.x)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07ViewportBox.y - expectedCommission07Viewport.y)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07ViewportBox.width - expectedCommission07Viewport.width)).toBeLessThanOrEqual(1)
+    expect(Math.abs(commission07ViewportBox.height - expectedCommission07Viewport.height)).toBeLessThanOrEqual(1)
+    await expect(commission07ViewportDiagnostic).toBeVisible()
+    const diagnosticStack = await commission07Composition.evaluate((element) => {
+      const frame = element.querySelector<HTMLElement>('[data-silk-commission-07-review-frame]')
+      const viewport = element.querySelector<HTMLElement>('[data-silk-commission-07-review-viewport]')
+      const viewportDiagnostic = element.querySelector<HTMLElement>('[data-silk-aperture-viewport-diagnostic]')
+      return {
+        frameZ: Number.parseInt(frame === null ? '0' : getComputedStyle(frame).zIndex, 10),
+        viewportZ: Number.parseInt(viewport === null ? '0' : getComputedStyle(viewport).zIndex, 10),
+        viewportDiagnosticZ: Number.parseInt(viewportDiagnostic === null ? '0' : getComputedStyle(viewportDiagnostic).zIndex, 10),
+        viewportDiagnosticBorder: viewportDiagnostic === null ? '' : getComputedStyle(viewportDiagnostic).borderTopWidth,
+      }
+    })
+    expect(diagnosticStack.frameZ).toBeGreaterThan(diagnosticStack.viewportZ)
+    expect(diagnosticStack.viewportDiagnosticZ).toBeGreaterThan(0)
+    expect(diagnosticStack.viewportDiagnosticBorder).toBe('2px')
     expect(commission07.y, JSON.stringify({ width, commission07, commission05 })).toBeGreaterThan(commission05.y)
     expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y)
     expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeLessThan(commission05.y + commission05.height)
@@ -881,7 +921,7 @@ test('The Usual Specialists moves only the world behind the first Silk aperture 
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto(specialistsPreviewPath)
 
-  const composition = page.locator('[data-silk-commission="05"] [data-silk-commission-05-composition]')
+  const composition = page.locator('[data-silk-commission="05"] [data-silk-aperture-composition]')
   const viewport = composition.locator('[data-silk-commission-05-world-viewport]')
   const scene = composition.locator('[data-silk-commission-05-scene]')
   const frame = composition.locator('[data-silk-commission-05-frame]')
@@ -936,13 +976,56 @@ test('The Usual Specialists disables Silk aperture parallax for reduced motion',
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto(specialistsPreviewPath)
 
-  const composition = page.locator('[data-silk-commission="05"] [data-silk-commission-05-composition]')
+  const composition = page.locator('[data-silk-commission="05"] [data-silk-aperture-composition]')
   const scene = composition.locator('[data-silk-commission-05-scene]')
   await composition.scrollIntoViewIfNeeded()
   await expect.poll(() => scene.getAttribute('data-silk-parallax-offset')).toBe('0.00')
   await page.evaluate(() => window.scrollBy(0, 420))
   await expect.poll(() => scene.getAttribute('data-silk-parallax-offset')).toBe('0.00')
   await expect(scene).toHaveCSS('transform', 'none')
+})
+
+test('The Usual Specialists moves only the mocked world behind the second Silk aperture on normal scroll', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(specialistsPreviewPath)
+
+  const composition = page.locator('[data-silk-commission="07"] [data-silk-aperture-composition]')
+  const world = composition.locator('[data-silk-commission-07-review-world]')
+  const frame = composition.locator('[data-silk-commission-07-review-frame]')
+  await composition.scrollIntoViewIfNeeded()
+  await expect(composition).toBeVisible()
+
+  const capture = async () => {
+    await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).not.toBeNull()
+    return composition.evaluate((element) => {
+      const world = element.querySelector<HTMLElement>('[data-silk-commission-07-review-world]')!
+      const frame = element.querySelector<HTMLElement>('[data-silk-commission-07-review-frame]')!
+      const root = element.getBoundingClientRect()
+      const frameBox = frame.getBoundingClientRect()
+      return {
+        offset: Number.parseFloat(world.dataset.silkParallaxOffset ?? '0'),
+        frame: {
+          height: frameBox.height,
+          offsetX: frameBox.x - root.x,
+          offsetY: frameBox.y - root.y,
+          width: frameBox.width,
+        },
+      }
+    })
+  }
+
+  const before = await capture()
+  await page.evaluate(() => window.scrollBy(0, 420))
+  await expect.poll(async () => (await capture()).offset).not.toBeCloseTo(before.offset, 1)
+  const after = await capture()
+
+  expect(Math.abs(after.offset)).toBeLessThanOrEqual(64.1)
+  expect(Math.abs(after.offset - before.offset)).toBeGreaterThan(2)
+  expect(Math.abs(after.frame.offsetX - before.frame.offsetX)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.offsetY - before.frame.offsetY)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.width - before.frame.width)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.height - before.frame.height)).toBeLessThanOrEqual(0.5)
 })
 
 test('The Usual Specialists has no authored composition transition at 620', async ({ page }) => {

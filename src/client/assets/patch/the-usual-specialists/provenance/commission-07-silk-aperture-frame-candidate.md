@@ -1,0 +1,87 @@
+# Commission 07 — Silk aperture frame candidate
+
+## Record identity
+
+- Provenance ID: `commission-07-silk-aperture-frame-candidate`
+- Schema version: 1
+- Commission/package: Silk second fixed-frame aperture / Commission 07 frame candidate
+- Assets covered: `silk-commission-07-frame-review`
+- Rights owner: Harley Bartles
+- Temporary canonical repository: Portfolio
+
+## Status
+
+- Candidate selected for page review on 2026-09-14.
+- This is not an accepted production asset and remains outside `accepted-assets.json`.
+
+## Original commission intent
+
+Create an isolated foreground broken-plaster wall frame for a rectangular world layer, preserving a restrained "less destroyed" wall treatment while guaranteeing that React can hide the hard rectangular world boundary beneath opaque wall material.
+
+## Material changes from original intent
+
+An earlier temporary wall-frame experiment was rejected because its irregular damage did not provide a continuous rectangular occlusion contract. The replacement commission made viewport concealment an explicit generation constraint and set intact plaster to the page's canonical mineral colour `#e6eaeb`. The generated master is `1671 × 941`, one pixel narrower than the requested `1672 × 941`; custody records the actual output without resizing it.
+
+## Accepted execution brief
+
+Evidence status: `normalized-from-approved-conversation`.
+
+Generate a transparent PNG foreground wall frame with a large organic central opening, restrained cracking and crumbling, modest exposed masonry/timber, and substantially intact plaster. Use `#e6eaeb` / RGB `230, 234, 235` as the base intact-plaster colour. The asset must conceal a hard rectangular world layer behind the opening with continuous opaque wall material around the chosen viewport perimeter; transparency is allowed only outside the surviving wall fragment and through the central opening. Avoid catastrophic demolition, disconnected fragments, warm plaster, baked scenery, or a visible rectangular border.
+
+## Reference hierarchy
+
+- Material authority: canonical Portfolio mineral surface `#e6eaeb`.
+- Geometry authority: exact generated alpha plus React viewport derivation.
+- Damage direction: restrained, substantially intact broken plaster rather than catastrophic demolition.
+- Quarantined: baked world imagery, warm/cream plaster, thin decorative rubble rings, visible engineered rectangle.
+
+## Accepted asset identity
+
+| Asset ID | Original generated filename | Dimensions | Bytes | SHA-256 |
+| --- | --- | --- | ---: | --- |
+| `silk-commission-07-frame-review` | `ChatGPT Image Sep 14, 2026, 01_24_36 PM.png` | 1671 × 941 | 1,346,025 | `ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005` |
+
+Repository source: `src/client/assets/patch/the-usual-specialists/silk/candidates/commission-07-frame-review/silk-commission-07-frame-review.png`.
+
+## Generation provenance
+
+- Model: OpenAI Image 2.5
+- Model evidence: project-owner-confirmation-2026-09-14
+- Generation ID: `25052eb4-cbee-48fb-abb8-0b47e7f99e8d`
+- Parent generation ID: tool returned null
+- Seed: not supplied by the tool
+- Generation date: 2026-09-14
+- Literal backend prompt: not retained; the tool result exposed an empty prompt field
+- Human brief evidence: normalized from the approved current conversation
+
+## Iteration history
+
+The first temporary frame was evaluated and rejected because its broken silhouette could not support the required rectangular edge occlusion. A replacement brief was rewritten to contain only the information the image model needed: canvas/output requirements, mineral plaster colour, restrained damage direction, transparency rules, and an explicit rectangular occlusion contract. Harley approved that brief and selected the resulting image for candidate custody and live React review.
+
+## Acceptance decision
+
+No production acceptance has occurred. Harley selected this generated result for candidate custody and directed it to be stood up on the V2 page with a mocked world layer and parallax for review.
+
+## Known accepted limitations
+
+- The generated master is `1671 × 941` rather than the requested `1672 × 941`; no resampling is applied.
+- Exact alpha analysis selected a page viewport of `x=112..1522`, `y=166..812`.
+- The authored viewport carries a continuous two-pixel inward perimeter at alpha threshold `240`; this is the current review contract for these exact pixels.
+- The world behind the frame is still a diagnostic colour field, not commissioned Commission 07 environment art.
+
+## Composition / ownership contract
+
+The generated image owns foreground broken-wall material only. React owns the rectangular clipped world viewport, placeholder world colour, parallax motion, whole-aperture placement, responsive sizing, cyan diagnostics and z-order. Only the world moves for parallax; the viewport and foreground frame remain page-locked.
+
+## Deterministic descendants
+
+The candidate PNG master has a deterministic WebP page-use derivative generated by `src/client/scripts/process-usual-specialists-assets.mjs`; exact descendant bytes and hash live in `usual-specialists-derivatives.json`.
+
+## Missing historical evidence
+
+- Literal backend prompt string; the generation result exposed an empty prompt field.
+- Seed; the tool did not supply one.
+
+## Custody history
+
+Approved conversational commission brief → OpenAI Image 2.5 generation → project-owner candidate selection → exact generated master copied into Portfolio candidate custody → normalized provenance and generation receipt → deterministic WebP derivative → live React page review.

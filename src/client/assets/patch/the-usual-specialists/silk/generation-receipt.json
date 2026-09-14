@@ -120,6 +120,22 @@
       "promptRetention": "The image tool inferred the approved conversational edit brief; no literal prompt string was retained.",
       "briefSummary": "Preserve the strong right-facing abseil composition; correct Silk to canonical squat proportions by shortening upper/lower arms and thighs/shins; keep both hands free; treat the existing red-string reel pack as the motorised lowering system; add no separate motor gadget and no generated route-rope pixels.",
       "evidence": ["project-owner-recovery-2026-09-14", "chat-on-steroids:2026-09-13-1c77c474", "linear:f4fb6aeb-c989-4934-a038-7cd80d8d073f"]
+    },
+    "silk-commission-07-frame-review": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "25052eb4-cbee-48fb-abb8-0b47e7f99e8d",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "tool-returned-null",
+      "seed": null,
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-14",
+      "generationDateStatus": "retained",
+      "briefStatus": "normalized-from-approved-conversation",
+      "promptRetention": "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+      "briefSummary": "Create a transparent foreground broken-plaster wall frame with restrained damage, substantially intact #e6eaeb mineral plaster and a large organic opening; engineer continuous opaque wall coverage around the rectangular world-layer perimeter; preserve transparent exterior and central opening; include no environment, background fill, text, people or baked scene pixels.",
+      "evidence": ["project-owner-approval-2026-09-14", "project-owner-candidate-selection-2026-09-14"]
     }
   }
 }

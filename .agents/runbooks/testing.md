@@ -2,6 +2,11 @@
 
 Use this runbook when deciding what to verify for a change.
 
+## Required skills
+
+- `verification-before-completion` owns evidence-before-claim closeout.
+- `playwright-testing` when writing, reviewing, or debugging browser tests.
+
 ## Read first
 
 - `AGENTS.md` for the repo-wide build and test commands.

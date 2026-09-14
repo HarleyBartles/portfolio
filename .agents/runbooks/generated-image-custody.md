@@ -2,6 +2,11 @@
 
 Use this runbook when an image generated for the portfolio is selected for page iteration, reuse, or final production use.
 
+## Required skills
+
+- `asset-custody` owns generated-image source custody and deterministic derivative handling.
+- `verification-before-completion` before claiming custody or provenance is complete.
+
 > **Generate -> select for custody -> custody the master and write provenance while context is fresh -> verify custody -> only then stand the asset up on the page.**
 
 Page composition is never the first durable record of a generated asset. Image-tool outputs, chat attachments, Downloads, and agent scratch paths are transient handoff surfaces, not repository custody.
@@ -61,4 +66,3 @@ When later page evaluation replaces an accepted generated asset:
 ## Handoff
 
 Before implementation continues, the selected source master, generation receipt, normalized provenance, deterministic derivative receipt, and focused checks should agree. Only then may the page composition treat the asset as available production material.
-

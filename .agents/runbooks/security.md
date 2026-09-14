@@ -2,6 +2,11 @@
 
 Use this runbook for security review and safe-handling guidance.
 
+## Required skills
+
+- `risk-gates` when a security-sensitive action is destructive, authority-sensitive, or otherwise high-risk.
+- `requesting-code-review` when security concerns are part of the review stage.
+
 ## Must do
 
 - Do not commit secrets, API keys, or credentials.

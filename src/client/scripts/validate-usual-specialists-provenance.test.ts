@@ -110,6 +110,18 @@ describe('Usual Specialists provenance graph validator', () => {
     expect(() => assertUsualSpecialistsProvenanceGraph(graph)).not.toThrow()
   })
 
+  it('does not allow the retired temporary page-review exception to bypass provenance', () => {
+    const graph = validGraph()
+    graph.candidateManifests.silk.assets.push({
+      id: 'temporary-review-frame',
+      status: 'candidate',
+      selection: 'page-review',
+      provenancePolicy: 'temporary-page-review-exception',
+    })
+
+    expect(() => assertUsualSpecialistsProvenanceGraph(graph)).toThrow('provenanceRecord')
+  })
+
   it('rejects a provenance pointer to a missing Markdown record', () => {
     const graph = validGraph()
     graph.provenanceRecords = {}

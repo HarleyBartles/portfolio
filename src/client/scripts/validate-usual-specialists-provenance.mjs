@@ -193,7 +193,18 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
-  const candidateManifests = {}
+  const candidateManifests = {
+    silk: await readJson(
+      path.join(
+        specialistsRoot,
+        'silk',
+        'candidates',
+        'commission-07-frame-review',
+        'candidate-assets.json',
+      ),
+      'Usual Specialists silk Commission 07 candidate manifest',
+    ),
+  }
 
   const provenanceRecords = {}
   const entries = await readdir(provenanceRoot, { withFileTypes: true })

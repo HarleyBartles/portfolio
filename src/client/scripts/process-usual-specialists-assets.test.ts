@@ -68,8 +68,16 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('has no active page-review derivatives after Commission 05 promotion', () => {
-    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
+  it('registers only the temporary Commission 07 page-review derivative', () => {
+    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([{
+      id: 'silk-commission-07-frame-review',
+      sourcePackage: 'silk',
+      custody: 'candidate',
+      source: 'candidates/commission-07-frame-review/silk-commission-07-frame-review.png',
+      output: 'silk-commission-07-frame-review.webp',
+      width: 1671,
+      format: 'webp',
+    }])
   })
 
   it('rejects source SHA drift', () => {

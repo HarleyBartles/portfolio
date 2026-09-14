@@ -131,7 +131,6 @@ export const BreachAperturePlacement = styled.div`
   top: 680px;
   left: -3%;
   width: min(76%, 1080px);
-  height: 390px;
 
   @media ${specialistsMedia.atMostMid} {
     width: 84%;
@@ -141,26 +140,7 @@ export const BreachAperturePlacement = styled.div`
     top: 755px;
     left: -12%;
     width: 98%;
-    height: 370px;
   }
-`
-
-export const BreachWorld = styled.div`
-  position: absolute;
-  inset: 0;
-  display: grid;
-  padding: 8%;
-  align-items: end;
-  background:
-    linear-gradient(90deg, rgb(18 20 18 / 68%), transparent 26% 72%, rgb(18 20 18 / 58%)),
-    repeating-linear-gradient(0deg, #4d3427 0 16px, #684735 16px 18px, #433023 18px 34px),
-    #352c25;
-  color: #f2ecdf;
-  font-family: var(--font-site-sans);
-  font-size: .76rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
 `
 
 export const ReceiptPeekthrough = styled.div`

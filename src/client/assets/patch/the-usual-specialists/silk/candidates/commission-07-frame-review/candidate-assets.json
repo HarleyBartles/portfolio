@@ -1,0 +1,17 @@
+{
+  "assets": [
+    {
+      "id": "silk-commission-07-frame-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 14, 2026, 01_24_36 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/candidates/commission-07-frame-review/silk-commission-07-frame-review.png",
+      "sha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
+      "width": 1671,
+      "height": 941,
+      "bytes": 1346025,
+      "status": "candidate",
+      "selection": "page-review",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-07-silk-aperture-frame-candidate.md"
+    }
+  ]
+}

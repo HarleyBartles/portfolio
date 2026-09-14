@@ -14,7 +14,14 @@ const acceptedPackageRoots = Object.freeze({
   silk: path.join(specialistsSourceRoot, 'silk'),
   rope: path.join(specialistsSourceRoot, 'rope'),
 })
-const candidateManifestPaths = Object.freeze({})
+const candidateManifestPaths = Object.freeze({
+  silk: path.join(
+    acceptedPackageRoots.silk,
+    'candidates',
+    'commission-07-frame-review',
+    'candidate-assets.json',
+  ),
+})
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
 
@@ -129,7 +136,17 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
-export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([])
+export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([
+  {
+    id: 'silk-commission-07-frame-review',
+    sourcePackage: 'silk',
+    custody: 'candidate',
+    source: 'candidates/commission-07-frame-review/silk-commission-07-frame-review.png',
+    output: 'silk-commission-07-frame-review.webp',
+    width: 1671,
+    format: 'webp',
+  },
+])
 
 const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
   ...USUAL_SPECIALISTS_ASSETS,

@@ -1,11 +1,10 @@
 import type { CSSProperties, ReactElement } from 'react'
-import { SilkCommission05Composition } from './SilkCommission05Composition'
+import { SilkApertureComposition } from './SilkApertureComposition'
 import { SilkTraversalComposition } from './SilkTraversalComposition'
 import { SilkWallAperture } from './SilkWallAperture'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
   BreachAperturePlacement,
-  BreachWorld,
   Chapter,
   ChapterNumber,
   CorridorAperturePlacement,
@@ -42,7 +41,7 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         <SilkTraversalComposition />
 
         <CorridorAperturePlacement data-silk-aperture-owner="05" data-silk-commission="05">
-          <SilkCommission05Composition />
+          <SilkApertureComposition variant="commission-05" />
         </CorridorAperturePlacement>
 
         <StoryCard data-silk-story-card>
@@ -52,11 +51,7 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         </StoryCard>
 
         <BreachAperturePlacement data-silk-aperture-owner="07" data-silk-commission="07">
-          <SilkWallAperture variant="breach" maxParallaxTravel={12}>
-            <BreachWorld>
-              Service-void world behind mineral page / tested boundary becomes route
-            </BreachWorld>
-          </SilkWallAperture>
+          <SilkApertureComposition variant="commission-07-review" />
         </BreachAperturePlacement>
 
         <ReceiptPeekthrough data-silk-receipt-peekthrough>

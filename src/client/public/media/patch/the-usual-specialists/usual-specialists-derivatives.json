@@ -558,6 +558,24 @@
       },
       "bytes": 71482,
       "outputSha256": "ad7ecf6f6c6c852543ac356ea46e29d8bbc95ce7ce7cddeacd6189a9b8f01979"
+    },
+    {
+      "id": "silk-commission-07-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/candidates/commission-07-frame-review/silk-commission-07-frame-review.png",
+      "sourceSha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
+      "output": "silk-commission-07-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review.webp",
+      "width": 1671,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 224568,
+      "outputSha256": "8385e0d3222305f17d9de3663fc109fe2d3a550b3a5c81dc03ea32a138108b3e"
     }
   ]
 }
