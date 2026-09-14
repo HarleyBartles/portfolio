@@ -6,6 +6,7 @@ import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
 const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
+const SILK_COMPACT_COMPOSITION_MEDIA = '(min-width: 390px) and (max-width: 719px)'
 const SILK_TRAVERSAL_720_TO_1200_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
 const SILK_TRAVERSAL_1200_TO_1500_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
 const SILK_RECONNECTED_UPPER_MEDIA = '(min-width: 1200px) and (max-width: 1399px)'
@@ -211,7 +212,14 @@ const TraversalPlacement = styled.div`
     left: ${COMMISSION_06_COMPACT_PORT_LEFT};
   }
 
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: 27%;
+    left: calc(34.0924px + 8.25836vw);
+    width: 192px;
+  }
+
   @media ${specialistsMedia.atMostNarrow} {
+    top: 38%;
     width: 220px;
   }
 

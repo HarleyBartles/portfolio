@@ -1,12 +1,22 @@
 import styled from 'styled-components'
+import {
+  SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT,
+  SILK_COMMISSION_07_REVIEW_FRAME_WIDTH,
+} from './silkCommission07ReviewGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
 const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
+const SILK_COMPACT_COMPOSITION_MEDIA = '(min-width: 390px) and (max-width: 719px)'
 const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
 const SILK_RECONNECTED_UPPER_MEDIA = '(min-width: 1200px) and (max-width: 1399px)'
+const SILK_NARROW_LOWER_MEDIA = '(min-width: 720px) and (max-width: 899px)'
+const SILK_RECONNECTING_LOWER_MEDIA = '(min-width: 900px) and (max-width: 1199px)'
+const SILK_LOWER_STAGE_MEDIA = '(min-width: 720px) and (max-width: 1499px)'
 const SILK_STACKED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1919px)'
 const SILK_SEPARATED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
 const SILK_STORY_ABOVE_MEDIA = '(min-width: 1200px) and (max-width: 1799px)'
+const SILK_NARROW_APERTURE_2_BLEED = 1.16
+const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_FRAME_WIDTH / SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
 
 export const Chapter = styled.section`
   position: relative;
@@ -39,11 +49,19 @@ export const Stage = styled.div`
   position: relative;
   min-height: 1470px;
 
+  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+    --silk-aperture-1-world-bottom: calc(136px + 43.1579vw);
+    --silk-aperture-2-world-top: calc(134.342px + 52.5834vw);
+    --silk-aperture-2-world-bottom: calc(134.342px + 86.6037vw);
+    --silk-aperture-world-gutter: calc(var(--silk-aperture-2-world-top) - var(--silk-aperture-1-world-bottom));
+    --silk-reaction-top: calc(var(--silk-aperture-2-world-bottom) + var(--silk-aperture-world-gutter));
+  }
+
   @media ${SILK_1920_TREATMENT_MEDIA} {
     min-height: 1580px;
   }
 
-  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+  @media ${SILK_LOWER_STAGE_MEDIA} {
     min-height: 1740px;
   }
 
@@ -51,8 +69,31 @@ export const Stage = styled.div`
     min-height: 1600px;
   }
 
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    --silk-compact-stack-shift: clamp(0px, calc(302px - 42vw), 138px);
+    --silk-compact-aperture-1-top: calc(170px + 8vw + var(--silk-compact-stack-shift));
+    --silk-compact-aperture-1-world-bottom: calc(var(--silk-compact-aperture-1-top) + 56.8899vw);
+    --silk-compact-aperture-world-gutter: 13.49vw;
+    --silk-compact-aperture-2-world-top: calc(var(--silk-compact-aperture-1-world-bottom) + var(--silk-compact-aperture-world-gutter));
+    --silk-compact-aperture-2-top: calc(var(--silk-compact-aperture-2-world-top) - 11.5236vw);
+    --silk-compact-aperture-2-world-bottom: calc(var(--silk-compact-aperture-2-top) + 56.3686vw);
+    --silk-compact-reaction-top: calc(var(--silk-compact-aperture-2-world-bottom) + var(--silk-compact-aperture-world-gutter));
+    --silk-stacked-reaction-top: var(--silk-compact-reaction-top);
+    --silk-stacked-row-gap: clamp(24px, 6vw, 44px);
+    min-height: max(1600px, calc(1125px + 122vw + var(--silk-compact-stack-shift)));
+  }
+
   @media ${specialistsMedia.atMostNarrow} {
-    min-height: 1750px;
+    --silk-narrow-story-top: calc(106px + 5vw);
+    --silk-narrow-aperture-1-top: clamp(330px, calc(540px - 53vw), 370px);
+    --silk-narrow-aperture-gap: 6.75vw;
+    --silk-narrow-aperture-2-top: calc(var(--silk-narrow-aperture-1-top) + 174vw + var(--silk-narrow-aperture-gap));
+    --silk-narrow-aperture-2-height: ${SILK_NARROW_APERTURE_2_HEIGHT};
+    --silk-narrow-reaction-top: calc(var(--silk-narrow-aperture-2-top) + var(--silk-narrow-aperture-2-height) + var(--silk-narrow-aperture-gap));
+    --silk-narrow-row-gap: clamp(20px, 6vw, 24px);
+    --silk-narrow-receipt-top: calc(var(--silk-narrow-reaction-top) + 116px + var(--silk-narrow-row-gap));
+    --silk-narrow-handoff-top: calc(var(--silk-narrow-receipt-top) + 126px + var(--silk-narrow-row-gap));
+    min-height: calc(var(--silk-narrow-handoff-top) + 56.25vw + 80px);
   }
 `
 
@@ -132,6 +173,13 @@ export const CorridorAperturePlacement = styled.div`
   }
 
   @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-aperture-1-top);
+    left: 0;
+    width: 100%;
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: var(--silk-compact-aperture-1-top);
     left: 0;
     width: 100%;
   }
@@ -185,6 +233,20 @@ export const StoryCard = styled.div`
     width: auto;
   }
 
+  @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-story-top);
+    right: 0;
+    left: 0;
+    width: auto;
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: calc(106px + 5vw);
+    right: 10%;
+    left: 10%;
+    width: auto;
+  }
+
   @media ${SILK_MIRRORED_APERTURE_MEDIA} {
     top: 40px;
     right: 24px;
@@ -210,6 +272,19 @@ export const BreachAperturePlacement = styled.div`
     top: 755px;
     left: -12%;
     width: 98%;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-aperture-2-top);
+    left: 0;
+    width: 100%;
+    height: var(--silk-narrow-aperture-2-height);
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: var(--silk-compact-aperture-2-top);
+    left: 0;
+    width: 100%;
   }
 
   @media ${SILK_MIRRORED_APERTURE_MEDIA} {
@@ -249,6 +324,20 @@ export const ReceiptPeekthrough = styled.div`
     transform: rotate(3deg) scale(1.25);
   }
 
+  @media ${SILK_NARROW_LOWER_MEDIA} {
+    top: calc(var(--silk-reaction-top) + 90px);
+    right: 19%;
+    left: auto;
+    transform: rotate(3deg) scale(1.25);
+  }
+
+  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+    top: calc(var(--silk-reaction-top) + 145px + 6.6667vw);
+    right: auto;
+    left: calc(46.6667vw - 420px);
+    transform: rotate(3deg) scale(1.25);
+  }
+
   @media ${SILK_STACKED_LOWER_MEDIA} {
     top: 845px;
   }
@@ -264,6 +353,18 @@ export const ReceiptPeekthrough = styled.div`
     right: 2%;
     width: 150px;
     height: 126px;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-receipt-top);
+    right: 0;
+    left: auto;
+    width: 50%;
+    height: 126px;
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: calc(var(--silk-stacked-reaction-top) + 116px + var(--silk-stacked-row-gap));
   }
 `
 
@@ -282,6 +383,24 @@ export const ReactionAperturePlacement = styled.div`
     height: 120px;
   }
 
+  @media ${SILK_NARROW_LOWER_MEDIA} {
+    z-index: 21;
+    top: var(--silk-reaction-top);
+    right: auto;
+    left: 24px;
+    width: 700px;
+    height: 120px;
+  }
+
+  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+    z-index: 21;
+    top: var(--silk-reaction-top);
+    right: auto;
+    left: 24px;
+    width: 700px;
+    height: 120px;
+  }
+
   @media ${SILK_STACKED_LOWER_MEDIA} {
     z-index: 21;
     top: 1340px;
@@ -294,6 +413,21 @@ export const ReactionAperturePlacement = styled.div`
     right: -6%;
     width: 72%;
     height: 116px;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-reaction-top);
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 116px;
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: var(--silk-stacked-reaction-top);
+    right: 0;
+    left: 0;
+    width: 100%;
   }
 `
 
@@ -338,6 +472,18 @@ export const HandoffCell = styled.div`
     width: 640px;
   }
 
+  @media ${SILK_NARROW_LOWER_MEDIA} {
+    top: calc(var(--silk-reaction-top) + 255px);
+    right: 24px;
+    width: 640px;
+  }
+
+  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+    top: calc(var(--silk-reaction-top) + 60px + 5vw);
+    right: 24px;
+    width: 640px;
+  }
+
   @media ${SILK_SEPARATED_LOWER_MEDIA} {
     top: 1360px;
     right: 24px;
@@ -358,5 +504,19 @@ export const HandoffCell = styled.div`
     right: -5%;
     width: min(84%, 560px);
     padding: 24px 26px;
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: var(--silk-narrow-handoff-top);
+    right: 0;
+    left: 0;
+    width: auto;
+  }
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    top: calc(var(--silk-stacked-reaction-top) + 242px + (2 * var(--silk-stacked-row-gap)));
+    right: 10%;
+    left: 10%;
+    width: auto;
   }
 `

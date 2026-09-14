@@ -17,6 +17,9 @@ import {
 import { specialistsMedia } from './specialistsResponsive'
 
 const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
+const SILK_COMPACT_COMPOSITION_MEDIA = '(min-width: 390px) and (max-width: 719px)'
+const SILK_COMMISSION_07_NARROW_BLEED = 1.16
+const SILK_COMMISSION_07_NARROW_ROTATED_WIDTH = `${(SILK_COMMISSION_07_REVIEW_FRAME_WIDTH / SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT) * SILK_COMMISSION_07_NARROW_BLEED * 100}%`
 
 export type SilkApertureCompositionVariant = 'commission-05' | 'commission-07-review'
 
@@ -27,6 +30,12 @@ export const Composition = styled.div<{ $variant: SilkApertureCompositionVariant
     ? `${SILK_COMMISSION_05_FRAME_WIDTH} / ${SILK_COMMISSION_05_FRAME_HEIGHT}`
     : `${SILK_COMMISSION_07_REVIEW_FRAME_WIDTH} / ${SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT}`};
   isolation: isolate;
+
+  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+    overflow: clip;
+    width: 116%;
+    margin-left: -8%;
+  }
 
   ${({ $variant }) => $variant === 'commission-05' && css`
     @media ${specialistsMedia.atMostCompact} {
@@ -43,6 +52,18 @@ export const Composition = styled.div<{ $variant: SilkApertureCompositionVariant
 
     @media ${specialistsMedia.atMostNarrow} {
       aspect-ratio: ${SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH} / ${SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT};
+    }
+  `}
+
+  ${({ $variant }) => $variant === 'commission-07-review' && css`
+    @media ${specialistsMedia.atMostNarrow} {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: ${SILK_COMMISSION_07_NARROW_ROTATED_WIDTH};
+      margin-left: 0;
+      transform: translate(-50%, -50%) rotate(90deg);
+      transform-origin: 50% 50%;
     }
   `}
 `
