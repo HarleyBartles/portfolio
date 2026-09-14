@@ -5,6 +5,11 @@ import { SilkTraversalCutout } from './SilkTraversalCutout'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
+const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
+const SILK_TRAVERSAL_720_TO_1200_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
+const SILK_TRAVERSAL_1200_TO_1500_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
+const SILK_RECONNECTED_UPPER_MEDIA = '(min-width: 1200px) and (max-width: 1399px)'
+
 export const SILK_ROPE_VIEWBOX = { width: 1000, height: 1800 } as const
 export const SILK_COMMISSION_06_ROPE_PORT = { x: 250, y: 580 } as const
 export const SILK_COMMISSION_06_COMPACT_ROPE_PORT = { x: 244, y: 440 } as const
@@ -61,8 +66,12 @@ const SilkRopeAxis = styled.div<RopeAxisProps>`
   width: 0;
   pointer-events: none;
 
-  @media ${specialistsMedia.atLeastWide} {
+  @media ${SILK_1920_TREATMENT_MEDIA} {
     left: ${({ $wideX }) => ropeAxisXCss($wideX)};
+  }
+
+  @media ${SILK_RECONNECTED_UPPER_MEDIA} {
+    left: calc(22.1358vw + 13px);
   }
 
   @media ${specialistsMedia.atMostMid} {
@@ -76,6 +85,7 @@ const SilkRopeAxis = styled.div<RopeAxisProps>`
   @media ${specialistsMedia.atMostNarrow} {
     left: ${({ $narrowX }) => ropeAxisXCss($narrowX)};
   }
+
 `
 
 const UpperRopePlacement = styled.div`
@@ -102,8 +112,19 @@ const UpperRopePlacement = styled.div`
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
   }
 
-  @media ${specialistsMedia.atLeastWide} {
+  @media ${SILK_1920_TREATMENT_MEDIA} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.materialWidth}px;
+    height: 571.1111px;
+  }
+
+  @media ${SILK_TRAVERSAL_720_TO_1200_MEDIA} {
+    width: calc(228.5px + 8.5417vw);
+    height: calc(307px + 19.0556vw);
+  }
+
+  @media ${SILK_TRAVERSAL_1200_TO_1500_MEDIA} {
+    width: calc(343px - 1vw);
+    height: calc(393.8889px + 11.8148vw);
   }
 `
 
@@ -141,9 +162,22 @@ const LowerRopePlacement = styled.div`
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalEntryOffset}px;
   }
 
-  @media ${specialistsMedia.atLeastWide} {
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 509.1111px;
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalEntryOffset}px;
+  }
+
+  @media ${SILK_TRAVERSAL_720_TO_1200_MEDIA} {
+    top: calc(245px + 19.0556vw);
+    width: calc(276.3265px + 10.3294vw);
+    margin-left: calc(26.716px + .99875vw);
+  }
+
+  @media ${SILK_TRAVERSAL_1200_TO_1500_MEDIA} {
+    top: calc(331.8889px + 11.8148vw);
+    width: calc(417.395px - 1.4263vw);
+    margin-left: calc(41.505px - .23367vw);
   }
 `
 
@@ -162,6 +196,12 @@ const TraversalPlacement = styled.div`
   transform: translate(-50%, -16%) rotate(8deg);
   transform-origin: 50% 16%;
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 584.6px;
+    left: clamp(390px, calc(340.4717px + 3.30189vw), 425px);
+    width: 360px;
+  }
+
   @media ${specialistsMedia.atMostCompact} {
     width: 240px;
   }
@@ -173,6 +213,18 @@ const TraversalPlacement = styled.div`
 
   @media ${specialistsMedia.atMostNarrow} {
     width: 220px;
+  }
+
+  @media ${SILK_TRAVERSAL_720_TO_1200_MEDIA} {
+    top: calc(139.65px + 33.6875vw);
+    left: calc(-36px + 30vw);
+    width: 26.6667vw;
+  }
+
+  @media ${SILK_TRAVERSAL_1200_TO_1500_MEDIA} {
+    top: calc(381.1px + 13.5667vw);
+    left: calc(60px + 22vw);
+    width: calc(160px + 13.3333vw);
   }
 `
 
@@ -193,8 +245,20 @@ const RopeJoinPort = styled.span`
   height: 2px;
   transform: translate(-50%, -50%);
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 509.1111px;
+  }
+
   @media ${specialistsMedia.compactLandscape} {
     top: ${COMMISSION_06_COMPACT_PORT_TOP};
+  }
+
+  @media ${SILK_TRAVERSAL_720_TO_1200_MEDIA} {
+    top: calc(245px + 19.0556vw);
+  }
+
+  @media ${SILK_TRAVERSAL_1200_TO_1500_MEDIA} {
+    top: calc(331.8889px + 11.8148vw);
   }
 `
 

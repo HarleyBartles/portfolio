@@ -1,6 +1,13 @@
 import styled from 'styled-components'
 import { specialistsMedia } from './specialistsResponsive'
 
+const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
+const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
+const SILK_RECONNECTED_UPPER_MEDIA = '(min-width: 1200px) and (max-width: 1399px)'
+const SILK_STACKED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1919px)'
+const SILK_SEPARATED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
+const SILK_STORY_ABOVE_MEDIA = '(min-width: 1200px) and (max-width: 1799px)'
+
 export const Chapter = styled.section`
   position: relative;
   padding-top: 62px;
@@ -32,6 +39,14 @@ export const Stage = styled.div`
   position: relative;
   min-height: 1470px;
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    min-height: 1580px;
+  }
+
+  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+    min-height: 1740px;
+  }
+
   @media ${specialistsMedia.atMostCompact} {
     min-height: 1600px;
   }
@@ -41,19 +56,53 @@ export const Stage = styled.div`
   }
 `
 
-export const NameMark = styled.img`
+export const NameLockup = styled.div`
   position: absolute;
   z-index: 8;
   top: 38px;
   left: calc(var(--silk-rope-x) - 2.25rem);
   width: clamp(199px, 29.9vw, 439px);
-  height: auto;
+  container-type: inline-size;
+
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 40px;
+    left: 280px;
+    width: 440px;
+  }
+
+  @media ${SILK_RECONNECTED_UPPER_MEDIA} {
+    left: calc(-36.2px + 22.1358vw);
+  }
 
   @media ${specialistsMedia.atMostCompact} {
     top: 24px;
     left: 0;
     width: clamp(199px, 62.3vw, 319px);
   }
+`
+
+export const NameMark = styled.img`
+  position: relative;
+  z-index: 8;
+  display: block;
+  width: 100%;
+  height: auto;
+`
+
+export const NameStrapline = styled.div`
+  position: relative;
+  z-index: 8;
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  color: var(--specialists-ink);
+  font-family: var(--font-site-sans);
+  font-size: 6.4cqi;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
 `
 
 export const CorridorAperturePlacement = styled.div`
@@ -66,6 +115,16 @@ export const CorridorAperturePlacement = styled.div`
     width: 1200px;
   }
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 150px;
+    left: 240px;
+    width: 1120px;
+  }
+
+  @media ${SILK_RECONNECTED_UPPER_MEDIA} {
+    left: calc(-76.2px + 22.1358vw);
+  }
+
   @media ${specialistsMedia.atMostCompact} {
     top: 146px;
     left: 0;
@@ -75,6 +134,11 @@ export const CorridorAperturePlacement = styled.div`
   @media ${specialistsMedia.atMostNarrow} {
     left: 0;
     width: 100%;
+  }
+
+  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+    left: 17vw;
+    width: 88vw;
   }
 `
 
@@ -97,6 +161,19 @@ export const StoryCard = styled.div`
     margin-top: 10px;
   }
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 330px;
+    right: 150px;
+    width: clamp(380px, calc(-820px + 62.5vw), 780px);
+  }
+
+  @media ${SILK_STORY_ABOVE_MEDIA} {
+    top: 40px;
+    right: clamp(24px, calc(-228px + 21vw), 150px);
+    left: 760px;
+    width: auto;
+  }
+
   @media ${specialistsMedia.atMostMid} {
     width: min(31rem, 50%);
   }
@@ -107,22 +184,13 @@ export const StoryCard = styled.div`
     left: 10%;
     width: auto;
   }
-`
 
-export const Eyebrow = styled.p`
-  font-family: var(--font-site-sans);
-  font-size: .74rem;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-`
-
-export const Role = styled.p`
-  font-family: var(--font-site-sans);
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: .09em;
-  text-transform: uppercase;
+  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+    top: 40px;
+    right: 24px;
+    left: auto;
+    width: clamp(320px, calc(176px + 20vw), 416px);
+  }
 `
 
 export const BreachAperturePlacement = styled.div`
@@ -132,14 +200,23 @@ export const BreachAperturePlacement = styled.div`
   left: -3%;
   width: min(76%, 1080px);
 
-  @media ${specialistsMedia.atMostMid} {
-    width: 84%;
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 715px;
+    left: clamp(24px, calc(-1194px + 63.4375vw), 430px);
+    width: clamp(1180px, calc(1000px + 9.375vw), 1240px);
   }
 
   @media ${specialistsMedia.atMostCompact} {
     top: 755px;
     left: -12%;
     width: 98%;
+  }
+
+  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+    top: calc(134.342px + 43.8413vw);
+    right: 17vw;
+    left: auto;
+    width: 88vw;
   }
 `
 
@@ -165,6 +242,23 @@ export const ReceiptPeekthrough = styled.div`
   text-transform: uppercase;
   transform: rotate(3deg);
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 1035px;
+    right: clamp(50px, calc(-1480px + 79.6875vw), 560px);
+    left: auto;
+    transform: rotate(3deg) scale(1.25);
+  }
+
+  @media ${SILK_STACKED_LOWER_MEDIA} {
+    top: 845px;
+  }
+
+  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+    top: 1460px;
+    right: auto;
+    left: 140px;
+  }
+
   @media ${specialistsMedia.atMostCompact} {
     top: 930px;
     right: 2%;
@@ -180,6 +274,20 @@ export const ReactionAperturePlacement = styled.div`
   right: max(var(--specialists-gutter), calc((100% - 1180px) / 2 - 58px));
   width: min(39%, 500px);
   height: 126px;
+
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 845px;
+    right: -20px;
+    width: 700px;
+    height: 120px;
+  }
+
+  @media ${SILK_STACKED_LOWER_MEDIA} {
+    z-index: 21;
+    top: 1340px;
+    right: auto;
+    left: max(24px, calc((100% - 1240px) / 2));
+  }
 
   @media ${specialistsMedia.atMostCompact} {
     top: 1125px;
@@ -201,21 +309,22 @@ export const ReactionImage = styled.img`
   transform-origin: 42% 32%;
 `
 
-export const HandoffBeat = styled.div`
+export const HandoffCell = styled.div`
   position: absolute;
-  z-index: 6;
+  z-index: 22;
   top: 1205px;
   right: 6%;
   display: grid;
   box-sizing: border-box;
-  width: min(52%, 680px);
-  min-height: 205px;
-  padding: 38px 36px 32px clamp(140px, 18vw, 250px);
+  width: min(52%, 360px);
+  aspect-ratio: 16 / 9;
+  padding: 28px 30px;
   align-content: center;
+  border: 1px solid rgb(32 35 31 / 38%);
   background:
-    radial-gradient(circle at 18% 49%, var(--specialists-rope) 0 7px, #5f5850 8px 15px, transparent 16px),
-    linear-gradient(108deg, #594033 0 24%, #2e2925 24.5% 30%, transparent 30.5% 100%);
-  clip-path: polygon(0 12%, 17% 4%, 31% 17%, 47% 8%, 66% 15%, 100% 4%, 97% 87%, 78% 94%, 61% 87%, 42% 97%, 26% 86%, 7% 94%);
+    linear-gradient(135deg, rgb(89 64 51 / 18%), rgb(46 41 37 / 8%)),
+    var(--color-interior-canvas);
+  box-shadow: 8px 10px 0 rgb(32 35 31 / 8%);
   color: var(--specialists-ink);
   font-family: var(--font-site-sans);
   font-size: .74rem;
@@ -223,9 +332,20 @@ export const HandoffBeat = styled.div`
   letter-spacing: .07em;
   text-transform: uppercase;
 
+  @media ${SILK_1920_TREATMENT_MEDIA} {
+    top: 1200px;
+    right: clamp(-80px, calc(336px - 16.25vw), 24px);
+    width: 640px;
+  }
+
+  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+    top: 1360px;
+    right: 24px;
+  }
+
   span {
     display: block;
-    margin-top: 7px;
+    margin-top: 12px;
     max-width: 34rem;
     font-size: .72rem;
     font-weight: 400;
@@ -236,8 +356,7 @@ export const HandoffBeat = styled.div`
   @media ${specialistsMedia.atMostCompact} {
     top: 1275px;
     right: -5%;
-    width: 84%;
-    min-height: 205px;
-    padding-left: clamp(108px, 34vw, 150px);
+    width: min(84%, 560px);
+    padding: 24px 26px;
   }
 `

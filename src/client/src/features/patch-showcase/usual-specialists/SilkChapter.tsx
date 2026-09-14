@@ -8,13 +8,13 @@ import {
   Chapter,
   ChapterNumber,
   CorridorAperturePlacement,
-  Eyebrow,
-  HandoffBeat,
+  HandoffCell,
+  NameLockup,
   NameMark,
+  NameStrapline,
   ReactionAperturePlacement,
   ReactionImage,
   ReceiptPeekthrough,
-  Role,
   Stage,
   StoryCard,
 } from './SilkChapter.styles'
@@ -29,14 +29,17 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
       <h2 className="visually-hidden" id="specialists-silk-title">Silk</h2>
       <ChapterNumber aria-hidden="true" data-silk-chapter-number>02</ChapterNumber>
       <Stage data-silk-stage>
-        <NameMark
-          src={usualSpecialistsAssetPath('silk-wordmark.svg')}
-          width="419"
-          height="112"
-          alt=""
-          aria-hidden="true"
-          data-silk-name-mark
-        />
+        <NameLockup data-silk-name-lockup>
+          <NameMark
+            src={usualSpecialistsAssetPath('silk-wordmark.svg')}
+            width="419"
+            height="112"
+            alt=""
+            aria-hidden="true"
+            data-silk-name-mark
+          />
+          <NameStrapline data-silk-name-strapline>PRESSURE | PROVE THE ROUTE</NameStrapline>
+        </NameLockup>
 
         <SilkTraversalComposition />
 
@@ -45,8 +48,6 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         </CorridorAperturePlacement>
 
         <StoryCard data-silk-story-card>
-          <Eyebrow>02 / Pressure test</Eyebrow>
-          <Role>Try to break the route</Role>
           <p>Silk sees Index’s route and launches before Patch can properly begin. Floorboards, service voids, conduit, cheap doors and improvised anchors turn the apartment corridor into a hostile test harness.</p>
         </StoryCard>
 
@@ -71,10 +72,10 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
           </SilkWallAperture>
         </ReactionAperturePlacement>
 
-        <HandoffBeat data-silk-commission="09">
-          Commission 09 / marker-toss handoff / composition reopened
-          <span>Separate follow-through beat. Final page/world geometry will decide the commissioned two-shot rather than restoring the old rectangular cell.</span>
-        </HandoffBeat>
+        <HandoffCell data-silk-commission="09" data-silk-scene-cell="09">
+          Commission 09 / assent-marker toss handoff
+          <span>Scene pending</span>
+        </HandoffCell>
       </Stage>
     </Chapter>
   )

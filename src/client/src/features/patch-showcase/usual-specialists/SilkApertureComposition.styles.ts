@@ -16,6 +16,8 @@ import {
 } from './silkCommission07ReviewGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
+const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
+
 export type SilkApertureCompositionVariant = 'commission-05' | 'commission-07-review'
 
 export const Composition = styled.div<{ $variant: SilkApertureCompositionVariant }>`
@@ -31,6 +33,12 @@ export const Composition = styled.div<{ $variant: SilkApertureCompositionVariant
       overflow: clip;
       width: 116%;
       margin-left: -8%;
+    }
+
+    @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+      overflow: visible;
+      width: 100%;
+      margin-left: 0;
     }
 
     @media ${specialistsMedia.atMostNarrow} {

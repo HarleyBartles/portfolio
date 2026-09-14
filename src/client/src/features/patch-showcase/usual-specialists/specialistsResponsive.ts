@@ -1,8 +1,10 @@
+// Authored breakpoints are inclusive lower bounds. Each preceding band ends
+// exactly one CSS pixel before the next named breakpoint begins.
 export const SPECIALISTS_WIDTHS = {
   minimum: 320,
-  narrowMax: 390,
-  compactMax: 720,
-  midMax: 900,
+  compactMin: 390,
+  midMin: 720,
+  defaultMin: 900,
   wideMin: 1400,
   expandedMin: 1600,
   ultrawideMin: 1920,
@@ -10,10 +12,10 @@ export const SPECIALISTS_WIDTHS = {
 } as const
 
 export const specialistsMedia = {
-  atMostNarrow: `(max-width: ${SPECIALISTS_WIDTHS.narrowMax}px)`,
-  compactLandscape: `(min-width: 391px) and (max-width: ${SPECIALISTS_WIDTHS.compactMax}px)`,
-  atMostCompact: `(max-width: ${SPECIALISTS_WIDTHS.compactMax}px)`,
-  atMostMid: `(max-width: ${SPECIALISTS_WIDTHS.midMax}px)`,
+  atMostNarrow: `(max-width: ${SPECIALISTS_WIDTHS.compactMin - 1}px)`,
+  compactLandscape: `(min-width: ${SPECIALISTS_WIDTHS.compactMin}px) and (max-width: ${SPECIALISTS_WIDTHS.midMin - 1}px)`,
+  atMostCompact: `(max-width: ${SPECIALISTS_WIDTHS.midMin - 1}px)`,
+  atMostMid: `(max-width: ${SPECIALISTS_WIDTHS.defaultMin - 1}px)`,
   belowWide: `(max-width: ${SPECIALISTS_WIDTHS.wideMin - 1}px)`,
   atLeastWide: `(min-width: ${SPECIALISTS_WIDTHS.wideMin}px)`,
   wideBand: `(min-width: ${SPECIALISTS_WIDTHS.wideMin}px) and (max-width: ${SPECIALISTS_WIDTHS.expandedMin - 1}px)`,

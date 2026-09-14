@@ -13,6 +13,9 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(nameMark?.tagName).toBe('IMG')
     expect(nameMark).toHaveAttribute('src', expect.stringContaining('media/patch/the-usual-specialists/silk-wordmark.svg'))
     expect(nameMark).toHaveAttribute('alt', '')
+    const nameStrapline = chapter.querySelector('[data-silk-name-strapline]')
+    expect(nameStrapline).toHaveTextContent('PRESSURE | PROVE THE ROUTE')
+    expect(nameStrapline?.children).toHaveLength(0)
     expect(chapter.querySelector('[data-silk-chapter-number]')).toHaveTextContent('02')
 
     const commission05 = chapter.querySelector<HTMLElement>('[data-silk-commission="05"]')
@@ -63,9 +66,10 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(commission08?.querySelector('[data-silk-aperture]')).toHaveAttribute('data-silk-aperture-variant', 'slit')
 
     const story = chapter.querySelector('[data-silk-story-card]')
-    expect(story).toHaveTextContent('02 / Pressure test')
-    expect(story).toHaveTextContent('Try to break the route')
+    expect(story).not.toHaveTextContent('02 / Pressure test')
+    expect(story).not.toHaveTextContent('Try to break the route')
     expect(story).toHaveTextContent('Silk sees Index’s route and launches before Patch can properly begin.')
+    expect(story?.querySelectorAll('p')).toHaveLength(1)
 
     const traversalImage = traversal?.querySelector<HTMLImageElement>('[data-silk-traversal-cutout-image]')
     expect(traversalImage).toHaveAttribute('src', expect.stringContaining('silk-commission-06-abseil-hands-free.webp'))
@@ -75,7 +79,7 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(reactionImage).toHaveAttribute('src', expect.stringContaining('media/homepage/specialists-silk.webp'))
     expect(reactionImage).toHaveAttribute('width', '1983')
     expect(reactionImage).toHaveAttribute('height', '793')
-    expect(commission09).toHaveTextContent('marker-toss handoff')
+    expect(commission09).toHaveTextContent('assent-marker toss handoff')
 
     expect(commission05!.compareDocumentPosition(commission07!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
     expect(commission07!.compareDocumentPosition(commission08!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)

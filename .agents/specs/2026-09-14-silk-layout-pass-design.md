@@ -22,9 +22,9 @@ The user-approved design for this pass is:
 - Silk touching both apertures is desirable but is not an invariant. At wide widths, losing the literal entry into Aperture 2 is acceptable if the traversal still reads clearly.
 - At wide widths, Aperture 2 moves to the right of Aperture 1 to use the currently dead horizontal field and create a left-to-right zig-zag through the chapter.
 - The existing lower placeholder beats, including `ReceiptPeekthrough`, the Commission 08 reaction eyes/slit, and the Commission 09 downstream crack/handoff shell, remain provisional content but become intentional parts of the chapter composition.
-- At `390px` and below, the chapter intro card moves above Aperture 1 and overlaps its outer rubble slightly. There must not be a large empty gutter between the intro and the first aperture.
-- At `390px` and below, both major aperture frames stack vertically and intentionally overspill the viewport on the left and right.
-- At `390px` and below, the current Commission 07 landscape frame is used as a temporary portrait surrogate by rotating the frame treatment 90 degrees. The world behind it remains upright and continues to parallax.
+- Below `390px`, the chapter intro card moves above Aperture 1 and overlaps its outer rubble slightly. There must not be a large empty gutter between the intro and the first aperture.
+- Below `390px`, both major aperture frames stack vertically and intentionally overspill the viewport on the left and right.
+- Below `390px`, the current Commission 07 landscape frame is used as a temporary portrait surrogate by rotating the frame treatment 90 degrees. The world behind it remains upright and continues to parallax.
 - Image generation is out of scope. The existing candidate frame remains the review asset for this pass.
 
 ## Existing ownership model
@@ -56,6 +56,14 @@ Final rope-anchor retuning is deferred to a later pass if the new layout demonst
 
 Use the existing Specialists responsive bands as the authored layout bands.
 
+The page-wide breakpoint convention is lower-bound inclusive: a viewport exactly
+equal to a named breakpoint belongs to the band beginning at that breakpoint,
+never the band below it. The shared authored bands are therefore `320-389`,
+`390-719`, `720-899`, `900-1399`, `1400-1599`, `1600-1919`, and
+`1920-2560`; widths above `2560` freeze the `2560` ceiling treatment. Any
+chapter-local seam follows the same convention, so for example a local `1200`
+seam begins at `1200` and its preceding treatment ends at `1199`.
+
 ### Wide and ultrawide: `>= 1400px`
 
 Use the horizontal field deliberately.
@@ -69,7 +77,7 @@ Use the horizontal field deliberately.
 - Use the receipt punch-through, reaction eyes/slit, and downstream crack/handoff placeholder to continue the zig-zag and prevent the lower chapter from collapsing into unused mineral space.
 - Do not fill the width uniformly. Large mineral areas are allowed when they reinforce the reading path; the goal is to distribute meaningful beats across the field rather than cluster them on one side.
 
-### Mid/tablet: `721px` to `1399px`
+### Mid/tablet: `720px` to `1399px`
 
 Progressively reduce the lateral separation between the two major apertures as horizontal room disappears.
 
@@ -77,9 +85,10 @@ Progressively reduce the lateral separation between the two major apertures as h
 - Keep Silk attached to the rope.
 - Keep the rope crossing at least one major aperture.
 - Prefer Silk visually bridging the two apertures where the geometry affords it, but do not force contact at the cost of awkward frame overlap or a broken traversal.
-- Let the lower placeholders continue the alternating rhythm rather than reverting to a simple centered vertical list.
+- The apertures, name lockup, story card, Silk cutout, and rope traversal are approved through the full `720-1399` band.
+- The lower-half receipt peek-through, Commission 08 eyes, and Commission 09 panel are only approved from `1200px` upward. Their `720-1199` geometry remains provisional and must not be treated as a locked composition or protected by geometry assertions.
 
-### Compact landscape: `391px` to `720px`
+### Compact landscape: `390px` to `719px`
 
 Treat this as a transition band, not a scaled desktop composition.
 
@@ -89,7 +98,7 @@ Treat this as a transition band, not a scaled desktop composition.
 - Prefer the rope to cross both major apertures in this band if the current traversal axis permits it cleanly.
 - Keep the story card associated with the opening rather than allowing it to create a large empty interval before Aperture 2.
 
-### Narrow: `<= 390px`
+### Narrow: `320px` to `389px`
 
 Use an explicit vertical narrative stack.
 
@@ -111,7 +120,7 @@ The rope should read as one continuous vertical traversal through this stack. Th
 
 ## Commission 07 temporary portrait treatment
 
-At `390px` and below, use the existing `1671 x 941` Commission 07 review frame as a temporary portrait stand-in. Do not create or generate a new asset for this pass.
+Below `390px`, use the existing `1671 x 941` Commission 07 review frame as a temporary portrait stand-in. Do not create or generate a new asset for this pass.
 
 Rotate only the frame treatment. Do not rotate the mocked world behind it.
 
@@ -150,9 +159,9 @@ Reduced motion must continue to disable parallax movement.
 
 ## Story card contract
 
-Above `390px`, the story card remains a floating chapter beat and may move to serve the aperture choreography.
+At `390px` and above, the story card remains a floating chapter beat and may move to serve the aperture choreography.
 
-At `390px` and below:
+Below `390px`:
 
 - move it before Aperture 1 in the visual composition;
 - keep it above the frame in z-order;
@@ -181,7 +190,7 @@ The layout must preserve the existing traversal attachment contract:
 - Moving the rope means moving Silk with it as one traversal composition.
 - Silk may overlap aperture frames where that makes the traversal legible.
 - The rope must geometrically intersect at least one of the two major aperture frame/composition bounds at every authored review width.
-- A two-aperture rope crossing is preferred, especially at `<= 720px`, but is not required if it creates a weaker wide composition.
+- A two-aperture rope crossing is preferred, especially below the `720px` breakpoint, but is not required if it creates a weaker wide composition.
 
 Silk touching both major apertures is a visual-review preference, not an automated invariant. Wide layouts may deliberately sacrifice contact with Aperture 2.
 
@@ -210,12 +219,13 @@ Update the existing Silk Playwright geometry coverage instead of creating a seco
 At minimum, exercise the existing authored boundary set around:
 
 - `320`
+- `389`
 - `390`
-- `391`
+- `719`
 - `720`
-- `721`
+- `899`
 - `900`
-- `901`
+- `1399`
 - `1400`
 - `1600`
 - `1920`
@@ -225,9 +235,9 @@ The browser-level geometry proof should establish:
 
 1. Aperture 1 and Aperture 2 are both visible.
 2. `aperture2.top > aperture1.bottom` at every checked width.
-3. At `<=390`, both aperture compositions overspill the viewport horizontally, with at least `20px` of frame/composition extent beyond each viewport edge.
-4. At `<=390`, Aperture 2 uses the portrait composition ratio and the selected rotated viewport mapping.
-5. The story card precedes Aperture 1 vertically at `<=390` and overlaps its outer frame modestly rather than leaving a large gap.
+3. Below `390`, both aperture compositions overspill the viewport horizontally, with at least `20px` of frame/composition extent beyond each viewport edge.
+4. Below `390`, Aperture 2 uses the portrait composition ratio and the selected rotated viewport mapping.
+5. The story card precedes Aperture 1 vertically below `390` and overlaps its outer frame modestly rather than leaving a large gap.
 6. Silk remains registered to the rope using the existing traversal/join ports.
 7. The rope intersects at least one major aperture at every checked width.
 8. The current Commission 07 world still parallax-scrolls without edge exposure and reduced motion still disables movement.
@@ -243,13 +253,13 @@ This is a material composition change. Review at least:
 - `1920`
 - `1600`
 - `1440`
-- `901`
 - `900`
+- `899`
 - `768`
-- `721`
 - `720`
-- `391`
+- `719`
 - `390`
+- `389`
 - `320`
 
 Also perform the repository-required real 200% browser-zoom review and reduced-motion check.
@@ -285,6 +295,6 @@ The layout pass is ready for review when:
 - the rope crosses at least one major aperture everywhere and crosses both where the responsive layout affords it cleanly;
 - Aperture 2 uses the right-hand wide composition at `>=1400px`;
 - the current lower placeholders participate in the chapter rhythm;
-- `<=390px` uses the authored intro-card overlap, vertically stacked overspilling apertures, and rotated Commission 07 portrait surrogate with correct upright parallax viewport mapping;
+- below `390px` uses the authored intro-card overlap, vertically stacked overspilling apertures, and rotated Commission 07 portrait surrogate with correct upright parallax viewport mapping;
 - the relevant focused Vitest and Playwright checks pass;
 - the protected visual review widths, reduced motion, and real 200% zoom have been inspected without introducing a regression outside this approved layout change.
