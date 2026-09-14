@@ -8,9 +8,13 @@
       "width": 1672,
       "height": 941,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "710a99b4-7218-4eab-930a-fea7d4a9ae78"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-05-silk-aperture-frames.md",
+      "legacyLinearDocumentIds": [
+        "710a99b4-7218-4eab-930a-fea7d4a9ae78",
+        "c090a33b-e2e0-4f45-98ae-59d1781c6d93"
+      ]
     },
     {
       "id": "silk-commission-05-aperture-rim-heavy-portrait",
@@ -20,8 +24,13 @@
       "width": 1122,
       "height": 1402,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-05-silk-aperture-frames.md",
+      "legacyLinearDocumentIds": [
+        "710a99b4-7218-4eab-930a-fea7d4a9ae78",
+        "c090a33b-e2e0-4f45-98ae-59d1781c6d93"
+      ]
     },
     {
       "id": "silk-commission-05-corridor",
@@ -31,9 +40,13 @@
       "width": 1086,
       "height": 1448,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "b4956d48-8d2a-4dbc-9811-0adf212eac2f"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-05-silk-corridor.md",
+      "legacyLinearDocumentIds": [
+        "b4956d48-8d2a-4dbc-9811-0adf212eac2f",
+        "a08fc2c6-0603-4ba8-a05b-2aeae8a82444"
+      ]
     },
     {
       "id": "silk-index-crossing-anchor-ring",
@@ -43,10 +56,13 @@
       "width": 1254,
       "height": 1254,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
-      "generationId": "53aeb49a-239e-4134-8093-eaec0e43fd15"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/index-silk-anchor-lock.md",
+      "legacyLinearDocumentIds": [
+        "37667c1c-8475-4479-9c2d-98265da2e945",
+        "2d045fac-9b5a-4201-a111-8e880045319a"
+      ]
     },
     {
       "id": "silk-index-crossing-knot-foreground",
@@ -56,10 +72,12 @@
       "width": 1145,
       "height": 1373,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
-      "generationId": "0a2b91e7-3255-4d38-9f51-8c447e55d77c"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/index-silk-anchor-lock.md",
+      "legacyLinearDocumentIds": [
+        "37667c1c-8475-4479-9c2d-98265da2e945"
+      ]
     },
     {
       "id": "silk-index-crossing-knot-foreground-crop",
@@ -68,11 +86,22 @@
       "width": 470,
       "height": 920,
       "status": "accepted",
+      "selection": "deterministic-derivative",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/index-silk-anchor-lock.md",
+      "legacyLinearDocumentIds": [
+        "37667c1c-8475-4479-9c2d-98265da2e945"
+      ],
       "derivedFrom": "silk-index-crossing-knot-foreground",
-      "derivation": "Deterministic Sharp extraction x=390, y=100, width=470, height=920."
+      "derivation": {
+        "type": "crop",
+        "sourceRectangle": {
+          "x": 390,
+          "y": 100,
+          "width": 470,
+          "height": 920
+        }
+      }
     },
     {
       "id": "silk-index-crossing-ring-occluder",
@@ -81,11 +110,17 @@
       "width": 1254,
       "height": 1254,
       "status": "accepted",
+      "selection": "deterministic-derivative",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "37667c1c-8475-4479-9c2d-98265da2e945",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/index-silk-anchor-lock.md",
+      "legacyLinearDocumentIds": [
+        "37667c1c-8475-4479-9c2d-98265da2e945"
+      ],
       "derivedFrom": "silk-index-crossing-anchor-ring",
-      "derivation": "Deterministic same-canvas alpha mask retaining the lower/front ring arc."
+      "derivation": {
+        "type": "alpha-mask",
+        "description": "Same-canvas lower/front ring arc from accepted anchor master."
+      }
     },
     {
       "id": "silk-commission-06-threshold-crossing",
@@ -95,10 +130,12 @@
       "width": 1122,
       "height": 1402,
       "status": "accepted",
+      "selection": "superseded",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "f4fb6aeb-c989-4934-a038-7cd80d8d073f",
-      "generationId": "18d4a48f-cf8a-4dbe-b12c-d85657dca42b"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-06-silk-threshold-crossing.md",
+      "legacyLinearDocumentIds": [
+        "f4fb6aeb-c989-4934-a038-7cd80d8d073f"
+      ]
     },
     {
       "id": "silk-commission-06-abseil-hands-free",
@@ -108,10 +145,12 @@
       "width": 1145,
       "height": 1374,
       "status": "accepted",
+      "selection": "current",
       "rightsOwner": "Harley Bartles",
-      "provenanceIssue": "PORT-16",
-      "provenanceDocumentId": "f4fb6aeb-c989-4934-a038-7cd80d8d073f",
-      "generationId": "10d1bdb0-bdc5-4265-9250-38bb8f042b13"
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-06-silk-abseil-hands-free.md",
+      "legacyLinearDocumentIds": [
+        "f4fb6aeb-c989-4934-a038-7cd80d8d073f"
+      ]
     }
   ]
 }

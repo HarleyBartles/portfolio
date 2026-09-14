@@ -4,6 +4,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
+import { validateUsualSpecialistsProvenance } from './validate-usual-specialists-provenance.mjs'
 
 const clientRoot = path.resolve(import.meta.dirname, '..')
 const repositoryRoot = path.resolve(clientRoot, '..', '..')
@@ -251,7 +252,11 @@ const checkOutput = async (entry, source, receiptEntry) => {
   if (!actual.equals(expectedBuffer)) fail(`Usual Specialists derivative output is stale for ${entry.output}.`)
 }
 
-const check = async () => {
+export const runValidationSteps = async (steps) => {
+  for (const step of steps) await step()
+}
+
+const checkCustodyAndDerivatives = async () => {
   const sources = await loadAcceptedSources()
   const receipt = await readJson(receiptPath, 'Usual Specialists derivative receipt')
   if (receipt.generatedBy !== 'src/client/scripts/process-usual-specialists-assets.mjs' || !Array.isArray(receipt.derivatives)) fail('Usual Specialists derivative receipt is stale or malformed.')
@@ -263,6 +268,13 @@ const check = async () => {
     if (typeof receiptEntry.outputSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(receiptEntry.outputSha256)) fail(`Usual Specialists derivative hash is malformed for ${entry.output}.`)
     await checkOutput(entry, sources.get(entry.id), receiptEntry)
   }
+}
+
+const check = async () => {
+  await runValidationSteps([
+    checkCustodyAndDerivatives,
+    validateUsualSpecialistsProvenance,
+  ])
 }
 
 const apply = async () => {

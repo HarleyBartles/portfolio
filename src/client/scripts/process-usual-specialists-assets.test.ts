@@ -4,6 +4,7 @@ import {
   USUAL_SPECIALISTS_WEBP_OPTIONS,
   assertDerivativeReceipt,
   assertSourceIdentity,
+  runValidationSteps,
 } from './process-usual-specialists-assets.mjs'
 
 describe('Usual Specialists asset processor', () => {
@@ -71,5 +72,16 @@ describe('Usual Specialists asset processor', () => {
 
     expect(() => assertDerivativeReceipt(expected, [])).toThrow('missing')
     expect(() => assertDerivativeReceipt(expected, [...expected, { ...expected[0], output: 'extra.webp' }])).toThrow('extra')
+  })
+
+  it('runs custody and provenance validation steps in order', async () => {
+    const calls: string[] = []
+
+    await runValidationSteps([
+      async () => { calls.push('custody') },
+      async () => { calls.push('provenance') },
+    ])
+
+    expect(calls).toEqual(['custody', 'provenance'])
   })
 })
