@@ -339,7 +339,7 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
       expect(await aperture.evaluate((element) => getComputedStyle(element).borderStyle)).toBe('none')
     }
 
-    const expectedCommission05Ratio = width <= 390 ? 1122 / 1402 : 1672 / 941
+    const expectedCommission05Ratio = width <= 390 ? 1024 / 1536 : 1672 / 941
     expect(
       Math.abs((commission05CompositionBox.width / commission05CompositionBox.height) - expectedCommission05Ratio),
       JSON.stringify({ width, commission05CompositionBox, expectedCommission05Ratio }),
@@ -397,7 +397,16 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
     expect(commission07.y, JSON.stringify({ width, commission07, commission05 })).toBeGreaterThan(commission05.y)
     expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y)
     expect(traversal.y, JSON.stringify({ width, traversal, commission05 })).toBeLessThan(commission05.y + commission05.height)
-    expect(traversal.y + traversal.height, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y + commission05.height)
+    if (width <= 390) {
+      // The portrait treatment is deliberately taller than the landscape frame.
+      // Keep Commission 06 overlapping the aperture without forcing it through the old bottom edge.
+      expect(
+        traversal.y + traversal.height,
+        JSON.stringify({ width, traversal, commission05 }),
+      ).toBeGreaterThanOrEqual(commission05.y + commission05.height - 40)
+    } else {
+      expect(traversal.y + traversal.height, JSON.stringify({ width, traversal, commission05 })).toBeGreaterThan(commission05.y + commission05.height)
+    }
     expect(story.y, JSON.stringify({ width, story, commission05 })).toBeGreaterThan(commission05.y)
     expect(receipt.y, JSON.stringify({ width, receipt, commission07 })).toBeGreaterThan(commission07.y)
     expect(nameMark.y, JSON.stringify({ width, nameMark, stage })).toBeGreaterThanOrEqual(stage.y)

@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { SilkCommission05Composition } from './SilkCommission05Composition'
 
 describe('SilkCommission05Composition', () => {
-  test('owns the accepted corridor scene inside the sealed world viewport and heavy frame', () => {
+  test('owns the accepted corridor scene inside the sealed world viewport and mineral-aligned accepted frames', () => {
     const { container } = render(<SilkCommission05Composition style={{ opacity: 0.5 }} />)
 
     const root = container.querySelector('[data-silk-commission-05-composition]')
@@ -21,6 +21,8 @@ describe('SilkCommission05Composition', () => {
     expect(frame).toHaveAttribute('src', expect.stringContaining('silk-commission-05-aperture-rim-heavy.webp'))
     expect(frame).toHaveAttribute('alt', '')
     expect(portraitFrame).toHaveAttribute('src', expect.stringContaining('silk-commission-05-aperture-rim-heavy-portrait.webp'))
+    expect(portraitFrame).toHaveAttribute('width', '1024')
+    expect(portraitFrame).toHaveAttribute('height', '1536')
     expect(portraitFrame).toHaveAttribute('alt', '')
   })
 

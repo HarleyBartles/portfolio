@@ -48,11 +48,11 @@ const GENERATION_RECEIPT_VOCABULARY = Object.freeze({
   ]),
 })
 
-const acceptedAssets = (acceptedManifests) => {
+const manifestAssets = (manifests, custody) => {
   const assets = []
-  for (const [packageName, manifest] of Object.entries(acceptedManifests ?? {})) {
-    if (!Array.isArray(manifest?.assets)) fail(`Usual Specialists ${packageName} accepted manifest is malformed.`)
-    for (const asset of manifest.assets) assets.push({ ...asset, packageName })
+  for (const [packageName, manifest] of Object.entries(manifests ?? {})) {
+    if (!Array.isArray(manifest?.assets)) fail(`Usual Specialists ${packageName} ${custody} manifest is malformed.`)
+    for (const asset of manifest.assets) assets.push({ ...asset, packageName, custody })
   }
   return assets
 }
@@ -110,10 +110,19 @@ const assertNoLinearCanonicalCustody = (recordPath, markdown) => {
 
 export const assertUsualSpecialistsProvenanceGraph = (graph) => {
   const records = graph?.provenanceRecords ?? {}
-  const assets = acceptedAssets(graph?.acceptedManifests)
-  const acceptedIds = new Set(assets.map(({ id }) => id))
+  const accepted = manifestAssets(graph?.acceptedManifests, 'accepted')
+  const candidates = manifestAssets(graph?.candidateManifests, 'candidate')
+  const assets = [...accepted, ...candidates]
+  const acceptedIds = new Set(accepted.map(({ id }) => id))
 
   for (const asset of assets) {
+    const expectedStatus = asset.custody === 'candidate' ? 'candidate' : 'accepted'
+    if (asset.status !== expectedStatus) {
+      fail(`Usual Specialists ${asset.custody} source ${asset.id} has invalid status ${asset.status}.`)
+    }
+    if (asset.custody === 'candidate' && asset.selection !== 'page-review') {
+      fail(`Usual Specialists candidate source ${asset.id} must be selected for page-review.`)
+    }
     if (typeof asset.provenanceRecord !== 'string' || asset.provenanceRecord.length === 0) {
       fail(`Usual Specialists accepted source ${asset.id} is missing provenanceRecord.`)
     }
@@ -184,6 +193,8 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
+  const candidateManifests = {}
+
   const provenanceRecords = {}
   const entries = await readdir(provenanceRoot, { withFileTypes: true })
   for (const entry of entries) {
@@ -199,6 +210,7 @@ export const validateUsualSpecialistsProvenance = async () => {
 
   assertUsualSpecialistsProvenanceGraph({
     acceptedManifests,
+    candidateManifests,
     generationReceipts,
     provenanceRecords,
     linearSourceRegister,

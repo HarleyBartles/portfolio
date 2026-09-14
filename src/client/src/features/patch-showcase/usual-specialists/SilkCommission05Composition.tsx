@@ -53,8 +53,8 @@ export const SilkCommission05Composition = ({ style }: SilkCommission05Compositi
       />
       <PortraitFrame
         src={usualSpecialistsAssetPath('silk-commission-05-aperture-rim-heavy-portrait.webp')}
-        width="1122"
-        height="1402"
+        width="1024"
+        height="1536"
         alt=""
         aria-hidden="true"
         data-silk-commission-05-portrait-frame

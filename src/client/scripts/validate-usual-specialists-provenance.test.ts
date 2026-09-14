@@ -46,6 +46,9 @@ const validGraph = () => ({
     rope: { assets: [] },
     silk: { assets: [] },
   },
+  candidateManifests: {
+    silk: { assets: [] },
+  },
   generationReceipts: {
     index: { assets: { 'example-master': generationEntry() } },
     rope: { assets: {} },
@@ -80,6 +83,31 @@ describe('Usual Specialists provenance graph validator', () => {
     delete graph.acceptedManifests.index.assets[0].provenanceRecord
 
     expect(() => assertUsualSpecialistsProvenanceGraph(graph)).toThrow('provenanceRecord')
+  })
+
+  it('requires candidate custody to carry provenance and generation receipt coverage', () => {
+    const graph = validGraph()
+    graph.candidateManifests.silk.assets.push({
+      id: 'candidate-master',
+      status: 'candidate',
+      selection: 'page-review',
+      provenanceRecord: provenancePath,
+    })
+    graph.provenanceRecords[provenancePath] = provenanceRecord({ assetIds: ['example-master', 'candidate-master'] })
+
+    expect(() => assertUsualSpecialistsProvenanceGraph(graph)).toThrow('candidate-master')
+
+    graph.generationReceipts.silk.assets['candidate-master'] = generationEntry({
+      generationId: 'candidate-generation',
+      generationIdStatus: 'retained',
+      parentGenerationIdStatus: 'tool-returned-null',
+      seedStatus: 'not-supplied-by-tool',
+      generationDate: '2026-09-14',
+      generationDateStatus: 'retained',
+      briefStatus: 'normalized-from-approved-conversation',
+    })
+
+    expect(() => assertUsualSpecialistsProvenanceGraph(graph)).not.toThrow()
   })
 
   it('rejects a provenance pointer to a missing Markdown record', () => {

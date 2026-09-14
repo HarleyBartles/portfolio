@@ -5,30 +5,48 @@
     "silk-commission-05-aperture-rim-heavy": {
       "model": "OpenAI Image 2.5",
       "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
+      "generationId": "fa481155-bcdc-47e7-9082-55fa54c4adff",
+      "generationIdStatus": "retained",
       "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
+      "parentGenerationIdStatus": "tool-returned-null",
       "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-12",
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-14",
       "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:710a99b4-7218-4eab-930a-fea7d4a9ae78", "linear:c090a33b-e2e0-4f45-98ae-59d1781c6d93"]
+      "briefStatus": "normalized-from-approved-conversation",
+      "promptRetention": "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+      "briefSummary": "Palette-alignment regeneration only: preserve the accepted landscape ruined-wall frame composition and rectangular alpha-occluder contract; make intact plaster read as the canonical #e6eaeb mineral page substrate while retaining natural texture, cracks, relief and lighting; keep brick, mortar, rubble and lath materially distinct; preserve transparent exterior and central aperture; add no backdrop, shadow, glow, matte or alpha fringe.",
+      "evidence": ["chat-on-steroids:2026-09-14-e31e5594", "project-owner-approval-2026-09-14", "project-owner-acceptance-2026-09-14"],
+      "supersededGeneration": {
+        "originalWireframeFilename": "ChatGPT Image Sep 12, 2026, 11_58_50 PM (3).png",
+        "sha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+        "generationId": null,
+        "generationIdStatus": "missing-from-retained-history",
+        "generationDate": "2026-09-12"
+      }
     },
     "silk-commission-05-aperture-rim-heavy-portrait": {
       "model": "OpenAI Image 2.5",
       "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "82ca6eaa-45dd-48c8-a559-65899b9c26a8",
+      "generationId": "4c1e5ded-61e9-4068-8ded-e7f5d6b09e76",
       "generationIdStatus": "retained",
       "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
+      "parentGenerationIdStatus": "tool-returned-null",
       "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-13",
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-14",
       "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["docs/asset-custody.md", "linear:710a99b4-7218-4eab-930a-fea7d4a9ae78"]
+      "briefStatus": "normalized-from-approved-conversation",
+      "promptRetention": "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+      "briefSummary": "Palette-alignment regeneration only: preserve the accepted portrait ruined-wall frame composition and rectangular alpha-occluder contract; make intact plaster read as the canonical #e6eaeb mineral page substrate while retaining natural texture, cracks, relief and lighting; keep brick, mortar, rubble and lath materially distinct; preserve transparent exterior and central aperture; add no backdrop, shadow, glow, matte or alpha fringe.",
+      "evidence": ["chat-on-steroids:2026-09-14-e31e5594", "project-owner-approval-2026-09-14", "project-owner-acceptance-2026-09-14"],
+      "supersededGeneration": {
+        "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 11_29_15 AM.png",
+        "sha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+        "generationId": "82ca6eaa-45dd-48c8-a559-65899b9c26a8",
+        "generationIdStatus": "retained",
+        "generationDate": "2026-09-13"
+      }
     },
     "silk-commission-05-corridor": {
       "model": "OpenAI Image 2.5",

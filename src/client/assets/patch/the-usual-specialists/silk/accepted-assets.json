@@ -2,9 +2,9 @@
   "assets": [
     {
       "id": "silk-commission-05-aperture-rim-heavy",
-      "originalWireframeFilename": "ChatGPT Image Sep 12, 2026, 11_58_50 PM (3).png",
+      "originalWireframeFilename": "ChatGPT Image Sep 14, 2026, 10_35_07 AM (1).png",
       "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png",
-      "sha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+      "sha256": "b06d0c23306ce4e69bae72bf1d70a02dbf38c1b26acf5fb0434b3626da0cf62c",
       "width": 1672,
       "height": 941,
       "status": "accepted",
@@ -18,11 +18,11 @@
     },
     {
       "id": "silk-commission-05-aperture-rim-heavy-portrait",
-      "originalWireframeFilename": "ChatGPT Image Sep 13, 2026, 11_29_15 AM.png",
+      "originalWireframeFilename": "ChatGPT Image Sep 14, 2026, 10_35_08 AM (2).png",
       "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png",
-      "sha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
-      "width": 1122,
-      "height": 1402,
+      "sha256": "131c90f79e7e923f498ca073aec85783f184acb7644a7d580aa6c2de27bb3926",
+      "width": 1024,
+      "height": 1536,
       "status": "accepted",
       "selection": "current",
       "rightsOwner": "Harley Bartles",

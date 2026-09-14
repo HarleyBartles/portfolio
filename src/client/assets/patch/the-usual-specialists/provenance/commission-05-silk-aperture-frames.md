@@ -15,9 +15,10 @@
 ## Status
 
 - Both heavy aperture frames: accepted current source assets
-- Landscape accepted: 2026-09-13
-- Portrait accepted: 2026-09-13
-- Portrait replaced the temporary rotated-landscape treatment at the narrow authored state.
+- Current mineral-aligned landscape accepted: 2026-09-14
+- Current mineral-aligned portrait accepted: 2026-09-14
+- The 2026-09-14 pair replaces the earlier accepted frame bytes under the same accepted asset IDs after live React/browser review.
+- The portrait is intentionally taller at `1024 × 1536`; that proportion is now part of the accepted narrow treatment.
 
 ## Original commission intent
 
@@ -25,13 +26,13 @@ Replace the obsolete torn-white-panel abstraction with physical broken mineral-p
 
 ## Material changes from original intent
 
-The current page only promoted the heavy Commission 05 first-aperture frame pair from the broader planned rim family. A dedicated portrait asset was generated rather than rotating, stretching or blindly cropping the landscape frame. The portrait received a stricter four-sided enclosure contract so React’s rectangular world viewport can never leak outside the physical rim.
+The current page only promoted the heavy Commission 05 first-aperture frame pair from the broader planned rim family. A dedicated portrait asset was generated rather than rotating, stretching or blindly cropping the landscape frame. On 14 September 2026 both frames were regenerated as palette-alignment replacements so intact plaster reads as the canonical `#e6eaeb` mineral page substrate rather than as a separate warm/cream material. The portrait regeneration is deliberately taller than the earlier accepted portrait; the page keeps that new proportion rather than forcing it back to the superseded geometry.
 
 ## Accepted execution brief
 
-Evidence status: `recovered-from-linear-record`.
+Evidence status: `normalized-from-approved-conversation` for the current pair; the superseded pair remains recoverable from the earlier Linear-backed record.
 
-Landscape: isolated heavy broken-plaster/mineral-wall frame with ordinary red/brown brick and masonry depth, transparent exterior and central opening, no world/character/rope/title pixels. Portrait: preserve the accepted landscape’s material/style only, but generate a fresh tall portrait frame with a complete structurally believable top, right, bottom and left edge and all four corners present. Do not rotate/stretch/crop the landscape source and do not leave any side open to the exterior.
+Current landscape and portrait: preserve the accepted ruined-wall geometry/composition as the strict same-orientation reference, but align intact plaster to the canonical mineral substrate `#e6eaeb`. Preserve natural cracks, chips, texture, thickness, relief and lighting; keep brick, mortar, rubble and timber materially distinct; retain genuine transparency outside the frame and through the central aperture; add no backdrop, scenery, matte, glow, shadow or coloured alpha fringe. This was a palette/material relationship correction, not a redesign. The portrait's taller `1024 × 1536` result was explicitly accepted in situ.
 
 ## Reference hierarchy
 
@@ -45,8 +46,8 @@ Landscape: isolated heavy broken-plaster/mineral-wall frame with ordinary red/br
 
 | Asset ID | Original generated filename | Dimensions | Bytes | SHA-256 |
 | --- | --- | --- | ---: | --- |
-| `silk-commission-05-aperture-rim-heavy` | `ChatGPT Image Sep 12, 2026, 11_58_50 PM (3).png` | 1672 × 941 | 1,760,974 | `f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8` |
-| `silk-commission-05-aperture-rim-heavy-portrait` | `ChatGPT Image Sep 13, 2026, 11_29_15 AM.png` | 1122 × 1402 | 2,014,513 | `8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6` |
+| `silk-commission-05-aperture-rim-heavy` | `ChatGPT Image Sep 14, 2026, 10_35_07 AM (1).png` | 1672 × 941 | 1,585,925 | `b06d0c23306ce4e69bae72bf1d70a02dbf38c1b26acf5fb0434b3626da0cf62c` |
+| `silk-commission-05-aperture-rim-heavy-portrait` | `ChatGPT Image Sep 14, 2026, 10_35_08 AM (2).png` | 1024 × 1536 | 2,440,398 | `131c90f79e7e923f498ca073aec85783f184acb7644a7d580aa6c2de27bb3926` |
 
 Repository sources live under `src/client/assets/patch/the-usual-specialists/silk/`.
 
@@ -54,26 +55,27 @@ Repository sources live under `src/client/assets/patch/the-usual-specialists/sil
 
 - Model: OpenAI Image 2.5
 - Model evidence: project-owner-confirmation-2026-09-14
-- Landscape generation ID: missing from retained history
-- Portrait generation ID: `82ca6eaa-45dd-48c8-a559-65899b9c26a8`
-- Portrait ID evidence: retained current repository custody record in `docs/asset-custody.md`; the earlier Linear checkpoint did not itself retain the ID
-- Parent generation IDs: missing from retained history
-- Seeds: missing from retained history
-- Generation date: 2026-09-12/13 for landscape staging; 2026-09-13 for portrait
-- Literal backend prompts: missing; portrait’s accepted human prompt direction is partially retained in Linear
+- Current landscape generation ID: `fa481155-bcdc-47e7-9082-55fa54c4adff`
+- Current portrait generation ID: `4c1e5ded-61e9-4068-8ded-e7f5d6b09e76`
+- Current generation date: 2026-09-14
+- Parent generation IDs: tool returned null for both current generations
+- Seeds: not supplied by the tool for either current generation
+- Literal backend prompts: not retained; the approved conversational palette-alignment brief is the retained human authority
+- Superseded landscape: SHA-256 `f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8`, generation ID missing from retained history, generated 2026-09-12
+- Superseded portrait: SHA-256 `8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6`, generation ID `82ca6eaa-45dd-48c8-a559-65899b9c26a8`, generated 2026-09-13
 
 ## Iteration history
 
-The landscape heavy frame was accepted after live React review. Narrow composition initially used a temporary rotated landscape treatment. A separate portrait generation was then requested with the complete four-sided enclosure constraint; the resulting portrait was visually accepted and replaced the temporary rotation.
+The original landscape heavy frame was accepted after live React review. Narrow composition initially used a temporary rotated landscape treatment; a separate portrait generation was then accepted and replaced that temporary rotation. On 14 September 2026 both accepted frames were regenerated to align intact plaster with the `#e6eaeb` mineral page substrate. The new pair entered candidate custody with provenance before React use, was reviewed live in the V2 preview, and was then explicitly accepted by Harley. The accepted IDs and paths were retained while their source bytes were replaced; the earlier source identities remain historical evidence only.
 
 ## Acceptance decision
 
-Accepted by Harley Bartles on 2026-09-13 after live React review. Portrait acceptance included measured proof that the React viewport `x=170..957`, `y=150..1242` remains covered by the physical frame with an inward alpha band, so the world layer cannot leak around the aperture.
+Current pair accepted by Harley Bartles on 2026-09-14 after live browser review. Harley explicitly preferred the taller portrait and directed the implementation not to fight it back into the old proportions. The landscape hard viewport remains `x=200..1500`, `y=130..820`; the current portrait hard viewport is `x=155..873`, `y=164..1361`. Both were proven against an 8px inward coverage band at alpha threshold 250 before acceptance.
 
 ## Known accepted limitations
 
-- Landscape generation ID is not retained.
 - The broader second-breach/reaction-slit rim package described in the source brief is not implied accepted by this record.
+- The superseded landscape generation ID remains missing from retained history; this does not affect the current accepted generation, whose ID is retained.
 
 ## Composition / ownership contract
 
@@ -85,12 +87,9 @@ Both PNG masters have deterministic WebP page-use derivatives generated by the p
 
 ## Missing historical evidence
 
-- Landscape generation ID.
-- Parent generation IDs.
-- Seeds.
-- Literal backend prompts.
+- Superseded landscape generation ID.
+- Literal backend prompts for both current generations; only the approved conversational brief is retained.
 
 ## Custody history
 
-OpenAI Image 2.5 landscape generation → live React acceptance → OpenAI Image 2.5 portrait continuity generation → portrait replacement accepted → Portfolio source custody → temporary Linear checkpoint → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-
+OpenAI Image 2.5 original landscape generation → live React acceptance → original portrait continuity generation → portrait accepted → Portfolio source custody → temporary Linear checkpoint → normalized Portfolio provenance → 2026-09-14 mineral-alignment landscape/portrait generations → candidate custody plus contemporaneous provenance → live V2 browser review → explicit acceptance → replacement of the old accepted source bytes under the existing accepted IDs → intended eventual Adventures of Patch promotion.

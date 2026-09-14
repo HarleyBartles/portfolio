@@ -14,6 +14,7 @@ const acceptedPackageRoots = Object.freeze({
   silk: path.join(specialistsSourceRoot, 'silk'),
   rope: path.join(specialistsSourceRoot, 'rope'),
 })
+const candidateManifestPaths = Object.freeze({})
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
 
@@ -60,7 +61,7 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     sourcePackage: 'silk',
     source: 'silk-commission-05-aperture-rim-heavy-portrait.png',
     output: 'silk-commission-05-aperture-rim-heavy-portrait.webp',
-    width: 1122,
+    width: 1024,
     format: 'webp',
   },
   {
@@ -128,6 +129,13 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
+export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([])
+
+const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
+  ...USUAL_SPECIALISTS_ASSETS,
+  ...USUAL_SPECIALISTS_CANDIDATE_ASSETS,
+])
+
 const fail = (message) => {
   throw new Error(message)
 }
@@ -171,54 +179,76 @@ const readJson = async (filePath, label) => {
 }
 
 const sourcePackageFor = (asset) => asset.sourcePackage ?? 'index'
+const custodyFor = (asset) => asset.custody ?? 'accepted'
 
-const loadAcceptedSources = async () => {
+const loadCustodiedSources = async () => {
   const manifests = new Map()
-  for (const packageName of new Set(USUAL_SPECIALISTS_ASSETS.map(sourcePackageFor))) {
+  const groups = new Map()
+  for (const asset of USUAL_SPECIALISTS_PROCESSABLE_ASSETS) {
+    const packageName = sourcePackageFor(asset)
+    const custody = custodyFor(asset)
+    const key = `${custody}:${packageName}`
+    const grouped = groups.get(key) ?? { packageName, custody, assets: [] }
+    grouped.assets.push(asset)
+    groups.set(key, grouped)
+  }
+
+  for (const [key, group] of groups) {
+    const { packageName, custody, assets: packageAssets } = group
     const packageRoot = acceptedPackageRoots[packageName]
     if (!packageRoot) fail(`Unknown Usual Specialists source package: ${packageName}.`)
-    const packageAssets = USUAL_SPECIALISTS_ASSETS.filter((asset) => sourcePackageFor(asset) === packageName)
+    const manifestPath = custody === 'candidate'
+      ? candidateManifestPaths[packageName]
+      : path.join(packageRoot, 'accepted-assets.json')
+    if (!manifestPath) fail(`Unknown Usual Specialists ${custody} manifest for package: ${packageName}.`)
     const manifest = await readJson(
-      path.join(packageRoot, 'accepted-assets.json'),
-      `Usual Specialists ${packageName} accepted source manifest`,
+      manifestPath,
+      `Usual Specialists ${packageName} ${custody} source manifest`,
     )
     if (!Array.isArray(manifest.assets) || manifest.assets.length !== packageAssets.length) {
-      fail(`Usual Specialists ${packageName} accepted source manifest must contain ${packageAssets.length} assets.`)
+      fail(`Usual Specialists ${packageName} ${custody} source manifest must contain ${packageAssets.length} assets.`)
     }
     const byId = new Map(manifest.assets.map((entry) => [entry.id, entry]))
-    if (byId.size !== manifest.assets.length) fail(`Usual Specialists ${packageName} accepted source manifest contains duplicate ids.`)
-    manifests.set(packageName, byId)
+    if (byId.size !== manifest.assets.length) fail(`Usual Specialists ${packageName} ${custody} source manifest contains duplicate ids.`)
+    manifests.set(key, byId)
   }
 
   const sources = new Map()
-  for (const asset of USUAL_SPECIALISTS_ASSETS) {
+  for (const asset of USUAL_SPECIALISTS_PROCESSABLE_ASSETS) {
     const packageName = sourcePackageFor(asset)
+    const custody = custodyFor(asset)
     const packageRoot = acceptedPackageRoots[packageName]
-    const accepted = manifests.get(packageName)?.get(asset.id)
-    if (!accepted) fail(`Usual Specialists accepted source manifest is missing ${asset.id}.`)
+    const sourceRecord = manifests.get(`${custody}:${packageName}`)?.get(asset.id)
+    if (!sourceRecord) fail(`Usual Specialists ${custody} source manifest is missing ${asset.id}.`)
     const sourcePath = path.join(packageRoot, asset.source)
     const expectedRepositoryPath = repositoryPath(sourcePath)
-    if (accepted.repositorySourcePath !== expectedRepositoryPath || accepted.status !== 'accepted' || accepted.rightsOwner !== 'Harley Bartles') {
-      fail(`Usual Specialists accepted source custody drifted for ${asset.id}.`)
+    const expectedStatus = custody === 'candidate' ? 'candidate' : 'accepted'
+    if (
+      sourceRecord.repositorySourcePath !== expectedRepositoryPath
+      || sourceRecord.status !== expectedStatus
+      || sourceRecord.rightsOwner !== 'Harley Bartles'
+      || (custody === 'candidate' && sourceRecord.selection !== 'page-review')
+    ) {
+      fail(`Usual Specialists ${custody} source custody drifted for ${asset.id}.`)
     }
     const buffer = await readFile(sourcePath).catch((error) => fail(`Cannot read Usual Specialists source ${asset.source}: ${error.message}`))
     const metadata = await sharp(buffer).metadata()
     const actual = { sha256: sha256(buffer), width: metadata.width, height: metadata.height, format: metadata.format }
-    assertSourceIdentity(actual, accepted, asset.id)
-    sources.set(asset.id, { asset, accepted, buffer })
+    assertSourceIdentity(actual, sourceRecord, asset.id)
+    sources.set(asset.id, { asset, sourceRecord, buffer })
   }
   return sources
 }
 
-const expectedDerivative = (asset, accepted) => {
-  const sourceWidth = asset.crop?.width ?? accepted.width
-  const sourceHeight = asset.crop?.height ?? accepted.height
+const expectedDerivative = (asset, sourceRecord) => {
+  const sourceWidth = asset.crop?.width ?? sourceRecord.width
+  const sourceHeight = asset.crop?.height ?? sourceRecord.height
   const width = Math.min(asset.width, sourceWidth)
   const height = Math.round((sourceHeight / sourceWidth) * width)
   return {
     id: asset.id,
-    sourcePath: accepted.repositorySourcePath,
-    sourceSha256: accepted.sha256,
+    sourcePath: sourceRecord.repositorySourcePath,
+    sourceSha256: sourceRecord.sha256,
     output: asset.output,
     path: repositoryPath(path.join(outputRoot, asset.output)),
     width,
@@ -257,10 +287,10 @@ export const runValidationSteps = async (steps) => {
 }
 
 const checkCustodyAndDerivatives = async () => {
-  const sources = await loadAcceptedSources()
+  const sources = await loadCustodiedSources()
   const receipt = await readJson(receiptPath, 'Usual Specialists derivative receipt')
   if (receipt.generatedBy !== 'src/client/scripts/process-usual-specialists-assets.mjs' || !Array.isArray(receipt.derivatives)) fail('Usual Specialists derivative receipt is stale or malformed.')
-  const expected = USUAL_SPECIALISTS_ASSETS.map((asset) => expectedDerivative(asset, sources.get(asset.id).accepted))
+  const expected = USUAL_SPECIALISTS_PROCESSABLE_ASSETS.map((asset) => expectedDerivative(asset, sources.get(asset.id).sourceRecord))
   assertDerivativeReceipt(expected, receipt.derivatives)
   for (const entry of expected) {
     const receiptEntry = receipt.derivatives.find((candidate) => candidate.output === entry.output)
@@ -278,12 +308,12 @@ const check = async () => {
 }
 
 const apply = async () => {
-  const sources = await loadAcceptedSources()
+  const sources = await loadCustodiedSources()
   await mkdir(outputRoot, { recursive: true })
   const derivatives = []
-  for (const asset of USUAL_SPECIALISTS_ASSETS) {
+  for (const asset of USUAL_SPECIALISTS_PROCESSABLE_ASSETS) {
     const source = sources.get(asset.id)
-    const entry = expectedDerivative(asset, source.accepted)
+    const entry = expectedDerivative(asset, source.sourceRecord)
     const output = await renderDerivative(source)
     const destination = path.join(outputRoot, asset.output)
     await writeFile(destination, output)

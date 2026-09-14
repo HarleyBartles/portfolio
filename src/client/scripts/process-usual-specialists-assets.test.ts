@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   USUAL_SPECIALISTS_ASSETS,
+  USUAL_SPECIALISTS_CANDIDATE_ASSETS,
   USUAL_SPECIALISTS_WEBP_OPTIONS,
   assertDerivativeReceipt,
   assertSourceIdentity,
@@ -57,7 +58,18 @@ describe('Usual Specialists asset processor', () => {
       output: 'silk-commission-06-abseil-hands-free.webp',
       width: 720,
     })
+    const silkPortraitFrame = USUAL_SPECIALISTS_ASSETS.find(({ id }) => id === 'silk-commission-05-aperture-rim-heavy-portrait')
+    expect(silkPortraitFrame).toMatchObject({
+      sourcePackage: 'silk',
+      source: 'silk-commission-05-aperture-rim-heavy-portrait.png',
+      output: 'silk-commission-05-aperture-rim-heavy-portrait.webp',
+      width: 1024,
+    })
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
+  })
+
+  it('has no active page-review derivatives after Commission 05 promotion', () => {
+    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
   })
 
   it('rejects source SHA drift', () => {
