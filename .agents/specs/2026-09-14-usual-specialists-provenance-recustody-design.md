@@ -399,6 +399,38 @@ Refactor its Usual Specialists section to describe:
 
 Detailed art-direction, iteration and acceptance history belongs only in `provenance/*.md`.
 
+## Ongoing generated-asset custody workflow
+
+This migration must leave behind the operating process that would have prevented the historical provenance round-up.
+
+Create a dedicated repo runbook at `.agents/runbooks/generated-image-custody.md`. It is the authority for generated imagery selected for repository use or deliberate retained evaluation. Rejected throwaway generations that never enter repository custody are outside this workflow.
+
+The core ordering invariant is:
+
+> **Generate -> select for custody -> custody the master and write provenance while context is fresh -> verify custody -> only then stand the asset up on the page.**
+
+Page composition must never be the first durable record of a generated image. Scratch paths, chat attachments and image-tool output locations are transient handoff surfaces, not repository custody.
+
+When an image is selected for page iteration or final use, the same custody pass must:
+
+1. copy the exact generated master into the owning source package without silently editing or re-encoding it;
+2. calculate and record stable file identity: source filename, repository path, SHA-256, dimensions and rights owner;
+3. classify its state honestly, for example current accepted selection, accepted-but-superseded, or deliberately retained candidate;
+4. record OpenAI Image 2.5 as the model for this campaign, with generation ID, parent ID, seed and date/time only where genuinely retained;
+5. capture the approved human generation brief from the current conversation while it is fresh, preferring the exact pre-generation brief and approved correction deltas over later reconstruction;
+6. distinguish a retained literal tool prompt from a conversational/normalized approved brief; never invent a literal prompt that the tool did not retain;
+7. record reference hierarchy, original commission intent, material deviations from that intent, and known accepted limitations that already emerged during generation/QA;
+8. create or update the normalized `provenance/*.md` record and the machine `generation-receipt.json` in the same custody pass;
+9. create deterministic page-use derivatives through the owning processor and receipt rather than ad-hoc image editing;
+10. run the focused custody/provenance checks before any React, HTML, CSS or wireframe code references the derivative.
+
+If the generation context is still live, do not defer provenance capture to a later archaeology task. The freshest conversation is the preferred source for the accepted execution brief because it contains the exact art-direction state, user approval and correction deltas that drove the image.
+
+If some generation metadata is already missing at custody time, record that immediately as `missing-from-retained-history`; do not block custody while trying to manufacture completeness.
+
+If later in-page evaluation supersedes the selected asset, preserve the old master/provenance state and update selection status rather than overwriting history. The replacement then goes through the same custody-before-page-use workflow.
+
+The runbook should point to the normalized provenance schema/README rather than duplicating all fifteen provenance-document sections. Its job is operational ordering, evidence capture and verification commands.
 ## Verification and enforcement
 
 Extend the Usual Specialists asset validation so the repo fails when the normalized custody graph is incomplete or inconsistent.
@@ -471,7 +503,8 @@ The recustody is complete when:
 9. provenance for accepted-but-not-promoted source files remains preserved without silently expanding Portfolio asset custody;
 10. `media:usual-specialists:check` or an equivalent focused validation fails on broken provenance links, missing required sections or unaccounted accepted sources;
 11. existing public image derivatives remain byte-for-byte governed by the current deterministic asset pipeline unless a separately approved asset-selection change requires otherwise;
-12. the provenance package is structurally portable to Adventures of Patch in a later promotion PR.
+12. the provenance package is structurally portable to Adventures of Patch in a later promotion PR;
+13. `.agents/runbooks/generated-image-custody.md` records the generate -> custody/provenance -> verify -> page-use workflow so future accepted imagery captures provenance before integration rather than through later archaeology.
 
 ## Planning boundary
 
@@ -484,6 +517,7 @@ The implementation plan should cover only today's Portfolio recustody:
 - normalize manifest and generation-receipt links/status fields;
 - refactor the Usual Specialists section of `docs/asset-custody.md` to point at the new authority;
 - add focused validation/tests;
+- create `.agents/runbooks/generated-image-custody.md` and wire the normalized provenance package into the documented custody-before-page-use workflow;
 - verify asset bytes and deterministic public derivatives remain unchanged except for already-approved current Commission 06 integration work present on this branch.
 
 Do not include Adventures promotion, Linear deletion, new image commissioning, or future Silk iteration in this implementation plan.
