@@ -1,5 +1,11 @@
 # Security runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/risk-gates` for scope, authority, privacy, and safety decisions.
+- `/connector-safety` when a connector or external mutation is involved.
+
 Use this runbook for security review and safe-handling guidance.
 
 ## Must do

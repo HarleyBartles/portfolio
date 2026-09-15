@@ -1,5 +1,10 @@
 # Asset Runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/asset-custody` for sourcing, licensing, optimisation, and custody decisions.
+
 Use this runbook when adding, changing, or attributing fonts, images, icons, or other static assets for the portfolio.
 
 ## Read first

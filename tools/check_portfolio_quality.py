@@ -13,7 +13,12 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def main() -> int:
-    findings = validate_portfolio(ROOT)
+    warnings = []
+    findings = validate_portfolio(ROOT, warnings=warnings)
+    if warnings:
+        print("[tools/check_portfolio_quality] warnings:", file=sys.stderr)
+        for warning in warnings:
+            print(f"  - {warning}", file=sys.stderr)
     if findings:
         print("[tools/check_portfolio_quality] findings:", file=sys.stderr)
         for finding in findings:
