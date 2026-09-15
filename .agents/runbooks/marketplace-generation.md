@@ -2,6 +2,11 @@
 
 Use this runbook when working with the repo-local plugin marketplace or refreshing derived skills.
 
+## Required skills
+
+- `refreshing-installed-skills` owns installation and refresh of marketplace-derived skills.
+- `generating-agent-mesh` owns the agent/index mesh after skill inventory changes.
+
 ## Before you begin
 
 - Read `.agents/plugins/marketplace.json`.

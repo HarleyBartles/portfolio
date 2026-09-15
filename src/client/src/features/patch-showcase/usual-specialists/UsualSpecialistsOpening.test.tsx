@@ -25,6 +25,10 @@ describe('Usual Specialists opening', () => {
     const anchor = opening?.querySelector<HTMLElement>('[data-specialists-rope-anchor="opening-start"]') ?? null
     expect(rope?.querySelectorAll('[data-specialists-rope-variant="taut-straight"]')).toHaveLength(2)
     expect(anchor).toBeInTheDocument()
+    expect(anchor?.querySelector('[data-specialists-rope-start-anchor-image]')).toHaveAttribute(
+      'src',
+      expect.stringContaining('media/patch/the-usual-specialists/opening-rope-start-anchor.webp'),
+    )
     expect(threshold).not.toContainElement(anchor)
     expect(screen.queryByRole('link', { name: 'Silk' })).not.toBeInTheDocument()
   })

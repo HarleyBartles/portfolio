@@ -77,18 +77,21 @@ export const OpeningRopeTile = styled.div`
   }
 `
 
-export const OpeningRopeAnchor = styled.span`
+export const OpeningRopeAnchorPlacement = styled.div`
   position: absolute;
   z-index: 1;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border: 7px solid #5f5850;
-  border-radius: 50%;
-  background: #80776b;
-  box-shadow: 0 3px 0 rgb(0 0 0 / 20%);
-  transform: translate(-50%, -50%);
+  top: -42px;
+  width: 180px;
+  transform: translate(-50%, -5%) scale(0.65) rotate(5.5deg);
   ${chapterCrossingPortCss('opening-index')}
+
+  @media ${specialistsMedia.atMostMid} {
+    transform: translate(-50%, -5%) scale(0.55) rotate(5.5deg);
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    transform: translate(-50%, -5%) scale(0.5) rotate(5.5deg);
+  }
 `
 
 export const OpeningLockup = styled.div`

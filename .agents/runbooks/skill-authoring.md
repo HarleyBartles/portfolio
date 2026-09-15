@@ -2,6 +2,12 @@
 
 Use this runbook when authoring a Portfolio-owned skill under `port-*/`.
 
+## Required skills
+
+- `writing-skills` owns skill creation, editing, and validation.
+- `refreshing-installed-skills` refreshes installed provenance after local skill inventory changes.
+- `generating-agent-mesh` refreshes agent/index navigation after skill surface changes.
+
 ## Before you begin
 
 - Read `.agents/doctrine/marketplace-custody-policy.md` and `.agents/doctrine/surface-classification-policy.md` for skill custody and surface rules.

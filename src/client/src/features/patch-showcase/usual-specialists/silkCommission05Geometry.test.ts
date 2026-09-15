@@ -36,12 +36,12 @@ describe('Silk Commission 05 geometry', () => {
     expect(safeTotalTravel).toBeGreaterThanOrEqual(128)
   })
 
-  test('uses the commissioned portrait viewport', () => {
+  test('uses the accepted portrait viewport scaled to the new source geometry', () => {
     expect(SILK_COMMISSION_05_PORTRAIT_VIEWPORT).toEqual({
-      left: 170,
-      right: 957,
-      top: 150,
-      bottom: 1242,
+      left: 155,
+      right: 873,
+      top: 164,
+      bottom: 1361,
     })
   })
 

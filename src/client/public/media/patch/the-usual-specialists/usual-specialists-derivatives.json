@@ -20,6 +20,24 @@
       "outputSha256": "60b17293e2179d0dcdc4cf31f8b3dd52ab7e22c7fb6c921ffee56946c8560478"
     },
     {
+      "id": "opening-rope-start-anchor",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/opening-rope-start-anchor.png",
+      "sourceSha256": "d0b72fc149a5bf740a77c6d67d707741470a5ad68daa08ff30f3411759d20aa2",
+      "output": "opening-rope-start-anchor.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/opening-rope-start-anchor.webp",
+      "width": 640,
+      "height": 615,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 65306,
+      "outputSha256": "cdc963cee3911f219ce3195b47756f1b83f0312ccad4337273b8cee12c7c36e7"
+    },
+    {
       "id": "index-desktop-base",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-desktop-base.png",
       "sourceSha256": "807de074c28b1ef2450d24aae4eff2b70b2da8b9c23942d750493d2f8c7a1019",
@@ -256,7 +274,7 @@
     {
       "id": "silk-commission-05-aperture-rim-heavy",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy.png",
-      "sourceSha256": "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+      "sourceSha256": "b06d0c23306ce4e69bae72bf1d70a02dbf38c1b26acf5fb0434b3626da0cf62c",
       "output": "silk-commission-05-aperture-rim-heavy.webp",
       "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy.webp",
       "width": 1672,
@@ -268,17 +286,17 @@
         "effort": 6,
         "smartSubsample": true
       },
-      "bytes": 304212,
-      "outputSha256": "200297769213061c382e690a85d0ea12924d4f52f2abdf82ceefefd86ea37269"
+      "bytes": 237858,
+      "outputSha256": "86aab2b04373738b810c6f668a18b61533e8f0332ea753aeec789f4d4075998f"
     },
     {
       "id": "silk-commission-05-aperture-rim-heavy-portrait",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-05-aperture-rim-heavy-portrait.png",
-      "sourceSha256": "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+      "sourceSha256": "131c90f79e7e923f498ca073aec85783f184acb7644a7d580aa6c2de27bb3926",
       "output": "silk-commission-05-aperture-rim-heavy-portrait.webp",
       "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-05-aperture-rim-heavy-portrait.webp",
-      "width": 1122,
-      "height": 1402,
+      "width": 1024,
+      "height": 1536,
       "format": "webp",
       "encoding": {
         "quality": 82,
@@ -286,8 +304,8 @@
         "effort": 6,
         "smartSubsample": true
       },
-      "bytes": 341272,
-      "outputSha256": "70c306c8734d470f0b3e6b87e3e94e2a0663e453a2509c38d97229c1afbeac26"
+      "bytes": 221512,
+      "outputSha256": "0655d2cfe7320da0b6c3674ccfd9da9e8aa74b9b3e1045190db50fdb16ad12f9"
     },
     {
       "id": "silk-commission-05-corridor",
@@ -306,6 +324,211 @@
       },
       "bytes": 223800,
       "outputSha256": "35747a59e79ef7a686da977714f849bfb94db32d60139ce70c7d6bb1f15f2076"
+    },
+    {
+      "id": "silk-commission-06-threshold-crossing",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-threshold-crossing.png",
+      "sourceSha256": "06187f3eeba16b4c1eac91507c20e998b601ecbf2b51451ae6bbc029407050cd",
+      "output": "silk-commission-06-threshold-crossing.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-06-threshold-crossing.webp",
+      "width": 720,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 74352,
+      "outputSha256": "e69225a46dc78ec96437ff9b0a24aef09970abb815176bc0ad20c9805f7fbdde"
+    },
+    {
+      "id": "silk-commission-06-abseil-hands-free",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-06-abseil-hands-free.png",
+      "sourceSha256": "5506559006e668913bd58f32473eb2781cd32921331cdb6888789b68501fc0fa",
+      "output": "silk-commission-06-abseil-hands-free.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-06-abseil-hands-free.webp",
+      "width": 720,
+      "height": 864,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 62234,
+      "outputSha256": "392e1955acfa3d0813bca76a1005405684d55dcefc5b9a0f6526671850a7c45a"
+    },
+    {
+      "id": "silk-commission-07-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review.png",
+      "sourceSha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
+      "output": "silk-commission-07-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review.webp",
+      "width": 1671,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 224568,
+      "outputSha256": "8385e0d3222305f17d9de3663fc109fe2d3a550b3a5c81dc03ea32a138108b3e"
+    },
+    {
+      "id": "silk-commission-07-frame-review-portrait",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review-portrait.png",
+      "sourceSha256": "b6ae38e89fc4050b68cf76832cb0b8c246fe947cdca936fc9815426e2c0c2c71",
+      "output": "silk-commission-07-frame-review-portrait.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review-portrait.webp",
+      "width": 941,
+      "height": 1671,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 244890,
+      "outputSha256": "4c6bbe5beca22cb36df33a47404925ce840b0c693b09724259ea5756a2eee94b"
+    },
+    {
+      "id": "silk-commission-07-service-corridor-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-service-corridor-review.png",
+      "sourceSha256": "65a73c69e5756eda88e674d0fd6167977dd8017aee30ad720be838d8ce2842df",
+      "output": "silk-commission-07-service-corridor-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-service-corridor-review.webp",
+      "width": 1672,
+      "height": 766,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 171574,
+      "outputSha256": "b4bfb8ef3cb781a79539b6409cc2f3fa7cd526766ad58d10c101b4a3e44027e1"
+    },
+    {
+      "id": "silk-commission-08-reaction-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-08-reaction-frame-review.png",
+      "sourceSha256": "867b374f543a9414ab0977881cc0f8b88fd4939ad4001a7030dfeb574a053817",
+      "output": "silk-commission-08-reaction-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-08-reaction-frame-review.webp",
+      "width": 1750,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 190102,
+      "outputSha256": "d0f0415560708105a79becdcfa03c760423a016906a3044fafed2f4316b45fcf"
+    },
+    {
+      "id": "silk-receipt-peekthrough-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-peekthrough-frame-review.png",
+      "sourceSha256": "b54884c061078485ba777055ee7edb57eddeff3dc2579bad356b55e87e1ce3b4",
+      "output": "silk-receipt-peekthrough-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-receipt-peekthrough-frame-review.webp",
+      "width": 1254,
+      "height": 1254,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "mineralFieldCorrection": {
+        "blue": 235,
+        "green": 234,
+        "mineralStartRadiusRatio": 0.48,
+        "preserveRadiusRatio": 0.4,
+        "red": 230
+      },
+      "bytes": 117352,
+      "outputSha256": "3b8b7e668c54a27352960adefa2f1a5e0c72f5b42617a50603f4a71e1863d7c0"
+    },
+    {
+      "id": "silk-receipt-hole-peek-cutout-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-hole-peek-cutout-review.png",
+      "sourceSha256": "f9d8ee3f3734843e532d3b0df03beb634338456281e488936ade544f31ffa57d",
+      "output": "silk-receipt-hole-peek-cutout-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-receipt-hole-peek-cutout-review.webp",
+      "width": 720,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 100756,
+      "outputSha256": "2340c86d94478b9987b760547e65a09796f0cad67a0471c598c58bdb929ea4e9"
+    },
+    {
+      "id": "silk-receipt-alcove-world-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-alcove-world-review.png",
+      "sourceSha256": "328738a6fc8d6afccfa420db0b311683e2cbce5f9cb2873c261213c6e3993920",
+      "output": "silk-receipt-alcove-world-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-receipt-alcove-world-review.webp",
+      "width": 1254,
+      "height": 1254,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 126424,
+      "outputSha256": "154b0757af55df9d1780d41d6fdbd535f51474ec7edb96d0a1d5eee426bdc0b2"
+    },
+    {
+      "id": "silk-commission-09-knockthrough-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-09-knockthrough-frame-review.png",
+      "sourceSha256": "346e91b3a1eef59507515f157ea051e3a89544e031f17bcdbd1621e6c1f37456",
+      "output": "silk-commission-09-knockthrough-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-09-knockthrough-frame-review.webp",
+      "width": 1672,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 323482,
+      "outputSha256": "f9177aec68557ed67a5537fb617c3dc516e1b049103a470a9362d369ccd614f9"
+    },
+    {
+      "id": "silk-commission-09-knockthrough-frame-review-portrait",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-09-knockthrough-frame-review-portrait.png",
+      "sourceSha256": "3b810b5785d28ba6b9779342a8cfc9d0ab96f8953327d452534774cc18aba335",
+      "output": "silk-commission-09-knockthrough-frame-review-portrait.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-09-knockthrough-frame-review-portrait.webp",
+      "width": 941,
+      "height": 1672,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 352588,
+      "outputSha256": "f2efe8332d6f06b5a0562fcc54f713983e9c0a0bdae27d3c3470a6af9a0bccf0"
     },
     {
       "id": "silk-index-crossing-anchor-ring",

@@ -1,12 +1,13 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../patch-brand/PatchBrand'
 import { RopePiece } from './RopePiece'
+import { SpecialistsRopeStartAnchor } from './SpecialistsRopeStartAnchor'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
   Opening,
   OpeningLockup,
   OpeningPrecis,
-  OpeningRopeAnchor,
+  OpeningRopeAnchorPlacement,
   OpeningRopeLayer,
   OpeningRopePlacement,
   OpeningRopeTile,
@@ -47,7 +48,9 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
             <RopePiece variant="taut-straight" />
           </OpeningRopeTile>
         </OpeningRopePlacement>
-        <OpeningRopeAnchor data-specialists-rope-anchor="opening-start" />
+        <OpeningRopeAnchorPlacement data-specialists-rope-anchor="opening-start">
+          <SpecialistsRopeStartAnchor />
+        </OpeningRopeAnchorPlacement>
       </OpeningRopeLayer>
       <Threshold>
         <ThresholdArt

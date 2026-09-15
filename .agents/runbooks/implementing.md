@@ -2,6 +2,12 @@
 
 Use this runbook when executing an approved plan in the portfolio repository.
 
+## Required skills
+
+- `executing-plans` owns the implementation stage and its baseline.
+- `test-driven-development` for independent feature, bug-fix, behavior, and refactor work.
+- `verification-before-completion` before completion or passing claims.
+
 ## Read First
 
 - `AGENTS.md` for repo-wide routing.
