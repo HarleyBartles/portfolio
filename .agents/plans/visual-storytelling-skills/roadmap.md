@@ -9,8 +9,8 @@
 | # | Title | Status | Plan File | Commit | PR | Rating | Notes |
 |---|---|---|---|---|---|---|---|
 | 1 | Portable image-generation foundation | done | `01-generating-images.md` | `ed69055` | #62 | — | Structural and source-backed validation passed; complete hooked CI passed. Behavioural value is deferred to Portfolio field use. |
-| 2 | Creative visual-story direction | executing | `02-directing-visual-stories.md` | — | #62 | — | JIT plan is gated at 9/10 and is executing task-by-task against the completed `generating-images` interface and research baseline. |
-| 3 | Portfolio field incubation | pending | JIT | — | — | — | Use both skills in upcoming Usual Specialists work, record real acceptance and implementation friction, and revise only from field evidence. |
+| 2 | Creative visual-story direction | done | `02-directing-visual-stories.md` | `7e3bdad` | #62 | 9/10 | Structural/source validation and complete hooked CI passed; creative value remains subject to field use. |
+| 3 | Portfolio field incubation | executing | `03-portfolio-field-incubation.md` | — | #62 | 9/10 | Applying both skills retrospectively to the actual Silk continuation in draft PR #61; recording observed composition, image-generation boundary, acceptance, and friction without synthetic testing. |
 | 4 | Marketplace graduation and consumer rollout | pending | JIT | — | — | — | Separately authorised future move to Agent Asset Marketplace, then consumption by Portfolio, Adventures, and Wild Bunch. No publication is implied by this roadmap. |
 
 ## Sequence rationale
