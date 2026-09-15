@@ -8,8 +8,8 @@
 
 | # | Title | Status | Plan File | Commit | PR | Rating | Notes |
 |---|---|---|---|---|---|---|---|
-| 1 | Portable image-generation foundation | ready | `01-generating-images.md` | — | — | — | Repair stale local-skill naming guidance, create the Apache-2.0-compliant portable execution skill, and prove its behavioural boundary. |
-| 2 | Creative visual-story direction | pending | JIT | — | — | — | Create `directing-visual-stories`, its routed composition references, canonical index, and frame/page/world output contracts. |
+| 1 | Portable image-generation foundation | done | `01-generating-images.md` | `ed69055` | #62 | — | Structural and source-backed validation passed; complete hooked CI passed. Behavioural value is deferred to Portfolio field use. |
+| 2 | Creative visual-story direction | ready | `02-directing-visual-stories.md` | — | #62 | — | JIT plan written from the completed `generating-images` interface and the research baseline; creates the creative-direction skill. |
 | 3 | Portfolio field incubation | pending | JIT | — | — | — | Use both skills in upcoming Usual Specialists work, record real acceptance and implementation friction, and revise only from field evidence. |
 | 4 | Marketplace graduation and consumer rollout | pending | JIT | — | — | — | Separately authorised future move to Agent Asset Marketplace, then consumption by Portfolio, Adventures, and Wild Bunch. No publication is implied by this roadmap. |
 
@@ -39,6 +39,11 @@ a custody and distribution change, so it must not be folded into local incubatio
   function to techniques, preserve the object/frame/field/sequence and
   directed/guided/exploratory distinctions, and keep downstream implementation
   mechanics out of the portable creative core.
+- Plan 1 completed on 2026-09-15 at commit `ed69055`; its hook proved standards,
+  quality, build, unit, and browser checks. Its task review found and resolved the
+  derivative provenance lane before commit.
+- Plan 2 is intentionally written just in time after Plan 1. It consumes the actual
+  `generating-images` prompt and handoff contract rather than a guessed executor.
 - Do not introduce synthetic RED/GREEN pressure testing as a proxy for creative
   value. Structural validation remains deterministic; behavioural validation comes
   from the upcoming Usual Specialists work and Harley's real editorial decisions.

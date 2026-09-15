@@ -9,7 +9,7 @@ next agent to understand what may be changed.
 ```text
 Asset: <human-readable name and stable version>
 Status: selected and handed off | generated but unresolved
-Destination: <actual workspace path, repository URL, or authorised provider result>
+Destination: <actual workspace path, repository URL, or durable authorised provider result>
 Intended consumer: <route, article, game screen, or preview>
 Operation: <generate/edit/variation/inpaint/outpaint/composite/cutout/convert>
 Capability: <selected capability identifier and adapter, if any>
@@ -25,8 +25,13 @@ Next owner: <implementation skill or human reviewer>
 
 Use the actual returned location. If a provider result is remote or temporary,
 copy it to the authorised project destination before calling it project-bound, or
-leave the status as preview-only/generated but unresolved. Never invent a stable
-path from a UI label.
+leave the status as preview-only/generated but unresolved. A provider result is
+project-bound only when it is durable, retrievable, and authorised for that
+consumer. Never invent a stable path from a UI label.
+
+Blocked or incomplete work has no asset handoff record. Record the terminal state
+and missing evidence in the brief or run log instead of fabricating a selected
+asset.
 
 ## Source and licence boundaries
 

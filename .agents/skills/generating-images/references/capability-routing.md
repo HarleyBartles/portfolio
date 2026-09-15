@@ -20,6 +20,11 @@ exists. If no authorised capability satisfies the requirement, stop with
    least irreversible transformation.
 5. Record the selected capability and its constraints in the handoff record.
 
+If the environment exposes no declared capability registry, use the adapter's
+documented discovery surface or run a bounded capability probe before selecting
+it. A generic provider label is not a capability card. If discovery cannot prove
+the required operation, use the blocked terminal state.
+
 ## Capability card
 
 ```text
