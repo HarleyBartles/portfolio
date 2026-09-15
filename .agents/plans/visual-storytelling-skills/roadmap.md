@@ -10,8 +10,8 @@
 |---|---|---|---|---|---|---|---|
 | 1 | Portable image-generation foundation | done | `01-generating-images.md` | `ed69055` | #62 | — | Structural and source-backed validation passed; complete hooked CI passed. Behavioural value is deferred to Portfolio field use. |
 | 2 | Creative visual-story direction | done | `02-directing-visual-stories.md` | `7e3bdad` | #62 | 9/10 | Structural/source validation and complete hooked CI passed; creative value remains subject to field use. |
-| 3 | Portfolio field incubation | executing | `03-portfolio-field-incubation.md` | — | #62 | 9/10 | Applying both skills retrospectively to the actual Silk continuation in draft PR #61; recording observed composition, image-generation boundary, acceptance, and friction without synthetic testing. |
-| 4 | Marketplace graduation and consumer rollout | pending | JIT | — | — | — | Separately authorised future move to Agent Asset Marketplace, then consumption by Portfolio, Adventures, and Wild Bunch. No publication is implied by this roadmap. |
+| 3 | Portfolio field incubation | done | `03-portfolio-field-incubation.md` | `8f46b37` | #62 | 9/10 | Both skills applied retrospectively to actual Silk continuation PR #61; accepted/rejected composition, image-generation boundary, custody gaps, and portable lesson recorded without synthetic testing. |
+| 4 | Marketplace graduation and consumer rollout | in_review | `04-marketplace-graduation.md` | `1374ea7e9` | agent-asset-marketplace#319 | 9/10 | Canonical marketplace pack is in draft PR #319 with complete marketplace validation; merge review is the remaining custody gate before consumer projections. |
 
 ## Sequence rationale
 
