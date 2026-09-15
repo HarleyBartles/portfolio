@@ -18,7 +18,7 @@ const candidateManifestPaths = Object.freeze({
   silk: path.join(
     acceptedPackageRoots.silk,
     'candidates',
-    'commission-08-reaction-frame-review',
+    'receipt-peekthrough-frame-review',
     'candidate-assets.json',
   ),
 })
@@ -30,6 +30,14 @@ export const USUAL_SPECIALISTS_WEBP_OPTIONS = Object.freeze({
   alphaQuality: 100,
   effort: 6,
   smartSubsample: true,
+})
+
+const RECEIPT_PEEKTHROUGH_MINERAL_FIELD = Object.freeze({
+  blue: 235,
+  green: 234,
+  mineralStartRadiusRatio: 0.48,
+  preserveRadiusRatio: 0.40,
+  red: 230,
 })
 
 export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
@@ -125,6 +133,15 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     source: 'silk-commission-08-reaction-frame-review.png',
     output: 'silk-commission-08-reaction-frame-review.webp',
     width: 1750,
+    format: 'webp',
+  },
+  {
+    id: 'silk-receipt-peekthrough-frame-review',
+    sourcePackage: 'silk',
+    source: 'silk-receipt-peekthrough-frame-review.png',
+    output: 'silk-receipt-peekthrough-frame-review.webp',
+    width: 1254,
+    mineralFieldCorrection: RECEIPT_PEEKTHROUGH_MINERAL_FIELD,
     format: 'webp',
   },
   {
@@ -294,11 +311,54 @@ const expectedDerivative = (asset, sourceRecord) => {
     height,
     format: asset.format,
     encoding: USUAL_SPECIALISTS_WEBP_OPTIONS,
+    ...(asset.mineralFieldCorrection ? { mineralFieldCorrection: asset.mineralFieldCorrection } : {}),
   }
 }
 
+const smoothstep = (value) => value * value * (3 - (2 * value))
+
+const normalizeMineralField = async (source) => {
+  const correction = source.asset.mineralFieldCorrection
+  if (!correction) return sharp(source.buffer)
+
+  const { data, info } = await sharp(source.buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const centreX = (info.width - 1) / 2
+  const centreY = (info.height - 1) / 2
+  const radiusUnit = Math.min(info.width, info.height)
+  const preserveRadius = radiusUnit * correction.preserveRadiusRatio
+  const mineralStartRadius = radiusUnit * correction.mineralStartRadiusRatio
+  const blendDistance = mineralStartRadius - preserveRadius
+
+  for (let y = 0; y < info.height; y += 1) {
+    for (let x = 0; x < info.width; x += 1) {
+      const distance = Math.hypot(x - centreX, y - centreY)
+      if (distance <= preserveRadius) continue
+
+      const blendProgress = blendDistance <= 0
+        ? 1
+        : Math.min(1, Math.max(0, (distance - preserveRadius) / blendDistance))
+      const mineralWeight = smoothstep(blendProgress)
+      const sourceWeight = 1 - mineralWeight
+      const offset = ((y * info.width) + x) * info.channels
+
+      data[offset] = Math.round((data[offset] * sourceWeight) + (correction.red * mineralWeight))
+      data[offset + 1] = Math.round((data[offset + 1] * sourceWeight) + (correction.green * mineralWeight))
+      data[offset + 2] = Math.round((data[offset + 2] * sourceWeight) + (correction.blue * mineralWeight))
+      data[offset + 3] = Math.round((data[offset + 3] * sourceWeight) + (255 * mineralWeight))
+    }
+  }
+
+  return sharp(data, {
+    raw: {
+      channels: info.channels,
+      height: info.height,
+      width: info.width,
+    },
+  })
+}
+
 const renderDerivative = async (source) => {
-  const image = sharp(source.buffer)
+  const image = await normalizeMineralField(source)
   if (source.asset.crop) image.extract(source.asset.crop)
   return image
     .resize({ width: source.asset.width, withoutEnlargement: true })

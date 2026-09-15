@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { SilkApertureComposition } from './SilkApertureComposition'
 import { SilkReactionFrameComposition } from './SilkReactionFrameComposition'
+import { SilkReceiptPeekthroughComposition } from './SilkReceiptPeekthroughComposition'
 import { SilkTraversalComposition } from './SilkTraversalComposition'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
@@ -55,7 +56,7 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         </BreachAperturePlacement>
 
         <ReceiptPeekthrough data-silk-receipt-peekthrough>
-          Receipt peek-through / fused smashed aperture
+          <SilkReceiptPeekthroughComposition />
         </ReceiptPeekthrough>
 
         <ReactionAperturePlacement data-silk-aperture-owner="08" data-silk-commission="08">

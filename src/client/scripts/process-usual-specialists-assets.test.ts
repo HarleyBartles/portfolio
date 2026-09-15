@@ -1,3 +1,5 @@
+import path from 'node:path'
+import sharp from 'sharp'
 import { describe, expect, it } from 'vitest'
 import {
   USUAL_SPECIALISTS_ASSETS,
@@ -12,7 +14,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(35)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(36)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -72,9 +74,16 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('promotes the reviewed Commission 08 reaction frame into accepted custody', () => {
+  it('promotes the reviewed receipt peek-through frame into accepted custody', () => {
     expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
     expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: 'silk-receipt-peekthrough-frame-review',
+        sourcePackage: 'silk',
+        source: 'silk-receipt-peekthrough-frame-review.png',
+        output: 'silk-receipt-peekthrough-frame-review.webp',
+        width: 1254,
+      }),
       expect.objectContaining({
         id: 'silk-commission-07-frame-review',
         sourcePackage: 'silk',
@@ -126,5 +135,35 @@ describe('Usual Specialists asset processor', () => {
     ])
 
     expect(calls).toEqual(['custody', 'provenance'])
+  })
+
+  it('normalizes the receipt review outer wall to the page mineral without filling the aperture', async () => {
+    const derivativePath = path.resolve(
+      import.meta.dirname,
+      '..',
+      'public',
+      'media',
+      'patch',
+      'the-usual-specialists',
+      'silk-receipt-peekthrough-frame-review.webp',
+    )
+    const { data, info } = await sharp(derivativePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const pixelAt = (x: number, y: number) => {
+      const offset = ((y * info.width) + x) * info.channels
+      return Array.from(data.subarray(offset, offset + 4))
+    }
+
+    for (const [x, y] of [[0, 0], [info.width - 1, 0], [0, info.height - 1], [info.width - 1, info.height - 1]] as const) {
+      const [red, green, blue, alpha] = pixelAt(x, y)
+      expect(red).toBeGreaterThanOrEqual(228)
+      expect(red).toBeLessThanOrEqual(232)
+      expect(green).toBeGreaterThanOrEqual(232)
+      expect(green).toBeLessThanOrEqual(236)
+      expect(blue).toBeGreaterThanOrEqual(233)
+      expect(blue).toBeLessThanOrEqual(237)
+      expect(alpha).toBe(255)
+    }
+
+    expect(pixelAt(Math.floor(info.width / 2), Math.floor(info.height / 2))[3]).toBe(0)
   })
 })

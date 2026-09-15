@@ -199,6 +199,19 @@
       "selection": "current",
       "rightsOwner": "Harley Bartles",
       "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-08-silk-reaction-frame.md"
+    },
+    {
+      "id": "silk-receipt-peekthrough-frame-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 10_56_41 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-peekthrough-frame-review.png",
+      "sha256": "b54884c061078485ba777055ee7edb57eddeff3dc2579bad356b55e87e1ce3b4",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1921708,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-peekthrough-frame.md"
     }
   ]
 }

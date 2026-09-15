@@ -297,53 +297,42 @@ export const BreachAperturePlacement = styled.div`
 
 export const ReceiptPeekthrough = styled.div`
   position: absolute;
-  z-index: 8;
+  z-index: 6;
   top: 824px;
   right: 11%;
   display: grid;
   width: 170px;
   height: 138px;
-  padding: 18px;
   place-items: center;
-  clip-path: polygon(12% 7%, 36% 1%, 58% 8%, 84% 2%, 98% 24%, 91% 51%, 99% 79%, 78% 96%, 52% 90%, 27% 99%, 3% 81%, 9% 55%, 0 29%);
-  background:
-    radial-gradient(circle at 55% 52%, #20231f 0 29%, transparent 31%),
-    linear-gradient(130deg, #d9dcda 0 24%, #8b6048 25% 36%, #d9dcda 37% 100%);
-  color: #f2ecdf;
-  font-family: var(--font-site-sans);
-  font-size: .65rem;
-  font-weight: 800;
-  text-align: center;
-  text-transform: uppercase;
   transform: rotate(3deg);
 
   @media ${SILK_1920_TREATMENT_MEDIA} {
     top: 1035px;
     right: clamp(50px, calc(-1480px + 79.6875vw), 560px);
     left: auto;
-    transform: rotate(3deg) scale(1.25);
+    transform: rotate(3deg);
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 90px);
+    top: calc(var(--silk-reaction-top) + 140px);
     right: 19%;
     left: auto;
-    transform: rotate(3deg) scale(1.25);
+    transform: rotate(3deg);
   }
 
   @media ${SILK_RECONNECTING_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 145px + 6.6667vw);
+    top: calc(var(--silk-reaction-top) + 195px + 6.6667vw);
     right: auto;
     left: calc(46.6667vw - 420px);
-    transform: rotate(3deg) scale(1.25);
+    transform: rotate(3deg);
   }
 
   @media ${SILK_STACKED_LOWER_MEDIA} {
-    top: 845px;
+    top: 910px;
   }
 
   @media ${SILK_SEPARATED_LOWER_MEDIA} {
-    top: 1460px;
+    top: 1510px;
     right: auto;
     left: 140px;
   }
@@ -384,7 +373,6 @@ export const ReactionAperturePlacement = styled.div`
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
-    z-index: 21;
     top: var(--silk-reaction-top);
     right: auto;
     left: 24px;
@@ -393,7 +381,6 @@ export const ReactionAperturePlacement = styled.div`
   }
 
   @media ${SILK_RECONNECTING_LOWER_MEDIA} {
-    z-index: 21;
     top: var(--silk-reaction-top);
     right: auto;
     left: 24px;
@@ -402,7 +389,6 @@ export const ReactionAperturePlacement = styled.div`
   }
 
   @media ${SILK_STACKED_LOWER_MEDIA} {
-    z-index: 21;
     top: 1340px;
     right: auto;
     left: max(24px, calc((100% - 1240px) / 2));
@@ -433,7 +419,7 @@ export const ReactionAperturePlacement = styled.div`
 
 export const HandoffCell = styled.div`
   position: absolute;
-  z-index: 22;
+  z-index: 19;
   top: 1205px;
   right: 6%;
   display: grid;
@@ -461,7 +447,7 @@ export const HandoffCell = styled.div`
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 255px);
+    top: calc(var(--silk-reaction-top) + 305px);
     right: 24px;
     width: 640px;
   }

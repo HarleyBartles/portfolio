@@ -434,6 +434,31 @@
       "outputSha256": "d0f0415560708105a79becdcfa03c760423a016906a3044fafed2f4316b45fcf"
     },
     {
+      "id": "silk-receipt-peekthrough-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-peekthrough-frame-review.png",
+      "sourceSha256": "b54884c061078485ba777055ee7edb57eddeff3dc2579bad356b55e87e1ce3b4",
+      "output": "silk-receipt-peekthrough-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-receipt-peekthrough-frame-review.webp",
+      "width": 1254,
+      "height": 1254,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "mineralFieldCorrection": {
+        "blue": 235,
+        "green": 234,
+        "mineralStartRadiusRatio": 0.48,
+        "preserveRadiusRatio": 0.4,
+        "red": 230
+      },
+      "bytes": 117352,
+      "outputSha256": "3b8b7e668c54a27352960adefa2f1a5e0c72f5b42617a50603f4a71e1863d7c0"
+    },
+    {
       "id": "silk-index-crossing-anchor-ring",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
       "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",

@@ -576,23 +576,22 @@ test('The Usual Specialists holds the 1920 Silk treatment from 1200 then interpo
     }
     expect(receiptStyles.width).toBeCloseTo(170, 0)
     expect(receiptStyles.height).toBeCloseTo(138, 0)
-    expect(receiptStyles.scale).toBeCloseTo(1.25, 2)
+    expect(receiptStyles.scale).toBeCloseTo(1, 2)
+    expect(ropeZIndex).toBeGreaterThan(handoffZIndex)
     expect(handoffZIndex).toBeGreaterThan(reactionStyles.zIndex)
+    expect(reactionStyles.zIndex).toBeGreaterThan(receiptStyles.zIndex)
     expect(handoffRight).toBeCloseTo(interpolate(24, -80, width), 0)
     if (width === 1920) {
       expect((canvas.x + canvas.width) - (handoff.x + handoff.width)).toBeCloseTo(24, 0)
     }
     if (width < 1500) {
-      expect(lowerTop).toEqual([715, 1460, 1340, 1360])
+      expect(lowerTop).toEqual([715, 1510, 1340, 1360])
       expect(reactionStyles.left).toBeCloseTo(Math.max(24, (width - 1240) / 2), 0)
-      expect(reactionStyles.zIndex).toBeGreaterThan(ropeZIndex)
-      expect(ropeZIndex).toBeGreaterThan(receiptStyles.zIndex)
       expect(handoff.y).toBeGreaterThan(reaction.y)
       expect(handoff.y).toBeGreaterThanOrEqual(aperture2.y + aperture2.height - 24)
     } else if (width < 1920) {
-      expect(lowerTop).toEqual([715, 845, 1340, 1200])
+      expect(lowerTop).toEqual([715, 910, 1340, 1200])
       expect(reactionStyles.left).toBeCloseTo(Math.max(24, (width - 1240) / 2), 0)
-      expect(reactionStyles.zIndex).toBeGreaterThan(ropeZIndex)
       expect(handoff.y).toBeLessThan(aperture2.y + aperture2.height)
     } else {
       expect(lowerTop).toEqual([715, 1035, 845, 1200])
@@ -638,6 +637,7 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
     const receipt = silk.locator('[data-silk-receipt-peekthrough]')
     const reaction = silk.locator('[data-silk-commission="08"]')
     const handoff = silk.locator('[data-silk-commission="09"]')
+    const rope = silk.locator('[data-silk-traversal-composition]')
 
     const geometry = await Promise.all([
       stage.evaluate((element) => {
@@ -663,6 +663,7 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
           width: Number.parseFloat(styles.width),
           height: Number.parseFloat(styles.height),
           scale: Math.hypot(matrix.a, matrix.b),
+          zIndex: Number.parseInt(styles.zIndex, 10),
           x: box.x,
           y: box.y,
           renderedWidth: box.width,
@@ -695,13 +696,14 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
           height: box.height,
         }
       }),
+      rope.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
     ])
 
-    const [stageStyles, aperture1WorldBox, aperture2WorldBox, receiptStyles, reactionStyles, handoffStyles] = geometry
+    const [stageStyles, aperture1WorldBox, aperture2WorldBox, receiptStyles, reactionStyles, handoffStyles, ropeZIndex] = geometry
     expect(stageStyles.minHeight, JSON.stringify({ width, stageStyles })).toBeCloseTo(1740, 0)
     expect(receiptStyles.width, JSON.stringify({ width, receiptStyles })).toBeCloseTo(170, 0)
     expect(receiptStyles.height, JSON.stringify({ width, receiptStyles })).toBeCloseTo(138, 0)
-    expect(receiptStyles.scale, JSON.stringify({ width, receiptStyles })).toBeCloseTo(1.25, 2)
+    expect(receiptStyles.scale, JSON.stringify({ width, receiptStyles })).toBeCloseTo(1, 2)
 
     if (width < 1200) {
       const apertureGutter = aperture2WorldBox.y - (aperture1WorldBox.y + aperture1WorldBox.height)
@@ -714,15 +716,15 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
       expect(reactionStyles.y, JSON.stringify({ width, reactionStyles, receiptStyles })).toBeLessThan(receiptStyles.y)
       expect(receiptStyles.y, JSON.stringify({ width, receiptStyles, handoffStyles })).toBeLessThan(handoffStyles.y)
       expect(receiptStyles.top - reactionStyles.top, JSON.stringify({ width, reactionStyles, receiptStyles }))
-        .toBeCloseTo(90, 0)
+        .toBeCloseTo(140, 0)
       expect(handoffStyles.top - reactionStyles.top, JSON.stringify({ width, reactionStyles, handoffStyles }))
-        .toBeCloseTo(255, 0)
+        .toBeCloseTo(305, 0)
       expect(receiptStyles.x + (receiptStyles.renderedWidth / 2), JSON.stringify({ width, receiptStyles }))
         .toBeGreaterThan(width * 0.58)
     } else if (width < 1200) {
       const expectedReceiptLeft = Math.min(140, ((width - 900) / 300) * 140)
       const expectedHandoffOffset = 60 + (width * 0.05)
-      const expectedReceiptOffset = 145 + (width * (1 / 15))
+      const expectedReceiptOffset = 195 + (width * (1 / 15))
       expect(receiptStyles.left, JSON.stringify({ width, receiptStyles })).toBeCloseTo(expectedReceiptLeft, 0)
       expect(reactionStyles.y, JSON.stringify({ width, reactionStyles, handoffStyles })).toBeLessThan(handoffStyles.y)
       expect(handoffStyles.y, JSON.stringify({ width, handoffStyles, receiptStyles })).toBeLessThan(receiptStyles.y)
@@ -735,10 +737,12 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
     expect(reactionStyles.left, JSON.stringify({ width, reactionStyles })).toBeCloseTo(24, 0)
     expect(reactionStyles.width, JSON.stringify({ width, reactionStyles })).toBeCloseTo(700, 0)
     expect(reactionStyles.height, JSON.stringify({ width, reactionStyles })).toBeCloseTo(120, 0)
-    expect(reactionStyles.zIndex, JSON.stringify({ width, reactionStyles })).toBe(21)
+    expect(reactionStyles.zIndex, JSON.stringify({ width, reactionStyles })).toBe(7)
     expect(handoffStyles.right, JSON.stringify({ width, handoffStyles })).toBeCloseTo(24, 0)
     expect(handoffStyles.width, JSON.stringify({ width, handoffStyles })).toBeCloseTo(640, 0)
-    expect(handoffStyles.zIndex, JSON.stringify({ width, handoffStyles })).toBe(22)
+    expect(receiptStyles.zIndex, JSON.stringify({ width, receiptStyles })).toBe(6)
+    expect(handoffStyles.zIndex, JSON.stringify({ width, handoffStyles })).toBe(19)
+    expect(ropeZIndex, JSON.stringify({ width, ropeZIndex, handoffStyles })).toBeGreaterThan(handoffStyles.zIndex)
     await expectNoHorizontalOverflow(page)
 
     samples.set(width, {
@@ -789,6 +793,65 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
   expect((at1199.handoff.top - at1199.reaction.top)).toBeGreaterThan(at1050.handoff.top - at1050.reaction.top)
   expect((at1050.receipt.top - at1050.reaction.top)).toBeGreaterThan(at900.receipt.top - at900.reaction.top)
   expect((at1199.receipt.top - at1199.reaction.top)).toBeGreaterThan(at1050.receipt.top - at1050.reaction.top)
+})
+
+test('The Usual Specialists authors receipt peek-through scale and vertical placement across the 720-plus bands', async ({ page }) => {
+  const cases = [
+    { width: 720, scale: 1.6, receiptOffsetFromReaction: 140, handoffOffsetFromReaction: 305 },
+    { width: 899, scale: 1.6, receiptOffsetFromReaction: 140, handoffOffsetFromReaction: 305 },
+    { width: 900, scale: 2.5, receiptOffsetFromReaction: 255, handoffOffsetFromReaction: 105 },
+    { width: 1199, scale: 2.5, receiptOffsetFromReaction: 274.933, handoffOffsetFromReaction: 119.95 },
+    { width: 1200, scale: 1.6, receiptTop: 1510, handoffTop: 1360 },
+    { width: 1499, scale: 1.6, receiptTop: 1510, handoffTop: 1360 },
+    { width: 1500, scale: 2.5, receiptTop: 910, handoffTop: 1200 },
+    { width: 1919, scale: 2.5, receiptTop: 910, handoffTop: 1200 },
+    { width: 1920, scale: 1.6, receiptTop: 1035, handoffTop: 1200 },
+    { width: 2560, scale: 1.6, receiptTop: 1035, handoffTop: 1200 },
+  ] as const
+
+  for (const expectation of cases) {
+    await page.setViewportSize({ width: expectation.width, height: 1800 })
+    await page.goto(specialistsPreviewPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    const receipt = silk.locator('[data-silk-receipt-peekthrough]')
+    const reaction = silk.locator('[data-silk-commission="08"]')
+    const handoff = silk.locator('[data-silk-commission="09"]')
+    const frameCanvas = receipt.locator('[data-silk-receipt-frame-canvas]')
+
+    const geometry = await Promise.all([
+      receipt.evaluate((element) => {
+        const styles = getComputedStyle(element)
+        const matrix = new DOMMatrix(styles.transform)
+        return {
+          top: Number.parseFloat(styles.top),
+          scale: Math.hypot(matrix.a, matrix.b),
+        }
+      }),
+      reaction.evaluate((element) => Number.parseFloat(getComputedStyle(element).top)),
+      handoff.evaluate((element) => Number.parseFloat(getComputedStyle(element).top)),
+      frameCanvas.evaluate((element) => {
+        const matrix = new DOMMatrix(getComputedStyle(element).transform)
+        return Math.hypot(matrix.a, matrix.b)
+      }),
+    ])
+
+    const [receiptStyles, reactionTop, handoffTop, frameScale] = geometry
+    expect(receiptStyles.scale, JSON.stringify({ expectation, receiptStyles })).toBeCloseTo(1, 2)
+    expect(frameScale, JSON.stringify({ expectation, frameScale })).toBeCloseTo(expectation.scale, 2)
+
+    if ('receiptTop' in expectation) {
+      expect(receiptStyles.top, JSON.stringify({ expectation, receiptStyles })).toBeCloseTo(expectation.receiptTop, 0)
+      expect(handoffTop, JSON.stringify({ expectation, handoffTop })).toBeCloseTo(expectation.handoffTop, 0)
+    } else {
+      expect(receiptStyles.top - reactionTop, JSON.stringify({ expectation, receiptStyles, reactionTop }))
+        .toBeCloseTo(expectation.receiptOffsetFromReaction, 0)
+      expect(handoffTop - reactionTop, JSON.stringify({ expectation, handoffTop, reactionTop }))
+        .toBeCloseTo(expectation.handoffOffsetFromReaction, 0)
+    }
+
+    await expectNoHorizontalOverflow(page)
+  }
 })
 
 test('The Usual Specialists renders Commission 09 as a rectangular handoff scene cell placeholder', async ({ page }) => {
@@ -1043,6 +1106,15 @@ test('The Usual Specialists stacks Silk Commission 08, receipt, and Commission 0
       .toBeGreaterThan(canvasBox!.x + canvasBox!.width / 2)
     expect(receiptBox!.y, JSON.stringify({ width, reactionBox, receiptBox }))
       .toBeGreaterThanOrEqual(reactionBox!.y + reactionBox!.height)
+    const [reactionZIndex, receiptZIndex, handoffZIndex, ropeZIndex] = await Promise.all([
+      reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      receipt.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      silk.locator('[data-silk-traversal-composition]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+    ])
+    expect(reactionZIndex, JSON.stringify({ width, reactionZIndex, receiptZIndex })).toBeGreaterThan(receiptZIndex)
+    expect(handoffZIndex, JSON.stringify({ width, handoffZIndex, reactionZIndex })).toBeGreaterThan(reactionZIndex)
+    expect(ropeZIndex, JSON.stringify({ width, ropeZIndex, handoffZIndex })).toBeGreaterThan(handoffZIndex)
 
     expect(handoffBox!.y, JSON.stringify({ width, receiptBox, handoffBox }))
       .toBeGreaterThanOrEqual(receiptBox!.y + receiptBox!.height)
@@ -1118,6 +1190,16 @@ test('The Usual Specialists uses a fully stacked narrow Silk composition from 32
     for (const box of [canvasBox, stageBox, nameBox, storyBox, aperture1Box, aperture2Box, traversalBox, reactionBox, receiptBox, handoffBox]) {
       expect(box).not.toBeNull()
     }
+
+    const [reactionZIndex, receiptZIndex, handoffZIndex, ropeZIndex] = await Promise.all([
+      reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      receipt.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      silk.locator('[data-silk-traversal-composition]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+    ])
+    expect(reactionZIndex, JSON.stringify({ width, reactionZIndex, receiptZIndex })).toBeGreaterThan(receiptZIndex)
+    expect(handoffZIndex, JSON.stringify({ width, handoffZIndex, reactionZIndex })).toBeGreaterThan(reactionZIndex)
+    expect(ropeZIndex, JSON.stringify({ width, ropeZIndex, handoffZIndex })).toBeGreaterThan(handoffZIndex)
 
     expect(storyBox!.x, JSON.stringify({ width, storyBox, canvasBox })).toBeCloseTo(canvasBox!.x, 0)
     expect(storyBox!.width, JSON.stringify({ width, storyBox, canvasBox })).toBeCloseTo(canvasBox!.width, 0)
@@ -1947,6 +2029,53 @@ test('The Usual Specialists moves only the service-corridor world behind the sec
   expect(Math.abs(after.frame.height - before.frame.height)).toBeLessThanOrEqual(0.5)
 })
 
+test('The Usual Specialists moves the striped receipt stand-in behind a page-locked circular frame', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(specialistsPreviewPath)
+
+  const composition = page.locator('[data-silk-receipt-peekthrough] [data-silk-receipt-peekthrough-composition]')
+  const world = composition.locator('[data-silk-receipt-standin-world]')
+  const frame = composition.locator('[data-silk-receipt-frame-review]')
+  await composition.scrollIntoViewIfNeeded()
+  await expect(composition).toBeVisible()
+  await expect(frame).toHaveAttribute('src', /silk-receipt-peekthrough-frame-review\.webp$/)
+
+  const capture = async () => {
+    await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).not.toBeNull()
+    return composition.evaluate((element) => {
+      const world = element.querySelector<HTMLElement>('[data-silk-receipt-standin-world]')!
+      const frame = element.querySelector<HTMLElement>('[data-silk-receipt-frame-review]')!
+      const root = element.getBoundingClientRect()
+      const frameBox = frame.getBoundingClientRect()
+      return {
+        offset: Number.parseFloat(world.dataset.silkParallaxOffset ?? '0'),
+        frame: {
+          height: frameBox.height,
+          offsetX: frameBox.x - root.x,
+          offsetY: frameBox.y - root.y,
+          width: frameBox.width,
+        },
+      }
+    })
+  }
+
+  const before = await capture()
+  // scrollIntoViewIfNeeded can place this lower-page composition close to the
+  // document floor, leaving little downward travel. Move upward so the test
+  // exercises a real 320px viewport change instead of the page-end clamp.
+  await page.evaluate(() => window.scrollBy(0, -320))
+  await expect.poll(async () => (await capture()).offset).not.toBeCloseTo(before.offset, 1)
+  const after = await capture()
+
+  expect(Math.abs(after.offset)).toBeLessThanOrEqual(16.1)
+  expect(Math.abs(after.offset - before.offset)).toBeGreaterThan(2)
+  expect(before.frame.width).toBeCloseTo(before.frame.height, 0)
+  expect(Math.abs(after.frame.offsetX - before.frame.offsetX)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.offsetY - before.frame.offsetY)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.width - before.frame.width)).toBeLessThanOrEqual(0.5)
+  expect(Math.abs(after.frame.height - before.frame.height)).toBeLessThanOrEqual(0.5)
+})
 test('The Usual Specialists has no authored composition transition at 620', async ({ page }) => {
   const specialistsPath = specialistsPreviewPath
   const capture = async (width: 621 | 620) => {
