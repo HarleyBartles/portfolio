@@ -284,6 +284,47 @@
                                                                                 "project-owner-acceptance-2026-09-15",
                                                                                 "retained-tool-result:7fece7db-5f53-4437-88e8-634b9e39d720"
                                                                             ]
-                                                           }
+                                                           },
+                   "silk-commission-09-knockthrough-frame-review":  {
+                                                                       "model":  "OpenAI Image 2.5",
+                                                                       "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                       "generationId":  null,
+                                                                       "generationIdStatus":  "missing-from-retained-history",
+                                                                       "parentGenerationId":  null,
+                                                                       "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                                       "seed":  null,
+                                                                       "seedStatus":  "not-supplied-by-tool",
+                                                                       "generationDate":  "2026-09-15",
+                                                                       "generationDateStatus":  "retained",
+                                                                       "briefStatus":  "verbatim-recovered",
+                                                                       "promptRetention":  "The exact project-owner-approved human generation brief is retained verbatim in the linked provenance record. No separate backend literal prompt is claimed.",
+                                                                       "briefSummary":  "Create one transparent Commission 09 destructive knock-through foreground frame on a 1672 x 941 landscape canvas, using only the two supplied demolition references for material language, with an exposed steel beam above, Acrow props at both sides, damaged floorboards below, canonical #E6EAEB plaster, transparent centre and exterior, and continuous opaque coverage over the hidden rectangular world perimeter.",
+                                                                       "evidence":  [
+                                                                                        "project-owner-approval-2026-09-15",
+                                                                                        "project-owner-candidate-selection-2026-09-15",
+                                                                                        "project-owner-acceptance-2026-09-15"
+                                                                                    ]
+                                                                   },
+                   "silk-commission-09-knockthrough-frame-review-portrait":  {
+                                                                                "model":  "OpenAI image generation (exact model name not exposed in retained tool metadata)",
+                                                                                "modelEvidence":  "retained-tool-result",
+                                                                                "generationId":  "e329396e-7c7a-4097-9c64-8dea4191a069",
+                                                                                "generationIdStatus":  "retained",
+                                                                                "parentGenerationId":  null,
+                                                                                "parentGenerationIdStatus":  "tool-returned-null",
+                                                                                "seed":  null,
+                                                                                "seedStatus":  "not-supplied-by-tool",
+                                                                                "generationDate":  "2026-09-15",
+                                                                                "generationDateStatus":  "retained",
+                                                                                "briefStatus":  "verbatim-recovered",
+                                                                                "promptRetention":  "The project-owner-approved portrait brief is retained verbatim in the linked provenance record. The retained tool invocation exposed a shorter prompt and did not expose a reference-image identifier, so the record does not claim that the backend received the approved reference image or the full human brief literally.",
+                                                                                "briefSummary":  "Create a portrait re-composition of the Commission 09 destructive knock-through frame for mobile use: 941 x 1672, exposed steel beam above, Acrow props at both sides, broken floor line below, canonical #E6EAEB plaster, transparent centre and exterior, and continuous foreground coverage around a hidden portrait viewport. The approved human brief named the landscape Commission 09 frame as the sole visual reference.",
+                                                                                "evidence":  [
+                                                                                                 "project-owner-approval-2026-09-15",
+                                                                                                 "project-owner-candidate-selection-2026-09-15",
+                                                                                                 "project-owner-acceptance-2026-09-15",
+                                                                                                 "retained-tool-result:e329396e-7c7a-4097-9c64-8dea4191a069"
+                                                                                             ]
+                                                                            }
                }
 }

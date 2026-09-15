@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { SilkApertureComposition } from './SilkApertureComposition'
+import { SilkCommission09Composition } from './SilkCommission09Composition'
 import { SilkReactionFrameComposition } from './SilkReactionFrameComposition'
 import { SilkReceiptPeekthroughComposition } from './SilkReceiptPeekthroughComposition'
 import { SilkTraversalComposition } from './SilkTraversalComposition'
@@ -63,9 +64,8 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
           <SilkReactionFrameComposition />
         </ReactionAperturePlacement>
 
-        <HandoffCell data-silk-commission="09" data-silk-scene-cell="09">
-          Commission 09 / assent-marker toss handoff
-          <span>Scene pending</span>
+        <HandoffCell data-silk-aperture-owner="09" data-silk-commission="09" data-silk-scene-cell="09">
+          <SilkCommission09Composition />
         </HandoffCell>
       </Stage>
     </Chapter>

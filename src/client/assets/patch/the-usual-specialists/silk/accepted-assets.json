@@ -238,6 +238,32 @@
       "selection": "current",
       "rightsOwner": "Harley Bartles",
       "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-alcove-world.md"
+    },
+    {
+      "id": "silk-commission-09-knockthrough-frame-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 06_39_56 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-09-knockthrough-frame-review.png",
+      "sha256": "346e91b3a1eef59507515f157ea051e3a89544e031f17bcdbd1621e6c1f37456",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1854816,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-09-silk-knockthrough-frame.md"
+    },
+    {
+      "id": "silk-commission-09-knockthrough-frame-review-portrait",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 07_11_59 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-09-knockthrough-frame-review-portrait.png",
+      "sha256": "3b810b5785d28ba6b9779342a8cfc9d0ab96f8953327d452534774cc18aba335",
+      "width": 941,
+      "height": 1672,
+      "bytes": 2024979,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-09-silk-knockthrough-frame.md"
     }
   ]
 }

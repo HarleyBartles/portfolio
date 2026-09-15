@@ -19,6 +19,10 @@ const COMMISSION_06_PORT_LEFT = `${(SILK_COMMISSION_06_ROPE_PORT.x / SILK_ROPE_V
 const COMMISSION_06_PORT_TOP = `${(SILK_COMMISSION_06_ROPE_PORT.y / SILK_ROPE_VIEWBOX.height) * 100}%`
 const COMMISSION_06_COMPACT_PORT_LEFT = `${(SILK_COMMISSION_06_COMPACT_ROPE_PORT.x / SILK_ROPE_VIEWBOX.width) * 100}%`
 const COMMISSION_06_COMPACT_PORT_TOP = `${(SILK_COMMISSION_06_COMPACT_ROPE_PORT.y / SILK_ROPE_VIEWBOX.height) * 100}%`
+const NARROW_UPPER_ROPE_ANCHOR_OFFSET = 37.3717
+const NARROW_UPPER_ROPE_MATERIAL_HEIGHT = SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth * (2172 / 724)
+const NARROW_UPPER_ROPE_HEIGHT = NARROW_UPPER_ROPE_ANCHOR_OFFSET + NARROW_UPPER_ROPE_MATERIAL_HEIGHT
+const NARROW_ROPE_JOIN_TOP = NARROW_UPPER_ROPE_HEIGHT - 62
 
 type RopeAxisX =
   | { kind: 'absolute-px'; value: number }
@@ -35,7 +39,7 @@ type RopeAxisProps = {
 }
 
 const SILK_ROPE_AXIS = {
-  narrow: { kind: 'percent-plus-px', percent: 4.516, offsetPx: 12.57 },
+  narrow: { kind: 'percent-plus-px', percent: 4.516, offsetPx: 11.82 },
   compactLandscape: { kind: 'percent-plus-px', percent: 4.7144, offsetPx: 7.65 },
   mid: { kind: 'percent-plus-px', percent: 20.9075, offsetPx: 12.8 },
   default: { kind: 'percent-plus-px', percent: 22.1358, offsetPx: 13 },
@@ -106,11 +110,12 @@ const UpperRopePlacement = styled.div`
 
   @media ${specialistsMedia.compactLandscape} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
-    height: calc(${COMMISSION_06_COMPACT_PORT_TOP} + 62px);
+    height: calc(var(--silk-compact-rope-join-top) + 62px);
   }
 
   @media ${specialistsMedia.atMostNarrow} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
+    height: ${NARROW_UPPER_ROPE_HEIGHT}px;
   }
 
   @media ${SILK_1920_TREATMENT_MEDIA} {
@@ -136,6 +141,10 @@ const UpperRopeMaterial = styled.div`
   left: 0;
   transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
   transform-origin: 50% 100%;
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: ${NARROW_UPPER_ROPE_ANCHOR_OFFSET}px;
+  }
 `
 
 const LowerRopePlacement = styled.div`
@@ -153,12 +162,13 @@ const LowerRopePlacement = styled.div`
   }
 
   @media ${specialistsMedia.compactLandscape} {
-    top: ${COMMISSION_06_COMPACT_PORT_TOP};
+    top: var(--silk-compact-rope-join-top);
     width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.terminalEntryOffset}px;
   }
 
   @media ${specialistsMedia.atMostNarrow} {
+    top: ${NARROW_ROPE_JOIN_TOP}px;
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalEntryOffset}px;
   }
@@ -213,7 +223,7 @@ const TraversalPlacement = styled.div`
   }
 
   @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
-    top: 27%;
+    top: var(--silk-compact-traversal-top);
     left: calc(34.0924px + 8.25836vw);
     width: 192px;
   }
@@ -258,7 +268,11 @@ const RopeJoinPort = styled.span`
   }
 
   @media ${specialistsMedia.compactLandscape} {
-    top: ${COMMISSION_06_COMPACT_PORT_TOP};
+    top: var(--silk-compact-rope-join-top);
+  }
+
+  @media ${specialistsMedia.atMostNarrow} {
+    top: ${NARROW_ROPE_JOIN_TOP}px;
   }
 
   @media ${SILK_TRAVERSAL_720_TO_1200_MEDIA} {

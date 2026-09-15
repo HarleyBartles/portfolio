@@ -3,6 +3,12 @@ import {
   SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT,
   SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH,
 } from './silkCommission07ReviewGeometry'
+import {
+  SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT,
+  SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH,
+  SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT,
+  SILK_COMMISSION_08_REVIEW_VIEWPORT,
+} from './silkCommission08ReviewGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
 const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
@@ -17,6 +23,22 @@ const SILK_SEPARATED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
 const SILK_STORY_ABOVE_MEDIA = '(min-width: 1200px) and (max-width: 1799px)'
 const SILK_NARROW_APERTURE_2_BLEED = 1.16
 const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT / SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
+const SILK_COMPACT_REACTION_HALF_HEIGHT = 58
+const SILK_COMPACT_REACTION_VIEWPORT_CENTER_COMPENSATION = (
+  (0.5 - (SILK_COMMISSION_08_REVIEW_VIEWPORT.top / SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT))
+  * (SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT / SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH)
+  * 100
+)
+const SILK_RECONNECTING_REACTION_FRAME_HEIGHT = 700 * (SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT / SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH)
+const SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET = (
+  120 / 2
+  - SILK_RECONNECTING_REACTION_FRAME_HEIGHT / 2
+  + ((SILK_COMMISSION_08_REVIEW_VIEWPORT.bottom + 1) / SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT) * SILK_RECONNECTING_REACTION_FRAME_HEIGHT
+)
+const SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG = 161.63
+const SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO = 941 / 1672
+const SILK_COMPACT_COMMISSION_09_HEIGHT_VW = 116 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO
+const SILK_MID_COMMISSION_09_HEIGHT = 640 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO
 
 export const Chapter = styled.section`
   position: relative;
@@ -27,6 +49,10 @@ export const Chapter = styled.section`
     radial-gradient(circle at 71% 64%, rgb(32 35 31 / 5%) 0 1px, transparent 1.4px),
     var(--color-interior-canvas);
   background-size: 43px 37px, 51px 47px, auto;
+
+  @media ${specialistsMedia.atMostNarrow} {
+    padding-bottom: calc(121.4333vw + 2px);
+  }
 `
 
 export const ChapterNumber = styled.span`
@@ -57,12 +83,42 @@ export const Stage = styled.div`
     --silk-reaction-top: calc(var(--silk-aperture-2-world-bottom) + var(--silk-aperture-world-gutter));
   }
 
+  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+    --silk-reconnecting-lower-gutter: clamp(50px, 5vw, 60px);
+  }
+
+  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+    --silk-separated-lower-shift: 101px;
+  }
+
   @media ${SILK_1920_TREATMENT_MEDIA} {
     min-height: 1580px;
   }
 
   @media ${SILK_LOWER_STAGE_MEDIA} {
     min-height: 1740px;
+  }
+
+  @media ${SILK_NARROW_LOWER_MEDIA} {
+    min-height: calc(
+      var(--silk-reaction-top)
+      + 320px
+      + ${SILK_MID_COMMISSION_09_HEIGHT}px
+      + 20px
+    );
+  }
+
+  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+    min-height: min(
+      1740px,
+      calc(
+        var(--silk-reaction-top)
+        + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET}px
+        + var(--silk-reconnecting-lower-gutter)
+        + ${SILK_MID_COMMISSION_09_HEIGHT}px
+        + 20px
+      )
+    );
   }
 
   @media ${specialistsMedia.atMostCompact} {
@@ -77,10 +133,33 @@ export const Stage = styled.div`
     --silk-compact-aperture-2-world-top: calc(var(--silk-compact-aperture-1-world-bottom) + var(--silk-compact-aperture-world-gutter));
     --silk-compact-aperture-2-top: calc(var(--silk-compact-aperture-2-world-top) - 11.5236vw);
     --silk-compact-aperture-2-world-bottom: calc(var(--silk-compact-aperture-2-top) + 56.3686vw);
-    --silk-compact-reaction-top: calc(var(--silk-compact-aperture-2-world-bottom) + var(--silk-compact-aperture-world-gutter));
+    --silk-compact-reaction-top: calc(
+      var(--silk-compact-aperture-2-world-bottom)
+      + var(--silk-compact-aperture-world-gutter)
+      - ${SILK_COMPACT_REACTION_HALF_HEIGHT}px
+      + ${SILK_COMPACT_REACTION_VIEWPORT_CENTER_COMPENSATION}vw
+    );
+    /* Preserve the accepted percentage-based rope/traversal anchors from the former stage height. */
+    --silk-compact-rope-join-top: calc(
+      275px
+      + 29.822222vw
+      + clamp(0px, calc(73.822222px - 10.266667vw), 33.733333px)
+    );
+    --silk-compact-traversal-top: calc(
+      303.75px
+      + 32.94vw
+      + clamp(0px, calc(81.54px - 11.34vw), 37.26px)
+    );
     --silk-stacked-reaction-top: var(--silk-compact-reaction-top);
+    --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 58px + 21.270407vw);
+    --silk-compact-handoff-from-receipt: 16.320692vw;
     --silk-stacked-row-gap: clamp(24px, 6vw, 44px);
-    min-height: max(1600px, calc(1125px + 122vw + var(--silk-compact-stack-shift)));
+    min-height: calc(
+      var(--silk-compact-receipt-top)
+      + var(--silk-compact-handoff-from-receipt)
+      + ${SILK_COMPACT_COMMISSION_09_HEIGHT_VW}vw
+      + 20px
+    );
   }
 
   @media ${specialistsMedia.atMostNarrow} {
@@ -89,11 +168,22 @@ export const Stage = styled.div`
     --silk-narrow-aperture-gap: 6.75vw;
     --silk-narrow-aperture-2-top: calc(var(--silk-narrow-aperture-1-top) + 174vw + var(--silk-narrow-aperture-gap));
     --silk-narrow-aperture-2-height: ${SILK_NARROW_APERTURE_2_HEIGHT};
-    --silk-narrow-reaction-top: calc(var(--silk-narrow-aperture-2-top) + var(--silk-narrow-aperture-2-height) + var(--silk-narrow-aperture-gap));
     --silk-narrow-row-gap: clamp(20px, 6vw, 24px);
+    --silk-narrow-reaction-visible-shift: calc(58px + 6.6225vw - var(--silk-narrow-row-gap));
+    --silk-narrow-reaction-top: calc(
+      var(--silk-narrow-aperture-2-top)
+      + var(--silk-narrow-aperture-2-height)
+      + var(--silk-narrow-aperture-gap)
+      - var(--silk-narrow-reaction-visible-shift)
+    );
     --silk-narrow-receipt-top: calc(var(--silk-narrow-reaction-top) + 116px + var(--silk-narrow-row-gap));
     --silk-narrow-handoff-top: calc(var(--silk-narrow-receipt-top) + 126px + var(--silk-narrow-row-gap));
-    min-height: calc(var(--silk-narrow-handoff-top) + 56.25vw + 80px);
+    min-height: calc(
+      var(--silk-narrow-handoff-top)
+      + var(--silk-narrow-reaction-visible-shift)
+      + 56.25vw
+      + 80px
+    );
   }
 `
 
@@ -311,13 +401,17 @@ export const ReceiptPeekthrough = styled.div`
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 140px);
+    top: calc(var(--silk-reaction-top) + 212px);
     right: 19%;
     left: auto;
   }
 
   @media ${SILK_RECONNECTING_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 195px + 6.6667vw);
+    top: calc(
+      var(--silk-reaction-top)
+      + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET + SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG}px
+      + var(--silk-reconnecting-lower-gutter)
+    );
     right: auto;
     left: calc(46.6667vw - 420px);
   }
@@ -327,7 +421,7 @@ export const ReceiptPeekthrough = styled.div`
   }
 
   @media ${SILK_SEPARATED_LOWER_MEDIA} {
-    top: 1510px;
+    top: calc(1510px + var(--silk-separated-lower-shift));
     right: auto;
     left: 140px;
   }
@@ -348,7 +442,11 @@ export const ReceiptPeekthrough = styled.div`
   }
 
   @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
-    top: calc(var(--silk-stacked-reaction-top) + 116px + var(--silk-stacked-row-gap));
+    top: var(--silk-compact-receipt-top);
+    right: 19%;
+    left: auto;
+    width: 23.611111vw;
+    height: 19.166667vw;
   }
 `
 
@@ -417,23 +515,8 @@ export const HandoffCell = styled.div`
   z-index: 19;
   top: 1205px;
   right: 6%;
-  display: grid;
-  box-sizing: border-box;
   width: min(52%, 360px);
-  aspect-ratio: 16 / 9;
-  padding: 28px 30px;
-  align-content: center;
-  border: 1px solid rgb(32 35 31 / 38%);
-  background:
-    linear-gradient(135deg, rgb(89 64 51 / 18%), rgb(46 41 37 / 8%)),
-    var(--color-interior-canvas);
-  box-shadow: 8px 10px 0 rgb(32 35 31 / 8%);
-  color: var(--specialists-ink);
-  font-family: var(--font-site-sans);
-  font-size: .74rem;
-  font-weight: 800;
-  letter-spacing: .07em;
-  text-transform: uppercase;
+  aspect-ratio: 1672 / 941;
 
   @media ${SILK_1920_TREATMENT_MEDIA} {
     top: 1200px;
@@ -442,50 +525,45 @@ export const HandoffCell = styled.div`
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 305px);
-    right: 24px;
+    top: calc(var(--silk-reaction-top) + 320px);
+    right: auto;
+    left: 24px;
     width: 640px;
   }
 
   @media ${SILK_RECONNECTING_LOWER_MEDIA} {
-    top: calc(var(--silk-reaction-top) + 60px + 5vw);
+    top: calc(
+      var(--silk-reaction-top)
+      + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET}px
+      + var(--silk-reconnecting-lower-gutter)
+    );
     right: 24px;
     width: 640px;
   }
 
   @media ${SILK_SEPARATED_LOWER_MEDIA} {
-    top: 1360px;
+    top: calc(1360px + var(--silk-separated-lower-shift));
     right: 24px;
-  }
-
-  span {
-    display: block;
-    margin-top: 12px;
-    max-width: 34rem;
-    font-size: .72rem;
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
   }
 
   @media ${specialistsMedia.atMostCompact} {
     top: 1275px;
     right: -5%;
     width: min(84%, 560px);
-    padding: 24px 26px;
   }
 
   @media ${specialistsMedia.atMostNarrow} {
-    top: var(--silk-narrow-handoff-top);
+    top: calc(var(--silk-narrow-handoff-top) - var(--silk-narrow-row-gap));
     right: 0;
     left: 0;
     width: auto;
+    aspect-ratio: 941 / 1672;
   }
 
   @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
-    top: calc(var(--silk-stacked-reaction-top) + 242px + (2 * var(--silk-stacked-row-gap)));
-    right: 10%;
-    left: 10%;
+    top: calc(var(--silk-compact-receipt-top) + var(--silk-compact-handoff-from-receipt));
+    right: 0;
+    left: 0;
     width: auto;
   }
 `

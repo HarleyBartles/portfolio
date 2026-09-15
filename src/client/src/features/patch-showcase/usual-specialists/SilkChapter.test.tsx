@@ -71,6 +71,14 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(commission08?.querySelector('[data-silk-aperture]')).not.toBeInTheDocument()
     expect(commission08Frame).toHaveAttribute('src', expect.stringContaining('silk-commission-08-reaction-frame-review.webp'))
     expect(commission08Frame).toHaveAttribute('alt', '')
+    expect(commission09).toHaveAttribute('data-silk-aperture-owner', '09')
+    const commission09Composition = commission09?.querySelector('[data-silk-commission-09-composition]')
+    const commission09World = commission09Composition?.querySelector('[data-silk-commission-09-standin-world]')
+    const commission09Frame = commission09Composition?.querySelector<HTMLImageElement>('[data-silk-commission-09-frame-review]')
+    expect(commission09Composition).toBeInTheDocument()
+    expect(commission09World).toBeInTheDocument()
+    expect(commission09Frame).toHaveAttribute('src', expect.stringContaining('silk-commission-09-knockthrough-frame-review.webp'))
+    expect(commission09Frame).toHaveAttribute('alt', '')
 
     const story = chapter.querySelector('[data-silk-story-card]')
     expect(story).not.toHaveTextContent('02 / Pressure test')
@@ -102,7 +110,7 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(reactionImage).toHaveAttribute('src', expect.stringContaining('media/homepage/specialists-silk.webp'))
     expect(reactionImage).toHaveAttribute('width', '1983')
     expect(reactionImage).toHaveAttribute('height', '793')
-    expect(commission09).toHaveTextContent('assent-marker toss handoff')
+    expect(commission09).not.toHaveTextContent('Scene pending')
 
     expect(commission05!.compareDocumentPosition(commission07!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
     expect(commission07!.compareDocumentPosition(commission08!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)

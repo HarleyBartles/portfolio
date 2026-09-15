@@ -14,7 +14,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(38)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(40)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -74,9 +74,23 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('keeps the Receipt peek-through art accepted with no live Receipt alcove candidates', () => {
+  it('promotes the mounted Commission 09 frame family into accepted custody', () => {
     expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
     expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: 'silk-commission-09-knockthrough-frame-review',
+        sourcePackage: 'silk',
+        source: 'silk-commission-09-knockthrough-frame-review.png',
+        output: 'silk-commission-09-knockthrough-frame-review.webp',
+        width: 1672,
+      }),
+      expect.objectContaining({
+        id: 'silk-commission-09-knockthrough-frame-review-portrait',
+        sourcePackage: 'silk',
+        source: 'silk-commission-09-knockthrough-frame-review-portrait.png',
+        output: 'silk-commission-09-knockthrough-frame-review-portrait.webp',
+        width: 941,
+      }),
       expect.objectContaining({
         id: 'silk-receipt-hole-peek-cutout-review',
         sourcePackage: 'silk',

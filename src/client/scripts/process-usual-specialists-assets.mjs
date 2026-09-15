@@ -18,7 +18,7 @@ const candidateManifestPaths = Object.freeze({
   silk: path.join(
     acceptedPackageRoots.silk,
     'candidates',
-    'receipt-hole-peek-cutout-review',
+    'commission-09-frame-review',
     'candidate-assets.json',
   ),
 })
@@ -158,6 +158,22 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     source: 'silk-receipt-alcove-world-review.png',
     output: 'silk-receipt-alcove-world-review.webp',
     width: 1254,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-09-knockthrough-frame-review',
+    sourcePackage: 'silk',
+    source: 'silk-commission-09-knockthrough-frame-review.png',
+    output: 'silk-commission-09-knockthrough-frame-review.webp',
+    width: 1672,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-09-knockthrough-frame-review-portrait',
+    sourcePackage: 'silk',
+    source: 'silk-commission-09-knockthrough-frame-review-portrait.png',
+    output: 'silk-commission-09-knockthrough-frame-review-portrait.webp',
+    width: 941,
     format: 'webp',
   },
   {

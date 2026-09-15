@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 const RECEIPT_REVIEW_WORLD_OVERSCAN = 32
 const RECEIPT_REVIEW_SCALE_125_MEDIA = '(max-width: 389px)'
-const RECEIPT_REVIEW_SCALE_16_MEDIA = '(min-width: 390px) and (max-width: 899px), (min-width: 1200px) and (max-width: 1499px), (min-width: 1920px)'
-const RECEIPT_REVIEW_SCALE_25_MEDIA = '(min-width: 900px) and (max-width: 1199px), (min-width: 1500px) and (max-width: 1919px)'
+const RECEIPT_REVIEW_SCALE_16_MEDIA = '(min-width: 390px) and (max-width: 899px), (min-width: 1920px)'
+const RECEIPT_REVIEW_SCALE_25_MEDIA = '(min-width: 900px) and (max-width: 1919px)'
+const RECEIPT_REVIEW_COMPACT_MEDIA = '(min-width: 390px) and (max-width: 719px)'
+const RECEIPT_REVIEW_NARROW_LOWER_MEDIA = '(min-width: 720px) and (max-width: 899px)'
 const RECEIPT_REVIEW_MIRROR_MEDIA = '(min-width: 900px) and (max-width: 1499px)'
-const RECEIPT_PEEK_CUTOUT_SCALE_07_MEDIA = '(max-width: 1199px), (min-width: 1500px) and (max-width: 1919px)'
+const RECEIPT_PEEK_CUTOUT_SCALE_07_MEDIA = '(max-width: 1919px)'
 const RECEIPT_PEEK_CUTOUT_MIRROR_OFFSET_62_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
 
 export const Composition = styled.div`
@@ -35,6 +37,16 @@ export const FrameCanvas = styled.div`
 
   @media ${RECEIPT_REVIEW_SCALE_25_MEDIA} {
     transform: translate(-50%, -50%) scale(2.5);
+  }
+
+  @media ${RECEIPT_REVIEW_COMPACT_MEDIA} {
+    top: calc(50% - 7.083333vw);
+    left: calc(50% + 2.222222vw);
+  }
+
+  @media ${RECEIPT_REVIEW_NARROW_LOWER_MEDIA} {
+    top: calc(50% - 51px);
+    left: calc(50% + 16px);
   }
 `
 
