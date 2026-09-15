@@ -193,7 +193,7 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
-  const [commission08Candidates, receiptPeekthroughCandidates] = await Promise.all([
+  const [commission08Candidates, receiptPeekthroughCandidates, receiptHolePeekCutoutCandidates] = await Promise.all([
     readJson(
       path.join(
         specialistsRoot,
@@ -214,12 +214,23 @@ export const validateUsualSpecialistsProvenance = async () => {
       ),
       'Usual Specialists silk receipt peek-through candidate manifest',
     ),
+    readJson(
+      path.join(
+        specialistsRoot,
+        'silk',
+        'candidates',
+        'receipt-hole-peek-cutout-review',
+        'candidate-assets.json',
+      ),
+      'Usual Specialists silk receipt-hole peek cutout candidate manifest',
+    ),
   ])
   const candidateManifests = {
     silk: {
       assets: [
         ...commission08Candidates.assets,
         ...receiptPeekthroughCandidates.assets,
+        ...receiptHolePeekCutoutCandidates.assets,
       ],
     },
   }

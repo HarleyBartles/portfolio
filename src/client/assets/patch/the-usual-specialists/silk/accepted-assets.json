@@ -212,6 +212,19 @@
       "selection": "current",
       "rightsOwner": "Harley Bartles",
       "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-peekthrough-frame.md"
+    },
+    {
+      "id": "silk-receipt-hole-peek-cutout-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 02_47_29 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-hole-peek-cutout-review.png",
+      "sha256": "f9d8ee3f3734843e532d3b0df03beb634338456281e488936ade544f31ffa57d",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 1652158,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-hole-peek-cutout.md"
     }
   ]
 }

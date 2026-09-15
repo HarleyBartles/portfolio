@@ -513,13 +513,14 @@ test('The Usual Specialists holds the 1920 Silk treatment from 1200 then interpo
     const receiptStyles = await silk.locator('[data-silk-receipt-peekthrough]').evaluate((element) => {
       const styles = getComputedStyle(element)
       const matrix = new DOMMatrix(styles.transform)
+      const frameCanvas = element.querySelector<HTMLElement>('[data-silk-receipt-frame-canvas]')
       return {
         left: Number.parseFloat(styles.left),
         right: Number.parseFloat(styles.right),
         width: Number.parseFloat(styles.width),
         height: Number.parseFloat(styles.height),
         scale: Math.hypot(matrix.a, matrix.b),
-        zIndex: Number.parseInt(styles.zIndex, 10),
+        zIndex: Number.parseInt(getComputedStyle(frameCanvas!).zIndex, 10),
       }
     })
     const storyTop = await silk.locator('[data-silk-story-card]').evaluate((element) => Number.parseFloat(getComputedStyle(element).top))
@@ -656,6 +657,7 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
         const styles = getComputedStyle(element)
         const matrix = new DOMMatrix(styles.transform)
         const box = element.getBoundingClientRect()
+        const frameCanvas = element.querySelector<HTMLElement>('[data-silk-receipt-frame-canvas]')
         return {
           top: Number.parseFloat(styles.top),
           left: Number.parseFloat(styles.left),
@@ -663,7 +665,7 @@ test('The Usual Specialists switches Silk lower-half composition at 900 and reco
           width: Number.parseFloat(styles.width),
           height: Number.parseFloat(styles.height),
           scale: Math.hypot(matrix.a, matrix.b),
-          zIndex: Number.parseInt(styles.zIndex, 10),
+          zIndex: Number.parseInt(getComputedStyle(frameCanvas!).zIndex, 10),
           x: box.x,
           y: box.y,
           renderedWidth: box.width,
@@ -1108,7 +1110,7 @@ test('The Usual Specialists stacks Silk Commission 08, receipt, and Commission 0
       .toBeGreaterThanOrEqual(reactionBox!.y + reactionBox!.height)
     const [reactionZIndex, receiptZIndex, handoffZIndex, ropeZIndex] = await Promise.all([
       reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
-      receipt.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      receipt.locator('[data-silk-receipt-frame-canvas]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       silk.locator('[data-silk-traversal-composition]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
     ])
@@ -1193,7 +1195,7 @@ test('The Usual Specialists uses a fully stacked narrow Silk composition from 32
 
     const [reactionZIndex, receiptZIndex, handoffZIndex, ropeZIndex] = await Promise.all([
       reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
-      receipt.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      receipt.locator('[data-silk-receipt-frame-canvas]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       silk.locator('[data-silk-traversal-composition]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
     ])
@@ -2075,6 +2077,61 @@ test('The Usual Specialists moves the striped receipt stand-in behind a page-loc
   expect(Math.abs(after.frame.offsetY - before.frame.offsetY)).toBeLessThanOrEqual(0.5)
   expect(Math.abs(after.frame.width - before.frame.width)).toBeLessThanOrEqual(0.5)
   expect(Math.abs(after.frame.height - before.frame.height)).toBeLessThanOrEqual(0.5)
+})
+
+test('The Usual Specialists locks Silk to the receipt hole with authored scale bands and mirrors only from 900 through 1499', async ({ page }) => {
+  for (const width of [320, 390, 719, 720, 899, 900, 1199, 1200, 1499, 1500, 1919, 1920, 2560] as const) {
+    await page.setViewportSize({ width, height: 1200 })
+    await page.goto(specialistsPreviewPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    const cutout = silk.locator('[data-silk-receipt-peek-cutout]')
+    const cutoutLayer = silk.locator('[data-silk-receipt-peek-cutout-layer]')
+    const frameCanvas = silk.locator('[data-silk-receipt-frame-canvas]')
+    const reaction = silk.locator('[data-silk-commission="08"]')
+    const handoff = silk.locator('[data-silk-commission="09"]')
+    const rope = silk.locator('[data-silk-traversal-composition]')
+
+    await cutout.scrollIntoViewIfNeeded()
+    await expect(cutout).toBeVisible()
+    await expect(cutout).toHaveAttribute('src', /silk-receipt-hole-peek-cutout-review\.webp$/)
+
+    const [cutoutBox, frameBox, cutoutLayerWidth, cutoutStyles, layerZ, reactionZ, handoffZ, ropeZ] = await Promise.all([
+      cutout.boundingBox(),
+      frameCanvas.boundingBox(),
+      cutoutLayer.evaluate((element) => element.clientWidth),
+      cutout.evaluate((element) => {
+        const styles = getComputedStyle(element)
+        return {
+          left: Number.parseFloat(styles.left),
+          right: Number.parseFloat(styles.right),
+          scale: styles.scale === 'none' ? 1 : Number.parseFloat(styles.scale),
+          matrixA: new DOMMatrix(styles.transform).a,
+        }
+      }),
+      cutoutLayer.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      rope.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+    ])
+    expect(cutoutBox).not.toBeNull()
+    expect(frameBox).not.toBeNull()
+
+    const mirrored = width >= 900 && width <= 1499
+    const expectedScale = width <= 1199 || (width >= 1500 && width <= 1919) ? 0.7 : 1
+    expect(cutoutStyles.scale).toBeCloseTo(expectedScale, 2)
+
+    const expectedOffset = width >= 1200 && width <= 1499 ? -0.62 : -0.52
+    const actualOffset = mirrored
+      ? cutoutStyles.right / cutoutLayerWidth
+      : cutoutStyles.left / cutoutLayerWidth
+    expect(actualOffset).toBeCloseTo(expectedOffset, 2)
+
+    expect(Math.sign(cutoutStyles.matrixA)).toBe(mirrored ? -1 : 1)
+    expect(layerZ).toBeGreaterThan(reactionZ)
+    expect(layerZ).toBeGreaterThan(handoffZ)
+    expect(layerZ).toBeGreaterThan(ropeZ)
+  }
 })
 test('The Usual Specialists has no authored composition transition at 620', async ({ page }) => {
   const specialistsPath = specialistsPreviewPath

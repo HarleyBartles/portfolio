@@ -240,7 +240,28 @@
                                                                                   "project-owner-candidate-selection-2026-09-15",
                                                                                   "project-owner-acceptance-2026-09-15",
                                                                                   "retained-tool-result:da9b0bf3-2ff2-4efb-b59b-0499d85cd9c1"
-                                                                              ]
-                                                             }
+                                                                               ]
+                                                             },
+                   "silk-receipt-hole-peek-cutout-review":  {
+                                                               "model":  "OpenAI Image 2.5",
+                                                               "modelEvidence":  "retained-tool-result",
+                                                               "generationId":  "5a5fa5b7-7bb7-45f5-b197-5c335ba4d72e",
+                                                               "generationIdStatus":  "retained",
+                                                               "parentGenerationId":  null,
+                                                               "parentGenerationIdStatus":  "tool-returned-null",
+                                                               "seed":  null,
+                                                               "seedStatus":  "not-supplied-by-tool",
+                                                               "generationDate":  "2026-09-15",
+                                                               "generationDateStatus":  "retained",
+                                                               "briefStatus":  "normalized-from-approved-conversation",
+                                                               "promptRetention":  "The project-owner-approved human brief is retained in normalized form in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend literal prompt is claimed.",
+                                                               "briefSummary":  "Render regulated Silk v1 as an isolated transparent compact inspection cutout, leaning her hooded head and optionally one hand across an imaginary circular Receipt-hole boundary, with canonical grey workwear, one antenna and red-thread reel pack, no environment or rope, and no readable text so the asset remains horizontally mirrorable.",
+                                                               "evidence":  [
+                                                                                "project-owner-approval-2026-09-15",
+                                                                                "project-owner-candidate-selection-2026-09-15",
+                                                                                "project-owner-acceptance-2026-09-15",
+                                                                                "retained-tool-result:5a5fa5b7-7bb7-45f5-b197-5c335ba4d72e"
+                                                                            ]
+                                                           }
                }
 }

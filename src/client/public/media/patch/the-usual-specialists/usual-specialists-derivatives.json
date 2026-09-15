@@ -459,6 +459,24 @@
       "outputSha256": "3b8b7e668c54a27352960adefa2f1a5e0c72f5b42617a50603f4a71e1863d7c0"
     },
     {
+      "id": "silk-receipt-hole-peek-cutout-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-hole-peek-cutout-review.png",
+      "sourceSha256": "f9d8ee3f3734843e532d3b0df03beb634338456281e488936ade544f31ffa57d",
+      "output": "silk-receipt-hole-peek-cutout-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-receipt-hole-peek-cutout-review.webp",
+      "width": 720,
+      "height": 900,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 100756,
+      "outputSha256": "2340c86d94478b9987b760547e65a09796f0cad67a0471c598c58bdb929ea4e9"
+    },
+    {
       "id": "silk-index-crossing-anchor-ring",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
       "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",

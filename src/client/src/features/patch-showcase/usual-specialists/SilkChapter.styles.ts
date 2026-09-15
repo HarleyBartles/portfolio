@@ -297,34 +297,29 @@ export const BreachAperturePlacement = styled.div`
 
 export const ReceiptPeekthrough = styled.div`
   position: absolute;
-  z-index: 6;
   top: 824px;
   right: 11%;
   display: grid;
   width: 170px;
   height: 138px;
   place-items: center;
-  transform: rotate(3deg);
 
   @media ${SILK_1920_TREATMENT_MEDIA} {
     top: 1035px;
     right: clamp(50px, calc(-1480px + 79.6875vw), 560px);
     left: auto;
-    transform: rotate(3deg);
   }
 
   @media ${SILK_NARROW_LOWER_MEDIA} {
     top: calc(var(--silk-reaction-top) + 140px);
     right: 19%;
     left: auto;
-    transform: rotate(3deg);
   }
 
   @media ${SILK_RECONNECTING_LOWER_MEDIA} {
     top: calc(var(--silk-reaction-top) + 195px + 6.6667vw);
     right: auto;
     left: calc(46.6667vw - 420px);
-    transform: rotate(3deg);
   }
 
   @media ${SILK_STACKED_LOWER_MEDIA} {

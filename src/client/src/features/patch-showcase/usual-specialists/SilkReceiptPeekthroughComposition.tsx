@@ -3,6 +3,9 @@ import {
   Composition,
   FrameCanvas,
   FrameImage,
+  PeekCutoutImage,
+  PeekCutoutLayer,
+  ReceiptPlane,
   StandinWorld,
   WorldViewport,
 } from './SilkReceiptPeekthroughComposition.styles'
@@ -34,22 +37,34 @@ export const SilkReceiptPeekthroughComposition = ({
   return (
     <Composition data-silk-receipt-peekthrough-composition ref={rootRef} style={style}>
       <FrameCanvas data-silk-receipt-frame-canvas>
-        <WorldViewport data-silk-receipt-world-viewport ref={viewportRef}>
-          <StandinWorld
+        <ReceiptPlane data-silk-receipt-plane>
+          <WorldViewport data-silk-receipt-world-viewport ref={viewportRef}>
+            <StandinWorld
+              aria-hidden="true"
+              data-silk-receipt-standin-world
+              ref={(node) => { worldRef.current = node }}
+            />
+          </WorldViewport>
+          <FrameImage
+            src={usualSpecialistsAssetPath('silk-receipt-peekthrough-frame-review.webp')}
+            width="1254"
+            height="1254"
+            alt=""
             aria-hidden="true"
-            data-silk-receipt-standin-world
-            ref={(node) => { worldRef.current = node }}
+            data-silk-receipt-frame-review
           />
-        </WorldViewport>
-        <FrameImage
-          src={usualSpecialistsAssetPath('silk-receipt-peekthrough-frame-review.webp')}
-          width="1254"
-          height="1254"
+        </ReceiptPlane>
+      </FrameCanvas>
+      <PeekCutoutLayer data-silk-receipt-peek-cutout-layer>
+        <PeekCutoutImage
+          src={usualSpecialistsAssetPath('silk-receipt-hole-peek-cutout-review.webp')}
+          width="720"
+          height="900"
           alt=""
           aria-hidden="true"
-          data-silk-receipt-frame-review
+          data-silk-receipt-peek-cutout
         />
-      </FrameCanvas>
+      </PeekCutoutLayer>
     </Composition>
   )
 }

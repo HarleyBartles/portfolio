@@ -14,7 +14,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(36)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(37)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -74,9 +74,16 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('promotes the reviewed receipt peek-through frame into accepted custody', () => {
+  it('keeps the receipt-hole Silk cutout in accepted custody', () => {
     expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
     expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: 'silk-receipt-hole-peek-cutout-review',
+        sourcePackage: 'silk',
+        source: 'silk-receipt-hole-peek-cutout-review.png',
+        output: 'silk-receipt-hole-peek-cutout-review.webp',
+        width: 720,
+      }),
       expect.objectContaining({
         id: 'silk-receipt-peekthrough-frame-review',
         sourcePackage: 'silk',
