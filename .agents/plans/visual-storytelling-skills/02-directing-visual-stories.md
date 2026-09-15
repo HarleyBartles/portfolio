@@ -62,24 +62,24 @@ and repo standards.
 **Produces:** A discoverable synthesis-skill skeleton with explicit custody and
 future field-learning surface.
 
-- [ ] Add `directing-visual-stories` exactly to `repo.local_skills`.
-- [ ] Write frontmatter and a compact entrypoint describing when the agent should
+- [x] Add `directing-visual-stories` exactly to `repo.local_skills`.
+- [x] Write frontmatter and a compact entrypoint describing when the agent should
   direct visual storytelling, not how to generate images or implement a page.
-- [ ] Add the audience-change thesis, scale/contract classification, required
+- [x] Add the audience-change thesis, scale/contract classification, required
   decisions, primary/supporting-family rule, and terminal output choices.
-- [ ] Add a problem-to-reference routing table with planned links until later tasks
+- [x] Add a problem-to-reference routing table with planned links until later tasks
   author the files.
-- [ ] Record each web-spike source in `CITATIONS.md` with title, author/organisation,
+- [x] Record each web-spike source in `CITATIONS.md` with title, author/organisation,
   canonical URL, retrieval date `2026-09-15`, and operational lesson. Mark all prose
   as first-party synthesis; no inline citations in operational references.
-- [ ] Reconcile `authority.yaml` and `source-map.yaml` using `first_party_synthesis`
+- [x] Reconcile `authority.yaml` and `source-map.yaml` using `first_party_synthesis`
   entries pointing to the research references and the citation authority surface.
-- [ ] Add UI metadata that describes creative direction and does not claim generation,
+- [x] Add UI metadata that describes creative direction and does not claim generation,
   frontend implementation, or game implementation.
-- [ ] Add a field-trial note template for real Usual Specialists use: problem,
+- [x] Add a field-trial note template for real Usual Specialists use: problem,
   audience change, selected routes, direction, accepted/rejected decisions, survival,
   friction, and portable lesson.
-- [ ] Run quick validation, refresh apply/check, mesh apply, and diff check.
+- [x] Run quick validation, refresh apply/check, mesh apply, and diff check.
 
 ---
 
@@ -103,22 +103,22 @@ comics findings in the spike.
 **Produces:** Problem-routed frame vocabulary that handles frame-within-frame,
 three-plane focus, close crops, negative space, and visual evidence.
 
-- [ ] Define object/frame/field/sequence and directed/guided/exploratory contracts;
+- [x] Define object/frame/field/sequence and directed/guided/exploratory contracts;
   require the containing field to be considered for every subordinate frame.
-- [ ] Cover crop, shot scale, viewpoint, perspective, aspect/boundary, short-side
+- [x] Cover crop, shot scale, viewpoint, perspective, aspect/boundary, short-side
   pressure, off-frame implication, and negative space as conditional story choices.
-- [ ] Cover visual weight, leading vectors, gaze, contrast, first/second/final read,
+- [x] Cover visual weight, leading vectors, gaze, contrast, first/second/final read,
   and how detail density can guide without becoming noise.
-- [ ] Cover foreground/middle-ground/background, deep focus, shallow focus, rack
+- [x] Cover foreground/middle-ground/background, deep focus, shallow focus, rack
   focus, split-field focus, occlusion, and spatial causality.
-- [ ] Cover lighting source/motivation, direction, quality, falloff, shadow,
+- [x] Cover lighting source/motivation, direction, quality, falloff, shadow,
   selective visibility, palette roles, and state cues. Reject “cinematic lighting”
   as an actionable brief.
-- [ ] Cover frame-within-frame, repoussoir, barriers, reflections, apertures,
+- [x] Cover frame-within-frame, repoussoir, barriers, reflections, apertures,
   observation, confinement, detail, insert, reaction, motif, and visual synecdoche.
-- [ ] Build the canonical index with story function, canonical practice/work, what to
+- [x] Build the canonical index with story function, canonical practice/work, what to
   inspect, what not to imitate, routed references, and source links.
-- [ ] Extend the router with precise problem routes and no duplicated teaching.
+- [x] Extend the router with precise problem routes and no duplicated teaching.
 
 ---
 
@@ -139,21 +139,21 @@ game, tile, and Amiga findings in the spike.
 **Produces:** Full-page and world composition guidance that translates creative
 industry grammar without surface imitation.
 
-- [ ] Cover page/spread unity, background matte with inset panels, splash/super-panel,
+- [x] Cover page/spread unity, background matte with inset panels, splash/super-panel,
   polyptych, continuous narrative, montage, editorial voices, grid infrastructure,
   density rhythm, interruption, text as spatial actor, and reveal/page-turn analogues.
-- [ ] Cover tableau, blocking, levels, proximity, grouping, gaze, entrances/exits,
+- [x] Cover tableau, blocking, levels, proximity, grouping, gaze, entrances/exits,
   cues, poetic space, and proscenium/thrust/in-the-round/promenade relationships.
-- [ ] Cover anime layout as an integrated shot blueprint, key poses, readable
+- [x] Cover anime layout as an integrated shot blueprint, key poses, readable
   silhouettes, selective motion, held frames, environmental intervals, compositing,
   and event-specific deformation.
-- [ ] Cover spatial cinematography, observation points, landmarks, attention relays,
+- [x] Cover spatial cinematography, observation points, landmarks, attention relays,
   thresholds, vistas, compression/release, loops/returns, environmental evidence,
   agency, and world/interface relationship.
-- [ ] Cover tile repetition and exception, sprite/silhouette discipline, limited
+- [x] Cover tile repetition and exception, sprite/silhouette discipline, limited
   palette roles, palette swapping, parallax, bitplane-like semantic layers, colour
   cycling, and regional display rules. Keep implementation mechanics downstream.
-- [ ] Extend the router with page, sequence, stage, exploratory-world, tile, palette,
+- [x] Extend the router with page, sequence, stage, exploratory-world, tile, palette,
   and constraint-led routes.
 
 ---
@@ -174,23 +174,23 @@ industry grammar without surface imitation.
 **Produces:** Concrete frame, page, and world directions with safe downstream
 handoffs.
 
-- [ ] Define the frame-direction output: audience change, beat, subject hierarchy,
+- [x] Define the frame-direction output: audience change, beat, subject hierarchy,
   crop, viewpoint, perspective, depth, focus, attention path, light, palette,
   motion/stillness, off-frame implication, rationale, and avoid list.
-- [ ] Define the image handoff: `directing-visual-stories` settles creative choices;
+- [x] Define the image handoff: `directing-visual-stories` settles creative choices;
   `generating-images` translates, executes, inspects, and reports custody. Preserve
   the exact input fields and invariant ledger boundary.
-- [ ] Define the page-direction output: page story, field form, entry/dominant field,
+- [x] Define the page-direction output: page story, field form, entry/dominant field,
   subordinate frames/voices, text-as-space, rhythm, transitions, closing field, and
   responsive/accessibility survival requirements.
-- [ ] Define the interactive-world output: participant story, agency contract,
+- [x] Define the interactive-world output: participant story, agency contract,
   object/viewport/scene/world scales, observation points, landmarks, routes,
   thresholds, environmental evidence, changed state, light/palette, motion, and
   interface relationship.
-- [ ] Define finite evaluation checks for story, hierarchy, orientation, frame,
+- [x] Define finite evaluation checks for story, hierarchy, orientation, frame,
   field, lighting/colour, sequence, interaction, truth, custody, and medium-translation
   integrity. Require thumbnail/reduced-detail review where relevant.
-- [ ] Complete the entrypoint's final routing table and keep all references selective.
+- [x] Complete the entrypoint's final routing table and keep all references selective.
 
 ---
 
@@ -204,12 +204,12 @@ handoffs.
 **Produces:** A structurally valid, source-cited creative-direction skill ready for
 real Portfolio field use.
 
-- [ ] Read the complete skill as a future image-brief author, page director, and
+- [x] Read the complete skill as a future image-brief author, page director, and
   interactive-world director. Correct circular ownership, unbounded reference
   loading, medium imitation, implementation leakage, and ambiguous terminal states.
-- [ ] Verify citation URLs, retrieval date, authority/source-map reconciliation,
+- [x] Verify citation URLs, retrieval date, authority/source-map reconciliation,
   absence of vendored protected media, and exact local manifest membership.
-- [ ] Run:
+- [x] Run:
 
   ```powershell
   py -3 C:/Users/hbart/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/directing-visual-stories
