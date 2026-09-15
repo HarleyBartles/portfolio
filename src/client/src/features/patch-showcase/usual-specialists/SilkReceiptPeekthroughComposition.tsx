@@ -6,7 +6,7 @@ import {
   PeekCutoutImage,
   PeekCutoutLayer,
   ReceiptPlane,
-  StandinWorld,
+  WorldImage,
   WorldViewport,
 } from './SilkReceiptPeekthroughComposition.styles'
 import { useSilkApertureParallax } from './useSilkApertureParallax'
@@ -39,9 +39,13 @@ export const SilkReceiptPeekthroughComposition = ({
       <FrameCanvas data-silk-receipt-frame-canvas>
         <ReceiptPlane data-silk-receipt-plane>
           <WorldViewport data-silk-receipt-world-viewport ref={viewportRef}>
-            <StandinWorld
+            <WorldImage
+              src={usualSpecialistsAssetPath('silk-receipt-alcove-world-review.webp')}
+              width="1254"
+              height="1254"
               aria-hidden="true"
-              data-silk-receipt-standin-world
+              alt=""
+              data-silk-receipt-world-image
               ref={(node) => { worldRef.current = node }}
             />
           </WorldViewport>

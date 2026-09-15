@@ -193,7 +193,11 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
-  const [commission08Candidates, receiptPeekthroughCandidates, receiptHolePeekCutoutCandidates] = await Promise.all([
+  const [
+    commission08Candidates,
+    receiptPeekthroughCandidates,
+    receiptHolePeekCutoutCandidates,
+  ] = await Promise.all([
     readJson(
       path.join(
         specialistsRoot,

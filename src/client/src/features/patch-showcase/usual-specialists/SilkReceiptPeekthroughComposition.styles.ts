@@ -77,19 +77,16 @@ export const WorldViewport = styled.div`
   border-radius: 50%;
 `
 
-export const StandinWorld = styled.div`
+export const WorldImage = styled.img`
   position: absolute;
   top: -${RECEIPT_REVIEW_WORLD_OVERSCAN}px;
   right: 0;
   left: 0;
   height: calc(100% + ${RECEIPT_REVIEW_WORLD_OVERSCAN * 2}px);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #26343b 0 12px,
-    #26343b 12px 24px,
-    #d6b56f 24px 36px,
-    #d6b56f 36px 48px
-  );
+  width: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 50%;
   will-change: transform;
 
   @media (prefers-reduced-motion: reduce) {

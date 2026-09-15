@@ -262,6 +262,28 @@
                                                                                 "project-owner-acceptance-2026-09-15",
                                                                                 "retained-tool-result:5a5fa5b7-7bb7-45f5-b197-5c335ba4d72e"
                                                                             ]
+                                                           },
+                   "silk-receipt-alcove-world-review":  {
+                                                               "model":  "OpenAI Image 2.5",
+                                                               "modelEvidence":  "retained-tool-result",
+                                                               "generationId":  "7fece7db-5f53-4437-88e8-634b9e39d720",
+                                                               "generationIdStatus":  "retained",
+                                                               "parentGenerationId":  null,
+                                                               "parentGenerationIdStatus":  "tool-returned-null",
+                                                               "seed":  null,
+                                                               "seedStatus":  "not-supplied-by-tool",
+                                                               "generationDate":  "2026-09-15",
+                                                               "generationDateStatus":  "retained",
+                                                               "briefStatus":  "normalized-from-approved-conversation",
+                                                               "promptRetention":  "The project-owner-approved generation direction is retained in normalized form in the linked provenance record. The generation result exposed an empty prompt metadata field, so no distinct backend literal prompt is claimed.",
+                                                               "briefSummary":  "Keep Receipt facing outward at his station and move the camera into the rear wall of the alcove, looking diagonally down over his shoulder toward the workbench and the open side beyond. Make the workbench, files, audit tools and warm task-lit environment the subject; show Receipt mainly from behind through his white upper casing, single antenna, burgundy knit vest and absorbed posture; reveal only enough cooler hallway beyond the counter to prove the alcove opens into a larger interior.",
+                                                               "evidence":  [
+                                                                                "project-owner-approval-2026-09-15",
+                                                                                "project-owner-candidate-selection-2026-09-15",
+                                                                                "project-owner-qa-2026-09-15",
+                                                                                "project-owner-acceptance-2026-09-15",
+                                                                                "retained-tool-result:7fece7db-5f53-4437-88e8-634b9e39d720"
+                                                                            ]
                                                            }
                }
 }

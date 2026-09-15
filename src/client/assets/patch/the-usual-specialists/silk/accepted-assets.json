@@ -225,6 +225,19 @@
       "selection": "current",
       "rightsOwner": "Harley Bartles",
       "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-hole-peek-cutout.md"
+    },
+    {
+      "id": "silk-receipt-alcove-world-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 05_29_01 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-receipt-alcove-world-review.png",
+      "sha256": "328738a6fc8d6afccfa420db0b311683e2cbce5f9cb2873c261213c6e3993920",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1950029,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/silk-receipt-alcove-world.md"
     }
   ]
 }

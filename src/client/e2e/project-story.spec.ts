@@ -2031,22 +2031,23 @@ test('The Usual Specialists moves only the service-corridor world behind the sec
   expect(Math.abs(after.frame.height - before.frame.height)).toBeLessThanOrEqual(0.5)
 })
 
-test('The Usual Specialists moves the striped receipt stand-in behind a page-locked circular frame', async ({ page }) => {
+test('The Usual Specialists moves the Receipt alcove world behind a page-locked circular frame', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto(specialistsPreviewPath)
 
   const composition = page.locator('[data-silk-receipt-peekthrough] [data-silk-receipt-peekthrough-composition]')
-  const world = composition.locator('[data-silk-receipt-standin-world]')
+  const world = composition.locator('[data-silk-receipt-world-image]')
   const frame = composition.locator('[data-silk-receipt-frame-review]')
   await composition.scrollIntoViewIfNeeded()
   await expect(composition).toBeVisible()
+  await expect(world).toHaveAttribute('src', /silk-receipt-alcove-world-review\.webp$/)
   await expect(frame).toHaveAttribute('src', /silk-receipt-peekthrough-frame-review\.webp$/)
 
   const capture = async () => {
     await expect.poll(() => world.getAttribute('data-silk-parallax-offset')).not.toBeNull()
     return composition.evaluate((element) => {
-      const world = element.querySelector<HTMLElement>('[data-silk-receipt-standin-world]')!
+      const world = element.querySelector<HTMLElement>('[data-silk-receipt-world-image]')!
       const frame = element.querySelector<HTMLElement>('[data-silk-receipt-frame-review]')!
       const root = element.getBoundingClientRect()
       const frameBox = frame.getBoundingClientRect()

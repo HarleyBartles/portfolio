@@ -153,6 +153,14 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     format: 'webp',
   },
   {
+    id: 'silk-receipt-alcove-world-review',
+    sourcePackage: 'silk',
+    source: 'silk-receipt-alcove-world-review.png',
+    output: 'silk-receipt-alcove-world-review.webp',
+    width: 1254,
+    format: 'webp',
+  },
+  {
     id: 'silk-index-crossing-anchor-ring',
     sourcePackage: 'silk',
     source: 'silk-index-crossing-anchor-ring.png',
@@ -269,7 +277,8 @@ const loadCustodiedSources = async () => {
       manifestPath,
       `Usual Specialists ${packageName} ${custody} source manifest`,
     )
-    if (!Array.isArray(manifest.assets) || manifest.assets.length !== packageAssets.length) {
+    if (!Array.isArray(manifest.assets)) fail(`Usual Specialists ${packageName} ${custody} source manifest is malformed.`)
+    if (custody !== 'candidate' && manifest.assets.length !== packageAssets.length) {
       fail(`Usual Specialists ${packageName} ${custody} source manifest must contain ${packageAssets.length} assets.`)
     }
     const byId = new Map(manifest.assets.map((entry) => [entry.id, entry]))

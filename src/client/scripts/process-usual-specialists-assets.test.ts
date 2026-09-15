@@ -14,7 +14,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(37)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(38)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -74,7 +74,7 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('keeps the receipt-hole Silk cutout in accepted custody', () => {
+  it('keeps the Receipt peek-through art accepted with no live Receipt alcove candidates', () => {
     expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
     expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
       expect.objectContaining({
@@ -89,6 +89,13 @@ describe('Usual Specialists asset processor', () => {
         sourcePackage: 'silk',
         source: 'silk-receipt-peekthrough-frame-review.png',
         output: 'silk-receipt-peekthrough-frame-review.webp',
+        width: 1254,
+      }),
+      expect.objectContaining({
+        id: 'silk-receipt-alcove-world-review',
+        sourcePackage: 'silk',
+        source: 'silk-receipt-alcove-world-review.png',
+        output: 'silk-receipt-alcove-world-review.webp',
         width: 1254,
       }),
       expect.objectContaining({
