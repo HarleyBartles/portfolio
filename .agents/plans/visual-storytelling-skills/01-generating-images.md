@@ -53,6 +53,7 @@ manifest, Portfolio mesh and validation commands, and later Portfolio field tria
 - Modify: `.agents/runbooks/skill-authoring.md`
 - Modify: `.agents/doctrine/mesh-policy.md`
 - Modify: `.agents/doctrine/marketplace-custody-policy.md`
+- Modify: `.agents/skills/writing-skills/references/local-and-marketplace-custody.md`
 - Regenerate: affected `.agents/**/INDEX.md` files
 
 **Consumes:** Current authority in
@@ -62,16 +63,16 @@ manifest, Portfolio mesh and validation commands, and later Portfolio field tria
 **Produces:** One consistent rule: a repo-owned skill may use any valid exact name;
 explicit membership in `repo.local_skills` is the custody boundary.
 
-- [ ] Capture stale claims with:
+- [x] Capture stale claims with:
 
   ```powershell
   rg -n "port-\*|port-<name>|tracked local `port-`|prefix" .agents/runbooks/skill-authoring.md .agents/doctrine/mesh-policy.md .agents/doctrine/marketplace-custody-policy.md
   ```
 
-- [ ] Replace prefix requirements with `.agents/skills/<skill-name>/` and exact
+- [x] Replace prefix requirements with `.agents/skills/<skill-name>/` and exact
   `repo.local_skills` membership. Preserve marketplace provenance and pruning rules.
-- [ ] Run `py -3 tools/run.py mesh --apply` and `git diff --check`.
-- [ ] Stage only the doctrine/runbook/generated index changes and commit through the
+- [x] Run `py -3 tools/run.py mesh --apply` and `git diff --check`.
+- [x] Stage only the doctrine/runbook/generated index changes and commit through the
   normal hook as `docs: align local skill custody with exact names`.
 
 ---
@@ -86,6 +87,9 @@ explicit membership in `repo.local_skills` is the custody boundary.
 - Create: `.agents/skills/generating-images/agents/openai.yaml`
 - Create: `.agents/skills/generating-images/assets/field-trial-notes.md`
 - Create: `.agents/skills/generating-images/assets/authority/CITATIONS.md`
+- Create: `.agents/skills/generating-images/assets/authority/authority.yaml`
+- Create: `.agents/skills/generating-images/assets/authority/source-map.yaml`
+- Create: `.agents/skills/generating-images/assets/authority/reference-source/openai-imagegen/SKILL.md`
 - Modify: `.agents/plugins/marketplace.json`
 - Regenerate: `.agents/skills/.provenance.json` and affected indexes
 
@@ -94,23 +98,27 @@ current repo skill metadata and manifest contracts.
 
 **Produces:** A discoverable, licensed local skill skeleton with an honest boundary.
 
-- [ ] Add `generating-images` exactly to `repo.local_skills` before refresh.
-- [ ] Write a compact `SKILL.md` router with trigger-only description, scope,
+- [x] Add `generating-images` exactly to `repo.local_skills` before refresh.
+- [x] Write a compact `SKILL.md` router with trigger-only description, scope,
   prerequisite direction contract, capability routing, terminal outputs, and links
   to not-yet-authored references. Mark reference links as planned until Task 4.
-- [ ] Copy the upstream `LICENSE.txt`. Add `NOTICE.md` identifying the OpenAI bundled
+- [x] Copy the upstream `LICENSE.txt`. Add `NOTICE.md` identifying the OpenAI bundled
   `imagegen` skill as the source, the retrieval date, and the exact installed source
   snapshot or package version/hash when available. Retain every applicable upstream
   copyright, patent, trademark, and attribution notice. Record prominent changes:
   capability-based routing, removal of Codex/OpenAI-only assumptions, removal of the
   bundled CLI, separation of creative direction, and portable custody reporting.
-- [ ] Add citation metadata without vendoring upstream scripts or generated media.
-- [ ] Add UI metadata that describes generation/editing accurately and does not
+- [x] Add citation metadata without vendoring upstream scripts or generated media.
+- [x] Record the derivative as `skills-with-source` in `agents/openai.yaml`, retain a
+  byte-identical upstream `SKILL.md` snapshot under `assets/authority/reference-source/`,
+  and reconcile `authority.yaml` and `source-map.yaml` against its hash. Historical
+  machine paths may appear only as retrieval evidence, never as portable identity.
+- [x] Add UI metadata that describes generation/editing accurately and does not
   claim a particular provider is always available.
-- [ ] Add a concise field-note template covering real problem, routed references,
+- [x] Add a concise field-note template covering real problem, routed references,
   produced brief, accepted/rejected decisions, generation or implementation result,
   observed friction, and candidate portable lesson. Do not pre-fill synthetic cases.
-- [ ] Run:
+- [x] Run:
 
   ```powershell
   py -3 tools/run.py refresh-skills --apply
@@ -120,7 +128,7 @@ current repo skill metadata and manifest contracts.
   git diff --check
   ```
 
-- [ ] Commit the scaffold through the normal hook as
+- [x] Commit the scaffold through the normal hook as
   `feat: scaffold portable image generation skill`.
 
 ---
@@ -142,30 +150,30 @@ current repo skill metadata and manifest contracts.
 **Produces:** A provider-neutral generation/editing workflow with selective
 progressive disclosure.
 
-- [ ] Define capability discovery by behaviour: generate, edit, accept multiple
+- [x] Define capability discovery by behaviour: generate, edit, accept multiple
   references, preserve transparency, support masks, return local/remote media, and
   expose provider constraints. Route to an optional adapter only after selecting the
   required behaviour.
-- [ ] Define the prompt contract: intent, operation, subject, composition, camera,
+- [x] Define the prompt contract: intent, operation, subject, composition, camera,
   environment, lighting, palette, material/style characteristics, constraints,
   invariants, avoid list, and output requirements. Do not silently fill material
   creative omissions; route them to `directing-visual-stories` once available.
-- [ ] Define reference-image roles explicitly: content source, identity/character,
+- [x] Define reference-image roles explicitly: content source, identity/character,
   composition, style/material, palette, mask, and edit target. Prevent accidental
   role blending.
-- [ ] Separate generation, variation, inpainting/outpainting, compositing, cleanup,
+- [x] Separate generation, variation, inpainting/outpainting, compositing, cleanup,
   and format conversion. State which operations may alter composition.
-- [ ] Define frame invariants and edit locks for crop, scale, viewpoint,
+- [x] Define frame invariants and edit locks for crop, scale, viewpoint,
   perspective, subject position, focus, light direction, palette roles, silhouette,
   and negative space.
-- [ ] Define inspection at full frame and detail scale, comparison against the brief,
+- [x] Define inspection at full frame and detail scale, comparison against the brief,
   single-defect iteration, variant comparability, and truthful failure reporting.
-- [ ] Define asset handoff: actual output location or provider result, operation and
+- [x] Define asset handoff: actual output location or provider result, operation and
   capability used, references consumed, prompt/brief trace, inspection result,
   unresolved defects, licence/provenance, and destination custody.
-- [ ] Replace planned links in `SKILL.md` with a compact problem-to-reference routing
+- [x] Replace planned links in `SKILL.md` with a compact problem-to-reference routing
   table. Keep adapter details out of the entrypoint.
-- [ ] Run the focused validator, mesh apply, refresh check, and `git diff --check`;
+- [x] Run the focused validator, mesh apply, refresh check, and `git diff --check`;
   commit through the normal hook as `feat: add portable image generation workflow`.
 
 ---
@@ -179,12 +187,12 @@ defects; regenerate owned provenance/index surfaces.
 
 **Produces:** A structurally valid first version and a stable contract for Plan 2.
 
-- [ ] Read the complete skill once as an executor and once as the future
+- [x] Read the complete skill once as an executor and once as the future
   `directing-visual-stories` caller. Correct broken routes, circular ownership,
   provider assumptions, unfulfillable outputs, and ambiguous terminal states.
-- [ ] Confirm every upstream-derived file has the required licence, attribution, and
+- [x] Confirm every upstream-derived file has the required licence, attribution, and
   modification notice, and that no bundled CLI or Codex-only path was copied.
-- [ ] Run final focused validation:
+- [x] Run final focused validation:
 
   ```powershell
   py -3 C:/Users/hbart/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/generating-images
@@ -194,11 +202,11 @@ defects; regenerate owned provenance/index surfaces.
   git diff --check
   ```
 
-- [ ] Inspect the intended diff, stage only Plan 1 files, and commit final refinements
+- [x] Inspect the intended diff, stage only Plan 1 files, and commit final refinements
   through the normal hook as `docs: validate portable image generation contract`.
-- [ ] Update the roadmap status, commit, PR, and notes with evidence. Leave the
+- [x] Update the roadmap status, commit, PR, and notes with evidence. Leave the
   numeric readiness rating out of the durable roadmap.
-- [ ] Handoff to just-in-time planning for Plan 2 with: the accepted direction input
+- [x] Handoff to just-in-time planning for Plan 2 with: the accepted direction input
   contract, provider-neutral capability model, structural validation results,
   commits, open limits, the field-note template, and explicit reminder that creative
   value will be judged in upcoming Usual Specialists work rather than claimed here.
