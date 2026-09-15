@@ -329,9 +329,12 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
     const commission05PortraitFrame = commission05Composition.locator('[data-silk-commission-05-portrait-frame]')
     const commission07Composition = silk.locator('[data-silk-commission="07"] [data-silk-aperture-composition]')
     const commission07Frame = commission07Composition.locator('[data-silk-commission-07-review-frame]')
+    const commission07PortraitFrame = commission07Composition.locator('[data-silk-commission-07-review-portrait-frame]')
     const commission07Viewport = commission07Composition.locator('[data-silk-commission-07-review-viewport]')
     const commission07ViewportDiagnostic = commission07Composition.locator('[data-silk-aperture-viewport-diagnostic]')
-    const reactionSlit = silk.locator('[data-silk-commission="08"] [data-silk-aperture]')
+    const reactionComposition = silk.locator('[data-silk-commission="08"] [data-silk-reaction-frame-composition]')
+    const reactionFrame = reactionComposition.locator('[data-silk-commission-08-review-frame]')
+    const reactionViewport = reactionComposition.locator('[data-silk-commission-08-review-viewport]')
 
     await expectNoHorizontalOverflow(page)
     await expect(commission05Composition).toBeVisible()
@@ -339,8 +342,19 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
     await expect(commission05Composition).toHaveAttribute('data-silk-aperture-composition-variant', 'commission-05')
     await expect(commission07Composition).toBeVisible()
     await expect(commission07Composition).toHaveAttribute('data-silk-aperture-composition-variant', 'commission-07-review')
-    await expect(reactionSlit).toHaveAttribute('data-silk-aperture-variant', 'slit')
-    expect(await reactionSlit.evaluate((element) => getComputedStyle(element).borderStyle)).toBe('none')
+    await expect(reactionComposition).toBeVisible()
+    await expect(reactionFrame).toHaveAttribute('src', /silk-commission-08-reaction-frame-review\.webp$/)
+    const reactionCompositionBox = await box(reactionComposition)
+    const reactionFrameBox = await box(reactionFrame)
+    const reactionViewportBox = await box(reactionViewport)
+    expect(reactionFrameBox.x, JSON.stringify({ width, reactionFrameBox, reactionCompositionBox }))
+      .toBeCloseTo(reactionCompositionBox.x, 0)
+    expect(reactionFrameBox.width, JSON.stringify({ width, reactionFrameBox, reactionCompositionBox }))
+      .toBeCloseTo(reactionCompositionBox.width, 0)
+    expect(reactionViewportBox.x, JSON.stringify({ width, reactionViewportBox, reactionFrameBox }))
+      .toBeGreaterThan(reactionFrameBox.x)
+    expect(reactionViewportBox.x + reactionViewportBox.width, JSON.stringify({ width, reactionViewportBox, reactionFrameBox }))
+      .toBeLessThan(reactionFrameBox.x + reactionFrameBox.width)
 
     const expectedCommission05Ratio = width < 390 ? 1024 / 1536 : 1672 / 941
     expect(
@@ -398,7 +412,7 @@ test('The Usual Specialists keeps Silk as apertures through the mineral page acr
       }
     }
     const commission07CompositionBox = await box(commission07Composition)
-    const commission07FrameBox = await box(commission07Frame)
+    const commission07FrameBox = await box(width < 390 ? commission07PortraitFrame : commission07Frame)
     const commission07ViewportBox = await box(commission07Viewport)
     const expectedCommission07Ratio = width < 390 ? 941 / 1671 : 1671 / 941
     expect(
@@ -1890,7 +1904,7 @@ test('The Usual Specialists disables Silk aperture parallax for reduced motion',
   await expect(scene).toHaveCSS('transform', 'none')
 })
 
-test('The Usual Specialists moves only the mocked world behind the second Silk aperture on normal scroll', async ({ page }) => {
+test('The Usual Specialists moves only the service-corridor world behind the second Silk aperture on normal scroll', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto(specialistsPreviewPath)

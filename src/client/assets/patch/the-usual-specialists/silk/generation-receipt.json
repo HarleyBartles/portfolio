@@ -136,6 +136,54 @@
       "promptRetention": "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
       "briefSummary": "Create a transparent foreground broken-plaster wall frame with restrained damage, substantially intact #e6eaeb mineral plaster and a large organic opening; engineer continuous opaque wall coverage around the rectangular world-layer perimeter; preserve transparent exterior and central opening; include no environment, background fill, text, people or baked scene pixels.",
       "evidence": ["project-owner-approval-2026-09-14", "project-owner-candidate-selection-2026-09-14"]
+    },
+    "silk-commission-07-frame-review-portrait": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "90641cec-ee79-488d-b8b1-a98c44794b55",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "tool-returned-null",
+      "seed": null,
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-15",
+      "generationDateStatus": "retained",
+      "briefStatus": "verbatim-recovered",
+      "promptRetention": "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+      "briefSummary": "Create a true portrait re-composition of the supplied broken-wall aperture at about 941x1671. Keep the same photoreal broken plaster, aggregate, brick and timber family; make the plaster/mineral material exactly #e6eaeb; preserve transparent exterior and central aperture; and guarantee a hidden rectangular world viewport whose complete four-edge perimeter lies beneath opaque frame pixels so clipped world imagery cannot leak into either transparency region.",
+      "evidence": ["project-owner-approval-2026-09-15", "project-owner-candidate-selection-2026-09-15"]
+    },
+    "silk-commission-07-service-corridor-review": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "retained-tool-result",
+      "generationId": "32d9ff13-3089-461c-b157-84da1bfe27e1",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "tool-returned-null",
+      "seed": null,
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-15",
+      "generationDateStatus": "retained",
+      "briefStatus": "verbatim-recovered",
+      "promptRetention": "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+      "briefSummary": "Create one landscape-native Commission 07 service-corridor world plate for both landscape and portrait frame viewports: a vertically cramped old-apartment basement/service level with coherent pipes and ducts, low ceiling, finite depth to a lit turn, Silk-added utility bulb string, restrained red test laser and minimal rig hardware, central portrait-safe storytelling, real overscan, and no page/frame/rope/character pixels.",
+      "evidence": ["project-owner-approval-2026-09-15", "project-owner-candidate-selection-2026-09-15", "retained-tool-result:32d9ff13-3089-461c-b157-84da1bfe27e1"]
+    },
+    "silk-commission-08-reaction-frame-review": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "retained-tool-result",
+      "generationId": "7956bc06-1132-4efd-8129-622591bd792e",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "tool-returned-null",
+      "seed": null,
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-15",
+      "generationDateStatus": "retained",
+      "briefStatus": "verbatim-recovered",
+      "promptRetention": "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+      "briefSummary": "Create a photorealistic transparent narrow old lath-and-plaster foreground frame with horizontal structural laths defining the top and bottom, snapped lath ends and crumbled plaster at the sides, canonical #e6eaeb plaster, a transparent central slit, transparent exterior, and continuous hidden rectangular alpha coverage for separately composited reaction imagery.",
+      "evidence": ["project-owner-approval-2026-09-15", "project-owner-candidate-selection-2026-09-15", "project-owner-acceptance-2026-09-15", "retained-tool-result:7956bc06-1132-4efd-8129-622591bd792e"]
     }
   }
 }

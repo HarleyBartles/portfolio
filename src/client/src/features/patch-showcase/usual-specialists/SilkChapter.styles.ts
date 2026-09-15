@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {
-  SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT,
-  SILK_COMMISSION_07_REVIEW_FRAME_WIDTH,
+  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT,
+  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH,
 } from './silkCommission07ReviewGeometry'
 import { specialistsMedia } from './specialistsResponsive'
 
@@ -16,7 +16,7 @@ const SILK_STACKED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1919px)'
 const SILK_SEPARATED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
 const SILK_STORY_ABOVE_MEDIA = '(min-width: 1200px) and (max-width: 1799px)'
 const SILK_NARROW_APERTURE_2_BLEED = 1.16
-const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_FRAME_WIDTH / SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
+const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT / SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
 
 export const Chapter = styled.section`
   position: relative;
@@ -429,18 +429,6 @@ export const ReactionAperturePlacement = styled.div`
     left: 0;
     width: 100%;
   }
-`
-
-export const ReactionImage = styled.img`
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.42);
-  transform-origin: 42% 32%;
 `
 
 export const HandoffCell = styled.div`

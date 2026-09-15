@@ -63,7 +63,12 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(commission07Composition?.querySelector('[data-silk-aperture-viewport-diagnostic]')).toBeInTheDocument()
     expect(commission07Composition?.querySelector('[data-silk-aperture-composition-diagnostic]')).not.toBeInTheDocument()
     expect(commission08).toHaveAttribute('data-silk-aperture-owner', '08')
-    expect(commission08?.querySelector('[data-silk-aperture]')).toHaveAttribute('data-silk-aperture-variant', 'slit')
+    const commission08Composition = commission08?.querySelector('[data-silk-reaction-frame-composition]')
+    const commission08Frame = commission08Composition?.querySelector<HTMLImageElement>('[data-silk-commission-08-review-frame]')
+    expect(commission08Composition).toBeInTheDocument()
+    expect(commission08?.querySelector('[data-silk-aperture]')).not.toBeInTheDocument()
+    expect(commission08Frame).toHaveAttribute('src', expect.stringContaining('silk-commission-08-reaction-frame-review.webp'))
+    expect(commission08Frame).toHaveAttribute('alt', '')
 
     const story = chapter.querySelector('[data-silk-story-card]')
     expect(story).not.toHaveTextContent('02 / Pressure test')

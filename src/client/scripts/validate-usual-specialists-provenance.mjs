@@ -199,10 +199,10 @@ export const validateUsualSpecialistsProvenance = async () => {
         specialistsRoot,
         'silk',
         'candidates',
-        'commission-07-frame-review',
+        'commission-08-reaction-frame-review',
         'candidate-assets.json',
       ),
-      'Usual Specialists silk Commission 07 candidate manifest',
+      'Usual Specialists silk Commission 08 candidate manifest',
     ),
   }
 

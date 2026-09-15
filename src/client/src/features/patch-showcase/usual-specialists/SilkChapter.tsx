@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { SilkApertureComposition } from './SilkApertureComposition'
+import { SilkReactionFrameComposition } from './SilkReactionFrameComposition'
 import { SilkTraversalComposition } from './SilkTraversalComposition'
-import { SilkWallAperture } from './SilkWallAperture'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
   BreachAperturePlacement,
@@ -13,7 +13,6 @@ import {
   NameMark,
   NameStrapline,
   ReactionAperturePlacement,
-  ReactionImage,
   ReceiptPeekthrough,
   Stage,
   StoryCard,
@@ -60,16 +59,7 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         </ReceiptPeekthrough>
 
         <ReactionAperturePlacement data-silk-aperture-owner="08" data-silk-commission="08">
-          <SilkWallAperture variant="slit">
-            <ReactionImage
-              src={`${import.meta.env.BASE_URL}media/homepage/specialists-silk.webp`}
-              width="1983"
-              height="793"
-              loading="lazy"
-              decoding="async"
-              alt="Silk's eyes open in restrained surprise when the route survives her pressure test."
-            />
-          </SilkWallAperture>
+          <SilkReactionFrameComposition />
         </ReactionAperturePlacement>
 
         <HandoffCell data-silk-commission="09" data-silk-scene-cell="09">

@@ -6,6 +6,9 @@ import {
   SILK_COMMISSION_07_REVIEW_COVERAGE_BAND,
   SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT,
   SILK_COMMISSION_07_REVIEW_FRAME_WIDTH,
+  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT,
+  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH,
+  SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT,
   SILK_COMMISSION_07_REVIEW_PARALLAX_SAFETY_MARGIN,
   SILK_COMMISSION_07_REVIEW_PARALLAX_TRAVEL,
   SILK_COMMISSION_07_REVIEW_WORLD_OVERSCAN,
@@ -14,7 +17,12 @@ import {
 
 const sourcePath = path.resolve(
   process.cwd(),
-  'assets/patch/the-usual-specialists/silk/candidates/commission-07-frame-review/silk-commission-07-frame-review.png',
+  'assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review.png',
+)
+
+const portraitSourcePath = path.resolve(
+  process.cwd(),
+  'assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review-portrait.png',
 )
 
 describe('Silk Commission 07 review geometry', () => {
@@ -43,6 +51,37 @@ describe('Silk Commission 07 review geometry', () => {
         if (insideCoverageBand) {
           expect(alphaAt(x, y), JSON.stringify({ x, y })).toBeGreaterThanOrEqual(SILK_COMMISSION_07_REVIEW_ALPHA_THRESHOLD)
         }
+      }
+    }
+  })
+
+  test('keeps the narrow portrait review world behind a continuous opaque frame perimeter', async () => {
+    const { data, info } = await sharp(portraitSourcePath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+
+    expect(info.width).toBe(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH)
+    expect(info.height).toBe(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT)
+    expect(SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT).toEqual({ left: 143, right: 837, top: 198, bottom: 1475 })
+
+    const alphaAt = (x: number, y: number): number =>
+      data[((y * info.width + x) * info.channels) + 3] ?? 0
+    const { left, right, top, bottom } = SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT
+
+    expect((right - left) / info.width).toBeGreaterThan(0.7)
+    expect((bottom - top) / info.height).toBeGreaterThan(0.75)
+    expect(alphaAt(Math.round((left + right) / 2), Math.round((top + bottom) / 2))).toBe(0)
+
+    for (let offset = 0; offset < SILK_COMMISSION_07_REVIEW_COVERAGE_BAND; offset += 1) {
+      for (let x = left; x <= right; x += 1) {
+        expect(alphaAt(x, top + offset), `portrait top coverage leaked at x=${x}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_07_REVIEW_ALPHA_THRESHOLD)
+        expect(alphaAt(x, bottom - offset), `portrait bottom coverage leaked at x=${x}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_07_REVIEW_ALPHA_THRESHOLD)
+      }
+      for (let y = top; y <= bottom; y += 1) {
+        expect(alphaAt(left + offset, y), `portrait left coverage leaked at y=${y}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_07_REVIEW_ALPHA_THRESHOLD)
+        expect(alphaAt(right - offset, y), `portrait right coverage leaked at y=${y}, offset=${offset}`)
+          .toBeGreaterThanOrEqual(SILK_COMMISSION_07_REVIEW_ALPHA_THRESHOLD)
       }
     }
   })

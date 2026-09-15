@@ -18,7 +18,7 @@ const candidateManifestPaths = Object.freeze({
   silk: path.join(
     acceptedPackageRoots.silk,
     'candidates',
-    'commission-07-frame-review',
+    'commission-08-reaction-frame-review',
     'candidate-assets.json',
   ),
 })
@@ -96,6 +96,38 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
     format: 'webp',
   },
   {
+    id: 'silk-commission-07-frame-review',
+    sourcePackage: 'silk',
+    source: 'silk-commission-07-frame-review.png',
+    output: 'silk-commission-07-frame-review.webp',
+    width: 1671,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-07-frame-review-portrait',
+    sourcePackage: 'silk',
+    source: 'silk-commission-07-frame-review-portrait.png',
+    output: 'silk-commission-07-frame-review-portrait.webp',
+    width: 941,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-07-service-corridor-review',
+    sourcePackage: 'silk',
+    source: 'silk-commission-07-service-corridor-review.png',
+    output: 'silk-commission-07-service-corridor-review.webp',
+    width: 1672,
+    format: 'webp',
+  },
+  {
+    id: 'silk-commission-08-reaction-frame-review',
+    sourcePackage: 'silk',
+    source: 'silk-commission-08-reaction-frame-review.png',
+    output: 'silk-commission-08-reaction-frame-review.webp',
+    width: 1750,
+    format: 'webp',
+  },
+  {
     id: 'silk-index-crossing-anchor-ring',
     sourcePackage: 'silk',
     source: 'silk-index-crossing-anchor-ring.png',
@@ -136,17 +168,7 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
-export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([
-  {
-    id: 'silk-commission-07-frame-review',
-    sourcePackage: 'silk',
-    custody: 'candidate',
-    source: 'candidates/commission-07-frame-review/silk-commission-07-frame-review.png',
-    output: 'silk-commission-07-frame-review.webp',
-    width: 1671,
-    format: 'webp',
-  },
-])
+export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([])
 
 const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
   ...USUAL_SPECIALISTS_ASSETS,

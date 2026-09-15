@@ -10,7 +10,7 @@ import {
 import {
   Composition,
   FrameImage,
-  ReviewWorld,
+  ReviewSceneImage,
   SceneImage,
   ViewportDiagnostic,
   WorldViewport,
@@ -71,7 +71,11 @@ export const SilkApertureComposition = ({
             ref={(node) => { worldRef.current = node }}
           />
         ) : (
-          <ReviewWorld
+          <ReviewSceneImage
+            src={usualSpecialistsAssetPath('silk-commission-07-service-corridor-review.webp')}
+            width="1672"
+            height="766"
+            alt=""
             aria-hidden="true"
             data-silk-commission-07-review-world
             ref={(node) => { worldRef.current = node }}
@@ -104,15 +108,26 @@ export const SilkApertureComposition = ({
           />
         </>
       ) : (
-        <FrameImage
-          $role="review"
-          src={usualSpecialistsAssetPath('silk-commission-07-frame-review.webp')}
-          width="1671"
-          height="941"
-          alt=""
-          aria-hidden="true"
-          data-silk-commission-07-review-frame
-        />
+        <>
+          <FrameImage
+            $role="review-landscape"
+            src={usualSpecialistsAssetPath('silk-commission-07-frame-review.webp')}
+            width="1671"
+            height="941"
+            alt=""
+            aria-hidden="true"
+            data-silk-commission-07-review-frame
+          />
+          <FrameImage
+            $role="review-portrait"
+            src={usualSpecialistsAssetPath('silk-commission-07-frame-review-portrait.webp')}
+            width="941"
+            height="1671"
+            alt=""
+            aria-hidden="true"
+            data-silk-commission-07-review-portrait-frame
+          />
+        </>
       )}
 
     </Composition>

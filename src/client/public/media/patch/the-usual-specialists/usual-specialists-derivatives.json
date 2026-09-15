@@ -362,6 +362,78 @@
       "outputSha256": "392e1955acfa3d0813bca76a1005405684d55dcefc5b9a0f6526671850a7c45a"
     },
     {
+      "id": "silk-commission-07-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review.png",
+      "sourceSha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
+      "output": "silk-commission-07-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review.webp",
+      "width": 1671,
+      "height": 941,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 224568,
+      "outputSha256": "8385e0d3222305f17d9de3663fc109fe2d3a550b3a5c81dc03ea32a138108b3e"
+    },
+    {
+      "id": "silk-commission-07-frame-review-portrait",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review-portrait.png",
+      "sourceSha256": "b6ae38e89fc4050b68cf76832cb0b8c246fe947cdca936fc9815426e2c0c2c71",
+      "output": "silk-commission-07-frame-review-portrait.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review-portrait.webp",
+      "width": 941,
+      "height": 1671,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 244890,
+      "outputSha256": "4c6bbe5beca22cb36df33a47404925ce840b0c693b09724259ea5756a2eee94b"
+    },
+    {
+      "id": "silk-commission-07-service-corridor-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-service-corridor-review.png",
+      "sourceSha256": "65a73c69e5756eda88e674d0fd6167977dd8017aee30ad720be838d8ce2842df",
+      "output": "silk-commission-07-service-corridor-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-service-corridor-review.webp",
+      "width": 1672,
+      "height": 766,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 171574,
+      "outputSha256": "b4bfb8ef3cb781a79539b6409cc2f3fa7cd526766ad58d10c101b4a3e44027e1"
+    },
+    {
+      "id": "silk-commission-08-reaction-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-08-reaction-frame-review.png",
+      "sourceSha256": "867b374f543a9414ab0977881cc0f8b88fd4939ad4001a7030dfeb574a053817",
+      "output": "silk-commission-08-reaction-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-08-reaction-frame-review.webp",
+      "width": 1750,
+      "height": 600,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 190102,
+      "outputSha256": "d0f0415560708105a79becdcfa03c760423a016906a3044fafed2f4316b45fcf"
+    },
+    {
       "id": "silk-index-crossing-anchor-ring",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-index-crossing-anchor-ring.png",
       "sourceSha256": "d818656b104546d17c5b797c0bf1cd2287a021ebe064a0154f0d089a7d2a604f",
@@ -558,24 +630,6 @@
       },
       "bytes": 71482,
       "outputSha256": "ad7ecf6f6c6c852543ac356ea46e29d8bbc95ce7ce7cddeacd6189a9b8f01979"
-    },
-    {
-      "id": "silk-commission-07-frame-review",
-      "sourcePath": "src/client/assets/patch/the-usual-specialists/silk/candidates/commission-07-frame-review/silk-commission-07-frame-review.png",
-      "sourceSha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
-      "output": "silk-commission-07-frame-review.webp",
-      "path": "src/client/public/media/patch/the-usual-specialists/silk-commission-07-frame-review.webp",
-      "width": 1671,
-      "height": 941,
-      "format": "webp",
-      "encoding": {
-        "quality": 82,
-        "alphaQuality": 100,
-        "effort": 6,
-        "smartSubsample": true
-      },
-      "bytes": 224568,
-      "outputSha256": "8385e0d3222305f17d9de3663fc109fe2d3a550b3a5c81dc03ea32a138108b3e"
     }
   ]
 }

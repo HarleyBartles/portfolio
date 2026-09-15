@@ -12,7 +12,7 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(31)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(35)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('opening-rope-start-anchor.webp')
     expect(outputs).toContain('index-high-step.webp')
@@ -23,6 +23,10 @@ describe('Usual Specialists asset processor', () => {
     expect(outputs).toContain('silk-commission-05-corridor.webp')
     expect(outputs).toContain('silk-commission-06-threshold-crossing.webp')
     expect(outputs).toContain('silk-commission-06-abseil-hands-free.webp')
+    expect(outputs).toContain('silk-commission-07-frame-review.webp')
+    expect(outputs).toContain('silk-commission-07-frame-review-portrait.webp')
+    expect(outputs).toContain('silk-commission-07-service-corridor-review.webp')
+    expect(outputs).toContain('silk-commission-08-reaction-frame-review.webp')
     expect(outputs).toContain('silk-index-crossing-anchor-ring.webp')
     expect(outputs).toContain('silk-index-crossing-knot-foreground.webp')
     expect(outputs).toContain('silk-index-crossing-knot-foreground-crop.webp')
@@ -68,16 +72,35 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('registers only the temporary Commission 07 page-review derivative', () => {
-    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([{
-      id: 'silk-commission-07-frame-review',
-      sourcePackage: 'silk',
-      custody: 'candidate',
-      source: 'candidates/commission-07-frame-review/silk-commission-07-frame-review.png',
-      output: 'silk-commission-07-frame-review.webp',
-      width: 1671,
-      format: 'webp',
-    }])
+  it('promotes the reviewed Commission 08 reaction frame into accepted custody', () => {
+    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
+    expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: 'silk-commission-07-frame-review',
+        sourcePackage: 'silk',
+        source: 'silk-commission-07-frame-review.png',
+        output: 'silk-commission-07-frame-review.webp',
+      }),
+      expect.objectContaining({
+        id: 'silk-commission-07-frame-review-portrait',
+        sourcePackage: 'silk',
+        source: 'silk-commission-07-frame-review-portrait.png',
+        output: 'silk-commission-07-frame-review-portrait.webp',
+      }),
+      expect.objectContaining({
+        id: 'silk-commission-07-service-corridor-review',
+        sourcePackage: 'silk',
+        source: 'silk-commission-07-service-corridor-review.png',
+        output: 'silk-commission-07-service-corridor-review.webp',
+      }),
+      expect.objectContaining({
+        id: 'silk-commission-08-reaction-frame-review',
+        sourcePackage: 'silk',
+        source: 'silk-commission-08-reaction-frame-review.png',
+        output: 'silk-commission-08-reaction-frame-review.webp',
+        width: 1750,
+      }),
+    ]))
   })
 
   it('rejects source SHA drift', () => {

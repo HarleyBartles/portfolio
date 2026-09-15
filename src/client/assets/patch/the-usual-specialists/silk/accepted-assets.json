@@ -151,6 +151,54 @@
       "legacyLinearDocumentIds": [
         "f4fb6aeb-c989-4934-a038-7cd80d8d073f"
       ]
+    },
+    {
+      "id": "silk-commission-07-frame-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 14, 2026, 01_24_36 PM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review.png",
+      "sha256": "ae71464cdff60d3fc48ed19a79537f11821e498f9e8b3af47a5a7d5efae49005",
+      "width": 1671,
+      "height": 941,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-07-silk-aperture-frames.md"
+    },
+    {
+      "id": "silk-commission-07-frame-review-portrait",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 07_18_49 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-frame-review-portrait.png",
+      "sha256": "b6ae38e89fc4050b68cf76832cb0b8c246fe947cdca936fc9815426e2c0c2c71",
+      "width": 941,
+      "height": 1671,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-07-silk-aperture-frames.md"
+    },
+    {
+      "id": "silk-commission-07-service-corridor-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 08_39_31 AM.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-07-service-corridor-review.png",
+      "sha256": "65a73c69e5756eda88e674d0fd6167977dd8017aee30ad720be838d8ce2842df",
+      "width": 1852,
+      "height": 849,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-07-silk-service-corridor.md"
+    },
+    {
+      "id": "silk-commission-08-reaction-frame-review",
+      "originalWireframeFilename": "ChatGPT Image Sep 15, 2026, 09_40_06 AM (2).png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/silk/silk-commission-08-reaction-frame-review.png",
+      "sha256": "867b374f543a9414ab0977881cc0f8b88fd4939ad4001a7030dfeb574a053817",
+      "width": 2142,
+      "height": 734,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/commission-08-silk-reaction-frame.md"
     }
   ]
 }
