@@ -20,8 +20,10 @@ accepted work rather than inventing a baseline or claiming a new human decision.
   understand that Index and Silk are connected, and anticipate the next chapter.
 - Story beat or state: a stable page boundary is breached by a mineral lockup;
   the accepted Commission 05 frames make the aperture a place rather than a card.
-- Scale: `complete field` containing subordinate `frame` and detail beats
+- Scale: `field/site` containing subordinate `frame/surface`, `object/body`, and
+  `mark/material` beats
 - Viewing contract: `directed`
+- Encounter mode: `pictorial`
 
 ## Direction
 

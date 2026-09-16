@@ -2,8 +2,8 @@
 
 Evaluation asks whether the intended audience change survives the chosen medium.
 It is a finite review of evidence, not a popularity vote or a request for generic
-polish. Run only the checks relevant to the output: a frame, complete field,
-sequence, page, or interactive world.
+polish. Run only the checks relevant to the output: a surface, object/body, frame,
+field/site, encounter, sequence, page, or interactive world.
 
 ## Finite review
 
@@ -26,10 +26,19 @@ decision is merely implied.
 7. **Sequence or agency:** Where time or choice exists, is the before/after state,
    route, threshold, consequence, and recovery legible? Can alternate viewpoints
    still find the landmark or story evidence?
-8. **Truth and custody:** Are copy, canon, references, and provenance supported?
+8. **Surface and material:** Where marks, seams, texture, drape, weight, void, or
+   construction carry meaning, did their process and force survive? Does the work
+   need macro and micro viewing distances?
+9. **Body, site, and encounter:** Where position matters, do bodily scale,
+   multi-vantage form, approach, threshold, compression/release, dwell, and
+   departure support the intended relation?
+10. **Representation and power:** Do maps, symbols, diagrams, costume, gaze, scale,
+   or cultural references make supported claims? Is the viewpoint honest about who
+   observes, who is represented, and what was omitted or simplified?
+11. **Truth and custody:** Are copy, canon, references, and provenance supported?
    Are canonical works used as function anchors rather than imitation prompts, and
    are output/custody claims honest?
-9. **Translation:** Did the downstream medium preserve the declared hierarchy,
+12. **Translation:** Did the downstream medium preserve the declared hierarchy,
    story job, and invariants? Record what was changed by crop, viewport, state,
    player agency, reduced motion, or provider limits.
 
@@ -46,6 +55,14 @@ decision is merely implied.
 - **Interactive world:** inspect arrival, alternate viewpoint, threshold,
   interaction, consequence, and return. Record the route taken and whether a
   participant can recover orientation after dwelling or wandering.
+- **Surface/object:** inspect figure-ground, material, edge, mark, mass, void,
+  support, silhouette, and shadow at intended distances and viewpoints.
+- **Embodied site/installation:** walk or simulate approach, threshold,
+  compression, release, dwell, alternate route, and departure. Record how audience
+  movement or participation changes the composition.
+- **Curated or explanatory field:** test glance, browse, study, and return paths.
+  Check anchor objects, juxtaposition, label/evidence ownership, symbol vocabulary,
+  omissions, and whether reordering changes the claim.
 
 ## Terminal states
 

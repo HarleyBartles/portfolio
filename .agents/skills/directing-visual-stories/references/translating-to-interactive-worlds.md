@@ -13,6 +13,8 @@ Record:
   cause; distinguish authored beats from player-authored outcomes.
 - **Agency contract:** directed, guided, or exploratory; what can be looked at,
   approached, changed, skipped, revisited, or misunderstood, and how recovery works.
+- **Encounter mode:** spatial, embodied, or participatory; how bodily scale,
+  movement, position, and action change the read.
 - **Scales:** object/detail, frame/viewport, scene/complete field, and world/route;
   name which scale carries each beat and how the containing field supports it.
 - **Observation points:** arrival, approach, threshold, dwell/interaction, return,
@@ -29,6 +31,8 @@ Record:
 - **Interface relationship:** what belongs to the world, what is an overlay, what
   the participant must read as a control, and how interface attention supports rather
   than replaces environmental storytelling.
+- **Representational layer:** how maps, diagrams, symbols, markers, and costume or
+  faction cues encode the world; what they omit, simplify, or risk overstating.
 - **Survival invariant:** what remains legible across camera movement, viewport
   changes, player pace, state changes, reduced motion, and route choice.
 

@@ -6,18 +6,19 @@ authority:
   canonical_url: .agents/specs/2026-09-15-visual-storytelling-web-spike.md
   pinned_source_url: assets/authority/CITATIONS.md
   latest_check_url: assets/authority/CITATIONS.md
-  revision: '2026-09-15-research-spike'
-  retrieved_at: '2026-09-15'
-  content_sha256: C1B46726B4207A93BE4DEE9236CBB4CC0F146CAC95B80897BD1005361DDF9CC7
+  revision: '2026-09-16-additive-cross-field-pass'
+  retrieved_at: '2026-09-16'
+  content_sha256: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
   license: MIT
   license_url: https://opensource.org/licenses/MIT
 decomposition:
-  reconciled_against: C1B46726B4207A93BE4DEE9236CBB4CC0F146CAC95B80897BD1005361DDF9CC7
+  reconciled_against: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
   references:
   - path: SKILL.md
     source_sections:
     - Research spike: composition exists at nested scales
     - Research spike: audience contract changes composition
+    - Additive spike: surfaces, objects, bodies, sites, and encounters
     content_mode: first_party_synthesis
     load_when:
     - Use when routing a visual story problem before selecting a detailed reference.
@@ -30,6 +31,8 @@ decomposition:
   - path: references/
     source_sections:
     - Research spike: cross-disciplinary technique routing
+    - Additive spike: painting, sculpture, installation, architecture,
+      choreography, costume, curation, cartography, and visual rhetoric
     content_mode: first_party_synthesis
     load_when:
     - Use when a later task routes to a detailed compositional family.

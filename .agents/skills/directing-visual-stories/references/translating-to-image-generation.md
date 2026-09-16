@@ -13,6 +13,7 @@ Return a labelled frame direction before writing a provider prompt:
 Audience change / beat:
 Subject hierarchy and evidence:
 Composition (crop, scale, aspect, viewpoint, perspective, placement, negative space):
+Surface / material (mark, edge, ground, mass, void, silhouette, drape, wear):
 Depth and focus (foreground, middle-ground, background, occlusion):
 Attention path (first, second, final read):
 Light / palette / material / atmosphere:
@@ -25,6 +26,9 @@ Locked invariant:
 One frame may be a complete field. If it is an inset or one frame of a sequence,
 also state its relation to the containing page, spread, screen, or world. Do not
 leave crop, camera, focus, palette, or story meaning for the generator to invent.
+When the direction comes from painting, sculpture, choreography, costume, or
+installation, translate its actual surface, material, gravity, gesture, silhouette,
+site, and viewing relation rather than collapsing it into generic “cinematic” style.
 
 ## Handoff to `generating-images`
 

@@ -1,11 +1,12 @@
 schema_version: 1
-reconciled_against: C1B46726B4207A93BE4DEE9236CBB4CC0F146CAC95B80897BD1005361DDF9CC7
+reconciled_against: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
 references:
   - path: SKILL.md
     source_sections:
       - Research spike: composition exists at nested scales
       - Research spike: audience contract changes composition
       - Research spike: story beats precede visual techniques
+      - Additive spike: surfaces, objects, bodies, sites, and encounters
     load_when:
       - Use when classifying scale, viewing contract, and audience change.
     content_mode: first_party_synthesis
@@ -67,6 +68,30 @@ references:
     source_sections: ["Research spike: tile worlds, Amiga bitplanes, palette cycling"]
     load_when: ["Use when constraints and display layers carry meaning."]
     content_mode: first_party_synthesis
+  - path: references/surface-mark-material-and-figure-ground.md
+    source_sections: ["Additive spike: painting, print, collage, textile, material surface"]
+    load_when: ["Use when mark, ground, abstraction, collage, or material carries the story."]
+    content_mode: first_party_synthesis
+  - path: references/mass-void-gravity-and-multi-vantage-form.md
+    source_sections: ["Additive spike: sculpture, void, gravity, kinetic and multi-vantage form"]
+    load_when: ["Use when an object or form must compose in the round."]
+    content_mode: first_party_synthesis
+  - path: references/site-threshold-procession-and-embodied-viewing.md
+    source_sections: ["Additive spike: architecture, installation, site, procession, embodied view"]
+    load_when: ["Use when audience position, route, and bodily encounter carry meaning."]
+    content_mode: first_party_synthesis
+  - path: references/gesture-effort-costume-and-choreographic-fields.md
+    source_sections: ["Additive spike: choreography, movement quality, costume, silhouette, drape"]
+    load_when: ["Use when gesture, effort, stillness, ensemble, or clothing carries the beat."]
+    content_mode: first_party_synthesis
+  - path: references/curation-juxtaposition-and-interpretive-paths.md
+    source_sections: ["Additive spike: exhibition design, curation, anchors, visitor paths"]
+    load_when: ["Use when selection, adjacency, and nonlinear interpretation form the argument."]
+    content_mode: first_party_synthesis
+  - path: references/symbols-maps-diagrams-and-visual-rhetoric.md
+    source_sections: ["Additive spike: cartography, Gestalt, symbols, diagrams, visual rhetoric"]
+    load_when: ["Use when a visual explains, maps, encodes, or claims representational authority."]
+    content_mode: first_party_synthesis
   - path: references/translating-to-image-generation.md
     source_sections: ["Research spike: medium translation and image brief boundary"]
     load_when: ["Use when handing a frame direction to image generation."]
@@ -80,6 +105,6 @@ references:
     load_when: ["Use when handing a world direction to game implementation."]
     content_mode: first_party_synthesis
   - path: references/evaluating-visual-stories.md
-    source_sections: ["Research spike: evaluation obligations and translation integrity"]
+    source_sections: ["Research spike: evaluation obligations and translation integrity", "Additive spike: material, embodied, curatorial, and representational checks"]
     load_when: ["Use when checking whether the story survived its medium."]
     content_mode: first_party_synthesis

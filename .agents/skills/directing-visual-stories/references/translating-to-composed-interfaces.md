@@ -13,7 +13,7 @@ Record the following before implementation:
 - **Page story:** the audience change, proposition, and closing condition.
 - **Field form:** one frame, spread, scroll passage, tableau, montage, polyptych,
   or another named structure, with its viewing contract (`directed`, `guided`, or
-  `exploratory`).
+  `exploratory`) and encounter mode when position or participation matters.
 - **Entry and dominant field:** where attention arrives, the first read, the
   dominant image/colour/space, and the question or expectation it creates.
 - **Subordinate frames and voices:** each inset, detail, caption, quote, data
@@ -26,6 +26,9 @@ Record the following before implementation:
   dwell, reveal, rupture, return, and what changes between fields.
 - **Closing field:** the final read, changed expectation, next route, or deliberate
   unresolved edge.
+- **Material and interpretive logic:** whether the page acts as window, plane,
+  collage, exhibition, map, or embodied passage; name anchor objects, critical
+  juxtapositions, surface/material events, and representational claims.
 - **Survival requirements:** hierarchy, landmark, textual order, meaningful crop,
   contrast, motion alternative, and recovery cues that must survive viewport,
   zoom, reduced motion, keyboard, and assistive-technology translation.
@@ -53,6 +56,11 @@ implied next state. If it contains many frames, describe the super-composition,
 gutter or interval meaning, crossing boundaries, and the next field. A polished
 hero with unrelated cards underneath is not a story; every subordinate unit must
 change understanding, tempo, or anticipation.
+
+If the page behaves like an exhibition or handscroll, also preserve glance,
+browse, study, return, paced reveal, and anchor-object paths. If it behaves like a
+map or diagram, preserve the encoded relationship and uncertainty rather than only
+the desktop geometry.
 
 ### Avoid
 
