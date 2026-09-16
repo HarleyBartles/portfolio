@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
+import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
 import { IndexTraversal } from './IndexTraversal'
-import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Carrier = styled.div`
@@ -52,7 +52,7 @@ const IndexLockup = styled.div`
     white-space: nowrap;
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     top: 60px;
     right: 30px;
     width: 12.88rem;
@@ -62,7 +62,7 @@ const IndexLockup = styled.div`
     }
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     top: 72px;
     right: max(48px, calc(466px - 100vw));
     width: 11.89rem;
@@ -72,7 +72,7 @@ const IndexLockup = styled.div`
     }
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
     top: 68px;
     right: max(42px, calc(388px - 100vw));
     width: 10.57rem;
@@ -92,18 +92,18 @@ const PatchFollowPlacement = styled.div`
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     width: 94px;
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     top: calc(33% - 19%);
     right: auto;
     left: 26%;
     width: 82px;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
     left: 29%;
   }
 `
@@ -115,14 +115,14 @@ const IndexHighStepPlacement = styled.div`
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     display: block;
     top: -19%;
     left: 73%;
     width: 74px;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
     top: calc(-19% - 10px);
     left: 64%;
   }

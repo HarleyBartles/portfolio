@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
-import { specialistsMedia } from './specialistsResponsive'
+import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const AssentNote = styled.div`
@@ -54,7 +54,7 @@ const AssentCopy = styled.span`
     transform: rotate(.8deg);
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     span {
       font-size: 1rem;
     }
@@ -64,7 +64,7 @@ const AssentCopy = styled.span`
     }
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     span {
       font-size: .9rem;
     }
@@ -74,7 +74,7 @@ const AssentCopy = styled.span`
     }
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
     span {
       font-size: .7rem;
     }

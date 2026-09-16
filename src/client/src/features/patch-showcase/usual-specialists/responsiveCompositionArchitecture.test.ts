@@ -22,4 +22,17 @@ describe('Specialists responsive composition architecture', () => {
 
     expect(source).not.toContain("from './specialistsResponsive'")
   })
+
+  test.each([
+    './IndexChapter.styles.ts',
+    './IndexBlueCarrier.tsx',
+    './IndexAssentNote.tsx',
+    './IndexCommissionComposition.styles.ts',
+    './IndexDeskDocument.tsx',
+    './IndexObservation.tsx',
+  ])('keeps Index-owned source %s independent of the route-wide responsive taxonomy', (filename) => {
+    const source = readSource(filename)
+
+    expect(source).not.toContain("from './specialistsResponsive'")
+  })
 })

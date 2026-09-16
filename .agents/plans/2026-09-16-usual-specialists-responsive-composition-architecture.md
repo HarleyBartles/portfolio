@@ -175,8 +175,8 @@ specialists-crossing container
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/UsualSpecialistsOpening.test.tsx src/features/patch-showcase/usual-specialists/CrossSectionConnector.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists keeps its rope pieces and authored crossing lockups"
   ```
-- [ ] **2.9 Commit checkpoint:** If authorized, commit Task 2 as one green seam-ownership slice; do not include Index or Silk migrations yet.
-- [ ] **2.10 Progress tracking:** Mark every Task 2 box `[x]` before starting Task 3.
+- [x] **2.9 Commit checkpoint:** If authorized, commit Task 2 as one green seam-ownership slice; do not include Index or Silk migrations yet.
+- [x] **2.10 Progress tracking:** Mark every Task 2 box `[x]` before starting Task 3.
 
 ---
 
@@ -237,16 +237,16 @@ Do this only for formulas whose containing width is demonstrably the authored In
 
 ### Steps
 
-- [ ] **3.1 RED:** Extend the architecture guard to fail while any Index-owned source imports `specialistsResponsive`. Include every current Index consumer listed under Files.
-- [ ] **3.2 Verify RED:** Run the guard and confirm the current Index imports are the failure.
-- [ ] **3.3 Add `indexResponsive.ts`:** Define the minimum Index-local query vocabulary needed to preserve the existing transitions.
-- [ ] **3.4 Establish container ownership:** Add `container-name: index` and `container-type: inline-size` to the `IndexChapter` root/stage boundary that contains all responsive Index descendants.
-- [ ] **3.5 Migrate Index styles:** Replace route-global media references in `IndexChapter.styles.ts` and all Index child files with `@container index ...` conditions where the responsive target is a descendant of the Index container.
-- [ ] **3.6 Freeze chapter-relative formulas:** Convert eligible `vw` calculations that currently require `beyondCeiling` fixes to `cqi`, then remove only the now-redundant >2560 corrections. Verify numerically in the browser at `2560` and `2880` before deleting each correction.
-- [ ] **3.7 Keep seam geometry separate:** Do not move `chapterCrossingPortCss('opening-index')` into Index responsive vocabulary; it remains a seam-owned integration contract from Task 2.
-- [ ] **3.8 Component proof:** Keep `IndexChapter.test.tsx` focused on composition ownership and opaque children. Do not add viewport-coordinate assertions to JSDOM.
-- [ ] **3.9 Browser proof:** Create/refactor an Index-owned Playwright matrix that samples Index's actual transitions, including at least `389/390`, `719/720`, `899/900`, `1399/1400`, `1599/1600`, `1919/1920`, `2560/2880`, and asserts the accepted major Index relationships plus no overflow.
-- [ ] **3.10 Focused verification:** Run:
+- [x] **3.1 RED:** Extend the architecture guard to fail while any Index-owned source imports `specialistsResponsive`. Include every current Index consumer listed under Files.
+- [x] **3.2 Verify RED:** Run the guard and confirm the current Index imports are the failure.
+- [x] **3.3 Add `indexResponsive.ts`:** Define the minimum Index-local query vocabulary needed to preserve the existing transitions.
+- [x] **3.4 Establish container ownership:** Add `container-name: index` and `container-type: inline-size` to the `IndexChapter` root/stage boundary that contains all responsive Index descendants.
+- [x] **3.5 Migrate Index styles:** Replace route-global media references in `IndexChapter.styles.ts` and all Index child files with `@container index ...` conditions where the responsive target is a descendant of the Index container.
+- [x] **3.6 Freeze chapter-relative formulas:** Convert eligible `vw` calculations that currently require `beyondCeiling` fixes to `cqi`, then remove only the now-redundant >2560 corrections. Verify numerically in the browser at `2560` and `2880` before deleting each correction.
+- [x] **3.7 Keep seam geometry separate:** Do not move `chapterCrossingPortCss('opening-index')` into Index responsive vocabulary; it remains a seam-owned integration contract from Task 2.
+- [x] **3.8 Component proof:** Keep `IndexChapter.test.tsx` focused on composition ownership and opaque children. Do not add viewport-coordinate assertions to JSDOM.
+- [x] **3.9 Browser proof:** Create/refactor an Index-owned Playwright matrix that samples Index's actual transitions, including at least `389/390`, `719/720`, `899/900`, `1399/1400`, `1599/1600`, `1919/1920`, `2560/2880`, and asserts the accepted major Index relationships plus no overflow.
+- [x] **3.10 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts

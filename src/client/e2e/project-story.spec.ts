@@ -112,14 +112,79 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
 })
 
 test('The Usual Specialists keeps its settled composition coherent at representative viewports', async ({ page }) => {
-  for (const width of [320, 390, 720, 900, 1440, 1920, 2560] as const) {
+  let indexCeilingGeometry: {
+    deskX: number
+    storyX: number
+    commissionX: number
+    blueX: number
+    graphX: number
+  } | null = null
+
+  for (const width of [389, 390, 719, 720, 899, 900, 1399, 1400, 1599, 1600, 1919, 1920, 2560, 2880] as const) {
     await page.setViewportSize({ width, height: width < 390 ? 844 : 1100 })
     await page.goto(specialistsPreviewPath)
 
     await expect(page.getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
-    await expect(page.getByRole('region', { name: 'Index' })).toBeVisible()
+    const index = page.getByRole('region', { name: 'Index' })
+    await expect(index).toBeVisible()
     await expect(page.getByRole('region', { name: 'Silk' })).toBeVisible()
     await expect(page.locator('[data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
+
+    const desk = index.locator('[data-index-substrate="desk-diagram"]')
+    const blue = index.locator('[data-index-substrate="blue-carrier"]')
+    const graph = index.locator('[data-index-substrate="graph-paper"]')
+    const commission = index.locator('[data-index-commission-composition="commission-evidence"]')
+    const story = index.locator('[data-index-story-card]')
+    for (const locator of [desk, blue, graph, commission, story]) await expect(locator).toBeVisible()
+
+    const indexWalk = index.locator('[data-index-traversal="index-walk"]')
+    const patchFollow = index.locator('[data-index-traversal="patch-follow"]')
+    const indexHighStep = index.locator('[data-index-traversal="index-high-step"]')
+    const patchPeer = index.locator('[data-index-traversal="patch-peer"]')
+    const indexInspect = index.locator('[data-index-traversal="index-inspect"]')
+    const indexReturn = index.locator('[data-index-traversal="index-return"]')
+    const patchReturn = index.locator('[data-index-traversal="patch-return"]')
+
+    await expect(patchFollow).toBeVisible()
+    if (width <= 719) {
+      await expect(indexHighStep).toBeVisible()
+      for (const locator of [indexWalk, patchPeer, indexInspect, indexReturn, patchReturn]) await expect(locator).toBeHidden()
+    } else {
+      await expect(indexHighStep).toBeHidden()
+      for (const locator of [indexWalk, patchPeer, indexInspect]) await expect(locator).toBeVisible()
+      for (const locator of [indexReturn, patchReturn]) {
+        if (width >= 1600) await expect(locator).toBeVisible()
+        else await expect(locator).toBeHidden()
+      }
+    }
+
+    if (width >= 2560) {
+      const [indexBox, deskBox, storyBox, commissionBox, blueBox, graphBox] = await Promise.all([
+        index.boundingBox(),
+        desk.boundingBox(),
+        story.boundingBox(),
+        commission.boundingBox(),
+        blue.boundingBox(),
+        graph.boundingBox(),
+      ])
+      for (const box of [indexBox, deskBox, storyBox, commissionBox, blueBox, graphBox]) expect(box).not.toBeNull()
+      const geometry = {
+        deskX: deskBox!.x - indexBox!.x,
+        storyX: storyBox!.x - indexBox!.x,
+        commissionX: commissionBox!.x - indexBox!.x,
+        blueX: blueBox!.x - indexBox!.x,
+        graphX: graphBox!.x - indexBox!.x,
+      }
+
+      if (width === 2560) indexCeilingGeometry = geometry
+      else {
+        expect(indexCeilingGeometry).not.toBeNull()
+        for (const key of Object.keys(geometry) as Array<keyof typeof geometry>) {
+          expect(geometry[key], JSON.stringify({ key, geometry, indexCeilingGeometry })).toBeCloseTo(indexCeilingGeometry![key], 1)
+        }
+      }
+    }
+
     await expectNoHorizontalOverflow(page)
   }
 })
