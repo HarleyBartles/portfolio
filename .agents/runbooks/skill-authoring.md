@@ -1,5 +1,11 @@
 # Skill authoring runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/writing-skills` for skill authoring and revision.
+- `/repo-standards` for local-skill naming, manifest, and repository-shape rules.
+
 Use this runbook when authoring a Portfolio-owned skill under `port-*/`.
 
 ## Required skills

@@ -1,0 +1,10 @@
+version: 1
+metadata:
+  skill_name: directing-visual-stories
+  source_category: first_party
+interface:
+  display_name: Directing Visual Stories
+  short_description: Author visual stories across surfaces, frames, bodies, sites, and sequences.
+  default_prompt: Use directing-visual-stories to turn a visual brief into an authored surface, frame, object, body, site, page, sequence, or interactive-world direction.
+policy:
+  allow_implicit_invocation: true

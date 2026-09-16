@@ -1,5 +1,12 @@
 # Implementation Runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/executing-plans` or `/subagent-driven-development` according to the approved plan.
+- `/repo-worker-base` for worktree, validation, and source-custody boundaries.
+- `/verification-before-completion` before completion claims.
+
 Use this runbook when executing an approved plan in the portfolio repository.
 
 ## Required skills

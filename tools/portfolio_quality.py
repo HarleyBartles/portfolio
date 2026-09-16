@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import re
 import subprocess
-import warnings
 from dataclasses import dataclass
 from datetime import date
 from ipaddress import ip_address
@@ -216,7 +215,13 @@ def _load_manifest(root: Path, findings: list[Finding]) -> list[dict[str, Any]] 
     return valid_items
 
 
-def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[Finding], today: date) -> None:
+def _validate_manifest(
+    root: Path,
+    items: list[dict[str, Any]],
+    findings: list[Finding],
+    warnings: list[Finding],
+    today: date,
+) -> None:
     content_root = (root / CONTENT_ROOT).resolve()
     seen: dict[str, str] = {}
     manifest_paths: set[Path] = set()
@@ -393,7 +398,7 @@ def _validate_manifest(root: Path, items: list[dict[str, Any]], findings: list[F
             findings.append(_finding(relative, "Markdown file is not listed in the manifest"))
 
     if any(item.get("presentation") == "marketplace-case-study" for item in items):
-        _validate_marketplace_evidence(root, findings)
+        _validate_marketplace_evidence(root, findings, warnings)
     if any(item.get("presentation") == "wild-bunch-case-study" for item in items):
         _validate_wild_bunch_evidence(root, findings)
     if any(item.get("presentation") == "patch-pipeline-case-study" for item in items):
@@ -635,7 +640,7 @@ def _marketplace_inventory(root: Path, findings: list[Finding]) -> tuple[list[st
     return sorted(names), entry_count, len(canonical_names)
 
 
-def _validate_marketplace_evidence(root: Path, findings: list[Finding]) -> None:
+def _validate_marketplace_evidence(root: Path, findings: list[Finding], warnings: list[Finding]) -> None:
     evidence = _read_json(root / MARKETPLACE_EVIDENCE_PATH, findings, "Marketplace evidence")
     if not isinstance(evidence, dict):
         return
@@ -668,9 +673,11 @@ def _validate_marketplace_evidence(root: Path, findings: list[Finding]) -> None:
     if not isinstance(evidence_revision, str) or SHA_RE.fullmatch(evidence_revision) is None:
         findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision must be a 40-character commit"))
     elif checked_out_revision is not None and evidence_revision != checked_out_revision:
-        warnings.warn(
-            str(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision does not match Marketplace revision")),
-            stacklevel=2,
+        warnings.append(
+            _finding(
+                MARKETPLACE_EVIDENCE_PATH,
+                "marketplaceRevision does not match the current Marketplace revision; dated public evidence may lag the moving source",
+            )
         )
 
     evidence_inventory = evidence.get("inventory")
@@ -1224,14 +1231,19 @@ def _validate_assets(root: Path, findings: list[Finding]) -> None:
         findings.append(_finding(Path(stale_path), "custody record points to a missing asset"))
 
 
-def validate_portfolio(root: Path, today: date | None = None) -> list[Finding]:
+def validate_portfolio(
+    root: Path,
+    today: date | None = None,
+    warnings: list[Finding] | None = None,
+) -> list[Finding]:
     """Return every objective portfolio-quality finding under ``root``."""
 
     findings: list[Finding] = []
+    collected_warnings = warnings if warnings is not None else []
     effective_today = today or date.today()
     items = _load_manifest(root, findings)
     if items is not None:
-        _validate_manifest(root, items, findings, effective_today)
+        _validate_manifest(root, items, findings, collected_warnings, effective_today)
     _validate_privacy(root, findings)
     _validate_public_voice(root, findings)
     _validate_assets(root, findings)

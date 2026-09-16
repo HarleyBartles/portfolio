@@ -1,5 +1,11 @@
 # Marketplace generation runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/repo-standards` for repository-shape and generated-skill contracts.
+- `/repo-worker-base` for source and validation boundaries.
+
 Use this runbook when working with the repo-local plugin marketplace or refreshing derived skills.
 
 ## Required skills

@@ -1,5 +1,11 @@
 # Testing runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/verification-before-completion` for evidence-backed completion claims.
+- `/playwright-testing` when browser behaviour or visual regression is in scope.
+
 Use this runbook when deciding what to verify for a change.
 
 ## Required skills

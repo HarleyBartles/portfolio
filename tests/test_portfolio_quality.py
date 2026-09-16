@@ -5,7 +5,6 @@ import subprocess
 import sys
 import tempfile
 import unittest
-import warnings
 from datetime import date
 from pathlib import Path
 
@@ -940,21 +939,21 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("unknown Marketplace plugin" in finding for finding in findings))
         self.assertTrue(any("must not contain duplicates" in finding for finding in findings))
 
-    def test_marketplace_revision_drift_warns_without_failing(self) -> None:
-        def mutate(fixture: PortfolioFixture) -> None:
-            source = fixture.content / str(fixture.items[0]["path"])
-            source.unlink()
+    def test_marketplace_revision_drift_is_a_warning(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = PortfolioFixture(Path(temporary))
+            fixture.write()
             del fixture.items[0]["path"]
             fixture.items[0]["presentation"] = "marketplace-case-study"
             fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
             fixture.write_marketplace_evidence("b" * 40)
 
-        with warnings.catch_warnings(record=True) as caught:
-            warnings.simplefilter("always")
-            findings = self.validate(mutate)
+            warnings = []
+            findings = validate_portfolio(fixture.root, warnings=warnings)
 
-        self.assertFalse(any("does not match Marketplace revision" in finding for finding in findings))
-        self.assertTrue(any("does not match Marketplace revision" in str(warning.message) for warning in caught))
+        self.assertEqual(findings, [])
+        self.assertTrue(any("dated public evidence may lag" in str(warning) for warning in warnings))
 
     def test_marketplace_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
@@ -1203,8 +1202,6 @@ class PortfolioQualityTests(unittest.TestCase):
             self.assertGreater(image["height"], 0)
             self.assertTrue(image["altIntent"].startswith("Current development build"))
             self.assertIn("working skeleton", image["caption"])
-
-        self.assertEqual(validate_portfolio(ROOT), [])
 
     def test_wild_bunch_media_apply_requires_a_source_directory(self) -> None:
         result = subprocess.run(

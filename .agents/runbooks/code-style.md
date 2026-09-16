@@ -1,5 +1,11 @@
 # Code style runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/repo-worker-base` for repository-local implementation boundaries.
+- `/react` when the change touches React component architecture.
+
 Use this runbook for code and writing conventions in the portfolio repo.
 
 ## Required skills

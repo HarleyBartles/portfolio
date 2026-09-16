@@ -1,0 +1,32 @@
+schema_version: 1
+custody: local
+lane: skills-with-citation
+authority:
+  title: Visual storytelling composition authority synthesis
+  canonical_url: assets/authority/CITATIONS.md
+  pinned_source_url: assets/authority/CITATIONS.md
+  latest_check_url: assets/authority/CITATIONS.md
+  revision: '2026-09-16-additive-cross-field-pass'
+  retrieved_at: '2026-09-16'
+  content_sha256: 314DF3C31835BDAAB639F58F08DEDC8A43421F8CEBB067F3962ACB28BC2908DD
+  license: MIT
+  license_url: https://opensource.org/licenses/MIT
+decomposition:
+  reconciled_against: 314DF3C31835BDAAB639F58F08DEDC8A43421F8CEBB067F3962ACB28BC2908DD
+  references:
+  - path: SKILL.md
+    source_sections:
+    - Cross-disciplinary synthesis: composition exists at nested scales
+    - Cross-disciplinary synthesis: audience contract changes composition
+    - Additive cross-field synthesis: surfaces, objects, bodies, sites, and encounters
+    content_mode: first_party_synthesis
+    load_when:
+    - Use when routing a visual story problem before selecting a detailed reference.
+  - path: references/
+    source_sections:
+    - Cross-disciplinary synthesis: technique routing
+    - Additive cross-field synthesis: painting, sculpture, installation, architecture,
+      choreography, costume, curation, cartography, and visual rhetoric
+    content_mode: first_party_synthesis
+    load_when:
+    - Use when a later task routes to a detailed compositional family.

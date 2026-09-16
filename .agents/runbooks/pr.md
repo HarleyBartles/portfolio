@@ -1,5 +1,12 @@
 # Pull request runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/repo-worker-base` for worktree, branch, and publication boundaries.
+- `/using-github-mcp` for pull-request evidence and remote proof.
+- `/publishing-source` for the publication decision and handoff.
+
 Use this runbook for pull-request workflow and publication proof in this repo.
 
 ## Required skills
