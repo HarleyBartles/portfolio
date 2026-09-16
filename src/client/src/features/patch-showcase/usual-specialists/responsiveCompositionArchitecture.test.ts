@@ -57,4 +57,11 @@ describe('Specialists responsive composition architecture', () => {
     expect(compositionCss).not.toContain('position: absolute;')
     expect(compositionCss).not.toContain('inset: 0;')
   })
+
+  test('keeps Commission 08 source-frame geometry inside the reaction composition', () => {
+    const parentStyles = readSource('./SilkChapter.styles.ts')
+
+    expect(parentStyles).not.toContain("from './silkCommission08ReviewGeometry'")
+    expect(parentStyles).not.toContain('SILK_COMMISSION_08_REVIEW_')
+  })
 })

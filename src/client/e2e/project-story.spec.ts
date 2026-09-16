@@ -238,10 +238,26 @@ test('The Usual Specialists renders the settled Silk scene set across its distin
     const commission05 = silk.locator('[data-silk-commission="05"]')
     const commission07 = silk.locator('[data-silk-commission="07"]')
     const reaction = silk.locator('[data-silk-commission="08"]')
+    const reactionComposition = reaction.locator('[data-silk-reaction-frame-composition]')
+    const reactionViewport = reaction.locator('[data-silk-commission-08-review-viewport]')
     const receipt = silk.locator('[data-silk-receipt-peekthrough]')
     const handoff = silk.locator('[data-silk-commission="09"]')
 
     for (const locator of [commission05, commission07, reaction, receipt, handoff]) await expect(locator).toBeVisible()
+    const [reactionCompositionBox, reactionViewportBox] = await Promise.all([
+      reactionComposition.boundingBox(),
+      reactionViewport.boundingBox(),
+    ])
+    expect(reactionCompositionBox).not.toBeNull()
+    expect(reactionViewportBox).not.toBeNull()
+    for (const [compositionValue, viewportValue] of [
+      [reactionCompositionBox!.x, reactionViewportBox!.x],
+      [reactionCompositionBox!.y, reactionViewportBox!.y],
+      [reactionCompositionBox!.width, reactionViewportBox!.width],
+      [reactionCompositionBox!.height, reactionViewportBox!.height],
+    ]) {
+      expect.soft(Math.abs(compositionValue - viewportValue), JSON.stringify({ width, reactionCompositionBox, reactionViewportBox })).toBeLessThanOrEqual(1)
+    }
     await expect(receipt.locator('[data-silk-receipt-world-image]')).toHaveAttribute('src', /silk-receipt-alcove-world-review\.webp$/)
     await expect(receipt.locator('[data-silk-receipt-frame-review]')).toHaveAttribute('src', /silk-receipt-peekthrough-frame-review\.webp$/)
     await expect(receipt.locator('[data-silk-receipt-peek-cutout]')).toHaveAttribute('src', /silk-receipt-hole-peek-cutout-review\.webp$/)

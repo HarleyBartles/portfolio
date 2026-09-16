@@ -370,8 +370,8 @@ The child must no longer enlarge itself to `116%` and pull itself left by `-8%` 
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(renders the settled Silk scene set|narrow Silk gutters|moves only its aperture worlds)"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **5.8 Commit checkpoint:** If authorized, commit the aperture ownership slice only when visual evidence is unchanged.
-- [ ] **5.9 Progress tracking:** Mark every Task 5 box `[x]` before Task 6.
+- [x] **5.8 Commit checkpoint:** If authorized, commit the aperture ownership slice only when visual evidence is unchanged.
+- [x] **5.9 Progress tracking:** Mark every Task 5 box `[x]` before Task 6.
 
 ---
 
@@ -409,14 +409,14 @@ The parent therefore positions a meaningful visible object, not source-image coo
 
 ### Steps
 
-- [ ] **6.1 RED child test:** Add `SilkReactionFrameComposition.test.tsx`. Prove accepted reaction image/frame assets, root-only style forwarding, no `className` seam, and that the semantic composition root is the visible viewport boundary rather than the full source-frame canvas.
-- [ ] **6.2 RED architecture guard:** Reject `SilkChapter.styles.ts` imports of `silkCommission08ReviewGeometry` or its raw frame/viewport constants.
-- [ ] **6.3 Verify RED:** Run both tests and confirm they fail for the current parent knowledge/root semantics.
-- [ ] **6.4 Rebuild child internals:** Move frame-canvas positioning around the root into `SilkReactionFrameComposition.styles.ts` using the existing Commission 08 internal geometry. Keep reaction image crop/scale and frame asset visually unchanged.
-- [ ] **6.5 Re-express parent placement:** Retune `ReactionAperturePlacement` only as necessary so its allocated box is the same visible eye viewport the user already sees. Parent spacing below it must reference the placement/root box, not Commission 08 source-frame calculations.
-- [ ] **6.6 Delete parent source math:** Remove Commission 08 frame width/height/viewport imports and compensation formulas from `SilkChapter.styles.ts`.
-- [ ] **6.7 Browser semantic-box proof:** Keep an internal `[data-silk-commission-08-review-viewport]` element at `inset: 0` inside the semantic reaction root and add a Playwright assertion that their bounding boxes match within a small layout tolerance. Keep the existing rendered gap/attachment assertions for Receipt and Commission 09 so this structural change cannot move the page.
-- [ ] **6.8 Focused verification:** Run:
+- [x] **6.1 RED child test:** Add `SilkReactionFrameComposition.test.tsx`. Prove accepted reaction image/frame assets, root-only style forwarding, no `className` seam, and that the semantic composition root is the visible viewport boundary rather than the full source-frame canvas.
+- [x] **6.2 RED architecture guard:** Reject `SilkChapter.styles.ts` imports of `silkCommission08ReviewGeometry` or its raw frame/viewport constants.
+- [x] **6.3 Verify RED:** Run both tests and confirm they fail for the current parent knowledge/root semantics.
+- [x] **6.4 Rebuild child internals:** Move frame-canvas positioning around the root into `SilkReactionFrameComposition.styles.ts` using the existing Commission 08 internal geometry. Keep reaction image crop/scale and frame asset visually unchanged.
+- [x] **6.5 Re-express parent placement:** Retune `ReactionAperturePlacement` only as necessary so its allocated box is the same visible eye viewport the user already sees. Parent spacing below it must reference the placement/root box, not Commission 08 source-frame calculations.
+- [x] **6.6 Delete parent source math:** Remove Commission 08 frame width/height/viewport imports and compensation formulas from `SilkChapter.styles.ts`.
+- [x] **6.7 Browser semantic-box proof:** Keep an internal `[data-silk-commission-08-review-viewport]` element at `inset: 0` inside the semantic reaction root and add a Playwright assertion that their bounding boxes match within a small layout tolerance. Keep the existing rendered gap/attachment assertions for Receipt and Commission 09 so this structural change cannot move the page.
+- [x] **6.8 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/SilkReactionFrameComposition.test.tsx src/features/patch-showcase/usual-specialists/silkCommission08ReviewGeometry.test.ts src/features/patch-showcase/usual-specialists/SilkChapter.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts

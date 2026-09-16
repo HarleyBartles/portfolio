@@ -71,6 +71,7 @@ describe('Silk chapter diegetic-wall proof', () => {
     const commission08Composition = commission08?.querySelector('[data-silk-reaction-frame-composition]')
     const commission08Frame = commission08Composition?.querySelector<HTMLImageElement>('[data-silk-commission-08-review-frame]')
     expect(commission08Composition).toBeInTheDocument()
+    expect(commission08Composition?.parentElement).toBe(commission08)
     expect(commission08?.querySelector('[data-silk-aperture]')).not.toBeInTheDocument()
     expect(commission08Frame).toHaveAttribute('src', expect.stringContaining('silk-commission-08-reaction-frame-review.webp'))
     expect(commission08Frame).toHaveAttribute('alt', '')

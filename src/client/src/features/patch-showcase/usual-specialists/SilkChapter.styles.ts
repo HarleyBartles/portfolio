@@ -3,27 +3,15 @@ import {
   SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT,
   SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH,
 } from './silkCommission07ReviewGeometry'
-import {
-  SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT,
-  SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH,
-  SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT,
-  SILK_COMMISSION_08_REVIEW_VIEWPORT,
-} from './silkCommission08ReviewGeometry'
 import { SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
 const SILK_NARROW_APERTURE_2_BLEED = 1.16
 const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT / SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
-const SILK_COMPACT_REACTION_HALF_HEIGHT = 58
-const SILK_COMPACT_REACTION_VIEWPORT_CENTER_COMPENSATION = (
-  (0.5 - (SILK_COMMISSION_08_REVIEW_VIEWPORT.top / SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT))
-  * (SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT / SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH)
-  * 100
-)
-const SILK_RECONNECTING_REACTION_FRAME_HEIGHT = 700 * (SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT / SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH)
-const SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET = (
-  120 / 2
-  - SILK_RECONNECTING_REACTION_FRAME_HEIGHT / 2
-  + ((SILK_COMMISSION_08_REVIEW_VIEWPORT.bottom + 1) / SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT) * SILK_RECONNECTING_REACTION_FRAME_HEIGHT
-)
+const SILK_REACTION_VIEWPORT_WIDTH_PERCENT = 89.3557422969188
+const SILK_REACTION_VIEWPORT_LEFT_PERCENT = 3.64145658263305
+const SILK_REACTION_MID_WIDTH = 625.490196078431
+const SILK_REACTION_MID_HEIGHT = SILK_REACTION_MID_WIDTH / 8.25
+const SILK_REACTION_MID_TOP_SHIFT = 23.7057220708447
+const SILK_REACTION_MID_BOTTOM_ALIGNMENT = 0.0413171626507136
 const SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG = 161.63
 const SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO = 941 / 1672
 const SILK_COMPACT_COMMISSION_09_HEIGHT_VW = 116 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO
@@ -71,7 +59,11 @@ export const Stage = styled.div`
     --silk-aperture-2-world-top: calc(134.342px + 52.5834vw);
     --silk-aperture-2-world-bottom: calc(134.342px + 86.6037vw);
     --silk-aperture-world-gutter: calc(var(--silk-aperture-2-world-top) - var(--silk-aperture-1-world-bottom));
-    --silk-reaction-top: calc(var(--silk-aperture-2-world-bottom) + var(--silk-aperture-world-gutter));
+    --silk-reaction-top: calc(
+      var(--silk-aperture-2-world-bottom)
+      + var(--silk-aperture-world-gutter)
+      + ${SILK_REACTION_MID_TOP_SHIFT}px
+    );
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
@@ -93,7 +85,8 @@ export const Stage = styled.div`
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     min-height: calc(
       var(--silk-reaction-top)
-      + 320px
+      + ${SILK_REACTION_MID_HEIGHT}px
+      + 220.477284465103px
       + ${SILK_MID_COMMISSION_09_HEIGHT}px
       + 20px
     );
@@ -104,7 +97,7 @@ export const Stage = styled.div`
       1740px,
       calc(
         var(--silk-reaction-top)
-        + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET}px
+        + ${SILK_REACTION_MID_HEIGHT + SILK_REACTION_MID_BOTTOM_ALIGNMENT}px
         + var(--silk-reconnecting-lower-gutter)
         + ${SILK_MID_COMMISSION_09_HEIGHT}px
         + 20px
@@ -124,14 +117,9 @@ export const Stage = styled.div`
     --silk-compact-aperture-2-world-top: calc(var(--silk-compact-aperture-1-world-bottom) + var(--silk-compact-aperture-world-gutter));
     --silk-compact-aperture-2-top: calc(var(--silk-compact-aperture-2-world-top) - 11.5236vw);
     --silk-compact-aperture-2-world-bottom: calc(var(--silk-compact-aperture-2-top) + 56.3686vw);
-    --silk-compact-reaction-top: calc(
-      var(--silk-compact-aperture-2-world-bottom)
-      + var(--silk-compact-aperture-world-gutter)
-      - ${SILK_COMPACT_REACTION_HALF_HEIGHT}px
-      + ${SILK_COMPACT_REACTION_VIEWPORT_CENTER_COMPENSATION}vw
-    );
+    --silk-compact-reaction-top: calc(var(--silk-compact-aperture-2-world-bottom) + var(--silk-compact-aperture-world-gutter));
     --silk-stacked-reaction-top: var(--silk-compact-reaction-top);
-    --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 58px + 21.270407vw);
+    --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 26.4553038470222vw);
     --silk-compact-handoff-from-receipt: 16.320692vw;
     --silk-stacked-row-gap: clamp(24px, 6vw, 44px);
     min-height: calc(
@@ -149,18 +137,25 @@ export const Stage = styled.div`
     --silk-narrow-aperture-2-top: calc(var(--silk-narrow-aperture-1-top) + 174vw + var(--silk-narrow-aperture-gap));
     --silk-narrow-aperture-2-height: ${SILK_NARROW_APERTURE_2_HEIGHT};
     --silk-narrow-row-gap: clamp(20px, 6vw, 24px);
-    --silk-narrow-reaction-visible-shift: calc(58px + 6.6225vw - var(--silk-narrow-row-gap));
     --silk-narrow-reaction-top: calc(
       var(--silk-narrow-aperture-2-top)
       + var(--silk-narrow-aperture-2-height)
       + var(--silk-narrow-aperture-gap)
-      - var(--silk-narrow-reaction-visible-shift)
+      + var(--silk-narrow-row-gap)
+      - 11.8073968470222vw
     );
-    --silk-narrow-receipt-top: calc(var(--silk-narrow-reaction-top) + 116px + var(--silk-narrow-row-gap));
+    --silk-narrow-receipt-top: calc(
+      var(--silk-narrow-reaction-top)
+      + 58px
+      + 5.18489684702219vw
+      + var(--silk-narrow-row-gap)
+    );
     --silk-narrow-handoff-top: calc(var(--silk-narrow-receipt-top) + 126px + var(--silk-narrow-row-gap));
     min-height: calc(
       var(--silk-narrow-handoff-top)
-      + var(--silk-narrow-reaction-visible-shift)
+      + 58px
+      + 6.6225vw
+      - var(--silk-narrow-row-gap)
       + 56.25vw
       + 80px
     );
@@ -391,7 +386,7 @@ export const ReceiptPeekthrough = styled.div`
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
-    top: calc(var(--silk-reaction-top) + 212px);
+    top: calc(var(--silk-reaction-top) + ${SILK_REACTION_MID_HEIGHT + 112.477284465103}px);
     right: 19%;
     left: auto;
   }
@@ -399,7 +394,7 @@ export const ReceiptPeekthrough = styled.div`
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: calc(
       var(--silk-reaction-top)
-      + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET + SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG}px
+      + ${SILK_REACTION_MID_HEIGHT + SILK_REACTION_MID_BOTTOM_ALIGNMENT + SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG}px
       + var(--silk-reconnecting-lower-gutter)
     );
     right: auto;
@@ -443,60 +438,55 @@ export const ReceiptPeekthrough = styled.div`
 export const ReactionAperturePlacement = styled.div`
   position: absolute;
   z-index: 7;
-  top: 1045px;
-  right: max(var(--specialists-gutter), calc((100% - 1180px) / 2 - 58px));
-  width: min(39%, 500px);
-  height: 126px;
+  top: 1082.07551576489px;
+  right: max(calc(var(--specialists-gutter) + 35.014551px), calc((100% - 1180px) / 2 - 22.985449px));
+  width: min(34.8487394957983%, 446.778711484594px);
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    top: 845px;
-    right: -20px;
-    width: 700px;
-    height: 120px;
+    top: ${845 + SILK_REACTION_MID_TOP_SHIFT}px;
+    right: 29.0196078431372px;
+    width: ${SILK_REACTION_MID_WIDTH}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     top: var(--silk-reaction-top);
     right: auto;
-    left: 24px;
-    width: 700px;
-    height: 120px;
+    left: 49.4901960784314px;
+    width: ${SILK_REACTION_MID_WIDTH}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: var(--silk-reaction-top);
     right: auto;
-    left: 24px;
-    width: 700px;
-    height: 120px;
+    left: 49.4901960784314px;
+    width: ${SILK_REACTION_MID_WIDTH}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.stackedLower} {
-    top: 1340px;
+    top: ${1340 + SILK_REACTION_MID_TOP_SHIFT}px;
     right: auto;
-    left: max(24px, calc((100% - 1240px) / 2));
+    left: max(49.4901960784314px, calc((100% - 1189.01960784314px) / 2));
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
-    top: 1125px;
-    right: -6%;
-    width: 72%;
-    height: 116px;
+    top: calc(1183px - 5.18489684702219vw);
+    right: auto;
+    left: ${SILK_REACTION_VIEWPORT_LEFT_PERCENT}%;
+    width: ${SILK_REACTION_VIEWPORT_WIDTH_PERCENT}%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-reaction-top);
-    right: 0;
-    left: 0;
-    width: 100%;
-    height: 116px;
+    right: auto;
+    left: ${SILK_REACTION_VIEWPORT_LEFT_PERCENT}%;
+    width: ${SILK_REACTION_VIEWPORT_WIDTH_PERCENT}%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-stacked-reaction-top);
-    right: 0;
-    left: 0;
-    width: 100%;
+    right: auto;
+    left: ${SILK_REACTION_VIEWPORT_LEFT_PERCENT}%;
+    width: ${SILK_REACTION_VIEWPORT_WIDTH_PERCENT}%;
   }
 `
 
@@ -515,7 +505,7 @@ export const HandoffCell = styled.div`
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
-    top: calc(var(--silk-reaction-top) + 320px);
+    top: calc(var(--silk-reaction-top) + ${SILK_REACTION_MID_HEIGHT + 220.477284465103}px);
     right: auto;
     left: 24px;
     width: 640px;
@@ -524,7 +514,7 @@ export const HandoffCell = styled.div`
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: calc(
       var(--silk-reaction-top)
-      + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET}px
+      + ${SILK_REACTION_MID_HEIGHT + SILK_REACTION_MID_BOTTOM_ALIGNMENT}px
       + var(--silk-reconnecting-lower-gutter)
     );
     right: 24px;

@@ -2,34 +2,47 @@ import styled from 'styled-components'
 import {
   SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT,
   SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH,
-  SILK_COMMISSION_08_REVIEW_VIEWPORT_INSETS,
+  SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT,
+  SILK_COMMISSION_08_REVIEW_FRAME_WIDTH,
+  SILK_COMMISSION_08_REVIEW_VIEWPORT,
 } from './silkCommission08ReviewGeometry'
+
+const reactionViewportWidth = SILK_COMMISSION_08_REVIEW_VIEWPORT.right - SILK_COMMISSION_08_REVIEW_VIEWPORT.left + 1
+const reactionViewportHeight = SILK_COMMISSION_08_REVIEW_VIEWPORT.bottom - SILK_COMMISSION_08_REVIEW_VIEWPORT.top + 1
+const frameCanvasWidthPercent = (SILK_COMMISSION_08_REVIEW_FRAME_WIDTH / reactionViewportWidth) * 100
+const frameCanvasLeftPercent = -(SILK_COMMISSION_08_REVIEW_VIEWPORT.left / reactionViewportWidth) * 100
+const frameCanvasHeightToViewport = (
+  (SILK_COMMISSION_08_REVIEW_FRAME_WIDTH / reactionViewportWidth)
+  * (SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT / SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH)
+  * (reactionViewportWidth / reactionViewportHeight)
+)
+const frameCanvasTopPercent = -(
+  SILK_COMMISSION_08_REVIEW_VIEWPORT.top
+  / SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT
+) * frameCanvasHeightToViewport * 100
 
 export const Composition = styled.div`
   position: relative;
-  overflow: hidden;
   width: 100%;
-  height: 100%;
+  aspect-ratio: ${reactionViewportWidth} / ${reactionViewportHeight};
   isolation: isolate;
 `
 
 export const FrameCanvas = styled.div`
   position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
+  z-index: 2;
+  top: ${frameCanvasTopPercent}%;
+  left: ${frameCanvasLeftPercent}%;
+  width: ${frameCanvasWidthPercent}%;
   aspect-ratio: ${SILK_COMMISSION_08_REVIEW_DERIVATIVE_WIDTH} / ${SILK_COMMISSION_08_REVIEW_DERIVATIVE_HEIGHT};
-  transform: translateY(-50%);
+  pointer-events: none;
 `
 
 export const ReactionViewport = styled.div`
   position: absolute;
   z-index: 1;
   overflow: hidden;
-  left: ${SILK_COMMISSION_08_REVIEW_VIEWPORT_INSETS.left};
-  top: ${SILK_COMMISSION_08_REVIEW_VIEWPORT_INSETS.top};
-  width: ${SILK_COMMISSION_08_REVIEW_VIEWPORT_INSETS.width};
-  height: ${SILK_COMMISSION_08_REVIEW_VIEWPORT_INSETS.height};
+  inset: 0;
 `
 
 export const ReactionImage = styled.img`
