@@ -509,7 +509,6 @@ export const HandoffCell = styled.div`
   top: 1205px;
   right: 6%;
   width: min(52%, 360px);
-  aspect-ratio: 1672 / 941;
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 1200px;
@@ -547,16 +546,15 @@ export const HandoffCell = styled.div`
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: calc(var(--silk-narrow-handoff-top) - var(--silk-narrow-row-gap));
-    right: 0;
-    left: 0;
-    width: auto;
-    aspect-ratio: 941 / 1672;
+    right: auto;
+    left: -2.1%;
+    width: 104.2%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-handoff-top);
-    right: 0;
-    left: 0;
-    width: auto;
+    right: auto;
+    left: -8%;
+    width: 116%;
   }
 `

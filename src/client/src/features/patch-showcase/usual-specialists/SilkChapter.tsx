@@ -67,7 +67,12 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
           <SilkReactionFrameComposition />
         </ReactionAperturePlacement>
 
-        <HandoffCell data-silk-aperture-owner="09" data-silk-commission="09" data-silk-scene-cell="09">
+        <HandoffCell
+          data-silk-aperture-owner="09"
+          data-silk-commission="09"
+          data-silk-commission-09-placement
+          data-silk-scene-cell="09"
+        >
           <SilkCommission09Composition />
         </HandoffCell>
       </Stage>

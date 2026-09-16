@@ -471,8 +471,8 @@ Responsive scale and mirroring that describe Receipt-to-Silk internals remain in
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(scales the accepted Receipt and Silk lockup|Receipt/Silk to Commission 09 gutter|attached to the Receipt hole)"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **7.8 Commit checkpoint:** If authorized, commit the Receipt external-box slice when pixels and attachment remain unchanged.
-- [ ] **7.9 Progress tracking:** Mark every Task 7 box `[x]` before Task 8.
+- [x] **7.8 Commit checkpoint:** If authorized, commit the Receipt external-box slice when pixels and attachment remain unchanged.
+- [x] **7.9 Progress tracking:** Mark every Task 7 box `[x]` before Task 8.
 
 ---
 
@@ -508,13 +508,13 @@ Responsive scale and mirroring that describe Receipt-to-Silk internals remain in
 
 ### Steps
 
-- [ ] **8.1 RED component/architecture contract:** Add an assertion that the Commission 09 composition root does not apply caller-placement bleed (`116%`, negative outer margin) while retaining the exact portrait source threshold and custody-backed assets.
-- [ ] **8.2 Verify RED:** Confirm the current child root fails this ownership test.
-- [ ] **8.3 Move whole-object bleed:** Transfer compact/narrow external width/offset behaviour from `SilkCommission09Composition.styles.ts` to `HandoffCell` or a dedicated parent-owned Commission 09 placement wrapper.
-- [ ] **8.4 Keep child internals:** Make the child fill the allocated box and preserve its internal landscape/portrait aspect and viewport calculations. Replace any remaining `specialistsResponsive` import with Silk-owned conditions.
-- [ ] **8.5 Browser semantic-box proof:** Add a stable `data-silk-commission-09-placement` marker to the parent-owned placement wrapper. Assert that the Commission 09 composition root and that placement box coincide at compact/narrow widths, while the placement itself still bleeds past the viewport edges exactly as before.
-- [ ] **8.6 Run existing bleed/gutter tests:** Preserve the current tests for compact widescreen bleed, Receipt/Silk-to-Commission-09 gutter, narrow gutter and narrow torn-frame edge bleed.
-- [ ] **8.7 Focused verification:** Run:
+- [x] **8.1 RED component/architecture contract:** Add an assertion that the Commission 09 composition root does not apply caller-placement bleed (`116%`, negative outer margin) while retaining the exact portrait source threshold and custody-backed assets.
+- [x] **8.2 Verify RED:** Confirm the current child root fails this ownership test.
+- [x] **8.3 Move whole-object bleed:** Transfer compact/narrow external width/offset behaviour from `SilkCommission09Composition.styles.ts` to `HandoffCell` or a dedicated parent-owned Commission 09 placement wrapper.
+- [x] **8.4 Keep child internals:** Make the child fill the allocated box and preserve its internal landscape/portrait aspect and viewport calculations. Replace any remaining `specialistsResponsive` import with Silk-owned conditions.
+- [x] **8.5 Browser semantic-box proof:** Add a stable `data-silk-commission-09-placement` marker to the parent-owned placement wrapper. Assert that the Commission 09 composition root and that placement box coincide at compact/narrow widths, while the placement itself still bleeds past the viewport edges exactly as before.
+- [x] **8.6 Run existing bleed/gutter tests:** Preserve the current tests for compact widescreen bleed, Receipt/Silk-to-Commission-09 gutter, narrow gutter and narrow torn-frame edge bleed.
+- [x] **8.7 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/SilkCommission09Composition.test.tsx src/features/patch-showcase/usual-specialists/SilkChapter.test.tsx

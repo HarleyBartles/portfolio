@@ -1,6 +1,13 @@
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { SilkCommission09Composition } from './SilkCommission09Composition'
+
+const readStylesSource = (): string => readFileSync(
+  resolve('src/features/patch-showcase/usual-specialists/SilkCommission09Composition.styles.ts'),
+  'utf8',
+)
 
 describe('SilkCommission09Composition', () => {
   test('locks a striped parallax world behind the candidate knock-through frame', () => {
@@ -30,5 +37,17 @@ describe('SilkCommission09Composition', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
     const { container } = render(<SilkCommission09Composition className="external-control" />)
     expect(container.querySelector('[data-silk-commission-09-composition]')).not.toHaveClass('external-control')
+  })
+
+  test('keeps external bleed out of the child while retaining its portrait frame threshold', () => {
+    const stylesSource = readStylesSource()
+    const compositionCss = stylesSource.match(/export const Composition = styled\.div`([\s\S]*?)`/)?.[1] ?? ''
+
+    expect(compositionCss).not.toContain('width: 116%;')
+    expect(compositionCss).not.toContain('margin-left: -8%;')
+    expect(compositionCss).not.toContain('width: 104.2%;')
+    expect(compositionCss).not.toContain('margin-left: -2.1%;')
+    expect(stylesSource).not.toContain("from './specialistsResponsive'")
+    expect(stylesSource).toContain('(max-width: 389px)')
   })
 })

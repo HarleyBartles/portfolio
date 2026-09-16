@@ -562,17 +562,52 @@ test('The Usual Specialists gives Commission 09 the compact widescreen bleed tre
     ])
     for (const box of [stageBox, handoffBox, compositionBox]) expect(box).not.toBeNull()
 
-    expect.soft(handoffBox!.x, JSON.stringify({ width, stageBox, handoffBox })).toBeCloseTo(stageBox!.x, 0)
-    expect.soft(handoffBox!.width, JSON.stringify({ width, stageBox, handoffBox })).toBeCloseTo(stageBox!.width, 0)
     expect.soft(
-      compositionBox!.x,
-      JSON.stringify({ width, stageBox, compositionBox }),
+      handoffBox!.x,
+      JSON.stringify({ width, stageBox, handoffBox }),
     ).toBeCloseTo(stageBox!.x - stageBox!.width * 0.08, 0)
     expect.soft(
-      compositionBox!.width,
-      JSON.stringify({ width, stageBox, compositionBox }),
+      handoffBox!.width,
+      JSON.stringify({ width, stageBox, handoffBox }),
     ).toBeCloseTo(stageBox!.width * 1.16, 0)
+    expect.soft(
+      compositionBox!.x,
+      JSON.stringify({ width, handoffBox, compositionBox }),
+    ).toBeCloseTo(handoffBox!.x, 0)
+    expect.soft(
+      compositionBox!.width,
+      JSON.stringify({ width, handoffBox, compositionBox }),
+    ).toBeCloseTo(handoffBox!.width, 0)
     await expectNoHorizontalOverflow(page)
+  }
+})
+
+test('The Usual Specialists makes the Commission 09 placement box own compact and narrow bleed', async ({ page }) => {
+  for (const width of [320, 389, 390, 520, 719] as const) {
+    await page.setViewportSize({ width, height: 1800 })
+    await page.goto(specialistsPreviewPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    const stage = silk.locator('[data-silk-stage]')
+    const placement = silk.locator('[data-silk-commission-09-placement]')
+    const composition = placement.locator('[data-silk-commission-09-composition]')
+    const [stageBox, placementBox, compositionBox] = await Promise.all([
+      stage.boundingBox(),
+      placement.boundingBox(),
+      composition.boundingBox(),
+    ])
+    for (const box of [stageBox, placementBox, compositionBox]) expect(box).not.toBeNull()
+
+    const diagnostic = JSON.stringify({ width, stageBox, placementBox, compositionBox })
+    expect.soft(compositionBox!.x, diagnostic).toBeCloseTo(placementBox!.x, 0)
+    expect.soft(compositionBox!.y, diagnostic).toBeCloseTo(placementBox!.y, 0)
+    expect.soft(compositionBox!.width, diagnostic).toBeCloseTo(placementBox!.width, 0)
+    expect.soft(compositionBox!.height, diagnostic).toBeCloseTo(placementBox!.height, 0)
+
+    const expectedScale = width < 390 ? 1.042 : 1.16
+    const expectedLeft = width < 390 ? -0.021 : -0.08
+    expect.soft(placementBox!.x, diagnostic).toBeCloseTo(stageBox!.x + stageBox!.width * expectedLeft, 0)
+    expect.soft(placementBox!.width, diagnostic).toBeCloseTo(stageBox!.width * expectedScale, 0)
   }
 })
 
