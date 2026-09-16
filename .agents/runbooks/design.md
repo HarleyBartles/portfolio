@@ -1,5 +1,12 @@
 # Design Runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/brainstorming` for design specification work.
+- `/applying-portfolio-visual-language` for visitor-facing presentation.
+- `/handoff-gates` before design-to-planning handoff.
+
 Use this runbook when turning a portfolio-repo idea into a design spec that a planning agent can execute without inventing missing contract details.
 
 ## Before You Begin

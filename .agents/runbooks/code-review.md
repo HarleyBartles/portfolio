@@ -1,5 +1,11 @@
 # Code Review Runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/requesting-code-review` for the review stage.
+- `/repo-worker-base` for repository state and evidence boundaries.
+
 Use this runbook when reviewing a PR, branch, or diff in the portfolio repository.
 
 ## Before You Review

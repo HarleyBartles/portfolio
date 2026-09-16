@@ -1,5 +1,11 @@
 # Planning Runbook
 
+## Required skills
+
+- `/using-superpowers-plus` for routing.
+- `/writing-plans` for a single executable plan or `/writing-roadmaps` for an epic.
+- `/handoff-gates` before planning-to-execution handoff.
+
 Use this runbook when turning an approved design spec into an implementation plan for the portfolio repository.
 
 ## Read First
