@@ -684,21 +684,21 @@ test('The Usual Specialists keeps Silk attached to the Receipt hole across repre
     const receiptFrame = silk.locator('[data-silk-receipt-frame-review]')
     const reaction = silk.locator('[data-silk-commission="08"]')
     const handoff = silk.locator('[data-silk-commission="09"]')
-    const rope = silk.locator('[data-silk-traversal-composition]')
+    const traversalPlacement = silk.locator('[data-silk-traversal-placement]')
 
     await expect(cutout).toBeVisible()
-    const [matrixA, layerZ, reactionZ, handoffZ, ropeZ] = await Promise.all([
+    const [matrixA, layerZ, reactionZ, handoffZ, traversalZ] = await Promise.all([
       cutout.evaluate((element) => new DOMMatrix(getComputedStyle(element).transform).a),
       silk.locator('[data-silk-receipt-peek-cutout-layer]').evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       reaction.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
       handoff.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
-      rope.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
+      traversalPlacement.evaluate((element) => Number.parseInt(getComputedStyle(element).zIndex, 10)),
     ])
 
     expect(Math.sign(matrixA)).toBe(width >= 900 && width <= 1499 ? -1 : 1)
     expect(layerZ).toBeGreaterThan(reactionZ)
     expect(layerZ).toBeGreaterThan(handoffZ)
-    expect(layerZ).toBeGreaterThan(ropeZ)
+    expect(layerZ).toBeGreaterThan(traversalZ)
 
     if (width === 1500) {
       const [receiptFrameBox, receiptSilkBox] = await Promise.all([

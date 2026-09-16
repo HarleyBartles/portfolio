@@ -18,6 +18,7 @@ import {
   ReceiptPeekthrough,
   Stage,
   StoryCard,
+  TraversalPlacement,
 } from './SilkChapter.styles'
 
 type SilkChapterProps = {
@@ -42,7 +43,9 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
           <NameStrapline data-silk-name-strapline>PRESSURE | PROVE THE ROUTE</NameStrapline>
         </NameLockup>
 
-        <SilkTraversalComposition />
+        <TraversalPlacement data-silk-traversal-placement>
+          <SilkTraversalComposition />
+        </TraversalPlacement>
 
         <CorridorAperturePlacement data-silk-aperture-owner="05" data-silk-commission="05">
           <SilkApertureComposition variant="commission-05" />

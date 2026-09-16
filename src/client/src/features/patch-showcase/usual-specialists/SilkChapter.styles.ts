@@ -9,18 +9,7 @@ import {
   SILK_COMMISSION_08_REVIEW_FRAME_HEIGHT,
   SILK_COMMISSION_08_REVIEW_VIEWPORT,
 } from './silkCommission08ReviewGeometry'
-import { specialistsMedia } from './specialistsResponsive'
-
-const SILK_1920_TREATMENT_MEDIA = '(min-width: 1200px)'
-const SILK_COMPACT_COMPOSITION_MEDIA = '(min-width: 390px) and (max-width: 719px)'
-const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
-const SILK_RECONNECTED_UPPER_MEDIA = '(min-width: 1200px) and (max-width: 1399px)'
-const SILK_NARROW_LOWER_MEDIA = '(min-width: 720px) and (max-width: 899px)'
-const SILK_RECONNECTING_LOWER_MEDIA = '(min-width: 900px) and (max-width: 1199px)'
-const SILK_LOWER_STAGE_MEDIA = '(min-width: 720px) and (max-width: 1499px)'
-const SILK_STACKED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1919px)'
-const SILK_SEPARATED_LOWER_MEDIA = '(min-width: 1200px) and (max-width: 1499px)'
-const SILK_STORY_ABOVE_MEDIA = '(min-width: 1200px) and (max-width: 1799px)'
+import { SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
 const SILK_NARROW_APERTURE_2_BLEED = 1.16
 const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT / SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
 const SILK_COMPACT_REACTION_HALF_HEIGHT = 58
@@ -42,6 +31,8 @@ const SILK_MID_COMMISSION_09_HEIGHT = 640 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_
 
 export const Chapter = styled.section`
   position: relative;
+  container-name: ${SILK_CONTAINER_NAME};
+  container-type: inline-size;
   padding-top: 62px;
   padding-bottom: clamp(82px, 11vw, 148px);
   background:
@@ -50,7 +41,7 @@ export const Chapter = styled.section`
     var(--color-interior-canvas);
   background-size: 43px 37px, 51px 47px, auto;
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @media ${silkQueries.narrow} {
     padding-bottom: calc(121.4333vw + 2px);
   }
 `
@@ -75,7 +66,7 @@ export const Stage = styled.div`
   position: relative;
   min-height: 1470px;
 
-  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
     --silk-aperture-1-world-bottom: calc(136px + 43.1579vw);
     --silk-aperture-2-world-top: calc(134.342px + 52.5834vw);
     --silk-aperture-2-world-bottom: calc(134.342px + 86.6037vw);
@@ -83,23 +74,23 @@ export const Stage = styled.div`
     --silk-reaction-top: calc(var(--silk-aperture-2-world-bottom) + var(--silk-aperture-world-gutter));
   }
 
-  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     --silk-reconnecting-lower-gutter: clamp(50px, 5vw, 60px);
   }
 
-  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
     --silk-separated-lower-shift: 101px;
   }
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     min-height: 1580px;
   }
 
-  @media ${SILK_LOWER_STAGE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.lowerStage} {
     min-height: 1740px;
   }
 
-  @media ${SILK_NARROW_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     min-height: calc(
       var(--silk-reaction-top)
       + 320px
@@ -108,7 +99,7 @@ export const Stage = styled.div`
     );
   }
 
-  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     min-height: min(
       1740px,
       calc(
@@ -121,11 +112,11 @@ export const Stage = styled.div`
     );
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     min-height: 1600px;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     --silk-compact-stack-shift: clamp(0px, calc(302px - 42vw), 138px);
     --silk-compact-aperture-1-top: calc(170px + 8vw + var(--silk-compact-stack-shift));
     --silk-compact-aperture-1-world-bottom: calc(var(--silk-compact-aperture-1-top) + 56.8899vw);
@@ -139,17 +130,6 @@ export const Stage = styled.div`
       - ${SILK_COMPACT_REACTION_HALF_HEIGHT}px
       + ${SILK_COMPACT_REACTION_VIEWPORT_CENTER_COMPENSATION}vw
     );
-    /* Preserve the accepted percentage-based rope/traversal anchors from the former stage height. */
-    --silk-compact-rope-join-top: calc(
-      275px
-      + 29.822222vw
-      + clamp(0px, calc(73.822222px - 10.266667vw), 33.733333px)
-    );
-    --silk-compact-traversal-top: calc(
-      303.75px
-      + 32.94vw
-      + clamp(0px, calc(81.54px - 11.34vw), 37.26px)
-    );
     --silk-stacked-reaction-top: var(--silk-compact-reaction-top);
     --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 58px + 21.270407vw);
     --silk-compact-handoff-from-receipt: 16.320692vw;
@@ -162,7 +142,7 @@ export const Stage = styled.div`
     );
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     --silk-narrow-story-top: calc(106px + 5vw);
     --silk-narrow-aperture-1-top: clamp(330px, calc(540px - 53vw), 370px);
     --silk-narrow-aperture-gap: 6.75vw;
@@ -187,6 +167,12 @@ export const Stage = styled.div`
   }
 `
 
+export const TraversalPlacement = styled.div`
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+`
+
 export const NameLockup = styled.div`
   position: absolute;
   z-index: 8;
@@ -195,17 +181,17 @@ export const NameLockup = styled.div`
   width: clamp(199px, 29.9vw, 439px);
   container-type: inline-size;
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 40px;
     left: 280px;
     width: 440px;
   }
 
-  @media ${SILK_RECONNECTED_UPPER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedUpper} {
     left: calc(-36.2px + 22.1358vw);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 24px;
     left: 0;
     width: clamp(199px, 62.3vw, 319px);
@@ -242,39 +228,39 @@ export const CorridorAperturePlacement = styled.div`
   left: 17%;
   width: min(88%, 1200px);
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.wide} {
     width: 1200px;
   }
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 150px;
     left: 240px;
     width: 1120px;
   }
 
-  @media ${SILK_RECONNECTED_UPPER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedUpper} {
     left: calc(-76.2px + 22.1358vw);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 146px;
     left: 0;
     width: 100%;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-aperture-1-top);
     left: 0;
     width: 100%;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-aperture-1-top);
     left: 0;
     width: 100%;
   }
 
-  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
     left: 17vw;
     width: 88vw;
   }
@@ -299,45 +285,45 @@ export const StoryCard = styled.div`
     margin-top: 10px;
   }
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 330px;
     right: 150px;
     width: clamp(380px, calc(-820px + 62.5vw), 780px);
   }
 
-  @media ${SILK_STORY_ABOVE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.storyAbove} {
     top: 40px;
     right: clamp(24px, calc(-228px + 21vw), 150px);
     left: 760px;
     width: auto;
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughMid} {
     width: min(31rem, 50%);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 525px;
     right: 10%;
     left: 10%;
     width: auto;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-story-top);
     right: 0;
     left: 0;
     width: auto;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: calc(106px + 5vw);
     right: 10%;
     left: 10%;
     width: auto;
   }
 
-  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
     top: 40px;
     right: 24px;
     left: auto;
@@ -352,32 +338,32 @@ export const BreachAperturePlacement = styled.div`
   left: -3%;
   width: min(76%, 1080px);
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 715px;
     left: clamp(24px, calc(-1194px + 63.4375vw), 430px);
     width: clamp(1180px, calc(1000px + 9.375vw), 1240px);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 755px;
     left: -12%;
     width: 98%;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-aperture-2-top);
     left: 0;
     width: 100%;
     height: var(--silk-narrow-aperture-2-height);
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-aperture-2-top);
     left: 0;
     width: 100%;
   }
 
-  @media ${SILK_MIRRORED_APERTURE_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
     top: calc(134.342px + 43.8413vw);
     right: 17vw;
     left: auto;
@@ -394,19 +380,19 @@ export const ReceiptPeekthrough = styled.div`
   height: 138px;
   place-items: center;
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 1035px;
     right: clamp(50px, calc(-1480px + 79.6875vw), 560px);
     left: auto;
   }
 
-  @media ${SILK_NARROW_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     top: calc(var(--silk-reaction-top) + 212px);
     right: 19%;
     left: auto;
   }
 
-  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: calc(
       var(--silk-reaction-top)
       + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET + SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG}px
@@ -416,24 +402,24 @@ export const ReceiptPeekthrough = styled.div`
     left: calc(46.6667vw - 420px);
   }
 
-  @media ${SILK_STACKED_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.stackedLower} {
     top: 910px;
   }
 
-  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
     top: calc(1510px + var(--silk-separated-lower-shift));
     right: auto;
     left: 140px;
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 930px;
     right: 2%;
     width: 150px;
     height: 126px;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-receipt-top);
     right: 0;
     left: auto;
@@ -441,7 +427,7 @@ export const ReceiptPeekthrough = styled.div`
     height: 126px;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-receipt-top);
     right: 19%;
     left: auto;
@@ -458,14 +444,14 @@ export const ReactionAperturePlacement = styled.div`
   width: min(39%, 500px);
   height: 126px;
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 845px;
     right: -20px;
     width: 700px;
     height: 120px;
   }
 
-  @media ${SILK_NARROW_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     top: var(--silk-reaction-top);
     right: auto;
     left: 24px;
@@ -473,7 +459,7 @@ export const ReactionAperturePlacement = styled.div`
     height: 120px;
   }
 
-  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: var(--silk-reaction-top);
     right: auto;
     left: 24px;
@@ -481,20 +467,20 @@ export const ReactionAperturePlacement = styled.div`
     height: 120px;
   }
 
-  @media ${SILK_STACKED_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.stackedLower} {
     top: 1340px;
     right: auto;
     left: max(24px, calc((100% - 1240px) / 2));
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 1125px;
     right: -6%;
     width: 72%;
     height: 116px;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-reaction-top);
     right: 0;
     left: 0;
@@ -502,7 +488,7 @@ export const ReactionAperturePlacement = styled.div`
     height: 116px;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-stacked-reaction-top);
     right: 0;
     left: 0;
@@ -518,20 +504,20 @@ export const HandoffCell = styled.div`
   width: min(52%, 360px);
   aspect-ratio: 1672 / 941;
 
-  @media ${SILK_1920_TREATMENT_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
     top: 1200px;
     right: clamp(-80px, calc(336px - 16.25vw), 24px);
     width: 640px;
   }
 
-  @media ${SILK_NARROW_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
     top: calc(var(--silk-reaction-top) + 320px);
     right: auto;
     left: 24px;
     width: 640px;
   }
 
-  @media ${SILK_RECONNECTING_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: calc(
       var(--silk-reaction-top)
       + ${SILK_RECONNECTING_REACTION_EYES_BOTTOM_OFFSET}px
@@ -541,18 +527,18 @@ export const HandoffCell = styled.div`
     width: 640px;
   }
 
-  @media ${SILK_SEPARATED_LOWER_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
     top: calc(1360px + var(--silk-separated-lower-shift));
     right: 24px;
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     top: 1275px;
     right: -5%;
     width: min(84%, 560px);
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: calc(var(--silk-narrow-handoff-top) - var(--silk-narrow-row-gap));
     right: 0;
     left: 0;
@@ -560,7 +546,7 @@ export const HandoffCell = styled.div`
     aspect-ratio: 941 / 1672;
   }
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: calc(var(--silk-compact-receipt-top) + var(--silk-compact-handoff-from-receipt));
     right: 0;
     left: 0;

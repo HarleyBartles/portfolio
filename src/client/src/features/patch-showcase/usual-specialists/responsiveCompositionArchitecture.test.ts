@@ -35,4 +35,26 @@ describe('Specialists responsive composition architecture', () => {
 
     expect(source).not.toContain("from './specialistsResponsive'")
   })
+
+  test.each([
+    './SilkChapter.styles.ts',
+    './SilkTraversalComposition.tsx',
+  ])('keeps Silk composition owner %s independent of the route-wide responsive taxonomy', (filename) => {
+    const source = readSource(filename)
+
+    expect(source).not.toContain("from './specialistsResponsive'")
+  })
+
+  test('keeps Silk traversal stage placement parent-owned without hidden geometry variables', () => {
+    const parentStyles = readSource('./SilkChapter.styles.ts')
+    const traversalSource = readSource('./SilkTraversalComposition.tsx')
+    const compositionCss = traversalSource.match(/const Composition = styled\.div`([\s\S]*?)`/)?.[1] ?? ''
+
+    expect(parentStyles).not.toContain('--silk-compact-rope-join-top')
+    expect(parentStyles).not.toContain('--silk-compact-traversal-top')
+    expect(traversalSource).not.toContain('--silk-compact-rope-join-top')
+    expect(traversalSource).not.toContain('--silk-compact-traversal-top')
+    expect(compositionCss).not.toContain('position: absolute;')
+    expect(compositionCss).not.toContain('inset: 0;')
+  })
 })

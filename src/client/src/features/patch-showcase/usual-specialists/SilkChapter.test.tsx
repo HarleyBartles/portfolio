@@ -26,6 +26,7 @@ describe('Silk chapter diegetic-wall proof', () => {
     const commission08 = chapter.querySelector<HTMLElement>('[data-silk-commission="08"]')
     const commission09 = chapter.querySelector<HTMLElement>('[data-silk-commission="09"]')
     const traversalComposition = chapter.querySelector<HTMLElement>('[data-silk-traversal-composition]')
+    const traversalPlacement = chapter.querySelector<HTMLElement>('[data-silk-traversal-placement]')
     const upperRope = traversalComposition?.querySelector<HTMLElement>('[data-specialists-rope-piece="silk-upper"]')
     const lowerRope = traversalComposition?.querySelector<HTMLElement>('[data-specialists-rope-piece="silk-lower"]')
 
@@ -37,6 +38,8 @@ describe('Silk chapter diegetic-wall proof', () => {
     expect(commission08).toBeInTheDocument()
     expect(commission09).toBeInTheDocument()
     expect(traversalComposition).toBeInTheDocument()
+    expect(traversalPlacement).toContainElement(traversalComposition)
+    expect(traversalPlacement?.parentElement).toBe(chapter.querySelector('[data-silk-stage]'))
     expect(upperRope?.querySelector('[data-specialists-rope-variant="taut-straight"]')).toBeInTheDocument()
     expect(lowerRope?.querySelector('[data-specialists-rope-variant="terminal-curl"]')).toBeInTheDocument()
     expect(traversalComposition?.querySelector('[data-silk-rope-anchor]')).not.toBeInTheDocument()

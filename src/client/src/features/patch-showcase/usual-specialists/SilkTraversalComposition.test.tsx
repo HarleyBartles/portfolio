@@ -19,7 +19,11 @@ describe('SilkTraversalComposition', () => {
     const ropeAxis = root?.querySelector('[data-silk-rope-axis]')
 
     expect(root).toHaveStyle({ opacity: '0.5' })
+    expect(root?.querySelectorAll('[data-silk-rope-axis]')).toHaveLength(1)
     expect(ropeAxis).toBeInTheDocument()
+    expect(getComputedStyle(root as HTMLElement).position).toBe('relative')
+    expect(getComputedStyle(root as HTMLElement).width).toBe('100%')
+    expect(getComputedStyle(root as HTMLElement).height).toBe('100%')
     expect(ropeAxis).toContainElement(upperRope as HTMLElement)
     expect(ropeAxis).toContainElement(lowerRope as HTMLElement)
     expect(ropeAxis).toContainElement(ropeJoinPort as HTMLElement)
@@ -42,5 +46,14 @@ describe('SilkTraversalComposition', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
     const { container } = render(<SilkTraversalComposition className="external-control" />)
     expect(container.querySelector('[data-silk-traversal-composition]')).not.toHaveClass('external-control')
+  })
+
+  test('does not accept raw join or traversal coordinates from its parent', () => {
+    // @ts-expect-error raw join geometry is intentionally not part of the vertical-slice API.
+    const { container } = render(<SilkTraversalComposition ropeJoinTop={440} traversalTop={580} />)
+    const root = container.querySelector('[data-silk-traversal-composition]')
+
+    expect(root).not.toHaveAttribute('ropeJoinTop')
+    expect(root).not.toHaveAttribute('traversalTop')
   })
 })

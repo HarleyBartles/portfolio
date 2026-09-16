@@ -255,8 +255,8 @@ Do this only for formulas whose containing width is demonstrably the authored In
   ```
 
   The visual command must compare existing Windows snapshots without `--update-snapshots`.
-- [ ] **3.11 Commit checkpoint:** If authorized, commit the complete Index ownership migration only after unit, browser and protected visual checks are green.
-- [ ] **3.12 Progress tracking:** Mark every Task 3 box `[x]` before starting Task 4.
+- [x] **3.11 Commit checkpoint:** If authorized, commit the complete Index ownership migration only after unit, browser and protected visual checks are green.
+- [x] **3.12 Progress tracking:** Mark every Task 3 box `[x]` before starting Task 4.
 
 ---
 
@@ -304,16 +304,16 @@ The Silk chapter root establishes `container-name: silk; container-type: inline-
 
 ### Steps
 
-- [ ] **4.1 RED architecture guard:** Add assertions that reject the cross-boundary custom properties `--silk-compact-rope-join-top` and `--silk-compact-traversal-top`, and reject stage-level absolute placement owned by the traversal child's root.
-- [ ] **4.2 Verify RED:** Run the guard and confirm the current parent/child CSS API is detected.
-- [ ] **4.3 RED component contract:** Update `SilkTraversalComposition.test.tsx` to prove the child owns one internal rope axis and receives no raw join/traversal coordinate props. Preserve its existing asset/port assertions.
-- [ ] **4.4 Add `silkResponsive.ts`:** Introduce only the currently shared Silk composition states. Rename the `1200px` state for what it does, not for a stale `1920` label.
-- [ ] **4.5 Establish Silk container:** Add the named inline-size container on the Silk chapter root. Keep any root-only media rule Silk-local because the root cannot query itself.
-- [ ] **4.6 Parent placement:** Add `TraversalPlacement` in `SilkChapter.styles.ts`, place it where the traversal child currently occupies the stage, and wrap `<SilkTraversalComposition />` in `SilkChapter.tsx`.
-- [ ] **4.7 Child internalization:** Change the traversal root from stage-level `position:absolute; inset:0` ownership to a box-filling local composition. Move the compact join/traversal calculations that currently arrive through CSS variables into the traversal's own Silk-container-relative CSS. Use `cqi` where those formulas were authored against the full Silk canvas.
-- [ ] **4.8 Remove hidden API:** Delete both cross-boundary CSS custom-property declarations from `SilkChapter.styles.ts` and all `var(...)` consumers from `SilkTraversalComposition.tsx`.
-- [ ] **4.9 Browser proof:** Preserve/run the existing rope continuity and Silk scene tests at `320`, `390`, `719/720`, `899/900`, `1199/1200`, `1499/1500`, `1920`. The 1199/1200 pair is specifically required to prove the legitimate Silk recomposition.
-- [ ] **4.10 Focused verification:** Run:
+- [x] **4.1 RED architecture guard:** Add assertions that reject the cross-boundary custom properties `--silk-compact-rope-join-top` and `--silk-compact-traversal-top`, and reject stage-level absolute placement owned by the traversal child's root.
+- [x] **4.2 Verify RED:** Run the guard and confirm the current parent/child CSS API is detected.
+- [x] **4.3 RED component contract:** Update `SilkTraversalComposition.test.tsx` to prove the child owns one internal rope axis and receives no raw join/traversal coordinate props. Preserve its existing asset/port assertions.
+- [x] **4.4 Add `silkResponsive.ts`:** Introduce only the currently shared Silk composition states. Rename the `1200px` state for what it does, not for a stale `1920` label.
+- [x] **4.5 Establish Silk container:** Add the named inline-size container on the Silk chapter root. Keep any root-only media rule Silk-local because the root cannot query itself.
+- [x] **4.6 Parent placement:** Add `TraversalPlacement` in `SilkChapter.styles.ts`, place it where the traversal child currently occupies the stage, and wrap `<SilkTraversalComposition />` in `SilkChapter.tsx`.
+- [x] **4.7 Child internalization:** Change the traversal root from stage-level `position:absolute; inset:0` ownership to a box-filling local composition. Move the compact join/traversal calculations that currently arrive through CSS variables into the traversal's own Silk-container-relative CSS. Use `cqi` where those formulas were authored against the full Silk canvas.
+- [x] **4.8 Remove hidden API:** Delete both cross-boundary CSS custom-property declarations from `SilkChapter.styles.ts` and all `var(...)` consumers from `SilkTraversalComposition.tsx`.
+- [x] **4.9 Browser proof:** Preserve/run the existing rope continuity and Silk scene tests at `320`, `390`, `719/720`, `899/900`, `1199/1200`, `1499/1500`, `1920`. The 1199/1200 pair is specifically required to prove the legitimate Silk recomposition.
+- [x] **4.10 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/SilkTraversalComposition.test.tsx src/features/patch-showcase/usual-specialists/SilkChapter.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts
