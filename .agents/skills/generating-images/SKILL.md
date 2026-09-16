@@ -91,5 +91,6 @@ because the brief is incomplete`. Never imply an image exists when the selected
 capability did not return one, and never leave a project-bound asset only in an
 untracked provider or temporary location.
 
-Record real uses in [`assets/field-trial-notes.md`](assets/field-trial-notes.md);
-one Portfolio preference is not automatically a universal rule.
+Treat observations from one harness, repository, or result as local evidence until
+they are corroborated and promoted into the routed compatibility guidance. One
+successful generation is not automatically a universal tool contract.

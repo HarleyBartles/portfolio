@@ -1,110 +1,104 @@
 schema_version: 1
-reconciled_against: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
+reconciled_against: 314DF3C31835BDAAB639F58F08DEDC8A43421F8CEBB067F3962ACB28BC2908DD
 references:
   - path: SKILL.md
     source_sections:
-      - Research spike: composition exists at nested scales
-      - Research spike: audience contract changes composition
-      - Research spike: story beats precede visual techniques
-      - Additive spike: surfaces, objects, bodies, sites, and encounters
+      - Cross-disciplinary synthesis: composition exists at nested scales
+      - Cross-disciplinary synthesis: audience contract changes composition
+      - Cross-disciplinary synthesis: story beats precede visual techniques
+      - Additive cross-field synthesis: surfaces, objects, bodies, sites, and encounters
     load_when:
       - Use when classifying scale, viewing contract, and audience change.
     content_mode: first_party_synthesis
-  - path: assets/field-trial-notes.md
-    source_sections:
-      - Research spike: evaluation obligations
-    load_when:
-      - Use when recording a real field trial and extracting a portable lesson.
-    content_mode: first_party_synthesis
   - path: references/story-scale-and-viewing-contract.md
-    source_sections: ["Research spike: nested scales, audience contract"]
+    source_sections: ["Cross-disciplinary synthesis: nested scales, audience contract"]
     load_when: ["Use when classifying scale or viewing agency."]
     content_mode: first_party_synthesis
   - path: references/crop-scale-viewpoint-and-perspective.md
-    source_sections: ["Research spike: photography, cinematography, aspect and viewpoint"]
+    source_sections: ["Cross-disciplinary synthesis: photography, cinematography, aspect and viewpoint"]
     load_when: ["Use when crop or camera choice carries the beat."]
     content_mode: first_party_synthesis
   - path: references/attention-weight-and-eye-path.md
-    source_sections: ["Research spike: visual weight and attention guidance"]
+    source_sections: ["Cross-disciplinary synthesis: visual weight and attention guidance"]
     load_when: ["Use when ordering first, second, and final reads."]
     content_mode: first_party_synthesis
   - path: references/depth-planes-focus-and-spatial-staging.md
-    source_sections: ["Research spike: fore/mid/background focus and deep staging"]
+    source_sections: ["Cross-disciplinary synthesis: fore/mid/background focus and deep staging"]
     load_when: ["Use when depth or focus carries causality."]
     content_mode: first_party_synthesis
   - path: references/lighting-colour-and-selective-visibility.md
-    source_sections: ["Research spike: lighting design and palette as story"]
+    source_sections: ["Cross-disciplinary synthesis: lighting design and palette as story"]
     load_when: ["Use when light or colour reveals, conceals, or marks state."]
     content_mode: first_party_synthesis
   - path: references/internal-frames-occlusion-and-off-frame-space.md
-    source_sections: ["Research spike: frame within frame and off-frame implication"]
+    source_sections: ["Cross-disciplinary synthesis: frame within frame and off-frame implication"]
     load_when: ["Use when boundaries or occlusion shape knowledge."]
     content_mode: first_party_synthesis
   - path: references/details-inserts-reactions-and-synecdoche.md
-    source_sections: ["Research spike: close crops, inserts, reactions, synecdoche"]
+    source_sections: ["Cross-disciplinary synthesis: close crops, inserts, reactions, synecdoche"]
     load_when: ["Use when a detail or reaction is the evidence."]
     content_mode: first_party_synthesis
   - path: references/canonical-composition-index.md
-    source_sections: ["Research spike: canonical composition routing"]
+    source_sections: ["Cross-disciplinary synthesis: canonical composition routing"]
     load_when: ["Use when selecting a function-led practice anchor."]
     content_mode: first_party_synthesis
   - path: references/page-fields-spreads-insets-and-polyptychs.md
-    source_sections: ["Research spike: comics and magazine full-field composition"]
+    source_sections: ["Cross-disciplinary synthesis: comics and magazine full-field composition"]
     load_when: ["Use when one page or spread contains many beats."]
     content_mode: first_party_synthesis
   - path: references/staging-blocking-and-audience-relationship.md
-    source_sections: ["Research spike: theatre staging and audience relationship"]
+    source_sections: ["Cross-disciplinary synthesis: theatre staging and audience relationship"]
     load_when: ["Use when blocking and proximity compose the social read."]
     content_mode: first_party_synthesis
   - path: references/rhythm-stillness-motion-and-transition.md
-    source_sections: ["Research spike: anime layout, timing, stillness, transition"]
+    source_sections: ["Cross-disciplinary synthesis: anime layout, timing, stillness, transition"]
     load_when: ["Use when sequence rhythm or held motion carries the beat."]
     content_mode: first_party_synthesis
   - path: references/spatial-cinematography-and-environmental-storytelling.md
-    source_sections: ["Research spike: game level composition and environmental evidence"]
+    source_sections: ["Cross-disciplinary synthesis: game level composition and environmental evidence"]
     load_when: ["Use when navigable space carries history or orientation."]
     content_mode: first_party_synthesis
   - path: references/constraints-tiles-palettes-and-colour-cycling.md
-    source_sections: ["Research spike: tile worlds, Amiga bitplanes, palette cycling"]
+    source_sections: ["Cross-disciplinary synthesis: tile worlds, Amiga bitplanes, palette cycling"]
     load_when: ["Use when constraints and display layers carry meaning."]
     content_mode: first_party_synthesis
   - path: references/surface-mark-material-and-figure-ground.md
-    source_sections: ["Additive spike: painting, print, collage, textile, material surface"]
+    source_sections: ["Additive cross-field synthesis: painting, print, collage, textile, material surface"]
     load_when: ["Use when mark, ground, abstraction, collage, or material carries the story."]
     content_mode: first_party_synthesis
   - path: references/mass-void-gravity-and-multi-vantage-form.md
-    source_sections: ["Additive spike: sculpture, void, gravity, kinetic and multi-vantage form"]
+    source_sections: ["Additive cross-field synthesis: sculpture, void, gravity, kinetic and multi-vantage form"]
     load_when: ["Use when an object or form must compose in the round."]
     content_mode: first_party_synthesis
   - path: references/site-threshold-procession-and-embodied-viewing.md
-    source_sections: ["Additive spike: architecture, installation, site, procession, embodied view"]
+    source_sections: ["Additive cross-field synthesis: architecture, installation, site, procession, embodied view"]
     load_when: ["Use when audience position, route, and bodily encounter carry meaning."]
     content_mode: first_party_synthesis
   - path: references/gesture-effort-costume-and-choreographic-fields.md
-    source_sections: ["Additive spike: choreography, movement quality, costume, silhouette, drape"]
+    source_sections: ["Additive cross-field synthesis: choreography, movement quality, costume, silhouette, drape"]
     load_when: ["Use when gesture, effort, stillness, ensemble, or clothing carries the beat."]
     content_mode: first_party_synthesis
   - path: references/curation-juxtaposition-and-interpretive-paths.md
-    source_sections: ["Additive spike: exhibition design, curation, anchors, visitor paths"]
+    source_sections: ["Additive cross-field synthesis: exhibition design, curation, anchors, visitor paths"]
     load_when: ["Use when selection, adjacency, and nonlinear interpretation form the argument."]
     content_mode: first_party_synthesis
   - path: references/symbols-maps-diagrams-and-visual-rhetoric.md
-    source_sections: ["Additive spike: cartography, Gestalt, symbols, diagrams, visual rhetoric"]
+    source_sections: ["Additive cross-field synthesis: cartography, Gestalt, symbols, diagrams, visual rhetoric"]
     load_when: ["Use when a visual explains, maps, encodes, or claims representational authority."]
     content_mode: first_party_synthesis
   - path: references/translating-to-image-generation.md
-    source_sections: ["Research spike: medium translation and image brief boundary"]
+    source_sections: ["Cross-disciplinary synthesis: medium translation and image brief boundary"]
     load_when: ["Use when handing a frame direction to image generation."]
     content_mode: first_party_synthesis
   - path: references/translating-to-composed-interfaces.md
-    source_sections: ["Research spike: page composition translated to interfaces"]
+    source_sections: ["Cross-disciplinary synthesis: page composition translated to interfaces"]
     load_when: ["Use when handing a field direction to web implementation."]
     content_mode: first_party_synthesis
   - path: references/translating-to-interactive-worlds.md
-    source_sections: ["Research spike: spatial storytelling translated to worlds"]
+    source_sections: ["Cross-disciplinary synthesis: spatial storytelling translated to worlds"]
     load_when: ["Use when handing a world direction to game implementation."]
     content_mode: first_party_synthesis
   - path: references/evaluating-visual-stories.md
-    source_sections: ["Research spike: evaluation obligations and translation integrity", "Additive spike: material, embodied, curatorial, and representational checks"]
+    source_sections: ["Cross-disciplinary synthesis: evaluation obligations and translation integrity", "Additive cross-field synthesis: material, embodied, curatorial, and representational checks"]
     load_when: ["Use when checking whether the story survived its medium."]
     content_mode: first_party_synthesis

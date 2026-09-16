@@ -70,7 +70,7 @@ decision is merely implied.
 `revise` means the story is recoverable with a bounded composition change. `blocked`
 means a required fact, asset, capability, or human-owned creative decision is
 missing; do not generate or implement around it. Keep rejected alternatives and
-the accepted rationale in the brief trace or field-trial note.
+the accepted rationale in the task's brief trace or durable decision record.
 
 ### Avoid
 

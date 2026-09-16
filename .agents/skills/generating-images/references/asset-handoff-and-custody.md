@@ -58,7 +58,7 @@ input artwork.
 - Keep discarded variants and temporary provider files out of the project unless
   the brief asks for them or they are evidence needed for a decision.
 - Treat capability probes as disposable by default. Record measurements and
-  conclusions, then delete task-scoped outputs when the spike closes unless a
+  conclusions, then delete task-scoped outputs when the exploratory task closes unless a
   named artifact has been promoted into custody.
 - Verify format, dimensions, colour profile, alpha, and file readability after any
   copy or conversion.

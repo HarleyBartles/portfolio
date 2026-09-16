@@ -3,8 +3,8 @@
 ## Scholarly citation
 
 The operational material is a first-party synthesis. The following canonical
-sources informed the research spike and are cited for their concepts, not copied
-as operational prose. Initial sources were retrieved 2026-09-15; sources for the
+sources informed the cross-disciplinary synthesis and are cited for their concepts,
+not copied as operational prose. Initial sources were retrieved 2026-09-15; sources for the
 additive cross-field pass were retrieved 2026-09-16.
 
 ### Photography and framing

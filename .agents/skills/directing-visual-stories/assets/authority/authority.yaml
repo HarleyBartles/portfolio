@@ -2,36 +2,30 @@ schema_version: 1
 custody: local
 lane: skills-with-citation
 authority:
-  title: Visual storytelling composition research spike
-  canonical_url: .agents/specs/2026-09-15-visual-storytelling-web-spike.md
+  title: Visual storytelling composition authority synthesis
+  canonical_url: assets/authority/CITATIONS.md
   pinned_source_url: assets/authority/CITATIONS.md
   latest_check_url: assets/authority/CITATIONS.md
   revision: '2026-09-16-additive-cross-field-pass'
   retrieved_at: '2026-09-16'
-  content_sha256: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
+  content_sha256: 314DF3C31835BDAAB639F58F08DEDC8A43421F8CEBB067F3962ACB28BC2908DD
   license: MIT
   license_url: https://opensource.org/licenses/MIT
 decomposition:
-  reconciled_against: D787157C78BA9DB4FFD854868AECEB354C315DA947E92D2A4D403583C55909CA
+  reconciled_against: 314DF3C31835BDAAB639F58F08DEDC8A43421F8CEBB067F3962ACB28BC2908DD
   references:
   - path: SKILL.md
     source_sections:
-    - Research spike: composition exists at nested scales
-    - Research spike: audience contract changes composition
-    - Additive spike: surfaces, objects, bodies, sites, and encounters
+    - Cross-disciplinary synthesis: composition exists at nested scales
+    - Cross-disciplinary synthesis: audience contract changes composition
+    - Additive cross-field synthesis: surfaces, objects, bodies, sites, and encounters
     content_mode: first_party_synthesis
     load_when:
     - Use when routing a visual story problem before selecting a detailed reference.
-  - path: assets/field-trial-notes.md
-    source_sections:
-    - Research spike: evaluation obligations
-    content_mode: first_party_synthesis
-    load_when:
-    - Use when recording evidence from a real Portfolio field trial.
   - path: references/
     source_sections:
-    - Research spike: cross-disciplinary technique routing
-    - Additive spike: painting, sculpture, installation, architecture,
+    - Cross-disciplinary synthesis: technique routing
+    - Additive cross-field synthesis: painting, sculpture, installation, architecture,
       choreography, costume, curation, cartography, and visual rhetoric
     content_mode: first_party_synthesis
     load_when:
