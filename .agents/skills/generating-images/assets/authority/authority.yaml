@@ -1,11 +1,11 @@
 schema_version: 1
 custody: local
-lane: skills-with-source
+lane: skills-with-citation
 authority:
   title: OpenAI bundled imagegen Agent Skill instructions
-  canonical_url: https://github.com/openai
-  pinned_source_url: assets/authority/reference-source/openai-imagegen/SKILL.md
-  latest_check_url: https://github.com/openai
+  canonical_url: ../../NOTICE.md
+  pinned_source_url: ../../NOTICE.md
+  latest_check_url: ../../NOTICE.md
   revision: '2026-09-15-installed-bundle'
   retrieved_at: '2026-09-15'
   content_sha256: 706D4D96E1D5C9E6023FE3CCABBA1BB34B364024D344FD25B8515EC7D28FE3C4

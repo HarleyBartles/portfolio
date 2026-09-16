@@ -2,14 +2,14 @@
 
 `generating-images` is a substantially modified derivative of the installed
 OpenAI bundled `imagegen` Agent Skill instructions. The upstream source was
-retrieved on 2026-09-15 from the installed bundled OpenAI `imagegen` skill. A
-byte-identical source snapshot is retained under
-`assets/authority/reference-source/openai-imagegen/SKILL.md`.
+inspected on 2026-09-15 through the installed OpenAI `imagegen` skill supplied by
+the Codex runtime. The upstream skill is not bundled in this repository.
 
-Upstream source snapshot:
+Upstream source identification:
 
 - File SHA-256: `706D4D96E1D5C9E6023FE3CCABBA1BB34B364024D344FD25B8515EC7D28FE3C4`
 - Source file length: 19,516 bytes
+- Runtime package identity: OpenAI bundled `imagegen` Agent Skill, `SKILL.md`
 - Source licence: Apache License 2.0; the complete licence text is retained in
   [`LICENSE.txt`](LICENSE.txt).
 
