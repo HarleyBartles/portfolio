@@ -111,7 +111,7 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
   }
 })
 
-test('The Usual Specialists keeps its settled composition coherent at representative viewports', async ({ page }) => {
+test('The Usual Specialists Index responsive matrix stays coherent at representative viewports', async ({ page }) => {
   let indexCeilingGeometry: {
     deskX: number
     storyX: number
@@ -189,7 +189,7 @@ test('The Usual Specialists keeps its settled composition coherent at representa
   }
 })
 
-test('The Usual Specialists keeps its rope pieces and authored crossing lockups mounted across representative viewports', async ({ page }) => {
+test('The Usual Specialists connector matrix keeps rope pieces and crossing lockups mounted across representative viewports', async ({ page }) => {
   for (const width of [390, 900, 1440, 2560] as const) {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPreviewPath)
@@ -206,7 +206,7 @@ test('The Usual Specialists keeps its rope pieces and authored crossing lockups 
   }
 })
 
-test('The Usual Specialists keeps its rope pieces and authored crossing lockups registered across connector transitions', async ({ page }) => {
+test('The Usual Specialists connector matrix keeps rope pieces registered across crossing transitions', async ({ page }) => {
   for (const width of [389, 390, 719, 720, 899, 900, 1399, 1400] as const) {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPreviewPath)
@@ -229,7 +229,7 @@ test('The Usual Specialists keeps its rope pieces and authored crossing lockups 
   }
 })
 
-test('The Usual Specialists renders the settled Silk scene set across its distinct responsive treatments', async ({ page }) => {
+test('The Usual Specialists Silk responsive matrix renders the settled scene set across its distinct treatments', async ({ page }) => {
   for (const width of [320, 389, 390, 520, 719, 720, 800, 899, 900, 1050, 1199, 1200, 1350, 1499, 1500, 1920] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -456,7 +456,7 @@ test('The Usual Specialists renders the settled Silk scene set across its distin
   }
 })
 
-test('The Usual Specialists scales the accepted Receipt and Silk lockup continuously through the compact band', async ({ page }) => {
+test('The Usual Specialists Silk compact matrix scales the accepted Receipt and Silk lockup continuously', async ({ page }) => {
   const acceptedAt720 = {
     receiptWidth: 324.122590206126,
     receiptHeight: 232.053180412252,
@@ -513,7 +513,7 @@ test('The Usual Specialists scales the accepted Receipt and Silk lockup continuo
   }
 })
 
-test('The Usual Specialists exposes the complete Receipt and Silk lockup as one external box', async ({ page }) => {
+test('The Usual Specialists Silk Receipt lockup exposes one complete external box', async ({ page }) => {
   for (const width of [320, 390, 720, 900, 1199, 1200, 1499, 1500, 1920] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -546,7 +546,7 @@ test('The Usual Specialists exposes the complete Receipt and Silk lockup as one 
   }
 })
 
-test('The Usual Specialists gives Commission 09 the compact widescreen bleed treatment', async ({ page }) => {
+test('The Usual Specialists Silk compact matrix gives Commission 09 its widescreen bleed treatment', async ({ page }) => {
   for (const width of [390, 520, 620, 719] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -582,7 +582,7 @@ test('The Usual Specialists gives Commission 09 the compact widescreen bleed tre
   }
 })
 
-test('The Usual Specialists makes the Commission 09 placement box own compact and narrow bleed', async ({ page }) => {
+test('The Usual Specialists Silk Commission 09 placement owns compact and narrow bleed', async ({ page }) => {
   for (const width of [320, 389, 390, 520, 719] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -611,7 +611,7 @@ test('The Usual Specialists makes the Commission 09 placement box own compact an
   }
 })
 
-test('The Usual Specialists keeps the compact Receipt/Silk to Commission 09 gutter proportional', async ({ page }) => {
+test('The Usual Specialists Silk compact matrix keeps the Receipt/Silk to Commission 09 gutter proportional', async ({ page }) => {
   const acceptedAt719VisibleGutter = 21.42
 
   for (const width of [390, 520, 620, 719] as const) {
@@ -642,7 +642,7 @@ test('The Usual Specialists keeps the compact Receipt/Silk to Commission 09 gutt
   }
 })
 
-test('The Usual Specialists keeps the narrow Silk gutters tight and proportional', async ({ page }) => {
+test('The Usual Specialists Silk narrow matrix keeps its gutters tight and proportional', async ({ page }) => {
   const checkpoints = [
     { width: 320, gap: 20 },
     { width: 340, gap: 20.4 },
@@ -683,7 +683,7 @@ test('The Usual Specialists keeps the narrow Silk gutters tight and proportional
   }
 })
 
-test('The Usual Specialists lets the narrow Commission 09 torn frame bleed past both viewport edges', async ({ page }) => {
+test('The Usual Specialists Silk narrow matrix lets Commission 09 bleed past both viewport edges', async ({ page }) => {
   for (const width of [320, 340, 389] as const) {
     await page.setViewportSize({ width, height: 1400 })
     await page.goto(specialistsPreviewPath)
@@ -708,7 +708,7 @@ test('The Usual Specialists lets the narrow Commission 09 torn frame bleed past 
   }
 })
 
-test('The Usual Specialists keeps chapter-bottom breathing room bounded across authored widths', async ({ page }) => {
+test('The Usual Specialists Silk matrix keeps chapter-bottom breathing room bounded across authored widths', async ({ page }) => {
   const checkpoints = [
     { width: 320, maxGap: 175 },
     { width: 389, maxGap: 175 },
@@ -758,7 +758,7 @@ test('The Usual Specialists keeps chapter-bottom breathing room bounded across a
   }
 })
 
-test('The Usual Specialists keeps Silk attached to the Receipt hole across representative mirror bands', async ({ page }) => {
+test('The Usual Specialists Silk mirror matrix keeps Silk attached to the Receipt hole', async ({ page }) => {
   let largeReceiptFrameWidth: number | null = null
   let largeReceiptSilkWidth: number | null = null
   for (const width of [390, 900, 1200, 1500, 1920] as const) {
@@ -821,7 +821,7 @@ test('The Usual Specialists keeps Silk attached to the Receipt hole across repre
   expect(largeReceiptSilkWidth).not.toBeNull()
 })
 
-test('The Usual Specialists moves only its aperture worlds and respects reduced motion', async ({ page }) => {
+test('The Usual Specialists Silk motion contract moves only aperture worlds and respects reduced motion', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto(specialistsPreviewPath)
@@ -858,7 +858,7 @@ test('The Usual Specialists moves only its aperture worlds and respects reduced 
   }
 })
 
-test('The Usual Specialists freezes its authored canvas at the 2560 ceiling', async ({ page }) => {
+test('The Usual Specialists page chassis freezes its authored canvas at the 2560 ceiling', async ({ page }) => {
   const capture = async (width: number) => {
     await page.setViewportSize({ width, height: 1100 })
     await page.goto(specialistsPreviewPath)

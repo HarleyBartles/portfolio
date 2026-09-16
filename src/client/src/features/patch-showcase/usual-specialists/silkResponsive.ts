@@ -1,4 +1,5 @@
 export const SILK_CONTAINER_NAME = 'silk'
+export const SILK_NARROW_BREACH_APERTURE_HEIGHT_VW = 205.98937300743887
 
 export const silkQueries = {
   narrow: '(max-width: 389px)',

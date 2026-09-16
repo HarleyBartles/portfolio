@@ -39,10 +39,28 @@ describe('Specialists responsive composition architecture', () => {
   test.each([
     './SilkChapter.styles.ts',
     './SilkTraversalComposition.tsx',
+    './SilkApertureComposition.tsx',
+    './SilkApertureComposition.styles.ts',
+    './SilkReactionFrameComposition.tsx',
+    './SilkReactionFrameComposition.styles.ts',
+    './SilkReceiptPeekthroughComposition.tsx',
+    './SilkReceiptPeekthroughComposition.styles.ts',
+    './SilkCommission09Composition.tsx',
+    './SilkCommission09Composition.styles.ts',
   ])('keeps Silk composition owner %s independent of the route-wide responsive taxonomy', (filename) => {
     const source = readSource(filename)
 
     expect(source).not.toContain("from './specialistsResponsive'")
+  })
+
+  test.each([
+    './silkCommission05Geometry',
+    './silkCommission07ReviewGeometry',
+    './silkCommission08ReviewGeometry',
+  ])('keeps child-internal geometry %s out of the Silk chapter parent', (geometryModule) => {
+    const parentStyles = readSource('./SilkChapter.styles.ts')
+
+    expect(parentStyles).not.toContain(`from '${geometryModule}'`)
   })
 
   test('keeps Silk traversal stage placement parent-owned without hidden geometry variables', () => {

@@ -521,8 +521,8 @@ Responsive scale and mirroring that describe Receipt-to-Silk internals remain in
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(Commission 09|narrow Silk gutters)"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **8.8 Commit checkpoint:** If authorized, commit parent-owned Commission 09 bleed after all tests are green.
-- [ ] **8.9 Progress tracking:** Mark every Task 8 box `[x]` before Task 9.
+- [x] **8.8 Commit checkpoint:** If authorized, commit parent-owned Commission 09 bleed after all tests are green.
+- [x] **8.9 Progress tracking:** Mark every Task 8 box `[x]` before Task 9.
 
 ---
 
@@ -549,14 +549,14 @@ This plan does **not** require a breakpoint-minimisation pass. Do not convert wo
 
 ### Steps
 
-- [ ] **9.1 RED architecture guard:** Extend the guard to reject any remaining Silk import of `specialistsResponsive` and any `SilkChapter.styles.ts` import from a child-internal geometry module.
-- [ ] **9.2 Verify RED:** Run it and enumerate the remaining imports before changing code.
-- [ ] **9.3 Complete query migration:** Move remaining cross-slice Silk states into `silkResponsive.ts`; leave genuinely child-internal states beside the owning child. Use Silk container queries for descendant composition where possible and Silk-local media only where the root/user environment requires it.
-- [ ] **9.4 Rename misleading states:** Ensure no `SILK_1920_TREATMENT_MEDIA`-style name survives for the `1200px` recomposition.
-- [ ] **9.5 Remove parent internal knowledge:** Delete remaining parent imports/calculations that depend on Commission frame source coordinates or child-private geometry. Parent calculations may reference only parent-owned placement boxes and route ambient tokens.
-- [ ] **9.6 Rebalance tests:** Remove child-internal assertions from `SilkChapter.test.tsx` once equivalent or stronger assertions exist in `SilkTraversalComposition`, `SilkApertureComposition`, `SilkReactionFrameComposition`, `SilkReceiptPeekthroughComposition` and `SilkCommission09Composition` tests. Keep the chapter test focused on chapter story order, opaque child presence, root style forwarding and no `className` seam.
-- [ ] **9.7 Browser ownership grouping:** Rename/group the Specialists browser tests so page, connector, Index and Silk responsive matrices are visibly owned by those surfaces. Preserve or strengthen coverage; do not delete width samples just because they no longer belong to a global page matrix.
-- [ ] **9.8 Focused verification:** Run:
+- [x] **9.1 RED architecture guard:** Extend the guard to reject any remaining Silk import of `specialistsResponsive` and any `SilkChapter.styles.ts` import from a child-internal geometry module.
+- [x] **9.2 Verify RED:** Run it and enumerate the remaining imports before changing code.
+- [x] **9.3 Complete query migration:** Move remaining cross-slice Silk states into `silkResponsive.ts`; leave genuinely child-internal states beside the owning child. Use Silk container queries for descendant composition where possible and Silk-local media only where the root/user environment requires it.
+- [x] **9.4 Rename misleading states:** Ensure no `SILK_1920_TREATMENT_MEDIA`-style name survives for the `1200px` recomposition.
+- [x] **9.5 Remove parent internal knowledge:** Delete remaining parent imports/calculations that depend on Commission frame source coordinates or child-private geometry. Parent calculations may reference only parent-owned placement boxes and route ambient tokens.
+- [x] **9.6 Rebalance tests:** Remove child-internal assertions from `SilkChapter.test.tsx` once equivalent or stronger assertions exist in `SilkTraversalComposition`, `SilkApertureComposition`, `SilkReactionFrameComposition`, `SilkReceiptPeekthroughComposition` and `SilkCommission09Composition` tests. Keep the chapter test focused on chapter story order, opaque child presence, root style forwarding and no `className` seam.
+- [x] **9.7 Browser ownership grouping:** Rename/group the Specialists browser tests so page, connector, Index and Silk responsive matrices are visibly owned by those surfaces. Preserve or strengthen coverage; do not delete width samples just because they no longer belong to a global page matrix.
+- [x] **9.8 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists

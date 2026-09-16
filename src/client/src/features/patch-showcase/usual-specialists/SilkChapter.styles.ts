@@ -1,11 +1,9 @@
 import styled from 'styled-components'
 import {
-  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT,
-  SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH,
-} from './silkCommission07ReviewGeometry'
-import { SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
-const SILK_NARROW_APERTURE_2_BLEED = 1.16
-const SILK_NARROW_APERTURE_2_HEIGHT = `${(SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT / SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH) * SILK_NARROW_APERTURE_2_BLEED * 100}vw`
+  SILK_CONTAINER_NAME,
+  SILK_NARROW_BREACH_APERTURE_HEIGHT_VW,
+  silkQueries,
+} from './silkResponsive'
 const SILK_REACTION_VIEWPORT_WIDTH_PERCENT = 89.3557422969188
 const SILK_REACTION_VIEWPORT_LEFT_PERCENT = 3.64145658263305
 const SILK_REACTION_MID_WIDTH = 625.490196078431
@@ -133,7 +131,7 @@ export const Stage = styled.div`
     --silk-narrow-aperture-1-top: clamp(330px, calc(540px - 53vw), 370px);
     --silk-narrow-aperture-gap: 6.75vw;
     --silk-narrow-aperture-2-top: calc(var(--silk-narrow-aperture-1-top) + 174vw + var(--silk-narrow-aperture-gap));
-    --silk-narrow-aperture-2-height: ${SILK_NARROW_APERTURE_2_HEIGHT};
+    --silk-narrow-aperture-2-height: ${SILK_NARROW_BREACH_APERTURE_HEIGHT_VW}vw;
     --silk-narrow-row-gap: clamp(20px, 6vw, 24px);
     --silk-narrow-reaction-top: calc(
       var(--silk-narrow-aperture-2-top)
