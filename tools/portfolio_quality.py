@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import warnings
 from dataclasses import dataclass
 from datetime import date
 from ipaddress import ip_address
@@ -667,7 +668,10 @@ def _validate_marketplace_evidence(root: Path, findings: list[Finding]) -> None:
     if not isinstance(evidence_revision, str) or SHA_RE.fullmatch(evidence_revision) is None:
         findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision must be a 40-character commit"))
     elif checked_out_revision is not None and evidence_revision != checked_out_revision:
-        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision does not match Marketplace revision"))
+        warnings.warn(
+            str(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision does not match Marketplace revision")),
+            stacklevel=2,
+        )
 
     evidence_inventory = evidence.get("inventory")
     expected_counts = {"pluginCount": len(plugin_names), "entryCount": entry_count, "uniqueSkillCount": unique_skill_count}

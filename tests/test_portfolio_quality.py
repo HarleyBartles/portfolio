@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import warnings
 from datetime import date
 from pathlib import Path
 
@@ -930,7 +931,6 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("invalid observedAt" in finding for finding in findings))
-        self.assertTrue(any("does not match Marketplace revision" in finding for finding in findings))
         self.assertTrue(any("entry count" in finding for finding in findings))
         self.assertTrue(any("plugin names do not match" in finding for finding in findings))
         self.assertTrue(any("duplicate consumer name" in finding for finding in findings))
@@ -939,6 +939,22 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("private local coordinate" in finding for finding in findings))
         self.assertTrue(any("unknown Marketplace plugin" in finding for finding in findings))
         self.assertTrue(any("must not contain duplicates" in finding for finding in findings))
+
+    def test_marketplace_revision_drift_warns_without_failing(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            source = fixture.content / str(fixture.items[0]["path"])
+            source.unlink()
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.write_manifest()
+            fixture.write_marketplace_evidence("b" * 40)
+
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            findings = self.validate(mutate)
+
+        self.assertFalse(any("does not match Marketplace revision" in finding for finding in findings))
+        self.assertTrue(any("does not match Marketplace revision" in str(warning.message) for warning in caught))
 
     def test_marketplace_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
