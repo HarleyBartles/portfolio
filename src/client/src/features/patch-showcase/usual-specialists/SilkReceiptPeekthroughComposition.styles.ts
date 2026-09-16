@@ -12,9 +12,50 @@ const RECEIPT_PEEK_CUTOUT_MIRROR_OFFSET_62_MEDIA = '(min-width: 1200px) and (max
 
 export const Composition = styled.div`
   position: relative;
-  overflow: visible;
   width: 100%;
   height: 100%;
+`
+
+export const ReceiptAnchor = styled.div`
+  position: absolute;
+  top: 161.6325px;
+  left: 215.15px;
+  width: 170px;
+  height: 138px;
+
+  @media ${RECEIPT_REVIEW_SCALE_125_MEDIA} {
+    top: 42.28875px;
+    left: calc(137.025px - 25vw);
+    width: 50vw;
+    height: 126px;
+  }
+
+  @media ${RECEIPT_REVIEW_COMPACT_MEDIA} {
+    top: 13.6148041952953vw;
+    left: 14.8744444444444vw;
+    width: 23.611111vw;
+    height: 19.166667vw;
+  }
+
+  @media ${RECEIPT_REVIEW_NARROW_LOWER_MEDIA} {
+    top: 98.026590206126px;
+    left: 107.096px;
+  }
+
+  @media ${RECEIPT_REVIEW_MIRROR_MEDIA} {
+    top: 161.6325px;
+    left: 96.2915471970718px;
+  }
+
+  @media (min-width: 1500px) and (max-width: 1919px) {
+    top: 161.6325px;
+    left: 215.15px;
+  }
+
+  @media (min-width: 1920px) {
+    top: 120.0048px;
+    left: 140.216px;
+  }
 `
 
 export const FrameCanvas = styled.div`

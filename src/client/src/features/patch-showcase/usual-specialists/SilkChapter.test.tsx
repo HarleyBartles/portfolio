@@ -99,6 +99,7 @@ describe('Silk chapter diegetic-wall proof', () => {
     const receiptWorld = receiptComposition?.querySelector<HTMLImageElement>('[data-silk-receipt-world-image]')
     const receiptFrame = receiptComposition?.querySelector<HTMLImageElement>('[data-silk-receipt-frame-review]')
     expect(receiptComposition).toBeInTheDocument()
+    expect(receiptComposition?.parentElement).toBe(receipt)
     expect(receiptWorld).toBeInTheDocument()
     expect(receiptWorld).toHaveAttribute('aria-hidden', 'true')
     expect(receiptWorld).toHaveAttribute('src', expect.stringContaining('silk-receipt-alcove-world-review.webp'))

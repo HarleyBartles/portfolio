@@ -423,8 +423,8 @@ The parent therefore positions a meaningful visible object, not source-image coo
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(renders the settled Silk scene set|Receipt/Silk to Commission 09 gutter|attached to the Receipt hole)"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **6.9 Commit checkpoint:** If authorized, commit Commission 08 external-box ownership after all visual/geometry checks pass.
-- [ ] **6.10 Progress tracking:** Mark every Task 6 box `[x]` before Task 7.
+- [x] **6.9 Commit checkpoint:** If authorized, commit Commission 08 external-box ownership after all visual/geometry checks pass.
+- [x] **6.10 Progress tracking:** Mark every Task 6 box `[x]` before Task 7.
 
 ---
 
@@ -458,13 +458,13 @@ Responsive scale and mirroring that describe Receipt-to-Silk internals remain in
 
 ### Steps
 
-- [ ] **7.1 RED child test:** Add the missing colocated test covering accepted assets, root-only style forwarding, absence of `className`, and internal ownership of receipt plane + peek cutout.
-- [ ] **7.2 RED browser contract:** Add a Playwright assertion that the child root bounds equal the union of its visible frame and Silk peek-cutout layers within tolerance. This should fail on the current undersized root whose children visibly overflow it.
-- [ ] **7.3 Rebuild the external footprint:** Adjust child internal positioning/scaling so the root encloses the complete visible lockup at each existing responsive treatment. Keep the actual frame, world, peek cutout, scale factors and mirror states visually unchanged.
-- [ ] **7.4 Simplify parent placement:** Update `ReceiptPeekthroughPlacement` to position/size the complete lockup as one object. Remove parent-side derived overhang constants or offsets whose only purpose was compensating for the child's hidden overflow.
-- [ ] **7.5 Preserve child-local transitions:** Keep existing narrow/compact/lower/mirror/recomposed child states when they genuinely describe Receipt/Silk internals. Move a threshold to `silkResponsive.ts` only if multiple Silk sibling placements consume that same composition state.
-- [ ] **7.6 Browser proof:** Preserve the existing Receipt-hole attachment and mirror-band tests at `320`, `390`, `720`, `900`, `1199/1200`, `1499/1500`, `1920` plus the new external-box assertion.
-- [ ] **7.7 Focused verification:** Run:
+- [x] **7.1 RED child test:** Add the missing colocated test covering accepted assets, root-only style forwarding, absence of `className`, and internal ownership of receipt plane + peek cutout.
+- [x] **7.2 RED browser contract:** Add a Playwright assertion that the child root bounds equal the union of its visible frame and Silk peek-cutout layers within tolerance. This should fail on the current undersized root whose children visibly overflow it.
+- [x] **7.3 Rebuild the external footprint:** Adjust child internal positioning/scaling so the root encloses the complete visible lockup at each existing responsive treatment. Keep the actual frame, world, peek cutout, scale factors and mirror states visually unchanged.
+- [x] **7.4 Simplify parent placement:** Update `ReceiptPeekthroughPlacement` to position/size the complete lockup as one object. Remove parent-side derived overhang constants or offsets whose only purpose was compensating for the child's hidden overflow.
+- [x] **7.5 Preserve child-local transitions:** Keep existing narrow/compact/lower/mirror/recomposed child states when they genuinely describe Receipt/Silk internals. Move a threshold to `silkResponsive.ts` only if multiple Silk sibling placements consume that same composition state.
+- [x] **7.6 Browser proof:** Preserve the existing Receipt-hole attachment and mirror-band tests at `320`, `390`, `720`, `900`, `1199/1200`, `1499/1500`, `1920` plus the new external-box assertion.
+- [x] **7.7 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/SilkReceiptPeekthroughComposition.test.tsx src/features/patch-showcase/usual-specialists/SilkChapter.test.tsx

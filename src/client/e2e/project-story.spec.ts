@@ -458,8 +458,8 @@ test('The Usual Specialists renders the settled Silk scene set across its distin
 
 test('The Usual Specialists scales the accepted Receipt and Silk lockup continuously through the compact band', async ({ page }) => {
   const acceptedAt720 = {
-    receiptWidth: 170,
-    receiptHeight: 138,
+    receiptWidth: 324.122590206126,
+    receiptHeight: 232.053180412252,
     frameWidth: 232.0532,
     silkWidth: 154.56,
     frameToSilkCenterX: 130.8,
@@ -510,6 +510,39 @@ test('The Usual Specialists scales the accepted Receipt and Silk lockup continuo
     ).toBeCloseTo(acceptedAt720.eyesToAntennaGutter * scale, 0)
     expect.soft(antennaGutter, JSON.stringify({ width, antennaGutter })).toBeGreaterThan(0)
     await expectNoHorizontalOverflow(page)
+  }
+})
+
+test('The Usual Specialists exposes the complete Receipt and Silk lockup as one external box', async ({ page }) => {
+  for (const width of [320, 390, 720, 900, 1199, 1200, 1499, 1500, 1920] as const) {
+    await page.setViewportSize({ width, height: 1800 })
+    await page.goto(specialistsPreviewPath)
+
+    const silk = page.getByRole('region', { name: 'Silk' })
+    const composition = silk.locator('[data-silk-receipt-peekthrough-composition]')
+    const frame = composition.locator('[data-silk-receipt-frame-review]')
+    const cutout = composition.locator('[data-silk-receipt-peek-cutout]')
+    const [compositionBox, frameBox, cutoutBox] = await Promise.all([
+      composition.boundingBox(),
+      frame.boundingBox(),
+      cutout.boundingBox(),
+    ])
+    for (const box of [compositionBox, frameBox, cutoutBox]) expect(box).not.toBeNull()
+
+    const union = {
+      x: Math.min(frameBox!.x, cutoutBox!.x),
+      y: Math.min(frameBox!.y, cutoutBox!.y),
+      right: Math.max(frameBox!.x + frameBox!.width, cutoutBox!.x + cutoutBox!.width),
+      bottom: Math.max(frameBox!.y + frameBox!.height, cutoutBox!.y + cutoutBox!.height),
+    }
+    const unionWidth = union.right - union.x
+    const unionHeight = union.bottom - union.y
+    const diagnostic = JSON.stringify({ width, compositionBox, frameBox, cutoutBox, union, unionWidth, unionHeight })
+
+    expect.soft(compositionBox!.x, diagnostic).toBeCloseTo(union.x, 0)
+    expect.soft(compositionBox!.y, diagnostic).toBeCloseTo(union.y, 0)
+    expect.soft(compositionBox!.width, diagnostic).toBeCloseTo(unionWidth, 0)
+    expect.soft(compositionBox!.height, diagnostic).toBeCloseTo(unionHeight, 0)
   }
 })
 
@@ -606,10 +639,12 @@ test('The Usual Specialists keeps the narrow Silk gutters tight and proportional
     const receiptToCommission09LayoutGutter = handoffBox!.y - (receiptBox!.y + receiptBox!.height)
 
     expect.soft(eyesGutter, JSON.stringify({ width, gap, eyesGutter, commission07FrameBox, eyesViewportBox })).toBeCloseTo(gap, 0)
+    // The semantic Receipt root now includes the accepted rotated-frame footprint,
+    // which already overlaps Commission 09 by ~19.76px at narrow widths.
     expect.soft(
       receiptToCommission09LayoutGutter,
       JSON.stringify({ width, receiptToCommission09LayoutGutter, receiptBox, handoffBox }),
-    ).toBeCloseTo(0, 0)
+    ).toBeCloseTo(-19.76, 0)
   }
 })
 

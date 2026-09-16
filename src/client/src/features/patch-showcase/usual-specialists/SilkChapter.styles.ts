@@ -12,7 +12,6 @@ const SILK_REACTION_MID_WIDTH = 625.490196078431
 const SILK_REACTION_MID_HEIGHT = SILK_REACTION_MID_WIDTH / 8.25
 const SILK_REACTION_MID_TOP_SHIFT = 23.7057220708447
 const SILK_REACTION_MID_BOTTOM_ALIGNMENT = 0.0413171626507136
-const SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG = 161.63
 const SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO = 941 / 1672
 const SILK_COMPACT_COMMISSION_09_HEIGHT_VW = 116 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO
 const SILK_MID_COMMISSION_09_HEIGHT = 640 * SILK_COMMISSION_09_LANDSCAPE_HEIGHT_RATIO
@@ -119,12 +118,11 @@ export const Stage = styled.div`
     --silk-compact-aperture-2-world-bottom: calc(var(--silk-compact-aperture-2-top) + 56.3686vw);
     --silk-compact-reaction-top: calc(var(--silk-compact-aperture-2-world-bottom) + var(--silk-compact-aperture-world-gutter));
     --silk-stacked-reaction-top: var(--silk-compact-reaction-top);
-    --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 26.4553038470222vw);
-    --silk-compact-handoff-from-receipt: 16.320692vw;
+    --silk-compact-receipt-top: calc(var(--silk-stacked-reaction-top) + 12.8404996517269vw);
+    --silk-compact-handoff-top: calc(var(--silk-stacked-reaction-top) + 42.7759958470222vw);
     --silk-stacked-row-gap: clamp(24px, 6vw, 44px);
     min-height: calc(
-      var(--silk-compact-receipt-top)
-      + var(--silk-compact-handoff-from-receipt)
+      var(--silk-compact-handoff-top)
       + ${SILK_COMPACT_COMMISSION_09_HEIGHT_VW}vw
       + 20px
     );
@@ -146,11 +144,17 @@ export const Stage = styled.div`
     );
     --silk-narrow-receipt-top: calc(
       var(--silk-narrow-reaction-top)
-      + 58px
+      + 15.71125px
       + 5.18489684702219vw
       + var(--silk-narrow-row-gap)
     );
-    --silk-narrow-handoff-top: calc(var(--silk-narrow-receipt-top) + 126px + var(--silk-narrow-row-gap));
+    --silk-narrow-handoff-top: calc(
+      var(--silk-narrow-reaction-top)
+      + 184px
+      + 5.18489684702219vw
+      + var(--silk-narrow-row-gap)
+      + var(--silk-narrow-row-gap)
+    );
     min-height: calc(
       var(--silk-narrow-handoff-top)
       + 58px
@@ -372,66 +376,75 @@ export const BreachAperturePlacement = styled.div`
 
 export const ReceiptPeekthrough = styled.div`
   position: absolute;
-  top: 824px;
-  right: 11%;
-  display: grid;
-  width: 170px;
-  height: 138px;
-  place-items: center;
+  top: 748.3675px;
+  right: calc(11% - 96.291547197072px);
+  width: 481.441547197072px;
+  height: 411.924047197072px;
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    top: 1035px;
-    right: clamp(50px, calc(-1480px + 79.6875vw), 560px);
+    top: 914.9952px;
+    right: calc(clamp(50px, calc(-1480px + 79.6875vw), 560px) - 31.026590206126px);
     left: auto;
+    width: 341.242590206126px;
+    height: 305.031390206126px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerNarrow} {
-    top: calc(var(--silk-reaction-top) + ${SILK_REACTION_MID_HEIGHT + 112.477284465103}px);
-    right: 19%;
+    top: calc(var(--silk-reaction-top) + 90.2676877230293px);
+    right: calc(19% - 47.026590206126px);
     left: auto;
+    width: 324.122590206126px;
+    height: 232.053180412252px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirroredLowerReconnect} {
     top: calc(
       var(--silk-reaction-top)
-      + ${SILK_REACTION_MID_HEIGHT + SILK_REACTION_MID_BOTTOM_ALIGNMENT + SILK_RECONNECTING_RECEIPT_VISUAL_TOP_OVERHANG}px
+      + ${SILK_REACTION_MID_HEIGHT + SILK_REACTION_MID_BOTTOM_ALIGNMENT}px
       + var(--silk-reconnecting-lower-gutter)
     );
     right: auto;
-    left: calc(46.6667vw - 420px);
+    left: calc(46.6667vw - 516.291547197072px);
+    width: 481.441547197072px;
+    height: 411.924047197072px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.stackedLower} {
-    top: 910px;
+    top: 748.3675px;
+    right: calc(clamp(50px, calc(-1480px + 79.6875vw), 560px) - 96.291547197072px);
+    width: 481.441547197072px;
+    height: 411.924047197072px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
-    top: calc(1510px + var(--silk-separated-lower-shift));
+    top: calc(1348.3675px + var(--silk-separated-lower-shift));
     right: auto;
-    left: 140px;
+    left: 43.7084528029282px;
+    width: 515.941547197072px;
+    height: 411.924047197072px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
-    top: 930px;
-    right: 2%;
-    width: 150px;
-    height: 126px;
+    top: 887.71125px;
+    right: -2.763532416055px;
+    width: calc(25vw + 139.788532416055px);
+    height: 188.052282416055px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-receipt-top);
-    right: 0;
+    right: -2.763532416055px;
     left: auto;
-    width: 50%;
-    height: 126px;
+    width: calc(25vw + 139.788532416055px);
+    height: 188.052282416055px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-receipt-top);
-    right: 19%;
+    right: 12.4685291380381%;
     left: auto;
-    width: 23.611111vw;
-    height: 19.166667vw;
+    width: 45.0170264175175vw;
+    height: 32.2296083905906vw;
   }
 `
 
@@ -541,7 +554,7 @@ export const HandoffCell = styled.div`
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
-    top: calc(var(--silk-compact-receipt-top) + var(--silk-compact-handoff-from-receipt));
+    top: var(--silk-compact-handoff-top);
     right: 0;
     left: 0;
     width: auto;
