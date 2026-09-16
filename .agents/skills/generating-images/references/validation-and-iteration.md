@@ -20,6 +20,15 @@ At detail scale, check:
 - mask boundaries, alpha, contact shadows, reflections, and light continuity;
 - artefacts that become visible at the delivered size or crop.
 
+Also inspect the returned file rather than the requested contract:
+
+- actual width, height, and aspect ratio;
+- actual colour mode and alpha values;
+- whether exact text and marks survived;
+- whether a requested hex appears exactly or only approximately;
+- whether one call returned the expected number of artifacts;
+- whether every reference contributed only its assigned role.
+
 If the image is intended for a responsive interface or a tile-sized game asset,
 inspect at those actual presentation sizes as well as the source resolution.
 
@@ -39,6 +48,11 @@ Disposition: selected | revise | rejected
 
 “Looks good” is not enough. Name the evidence: “reserved right-third copy field
 remains quiet at 390px crop” or “left eye and hand are readable at delivered size.”
+
+Do not let numeric difference overrule perceptual evidence or vice versa. Report
+both when they answer different contracts: a constrained regeneration can have low
+pixel identity and still be visually indistinguishable, while a visually plausible
+wordmark can contain zero exact brand-colour pixels.
 
 ## Iterate narrowly
 

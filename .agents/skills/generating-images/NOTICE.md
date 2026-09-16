@@ -20,16 +20,18 @@ preservation, inspection, targeted iteration, transparency, and asset handoff.
 
 The substantial modifications for this repository are:
 
-- capability- and behaviour-based routing instead of a fixed execution tool;
-- removal of Codex tool names, `$CODEX_HOME`, built-in save paths, and
-  OpenAI-only environment assumptions from the portable core;
+- capability- and behaviour-based routing across current OpenAI product surfaces
+  instead of one fixed execution tool;
+- separation of the portable OpenAI workflow from observed Codex and ChatGPT
+  harness contracts that can change independently;
 - removal of the bundled OpenAI CLI and its scripts, dependencies, model details,
   and network instructions;
 - separation of unresolved creative direction into `directing-visual-stories`;
-- a provider-neutral contract for truthful missing-capability and incomplete-brief
+- a harness-portable contract for truthful missing-capability and incomplete-brief
   outcomes;
 - explicit preservation of frame and story invariants;
 - repository-neutral provenance, custody, and field-learning reporting.
 
-Provider- or harness-specific adapters, if added later, must retain their own
-source attribution and must not be treated as part of this portable core.
+Harness-specific observations are field evidence, not promises about a backend
+model or permanent public API. They must be re-checked against the callable surface
+present in the active OpenAI environment.

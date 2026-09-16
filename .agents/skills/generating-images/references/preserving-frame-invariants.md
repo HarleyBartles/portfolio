@@ -22,6 +22,11 @@ approved visual language that may receive small technical variation, and `soft`
 for exploratory cues. Do not downgrade a lock merely because the capability is
 weak; report the capability limitation instead.
 
+Locks govern perceptual and structural acceptance unless they explicitly demand
+exact pixels. A near-identical OpenAI result may change most decoded pixels at low
+amplitude while remaining indistinguishable to an ordinary reviewer. Record which
+standard the consuming asset actually needs.
+
 ## What to lock
 
 | Decision | Make it observable |
@@ -68,3 +73,8 @@ When a result fails, classify the first material drift:
 Fix one category at a time. If the failure shows that the direction itself has
 changed, stop iterating and request a revised direction rather than stacking
 contradictory prompts.
+
+For local edits, inspect both the intended region and a generous outside region.
+Allow only named secondary effects, such as the local spill from a changed light.
+Whole-frame low-amplitude pixel differences are expected from constrained
+regeneration; visible changes outside the allowed region are not.

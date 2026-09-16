@@ -80,6 +80,32 @@ Use this compact order unless the selected adapter requires another syntax:
 6. invariants, allowed changes, and avoid list;
 7. exact text and output requirements.
 
-Keep provider parameters in the adapter record, not in the creative prompt. The
+Keep harness parameters in the adapter record, not in the creative prompt. The
 final brief trace must preserve both the human direction and the translated prompt
 so later reviewers can tell which choice came from where.
+
+## Transport by OpenAI surface
+
+For Codex, make the writable prompt a complete, self-contained execution envelope.
+Do not rely on surrounding conversation to supply omitted creative or technical
+constraints. Bind images explicitly through the exposed local-path or recent-image
+mechanism, then repeat their roles inside the prompt.
+
+For ChatGPT surfaces whose effective prompt is conversation-derived, make the
+current user request contain one complete image job. Do not bundle future probes or
+several competing briefs into the same turn. Treat the conversation as instruction
+transport and the structured fields only as the controls the harness permits the
+agent to write.
+
+For multiple references, name both the source and the borrowed property:
+
+```text
+Image 1 supplies character identity and equipment.
+Image 2 is the base environment, camera, perspective, and lighting to preserve.
+Place Image 1's character at the far bend in Image 2, matching scale, occlusion,
+light, texture, and depth. Do not import Image 1's original pose or background.
+```
+
+For a tight edit-like result, state the only allowed change, repeat the full-frame
+invariants, and name unavoidable secondary effects such as local light spill. This
+produces constrained regeneration, not a promise of masked pixel replacement.

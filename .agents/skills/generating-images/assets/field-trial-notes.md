@@ -34,3 +34,29 @@ universal rule.
   prove the frame boundary survived.
 - Evidence or review link: draft PR #61 and the accepted custody entries in
   `docs/asset-custody.md`.
+
+## Codex and ChatGPT surface spike
+
+- Date: 2026-09-16
+- Repository: Portfolio, draft PR #62
+- Capability question: determine how the current OpenAI image tools exposed in
+  Codex and ChatGPT differ, and what a portable execution skill can safely promise.
+- Evidence: `.agents/plans/visual-storytelling-skills/image-generation-tool-surface-snapshots.md`
+- Codex transport: required writable prompt; explicit local-path or recent-image
+  reference binding; one surfaced artifact per observed call; no model, size,
+  output-count, transparency, mask, quality, or sampler control.
+- ChatGPT transport: conversation-derived instructions; different optional wrapper
+  controls; context-sensitive reference and output behaviour; no exposed model
+  picker in the observed callable surface.
+- Proven shared behaviour: references act as conditioning inputs; prose assigns
+  roles and attention; tight edit briefs can achieve exceptional perceptual
+  preservation; multi-reference synthesis and character/environment compositing
+  work when roles, depth, occlusion, and lighting are explicit.
+- Proven limits: edit-like output is stochastic regeneration, exact dimensions and
+  hex colours are not contractual, transparency must be requested and inspected,
+  and deterministic pixel work remains outside the generator's authority.
+- Custody: all 38 local spike outputs and the task-scoped output directory were
+  deleted after measurements. No generated spike image was promoted as an asset.
+- Portable lesson: master the current harness contract, not an imagined universal
+  API. Preserve authored direction, bind references deliberately, inspect the real
+  output, and route exact technical transformations to deterministic tooling.
