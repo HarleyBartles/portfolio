@@ -100,12 +100,12 @@ Do not export a new `SPECIALISTS_WIDTHS`-style object from page code. `320px` is
 
 ### Steps
 
-- [ ] **1.1 RED:** Add an architecture assertion that page styles do not import `specialistsResponsive` and do not export/use a route-wide breakpoint taxonomy. The realistic regression this catches is a future page change re-centralising chapter breakpoints.
-- [ ] **1.2 Verify RED:** Run the focused architecture test and confirm it fails because `UsualSpecialistsPage.styles.ts` still imports `SPECIALISTS_WIDTHS`.
-- [ ] **1.3 GREEN:** Remove the `specialistsResponsive` import from `UsualSpecialistsPage.styles.ts` and express the `2560px` ceiling directly on `SpecialistsCanvas`.
-- [ ] **1.4 Keep page tests page-scoped:** Ensure `UsualSpecialistsPage.test.tsx` continues to prove article identity, source order and root-only style forwarding without adding child geometry assertions.
-- [ ] **1.5 Browser proof:** Run the existing page/canvas browser tests covering `320`, `2560` and beyond-ceiling behaviour. Do not alter geometry to satisfy a unit test.
-- [ ] **1.6 Focused verification:** Run:
+- [x] **1.1 RED:** Add an architecture assertion that page styles do not import `specialistsResponsive` and do not export/use a route-wide breakpoint taxonomy. The realistic regression this catches is a future page change re-centralising chapter breakpoints.
+- [x] **1.2 Verify RED:** Run the focused architecture test and confirm it fails because `UsualSpecialistsPage.styles.ts` still imports `SPECIALISTS_WIDTHS`.
+- [x] **1.3 GREEN:** Remove the `specialistsResponsive` import from `UsualSpecialistsPage.styles.ts` and express the `2560px` ceiling directly on `SpecialistsCanvas`.
+- [x] **1.4 Keep page tests page-scoped:** Ensure `UsualSpecialistsPage.test.tsx` continues to prove article identity, source order and root-only style forwarding without adding child geometry assertions.
+- [x] **1.5 Browser proof:** Run the existing page/canvas browser tests covering `320`, `2560` and beyond-ceiling behaviour. Do not alter geometry to satisfy a unit test.
+- [x] **1.6 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts
