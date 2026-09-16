@@ -12,4 +12,14 @@ describe('Specialists responsive composition architecture', () => {
     expect(pageStyles).not.toContain('specialistsMedia')
     expect(pageStyles).toContain('width: min(100%, 2560px);')
   })
+
+  test.each([
+    './UsualSpecialistsOpening.styles.ts',
+    './chapterCrossingGeometry.ts',
+    './CrossSectionConnector.tsx',
+  ])('keeps %s independent of the route-wide responsive taxonomy', (filename) => {
+    const source = readSource(filename)
+
+    expect(source).not.toContain("from './specialistsResponsive'")
+  })
 })

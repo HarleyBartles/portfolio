@@ -5,7 +5,6 @@ import {
   SPECIALISTS_CROSSING_LOCKUP_SIZE,
   SpecialistsCrossingLockup,
 } from './SpecialistsCrossingLockup'
-import { specialistsMedia } from './specialistsResponsive'
 
 export type CrossSectionConnectorId = 'opening-index' | 'index-silk'
 
@@ -26,6 +25,15 @@ type LockPlacement = {
 }
 
 type IndexSilkPlacementState = 'narrow' | 'compactLandscape' | 'mid' | 'default' | 'wide'
+
+const CROSSING_CONTAINER_NAME = 'specialists-crossing'
+const crossingQueries = {
+  narrow: '(max-width: 389px)',
+  compact: '(min-width: 390px) and (max-width: 719px)',
+  throughCompact: '(max-width: 719px)',
+  throughMid: '(max-width: 899px)',
+  wide: '(min-width: 1400px)',
+} as const
 
 const INDEX_SILK_LOCK_PLACEMENTS = {
   narrow: {
@@ -81,12 +89,12 @@ const openingIndexPlacement = css`
   left: calc(11% + 6px);
   transform: translate(-50%, -50%) scale(0.75) rotate(8deg);
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.wide} {
     left: 170px;
     transform: translate(-50%, -50%) scale(0.9) rotate(4deg);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.throughCompact} {
     left: calc(8% + 5px);
     transform: translate(-50%, -50%) scale(0.7) rotate(10deg);
   }
@@ -95,25 +103,27 @@ const openingIndexPlacement = css`
 const indexSilkPlacement = css`
   ${indexSilkPlacementCss(INDEX_SILK_LOCK_PLACEMENTS.default)}
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.wide} {
     ${indexSilkPlacementCss(INDEX_SILK_LOCK_PLACEMENTS.wide)}
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.throughMid} {
     ${indexSilkPlacementCss(INDEX_SILK_LOCK_PLACEMENTS.mid)}
   }
 
-  @media ${specialistsMedia.compactLandscape} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.compact} {
     ${indexSilkPlacementCss(INDEX_SILK_LOCK_PLACEMENTS.compactLandscape)}
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${CROSSING_CONTAINER_NAME} ${crossingQueries.narrow} {
     ${indexSilkPlacementCss(INDEX_SILK_LOCK_PLACEMENTS.narrow)}
   }
 `
 
 const ConnectorSurface = styled.div`
   position: relative;
+  container-name: ${CROSSING_CONTAINER_NAME};
+  container-type: inline-size;
   height: ${CHAPTER_CROSSING_HEIGHT}px;
   background: var(--color-interior-canvas);
   pointer-events: none;

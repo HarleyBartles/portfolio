@@ -2,15 +2,25 @@ import styled from 'styled-components'
 import { CHAPTER_CROSSING_HEIGHT, chapterCrossingPortCss } from './chapterCrossingGeometry'
 import { SPECIALISTS_CHAPTER_NAV_HEIGHT } from './SpecialistsChapterNav.styles'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
-import { specialistsMedia } from './specialistsResponsive'
 
 const OPENING_INDEX_TRANSITION_HEIGHT = SPECIALISTS_CHAPTER_NAV_HEIGHT + CHAPTER_CROSSING_HEIGHT
+const OPENING_CONTAINER_NAME = 'specialists-opening'
+const openingQueries = {
+  narrow: '(max-width: 389px)',
+  compact: '(min-width: 390px) and (max-width: 719px)',
+  throughCompact: '(max-width: 719px)',
+  throughMid: '(max-width: 899px)',
+  wide: '(min-width: 1400px)',
+  beyondCeiling: '(min-width: 2561px)',
+} as const
 
 export const Opening = styled.header`
   position: relative;
+  container-name: ${OPENING_CONTAINER_NAME};
+  container-type: inline-size;
   padding-top: clamp(34px, 6vw, 76px);
 
-  @media ${specialistsMedia.atMostCompact} {
+  @media ${openingQueries.throughCompact} {
     padding-top: 26px;
   }
 `
@@ -24,7 +34,7 @@ export const OpeningRopeLayer = styled.div`
   height: calc(clamp(540px, 68vw, 820px) + 72px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
   pointer-events: none;
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
     height: calc(762px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
   }
 `
@@ -40,19 +50,19 @@ export const OpeningRopePlacement = styled.div`
   transform: translateX(-50%);
   ${chapterCrossingPortCss('opening-index')}
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
   }
 
-  @media ${specialistsMedia.compactLandscape} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.compact} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
   }
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.wide} {
     display: block;
     width: auto;
     aspect-ratio: 724 / 2172;
@@ -70,7 +80,7 @@ export const OpeningRopeTile = styled.div`
     margin-top: -2px;
   }
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.wide} {
     & + & {
       display: none;
     }
@@ -85,11 +95,11 @@ export const OpeningRopeAnchorPlacement = styled.div`
   transform: translate(-50%, -5%) scale(0.65) rotate(5.5deg);
   ${chapterCrossingPortCss('opening-index')}
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     transform: translate(-50%, -5%) scale(0.55) rotate(5.5deg);
   }
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
     transform: translate(-50%, -5%) scale(0.5) rotate(5.5deg);
   }
 `
@@ -108,11 +118,11 @@ export const SeriesLockupField = styled.div`
   width: min(35%, 390px);
   margin-left: auto;
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     width: min(42%, 340px);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
     width: min(54%, 280px);
   }
 `
@@ -133,11 +143,11 @@ export const OpeningPrecis = styled.p`
   margin: 2px 0 0 auto;
   font-size: clamp(1.05rem, 1.7vw, 1.36rem);
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     width: min(62%, 33rem);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
     width: 82%;
     margin-top: 8px;
   }
@@ -150,7 +160,7 @@ export const Threshold = styled.div`
   border-top: 1px solid var(--specialists-ink);
   overflow: visible;
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
     min-height: 690px;
   }
 `
@@ -184,15 +194,15 @@ export const ThresholdCopy = styled.div`
     margin: 0;
   }
 
-  @media ${specialistsMedia.beyondCeiling} {
+  @media ${openingQueries.beyondCeiling} {
     left: 580px;
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     width: min(30rem, 58vw);
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
     top: 18%;
     right: var(--specialists-gutter);
     left: var(--specialists-gutter);

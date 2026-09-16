@@ -141,6 +141,29 @@ test('The Usual Specialists keeps its rope pieces and authored crossing lockups 
   }
 })
 
+test('The Usual Specialists keeps its rope pieces and authored crossing lockups registered across connector transitions', async ({ page }) => {
+  for (const width of [389, 390, 719, 720, 899, 900, 1399, 1400] as const) {
+    await page.setViewportSize({ width, height: 1100 })
+    await page.goto(specialistsPreviewPath)
+
+    const crossingLock = page.locator('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lockup]')
+    const knotBottomPort = crossingLock.locator('[data-specialists-crossing-lock-knot-bottom-port]')
+    const silkRopeAxis = page.locator('[data-silk-rope-axis]')
+    const [knotBottomPortBox, ropeAxisX] = await Promise.all([
+      knotBottomPort.boundingBox(),
+      silkRopeAxis.evaluate((axis) => axis.getBoundingClientRect().left),
+    ])
+
+    expect(knotBottomPortBox).not.toBeNull()
+    const knotBottomX = knotBottomPortBox!.x + knotBottomPortBox!.width / 2
+    const registrationDelta = Math.abs(knotBottomX - ropeAxisX)
+    expect(
+      registrationDelta,
+      JSON.stringify({ width, knotBottomX, ropeAxisX }),
+    ).toBeLessThanOrEqual(3)
+  }
+})
+
 test('The Usual Specialists renders the settled Silk scene set across its distinct responsive treatments', async ({ page }) => {
   for (const width of [320, 389, 390, 520, 719, 720, 800, 899, 900, 1050, 1199, 1200, 1350, 1499, 1500, 1920] as const) {
     await page.setViewportSize({ width, height: 1800 })

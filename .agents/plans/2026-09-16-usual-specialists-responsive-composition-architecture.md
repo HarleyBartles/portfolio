@@ -111,8 +111,8 @@ Do not export a new `SPECIALISTS_WIDTHS`-style object from page code. `320px` is
   npm --prefix src/client test -- src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(settled composition coherent|freezes its authored canvas)"
   ```
-- [ ] **1.7 Commit checkpoint:** If commit authority is active, stage only Task 1 implementation/test files and the tracked plan progress, then commit normally with a message such as `refactor: thin Specialists page canvas contract`; let the hook own the full gate.
-- [ ] **1.8 Progress tracking:** After the checkpoint succeeds, mark every Task 1 box `[x]` in this plan before starting Task 2.
+- [x] **1.7 Commit checkpoint:** If commit authority is active, stage only Task 1 implementation/test files and the tracked plan progress, then commit normally with a message such as `refactor: thin Specialists page canvas contract`; let the hook own the full gate.
+- [x] **1.8 Progress tracking:** After the checkpoint succeeds, mark every Task 1 box `[x]` in this plan before starting Task 2.
 
 ---
 
@@ -153,11 +153,11 @@ specialists-crossing container
 
 ### Steps
 
-- [ ] **2.1 RED:** Extend the architecture test so Opening, `chapterCrossingGeometry.ts` and `CrossSectionConnector.tsx` are rejected if they import `specialistsResponsive`.
-- [ ] **2.2 Verify RED:** Run the focused architecture test and confirm all three current imports are detected.
-- [ ] **2.3 Opening migration:** Replace `specialistsMedia` references in `UsualSpecialistsOpening.styles.ts` with opening-local conditions. Add a named opening inline-size container and use `@container specialists-opening ...` for descendant-only width treatments that can move without changing pixels; keep root-only width behaviour owner-local.
-- [ ] **2.4 Seam migration:** Replace `specialistsMedia` usage in `chapterCrossingGeometry.ts` with seam-local conditions preserving exactly the current `389/390`, `719/720`, `899/900` and `1399/1400` behaviour.
-- [ ] **2.5 Connector migration:** Move the connector lock's narrow/compact/mid/default/wide state switching to connector-owned conditions. Keep the current lock placements, rotations and scales exactly:
+- [x] **2.1 RED:** Extend the architecture test so Opening, `chapterCrossingGeometry.ts` and `CrossSectionConnector.tsx` are rejected if they import `specialistsResponsive`.
+- [x] **2.2 Verify RED:** Run the focused architecture test and confirm all three current imports are detected.
+- [x] **2.3 Opening migration:** Replace `specialistsMedia` references in `UsualSpecialistsOpening.styles.ts` with opening-local conditions. Add a named opening inline-size container and use `@container specialists-opening ...` for descendant-only width treatments that can move without changing pixels; keep root-only width behaviour owner-local.
+- [x] **2.4 Seam migration:** Replace `specialistsMedia` usage in `chapterCrossingGeometry.ts` with seam-local conditions preserving exactly the current `389/390`, `719/720`, `899/900` and `1399/1400` behaviour.
+- [x] **2.5 Connector migration:** Move the connector lock's narrow/compact/mid/default/wide state switching to connector-owned conditions. Keep the current lock placements, rotations and scales exactly:
 
   ```text
   narrow: 4.516% + 11.65px, scale .7, rotate 3deg
@@ -167,9 +167,9 @@ specialists-crossing container
   wide: 329px, scale .9, rotate 2.5deg
   ```
 
-- [ ] **2.6 Component proof:** Keep `CrossSectionConnector.test.tsx` limited to compositor ownership: rule, placement wrapper, opaque lockup, root style forwarding and no `className` seam.
-- [ ] **2.7 Browser ownership proof:** Refactor/add one connector-owned Playwright assertion that samples both sides of the connector transitions (`389/390`, `719/720`, `899/900`, `1399/1400`) and proves the rope/lock registration rather than merely element presence.
-- [ ] **2.8 Focused verification:** Run:
+- [x] **2.6 Component proof:** Keep `CrossSectionConnector.test.tsx` limited to compositor ownership: rule, placement wrapper, opaque lockup, root style forwarding and no `className` seam.
+- [x] **2.7 Browser ownership proof:** Refactor/add one connector-owned Playwright assertion that samples both sides of the connector transitions (`389/390`, `719/720`, `899/900`, `1399/1400`) and proves the rope/lock registration rather than merely element presence.
+- [x] **2.8 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/UsualSpecialistsOpening.test.tsx src/features/patch-showcase/usual-specialists/CrossSectionConnector.test.tsx src/features/patch-showcase/usual-specialists/responsiveCompositionArchitecture.test.ts
