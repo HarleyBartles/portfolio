@@ -251,13 +251,15 @@ export const CorridorAperturePlacement = styled.div`
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-aperture-1-top);
     left: 0;
-    width: 100%;
+    width: 116%;
+    margin-left: -8%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-aperture-1-top);
     left: 0;
-    width: 100%;
+    width: 116%;
+    margin-left: -8%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
@@ -353,14 +355,16 @@ export const BreachAperturePlacement = styled.div`
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     top: var(--silk-narrow-aperture-2-top);
     left: 0;
-    width: 100%;
+    width: 116%;
     height: var(--silk-narrow-aperture-2-height);
+    margin-left: -8%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
     top: var(--silk-compact-aperture-2-top);
     left: 0;
-    width: 100%;
+    width: 116%;
+    margin-left: -8%;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {

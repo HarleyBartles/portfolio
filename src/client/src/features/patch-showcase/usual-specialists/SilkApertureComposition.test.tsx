@@ -1,6 +1,13 @@
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { SilkApertureComposition } from './SilkApertureComposition'
+
+const readStylesSource = (): string => readFileSync(
+  resolve('src/features/patch-showcase/usual-specialists/SilkApertureComposition.styles.ts'),
+  'utf8',
+)
 
 describe('SilkApertureComposition', () => {
   test('presents Commission 05 through accepted fixed-frame media', () => {
@@ -63,5 +70,24 @@ describe('SilkApertureComposition', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
     const { container } = render(<SilkApertureComposition variant="commission-07-review" className="external-control" />)
     expect(container.querySelector('[data-silk-aperture-composition]')).not.toHaveClass('external-control')
+  })
+
+  test('fills its parent allocation while keeping frame selection and viewport internals child-owned', () => {
+    const stylesSource = readStylesSource()
+    const compositionSource = stylesSource.slice(
+      stylesSource.indexOf('export const Composition'),
+      stylesSource.indexOf('export const WorldViewport'),
+    )
+
+    expect(stylesSource).not.toContain("from './specialistsResponsive'")
+    expect(compositionSource).not.toContain('width: 116%')
+    expect(compositionSource).not.toContain('margin-left: -8%')
+
+    const { container } = render(<SilkApertureComposition variant="commission-07-review" />)
+    const root = container.querySelector('[data-silk-aperture-composition]')
+
+    expect(root?.querySelector('[data-silk-commission-07-review-viewport]')).toBeInTheDocument()
+    expect(root?.querySelector('[data-silk-commission-07-review-frame]')).toBeInTheDocument()
+    expect(root?.querySelector('[data-silk-commission-07-review-portrait-frame]')).toBeInTheDocument()
   })
 })

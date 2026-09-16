@@ -17,11 +17,7 @@ import {
   SILK_COMMISSION_07_REVIEW_VIEWPORT_INSETS,
   SILK_COMMISSION_07_REVIEW_WORLD_OVERSCAN,
 } from './silkCommission07ReviewGeometry'
-import { specialistsMedia } from './specialistsResponsive'
-
-const SILK_MIRRORED_APERTURE_MEDIA = '(min-width: 720px) and (max-width: 1199px)'
-const SILK_COMPACT_COMPOSITION_MEDIA = '(min-width: 390px) and (max-width: 719px)'
-const SILK_COMMISSION_07_NARROW_BLEED = 1.16
+import { SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
 
 export type SilkApertureCompositionVariant = 'commission-05' | 'commission-07-review'
 
@@ -33,35 +29,18 @@ export const Composition = styled.div<{ $variant: SilkApertureCompositionVariant
     : `${SILK_COMMISSION_07_REVIEW_FRAME_WIDTH} / ${SILK_COMMISSION_07_REVIEW_FRAME_HEIGHT}`};
   isolation: isolate;
 
-  @media ${SILK_COMPACT_COMPOSITION_MEDIA} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughCompact} {
     overflow: clip;
-    width: 116%;
-    margin-left: -8%;
   }
 
   ${({ $variant }) => $variant === 'commission-05' && css`
-    @media ${specialistsMedia.atMostCompact} {
-      overflow: clip;
-      width: 116%;
-      margin-left: -8%;
-    }
-
-    @media ${SILK_MIRRORED_APERTURE_MEDIA} {
-      overflow: visible;
-      width: 100%;
-      margin-left: 0;
-    }
-
-    @media ${specialistsMedia.atMostNarrow} {
+    @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
       aspect-ratio: ${SILK_COMMISSION_05_PORTRAIT_FRAME_WIDTH} / ${SILK_COMMISSION_05_PORTRAIT_FRAME_HEIGHT};
     }
   `}
 
   ${({ $variant }) => $variant === 'commission-07-review' && css`
-    @media ${specialistsMedia.atMostNarrow} {
-      position: relative;
-      width: ${SILK_COMMISSION_07_NARROW_BLEED * 100}%;
-      margin-left: -8%;
+    @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
       aspect-ratio: ${SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_WIDTH} / ${SILK_COMMISSION_07_REVIEW_PORTRAIT_FRAME_HEIGHT};
       transform: none;
     }
@@ -79,7 +58,7 @@ export const WorldViewport = styled.div<{ $variant: SilkApertureCompositionVaria
     bottom: ${SILK_COMMISSION_05_VIEWPORT_INSETS.bottom};
     left: ${SILK_COMMISSION_05_VIEWPORT_INSETS.left};
 
-    @media ${specialistsMedia.atMostNarrow} {
+    @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
       top: ${SILK_COMMISSION_05_PORTRAIT_VIEWPORT_INSETS.top};
       right: ${SILK_COMMISSION_05_PORTRAIT_VIEWPORT_INSETS.right};
       bottom: ${SILK_COMMISSION_05_PORTRAIT_VIEWPORT_INSETS.bottom};
@@ -91,7 +70,7 @@ export const WorldViewport = styled.div<{ $variant: SilkApertureCompositionVaria
     bottom: ${SILK_COMMISSION_07_REVIEW_VIEWPORT_INSETS.bottom};
     left: ${SILK_COMMISSION_07_REVIEW_VIEWPORT_INSETS.left};
 
-    @media ${specialistsMedia.atMostNarrow} {
+    @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
       top: ${SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT_INSETS.top};
       right: ${SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT_INSETS.right};
       bottom: ${SILK_COMMISSION_07_REVIEW_PORTRAIT_VIEWPORT_INSETS.bottom};
@@ -142,7 +121,7 @@ export const FrameImage = styled.img<{ $role: 'landscape' | 'portrait' | 'review
   object-fit: contain;
   pointer-events: none;
 
-  @media ${specialistsMedia.atMostNarrow} {
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
     display: ${({ $role }) => $role === 'portrait' || $role === 'review-portrait' ? 'block' : 'none'};
   }
 `

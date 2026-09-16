@@ -320,8 +320,8 @@ The Silk chapter root establishes `container-name: silk; container-type: inline-
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists.*(rope pieces and authored crossing lockups|renders the settled Silk scene set|attached to the Receipt hole)"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **4.11 Commit checkpoint:** If authorized, commit traversal ownership as a complete green Silk slice.
-- [ ] **4.12 Progress tracking:** Mark every Task 4 box `[x]` before Task 5.
+- [x] **4.11 Commit checkpoint:** If authorized, commit traversal ownership as a complete green Silk slice.
+- [x] **4.12 Progress tracking:** Mark every Task 4 box `[x]` before Task 5.
 
 ---
 
@@ -357,13 +357,13 @@ The child must no longer enlarge itself to `116%` and pull itself left by `-8%` 
 
 ### Steps
 
-- [ ] **5.1 RED component contract:** Add a test-level architectural assertion that the aperture root does not own external `116%`/negative-margin bleed while retaining both frame variants and its internal viewport.
-- [ ] **5.2 Verify RED:** Confirm the test/guard fails on the current root bleed rules.
-- [ ] **5.3 Parent external boxes:** Move accepted Commission 05/07 external bleed and offset rules to `CorridorAperturePlacement` and `BreachAperturePlacement`. Preserve the exact rendered boxes at narrow/compact/mirrored widths.
-- [ ] **5.4 Child cleanup:** Make the aperture root fill the parent allocation. Keep internal aspect ratios, portrait frame switching, viewport insets, scene overscan and `prefers-reduced-motion` behaviour child-owned.
-- [ ] **5.5 Responsive migration:** Replace remaining `specialistsResponsive` imports in `SilkApertureComposition.styles.ts` with Silk-owned/container-owned conditions.
-- [ ] **5.6 Browser proof:** Preserve Commission 05/07 geometry, narrow Silk gutter, parallax and reduced-motion tests. Compare global frame bounding boxes before/after rather than only checking the new ownership structure.
-- [ ] **5.7 Focused verification:** Run:
+- [x] **5.1 RED component contract:** Add a test-level architectural assertion that the aperture root does not own external `116%`/negative-margin bleed while retaining both frame variants and its internal viewport.
+- [x] **5.2 Verify RED:** Confirm the test/guard fails on the current root bleed rules.
+- [x] **5.3 Parent external boxes:** Move accepted Commission 05/07 external bleed and offset rules to `CorridorAperturePlacement` and `BreachAperturePlacement`. Preserve the exact rendered boxes at narrow/compact/mirrored widths.
+- [x] **5.4 Child cleanup:** Make the aperture root fill the parent allocation. Keep internal aspect ratios, portrait frame switching, viewport insets, scene overscan and `prefers-reduced-motion` behaviour child-owned.
+- [x] **5.5 Responsive migration:** Replace remaining `specialistsResponsive` imports in `SilkApertureComposition.styles.ts` with Silk-owned/container-owned conditions.
+- [x] **5.6 Browser proof:** Preserve Commission 05/07 geometry, narrow Silk gutter, parallax and reduced-motion tests. Compare global frame bounding boxes before/after rather than only checking the new ownership structure.
+- [x] **5.7 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/usual-specialists/SilkApertureComposition.test.tsx src/features/patch-showcase/usual-specialists/useSilkApertureParallax.test.ts
