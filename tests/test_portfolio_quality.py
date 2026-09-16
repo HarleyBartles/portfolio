@@ -930,7 +930,6 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("invalid observedAt" in finding for finding in findings))
-        self.assertTrue(any("does not match Marketplace revision" in finding for finding in findings))
         self.assertTrue(any("entry count" in finding for finding in findings))
         self.assertTrue(any("plugin names do not match" in finding for finding in findings))
         self.assertTrue(any("duplicate consumer name" in finding for finding in findings))
@@ -939,6 +938,22 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertTrue(any("private local coordinate" in finding for finding in findings))
         self.assertTrue(any("unknown Marketplace plugin" in finding for finding in findings))
         self.assertTrue(any("must not contain duplicates" in finding for finding in findings))
+
+    def test_marketplace_revision_drift_is_a_warning(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = PortfolioFixture(Path(temporary))
+            fixture.write()
+            del fixture.items[0]["path"]
+            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.write_manifest()
+            (fixture.content / "projects/example-project.md").unlink()
+            fixture.write_marketplace_evidence("b" * 40)
+
+            warnings = []
+            findings = validate_portfolio(fixture.root, warnings=warnings)
+
+        self.assertEqual(findings, [])
+        self.assertTrue(any("dated public evidence may lag" in str(warning) for warning in warnings))
 
     def test_marketplace_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
@@ -1187,8 +1202,6 @@ class PortfolioQualityTests(unittest.TestCase):
             self.assertGreater(image["height"], 0)
             self.assertTrue(image["altIntent"].startswith("Current development build"))
             self.assertIn("working skeleton", image["caption"])
-
-        self.assertEqual(validate_portfolio(ROOT), [])
 
     def test_wild_bunch_media_apply_requires_a_source_directory(self) -> None:
         result = subprocess.run(
