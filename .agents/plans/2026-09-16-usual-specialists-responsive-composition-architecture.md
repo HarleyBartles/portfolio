@@ -631,8 +631,8 @@ Use the existing `clipBetween(...)` helper (or a minimal equivalent) and assert 
   ```
 
   Do not pass `--update-snapshots`.
-- [ ] **10.9 Commit checkpoint:** If authorized, commit historical responsive-module/milestone removal as a green cleanup slice.
-- [ ] **10.10 Progress tracking:** Mark every Task 10 box `[x]` before Task 11.
+- [x] **10.9 Commit checkpoint:** If authorized, commit historical responsive-module/milestone removal as a green cleanup slice.
+- [x] **10.10 Progress tracking:** Mark every Task 10 box `[x]` before Task 11.
 
 ---
 
@@ -650,14 +650,14 @@ Use the existing `clipBetween(...)` helper (or a minimal equivalent) and assert 
 
 ### Steps
 
-- [ ] **11.1 Regenerate index mesh:** Run:
+- [x] **11.1 Regenerate index mesh:** Run:
 
   ```powershell
   py -3 tools/run.py index-mesh --apply
   py -3 tools/run.py index-mesh --check
   ```
 
-- [ ] **11.2 Verify source hygiene:** Run:
+- [x] **11.2 Verify source hygiene:** Run:
 
   ```powershell
   rg -n "specialistsResponsive|SPECIALISTS_WIDTHS|specialistsMedia" src/client/src/features/patch-showcase/usual-specialists src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx
@@ -665,35 +665,35 @@ Use the existing `clipBetween(...)` helper (or a minimal equivalent) and assert 
   ```
 
   The `rg` command should return no historical shared-responsive imports/usages. Local `indexResponsive`/`silkResponsive` names are expected and are not searched by this command.
-- [ ] **11.3 Specialists unit suite:** Run:
+- [x] **11.3 Specialists unit suite:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists
   ```
 
   This includes the responsive architecture guard and the new Reaction/Receipt tests.
-- [ ] **11.4 Specialists browser suite:** Run:
+- [x] **11.4 Specialists browser suite:** Run:
 
   ```powershell
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists"
   ```
 
   Confirm the page, connector, Index and Silk owner matrices all pass.
-- [ ] **11.5 Protected visual suite:** Run the same command twice:
+- [x] **11.5 Protected visual suite:** Run the same command twice:
 
   ```powershell
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
 
   Do not use `--update-snapshots`. Both runs must pass the existing Windows baselines.
-- [ ] **11.6 Production build/budget:** If a normal task commit hook has not already exercised the current exact tree, run:
+- [x] **11.6 Production build/budget:** If a normal task commit hook has not already exercised the current exact tree, run:
 
   ```powershell
   npm --prefix src/client run build
   ```
 
   Confirm entry JavaScript, CSS and PDF remain within the existing budgets printed by `check-build-budget`.
-- [ ] **11.7 Stage the complete intended feature tree:** Inspect `git status`, `git diff`, `git diff --cached` and ensure no Marketplace/tooling/spec planning changes from before execution have been accidentally absorbed into feature changes unless they were intentionally committed before Task 1.
+- [x] **11.7 Stage the complete intended feature tree:** Inspect `git status`, `git diff`, `git diff --cached` and ensure no Marketplace/tooling/spec planning changes from before execution have been accidentally absorbed into feature changes unless they were intentionally committed before Task 1.
 - [ ] **11.8 Canonical commit gate:** With commit authority, commit normally and let the tracked hook run the complete staged-tree `ci` apply/check flow. Do not run a duplicate full `ci --check` immediately before or after a successful hooked commit.
 - [ ] **11.9 Completion evidence:** Record the final commit SHA, focused test results, Playwright result, protected visual result and budget output in the execution return. Do not claim push/PR/merge unless separately authorized and verified.
 - [ ] **11.10 Progress tracking:** Mark every Task 11 box `[x]`; then pass the completed implementation through `handoff-gates` `completion-readiness` before code-review handoff.
