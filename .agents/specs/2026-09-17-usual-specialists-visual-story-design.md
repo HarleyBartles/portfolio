@@ -1,6 +1,6 @@
 # The Usual Specialists V2: Page-System Design
 
-**Status:** Refactored from the Harley-approved 17 September 2026 design; pending Harley review of the split authority
+**Status:** Approved refactored page-system authority; specialist chapter designs continue to mature independently
 
 **Design dialogue:** 17 September 2026
 
@@ -54,10 +54,9 @@ The page delegates local chapter design to:
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-Index and Silk already have enough local design work to preserve a settled chapter
-direction through this refactor. Writ, Klause, Rollback and Receipt have approved
-roles, environments, character beats and important visual constraints, but Harley
-has identified that their local compositions remain too thinly designed for
+Index, Silk and Writ now have settled local chapter designs. Klause, Rollback and
+Receipt have approved roles, environments, character beats and important visual
+constraints, but their local compositions remain intentionally incomplete for
 trustworthy implementation planning. Their chapter specifications preserve what is
 settled without pretending the missing design work is complete.
 
@@ -211,7 +210,7 @@ The page-order material states are:
 | Opening | clean recruitment folder and working list |
 | Index | folded blue blueprint/map sheet + yellow sticky assent note |
 | Silk | prior material + circular route-end pin and short red-cord logic |
-| Writ | prior material + Writ's pink carbon-copy assent slip |
+| Writ | prior material + Writ's white original from the completed triplicate assent; yellow remains with Writ and pink goes to Receipt/file |
 | Klause | prior material + produced `K` impression on the folder |
 | Rollback | prior material + Rollback's dog tags at the folder/spine |
 | Receipt | prior material + stapled thermal recruitment summary |
