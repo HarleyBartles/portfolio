@@ -54,10 +54,10 @@ The page delegates local chapter design to:
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-Index, Silk, Writ and Klause now have settled local chapter designs. Rollback and
-Receipt have approved roles, environments, character beats and important visual
-constraints, but their local compositions remain intentionally incomplete for
-trustworthy implementation planning. Their chapter specifications preserve what is
+Index, Silk, Writ, Klause and Rollback now have settled local chapter designs.
+Receipt has an approved role, environment, character beats and important visual
+constraints, but its local composition remains intentionally incomplete for
+trustworthy implementation planning. Its chapter specification preserves what is
 settled without pretending the missing design work is complete.
 
 ## Page story
@@ -233,13 +233,41 @@ Every specialist closes their obligation to Patch in the same narrative shape,
 without sharing one camera template:
 
 1. the specialist's domain work reaches the point where Patch has what he needs;
-2. a material assent marker becomes the closing-beat hero;
-3. the accumulated folder state changes or is immediately confirmed in the next
+2. the specialist has a character-specific **realisation beat** in which their own
+   work reveals why Patch came to them in particular;
+3. a material assent marker carries the recurring wording `you son of a gun. I'm
+   in` in that specialist's own material language;
+4. the accumulated folder state changes or is immediately confirmed in the next
    chapter; and
-4. the specialist resumes their own work and life.
+5. the specialist resumes their own work and life.
 
-The marker is the narrative answer. The specialist's behaviour after the handoff
-is the character answer.
+The repeated wording belongs to the markers, not to mandatory spoken dialogue. No
+specialist needs to say the phrase aloud for the page to say it six times. The
+realisation beat is the emotional answer; the marker is the durable narrative
+answer; behaviour after the handoff is the character's return-to-life answer.
+
+The six realisation temperatures are deliberately different:
+
+- **Index — delighted validation.** She has run off through the evidence and
+  returns excited that Patch was right: there really are the makings of a caper
+  here, and the papers are genuinely thrilling if somebody will only read them
+  properly.
+- **Silk — impressed surprise.** She has tried hard to break the route and reaches
+  the precise instant where she realises it held through everything she threw at
+  it.
+- **Writ — dry self-recognition.** `On whose authority?` exposes the missing
+  layer; a wry smile, cocked head or equivalent small beat carries the recognition
+  that the answer is Writ himself.
+- **Klause — intellectual concession.** He has been mentally rejecting Patch's
+  wild ideas as unviable, misguided or plain unhinged while Patch talks, then
+  catches himself at the point where the scraps resolve into the makings of one
+  good plan: exactly the reason Patch came to him.
+- **Rollback — veteran recognition.** Patch admits there is no Plan B; Rollback
+  diagnoses that as no plan at all, then Patch's wry response makes him realise
+  the missing recovery layer is precisely why Patch is standing in his basement.
+- **Receipt — gentlemanly sign-off.** Receipt already knows the recruitment record
+  is complete. His beat is warm congratulation: Patch has actually assembled the
+  people the caper needs. Well done, old bean.
 
 The page must not turn this into six handshakes, six recruitment poses, six title
 cards saying `I'M IN`, or six people waiting for Patch to dismiss them. Patch is
@@ -252,7 +280,8 @@ The approved exit temperatures remain:
   the handoff.
 - Writ closes the matter procedurally and returns to his rounds.
 - Klause withdraws attention because the decision has already been made.
-- Rollback gives up his own dog tags with no ceremony and returns to containment.
+- Rollback gives up his own dog tags with no ceremony and moves on to the next
+  containment problem.
 - Receipt reveals he was already finished, then offers Patch tea because he is the
   one person who is not behind.
 
@@ -304,8 +333,9 @@ own all internal geometry.
   almost no bodily movement; Klause's chapter progressively deletes alternatives
   until one decision remains.
 - **Klause → Rollback:** the singular manila-folder / red-`K` decision leaves the
-  quiet field, enters the concrete basement and is immediately treated as
-  something that can fail.
+  quiet field and enters a constrained rebar-concrete basement built to let things
+  fail safely. Rollback's chapter then places the audience inside containment
+  before returning them to the recoverable side.
 - **Rollback → Receipt:** noise, branching and containment compress into a quiet
   chronological record.
 - **Receipt → final folder:** the recruitment story compresses into the completed

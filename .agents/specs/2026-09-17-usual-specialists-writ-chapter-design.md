@@ -151,12 +151,16 @@ generic bureaucratic gag.
    always slightly secondary to the department's own momentum.
 4. **Dominant stop.** Writ arrests the sequence with `Absolutely not. On whose
    authority?` The polyptych rhythm breaks into one dominant direct field.
-5. **Authority envelope.** The route Silk proved remains intact, but Writ
-   answers his own challenge by supplying the mandate under which it may later be
-   used, within what scope, and where that authority stops. The representation
-   must read as **route inside Writ's bounded authority**, not Writ redrawing or
-   selecting the route and not approval of a specific plan Klause has not yet
-   made.
+5. **Recognition and authority envelope.** The challenge exposes the missing
+   layer, then turns back onto Writ. A restrained wry smile, cocked head or
+   equivalent small beat carries the recognition: the answer to `On whose
+   authority?` is him. That is Writ's internal `you son of a gun` moment; the
+   recurring phrase belongs materially to his assent instrument rather than to
+   mandatory dialogue. The route Silk proved remains intact, but Writ answers his
+   own challenge by supplying the mandate under which it may later be used, within
+   what scope, and where that authority stops. The representation must read as
+   **route inside Writ's bounded authority**, not Writ redrawing or selecting the
+   route and not approval of a specific plan Klause has not yet made.
 6. **Triplicate resolution.** The formal instrument separates into its real
    ownership paths: white original to Patch, yellow second copy retained by Writ,
    pink third copy to filing/Receipt.
@@ -240,7 +244,10 @@ white original through the closing frosted threshold proves that Writ's authorit
 has materially changed the recruitment state. Writ's immediate return to rounds is
 the character answer.
 
-No celebration, recruitment pose or generic `I'M IN` confirmation is needed.
+The character realisation happens before the instrument resolves: Writ recognises
+that he is the missing authority layer Patch deliberately came to recruit. No
+celebration, recruitment pose, spoken catchphrase or generic `I'M IN` confirmation
+is needed.
 
 The triplicate may itself use a smaller, slower polyptychal treatment after the
 dominant stop: related apertures can show the three copies separating toward their
@@ -283,6 +290,9 @@ routine rhythm and dominate the chapter.
 - The authority resolution is Writ supplying the bounded mandate himself. It
   contains Silk's proven route inside lawful authority without altering the route
   or selecting Klause's later operational plan.
+- Writ gets one restrained self-recognition beat after the authority challenge;
+  the assent wording remains on the material instrument rather than becoming
+  repeated spoken dialogue.
 - The triplicate split follows white → Patch, yellow → Writ, pink → Receipt/file.
 - Receipt remains peripheral.
 - Patch exits with the white original visible/safely held in the accumulated
@@ -305,8 +315,6 @@ routine rhythm and dominate the chapter.
   in and proven by the live wireframe.
 
 ## Planning readiness
-
-**Spec-readiness: 9.4/10 — green.**
 
 The role, movement motivation, threshold loop, object-transparency polyptych,
 dominant authority interruption, Writ-supplied authority, triplicate ownership,

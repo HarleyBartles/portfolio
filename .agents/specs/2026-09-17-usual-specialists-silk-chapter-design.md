@@ -68,9 +68,11 @@ continually floating above frames, the transgression has no value.
    chapter's canonical rupture and stops obeying the panel/page rule.
 5. **Hidden traversal.** The new path moves through the building's service guts.
    Rope/red cord behaves as functional route and force vector, not decoration.
-6. **Resolution.** Surviving route fragments are recombined into one dependable
-   ingress/egress route. A restrained reaction insert may survive if it materially
-   adds the precise "that held" beat.
+6. **Resolution / realisation.** Surviving route fragments are recombined into one
+   dependable ingress/egress route. Silk's surprised-eyes beat is the preferred
+   reaction because it carries the exact character recognition: she has thrown
+   everything at this route and, damn, it held. That is her internal `you son of a
+   gun` moment; the marker carries the recurring wording materially.
 7. **Assent aftermath.** The Silk marker is already on the folder and Silk has
    already moved on.
 
@@ -120,7 +122,8 @@ Likely reuse/reference candidates:
 - corridor world;
 - service-corridor imagery;
 - transparent hands-free abseil/traversal Silk as the one breakout; and
-- surprised-eyes insert if it still serves resolution.
+- surprised-eyes insert as the approved realisation beat if the existing asset
+  still carries the required restrained surprise.
 
 Expected superseded composition authority:
 
@@ -193,6 +196,8 @@ without parallax or animation.
 - [ ] The black comic field is finite and clearly ends before Writ.
 - [ ] Silk resolves a reliable ingress/egress route, not the operational plan.
 - [ ] The closing corridor frame shows Index continuity plus the new Silk marker.
+- [ ] Silk's realisation reads as impressed surprise that the route survived her
+      pressure, not as generic recruitment enthusiasm.
 - [ ] Silk is already leaving for other work in the closing read.
 - [ ] Old accepted Silk assets that leave the render retain honest custody.
 

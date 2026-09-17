@@ -113,7 +113,9 @@ This is the chapter's maximum visual complexity while still remaining restrained
 the stable master field may coexist with a small number of subordinate readings.
 
 Patch pitches. Klause listens and diagnoses the actual problem: there are too many
-options. Klause is rejecting unnecessary possibilities while Patch talks.
+options. Klause is already mentally marking Patch's wild ideas off as unviable,
+misguided or plain unhinged while Patch talks. The rejection is internal; he does
+not physically sort option cards or perform the process for Patch.
 
 ### 4. Plural becomes singular
 
@@ -127,6 +129,13 @@ Klause himself does not need a dramatic pose. The page performs the reduction
 around him. By the end of the beat, restoring the rejected material should feel
 like breaking the composition. The decision is visually irreversible before the
 assent mark appears.
+
+The character realisation lands at the end of that reduction. Klause is effectively
+about to concede that, among the scraps of Patch's planning material, there are the
+makings of one good plan when he catches the circularity: producing that one good
+plan is exactly why Patch came to him. The recognition should be tiny and precise,
+not a broad comic reaction. This is Klause's internal `you son of a gun` moment;
+the produced mark carries the recurring wording materially.
 
 ### 5. Consequence, then attention withdrawn
 
@@ -192,6 +201,8 @@ the immediate first read because it now carries the decision consequence. It mus
 not receive the completed-folder hero treatment reserved for the final page close.
 
 He should not celebrate, explain the decision again or wait for Patch to leave.
+The realisation beat is enough character response; the repeated assent phrase does
+not need to become spoken dialogue.
 
 ## Copy and medium
 
@@ -238,6 +249,8 @@ the final folder state carry the story.
 - Early subordinate fragments are few and functional; they are progressively
   removed rather than multiplied.
 - The chapter reaches its hero beat when plural composition becomes singular.
+- Klause's realisation is the instant he notices that his own reduction has done
+  exactly what Patch came to recruit him to do.
 - IKEA white expands as alternatives disappear.
 - The final folder state is the strongest colour event: warm manila plus red `K`.
 - The `K` is a produced impression, not stamp-tool theatre.

@@ -110,6 +110,16 @@ The next chapter must visibly inherit those additions.
 
 Index is the warmest departure in the crew.
 
+Her realisation beat is delighted validation. She has disappeared into the source
+material because Patch's proposition gave her something worth tracing, then
+returns with the energy of somebody who has proved the exciting part to herself:
+Patch was right, there really are the makings of a caper here, and the documents
+are frankly fascinating if somebody will only read them properly.
+
+That is the emotional meaning of `you son of a gun. I'm in`; the phrase itself
+lives on her yellow assent note rather than needing to be spoken as catchphrase
+dialogue.
+
 Her work resolves into the useful evidence bundle and yellow assent marker. She
 gives Patch more than the bare minimum, genuinely hopes it helps and makes it clear
 he can come back if needed. Then her attention is already being pulled toward
@@ -169,6 +179,8 @@ At every supported state:
 - [ ] Silk can visibly inherit the Index folder state at its own entry.
 - [ ] Index visibly returns to her own research life after Patch has what he came
       for.
+- [ ] Index's realisation reads as excited discovery/validation rather than a
+      generic recruitment yes.
 - [ ] Responsive translation preserves fluent navigation through evidence rather
       than desktop coordinates.
 

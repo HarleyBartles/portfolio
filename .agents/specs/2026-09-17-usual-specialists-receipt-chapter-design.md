@@ -86,6 +86,17 @@ keycard, operational ledger or legal proof object.
 
 The record is already printed before Patch finishes pitching.
 
+Receipt's realisation temperature is different from the other five because his
+conclusion is retrospective and already complete. He has watched the recruitment
+record resolve and can greet Patch with gentlemanly congratulations: in emotional
+terms, `you son of a gun, you did it; you assembled everyone this caper needs. Well
+done, old bean.` That wording is actor-direction/subtext, not a requirement to
+duplicate the recurring assent phrase in spoken dialogue.
+
+The thermal marker carries `you son of a gun. I'm in` materially, consistent with
+the other specialists. Receipt's character response may be warmly congratulatory
+without turning the phrase into a sixth spoken catchphrase.
+
 The strip/staple action is the narrative answer. The offer of tea is the character
 answer and the page's release before the final folder close.
 
@@ -113,6 +124,8 @@ At 320 CSS px, actual 200% zoom and reduced motion, preserve:
 - evidence of ongoing prior record-keeping;
 - Patch's redundant pitch;
 - the already-complete assent;
+- Receipt's gentlemanly congratulatory realisation that Patch has assembled the
+  needed crew;
 - the thermal marker; and
 - the tea/deceleration beat.
 
