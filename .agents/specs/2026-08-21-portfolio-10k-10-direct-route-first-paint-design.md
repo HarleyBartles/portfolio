@@ -8,7 +8,7 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phase 9 has landed and the
+**Implementation-plan readiness:** Ready for JIT planning; Phase 9 has landed and the
 resolved public-route catalogue is current
 
 **Repository snapshot inspected:** `d650c387f4487754092e5f6dee484983f7514b08`
@@ -325,9 +325,8 @@ The reviewer answers:
 
 ## Readiness assessment
 
-**Rating: 9/10 — approved; implementation planning remains dependency-gated.**
+**Rating: 9/10 — approved; the Phase 9 dependency is satisfied and JIT implementation planning may begin.**
 
 The goal, authority, fallback states, non-goals, likely seams, validation, and
 quality gate are explicit. Exact component names and the best adoption
-mechanism intentionally remain for JIT planning after Phase 9 establishes the
-route catalogue.
+mechanism intentionally remain for JIT planning against the landed Phase 9 route catalogue.

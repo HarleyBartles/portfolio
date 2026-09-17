@@ -1,49 +1,34 @@
 # Reduced motion
 
-## The default reduce story
+## Repository baseline
 
-The baseline is no motion. Add motion only when the user has not asked for reduced motion. This is the default reduce story.
+`src/client/src/styles/global.scss` owns the global reduced-motion safeguard. Under `prefers-reduced-motion: reduce`, it restores automatic scrolling and collapses transition/animation durations to an effectively immediate `0.01ms` with one animation iteration.
 
-A reduced-motion fallback is an instant state change. It is not a shorter or quieter version of the same animation. Do not lower the duration to `75ms` and call it accessible. Set the duration to `0ms` and show the final state.
+Do not create a competing global reset in a feature.
 
-## Detecting the preference
+## CSS and styled-components
 
-Use the `prefers-reduced-motion` media query:
+When a component needs behavior beyond the global safeguard, use a local media query to remove transforms, transitions, or other movement and present the meaningful final state.
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0ms !important;
-    transition-duration: 0ms !important;
-  }
+  transform: none;
+  transition: none;
 }
 ```
 
-In `motion` for React, set `reducedMotion="user"` so the library follows the system preference. Do not set `reducedMotion="never"`.
+Use the exact local property changes the component needs rather than assuming duration alone makes every effect acceptable.
 
-## Tokens for reduced motion
+## JavaScript motion
 
-When the preference is `reduce`, use the `duration-0` token. Skip `delay-*` tokens entirely. Easing is irrelevant because the change is instant.
+When JavaScript calculates scroll-linked movement or schedules animation, read the preference with:
 
-## What to remove
+```js
+window.matchMedia('(prefers-reduced-motion: reduce)')
+```
 
-In the reduce path, remove:
-
-- entrance and scroll-reveal animations
-- hover scale and bounce
-- stagger and sequence delays
-- cross-document view transitions
-
-Keep state changes that do not depend on time:
-
-- colour changes on focus and hover
-- border and outline changes
-- opacity-only state changes that are instant
+A reduced-motion result should bypass movement and leave content/navigation usable. If the preference can change while the page is open and the effect is long-lived, listen for that media-query change and update the stable state.
 
 ## Testing
 
-Test reduced motion in three ways:
-
-1. Enable `prefers-reduced-motion: reduce` in browser DevTools (Rendering > Emulate CSS media feature).
-2. Set the OS reduced-motion preference and reload the page.
-3. Use `matchMedia('(prefers-reduced-motion: reduce)').matches` in the console to verify the condition.
+Verify the affected feature with the browser/OS reduced-motion preference enabled. For JavaScript-driven motion, also verify the calculated or observed moving offset resolves to its non-moving state.

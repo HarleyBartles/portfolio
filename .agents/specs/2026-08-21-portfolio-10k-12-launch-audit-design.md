@@ -8,8 +8,8 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** Deferred until Phases 1–10 have landed and
-Phase 11 has been re-checked
+**Implementation-plan readiness:** Deferred; Phases 1–9 are landed, while Phase 10
+and the Phase 11 evidence re-check remain prerequisites
 
 **Repository snapshot inspected:** `d650c387f4487754092e5f6dee484983f7514b08`
 

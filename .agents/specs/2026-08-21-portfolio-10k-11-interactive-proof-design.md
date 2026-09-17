@@ -8,8 +8,8 @@
 
 **Spec-readiness:** 9/10
 
-**Implementation-plan readiness:** No feature plan authorised; perform the
-approved evidence re-check after Phases 1–10 land
+**Implementation-plan readiness:** No feature plan authorised; Phases 1–9 are landed,
+and the approved evidence re-check remains gated on Phase 10
 
 **Repository snapshot inspected:** `d650c387f4487754092e5f6dee484983f7514b08`
 

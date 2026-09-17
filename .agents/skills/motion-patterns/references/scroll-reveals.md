@@ -1,46 +1,25 @@
-# Scroll reveals
+# Viewport-triggered and scroll-linked motion
 
-## When to reveal
+## One-shot reveals
 
-Reveal an element when it enters the viewport for the first time and the reveal explains the page structure.
+Use a reveal only when it helps explain reading order or a meaningful state change. A simple reveal should need no scroll library:
 
-Reveal:
+1. Render the content in a usable baseline/final state. Do not make no-JavaScript or unsupported-observer paths depend on an initially hidden class.
+2. Use `IntersectionObserver` to detect when the element enters the relevant viewport region.
+3. Toggle a class/state once if a transition is genuinely useful, then unobserve/disconnect the completed one-shot target.
+4. Animate a small transform and/or opacity change with the current shared motion values.
+5. Under reduced motion, expose the final state without the reveal movement.
 
-- Section headings that introduce a new topic.
-- Card groups, feature lists, or proof blocks.
-- Primary content blocks that the reader should notice in order.
+Do not hide essential content indefinitely when `IntersectionObserver` is unavailable. Do not add a dependency just to wrap this browser API.
 
-Skip:
+## Browser-native scrolling
 
-- Static backgrounds, dividers, and decorative shapes.
-- Content already above the fold on first load.
-- Elements that belong to a repeated pattern the reader has already seen.
+Do not replace or reshape ordinary browser scrolling. Smooth anchor scrolling, where appropriate, is already a CSS/browser concern; `global.scss` disables smooth scrolling for narrow screens and reduced-motion users.
 
-## Trigger
+Scroll-jacking means the experience takes control of scroll position, speed, or progression away from the browser/user. That is prohibited.
 
-Use `IntersectionObserver` directly or the `useInView` hook from `motion`. Trigger the animation once per element. Do not re-trigger when the element leaves and re-enters the viewport.
+## Bounded scroll-linked effects
 
-A safe threshold is `0.1` with `rootMargin` of `0px 0px -50px 0px` so the element is slightly on screen before it animates.
+Some evidence compositions can legitimately move an internal visual world relative to a fixed aperture. For those effects, a passive `scroll` listener can be acceptable when it only observes native scrolling, schedules work through `requestAnimationFrame`, limits updates to the relevant region, writes a compositor-friendly transform, and resolves to no movement for reduced motion.
 
-## Distance
-
-Keep the motion small. A `translateY` of 16px to 32px plus an opacity change from 0 to 1 is the default. Larger distances make the reader wait for the content to arrive.
-
-## Timing
-
-- Use `duration-300` with `ease-out` for the element itself.
-- Stagger groups with `delay-75` between items.
-- For small pieces such as metadata or captions, use `duration-150`.
-
-## Avoiding scroll jacking
-
-Scroll jacking happens when the page fights the reader's scroll input.
-
-- Do not listen to the `scroll` event to drive an animation.
-- Do not pin the scroll position or slow the natural scroll speed.
-- Do not trigger a reveal more than once per element.
-- Do not make an element wait to render until the scroll completes.
-
-## Smooth scroll
-
-Use `lenis` only for long anchor-linked pages or guided galleries where the scroll destination should feel controlled. Disable it under `prefers-reduced-motion: reduce`; reveals use `IntersectionObserver`, but test their timing together because smooth scroll can delay the trigger.
+The current Silk aperture parallax hook demonstrates that exception. It is not the default reveal implementation.

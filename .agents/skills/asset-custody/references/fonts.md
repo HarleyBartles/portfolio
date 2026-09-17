@@ -1,32 +1,24 @@
 # Font custody
 
-Use this reference when adding or reviewing a font for the portfolio.
+The current portfolio self-hosts its public type through installed Fontsource variable packages and `src/client/src/styles/_fonts.scss`.
 
-## Custody checklist
+Current families are Source Sans 3, Source Serif 4, and Source Code Pro. Their semantic roles are governed by the portfolio typography/visual contract; this reference owns loading/custody details, not typographic taste.
 
-- [ ] Source: foundry, CDN, or repository where the font is distributed.
-- [ ] License: permits use on a public website. Open-source licenses such as SIL OFL, Apache-2.0, or MIT are usually safe; commercial licenses need a written grant.
-- [ ] Attribution: is required or not, and where it must appear if it is required.
-- [ ] Subset: includes only the characters the site uses. Start with `latin`.
-- [ ] Format: WOFF2 is the modern default. Add a variable font file when two or more weights are needed.
-- [ ] Fallback stack: a system or metric-compatible font that matches the family category.
+## Current loading contract
 
-## Format guidance
+- Font files come from the pinned `@fontsource-variable/*` package dependencies, not a CDN or runtime font service.
+- `_fonts.scss` declares WOFF2 variable `@font-face` sources, the current Latin Unicode range, supported weight range, style, and `font-display: swap`.
+- CSS token stacks provide system fallbacks so text remains usable while custom fonts load or fail.
+- Source Serif 4 includes the italic face because authored long-form prose uses it.
 
-| Format | Use it when |
-|---|---|
-| WOFF2 | All modern browsers support it. Use as the primary format. |
-| WOFF | Fallback for very old browsers. Avoid unless analytics prove it is needed. |
-| Variable font | Two or more weights or widths are needed from the same family. |
-| TTF/OTF | Do not serve these directly. Convert to WOFF2 for the web. |
+## Changes
 
-## Self-hosting vs CDN
+Before changing a font package, face, subset, or loading rule:
 
-- Self-host when caching, headers, and subsetting matter. Place files in `src/client/public/fonts/` or a route-appropriate public directory and include them in the build manifest.
-- Use a CDN only when the license is clear, the file is served from a stable domain, and the request does not block first paint. Prefer the fastest option that preserves provenance.
+1. verify source/licence/public-web use;
+2. inspect the current Fontsource dependency and `_fonts.scss` declaration;
+3. keep fallback stacks and typography roles coherent;
+4. measure the resulting build/runtime payload; and
+5. run the focused typography/style tests plus normal repository validation.
 
-## Font loading defaults
-
-- Use `font-display: swap` for body and heading faces so text renders before the custom font arrives.
-- Preload at most two files, normally the regular and bold weights of the primary face.
-- Subset to the characters the site needs. `latin` is the default unless the content needs other scripts.
+Do not copy commercial font binaries from a local machine into web custody unless the licence explicitly permits that distribution. Static outlined brand artwork is a different custody class from a webfont and should not be converted into runtime font serving.

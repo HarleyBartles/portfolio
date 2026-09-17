@@ -60,9 +60,8 @@ Breakpoints are content decisions, not device decisions. A breakpoint should app
 
 ## Upstream
 
-This skill consumes two upstream contracts:
+This skill consumes the current umbrella taste contract:
 
-- The master spec that chartered this foundation work: [`.agents/specs/2026-08-12-portfolio-premium-epic-spec.md`](../../specs/2026-08-12-portfolio-premium-epic-spec.md).
 - The umbrella taste skill this layout work supports: [`designing-premium-sites`](../designing-premium-sites/SKILL.md).
 
 ## Reference routes

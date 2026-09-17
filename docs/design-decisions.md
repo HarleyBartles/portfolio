@@ -306,7 +306,7 @@ starts appearing outside bounded evidence relationships.
 
 **Decision:** State one durable site-wide contract directly in the active policy. Protect the mineral substrate, evidence-earned project colour, relationship-led composition, shared Source family roles and deterministic homepage edition because those choices continue to serve the design invariants. Routes may own distinct choreography without becoming separate visual systems. Warm paper, copper punctuation and the shuffled feature deck remain historical evidence only; they have no protected-default status.
 
-**Consequence:** Workers can discover the current contract from active doctrine without treating a roadmap phase as permanent authority. Completed specifications remain unchanged as historical records of how the implementation arrived here; they do not govern current work.
+**Consequence:** Workers can discover the current contract from active doctrine without treating a roadmap phase as permanent authority. Git history preserves completed specifications as historical records of how the implementation arrived here; they do not remain in tracked custody or govern current work.
 
 **Reconsider when:** A route-specific composition exposes a genuine conflict in the shared visual system, or a later site direction is rendered, tested against the valuation gate and explicitly accepted by Harley.
 

@@ -1,31 +1,23 @@
-# Asset optimization
+# Deterministic asset processing
 
-Use this reference when compressing assets or reducing their bundle impact.
+## Use the owning processor
 
-## Vite image optimizer
+The portfolio's governed image pipelines are repository scripts backed by Sharp, not Vite image plugins. `src/client/package.json` exposes current `media:*:apply` and `media:*:check` commands for the asset families that need deterministic generation.
 
-- Add an optimizer such as `vite-plugin-image-optimizer`, or a transform pipeline such as `vite-imagetools`.
-- Run the optimizer on all images in `src/client/public` and the assets imported by the client.
-- Keep the original source files outside the build output if they are not needed at runtime. Store them in a `src/assets/sources` or equivalent source directory and let the build produce the final files.
-- Verify that the optimized files still look correct at the intended display size.
+- `:apply` is the intentional writer.
+- `:check` must not rewrite files and should fail when source identity, provenance, derivative bytes, dimensions, or receipts drift from the owning contract.
+- Add a new processor only when an asset family genuinely needs deterministic transformation and no current processor owns it.
 
-## Font optimization
+Inspect the current package scripts before naming a command; do not copy a command from an unrelated asset family.
 
-- Subset fonts to the characters used on the site. Start with `latin`.
-- Prefer variable fonts over multiple static files when the design uses two or more weights.
-- Use `font-display: swap` so text is visible before the custom font loads.
-- Limit preloads to the first two files the user actually sees.
+## Transformation rules
 
-## Responsive images
+Keep the source master in its owning custody package when reproduction requires it. Let the processor own resizing, cropping/masking, metadata stripping, format encoding, and receipt generation. Check the rendered result at its real display size as well as machine identity; deterministic output can still be visually wrong.
 
-- Use `srcset` and `sizes` or the framework's image component to serve the smallest file that fits the container.
-- Generate 1x, 2x, and 3x versions or a `srcset` range at sensible breakpoints.
-- Lazy load images below the fold.
-- For art-directed images, use the `picture` element and a `source` list.
+## Runtime cost
 
-## Bundle-size rules
+Use only the derivative sizes/routes the page needs. Preserve lazy loading and responsive source selection where current components already establish them, and verify the existing build/budget gate after material asset changes.
 
-- The total font payload for a page should not exceed the JavaScript payload unless a heavy typeface is a deliberate brand choice.
-- A single hero image should not exceed the first 100 KB of visible content unless it is the primary visual focus and the budget allows it.
-- Measure bundle impact with the build analyzer or the network tab before and after adding an asset.
-- If an asset is used on only one route, load it lazily or keep it in the route's own asset directory.
+## Fonts
+
+Font delivery is already deterministic through the installed Fontsource variable packages and `_fonts.scss`. Do not add a separate font optimizer. Changes to subsets, faces, or preloading belong to the typography/font-loading workflow and must preserve licence/source custody.

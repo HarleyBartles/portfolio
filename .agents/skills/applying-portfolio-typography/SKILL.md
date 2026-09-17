@@ -9,11 +9,10 @@ Apply the accepted typography system; do not redesign it locally.
 
 ## Authority
 
-1. Read the [Phase 8P typography contract](../../../docs/editorial-drafts/phase-8/phase-8p-typography-contract.md) before typography implementation or review. It is normative.
-2. Inspect the [deterministic specimen](../../../docs/editorial-drafts/phase-8/phase-8p-typography-specimen.html) when visual judgement is relevant. It proves type, not production layout.
-3. Use this skill to classify content, apply the existing role or token, and verify the result.
+1. Read this skill's durable [typography contract](./references/contract.md).
+2. Use this skill to classify content, apply the existing role or token, and verify the result.
 
-If the sources appear to disagree, follow the contract and raise the mismatch.
+Historical Phase 8P specimens live in Git history, not current repo authority. If current production tokens and this contract disagree, raise the mismatch rather than reconstructing an old planning artifact.
 
 ## Classify before styling
 

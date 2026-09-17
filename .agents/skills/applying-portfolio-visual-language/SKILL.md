@@ -10,11 +10,10 @@ Apply the accepted non-home system. Do not redesign it locally or turn one succe
 ## Authority
 
 1. Read the root [repository router](../../../AGENTS.md) and [portfolio design policy](../../doctrine/portfolio-design-policy.md).
-2. Read the normative [Phase 8P visual-language contract](../../../docs/editorial-drafts/phase-8/phase-8p-visual-language-contract.md).
-3. Read the subordinate decision for the decision being made: [evidence custody](../../../docs/editorial-drafts/phase-8/phase-8p-evidence-custody-decision.md), [rhythm and density](../../../docs/editorial-drafts/phase-8/phase-8p-rhythm-density-decision.md), or [shell and navigation](../../../docs/editorial-drafts/phase-8/phase-8p-shell-navigation-decision.md).
-4. For every type-role or type-token decision, use `/applying-portfolio-typography`; do not restate its contract here.
+2. Read this skill's durable [visual-language contract](./references/contract.md).
+3. For every type-role or type-token decision, use `/applying-portfolio-typography`; do not restate its contract here.
 
-The policy supplies portfolio-wide invariants and the protected homepage/non-home boundary. The Phase 8P contract supplies the active visual direction for non-home routes. The comparison pages and [integrated proof](../../../docs/editorial-drafts/phase-8/phase-8p-integrated-route-proof.html) are evidence that the rules can coexist. They are not production templates, component libraries, spacing systems, or permission to copy their chrome.
+The policy supplies portfolio-wide invariants. This skill and its reference own the current non-home visual-language authority. Historical Phase 8P comparison pages and integrated proofs live in Git history, not current repo authority or template custody.
 
 If sources conflict, a real route has no mapped role, or implementation exposes a genuine contradiction, stop and raise the mismatch. Do not invent a component-local answer.
 

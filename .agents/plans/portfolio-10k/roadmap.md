@@ -7,7 +7,7 @@ implementation details can be planned months in advance.
 
 **Created:** 21 August 2026
 
-**Status:** Approved; design wave complete; Phase 7A complete; Phase 8 editorial decision room opening
+**Status:** Active; Phases 1–9 complete; Phase 10 is the next unfinished implementation phase
 
 **Starting main:** `bd07d8a09581bdde40cddff4e880db426a50cd82`
 
@@ -218,11 +218,11 @@ exists, then plan-readiness or final handoff readiness as the phase advances.
 | 4 | Wild Bunch architectural proof | done | Git history; completed artifact removed | Git history; completed artifact removed | [`454b684`](https://github.com/HarleyBartles/portfolio/commit/454b684caf8e3bda3fccda9ab9ca0e96dca47a4a) | [#22](https://github.com/HarleyBartles/portfolio/pull/22) · [#23](https://github.com/HarleyBartles/portfolio/pull/23) · [#24](https://github.com/HarleyBartles/portfolio/pull/24) | 9/10 | PR #23 replaced the rejected first article with the accepted human architectural narrative after 46 Python, 77 Vitest and 52 Playwright checks. Follow-up PR #24 recovered the final local voice-policy changes. Hosted run [32672182157](https://github.com/HarleyBartles/portfolio/actions/runs/32672182157) passed on PR #24 head `34dfcdf`; PR #24 merged as `454b684` on 24 August 2026. The deregistered locked worktree folder remains an on-disk Windows cleanup limitation, not a publication gap. |
 | 5 | Adventures of Patch showcase and pipeline story | done | Git history; completed artifacts removed | Git history; completed artifacts removed | [`67b0276`](https://github.com/HarleyBartles/portfolio/commit/67b02764076d117c161befeb74605076e183c677) | [#25](https://github.com/HarleyBartles/portfolio/pull/25) · [#26](https://github.com/HarleyBartles/portfolio/pull/26) | 9.5/10 | PR #25 established the separate Patch showcase, moved Identity Emporium into it, closed the engineering case study and published Tournament. PR #26 completed the Lawful Heist recruitment dossier. Harley accepted the page at the visual gate; PR #26 merged at `2026-08-24T17:48:28Z`. Post-merge run [32758747612](https://github.com/HarleyBartles/portfolio/actions/runs/32758747612) passed the quality gate, Windows visuals, deployment and public-route verification on exact merge commit `67b0276`. |
 | 6 | Agentic Learning Lab leadership proof | done | Git history; completed artifact removed | Git history; completed artifact removed | [`e906f05`](https://github.com/HarleyBartles/portfolio/commit/e906f055a28a37e9874e76b4358f0cfb239d5e8d) · [`146c6b4`](https://github.com/HarleyBartles/portfolio/commit/146c6b40e9c8790644fc492a46b128daf458b86e) | [#29](https://github.com/HarleyBartles/portfolio/pull/29) · [#30](https://github.com/HarleyBartles/portfolio/pull/30) | 9.5/10 | PR #29 delivered the accepted Learning Lab leadership case study. PR #30 repaired the mobile origin-artefact order and adopted dependency-aware worktree setup. Hosted run [32836625754](https://github.com/HarleyBartles/portfolio/actions/runs/32836625754) passed on exact final merge commit `146c6b4`. |
-| 7 | Writing authority and breadth | done | Git history; completed artifact removed | Git history; completed artifact removed | [`c40a10e`](https://github.com/HarleyBartles/portfolio/commit/c40a10e6f78a3388e3b600160384291b3054b369) | [#32](https://github.com/HarleyBartles/portfolio/pull/32) · [#33](https://github.com/HarleyBartles/portfolio/pull/33) · [#34](https://github.com/HarleyBartles/portfolio/pull/34) · [#35](https://github.com/HarleyBartles/portfolio/pull/35) · [#36](https://github.com/HarleyBartles/portfolio/pull/36) · [#37](https://github.com/HarleyBartles/portfolio/pull/37) · [#38](https://github.com/HarleyBartles/portfolio/pull/38) · [#40](https://github.com/HarleyBartles/portfolio/pull/40) | 9/10 | Seven author-approved essays were published and one old stub was deliberately deferred. The floor was five, not a quota. The internal [publication closeout](../../../docs/editorial-drafts/phase-7/publication-closeout.md) and admission ledger preserve the final roster, article roles and recovery material; site-wide polish remains a later responsibility. |
+| 7 | Writing authority and breadth | done | Git history; completed artifact removed | Git history; completed artifact removed | [`c40a10e`](https://github.com/HarleyBartles/portfolio/commit/c40a10e6f78a3388e3b600160384291b3054b369) | [#32](https://github.com/HarleyBartles/portfolio/pull/32) · [#33](https://github.com/HarleyBartles/portfolio/pull/33) · [#34](https://github.com/HarleyBartles/portfolio/pull/34) · [#35](https://github.com/HarleyBartles/portfolio/pull/35) · [#36](https://github.com/HarleyBartles/portfolio/pull/36) · [#37](https://github.com/HarleyBartles/portfolio/pull/37) · [#38](https://github.com/HarleyBartles/portfolio/pull/38) · [#40](https://github.com/HarleyBartles/portfolio/pull/40) | 9/10 | Seven author-approved essays were published. The floor was five, not a quota. Production articles plus the durable admission/source-custody records are current truth; completed editorial-room artifacts have left tracked custody. |
 | 7A | Professional surfaces and proof choreography | done | Git history; completed artifact removed | Git history; completed artifact removed | [`8f6028a`](https://github.com/HarleyBartles/portfolio/commit/8f6028a0bd9ca4d2021d6b1b9d3a628dac570638) | [#43](https://github.com/HarleyBartles/portfolio/pull/43) · [#44](https://github.com/HarleyBartles/portfolio/pull/44) | 9/10 | PR #43 delivered the approved professional surfaces. Harley's full rendered-page review in PR #44 settled reading order, language, spacing, wrapping, CV chronology, truthful local contact behaviour and the global CV route. Both PRs merged on 29 August 2026; canonical local validation and hosted Linux/Windows checks passed, Harley accepted the result, and the task worktree and branches were removed. |
-| 8P | Non-home visual-language remediation | implementation planned | [accepted visual-language contract](../../../docs/editorial-drafts/phase-8/phase-8p-visual-language-contract.md) | [JIT implementation plan](2026-08-30-portfolio-10k-phase-8p-non-home-visual-language.md) | — | [#45](https://github.com/HarleyBartles/portfolio/pull/45) · [draft #46](https://github.com/HarleyBartles/portfolio/pull/46) | 9/10 | Harley accepted the non-home visual contract in PR #46. Whole-stack RED/GREEN and lower-capability consistency testing closed the operational guard; the JIT plan now maps implementation and rendered proof while `/` remains blocked through non-home implementation, valuation and Harley acceptance. |
-| 8 | Homepage evidence choreography | blocked by 8P | [approved deferred spec](../../specs/2026-08-21-portfolio-10k-08-homepage-choreography-design.md) | — | — | — | 9/10 deferred | Settled homepage editorial decisions remain deferred input. No homepage design or implementation resumes until Phase 8P has landed, passed the 50% valuation gate and supplied an accepted visual contract. |
-| 9 | Discovery and sharing finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-09-discovery-sharing-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Finish custom-domain identity, shared route metadata, route-aware previews, deterministic discovery files, restrained sharing, and a tested project-URL fallback while explicitly deferring RSS. |
+| 8P | Non-home visual-language remediation | done | Git history; completed artifact removed | Git history; completed artifact removed | [`b64f143`](https://github.com/HarleyBartles/portfolio/commit/b64f143fc3b8cfee07d6011bf30dceaaa956309b) | [#45](https://github.com/HarleyBartles/portfolio/pull/45) · [#46](https://github.com/HarleyBartles/portfolio/pull/46) · [#47](https://github.com/HarleyBartles/portfolio/pull/47) | 9/10 | Design discovery and operational guidance closed in PRs #45-#46; PR #47 implemented the accepted non-home visual language. Durable visual and typography rules now live in the repo-owned applying-portfolio skills; completed Phase 8P planning artifacts are retained only in Git history/scratch. |
+| 8 | Homepage evidence choreography | done | Git history; completed artifact removed | Git history; completed artifact removed | [`05c0c2a`](https://github.com/HarleyBartles/portfolio/commit/05c0c2a5cd2d5b51b15013afcab5e90304a80378) | [#48](https://github.com/HarleyBartles/portfolio/pull/48) | 9/10 | PR #48 implemented the approved six-movement React homepage and merged on 2 September 2026. The production homepage, responsive contracts, and current visual-regression coverage show the phase is complete. |
+| 9 | Discovery and sharing finish | done | Git history; completed artifact removed | Git history; completed artifact removed | [`702a1ed`](https://github.com/HarleyBartles/portfolio/commit/702a1ed36ba3be1a81db9c721e8f6ca6000b8db1) | [#42](https://github.com/HarleyBartles/portfolio/pull/42) | 9/10 | PR #42 landed the site profile, route metadata/catalogue, deterministic discovery files, social/share surfaces, and fallback posture. `harleybartles.com` is the active canonical host with HTTPS and redirect activation complete; Harley confirmed the full external activation on 17 September 2026. RSS remains deliberately deferred. |
 | 10 | Direct-route first-paint finish | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-10-direct-route-first-paint-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. Replace generic preparation states with catalogue-derived route identity while preserving static delivery and lazy loading. |
 | 11 | Interactive proof value gate | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-11-interactive-proof-design.md) | — | — | — | 9/10 | Written specification approved by Harley on 22 August 2026. No-build is selected for v1, subject to one evidence re-check after Phases 1–10; a changed decision returns to design. |
 | 12 | Launch audit and measurement decision | pending | [approved spec](../../specs/2026-08-21-portfolio-10k-12-launch-audit-design.md) | — | — | — | 9/10 | Audit the whole site through weary-hiring-manager and cold principal-architect paths. Record distance to conventional engineering proof, professional provenance, selective pattern use, a rejected alternative, correction history, cost and falsifier. Close bounded defects, publish dated evidence and launch without analytics. |
@@ -299,18 +299,17 @@ the Phase 7 wall-clock budget. Five essays is the content-density floor; roughly
 five to eight is the bounded working range. The number carries no editorial
 meaning beyond preventing a thin launch and unbounded rehabilitation work.
 
-The bounded candidate pool is Vibe, Why ADRs, Provisioning, Graph, Context,
-Pass References, API, and Testing. Vibe retains its accepted argument and
+The bounded candidate pool was Vibe, Why ADRs, Provisioning, Graph, Context,
+API, and Testing. Vibe retains its accepted argument and
 intended lead. Why ADRs is a required user-directed addition. Every other
 candidate receives an explicit editorial-admission decision based on distinct
 argument, concrete evidence, sufficient substance, reading-graph value, and
 realistic finish cost. Existing files have no automatic claim to publication,
 and a nominally full roster cannot exclude strong material.
 
-The review-graph article proceeds only when refreshed public default-branch
-evidence can support it at JIT time. That evidence gate has passed, but Graph,
-Context, and Pass References remain independent editorial candidates. One does
-not mechanically displace another.
+The review-graph article proceeded only after refreshed public default-branch
+evidence supported it at JIT time. Graph and Context remained independent
+editorial candidates; one did not mechanically displace another.
 
 The phase owns editorial admission, article argument, principal figures,
 editorial datelines,
@@ -361,57 +360,28 @@ current.
 
 ### 8P. Preliminary visual-language remediation
 
-Before homepage design or implementation, audit and redesign the non-home
-routes into a deliberate, composed visual system. The current warm-paper,
-copper, large-serif, tracked-label, ticker-strip and rounded-panel grammar is
-not protected. Individual ingredients may survive only when their use is
-content-earned and the combination does not read as a culturally documented
-common AI-generated aesthetic.
-
-Cloud Sol owns the research, alternative directions, Harley dialogue and
-settled design contract. Local Sol must not invent the replacement direction.
-After Harley accepts the Cloud contract, local Sol writes the JIT implementation
-plan, implements it locally and puts the rendered routes in a browser for
-Harley's review.
-
-Apply an automatic 50% valuation penalty when a credible cultural reference
-identifies the delivered visual language as an AI-design tell: an otherwise
-£10k site is £5k. The remedy must be portfolio-specific rather than a mechanical
-palette, font or corner-radius inversion. Prove the replacement system across
-non-home routes, preserve their distinct arguments and accessibility, and seek
-Harley's acceptance before Phase 8 resumes. Preserve a durable evidence chain
-from the pre-remediation state through the audit, rejected shortcuts, design
-decisions, implementation rounds, rendered before/after proof, technical
-validation and final acceptance. That history must support a later article
-without requiring the article to invent a clean retrospective process.
-
+Completed. PRs #45 and #46 established and accepted the non-home visual-language
+contract and operational guidance; PR #47 implemented that system across the
+production non-home routes. The implementation passed its rendered, responsive,
+accessibility, and canonical validation gates. The completed JIT plan has left
+tracked custody. Durable operational rules now live in the repo-owned
+`applying-portfolio-visual-language` and `applying-portfolio-typography` skills;
+the completed design-room artifacts live only in Git history and optional scratch.
 ### 8. Homepage evidence choreography
 
-Only after Phase 8P has landed and established the visual contract, redesign
-the homepage journey around the strongest evidence. Preserve the settled
-homepage hierarchy, evidence and navigation decisions as deferred input, then
-reconcile them against the remediated site rather than the superseded visual
-rulebook.
-
-Phase 8 remains the primary owner of fast-to-break skepticism on `/`. The
-stable first-viewport frame must carry the professional proposition and one
-concrete signal without depending on a lucky random selection. The direct
-evidence action must reach substantive work in one click, while the quiet
-professional route must enter the evidence-bearing top of About rather than
-bypass it for contact. The homepage is blocked until Phase 8P passes its
-valuation and Harley-acceptance gates.
-
+Completed. PR #48 translated the approved homepage choreography into the
+production React homepage and merged on 2 September 2026. The current homepage
+preserves the accepted evidence order, responsive behaviour, direct evidence
+routes, and quiet professional route. The completed planning specification and
+implementation plan now live only in Git history and optional scratch custody.
 ### 9. Discovery and sharing finish
 
-Finish how pages are found, shared, and identified: `harleybartles.com`, static
-route metadata, canonical URLs, route-appropriate social artwork, deterministic
-discovery files, and restrained sharing. Record RSS as deliberately deferred.
-The spec must distinguish repository work from DNS or platform actions
-requiring Harley's authority and must preserve GitHub Pages static delivery.
-Search results and shared previews must preserve senior full-stack breadth and
-the route's specific proof responsibility rather than reducing Harley to a
-generic agentic-systems identity before the visit begins.
-
+Completed. PR #42 landed the custom-domain site profile, resolved route metadata,
+canonical URLs, deterministic sitemap and robots output, social assets, restrained
+sharing, and a tested GitHub Pages fallback. The external activation is complete:
+`harleybartles.com` is the canonical host, HTTPS is enforced, and the redirect
+posture is live. Harley confirmed the full activation on 17 September 2026. RSS
+remains deliberately deferred by design rather than as unfinished Phase 9 work.
 ### 10. Direct-route first-paint finish
 
 Reproduce the full generated-HTML, router, and content-loading lifecycle, then
@@ -465,11 +435,11 @@ archaeology is a failed shortcut even when the buried evidence exists.
   flagship material. Its Access source discovery feeds Phase 7A.
 - Phase 7A depends on one Harley-approved, employer-safe outcome account and
   the stable long-form outputs of Phases 3–7.
-- Phase 8P depends on the stable outputs of Phases 1 and 3–7A and owns the
-  non-home visual-language contract. Phase 8 depends on Phase 8P landing and
-  Harley accepting that contract.
-- Phase 9 follows route and content stabilisation; Phase 10 may move earlier if
-  investigation proves it blocks trustworthy content review.
+- Phases 8P, 8, and 9 are complete. Their completed planning artifacts have
+  left tracked custody; current visual rules live in doctrine/skills and current
+  discovery/sharing truth lives in production source.
+- Phase 10 is the next unfinished implementation phase and consumes Phase 9's
+  resolved route catalogue and site-profile authority.
 - Phase 11 is conditional and must not hold Phase 12 hostage after a justified
   no-build decision.
 - Phase 12 is the only whole-site closeout phase.
@@ -508,9 +478,9 @@ archaeology is a failed shortcut even when the buried evidence exists.
   those plans just in time from the spec plus current repository truth.
 - Imagery is owned by the case study whose argument it supports. There is no
   detached “add pictures” phase.
-- Phase 4 capture ownership: the implementation agent gathers final Wild Bunch
-  screenshots using the approved deterministic recipe; exploratory design-wave
-  captures are reference evidence, not deployed assets.
+- Phase 4 capture ownership: production Wild Bunch evidence follows the current
+  deterministic custody recipe. Exploratory design-wave captures are historical
+  material in Git history, not current repository evidence.
 - The interactive artefact is a value gate, not a promise to add novelty.
 - If a phase spec reveals multiple independent deliverables, split the roadmap
   item before plan-writing and record the reason here.
@@ -529,9 +499,9 @@ archaeology is a failed shortcut even when the buried evidence exists.
   that the reader does not have to assemble them across disconnected pages.
 - A second independent review, refined through Harley's design dialogue on 25
   August 2026, corrected Phase 7's fixed-roster assumption and added the
-  principal-architect lens. Five is now a publication floor; eight named
-  candidates enter an explicit admission gate; `Why ADRs?` is required; and
-  Graph, Context, and Pass References are judged independently. Wild Bunch
+  principal-architect lens. Five became a publication floor; the bounded
+  candidates entered an explicit admission gate; `Why ADRs?` was required; and
+  Graph and Context were judged independently. Wild Bunch
   remains closed during Phase 7, with its mistake, correction, and falsifier
   evidence deferred to Phase 7A.
 - Design dialogue for Phases 10–12 was approved as one consolidated packet on
