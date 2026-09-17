@@ -692,6 +692,57 @@ All generated-image replacement, retirement, or promotion work remains subject
 to the existing asset-custody manifests, provenance records, derivative
 processor, and review gates.
 
+## Planning handoff contract
+
+The implementation plan must treat the current V2 preview as the existing flow,
+not as a greenfield rebuild. Plan against these concrete file families and
+ownership seams:
+
+- route composition and chapter order: `src/client/src/features/patch-showcase/UsualSpecialistsPage.tsx`, its test, and the `usual-specialists/` chapter owners beneath it;
+- shared opening, crossings and navigation: `usual-specialists/UsualSpecialistsOpening*`, `CrossSectionConnector*`, `SpecialistsChapterNav*`, and their geometry/tests;
+- protected Index composition: `usual-specialists/Index*` and `indexResponsive.ts`; change only the semantic copy and the minimum continuity integration required by this spec unless a separate defect justifies more;
+- Silk redesign: `usual-specialists/SilkChapter*`, `silkResponsive.ts`, and the current `Silk*Composition*` helpers/tests, with the old aperture/Receipt/Commission 09 composition treated as removable from active render while accepted custody remains intact;
+- later chapter owners: add Writ, Klause, Rollback and Receipt as chapter-local vertical slices under `usual-specialists/`, with chapter-local styles, responsive ownership and tests rather than one route-wide breakpoint module;
+- folder continuity: one canonical folder-state owner under `usual-specialists/` must feed every chapter boundary; six independently generated whole-folder states are not an acceptable implementation seam;
+- browser proof: extend `src/client/e2e/project-story.spec.ts` and the protected visual-regression coverage only where the approved composition actually changes.
+
+The source/derived media boundary is also fixed. Accepted masters, candidates,
+provenance and package indexes live under
+`src/client/assets/patch/the-usual-specialists/`. Browser-facing derivatives
+under `src/client/public/media/patch/the-usual-specialists/` are processor-owned
+output. `src/client/scripts/process-usual-specialists-assets.mjs` owns the
+derivative inventory and receipt; do not hand-edit derivative files or generated
+`INDEX.md` surfaces.
+
+The planner may split the work into chapter-sized implementation tasks and image
+commissioning/custody tasks, but it must preserve the dependency order:
+storyboard/asset decision before generation, accepted source custody before
+derivative registration, chapter implementation before visual-baseline approval,
+and the completed folder only after all assent states exist.
+
+### Validation bundle for the plan
+
+Use focused checks during implementation, then the tracked commit hook as the
+canonical local gate for the staged tree. The plan must name the exact focused
+commands it needs, including:
+
+- `npm --prefix src/client run media:usual-specialists:check` after any accepted-source, derivative-manifest or provenance change;
+- focused Vitest for the chapter/component contracts being changed;
+- focused Playwright coverage in `src/client/e2e/project-story.spec.ts` for chapter order, responsive causality, overflow, reduced motion and continuity state;
+- `py -3 tools/run.py index-mesh --check` when tracked navigation indexes change; and
+- the repository's canonical `py -3 tools/run.py ci --check` only when an explicit uncommitted full-pipeline proof is needed. For normal commits, do not duplicate the canonical gate immediately before or after the tracked hook.
+
+Material visual review must include 1440, 768, 390 and 320 CSS-pixel states,
+keyboard-only use, reduced motion and actual 200% browser zoom. Before/after
+visual evidence must make the intentional departures from the current Silk
+chapter inspectable; screenshot equality is not design approval.
+
+The black Silk chapter is a deliberate **bounded bleed** under the portfolio
+visual-language contract: it occupies one finite specialist field, earns its
+project-native interruption through the comic/page story, and visibly terminates
+at the fold into Writ's chambers. It does not authorise a dark route shell,
+themed site navigation or a replacement for the cool-mineral substrate elsewhere.
+
 ## Visual-story review contract
 
 Review the page first as a complete field, then each chapter at desktop,
@@ -734,6 +785,12 @@ This specification **supersedes the 12 September 2026 Silk decision** that made
 the shared mineral route surface literal safehouse plaster and explicitly
 avoided a comic-page skin. Silk now earns a black/dark comic substrate and uses
 page/frame boundaries as causal story material.
+
+Because that changes a protected substrate/default, the implementation slice
+must add a dated `docs/design-decisions.md` entry recording this replacement,
+the bounded-black rationale, the preserved Index and preview-route contracts,
+the objective review guards, and a reconsideration trigger. Do not silently let
+this spec supersede the live decision ledger.
 
 This specification **preserves**:
 
