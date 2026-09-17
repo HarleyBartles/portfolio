@@ -13,7 +13,7 @@ Apply the accepted non-home system. Do not redesign it locally or turn one succe
 2. Read this skill's durable [visual-language contract](./references/contract.md).
 3. For every type-role or type-token decision, use `/applying-portfolio-typography`; do not restate its contract here.
 
-The policy supplies portfolio-wide invariants. This skill and its reference own the current non-home visual-language authority. Historical Phase 8P comparison pages and integrated proofs live in Git history, not current repo authority or template custody.
+The policy supplies portfolio-wide invariants. This skill and its reference own the current non-home visual-language authority.
 
 If sources conflict, a real route has no mapped role, or implementation exposes a genuine contradiction, stop and raise the mismatch. Do not invent a component-local answer.
 
@@ -21,7 +21,7 @@ If sources conflict, a real route has no mapped role, or implementation exposes 
 
 1. Inspect the route's real content, project material, evidence custody, semantic source order, and existing production-component ownership before styling.
 2. Classify the decision as shell/navigation, substrate/project colour, spatial grammar, evidence/imagery, rhythm/density, or typography. Read only the relevant authority above.
-3. Apply the accepted rule to that material and derive the composition from the route's semantic relationships and production ownership before comparing it with any proof surface. Reuse a production primitive only when its semantic job matches; visual agreement with a proof does not make that proof's structure reusable.
+3. Apply the accepted rule to that material and derive the composition from the route's semantic relationships and production ownership. Reuse a production primitive only when its semantic job matches.
 4. Keep project identity evidence-owned and bounded inside the shared system. Project colour authority comes from the evidence-bearing region, not from component type; a shared component does not inherit project colour merely because it appears on a project route. Keep unlike evidence source-native. Let spacing and interruption express real relationships rather than a repeated visual recipe.
 
 ## Pressure warnings
@@ -32,7 +32,6 @@ If sources conflict, a real route has no mapped role, or implementation exposes 
 - “More human” does not authorize handwriting, tape, grime, scrapbook styling, decorative corrections, or a predictable annotation slot. Real revision may appear only where the content owns it.
 - “More premium About” does not authorize paper retreat, Serif prestige, Mono metadata, quotation furniture, or a publication dossier. Source Serif 4 is not used on About, including for quotations; a real quotation remains in the route's Source Sans 3 register. Route typography through `/applying-portfolio-typography`.
 - “Tighter mobile” does not authorize smaller meaningful metadata, a second navigation hierarchy, visual reordering, or longform dossier density.
-- “Use the proof/reference” means apply its governing authority to real material, not extract its panels, grids, fields, spacing or component structure.
 
 ## Verify
 

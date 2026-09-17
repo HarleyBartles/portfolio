@@ -12,7 +12,7 @@ Apply the accepted typography system; do not redesign it locally.
 1. Read this skill's durable [typography contract](./references/contract.md).
 2. Use this skill to classify content, apply the existing role or token, and verify the result.
 
-Historical Phase 8P specimens live in Git history, not current repo authority. If current production tokens and this contract disagree, raise the mismatch rather than reconstructing an old planning artifact.
+If current production tokens and this contract disagree, raise the mismatch before styling.
 
 ## Classify before styling
 
@@ -24,14 +24,14 @@ Historical Phase 8P specimens live in Git history, not current repo authority. I
 
 Technical subject matter does not make body copy or captions technical material. Compact navigation, folios, dates, status and controls belong to the Source Code Pro utility register; "editorial," "premium," "reflective" or visually prominent does not make content authored long-form.
 
-A quotation enters the Serif register only when the quoted content itself genuinely belongs to the authored-reading register. Being first-person, pulled out, or decorative is insufficient. If that judgement is not clear from the content and route, stop and raise a Phase 8P design gap.
+A quotation enters the Serif register only when the quoted content itself genuinely belongs to the authored-reading register. Being first-person, pulled out, or decorative is insufficient. If that judgement is not clear from the content and route, stop and raise a typography-contract gap.
 
 ## Apply
 
 - Reuse the contract's existing role and production token. Do not create a component-local type role or retune a shared token for taste.
 - Let links inherit their surrounding family and keep the defined underline and focus treatment.
-- Copy no panels, colours, spacing, dividers, grids, or component structure from the specimen.
-- When a requested role is absent or a change would extend the contract, stop and return the gap to Phase 8P rather than improvising.
+- Keep typography decisions scoped to typography. Do not infer panels, colours, spacing, dividers, grids, or component structure from a type role.
+- When a requested role is absent or a change would extend the contract, stop and raise a typography-contract gap rather than improvising.
 
 ## Verify
 
@@ -47,4 +47,3 @@ A quotation enters the Serif register only when the quoted content itself genuin
 - "Make it premium" is not permission to add Serif.
 - "Make it engineering-led" is not permission to add Mono.
 - "Make mobile tighter" is not permission to shrink meaningful metadata.
-- "Use the specimen" means reproduce its typography contract, not its page design.

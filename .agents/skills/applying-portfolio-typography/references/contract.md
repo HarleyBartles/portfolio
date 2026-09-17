@@ -70,8 +70,7 @@ Must:
 
 May:
 
-- express these roles through the production token system rather than copying
-  historical specimen CSS names;
+- express these roles through the production token system;
 - tune fallback metrics, measures and responsive wrapping without changing the
   role hierarchy;
 - use Serif for a genuine quotation whose content belongs to the authored-reading
@@ -84,7 +83,7 @@ Must not:
 - turn Serif into a reusable premium-looking accent;
 - use Mono as general engineering decoration;
 - create uppercase, highly tracked label furniture from metadata;
-- infer layout, panels, colours or spacing from a typography specimen; or
+- infer layout, panels, colours or spacing from typography rules; or
 - substitute remote, unlicensed or look-alike fonts without a new custody
   decision.
 

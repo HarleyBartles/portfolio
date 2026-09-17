@@ -1,8 +1,8 @@
 # Portfolio visual-language contract
 
 This is the durable non-home presentation authority for the portfolio. Apply it
-with `.agents/doctrine/portfolio-design-policy.md`; do not reconstruct Phase 8P
-history or treat old proof compositions as templates.
+with `.agents/doctrine/portfolio-design-policy.md`. Derive each composition from
+current content, evidence, semantic relationships and production ownership.
 
 ## Governing direction
 
@@ -30,7 +30,7 @@ structure, evidence or editorial job.
   geometry, cartoon shading, rounded-card language, teal title bars or invented
   Patch-like imagery.
 - Wild Bunch may contribute earth colour, spatial modularity and constructed-world
-  structure. Temporary development colours are not palette authority.
+  structure. Its palette authority comes from project-native, evidence-backed colour.
 - The shared quiet classification token is evidence-group secondary `#B8C2AD`.
   It may distinguish one subordinate logical group inside bounded evidence when
   project-native colour would be misleading. It is not a site accent, status
