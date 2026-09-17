@@ -1,28 +1,17 @@
-# Icon custody
+# Icon and SVG custody
 
-Use this reference when adding, sizing, or reviewing icons for the portfolio.
+## Current pattern
 
-## Icon set
+The portfolio does not depend on a general icon library. Reuse an existing semantic component or authored SVG before creating another icon surface.
 
-- `lucide-react` is the default icon library.
-- Import individual icons by name (e.g. `import { Menu } from 'lucide-react'`); do not import the whole library.
-- If a required icon is not in `lucide-react`, add a single custom SVG file to `src/client/public/icons/` or the project icons directory. Do not inline complex SVGs in every component.
+- External-link affordance: reuse `src/client/src/components/ExternalLink.tsx`; it owns the inline decorative SVG, new-tab semantics, and accessible wording.
+- Brand marks and project diagrams: keep them as explicit repository-owned SVG assets when their identity/provenance matters.
+- Small one-off UI glyphs: an inline SVG is acceptable when it is simple, component-owned, and not pretending to be a reusable icon system.
 
-## Sizing
+## Accessibility
 
-- Size icons with the type scale or layout grid, not with arbitrary pixel values.
-- A 16px icon is the default for inline text; 20px and 24px are the defaults for buttons and controls.
-- Keep the icon stroke width at the default unless the design deliberately needs a different weight.
+A decorative glyph should stay out of the accessibility tree. An icon-only control needs an accessible name from the control, not a duplicate spoken SVG. Prefer visible text when the symbol would make the reader guess.
 
-## Usage rules
+## Avoid duplication
 
-- Use an icon when it makes the control faster to recognise.
-- Do not use an icon when the metaphor is unclear, when the action is rare, or when a text label is more direct.
-- Pair every icon with a text label or an `aria-label` if the icon is the only content.
-- Do not use colour alone to convey meaning in an icon; use a label or shape to reinforce the state.
-
-## When not to use an icon
-
-- When the user has to guess what the icon means.
-- When the icon is purely decorative and adds no information.
-- When the layout is already dense; another small shape may create visual clutter.
+Before adding an SVG, search for an existing component or asset that already owns the meaning. Do not create a new public icon directory or add an icon-package dependency merely to reproduce an affordance the repository already has.

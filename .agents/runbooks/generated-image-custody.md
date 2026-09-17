@@ -23,12 +23,12 @@ When a generated image is selected for page iteration or final use, perform one 
 
 1. Copy the exact selected generated master into the owning source package. Do not silently crop, retouch, flatten alpha, re-encode, or otherwise rewrite the reproduction master.
 2. Record the original generated filename, repository source path or honest non-promoted state, SHA-256, intrinsic dimensions, byte count, rights owner, and selection state.
-3. Classify the asset honestly: current accepted selection, accepted library item, superseded accepted selection, deterministic descendant, or accepted-but-not-promoted historical source.
-4. Record `OpenAI Image 2.5` plus only generation metadata that is genuinely known. Generation ID, parent ID, seed, date, and prompt provenance need evidence; they are not fields to fill by inference.
+3. Classify the asset honestly: page-review candidate, current accepted selection, accepted library item, superseded accepted selection, deterministic descendant, or accepted-but-not-promoted historical source.
+4. Record the actually evidenced generation tool/model plus only generation metadata that is genuinely known. Generation ID, parent ID, seed, date, and prompt provenance need evidence; they are not fields to fill by inference. Do not upgrade a generic tool record into a more specific model claim without retained evidence.
 5. Capture the approved human generation brief from the current conversation while it is still fresh. Preserve correction deltas that materially explain the accepted result.
 6. Distinguish evidence classes. A literal retained tool prompt is not the same thing as a conversational brief normalized from approved human direction.
 7. Record reference hierarchy, original commission intent, material changes from that intent, accepted limitations, acceptance decision, and image-vs-page ownership boundaries.
-8. Update the owning `accepted-assets.json`, `generation-receipt.json`, and normalized provenance Markdown record in the same custody pass as appropriate.
+8. Update the owning custody surfaces in the same pass: an accepted source belongs in its `accepted-assets.json`; a page-review candidate stays in the scoped `candidate-assets.json` until explicit acceptance; update the relevant `generation-receipt.json` and normalized provenance Markdown record as appropriate.
 9. Create page-use derivatives only through the owning deterministic processor and receipt. The generated master remains the reproduction source.
 10. Run the focused custody/provenance checks before standing the derivative up on the page.
 

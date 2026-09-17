@@ -1,85 +1,66 @@
 ---
 name: motion-patterns
-description: Use when adding or reviewing animation, scroll reveals, view transitions, hover states, or any motion for the portfolio.
+description: Use when adding or reviewing animation, hover transitions, viewport-triggered reveals, scroll-linked effects, or view transitions in the portfolio.
 license: MIT
 ---
 
 # Motion patterns
 
-## Use when
-
-- You are adding a scroll reveal, view transition, hover state, or entrance animation.
-- You are reviewing an animation for clarity, performance, or accessibility.
-- You need to choose a duration, easing, or transform for a motion.
-- A motion effect feels decorative, slow, or distracting.
-- You are deciding whether a page transition should be same-document or cross-document.
-
 ## Core thesis
 
-Motion is a way to explain state. It tells the reader what changed, where focus moved, or what will happen next. If the motion does not answer one of those questions, it is noise. Good motion is fast, purposeful, and reversible.
+Motion must explain state, hierarchy, or spatial relationship without taking control of scrolling or making content depend on animation. The current portfolio uses browser APIs plus CSS/styled-components; do not add a motion or smooth-scroll library merely to implement a routine effect.
 
-## Motion primitives
+## Current primitives
 
-The portfolio uses the `motion` library for React. Do not import from `framer-motion`.
+The shared motion values live in `src/client/src/styles/_tokens.scss` and are mapped through `portfolioTheme.ts`:
 
-Use the design-token motion values for timing. Use transform and opacity for the animation properties. Other properties force layout and paint and will not stay smooth.
+- `--duration-fast` / `theme.motion.fast`: short interaction feedback.
+- `--duration-state` / `theme.motion.state`: larger state transitions.
+- `--ease-out` / `theme.motion.easeOut`: the current shared easing.
 
-- **Duration** is measured against the task. A hover or small feedback is `duration-150`. A reveal is `duration-300`. A page-level or large state change is `duration-500`.
-- **Easing** sets the feel. `ease-out` is for entrances and hover because it starts fast and settles. `ease-in` is for exits. `ease-in-out` is for symmetric state swaps such as a toggle.
-- **Stagger** is a sequence delay, not a longer animation. Use `delay-75`, `delay-100`, or `delay-150` from the token set. Stagger no more than six related items; beyond that, the reader stops seeing a pattern.
-- **Transform choice** keeps the GPU path. Translate, scale, rotate, and opacity are the only routine choices. Avoid animating `width`, `height`, `top`, `left`, `margin`, `padding`, `box-shadow`, or `filter` in real time.
+Use transform and opacity for routine animated presentation. Do not invent a parallel duration/easing scale in component code.
 
-For the full timing tables, see [references/motion-primitives.md](./references/motion-primitives.md).
+See [references/motion-primitives.md](./references/motion-primitives.md).
 
-## Scroll reveals
+## Viewport-triggered reveals
 
-Reveal an element when it enters the viewport for the first time. Do not reveal every element on the page. Reveal section headings, card groups, and primary content blocks. Skip static backgrounds, dividers, and content already above the fold on first load.
+For a simple one-shot reveal, prefer `IntersectionObserver` to detect visibility and CSS/styled-components to animate the final-state change. Content must render meaningfully without the observer or animation.
 
-Use `IntersectionObserver` or the `useInView` hook from `motion`. Trigger the animation once per element. Do not drive animation from the `scroll` event; that creates scroll jacking and drops frames.
+Do not introduce a smooth-scroll controller for a reveal. Native browser scrolling remains authoritative.
 
-Keep the reveal small: `translateY` of 16px to 32px paired with an opacity change is enough. Larger distances draw attention to the motion instead of the content. A longer duration feels slow. `duration-300` with `ease-out` is the default. Stagger groups by `delay-75` if the items belong to the same block.
+See [references/scroll-reveals.md](./references/scroll-reveals.md).
 
-For the full rules, see [references/scroll-reveals.md](./references/scroll-reveals.md).
+## Scroll-linked effects
 
-## View transitions
+A passive scroll listener is not automatically scroll-jacking. It is acceptable for a bounded effect when all of these are true:
 
-View Transitions make a change look continuous. Use them only when the change itself is meaningful, such as opening a detail, swapping a tab, or navigating to a new page with a persistent element.
+- the browser still owns scroll position and speed;
+- work is gated to the relevant viewport region where practical;
+- visual writes are scheduled with `requestAnimationFrame` rather than performed on every raw event;
+- the effect uses compositor-friendly presentation such as transform;
+- reduced motion resolves to a stable non-moving state; and
+- the page remains understandable if the effect does not run.
 
-- **Same-document** transitions use `document.startViewTransition(() => updateDOM())`. The callback must change the DOM. Pair the old and new elements with the same `view-transition-name` to create a shared-element morph.
-- **Cross-document** transitions use the `@view-transition` at-rule: `@view-transition { navigation: auto; }`. Control per-page behaviour with the `pageswap` and `pagereveal` events. This requires a multi-page app, not a single-page router that emulates navigation.
-
-If the API is not available, the change should still work as a normal state or page load. Respect `prefers-reduced-motion: reduce` before running any view transition.
-
-For the full rules, see [references/view-transitions.md](./references/view-transitions.md).
+`useSilkApertureParallax.ts` is a current example of that bounded pattern. Do not copy its complexity for a simple reveal.
 
 ## Reduced motion
 
-The default story is reduce. If a user has not asked for motion, do not make them opt out. The reduce path must be a clean, instant state change, not a shortened or muted version of the same animation.
+The repository already has a global `prefers-reduced-motion: reduce` safeguard in `global.scss`. Components with motion-specific state or JavaScript must also ensure reduced motion produces the intended final state immediately and stops scroll-linked movement.
 
-Check `prefers-reduced-motion: reduce` with a media query or let `motion` respect the setting through `reducedMotion="user"`. In the reduced path, set duration to `0ms` and skip stagger. This is the baseline. Add motion only when the preference allows it.
+Use CSS media queries for CSS transitions and `window.matchMedia('(prefers-reduced-motion: reduce)')` where JavaScript needs the preference. See [references/reduced-motion.md](./references/reduced-motion.md).
 
-For the implementation details, see [references/reduced-motion.md](./references/reduced-motion.md).
+## View transitions
 
-## Upstream
-
-This skill consumes two upstream contracts:
-
-- The master spec that chartered this foundation work: [`.agents/specs/2026-08-12-portfolio-premium-epic-spec.md`](../../specs/2026-08-12-portfolio-premium-epic-spec.md).
-- The umbrella taste skill this motion work supports: [`designing-premium-sites`](../designing-premium-sites/SKILL.md).
-
-## Reference routes
-
-| Concern | Read this |
-|---|---|
-| What are the timing, easing, and transform rules? | [references/motion-primitives.md](./references/motion-primitives.md) |
-| How should scroll reveals work? | [references/scroll-reveals.md](./references/scroll-reveals.md) |
-| How do I implement same-document or cross-document transitions? | [references/view-transitions.md](./references/view-transitions.md) |
-| How do I respect reduced motion and what is the fallback? | [references/reduced-motion.md](./references/reduced-motion.md) |
+Treat the browser View Transitions API as optional progressive enhancement, not as a current site-wide navigation contract. Use it only when a concrete state relationship earns it and the non-transition path is complete. See [references/view-transitions.md](./references/view-transitions.md).
 
 ## Working rules
 
-1. An animation earns its place only if it explains a state or focus change. Decorative motion is noise.
-2. Pair every entrance with an exit or completion. Do not leave elements half-animated.
-3. Default to the reduced path. Add motion only when the user has not asked for reduced motion.
-4. Test by toggling `prefers-reduced-motion: reduce` in DevTools or the OS, not in a browser theater mode.
-5. Keep motion off the critical path. If the animation fails, the content and navigation must still work.
+1. Start with no animation; add motion only when it clarifies a state or relationship.
+2. Keep browser-native scrolling in control. Never alter scroll speed, pin progress, or require synthetic scrolling for ordinary reading.
+3. Reuse the current motion tokens before creating another shared timing value.
+4. Keep essential content visible and usable when animation APIs fail or reduced motion is enabled.
+5. Test the affected interaction with reduced motion and at the supported responsive/zoom boundaries from the portfolio design policy.
+
+## Upstream
+
+This skill supports [`../../doctrine/portfolio-design-policy.md`](../../doctrine/portfolio-design-policy.md) and the umbrella taste guidance in [`../designing-premium-sites/SKILL.md`](../designing-premium-sites/SKILL.md).

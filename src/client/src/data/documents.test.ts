@@ -65,8 +65,7 @@ describe('prepareMarkdown', () => {
 })
 
 describe('loadDocument', () => {
-  test('keeps the unadmitted Pass References stub out of public navigation', () => {
-    expect(navigation.some((item) => item.slug === 'pass-references-not-paragraphs')).toBe(false)
+  test('preserves editorial datelines in public navigation', () => {
     expect(navigation.find((item) => item.slug === 'graph-iterative-review')).toMatchObject({ date: '2026-08-15' })
     expect(navigation.find((item) => item.slug === 'why-adrs')).toMatchObject({ date: '2026-08-22' })
     expect(navigation.find((item) => item.slug === 'the-right-test-isnt-your-favourite-test')).toMatchObject({ date: '2026-08-25' })

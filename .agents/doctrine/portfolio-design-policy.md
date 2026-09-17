@@ -1,6 +1,6 @@
 # Portfolio Design Policy
 
-Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route composition and quality gates. Completed specs explain how the current implementation arrived here, but they are not the worker entry point and they do not freeze the site.
+Use this policy for any change that can alter how the portfolio presents Harley, his work, or his judgement. It is the active portfolio-wide policy for purpose, invariants, route composition and quality gates. Git history records how completed specs led to the current implementation; completed specs are not current worker entry points and do not freeze the site.
 
 ## Current visual contract
 

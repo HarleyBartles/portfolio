@@ -46,9 +46,8 @@ Generic trends, stock-look, and overused patterns are easy to copy and hard to d
 
 ## Upstream
 
-This skill consumes two upstream contracts:
+This skill consumes the current umbrella taste contract:
 
-- The master spec that chartered this foundation work: [`.agents/specs/2026-08-12-portfolio-premium-epic-spec.md`](../../specs/2026-08-12-portfolio-premium-epic-spec.md).
 - The umbrella taste skill this reference work supports: [`designing-premium-sites`](../designing-premium-sites/SKILL.md).
 
 ## Reference routes

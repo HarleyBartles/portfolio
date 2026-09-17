@@ -1,56 +1,44 @@
 # Asset Runbook
 
+Use this runbook when adding, changing, generating, attributing, replacing, or removing fonts, images, icons, screenshots, diagrams, or other static assets for the portfolio.
+
 ## Required skills
 
 - `/using-superpowers-plus` for routing.
-- `/asset-custody` for sourcing, licensing, optimisation, and custody decisions.
+- `/asset-custody` for source identity, rights, transformation, and removal decisions.
+- `/typography-for-the-web` when the change affects font selection, loading, fallback, or type behaviour.
 
-Use this runbook when adding, changing, or attributing fonts, images, icons, or other static assets for the portfolio.
+For a selected generated image, also follow `generated-image-custody.md` before page use.
 
-## Required skills
+## Discover the owner first
 
-- `asset-custody` for source, licensing, format, fallback, and optimization custody.
-- `typography-for-the-web` when the asset change includes font selection, loading, or fallback behavior.
-
-## Read first
-
-- `.agents/skills/asset-custody/SKILL.md` for the repo's asset-custody skill.
-- `.agents/skills/asset-custody/references/fonts.md` for font sourcing and loading rules.
-- `.agents/skills/asset-custody/references/images.md` for image format, sizing, and compression rules.
-- `.agents/skills/asset-custody/references/icons.md` for icon set choices and usage.
-- `.agents/skills/asset-custody/references/optimization.md` for build-time and CDN optimization.
-
-## Principles
-
-- Prefer open-licensed or self-hosted assets. Do not use assets with unclear licensing.
-- Keep asset counts low. One typeface, one icon set, and one image optimization pipeline are usually enough.
-- Document the source and license in `.agents/skills/asset-custody/assets/authority/CITATIONS.md` if the asset is vendored.
-
-## Fonts
-
-- Use `next/font` or a self-hosted `@font-face` with a `font-display: swap` strategy.
-- Pair no more than one display or serif typeface with one body typeface.
-- Follow the `typography-for-the-web` skill for scale, fallback, and loading guidance.
+1. Read `docs/asset-custody.md` for the current production record.
+2. Find the source master, public derivative, consuming component/content, and any owning manifest/receipt.
+3. Inspect `src/client/package.json` for the current `media:*:apply` / `media:*:check` commands rather than assuming a generic image pipeline.
 
 ## Images
 
-- Use responsive formats: WebP/AVIF for photographs, SVG for icons and logos.
-- Provide `srcset` or use the framework's image component when image width is known at build time.
-- Keep source originals in a tracked `assets/` or `public/` directory; do not commit unoptimized raw exports.
+- Preserve the exact source master when the asset family requires reproduction custody.
+- Generated-image metadata is evidence-bounded; unknown IDs, seeds, dates, prompts, or parents stay unknown rather than being reconstructed.
+- Use the owning Sharp processor for deterministic derivatives. Run its `:apply` target only for intended regeneration and its `:check` target for verification.
+- Production imagery and active visual-regression baselines are live assets. Historical design-room captures are not live evidence merely because they were once useful during review.
 
-## Icons
+## Fonts
 
-- Use one icon set consistently. `lucide` is the default for this project.
-- Do not mix icon families on the same page or component family.
-- Prefer SVG icons to icon fonts for accessibility and weight.
+- The client currently self-hosts Source Sans 3, Source Serif 4, and Source Code Pro through Fontsource variable packages and `_fonts.scss`.
+- Preserve WOFF2 variable loading, Unicode-range intent, `font-display: swap`, fallback stacks, and licence/source custody.
+- Do not add a framework-specific font loader to this Vite application without an explicit architecture change.
 
-## Optimization
+## Icons and SVG
 
-- Optimize images before commit. Use the project's image optimizer or a `tools/run.py` asset command if one exists.
-- Keep the total font payload small; subset when possible.
-- Verify the asset load budget after adding new assets.
+- Reuse current semantic components first. `ExternalLink.tsx` owns the site's external-link glyph and accessibility/new-tab contract.
+- Keep brand marks, diagrams, and other identity-bearing SVGs as explicit assets under their owning custody when appropriate.
+- Do not introduce a general icon library simply to obtain a glyph the repository already owns.
 
-## Handoff
+## Removal/replacement
 
-- When an asset is added, leave a note in the PR body with the source URL, license, and optimization performed.
-- Update the skill references only if a new asset pattern is discovered or a rule changes.
+Before removal or replacement, search source, content, metadata, tests, generated route documents where relevant, and public derivatives. Update custody manifests/receipts and current consumers in the same change. For previously accepted generated imagery, follow the supersession rules in `generated-image-custody.md` rather than silently deleting history that remains provenance-relevant.
+
+## Verification
+
+Run the focused owning custody check and affected tests while iterating. The normal tracked commit hook owns the complete repository gate at commit time.
