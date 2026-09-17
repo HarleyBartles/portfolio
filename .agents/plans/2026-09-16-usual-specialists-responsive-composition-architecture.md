@@ -694,9 +694,9 @@ Use the existing `clipBetween(...)` helper (or a minimal equivalent) and assert 
 
   Confirm entry JavaScript, CSS and PDF remain within the existing budgets printed by `check-build-budget`.
 - [x] **11.7 Stage the complete intended feature tree:** Inspect `git status`, `git diff`, `git diff --cached` and ensure no Marketplace/tooling/spec planning changes from before execution have been accidentally absorbed into feature changes unless they were intentionally committed before Task 1.
-- [ ] **11.8 Canonical commit gate:** With commit authority, commit normally and let the tracked hook run the complete staged-tree `ci` apply/check flow. Do not run a duplicate full `ci --check` immediately before or after a successful hooked commit.
-- [ ] **11.9 Completion evidence:** Record the final commit SHA, focused test results, Playwright result, protected visual result and budget output in the execution return. Do not claim push/PR/merge unless separately authorized and verified.
-- [ ] **11.10 Progress tracking:** Mark every Task 11 box `[x]`; then pass the completed implementation through `handoff-gates` `completion-readiness` before code-review handoff.
+- [x] **11.8 Canonical commit gate:** With commit authority, commit normally and let the tracked hook run the complete staged-tree `ci` apply/check flow. Do not run a duplicate full `ci --check` immediately before or after a successful hooked commit.
+- [x] **11.9 Completion evidence:** Record the final commit SHA, focused test results, Playwright result, protected visual result and budget output in the execution return. Do not claim push/PR/merge unless separately authorized and verified.
+- [x] **11.10 Progress tracking:** Mark every Task 11 box `[x]`; then pass the completed implementation through `handoff-gates` `completion-readiness` before code-review handoff.
 
 ---
 
