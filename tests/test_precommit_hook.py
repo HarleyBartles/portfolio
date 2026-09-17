@@ -21,11 +21,15 @@ LOCAL_GIT_ENV_VARS = tuple(
         check=True,
     ).stdout.splitlines()
 )
+HOOK_CONTROL_ENV_VARS = (
+    "REPO_STANDARDS_HOSTED_COMMIT",
+    "REPO_STANDARDS_STAGED_SNAPSHOT",
+)
 
 
 def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
     isolated_env = (env or os.environ).copy()
-    for variable in LOCAL_GIT_ENV_VARS:
+    for variable in (*LOCAL_GIT_ENV_VARS, *HOOK_CONTROL_ENV_VARS):
         isolated_env.pop(variable, None)
     return subprocess.run(
         ["git", *args],
@@ -183,6 +187,8 @@ if "--check" in sys.argv:
             env["OBSERVED_ROOT"] = str(observed_root)
             env["OBSERVED_HEAD"] = str(observed_head)
             env["NESTED_REPO"] = str(nested_repo)
+            env["REPO_STANDARDS_HOSTED_COMMIT"] = "HEAD"
+            env["REPO_STANDARDS_STAGED_SNAPSHOT"] = "1"
 
             result = run_git(worktree, "commit", "-m", "ready", env=env)
 
