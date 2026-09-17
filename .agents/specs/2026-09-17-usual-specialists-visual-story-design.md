@@ -54,11 +54,11 @@ The page delegates local chapter design to:
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-Index, Silk, Writ, Klause and Rollback now have settled local chapter designs.
-Receipt has an approved role, environment, character beats and important visual
-constraints, but its local composition remains intentionally incomplete for
-trustworthy implementation planning. Its chapter specification preserves what is
-settled without pretending the missing design work is complete.
+All six specialist chapters now have settled local designs. Receipt's approved
+chapter closes the remaining local-design gap with an already-present record reveal,
+avuncular hospitality, Patch's first genuine rest beat and a final folder field that
+grows directly out of the tea scene. JIT implementation plans remain sequential and
+must still consume the actual accepted predecessor milestone output.
 
 ## Page story
 
@@ -337,9 +337,12 @@ own all internal geometry.
   fail safely. Rollback's chapter then places the audience inside containment
   before returning them to the recoverable side.
 - **Rollback → Receipt:** noise, branching and containment compress into a quiet
-  chronological record.
-- **Receipt → final folder:** the recruitment story compresses into the completed
-  carried object.
+  chronological record. Rollback's flashing operational amber gives way to steady
+  domestic warmth in Receipt's small alcove.
+- **Receipt → final folder:** the transition stays inside one continuous tea scene.
+  Patch finally sits, Receipt brews a strong pot, the accumulated folder is placed
+  casually on the table and stops moving. Attention then transfers from the relaxed
+  people to the still object in the foreground.
 
 Do not create one generic route-wide connector with chapter-specific configuration
 just because every seam sits between two sections. The seams have different story
@@ -350,9 +353,31 @@ jobs.
 Only after all six assent markers have landed may the folder become the dominant
 composition.
 
+The final hero field is not a detached reveal. It grows directly out of Receipt's
+hospitality. After the thermal strip is stapled on, Receipt offers tea. Patch sits
+and exhales for the first time in the recruitment sequence. Receipt makes a strong
+pot and sets out two well-loved cups and saucers with biscuits. Patch puts the
+folder down on the table without presenting it.
+
+The folder has moved throughout the whole page: carried, opened, handed over,
+marked, returned and changed. Even Klause's deliberately still chapter moves it
+between Patch and Klause. In the final field it becomes important because it stops.
+
+The approved closing depth hierarchy is:
+
+- completed folder in the foreground, sharp and still;
+- tea service and table in the middle distance;
+- Patch and Receipt relaxed behind it, drinking tea, eating biscuits and talking,
+  softly subordinate to the object;
+- only enough wider safehouse context to preserve physical continuity.
+
 The reader should recognise the accumulated material languages without a legend.
-The final field concludes recruitment. It does not open a vault sequence, teaser
-montage or caper preview.
+The folder should remain handled, overstuffed and slightly absurd rather than being
+cleaned into pristine product photography. The close concludes recruitment through
+the visual inversion `earlier: the folder moves while specialists work; finally:
+the specialists relax while the folder rests`.
+
+The final field does not open a vault sequence, teaser montage or caper preview.
 
 At this closeout milestone, the homepage Specialists alt/fallback copy must also be
 reconciled with the final semantics. It must not describe Silk as making a route

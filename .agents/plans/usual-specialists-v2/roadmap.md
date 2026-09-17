@@ -95,8 +95,8 @@ just in time.
 | 3 | Writ | pending | [Writ chapter spec](../../specs/2026-09-17-usual-specialists-writ-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: threshold loop, continuous rounds/caseload, object-transparency polyptych, dominant `Absolutely not. On whose authority?` interruption, Writ-supplied bounded authority, and white/yellow/pink triplicate split. JIT plan waits for the actual Silk milestone output. |
 | 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: one stable master field, minimal Klause motion, five-state reduction sequence, page-deletes-itself subtraction grammar, IKEA-white working field, and manila-folder/red-`K` colour payoff. JIT plan waits for the actual Writ milestone output. |
 | 5 | Rollback | pending | [Rollback chapter spec](../../specs/2026-09-17-usual-specialists-rollback-chapter-design.md) | — | — | — | — | Chapter design approved: chamber-side audience position, off-camera failure evidence, rebar-concrete containment pressure, slow amber state cycle, shutter-to-black `What's your Plan B?`, safe-side diagnosis, silent realisation, dog-tag clank and immediate move to the next failure test. No CRT `I'M IN`. JIT plan waits for the actual Klause milestone output. |
-| 6 | Receipt | pending | [Receipt chapter spec](../../specs/2026-09-17-usual-specialists-receipt-chapter-design.md) | — | — | — | — | Alcove, already-done inversion, thermal assent and tea release are settled. Design the record-always-existed reveal and deceleration before planning. |
-| 7 | Final page close + whole-route proof | pending | [Page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | After all six chapter states exist, let the completed folder become hero once; reconcile stale homepage Specialists semantics; prove complete source order, folder continuity, responsive/accessibility behaviour and approved visual baselines. Canonical route cutover remains out of scope. |
+| 6 | Receipt | pending | [Receipt chapter spec](../../specs/2026-09-17-usual-specialists-receipt-chapter-design.md) | — | — | — | — | Chapter design approved: already-present thermal record reveal, quiet avuncular alcove, courteous no-pitch-needed interruption, gentlemanly sign-off, staple, Patch's first true rest beat and tea/hospitality release. The final folder field grows directly out of the same tea scene. JIT plan waits for the actual Rollback milestone output. |
+| 7 | Final page close + whole-route proof | pending | [Page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | After all six chapter states exist, prove the approved close in which the folder finally stops on Receipt's table and becomes foreground hero while Patch and Receipt drink tea behind it; reconcile stale homepage Specialists semantics; prove complete source order, folder continuity, responsive/accessibility behaviour and approved visual baselines. Canonical route cutover remains out of scope. |
 
 ## Milestone dependency logic
 
@@ -146,8 +146,10 @@ those limitations.
   plan per active chapter/milestone.
 - No product implementation began under `f7267b6`.
 - Index remains the protected visual control case. Silk is a substantial redesign.
-  Writ, Klause and Rollback have now completed their chapter-design returns.
-  Receipt deliberately remains in design before its JIT plan.
+  Writ, Klause, Rollback and Receipt have now completed their chapter-design
+  returns. All six local chapter designs are settled; implementation planning still
+  advances just in time from actual predecessor output rather than from hypothetical
+  future page state.
 - Do not write all future implementation plans in advance. The point of this
   roadmap is that each plan is informed by the chapter actually landed before it.
 
