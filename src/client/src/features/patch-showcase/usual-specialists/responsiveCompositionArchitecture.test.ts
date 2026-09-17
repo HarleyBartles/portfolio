@@ -1,9 +1,26 @@
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 const readSource = (filename: string): string => readFileSync(new URL(filename, import.meta.url), 'utf8')
+const sourceDirectory = resolve('src/features/patch-showcase/usual-specialists')
 
 describe('Specialists responsive composition architecture', () => {
+  test('has no route-wide responsive module or chapter breakpoint vocabulary', () => {
+    expect(existsSync(resolve(sourceDirectory, 'specialistsResponsive.ts'))).toBe(false)
+    expect(existsSync(resolve(sourceDirectory, 'specialistsResponsive.test.ts'))).toBe(false)
+
+    const productionSources = readdirSync(sourceDirectory, { withFileTypes: true })
+      .filter((entry) => entry.isFile() && /\.tsx?$/.test(entry.name) && !entry.name.includes('.test.'))
+      .map((entry) => readFileSync(resolve(sourceDirectory, entry.name), 'utf8'))
+    productionSources.push(readSource('../UsualSpecialistsPage.tsx'))
+    const productionCorpus = productionSources.join('\n')
+
+    expect(productionCorpus).not.toContain('specialistsResponsive')
+    expect(productionCorpus).not.toContain('SPECIALISTS_WIDTHS')
+    expect(productionCorpus).not.toContain('specialistsMedia')
+  })
+
   test('keeps the page canvas contract to the authored ceiling without owning chapter breakpoints', () => {
     const pageStyles = readSource('./UsualSpecialistsPage.styles.ts')
 

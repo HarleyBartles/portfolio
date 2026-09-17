@@ -563,8 +563,8 @@ This plan does **not** require a breakpoint-minimisation pass. Do not convert wo
   npm --prefix src/client run test:e2e -- --grep "The Usual Specialists"
   npm --prefix src/client run test:e2e:visual -- --grep "Specialists Index draft keeps the approved composition"
   ```
-- [ ] **9.10 Commit checkpoint:** If authorized, commit the completed Silk-responsive ownership slice.
-- [ ] **9.11 Progress tracking:** Mark every Task 9 box `[x]` before Task 10.
+- [x] **9.10 Commit checkpoint:** If authorized, commit the completed Silk-responsive ownership slice.
+- [x] **9.11 Progress tracking:** Mark every Task 9 box `[x]` before Task 10.
 
 ---
 
@@ -615,14 +615,14 @@ Use the existing `clipBetween(...)` helper (or a minimal equivalent) and assert 
 
 ### Steps
 
-- [ ] **10.1 Pre-removal characterization:** While `IndexMilestoneBoundary` still exists, add a browser assertion proving the content-derived opening-through-Index clip matches the wrapper's bounding box.
-- [ ] **10.2 Verify characterization:** Run that focused test green before deleting anything. This is a refactor safety characterization, not the RED test.
-- [ ] **10.3 RED page contract:** Change `UsualSpecialistsPage.test.tsx` to expect the explicit page sequence without `[data-specialists-index-milestone]`; confirm it fails on the current wrapper.
-- [ ] **10.4 Delete migration wrapper:** Remove `IndexMilestoneBoundary` from JSX/styles and keep the exact source order shown above.
-- [ ] **10.5 Switch protected clip:** Change the visual-regression test to use the characterized content-derived clip while retaining the existing snapshot filenames and files.
-- [ ] **10.6 Delete shared responsive module:** Run `rg` first and confirm no production import remains. Then delete `specialistsResponsive.ts` and its obsolete test.
-- [ ] **10.7 Final architecture guard:** Assert there is no `specialistsResponsive` import/file dependency and no route-wide chapter breakpoint object. This guard should allow local `indexResponsive.ts`, `silkResponsive.ts`, opening-local and seam-local conditions.
-- [ ] **10.8 Focused verification:** Run:
+- [x] **10.1 Pre-removal characterization:** While `IndexMilestoneBoundary` still exists, add a browser assertion proving the content-derived opening-through-Index clip matches the wrapper's bounding box.
+- [x] **10.2 Verify characterization:** Run that focused test green before deleting anything. This is a refactor safety characterization, not the RED test.
+- [x] **10.3 RED page contract:** Change `UsualSpecialistsPage.test.tsx` to expect the explicit page sequence without `[data-specialists-index-milestone]`; confirm it fails on the current wrapper.
+- [x] **10.4 Delete migration wrapper:** Remove `IndexMilestoneBoundary` from JSX/styles and keep the exact source order shown above.
+- [x] **10.5 Switch protected clip:** Change the visual-regression test to use the characterized content-derived clip while retaining the existing snapshot filenames and files.
+- [x] **10.6 Delete shared responsive module:** Run `rg` first and confirm no production import remains. Then delete `specialistsResponsive.ts` and its obsolete test.
+- [x] **10.7 Final architecture guard:** Assert there is no `specialistsResponsive` import/file dependency and no route-wide chapter breakpoint object. This guard should allow local `indexResponsive.ts`, `silkResponsive.ts`, opening-local and seam-local conditions.
+- [x] **10.8 Focused verification:** Run:
 
   ```powershell
   npm --prefix src/client test -- src/features/patch-showcase/UsualSpecialistsPage.test.tsx src/features/patch-showcase/usual-specialists

@@ -22,7 +22,3 @@ export const SpecialistsCanvas = styled.div`
 export const OpeningComposition = styled.div`
   position: relative;
 `
-
-export const IndexMilestoneBoundary = styled.div`
-  position: relative;
-`
