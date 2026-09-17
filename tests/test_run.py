@@ -137,7 +137,7 @@ class CanonicalRunnerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)
             tracked = (
-                repo / ".githooks/pre-commit",
+                repo / "githooks/pre-commit",
                 repo / "src/client/public/media/hero.png",
                 repo / "src/client/src/data/content/project.md",
                 repo / "docs/guide.md",
@@ -165,7 +165,7 @@ class CanonicalRunnerTests(unittest.TestCase):
 
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
             self.assertTrue((repo / "docs/INDEX.md").is_file())
-            self.assertFalse((repo / ".githooks/INDEX.md").exists())
+            self.assertFalse((repo / "githooks/INDEX.md").exists())
             self.assertFalse((repo / "src/client/public/INDEX.md").exists())
             self.assertFalse((repo / "src/client/src/data/content/INDEX.md").exists())
 

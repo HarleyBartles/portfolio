@@ -92,6 +92,7 @@ class PreCommitHookTests(unittest.TestCase):
             "Run `py -3 tools/run.py ci --check` before pushing.",
             "Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.",
             "Run `py -3 tools/run.py ci --check` once on the final staged tree before commit",
+            "core.hooksPath .githooks",
         )
         violations = []
         for path in active_guidance:
@@ -103,7 +104,7 @@ class PreCommitHookTests(unittest.TestCase):
         self.assertEqual([], violations, "Misleading validation signage:\n" + "\n".join(violations))
 
     def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
-        hook = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
+        hook = (ROOT / "githooks/pre-commit").read_text(encoding="utf-8")
         declaration = (ROOT / ".agents/contracts/repo-standards-commands.json").read_text(encoding="utf-8")
 
         self.assertIn('COMMAND_DECLARATION="$REPO_ROOT/.agents/contracts/repo-standards-commands.json"', hook)
@@ -111,6 +112,15 @@ class PreCommitHookTests(unittest.TestCase):
         self.assertIn("run_declared check", hook)
         self.assertIn('"check": ["@python", "tools/run.py", "ci", "--check", "--diagnostics"]', declaration)
         self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
+
+    def test_tracked_hook_is_the_only_hook_authority_and_is_posix_executable(self) -> None:
+        self.assertFalse((ROOT / ".githooks/pre-commit").exists())
+        tracked_hook = ROOT / "githooks/pre-commit"
+        self.assertTrue(tracked_hook.is_file())
+
+        result = run_git(ROOT, "ls-files", "-s", "githooks/pre-commit")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertRegex(result.stdout, r"^100755\s")
 
     def test_hook_commands_resolve_the_linked_worktree(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -159,10 +169,10 @@ if "--check" in sys.argv:
 """,
                 encoding="utf-8",
             )
-            run_git(repo, "config", "core.hooksPath", ".githooks")
-            hook = worktree / ".githooks/pre-commit"
+            run_git(repo, "config", "core.hooksPath", "githooks")
+            hook = worktree / "githooks/pre-commit"
             hook.parent.mkdir()
-            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
             hook.chmod(0o755)
             tracked_in_worktree.write_text("ready\n", encoding="utf-8")
             write_command_declaration(worktree, runner)
@@ -231,7 +241,7 @@ if "--check" in sys.argv:
 
             hook = repo / ".git/hooks/pre-commit"
             hook.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
             hook.chmod(0o755)
 
             fake_bin = temporary_root / "fake-bin"
@@ -302,7 +312,7 @@ elif "--check" in sys.argv and "BROKEN" in Path("tracked.txt").read_text(encodin
 
             hook = repo / ".git/hooks/pre-commit"
             hook.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
             hook.chmod(0o755)
 
             tracked.write_text("BROKEN staged content\n", encoding="utf-8")
@@ -350,7 +360,7 @@ if "--check" in sys.argv:
 
             hook = repo / ".git/hooks/pre-commit"
             hook.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(ROOT / ".githooks/pre-commit", hook)
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
             hook.chmod(0o755)
 
             tracked.write_text("staged content\n", encoding="utf-8")
