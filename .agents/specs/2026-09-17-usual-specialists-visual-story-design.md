@@ -1,6 +1,6 @@
 # The Usual Specialists: Visual Story and Chapter-System Design
 
-**Status:** Draft for Harley review
+**Status:** Approved by Harley on 17 September 2026
 
 **Design dialogue:** 17 September 2026
 
@@ -10,7 +10,7 @@
 
 **Route in scope:** `/patch/the-usual-specialists/next/`
 
-**Implementation-plan readiness:** Ready after written-spec approval; no implementation is authorised by this draft
+**Implementation-plan readiness:** Approved for JIT implementation planning; implementation remains governed by the resulting reviewed plan
 
 ## Goal
 
