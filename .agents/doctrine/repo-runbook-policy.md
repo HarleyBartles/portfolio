@@ -20,6 +20,7 @@ This repo follows the `repo-standards` skill. Invoke `/using-superpowers-plus` f
 ## Additional repo-specific runbooks
 
 - `asset.md` at `.agents/runbooks/asset.md` for font, image, icon, and optimization guidance.
+- `generated-image-custody.md` at `.agents/runbooks/generated-image-custody.md` for custody, provenance, generation-evidence, deterministic-derivative, and supersession workflow before generated imagery is stood up on a page.
 
 ## Root contributor and review surfaces
 

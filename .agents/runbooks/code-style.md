@@ -8,6 +8,11 @@
 
 Use this runbook for code and writing conventions in the portfolio repo.
 
+## Required skills
+
+- `executing-plans` when these conventions are being applied during implementation.
+- `test-driven-development` when code-style work changes behavior or performs a tested refactor.
+
 ## Read first
 
 - `.agents/doctrine/coding-discipline.md` for scope and architecture direction.

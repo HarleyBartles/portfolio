@@ -8,6 +8,11 @@
 
 Use this runbook when reviewing a PR, branch, or diff in the portfolio repository.
 
+## Required skills
+
+- `requesting-code-review` owns the review stage and its baseline.
+- `verification-before-completion` before any green, complete, or ready claim.
+
 ## Before You Review
 
 Read the relevant routing and policy docs first:

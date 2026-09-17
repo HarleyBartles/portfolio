@@ -4,7 +4,7 @@ export const SPECIALISTS_CHAPTER_NAV_HEIGHT = 44
 
 export const ChapterNav = styled.nav`
   position: relative;
-  z-index: 40;
+  z-index: 70;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   height: ${SPECIALISTS_CHAPTER_NAV_HEIGHT}px;

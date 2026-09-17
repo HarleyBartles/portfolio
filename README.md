@@ -27,7 +27,7 @@ artifact that passed the gate and then verifies every public route.
 Install dependencies and start Vite from `src/client/`:
 
 ```powershell
-git config core.hooksPath .githooks
+git config core.hooksPath githooks
 Push-Location src/client
 npm install
 npm run dev
@@ -46,7 +46,7 @@ Pop-Location
 The Bash-compatible commands are:
 
 ```bash
-git config core.hooksPath .githooks
+git config core.hooksPath githooks
 cd src/client
 npm install
 npm run dev

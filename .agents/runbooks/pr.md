@@ -9,6 +9,13 @@
 
 Use this runbook for pull-request workflow and publication proof in this repo.
 
+## Required skills
+
+- `repo-worker-base` for worktree, branch, validation, and publication boundaries.
+- `publishing-source` for the commit/push/publication decision.
+- `using-github-mcp` for hosted PR and remote-check evidence.
+- `verification-before-completion` before a green or ready claim.
+
 ## Before you begin
 
 - Read root [`AGENTS.md`](../../AGENTS.md).

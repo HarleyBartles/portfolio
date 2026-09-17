@@ -19,13 +19,21 @@ describe('SilkTraversalComposition', () => {
     const ropeAxis = root?.querySelector('[data-silk-rope-axis]')
 
     expect(root).toHaveStyle({ opacity: '0.5' })
+    expect(root?.querySelectorAll('[data-silk-rope-axis]')).toHaveLength(1)
     expect(ropeAxis).toBeInTheDocument()
+    expect(getComputedStyle(root as HTMLElement).position).toBe('relative')
+    expect(getComputedStyle(root as HTMLElement).width).toBe('100%')
+    expect(getComputedStyle(root as HTMLElement).height).toBe('100%')
     expect(ropeAxis).toContainElement(upperRope as HTMLElement)
     expect(ropeAxis).toContainElement(lowerRope as HTMLElement)
     expect(ropeAxis).toContainElement(ropeJoinPort as HTMLElement)
     expect(upperRope?.querySelector('[data-specialists-rope-variant="taut-straight"]')).toBeInTheDocument()
     expect(lowerRope?.querySelector('[data-specialists-rope-variant="terminal-curl"]')).toBeInTheDocument()
-    expect(traversal).toHaveTextContent('threshold-crossing Silk traversal')
+    const traversalImage = traversal?.querySelector<HTMLImageElement>('[data-silk-traversal-cutout-image]')
+    expect(traversalImage).toBeInTheDocument()
+    expect(traversalImage).toHaveAttribute('src', expect.stringContaining('silk-commission-06-abseil-hands-free.webp'))
+    expect(traversalImage).toHaveAttribute('alt', '')
+    expect(traversal).not.toHaveTextContent('threshold-crossing Silk traversal')
     expect(traversalPort).toBeInTheDocument()
     expect(ropeJoinPort).toBeInTheDocument()
     expect(root?.querySelector('[data-silk-rope-anchor]')).not.toBeInTheDocument()
@@ -38,5 +46,14 @@ describe('SilkTraversalComposition', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
     const { container } = render(<SilkTraversalComposition className="external-control" />)
     expect(container.querySelector('[data-silk-traversal-composition]')).not.toHaveClass('external-control')
+  })
+
+  test('does not accept raw join or traversal coordinates from its parent', () => {
+    // @ts-expect-error raw join geometry is intentionally not part of the vertical-slice API.
+    const { container } = render(<SilkTraversalComposition ropeJoinTop={440} traversalTop={580} />)
+    const root = container.querySelector('[data-silk-traversal-composition]')
+
+    expect(root).not.toHaveAttribute('ropeJoinTop')
+    expect(root).not.toHaveAttribute('traversalTop')
   })
 })

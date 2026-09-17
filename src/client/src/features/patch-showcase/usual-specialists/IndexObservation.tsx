@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
+import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
 import { IndexTraversal } from './IndexTraversal'
-import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Observation = styled.div`
@@ -31,12 +31,12 @@ const PatchPeerPlacement = styled.div`
   left: 0;
   width: 104px;
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     top: calc(-147px + 12px);
     width: 98px;
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     display: none;
   }
 `
@@ -48,11 +48,11 @@ const IndexInspectPlacement = styled.div`
   left: 108px;
   width: 102px;
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     width: 96px;
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     display: none;
   }
 `

@@ -1,0 +1,330 @@
+{
+    "schemaVersion":  1,
+    "rightsOwner":  "Harley Bartles",
+    "assets":  {
+                   "silk-commission-05-aperture-rim-heavy":  {
+                                                                 "model":  "OpenAI Image 2.5",
+                                                                 "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                 "generationId":  "fa481155-bcdc-47e7-9082-55fa54c4adff",
+                                                                 "generationIdStatus":  "retained",
+                                                                 "parentGenerationId":  null,
+                                                                 "parentGenerationIdStatus":  "tool-returned-null",
+                                                                 "seed":  null,
+                                                                 "seedStatus":  "not-supplied-by-tool",
+                                                                 "generationDate":  "2026-09-14",
+                                                                 "generationDateStatus":  "retained",
+                                                                 "briefStatus":  "normalized-from-approved-conversation",
+                                                                 "promptRetention":  "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+                                                                 "briefSummary":  "Palette-alignment regeneration only: preserve the accepted landscape ruined-wall frame composition and rectangular alpha-occluder contract; make intact plaster read as the canonical #e6eaeb mineral page substrate while retaining natural texture, cracks, relief and lighting; keep brick, mortar, rubble and lath materially distinct; preserve transparent exterior and central aperture; add no backdrop, shadow, glow, matte or alpha fringe.",
+                                                                 "evidence":  [
+                                                                                  "chat-on-steroids:2026-09-14-e31e5594",
+                                                                                  "project-owner-approval-2026-09-14",
+                                                                                  "project-owner-acceptance-2026-09-14"
+                                                                              ],
+                                                                 "supersededGeneration":  {
+                                                                                              "originalWireframeFilename":  "ChatGPT Image Sep 12, 2026, 11_58_50 PM (3).png",
+                                                                                              "sha256":  "f8f11ab42c3a2d145b4128ea1f3e83058dc75babbacd6dfa7277cc03af5eaff8",
+                                                                                              "generationId":  null,
+                                                                                              "generationIdStatus":  "missing-from-retained-history",
+                                                                                              "generationDate":  "2026-09-12"
+                                                                                          }
+                                                             },
+                   "silk-commission-05-aperture-rim-heavy-portrait":  {
+                                                                          "model":  "OpenAI Image 2.5",
+                                                                          "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                          "generationId":  "4c1e5ded-61e9-4068-8ded-e7f5d6b09e76",
+                                                                          "generationIdStatus":  "retained",
+                                                                          "parentGenerationId":  null,
+                                                                          "parentGenerationIdStatus":  "tool-returned-null",
+                                                                          "seed":  null,
+                                                                          "seedStatus":  "not-supplied-by-tool",
+                                                                          "generationDate":  "2026-09-14",
+                                                                          "generationDateStatus":  "retained",
+                                                                          "briefStatus":  "normalized-from-approved-conversation",
+                                                                          "promptRetention":  "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+                                                                          "briefSummary":  "Palette-alignment regeneration only: preserve the accepted portrait ruined-wall frame composition and rectangular alpha-occluder contract; make intact plaster read as the canonical #e6eaeb mineral page substrate while retaining natural texture, cracks, relief and lighting; keep brick, mortar, rubble and lath materially distinct; preserve transparent exterior and central aperture; add no backdrop, shadow, glow, matte or alpha fringe.",
+                                                                          "evidence":  [
+                                                                                           "chat-on-steroids:2026-09-14-e31e5594",
+                                                                                           "project-owner-approval-2026-09-14",
+                                                                                           "project-owner-acceptance-2026-09-14"
+                                                                                       ],
+                                                                          "supersededGeneration":  {
+                                                                                                       "originalWireframeFilename":  "ChatGPT Image Sep 13, 2026, 11_29_15 AM.png",
+                                                                                                       "sha256":  "8724b59a9494f62e291dfa7a0beef7eec4aa8e07ada2090fa2e9fd381d58ecc6",
+                                                                                                       "generationId":  "82ca6eaa-45dd-48c8-a559-65899b9c26a8",
+                                                                                                       "generationIdStatus":  "retained",
+                                                                                                       "generationDate":  "2026-09-13"
+                                                                                                   }
+                                                                      },
+                   "silk-commission-05-corridor":  {
+                                                       "model":  "OpenAI Image 2.5",
+                                                       "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                       "generationId":  "7a1366d8-1b12-4d38-8764-4fa074ac5408",
+                                                       "generationIdStatus":  "retained",
+                                                       "parentGenerationId":  null,
+                                                       "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                       "seed":  null,
+                                                       "seedStatus":  "missing-from-retained-history",
+                                                       "generationDate":  "2026-09-13",
+                                                       "generationDateStatus":  "retained",
+                                                       "briefStatus":  "recovered-from-linear-record",
+                                                       "evidence":  [
+                                                                        "linear:b4956d48-8d2a-4dbc-9811-0adf212eac2f"
+                                                                    ]
+                                                   },
+                   "silk-index-crossing-anchor-ring":  {
+                                                           "model":  "OpenAI Image 2.5",
+                                                           "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                           "generationId":  "53aeb49a-239e-4134-8093-eaec0e43fd15",
+                                                           "generationIdStatus":  "retained",
+                                                           "parentGenerationId":  null,
+                                                           "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                           "seed":  null,
+                                                           "seedStatus":  "missing-from-retained-history",
+                                                           "generationDate":  "2026-09-13",
+                                                           "generationDateStatus":  "retained",
+                                                           "briefStatus":  "recovered-from-linear-record",
+                                                           "evidence":  [
+                                                                            "linear:37667c1c-8475-4479-9c2d-98265da2e945"
+                                                                        ]
+                                                       },
+                   "silk-index-crossing-knot-foreground":  {
+                                                               "model":  "OpenAI Image 2.5",
+                                                               "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                               "generationId":  "0a2b91e7-3255-4d38-9f51-8c447e55d77c",
+                                                               "generationIdStatus":  "retained",
+                                                               "parentGenerationId":  null,
+                                                               "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                               "seed":  null,
+                                                               "seedStatus":  "missing-from-retained-history",
+                                                               "generationDate":  "2026-09-13",
+                                                               "generationDateStatus":  "retained",
+                                                               "briefStatus":  "recovered-from-linear-record",
+                                                               "evidence":  [
+                                                                                "linear:37667c1c-8475-4479-9c2d-98265da2e945"
+                                                                            ]
+                                                           },
+                   "silk-commission-06-threshold-crossing":  {
+                                                                 "model":  "OpenAI Image 2.5",
+                                                                 "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                 "generationId":  "18d4a48f-cf8a-4dbe-b12c-d85657dca42b",
+                                                                 "generationIdStatus":  "retained",
+                                                                 "parentGenerationId":  null,
+                                                                 "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                                 "seed":  null,
+                                                                 "seedStatus":  "missing-from-retained-history",
+                                                                 "generationDate":  "2026-09-13",
+                                                                 "generationDateStatus":  "retained",
+                                                                 "briefStatus":  "verbatim-recovered",
+                                                                 "literalPrompt":  "Create a single transparent-background character cutout asset of Silk for the Adventures of Patch / The Usual Specialists project.\n\nUse all supplied images with the following roles. Image A is the accepted Silk hero sheet and primary identity authority. Image B is the accepted Silk hero pose and secondary identity/style authority. Images C through K are composition and movement references only for the idea of crossing a boundary/gutter/aperture; they are NOT identity authority and must NOT change Silk into the older black-and-red character shown there. Treat the black/red figure language in Images C through K as obsolete. Preserve the modern accepted Silk identity from Images A and B.\n\nRender the same accepted Silk v1 Threadline Inspector character: compact Patch-scale proportions, calm and practical presence, solid grey hooded soft-shell outfit with no bright light panels, pale faceplate with narrow dark eyes, exactly one antenna, sturdy compact footwear, fitted practical belts/harness, compact reel pack on her back with a visible wound red thread spool, restrained utility details, and overall continuity with the approved turnaround/action sheet. Keep her clearly feminine/tomboy-coded in the quiet practical sense established by the references, but do not exaggerate or stylize her.\n\nThis is a continuity task, not a redesign. Make her a clean cutout on transparency, no environment, no background, no floor, no wall panel, no caption boxes, no frame borders, no text labels.\n\nPose and composition: Silk is performing a controlled technical threshold crossing / crawl-through. She should read as halfway through an opening, as if crossing a gutter or aperture. Make it a compact awkward squeeze-through pose rather than a glamorous action stunt. Her center of gravity is low. Leading upper body and one arm have crossed forward; trailing leg and some rear body weight are still behind. One working hand reaches forward to test or brace against the next surface; the other stays closer to the harness/line-control area. Head slightly dipped toward the work, focused and unshowy. The pose should clearly imply panel-crossing / aperture-crossing behaviour even though no environment is shown.\n\nImportant rope rules: this asset is for later compositing, so do NOT render a long route rope, hanging rope, free tail, wall anchors, probes, or environmental connection points. No emitted rope line crossing the canvas. The red thread may only appear as the wound spool in the reel pack and at most a very short controlled local segment near her working hand/harness if needed, but ideally keep all external rope pixels absent. React/layout will provide the real rope later.\n\nStyle/finish: match the approved Silk references — clean readable silhouette, controlled comic-adjacent/adventure illustration finish, purposeful detail, soft controlled shading, clear edges, not photoreal, not gritty noir, not glossy toy render, not generic mascot simplification. Avoid superhero, ninja, spider-themed, or acrobatic vibes. Avoid the obsolete black/red body design from the composition references.\n\nOutput a single full-body-to-near-full-body cutout with enough empty transparent margin around the silhouette for later page compositing.",
+                                                                 "evidence":  [
+                                                                                  "project-owner-recovery-2026-09-14",
+                                                                                  "linear:f4fb6aeb-c989-4934-a038-7cd80d8d073f"
+                                                                              ]
+                                                             },
+                   "silk-commission-06-abseil-hands-free":  {
+                                                                "model":  "OpenAI Image 2.5",
+                                                                "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                "generationId":  "10d1bdb0-bdc5-4265-9250-38bb8f042b13",
+                                                                "generationIdStatus":  "retained",
+                                                                "parentGenerationId":  null,
+                                                                "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                                "seed":  null,
+                                                                "seedStatus":  "missing-from-retained-history",
+                                                                "generationDate":  "2026-09-14",
+                                                                "generationDateStatus":  "retained",
+                                                                "briefStatus":  "normalized-from-approved-conversation",
+                                                                "promptRetention":  "The image tool inferred the approved conversational edit brief; no literal prompt string was retained.",
+                                                                "briefSummary":  "Preserve the strong right-facing abseil composition; correct Silk to canonical squat proportions by shortening upper/lower arms and thighs/shins; keep both hands free; treat the existing red-string reel pack as the motorised lowering system; add no separate motor gadget and no generated route-rope pixels.",
+                                                                "evidence":  [
+                                                                                 "project-owner-recovery-2026-09-14",
+                                                                                 "chat-on-steroids:2026-09-13-1c77c474",
+                                                                                 "linear:f4fb6aeb-c989-4934-a038-7cd80d8d073f"
+                                                                             ]
+                                                            },
+                   "silk-commission-07-frame-review":  {
+                                                           "model":  "OpenAI Image 2.5",
+                                                           "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                           "generationId":  "25052eb4-cbee-48fb-abb8-0b47e7f99e8d",
+                                                           "generationIdStatus":  "retained",
+                                                           "parentGenerationId":  null,
+                                                           "parentGenerationIdStatus":  "tool-returned-null",
+                                                           "seed":  null,
+                                                           "seedStatus":  "not-supplied-by-tool",
+                                                           "generationDate":  "2026-09-14",
+                                                           "generationDateStatus":  "retained",
+                                                           "briefStatus":  "normalized-from-approved-conversation",
+                                                           "promptRetention":  "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+                                                           "briefSummary":  "Create a transparent foreground broken-plaster wall frame with restrained damage, substantially intact #e6eaeb mineral plaster and a large organic opening; engineer continuous opaque wall coverage around the rectangular world-layer perimeter; preserve transparent exterior and central opening; include no environment, background fill, text, people or baked scene pixels.",
+                                                           "evidence":  [
+                                                                            "project-owner-approval-2026-09-14",
+                                                                            "project-owner-candidate-selection-2026-09-14"
+                                                                        ]
+                                                       },
+                   "silk-commission-07-frame-review-portrait":  {
+                                                                    "model":  "OpenAI Image 2.5",
+                                                                    "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                    "generationId":  "90641cec-ee79-488d-b8b1-a98c44794b55",
+                                                                    "generationIdStatus":  "retained",
+                                                                    "parentGenerationId":  null,
+                                                                    "parentGenerationIdStatus":  "tool-returned-null",
+                                                                    "seed":  null,
+                                                                    "seedStatus":  "not-supplied-by-tool",
+                                                                    "generationDate":  "2026-09-15",
+                                                                    "generationDateStatus":  "retained",
+                                                                    "briefStatus":  "verbatim-recovered",
+                                                                    "promptRetention":  "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+                                                                    "briefSummary":  "Create a true portrait re-composition of the supplied broken-wall aperture at about 941x1671. Keep the same photoreal broken plaster, aggregate, brick and timber family; make the plaster/mineral material exactly #e6eaeb; preserve transparent exterior and central aperture; and guarantee a hidden rectangular world viewport whose complete four-edge perimeter lies beneath opaque frame pixels so clipped world imagery cannot leak into either transparency region.",
+                                                                    "evidence":  [
+                                                                                     "project-owner-approval-2026-09-15",
+                                                                                     "project-owner-candidate-selection-2026-09-15"
+                                                                                 ]
+                                                                },
+                   "silk-commission-07-service-corridor-review":  {
+                                                                      "model":  "OpenAI Image 2.5",
+                                                                      "modelEvidence":  "retained-tool-result",
+                                                                      "generationId":  "32d9ff13-3089-461c-b157-84da1bfe27e1",
+                                                                      "generationIdStatus":  "retained",
+                                                                      "parentGenerationId":  null,
+                                                                      "parentGenerationIdStatus":  "tool-returned-null",
+                                                                      "seed":  null,
+                                                                      "seedStatus":  "not-supplied-by-tool",
+                                                                      "generationDate":  "2026-09-15",
+                                                                      "generationDateStatus":  "retained",
+                                                                      "briefStatus":  "verbatim-recovered",
+                                                                      "promptRetention":  "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+                                                                      "briefSummary":  "Create one landscape-native Commission 07 service-corridor world plate for both landscape and portrait frame viewports: a vertically cramped old-apartment basement/service level with coherent pipes and ducts, low ceiling, finite depth to a lit turn, Silk-added utility bulb string, restrained red test laser and minimal rig hardware, central portrait-safe storytelling, real overscan, and no page/frame/rope/character pixels.",
+                                                                      "evidence":  [
+                                                                                       "project-owner-approval-2026-09-15",
+                                                                                       "project-owner-candidate-selection-2026-09-15",
+                                                                                       "retained-tool-result:32d9ff13-3089-461c-b157-84da1bfe27e1"
+                                                                                   ]
+                                                                  },
+                   "silk-commission-08-reaction-frame-review":  {
+                                                                    "model":  "OpenAI Image 2.5",
+                                                                    "modelEvidence":  "retained-tool-result",
+                                                                    "generationId":  "7956bc06-1132-4efd-8129-622591bd792e",
+                                                                    "generationIdStatus":  "retained",
+                                                                    "parentGenerationId":  null,
+                                                                    "parentGenerationIdStatus":  "tool-returned-null",
+                                                                    "seed":  null,
+                                                                    "seedStatus":  "not-supplied-by-tool",
+                                                                    "generationDate":  "2026-09-15",
+                                                                    "generationDateStatus":  "retained",
+                                                                    "briefStatus":  "verbatim-recovered",
+                                                                    "promptRetention":  "The exact project-owner-approved human brief is retained verbatim in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend prompt is claimed.",
+                                                                    "briefSummary":  "Create a photorealistic transparent narrow old lath-and-plaster foreground frame with horizontal structural laths defining the top and bottom, snapped lath ends and crumbled plaster at the sides, canonical #e6eaeb plaster, a transparent central slit, transparent exterior, and continuous hidden rectangular alpha coverage for separately composited reaction imagery.",
+                                                                    "evidence":  [
+                                                                                     "project-owner-approval-2026-09-15",
+                                                                                     "project-owner-candidate-selection-2026-09-15",
+                                                                                     "project-owner-acceptance-2026-09-15",
+                                                                                     "retained-tool-result:7956bc06-1132-4efd-8129-622591bd792e"
+                                                                                 ]
+                                                                },
+                   "silk-receipt-peekthrough-frame-review":  {
+                                                                 "model":  "OpenAI Image 2.5",
+                                                                 "modelEvidence":  "retained-tool-result",
+                                                                 "generationId":  "da9b0bf3-2ff2-4efb-b59b-0499d85cd9c1",
+                                                                 "generationIdStatus":  "retained",
+                                                                 "parentGenerationId":  null,
+                                                                 "parentGenerationIdStatus":  "tool-returned-null",
+                                                                 "seed":  null,
+                                                                 "seedStatus":  "not-supplied-by-tool",
+                                                                 "generationDate":  "2026-09-15",
+                                                                 "generationDateStatus":  "retained",
+                                                                 "briefStatus":  "normalized-from-approved-conversation",
+                                                                 "promptRetention":  "The generation result exposed an empty prompt field, so no backend literal prompt is claimed as retained.",
+                                                                 "briefSummary":  "Create a square photorealistic modern plasterboard-and-skim wall frame in canonical #e6eaeb with one roughly circular inward-punched transparent opening, flat opaque mineral wall to the canvas edge, restrained inward damage, and no receipt scene or other generated content.",
+                                                                 "evidence":  [
+                                                                                  "project-owner-approval-2026-09-15",
+                                                                                  "project-owner-candidate-selection-2026-09-15",
+                                                                                  "project-owner-acceptance-2026-09-15",
+                                                                                  "retained-tool-result:da9b0bf3-2ff2-4efb-b59b-0499d85cd9c1"
+                                                                               ]
+                                                             },
+                   "silk-receipt-hole-peek-cutout-review":  {
+                                                               "model":  "OpenAI Image 2.5",
+                                                               "modelEvidence":  "retained-tool-result",
+                                                               "generationId":  "5a5fa5b7-7bb7-45f5-b197-5c335ba4d72e",
+                                                               "generationIdStatus":  "retained",
+                                                               "parentGenerationId":  null,
+                                                               "parentGenerationIdStatus":  "tool-returned-null",
+                                                               "seed":  null,
+                                                               "seedStatus":  "not-supplied-by-tool",
+                                                               "generationDate":  "2026-09-15",
+                                                               "generationDateStatus":  "retained",
+                                                               "briefStatus":  "normalized-from-approved-conversation",
+                                                               "promptRetention":  "The project-owner-approved human brief is retained in normalized form in the linked provenance record. The generation result exposed an empty backend prompt field, so no different backend literal prompt is claimed.",
+                                                               "briefSummary":  "Render regulated Silk v1 as an isolated transparent compact inspection cutout, leaning her hooded head and optionally one hand across an imaginary circular Receipt-hole boundary, with canonical grey workwear, one antenna and red-thread reel pack, no environment or rope, and no readable text so the asset remains horizontally mirrorable.",
+                                                               "evidence":  [
+                                                                                "project-owner-approval-2026-09-15",
+                                                                                "project-owner-candidate-selection-2026-09-15",
+                                                                                "project-owner-acceptance-2026-09-15",
+                                                                                "retained-tool-result:5a5fa5b7-7bb7-45f5-b197-5c335ba4d72e"
+                                                                            ]
+                                                           },
+                   "silk-receipt-alcove-world-review":  {
+                                                               "model":  "OpenAI Image 2.5",
+                                                               "modelEvidence":  "retained-tool-result",
+                                                               "generationId":  "7fece7db-5f53-4437-88e8-634b9e39d720",
+                                                               "generationIdStatus":  "retained",
+                                                               "parentGenerationId":  null,
+                                                               "parentGenerationIdStatus":  "tool-returned-null",
+                                                               "seed":  null,
+                                                               "seedStatus":  "not-supplied-by-tool",
+                                                               "generationDate":  "2026-09-15",
+                                                               "generationDateStatus":  "retained",
+                                                               "briefStatus":  "normalized-from-approved-conversation",
+                                                               "promptRetention":  "The project-owner-approved generation direction is retained in normalized form in the linked provenance record. The generation result exposed an empty prompt metadata field, so no distinct backend literal prompt is claimed.",
+                                                               "briefSummary":  "Keep Receipt facing outward at his station and move the camera into the rear wall of the alcove, looking diagonally down over his shoulder toward the workbench and the open side beyond. Make the workbench, files, audit tools and warm task-lit environment the subject; show Receipt mainly from behind through his white upper casing, single antenna, burgundy knit vest and absorbed posture; reveal only enough cooler hallway beyond the counter to prove the alcove opens into a larger interior.",
+                                                               "evidence":  [
+                                                                                "project-owner-approval-2026-09-15",
+                                                                                "project-owner-candidate-selection-2026-09-15",
+                                                                                "project-owner-qa-2026-09-15",
+                                                                                "project-owner-acceptance-2026-09-15",
+                                                                                "retained-tool-result:7fece7db-5f53-4437-88e8-634b9e39d720"
+                                                                            ]
+                                                           },
+                   "silk-commission-09-knockthrough-frame-review":  {
+                                                                       "model":  "OpenAI Image 2.5",
+                                                                       "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                                       "generationId":  null,
+                                                                       "generationIdStatus":  "missing-from-retained-history",
+                                                                       "parentGenerationId":  null,
+                                                                       "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                                       "seed":  null,
+                                                                       "seedStatus":  "not-supplied-by-tool",
+                                                                       "generationDate":  "2026-09-15",
+                                                                       "generationDateStatus":  "retained",
+                                                                       "briefStatus":  "verbatim-recovered",
+                                                                       "promptRetention":  "The exact project-owner-approved human generation brief is retained verbatim in the linked provenance record. No separate backend literal prompt is claimed.",
+                                                                       "briefSummary":  "Create one transparent Commission 09 destructive knock-through foreground frame on a 1672 x 941 landscape canvas, using only the two supplied demolition references for material language, with an exposed steel beam above, Acrow props at both sides, damaged floorboards below, canonical #E6EAEB plaster, transparent centre and exterior, and continuous opaque coverage over the hidden rectangular world perimeter.",
+                                                                       "evidence":  [
+                                                                                        "project-owner-approval-2026-09-15",
+                                                                                        "project-owner-candidate-selection-2026-09-15",
+                                                                                        "project-owner-acceptance-2026-09-15"
+                                                                                    ]
+                                                                   },
+                   "silk-commission-09-knockthrough-frame-review-portrait":  {
+                                                                                "model":  "OpenAI image generation (exact model name not exposed in retained tool metadata)",
+                                                                                "modelEvidence":  "retained-tool-result",
+                                                                                "generationId":  "e329396e-7c7a-4097-9c64-8dea4191a069",
+                                                                                "generationIdStatus":  "retained",
+                                                                                "parentGenerationId":  null,
+                                                                                "parentGenerationIdStatus":  "tool-returned-null",
+                                                                                "seed":  null,
+                                                                                "seedStatus":  "not-supplied-by-tool",
+                                                                                "generationDate":  "2026-09-15",
+                                                                                "generationDateStatus":  "retained",
+                                                                                "briefStatus":  "verbatim-recovered",
+                                                                                "promptRetention":  "The project-owner-approved portrait brief is retained verbatim in the linked provenance record. The retained tool invocation exposed a shorter prompt and did not expose a reference-image identifier, so the record does not claim that the backend received the approved reference image or the full human brief literally.",
+                                                                                "briefSummary":  "Create a portrait re-composition of the Commission 09 destructive knock-through frame for mobile use: 941 x 1672, exposed steel beam above, Acrow props at both sides, broken floor line below, canonical #E6EAEB plaster, transparent centre and exterior, and continuous foreground coverage around a hidden portrait viewport. The approved human brief named the landscape Commission 09 frame as the sole visual reference.",
+                                                                                "evidence":  [
+                                                                                                 "project-owner-approval-2026-09-15",
+                                                                                                 "project-owner-candidate-selection-2026-09-15",
+                                                                                                 "project-owner-acceptance-2026-09-15",
+                                                                                                 "retained-tool-result:e329396e-7c7a-4097-9c64-8dea4191a069"
+                                                                                             ]
+                                                                            }
+               }
+}

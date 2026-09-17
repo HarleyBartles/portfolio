@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
+import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
 import { IndexTraversal } from './IndexTraversal'
-import { specialistsMedia } from './specialistsResponsive'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Document = styled.div`
@@ -25,19 +25,19 @@ const IndexWalkPlacement = styled.div`
   right: 18%;
   width: 94px;
 
-  @media ${specialistsMedia.atLeastWide} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
     right: auto;
     left: 1047px;
   }
 
-  @media ${specialistsMedia.atMostMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
     top: 25%;
     right: 18%;
     width: 88px;
     transform: translateY(clamp(0px, calc(350px - 38.8889vw), 70px));
   }
 
-  @media ${specialistsMedia.atMostCompact} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
     display: none;
   }
 `
@@ -47,7 +47,7 @@ const IndexReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @media ${specialistsMedia.atLeastExpanded} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.expanded} {
     display: block;
     top: 50%;
     left: clamp(1240px, 78%, 1780px);
@@ -62,7 +62,7 @@ const PatchReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @media ${specialistsMedia.atLeastExpanded} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.expanded} {
     z-index: 9;
     display: block;
     top: 55%;

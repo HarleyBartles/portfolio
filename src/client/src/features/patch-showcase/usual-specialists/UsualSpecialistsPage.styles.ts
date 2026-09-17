@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { SPECIALISTS_WIDTHS } from './specialistsResponsive'
 
 export const SpecialistsStory = styled.article`
   --specialists-paper: #f2ecdf;
@@ -15,15 +14,11 @@ export const SpecialistsStory = styled.article`
 `
 
 export const SpecialistsCanvas = styled.div`
-  width: min(100%, ${SPECIALISTS_WIDTHS.ceiling}px);
+  width: min(100%, 2560px);
   margin-inline: auto;
   position: relative;
 `
 
 export const OpeningComposition = styled.div`
-  position: relative;
-`
-
-export const IndexMilestoneBoundary = styled.div`
   position: relative;
 `

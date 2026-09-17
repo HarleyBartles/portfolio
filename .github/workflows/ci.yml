@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -52,8 +53,10 @@ jobs:
       - name: Install Python dependencies
         run: python3 -m pip install --requirement requirements.txt
 
-      - name: Run canonical quality gate
-        run: python3 tools/run.py ci --check --verbose
+      - name: Validate tracked commit gate
+        env:
+          REPO_STANDARDS_HOSTED_COMMIT: HEAD
+        run: githooks/pre-commit
 
       - name: Rebuild configured Pages artifact
         if: github.ref == 'refs/heads/main'

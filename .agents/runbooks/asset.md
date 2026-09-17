@@ -7,6 +7,11 @@
 
 Use this runbook when adding, changing, or attributing fonts, images, icons, or other static assets for the portfolio.
 
+## Required skills
+
+- `asset-custody` for source, licensing, format, fallback, and optimization custody.
+- `typography-for-the-web` when the asset change includes font selection, loading, or fallback behavior.
+
 ## Read first
 
 - `.agents/skills/asset-custody/SKILL.md` for the repo's asset-custody skill.

@@ -1,15 +1,97 @@
 {
-  "generatedWith": "OpenAI image generation",
-  "generatedOn": "2026-09-13",
+  "schemaVersion": 1,
   "rightsOwner": "Harley Bartles",
-  "intent": "Selectable transparent red rope pieces for chapter-owned route composition.",
-  "generationIds": {
-    "rope-loose-a": "e1b6b077-7135-494c-8e91-a22b2458d5fa",
-    "rope-loose-b": "6453704d-cbb8-4384-83ea-9844d7db94a3",
-    "rope-loose-c": "6fbe0ac8-29b1-4140-bf99-ef73969d5ffb",
-    "rope-terminal-curl": "18fa6a3d-fe64-4012-9e12-f5b810b0f752",
-    "rope-taut-straight": "4833b1bc-6df0-46ba-8041-cbe4cbb5d50b",
-    "rope-taut-bow": "83ae9397-3d88-431e-b6dd-a6326814bb44",
-    "rope-taut-offset": "1ce3c03f-aca8-49c2-9b58-a2b804bede42"
+  "assets": {
+    "rope-loose-a": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "e1b6b077-7135-494c-8e91-a22b2458d5fa",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-loose-b": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "6453704d-cbb8-4384-83ea-9844d7db94a3",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-loose-c": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "6fbe0ac8-29b1-4140-bf99-ef73969d5ffb",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-terminal-curl": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "18fa6a3d-fe64-4012-9e12-f5b810b0f752",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-taut-straight": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "4833b1bc-6df0-46ba-8041-cbe4cbb5d50b",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-taut-bow": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "83ae9397-3d88-431e-b6dd-a6326814bb44",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    },
+    "rope-taut-offset": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": "1ce3c03f-aca8-49c2-9b58-a2b804bede42",
+      "generationIdStatus": "retained",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "missing-from-retained-history",
+      "generationDate": "2026-09-13",
+      "generationDateStatus": "retained",
+      "briefStatus": "recovered-from-linear-record"
+    }
   }
 }

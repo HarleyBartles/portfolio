@@ -125,6 +125,14 @@ const clipBetween = async (page: Page, firstSelector: string, lastSelector: stri
   }
 }
 
+const enclosingClip = (clip: { x: number; y: number; width: number; height: number }) => {
+  const x = Math.floor(clip.x + 1e-3)
+  const y = Math.floor(clip.y + 1e-3)
+  const right = Math.ceil(clip.x + clip.width - 1e-3)
+  const bottom = Math.ceil(clip.y + clip.height - 1e-3)
+  return { x, y, width: right - x, height: bottom - y }
+}
+
 test('writing index keeps its newest-first editorial composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './writing')
@@ -472,8 +480,16 @@ test('Specialists Index draft keeps the approved composition across protected vi
     await openStable(page, './patch/the-usual-specialists/next')
     const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
     await waitForImages(story)
-    const indexMilestone = page.locator('[data-specialists-index-milestone]')
-    await expect(indexMilestone).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`)
+    await expect(page).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`, {
+      fullPage: true,
+      clip: enclosingClip(
+        await clipBetween(
+          page,
+          '[data-visual-contract="patch-usual-specialists-index-draft"] header',
+          '[data-specialist-chapter="index"]',
+        ),
+      ),
+    })
   }
 })
 

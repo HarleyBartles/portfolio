@@ -9,6 +9,10 @@
 
 Use this runbook when turning a portfolio-repo idea into a design spec that a planning agent can execute without inventing missing contract details.
 
+## Required skills
+
+- `brainstorming` owns the design stage and its baseline.
+
 ## Before You Begin
 
 Read the live repository surfaces before writing the spec:
