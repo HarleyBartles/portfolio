@@ -93,4 +93,3 @@ The public WebP derivative is generated/verified by the processor and receipted 
 ## Custody history
 
 OpenAI Image 2.5 generation → scratch comparison set → live Index wireframe acceptance → temporary Linear accepted-provenance record → Portfolio source/provenance custody → intended eventual Adventures of Patch promotion.
-

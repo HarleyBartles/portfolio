@@ -93,4 +93,3 @@ Image owns Silk character pixels, right-facing squat abseil pose, outfit, facepl
 ## Custody history
 
 OpenAI Image 2.5 generation → chat/image-tool output → user-saved scratch master `Z:\_agent-scratch\portfolio\usual-specialists-wireframe\ChatGPT Image Sep 14, 2026, 07_18_46 AM.png` → Portfolio Silk source custody → deterministic WebP derivative → current Commission 06 React selection → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

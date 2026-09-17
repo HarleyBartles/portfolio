@@ -96,4 +96,3 @@ Portfolio-custodied assets have processor-owned WebP derivatives listed in `usua
 ## Custody history
 
 OpenAI Image 2.5 generation → scratch originals and byte-identical stable preview copies → document-world composability acceptance → temporary Linear brief/provenance custody → selected assets promoted individually into Portfolio while models 3/4 remained accepted-not-promoted → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

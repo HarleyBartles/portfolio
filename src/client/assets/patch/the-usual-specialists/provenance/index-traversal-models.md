@@ -95,4 +95,3 @@ Portfolio-custodied assets have processor-owned WebP derivatives whose exact ide
 ## Custody history
 
 OpenAI Image 2.5 generation → scratch traversal set → live wireframe composability review → temporary Linear provenance → selected assets promoted individually into Portfolio while `index-reach-balance` remained accepted-not-promoted → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

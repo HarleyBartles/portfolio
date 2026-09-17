@@ -91,4 +91,3 @@ The image owns the broken plaster/brick, forged fixing and short downward rope t
 ## Custody history
 
 OpenAI Image 2.5 generation → accepted scratch file under `usual-specialists-wireframe/anchors` → byte-identical Portfolio source custody → deterministic cropped WebP page-use derivative → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

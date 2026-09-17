@@ -101,4 +101,3 @@ Each repository master has a processor-owned WebP derivative. Exact derivative b
 ## Custody history
 
 OpenAI Image 2.5 generation → user-reviewed selectable library → Portfolio source manifests/receipt → temporary Linear accepted-provenance record → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

@@ -91,4 +91,3 @@ Image owns Silk, costume, faceplate, antenna, harness/tools, reel pack and intri
 ## Custody history
 
 OpenAI Image 2.5 generation → scratch file → accepted page-iteration selection → Portfolio Silk source custody → superseded-but-accepted historical master → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

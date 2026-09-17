@@ -94,4 +94,3 @@ Paint order inside the lock is anchor → foreground knot crop → foreground ri
 ## Custody history
 
 OpenAI Image 2.5 generated masters → live React proof → deterministic crop/mask descendants → Portfolio source custody → temporary Linear accepted-provenance checkpoint → normalized Portfolio provenance → intended eventual Adventures of Patch promotion.
-

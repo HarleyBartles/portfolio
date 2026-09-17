@@ -92,4 +92,3 @@ The public WebP derivative is processor-owned and receipted in `usual-specialist
 ## Custody history
 
 OpenAI Image 2.5 generation → scratch/wireframe acceptance → temporary Linear provenance → Portfolio source/provenance custody → intended eventual Adventures of Patch promotion.
-
