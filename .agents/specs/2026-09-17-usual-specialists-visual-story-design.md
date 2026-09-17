@@ -54,7 +54,7 @@ The page delegates local chapter design to:
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-Index, Silk and Writ now have settled local chapter designs. Klause, Rollback and
+Index, Silk, Writ and Klause now have settled local chapter designs. Rollback and
 Receipt have approved roles, environments, character beats and important visual
 constraints, but their local compositions remain intentionally incomplete for
 trustworthy implementation planning. Their chapter specifications preserve what is
@@ -122,7 +122,9 @@ sets.
   service voids and hidden building infrastructure.
 - Writ has converted a pair of adjoining rooms into genuine law chambers, with a
   frosted door and receptionist space because his authority warrants the cachet.
-- Klause has converted one medium-sized room into a clean, sparse office.
+- Klause has converted one medium-sized room into a clean, sparse office, but his
+  chapter deliberately reduces the room toward an IKEA-white working field so the
+  room never becomes the subject.
 - Rollback has taken the concrete-walled basement for containment and recovery
   tests.
 - Receipt has occupied an alcove with a view across the safehouse so he can
@@ -211,7 +213,7 @@ The page-order material states are:
 | Index | folded blue blueprint/map sheet + yellow sticky assent note |
 | Silk | prior material + circular route-end pin and short red-cord logic |
 | Writ | prior material + Writ's white original from the completed triplicate assent; yellow remains with Writ and pink goes to Receipt/file |
-| Klause | prior material + produced `K` impression on the folder |
+| Klause | prior material + produced red `K` impression on the folder |
 | Rollback | prior material + Rollback's dog tags at the folder/spine |
 | Receipt | prior material + stapled thermal recruitment summary |
 
@@ -298,9 +300,12 @@ own all internal geometry.
   bounded black/dark comic field.
 - **Silk → Writ:** the black field terminates. Stable boundary and formality
   reassert themselves at Writ's chambers.
-- **Writ → Klause:** authority gives way to quieter decision geometry.
-- **Klause → Rollback:** the committed plan enters the concrete basement and is
-  immediately treated as something that can fail.
+- **Writ → Klause:** authority gives way to an IKEA-white decision field with
+  almost no bodily movement; Klause's chapter progressively deletes alternatives
+  until one decision remains.
+- **Klause → Rollback:** the singular manila-folder / red-`K` decision leaves the
+  quiet field, enters the concrete basement and is immediately treated as
+  something that can fail.
 - **Rollback → Receipt:** noise, branching and containment compress into a quiet
   chronological record.
 - **Receipt → final folder:** the recruitment story compresses into the completed

@@ -93,7 +93,7 @@ just in time.
 | 1 | Index + page foundation | pending | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | Preserve the accepted Index composition. Correct stale semantics, establish only the shared page/folder infrastructure the first two chapters actually need, demote obsolete route-wide rope/navigation assumptions, and leave a clean seam for Silk. JIT plan only after this refactor is reviewed. |
 | 2 | Silk | pending | [Silk chapter spec](../../specs/2026-09-17-usual-specialists-silk-chapter-design.md) | — | — | — | — | First major chapter redesign. Black comic takeover, one canonical breakout, causal route-pressure sequence and corridor assent aftermath. Audit old accepted Silk media against the live wireframe rather than carrying old apertures forward by default. |
 | 3 | Writ | pending | [Writ chapter spec](../../specs/2026-09-17-usual-specialists-writ-chapter-design.md) | — | — | — | 9.4/10 spec | Chapter design approved and spec-readiness green: threshold loop, continuous rounds/caseload, object-transparency polyptych, dominant `Absolutely not. On whose authority?` interruption, Writ-supplied bounded authority, and white/yellow/pink triplicate split. JIT plan waits for the actual Silk milestone output. |
-| 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Reduction/decision principle and assent are settled. Design the actual four/five-state composition before planning; do not revive the nine-panel wireframe by inertia. |
+| 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: one stable master field, minimal Klause motion, five-state reduction sequence, page-deletes-itself subtraction grammar, IKEA-white working field, and manila-folder/red-`K` colour payoff. JIT plan waits for the actual Writ milestone output. |
 | 5 | Rollback | pending | [Rollback chapter spec](../../specs/2026-09-17-usual-specialists-rollback-chapter-design.md) | — | — | — | — | Failure/recovery role, basement, calm-vs-moving-field contrast and dog-tag assent are settled. Design the dominant containment sequence before planning. No CRT `I'M IN`. |
 | 6 | Receipt | pending | [Receipt chapter spec](../../specs/2026-09-17-usual-specialists-receipt-chapter-design.md) | — | — | — | — | Alcove, already-done inversion, thermal assent and tea release are settled. Design the record-always-existed reveal and deceleration before planning. |
 | 7 | Final page close + whole-route proof | pending | [Page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | After all six chapter states exist, let the completed folder become hero once; reconcile stale homepage Specialists semantics; prove complete source order, folder continuity, responsive/accessibility behaviour and approved visual baselines. Canonical route cutover remains out of scope. |
@@ -145,8 +145,8 @@ those limitations.
   plan per active chapter/milestone.
 - No product implementation began under `f7267b6`.
 - Index remains the protected visual control case. Silk is a substantial redesign.
-  Writ has now completed its chapter-design return. Klause, Rollback and Receipt
-  deliberately return to design before their JIT plans.
+  Writ and Klause have now completed their chapter-design returns. Rollback and
+  Receipt deliberately return to design before their JIT plans.
 - Do not write all future implementation plans in advance. The point of this
   roadmap is that each plan is informed by the chapter actually landed before it.
 
