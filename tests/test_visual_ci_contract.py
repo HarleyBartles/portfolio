@@ -121,6 +121,7 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertIn("ready_for_review", sequence_values(pull_request, "types", 4))
         self.assertEqual("ubuntu-latest", direct_scalar(quality, "runs-on", 4))
         self.assertEqual(JOB_PREDICATE, direct_scalar(quality, "if", 4))
+        self.assertIn("fetch-depth: 0", quality)
         self.assertIn("REPO_STANDARDS_HOSTED_COMMIT: HEAD", quality)
         self.assertIn("githooks/pre-commit", step_run_commands(quality))
         self.assertNotIn("python3 tools/run.py ci --check --verbose", quality)
