@@ -7,7 +7,7 @@ branch's draft PR.
 
 Work conversationally with Harley for a **three-hour target and five-hour
 absolute ceiling**. Clear the source-discovery gate in
-[`Phase 7A`](../../../.agents/specs/2026-08-25-portfolio-10k-07a-professional-outcomes-proof-compression-design.md)
+[`Phase 7A`](https://github.com/HarleyBartles/portfolio/blob/d033223787b0c0578088c4a3999ab8366da0a59c/.agents/specs/2026-08-25-portfolio-10k-07a-professional-outcomes-proof-compression-design.md)
 by finding one employer-safe Access Checks outcome account that Harley is
 willing to stand behind publicly.
 
