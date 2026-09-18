@@ -1,12 +1,13 @@
 {
-  "observedAt": "2026-09-14",
-  "marketplaceRevision": "c4fb0619cc7f0237d875285c7c77325ce673357c",
+  "observedAt": "2026-09-18",
+  "marketplaceRevision": "9fee7a7fa01847e8597e7367a13ab43a8c9ec815",
   "inventory": {
-    "pluginCount": 18,
-    "entryCount": 76,
-    "uniqueSkillCount": 73
+    "pluginCount": 19,
+    "entryCount": 82,
+    "uniqueSkillCount": 79
   },
   "plugins": [
+    "agent-operating-model",
     "agentic-evaluation",
     "agentic-workflows",
     "api-contracts-pack",

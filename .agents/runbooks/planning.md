@@ -1,52 +1,51 @@
 # Planning Runbook
 
+Use this runbook to turn an approved Portfolio design or bounded goal into an executable implementation plan.
+
+## When
+
+- Writing a single implementation plan from an approved design or sufficiently specified task.
+- Writing a roadmap when the goal requires several consecutive implementation plans.
+
 ## Required skills
 
-- `/using-superpowers-plus` for routing.
-- `/writing-plans` for a single executable plan or `/writing-roadmaps` for an epic.
-- `/handoff-gates` before planning-to-execution handoff.
+- `using-superpowers-plus` for routing.
+- `writing-plans` for a single executable plan.
+- `writing-roadmaps` for an epic-sized sequence of plans.
+- `handoff-gates` before planning-to-execution handoff.
 
-Use this runbook when turning an approved design spec into an implementation plan for the portfolio repository.
+## Composition
 
-## Required skills
+1. Read the approved design/specification and current repository doctrine that constrains the work.
+2. Break the work into narrow ordered tasks with exact file targets and proof commands.
+3. Preserve explicit non-goals and dependencies from the design.
+4. Pass the plan through the handoff gate before implementation.
 
-- `writing-plans` owns the planning stage and its baseline.
+## Doctrine and contracts
 
-## Read First
+- [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for plan custody.
+- [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for repository navigation surfaces.
+- [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for expected proof.
+- [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) when the plan touches code architecture.
 
-- `AGENTS.md` for the repo-wide routing points.
-- `.agents/doctrine/mesh-policy.md` for how the navigation and guidance surfaces fit together.
-- `.agents/doctrine/artifact-policy.md` for where plans and specs belong.
-- `.agents/doctrine/validation-policy.md` for the validation baseline.
-- The approved design spec you are planning from.
+## Local commands and paths
 
-## What a Good Plan Must Contain
+- In-flight plans live in `.agents/plans/` or the appropriate epic subfolder.
+- Completed planning artifacts follow `.agents/doctrine/completed-artifacts.md`.
+- Plans name focused validation commands and generated-surface apply/check commands explicitly where needed.
 
-- The exact file targets for each task.
-- A narrow task breakdown that a reviewer can reason about.
-- The exact commands or checks that prove each task.
-- The order of operations when one task depends on another.
-- Any explicit non-goals or deferred work from the design spec.
-- The confidence rating for the implementer who will execute the plan next.
+## Evidence contract
 
-## Planning Rules
+- Each task names exact file targets, execution order, and proof.
+- The implementer does not need to invent missing commands, architecture, custody, or artifact locations.
+- Deferred work and non-goals remain explicit.
 
-- Keep the plan narrow enough for one implementation pass.
-- Do not add unrelated refactors.
-- Do not invent new scope because the repo is still small.
-- If the spec is below the handoff quality gate, fix the spec before planning.
-- If a plan step would force the implementer to guess at a command, file target, or artifact location, tighten it.
-- Before handing the plan off, rate whether the implementer can execute it without improvising missing contracts.
-- Target rating: `9/10`.
-- Minimum passing rating: `8/10`.
-- If the rating is below `8/10`, keep working.
-- If the rating is below `9/10` and the gap is cheap to close, close it before handoff.
-- If the remaining gap is user-owned or out of scope, call it out explicitly in the handoff.
+## Prohibited combinations
 
-## Output Shape
+- Do not add unrelated refactors or new product scope during planning.
+- Do not plan around a design/specification that is below its handoff gate.
+- Do not use a plan to override current doctrine.
 
-- In-flight plans live in `.agents/plans/` or an epic subfolder such as `.agents/plans/<epic-name>/` while they are being written and executed. They are tracked source files, not off-repo scratch. See `.agents/doctrine/artifact-policy.md` for the canonical plan homes.
-- Completed plans leave the tracked tree under `.agents/doctrine/completed-artifacts.md`. Promote durable decisions before removal; Git history remains the immutable record, and optional scratch copies are non-evidentiary.
-- In-flight plans are work instructions, not design essays.
-- Plans should assume the implementer will verify the live repo before mutating it.
-- Plans should also make it obvious what the implementer should rate their own confidence against before starting.
+## Playbook routing
+
+None.

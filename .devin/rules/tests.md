@@ -10,6 +10,6 @@ globs:
 
 When working in this scope:
 
-- MUST READ `.agents/runbooks/testing.md`
+- MUST READ `.agents/playbooks/testing.md`
 
 This file is a conditional rule trigger. It does not contain the doctrine; it only tells the runtime when to load the relevant surfaces.

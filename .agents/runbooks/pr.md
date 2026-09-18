@@ -1,73 +1,65 @@
-# Pull request runbook
+# Pull Request Runbook
+
+Use this runbook for Portfolio pull-request workflow and publication proof.
+
+## When
+
+- Preparing a task branch for GitHub review.
+- Opening, updating, or publishing a pull request.
+- Establishing remote publication proof for repository work.
 
 ## Required skills
 
-- `/using-superpowers-plus` for routing.
-- `/repo-worker-base` for worktree, branch, and publication boundaries.
-- `/using-github-mcp` for pull-request evidence and remote proof.
-- `/publishing-source` for the publication decision and handoff.
-
-Use this runbook for pull-request workflow and publication proof in this repo.
-
-## Required skills
-
+- `using-superpowers-plus` for routing.
 - `repo-worker-base` for worktree, branch, validation, and publication boundaries.
 - `publishing-source` for the commit/push/publication decision.
 - `using-github-mcp` for hosted PR and remote-check evidence.
 - `verification-before-completion` before a green or ready claim.
 
-## Before you begin
+## Composition
 
-- Read root [`AGENTS.md`](../../AGENTS.md).
-- Read [`.devin/rules/tools.md`](../../.devin/rules/tools.md) for validation commands.
-- For visitor-facing changes, read [the portfolio design policy](../doctrine/portfolio-design-policy.md).
-- Invoke `/repo-worker-base`.
+1. Verify the task branch and worktree state against current repository policy.
+2. Commit normally; let the tracked pre-commit hook prove the exact staged tree once.
+3. Push the focused branch and open or update a draft PR into `main` unless current human authority says otherwise.
+4. Move out of draft only after self-review and required local proof are complete.
+5. Verify hosted checks and remote head state before publication claims.
 
-## When to use
+## Doctrine and contracts
 
-- Preparing a branch for review.
-- Creating or updating a PR.
-- Providing publication proof for repo work.
+- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for branch, draft, readiness, CI, and publication rules.
+- [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for local proof.
+- Root `AGENTS.md` for repository-wide publication authority.
+
+## Local commands and paths
+
+- PR template: `.github/pull_request_template.md`.
+- Canonical complete local gate: `py -3 tools/run.py ci --check`, normally run by the tracked pre-commit hook.
+- Hosted quality gate: `Portfolio / Portfolio quality gate`.
+- Public deployment proof: `Portfolio / Verify public routes`.
 
 ## PR instructions
 
-- Work in an isolated worktree on a task branch.
-- Commit normally and use the successful tracked pre-commit hook as the complete local proof for the exact committed tree. Before pushing, verify the branch is clean and still points at that commit; do not rerun the same complete gate.
-- Push the branch and open a **draft** PR into `main` unless direct-main work is explicitly authorized.
-- Keep the PR in draft while iterating and running local validation.
-- Flip to ready for review only after self-review is complete and the latest normal commit passed the tracked hook's complete `ci --check` gate. Run the command manually only when no normal commit follows or when diagnosing the pipeline.
-- The PR body must include publication proof.
-- Use `.github/pull_request_template.md`; do not delete its design, accessibility, performance, factual, custody, or visual-evidence prompts when they apply.
-
-## Remote CI gate
-
-- The `Portfolio / Portfolio quality gate` check must pass after a PR is flipped out of draft. It runs the same canonical `ci --check` command used locally.
-- A merge to `main` reuses the quality-gated `dist` output as the Pages artifact; deployment must never rebuild with a weaker command list.
-- `Portfolio / Verify public routes` is post-deploy evidence. It verifies real HTTP status, content type, titles, canonicals, generic GitHub-error absence, and the custom 404 against the published URL.
-- Use `gh pr checks` and the Actions run URLs as hosted proof. Local green proves only the checkout being tested.
-
-
-- Open pull requests as **draft**.
-- Keep a PR in draft while iterating, running local validation, and performing self-review.
-- Only flip a PR out of draft when:
-  - self-review is complete,
-  - the relevant validation commands pass,
-  - the branch is ready for review or merge.
-- This repo's CI must not run on draft pull requests. For GitHub Actions, gate `pull_request` workflows so they run only when `github.event.pull_request.draft == false` or on `ready_for_review` activity.
-- After flipping a PR to ready, monitor CI and address failures before requesting human review.
-- The PR body must include publication proof per root `AGENTS.md`.
+- Open pull requests as drafts by default and keep them draft while iterating.
+- Do not move a PR out of draft until self-review and required local validation are complete.
+- Preserve applicable prompts in `.github/pull_request_template.md` rather than deleting evidence fields.
 
 ## Publication proof
 
-- Local file changes are not repo completion.
-- A valid repo-work return must include one of:
-  1. an open PR URL with branch name and full head SHA;
-  2. a verified direct-main commit SHA when direct-main work was explicitly authorized;
-  3. a concrete publication blocker explaining why the local changes could not be pushed or turned into a PR.
-- Do not claim GREEN, completion, or issue closure from local paths, local commit hashes, local validation output, or an unpublished branch alone.
+- Publication requires GitHub-visible evidence: a verified PR URL and head SHA, or an explicitly authorized direct-main commit.
+- Local files, local commits, and local validation alone are not publication proof.
 
-## Routing to skills
+## Evidence contract
 
-- `/repo-worker-base` for worktree, branch, and publication boundaries.
-- `/using-github-mcp` for PR evidence and GitHub proof.
-- `/verification-before-completion` before claiming the PR is green.
+- A repo-work completion return includes a verified PR URL and head SHA, an explicitly authorized direct-main commit, or a concrete publication blocker.
+- Hosted check state is verified from GitHub rather than inferred from local success.
+- The working tree and published branch state agree with the completion claim.
+
+## Prohibited combinations
+
+- Do not merge unless explicitly authorized by the human owner.
+- Do not bypass the tracked hook or weaken draft-aware CI.
+- Do not treat local files, a local commit hash, or a worker report as publication proof.
+
+## Playbook routing
+
+None.

@@ -1,103 +1,51 @@
 # Design Runbook
 
-## Required skills
+Use this runbook to turn a Portfolio idea into a design specification that planning can execute without inventing missing contracts.
 
-- `/using-superpowers-plus` for routing.
-- `/brainstorming` for design specification work.
-- `/applying-portfolio-visual-language` for visitor-facing presentation.
-- `/handoff-gates` before design-to-planning handoff.
+## When
 
-Use this runbook when turning a portfolio-repo idea into a design spec that a planning agent can execute without inventing missing contract details.
+- Shaping a new visitor-facing or repository-facing design before implementation planning.
+- Revising an existing design contract where human taste, hierarchy, interaction, or architecture must be resolved first.
 
 ## Required skills
 
-- `brainstorming` owns the design stage and its baseline.
+- `using-superpowers-plus` for routing.
+- `brainstorming` for the design stage and its baseline.
+- `applying-portfolio-visual-language` for visitor-facing presentation.
+- `handoff-gates` before design-to-planning handoff.
 
-## Before You Begin
+## Composition
 
-Read the live repository surfaces before writing the spec:
+1. Inspect the live repository, relevant design doctrine, and existing decision records.
+2. Resolve source-of-truth boundaries, exact defaults, seams, non-goals, and validation expectations in the spec.
+3. Keep the spec narrow enough that planning can proceed without inventing missing architecture or product decisions.
+4. Pass the design through the handoff gate before planning.
 
-- `README.md` for the project purpose and roadmap.
-- `AGENTS.md` for repository-wide guidance.
-- `INDEX.md` for the repository navigation mesh.
-- `.agents/INDEX.md` for the hidden agent surfaces.
-- `.agents/docs/INDEX.md` for the documentation and guide surface.
-- `.agents/runbooks/INDEX.md` for the runbook surface itself.
-- `.agents/doctrine/INDEX.md` for the doctrine surface.
-- `.agents/plans/INDEX.md` for completed plan surfaces.
-- `.agents/doctrine/portfolio-design-policy.md` for the active audience, invariants, protected defaults, and change protocol.
-- `docs/design-decisions.md` for existing rationale and reconsideration triggers.
+## Doctrine and contracts
 
-If the task depends on a reference implementation pattern, inspect the live reference repo and its actual files before writing the design. Do not rely on memory alone for file names, command names, or source/derived boundaries.
+- [`../doctrine/portfolio-design-policy.md`](../doctrine/portfolio-design-policy.md) for active visitor-facing design policy.
+- [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for spec custody.
+- [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) when the design fixes component or code architecture boundaries.
+- `docs/design-decisions.md` for current rationale and reconsideration triggers.
 
-## What a Good Design Spec Must Lock Down
+## Local commands and paths
 
-The spec must give the planner enough seam detail to plan against without improvising blocker fixes mid-flight.
+- Specs live under `.agents/specs/` while active.
+- Inspect `README.md`, `AGENTS.md`, `.agents/INDEX.md`, and the relevant doctrine/index surfaces when repo structure is part of the design.
+- Verify exact file names, commands, source/derived boundaries, and current implementation facts from the live repo rather than memory.
 
-At minimum, the spec should include:
+## Evidence contract
 
-- the exact goal and scope of the setup slice;
-- the exact non-goals;
-- the exact files or file families to create or modify;
-- the source-of-truth boundary for each surface;
-- the exact default values or selections, including counts when relevant;
-- the operational contract for scripts or tools, including check mode and success/failure behavior;
-- the validation bundle the planner should assume;
-- any intentional exclusions or deferred work;
-- any repository-specific navigation or artifact rules that affect where files live.
+- The design states goal, scope, non-goals, file families, source-of-truth boundaries, operational contracts, validation bundle, and deferred work where relevant.
+- Protected defaults are either preserved or intentionally changed with rationale recorded through the active design policy.
+- The planning agent can proceed without guessing at ownership, seams, or commands.
 
-## Portfolio-Specific Learnings From the First Design Spec Task
+## Prohibited combinations
 
-The first portfolio setup spec showed the following must be explicit if you want a planner to stay out of trouble:
+- Do not turn the design stage into implementation.
+- Do not broaden scope because adjacent architecture could also be improved.
+- Do not encode exact prose or transient visual values as tests when the real contract is behavioral, accessible, custodial, or perceptual.
 
-- The repo-local plugin manifest must be described as source, not a loose inventory.
-- The marketplace submodule must be named exactly, with its git remote and path anchored explicitly.
-- The skill tree must be described as derived output, not hand-authored source.
-- The manifest default-install set must be enumerated exactly.
-- Wild Bunch-specific plugins do not belong in this repo.
-- The installer script contract must state the commands, exit behavior, and collision policy.
-- Hidden surface indexes must be called out explicitly when they are required, rather than left as a maybe.
-- The validation bundle should be concrete enough that the planner can hand it to an implementer without inventing a local preflight.
-- The setup slice should not drift into application scaffolding.
-- The spec should name any repo-local artifact rules that matter, including where design specs live versus where plans live.
+## Playbook routing
 
-## Design Discipline
-
-- Keep the spec narrow enough for a single planning pass.
-- Prefer exact file names and exact command names over general descriptions.
-- Separate source, derived, and navigation surfaces clearly.
-- If a future implementer would have to ask, "Where does this file belong?" or "Which command do I run?", the spec is too vague.
-- If a detail is cheap to verify from the live repo, verify it now rather than leaving it for the planner.
-- Treat protected defaults as intentional starting points, not an aesthetic freeze. A material departure must explain the stronger outcome and add a dated entry to `docs/design-decisions.md`.
-- Do not turn exact prose, classes, or current colour values into tests. Specify the observable accessibility, privacy, route, performance, custody, or visual-review outcome that matters.
-
-## Handoff Quality Gate
-
-Before handing the spec to a planning agent, rate the spec honestly.
-
-- Target rating: `9/10`.
-- Minimum passing rating: `8/10`.
-- Do not report the spec as ready if the rating is below `8/10`.
-- Do not report the spec as ready if the rating is below `9/10` and the remaining gap is something you can close easily with verification or a small clarification.
-- If the remaining gap is within your power to close, close it before handoff.
-- If the remaining gap cannot be closed cleanly without a user decision or a broader scope change, you may hand off at `8/10` or higher, but you must call out the open question explicitly.
-
-The practical rule is simple: if you can easily get the spec from "good enough" to "clean handoff," do that work before you hand it off. Do not pass a knowingly rough spec to planning just to save a few minutes.
-
-## What To Hand Off
-
-When the spec is ready, give the planner:
-
-- the exact file or file-family targets;
-- the source/derived boundary for each target;
-- the exact command or script contract;
-- the exact validation bundle;
-- the explicit non-goals;
-- any open questions that remain user-owned.
-
-## What This Runbook Is Not
-
-- This runbook is not an implementation plan.
-- This runbook is not a substitute for live repo inspection.
-- This runbook is not permission to broaden scope.
-- This runbook is not a green-light to hand off a spec below the quality floor.
+None.

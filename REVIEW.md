@@ -8,7 +8,7 @@ For the repository layout and runbook standard, see `.agents/doctrine/repo-runbo
 - For visitor-facing changes, read [`.agents/doctrine/portfolio-design-policy.md`](./.agents/doctrine/portfolio-design-policy.md) and any relevant entry in [`docs/design-decisions.md`](./docs/design-decisions.md).
 - Read [`.agents/runbooks/code-review.md`](./.agents/runbooks/code-review.md) for the review lenses and methodology.
 - Read [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the PR workflow and publication proof requirements.
-- Read [`.agents/runbooks/security.md`](./.agents/runbooks/security.md) for security review guidance.
+- Apply [`.agents/playbooks/security.md`](./.agents/playbooks/security.md) when the diff has a security, privacy, credential, trust, or external-mutation concern.
 
 ## Required skill invocations
 
