@@ -8,7 +8,7 @@ describe('IndexStoryCard', () => {
 
     const card = container.querySelector('[data-index-story-card]')
     expect(card).toHaveStyle({ opacity: '0.5' })
-    expect(card).toHaveTextContent('Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until one route holds together.')
+    expect(card).toHaveTextContent('Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until several plausible routes and their constraints emerge clearly enough to test.')
   })
 
   test('does not expose caller className as a styling seam', () => {
