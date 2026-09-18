@@ -153,6 +153,22 @@ Do not use one long red rope as the page's generic continuity spine. Red cord is
 too strongly owned by Silk's material language. The folder, architecture,
 thresholds and Patch's movement carry the cross-page continuity instead.
 
+This does **not** prohibit the approved bounded Silk rope run from crossing chapter
+boundaries. That run begins above Index, passes through Index under tension as
+subordinate background matter behind her papers, crosses the Index-to-Silk seam,
+becomes active and functional inside Silk, and terminates in Silk before Writ. It is
+not a route-wide spine because it has a specific Silk story job, a bounded start and
+end, and does not continue through the later chapters.
+
+The modular rendering contract for that run is explicit: each layout owner renders
+only the rope segment inside its own box. Opening/Index may own the upstream local
+segments, the named seam owns only its crossing segment, and Silk owns the active
+local segment and termination. Adjacent segments meet through agreed responsive
+ports. No chapter may measure a sibling's rendered height or reach into sibling
+internal geometry merely to maintain rope continuity. Silk's narrative ownership
+of the motif therefore does not imply one Silk-owned DOM element spanning multiple
+chapter sections.
+
 ## Folder continuity authority and pre-vis reference
 
 The recruitment folder is Patch's live pitch object. It is carried, handled,
@@ -393,20 +409,40 @@ the recruitment was executed properly.
 
 Chapter-local responsive ownership is deliberate and remains protected.
 
-The established inclusive bands are:
+The page-level authored responsive boundaries are mobile-first:
 
-- `320–389`
-- `390–719`
-- `720–899`
-- `900–1399`
-- `1400–1599`
-- `1600–1919`
-- `1920–2560`
-- widths above `2560` freeze the `2560` composition.
+- default narrow composition below `390px`;
+- `min-width: 390px` — compact composition;
+- `min-width: 768px` — medium composition;
+- `min-width: 1400px` — wide composition;
+- `min-width: 1920px` — ultrawide / one-screen cadence composition; and
+- widths above `2560px` freeze the authored `2560px` geometry rather than widening
+  indefinitely.
 
-The bands are a shared naming convention, not permission for the page component to
-own every chapter's responsive geometry. Each chapter decides how its own story
-translates inside those bands.
+These boundaries are shared editorial anchors, not permission for the page component
+to own every chapter's responsive geometry. Each chapter decides how its own story
+translates at those anchors. A chapter may add a local adjustment threshold only when
+it has an explicit story, hierarchy, legibility or composition-mode reason. Historical
+pixel nudges and collision repair are not sufficient reasons to create a new page-level
+band.
+
+The `768px` and `1400px` anchors also coincide with mature Bootstrap `md` and `xxl`
+breakpoints, but that familiarity is supporting evidence rather than design authority.
+The authored content remains the reason the composition changes there.
+
+At `1920` CSS pixels and above, the page additionally adopts a wide-screen cadence
+contract: each specialist chapter's complete authored chapter box, including its own
+top and bottom padding, should fit within `1080` CSS pixels of vertical space.
+Named inter-chapter transition bands sit outside that chapter-height envelope. This
+is an outcome constraint, not a `height: 1080px` implementation instruction: wide
+chapters should use the available horizontal field to recompose laterally and may be
+shorter than 1080px. They must not clip, shrink readable copy below the established
+reading standard or create artificial dead space merely to hit an exact height.
+
+The contract applies only while the responsive layout is genuinely in the `1920+`
+band. Actual browser zoom changes the CSS viewport and therefore naturally returns
+the chapter to the appropriate narrower-band composition; the page must not attempt
+to keep a zoomed 1920px physical screen in the wide-screen layout.
 
 Every translation must preserve:
 
@@ -426,6 +462,11 @@ Material review includes 1440, 768, 390 and 320 CSS pixels, actual 200% browser
 zoom, keyboard-only use, `prefers-reduced-motion: reduce` and thumbnail/reduced-
 detail first-read review.
 
+For chapters implementing the `1920+` wide-screen cadence, material review also
+includes `1920×1080` and `2560×1080`, with objective proof that the authored chapter
+box is no taller than 1080 CSS pixels at both widths. Widths above 2560 continue to
+freeze the 2560 composition and therefore inherit the same height ceiling.
+
 No story-critical content may require hover, scroll-jacking or animation.
 
 ## React ownership boundary
@@ -441,6 +482,8 @@ in the preview route:
   flow, not specialist internals;
 - transitions may own only the small band/edge between chapters;
 - `RecruitmentFolder` is the deliberate shared continuity primitive;
+- cross-boundary motifs such as Silk's rope may be visually continuous while being
+  rendered as locally owned segments joined at explicit responsive ports; and
 - no universal config-driven `SpecialistChapter` abstraction may erase the
   intentionally different chapter grammars.
 
@@ -499,7 +542,8 @@ The system preserves:
 
 - the accepted Index composition as the visual control case;
 - the temporary legacy-canonical/V2-preview route seam;
-- the inclusive breakpoint convention from 14 September; and
+- the mobile-first, content-authored responsive boundary convention established on
+  18 September; and
 - the 10 September principle that V2 grows through approved chapter work rather
   than pretending unfinished specialists already exist.
 
@@ -516,6 +560,8 @@ plan.
 - Do not flatten the specialists into one shared visual grammar.
 - Do not preserve old Silk composition because of sunk cost.
 - Do not use one route-wide red rope as a mandatory series grammar.
+- Do not remove the bounded Index-to-Silk rope intrusion merely because the rope's
+  material language belongs to Silk.
 - Do not make Writ a parody law office.
 - Do not let Writ own Klause's decision function.
 - Do not let Klause own Writ's authority function.

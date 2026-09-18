@@ -149,6 +149,23 @@ Writ. It is not permission to create a dark route shell or themed navigation.
 The rope/red cord must do physical work: anchoring, tension, route, movement or
 marker continuity. It must not become a page-wide decorative line.
 
+The approved rope run is deliberately wider than Silk's section even though its
+material language belongs to Silk. It begins above Index, travels under tension
+through Index as subordinate background matter behind the document field, crosses
+the Index-to-Silk seam, becomes active/foreground functional material in Silk, and
+terminates inside Silk. It does **not** continue into Writ.
+
+That spatial intrusion is part of Silk's boundary-breaking character. Do not
+"clean it up" by clipping all rope material to Silk merely because Silk owns the
+motif.
+
+Implementation remains modular. Narrative ownership by Silk does not require one
+Silk-owned DOM element to span backwards over Index. Each layout owner renders the
+segment inside its own box: Index owns the passive local segment, the named seam
+owns the crossing segment, and Silk owns the active local segment. The segments meet
+through agreed responsive ports. No Silk component may measure Index's height or
+depend on Index's internal layout to determine how much rope to render.
+
 ## Copy
 
 Silk earns comic captions and sound/annotation language when they live naturally
@@ -185,6 +202,7 @@ without parallax or animation.
 - Do not use transparent Silk as default styling.
 - Do not make Silk prove "Index's route" right or wrong.
 - Do not let Silk resolve the overall caper plan.
+- Do not collapse the cross-boundary rope run into a Silk-only in-section decoration.
 - Do not preserve old composition because the assets were expensive.
 - Do not let final generated art dictate route-level geometry.
 

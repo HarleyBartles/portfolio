@@ -2,7 +2,7 @@
 
 **Created:** 17 September 2026
 
-**Status:** Design/planning refactor in review; no product implementation has begun from this roadmap
+**Status:** Index design revision approved; Index is the next JIT planning target before Silk
 
 **Preview route:** `/patch/the-usual-specialists/next/`
 
@@ -79,6 +79,11 @@ design conflict:
   derivatives are never hand-edited.
 - Each material visual milestone reviews 1440, 768, 390, 320, actual 200% browser
   zoom, keyboard-only use and reduced motion.
+- At 1920 CSS pixels and above, each specialist chapter uses the page-level
+  wide-screen cadence: its complete chapter box, including local top/bottom padding,
+  fits within 1080 CSS pixels. Named inter-chapter seams sit outside that envelope;
+  the rule is achieved through chapter-local recomposition rather than a fixed-height
+  route shell. Review 1920×1080 and 2560×1080 explicitly.
 - The unlinked V2 preview remains `noindex, nofollow` and non-canonical throughout
   this roadmap. Canonical cutover is a separate decision.
 
@@ -90,7 +95,7 @@ just in time.
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Index + page foundation | pending | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | Preserve the accepted Index composition. Correct stale semantics, establish only the shared page/folder infrastructure the first two chapters actually need, demote obsolete route-wide rope/navigation assumptions, and leave a clean seam for Silk. JIT plan only after this refactor is reviewed. |
+| 1 | Index editorial close | ready | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | `2026-09-18-index-editorial-close.md` | — | — | 9/10 | **Ready for execution.** Preserve the accepted Index document-world control case and the intentional passive Silk-rope intrusion. The stale singular-route copy is already corrected. Recompose the closing cluster so the story card frames it earlier, `“Ah. This one.”` bridges deep research to the found-file beat, the floating sticky-note render retires, and a new tight Patch-hands outcome panel shows the yellow assent note dominant on the carried folder with folded blue material tucked inside. No synthetic Index folder component and no folder hero shot. Establish the page-wide `1920+` chapter-height cadence here: Index must fit within 1080 CSS px at 1920×1080 and 2560×1080. |
 | 2 | Silk | pending | [Silk chapter spec](../../specs/2026-09-17-usual-specialists-silk-chapter-design.md) | — | — | — | — | First major chapter redesign. Black comic takeover, one canonical breakout, causal route-pressure sequence and corridor assent aftermath. Audit old accepted Silk media against the live wireframe rather than carrying old apertures forward by default. |
 | 3 | Writ | pending | [Writ chapter spec](../../specs/2026-09-17-usual-specialists-writ-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: threshold loop, continuous rounds/caseload, object-transparency polyptych, dominant `Absolutely not. On whose authority?` interruption, Writ-supplied bounded authority, and white/yellow/pink triplicate split. JIT plan waits for the actual Silk milestone output. |
 | 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: one stable master field, minimal Klause motion, five-state reduction sequence, page-deletes-itself subtraction grammar, IKEA-white working field, and manila-folder/red-`K` colour payoff. JIT plan waits for the actual Writ milestone output. |
@@ -102,8 +107,9 @@ just in time.
 
 - Milestones are sequential because the folder state, page source order, transition
   seams and accepted route composition accumulate.
-- Index establishes the smallest useful shared continuity implementation; Silk
-  consumes it rather than waiting for all future folder assets to exist.
+- Index lands the approved editorial close and a materially readable outgoing state;
+  Silk consumes that actual accepted result rather than planning against a
+  hypothetical Index handoff.
 - Silk establishes the first new chapter-owned wireframe/generation pattern.
 - Writ must be designed in the actual page state left by Silk, especially the
   termination of the black comic field.
@@ -145,11 +151,20 @@ those limitations.
   spec plus chapter specs, then sequencing the work through a roadmap with one JIT
   plan per active chapter/milestone.
 - No product implementation began under `f7267b6`.
-- Index remains the protected visual control case. Silk is a substantial redesign.
-  Writ, Klause, Rollback and Receipt have now completed their chapter-design
-  returns. All six local chapter designs are settled; implementation planning still
-  advances just in time from actual predecessor output rather than from hypothetical
-  future page state.
+- Index remains the protected visual control case, but Harley approved a focused
+  editorial recomposition of its closing research cluster on 18 September 2026.
+  Earlier assumptions that Index needed a synthetic folder primitive or rope cleanup
+  were explicitly rejected after inspecting the live implementation. The real Index
+  opportunity is story clarity: earlier story-card placement, `“Ah. This one.”` as
+  the semantic bridge between research and retrieval, and a new sticky-note-first
+  carried-folder outcome panel. Index is therefore the next JIT planning target.
+- Silk remains the first substantial chapter redesign, but its planning/execution now
+  waits for the revised Index milestone to land so it can consume the actual closing
+  composition and outgoing state.
+- Writ, Klause, Rollback and Receipt have completed their chapter-design returns. All
+  six local chapter designs are settled; implementation planning still advances just
+  in time from actual predecessor output rather than from hypothetical future page
+  state.
 - Do not write all future implementation plans in advance. The point of this
   roadmap is that each plan is informed by the chapter actually landed before it.
 

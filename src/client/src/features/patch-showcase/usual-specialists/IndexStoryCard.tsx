@@ -20,7 +20,7 @@ type IndexStoryCardProps = {
 export const IndexStoryCard = ({ style }: IndexStoryCardProps) => {
   return (
     <StoryCard data-index-story-card style={style}>
-      <p>Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until one route holds together.</p>
+      <p>Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until several plausible routes and their constraints emerge clearly enough to test.</p>
     </StoryCard>
   )
 }
