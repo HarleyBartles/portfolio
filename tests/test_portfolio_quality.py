@@ -908,7 +908,7 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(started_without_display, today=date(2026, 8, 24))
         self.assertTrue(any("started delivery requires display text" in finding for finding in findings))
 
-    def test_marketplace_evidence_rejects_drift_and_private_coordinates(self) -> None:
+    def test_marketplace_evidence_rejects_invalid_snapshot_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
             fixture.items[0]["presentation"] = "marketplace-case-study"
@@ -918,28 +918,28 @@ class PortfolioQualityTests(unittest.TestCase):
             evidence_path = fixture.root / "src/client/src/data/case-studies/marketplace-evidence.json"
             evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
             evidence["observedAt"] = "21 August 2026"
-            evidence["inventory"]["entryCount"] = 73
+            evidence["inventory"]["entryCount"] = -1
             evidence["plugins"].append("missing-plugin")
             evidence["consumers"].append(dict(evidence["consumers"][0]))
             evidence["consumers"][0]["url"] = "http://Z:/private/branch/codex"
             evidence["consumers"][0]["commit"] = "short"
-            evidence["consumers"][0]["plugins"].append("missing-plugin")
+            evidence["consumers"][0]["plugins"].append("consumer-only-plugin")
             evidence["consumers"][0]["plugins"].append("repo-worker-pack")
             evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
         findings = self.validate(mutate)
 
         self.assertTrue(any("invalid observedAt" in finding for finding in findings))
-        self.assertTrue(any("entry count" in finding for finding in findings))
-        self.assertTrue(any("plugin names do not match" in finding for finding in findings))
+        self.assertTrue(any("inventory entryCount must be a non-negative integer" in finding for finding in findings))
+        self.assertTrue(any("inventory pluginCount must match the snapshot plugin list" in finding for finding in findings))
         self.assertTrue(any("duplicate consumer name" in finding for finding in findings))
         self.assertTrue(any("HTTPS" in finding for finding in findings))
         self.assertTrue(any("40-character commit" in finding for finding in findings))
         self.assertTrue(any("private local coordinate" in finding for finding in findings))
-        self.assertTrue(any("unknown Marketplace plugin" in finding for finding in findings))
+        self.assertTrue(any("absent from this evidence snapshot" in finding for finding in findings))
         self.assertTrue(any("must not contain duplicates" in finding for finding in findings))
 
-    def test_marketplace_revision_drift_is_a_warning(self) -> None:
+    def test_marketplace_evidence_may_lag_current_marketplace_without_warning(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             fixture = PortfolioFixture(Path(temporary))
             fixture.write()
@@ -948,12 +948,18 @@ class PortfolioQualityTests(unittest.TestCase):
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_marketplace_evidence("b" * 40)
+            evidence_path = fixture.root / "src/client/src/data/case-studies/marketplace-evidence.json"
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["inventory"] = {"pluginCount": 18, "entryCount": 75, "uniqueSkillCount": 71}
+            evidence["plugins"].append("historical-plugin")
+            evidence["consumers"][0]["plugins"].append("historical-plugin")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
             warnings = []
             findings = validate_portfolio(fixture.root, warnings=warnings)
 
         self.assertEqual(findings, [])
-        self.assertTrue(any("dated public evidence may lag" in str(warning) for warning in warnings))
+        self.assertEqual(warnings, [])
 
     def test_marketplace_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:

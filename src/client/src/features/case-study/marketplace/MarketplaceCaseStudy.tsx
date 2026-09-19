@@ -6,7 +6,7 @@ import { CaseStudyCallout } from '../CaseStudyCallout'
 import { CaseStudyDecision } from '../CaseStudyDecision'
 import { CaseStudyEvidence } from '../CaseStudyEvidence'
 import { CaseStudySection } from '../CaseStudySection'
-import { MarketplaceDistributionMap } from './MarketplaceDistributionMap'
+import { MarketplaceDistributionMap, marketplaceAuditDate } from './MarketplaceDistributionMap'
 
 const repositoryUrl = 'https://github.com/HarleyBartles/agent-asset-marketplace'
 const repoStandardsUrl = `${repositoryUrl}/blob/52866dfb13b257c8d7d98fbb6155f96a7a8ca07e/codex-marketplace/plugins/repo-worker-pack/skills/repo-standards/SKILL.md`
@@ -127,7 +127,7 @@ export function MarketplaceCaseStudy(): ReactElement {
         <CaseStudySection title="Used, pinned, and still evolving" headingId="marketplace-evidence-title" layout="lead">
           <Eyebrow>A dated, inspectable snapshot</Eyebrow>
           <div>
-            <CaseStudyEvidence auditDate="21 August 2026" href={repositoryUrl} label="Marketplace repository" />
+            <CaseStudyEvidence auditDate={marketplaceAuditDate} href={repositoryUrl} label="Marketplace repository" />
             <p>The public audit records selected consumers and their pins without fetching those repositories at runtime. Different revisions are deliberate, inspectable state, not evidence of live telemetry or automatic synchronisation.</p>
             <p>The Marketplace is active and permanently iterative. Its present shape is evidence of a maintained system, not a claim that distribution is finished or universally adopted.</p>
           </div>
