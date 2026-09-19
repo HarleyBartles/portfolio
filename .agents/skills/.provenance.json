@@ -1,5 +1,5 @@
 {
-  "manifestSha": "9fee7a7fa01847e8597e7367a13ab43a8c9ec815",
+  "manifestSha": "930f2eebe3fe3252404789e3410d1343494c30fa",
   "syncedPlugins": [
     "agent-operating-model",
     "repo-worker-pack",
@@ -10,7 +10,7 @@
     "unslop-plus",
     "writing-pack"
   ],
-  "syncedSkills": 58,
+  "syncedSkills": 59,
   "localSkills": [
     "applying-portfolio-typography",
     "applying-portfolio-visual-language",
@@ -31,5 +31,5 @@
   "localPlugins": [],
   "marketplaceFile": ".agents/plugins/marketplace.json",
   "vendorProfiles": [],
-  "syncedAt": "2026-09-18T19:14:16.852533"
+  "syncedAt": "2026-09-19T10:19:29.642655"
 }
