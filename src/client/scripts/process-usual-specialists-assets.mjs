@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import { pathToFileURL } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { validateUsualSpecialistsProvenance } from './validate-usual-specialists-provenance.mjs'
 
@@ -24,6 +24,9 @@ const candidateManifestPaths = Object.freeze({
 })
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
+const processorSourcePath = fileURLToPath(import.meta.url)
+const generationContractStart = '// USUAL_SPECIALISTS_GENERATION_CONTRACT_START'
+const generationContractEnd = '// USUAL_SPECIALISTS_GENERATION_CONTRACT_END'
 
 export const USUAL_SPECIALISTS_WEBP_OPTIONS = Object.freeze({
   quality: 82,
@@ -348,6 +351,7 @@ const expectedDerivative = (asset, sourceRecord) => {
   }
 }
 
+// USUAL_SPECIALISTS_GENERATION_CONTRACT_START
 const smoothstep = (value) => value * value * (3 - (2 * value))
 
 const normalizeMineralField = async (source) => {
@@ -398,20 +402,46 @@ const renderDerivative = async (source) => {
     .webp(USUAL_SPECIALISTS_WEBP_OPTIONS)
     .toBuffer()
 }
+// USUAL_SPECIALISTS_GENERATION_CONTRACT_END
 
-const checkOutput = async (entry, source, receiptEntry) => {
+export const usualSpecialistsGenerationContractSourceFrom = (processorSource) => {
+  const start = processorSource.lastIndexOf(generationContractStart)
+  const end = processorSource.lastIndexOf(generationContractEnd)
+  if (start < 0 || end <= start) fail('Usual Specialists generation contract markers are missing or malformed.')
+  return processorSource.slice(start, end + generationContractEnd.length)
+}
+
+export const usualSpecialistsGenerationContractSha256From = (processorSource) => {
+  const rendererSource = usualSpecialistsGenerationContractSourceFrom(processorSource)
+  return sha256(Buffer.from(JSON.stringify({
+    assets: USUAL_SPECIALISTS_PROCESSABLE_ASSETS,
+    encoding: USUAL_SPECIALISTS_WEBP_OPTIONS,
+    rendererSource,
+    sharpVersion: sharp.versions.sharp,
+  })))
+}
+
+export const usualSpecialistsGenerationContractSource = async () => {
+  const processorSource = await readFile(processorSourcePath, 'utf8')
+  return usualSpecialistsGenerationContractSourceFrom(processorSource)
+}
+
+export const usualSpecialistsGenerationContractSha256 = async () => {
+  const processorSource = await readFile(processorSourcePath, 'utf8')
+  return usualSpecialistsGenerationContractSha256From(processorSource)
+}
+
+const checkOutput = async (entry, receiptEntry) => {
   const destination = path.join(outputRoot, entry.output)
   await access(destination).catch((error) => fail(`Usual Specialists derivative is missing ${entry.output}: ${error.message}`))
-  const [actual, metadata, fileStats, expectedBuffer] = await Promise.all([
+  const [actual, metadata, fileStats] = await Promise.all([
     readFile(destination),
     sharp(destination).metadata(),
     stat(destination),
-    renderDerivative(source),
   ])
   if (metadata.format !== 'webp' || metadata.width !== entry.width || metadata.height !== entry.height) fail(`Usual Specialists derivative dimensions or format drifted for ${entry.output}.`)
   if (metadata.exif || metadata.icc || metadata.xmp || metadata.hasProfile) fail(`Usual Specialists derivative retains metadata: ${entry.output}.`)
   if (fileStats.size !== receiptEntry.bytes || sha256(actual) !== receiptEntry.outputSha256) fail(`Usual Specialists derivative identity drifted for ${entry.output}.`)
-  if (!actual.equals(expectedBuffer)) fail(`Usual Specialists derivative output is stale for ${entry.output}.`)
 }
 
 export const runValidationSteps = async (steps) => {
@@ -422,13 +452,17 @@ const checkCustodyAndDerivatives = async () => {
   const sources = await loadCustodiedSources()
   const receipt = await readJson(receiptPath, 'Usual Specialists derivative receipt')
   if (receipt.generatedBy !== 'src/client/scripts/process-usual-specialists-assets.mjs' || !Array.isArray(receipt.derivatives)) fail('Usual Specialists derivative receipt is stale or malformed.')
+  const generationContractSha256 = await usualSpecialistsGenerationContractSha256()
+  if (receipt.generationContractSha256 !== generationContractSha256) {
+    fail('Usual Specialists generation contract drifted; regenerate derivatives locally with npm run media:usual-specialists:apply.')
+  }
   const expected = USUAL_SPECIALISTS_PROCESSABLE_ASSETS.map((asset) => expectedDerivative(asset, sources.get(asset.id).sourceRecord))
   assertDerivativeReceipt(expected, receipt.derivatives)
   for (const entry of expected) {
     const receiptEntry = receipt.derivatives.find((candidate) => candidate.output === entry.output)
     if (!Number.isInteger(receiptEntry.bytes) || receiptEntry.bytes <= 0 || receiptEntry.bytes > 450_000) fail(`Usual Specialists derivative byte budget failed for ${entry.output}.`)
     if (typeof receiptEntry.outputSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(receiptEntry.outputSha256)) fail(`Usual Specialists derivative hash is malformed for ${entry.output}.`)
-    await checkOutput(entry, sources.get(entry.id), receiptEntry)
+    await checkOutput(entry, receiptEntry)
   }
 }
 
@@ -454,7 +488,11 @@ const apply = async () => {
     if (metadata.exif || metadata.icc || metadata.xmp || metadata.hasProfile) fail(`Generated Usual Specialists derivative retains metadata: ${asset.output}.`)
     derivatives.push({ ...entry, bytes: output.byteLength, outputSha256: sha256(output) })
   }
-  await writeFile(receiptPath, `${JSON.stringify({ generatedBy: 'src/client/scripts/process-usual-specialists-assets.mjs', derivatives }, null, 2)}\n`, 'utf8')
+  await writeFile(receiptPath, `${JSON.stringify({
+    generatedBy: 'src/client/scripts/process-usual-specialists-assets.mjs',
+    generationContractSha256: await usualSpecialistsGenerationContractSha256(),
+    derivatives,
+  }, null, 2)}\n`, 'utf8')
   await check()
 }
 

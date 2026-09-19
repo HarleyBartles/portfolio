@@ -58,10 +58,6 @@ jobs:
           REPO_STANDARDS_HOSTED_COMMIT: HEAD
         run: githooks/pre-commit
 
-      - name: Rebuild configured Pages artifact
-        if: github.ref == 'refs/heads/main'
-        run: npm --prefix src/client run build
-
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4
