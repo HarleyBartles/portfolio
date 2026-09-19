@@ -7,6 +7,11 @@ export const SPECIALISTS_CROSSING_LOCKUP_SIZE = {
   height: 154,
 } as const
 
+export const SPECIALISTS_CROSSING_LOCKUP_PORTS = {
+  top: { x: 72.5, y: 74.9 },
+  bottom: { x: 90.7, y: 134.9 },
+} as const
+
 type SpecialistsCrossingLockupProps = {
   style?: CSSProperties
 }
@@ -58,13 +63,13 @@ const KnotPort = styled.span`
 `
 
 const KnotTopPort = styled(KnotPort)`
-  top: 74.9px;
-  left: 75.2px;
+  top: ${SPECIALISTS_CROSSING_LOCKUP_PORTS.top.y}px;
+  left: ${SPECIALISTS_CROSSING_LOCKUP_PORTS.top.x}px;
 `
 
 const KnotBottomPort = styled(KnotPort)`
-  top: 134.9px;
-  left: 90.7px;
+  top: ${SPECIALISTS_CROSSING_LOCKUP_PORTS.bottom.y}px;
+  left: ${SPECIALISTS_CROSSING_LOCKUP_PORTS.bottom.x}px;
 `
 
 const ForegroundRingLayer = styled(Layer)`

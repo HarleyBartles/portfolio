@@ -43,8 +43,7 @@ describe('Specialists responsive composition architecture', () => {
   test.each([
     './IndexChapter.styles.ts',
     './IndexBlueCarrier.tsx',
-    './IndexAssentNote.tsx',
-    './IndexCommissionComposition.styles.ts',
+    './IndexClosingSequence.styles.ts',
     './IndexDeskDocument.tsx',
     './IndexObservation.tsx',
   ])('keeps Index-owned source %s independent of the route-wide responsive taxonomy', (filename) => {

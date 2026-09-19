@@ -107,8 +107,20 @@ describe('Usual Specialists asset processor', () => {
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
+  it('keeps the Index outcome source in page-review candidate custody', () => {
+    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([
+      expect.objectContaining({
+        id: 'index-outcome-folder-frame-review',
+        sourcePackage: 'index',
+        custody: 'candidate',
+        source: 'candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png',
+        output: 'index-outcome-folder-frame-review.webp',
+        width: 1200,
+      }),
+    ])
+  })
+
   it('promotes the mounted Commission 09 frame family into accepted custody', () => {
-    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([])
     expect(USUAL_SPECIALISTS_ASSETS).toEqual(expect.arrayContaining([
       expect.objectContaining({
         id: 'silk-commission-09-knockthrough-frame-review',

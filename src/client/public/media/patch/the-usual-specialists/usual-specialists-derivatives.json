@@ -1,6 +1,6 @@
 {
   "generatedBy": "src/client/scripts/process-usual-specialists-assets.mjs",
-  "generationContractSha256": "c8a6d8a48e75add64b7e357da9f26425f44e5c5f74adbe80a2aab088aec24f4c",
+  "generationContractSha256": "6484afae27d32d8695c51108ce6cffab61038e76e2b094685b53ff0d7b7a86e9",
   "derivatives": [
     {
       "id": "safehouse-threshold",
@@ -728,6 +728,24 @@
       },
       "bytes": 71482,
       "outputSha256": "ad7ecf6f6c6c852543ac356ea46e29d8bbc95ce7ce7cddeacd6189a9b8f01979"
+    },
+    {
+      "id": "index-outcome-folder-frame-review",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png",
+      "sourceSha256": "5a1a2aa0fa609a6e7e80aa01a44f92824a187decf9cde1adf1a3ded5dcc4da86",
+      "output": "index-outcome-folder-frame-review.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-outcome-folder-frame-review.webp",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 111324,
+      "outputSha256": "f96661826c7359169154a6f135edfd981d796f9012d8adf3dbbb788a0ed88ae6"
     }
   ]
 }

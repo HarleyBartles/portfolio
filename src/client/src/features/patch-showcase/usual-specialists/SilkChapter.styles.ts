@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {
+  SILK_CHAPTER_PADDING_TOP,
   SILK_CONTAINER_NAME,
   SILK_NARROW_BREACH_APERTURE_HEIGHT_VW,
   silkQueries,
@@ -18,7 +19,7 @@ export const Chapter = styled.section`
   position: relative;
   container-name: ${SILK_CONTAINER_NAME};
   container-type: inline-size;
-  padding-top: 62px;
+  padding-top: ${SILK_CHAPTER_PADDING_TOP}px;
   padding-bottom: clamp(82px, 11vw, 148px);
   background:
     radial-gradient(circle at 14% 16%, rgb(255 255 255 / 15%) 0 1px, transparent 1.4px),

@@ -153,21 +153,11 @@ Do not use one long red rope as the page's generic continuity spine. Red cord is
 too strongly owned by Silk's material language. The folder, architecture,
 thresholds and Patch's movement carry the cross-page continuity instead.
 
-This does **not** prohibit the approved bounded Silk rope run from crossing chapter
-boundaries. That run begins above Index, passes through Index under tension as
-subordinate background matter behind her papers, crosses the Index-to-Silk seam,
-becomes active and functional inside Silk, and terminates in Silk before Writ. It is
-not a route-wide spine because it has a specific Silk story job, a bounded start and
-end, and does not continue through the later chapters.
-
-The modular rendering contract for that run is explicit: each layout owner renders
-only the rope segment inside its own box. Opening/Index may own the upstream local
-segments, the named seam owns only its crossing segment, and Silk owns the active
-local segment and termination. Adjacent segments meet through agreed responsive
-ports. No chapter may measure a sibling's rendered height or reach into sibling
-internal geometry merely to maintain rope continuity. Silk's narrative ownership
-of the motif therefore does not imply one Silk-owned DOM element spanning multiple
-chapter sections.
+For the current Index-focused implementation, Silk and the red-rope/crossing system
+are intentionally absent from the rendered page. They are parked for a later Silk
+refactor rather than treated as continuity machinery that Index must preserve. Any
+future Silk implementation must establish its own material and seam contracts without
+reintroducing cross-chapter reach-through into Index.
 
 ## Folder continuity authority and pre-vis reference
 
@@ -484,6 +474,10 @@ in the preview route:
 - `RecruitmentFolder` is the deliberate shared continuity primitive;
 - cross-boundary motifs such as Silk's rope may be visually continuous while being
   rendered as locally owned segments joined at explicit responsive ports; and
+- those locally owned connector segments must actually register at the named seam
+  hardware/ports at every supported responsive state. A visible gap, overshoot or
+  near-miss at a hook/knot is a broken page transition, not a permissible consequence
+  of modular ownership; and
 - no universal config-driven `SpecialistChapter` abstraction may erase the
   intentionally different chapter grammars.
 

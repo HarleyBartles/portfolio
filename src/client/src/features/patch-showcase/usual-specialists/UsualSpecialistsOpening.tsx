@@ -1,16 +1,10 @@
 import type { CSSProperties, ReactElement } from 'react'
 import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../patch-brand/PatchBrand'
-import { RopePiece } from './RopePiece'
-import { SpecialistsRopeStartAnchor } from './SpecialistsRopeStartAnchor'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 import {
   Opening,
   OpeningLockup,
   OpeningPrecis,
-  OpeningRopeAnchorPlacement,
-  OpeningRopeLayer,
-  OpeningRopePlacement,
-  OpeningRopeTile,
   OpeningTitle,
   SeriesLockupField,
   SpecialistsWordmarkField,
@@ -39,19 +33,6 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
         </OpeningTitle>
         <OpeningPrecis>Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
       </OpeningLockup>
-      <OpeningRopeLayer aria-hidden="true" data-specialists-opening-rope-layer>
-        <OpeningRopePlacement data-specialists-rope-piece="opening">
-          <OpeningRopeTile>
-            <RopePiece variant="taut-straight" />
-          </OpeningRopeTile>
-          <OpeningRopeTile>
-            <RopePiece variant="taut-straight" />
-          </OpeningRopeTile>
-        </OpeningRopePlacement>
-        <OpeningRopeAnchorPlacement data-specialists-rope-anchor="opening-start">
-          <SpecialistsRopeStartAnchor />
-        </OpeningRopeAnchorPlacement>
-      </OpeningRopeLayer>
       <Threshold>
         <ThresholdArt
           src={usualSpecialistsAssetPath('safehouse-threshold.webp')}

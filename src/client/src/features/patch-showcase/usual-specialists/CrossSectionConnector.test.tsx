@@ -1,10 +1,14 @@
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { CrossSectionConnector } from './CrossSectionConnector'
+import { INDEX_SILK_CONNECTION, OPENING_INDEX_CONNECTION } from './usualSpecialistsConnections'
 
 describe('CrossSectionConnector', () => {
   test.each(['opening-index', 'index-silk'] as const)('owns the %s crossing layout around the shared lockup', (crossing) => {
-    const { container } = render(<CrossSectionConnector crossing={crossing} style={{ opacity: 0.5 }} />)
+    const connector = crossing === 'index-silk'
+      ? <CrossSectionConnector connection={INDEX_SILK_CONNECTION} crossing={crossing} style={{ opacity: 0.5 }} />
+      : <CrossSectionConnector connection={OPENING_INDEX_CONNECTION} crossing={crossing} style={{ opacity: 0.5 }} />
+    const { container } = render(connector)
 
     const root = container.querySelector(`[data-specialists-chapter-crossing="${crossing}"]`)
     const placement = root?.querySelector(`[data-specialists-crossing-lock-placement="${crossing}"]`)
@@ -18,7 +22,7 @@ describe('CrossSectionConnector', () => {
 
   test('does not expose caller className as a styling seam', () => {
     // @ts-expect-error className is intentionally not part of the compositor API.
-    const { container } = render(<CrossSectionConnector crossing="opening-index" className="external-control" />)
+    const { container } = render(<CrossSectionConnector className="external-control" connection={OPENING_INDEX_CONNECTION} crossing="opening-index" />)
 
     expect(container.querySelector('[data-specialists-chapter-crossing="opening-index"]')).not.toHaveClass('external-control')
   })

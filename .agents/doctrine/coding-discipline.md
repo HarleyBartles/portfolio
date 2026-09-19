@@ -18,12 +18,16 @@ Use this reference when deciding scope boundaries or making structural changes.
 
 ## React vertical-slice ownership
 
+- On React-composed portfolio surfaces, use React component composition with co-located styled-components as the default layout primitive. The generic styling skills provide technique; they do not override this repository choice or replace an established component/styled-component composition with a different styling architecture unless the task explicitly calls for that change.
 - Treat a vertical-slice component as an opaque compositional object at its parent boundary. The parent owns the whole child's position, size, scale, rotation, and z-order; the child owns the position, size, scale, and relationships of everything inside its own boundary.
 - Express normal parent-owned composition with parent-owned wrapper elements. Do not use `styled(ChildComponent)` or caller-supplied CSS selectors to reach across a vertical-slice boundary.
 - Do not expose or forward `className` as part of a vertical-slice component's caller-facing props. It is an untyped styling escape hatch that allows external CSS to control the component.
 - A vertical-slice component may expose `style?: React.CSSProperties` as an exceptional root-only override. Apply it only to the component root; do not use it as a descendant instruction bag or as a substitute for parent-owned composition.
 - Express supported content, behaviour, or presentation choices as semantically named typed props. Do not expose raw coordinate, scale, or descendant-style props merely so a parent can position child internals.
 - Ambient presentation or theme CSS custom properties are allowed. Do not use cross-boundary CSS custom properties as hidden APIs for controlling a child's internal geometry or behaviour.
+- Encode compositional invariants in the React ownership tree before relying on assertions. When elements must move, scale, clip, stack, or stay registered as one visual beat, give that relationship one structural owner: either a child component that owns the relationship internally or a parent-owned wrapper that composes whole opaque children. Do not leave an invariant as matching coordinates on independently positioned siblings.
+- Choose the component boundary from the invariant. Relationships inside one visual object belong to that object's component; relationships between sibling vertical slices belong to their parent compositor. A parent may place whole children together, but it must not reach into either child's internals to manufacture the relationship.
+- Tests are evidence for an invariant, not the mechanism that creates it. Use component, browser-geometry, and visual-regression tests at the layer that can observe the contract, but if the code structure still permits the invalid relationship, repair the ownership/composition first rather than trying to make the test suite hold the layout together.
 - Keep tests aligned with the same ownership boundary: a vertical-slice component's colocated component test proves its own contract; parent compositor tests do not own child internals.
 - Keep responsive relationship and geometry assertions at the browser level when they depend on actual layout. Keep protected pixel appearance in visual regression. Component tests prove semantics, typed inputs, owned media/content, and root override forwarding.
 

@@ -11,8 +11,18 @@ export type IndexTraversalName =
   | 'index-inspect'
 
 export type IndexTraversalSubstrate = 'desk-diagram' | 'blue-carrier' | 'commission-03-baseline'
+export type IndexTraversalCharacter = 'index' | 'patch'
+export type IndexTraversalMoment =
+  | 'exploration'
+  | 'following-index'
+  | 'leading-route'
+  | 'inspection'
+  | 'return-to-work'
+  | 'departure'
 
 type IndexTraversalProps = {
+  character: IndexTraversalCharacter
+  moment: IndexTraversalMoment
   src: string
   traversal: IndexTraversalName
   substrate: IndexTraversalSubstrate
@@ -27,7 +37,7 @@ const TraversalImage = styled.img`
   user-select: none;
 `
 
-export const IndexTraversal = ({ src, traversal, substrate, style }: IndexTraversalProps) => {
+export const IndexTraversal = ({ character, moment, src, traversal, substrate, style }: IndexTraversalProps) => {
   return (
     <TraversalImage
       src={src}
@@ -37,6 +47,8 @@ export const IndexTraversal = ({ src, traversal, substrate, style }: IndexTraver
       decoding="async"
       alt=""
       aria-hidden="true"
+      data-index-character={character}
+      data-index-moment={moment}
       data-index-traversal={traversal}
       data-substrate={substrate}
       style={style}

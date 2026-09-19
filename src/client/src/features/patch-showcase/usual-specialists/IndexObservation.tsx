@@ -1,7 +1,5 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
-import { IndexTraversal } from './IndexTraversal'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Observation = styled.div`
@@ -24,39 +22,6 @@ const ObservationFrame = styled.div`
   }
 `
 
-const PatchPeerPlacement = styled.div`
-  position: absolute;
-  z-index: 10;
-  top: calc(-156px + 12px);
-  left: 0;
-  width: 104px;
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
-    top: calc(-147px + 12px);
-    width: 98px;
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    display: none;
-  }
-`
-
-const IndexInspectPlacement = styled.div`
-  position: absolute;
-  z-index: 10;
-  top: calc(-131px + 12px);
-  left: 108px;
-  width: 102px;
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
-    width: 96px;
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    display: none;
-  }
-`
-
 type IndexObservationProps = {
   style?: CSSProperties
 }
@@ -64,12 +29,6 @@ type IndexObservationProps = {
 export const IndexObservation = ({ style }: IndexObservationProps) => {
   return (
     <Observation data-index-substrate="commission-03" style={style}>
-      <PatchPeerPlacement>
-        <IndexTraversal traversal="patch-peer" substrate="commission-03-baseline" src={usualSpecialistsAssetPath('patch-leaning.webp')} />
-      </PatchPeerPlacement>
-      <IndexInspectPlacement>
-        <IndexTraversal traversal="index-inspect" substrate="commission-03-baseline" src={usualSpecialistsAssetPath('index-inspect.webp')} />
-      </IndexInspectPlacement>
       <ObservationFrame>
         <img
           src={usualSpecialistsAssetPath('index-observation.webp')}

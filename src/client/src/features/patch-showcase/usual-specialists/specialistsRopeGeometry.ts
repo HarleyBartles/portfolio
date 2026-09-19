@@ -26,8 +26,9 @@ export const SPECIALISTS_ROPE_GEOMETRY = {
   },
   paracord: {
     straightScaleX: 0.5,
-    indexBowScaleX: 0.455,
-    indexBowAnchorX: '39.5%',
+    indexRunWidth: 10,
+    indexTileTextureWidth: 125,
+    anchorUnderlap: 12,
     terminalScaleX: 0.5,
     terminalAnchorX: '40.3%',
   },

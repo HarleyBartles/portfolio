@@ -1,9 +1,16 @@
 import type { CSSProperties, ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import {
+  indexSilkConnectionPortYOffset,
+  indexSilkConnectionPortX,
+  indexSilkConnectionResponsiveCss,
+} from './indexSilkConnectionGeometry'
 import { RopePiece } from './RopePiece'
 import { SilkTraversalCutout } from './SilkTraversalCutout'
-import { SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
+import { SILK_CHAPTER_PADDING_TOP, SILK_CONTAINER_NAME, silkQueries } from './silkResponsive'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
+import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import type { IndexSilkConnection } from './usualSpecialistsConnections'
 
 export const SILK_ROPE_VIEWBOX = { width: 1000, height: 1800 } as const
 export const SILK_COMMISSION_06_ROPE_PORT = { x: 250, y: 580 } as const
@@ -20,35 +27,8 @@ const NARROW_ROPE_JOIN_TOP = NARROW_UPPER_ROPE_HEIGHT - 62
 const COMPACT_ROPE_JOIN_EXPRESSION = '275px + 29.822222cqi + clamp(0px, calc(73.822222px - 10.266667cqi), 33.733333px)'
 const COMPACT_TRAVERSAL_TOP_EXPRESSION = '303.75px + 32.94cqi + clamp(0px, calc(81.54px - 11.34cqi), 37.26px)'
 
-type RopeAxisX =
-  | { kind: 'absolute-px'; value: number }
-  | { kind: 'percent-plus-px'; percent: number; offsetPx: number }
-
-type RopeAxisState = 'narrow' | 'compactLandscape' | 'mid' | 'default' | 'wide'
-
-type RopeAxisProps = {
-  $defaultX: RopeAxisX
-  $wideX: RopeAxisX
-  $midX: RopeAxisX
-  $compactX: RopeAxisX
-  $narrowX: RopeAxisX
-}
-
-const SILK_ROPE_AXIS = {
-  narrow: { kind: 'percent-plus-px', percent: 4.516, offsetPx: 11.82 },
-  compactLandscape: { kind: 'percent-plus-px', percent: 4.7144, offsetPx: 7.65 },
-  mid: { kind: 'percent-plus-px', percent: 20.9075, offsetPx: 12.8 },
-  default: { kind: 'percent-plus-px', percent: 22.1358, offsetPx: 13 },
-  wide: { kind: 'absolute-px', value: 329.2 },
-} as const satisfies Record<RopeAxisState, RopeAxisX>
-
-const ropeAxisXCss = (x: RopeAxisX): string => (
-  x.kind === 'absolute-px'
-    ? `${x.value}px`
-    : `calc(${x.percent}% + ${x.offsetPx}px)`
-)
-
 type SilkTraversalCompositionProps = {
+  connection: IndexSilkConnection
   style?: CSSProperties
 }
 
@@ -59,94 +39,96 @@ const Composition = styled.div`
   pointer-events: none;
 `
 
-const SilkRopeAxis = styled.div<RopeAxisProps>`
+const SilkRopeAxis = styled.div<{ $connection: IndexSilkConnection }>`
+  --silk-rope-join-y: ${COMMISSION_06_PORT_TOP};
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${({ $defaultX }) => ropeAxisXCss($defaultX)};
   width: 0;
   pointer-events: none;
+  ${({ $connection }) => indexSilkConnectionResponsiveCss($connection, (placement) => css`
+    left: ${indexSilkConnectionPortX(placement, 'bottom')};
+    --silk-rope-entry-y-offset: ${indexSilkConnectionPortYOffset(placement, 'bottom')}px;
+  `)}
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    left: ${({ $wideX }) => ropeAxisXCss($wideX)};
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedUpper} {
-    left: calc(22.1358cqi + 13px);
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughMid} {
-    left: ${({ $midX }) => ropeAxisXCss($midX)};
+    --silk-rope-join-y: 509.1111px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
-    left: ${({ $compactX }) => ropeAxisXCss($compactX)};
+    --silk-rope-join-y: calc(${COMPACT_ROPE_JOIN_EXPRESSION});
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
-    left: ${({ $narrowX }) => ropeAxisXCss($narrowX)};
+    --silk-rope-join-y: ${NARROW_ROPE_JOIN_TOP}px;
   }
 
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
+    --silk-rope-join-y: calc(245px + 19.0556cqi);
+  }
+
+  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
+    --silk-rope-join-y: calc(331.8889px + 11.8148cqi);
+  }
 `
 
 const UpperRopePlacement = styled.div`
   position: absolute;
   z-index: 0;
-  top: -62px;
+  top: calc(var(--silk-rope-entry-y-offset) - ${SILK_CHAPTER_PADDING_TOP}px);
   left: 0;
-  width: ${SPECIALISTS_ROPE_GEOMETRY.default.materialWidth}px;
-  height: calc(${COMMISSION_06_PORT_TOP} + 62px);
-  overflow: hidden;
+  width: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexRunWidth}px;
+  height: calc(var(--silk-rope-join-y) + ${SILK_CHAPTER_PADDING_TOP}px - var(--silk-rope-entry-y-offset));
+  overflow: visible;
   transform: translateX(-50%);
   transform-origin: 50% 0;
+`
 
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.throughMid} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
-  }
+const UpperRopeEntryPort = styled.span`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+`
 
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
-    height: calc(${COMPACT_ROPE_JOIN_EXPRESSION} + 62px);
-  }
+const UpperRopeExitPort = styled.span`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  pointer-events: none;
 
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
-    height: ${NARROW_UPPER_ROPE_HEIGHT}px;
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.materialWidth}px;
-    height: 571.1111px;
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
-    width: calc(228.5px + 8.5417cqi);
-    height: calc(307px + 19.0556cqi);
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
-    width: calc(343px - 1cqi);
-    height: calc(393.8889px + 11.8148cqi);
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    content: '';
+    transform: translate(-50%, -50%);
   }
 `
 
 const UpperRopeMaterial = styled.div`
   position: absolute;
+  top: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
   right: 0;
-  bottom: 0;
+  bottom: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
   left: 0;
-  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
-  transform-origin: 50% 100%;
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
-    top: ${NARROW_UPPER_ROPE_ANCHOR_OFFSET}px;
-  }
+  width: 100%;
+  background-image: url("${usualSpecialistsAssetPath('rope-taut-straight.webp')}");
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexTileTextureWidth}px auto;
 `
 
 const LowerRopePlacement = styled.div`
   position: absolute;
   z-index: 0;
-  top: ${COMMISSION_06_PORT_TOP};
+  top: var(--silk-rope-join-y);
   left: 0;
   width: ${SPECIALISTS_ROPE_GEOMETRY.default.terminalWidth}px;
   margin-left: ${SPECIALISTS_ROPE_GEOMETRY.default.terminalEntryOffset}px;
@@ -158,31 +140,26 @@ const LowerRopePlacement = styled.div`
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
-    top: calc(${COMPACT_ROPE_JOIN_EXPRESSION});
     width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.terminalEntryOffset}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
-    top: ${NARROW_ROPE_JOIN_TOP}px;
     width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.narrow.terminalEntryOffset}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    top: 509.1111px;
     width: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalWidth}px;
     margin-left: ${SPECIALISTS_ROPE_GEOMETRY.wideBandSilk.terminalEntryOffset}px;
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
-    top: calc(245px + 19.0556cqi);
     width: calc(276.3265px + 10.3294cqi);
     margin-left: calc(26.716px + .99875cqi);
   }
 
   @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
-    top: calc(331.8889px + 11.8148cqi);
     width: calc(417.395px - 1.4263cqi);
     margin-left: calc(41.505px - .23367cqi);
   }
@@ -253,47 +230,21 @@ const TraversalRopePort = styled.span`
 
 const RopeJoinPort = styled.span`
   position: absolute;
-  top: ${COMMISSION_06_PORT_TOP};
+  top: var(--silk-rope-join-y);
   left: 0;
   width: 2px;
   height: 2px;
   transform: translate(-50%, -50%);
 
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposed} {
-    top: 509.1111px;
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.compact} {
-    top: calc(${COMPACT_ROPE_JOIN_EXPRESSION});
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.narrow} {
-    top: ${NARROW_ROPE_JOIN_TOP}px;
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.mirrored} {
-    top: calc(245px + 19.0556cqi);
-  }
-
-  @container ${SILK_CONTAINER_NAME} ${silkQueries.recomposedLower} {
-    top: calc(331.8889px + 11.8148cqi);
-  }
 `
 
-export const SilkTraversalComposition = ({ style }: SilkTraversalCompositionProps): ReactElement => (
+export const SilkTraversalComposition = ({ connection, style }: SilkTraversalCompositionProps): ReactElement => (
   <Composition data-silk-traversal-composition style={style}>
-    <SilkRopeAxis
-      $defaultX={SILK_ROPE_AXIS.default}
-      $wideX={SILK_ROPE_AXIS.wide}
-      $midX={SILK_ROPE_AXIS.mid}
-      $compactX={SILK_ROPE_AXIS.compactLandscape}
-      $narrowX={SILK_ROPE_AXIS.narrow}
-      data-silk-rope-axis
-    >
+    <SilkRopeAxis $connection={connection} data-silk-rope-axis>
       <UpperRopePlacement aria-hidden="true" data-silk-rope-segment="upper" data-specialists-rope-piece="silk-upper">
-        <UpperRopeMaterial>
-          <RopePiece variant="taut-straight" />
-        </UpperRopeMaterial>
+        <UpperRopeEntryPort data-silk-upper-rope-entry-port />
+        <UpperRopeMaterial data-silk-upper-rope-material="tiled" />
+        <UpperRopeExitPort data-silk-upper-rope-exit-port />
       </UpperRopePlacement>
       <LowerRopePlacement aria-hidden="true" data-silk-rope-segment="lower" data-specialists-rope-piece="silk-lower">
         <LowerRopeMaterial>

@@ -166,6 +166,15 @@ owns the crossing segment, and Silk owns the active local segment. The segments 
 through agreed responsive ports. No Silk component may measure Index's height or
 depend on Index's internal layout to determine how much rope to render.
 
+"Meet" is literal visual registration, not approximate proximity. At each supported
+responsive state the Index segment, seam lockup/hook and Silk segment must connect at
+their agreed ports without a visible gap, overshoot or near-miss. A rope endpoint at
+hardware is never an exposed butt-joint: the rope material continues past the logical
+port into a fixed hidden underlap beneath the hardware, which occludes the join.
+Repeated crossing hardware is also scale-invariant across seams: Intro-to-Index and
+Index-to-Silk use the same lockup scale so the fixed-width rope and the hardware's
+knotted strand preserve one physical cord gauge rather than changing thickness at a seam.
+
 ## Copy
 
 Silk earns comic captions and sound/annotation language when they live naturally

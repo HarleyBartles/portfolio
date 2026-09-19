@@ -1,10 +1,11 @@
 import { render, screen, within } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { SilkChapter } from './SilkChapter'
+import { INDEX_SILK_CONNECTION } from './usualSpecialistsConnections'
 
 describe('SilkChapter', () => {
   test('owns the Silk chapter story and specialist identity', () => {
-    render(<SilkChapter />)
+    render(<SilkChapter connection={INDEX_SILK_CONNECTION} />)
 
     const chapter = screen.getByRole('region', { name: 'Silk' })
     expect(chapter).toHaveAttribute('data-specialist-chapter', 'silk')
@@ -19,7 +20,7 @@ describe('SilkChapter', () => {
   })
 
   test('composes opaque Silk children in chapter story order', () => {
-    render(<SilkChapter />)
+    render(<SilkChapter connection={INDEX_SILK_CONNECTION} />)
 
     const chapter = screen.getByRole('region', { name: 'Silk' })
     const stage = chapter.querySelector<HTMLElement>('[data-silk-stage]')
@@ -49,11 +50,11 @@ describe('SilkChapter', () => {
   })
 
   test('forwards root style without exposing a className seam', () => {
-    const { rerender } = render(<SilkChapter style={{ opacity: 0.5 }} />)
+    const { rerender } = render(<SilkChapter connection={INDEX_SILK_CONNECTION} style={{ opacity: 0.5 }} />)
     expect(screen.getByRole('region', { name: 'Silk' })).toHaveStyle({ opacity: '0.5' })
 
     // @ts-expect-error className is intentionally not part of the chapter API.
-    rerender(<SilkChapter className="external-control" />)
+    rerender(<SilkChapter connection={INDEX_SILK_CONNECTION} className="external-control" />)
     expect(screen.getByRole('region', { name: 'Silk' })).not.toHaveClass('external-control')
   })
 })

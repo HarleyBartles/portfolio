@@ -24,9 +24,9 @@ const CarrierArt = styled.img`
 const IndexLockup = styled.div`
   position: absolute;
   z-index: 12;
-  top: 78px;
-  right: 42px;
-  width: 17.83rem;
+  top: 68px;
+  right: max(42px, calc(388px - 100cqi));
+  width: 10.57rem;
   color: var(--specialists-index-ink);
   font-family: "Courier New", monospace;
   text-align: right;
@@ -44,7 +44,7 @@ const IndexLockup = styled.div`
     width: 100%;
     margin-top: 7px;
     color: var(--specialists-index-ink);
-    font-size: 1rem;
+    font-size: .59rem;
     font-weight: 800;
     line-height: 1;
     letter-spacing: .01em;
@@ -52,7 +52,17 @@ const IndexLockup = styled.div`
     white-space: nowrap;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.compact} {
+    top: 72px;
+    right: max(48px, calc(466px - 100cqi));
+    width: 11.89rem;
+
+    span {
+      font-size: .67rem;
+    }
+  }
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.upperWide} {
     top: 60px;
     right: 30px;
     width: 12.88rem;
@@ -62,23 +72,13 @@ const IndexLockup = styled.div`
     }
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    top: 72px;
-    right: max(48px, calc(466px - 100vw));
-    width: 11.89rem;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
+    top: 78px;
+    right: 42px;
+    width: 17.83rem;
 
     span {
-      font-size: .67rem;
-    }
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
-    top: 68px;
-    right: max(42px, calc(388px - 100vw));
-    width: 10.57rem;
-
-    span {
-      font-size: .59rem;
+      font-size: 1rem;
     }
   }
 `
@@ -86,45 +86,59 @@ const IndexLockup = styled.div`
 const PatchFollowPlacement = styled.div`
   position: absolute;
   z-index: 10;
-  top: 34%;
-  right: -1%;
-  width: 100px;
+  top: 18%;
+  left: 24%;
+  width: 82px;
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.compact} {
+    left: 22%;
+  }
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.arrivalCross} {
+    top: 18%;
+    right: -10%;
+    left: auto;
+    width: 100px;
+  }
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.upperWide} {
+    top: 18%;
+    right: auto;
+    left: 24%;
     width: 94px;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    top: calc(33% - 19%);
-    right: auto;
-    left: 26%;
-    width: 82px;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.upperWide} {
+    width: 100px;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
-    left: 29%;
+  @container ${INDEX_CONTAINER_NAME} (min-width: 1620px) {
+    top: 32%;
+    right: -1%;
+    left: auto;
+    width: 100px;
   }
 `
 
 const IndexHighStepPlacement = styled.div`
   position: absolute;
   z-index: 10;
-  display: none;
+  display: block;
+  top: -22.5%;
+  left: 64%;
+  width: 74px;
   transform: rotate(7deg);
   transform-origin: 50% 100%;
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    display: block;
-    top: -19%;
-    left: 73%;
-    width: 74px;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.compact} {
+    top: -16.85%;
+    left: 66.3%;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.narrow} {
-    top: calc(-19% - 10px);
-    left: 64%;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.walkReady} {
+    display: none;
   }
 `
 
@@ -144,10 +158,10 @@ export const IndexBlueCarrier = ({ style }: IndexBlueCarrierProps) => {
         alt="A blue working sheet crossing the main route diagram."
       />
       <PatchFollowPlacement>
-        <IndexTraversal traversal="patch-follow" substrate="blue-carrier" src={usualSpecialistsAssetPath('patch-follow.webp')} />
+        <IndexTraversal character="patch" moment="following-index" traversal="patch-follow" substrate="blue-carrier" src={usualSpecialistsAssetPath('patch-follow.webp')} />
       </PatchFollowPlacement>
       <IndexHighStepPlacement>
-        <IndexTraversal traversal="index-high-step" substrate="blue-carrier" src={usualSpecialistsAssetPath('index-high-step.webp')} />
+        <IndexTraversal character="index" moment="leading-route" traversal="index-high-step" substrate="blue-carrier" src={usualSpecialistsAssetPath('index-high-step.webp')} />
       </IndexHighStepPlacement>
       <IndexLockup data-index-lockup>
         <img src={usualSpecialistsAssetPath('index-wordmark.svg')} loading="lazy" decoding="async" alt="" aria-hidden="true" />

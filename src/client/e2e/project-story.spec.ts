@@ -5,6 +5,8 @@ const patchPath = './projects/adventures-of-patch/'
 const learningLabPath = './projects/agentic-learning-lab/'
 const specialistsCanonicalPath = './patch/the-usual-specialists/'
 const specialistsPreviewPath = './patch/the-usual-specialists/next/'
+const specialistsLockedNarrowWidths = [320, 360, 390, 414, 480, 540, 599] as const
+const specialistsHighStepWidths = [...specialistsLockedNarrowWidths, 600, 699] as const
 
 const learningLabModules = [
   'From chatbot to worker',
@@ -112,124 +114,1199 @@ test('direct route loads keep case-study presentation chunks isolated', async ({
 })
 
 test('The Usual Specialists Index responsive matrix stays coherent at representative viewports', async ({ page }) => {
-  let indexCeilingGeometry: {
-    deskX: number
-    storyX: number
-    commissionX: number
-    blueX: number
-    graphX: number
-  } | null = null
+  const overlapArea = (a: { x: number; y: number; width: number; height: number }, b: { x: number; y: number; width: number; height: number }): number => {
+    const overlapWidth = Math.max(0, Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x))
+    const overlapHeight = Math.max(0, Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y))
+    return overlapWidth * overlapHeight
+  }
 
-  for (const width of [389, 390, 719, 720, 899, 900, 1399, 1400, 1599, 1600, 1919, 1920, 2560, 2880] as const) {
-    await page.setViewportSize({ width, height: width < 390 ? 844 : 1100 })
+  for (const width of [320, 360, 389, 390, 414, 601, 767, 768, 1024, 1280, 1366, 1399, 1400, 1440, 1536, 1919, 1920, 2560, 2880] as const) {
+    await page.setViewportSize({ width, height: width >= 1920 ? 1080 : width <= 390 ? 844 : 1100 })
     await page.goto(specialistsPreviewPath)
 
     await expect(page.getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
     const index = page.getByRole('region', { name: 'Index' })
     await expect(index).toBeVisible()
-    await expect(page.getByRole('region', { name: 'Silk' })).toBeVisible()
-    await expect(page.locator('[data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
+    await expect(page.locator('[data-specialist-chapter="silk"], [data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).toHaveCount(0)
 
     const desk = index.locator('[data-index-substrate="desk-diagram"]')
     const blue = index.locator('[data-index-substrate="blue-carrier"]')
     const graph = index.locator('[data-index-substrate="graph-paper"]')
-    const commission = index.locator('[data-index-commission-composition="commission-evidence"]')
     const story = index.locator('[data-index-story-card]')
-    for (const locator of [desk, blue, graph, commission, story]) await expect(locator).toBeVisible()
+    const closing = index.locator('[data-index-closing-sequence]')
+    const observation = index.locator('[data-index-substrate="commission-03"]')
+    const recognition = index.locator('[data-index-closing-beat="recognition"]')
+    const retrieval = index.locator('[data-index-closing-beat="source-retrieval"]')
+    const outcome = index.locator('[data-index-closing-beat="assent-outcome"]')
+    for (const locator of [desk, blue, graph, story, closing, observation, recognition, retrieval, outcome]) await expect(locator).toBeVisible()
 
     const indexWalk = index.locator('[data-index-traversal="index-walk"]')
     const patchFollow = index.locator('[data-index-traversal="patch-follow"]')
     const indexHighStep = index.locator('[data-index-traversal="index-high-step"]')
     const patchPeer = index.locator('[data-index-traversal="patch-peer"]')
     const indexInspect = index.locator('[data-index-traversal="index-inspect"]')
+    const inspectionPair = index.locator('[data-index-inspection-pair]')
     const indexReturn = index.locator('[data-index-traversal="index-return"]')
     const patchReturn = index.locator('[data-index-traversal="patch-return"]')
 
     await expect(patchFollow).toBeVisible()
-    if (width <= 719) {
-      await expect(indexHighStep).toBeVisible()
-      for (const locator of [indexWalk, patchPeer, indexInspect, indexReturn, patchReturn]) await expect(locator).toBeHidden()
-    } else {
-      await expect(indexHighStep).toBeHidden()
-      for (const locator of [indexWalk, patchPeer, indexInspect]) await expect(locator).toBeVisible()
-      for (const locator of [indexReturn, patchReturn]) {
-        if (width >= 1600) await expect(locator).toBeVisible()
-        else await expect(locator).toBeHidden()
+    for (const locator of [patchPeer, indexInspect, inspectionPair]) await expect(locator).toBeVisible()
+    expect(await indexHighStep.isVisible(), JSON.stringify({ width, beat: 'outgoing-index-mode' })).not.toBe(await indexWalk.isVisible())
+
+    expect(await indexReturn.isVisible(), JSON.stringify({ width, beat: 'return-pair' })).toBe(await patchReturn.isVisible())
+
+    for (const character of ['patch', 'index'] as const) {
+      const visibleAppearances = index.locator(`[data-index-character="${character}"]:visible`)
+      const appearanceCount = await visibleAppearances.count()
+      const moments = await visibleAppearances.evaluateAll((elements) => elements.map((element) => element.getAttribute('data-index-moment')))
+      expect(new Set(moments).size, JSON.stringify({ width, character, moments })).toBe(moments.length)
+
+      const boxes = await Promise.all(Array.from({ length: appearanceCount }, (_, appearanceIndex) => visibleAppearances.nth(appearanceIndex).boundingBox()))
+      for (const box of boxes) expect(box).not.toBeNull()
+      for (let left = 0; left < boxes.length; left += 1) {
+        for (let right = left + 1; right < boxes.length; right += 1) {
+          const leftBox = boxes[left]!
+          const rightBox = boxes[right]!
+          const leftCenter = { x: leftBox.x + leftBox.width / 2, y: leftBox.y + leftBox.height / 2 }
+          const rightCenter = { x: rightBox.x + rightBox.width / 2, y: rightBox.y + rightBox.height / 2 }
+          expect.soft(
+            overlapArea(leftBox, rightBox),
+            JSON.stringify({ width, character, moments, left, right, boxes }),
+          ).toBeLessThanOrEqual(1)
+          expect.soft(
+            Math.hypot(leftCenter.x - rightCenter.x, leftCenter.y - rightCenter.y),
+            JSON.stringify({ width, character, moments, left, right, boxes }),
+          ).toBeGreaterThanOrEqual(48)
+        }
       }
     }
 
-    if (width >= 2560) {
-      const [indexBox, deskBox, storyBox, commissionBox, blueBox, graphBox] = await Promise.all([
-        index.boundingBox(),
-        desk.boundingBox(),
-        story.boundingBox(),
-        commission.boundingBox(),
-        blue.boundingBox(),
-        graph.boundingBox(),
-      ])
-      for (const box of [indexBox, deskBox, storyBox, commissionBox, blueBox, graphBox]) expect(box).not.toBeNull()
-      const geometry = {
-        deskX: deskBox!.x - indexBox!.x,
-        storyX: storyBox!.x - indexBox!.x,
-        commissionX: commissionBox!.x - indexBox!.x,
-        blueX: blueBox!.x - indexBox!.x,
-        graphX: graphBox!.x - indexBox!.x,
-      }
+    const outgoingIndex = await indexHighStep.isVisible() ? indexHighStep : indexWalk
+    const substrateRegistrations = [
+      [patchFollow, blue],
+      [outgoingIndex, await indexHighStep.isVisible() ? blue : desk],
+      ...((await indexReturn.isVisible()) ? [[indexReturn, desk], [patchReturn, desk]] as const : []),
+    ] as const
+    for (const [traversal, substrate] of substrateRegistrations) {
+      const [traversalBox, substrateBox] = await Promise.all([traversal.boundingBox(), substrate.boundingBox()])
+      expect(traversalBox).not.toBeNull()
+      expect(substrateBox).not.toBeNull()
+      expect.soft(
+        overlapArea(traversalBox!, substrateBox!),
+        JSON.stringify({ width, traversal: await traversal.getAttribute('data-index-traversal'), traversalBox, substrateBox }),
+      ).toBeGreaterThan(1)
+    }
 
-      if (width === 2560) indexCeilingGeometry = geometry
-      else {
-        expect(indexCeilingGeometry).not.toBeNull()
-        for (const key of Object.keys(geometry) as Array<keyof typeof geometry>) {
-          expect(geometry[key], JSON.stringify({ key, geometry, indexCeilingGeometry })).toBeCloseTo(indexCeilingGeometry![key], 1)
-        }
-      }
+    {
+      const [pairBox, graphBox] = await Promise.all([inspectionPair.boundingBox(), graph.boundingBox()])
+      expect(pairBox).not.toBeNull()
+      expect(graphBox).not.toBeNull()
+      expect.soft(
+        overlapArea(pairBox!, graphBox!),
+        JSON.stringify({ width, pairBox, graphBox }),
+      ).toBeGreaterThan(1)
+    }
+
+    const [storyBox, patchArrivalBox, outgoingIndexBox] = await Promise.all([
+      story.boundingBox(),
+      patchFollow.boundingBox(),
+      outgoingIndex.boundingBox(),
+    ])
+    expect(storyBox).not.toBeNull()
+    expect(patchArrivalBox).not.toBeNull()
+    expect(outgoingIndexBox).not.toBeNull()
+    expect.soft(overlapArea(storyBox!, patchArrivalBox!), JSON.stringify({ width, storyBox, patchArrivalBox })).toBeLessThanOrEqual(1)
+    expect.soft(overlapArea(storyBox!, outgoingIndexBox!), JSON.stringify({ width, storyBox, outgoingIndexBox })).toBeLessThanOrEqual(1)
+
+    const patchEye = { x: patchArrivalBox!.x + patchArrivalBox!.width * 0.62, y: patchArrivalBox!.y + patchArrivalBox!.height * 0.28 }
+    const outgoingIndexBody = {
+      top: outgoingIndexBox!.y,
+      bottom: outgoingIndexBox!.y + outgoingIndexBox!.height,
+    }
+    expect.soft(
+      patchEye.y,
+      JSON.stringify({ width, patchEye, outgoingIndexBox }),
+    ).toBeGreaterThanOrEqual(outgoingIndexBody.top - outgoingIndexBox!.height * 0.45)
+    expect.soft(
+      patchEye.y,
+      JSON.stringify({ width, patchEye, outgoingIndexBox }),
+    ).toBeLessThanOrEqual(outgoingIndexBody.bottom + outgoingIndexBox!.height * 0.75)
+
+    const [observationBox, recognitionBox, retrievalBox, outcomeBox] = await Promise.all([
+      observation.boundingBox(),
+      recognition.boundingBox(),
+      retrieval.boundingBox(),
+      outcome.boundingBox(),
+    ])
+    for (const box of [observationBox, recognitionBox, retrievalBox, outcomeBox]) expect(box).not.toBeNull()
+
+    expect.soft(
+      overlapArea(observationBox!, recognitionBox!),
+      JSON.stringify({ width, observationBox, recognitionBox }),
+    ).toBeGreaterThan(1)
+    expect.soft(
+      overlapArea(recognitionBox!, retrievalBox!),
+      JSON.stringify({ width, recognitionBox, retrievalBox }),
+    ).toBeGreaterThan(1)
+
+    const retrievalVisibleArea = retrievalBox!.width * retrievalBox!.height - overlapArea(retrievalBox!, outcomeBox!)
+    expect.soft(
+      retrievalVisibleArea / (retrievalBox!.width * retrievalBox!.height),
+      JSON.stringify({ width, retrievalBox, outcomeBox }),
+    ).toBeGreaterThanOrEqual(0.55)
+
+    expect.soft(
+      outcomeBox!.width / retrievalBox!.width,
+      JSON.stringify({ width, retrievalBox, outcomeBox }),
+    ).toBeGreaterThanOrEqual(0.9)
+
+    if (outcomeBox!.y >= retrievalBox!.y + retrievalBox!.height - 1) {
+      const retrievalToOutcomeGap = outcomeBox!.y - (retrievalBox!.y + retrievalBox!.height)
+      expect.soft(
+        retrievalToOutcomeGap,
+        JSON.stringify({ width, retrievalBox, outcomeBox }),
+      ).toBeLessThanOrEqual(16)
+    }
+
+    if (width >= 1920) {
+      const indexBox = await index.boundingBox()
+      expect(indexBox).not.toBeNull()
+      expect(indexBox!.height, JSON.stringify({ width, indexBox })).toBeLessThanOrEqual(1080)
     }
 
     await expectNoHorizontalOverflow(page)
   }
 })
 
-test('The Usual Specialists connector matrix keeps rope pieces and crossing lockups mounted across representative viewports', async ({ page }) => {
-  for (const width of [390, 900, 1440, 2560] as const) {
-    await page.setViewportSize({ width, height: 1100 })
+test('The Usual Specialists Index high step keeps opaque feet registered to the blue edge through 699', async ({ page }) => {
+  for (const width of specialistsHighStepWidths) {
+    await page.setViewportSize({ width, height: 1080 })
     await page.goto(specialistsPreviewPath)
 
-    const opening = page.locator('[data-specialists-rope-piece="opening"]')
-    const index = page.locator('[data-specialists-rope-piece="index"]')
-    const silkUpper = page.locator('[data-specialists-rope-piece="silk-upper"]')
-    const silkLower = page.locator('[data-specialists-rope-piece="silk-lower"]')
-    const openingLock = page.locator('[data-specialists-chapter-crossing="opening-index"] [data-specialists-crossing-lockup]')
-    const indexSilkLock = page.locator('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lockup]')
+    const blue = page.locator('[data-index-substrate="blue-carrier"]')
+    await expect(blue).toBeVisible()
+    await expect(blue.locator('[data-index-traversal="index-high-step"]')).toBeVisible()
 
-    for (const locator of [opening, index, silkUpper, silkLower, openingLock, indexSilkLock]) await expect(locator).toBeVisible()
-    await expect(page.locator('[data-specialists-crossing-anchor="index-silk"]')).toBeHidden()
+    const registration = await blue.evaluate((carrier) => {
+      const art = carrier.querySelector<HTMLImageElement>('img[alt="A blue working sheet crossing the main route diagram."]')
+      const highStep = carrier.querySelector<HTMLImageElement>('[data-index-traversal="index-high-step"]')
+      const placement = highStep?.parentElement
+      if (!art || !highStep || !placement) throw new Error('High-step registration elements are missing')
+
+      const transformedPoint = (element: HTMLElement, x: number, y: number) => {
+        const style = getComputedStyle(element)
+        const matrix = style.transform === 'none' ? new DOMMatrix() : new DOMMatrix(style.transform)
+        const [originX, originY] = style.transformOrigin.split(' ').map(Number.parseFloat)
+        const point = new DOMPoint(x - originX, y - originY).matrixTransform(matrix)
+        return {
+          x: element.offsetLeft + originX + point.x,
+          y: element.offsetTop + originY + point.y,
+        }
+      }
+
+      // Opaque-pixel landmarks in the authored assets, not transparent canvas edges.
+      const raisedFoot = transformedPoint(
+        placement,
+        (218 / 320) * highStep.clientWidth,
+        (409 / 480) * highStep.clientHeight,
+      )
+      const lowerFoot = transformedPoint(
+        placement,
+        (135 / 320) * highStep.clientWidth,
+        (465 / 480) * highStep.clientHeight,
+      )
+      const raisedFootBlueEdge = transformedPoint(
+        art,
+        (966 / 1240) * art.clientWidth,
+        (103 / 827) * art.clientHeight,
+      )
+      const lowerFootBlueEdge = transformedPoint(
+        art,
+        (906 / 1240) * art.clientWidth,
+        (98 / 827) * art.clientHeight,
+      )
+
+      return {
+        raisedFootEdgeDelta: raisedFoot.y - raisedFootBlueEdge.y,
+        raisedFootHorizontalDelta: raisedFoot.x - raisedFootBlueEdge.x,
+        lowerFootInsideDelta: lowerFoot.y - lowerFootBlueEdge.y,
+      }
+    })
+
+    expect.soft(
+      Math.abs(registration.raisedFootEdgeDelta),
+      JSON.stringify({ width, registration, invariant: 'raised foot lands directly on blue edge' }),
+    ).toBeLessThanOrEqual(3)
+    expect.soft(
+      Math.abs(registration.raisedFootHorizontalDelta),
+      JSON.stringify({ width, registration, invariant: 'raised foot and torn edge share the same contact point' }),
+    ).toBeLessThanOrEqual(3)
+    expect.soft(
+      registration.lowerFootInsideDelta,
+      JSON.stringify({ width, registration, invariant: 'lower foot remains inside blue carrier' }),
+    ).toBeGreaterThanOrEqual(8)
   }
 })
 
-test('The Usual Specialists connector matrix keeps rope pieces registered across crossing transitions', async ({ page }) => {
-  for (const width of [389, 390, 719, 720, 899, 900, 1399, 1400] as const) {
-    await page.setViewportSize({ width, height: 1100 })
+test('The Usual Specialists Index arrival passage swaps high-step for walk at 700', async ({ page }) => {
+  for (const [width, expected] of [[699, 'high-step'], [700, 'walk']] as const) {
+    await page.setViewportSize({ width, height: 1080 })
     await page.goto(specialistsPreviewPath)
 
-    const crossingLock = page.locator('[data-specialists-chapter-crossing="index-silk"] [data-specialists-crossing-lockup]')
-    const knotBottomPort = crossingLock.locator('[data-specialists-crossing-lock-knot-bottom-port]')
-    const silkRopeAxis = page.locator('[data-silk-rope-axis]')
-    const [knotBottomPortBox, ropeAxisX] = await Promise.all([
-      knotBottomPort.boundingBox(),
-      silkRopeAxis.evaluate((axis) => axis.getBoundingClientRect().left),
+    const index = page.getByRole('region', { name: 'Index' })
+    const patch = index.locator('[data-index-traversal="patch-follow"]')
+    const highStep = index.locator('[data-index-traversal="index-high-step"]')
+    const walk = index.locator('[data-index-traversal="index-walk"]')
+
+    await expect(patch).toBeVisible()
+    if (expected === 'high-step') {
+      await expect(highStep).toBeVisible()
+      await expect(walk).not.toBeVisible()
+    } else {
+      await expect(highStep).not.toBeVisible()
+      await expect(walk).toBeVisible()
+    }
+  }
+})
+
+test('The Usual Specialists Index walk clears the name mark until the upper field recomposes at 1300', async ({ page }) => {
+  for (const width of [700, 720, 959, 960, 1100, 1299] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const walk = index.locator('[data-index-traversal="index-walk"]')
+    const lockup = index.locator('[data-index-lockup]')
+    const lockupMark = lockup.locator('img')
+    const [indexBox, walkBox, lockupBox] = await Promise.all([index.boundingBox(), walk.boundingBox(), lockup.boundingBox()])
+
+    expect(indexBox).not.toBeNull()
+    expect(walkBox).not.toBeNull()
+    expect(lockupBox).not.toBeNull()
+    expect.soft(
+      walkBox!.x - (lockupBox!.x + lockupBox!.width),
+      JSON.stringify({ width, walkBox, lockupBox, invariant: 'walking Index stays to the right of the name mark' }),
+    ).toBeGreaterThanOrEqual(12)
+    expect.soft(
+      (indexBox!.x + indexBox!.width) - (walkBox!.x + walkBox!.width),
+      JSON.stringify({ width, indexBox, walkBox, invariant: 'walking Index stays fully on-screen with breathing room' }),
+    ).toBeGreaterThanOrEqual(24)
+  }
+})
+
+test('The Usual Specialists Index 600-959 opaque graph paper reaches the opaque blue carrier', async ({ page }) => {
+  for (const width of [600, 700, 959] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+    await page.locator('[data-index-substrate="graph-paper"] img').waitFor()
+
+    const seam = await page.evaluate(async () => {
+      const chapter = document.querySelector('[data-specialist-chapter="index"]')
+      const blueImg = document.querySelector<HTMLImageElement>('[data-index-substrate="blue-carrier"] > img')
+      const graphImg = document.querySelector<HTMLImageElement>('[data-index-substrate="graph-paper"] img')
+      if (!chapter || !blueImg || !graphImg) throw new Error('Index substrate art is missing')
+
+      const angleToChapter = (element: HTMLElement) => {
+        let angle = 0
+        let node: HTMLElement | null = element
+        while (node && node !== chapter) {
+          const transform = getComputedStyle(node).transform
+          if (transform && transform !== 'none') {
+            const matrix = new DOMMatrix(transform)
+            angle += Math.atan2(matrix.b, matrix.a)
+          }
+          node = node.parentElement
+        }
+        return angle
+      }
+
+      const opaqueCloud = async (image: HTMLImageElement) => {
+        await image.decode()
+        const canvas = document.createElement('canvas')
+        canvas.width = image.naturalWidth
+        canvas.height = image.naturalHeight
+        const context = canvas.getContext('2d', { willReadFrequently: true })!
+        context.drawImage(image, 0, 0)
+        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+        const rect = image.getBoundingClientRect()
+        const centerX = rect.x + rect.width / 2
+        const centerY = rect.y + rect.height / 2
+        const angle = angleToChapter(image)
+        const cosine = Math.cos(angle)
+        const sine = Math.sin(angle)
+        const points: Array<[number, number]> = []
+
+        for (let sourceY = 0; sourceY < canvas.height; sourceY += 4) {
+          for (let sourceX = 0; sourceX < canvas.width; sourceX += 4) {
+            if (pixels[((sourceY * canvas.width) + sourceX) * 4 + 3] < 128) continue
+            const localX = ((sourceX / (canvas.width - 1)) - 0.5) * image.offsetWidth
+            const localY = ((sourceY / (canvas.height - 1)) - 0.5) * image.offsetHeight
+            points.push([
+              centerX + (localX * cosine) - (localY * sine),
+              centerY + (localX * sine) + (localY * cosine),
+            ])
+          }
+        }
+        return points
+      }
+
+      const [bluePoints, graphPoints] = await Promise.all([opaqueCloud(blueImg), opaqueCloud(graphImg)])
+      const blueBottomByX = new Map<number, number>()
+      const graphTopByX = new Map<number, number>()
+      for (const [x, y] of bluePoints) {
+        const column = Math.round(x)
+        blueBottomByX.set(column, Math.max(blueBottomByX.get(column) ?? Number.NEGATIVE_INFINITY, y))
+      }
+      for (const [x, y] of graphPoints) {
+        const column = Math.round(x)
+        graphTopByX.set(column, Math.min(graphTopByX.get(column) ?? Number.POSITIVE_INFINITY, y))
+      }
+
+      const gaps: number[] = []
+      const seamStart = innerWidth * 0.05
+      const seamEnd = innerWidth * 0.18
+      for (const [column, blueBottom] of blueBottomByX) {
+        if (column < seamStart || column > seamEnd) continue
+        const graphTop = graphTopByX.get(column)
+        if (graphTop === undefined) continue
+        gaps.push(graphTop - blueBottom)
+      }
+
+      const contactColumns = gaps.filter((gap) => gap >= -32 && gap <= 12).length
+      return {
+        minimumGap: Math.min(...gaps),
+        maximumGap: Math.max(...gaps),
+        contactColumns,
+      }
+    })
+
+    expect.soft(
+      seam.contactColumns,
+      JSON.stringify({ width, seam, invariant: 'visible graph-paper pixels meet visible blue-carrier pixels across a real seam' }),
+    ).toBeGreaterThanOrEqual(12)
+  }
+})
+
+test('The Usual Specialists Index 600-1299 story card stays in the approved upper authored composition', async ({ page }) => {
+  const overlapArea = (a: { x: number; y: number; width: number; height: number }, b: { x: number; y: number; width: number; height: number }) => {
+    const width = Math.max(0, Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x))
+    const height = Math.max(0, Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y))
+    return width * height
+  }
+
+  for (const width of [600, 700, 959, 960, 1100, 1299] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const evidence = index.locator('[data-index-evidence-field]')
+    const story = index.locator('[data-index-story-card]')
+    const patch = index.locator('[data-index-traversal="patch-follow"]')
+    const highStep = index.locator('[data-index-traversal="index-high-step"]')
+    const walk = index.locator('[data-index-traversal="index-walk"]')
+    const lockup = index.locator('[data-index-lockup]')
+    const lockupMark = lockup.locator('img')
+    const inspectionPatch = index.locator('[data-index-traversal="patch-peer"]')
+    const inspectionIndex = index.locator('[data-index-traversal="index-inspect"]')
+
+    const [evidenceBox, storyBox, patchBox, highStepBox, walkBox, lockupBox, lockupMarkBox, inspectionPatchBox, inspectionIndexBox] = await Promise.all([
+      evidence.boundingBox(),
+      story.boundingBox(),
+      patch.boundingBox(),
+      highStep.boundingBox(),
+      walk.boundingBox(),
+      lockup.boundingBox(),
+      lockupMark.boundingBox(),
+      inspectionPatch.boundingBox(),
+      inspectionIndex.boundingBox(),
+    ])
+    for (const box of [evidenceBox, storyBox, patchBox, lockupBox, lockupMarkBox, inspectionPatchBox, inspectionIndexBox]) expect(box).not.toBeNull()
+
+    expect.soft(
+      (storyBox!.y - evidenceBox!.y) / evidenceBox!.height,
+      JSON.stringify({ width, storyBox, evidenceBox, invariant: 'story card keeps one authored top percentage across the band' }),
+    ).toBeCloseTo(0.40, 2)
+    const expectedStoryWidth = Math.min(evidenceBox!.width * 0.56, 544)
+    expect.soft(
+      storyBox!.width,
+      JSON.stringify({ width, storyBox, evidenceBox, expectedStoryWidth, invariant: 'story card grows proportionally only until its authored readable measure' }),
+    ).toBeCloseTo(expectedStoryWidth, 0)
+    expect.soft(
+      ((evidenceBox!.x + evidenceBox!.width) - (storyBox!.x + storyBox!.width)) / evidenceBox!.width,
+      JSON.stringify({ width, storyBox, evidenceBox, invariant: 'story card keeps one authored right percentage across the band' }),
+    ).toBeCloseTo(0.04, 2)
+
+    for (const [name, protectedBox] of [
+      ['arriving Patch', patchBox!],
+      ...(highStepBox ? [['stepping Index', highStepBox] as const] : []),
+      ...(walkBox ? [['walking Index', walkBox] as const] : []),
+      ['Index mark', lockupMarkBox!],
+      ['inspecting Patch', inspectionPatchBox!],
+      ['inspecting Index', inspectionIndexBox!],
+    ]) {
+      expect.soft(
+        overlapArea(storyBox!, protectedBox),
+        JSON.stringify({ width, name, storyBox, protectedBox, invariant: 'story card preserves active character beats and the Index mark' }),
+      ).toBeLessThanOrEqual(1)
+    }
+  }
+})
+
+test('The Usual Specialists Index arriving Patch crosses to the right of the name mark at 1200', async ({ page }) => {
+  for (const [width, expectedSide] of [[1199, 'left'], [1200, 'right'], [1299, 'right']] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const patch = index.locator('[data-index-traversal="patch-follow"]')
+    const lockup = index.locator('[data-index-lockup]')
+    const blue = index.locator('[data-index-substrate="blue-carrier"]')
+    const [patchBox, lockupBox, blueBox] = await Promise.all([
+      patch.boundingBox(),
+      lockup.boundingBox(),
+      blue.boundingBox(),
     ])
 
-    expect(knotBottomPortBox).not.toBeNull()
-    const knotBottomX = knotBottomPortBox!.x + knotBottomPortBox!.width / 2
-    const registrationDelta = Math.abs(knotBottomX - ropeAxisX)
-    expect(
-      registrationDelta,
-      JSON.stringify({ width, knotBottomX, ropeAxisX }),
-    ).toBeLessThanOrEqual(3)
+    for (const box of [patchBox, lockupBox, blueBox]) expect(box).not.toBeNull()
+
+    if (expectedSide === 'left') {
+      expect.soft(
+        patchBox!.x + patchBox!.width - lockupBox!.x,
+        JSON.stringify({ width, patchBox, lockupBox, invariant: 'before 1200 Patch remains on the left arrival lane' }),
+      ).toBeLessThan(0)
+    } else {
+      expect.soft(
+        patchBox!.x - (lockupBox!.x + lockupBox!.width),
+        JSON.stringify({ width, patchBox, lockupBox, invariant: 'from 1200 Patch moves to the right of the Index mark' }),
+      ).toBeGreaterThanOrEqual(0)
+      expect.soft(
+        (patchBox!.x + patchBox!.width) - (blueBox!.x + blueBox!.width),
+        JSON.stringify({ width, patchBox, blueBox, invariant: 'right-side Patch visibly crosses the blue carrier into the document field' }),
+      ).toBeGreaterThan(0)
+    }
   }
 })
 
-test('The Usual Specialists Silk responsive matrix renders the settled scene set across its distinct treatments', async ({ page }) => {
+test('The Usual Specialists Index upper field takes the wide treatment at 1300', async ({ page }) => {
+  for (const width of [1300, 1400] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const evidence = index.locator('[data-index-evidence-field]')
+    const story = index.locator('[data-index-story-card]')
+    const walk = index.locator('[data-index-traversal="index-walk"]')
+    const [evidenceBox, storyBox, walkBox] = await Promise.all([
+      evidence.boundingBox(),
+      story.boundingBox(),
+      walk.boundingBox(),
+    ])
+
+    for (const box of [evidenceBox, storyBox, walkBox]) expect(box).not.toBeNull()
+
+    expect.soft(
+      storyBox!.y - evidenceBox!.y,
+      JSON.stringify({ width, storyBox, evidenceBox, invariant: 'wide story card enters at the authored 68px top lane' }),
+    ).toBeCloseTo(68, 0)
+    expect.soft(
+      storyBox!.width,
+      JSON.stringify({ width, storyBox, invariant: 'wide story card uses the existing 1400 treatment' }),
+    ).toBeGreaterThanOrEqual(400)
+    expect.soft(
+      storyBox!.width,
+      JSON.stringify({ width, storyBox, invariant: 'wide story card remains bounded' }),
+    ).toBeLessThanOrEqual(480)
+    expect.soft(
+      storyBox!.x - (walkBox!.x + walkBox!.width),
+      JSON.stringify({ width, storyBox, walkBox, invariant: 'walking Index moves to the left side of the incoming story card' }),
+    ).toBeGreaterThanOrEqual(1)
+  }
+})
+
+test('The Usual Specialists Index walk keeps its wide lane when the return pair appears at 1600', async ({ page }) => {
+  const measurements = new Map<number, { walkLane: number; walkTop: number }>()
+
+  for (const width of [1599, 1600] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const desk = index.locator('[data-index-substrate="desk-diagram"]')
+    const story = index.locator('[data-index-story-card]')
+    const walk = index.locator('[data-index-traversal="index-walk"]')
+    const indexReturn = index.locator('[data-index-traversal="index-return"]')
+    const patchReturn = index.locator('[data-index-traversal="patch-return"]')
+    const [deskBox, storyBox, walkBox] = await Promise.all([
+      desk.boundingBox(),
+      story.boundingBox(),
+      walk.boundingBox(),
+    ])
+
+    for (const box of [deskBox, storyBox, walkBox]) expect(box).not.toBeNull()
+    expect.soft(
+      storyBox!.x - (walkBox!.x + walkBox!.width),
+      JSON.stringify({ width, storyBox, walkBox, invariant: 'walking Index stays wholly left of the story card' }),
+    ).toBeGreaterThanOrEqual(1)
+    expect(await indexReturn.isVisible(), JSON.stringify({ width, invariant: 'returning Index appears only at 1600' })).toBe(width >= 1600)
+    expect(await patchReturn.isVisible(), JSON.stringify({ width, invariant: 'returning Patch appears only at 1600' })).toBe(width >= 1600)
+
+    measurements.set(width, {
+      walkLane: (walkBox!.x - deskBox!.x) / deskBox!.width,
+      walkTop: walkBox!.y - deskBox!.y,
+    })
+  }
+
+  const before = measurements.get(1599)!
+  const after = measurements.get(1600)!
+  expect.soft(
+    Math.abs(before.walkLane - after.walkLane),
+    JSON.stringify({ before, after, invariant: 'return-pair visibility does not own the walking Index horizontal lane' }),
+  ).toBeLessThanOrEqual(0.01)
+  expect.soft(
+    Math.abs(before.walkTop - after.walkTop),
+    JSON.stringify({ before, after, invariant: 'return-pair visibility does not own the walking Index vertical lane' }),
+  ).toBeLessThanOrEqual(1)
+})
+
+test('The Usual Specialists Index lower closing sequence keeps its real 959-960 break', async ({ page }) => {
+  const measurements = new Map<number, { officeWidth: number; closingWidth: number }>()
+
+  for (const width of [959, 960] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const office = index.locator('[data-index-substrate="commission-03"]')
+    const closing = office.locator('xpath=ancestor::*[@data-index-closing-sequence][1]')
+    const [officeBox, closingBox] = await Promise.all([office.boundingBox(), closing.boundingBox()])
+
+    expect(officeBox).not.toBeNull()
+    expect(closingBox).not.toBeNull()
+    measurements.set(width, { officeWidth: officeBox!.width, closingWidth: closingBox!.width })
+  }
+
+  const compactRatio = measurements.get(959)!.officeWidth / measurements.get(959)!.closingWidth
+  const mediumRatio = measurements.get(960)!.officeWidth / measurements.get(960)!.closingWidth
+
+  expect.soft(compactRatio, '959 keeps the approved compact office span').toBeGreaterThan(0.6)
+  expect.soft(mediumRatio, '960 takes the narrower medium office span').toBeLessThan(0.5)
+})
+
+test('The Usual Specialists Index 960 closeout elastically returns to the settled 1400 geometry', async ({ page }) => {
+  const measurements = new Map<number, {
+    officeInset: number
+    outcomeRightInset: number
+    recognitionX: number
+    retrievalX: number
+  }>()
+
+  for (const width of [960, 1100, 1200, 1300, 1399, 1400] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const [chapterBox, officeBox, recognitionBox, retrievalBox, outcomeBox] = await Promise.all([
+      index.boundingBox(),
+      index.locator('[data-index-substrate="commission-03"]').boundingBox(),
+      index.locator('[data-index-closing-beat="recognition"]').boundingBox(),
+      index.locator('[data-index-closing-beat="source-retrieval"]').boundingBox(),
+      index.locator('[data-index-closing-beat="assent-outcome"]').boundingBox(),
+    ])
+
+    for (const box of [chapterBox, officeBox, recognitionBox, retrievalBox, outcomeBox]) expect(box).not.toBeNull()
+    measurements.set(width, {
+      officeInset: officeBox!.x - chapterBox!.x,
+      outcomeRightInset: (chapterBox!.x + chapterBox!.width) - (outcomeBox!.x + outcomeBox!.width),
+      recognitionX: recognitionBox!.x - chapterBox!.x,
+      retrievalX: retrievalBox!.x - chapterBox!.x,
+    })
+  }
+
+  const start = measurements.get(960)!
+  expect.soft(start.officeInset, JSON.stringify({ start, invariant: '960 office reaches the left page edge' })).toBeCloseTo(0, 0)
+  expect.soft(start.outcomeRightInset, JSON.stringify({ start, invariant: '960 outcome folder reaches the right page edge' })).toBeCloseTo(0, 0)
+  expect.soft(
+    start.recognitionX - start.retrievalX,
+    JSON.stringify({ start, invariant: '960 Bingo box sits on the retrieval seam' }),
+  ).toBeCloseTo(0, 0)
+
+  const widths = [960, 1100, 1200, 1300, 1399] as const
+  for (let index = 1; index < widths.length; index += 1) {
+    const previous = measurements.get(widths[index - 1])!
+    const current = measurements.get(widths[index])!
+    expect.soft(
+      current.officeInset,
+      JSON.stringify({ width: widths[index], previous, current, invariant: 'office moves inward continuously toward 1400' }),
+    ).toBeGreaterThan(previous.officeInset)
+    expect.soft(
+      current.outcomeRightInset,
+      JSON.stringify({ width: widths[index], previous, current, invariant: 'outcome folder moves inward continuously toward 1400' }),
+    ).toBeGreaterThan(previous.outcomeRightInset)
+    expect.soft(
+      current.recognitionX,
+      JSON.stringify({ width: widths[index], previous, current, invariant: 'Bingo moves continuously toward its 1400 seam position' }),
+    ).toBeGreaterThan(previous.recognitionX)
+  }
+
+  const nearWide = measurements.get(1399)!
+  const settledWide = measurements.get(1400)!
+  expect.soft(
+    Math.abs(nearWide.officeInset - settledWide.officeInset),
+    JSON.stringify({ nearWide, settledWide, invariant: 'office reaches the settled wide position without a 1400 snap' }),
+  ).toBeLessThanOrEqual(2)
+  expect.soft(
+    Math.abs(nearWide.outcomeRightInset - settledWide.outcomeRightInset),
+    JSON.stringify({ nearWide, settledWide, invariant: 'outcome reaches the settled wide position without a 1400 snap' }),
+  ).toBeLessThanOrEqual(2)
+  expect.soft(
+    Math.abs(nearWide.recognitionX - settledWide.recognitionX),
+    JSON.stringify({ nearWide, settledWide, invariant: 'Bingo reaches the settled wide position without a 1400 snap' }),
+  ).toBeLessThanOrEqual(2)
+
+  expect.soft(settledWide.officeInset, '1400 office position stays settled').toBeCloseTo(196, 0)
+  expect.soft(settledWide.outcomeRightInset, '1400 outcome position stays settled').toBeCloseTo(94, 0)
+  expect.soft(settledWide.recognitionX, '1400 Bingo position stays settled').toBeCloseTo(547.328, 0)
+})
+
+test('The Usual Specialists Index graph paper carries a proportionate 959 treatment into 960', async ({ page }) => {
+  const measurements = new Map<number, {
+    graph: { x: number; y: number; width: number; height: number }
+    story: { x: number; y: number; width: number; height: number }
+    pair: { x: number; y: number; width: number; height: number }
+  }>()
+
+  for (const width of [959, 960] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const [graphBox, storyBox, pairBox] = await Promise.all([
+      index.locator('[data-index-substrate="graph-paper"]').boundingBox(),
+      index.locator('[data-index-story-card]').boundingBox(),
+      index.locator('[data-index-inspection-pair]').boundingBox(),
+    ])
+
+    for (const box of [graphBox, storyBox, pairBox]) expect(box).not.toBeNull()
+    measurements.set(width, { graph: graphBox!, story: storyBox!, pair: pairBox! })
+  }
+
+  const compact = measurements.get(959)!
+  const medium = measurements.get(960)!
+  const widthRatio = medium.graph.width / compact.graph.width
+  const storyBottom = medium.story.y + medium.story.height
+  const graphToStorySeam = medium.graph.y - storyBottom
+  const pairInsetFromGraphTop = medium.pair.y - medium.graph.y
+
+  expect.soft(
+    widthRatio,
+    JSON.stringify({ compact, medium, widthRatio, invariant: '960 graph paper remains proportionate to the approved 959 backing field without copying it literally' }),
+  ).toBeGreaterThanOrEqual(0.85)
+  expect.soft(
+    widthRatio,
+    JSON.stringify({ compact, medium, widthRatio, invariant: '960 graph paper remains a distinct medium treatment rather than duplicating 959 exactly' }),
+  ).toBeLessThanOrEqual(0.98)
+  expect.soft(
+    graphToStorySeam,
+    JSON.stringify({ medium, graphToStorySeam, invariant: 'the larger graph field rejoins the upper evidence passage instead of dropping into a dead vertical gap' }),
+  ).toBeLessThanOrEqual(48)
+  expect.soft(
+    graphToStorySeam,
+    JSON.stringify({ medium, graphToStorySeam, invariant: 'the graph field may tuck behind the story card but does not leap far above it' }),
+  ).toBeGreaterThanOrEqual(-80)
+  expect.soft(
+    pairInsetFromGraphTop,
+    JSON.stringify({ medium, pairInsetFromGraphTop, invariant: 'the 960 inspection pair moves with the closeout and sits near the top of the enlarged graph field' }),
+  ).toBeGreaterThanOrEqual(0)
+  expect.soft(
+    pairInsetFromGraphTop,
+    JSON.stringify({ medium, pairInsetFromGraphTop, invariant: 'the 960 inspection pair does not remain stranded low inside the enlarged graph field' }),
+  ).toBeLessThanOrEqual(96)
+
+  for (const width of [960, 1100, 1299, 1400, 1920, 2560] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+    await Promise.all([
+      page.locator('[data-index-substrate="graph-paper"] img').waitFor(),
+      page.locator('[data-index-traversal="patch-peer"]').waitFor(),
+    ])
+    const patchContainment = await page.evaluate(async () => {
+    const chapter = document.querySelector('[data-specialist-chapter="index"]')
+    const graphImg = document.querySelector<HTMLImageElement>('[data-index-substrate="graph-paper"] img')
+    const patchImg = document.querySelector<HTMLImageElement>('[data-index-traversal="patch-peer"]')
+    if (!chapter || !graphImg || !patchImg) throw new Error('Index lower lockup art is missing')
+
+    const angleToChapter = (element: HTMLElement) => {
+      let angle = 0
+      let node: HTMLElement | null = element
+      while (node && node !== chapter) {
+        const transform = getComputedStyle(node).transform
+        if (transform && transform !== 'none') {
+          const matrix = new DOMMatrix(transform)
+          angle += Math.atan2(matrix.b, matrix.a)
+        }
+        node = node.parentElement
+      }
+      return angle
+    }
+
+    const opaqueCloud = async (image: HTMLImageElement, step: number) => {
+      await image.decode()
+      const canvas = document.createElement('canvas')
+      canvas.width = image.naturalWidth
+      canvas.height = image.naturalHeight
+      const context = canvas.getContext('2d', { willReadFrequently: true })!
+      context.drawImage(image, 0, 0)
+      const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+      const rect = image.getBoundingClientRect()
+      const centerX = rect.x + rect.width / 2
+      const centerY = rect.y + rect.height / 2
+      const angle = angleToChapter(image)
+      const cosine = Math.cos(angle)
+      const sine = Math.sin(angle)
+      const points: Array<[number, number]> = []
+
+      for (let sourceY = 0; sourceY < canvas.height; sourceY += step) {
+        for (let sourceX = 0; sourceX < canvas.width; sourceX += step) {
+          if (pixels[((sourceY * canvas.width) + sourceX) * 4 + 3] < 128) continue
+          const localX = ((sourceX / (canvas.width - 1)) - 0.5) * image.offsetWidth
+          const localY = ((sourceY / (canvas.height - 1)) - 0.5) * image.offsetHeight
+          points.push([
+            centerX + (localX * cosine) - (localY * sine),
+            centerY + (localX * sine) + (localY * cosine),
+          ])
+        }
+      }
+      return points
+    }
+
+    const [graphPoints, patchPoints] = await Promise.all([
+      opaqueCloud(graphImg, 4),
+      opaqueCloud(patchImg, 2),
+    ])
+    const graphRangeByColumn = new Map<number, { top: number; bottom: number }>()
+    const graphRangeByRow = new Map<number, { left: number; right: number }>()
+    for (const [x, y] of graphPoints) {
+      const column = Math.round(x)
+      const range = graphRangeByColumn.get(column)
+      if (range) {
+        range.top = Math.min(range.top, y)
+        range.bottom = Math.max(range.bottom, y)
+      } else {
+        graphRangeByColumn.set(column, { top: y, bottom: y })
+      }
+
+      const row = Math.round(y)
+      const rowRange = graphRangeByRow.get(row)
+      if (rowRange) {
+        rowRange.left = Math.min(rowRange.left, x)
+        rowRange.right = Math.max(rowRange.right, x)
+      } else {
+        graphRangeByRow.set(row, { left: x, right: x })
+      }
+    }
+
+    let outsidePoints = 0
+    let outsideMinX = Number.POSITIVE_INFINITY
+    let outsideMaxX = Number.NEGATIVE_INFINITY
+    let outsideMinY = Number.POSITIVE_INFINITY
+    let outsideMaxY = Number.NEGATIVE_INFINITY
+    for (const [x, y] of patchPoints) {
+      let enclosed = false
+      const column = Math.round(x)
+      for (let offset = -4; offset <= 4; offset += 1) {
+        const range = graphRangeByColumn.get(column + offset)
+        if (range && y >= range.top && y <= range.bottom) {
+          enclosed = true
+          break
+        }
+      }
+      if (!enclosed) {
+        outsidePoints += 1
+        outsideMinX = Math.min(outsideMinX, x)
+        outsideMaxX = Math.max(outsideMaxX, x)
+        outsideMinY = Math.min(outsideMinY, y)
+        outsideMaxY = Math.max(outsideMaxY, y)
+      }
+    }
+
+    const patchBounds = patchPoints.reduce((bounds, [x, y]) => ({
+      minX: Math.min(bounds.minX, x),
+      maxX: Math.max(bounds.maxX, x),
+      minY: Math.min(bounds.minY, y),
+      maxY: Math.max(bounds.maxY, y),
+    }), {
+      minX: Number.POSITIVE_INFINITY,
+      maxX: Number.NEGATIVE_INFINITY,
+      minY: Number.POSITIVE_INFINITY,
+      maxY: Number.NEGATIVE_INFINITY,
+    })
+    let furthestGraphLeftEdgeAcrossPatch = Number.NEGATIVE_INFINITY
+    for (let row = Math.round(patchBounds.minY); row <= Math.round(patchBounds.maxY); row += 1) {
+      const rowRange = graphRangeByRow.get(row)
+      if (rowRange) furthestGraphLeftEdgeAcrossPatch = Math.max(furthestGraphLeftEdgeAcrossPatch, rowRange.left)
+    }
+
+    return {
+      outsidePoints,
+      totalPatchPoints: patchPoints.length,
+      outsideBounds: outsidePoints > 0
+        ? { minX: outsideMinX, maxX: outsideMaxX, minY: outsideMinY, maxY: outsideMaxY }
+        : null,
+      patchBounds,
+      furthestGraphLeftEdgeAcrossPatch,
+    }
+    })
+
+    expect.soft(
+      patchContainment.outsidePoints,
+      JSON.stringify({ width, patchContainment, invariant: 'every visible Patch pixel is backed by visible graph paper throughout the carried medium treatment' }),
+    ).toBe(0)
+
+    const graphWidthRatio = await page.locator('[data-index-substrate="graph-paper"]').evaluate((graph) => {
+      const lockup = graph.closest('[data-index-research-lockup]')
+      if (!lockup) throw new Error('Index research lockup is missing')
+      return graph.getBoundingClientRect().width / lockup.getBoundingClientRect().width
+    })
+    expect.soft(
+      graphWidthRatio,
+      JSON.stringify({ width, graphWidthRatio, invariant: 'the 208% graph-paper overscale carries through ultrawide instead of snapping back' }),
+    ).toBeGreaterThanOrEqual(2)
+  }
+})
+
+test('The Usual Specialists Index 600-959 office keeps a fixed authored gutter below the main document', async ({ page }) => {
+  for (const width of [600, 700, 959] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const mainDocument = index.locator('[data-index-substrate="desk-diagram"]')
+    const office = index.locator('[data-index-substrate="commission-03"]')
+    const [mainDocumentBox, officeBox] = await Promise.all([
+      mainDocument.boundingBox(),
+      office.boundingBox(),
+    ])
+
+    expect(mainDocumentBox).not.toBeNull()
+    expect(officeBox).not.toBeNull()
+
+    const gutter = officeBox!.y - (mainDocumentBox!.y + mainDocumentBox!.height)
+    expect.soft(
+      gutter,
+      JSON.stringify({ width, mainDocumentBox, officeBox, gutter, invariant: 'office gutter below main document is authored at 31px' }),
+    ).toBeCloseTo(31, 0)
+  }
+})
+
+test('The Usual Specialists Index 600-959 close protects Index, Patch, and the filing action', async ({ page }) => {
+  const overlapArea = (a: { x: number; y: number; width: number; height: number }, b: { x: number; y: number; width: number; height: number }) => {
+    const width = Math.max(0, Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x))
+    const height = Math.max(0, Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y))
+    return width * height
+  }
+  const relativeRect = (
+    box: { x: number; y: number; width: number; height: number },
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ) => ({
+    x: box.x + (box.width * x),
+    y: box.y + (box.height * y),
+    width: box.width * width,
+    height: box.height * height,
+  })
+
+  for (const width of [600, 700, 959] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const office = index.locator('[data-index-substrate="commission-03"]')
+    const retrieval = index.locator('[data-index-closing-beat="source-retrieval"]')
+    const recognition = index.locator('[data-index-closing-beat="recognition"]')
+    const [officeBox, retrievalBox, recognitionBox] = await Promise.all([
+      office.boundingBox(),
+      retrieval.boundingBox(),
+      recognition.boundingBox(),
+    ])
+    for (const box of [officeBox, retrievalBox, recognitionBox]) expect(box).not.toBeNull()
+
+    /* These source-space regions correspond to the visible baked character/action
+       regions in index-observation.webp / index-macguffin.webp. The frames keep a
+       fixed 16:9 crop, so the normalized landmarks stay stable across this band. */
+    const indexFace = relativeRect(officeBox!, 0.28, 0.28, 0.27, 0.47)
+    const patchBody = relativeRect(officeBox!, 0.64, 0.25, 0.16, 0.45)
+    const filingHand = relativeRect(retrievalBox!, 0.24, 0.25, 0.51, 0.50)
+
+    expect.soft(
+      overlapArea(indexFace, retrievalBox!),
+      JSON.stringify({ width, indexFace, retrievalBox, invariant: 'retrieval never covers Index face' }),
+    ).toBeLessThanOrEqual(1)
+
+    const patchOcclusion = overlapArea(patchBody, retrievalBox!) / (patchBody.width * patchBody.height)
+    expect.soft(
+      patchOcclusion,
+      JSON.stringify({ width, patchBody, retrievalBox, patchOcclusion, invariant: 'retrieval covers at most half of Patch visible body' }),
+    ).toBeLessThanOrEqual(0.5)
+
+    expect.soft(
+      overlapArea(filingHand, recognitionBox!),
+      JSON.stringify({ width, filingHand, recognitionBox, invariant: 'recognition tag preserves the filing hand action' }),
+    ).toBeLessThanOrEqual(1)
+  }
+})
+
+test('The Usual Specialists Index 600-959 office-to-retrieval seam follows the approved endpoints continuously', async ({ page }) => {
+  for (const width of [600, 700, 959] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const office = index.locator('[data-index-substrate="commission-03"]')
+    const retrieval = index.locator('[data-index-closing-beat="source-retrieval"]')
+    const recognition = index.locator('[data-index-closing-beat="recognition"]')
+    const [officeBox, retrievalBox, recognitionBox] = await Promise.all([
+      office.boundingBox(),
+      retrieval.boundingBox(),
+      recognition.boundingBox(),
+    ])
+    for (const box of [officeBox, retrievalBox, recognitionBox]) expect(box).not.toBeNull()
+
+    const bandProgress = (width - 600) / (959 - 600)
+    const expectedStepY = 118 + (bandProgress * (203 - 118))
+    const expectedRecognitionInsetY = 13 + (bandProgress * (17 - 13))
+
+    expect.soft(
+      retrievalBox!.x - officeBox!.x,
+      JSON.stringify({ width, officeBox, retrievalBox, invariant: 'retrieval starts half an office width plus the approved 48px seam shift' }),
+    ).toBeCloseTo((officeBox!.width / 2) + 48, 0)
+    expect.soft(
+      retrievalBox!.y - officeBox!.y,
+      JSON.stringify({ width, officeBox, retrievalBox, expectedStepY, invariant: 'retrieval step interpolates between the approved band endpoints' }),
+    ).toBeCloseTo(expectedStepY, 0)
+    expect.soft(
+      recognitionBox!.x - retrievalBox!.x,
+      JSON.stringify({ width, recognitionBox, retrievalBox, invariant: 'Bingo rides the retrieval seam' }),
+    ).toBeCloseTo(-14, 0)
+    expect.soft(
+      recognitionBox!.y - retrievalBox!.y,
+      JSON.stringify({ width, recognitionBox, retrievalBox, expectedRecognitionInsetY, invariant: 'Bingo sits just inside the retrieval top edge' }),
+    ).toBeCloseTo(expectedRecognitionInsetY, 0)
+  }
+})
+
+test('The Usual Specialists Index 600-959 outcome completes the left-right-left closing cadence', async ({ page }) => {
+  for (const width of [600, 700, 959] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const office = index.locator('[data-index-substrate="commission-03"]')
+    const retrieval = index.locator('[data-index-closing-beat="source-retrieval"]')
+    const outcome = index.locator('[data-index-closing-beat="assent-outcome"]')
+    const [indexBox, officeBox, retrievalBox, outcomeBox] = await Promise.all([
+      index.boundingBox(),
+      office.boundingBox(),
+      retrieval.boundingBox(),
+      outcome.boundingBox(),
+    ])
+
+    for (const box of [indexBox, officeBox, retrievalBox, outcomeBox]) expect(box).not.toBeNull()
+
+    expect.soft(
+      outcomeBox!.x - indexBox!.x,
+      JSON.stringify({ width, indexBox, outcomeBox, invariant: 'outcome bleeds to the left chapter edge' }),
+    ).toBeCloseTo(0, 0)
+    expect.soft(
+      (outcomeBox!.x + outcomeBox!.width) - (officeBox!.x + officeBox!.width),
+      JSON.stringify({ width, officeBox, outcomeBox, invariant: 'outcome right edge stays keyed to the office right edge' }),
+    ).toBeCloseTo(0, 0)
+
+    const officeToOutcomeGutter = outcomeBox!.y - (officeBox!.y + officeBox!.height)
+    expect.soft(
+      officeToOutcomeGutter,
+      JSON.stringify({ width, officeBox, outcomeBox, officeToOutcomeGutter, invariant: 'outcome keeps an authored 70px gutter below the office panel' }),
+    ).toBeCloseTo(70, 0)
+
+    const outcomeRight = outcomeBox!.x + outcomeBox!.width
+    expect.soft(
+      outcomeRight - retrievalBox!.x,
+      JSON.stringify({ width, retrievalBox, outcomeBox, invariant: 'outcome top-right corner reaches inside retrieval bottom-left' }),
+    ).toBeGreaterThan(0)
+    expect.soft(
+      (retrievalBox!.x + retrievalBox!.width) - outcomeRight,
+      JSON.stringify({ width, retrievalBox, outcomeBox, invariant: 'outcome top-right corner stays inside retrieval width' }),
+    ).toBeGreaterThan(0)
+  }
+})
+
+test('The Usual Specialists Index sub-600 story card stays attached to the evidence field', async ({ page }) => {
+  const overlapArea = (a: { x: number; y: number; width: number; height: number }, b: { x: number; y: number; width: number; height: number }) => {
+    const width = Math.max(0, Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x))
+    const height = Math.max(0, Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y))
+    return width * height
+  }
+
+  for (const width of specialistsLockedNarrowWidths) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const story = index.locator('[data-index-story-card]')
+    const evidence = index.locator('[data-index-evidence-field]')
+    const blue = index.locator('[data-index-substrate="blue-carrier"]')
+    const graph = index.locator('[data-index-substrate="graph-paper"]')
+    const patch = index.locator('[data-index-traversal="patch-follow"]')
+    const highStep = index.locator('[data-index-traversal="index-high-step"]')
+    const inspectionPatch = index.locator('[data-index-traversal="patch-peer"]')
+    const inspectionIndex = index.locator('[data-index-traversal="index-inspect"]')
+    const lockup = index.locator('[data-index-lockup]')
+
+    const [storyBox, evidenceBox, blueBox, graphBox, patchBox, highStepBox, inspectionPatchBox, inspectionIndexBox, lockupBox] = await Promise.all([
+      story.boundingBox(),
+      evidence.boundingBox(),
+      blue.boundingBox(),
+      graph.boundingBox(),
+      patch.boundingBox(),
+      highStep.boundingBox(),
+      inspectionPatch.boundingBox(),
+      inspectionIndex.boundingBox(),
+      lockup.boundingBox(),
+    ])
+    for (const box of [storyBox, evidenceBox, blueBox, graphBox, patchBox, highStepBox, inspectionPatchBox, inspectionIndexBox, lockupBox]) expect(box).not.toBeNull()
+
+    expect.soft(
+      overlapArea(storyBox!, blueBox!),
+      JSON.stringify({ width, storyBox, blueBox, invariant: 'story card remains attached to the upper evidence field' }),
+    ).toBeGreaterThan(1)
+    for (const [name, protectedBox] of [
+      ['arriving Patch', patchBox!],
+      ['stepping Index', highStepBox!],
+      ['inspecting Patch', inspectionPatchBox!],
+      ['inspecting Index', inspectionIndexBox!],
+      ['Index mark', lockupBox!],
+    ] as const) {
+      expect.soft(
+        overlapArea(storyBox!, protectedBox),
+        JSON.stringify({ width, name, storyBox, protectedBox, invariant: 'story card preserves active beats and landmarks' }),
+      ).toBeLessThanOrEqual(1)
+    }
+
+    const storyBottom = storyBox!.y + storyBox!.height
+    const evidenceBottom = evidenceBox!.y + evidenceBox!.height
+    expect.soft(
+      Math.abs(evidenceBottom - storyBottom),
+      JSON.stringify({ width, storyBox, evidenceBox, invariant: 'narrow evidence field ends with the story card' }),
+    ).toBeLessThanOrEqual(1)
+    expect.soft(
+      graphBox!.y - storyBottom,
+      JSON.stringify({ width, storyBox, graphBox, invariant: 'graph paper remains connected to the upper document composition' }),
+    ).toBeLessThanOrEqual(8)
+  }
+})
+
+test('The Usual Specialists Index sub-600 assent outcome is full bleed', async ({ page }) => {
+  for (const width of specialistsLockedNarrowWidths) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const index = page.getByRole('region', { name: 'Index' })
+    const outcome = index.locator('[data-index-closing-beat="assent-outcome"]')
+    const [indexBox, outcomeBox] = await Promise.all([
+      index.boundingBox(),
+      outcome.boundingBox(),
+    ])
+
+    expect(indexBox).not.toBeNull()
+    expect(outcomeBox).not.toBeNull()
+    expect.soft(
+      Math.abs(outcomeBox!.x - indexBox!.x),
+      JSON.stringify({ width, indexBox, outcomeBox, invariant: 'narrow assent outcome bleeds to the left chapter edge' }),
+    ).toBeLessThanOrEqual(1)
+    expect.soft(
+      Math.abs((outcomeBox!.x + outcomeBox!.width) - (indexBox!.x + indexBox!.width)),
+      JSON.stringify({ width, indexBox, outcomeBox, invariant: 'narrow assent outcome bleeds to the right chapter edge' }),
+    ).toBeLessThanOrEqual(1)
+  }
+})
+
+test('The Usual Specialists Index assent handwriting scales with its outcome image', async ({ page }) => {
+  const samples: Array<{ width: number; outcomeWidth: number; lineFontSize: number; assentFontSize: number }> = []
+
+  for (const width of [320, 599] as const) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const outcome = page.getByRole('region', { name: 'Index' }).locator('[data-index-closing-beat="assent-outcome"]')
+    const line = outcome.getByText('You son of', { exact: true })
+    const copy = line.locator('..')
+    const assent = copy.locator('strong')
+
+    samples.push({
+      width,
+      outcomeWidth: (await outcome.boundingBox())!.width,
+      lineFontSize: Number.parseFloat(await line.evaluate((element) => getComputedStyle(element).fontSize)),
+      assentFontSize: Number.parseFloat(await assent.evaluate((element) => getComputedStyle(element).fontSize)),
+    })
+  }
+
+  const [narrow, wide] = samples
+  const outcomeScale = wide.outcomeWidth / narrow.outcomeWidth
+  expect.soft(
+    wide.lineFontSize / narrow.lineFontSize,
+    JSON.stringify({ samples, invariant: 'handwritten line scales with the outcome image' }),
+  ).toBeCloseTo(outcomeScale, 1)
+  expect.soft(
+    wide.assentFontSize / narrow.assentFontSize,
+    JSON.stringify({ samples, invariant: 'assent emphasis scales with the outcome image' }),
+  ).toBeCloseTo(outcomeScale, 1)
+})
+
+test('The Usual Specialists Index sub-600 recognition caption hugs its visible copy', async ({ page }) => {
+  for (const width of specialistsLockedNarrowWidths) {
+    await page.setViewportSize({ width, height: 1080 })
+    await page.goto(specialistsPreviewPath)
+
+    const recognition = page.getByRole('region', { name: 'Index' }).locator('[data-index-closing-beat="recognition"]')
+    const visibleCopy = recognition.locator('span').last()
+    await expect(visibleCopy).toHaveText('“Bingo”')
+
+    const geometry = await recognition.evaluate((element) => {
+      const copy = element.querySelector('span:last-child')
+      if (!(copy instanceof HTMLElement)) throw new Error('Recognition copy is missing')
+      const style = getComputedStyle(element)
+      return {
+        boxWidth: element.getBoundingClientRect().width,
+        copyWidth: copy.getBoundingClientRect().width,
+        chromeWidth:
+          Number.parseFloat(style.paddingLeft)
+          + Number.parseFloat(style.paddingRight)
+          + Number.parseFloat(style.borderLeftWidth)
+          + Number.parseFloat(style.borderRightWidth),
+      }
+    })
+
+    expect.soft(
+      Math.abs(geometry.boxWidth - (geometry.copyWidth + geometry.chromeWidth)),
+      JSON.stringify({ width, geometry, invariant: 'recognition caption shrink-wraps its visible copy' }),
+    ).toBeLessThanOrEqual(2)
+  }
+})
+
+test('The Usual Specialists Index focus parks rope, crossing hardware, and Silk', async ({ page }) => {
+  await page.setViewportSize({ width: 1456, height: 1100 })
+  await page.goto(specialistsPreviewPath)
+
+  await expect(page.locator('[data-specialist-chapter="index"]')).toBeVisible()
+  await expect(page.locator('[data-specialist-chapter="silk"]')).toHaveCount(0)
+  await expect(page.locator('[data-specialists-rope-piece]')).toHaveCount(0)
+  await expect(page.locator('[data-specialists-rope-anchor]')).toHaveCount(0)
+  await expect(page.locator('[data-specialists-chapter-crossing]')).toHaveCount(0)
+  await expect(page.locator('[data-specialists-crossing-lockup]')).toHaveCount(0)
+})
+
+test.skip('The Usual Specialists Silk responsive matrix renders the settled scene set across its distinct treatments', async ({ page }) => {
   for (const width of [320, 389, 390, 520, 719, 720, 800, 899, 900, 1050, 1199, 1200, 1350, 1499, 1500, 1920] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -456,7 +1533,7 @@ test('The Usual Specialists Silk responsive matrix renders the settled scene set
   }
 })
 
-test('The Usual Specialists Silk compact matrix scales the accepted Receipt and Silk lockup continuously', async ({ page }) => {
+test.skip('The Usual Specialists Silk compact matrix scales the accepted Receipt and Silk lockup continuously', async ({ page }) => {
   const acceptedAt720 = {
     receiptWidth: 324.122590206126,
     receiptHeight: 232.053180412252,
@@ -513,7 +1590,7 @@ test('The Usual Specialists Silk compact matrix scales the accepted Receipt and 
   }
 })
 
-test('The Usual Specialists Silk Receipt lockup exposes one complete external box', async ({ page }) => {
+test.skip('The Usual Specialists Silk Receipt lockup exposes one complete external box', async ({ page }) => {
   for (const width of [320, 390, 720, 900, 1199, 1200, 1499, 1500, 1920] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -546,7 +1623,7 @@ test('The Usual Specialists Silk Receipt lockup exposes one complete external bo
   }
 })
 
-test('The Usual Specialists Silk compact matrix gives Commission 09 its widescreen bleed treatment', async ({ page }) => {
+test.skip('The Usual Specialists Silk compact matrix gives Commission 09 its widescreen bleed treatment', async ({ page }) => {
   for (const width of [390, 520, 620, 719] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -582,7 +1659,7 @@ test('The Usual Specialists Silk compact matrix gives Commission 09 its widescre
   }
 })
 
-test('The Usual Specialists Silk Commission 09 placement owns compact and narrow bleed', async ({ page }) => {
+test.skip('The Usual Specialists Silk Commission 09 placement owns compact and narrow bleed', async ({ page }) => {
   for (const width of [320, 389, 390, 520, 719] as const) {
     await page.setViewportSize({ width, height: 1800 })
     await page.goto(specialistsPreviewPath)
@@ -611,7 +1688,7 @@ test('The Usual Specialists Silk Commission 09 placement owns compact and narrow
   }
 })
 
-test('The Usual Specialists Silk compact matrix keeps the Receipt/Silk to Commission 09 gutter proportional', async ({ page }) => {
+test.skip('The Usual Specialists Silk compact matrix keeps the Receipt/Silk to Commission 09 gutter proportional', async ({ page }) => {
   const acceptedAt719VisibleGutter = 21.42
 
   for (const width of [390, 520, 620, 719] as const) {
@@ -642,7 +1719,7 @@ test('The Usual Specialists Silk compact matrix keeps the Receipt/Silk to Commis
   }
 })
 
-test('The Usual Specialists Silk narrow matrix keeps its gutters tight and proportional', async ({ page }) => {
+test.skip('The Usual Specialists Silk narrow matrix keeps its gutters tight and proportional', async ({ page }) => {
   const checkpoints = [
     { width: 320, gap: 20 },
     { width: 340, gap: 20.4 },
@@ -683,7 +1760,7 @@ test('The Usual Specialists Silk narrow matrix keeps its gutters tight and propo
   }
 })
 
-test('The Usual Specialists Silk narrow matrix lets Commission 09 bleed past both viewport edges', async ({ page }) => {
+test.skip('The Usual Specialists Silk narrow matrix lets Commission 09 bleed past both viewport edges', async ({ page }) => {
   for (const width of [320, 340, 389] as const) {
     await page.setViewportSize({ width, height: 1400 })
     await page.goto(specialistsPreviewPath)
@@ -708,7 +1785,7 @@ test('The Usual Specialists Silk narrow matrix lets Commission 09 bleed past bot
   }
 })
 
-test('The Usual Specialists Silk matrix keeps chapter-bottom breathing room bounded across authored widths', async ({ page }) => {
+test.skip('The Usual Specialists Silk matrix keeps chapter-bottom breathing room bounded across authored widths', async ({ page }) => {
   const checkpoints = [
     { width: 320, maxGap: 175 },
     { width: 389, maxGap: 175 },
@@ -758,7 +1835,7 @@ test('The Usual Specialists Silk matrix keeps chapter-bottom breathing room boun
   }
 })
 
-test('The Usual Specialists Silk mirror matrix keeps Silk attached to the Receipt hole', async ({ page }) => {
+test.skip('The Usual Specialists Silk mirror matrix keeps Silk attached to the Receipt hole', async ({ page }) => {
   let largeReceiptFrameWidth: number | null = null
   let largeReceiptSilkWidth: number | null = null
   for (const width of [390, 900, 1200, 1500, 1920] as const) {
@@ -821,7 +1898,7 @@ test('The Usual Specialists Silk mirror matrix keeps Silk attached to the Receip
   expect(largeReceiptSilkWidth).not.toBeNull()
 })
 
-test('The Usual Specialists Silk motion contract moves only aperture worlds and respects reduced motion', async ({ page }) => {
+test.skip('The Usual Specialists Silk motion contract moves only aperture worlds and respects reduced motion', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto(specialistsPreviewPath)

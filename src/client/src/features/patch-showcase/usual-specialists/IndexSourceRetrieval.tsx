@@ -1,37 +1,37 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
-const Macguffin = styled.div`
+const SourceRetrieval = styled.div`
   position: relative;
   width: 100%;
-  min-height: 255px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 
   img {
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 255px;
     object-fit: cover;
+    object-position: center 54%;
   }
 `
 
-type IndexMacguffinProps = {
+type IndexSourceRetrievalProps = {
   style?: CSSProperties
 }
 
-export const IndexMacguffin = ({ style }: IndexMacguffinProps) => {
+export const IndexSourceRetrieval = ({ style }: IndexSourceRetrievalProps): ReactElement => {
   return (
-    <Macguffin data-index-substrate="commission-04" style={style}>
+    <SourceRetrieval data-index-closing-beat="source-retrieval" style={style}>
       <img
         src={usualSpecialistsAssetPath('index-macguffin.webp')}
         width="1200"
         height="800"
         loading="lazy"
         decoding="async"
-        alt="Index extracts the route's physical macguffin from the document world."
+        alt="Index pulls a useful source file from a packed archive drawer."
       />
-    </Macguffin>
+    </SourceRetrieval>
   )
 }

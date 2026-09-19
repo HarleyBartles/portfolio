@@ -5,21 +5,23 @@ import {
   SILK_COMMISSION_06_ROPE_PORT,
   SilkTraversalComposition,
 } from './SilkTraversalComposition'
+import { INDEX_SILK_CONNECTION } from './usualSpecialistsConnections'
 
 describe('SilkTraversalComposition', () => {
-  test('owns upper and lower commissioned rope pieces around Commission 06 as one physical composition', () => {
-    const { container } = render(<SilkTraversalComposition style={{ opacity: 0.5 }} />)
+  test('owns a seam-to-join upper rope and a join-owned lower rope around Commission 06', () => {
+    const { container } = render(<SilkTraversalComposition connection={INDEX_SILK_CONNECTION} style={{ opacity: 0.5 }} />)
 
     const root = container.querySelector('[data-silk-traversal-composition]')
     const upperRope = root?.querySelector('[data-specialists-rope-piece="silk-upper"]')
     const lowerRope = root?.querySelector('[data-specialists-rope-piece="silk-lower"]')
+    const ropeAxis = root?.querySelector('[data-silk-rope-axis]')
     const traversal = root?.querySelector('[data-silk-commission="06"]')
     const traversalPort = root?.querySelector('[data-silk-traversal-rope-port]')
     const ropeJoinPort = root?.querySelector('[data-silk-rope-join-port]')
-    const ropeAxis = root?.querySelector('[data-silk-rope-axis]')
+    const upperEntryPort = upperRope?.querySelector('[data-silk-upper-rope-entry-port]')
+    const upperExitPort = upperRope?.querySelector('[data-silk-upper-rope-exit-port]')
 
     expect(root).toHaveStyle({ opacity: '0.5' })
-    expect(root?.querySelectorAll('[data-silk-rope-axis]')).toHaveLength(1)
     expect(ropeAxis).toBeInTheDocument()
     expect(getComputedStyle(root as HTMLElement).position).toBe('relative')
     expect(getComputedStyle(root as HTMLElement).width).toBe('100%')
@@ -27,7 +29,10 @@ describe('SilkTraversalComposition', () => {
     expect(ropeAxis).toContainElement(upperRope as HTMLElement)
     expect(ropeAxis).toContainElement(lowerRope as HTMLElement)
     expect(ropeAxis).toContainElement(ropeJoinPort as HTMLElement)
-    expect(upperRope?.querySelector('[data-specialists-rope-variant="taut-straight"]')).toBeInTheDocument()
+    expect(upperEntryPort).toBeInTheDocument()
+    expect(upperExitPort).toBeInTheDocument()
+    expect(upperRope?.querySelector('[data-silk-upper-rope-material="tiled"]')).toBeInTheDocument()
+    expect(upperRope?.querySelector('[data-specialists-rope-variant="taut-straight"]')).not.toBeInTheDocument()
     expect(lowerRope?.querySelector('[data-specialists-rope-variant="terminal-curl"]')).toBeInTheDocument()
     const traversalImage = traversal?.querySelector<HTMLImageElement>('[data-silk-traversal-cutout-image]')
     expect(traversalImage).toBeInTheDocument()
@@ -44,13 +49,13 @@ describe('SilkTraversalComposition', () => {
 
   test('does not expose caller className as a styling seam', () => {
     // @ts-expect-error className is intentionally not part of the vertical-slice API.
-    const { container } = render(<SilkTraversalComposition className="external-control" />)
+    const { container } = render(<SilkTraversalComposition connection={INDEX_SILK_CONNECTION} className="external-control" />)
     expect(container.querySelector('[data-silk-traversal-composition]')).not.toHaveClass('external-control')
   })
 
   test('does not accept raw join or traversal coordinates from its parent', () => {
     // @ts-expect-error raw join geometry is intentionally not part of the vertical-slice API.
-    const { container } = render(<SilkTraversalComposition ropeJoinTop={440} traversalTop={580} />)
+    const { container } = render(<SilkTraversalComposition connection={INDEX_SILK_CONNECTION} ropeJoinTop={440} traversalTop={580} />)
     const root = container.querySelector('[data-silk-traversal-composition]')
 
     expect(root).not.toHaveAttribute('ropeJoinTop')

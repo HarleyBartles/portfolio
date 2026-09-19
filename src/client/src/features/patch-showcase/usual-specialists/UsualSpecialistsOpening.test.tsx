@@ -5,7 +5,7 @@ import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 describe('Usual Specialists opening', () => {
-  test('owns the opening rope from a page anchor above the threshold image', () => {
+  test('renders the opening without rope or anchor hardware', () => {
     const { container } = render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
         <UsualSpecialistsOpening />
@@ -20,16 +20,8 @@ describe('Usual Specialists opening', () => {
     expect(pageTitle.querySelector('[data-specialists-wordmark]')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('img', { name: /ordinary apartment safehouse/i })).toHaveAttribute('fetchpriority', 'high')
     const opening = container.querySelector('header')
-    const threshold = screen.getByRole('img', { name: /ordinary apartment safehouse/i }).parentElement
-    const rope = opening?.querySelector('[data-specialists-rope-piece="opening"]')
-    const anchor = opening?.querySelector<HTMLElement>('[data-specialists-rope-anchor="opening-start"]') ?? null
-    expect(rope?.querySelectorAll('[data-specialists-rope-variant="taut-straight"]')).toHaveLength(2)
-    expect(anchor).toBeInTheDocument()
-    expect(anchor?.querySelector('[data-specialists-rope-start-anchor-image]')).toHaveAttribute(
-      'src',
-      expect.stringContaining('media/patch/the-usual-specialists/opening-rope-start-anchor.webp'),
-    )
-    expect(threshold).not.toContainElement(anchor)
+    expect(opening?.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
+    expect(opening?.querySelector('[data-specialists-rope-anchor]')).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Silk' })).not.toBeInTheDocument()
   })
 

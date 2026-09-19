@@ -122,7 +122,7 @@ describe('Adventures of Patch routes', () => {
     const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
     expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
     expect(story.querySelector('[data-specialist-chapter="index"]')).toBeInTheDocument()
-    expect(story.querySelector('[data-specialist-chapter="silk"]')).toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="silk"]')).not.toBeInTheDocument()
     expect(story.querySelector('[data-specialist-chapter="writ"]')).not.toBeInTheDocument()
     expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
     expect(document.head.querySelector('link[rel="canonical"]')).toBeNull()

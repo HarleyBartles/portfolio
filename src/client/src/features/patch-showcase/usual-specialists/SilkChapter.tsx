@@ -5,6 +5,7 @@ import { SilkReactionFrameComposition } from './SilkReactionFrameComposition'
 import { SilkReceiptPeekthroughComposition } from './SilkReceiptPeekthroughComposition'
 import { SilkTraversalComposition } from './SilkTraversalComposition'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import type { IndexSilkConnection } from './usualSpecialistsConnections'
 import {
   BreachAperturePlacement,
   Chapter,
@@ -22,10 +23,11 @@ import {
 } from './SilkChapter.styles'
 
 type SilkChapterProps = {
+  connection: IndexSilkConnection
   style?: CSSProperties
 }
 
-export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
+export const SilkChapter = ({ connection, style }: SilkChapterProps): ReactElement => {
   return (
     <Chapter aria-labelledby="specialists-silk-title" data-specialist-chapter="silk" id="silk" style={style}>
       <h2 className="visually-hidden" id="specialists-silk-title">Silk</h2>
@@ -44,7 +46,7 @@ export const SilkChapter = ({ style }: SilkChapterProps): ReactElement => {
         </NameLockup>
 
         <TraversalPlacement data-silk-traversal-placement>
-          <SilkTraversalComposition />
+          <SilkTraversalComposition connection={connection} />
         </TraversalPlacement>
 
         <CorridorAperturePlacement data-silk-aperture-owner="05" data-silk-commission="05">

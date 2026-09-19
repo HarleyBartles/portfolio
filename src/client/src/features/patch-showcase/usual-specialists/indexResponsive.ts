@@ -1,12 +1,12 @@
 export const INDEX_CONTAINER_NAME = 'index'
 
 export const indexQueries = {
-  narrow: '(max-width: 389px)',
-  compact: '(min-width: 390px) and (max-width: 719px)',
-  throughCompact: '(max-width: 719px)',
-  throughMid: '(max-width: 899px)',
-  belowWide: '(max-width: 1399px)',
+  compact: '(min-width: 600px)',
+  walkReady: '(min-width: 700px)',
+  medium: '(min-width: 960px)',
+  arrivalCross: '(min-width: 1200px)',
+  upperWide: '(min-width: 1300px)',
   wide: '(min-width: 1400px)',
-  expanded: '(min-width: 1600px)',
+  returnPair: '(min-width: 1600px)',
   ultrawide: '(min-width: 1920px)',
 } as const

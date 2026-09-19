@@ -1,7 +1,19 @@
-import styled from 'styled-components'
-import { CHAPTER_CROSSING_HEIGHT, chapterCrossingPortCss } from './chapterCrossingGeometry'
+import styled, { css } from 'styled-components'
+import { CHAPTER_CROSSING_HEIGHT } from './chapterCrossingGeometry'
+import {
+  OPENING_ROPE_START_ANCHOR_RENDER_WIDTH,
+  openingIndexConnectionResponsiveCss,
+  openingIndexCrossingTopPortX,
+  openingIndexCrossingTopPortYOffset,
+  openingIndexStartAnchorLeft,
+  openingIndexStartAnchorTop,
+  openingIndexStartAnchorTransform,
+  openingIndexStartPortX,
+} from './openingIndexConnectionGeometry'
 import { SPECIALISTS_CHAPTER_NAV_HEIGHT } from './SpecialistsChapterNav.styles'
 import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
+import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import type { OpeningIndexConnection } from './usualSpecialistsConnections'
 
 const OPENING_INDEX_TRANSITION_HEIGHT = SPECIALISTS_CHAPTER_NAV_HEIGHT + CHAPTER_CROSSING_HEIGHT
 const OPENING_CONTAINER_NAME = 'specialists-opening'
@@ -26,82 +38,81 @@ export const Opening = styled.header`
 `
 
 export const OpeningRopeLayer = styled.div`
+  --opening-rope-layer-height: calc(clamp(540px, 68vw, 820px) + 72px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
   position: absolute;
   z-index: 9;
   right: 0;
   bottom: -${OPENING_INDEX_TRANSITION_HEIGHT}px;
   left: 0;
-  height: calc(clamp(540px, 68vw, 820px) + 72px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
+  height: var(--opening-rope-layer-height);
   pointer-events: none;
 
   @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
-    height: calc(762px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
+    --opening-rope-layer-height: calc(762px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
   }
 `
 
-export const OpeningRopePlacement = styled.div`
+export const OpeningRopePlacement = styled.div<{ $connection: OpeningIndexConnection }>`
   position: absolute;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  width: ${SPECIALISTS_ROPE_GEOMETRY.default.materialWidth}px;
-  flex-direction: column;
-  overflow: hidden;
-  transform: translateX(-50%);
-  ${chapterCrossingPortCss('opening-index')}
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.mid.materialWidth}px;
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.compact} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.compactLandscape.materialWidth}px;
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
-    width: ${SPECIALISTS_ROPE_GEOMETRY.narrow.materialWidth}px;
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.wide} {
-    display: block;
-    width: auto;
-    aspect-ratio: 724 / 2172;
-    overflow: visible;
-  }
-`
-
-export const OpeningRopeTile = styled.div`
-  flex: 0 0 auto;
-  width: 100%;
-  transform: scaleX(${SPECIALISTS_ROPE_GEOMETRY.paracord.straightScaleX});
+  z-index: 0;
+  width: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexRunWidth}px;
+  ${({ $connection }) => openingIndexConnectionResponsiveCss($connection, (placement) => css`
+    --opening-rope-start-x: ${openingIndexStartPortX(placement)};
+    --opening-rope-start-y: ${placement.startPort.yPx}px;
+    --opening-rope-exit-x: ${openingIndexCrossingTopPortX(placement)};
+    --opening-rope-exit-y-offset: ${openingIndexCrossingTopPortYOffset(placement)}px;
+  `)}
+  top: var(--opening-rope-start-y);
+  left: calc(var(--opening-rope-start-x) - ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexRunWidth / 2}px);
+  --opening-rope-delta-x: calc(var(--opening-rope-exit-x) - var(--opening-rope-start-x));
+  --opening-rope-delta-y: calc(var(--opening-rope-layer-height) + var(--opening-rope-exit-y-offset) - var(--opening-rope-start-y));
+  height: hypot(var(--opening-rope-delta-x), var(--opening-rope-delta-y));
+  overflow: visible;
+  transform: rotate(atan2(calc(0px - var(--opening-rope-delta-x)), var(--opening-rope-delta-y)));
   transform-origin: 50% 0;
-
-  & + & {
-    margin-top: -2px;
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.wide} {
-    & + & {
-      display: none;
-    }
-  }
 `
 
-export const OpeningRopeAnchorPlacement = styled.div`
+export const OpeningTiledRopeMaterial = styled.div`
+  position: absolute;
+  top: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
+  right: 0;
+  bottom: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
+  left: 0;
+  width: 100%;
+  background-image: url("${usualSpecialistsAssetPath('rope-taut-straight.webp')}");
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexTileTextureWidth}px auto;
+`
+
+const OpeningRopePort = styled.span`
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+`
+
+export const OpeningRopeStartPort = styled(OpeningRopePort)`
+  top: 0;
+  transform: translate(-50%, -50%);
+`
+
+export const OpeningRopeExitPort = styled(OpeningRopePort)`
+  bottom: 0;
+  transform: translate(-50%, 50%);
+`
+
+export const OpeningRopeAnchorPlacement = styled.div<{ $connection: OpeningIndexConnection }>`
   position: absolute;
   z-index: 1;
-  top: -42px;
-  width: 180px;
-  transform: translate(-50%, -5%) scale(0.65) rotate(5.5deg);
-  ${chapterCrossingPortCss('opening-index')}
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
-    transform: translate(-50%, -5%) scale(0.55) rotate(5.5deg);
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
-    transform: translate(-50%, -5%) scale(0.5) rotate(5.5deg);
-  }
+  width: ${OPENING_ROPE_START_ANCHOR_RENDER_WIDTH}px;
+  transform-origin: 50% 50%;
+  ${({ $connection }) => openingIndexConnectionResponsiveCss($connection, (placement) => css`
+    top: ${openingIndexStartAnchorTop(placement)}px;
+    left: ${openingIndexStartAnchorLeft(placement)};
+    transform: ${openingIndexStartAnchorTransform(placement)};
+  `)}
 `
 
 export const OpeningLockup = styled.div`

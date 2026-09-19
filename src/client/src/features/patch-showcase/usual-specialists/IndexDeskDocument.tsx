@@ -5,9 +5,16 @@ import { IndexTraversal } from './IndexTraversal'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 const Document = styled.div`
+  --index-return-lane-x: 78%;
+  --index-return-width: 96px;
+  --index-return-gap: 8px;
   position: relative;
   width: 100%;
   height: 100%;
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
+    --index-return-lane-x: clamp(1240px, 78%, 1780px);
+  }
 `
 
 const DocumentArt = styled.img`
@@ -21,24 +28,26 @@ const DocumentArt = styled.img`
 const IndexWalkPlacement = styled.div`
   position: absolute;
   z-index: 10;
-  top: 17%;
-  right: 18%;
-  width: 94px;
+  display: none;
+  top: 25%;
+  right: 42%;
+  width: 90px;
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
-    right: auto;
-    left: 1047px;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.walkReady} {
+    display: block;
+    right: 15%;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughMid} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.upperWide} {
     top: 25%;
-    right: 18%;
-    width: 88px;
-    transform: translateY(clamp(0px, calc(350px - 38.8889vw), 70px));
+    right: auto;
+    left: 52%;
+    width: 94px;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.throughCompact} {
-    display: none;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
+    top: 17%;
+    left: clamp(970px, calc(12cqi + 740px), 1047px);
   }
 `
 
@@ -47,13 +56,17 @@ const IndexReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.expanded} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.returnPair} {
     display: block;
-    top: 50%;
-    left: clamp(1240px, 78%, 1780px);
-    width: 96px;
+    top: 48%;
+    left: var(--index-return-lane-x);
+    width: var(--index-return-width);
     transform: scaleX(-1);
     transform-origin: 50% 100%;
+  }
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
+    top: 50%;
   }
 `
 
@@ -62,14 +75,18 @@ const PatchReturnPlacement = styled.div`
   z-index: 10;
   display: none;
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.expanded} {
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.returnPair} {
     z-index: 9;
     display: block;
-    top: 55%;
-    left: calc(clamp(1240px, 78%, 1780px) + 95px);
+    top: 54%;
+    left: calc(var(--index-return-lane-x) + var(--index-return-width) + var(--index-return-gap));
     width: 100px;
     transform: scaleX(-1);
     transform-origin: 50% 100%;
+  }
+
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
+    top: 55%;
   }
 `
 
@@ -89,13 +106,13 @@ export const IndexDeskDocument = ({ style }: IndexDeskDocumentProps) => {
         alt="A layered desk diagram of route records and working documents used by Index to trace provenance."
       />
       <IndexWalkPlacement>
-        <IndexTraversal traversal="index-walk" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-walk.webp')} />
+        <IndexTraversal character="index" moment="exploration" traversal="index-walk" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-walk.webp')} />
       </IndexWalkPlacement>
       <PatchReturnPlacement>
-        <IndexTraversal traversal="patch-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('patch-return.webp')} />
+        <IndexTraversal character="patch" moment="departure" traversal="patch-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('patch-return.webp')} />
       </PatchReturnPlacement>
       <IndexReturnPlacement>
-        <IndexTraversal traversal="index-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-return.webp')} />
+        <IndexTraversal character="index" moment="return-to-work" traversal="index-return" substrate="desk-diagram" src={usualSpecialistsAssetPath('index-return.webp')} />
       </IndexReturnPlacement>
     </Document>
   )

@@ -6,6 +6,8 @@ describe('IndexTraversal', () => {
   test('owns the decorative traversal image contract and semantic identifiers', () => {
     const { container } = render(
       <IndexTraversal
+        character="index"
+        moment="exploration"
         src="/media/index-walk.webp"
         traversal="index-walk"
         substrate="desk-diagram"
@@ -23,6 +25,8 @@ describe('IndexTraversal', () => {
     expect(image).toHaveAttribute('alt', '')
     expect(image).toHaveAttribute('aria-hidden', 'true')
     expect(image).toHaveAttribute('data-index-traversal', 'index-walk')
+    expect(image).toHaveAttribute('data-index-character', 'index')
+    expect(image).toHaveAttribute('data-index-moment', 'exploration')
     expect(image).toHaveAttribute('data-substrate', 'desk-diagram')
     expect(image).toHaveStyle({ opacity: '0.5' })
     expect(image).not.toHaveAttribute('className')
@@ -31,7 +35,7 @@ describe('IndexTraversal', () => {
   test('does not expose caller className as a styling seam', () => {
     const { container } = render(
       // @ts-expect-error className is intentionally not part of the vertical-slice API.
-      <IndexTraversal src="/media/index-walk.webp" traversal="index-walk" substrate="desk-diagram" className="external-control" />,
+      <IndexTraversal character="index" moment="exploration" src="/media/index-walk.webp" traversal="index-walk" substrate="desk-diagram" className="external-control" />,
     )
 
     expect(container.querySelector('img')).not.toHaveClass('external-control')

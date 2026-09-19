@@ -1,8 +1,6 @@
 import type { CSSProperties } from 'react'
 import { UsualSpecialistsOpening } from './usual-specialists/UsualSpecialistsOpening'
 import { IndexChapter } from './usual-specialists/IndexChapter'
-import { SilkChapter } from './usual-specialists/SilkChapter'
-import { CrossSectionConnector } from './usual-specialists/CrossSectionConnector'
 import { SpecialistsChapterNav } from './usual-specialists/SpecialistsChapterNav'
 import {
   OpeningComposition,
@@ -22,10 +20,7 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
           <UsualSpecialistsOpening />
         </OpeningComposition>
         <SpecialistsChapterNav />
-        <CrossSectionConnector crossing="opening-index" />
         <IndexChapter />
-        <CrossSectionConnector crossing="index-silk" />
-        <SilkChapter />
       </SpecialistsCanvas>
     </SpecialistsStory>
   )

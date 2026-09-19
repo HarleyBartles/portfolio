@@ -15,6 +15,12 @@ const acceptedPackageRoots = Object.freeze({
   rope: path.join(specialistsSourceRoot, 'rope'),
 })
 const candidateManifestPaths = Object.freeze({
+  index: path.join(
+    acceptedPackageRoots.index,
+    'candidates',
+    'outcome-folder-frame-review',
+    'candidate-assets.json',
+  ),
   silk: path.join(
     acceptedPackageRoots.silk,
     'candidates',
@@ -220,7 +226,17 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
-export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([])
+export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([
+  {
+    id: 'index-outcome-folder-frame-review',
+    sourcePackage: 'index',
+    custody: 'candidate',
+    source: 'candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png',
+    output: 'index-outcome-folder-frame-review.webp',
+    width: 1200,
+    format: 'webp',
+  },
+])
 
 const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
   ...USUAL_SPECIALISTS_ASSETS,

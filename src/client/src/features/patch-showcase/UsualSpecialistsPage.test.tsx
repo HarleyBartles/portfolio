@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 
 describe('Usual Specialists route-owned story', () => {
-  test('composes Silk immediately after Index without later Specialist chapters', () => {
+  test('renders the opening and Index only while later Specialist chapters are parked', () => {
     render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists/next/']}>
         <UsualSpecialistsPage />
@@ -17,37 +17,26 @@ describe('Usual Specialists route-owned story', () => {
     expect(story).not.toHaveAttribute('aria-labelledby')
     expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
     const index = story.querySelector<HTMLElement>('[data-specialist-chapter="index"]')
-    const silk = story.querySelector<HTMLElement>('[data-specialist-chapter="silk"]')
     const opening = story.querySelector('header')
     const canvas = story.querySelector<HTMLElement>('[data-specialists-canvas="authored"]')
     const nav = story.querySelector<HTMLElement>('[data-specialists-chapter-nav]')
-    const openingIndexCrossing = story.querySelector<HTMLElement>('[data-specialists-chapter-crossing="opening-index"]')
-    const indexSilkCrossing = story.querySelector<HTMLElement>('[data-specialists-chapter-crossing="index-silk"]')
-    const crossingLocks = story.querySelectorAll('[data-specialists-crossing-lockup]')
     const indexMilestone = story.querySelector<HTMLElement>('[data-specialists-index-milestone]')
     expect(opening).toBeInTheDocument()
     expect(story.querySelector('[data-temporary-wireframe-rope="true"]')).not.toBeInTheDocument()
     expect(indexMilestone).not.toBeInTheDocument()
     expect(canvas).not.toBeNull()
-    expect(canvas?.children).toHaveLength(6)
+    expect(canvas?.children).toHaveLength(3)
     expect(canvas?.children[0]?.querySelector('header')).toBe(opening)
     expect(canvas?.children[1]).toBe(nav)
-    expect(canvas?.children[2]).toBe(openingIndexCrossing)
-    expect(canvas?.children[3]).toBe(index)
-    expect(canvas?.children[4]).toBe(indexSilkCrossing)
-    expect(canvas?.children[5]).toBe(silk)
+    expect(canvas?.children[2]).toBe(index)
     expect(opening!.compareDocumentPosition(nav!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(nav!.compareDocumentPosition(openingIndexCrossing!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(openingIndexCrossing!.compareDocumentPosition(index!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(index!.compareDocumentPosition(indexSilkCrossing!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(indexSilkCrossing!.compareDocumentPosition(silk!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(openingIndexCrossing?.querySelector('[data-specialists-crossing-lockup]')).toBeInTheDocument()
-    expect(indexSilkCrossing?.querySelector('[data-specialists-crossing-lockup]')).toBeInTheDocument()
-    expect(crossingLocks).toHaveLength(2)
+    expect(nav!.compareDocumentPosition(index!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
+    expect(story.querySelector('[data-specialists-chapter-crossing]')).not.toBeInTheDocument()
+    expect(story.querySelector('[data-specialists-crossing-lockup]')).not.toBeInTheDocument()
+    expect(story.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
+    expect(story.querySelector('[data-specialists-rope-anchor]')).not.toBeInTheDocument()
     expect(index).toBeInTheDocument()
-    expect(silk).toBeInTheDocument()
-    expect(index!.compareDocumentPosition(silk!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(story.querySelector('[data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).not.toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="silk"], [data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).not.toBeInTheDocument()
     expect(within(story).queryByText('Advanced visual pre-production')).not.toBeInTheDocument()
   })
 
