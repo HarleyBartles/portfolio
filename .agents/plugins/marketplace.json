@@ -5,6 +5,20 @@
   },
   "plugins": [
     {
+      "name": "agent-operating-model",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/agent-operating-model"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "repo-worker-pack",
       "source": {
         "source": "github",
@@ -53,6 +67,20 @@
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
         "path": "codex-marketplace/plugins/frontend-pack"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "language-patterns-pack",
+      "source": {
+        "source": "github",
+        "owner": "HarleyBartles",
+        "repo": "agent-asset-marketplace",
+        "path": "codex-marketplace/plugins/language-patterns-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",

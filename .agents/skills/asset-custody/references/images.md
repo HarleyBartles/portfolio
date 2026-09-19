@@ -4,7 +4,7 @@
 
 For a production image, establish the owning source and current public consumer before changing bytes. Where the asset family has accepted/candidate manifests, generation receipts, or normalized provenance, those records must agree with the exact source master.
 
-Generated-image masters selected for page iteration follow `.agents/runbooks/generated-image-custody.md`: preserve the exact selected bytes, hash, intrinsic dimensions and byte count, then record tool/model and prompt/brief metadata only when retained evidence actually supports them. An explicit unknown is valid provenance; an inferred seed or reconstructed backend prompt is not.
+Generated-image masters selected for page iteration follow `.agents/playbooks/generated-image-custody.md`: preserve the exact selected bytes, hash, intrinsic dimensions and byte count, then record tool/model and prompt/brief metadata only when retained evidence actually supports them. An explicit unknown is valid provenance; an inferred seed or reconstructed backend prompt is not.
 
 ## Derivatives
 

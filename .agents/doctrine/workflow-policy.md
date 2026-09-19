@@ -48,7 +48,7 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 
 The repo is ready for normal website implementation only when:
 
-- `.agents/runbooks/` is the canonical stage-runbook home;
+- `.agents/runbooks/` is the canonical lifecycle-runbook home and `.agents/playbooks/` is the canonical topical-workflow home;
 - no stale `.agents/docs/guides/` routing or compatibility tree remains;
 - all active doctrine is routed and all authored links resolve;
 - local-only and generated custody boundaries are validated;

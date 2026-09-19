@@ -60,9 +60,9 @@ def write_command_declaration(repo: Path, runner: Path) -> None:
 class PreCommitHookTests(unittest.TestCase):
     def test_worker_guidance_uses_the_hook_as_the_single_normal_commit_gate(self) -> None:
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        testing = (ROOT / ".agents/runbooks/testing.md").read_text(encoding="utf-8")
+        testing = (ROOT / ".agents/playbooks/testing.md").read_text(encoding="utf-8")
         pull_requests = (ROOT / ".agents/runbooks/pr.md").read_text(encoding="utf-8")
-        code_style = (ROOT / ".agents/runbooks/code-style.md").read_text(encoding="utf-8")
+        code_style = (ROOT / ".agents/playbooks/code-style.md").read_text(encoding="utf-8")
 
         rule = "Do not run `py -3 tools/run.py ci --check` immediately before a normal commit"
         self.assertIn(rule, agents)

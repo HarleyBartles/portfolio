@@ -1,50 +1,58 @@
 # Implementation Runbook
 
-## Required skills
+Use this runbook when executing an approved plan in the Portfolio repository.
 
-- `/using-superpowers-plus` for routing.
-- `/executing-plans` or `/subagent-driven-development` according to the approved plan.
-- `/repo-worker-base` for worktree, validation, and source-custody boundaries.
-- `/verification-before-completion` before completion claims.
+## When
 
-Use this runbook when executing an approved plan in the portfolio repository.
+- Executing an approved implementation plan.
+- Repairing plan drift discovered during implementation without broadening scope.
 
 ## Required skills
 
-- `executing-plans` owns the implementation stage and its baseline.
-- `test-driven-development` for independent feature, bug-fix, behavior, and refactor work.
+- `using-superpowers-plus` for routing.
+- `executing-plans` or `subagent-driven-development` according to the approved execution lane.
+- `repo-worker-base` for worktree, source-custody, validation, and publication boundaries.
+- `test-driven-development` for feature, bug-fix, behavior, and tested-refactor work.
 - `verification-before-completion` before completion or passing claims.
 
-## Read First
+## Composition
 
-- `AGENTS.md` for repo-wide routing.
-- `.agents/doctrine/mesh-policy.md` for documentation and mesh rules.
-- `.agents/doctrine/artifact-policy.md` for artifact placement.
-- `.agents/doctrine/validation-policy.md` for the expected validation baseline.
-- The approved implementation plan.
+1. Read the approved implementation plan and the doctrine that constrains its slice.
+2. Execute the plan through the selected implementation skill without widening scope.
+3. Apply the topical playbooks below whenever their concerns are present; a playbook may also be invoked directly when discovered from the work itself.
+4. Run focused proof while iterating, then use the tracked commit hook for the complete repository gate once the intended tree is staged.
+5. Before review handoff, verify the implementation still satisfies the approved plan and repository doctrine.
 
-## Execution Rules
+## Doctrine and contracts
 
-- Implement the plan as written.
-- Keep changes narrow and track any discovered drift explicitly.
-- If a change touches docs or navigation, regenerate the mesh in the same change.
-- Do not claim completion until validation has actually run.
-- While executing, keep checking whether the output still satisfies the contract for the next stage: passing code review.
+- [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) for code scope and architecture invariants.
+- [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for navigation and generated mesh rules.
+- [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for artifact placement.
+- [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for validation expectations.
+- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for branch, readiness, and publication rules.
 
-## Verification
+## Local commands and paths
 
-- Run the exact checks named by the plan.
-- Prefer direct proof from the repo and commands over memory or summaries.
-- If a script or generator changes repository structure, verify the regenerated mesh before finishing.
-- Before handing off to review, rate whether the code is likely to pass review without the reviewer having to invent missing context.
-- Target rating: `9/10`.
-- Minimum passing rating: `8/10`.
-- If the rating is below `8/10`, keep working.
-- If the rating is below `9/10` and the gap is cheap to close, close it before you stop.
-- If the remaining gap is user-owned or genuinely out of scope, call it out clearly in the handoff notes.
+- Root routing: `AGENTS.md`.
+- In-flight plans: `.agents/plans/`.
+- Run focused checks while editing; the normal tracked commit hook owns the complete `py -3 tools/run.py ci --check` gate for the staged tree.
+- Regenerate the mesh in the same change when authored routing or navigation changes.
 
-## Finish Line
+## Evidence contract
 
-- Leave the tree clean unless the task explicitly preserves a tracked draft.
-- Update docs that future agents will rely on when the shape of the repo changes.
-- Leave behind enough validation and context that the reviewer can assess the diff without guessing at intent.
+- The implementation matches the approved plan or records a narrow, explicit drift.
+- Relevant focused tests pass before closeout.
+- Generated surfaces touched by the change are refreshed and check-clean.
+- Completion claims are based on current repository evidence, not memory or summaries.
+- The work is ready for code review without the reviewer having to invent missing architecture or validation context.
+
+## Prohibited combinations
+
+- Do not combine implementation with unrelated refactors or speculative architecture.
+- Do not bypass the tracked commit hook.
+- Do not treat a plan as authority to violate current doctrine or explicit human direction.
+
+## Playbook routing
+
+- [Code style](../playbooks/code-style.md) - whenever code, component architecture, styling implementation, Python, TypeScript, or technical prose changes.
+- [Testing](../playbooks/testing.md) - whenever behavior changes or validation is required.

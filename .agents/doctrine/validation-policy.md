@@ -32,5 +32,5 @@ Use this reference when deciding what to verify for repo-starter work.
 
 ## See also
 
-- `.agents/runbooks/testing.md` for the repo's testing commands and platform notes.
+- `.agents/playbooks/testing.md` for the repo's testing commands and platform notes.
 - `.agents/runbooks/implementing.md` for the implementation verification workflow.

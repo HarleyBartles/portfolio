@@ -20,8 +20,8 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 ## Conventions and verification
 
 - Configure the tracked local hook once per clone with `git config core.hooksPath githooks`; it runs the complete local gate before each commit. Use focused checks while iterating and do not pre-run or immediately repeat that same complete gate around a normal commit.
-- [`.agents/runbooks/code-style.md`](./.agents/runbooks/code-style.md) for code and writing conventions.
-- [`.agents/runbooks/testing.md`](./.agents/runbooks/testing.md) for what to verify.
-- [`.agents/runbooks/security.md`](./.agents/runbooks/security.md) for security review guidance.
+- [`.agents/playbooks/code-style.md`](./.agents/playbooks/code-style.md) when code or technical prose conventions apply.
+- [`.agents/playbooks/testing.md`](./.agents/playbooks/testing.md) when validation or test strategy applies.
+- [`.agents/playbooks/security.md`](./.agents/playbooks/security.md) when a security, privacy, credential, trust, or external-mutation concern applies.
 - [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the pull-request workflow and publication proof.
 - [`docs/design-decisions.md`](./docs/design-decisions.md) for the rationale ledger and reconsideration triggers behind material design choices.

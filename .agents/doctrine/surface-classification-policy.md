@@ -20,7 +20,8 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `INDEX.md` | Generated traversal and containment navigation | Mesh generator |
 | `.agents/doctrine/` | Binding Portfolio policies, contracts, and invariants | Authored doctrine |
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
-| `.agents/runbooks/` | Stage and topical workflow runbooks | Authored guidance |
+| `.agents/runbooks/` | Lifecycle-stage workflow runbooks | Authored guidance |
+| `.agents/playbooks/` | Topical workflows available whenever their concern applies | Authored guidance |
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
 | `.agents/skills/<repo-owned>/` | Repo-owned skills (unprefixed unless overriding a marketplace skill) | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
@@ -37,14 +38,14 @@ authority.
 ## Classification and anti-sprawl
 
 - Put a durable invariant, policy, contract, or authority boundary in `.agents/doctrine/`.
-- Put stage-specific, non-binding workflow guidance in `.agents/runbooks/`.
-- Put a repeatable Portfolio procedure in `.agents/runbooks/` only when it does not need skill invocation or composition.
+- Put lifecycle-stage workflow composition in `.agents/runbooks/`.
+- Put topical workflow composition in `.agents/playbooks/`; playbooks may be invoked directly or routed from runbooks.
 - Put a triggerable, composable Portfolio capability in `.agents/skills/` under a repo-owned name only when a real repeated use case justifies it.
 - Put implementation of a capability in repository code or `tools/`, not in an installed skill tree.
 - Keep only in-flight plans/specs in their tracked homes. On completion, promote durable decisions, remove the completed artifacts from Git, and use the off-repo scratch workspace described by `.agents/doctrine/non-repo-locations-policy.md` only for optional convenience copies.
 
 Do not create parallel `policies/`, `contracts/`, `reports/`, `receipts/`,
-`reference/`, `playbooks/`, or actor/domain taxonomies without a separately
+`reference/`, or actor/domain taxonomies without a separately
 justified scope boundary. Do not create empty taxonomy directories.
 
 Every new doctrine document must state its status, owner, scope, authority, and
