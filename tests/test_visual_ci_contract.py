@@ -80,6 +80,17 @@ def step_run_commands(job: str) -> list[str]:
 
 
 class VisualCiContractTests(unittest.TestCase):
+    def test_main_pages_upload_reuses_the_build_from_the_tracked_gate(self) -> None:
+        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        jobs = mapping_block(workflow, "jobs", 0)
+        quality = mapping_block(jobs, "quality", 2)
+
+        commands = step_run_commands(quality)
+        self.assertIn("githooks/pre-commit", commands)
+        self.assertNotIn("npm --prefix src/client run build", commands)
+        self.assertIn("uses: actions/upload-pages-artifact@v3", quality)
+        self.assertIn("path: src/client/dist", quality)
+
     def test_linux_quality_job_installs_declared_python_dependencies(self) -> None:
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         jobs = mapping_block(workflow, "jobs", 0)

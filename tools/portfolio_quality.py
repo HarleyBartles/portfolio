@@ -19,7 +19,6 @@ CONTENT_ROOT = Path("src/client/src/data/content")
 MANIFEST_PATH = CONTENT_ROOT / "content-manifest.json"
 PUBLIC_ROOT = Path("src/client/public")
 CUSTODY_PATH = Path("docs/asset-custody.md")
-MARKETPLACE_ROOT = Path(".agents/plugins/marketplace-source/codex-marketplace")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
 PATCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/patch-evidence.json")
@@ -609,90 +608,50 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
         findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "must not claim tested with real learners"))
 
 
-def _marketplace_inventory(root: Path, findings: list[Finding]) -> tuple[list[str], int, int] | None:
-    marketplace_root = root / MARKETPLACE_ROOT
-    manifest = _read_json(marketplace_root / "manifest.json", findings, "Marketplace manifest")
-    plugins = manifest.get("plugins") if isinstance(manifest, dict) else None
-    if not isinstance(plugins, list):
-        findings.append(_finding(MARKETPLACE_ROOT / "manifest.json", "Marketplace manifest must contain a plugins array"))
-        return None
-
-    names = [entry.get("name") for entry in plugins if isinstance(entry, dict)]
-    if len(names) != len(plugins) or not all(isinstance(name, str) and name for name in names):
-        findings.append(_finding(MARKETPLACE_ROOT / "manifest.json", "Marketplace plugins must have names"))
-        return None
-
-    entry_count = 0
-    canonical_names: set[str] = set()
-    for plugin_name in names:
-        bundle_path = marketplace_root / "plugins" / plugin_name / "references/bundle-manifest.json"
-        bundle = _read_json(bundle_path, findings, f"Marketplace bundle for {plugin_name}")
-        entries = bundle.get("entries") if isinstance(bundle, dict) else None
-        if not isinstance(entries, list):
-            findings.append(_finding(bundle_path.relative_to(root), "Marketplace bundle must contain an entries array"))
-            continue
-        canonical_entries = [entry.get("canonical_name") for entry in entries if isinstance(entry, dict)]
-        if len(canonical_entries) != len(entries) or not all(isinstance(name, str) and name for name in canonical_entries):
-            findings.append(_finding(bundle_path.relative_to(root), "Marketplace entries must have canonical_name values"))
-            continue
-        entry_count += len(canonical_entries)
-        canonical_names.update(canonical_entries)
-    return sorted(names), entry_count, len(canonical_names)
-
-
 def _validate_marketplace_evidence(root: Path, findings: list[Finding], warnings: list[Finding]) -> None:
     evidence = _read_json(root / MARKETPLACE_EVIDENCE_PATH, findings, "Marketplace evidence")
     if not isinstance(evidence, dict):
         return
-    inventory = _marketplace_inventory(root, findings)
-    if inventory is None:
-        return
-    plugin_names, entry_count, unique_skill_count = inventory
 
     observed_at = evidence.get("observedAt")
     if not isinstance(observed_at, str) or ISO_DATE_RE.fullmatch(observed_at) is None:
         findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "invalid observedAt; use ISO date format"))
 
-    marketplace_root = root / MARKETPLACE_ROOT
-    try:
-        tree_entry = subprocess.check_output(
-            ["git", "ls-tree", "HEAD", MARKETPLACE_ROOT.as_posix()], cwd=root, text=True, stderr=subprocess.DEVNULL
-        ).strip()
-        checked_out_revision = tree_entry.split()[2] if tree_entry.startswith("160000 commit ") else ""
-        if SHA_RE.fullmatch(checked_out_revision) is None:
-            raise subprocess.CalledProcessError(1, "git ls-tree")
-    except (OSError, subprocess.CalledProcessError):
-        try:
-            checked_out_revision = subprocess.check_output(
-                ["git", "rev-parse", "HEAD"], cwd=marketplace_root, text=True, stderr=subprocess.DEVNULL
-            ).strip()
-        except (OSError, subprocess.CalledProcessError):
-            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "cannot resolve Marketplace revision"))
-            checked_out_revision = None
     evidence_revision = evidence.get("marketplaceRevision")
     if not isinstance(evidence_revision, str) or SHA_RE.fullmatch(evidence_revision) is None:
         findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "marketplaceRevision must be a 40-character commit"))
-    elif checked_out_revision is not None and evidence_revision != checked_out_revision:
-        warnings.append(
-            _finding(
-                MARKETPLACE_EVIDENCE_PATH,
-                "marketplaceRevision does not match the current Marketplace revision; dated public evidence may lag the moving source",
-            )
-        )
 
     evidence_inventory = evidence.get("inventory")
-    expected_counts = {"pluginCount": len(plugin_names), "entryCount": entry_count, "uniqueSkillCount": unique_skill_count}
     if not isinstance(evidence_inventory, dict):
         findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "inventory must be an object"))
     else:
-        for field, expected in expected_counts.items():
-            if evidence_inventory.get(field) != expected:
-                label = {"pluginCount": "plugin count", "entryCount": "entry count", "uniqueSkillCount": "unique skill count"}[field]
-                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"inventory {label} does not match Marketplace {label}"))
+        for field in ("pluginCount", "entryCount", "uniqueSkillCount"):
+            value = evidence_inventory.get(field)
+            if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"inventory {field} must be a non-negative integer"))
+        entry_count = evidence_inventory.get("entryCount")
+        unique_skill_count = evidence_inventory.get("uniqueSkillCount")
+        if (
+            isinstance(entry_count, int)
+            and not isinstance(entry_count, bool)
+            and isinstance(unique_skill_count, int)
+            and not isinstance(unique_skill_count, bool)
+            and unique_skill_count > entry_count
+        ):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "inventory uniqueSkillCount cannot exceed entryCount"))
 
     evidence_plugins = evidence.get("plugins")
-    if not isinstance(evidence_plugins, list) or sorted(evidence_plugins) != plugin_names:
-        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "plugin names do not match Marketplace inventory"))
+    if not isinstance(evidence_plugins, list) or not all(isinstance(name, str) and name for name in evidence_plugins):
+        findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "plugins must be a string array"))
+        snapshot_plugins: set[str] = set()
+    else:
+        snapshot_plugins = set(evidence_plugins)
+        if len(snapshot_plugins) != len(evidence_plugins):
+            findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "plugins must not contain duplicates"))
+        if isinstance(evidence_inventory, dict):
+            plugin_count = evidence_inventory.get("pluginCount")
+            if isinstance(plugin_count, int) and not isinstance(plugin_count, bool) and plugin_count != len(evidence_plugins):
+                findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, "inventory pluginCount must match the snapshot plugin list"))
 
     consumers = evidence.get("consumers")
     if not isinstance(consumers, list) or not consumers:
@@ -740,8 +699,8 @@ def _validate_marketplace_evidence(root: Path, findings: list[Finding], warnings
         used_plugins = consumer.get("plugins")
         if isinstance(used_plugins, list):
             for plugin_name in used_plugins:
-                if isinstance(plugin_name, str) and plugin_name not in plugin_names:
-                    findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} references unknown Marketplace plugin '{plugin_name}'"))
+                if isinstance(plugin_name, str) and plugin_name not in snapshot_plugins:
+                    findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} references plugin '{plugin_name}' absent from this evidence snapshot"))
         for value in consumer.values():
             if isinstance(value, str) and PRIVATE_EVIDENCE_RE.search(value):
                 findings.append(_finding(MARKETPLACE_EVIDENCE_PATH, f"{label} contains a private local coordinate"))

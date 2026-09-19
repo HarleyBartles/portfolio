@@ -45,6 +45,7 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 - [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
 - [Doctrine](.agents/doctrine/INDEX.md)
 - [Runbooks](.agents/runbooks/INDEX.md)
+- [Playbooks](.agents/playbooks/INDEX.md)
 - [Repo mesh index](.agents/INDEX.md)
 - [Maintenance responsibility](AGENTS.md)
 

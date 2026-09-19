@@ -66,6 +66,13 @@ const consumers = [
   ['Adventures of Patch', 'four local project skills and runbooks'],
 ] as const
 
+export const marketplaceAuditDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${marketplaceEvidence.observedAt}T00:00:00Z`))
+
 export function MarketplaceDistributionMap(): ReactElement {
   const { pluginCount, entryCount, uniqueSkillCount } = marketplaceEvidence.inventory
 
@@ -73,7 +80,7 @@ export function MarketplaceDistributionMap(): ReactElement {
     <DistributionFigure aria-labelledby="marketplace-map-caption" data-visual-contract="marketplace-distribution-map">
       <figcaption id="marketplace-map-caption">
         <strong>Selective distribution map</strong>
-        <span>Repository audit · 21 August 2026. A dated snapshot, not live telemetry; consumers may pin different Marketplace revisions.</span>
+        <span>Repository audit · {marketplaceAuditDate}. A dated snapshot, not live telemetry; consumers may pin different Marketplace revisions.</span>
       </figcaption>
       <ol className="marketplace-map__flow">
         <li className="marketplace-map__source"><strong>Marketplace source</strong><span>{pluginCount} plugins · {entryCount} entries · {uniqueSkillCount} unique skill names</span></li>

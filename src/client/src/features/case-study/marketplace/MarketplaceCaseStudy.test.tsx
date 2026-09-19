@@ -14,7 +14,7 @@ describe('MarketplaceCaseStudy', () => {
     expect(screen.getByRole('heading', { name: 'Baseline' })).toBeVisible()
     expect(screen.getByRole('heading', { name: 'Selected' })).toBeVisible()
     expect(screen.getByRole('heading', { name: 'Local' })).toBeVisible()
-    expect(screen.getByText('Repository audit · 21 August 2026')).toBeVisible()
+    expect(screen.getByText('Repository audit · 19 September 2026')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Marketplace repository (opens in a new tab)' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/agent-asset-marketplace')
     expect(screen.getByRole('link', { name: 'Inspect the public source (opens in a new tab)' })).toHaveAttribute('href', 'https://github.com/HarleyBartles/agent-asset-marketplace')
     expect(screen.getByRole('link', { name: 'Read the repo-standards skill (opens in a new tab)' })).toHaveAttribute('href', expect.stringContaining('/codex-marketplace/plugins/repo-worker-pack/skills/repo-standards/SKILL.md'))

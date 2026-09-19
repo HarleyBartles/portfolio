@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 import { describe, expect, it } from 'vitest'
@@ -11,6 +12,38 @@ import {
 } from './process-usual-specialists-assets.mjs'
 
 describe('Usual Specialists asset processor', () => {
+  it('records the generation contract that produced the committed derivatives', async () => {
+    const receiptPath = path.resolve(
+      import.meta.dirname,
+      '..',
+      'public',
+      'media',
+      'patch',
+      'the-usual-specialists',
+      'usual-specialists-derivatives.json',
+    )
+    const receipt = JSON.parse(await readFile(receiptPath, 'utf8'))
+    const processor = await import('./process-usual-specialists-assets.mjs')
+
+    expect(receipt.generationContractSha256).toMatch(/^[a-f0-9]{64}$/)
+    expect(processor.usualSpecialistsGenerationContractSource).toBeTypeOf('function')
+    const rendererSource = await processor.usualSpecialistsGenerationContractSource()
+    expect(rendererSource).toContain('const smoothstep')
+    expect(rendererSource).toContain('const normalizeMineralField')
+    expect(rendererSource).toContain('const renderDerivative')
+    expect(processor.usualSpecialistsGenerationContractSha256).toBeTypeOf('function')
+    expect(receipt.generationContractSha256).toBe(await processor.usualSpecialistsGenerationContractSha256())
+
+    const processorSource = await readFile(path.resolve(import.meta.dirname, 'process-usual-specialists-assets.mjs'), 'utf8')
+    const mutatedRendererSource = processorSource.replace(
+      '.resize({ width: source.asset.width, withoutEnlargement: true })',
+      '.resize({ width: source.asset.width, fit: \'inside\', withoutEnlargement: true })',
+    )
+    expect(mutatedRendererSource).not.toBe(processorSource)
+    expect(processor.usualSpecialistsGenerationContractSha256From(mutatedRendererSource))
+      .not.toBe(processor.usualSpecialistsGenerationContractSha256From(processorSource))
+  })
+
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 

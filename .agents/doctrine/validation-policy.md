@@ -20,6 +20,7 @@ Use this reference when deciding what to verify for repo-starter work.
 - When you need cross-platform parity evidence, run the matching command in each environment or shell family separately. Do not make that the default minimum for one agent run.
 - Exact copied skill trees under `.agents/skills/` are validated by `tools/run.py refresh-skills --check`; exclude them from whitespace diff checks so upstream formatting does not generate false failures.
 - Automated gates protect objective contracts: executable behaviour, route integrity, accessibility, privacy, asset custody, and budgets. They do not freeze exact prose, CSS classes, component structure, or every visual value.
+- Dated public evidence snapshots are validated for internal consistency, safety, and the claims they actually publish. They are not required to stay revision-, count-, or inventory-equal to a moving upstream source unless a more specific repository contract explicitly declares live parity.
 - Approved visual baselines protect stable, representative surfaces from accidental drift. Updating a baseline is allowed when the pull request explains and reviews the new design.
 - The deployed product is static GitHub Pages output. Validation follows the live React/Vite architecture and must not retain a server toolchain after the runtime server has been removed.
 - Build-owned preview servers must use task-owned process and port lifecycles, release them on success and failure, and never terminate an unrelated listener merely to make validation pass.

@@ -13,16 +13,19 @@ Use this runbook for Portfolio pull-request workflow and publication proof.
 - `using-superpowers-plus` for routing.
 - `repo-worker-base` for worktree, branch, validation, and publication boundaries.
 - `publishing-source` for the commit/push/publication decision.
+- `requesting-code-review` for final review dispatch.
+- `receiving-code-review` for review-response handling.
 - `using-github-mcp` for hosted PR and remote-check evidence.
 - `verification-before-completion` before a green or ready claim.
+- `completing-planning-artifacts` for completing-slice promotion and lifecycle marking.
 
 ## Composition
 
-1. Verify the task branch and worktree state against current repository policy.
+1. Verify the task branch and worktree state against current repository policy, then follow the routed portable publication and review skills.
 2. Commit normally; let the tracked pre-commit hook prove the exact staged tree once.
 3. Push the focused branch and open or update a draft PR into `main` unless current human authority says otherwise.
-4. Move out of draft only after self-review and required local proof are complete.
-5. Verify hosted checks and remote head state before publication claims.
+4. Before fully reviewable handoff, use the `completing-planning-artifacts` completing-slice lane: promote enduring content, mark governed artifacts `completed-awaiting-retirement`, retain them in the PR, and verify the published head contains them.
+5. Verify hosted checks and remote head state before publication claims. Human-owned Ready and merge actions remain PR state, not unfinished agent plan work.
 
 ## Doctrine and contracts
 
@@ -40,7 +43,8 @@ Use this runbook for Portfolio pull-request workflow and publication proof.
 ## PR instructions
 
 - Open pull requests as drafts by default and keep them draft while iterating.
-- Do not move a PR out of draft until self-review and required local validation are complete.
+- A substantially complete, fully reviewable Draft is a completed agent handoff; all agent-owned plan items are complete unless the Draft is explicitly declared incomplete.
+- Do not move a PR out of draft until self-review and required local validation are complete; changing Ready state remains human-owned unless explicitly delegated.
 - Preserve applicable prompts in `.github/pull_request_template.md` rather than deleting evidence fields.
 
 ## Publication proof

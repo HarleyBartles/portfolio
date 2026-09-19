@@ -15,13 +15,16 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/skills/` contains repo-owned skills (unprefixed unless they are a repo-specific
   override or variant of a shared marketplace skill) and marketplace-derived skills
   described by `.provenance.json`.
-- `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. Completed plans
-  leave the tracked tree; Git history is the immutable record.
+- `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. A completed
+  plan remains tracked through its completing PR with the exact
+  `completed-awaiting-retirement` marker, then retires in the first commit of the
+  next substantive slice under `.agents/doctrine/completed-artifacts.md`.
 - `.agents/plans/<epic-name>/` holds a multi-plan epic roadmap and its plans while the
-  epic is in flight. Completed child plans leave the tracked tree unless they remain
-  actively required by the in-flight roadmap.
-- `.agents/specs/` holds in-flight design specs and is tracked. Completed specs leave
-  the tracked tree after enduring decisions are promoted to current doctrine or ADRs.
+  epic is in flight. Completed child plans follow the same two-slice lifecycle unless
+  they remain actively required by the in-flight roadmap.
+- `.agents/specs/` holds in-flight design specs and is tracked. Completed specs follow
+  the same two-slice lifecycle after enduring decisions are promoted to current
+  doctrine or ADRs.
 - Optional convenience copies of completed planning artifacts may live only in the
   central disposable `_agent-scratch/<repo-name>/completed/` store described by
   `.agents/doctrine/completed-artifacts.md`; they are not evidence.

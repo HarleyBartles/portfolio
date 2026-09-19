@@ -1,5 +1,6 @@
 {
   "generatedBy": "src/client/scripts/process-usual-specialists-assets.mjs",
+  "generationContractSha256": "c8a6d8a48e75add64b7e357da9f26425f44e5c5f74adbe80a2aab088aec24f4c",
   "derivatives": [
     {
       "id": "safehouse-threshold",

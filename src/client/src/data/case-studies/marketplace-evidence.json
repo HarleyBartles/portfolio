@@ -1,10 +1,10 @@
 {
-  "observedAt": "2026-09-18",
-  "marketplaceRevision": "9fee7a7fa01847e8597e7367a13ab43a8c9ec815",
+  "observedAt": "2026-09-19",
+  "marketplaceRevision": "930f2eebe3fe3252404789e3410d1343494c30fa",
   "inventory": {
     "pluginCount": 19,
-    "entryCount": 82,
-    "uniqueSkillCount": 79
+    "entryCount": 83,
+    "uniqueSkillCount": 80
   },
   "plugins": [
     "agent-operating-model",
