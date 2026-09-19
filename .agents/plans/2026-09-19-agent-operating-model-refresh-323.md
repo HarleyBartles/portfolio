@@ -1,5 +1,7 @@
 # Portfolio Agent Operating Model Refresh 323 Implementation Plan
 
+**Lifecycle state:** completed-awaiting-retirement
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Refresh Portfolio onto marketplace commit `930f2eebe3fe3252404789e3410d1343494c30fa` and align the repository-local operating-model bindings with the updated portable branch-closeout, planning-artifact, composition, and tracked-hook contracts.
@@ -112,8 +114,6 @@
 
 - [x] **Step 1:** Run `handoff-gates` completion-readiness against this plan and the Portfolio code-review runbook; repair findings below 9/10.
 - [x] **Step 2:** Run the final whole-branch review required by the implementation workflow and repair findings.
-- [ ] **Step 3:** Stage the complete implementation tree and commit normally; rely on the tracked pre-commit hook as the one complete local gate for that staged snapshot.
-- [ ] **Step 4:** Push `codex/agent-operating-model-refresh-323` and open a Draft PR into `main`; do not merge or mark Ready on Harley's behalf. Verify the published head equals the implementation commit before closing the plan.
-- [ ] **Step 5:** Use `completing-planning-artifacts` completing-slice lane after publication proof exists: verify durable consequences are promoted, mark this plan with lifecycle state `completed-awaiting-retirement`, and mark every agent-owned checklist item through this step `[x]`. Human Ready/merge actions are PR state and do not appear as unchecked plan work.
-- [ ] **Step 6:** Commit the completion-marked plan normally as the final closeout commit, push it to the existing Draft PR, and verify the remote PR head equals that final commit.
-- [ ] **Step 7:** Inspect hosted check state for the final remote head and report it without claiming green unless observed.
+- [x] **Step 3:** Stage the complete implementation tree and commit normally; rely on the tracked pre-commit hook as the one complete local gate for that staged snapshot.
+- [x] **Step 4:** Push `codex/agent-operating-model-refresh-323` and open a Draft PR into `main`; do not merge or mark Ready on Harley's behalf. Verify the published head equals the implementation commit before closing the plan.
+- [x] **Step 5:** Use `completing-planning-artifacts` completing-slice lane after publication proof exists: verify durable consequences are promoted, mark this plan with lifecycle state `completed-awaiting-retirement`, and mark every agent-owned checklist item through this step `[x]`. Human Ready/merge actions are PR state and do not appear as unchecked plan work.
