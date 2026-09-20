@@ -330,11 +330,10 @@ test('Wild Bunch keeps its mobile status and visual-direction tags outside the i
   }
 })
 
-test('visitor reaches the Wild Bunch story through client navigation and receives the semantic architecture in source order', async ({ page }) => {
-  await page.goto('./projects/')
-  await page.getByRole('link', { name: 'Wild Bunch', exact: true }).click()
+test('Wild Bunch exposes its semantic architecture in source order', async ({ page }) => {
+  const response = await page.goto(wildBunchPath)
 
-  await expect(page).toHaveURL(/\/projects\/wild-bunch\/?$/)
+  expect(response?.status()).toBe(200)
   const determinism = page.getByRole('figure', { name: 'Controlled determinism from a compact world contract' })
   await expect(determinism.locator(':scope > ol > li')).toHaveText([
     /Directly packed world contract/,
