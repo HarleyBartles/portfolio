@@ -1,0 +1,23 @@
+{
+  "assets": {
+    "under-construction-patch-lockup": {
+      "model": "OpenAI Image 2.5",
+      "modelEvidence": "project-owner-confirmation-2026-09-14",
+      "generationId": null,
+      "generationIdStatus": "missing-from-retained-history",
+      "parentGenerationId": null,
+      "parentGenerationIdStatus": "missing-from-retained-history",
+      "seed": null,
+      "seedStatus": "not-supplied-by-tool",
+      "generationDate": "2026-09-20",
+      "generationDateStatus": "retained",
+      "briefStatus": "normalized-from-approved-conversation",
+      "evidence": [
+        ".agents/image-briefs/usual-specialists-v2/under-construction-patch-lockup-commission-brief.md",
+        "codex-imagegen-output:exec-7cf928e8-6ece-461a-a598-fd5031c24f16.png",
+        "reference-sha256:eb032e55ad17abe9f927f6ca3544c51b66c756d42def5c7a5877a61b9f9eff07",
+        "reference-sha256:259ebb9a7cd7767870adf6d74d403366e5c070dcac1e31248458e65d37ff54ae"
+      ]
+    }
+  }
+}

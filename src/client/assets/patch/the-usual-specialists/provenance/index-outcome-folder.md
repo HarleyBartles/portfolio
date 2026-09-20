@@ -9,7 +9,7 @@
 - Rights owner: Harley Bartles
 - Temporary canonical repository: Portfolio
 - Governing chapter spec: `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md`
-- Governing generation brief: `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`
+- Governing generation brief: canonical Git history at merge commit `3a734246efada2ee580bd9faefaf8279fd6ae75d`, former path `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`
 
 ## Status
 
@@ -33,7 +33,7 @@ For the page-review mount that preceded acceptance, Harley specified a bounded c
 
 Evidence status: `normalized-from-approved-conversation`.
 
-The governing execution brief is retained at `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md` through the completing PR under the repository's completed-artifact lifecycle. Its final direction asks for a fresh 3:2 detail insert in which a normal small square yellow sticky note is the subject, a battered manila folder fills the field and exits multiple frame boundaries, a small sliver of worn blue technical paper remains subordinate at the visible folder edge, and a partial asymmetric Patch hand/teal sleeve establishes carriage without a presentation pose. Generated pixels contain no text; HTML owns the exact assent copy.
+The governing execution brief completed its tracked lifecycle in PR #67 and is preserved in canonical Git history at merge commit `3a734246efada2ee580bd9faefaf8279fd6ae75d` under its former path `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`. Its final direction asks for a fresh 3:2 detail insert in which a normal small square yellow sticky note is the subject, a battered manila folder fills the field and exits multiple frame boundaries, a small sliver of worn blue technical paper remains subordinate at the visible folder edge, and a partial asymmetric Patch hand/teal sleeve establishes carriage without a presentation pose. Generated pixels contain no text; HTML owns the exact assent copy.
 
 ## Reference hierarchy
 
@@ -73,7 +73,7 @@ The governing execution brief is retained at `.agents/image-briefs/usual-special
 - Parent generation ID: not supplied by the Codex image tool; no edit parent was requested because this was a fresh generation
 - Seed: not supplied by the Codex image tool
 - Generation date: 2026-09-18
-- Brief evidence: normalized from the approved conversation and retained repo brief
+- Brief evidence: normalized from the approved conversation and retained in canonical Git history
 - Assistant-authored tool prompt: retained verbatim in the Codex session tool-call history
 - Provider-internal prompt or transformation, if any: not exposed by the tool
 

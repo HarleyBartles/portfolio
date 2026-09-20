@@ -1,7 +1,8 @@
 # The Usual Specialists V2: Index Chapter Design
 
-**Status:** Settled and implemented Index design; responsive composition locked
-before the fresh Silk chapter design/spec pass
+**Status:** `completed-awaiting-retirement` — the Index design is implemented and
+its responsive composition is locked. Durable page-system and responsive rules
+are carried by current design decisions, code ownership, and regression contracts.
 
 **Parent page spec:** `2026-09-17-usual-specialists-visual-story-design.md`
 
