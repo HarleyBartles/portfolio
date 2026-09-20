@@ -1,26 +1,22 @@
 import { describe, expect, test } from 'vitest'
 import pageSource from '../UsualSpecialistsPage.tsx?raw'
-import indexBlueCarrierSource from './IndexBlueCarrier.tsx?raw'
-import indexChapterStyles from './IndexChapter.styles.ts?raw'
-import indexClosingStyles from './IndexClosingSequence.styles.ts?raw'
-import indexDeskDocumentSource from './IndexDeskDocument.tsx?raw'
-import indexObservationSource from './IndexObservation.tsx?raw'
-import openingStyles from './UsualSpecialistsOpening.styles.ts?raw'
-import pageStyles from './UsualSpecialistsPage.styles.ts?raw'
-import silkLockupStyles from './SilkNameLockup.styles.ts?raw'
-import silkLockupSource from './SilkNameLockup.tsx?raw'
+import openingSource from '../opening/UsualSpecialistsOpening.tsx?raw'
+import silkLockupSource from '../silk/SilkNameLockup.tsx?raw'
+import indexChapterSource from './IndexChapter.tsx?raw'
+import indexBlueCarrierSource from './evidence/IndexBlueCarrier.tsx?raw'
+import indexDeskDocumentSource from './evidence/IndexDeskDocument.tsx?raw'
+import indexClosingSource from './closing/IndexClosingSequence.tsx?raw'
+import indexObservationSource from './closing/IndexObservation.tsx?raw'
 
 const responsiveSources = [
   pageSource,
-  pageStyles,
-  openingStyles,
-  indexChapterStyles,
+  openingSource,
+  indexChapterSource,
   indexBlueCarrierSource,
-  indexClosingStyles,
+  indexClosingSource,
   indexDeskDocumentSource,
   indexObservationSource,
   silkLockupSource,
-  silkLockupStyles,
 ]
 
 describe('Specialists responsive composition architecture', () => {
@@ -33,14 +29,14 @@ describe('Specialists responsive composition architecture', () => {
   })
 
   test('keeps the page canvas contract to the authored ceiling', () => {
-    expect(pageStyles).toContain('width: min(100%, 2560px);')
+    expect(pageSource).toContain('width: min(100%, 2560px);')
   })
 
   test('keeps the retained Silk identity lockup free of chapter-placement rules', () => {
     expect(silkLockupSource).toContain("usualSpecialistsAssetPath('silk-wordmark.svg')")
     expect(silkLockupSource).toContain('PRESSURE | PROVE THE ROUTE')
-    expect(silkLockupStyles).not.toContain('@media')
-    expect(silkLockupStyles).not.toContain('@container')
-    expect(silkLockupStyles).not.toContain('position: absolute')
+    expect(silkLockupSource).not.toContain('@media')
+    expect(silkLockupSource).not.toContain('@container')
+    expect(silkLockupSource).not.toContain('position: absolute')
   })
 })

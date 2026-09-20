@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { IndexInspectionPair } from './IndexInspectionPair'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { usualSpecialistsAssetPath } from '../../assets'
 
 const GraphPaper = styled.div`
   position: relative;

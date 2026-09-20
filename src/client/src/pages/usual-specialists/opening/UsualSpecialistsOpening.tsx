@@ -1,4 +1,8 @@
+import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
+import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../../features/patch-brand/PatchBrand'
+import { usualSpecialistsAssetPath } from '../assets'
+
 const OPENING_CONTAINER_NAME = 'specialists-opening'
 const openingQueries = {
   narrow: '(max-width: 389px)',
@@ -9,7 +13,7 @@ const openingQueries = {
   beyondCeiling: '(min-width: 2561px)',
 } as const
 
-export const Opening = styled.header`
+const Opening = styled.header`
   position: relative;
   container-name: ${OPENING_CONTAINER_NAME};
   container-type: inline-size;
@@ -20,7 +24,7 @@ export const Opening = styled.header`
   }
 `
 
-export const OpeningLockup = styled.div`
+const OpeningLockup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -30,7 +34,7 @@ export const OpeningLockup = styled.div`
   padding-bottom: 34px;
 `
 
-export const SeriesLockupField = styled.div`
+const SeriesLockupField = styled.div`
   width: min(35%, 390px);
   margin-left: auto;
 
@@ -43,18 +47,18 @@ export const SeriesLockupField = styled.div`
   }
 `
 
-export const OpeningTitle = styled.h1`
+const OpeningTitle = styled.h1`
   width: min(100%, 1120px);
   margin: 0;
   color: var(--specialists-ink);
 `
 
-export const SpecialistsWordmarkField = styled.span`
+const SpecialistsWordmarkField = styled.span`
   display: block;
   width: 100%;
 `
 
-export const OpeningPrecis = styled.p`
+const OpeningPrecis = styled.p`
   width: min(46%, 33rem);
   margin: 2px 0 0 auto;
   font-size: clamp(1.05rem, 1.7vw, 1.36rem);
@@ -69,7 +73,7 @@ export const OpeningPrecis = styled.p`
   }
 `
 
-export const Threshold = styled.div`
+const Threshold = styled.div`
   position: relative;
   width: 100%;
   min-height: clamp(540px, 68vw, 820px);
@@ -81,7 +85,7 @@ export const Threshold = styled.div`
   }
 `
 
-export const ThresholdArt = styled.img`
+const ThresholdArt = styled.img`
   position: absolute;
   inset: 0;
   width: 100%;
@@ -89,7 +93,7 @@ export const ThresholdArt = styled.img`
   object-fit: cover;
 `
 
-export const ThresholdCopy = styled.div`
+const ThresholdCopy = styled.div`
   position: absolute;
   z-index: 10;
   top: 15%;
@@ -126,10 +130,49 @@ export const ThresholdCopy = styled.div`
   }
 `
 
-export const ThresholdEyebrow = styled.p`
+const ThresholdEyebrow = styled.p`
   margin-bottom: 12px !important;
   font-size: .75rem;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
 `
+
+type UsualSpecialistsOpeningProps = {
+  style?: CSSProperties
+}
+
+export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps): ReactElement => {
+  return (
+    <Opening style={style}>
+      <OpeningLockup>
+        <SeriesLockupField data-patch-series-lockup>
+          <PatchSeriesLockup decorative />
+        </SeriesLockupField>
+        <OpeningTitle id="content-page-title">
+          <span className="visually-hidden">The Usual Specialists</span>
+          <SpecialistsWordmarkField data-specialists-wordmark aria-hidden="true">
+            <UsualSpecialistsWordmark decorative />
+          </SpecialistsWordmarkField>
+        </OpeningTitle>
+        <OpeningPrecis>Patch has a caper and not enough certainty to execute it. Six people turn intent into world knowledge, a reliable route, authority, a decision, recoverability and a durable record - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
+      </OpeningLockup>
+      <Threshold>
+        <ThresholdArt
+          src={usualSpecialistsAssetPath('safehouse-threshold.webp')}
+          width="1672"
+          height="941"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          alt="An ordinary apartment safehouse threshold repurposed room by room for the Specialists."
+        />
+        <ThresholdCopy data-specialists-threshold-copy>
+          <ThresholdEyebrow>The adventure / recruitment pass</ThresholdEyebrow>
+          <h2>One ordinary apartment. Six rooms bent to purpose.</h2>
+          <p>Patch moves through the safehouse with a folder and an unheard pitch. Each Specialist exposes the missing layer by doing the work they already do. The assent marker lands when the role makes itself unavoidable.</p>
+        </ThresholdCopy>
+      </Threshold>
+    </Opening>
+  )
+}

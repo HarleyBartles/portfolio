@@ -1,7 +1,12 @@
+import type { CSSProperties, ReactElement } from 'react'
+import { INDEX_CONTAINER_NAME, indexQueries } from '../responsive'
 import styled from 'styled-components'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
+import { IndexBlueCarrier } from './IndexBlueCarrier'
+import { IndexDeskDocument } from './IndexDeskDocument'
+import { IndexStoryCard } from './IndexStoryCard'
 
-export const EvidenceField = styled.div`
+
+const EvidenceField = styled.div`
   --index-narrow-foreground-shift: 118px;
   --index-main-height: 650px;
   --index-main-left: 0px;
@@ -96,7 +101,7 @@ export const EvidenceField = styled.div`
   }
 `
 
-export const MainDocumentPlacement = styled.div`
+const MainDocumentPlacement = styled.div`
   position: absolute;
   top: 0;
   right: var(--index-main-right);
@@ -104,7 +109,7 @@ export const MainDocumentPlacement = styled.div`
   height: var(--index-main-height);
 `
 
-export const BlueCarrierPlacement = styled.div`
+const BlueCarrierPlacement = styled.div`
   position: absolute;
   z-index: 8;
   top: var(--index-blue-top);
@@ -114,16 +119,7 @@ export const BlueCarrierPlacement = styled.div`
   transform-origin: center;
 `
 
-export const GraphPaperPlacement = styled.div`
-  position: absolute;
-  z-index: 9;
-  top: var(--index-graph-top);
-  left: var(--index-graph-left);
-  width: var(--index-graph-width);
-  transform: rotate(2deg);
-`
-
-export const StoryCardPlacement = styled.div`
+const StoryCardPlacement = styled.div`
   position: relative;
   z-index: 13;
   margin-right: var(--index-story-right);
@@ -139,3 +135,21 @@ export const StoryCardPlacement = styled.div`
     margin: 0;
   }
 `
+
+type IndexEvidenceFieldProps = {
+  style?: CSSProperties
+}
+
+export const IndexEvidenceField = ({ style }: IndexEvidenceFieldProps): ReactElement => (
+  <EvidenceField data-index-evidence-field style={style}>
+    <MainDocumentPlacement>
+      <IndexDeskDocument />
+    </MainDocumentPlacement>
+    <StoryCardPlacement>
+      <IndexStoryCard />
+    </StoryCardPlacement>
+    <BlueCarrierPlacement>
+      <IndexBlueCarrier />
+    </BlueCarrierPlacement>
+  </EvidenceField>
+)

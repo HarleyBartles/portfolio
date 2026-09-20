@@ -1,8 +1,10 @@
+import type { ReactElement } from 'react'
 import styled from 'styled-components'
 
-export const SPECIALISTS_CHAPTER_NAV_HEIGHT = 44
 
-export const ChapterNav = styled.nav`
+const SPECIALISTS_CHAPTER_NAV_HEIGHT = 44
+
+const ChapterNav = styled.nav`
   position: relative;
   z-index: 70;
   display: grid;
@@ -28,7 +30,7 @@ const tabStyles = `
   text-transform: uppercase;
 `
 
-export const ChapterNavLink = styled.a`
+const ChapterNavLink = styled.a`
   ${tabStyles}
 
   &:last-child {
@@ -36,7 +38,7 @@ export const ChapterNavLink = styled.a`
   }
 `
 
-export const ChapterNavFuture = styled.span`
+const ChapterNavFuture = styled.span`
   ${tabStyles}
   cursor: default;
 
@@ -44,3 +46,14 @@ export const ChapterNavFuture = styled.span`
     border-right: 0;
   }
 `
+
+export const SpecialistsChapterNav = (): ReactElement => (
+  <ChapterNav aria-label="Specialist chapters" data-specialists-chapter-nav>
+    <ChapterNavLink href="#index">Index</ChapterNavLink>
+    <ChapterNavFuture>Silk</ChapterNavFuture>
+    <ChapterNavFuture>Writ</ChapterNavFuture>
+    <ChapterNavFuture>Klause</ChapterNavFuture>
+    <ChapterNavFuture>Rollback</ChapterNavFuture>
+    <ChapterNavFuture>Receipt</ChapterNavFuture>
+  </ChapterNav>
+)

@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
-import { IndexTraversal } from './IndexTraversal'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { INDEX_CONTAINER_NAME, indexQueries } from '../responsive'
+import { IndexTraversal } from '../IndexTraversal'
+import { usualSpecialistsAssetPath } from '../../assets'
 
 const Document = styled.div`
   --index-return-lane-x: 78%;

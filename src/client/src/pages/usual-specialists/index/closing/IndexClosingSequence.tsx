@@ -1,7 +1,13 @@
+import type { CSSProperties, ReactElement } from 'react'
+import { INDEX_CONTAINER_NAME, indexQueries } from '../responsive'
 import styled from 'styled-components'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
+import { IndexOutcomePanel } from './IndexOutcomePanel'
+import { IndexRecognitionBridge } from './IndexRecognitionBridge'
+import { IndexResearchLockup } from './IndexResearchLockup'
+import { IndexSourceRetrieval } from './IndexSourceRetrieval'
 
-export const Composition = styled.div`
+
+const Composition = styled.div`
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: start;
@@ -104,7 +110,7 @@ export const Composition = styled.div`
   }
 `
 
-export const ObservationPlacement = styled.div`
+const ObservationPlacement = styled.div`
   z-index: 10;
   grid-row: 1;
   grid-column: 1 / -1;
@@ -127,7 +133,7 @@ export const ObservationPlacement = styled.div`
   }
 `
 
-export const RecognitionPlacement = styled.div`
+const RecognitionPlacement = styled.div`
   z-index: 13;
   grid-row: 1;
   grid-column: 2 / 11;
@@ -155,7 +161,7 @@ export const RecognitionPlacement = styled.div`
   }
 `
 
-export const RetrievalPlacement = styled.div`
+const RetrievalPlacement = styled.div`
   z-index: 11;
   grid-row: 2;
   grid-column: 1 / -1;
@@ -183,7 +189,7 @@ export const RetrievalPlacement = styled.div`
   }
 `
 
-export const OutcomePlacement = styled.div`
+const OutcomePlacement = styled.div`
   z-index: 12;
   grid-row: 3;
   grid-column: 1 / -1;
@@ -217,3 +223,26 @@ export const OutcomePlacement = styled.div`
     grid-column: 1 / -1;
   }
 `
+
+type IndexClosingSequenceProps = {
+  style?: CSSProperties
+}
+
+export const IndexClosingSequence = ({ style }: IndexClosingSequenceProps): ReactElement => {
+  return (
+    <Composition data-index-closing-sequence style={style}>
+      <ObservationPlacement data-index-closing-beat="research">
+        <IndexResearchLockup />
+      </ObservationPlacement>
+      <RecognitionPlacement>
+        <IndexRecognitionBridge />
+      </RecognitionPlacement>
+      <RetrievalPlacement>
+        <IndexSourceRetrieval />
+      </RetrievalPlacement>
+      <OutcomePlacement>
+        <IndexOutcomePanel />
+      </OutcomePlacement>
+    </Composition>
+  )
+}

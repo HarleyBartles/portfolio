@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { usualSpecialistsAssetPath } from '../assets'
 
 describe('Usual Specialists opening', () => {
   test('renders the six-specialist opening', () => {

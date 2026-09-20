@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactElement } from 'react'
 import styled from 'styled-components'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { usualSpecialistsAssetPath } from '../../assets'
 
 const SourceRetrieval = styled.div`
   position: relative;

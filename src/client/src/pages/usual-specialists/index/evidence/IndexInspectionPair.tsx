@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { IndexTraversal } from './IndexTraversal'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { IndexTraversal } from '../IndexTraversal'
+import { usualSpecialistsAssetPath } from '../../assets'
 
 const Pair = styled.div`
   position: relative;

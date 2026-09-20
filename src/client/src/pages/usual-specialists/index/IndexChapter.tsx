@@ -1,5 +1,9 @@
+import type { CSSProperties, ReactElement } from 'react'
+import { INDEX_CONTAINER_NAME, indexQueries } from './responsive'
 import styled from 'styled-components'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
+import { IndexClosingSequence } from './closing/IndexClosingSequence'
+import { IndexEvidenceField } from './evidence/IndexEvidenceField'
+
 
 const INDEX_CHAPTER_LAYOUT = {
   narrow: { paddingTop: 48, paddingBottom: 48 },
@@ -9,7 +13,7 @@ const INDEX_CHAPTER_LAYOUT = {
   ultrawide: { paddingTop: 48, paddingBottom: 36 },
 } as const
 
-export const Chapter = styled.section`
+const Chapter = styled.section`
   position: relative;
   container-name: ${INDEX_CONTAINER_NAME};
   container-type: inline-size;
@@ -36,7 +40,7 @@ export const Chapter = styled.section`
   }
 `
 
-export const Stage = styled.div`
+const Stage = styled.div`
   position: relative;
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.compact} {
@@ -46,7 +50,7 @@ export const Stage = styled.div`
   }
 `
 
-export const ClosingSequencePlacement = styled.div`
+const ClosingSequencePlacement = styled.div`
   position: relative;
   z-index: 10;
   /* The lower inspection pair protrudes above the office frame by 33.55% of
@@ -90,3 +94,21 @@ export const ClosingSequencePlacement = styled.div`
     width: min(calc(100cqi - 160px), 1280px);
   }
 `
+
+type IndexChapterProps = {
+  style?: CSSProperties
+}
+
+export const IndexChapter = ({ style }: IndexChapterProps): ReactElement => {
+  return (
+    <Chapter aria-labelledby="specialists-index-title" data-specialist-chapter="index" id="index" style={style}>
+      <h2 className="visually-hidden" id="specialists-index-title">Index</h2>
+      <Stage>
+        <IndexEvidenceField />
+        <ClosingSequencePlacement>
+          <IndexClosingSequence />
+        </ClosingSequencePlacement>
+      </Stage>
+    </Chapter>
+  )
+}

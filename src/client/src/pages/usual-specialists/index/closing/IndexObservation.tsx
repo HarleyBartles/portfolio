@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import styled from 'styled-components'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
+import { usualSpecialistsAssetPath } from '../../assets'
 
 const Observation = styled.div`
   position: relative;

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { IndexObservation } from './IndexObservation'
-import { IndexTraversal } from './IndexTraversal'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
-import { INDEX_CONTAINER_NAME, indexQueries } from './indexResponsive'
+import { IndexTraversal } from '../IndexTraversal'
+import { usualSpecialistsAssetPath } from '../../assets'
+import { INDEX_CONTAINER_NAME, indexQueries } from '../responsive'
 
 const Lockup = styled.div`
   position: relative;
