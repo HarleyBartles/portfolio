@@ -49,6 +49,7 @@ def write_command_declaration(repo: Path, runner: Path) -> None:
             {
                 "apply": [sys.executable, str(runner), "--apply"],
                 "check": [sys.executable, str(runner), "--check"],
+                "generated_paths": ["**/INDEX.md"],
             },
             indent=2,
         )

@@ -10,7 +10,7 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 - Invoke `/repo-worker-base` for worktree, branch, validation, and publication boundaries.
 - Invoke `/repo-standards` when the task touches repo shape, runbooks, or scaffolds.
 
-## Stage routing
+## Workflow routing
 
 - **Design:** read [`.agents/runbooks/design.md`](./.agents/runbooks/design.md), then invoke `/brainstorming`.
 - **Planning:** read [`.agents/runbooks/planning.md`](./.agents/runbooks/planning.md), then invoke `/writing-plans`.

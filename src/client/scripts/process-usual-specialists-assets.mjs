@@ -11,16 +11,6 @@ const repositoryRoot = path.resolve(clientRoot, '..', '..')
 const specialistsSourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usual-specialists')
 const acceptedPackageRoots = Object.freeze({
   index: path.join(specialistsSourceRoot, 'index'),
-  silk: path.join(specialistsSourceRoot, 'silk'),
-  rope: path.join(specialistsSourceRoot, 'rope'),
-})
-const candidateManifestPaths = Object.freeze({
-  silk: path.join(
-    acceptedPackageRoots.silk,
-    'candidates',
-    'commission-09-frame-review',
-    'candidate-assets.json',
-  ),
 })
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
@@ -35,30 +25,15 @@ export const USUAL_SPECIALISTS_WEBP_OPTIONS = Object.freeze({
   smartSubsample: true,
 })
 
-const RECEIPT_PEEKTHROUGH_MINERAL_FIELD = Object.freeze({
-  blue: 235,
-  green: 234,
-  mineralStartRadiusRatio: 0.48,
-  preserveRadiusRatio: 0.40,
-  red: 230,
-})
-
 export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'safehouse-threshold', source: 'safehouse-threshold.png', output: 'safehouse-threshold.webp', width: 1672, format: 'webp' },
-  {
-    id: 'opening-rope-start-anchor',
-    source: 'opening-rope-start-anchor.png',
-    output: 'opening-rope-start-anchor.webp',
-    width: 640,
-    crop: { left: 0, top: 0, width: 1254, height: 1205 },
-    format: 'webp',
-  },
   { id: 'index-desktop-base', source: 'index-desktop-base.png', output: 'index-desktop-base.webp', width: 1672, format: 'webp' },
   { id: 'index-assent-note', source: 'index-assent-note.png', output: 'index-assent-note.webp', width: 480, format: 'webp' },
   { id: 'index-blue-carrier', source: 'index-blue-carrier.png', output: 'index-blue-carrier.webp', width: 1240, format: 'webp' },
   { id: 'index-graph-paper', source: 'index-graph-paper.png', output: 'index-graph-paper.webp', width: 1140, format: 'webp' },
   { id: 'index-observation', source: 'index-observation.png', output: 'index-observation.webp', width: 1320, format: 'webp' },
   { id: 'index-macguffin', source: 'index-macguffin.png', output: 'index-macguffin.webp', width: 1200, format: 'webp' },
+  { id: 'index-outcome-folder', source: 'index-outcome-folder.png', output: 'index-outcome-folder.webp', width: 1200, format: 'webp' },
   { id: 'index-walk', source: 'index-walk.png', output: 'index-walk.webp', width: 320, format: 'webp' },
   { id: 'index-inspect', source: 'index-inspect.png', output: 'index-inspect.webp', width: 320, format: 'webp' },
   { id: 'index-high-step', source: 'index-high-step.png', output: 'index-high-step.webp', width: 320, format: 'webp' },
@@ -66,167 +41,9 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'patch-follow', source: 'patch-follow.png', output: 'patch-follow.webp', width: 320, format: 'webp' },
   { id: 'patch-leaning', source: 'patch-leaning.png', output: 'patch-leaning.webp', width: 320, format: 'webp' },
   { id: 'patch-return', source: 'patch-return.png', output: 'patch-return.webp', width: 320, format: 'webp' },
-  {
-    id: 'silk-commission-05-aperture-rim-heavy',
-    sourcePackage: 'silk',
-    source: 'silk-commission-05-aperture-rim-heavy.png',
-    output: 'silk-commission-05-aperture-rim-heavy.webp',
-    width: 1672,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-05-aperture-rim-heavy-portrait',
-    sourcePackage: 'silk',
-    source: 'silk-commission-05-aperture-rim-heavy-portrait.png',
-    output: 'silk-commission-05-aperture-rim-heavy-portrait.webp',
-    width: 1024,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-05-corridor',
-    sourcePackage: 'silk',
-    source: 'silk-commission-05-corridor.png',
-    output: 'silk-commission-05-corridor.webp',
-    width: 1086,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-06-threshold-crossing',
-    sourcePackage: 'silk',
-    source: 'silk-commission-06-threshold-crossing.png',
-    output: 'silk-commission-06-threshold-crossing.webp',
-    width: 720,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-06-abseil-hands-free',
-    sourcePackage: 'silk',
-    source: 'silk-commission-06-abseil-hands-free.png',
-    output: 'silk-commission-06-abseil-hands-free.webp',
-    width: 720,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-07-frame-review',
-    sourcePackage: 'silk',
-    source: 'silk-commission-07-frame-review.png',
-    output: 'silk-commission-07-frame-review.webp',
-    width: 1671,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-07-frame-review-portrait',
-    sourcePackage: 'silk',
-    source: 'silk-commission-07-frame-review-portrait.png',
-    output: 'silk-commission-07-frame-review-portrait.webp',
-    width: 941,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-07-service-corridor-review',
-    sourcePackage: 'silk',
-    source: 'silk-commission-07-service-corridor-review.png',
-    output: 'silk-commission-07-service-corridor-review.webp',
-    width: 1672,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-08-reaction-frame-review',
-    sourcePackage: 'silk',
-    source: 'silk-commission-08-reaction-frame-review.png',
-    output: 'silk-commission-08-reaction-frame-review.webp',
-    width: 1750,
-    format: 'webp',
-  },
-  {
-    id: 'silk-receipt-peekthrough-frame-review',
-    sourcePackage: 'silk',
-    source: 'silk-receipt-peekthrough-frame-review.png',
-    output: 'silk-receipt-peekthrough-frame-review.webp',
-    width: 1254,
-    mineralFieldCorrection: RECEIPT_PEEKTHROUGH_MINERAL_FIELD,
-    format: 'webp',
-  },
-  {
-    id: 'silk-receipt-hole-peek-cutout-review',
-    sourcePackage: 'silk',
-    source: 'silk-receipt-hole-peek-cutout-review.png',
-    output: 'silk-receipt-hole-peek-cutout-review.webp',
-    width: 720,
-    format: 'webp',
-  },
-  {
-    id: 'silk-receipt-alcove-world-review',
-    sourcePackage: 'silk',
-    source: 'silk-receipt-alcove-world-review.png',
-    output: 'silk-receipt-alcove-world-review.webp',
-    width: 1254,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-09-knockthrough-frame-review',
-    sourcePackage: 'silk',
-    source: 'silk-commission-09-knockthrough-frame-review.png',
-    output: 'silk-commission-09-knockthrough-frame-review.webp',
-    width: 1672,
-    format: 'webp',
-  },
-  {
-    id: 'silk-commission-09-knockthrough-frame-review-portrait',
-    sourcePackage: 'silk',
-    source: 'silk-commission-09-knockthrough-frame-review-portrait.png',
-    output: 'silk-commission-09-knockthrough-frame-review-portrait.webp',
-    width: 941,
-    format: 'webp',
-  },
-  {
-    id: 'silk-index-crossing-anchor-ring',
-    sourcePackage: 'silk',
-    source: 'silk-index-crossing-anchor-ring.png',
-    output: 'silk-index-crossing-anchor-ring.webp',
-    width: 512,
-    format: 'webp',
-  },
-  {
-    id: 'silk-index-crossing-knot-foreground',
-    sourcePackage: 'silk',
-    source: 'silk-index-crossing-knot-foreground.png',
-    output: 'silk-index-crossing-knot-foreground.webp',
-    width: 1145,
-    format: 'webp',
-  },
-  {
-    id: 'silk-index-crossing-knot-foreground-crop',
-    sourcePackage: 'silk',
-    source: 'silk-index-crossing-knot-foreground-crop.png',
-    output: 'silk-index-crossing-knot-foreground-crop.webp',
-    width: 470,
-    format: 'webp',
-  },
-  {
-    id: 'silk-index-crossing-ring-occluder',
-    sourcePackage: 'silk',
-    source: 'silk-index-crossing-ring-occluder.png',
-    output: 'silk-index-crossing-ring-occluder.webp',
-    width: 512,
-    format: 'webp',
-  },
-  { id: 'rope-loose-a', sourcePackage: 'rope', source: 'rope-loose-a.png', output: 'rope-loose-a.webp', width: 724, format: 'webp' },
-  { id: 'rope-loose-b', sourcePackage: 'rope', source: 'rope-loose-b.png', output: 'rope-loose-b.webp', width: 724, format: 'webp' },
-  { id: 'rope-loose-c', sourcePackage: 'rope', source: 'rope-loose-c.png', output: 'rope-loose-c.webp', width: 724, format: 'webp' },
-  { id: 'rope-terminal-curl', sourcePackage: 'rope', source: 'rope-terminal-curl.png', output: 'rope-terminal-curl.webp', width: 724, format: 'webp' },
-  { id: 'rope-taut-straight', sourcePackage: 'rope', source: 'rope-taut-straight.png', output: 'rope-taut-straight.webp', width: 724, format: 'webp' },
-  { id: 'rope-taut-bow', sourcePackage: 'rope', source: 'rope-taut-bow.png', output: 'rope-taut-bow.webp', width: 724, format: 'webp' },
-  { id: 'rope-taut-offset', sourcePackage: 'rope', source: 'rope-taut-offset.png', output: 'rope-taut-offset.webp', width: 724, format: 'webp' },
 ])
 
-export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([])
-
-const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
-  ...USUAL_SPECIALISTS_ASSETS,
-  ...USUAL_SPECIALISTS_CANDIDATE_ASSETS,
-])
-
+const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = USUAL_SPECIALISTS_ASSETS
 const fail = (message) => {
   throw new Error(message)
 }
@@ -288,10 +105,7 @@ const loadCustodiedSources = async () => {
     const { packageName, custody, assets: packageAssets } = group
     const packageRoot = acceptedPackageRoots[packageName]
     if (!packageRoot) fail(`Unknown Usual Specialists source package: ${packageName}.`)
-    const manifestPath = custody === 'candidate'
-      ? candidateManifestPaths[packageName]
-      : path.join(packageRoot, 'accepted-assets.json')
-    if (!manifestPath) fail(`Unknown Usual Specialists ${custody} manifest for package: ${packageName}.`)
+    const manifestPath = path.join(packageRoot, 'accepted-assets.json')
     const manifest = await readJson(
       manifestPath,
       `Usual Specialists ${packageName} ${custody} source manifest`,
@@ -314,12 +128,11 @@ const loadCustodiedSources = async () => {
     if (!sourceRecord) fail(`Usual Specialists ${custody} source manifest is missing ${asset.id}.`)
     const sourcePath = path.join(packageRoot, asset.source)
     const expectedRepositoryPath = repositoryPath(sourcePath)
-    const expectedStatus = custody === 'candidate' ? 'candidate' : 'accepted'
+    const expectedStatus = 'accepted'
     if (
       sourceRecord.repositorySourcePath !== expectedRepositoryPath
       || sourceRecord.status !== expectedStatus
       || sourceRecord.rightsOwner !== 'Harley Bartles'
-      || (custody === 'candidate' && sourceRecord.selection !== 'page-review')
     ) {
       fail(`Usual Specialists ${custody} source custody drifted for ${asset.id}.`)
     }
@@ -347,55 +160,12 @@ const expectedDerivative = (asset, sourceRecord) => {
     height,
     format: asset.format,
     encoding: USUAL_SPECIALISTS_WEBP_OPTIONS,
-    ...(asset.mineralFieldCorrection ? { mineralFieldCorrection: asset.mineralFieldCorrection } : {}),
   }
 }
 
 // USUAL_SPECIALISTS_GENERATION_CONTRACT_START
-const smoothstep = (value) => value * value * (3 - (2 * value))
-
-const normalizeMineralField = async (source) => {
-  const correction = source.asset.mineralFieldCorrection
-  if (!correction) return sharp(source.buffer)
-
-  const { data, info } = await sharp(source.buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
-  const centreX = (info.width - 1) / 2
-  const centreY = (info.height - 1) / 2
-  const radiusUnit = Math.min(info.width, info.height)
-  const preserveRadius = radiusUnit * correction.preserveRadiusRatio
-  const mineralStartRadius = radiusUnit * correction.mineralStartRadiusRatio
-  const blendDistance = mineralStartRadius - preserveRadius
-
-  for (let y = 0; y < info.height; y += 1) {
-    for (let x = 0; x < info.width; x += 1) {
-      const distance = Math.hypot(x - centreX, y - centreY)
-      if (distance <= preserveRadius) continue
-
-      const blendProgress = blendDistance <= 0
-        ? 1
-        : Math.min(1, Math.max(0, (distance - preserveRadius) / blendDistance))
-      const mineralWeight = smoothstep(blendProgress)
-      const sourceWeight = 1 - mineralWeight
-      const offset = ((y * info.width) + x) * info.channels
-
-      data[offset] = Math.round((data[offset] * sourceWeight) + (correction.red * mineralWeight))
-      data[offset + 1] = Math.round((data[offset + 1] * sourceWeight) + (correction.green * mineralWeight))
-      data[offset + 2] = Math.round((data[offset + 2] * sourceWeight) + (correction.blue * mineralWeight))
-      data[offset + 3] = Math.round((data[offset + 3] * sourceWeight) + (255 * mineralWeight))
-    }
-  }
-
-  return sharp(data, {
-    raw: {
-      channels: info.channels,
-      height: info.height,
-      width: info.width,
-    },
-  })
-}
-
 const renderDerivative = async (source) => {
-  const image = await normalizeMineralField(source)
+  const image = sharp(source.buffer)
   if (source.asset.crop) image.extract(source.asset.crop)
   return image
     .resize({ width: source.asset.width, withoutEnlargement: true })

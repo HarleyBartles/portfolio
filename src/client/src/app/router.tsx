@@ -52,7 +52,7 @@ const loadPatchRoute = async () => {
 
 const loadUsualSpecialistsPreviewRoute = async () => {
   const [{ UsualSpecialistsPage }, { UsualSpecialistsPreviewPage }] = await Promise.all([
-    import('../features/patch-showcase/UsualSpecialistsPage'),
+    import('../pages/usual-specialists/UsualSpecialistsPage'),
     import('../pages/UsualSpecialistsPreviewPage'),
   ])
 

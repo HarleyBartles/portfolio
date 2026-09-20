@@ -1,6 +1,7 @@
 # The Usual Specialists V2: Index Chapter Design
 
-**Status:** Settled design, revised 18 September 2026 with Harley-approved editorial changes to the closing research sequence; Index is the next JIT planning target before Silk
+**Status:** Settled and implemented Index design; responsive composition locked
+before the fresh Silk chapter design/spec pass
 
 **Parent page spec:** `2026-09-17-usual-specialists-visual-story-design.md`
 
@@ -116,7 +117,8 @@ legible without staging a separate filing ceremony or explicit handoff action.
 
 Compose it as a tight crop of Patch's hands carrying the folder:
 
-- the yellow assent note is the dominant read and occupies most of the useful frame;
+- the yellow assent note is the dominant first read while retaining ordinary
+  sticky-note scale, roughly 20–30% of the full frame width;
 - only enough manila folder is visible to establish what the note is attached to;
 - one side of the folded blue blueprint/map material is visible spilling/tucking out
   from the folder;
@@ -128,32 +130,6 @@ Author this panel as a new image asset because the accepted traversal art does n
 expose the folder as an independently composable layer. Do not respond by
 retrofitting a synthetic React `<RecruitmentFolder state="index" />` into the earlier
 Patch traversal figures.
-
-## Silk rope intrusion through Index
-
-The red rope visible through Index is intentional. Do **not** reinterpret it as
-Index theming, an accidental legacy artefact or a generic page-wide continuity
-spine that should be removed from the chapter.
-
-The rope is Silk-owned narrative material whose spatial reach begins before Silk.
-It enters above Index under tension, passes through Index's territory as subordinate
-background matter behind the papers, crosses the Index-to-Silk seam, becomes active
-and functional in Silk, and terminates inside Silk before Writ.
-
-Narrative ownership does not imply one cross-chapter DOM owner. The current modular
-rendering principle is correct and should be preserved:
-
-- Index renders only the passive rope segment that lies inside Index's own box;
-- that segment sizes and reflows from Index's own responsive geometry;
-- the inter-chapter seam owns only the small connecting segment across its edge;
-- Silk renders the active rope inside Silk; and
-- no chapter measures a sibling chapter's height or reaches into sibling layout
-  geometry to make the rope continuous.
-
-Continuity is therefore a matched-port contract between locally owned segments, not
-a single element spanning sibling sections. Change the local port geometry only if
-the approved Silk recomposition actually requires it. Do not refactor the rope out
-of Index merely because its material language belongs to Silk.
 
 ## Semantic correction from the current implementation
 
@@ -259,26 +235,28 @@ Preserve the invariant:
 At different widths the evidence may spread sideways, pile vertically or become
 more claustrophobic. The exact desktop overlap geometry is not sacred.
 
-Index uses the page's mobile-first authored boundaries as its primary composition
-vocabulary: default narrow, then `min-width: 390px`, `min-width: 768px`,
-`min-width: 1400px` and `min-width: 1920px`, with geometry frozen above 2560px.
-The `768px` transition is the point where the compact/mostly stacked evidence field
-earns a genuinely two-dimensional medium composition. The `1400px` transition is the
-point where the chapter deliberately spends additional horizontal field to become a
-wider, shallower editorial spread. Those are authored changes, not device labels.
+Index uses the locked mobile-first composition vocabulary implemented in
+`indexResponsive.ts`: default narrow below `600px`, compact at `600px`, walking
+traversal readiness at `700px`, medium at `960px`, arrival crossing at `1200px`,
+upper-wide at `1300px`, wide at `1400px`, return-pair availability at `1600px`, and
+ultrawide at `1920px`. These are authored story/layout transitions rather than device
+labels. Geometry freezes at the authored `2560px` composition above that width.
 
-Existing `900px` and `1600px` implementation thresholds are not protected design
-authority. Either may survive only if live review identifies a specific local
-story/hierarchy capability that begins there and cannot be expressed fluidly inside
-the surrounding authored band.
+The supported floor is `320px`; no layout invariant is promised below it. Preserve
+the accepted `600–959px` behaviour, the proportional `959→960` handoff, vertical
+continuity across `1399→1400`, and the walking-lane ownership when the return pair
+appears at `1600px`. Local fluid or bounded in-band adjustments may refine placement,
+but must not create a new chapter-level composition mode or break those named
+ownership boundaries.
 
 Index is the first chapter to establish the page-level wide-screen cadence. At
 `1920` CSS pixels and above, the complete Index chapter box, including its own top
 and bottom padding, must fit within `1080` CSS pixels of vertical space. Achieve that
 by using the available width to make the document field and closing sequence more
 lateral, not by forcing a fixed 1080px height, shrinking readable copy or clipping
-the evidence field. The Index-to-Silk transition remains outside this height
-envelope. Widths above 2560 freeze the 2560 composition and retain the same ceiling.
+the evidence field. Any future Silk chapter or transition is outside this height
+envelope. There is no `1080px` chapter-height contract below `1920px`. Widths above
+2560 freeze the 2560 composition and retain the same ceiling.
 
 This wide-screen constraint does not apply when browser zoom reduces the effective
 CSS viewport below 1920px. Actual 200% zoom must continue to receive the appropriate
@@ -299,6 +277,71 @@ At every supported state:
 - the story must remain understandable at 320 CSS px, actual 200% zoom and reduced
   motion.
 
+## Approved composition invariants
+
+- The document world is the dominant field. Main route material, blue carrier, graph
+  paper, marginalia, traversals and interpretive copy must continue to read as one
+  navigable evidence environment rather than a collection of unrelated cards.
+- Index remains fluent inside that field. Character appearances are landmarks through
+  the evidence, not decorative cutouts, and must stay registered to the substrate or
+  action they inhabit when the field recomposes.
+- Repetition of the same character carries time. Two visible Patch appearances or two
+  visible Index appearances must remain legible as distinct successive moments rather
+  than collapsing into one local read that looks like duplicate bodies. This constraint
+  does not separate different characters: Patch and Index may share, overlap or inhabit
+  the same beat whenever their relationship is the action.
+- The kneeling Patch + Index inspection beat is one paired composition. Their internal
+  relationship may scale or move as a unit for responsive layout, but the two figures
+  do not drift apart and are not independently nudged to solve unrelated collisions.
+- That kneeling pair belongs to the observation/office panel. It must remain visually
+  registered to that panel at every width; Index is intentionally partially occluded
+  by the panel/foreground edge, and that occlusion is part of the authored read rather
+  than a defect to reveal away.
+- Character traversal figures remain attached to the substrate/beat they belong to.
+  Responsive translation may move the owning composition, but must not let a figure
+  appear to float between unrelated panels or cross into a neighbouring beat merely
+  to recover space.
+- The story card is an interpretive voice inside the evidence field, not a page-level
+  hero. It must frame the close early enough to orient the reader without displacing
+  the document world as the chapter's first-order visual proposition.
+- The story card owns no right to float over protected content. It must not cover the
+  Index name mark, outgoing Index, Patch's active movement beat, or another character
+  appearance that carries sequence/time. If a surface cannot provide safe lateral
+  negative space, the card receives its own authored vertical slot instead.
+- The closing sequence remains a visibly connected causal chain: research -> quoted
+  recognition -> source retrieval -> assent outcome. Panel overlap may imply continuity,
+  but may not obscure the source-retrieval action enough to damage its read.
+- The quoted `“Ah. This one.”` bridge is the recognition pivot between research and
+  retrieval. It may reflow with the sequence but must not detach into arbitrary spare
+  whitespace or become narrator copy.
+- The assent outcome is the closing punctuation/hero of the sequence. At compact and
+  narrow widths it must not become materially smaller or weaker than the preceding
+  image frames while still being asked to carry the terminal beat. This hierarchy
+  applies across the responsive estate, not only on small screens.
+- Within that outcome, the yellow assent state is dominant, the changed carried material
+  is legible, and the folder remains subordinate rather than becoming the prize itself.
+- The observation/office panel protects its human action: Index's face remains readable
+  and responsive overlap may not cover more than half of Patch's visible body.
+- The source-retrieval panel protects the filing hand/action. The assent outcome may join
+  the retrieval frame through controlled overlap, but it must not cover the filing hand
+  or read as an unrelated manila panel intruding on top of retrieval.
+- Returning Patch and returning Index are a paired temporal beat and therefore share
+  visibility state. They are either both rendered in the composition or neither is.
+- The Patch + Index inspection pair remains present together at every supported width;
+  compactness alone is not a story reason to remove the beat.
+- Below 390px, the image frames must still form an intentional spatial relation --
+  stacked, alternating or diagonal as the composition requires -- rather than reading
+  as unrelated rectangles differentiated only by scale.
+- Responsive repair happens at the level of these relationships first. Do not solve a
+  collision by independently nudging one character or one panel if that breaks a paired
+  beat, substrate attachment, causal sequence or hierarchy. Responsive translation owns
+  story roles and relationships, not literal desktop coordinates.
+- Below `1920px` there is no chapter-height ceiling. Spend vertical space when that is
+  required to preserve the story. At `1920px` and above, the complete Index chapter
+  including local padding must fit within `1080px` height.
+- Chapter-bottom breathing room is authored punctuation after the assent outcome. It
+  must not be the accidental remainder of a fixed stage/min-height reservation.
+
 ## Non-goals
 
 - Do not visually rebuild the accepted Index field.
@@ -309,8 +352,6 @@ At every supported state:
 - Do not retrofit a standalone Index folder component into the accepted Patch
   traversal art. The approved third outcome panel is an authored carried-state image,
   not a new folder abstraction or handoff ceremony.
-- Do not remove the passive Silk rope segment from Index on the mistaken assumption
-  that Silk-owned material must be spatially contained inside Silk's section.
 - Do not preserve exact prose merely because a test currently asserts it.
 
 ## Chapter acceptance criteria
@@ -328,26 +369,30 @@ At every supported state:
 - [ ] A third outcome panel shows Patch carrying the changed state: yellow assent
       note dominant, folded blue material visibly tucked into the folder, folder
       itself subordinate.
-- [ ] Silk can visibly inherit the Index folder state at its own entry.
 - [ ] Index visibly returns to her own research life after Patch has what he came
       for.
 - [ ] Index's realisation reads as excited discovery/validation rather than a
       generic recruitment yes.
 - [ ] Responsive translation preserves fluent navigation through evidence rather
       than desktop coordinates.
+- [ ] The story card clears all protected identity/character regions throughout each
+      responsive family, including immediately on both sides of every authored boundary.
+- [ ] The Patch + Index inspection pair remains present together at all widths, and the
+      return pair shares one visibility state.
+- [ ] The outcome panel has terminal visual weight comparable to or greater than the
+      office/retrieval image beats and does not cover the protected filing hand.
+- [ ] The chapter ends with deliberate breathing room rather than leftover fixed-stage
+      depth.
 - [ ] At `1920×1080` and `2560×1080`, the complete Index chapter fits within the
       1080px viewport-height contract while preserving readable type, the full causal
-      close and the passive Silk rope run.
+      close and the document-world hierarchy.
 
-## Planning readiness
+## Locked implementation handoff
 
-No unresolved local creative question is known. The singular-route copy correction
-is already implemented. Index is now the next JIT planning target before Silk. The
-plan should preserve the accepted document-world control case and intentional passive
-Silk-rope intrusion while implementing the approved closing-cluster editorial
-recomposition: earlier story-card placement, quoted recognition bridge, clearer
-found-source beat, retirement of the floating sticky-note render, and one new
-sticky-note-first carried-folder outcome panel. It must not turn that panel into a
-synthetic folder abstraction or a folder hero composition. The JIT plan must also
-spell out the intended composition at every established Index responsive band and
-prove the new `1920+` / 1080px chapter-height ceiling.
+Index is implemented and its responsive composition is locked. The previous
+Silk/rope/crossing implementation has been removed from the live tree; a future
+Silk chapter must start from the accepted Index boundary rather than inherit
+that retired architecture. The reusable Silk name lockup is the sole retained
+implementation piece. Preserve Index's document-world control case, its
+substrate-owned character beats, the directed closing-sequence relationships,
+and the `1920+` / 1080px chapter-height ceiling as the next chapter is designed.

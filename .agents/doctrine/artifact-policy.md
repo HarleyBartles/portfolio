@@ -19,6 +19,16 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
   plan remains tracked through its completing PR with the exact
   `completed-awaiting-retirement` marker, then retires in the first commit of the
   next substantive slice under `.agents/doctrine/completed-artifacts.md`.
+- `.agents/image-briefs/` holds active repository-bound image-generation briefs.
+  Image briefs are generation execution inputs, not implementation plans, and
+  must not be filed under `.agents/plans/`. Keep a brief live while generation
+  or iteration is still active. Mark it `completed-awaiting-retirement` only
+  when it has produced the accepted asset or asset set it was intended to
+  produce, or when the brief has been explicitly abandoned. Scratch, rejected,
+  or still-under-review candidates do not make a brief disposable. Keep a
+  completed brief tracked through the completing PR, then retire it in the
+  first commit of the next substantive slice under
+  `.agents/doctrine/completed-artifacts.md`.
 - `.agents/plans/<epic-name>/` holds a multi-plan epic roadmap and its plans while the
   epic is in flight. Completed child plans follow the same two-slice lifecycle unless
   they remain actively required by the in-flight roadmap.

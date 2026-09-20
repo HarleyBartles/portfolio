@@ -48,16 +48,16 @@ They may not silently redesign the page or fill missing chapter design decisions
 The page delegates local chapter design to:
 
 - `2026-09-17-usual-specialists-index-chapter-design.md`
-- `2026-09-17-usual-specialists-silk-chapter-design.md`
 - `2026-09-17-usual-specialists-writ-chapter-design.md`
 - `2026-09-17-usual-specialists-klause-chapter-design.md`
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-All six specialist chapters now have settled local designs. Receipt's approved
-chapter closes the remaining local-design gap with an already-present record reveal,
-avuncular hospitality, Patch's first genuine rest beat and a final folder field that
-grows directly out of the tea scene. JIT implementation plans remain sequential and
+Index, Writ, Klause, Rollback and Receipt have settled local designs. Silk remains
+second in the six-specialist story and still owns `prove the route`, but its previous
+chapter design and implementation were explicitly retired so the next Silk pass can
+start from a clean foundation. Its traced name mark plus `PRESSURE | PROVE THE ROUTE`
+lockup are retained as reusable identity work. JIT implementation plans remain sequential and
 must still consume the actual accepted predecessor milestone output.
 
 ## Page story
@@ -118,8 +118,8 @@ The safehouse is literal physical continuity, not a metaphor for six unrelated
 sets.
 
 - Index has a messy records/document den.
-- Silk works through corridors, cheap doors, floorboards, conduit, anchors,
-  service voids and hidden building infrastructure.
+- Silk's physical territory will be re-authored during the fresh Silk design pass;
+  only her route-pressure role and place in the safehouse sequence are fixed here.
 - Writ has converted a pair of adjoining rooms into genuine law chambers, with a
   frosted door and receptionist space because his authority warrants the cachet.
 - Klause has converted one medium-sized room into a clean, sparse office, but his
@@ -149,25 +149,11 @@ system.
 The current `route-shaped problem` premise is obsolete. Patch begins with intent
 and missing operational certainty, not a route that Index merely needs to validate.
 
-Do not use one long red rope as the page's generic continuity spine. Red cord is
-too strongly owned by Silk's material language. The folder, architecture,
-thresholds and Patch's movement carry the cross-page continuity instead.
-
-This does **not** prohibit the approved bounded Silk rope run from crossing chapter
-boundaries. That run begins above Index, passes through Index under tension as
-subordinate background matter behind her papers, crosses the Index-to-Silk seam,
-becomes active and functional inside Silk, and terminates in Silk before Writ. It is
-not a route-wide spine because it has a specific Silk story job, a bounded start and
-end, and does not continue through the later chapters.
-
-The modular rendering contract for that run is explicit: each layout owner renders
-only the rope segment inside its own box. Opening/Index may own the upstream local
-segments, the named seam owns only its crossing segment, and Silk owns the active
-local segment and termination. Adjacent segments meet through agreed responsive
-ports. No chapter may measure a sibling's rendered height or reach into sibling
-internal geometry merely to maintain rope continuity. Silk's narrative ownership
-of the motif therefore does not imply one Silk-owned DOM element spanning multiple
-chapter sections.
+The folder, architecture, thresholds and Patch's movement carry cross-page
+continuity. The retired Silk/rope/crossing implementation has been removed from the
+live tree. Future Silk work must establish its own chapter material and seam
+contracts from the accepted Index boundary rather than revive the deleted system by
+default.
 
 ## Folder continuity authority and pre-vis reference
 
@@ -227,7 +213,7 @@ The page-order material states are:
 | --- | --- |
 | Opening | clean recruitment folder and working list |
 | Index | folded blue blueprint/map sheet + yellow sticky assent note |
-| Silk | prior material + circular route-end pin and short red-cord logic |
+| Silk | prior Index material + a newly designed Silk assent state; exact material is intentionally open until the fresh Silk design pass |
 | Writ | prior material + Writ's white original from the completed triplicate assent; yellow remains with Writ and pink goes to Receipt/file |
 | Klause | prior material + produced red `K` impression on the folder |
 | Rollback | prior material + Rollback's dog tags at the folder/spine |
@@ -482,8 +468,6 @@ in the preview route:
   flow, not specialist internals;
 - transitions may own only the small band/edge between chapters;
 - `RecruitmentFolder` is the deliberate shared continuity primitive;
-- cross-boundary motifs such as Silk's rope may be visually continuous while being
-  rendered as locally owned segments joined at explicit responsive ports; and
 - no universal config-driven `SpecialistChapter` abstraction may erase the
   intentionally different chapter grammars.
 
@@ -503,22 +487,23 @@ it. For materially new or redesigned chapters:
 4. commission only missing roles into candidate custody;
 5. judge candidates in their live composed slots;
 6. promote accepted masters and generate derivatives; and
-7. preserve retired accepted sources/provenance honestly when a composition stops
-   using them.
+7. keep only the source/provenance still required by active or explicitly retained
+   work; Git history is the recovery path for project-owner-authorised retirement.
 
 An attractive image that forces a chapter to abandon its approved story order or
 move chapter geometry into the page shell is the wrong asset for the slot.
 
 ## Asset and custody contract
 
-Accepted image masters, candidates, generation receipts and provenance remain
+Active accepted image masters, candidates, generation receipts and provenance remain
 under `src/client/assets/patch/the-usual-specialists/`. Browser-facing derivatives
 under `src/client/public/media/patch/the-usual-specialists/` are processor-owned
 output and must not be hand-edited.
 
-Removing an accepted image from active composition does not authorise deleting its
-master or provenance. The existing Silk assets are particularly important here:
-composition authority may be superseded while custody remains truthful.
+The retired Silk/rope asset packages and their generated derivatives were explicitly
+authorised for deletion once Index was locked. Git history is their recovery path.
+The traced `silk-wordmark.svg` is intentionally retained outside that retired media
+pipeline as reusable identity artwork.
 
 ## Existing route and publication seam
 
@@ -532,11 +517,10 @@ authority.
 
 ## Superseded and preserved decisions
 
-This page system continues to supersede the 12 September 2026 Silk decision that
-made the cool-mineral route surface literal safehouse plaster and explicitly
-avoided a comic-page skin. Silk's approved chapter uses a bounded black/dark comic
-substrate instead. The implementation milestone that first changes the live Silk
-composition must record that replacement in `docs/design-decisions.md`.
+There is no current Silk composition authority beyond her story role, sequence
+position and retained identity lockup. The previous Silk visual design and its media
+estate are historical only and must not be treated as a starting template for the
+fresh design pass.
 
 The system preserves:
 
@@ -559,9 +543,8 @@ plan.
   key.
 - Do not flatten the specialists into one shared visual grammar.
 - Do not preserve old Silk composition because of sunk cost.
-- Do not use one route-wide red rope as a mandatory series grammar.
-- Do not remove the bounded Index-to-Silk rope intrusion merely because the rope's
-  material language belongs to Silk.
+- Do not resurrect the retired Silk/rope/crossing implementation by default; if a
+  future design needs similar material, re-derive it from the new chapter design.
 - Do not make Writ a parody law office.
 - Do not let Writ own Klause's decision function.
 - Do not let Klause own Writ's authority function.

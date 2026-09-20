@@ -474,13 +474,17 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
   }
 })
 
-test('Specialists Index draft keeps the approved composition across protected viewports', async ({ page }) => {
-  for (const width of [2560, 1600, 1440, 768, 390, 320] as const) {
-    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await openStable(page, './patch/the-usual-specialists/next')
-    const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+test('Specialists Index authored references stay locked at the accepted widths', async ({ page }) => {
+  const widths = [320, 599, 600, 699, 700, 959, 1400, 1619, 1920, 2560] as const
+
+  await page.setViewportSize({ width: widths[0], height: 1080 })
+  await openStable(page, './patch/the-usual-specialists/next')
+  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 1080 })
     await waitForImages(story)
-    await expect(page).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`, {
+    await expect.soft(page).toHaveScreenshot(`patch-usual-specialists-index-${width}-authored.png`, {
       fullPage: true,
       clip: enclosingClip(
         await clipBetween(
@@ -492,7 +496,6 @@ test('Specialists Index draft keeps the approved composition across protected vi
     })
   }
 })
-
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 })
   await openStable(page, './projects/adventures-of-patch')

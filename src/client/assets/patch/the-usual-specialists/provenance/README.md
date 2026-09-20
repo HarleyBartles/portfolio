@@ -10,6 +10,11 @@ The custody authorities are intentionally separate:
 - scoped `candidate-assets.json` files under a package `candidates/` lane answer **which source bytes are deliberately retained for reversible page review without implying acceptance**;
 - package `generation-receipt.json` files answer **which generation metadata is actually known**;
 - these Markdown records answer **why the asset was commissioned, what changed, what brief governed the retained result, and what acceptance or candidate-review decision actually exists**;
+- active repository-bound image-generation briefs live under
+  `.agents/image-briefs/`; they remain live while generation, candidate review,
+  or acceptance is still active, and enter the repository's completed-artifact
+  retirement lifecycle only after they produce their accepted asset(s) or are
+  explicitly abandoned;
 - `src/client/public/media/patch/the-usual-specialists/usual-specialists-derivatives.json` answers **which deterministic page-use derivatives the processor emitted**;
 - `linear-source-register.json` is a migration/deletion-readiness ledger only. Linear is legacy evidence, not current canonical provenance custody.
 

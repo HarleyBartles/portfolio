@@ -1,16 +1,26 @@
 # The Usual Specialists V2 — Index Editorial Close Implementation Plan
 
+**Status:** `completed-awaiting-retirement` — the Index milestone is complete.
+This plan remains tracked through the completing PR as historical execution
+evidence and is not current implementation authority.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Recompose the approved Index closing sequence so the story reads as research → recognition → found source → assent consequence, while preserving the accepted document-world control case, the intentional passive Silk rope, and a new page-level wide-screen contract in which the complete Index chapter fits within 1080 CSS pixels at 1920px and wider.
+**Goal:** Recompose the approved Index chapter so the document world remains the dominant guided-exploratory field, repeated same-character appearances stay legible as successive moments, and the closing sequence reads as research → recognition → found source → assent consequence, while preserving the page-level wide-screen contract in which the complete Index chapter fits within 1080 CSS pixels at 1920px and wider.
 
-**Architecture:** Keep `IndexChapter` as the chapter-level composer and preserve the existing document field, traversal figures, blue carrier, graph paper, and locally owned rope segment. Replace the historical commission/sticky-note closing cluster with one focused `IndexClosingSequence` vertical slice whose children own their own content while the sequence owns their overlap and responsive placement. Commission one new raster outcome panel only after the live React wireframe proves its slot; keep the assent wording in HTML rather than generated pixels.
+**Architecture:** Keep `IndexChapter` as the chapter-level composer. Give the document world one `IndexEvidenceField` owner for the desk field, blue carrier, graph paper, story card and their responsive relationship. Keep traversal figures owned by the substrate/beat they inhabit, and tag repeated Patch/Index appearances by character and moment so browser proof protects temporal separation without forbidding different characters from sharing space. Keep `IndexClosingSequence` as the directed causal slice whose children own their own content while the sequence owns their overlap and responsive placement. The retired Silk/rope/crossing implementation is not an Index dependency.
 
 **Tech Stack:** React 19.2.7, TypeScript ~6.0.2, styled-components 6.4.4, Vite 8.1.1, Vitest 4.1.10, Playwright 1.61.1, Sharp 0.34.5, repository-owned OpenAI image-generation workflow.
 
 **Spec:** `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md` plus `.agents/specs/2026-09-17-usual-specialists-visual-story-design.md`
 
-**Execution Strategy:** `subagent-driven-development` — execute the three sequential milestone tasks with a fresh worker/reviewer boundary per task, while preserving the explicit human approval gate after the live wireframe and the explicit candidate-acceptance gate before final asset custody/mounting. Do not dispatch Task 2 before Task 1's slot geometry is approved, and do not dispatch Task 3 before a generated candidate is explicitly accepted.
+**Execution Strategy:** `manual` — this was human-led art-direction work. The
+live wireframe required explicit human approval before commissioning. During
+execution, Harley explicitly authorised reversible page-review custody and React
+mounting of an unaccepted candidate so the final composition could be judged in
+context. On 20 September 2026 Harley accepted that mounted outcome during Index
+closeout; its byte-identical source was promoted into accepted custody and its
+production derivative now carries the accepted asset identity.
 
 ## Global Constraints
 
@@ -18,7 +28,7 @@
 - Canonical `/patch/the-usual-specialists/` remains the frozen six-specialist legacy route; `lawful-heist` remains 404.
 - Index returns several plausible routes/route fragments and constraints. It does not prove one route.
 - Preserve the accepted Index document-world control case: main desk field, blue carrier, graph paper, traversal figures, and messy-but-readable evidence terrain.
-- Preserve the current passive red rope through Index. It is Silk-owned narrative material rendered locally by Index; do not remove it, re-home it to Silk, or introduce cross-sibling measurement.
+- Silk is absent from the rendered Index page. Do not introduce future Silk chapter machinery as an Index dependency.
 - Patch's carried folder remains baked into the accepted traversal assets. Do not retrofit `<RecruitmentFolder state="index" />` or re-author those figures.
 - The old free-floating sticky-note render leaves the active composition, but its accepted source asset and provenance remain under repository custody.
 - The new carried-folder outcome panel is an authored image beat, not a standalone folder primitive and not a folder glamour shot.
@@ -26,7 +36,7 @@
 - The recognition bridge is exact visible copy: `“Ah. This one.”`; it represents Index speaking aloud offscreen, not narrator copy or a thought bubble.
 - No em dash in Harley-authored public copy.
 - Meaningful source order, reduced-motion comprehension, keyboard usability, no horizontal overflow, 320 CSS px survival, and actual 200% browser zoom remain required.
-- At `1920` CSS px and above, the complete Index chapter box including local top/bottom padding must be `<= 1080` CSS px tall. The Index→Silk transition band is outside this envelope. Do not implement this with `height: 1080px`.
+- At `1920` CSS px and above, the complete Index chapter box including local top/bottom padding must be `<= 1080` CSS px tall. Do not implement this with `height: 1080px`.
 - Widths above 2560 freeze the 2560 composition rather than widening indefinitely.
 - Parent/child styling follows the repo vertical-slice rule: parents own child placement; children own internals; no `styled(Child)`, no caller-facing `className`, no raw geometry props.
 - New accepted source imagery lives under `src/client/assets/patch/the-usual-specialists/index/`; browser derivatives are generated by `src/client/scripts/process-usual-specialists-assets.mjs` and never hand-edited.
@@ -41,12 +51,11 @@ The implementation should converge on this ownership shape:
 
 ```text
 IndexChapter
-├─ local passive RopePiece run                 (unchanged ownership)
-├─ DeskComposition
-│  ├─ IndexDeskDocument                       (preserve)
-│  ├─ IndexStoryCard                          (existing copy correction; move visually earlier/up-right)
-│  └─ IndexGraphPaper                         (preserve)
-├─ IndexBlueCarrier                           (preserve)
+├─ IndexEvidenceField                         (dominant guided-exploratory field)
+│  ├─ IndexDeskDocument                       (owns desk traversals)
+│  ├─ IndexStoryCard                          (interpretive voice, subordinate to field)
+│  ├─ IndexGraphPaper                         (preserve)
+│  └─ IndexBlueCarrier                        (owns carrier traversals)
 └─ IndexClosingSequence                       (replace IndexCommissionComposition)
    ├─ IndexObservation                        (preserve accepted image/figures)
    ├─ IndexRecognitionBridge                  (new HTML speech panel)
@@ -57,6 +66,8 @@ IndexChapter
 Why this split:
 
 - `IndexChapter` remains readable as the whole chapter rather than becoming a layout utility.
+- `IndexEvidenceField` owns the document-world composition and its responsive state so desk/carrier/graph/story relationships cannot drift through independent breakpoint repair.
+- Substrate components own their character appearances; repeated same-character appearances carry explicit character/moment identity for responsive temporal-separation proof.
 - `IndexClosingSequence` owns the causal relationship and responsive overlaps between its four beats.
 - `IndexRecognitionBridge` owns only the spoken line and its rectangular panel treatment.
 - `IndexSourceRetrieval` owns the already accepted filing-drawer image and corrects its stale "macguffin/final route" semantics without renaming the historical source asset.
@@ -147,14 +158,284 @@ container-relative geometry inside the containing composition family. If the liv
 wireframe cannot produce a stronger reason for an existing threshold, remove or
 collapse it rather than preserving historical CSS by inertia.
 
-| Band | Intended Index composition |
+### Evidence-based rescue strategy
+
+The current responsive system is not a valid basis for further tuning. Live review
+at `320`, `390`, `767`, `768`, `1200`, `1399`, `1400`, `1919`, `1920` and `2560`
+shows that the chapter only reads as fully authored at the largest composition. The
+failure pattern is structural rather than a set of local coordinate misses:
+
+- the story card repeatedly occupies protected character/identity regions through
+  most of every sub-1920 family, briefly clearing at the top of one band only to
+  re-cover the same beat when the next query activates;
+- the paired Patch + Index inspection beat disappears below `768` despite no story
+  reason for its absence;
+- returning Patch + returning Index do not always share visibility state;
+- the closing sequence increasingly covers protected subject/action regions rather
+  than using overlap to clarify causality;
+- the assent outcome is consistently smaller than the image beats it is supposed to
+  resolve, so its visual hierarchy contradicts its semantic role; and
+- fixed stage/closing heights manufacture large chapter-end voids after the story has
+  already finished.
+
+`2560` is therefore the visual grammar reference, not a coordinate template. The
+rescue must preserve its relationships while deliberately recomposing for surfaces
+that cannot support the same lateral spread.
+
+#### Surface feasibility
+
+- Below `1920px` there is **no chapter-height ceiling**. Use whatever vertical depth
+  the story needs. Do not compress the chapter merely to resemble the wide spread.
+- At `1920px` and above, the complete Index chapter including its local padding must
+  fit within `1080px` height. This is the only one-screen height contract.
+- The current asset set is sufficient. No accepted Index image needs regeneration to
+  satisfy the responsive rescue. The office, retrieval and outcome panels can all be
+  resized/recomposed within their existing authored aspect ratios.
+- The narrow surface cannot support the current floating story-card treatment while
+  simultaneously protecting the Index mark and active character beats. On narrow
+  surfaces the story card must receive an authored vertical slot rather than being
+  forced into the same plane as those landmarks.
+- Likewise, a narrow closing sequence cannot be simultaneously highly overlapped,
+  vertically compressed and fully legible. Preserve the story and spend vertical
+  space instead.
+
+#### Protected story regions
+
+The following are hard composition constraints, not preferences:
+
+- remove the decorative `01` chapter number entirely;
+- the story card must not cover the Index name mark, outgoing Index, Patch's active
+  movement beat, or any other character appearance carrying sequence/time;
+- the story card must remain subordinate to the document field and cannot become the
+  first-order visual hero merely because the viewport is narrow;
+- Patch + Index inspection remain a pair and remain present together at every width;
+- returning Patch + returning Index are either both present or both absent;
+- repeated same-character appearances must remain legible as distinct moments;
+- different characters may share or overlap in the same beat whenever their
+  relationship is the action;
+- the observation/office frame must keep Index's face readable and must not cover more
+  than half of Patch's visible body;
+- the retrieval beat must keep the filing hand/action readable;
+- the assent outcome may touch/overlap retrieval to express causality, but must not
+  cover the filing hand or read as a separate manila intrusion dropped on top;
+- the assent outcome must have visual weight comparable to or greater than the prior
+  image beats at every width where it is the terminal hero; and
+- chapter-bottom breathing room is authored from the final outcome, not inherited from
+  a fixed `Stage` reservation.
+
+#### Responsive composition families
+
+Do not preserve the current query boundaries by inertia. The following families are
+story/capability targets; exact transition widths must be proven by live composition,
+and may move from the current values if that produces a continuous read.
+
+| Family | Composition contract |
 | --- | --- |
-| `320–389` (`narrow`) | Preserve the document field as a dense vertical terrain, with the passive Silk rope still behind it. Keep the story card before the closing sequence in source order and let it read as an early editorial orientation rather than the last item. The closing sequence becomes predominantly vertical: observation first; the `“Ah. This one.”` rectangle touches/bridges the transition into the source-retrieval panel; retrieval follows with only modest overlap; the outcome panel lands last with the yellow note fully readable and the blue fold visible. Do not force a three-panel desktop collage into this width. No horizontal overflow. |
-| `390–767` (`compact`) | Keep the accepted compact document terrain and high-step traversal behaviour. The story card remains visually earlier and should sit in available upper/right document space without covering traversal. The observation and retrieval panels may overlap diagonally more than at 320, with the recognition rectangle literally occupying their seam. The outcome panel follows as the terminal beat, offset enough to keep the composition messy but not buried under retrieval. The note remains the strongest read in that final panel. |
-| `768–1399` (medium composition family) | Recover a two-dimensional closing cluster while preserving the broad document field and cumulative evidence terrain. Observation anchors upper/left; source retrieval sits right/lower with intentional overlap; the recognition rectangle occupies their seam as the causal bridge; the outcome panel follows beyond retrieval in the eye path. The story card moves up/right within the main desk field so it is encountered before the close. Across this whole family the story grammar is the same; geometry should interpolate fluidly rather than switch composition merely because the container crosses 900px. An internal `900px` adjustment may remain only if live review identifies a specific capability change that cannot be expressed fluidly and is documented beside the query. |
-| `1400–1919` (wide composition family) | Use the extra horizontal field rather than adding vertical depth. Story card sits clearly in the upper-right open field and no longer blocks the filing panel's upper-right area. The close becomes a wide diagonal/lateral run across the lower field: observation on the left, recognition across the first seam, retrieval central/right, outcome farther right as closing punctuation. Preserve the wide rope behaviour and accepted document relationships. An internal `1600px` adjustment is permitted only if it earns itself by restoring the additional Index/Patch return traversal figures as an intentional narrative expansion at a useful scale; it must not become a second wide layout whose purpose is merely to nudge overlapping panels. If those figures cannot justify the threshold in live review, remove/collapse the `expanded` query and keep one fluid `1400–1919` composition. |
-| `1920–2560` (`ultrawide`) | Treat the chapter as an authored one-screen spread. Complete chapter box including local padding must measure `<=1080px`. Story card occupies the open top/right area. Keep the document world dominant across the upper/middle field and arrange the four-beat close as a shallow lower strip: observation left, `“Ah. This one.”` on the observation/retrieval seam, retrieval central/right, outcome at the far/right terminal position. Preserve readable type and asset scale; achieve the height ceiling through lateral composition and reduced dead space, never clipping or forced scaling. |
-| `>2560` | Freeze the 2560 composition/ceiling rather than allowing new drift. The chapter remains `<=1080px` tall and the local composition does not keep stretching horizontally. |
+| **Narrow procession** | Use when there is not enough horizontal room for the story card and active character beats to coexist safely. The document world stays full-width and dominant. The story card gets its own authored vertical slot inside the evidence passage rather than floating over protected material. Keep the Patch + Index inspection pair. The close becomes an intentional procession: office/research first, recognition bridge attached to its handoff, retrieval next, then a large terminal assent outcome. Use alternating/offset edges and modest overlap for cadence, but prioritise protected subjects over compression. Chapter height is content-driven and may grow freely. |
+| **Compact field** | Activate only once the surface can support a two-dimensional evidence field without the story card trampling protected beats. The card may move back into negative space, but only if it remains clear of the Index mark and all active character models throughout the whole family. Keep the inspection pair. The close can become stepped/diagonal, but the outcome remains comparable in scale to the office/retrieval panels and joins retrieval at a controlled edge seam rather than a deep overlap. |
+| **Wide field** | Use lateral space aggressively. The story card owns a genuine open region and must stay clear of outgoing Index across the whole band, not only near its top edge. The return pair uses binary visibility. The close is a deliberate lateral run: office on one side, retrieval on the other, recognition bridging the causal seam, terminal outcome large enough to dominate and attached to retrieval without covering its hand/action. No fixed chapter-height ceiling applies below `1920`. |
+| **One-screen spread (`1920+`)** | Preserve the authored wide grammar while fitting the complete chapter within `1080px` height. Achieve this through lateral composition and removal of dead space, not by shrinking the terminal outcome or covering story beats. `1920` must not reset a character-safe `1919` composition into a collision. The story card remains in true negative space; both return figures remain paired; the close stays shallow and lateral; the outcome is still a hero rather than a supporting insert. |
+| **Ceiling (`>=2560`)** | Treat the accepted `2560` spread as the composition ceiling. Freeze the local grammar rather than continuing to widen/space elements indefinitely. |
+
+#### Transition rule
+
+A breakpoint is valid only when the surface gains a new compositional capability.
+Crossing a breakpoint must never make the story less legible than it was one pixel
+earlier. In particular, the rescue must explicitly prove the current failure edges
+around `389/390`, `767/768`, `1399/1400` and `1919/1920` even if the final authored
+thresholds move elsewhere.
+
+Within a family, use relational layout and bounded fluid interpolation. Do not create
+another coordinate recipe per screenshot. The evidence field owns card/substrate
+relationships; the closing sequence owns office/recognition/retrieval/outcome
+relationships; leaf components own their own crops and protected subject regions.
+
+#### Height and exit cadence
+
+Delete the idea that fixed `Stage` minimum heights define the chapter. The chapter
+height is the union of its authored evidence field, closing sequence and deliberate
+bottom breath. Below `1920`, let that height expand naturally. At `1920+`, solve the
+same relationships laterally so the full chapter remains `<=1080px` high.
+
+The final breathing room should read as punctuation after the assent outcome, not an
+anonymous leftover field. It should therefore be expressed as an explicit closing
+interval owned by the chapter rather than as unused min-height.
+
+#### Required proof
+
+Implementation is not complete until browser review proves:
+
+- protected story-card regions remain clear across each complete family, not only at
+  sampled endpoints;
+- inspection-pair presence is stable;
+- return-pair visibility is binary;
+- office subject protection and retrieval-hand protection hold;
+- the outcome panel's rendered area is never materially weaker than the preceding
+  story images while carrying terminal-hero semantics;
+- retrieval→outcome overlap stays within an authored seam zone and never covers the
+  protected filing hand;
+- chapter-bottom breathing room stays within an authored range after the outcome;
+- no breakpoint boundary reintroduces a collision absent one pixel earlier; and
+- `1920×1080` and `2560×1080` contain the complete Index chapter without clipping or
+  story-role reduction.
+
+### Responsive authored composition execution strategy
+
+This section is the implementation control loop for Index. Re-read it before every
+responsive change. A change is not accepted because one sampled width looks better;
+it is accepted only when it preserves the authored story across the entire responsive
+estate.
+
+#### Core rule
+
+Index is one responsive composition system, not a set of breakpoint screenshots.
+Every change must preserve the same story grammar continuously across all supported
+widths. Breakpoints may switch authored composition states only when the surface gains
+or loses a real compositional capability. They must never act as unrelated coordinate
+resets.
+
+No change may be made to satisfy one width family if it regresses a previously valid
+family. If a narrower composition requires a different arrangement, that arrangement
+must be scoped to the composition mode that needs it and must leave wider modes intact.
+
+#### Protected composition groups
+
+The page is authored in relational groups. Parent composition owns placement of these
+groups. Children own only their internal arrangement and crop.
+
+1. **Arrival passage**
+   - Blue paper + arriving Patch form one authored field relationship.
+   - Arriving Patch is connected to outgoing Index by eyeline and story action.
+   - At wide/one-screen widths Patch crosses the blue-paper edge onto the larger
+     document field; that crossing is deliberate.
+   - At tighter widths Patch may switch to the alternate side of the Index mark only
+     when required to preserve eyeline to outgoing Index and/or visual separation from
+     the later Patch instance.
+   - Patch and outgoing Index must never be independently positioned as unrelated
+     decorations.
+
+2. **Lower evidence beat**
+   - Graph paper + lower Patch/Index inspection lockup form one authored group.
+   - The pair remains readable together at every width.
+   - Moving this beat means moving the graph-paper field and the pair together.
+   - The close must not consume this field or leave the pair as fragments behind an
+     image panel.
+
+3. **Closing sequence**
+   - Office/research → recognition → retrieval → assent is one directed sequence.
+   - Its internal overlap expresses causality; it must never destroy protected faces,
+     hands, or action.
+   - The assent panel is the terminal hero and must dominate through scale/placement,
+     not through covering the retrieval action.
+
+4. **Return beat**
+   - Returning Patch + returning Index are one paired temporal beat.
+   - They share visibility state and are positioned as a pair.
+
+#### Composition modes
+
+Use the minimum number of authored modes necessary. Exact thresholds are evidence-led,
+not inherited from old queries.
+
+- **Narrow procession** — insufficient lateral space for safe floating editorial text
+  and multi-panel close. Spend vertical space freely. Story card receives an authored
+  slot. Evidence and close read as a deliberate procession.
+- **Compact field** — enough lateral room for a two-dimensional evidence field, but not
+  enough for the wide spread. Story card can occupy real negative space only if all
+  protected beats remain clear across the whole mode.
+- **Wide field** — lateral space supports the arrival/outgoing relation, return beat,
+  and a shallow lateral close without collision. No sub-1920 height ceiling applies.
+- **One-screen spread (`1920+`)** — same authored grammar as wide, solved laterally so
+  the complete chapter is `<=1080px` high. `2560` is the protected reference
+  composition/ceiling and must not drift as narrower families are repaired.
+
+Within a mode, use bounded fluid interpolation for scale and spacing. Do not add a new
+query merely to move one child a few pixels. A query is valid only when the whole
+composition changes state for a named story/capability reason.
+
+#### Protected reference and derivation order
+
+Implementation proceeds from known-good authored states outward, not by walking up the
+viewport list and patching failures.
+
+1. Restore and lock the `2560×1080` reference composition.
+   - Preserve arriving Patch crossing the blue-paper edge.
+   - Preserve Patch → outgoing-Index eyeline.
+   - Preserve graph-paper + lower Patch/Index as a readable group.
+   - Move the lower evidence/close system coherently when using available vertical
+     budget.
+   - Preserve retrieval action while giving assent terminal hero weight.
+2. Derive the `1920–2559` one-screen family from that grammar without changing 2560.
+3. Derive the wide family below 1920 while keeping the complete one-screen family
+   green.
+4. Derive compact while keeping all wider families green.
+5. Derive narrow last while keeping every wider family green.
+
+At each step, previously locked wider widths become regression fixtures. A later
+family cannot change them incidentally.
+
+#### Change gate — run after every responsive edit
+
+Before accepting any CSS/component change:
+
+1. State which composition group and invariant the change is intended to improve.
+2. Confirm the change is owned at the correct level:
+   - group placement at the parent composition;
+   - internal crop/scale inside the child;
+   - no sibling measurement/style reach-through;
+   - no independent child nudge that should have moved with its backing field/group.
+3. Run the responsive invariant matrix.
+4. Capture/review the full chapter at the estate checkpoints:
+   `320`, `390`, `767`, `768`, `1200`, `1399`, `1400`, `1919`, `1920`, `2560`.
+5. Compare every capture against the invariants, not merely against the width currently
+   being repaired.
+6. Reject/rework the change if any previously correct width regresses, even if the
+   target width improved.
+
+No accumulation of several unreviewed responsive changes is allowed. The estate gate
+runs after each coherent change so the source of regression remains identifiable.
+
+#### What automated tests may and may not prove
+
+Automated geometry tests are guardrails, not art direction. They should prove durable
+relationships where geometry maps cleanly to the story:
+
+- paired visibility states;
+- containment of characters by their authored backing group;
+- no story-card intersection with protected mark/character regions;
+- no outcome intersection with the retrieval-hand protected region;
+- minimum temporal separation between repeated same-character states;
+- complete chapter height `<=1080px` at `1920+`;
+- no horizontal overflow;
+- no breakpoint-boundary regression where a protected relationship is valid one pixel
+  before the transition and invalid one pixel after.
+
+Do not invent weak numeric proxies for visual judgments and then treat green tests as
+proof of authored composition. Eyeline quality, causal overlap, hierarchy, field
+ownership, and whether repeated figures read as distinct moments require visual review
+of the full estate captures.
+
+#### Prohibited implementation patterns
+
+- Do not globally move breakpoint thresholds to solve a local collision.
+- Do not give leaf components independent responsive recipes for relationships owned
+  by the chapter/evidence-field/closing-sequence parent.
+- Do not move a character independently of the substrate/group whose story beat it
+  belongs to.
+- Do not repair an overlap by hiding a story beat unless the authored mode explicitly
+  removes the whole beat for a story reason.
+- Do not use fixed stage min-heights as a substitute for authored flow.
+- Do not accept endpoint success while the interior of a width family remains broken.
+- Do not accept a green test matrix without reviewing the composition captures.
+- Do not preserve a breakpoint merely because it already exists.
+
+#### Completion condition
+
+Responsive implementation is complete only when the same authored story is legible at
+every checkpoint and through the transitions between them, with no previously locked
+composition regressed by later work. `2560` remains the reference authored spread;
+subsequent modes are deliberate translations of its story grammar, not degraded DOM
+fallbacks.
 
 At actual browser 200% zoom, use the resulting CSS viewport band normally. Do not special-case physical display width.
 
@@ -170,12 +451,12 @@ The expected starting disposition is:
 
 | Threshold | Starting judgement | Required justification to retain |
 | --- | --- | --- |
-| `390` | justified design boundary | Narrow survival gives way to a materially roomier compact composition with different overlap capacity. |
-| `768` | justified design boundary | Compact/portrait stacking gives way to a genuine two-dimensional medium field where observation, recognition and retrieval can interlock laterally. It also aligns with the mature Bootstrap `md` anchor and common 768-wide tablet portrait viewports, but the editorial capability is the reason to retain it. |
-| `900` | provisional adjustment only | Retain only for a specific content/hierarchy capability that cannot be expressed fluidly inside `768–1399`; otherwise delete/collapse it. |
-| `1400` | justified design boundary | Medium field gives way to the wide lateral composition and deliberately uses horizontal space to reduce vertical depth. |
-| `1600` | provisional adjustment with one plausible reason | The current implementation reveals the additional Index/Patch return traversal figures here. Retain only if live review confirms that reveal is a meaningful narrative expansion at a useful scale; otherwise delete/collapse it. |
-| `1920` | justified design boundary | The page enters the explicit one-screen wide cadence and the complete chapter must fit within 1080 CSS px. |
+| `390` | evidence boundary, not automatically retained | Current compact mode does not resolve the story-card collision through most of its band. Keep or move this threshold only if it marks a real transition from procession to two-dimensional field. |
+| `768` | current failure boundary | The existing query immediately reintroduces story-card occlusion after `767`. Do not preserve this value unless the redesigned field genuinely gains a new capability here without regression. |
+| `900` | unsupported | No independent story capability has been demonstrated. Remove unless live rescue work proves one. |
+| `1400` | current failure boundary with plausible wide capability | The surface is wide enough for a lateral grammar, but the current query introduces return-pair/story-card regressions. Retain or move only after the wide composition is proven continuous across its full range. |
+| `1600` | unsupported as a visibility threshold | Return figures must not appear independently. Pair visibility belongs to a composition rule, not an arbitrary width switch. |
+| `1920` | required one-screen contract boundary | This remains real because the `<=1080px` chapter-height requirement begins here. The composition must cross this boundary without reintroducing protected-region collisions. |
 
 Do not invent a new threshold during implementation without adding the same kind of
 justification to this record (or updating the plan/spec if the change is material).
@@ -220,64 +501,30 @@ exists.
 
 ---
 
-## Image Commission Strategy
+## Image Commission Handoff
 
-Only one new image is commissioned in this milestone: the final Index carried-state outcome panel.
+Only one new image is commissioned in this milestone: the final Index
+carried-state outcome panel.
 
-### Intended asset
+The image-generation execution artifact is deliberately separate from this
+implementation plan:
 
+- Brief: `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`
 - Asset ID: `index-outcome-folder`
 - Repository master: `src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png`
 - Browser derivative: `src/client/public/media/patch/the-usual-specialists/index-outcome-folder.webp`
-- Preferred master frame: 3:2 landscape, approximately 1536×1024 source pixels; derivative width 1200px.
-- Background/alpha: opaque panel image; no transparency requirement.
-- Text: **none in generated pixels**. The sticky-note face must leave a calm writable area for exact HTML copy.
-- Composition lock for HTML overlay: keep the yellow note centred within roughly the middle 60% of the frame, with its writable face spanning approximately `20%–80%` horizontally and `16%–82%` vertically, and keep its rotation close to `-4deg`. This is a generation constraint so the React overlay can remain deterministic across the accepted asset.
 
-### Reference roles for generation
+This plan owns sequencing: approve the live outcome-slot geometry first,
+generate against that real slot, accept one candidate explicitly, then custody
+and integrate it. The dedicated image brief owns generation direction,
+reference roles, visual invariants, rejection criteria, output shape, and
+generation-time custody instructions. Do not duplicate the image-model prompt
+inside implementation plans.
 
-Use references as conditioning inputs with explicit roles, not as assets to splice blindly:
-
-1. `src/client/assets/patch/the-usual-specialists/index/patch-follow.png` and/or `patch-return.png` — Patch identity, hands/arms, and existing carried-folder physical continuity.
-2. `src/client/assets/patch/the-usual-specialists/index/index-assent-note.png` — yellow paper material, colour, handling, shallow curl/crease language only; do not reuse its current isolated composition.
-3. `src/client/assets/patch/the-usual-specialists/index/index-blue-carrier.png` — blue blueprint/map colour and worn technical-paper material.
-4. `src/client/assets/patch/the-usual-specialists/index/index-observation.png` — Index chapter lighting/material finish so the new panel belongs to the same authored world.
-5. Adventures pre-vis `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/02_index_joined.png` at verified revision `13bf77adc63cf5c8f49363cedd5dd392822b8375` — relationship reference only: folder + tucked blue material + yellow assent. It is not geometry authority and must not import its folder drift.
-
-### Commission brief to give the image model
-
-Use this as the authored brief, adapting only the transport syntax required by the current image tool:
-
-> Create one tight 3:2 editorial insert for the Index chapter of The Usual Specialists. Show only Patch's hands/forearms carrying the already-used ordinary manila recruitment folder. Crop close enough that the folder fills almost the entire frame; this is a passing carried-state detail, not a product shot and not a handoff ceremony. A warm yellow adhesive note is stuck to the front of the folder and is the dominant visual read, occupying most of the useful central frame. Keep the note centred in roughly the middle 60% of the image, with its writable face spanning approximately 20%–80% of frame width and 16%–82% of frame height, rotated about 4 degrees counter-clockwise. Keep that face calm and blank so exact HTML handwriting can be overlaid later. From one side of the folder, show only a small but unmistakable portion of the folded worn blue blueprint/map material tucked inside and spilling slightly beyond the edge. The blue paper is supporting evidence, never the hero. Let only enough manila folder remain visible to establish what the note is attached to. Patch's hands should make the folder feel carried, handled and already in motion, not carefully presented. Match the warm practical safehouse/document-world lighting and tactile illustrated realism of the accepted Index observation material. Preserve the ordinary, slightly battered physicality of the existing folder seen with Patch. No face, no full Patch body, no Index, no Silk rope, no extra papers, no additional sticky notes, no logos, no labels, no generated handwriting, no readable words, no route diagram claiming one final route, no magical glow, no detective-noir evidence theatre, no pristine catalogue photography, and no dramatic hero-object pedestal lighting.
-
-### Generation acceptance checks
-
-Accept a candidate only when all are true:
-
-- the yellow note wins the first read at thumbnail size;
-- the folder is identifiable but subordinate;
-- the blue material is visible from one side without becoming a second hero;
-- Patch's hands read naturally and match accepted Patch identity closely enough for the small panel role;
-- the crop feels incidental/in-motion rather than staged;
-- the note has sufficient clean face area for the existing three-line HTML assent layout;
-- there is no generated text or pseudo-text on the note/folder/blueprint that could compete with HTML;
-- the panel still reads when mounted at its smallest intended responsive size;
-- it does not imply that Index hands Patch a special credential or that this is the final operational plan.
-
-If a generated candidate fails, iterate one material defect at a time. Do not broaden the brief or commission alternate story concepts after the live slot is approved.
-
-### Custody/provenance contract
-
-After Harley accepts one candidate:
-
-- save the selected PNG as `index-outcome-folder.png` under the accepted Index package;
-- add one `accepted-assets.json` record with actual SHA-256, dimensions, rights owner `Harley Bartles`, selection `current`, and provenance pointer;
-- add `generation-receipt.json` evidence using the **actual** tool-returned model/generation metadata; when the tool omits a field, record `null` plus the matching explicit missing/not-supplied status rather than inventing a value;
-- use `modelEvidence: "retained-tool-result"` when the generation surface itself supplies the evidence;
-- use `briefStatus: "normalized-from-approved-conversation"` because this plan preserves the approved authored brief;
-- create `src/client/assets/patch/the-usual-specialists/provenance/index-outcome-folder.md` with every heading required by `USUAL_SPECIALISTS_PROVENANCE_HEADINGS`;
-- change the existing `index-assent-note` accepted-manifest selection from `current` to `library`, and update its provenance to state that the isolated note remains accepted historical/library material but was retired from the active Index render on 18 September 2026;
-- keep the old source and derivative under custody rather than deleting them.
+The dedicated brief produced the accepted outcome asset after its reversible
+page-review mount was approved during closeout. It is therefore marked
+`completed-awaiting-retirement` and remains tracked through the completing PR
+before retiring in the first substantive successor slice.
 
 ---
 
@@ -295,13 +542,13 @@ After Harley accepts one candidate:
 - Modify: `src/client/src/features/patch-showcase/usual-specialists/IndexChapter.styles.ts`
 - Modify: `src/client/src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx`
 - Delete after replacement: `IndexCommissionComposition.tsx`, `IndexCommissionComposition.styles.ts`, `IndexCommissionComposition.test.tsx`
-- Leave untouched in this task: Silk components, `RopePiece`, traversal image masters, accepted note master/provenance.
+- Historical execution note: Silk/rope implementation was outside this Index task at the time; it was later retired separately after the Index checkpoint.
 
 **Interfaces:**
 - Consumes: existing `IndexObservation`, `IndexStoryCard`, `IndexDeskDocument`, `IndexBlueCarrier`, `IndexGraphPaper`, `IndexTraversal`, `indexQueries`, and the accepted `index-macguffin.webp` derivative.
 - Produces: `IndexClosingSequence`, `IndexRecognitionBridge`, `IndexSourceRetrieval`, and a temporary review-only outcome slot with stable `data-index-closing-beat="assent-outcome"` geometry for Task 2 commissioning.
 
-- [ ] **Step 1: Write the failing semantic tests before changing the composition.**
+- [x] **Step 1: Write the failing semantic tests before changing the composition.**
 
 `IndexRecognitionBridge.test.tsx` should prove visible quoted copy and root-only style ownership:
 
@@ -355,7 +602,7 @@ const image = screen.getByRole('img', { name: /Index pulls a useful source file/
 expect(image).toHaveAttribute('src', expect.stringContaining('index-macguffin.webp'))
 ```
 
-- [ ] **Step 2: Run the focused tests and confirm they fail for the expected missing components/semantics.**
+- [x] **Step 2: Run the focused tests and confirm they fail for the expected missing components/semantics.**
 
 From `src/client`:
 
@@ -365,7 +612,7 @@ npm test -- --run src/features/patch-showcase/usual-specialists/IndexRecognition
 
 Expected: FAIL because the new files/exports do not yet exist and the old retrieval wrapper still has stale semantics.
 
-- [ ] **Step 3: Implement the recognition and retrieval children as opaque vertical slices.**
+- [x] **Step 3: Implement the recognition and retrieval children as opaque vertical slices.**
 
 `IndexRecognitionBridge.tsx` should use a simple root styled component and literal visible quote, with a screen-reader speaker prefix:
 
@@ -410,7 +657,7 @@ Move `IndexMacguffin.tsx` to `IndexSourceRetrieval.tsx`, keep `index-macguffin.w
 </SourceRetrieval>
 ```
 
-- [ ] **Step 4: Build `IndexClosingSequence` in semantic source order, with a review-only outcome slot.**
+- [x] **Step 4: Build `IndexClosingSequence` in semantic source order, with a review-only outcome slot.**
 
 Use parent-owned placement wrappers in `IndexClosingSequence.styles.ts`; children do not accept geometry props. The temporary outcome slot is intentionally a neutral review surface, not production UI:
 
@@ -435,15 +682,13 @@ The temporary `OutcomePlacement` must use the intended final panel aspect ratio 
 
 This step is an explicitly temporary validation state. Do **not** run canonical CI, update visual baselines, or create a normal commit while the placeholder is mounted.
 
-- [ ] **Step 5: Replace `IndexCommissionComposition` with `IndexClosingSequence` in `IndexChapter` and move the story card visually earlier/up-right.**
+- [x] **Step 5: Replace `IndexCommissionComposition` with `IndexClosingSequence` in `IndexChapter` and move the story card visually earlier/up-right.**
 
-Keep the `IndexChapter` source order meaningful. The story card already precedes the closing sequence in JSX; do not move it later in DOM to achieve the visual placement. Rename the parent placement wrapper from `CommissionCompositionPlacement` to `ClosingSequencePlacement`.
+Keep the `IndexChapter` source order meaningful. The evidence field, including the story card, precedes the closing sequence in JSX; do not move the story card after the close to achieve visual placement. The field owns its internal responsive relationships and the closing sequence owns its own directed overlap.
 
-Do not change the `IndexRopePlacement` subtree except for height/port adjustments proven necessary by the new chapter height; its ownership and visual run are protected.
+- [x] **Step 6: Audit the existing query thresholds, then implement the justified responsive composition families.**
 
-- [ ] **Step 6: Audit the existing query thresholds, then implement the justified responsive composition families.**
-
-`IndexClosingSequence.styles.ts` owns panel overlap/placement; `IndexChapter.styles.ts` owns story-card position, whole-stage depth, and chapter padding. Implement the composition-family table in this plan rather than inheriting every historical query boundary.
+`IndexEvidenceField.styles.ts` owns desk/carrier/graph/story-card responsive relationships; `IndexClosingSequence.styles.ts` owns panel overlap/placement; `IndexChapter.styles.ts` owns whole-stage depth, chapter padding and placement of those two opaque compositions. Implement the composition-family table in this plan rather than inheriting every historical query boundary.
 
 First inventory every use of the current `throughMid`, `belowWide`, `wide` and
 `expanded` helpers. For each retained threshold, write down the design reason before
@@ -502,7 +747,7 @@ Required wide behaviour:
 
 At widths above 2560, use clamps/max-width/ceiling geometry so 2880 produces the same authored positions as 2560 within tolerance, matching the existing e2e freeze principle.
 
-- [ ] **Step 7: Run focused component tests.**
+- [x] **Step 7: Run focused component tests.**
 
 From `src/client`:
 
@@ -512,7 +757,7 @@ npm test -- --run src/features/patch-showcase/usual-specialists/IndexRecognition
 
 Expected: PASS.
 
-- [ ] **Step 8: Review the live wireframe before commissioning imagery.**
+- [x] **Step 8: Review the live wireframe before commissioning imagery.**
 
 In the existing preview browser, inspect `/patch/the-usual-specialists/next/` using
 both **real-screen anchors** and **authored-boundary probes**. Real-screen anchors
@@ -568,7 +813,7 @@ Approval questions are binary:
 - Does `“Ah. This one.”` visibly bridge observation/research into the filing retrieval beat?
 - Does the reserved outcome slot clearly read as the final beat without becoming a folder hero slot?
 - At 1920 and 2560, is the complete Index chapter box `<=1080px` tall with no clipping?
-- Is the passive rope still visibly continuous through Index and into the Index→Silk seam?
+- Do repeated visible appearances of the same character remain clearly distinct moments, while Patch and Index are still free to share the same beat when their relationship is the action?
 - At 320/390 and 200% zoom, is the causal order obvious without desktop-scale overlaps?
 - Across 768–1399, does the same composition grammar survive without a gratuitous
   900px mode switch?
@@ -586,13 +831,13 @@ Approval questions are binary:
 
 Stop here for Harley's live visual approval of the slot geometry. Do not commission the final image before this review passes.
 
-- [ ] **Step 9: Mark Task 1 checklist items complete in this plan after the live wireframe is approved.**
+- [x] **Step 9: Mark Task 1 checklist items complete in this plan after the live wireframe is approved.**
 
 Do not commit the temporary placeholder state. Proceed directly to Task 2 so the first implementation commit contains the real accepted panel rather than a disposable wireframe.
 
 ---
 
-### Task 2: Commission, accept and custody the new Index outcome panel
+### Task 2: Commission and review the new Index outcome panel
 
 **Files:**
 - Create after acceptance: `src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png`
@@ -606,24 +851,33 @@ Do not commit the temporary placeholder state. Proceed directly to Task 2 so the
 - Generated: `src/client/public/media/patch/the-usual-specialists/usual-specialists-derivatives.json`
 
 **Interfaces:**
-- Consumes: Task 1's approved live outcome-slot dimensions and the commission brief/reference hierarchy above.
-- Produces: accepted `index-outcome-folder` source + provenance + deterministic WebP derivative consumed by Task 3's `IndexOutcomePanel`.
+- Consumes: Task 1's approved live outcome-slot dimensions and the dedicated image brief.
+- Produces: a candidate suitable for explicit page review. Acceptance would
+  later promote it into accepted source custody and an accepted deterministic
+  derivative.
 
-- [ ] **Step 1: Generate the panel from the approved brief and references.**
+- [x] **Step 1: Generate the panel from the approved brief and references.**
 
-Use the repository image-generation workflow and the exact brief under **Image Commission Strategy**. Bind each reference to its stated role. Request one independently inspectable candidate per generation call unless the current image surface explicitly exposes a different contract.
+Use the repository image-generation workflow and the dedicated brief at
+`.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`.
+Bind each reference to its stated role. Request one independently inspectable
+candidate per generation call unless the current image surface explicitly
+exposes a different contract.
 
 Do not ask the generator to render `You son of a gun. I'm in!`; the note must remain blank enough for HTML overlay.
 
-- [ ] **Step 2: Inspect each returned candidate against the acceptance checks before showing it as viable.**
+- [x] **Step 2: Inspect each returned candidate against the acceptance checks before showing it as viable.**
 
 Verify full frame, hands, note dominance, blue-paper relationship, absence of pseudo-text, and fit inside the approved live slot. If one defect requires another pass, change only that defect in the next instruction.
 
-- [ ] **Step 3: Obtain Harley's explicit visual acceptance of one candidate.**
+- [x] **Step 3: Obtain Harley's explicit visual acceptance of one candidate.**
 
-Only the accepted candidate enters the repository as `index-outcome-folder.png`. Do not promote an unreviewed provider result because it technically satisfies dimensions.
+Only an accepted candidate may be promoted as
+`index-outcome-folder.png`. A candidate may enter scoped page-review custody and
+be mounted reversibly when Harley explicitly requests in-context review; that
+does not make it accepted.
 
-- [ ] **Step 4: Write provenance and manifest entries from observed generation/file facts.**
+- [x] **Step 4: Write provenance and manifest entries from observed generation/file facts.**
 
 The new provenance record must contain, in this exact heading order:
 
@@ -649,7 +903,7 @@ Its composition/ownership contract must state that image pixels own Patch's hand
 
 Update `index-assent-note.md` so its history records that the isolated note ceased to be an active render asset on 18 September 2026 and is retained as accepted historical/library material and a generation reference. Keep its existing source identity intact.
 
-- [ ] **Step 5: Add the accepted source to the derivative processor and write the failing processor expectation first.**
+- [x] **Step 5: Add the accepted source to the derivative processor and write the failing processor expectation first.**
 
 In `process-usual-specialists-assets.test.ts`, change the accepted output count from `40` to `41` and add:
 
@@ -668,7 +922,7 @@ Then add this source entry adjacent to the other Index image panels in `process-
 { id: 'index-outcome-folder', source: 'index-outcome-folder.png', output: 'index-outcome-folder.webp', width: 1200, format: 'webp' },
 ```
 
-- [ ] **Step 6: Run focused provenance/processor tests before derivative generation.**
+- [x] **Step 6: Run focused provenance/processor tests before derivative generation.**
 
 From `src/client`:
 
@@ -678,7 +932,7 @@ npm test -- --run scripts/process-usual-specialists-assets.test.ts scripts/valid
 
 Expected after all manifest/provenance entries are complete: PASS.
 
-- [ ] **Step 7: Generate and verify the browser derivative.**
+- [x] **Step 7: Generate and verify the browser derivative.**
 
 From `src/client`:
 
@@ -689,13 +943,15 @@ npm run media:usual-specialists:check
 
 Expected: the new WebP and derivative receipt are generated; custody, source identity, byte budget and provenance validation pass.
 
-- [ ] **Step 8: Mark Task 2 checklist items complete in this plan.**
+- [x] **Step 8: Mark Task 2 checklist items complete in this plan.**
 
-Do not commit yet; Task 3 replaces the temporary outcome slot with the accepted asset and proves the whole composition before the first normal implementation commit.
+For the executed slice, Harley chose the then-current candidate for reversible
+page-review custody before acceptance. Task 3 therefore mounted the candidate
+derivative for in-context review rather than promoting it to accepted custody.
 
 ---
 
-### Task 3: Mount the final outcome panel, retire the floating note, and lock responsive behaviour
+### Task 3: Mount the page-review outcome panel, retire the floating note, and lock responsive behaviour
 
 **Files:**
 - Create: `src/client/src/features/patch-showcase/usual-specialists/IndexOutcomePanel.tsx`
@@ -709,10 +965,10 @@ Do not commit yet; Task 3 replaces the temporary outcome slot with the accepted 
 - Update approved Index snapshots under `src/client/e2e/visual-regression.spec.ts-snapshots/`
 
 **Interfaces:**
-- Consumes: Task 2's `index-outcome-folder.webp` derivative and Task 1's approved slot geometry.
+- Consumes: Task 2's then-current page-review derivative and Task 1's approved slot geometry.
 - Produces: final Index composition and objective responsive/browser proof for the Silk milestone to inherit.
 
-- [ ] **Step 1: Write the failing `IndexOutcomePanel` component test.**
+- [x] **Step 1: Write the failing `IndexOutcomePanel` component test.**
 
 ```tsx
 import { render, screen } from '@testing-library/react'
@@ -738,7 +994,7 @@ describe('IndexOutcomePanel', () => {
 })
 ```
 
-- [ ] **Step 2: Run the outcome-panel test and confirm it fails because the component does not exist.**
+- [x] **Step 2: Run the outcome-panel test and confirm it fails because the component does not exist.**
 
 From `src/client`:
 
@@ -748,7 +1004,7 @@ npm test -- --run src/features/patch-showcase/usual-specialists/IndexOutcomePane
 
 Expected: FAIL on missing component/export.
 
-- [ ] **Step 3: Implement `IndexOutcomePanel` with image pixels for physical state and HTML for the exact note copy.**
+- [x] **Step 3: Implement `IndexOutcomePanel` with image pixels for physical state and HTML for the exact note copy.**
 
 Use the existing `IndexAssentNote` text hierarchy as the starting point, but size it against the blank note face in the accepted new image rather than mounting the old note asset:
 
@@ -823,9 +1079,9 @@ export const IndexOutcomePanel = ({ style }: IndexOutcomePanelProps) => (
 )
 ```
 
-The generation brief deliberately constrains the blank note face around this percentage overlay. If a candidate cannot support this stable overlay without moving the text outside the note, reject that candidate rather than turning note geometry into caller-controlled props.
+The dedicated generation brief deliberately constrains the blank note face around this percentage overlay. If a candidate cannot support this stable overlay without moving the text outside the note, reject that candidate rather than turning note geometry into caller-controlled props.
 
-- [ ] **Step 4: Replace the temporary outcome slot with `IndexOutcomePanel` and remove the old floating-note React wrapper from the active code path.**
+- [x] **Step 4: Replace the temporary outcome slot with `IndexOutcomePanel` and remove the old floating-note React wrapper from the active code path.**
 
 `IndexClosingSequence` final source order must remain:
 
@@ -838,7 +1094,7 @@ The generation brief deliberately constrains the blank note face around this per
 
 Delete `IndexAssentNote.tsx`/test after confirming no imports remain. Do **not** delete `index-assent-note.png`, its derivative, receipt entry, or provenance.
 
-- [ ] **Step 5: Run all focused Index/unit and asset checks.**
+- [x] **Step 5: Run all focused Index/unit and asset checks.**
 
 From `src/client`:
 
@@ -849,7 +1105,7 @@ npm run media:usual-specialists:check
 
 Expected: PASS.
 
-- [ ] **Step 6: Replace the historical breakpoint-heavy Playwright matrix with real-screen anchors plus authored-boundary probes.**
+- [x] **Step 6: Replace the historical breakpoint-heavy Playwright matrix with real-screen anchors plus authored-boundary probes.**
 
 In `src/client/e2e/project-story.spec.ts`, keep the existing representative width loop and add locators for:
 
@@ -908,7 +1164,7 @@ if (width >= 1920) {
 
 Keep the existing 2560→2880 freeze comparison. Extend it to any new closing-sequence x-geometry that must freeze, but do not freeze every pixel coordinate.
 
-- [ ] **Step 7: Run the focused Index browser journey.**
+- [x] **Step 7: Run the focused Index browser journey.**
 
 From `src/client`:
 
@@ -918,7 +1174,7 @@ npm run test:e2e -- e2e/project-story.spec.ts -g "The Usual Specialists Index re
 
 Expected: PASS at all existing representative widths, including the new `>=1920 => <=1080px` assertion and no horizontal overflow.
 
-- [ ] **Step 8: Keep the protected visual set editorially small while adding the real wide-screen contract.**
+- [x] **Step 8: Keep the protected visual set editorially small while adding the real wide-screen contract.**
 
 Change the Index visual loop from the historical set:
 
@@ -946,7 +1202,7 @@ return-traversal threshold, its behaviour remains covered by the Playwright geom
 visibility matrix; add a dedicated 1600 visual baseline only if live review shows
 that transition itself needs pixel-level custody.
 
-- [ ] **Step 9: Review and update Index visual baselines once, then prove them twice without updates.**
+- [x] **Step 9: Review and update Index visual baselines once, then prove them twice without updates.**
 
 On Windows, from `src/client`:
 
@@ -960,7 +1216,7 @@ Before accepting the updated images, inspect 2560, 1920, 1440, 1366, 768, 390 an
 320 and confirm the responsive composition table in this plan, not merely pixel
 stability.
 
-- [ ] **Step 10: Perform the manual inclusive review that automation cannot substitute.**
+- [x] **Step 10: Perform the manual inclusive review that automation cannot substitute.**
 
 In the browser:
 
@@ -975,9 +1231,9 @@ If `1600` survives the Task 1 audit, include it here specifically to review the
 return-traversal reveal. Otherwise do not review it as though it were an authored
 page state.
 
-Confirm the recognition line and assent wording remain readable, the outcome panel does not become a folder hero, the passive rope remains background to Index, and no transition seam is counted inside the 1080px chapter envelope.
+Confirm the recognition line and assent wording remain readable, the outcome panel does not become a folder hero, the document world remains the dominant field, repeated same-character appearances still read as time rather than clones, and the complete chapter remains inside the 1080px envelope at the wide contract widths.
 
-- [ ] **Step 11: Regenerate repository indexes after the new plan/provenance/source files exist.**
+- [x] **Step 11: Regenerate repository indexes after the new plan/provenance/source files exist.**
 
 From repository root:
 
@@ -988,7 +1244,7 @@ py -3 tools/run.py index-mesh --check
 
 Inspect the generated `INDEX.md` diff; do not accept unrelated structural churn.
 
-- [ ] **Step 12: Mark Task 3 checklist items complete and confirm the milestone diff is internally clean.**
+- [x] **Step 12: Mark Task 3 checklist items complete and hand the finished implementation to the test-sanitisation pass.**
 
 Mark every completed Task 3 checkbox `[x]` in this plan before the implementation commit, then run from repository root:
 
@@ -997,51 +1253,170 @@ git diff --check
 git status --short
 ```
 
-Expected: only the intended Index milestone, active planning/spec updates, generated media/receipts, and approved visual baselines are present. Do not carry unrelated work into the milestone commit.
+Expected: only the intended Index milestone, active planning/spec updates, generated media/receipts, approved visual baselines, and the tests accumulated while implementing the chapter are present. Do not commit yet. Task 4 must curate that accumulated test surface before the chapter can close.
 
-- [ ] **Step 13: Stage the complete intended milestone tree and commit normally.**
+---
 
-From repository root:
+### Task 4: Curate the final Index test suite and close coverage gaps before chapter closeout
+
+**Files:**
+- Review and modify every test file added or changed by this Index milestone, including the final set of Index component tests under `src/client/src/features/patch-showcase/usual-specialists/`.
+- Review and modify the Index coverage added to `src/client/e2e/project-story.spec.ts` and `src/client/e2e/visual-regression.spec.ts`.
+- Review asset/provenance tests changed by the milestone only where the new Index asset introduced durable custody behaviour.
+- Delete any temporary test file, assertion, helper, or placeholder-specific case whose only purpose was to support an intermediate TDD state and which no longer protects the final chapter contract.
+- Modify: `.agents/plans/usual-specialists-v2/2026-09-18-index-editorial-close.md`.
+- Modify during final closeout: `.agents/plans/usual-specialists-v2/roadmap.md`.
+
+**Interfaces:**
+- Consumes: the final, visually approved Index implementation plus all unit/browser tests accumulated while reaching it through iterative TDD.
+- Produces: a deliberately curated chapter test suite that protects the complete final Index contract: redundant implementation-step micro-tests are consolidated or removed, and missing coverage is added where the final chapter would otherwise rely on visual inspection, incidental overlap between tests, or assumptions about another layer catching the regression.
+
+- [x] **Step 1: Inventory the test surface actually changed by the milestone.**
+
+From repository root, inspect all changed test files against the branch base rather than relying on memory of what was added during the session:
+
+```powershell
+$base = git merge-base main HEAD
+git diff --name-only $base -- `
+  'src/client/src/features/patch-showcase/usual-specialists/*.test.ts' `
+  'src/client/src/features/patch-showcase/usual-specialists/*.test.tsx' `
+  'src/client/scripts/*.test.ts' `
+  'src/client/e2e/*.spec.ts'
+```
+
+Also inspect the complete diff for those files. The purpose is to review the final test design, not merely confirm that each test passed once while the code was being built.
+
+- [x] **Step 2: Classify the final chapter contracts by durable coverage, then classify each added or materially changed test by value.**
+
+Start from the chapter's final contract, not from the current list of test files. Build a compact coverage map with one row per durable behaviour and identify its best owning test layer: unit/component, browser geometry/semantics, visual regression, or asset/provenance custody. Mark each row as `covered`, `duplicated`, or `missing`.
+
+Keep a test when it protects at least one stable chapter contract that would be expensive or easy to regress, such as:
+
+- the causal close remains `research → recognition → source retrieval → assent outcome`;
+- Index returns plausible routes/constraints rather than a singular proven route;
+- the retrieval beat keeps its accepted source image while avoiding stale "macguffin/final route" semantics;
+- the outcome panel keeps the final accepted asset and exact HTML assent copy;
+- the document world remains one owned evidence field rather than independent cards;
+- character appearances stay attached to their substrate/beat, and repeated appearances of one character remain temporally distinct without forbidding different characters from overlapping or sharing a scene;
+- the authored responsive families, no-overflow contract, `1920+ <=1080px` chapter-height rule and 2560→2880 geometry freeze remain true;
+- the final media/provenance relationship cannot drift without a focused custody test catching it; or
+- a component API boundary such as root-only style ownership genuinely prevents cross-component geometry coupling used elsewhere in the chapter architecture.
+
+Consolidate or remove a test when its only remaining value is one of these:
+
+- proving an intermediate RED state or temporary placeholder that no longer exists;
+- asserting the same semantic fact at multiple layers without adding a distinct failure signal;
+- locking incidental styled-component structure, coordinates or implementation details already covered by the chapter/browser contract;
+- preserving a micro-test solely because it was useful while iterating; or
+- checking a detail already more meaningfully protected by a stronger final chapter-level, browser, visual or custody test.
+
+Add or strengthen a test when the coverage map exposes a final chapter contract with no clear owner, when a supposed guarantee is only being inferred from a broad screenshot, when one broad test could fail without identifying which chapter contract broke, or when a regression would plausibly survive the retained suite unnoticed.
+
+There is no target test count or direction of travel. The goal is the smallest **complete** suite that explains and protects the chapter's real contracts. The sanitisation pass may finish with fewer tests, more tests, or the same number. Do not delete a small test merely because it is small, do not keep one merely because it once helped TDD, and do not refuse to add a new focused test merely because implementation is otherwise finished.
+
+- [x] **Step 3: Rewrite the final unit suite around chapter contracts rather than implementation history, adding missing focused coverage where needed.**
+
+Prefer a few explicit tests with coherent failure meaning over a trail of one-assertion scaffolding cases. In particular:
+
+- remove every assertion aimed only at the temporary review outcome slot;
+- ensure `IndexClosingSequence` tests the final four-beat causal order and absence of the retired floating note;
+- ensure `IndexChapter` tests chapter composition and field/sequence ownership without duplicating leaf media details;
+- keep leaf tests only for behaviour genuinely owned by that leaf, such as the recognition copy/accessibility contract, retrieval image semantics, or outcome image/HTML-overlay contract; and
+- where multiple root-only `style`/`className` tests are retained, confirm they are protecting an intentional vertical-slice API boundary rather than being copied mechanically from the TDD pattern.
+
+If the coverage map says a stable component-level contract has no precise test after consolidation, add that test now. Prefer one coherent test at the layer that owns the behaviour over relying on an unrelated browser or visual test to catch it accidentally.
+
+- [x] **Step 4: Curate browser and visual coverage with the same two-way standard.**
+
+For `project-story.spec.ts`, keep representative viewport/boundary coverage that proves distinct responsive contracts; remove historical widths, duplicate probes or one-off coordinates that no longer correspond to an authored state.
+
+For `visual-regression.spec.ts`, keep the deliberately small protected set approved in Task 3. Do not add snapshots merely because a width was useful while tuning the composition. Remove obsolete Index snapshots from the repository when their authored state no longer exists.
+
+Also add browser assertions when the final coverage map exposes a responsive or semantic contract that screenshots cannot explain precisely enough, and add a visual baseline only when pixel-level appearance itself is the durable contract and no existing protected viewport represents it.
+
+- [x] **Step 5: Run the curated focused unit and custody suite.**
+
+From `src/client`:
+
+```powershell
+npm test -- --run src/features/patch-showcase/usual-specialists/IndexRecognitionBridge.test.tsx src/features/patch-showcase/usual-specialists/IndexClosingSequence.test.tsx src/features/patch-showcase/usual-specialists/IndexSourceRetrieval.test.tsx src/features/patch-showcase/usual-specialists/IndexOutcomePanel.test.tsx src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx src/features/patch-showcase/usual-specialists/IndexStoryCard.test.tsx scripts/process-usual-specialists-assets.test.ts scripts/validate-usual-specialists-provenance.test.ts
+npm run media:usual-specialists:check
+```
+
+If sanitisation legitimately removes or merges one of the listed component test files, update this command to the final retained set rather than recreating a file just to satisfy the plan text.
+
+- [x] **Step 6: Re-prove the retained browser contracts after the test cleanup.**
+
+From `src/client`:
+
+```powershell
+npm run test:e2e -- e2e/project-story.spec.ts -g "The Usual Specialists Index responsive matrix stays coherent at representative viewports"
+npm run test:e2e:visual -- --skip-build -g "Specialists Index draft keeps the approved composition across protected viewports"
+```
+
+Expected: PASS without snapshot updates. Test cleanup must not weaken or silently rewrite the accepted visual result.
+
+- [x] **Step 7: Review the final coverage map and test diff as one product artifact.**
+
+Read the coverage map and test diff once more. For each retained Index test, answer: "What chapter regression would this catch that another retained test would not explain as clearly?" Remove or consolidate cases with no good answer.
+
+Then ask the inverse question for every durable chapter contract in the map: "Which retained test would fail if this regressed, and would that failure identify the problem clearly enough to act on?" Add or strengthen coverage for any contract with no good answer. The closeout pass is incomplete while any row remains `missing` or only accidentally covered.
+
+Then run from repository root:
+
+```powershell
+git diff --check
+git status --short
+```
+
+Expected: the final diff contains a curated test suite, not the full archaeology of the implementation session.
+
+- [x] **Step 8: Mark Task 4 checklist items complete and stage the complete intended milestone tree.**
+
+Mark every completed Task 4 checkbox `[x]` in this plan, then from repository root:
 
 ```powershell
 git add .agents/plans/usual-specialists-v2 .agents/specs src/client/assets/patch/the-usual-specialists src/client/public/media/patch/the-usual-specialists src/client/scripts src/client/src/features/patch-showcase/usual-specialists src/client/e2e
 git diff --cached --check
 git status --short
+```
+
+Expected: only the intended Index milestone, its curated final test suite, active planning/spec updates, generated media/receipts and approved visual baselines are staged.
+
+- [x] **Step 9: Commit the complete milestone normally.**
+
+From repository root:
+
+```powershell
 git commit -m "feat: retell Index closing sequence"
 ```
 
 Expected: the tracked pre-commit hook runs the complete canonical gate against the staged tree and the commit succeeds. Do not use `--no-verify`. If the hook fails, repair the reported focused failures, rerun those focused checks, restage, and retry the normal commit.
 
-- [ ] **Step 14: Close the completed plan without leaving a dirty planning tree.**
+- [x] **Step 10: Close the completed plan under the two-slice custody model.**
 
 After the implementation commit succeeds:
 
 1. capture the implementation commit with `git rev-parse HEAD`;
-2. update milestone 1 in `.agents/plans/usual-specialists-v2/roadmap.md` to `done`, record that implementation commit, set its `Plan File` back to `—`, retain the plan-readiness rating, and note the accepted `index-outcome-folder` asset/provenance plus the `1920+` height proof;
-3. remove this completed implementation-plan file from the tracked tree, because completed plans are historical evidence in Git rather than live repo authority;
-4. keep the Index chapter spec live for the rest of the V2 epic because it still carries active cross-chapter story/rope continuity authority; and
-5. regenerate/check the index mesh, then commit the roadmap/plan cleanup normally so the branch is clean before Silk planning begins.
+2. update milestone 1 in `.agents/plans/usual-specialists-v2/roadmap.md` to `done` and record the implementation commit;
+3. mark this plan `completed-awaiting-retirement` and keep it tracked through the completing PR so squash-merged `main` records the execution artifact;
+4. keep the Index chapter spec live for the rest of the V2 epic because it carries the active document-world, character-time and causal-close authority;
+5. mark the accepted outcome image brief `completed-awaiting-retirement` and keep it tracked through the completing PR; and
+6. regenerate/check the index mesh and leave the completing PR clean.
 
-From repository root:
-
-```powershell
-py -3 tools/run.py index-mesh --apply
-py -3 tools/run.py index-mesh --check
-git add .agents
-git diff --cached --check
-git status --short
-git commit -m "plan: close Index milestone"
-```
-
-Expected: the tracked hook passes again for the new closeout diff, the completed plan is absent from the live tree, the roadmap points at the actual implementation commit, and Silk is now the next JIT planning target. Do not write Silk's implementation plan until this committed Index result has been inspected as its real predecessor state.
+The first commit of the next substantive slice after the completing PR merges
+retires this plan under `.agents/doctrine/completed-artifacts.md`. Silk is the
+next chapter design/spec target, but its implementation plan must still be
+written just in time from the actual merged Index predecessor state.
 
 ---
 
 ## Self-Review Checklist
 
-- Spec coverage: preserves Index's non-validator role, passive Silk rope, baked-in Patch folder truth, causal closing sequence, sticky-note-first outcome, responsive survival, 320px/200% accessibility, and the new page-level 1920+/1080 cadence.
-- React boundaries: chapter owns global placement; closing sequence owns overlap; leaf components own internal media/text; no cross-boundary geometry props or sibling measurement.
+- Spec coverage: preserves Index's non-validator role, dominant document world, same-character temporal separation, baked-in Patch folder truth, causal closing sequence, sticky-note-first outcome, responsive survival, 320px/200% accessibility, and the new page-level 1920+/1080 cadence.
+- React boundaries: chapter owns placement of the evidence field and closing sequence; evidence field owns its substrate/story-card responsive relationships; closing sequence owns causal overlap; substrate/beat components own their figures; leaf components own internal media/text; no cross-boundary geometry props or sibling measurement.
 - Asset discipline: wireframe first, commission second, accepted source + provenance + derivative receipt, no generated text, old accepted sticky-note source retained.
 - Test discipline: component semantics in Vitest; geometry/height/no-overflow in Playwright; pixel appearance in the Windows visual suite; actual 200% zoom remains a manual browser proof.
+- Test hygiene and coverage: iterative TDD may add fine-grained temporary tests while the chapter is changing, but chapter closeout includes an explicit bidirectional curation pass. It consolidates or removes redundant/micro implementation-history tests **and** identifies/adds missing focused coverage so every durable chapter contract has a clear test owner before closeout.
 - Scope discipline: no Silk redesign, no route-wide connector refactor, no `RecruitmentFolder` retrofit, no traversal-art re-authoring, no canonical route cutover.
 - Temporary state: Task 1 deliberately leaves an uncommitted wireframe placeholder until live approval; canonical CI and visual baseline updates wait until the accepted image is mounted in Task 3.

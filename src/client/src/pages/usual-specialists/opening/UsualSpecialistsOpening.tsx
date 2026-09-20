@@ -1,0 +1,178 @@
+import type { CSSProperties, ReactElement } from 'react'
+import styled from 'styled-components'
+import { PatchSeriesLockup, UsualSpecialistsWordmark } from '../../../features/patch-brand/PatchBrand'
+import { usualSpecialistsAssetPath } from '../assets'
+
+const OPENING_CONTAINER_NAME = 'specialists-opening'
+const openingQueries = {
+  narrow: '(max-width: 389px)',
+  compact: '(min-width: 390px) and (max-width: 719px)',
+  throughCompact: '(max-width: 719px)',
+  throughMid: '(max-width: 899px)',
+  wide: '(min-width: 1400px)',
+  beyondCeiling: '(min-width: 2561px)',
+} as const
+
+const Opening = styled.header`
+  position: relative;
+  container-name: ${OPENING_CONTAINER_NAME};
+  container-type: inline-size;
+  padding-top: clamp(34px, 6vw, 76px);
+
+  @media ${openingQueries.throughCompact} {
+    padding-top: 26px;
+  }
+`
+
+const OpeningLockup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(14px, 2vw, 24px);
+  width: min(calc(100% - (var(--specialists-gutter) * 2)), var(--specialists-max));
+  margin-inline: auto;
+  padding-bottom: 34px;
+`
+
+const SeriesLockupField = styled.div`
+  width: min(35%, 390px);
+  margin-left: auto;
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
+    width: min(42%, 340px);
+  }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
+    width: min(54%, 280px);
+  }
+`
+
+const OpeningTitle = styled.h1`
+  width: min(100%, 1120px);
+  margin: 0;
+  color: var(--specialists-ink);
+`
+
+const SpecialistsWordmarkField = styled.span`
+  display: block;
+  width: 100%;
+`
+
+const OpeningPrecis = styled.p`
+  width: min(46%, 33rem);
+  margin: 2px 0 0 auto;
+  font-size: clamp(1.05rem, 1.7vw, 1.36rem);
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
+    width: min(62%, 33rem);
+  }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
+    width: 82%;
+    margin-top: 8px;
+  }
+`
+
+const Threshold = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: clamp(540px, 68vw, 820px);
+  border-top: 1px solid var(--specialists-ink);
+  overflow: visible;
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
+    min-height: 690px;
+  }
+`
+
+const ThresholdArt = styled.img`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`
+
+const ThresholdCopy = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: 15%;
+  left: max(var(--specialists-gutter), calc((100vw - var(--specialists-max)) / 2));
+  width: min(34rem, 42vw);
+  padding: 24px 26px;
+  border: 1px solid rgb(32 35 31 / 50%);
+  background: rgb(242 236 223 / 91%);
+  box-shadow: 11px 13px 0 rgb(32 35 31 / 10%);
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: clamp(2.25rem, 4.6vw, 4.9rem);
+    line-height: .91;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  @media ${openingQueries.beyondCeiling} {
+    left: 580px;
+  }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
+    width: min(30rem, 58vw);
+  }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
+    top: 18%;
+    right: var(--specialists-gutter);
+    left: var(--specialists-gutter);
+    width: auto;
+  }
+`
+
+const ThresholdEyebrow = styled.p`
+  margin-bottom: 12px !important;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+`
+
+type UsualSpecialistsOpeningProps = {
+  style?: CSSProperties
+}
+
+export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps): ReactElement => {
+  return (
+    <Opening style={style}>
+      <OpeningLockup>
+        <SeriesLockupField data-patch-series-lockup>
+          <PatchSeriesLockup decorative />
+        </SeriesLockupField>
+        <OpeningTitle id="content-page-title">
+          <span className="visually-hidden">The Usual Specialists</span>
+          <SpecialistsWordmarkField data-specialists-wordmark aria-hidden="true">
+            <UsualSpecialistsWordmark decorative />
+          </SpecialistsWordmarkField>
+        </OpeningTitle>
+        <OpeningPrecis>Patch has a caper and not enough certainty to execute it. Six people turn intent into world knowledge, a reliable route, authority, a decision, recoverability and a durable record - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
+      </OpeningLockup>
+      <Threshold>
+        <ThresholdArt
+          src={usualSpecialistsAssetPath('safehouse-threshold.webp')}
+          width="1672"
+          height="941"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          alt="An ordinary apartment safehouse threshold repurposed room by room for the Specialists."
+        />
+        <ThresholdCopy data-specialists-threshold-copy>
+          <ThresholdEyebrow>The adventure / recruitment pass</ThresholdEyebrow>
+          <h2>One ordinary apartment. Six rooms bent to purpose.</h2>
+          <p>Patch moves through the safehouse with a folder and an unheard pitch. Each Specialist exposes the missing layer by doing the work they already do. The assent marker lands when the role makes itself unavoidable.</p>
+        </ThresholdCopy>
+      </Threshold>
+    </Opening>
+  )
+}

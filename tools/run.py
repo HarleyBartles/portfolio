@@ -147,12 +147,12 @@ def _repo_standards_check(ctx: Ctx) -> None:
 
 
 def _skills_apply(ctx: Ctx) -> None:
-    _run(_skills_cmd("apply", ctx.allow_shared), ctx)
-    _run(_skills_cmd("check", ctx.allow_shared), ctx)
+    _run(_refresh_skills_cmd("apply", ctx.allow_shared), ctx)
+    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
 
 
 def _skills_check(ctx: Ctx) -> None:
-    _run(_skills_cmd("check", ctx.allow_shared), ctx)
+    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
 
 
 def _mesh_apply(ctx: Ctx) -> None:
