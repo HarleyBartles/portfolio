@@ -3,13 +3,13 @@ import { describe, expect, test } from 'vitest'
 import { IndexOutcomePanel } from './IndexOutcomePanel'
 
 describe('IndexOutcomePanel', () => {
-  test('mounts the page-review outcome candidate with exact HTML assent copy', () => {
+  test('mounts the accepted outcome asset with exact HTML assent copy', () => {
     const { container } = render(<IndexOutcomePanel style={{ opacity: 0.5 }} />)
     const panel = container.querySelector('[data-index-closing-beat="assent-outcome"]')
 
     expect(panel).toHaveStyle({ opacity: '0.5' })
     expect(screen.getByRole('img', { name: /Patch carries Index's assent onward/i }))
-      .toHaveAttribute('src', expect.stringContaining('index-outcome-folder-frame-review.webp'))
+      .toHaveAttribute('src', expect.stringContaining('index-outcome-folder.webp'))
     expect(panel).toHaveTextContent("You son of a gun. I'm in!")
   })
 

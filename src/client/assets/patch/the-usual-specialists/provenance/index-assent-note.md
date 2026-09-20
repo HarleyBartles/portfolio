@@ -15,9 +15,9 @@
 ## Status
 
 - Asset status: accepted
-- Selection: current
+- Selection: library
 - Acceptance date: 2026-09-09
-- Role: small yellow assent marker / reading-flow hinge between Commission 03 and Commission 04
+- Role: historical/library yellow assent marker retained as generation/material reference; no longer rendered in the active Index composition
 
 ## Original commission intent
 
@@ -68,7 +68,7 @@ Attempt 1 was rejected for a crisp forensic-looking fingerprint and excessive fo
 
 ## Acceptance decision
 
-Accepted by Harley Bartles after mounting with separate HTML copy. The note worked as a small story punctuation mark and could bridge Commission 03/04 without becoming a hero prop.
+Accepted by Harley Bartles after mounting with separate HTML copy. The note worked as a small story punctuation mark and could bridge Commission 03/04 without becoming a hero prop. It left the active render during the Index editorial close and remains accepted library material rather than current page media.
 
 ## Known accepted limitations
 

@@ -1,6 +1,7 @@
 # Index Closing Outcome — Codex Image Generation Brief
 
-Status: `completed-awaiting-retirement`
+Status: `completed-awaiting-retirement` — the current output was accepted as
+the final Index outcome asset during Index closeout on 20 September 2026.
 
 ## Linked specification
 

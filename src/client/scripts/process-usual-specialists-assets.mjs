@@ -12,14 +12,6 @@ const specialistsSourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usua
 const acceptedPackageRoots = Object.freeze({
   index: path.join(specialistsSourceRoot, 'index'),
 })
-const candidateManifestPaths = Object.freeze({
-  index: path.join(
-    acceptedPackageRoots.index,
-    'candidates',
-    'outcome-folder-frame-review',
-    'candidate-assets.json',
-  ),
-})
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
 const processorSourcePath = fileURLToPath(import.meta.url)
@@ -41,6 +33,7 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'index-graph-paper', source: 'index-graph-paper.png', output: 'index-graph-paper.webp', width: 1140, format: 'webp' },
   { id: 'index-observation', source: 'index-observation.png', output: 'index-observation.webp', width: 1320, format: 'webp' },
   { id: 'index-macguffin', source: 'index-macguffin.png', output: 'index-macguffin.webp', width: 1200, format: 'webp' },
+  { id: 'index-outcome-folder', source: 'index-outcome-folder.png', output: 'index-outcome-folder.webp', width: 1200, format: 'webp' },
   { id: 'index-walk', source: 'index-walk.png', output: 'index-walk.webp', width: 320, format: 'webp' },
   { id: 'index-inspect', source: 'index-inspect.png', output: 'index-inspect.webp', width: 320, format: 'webp' },
   { id: 'index-high-step', source: 'index-high-step.png', output: 'index-high-step.webp', width: 320, format: 'webp' },
@@ -50,22 +43,7 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'patch-return', source: 'patch-return.png', output: 'patch-return.webp', width: 320, format: 'webp' },
 ])
 
-export const USUAL_SPECIALISTS_CANDIDATE_ASSETS = Object.freeze([
-  {
-    id: 'index-outcome-folder-frame-review',
-    sourcePackage: 'index',
-    custody: 'candidate',
-    source: 'candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png',
-    output: 'index-outcome-folder-frame-review.webp',
-    width: 1200,
-    format: 'webp',
-  },
-])
-
-const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = Object.freeze([
-  ...USUAL_SPECIALISTS_ASSETS,
-  ...USUAL_SPECIALISTS_CANDIDATE_ASSETS,
-])
+const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = USUAL_SPECIALISTS_ASSETS
 const fail = (message) => {
   throw new Error(message)
 }
@@ -127,10 +105,7 @@ const loadCustodiedSources = async () => {
     const { packageName, custody, assets: packageAssets } = group
     const packageRoot = acceptedPackageRoots[packageName]
     if (!packageRoot) fail(`Unknown Usual Specialists source package: ${packageName}.`)
-    const manifestPath = custody === 'candidate'
-      ? candidateManifestPaths[packageName]
-      : path.join(packageRoot, 'accepted-assets.json')
-    if (!manifestPath) fail(`Unknown Usual Specialists ${custody} manifest for package: ${packageName}.`)
+    const manifestPath = path.join(packageRoot, 'accepted-assets.json')
     const manifest = await readJson(
       manifestPath,
       `Usual Specialists ${packageName} ${custody} source manifest`,
@@ -153,12 +128,11 @@ const loadCustodiedSources = async () => {
     if (!sourceRecord) fail(`Usual Specialists ${custody} source manifest is missing ${asset.id}.`)
     const sourcePath = path.join(packageRoot, asset.source)
     const expectedRepositoryPath = repositoryPath(sourcePath)
-    const expectedStatus = custody === 'candidate' ? 'candidate' : 'accepted'
+    const expectedStatus = 'accepted'
     if (
       sourceRecord.repositorySourcePath !== expectedRepositoryPath
       || sourceRecord.status !== expectedStatus
       || sourceRecord.rightsOwner !== 'Harley Bartles'
-      || (custody === 'candidate' && sourceRecord.selection !== 'page-review')
     ) {
       fail(`Usual Specialists ${custody} source custody drifted for ${asset.id}.`)
     }

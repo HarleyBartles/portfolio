@@ -1,5 +1,9 @@
 # The Usual Specialists V2 — Index Editorial Close Implementation Plan
 
+**Status:** `completed-awaiting-retirement` — the Index milestone is complete.
+This plan remains tracked through the completing PR as historical execution
+evidence and is not current implementation authority.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Recompose the approved Index chapter so the document world remains the dominant guided-exploratory field, repeated same-character appearances stay legible as successive moments, and the closing sequence reads as research → recognition → found source → assent consequence, while preserving the page-level wide-screen contract in which the complete Index chapter fits within 1080 CSS pixels at 1920px and wider.
@@ -10,7 +14,13 @@
 
 **Spec:** `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md` plus `.agents/specs/2026-09-17-usual-specialists-visual-story-design.md`
 
-**Execution Strategy:** `manual` — this is human-led art-direction work. Execute inline with Harley, narrating composition changes as they are made and preserving the explicit human approval gate after the live wireframe plus the explicit candidate-acceptance gate before final asset custody/mounting. Do not begin Task 2 before Task 1's slot geometry is approved, and do not begin Task 3 before a generated candidate is explicitly accepted.
+**Execution Strategy:** `manual` — this was human-led art-direction work. The
+live wireframe required explicit human approval before commissioning. During
+execution, Harley explicitly authorised reversible page-review custody and React
+mounting of an unaccepted candidate so the final composition could be judged in
+context. On 20 September 2026 Harley accepted that mounted outcome during Index
+closeout; its byte-identical source was promoted into accepted custody and its
+production derivative now carries the accepted asset identity.
 
 ## Global Constraints
 
@@ -511,10 +521,10 @@ reference roles, visual invariants, rejection criteria, output shape, and
 generation-time custody instructions. Do not duplicate the image-model prompt
 inside implementation plans.
 
-The dedicated brief produced the accepted outcome asset, so it is marked
-`completed-awaiting-retirement`: it remains in the completing PR and retires
-in the first substantive successor slice. A brief that had produced only
-scratch or rejected candidates would remain live while iteration continued.
+The dedicated brief produced the accepted outcome asset after its reversible
+page-review mount was approved during closeout. It is therefore marked
+`completed-awaiting-retirement` and remains tracked through the completing PR
+before retiring in the first substantive successor slice.
 
 ---
 
@@ -827,7 +837,7 @@ Do not commit the temporary placeholder state. Proceed directly to Task 2 so the
 
 ---
 
-### Task 2: Commission, accept and custody the new Index outcome panel
+### Task 2: Commission and review the new Index outcome panel
 
 **Files:**
 - Create after acceptance: `src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png`
@@ -842,9 +852,11 @@ Do not commit the temporary placeholder state. Proceed directly to Task 2 so the
 
 **Interfaces:**
 - Consumes: Task 1's approved live outcome-slot dimensions and the dedicated image brief.
-- Produces: accepted `index-outcome-folder` source + provenance + deterministic WebP derivative consumed by Task 3's `IndexOutcomePanel`.
+- Produces: a candidate suitable for explicit page review. Acceptance would
+  later promote it into accepted source custody and an accepted deterministic
+  derivative.
 
-- [ ] **Step 1: Generate the panel from the approved brief and references.**
+- [x] **Step 1: Generate the panel from the approved brief and references.**
 
 Use the repository image-generation workflow and the dedicated brief at
 `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`.
@@ -854,15 +866,18 @@ exposes a different contract.
 
 Do not ask the generator to render `You son of a gun. I'm in!`; the note must remain blank enough for HTML overlay.
 
-- [ ] **Step 2: Inspect each returned candidate against the acceptance checks before showing it as viable.**
+- [x] **Step 2: Inspect each returned candidate against the acceptance checks before showing it as viable.**
 
 Verify full frame, hands, note dominance, blue-paper relationship, absence of pseudo-text, and fit inside the approved live slot. If one defect requires another pass, change only that defect in the next instruction.
 
-- [ ] **Step 3: Obtain Harley's explicit visual acceptance of one candidate.**
+- [x] **Step 3: Obtain Harley's explicit visual acceptance of one candidate.**
 
-Only the accepted candidate enters the repository as `index-outcome-folder.png`. Do not promote an unreviewed provider result because it technically satisfies dimensions.
+Only an accepted candidate may be promoted as
+`index-outcome-folder.png`. A candidate may enter scoped page-review custody and
+be mounted reversibly when Harley explicitly requests in-context review; that
+does not make it accepted.
 
-- [ ] **Step 4: Write provenance and manifest entries from observed generation/file facts.**
+- [x] **Step 4: Write provenance and manifest entries from observed generation/file facts.**
 
 The new provenance record must contain, in this exact heading order:
 
@@ -888,7 +903,7 @@ Its composition/ownership contract must state that image pixels own Patch's hand
 
 Update `index-assent-note.md` so its history records that the isolated note ceased to be an active render asset on 18 September 2026 and is retained as accepted historical/library material and a generation reference. Keep its existing source identity intact.
 
-- [ ] **Step 5: Add the accepted source to the derivative processor and write the failing processor expectation first.**
+- [x] **Step 5: Add the accepted source to the derivative processor and write the failing processor expectation first.**
 
 In `process-usual-specialists-assets.test.ts`, change the accepted output count from `40` to `41` and add:
 
@@ -907,7 +922,7 @@ Then add this source entry adjacent to the other Index image panels in `process-
 { id: 'index-outcome-folder', source: 'index-outcome-folder.png', output: 'index-outcome-folder.webp', width: 1200, format: 'webp' },
 ```
 
-- [ ] **Step 6: Run focused provenance/processor tests before derivative generation.**
+- [x] **Step 6: Run focused provenance/processor tests before derivative generation.**
 
 From `src/client`:
 
@@ -917,7 +932,7 @@ npm test -- --run scripts/process-usual-specialists-assets.test.ts scripts/valid
 
 Expected after all manifest/provenance entries are complete: PASS.
 
-- [ ] **Step 7: Generate and verify the browser derivative.**
+- [x] **Step 7: Generate and verify the browser derivative.**
 
 From `src/client`:
 
@@ -928,13 +943,15 @@ npm run media:usual-specialists:check
 
 Expected: the new WebP and derivative receipt are generated; custody, source identity, byte budget and provenance validation pass.
 
-- [ ] **Step 8: Mark Task 2 checklist items complete in this plan.**
+- [x] **Step 8: Mark Task 2 checklist items complete in this plan.**
 
-Do not commit yet; Task 3 replaces the temporary outcome slot with the accepted asset and proves the whole composition before the first normal implementation commit.
+For the executed slice, Harley chose the then-current candidate for reversible
+page-review custody before acceptance. Task 3 therefore mounted the candidate
+derivative for in-context review rather than promoting it to accepted custody.
 
 ---
 
-### Task 3: Mount the final outcome panel, retire the floating note, and lock responsive behaviour
+### Task 3: Mount the page-review outcome panel, retire the floating note, and lock responsive behaviour
 
 **Files:**
 - Create: `src/client/src/features/patch-showcase/usual-specialists/IndexOutcomePanel.tsx`
@@ -948,10 +965,10 @@ Do not commit yet; Task 3 replaces the temporary outcome slot with the accepted 
 - Update approved Index snapshots under `src/client/e2e/visual-regression.spec.ts-snapshots/`
 
 **Interfaces:**
-- Consumes: Task 2's `index-outcome-folder.webp` derivative and Task 1's approved slot geometry.
+- Consumes: Task 2's then-current page-review derivative and Task 1's approved slot geometry.
 - Produces: final Index composition and objective responsive/browser proof for the Silk milestone to inherit.
 
-- [ ] **Step 1: Write the failing `IndexOutcomePanel` component test.**
+- [x] **Step 1: Write the failing `IndexOutcomePanel` component test.**
 
 ```tsx
 import { render, screen } from '@testing-library/react'
@@ -977,7 +994,7 @@ describe('IndexOutcomePanel', () => {
 })
 ```
 
-- [ ] **Step 2: Run the outcome-panel test and confirm it fails because the component does not exist.**
+- [x] **Step 2: Run the outcome-panel test and confirm it fails because the component does not exist.**
 
 From `src/client`:
 
@@ -987,7 +1004,7 @@ npm test -- --run src/features/patch-showcase/usual-specialists/IndexOutcomePane
 
 Expected: FAIL on missing component/export.
 
-- [ ] **Step 3: Implement `IndexOutcomePanel` with image pixels for physical state and HTML for the exact note copy.**
+- [x] **Step 3: Implement `IndexOutcomePanel` with image pixels for physical state and HTML for the exact note copy.**
 
 Use the existing `IndexAssentNote` text hierarchy as the starting point, but size it against the blank note face in the accepted new image rather than mounting the old note asset:
 
@@ -1064,7 +1081,7 @@ export const IndexOutcomePanel = ({ style }: IndexOutcomePanelProps) => (
 
 The dedicated generation brief deliberately constrains the blank note face around this percentage overlay. If a candidate cannot support this stable overlay without moving the text outside the note, reject that candidate rather than turning note geometry into caller-controlled props.
 
-- [ ] **Step 4: Replace the temporary outcome slot with `IndexOutcomePanel` and remove the old floating-note React wrapper from the active code path.**
+- [x] **Step 4: Replace the temporary outcome slot with `IndexOutcomePanel` and remove the old floating-note React wrapper from the active code path.**
 
 `IndexClosingSequence` final source order must remain:
 
@@ -1077,7 +1094,7 @@ The dedicated generation brief deliberately constrains the blank note face aroun
 
 Delete `IndexAssentNote.tsx`/test after confirming no imports remain. Do **not** delete `index-assent-note.png`, its derivative, receipt entry, or provenance.
 
-- [ ] **Step 5: Run all focused Index/unit and asset checks.**
+- [x] **Step 5: Run all focused Index/unit and asset checks.**
 
 From `src/client`:
 
@@ -1088,7 +1105,7 @@ npm run media:usual-specialists:check
 
 Expected: PASS.
 
-- [ ] **Step 6: Replace the historical breakpoint-heavy Playwright matrix with real-screen anchors plus authored-boundary probes.**
+- [x] **Step 6: Replace the historical breakpoint-heavy Playwright matrix with real-screen anchors plus authored-boundary probes.**
 
 In `src/client/e2e/project-story.spec.ts`, keep the existing representative width loop and add locators for:
 
@@ -1147,7 +1164,7 @@ if (width >= 1920) {
 
 Keep the existing 2560→2880 freeze comparison. Extend it to any new closing-sequence x-geometry that must freeze, but do not freeze every pixel coordinate.
 
-- [ ] **Step 7: Run the focused Index browser journey.**
+- [x] **Step 7: Run the focused Index browser journey.**
 
 From `src/client`:
 
@@ -1157,7 +1174,7 @@ npm run test:e2e -- e2e/project-story.spec.ts -g "The Usual Specialists Index re
 
 Expected: PASS at all existing representative widths, including the new `>=1920 => <=1080px` assertion and no horizontal overflow.
 
-- [ ] **Step 8: Keep the protected visual set editorially small while adding the real wide-screen contract.**
+- [x] **Step 8: Keep the protected visual set editorially small while adding the real wide-screen contract.**
 
 Change the Index visual loop from the historical set:
 
@@ -1185,7 +1202,7 @@ return-traversal threshold, its behaviour remains covered by the Playwright geom
 visibility matrix; add a dedicated 1600 visual baseline only if live review shows
 that transition itself needs pixel-level custody.
 
-- [ ] **Step 9: Review and update Index visual baselines once, then prove them twice without updates.**
+- [x] **Step 9: Review and update Index visual baselines once, then prove them twice without updates.**
 
 On Windows, from `src/client`:
 
@@ -1199,7 +1216,7 @@ Before accepting the updated images, inspect 2560, 1920, 1440, 1366, 768, 390 an
 320 and confirm the responsive composition table in this plan, not merely pixel
 stability.
 
-- [ ] **Step 10: Perform the manual inclusive review that automation cannot substitute.**
+- [x] **Step 10: Perform the manual inclusive review that automation cannot substitute.**
 
 In the browser:
 
@@ -1216,7 +1233,7 @@ page state.
 
 Confirm the recognition line and assent wording remain readable, the outcome panel does not become a folder hero, the document world remains the dominant field, repeated same-character appearances still read as time rather than clones, and the complete chapter remains inside the 1080px envelope at the wide contract widths.
 
-- [ ] **Step 11: Regenerate repository indexes after the new plan/provenance/source files exist.**
+- [x] **Step 11: Regenerate repository indexes after the new plan/provenance/source files exist.**
 
 From repository root:
 
@@ -1227,7 +1244,7 @@ py -3 tools/run.py index-mesh --check
 
 Inspect the generated `INDEX.md` diff; do not accept unrelated structural churn.
 
-- [ ] **Step 12: Mark Task 3 checklist items complete and hand the finished implementation to the test-sanitisation pass.**
+- [x] **Step 12: Mark Task 3 checklist items complete and hand the finished implementation to the test-sanitisation pass.**
 
 Mark every completed Task 3 checkbox `[x]` in this plan before the implementation commit, then run from repository root:
 
@@ -1254,7 +1271,7 @@ Expected: only the intended Index milestone, active planning/spec updates, gener
 - Consumes: the final, visually approved Index implementation plus all unit/browser tests accumulated while reaching it through iterative TDD.
 - Produces: a deliberately curated chapter test suite that protects the complete final Index contract: redundant implementation-step micro-tests are consolidated or removed, and missing coverage is added where the final chapter would otherwise rely on visual inspection, incidental overlap between tests, or assumptions about another layer catching the regression.
 
-- [ ] **Step 1: Inventory the test surface actually changed by the milestone.**
+- [x] **Step 1: Inventory the test surface actually changed by the milestone.**
 
 From repository root, inspect all changed test files against the branch base rather than relying on memory of what was added during the session:
 
@@ -1269,7 +1286,7 @@ git diff --name-only $base -- `
 
 Also inspect the complete diff for those files. The purpose is to review the final test design, not merely confirm that each test passed once while the code was being built.
 
-- [ ] **Step 2: Classify the final chapter contracts by durable coverage, then classify each added or materially changed test by value.**
+- [x] **Step 2: Classify the final chapter contracts by durable coverage, then classify each added or materially changed test by value.**
 
 Start from the chapter's final contract, not from the current list of test files. Build a compact coverage map with one row per durable behaviour and identify its best owning test layer: unit/component, browser geometry/semantics, visual regression, or asset/provenance custody. Mark each row as `covered`, `duplicated`, or `missing`.
 
@@ -1297,7 +1314,7 @@ Add or strengthen a test when the coverage map exposes a final chapter contract 
 
 There is no target test count or direction of travel. The goal is the smallest **complete** suite that explains and protects the chapter's real contracts. The sanitisation pass may finish with fewer tests, more tests, or the same number. Do not delete a small test merely because it is small, do not keep one merely because it once helped TDD, and do not refuse to add a new focused test merely because implementation is otherwise finished.
 
-- [ ] **Step 3: Rewrite the final unit suite around chapter contracts rather than implementation history, adding missing focused coverage where needed.**
+- [x] **Step 3: Rewrite the final unit suite around chapter contracts rather than implementation history, adding missing focused coverage where needed.**
 
 Prefer a few explicit tests with coherent failure meaning over a trail of one-assertion scaffolding cases. In particular:
 
@@ -1309,7 +1326,7 @@ Prefer a few explicit tests with coherent failure meaning over a trail of one-as
 
 If the coverage map says a stable component-level contract has no precise test after consolidation, add that test now. Prefer one coherent test at the layer that owns the behaviour over relying on an unrelated browser or visual test to catch it accidentally.
 
-- [ ] **Step 4: Curate browser and visual coverage with the same two-way standard.**
+- [x] **Step 4: Curate browser and visual coverage with the same two-way standard.**
 
 For `project-story.spec.ts`, keep representative viewport/boundary coverage that proves distinct responsive contracts; remove historical widths, duplicate probes or one-off coordinates that no longer correspond to an authored state.
 
@@ -1317,7 +1334,7 @@ For `visual-regression.spec.ts`, keep the deliberately small protected set appro
 
 Also add browser assertions when the final coverage map exposes a responsive or semantic contract that screenshots cannot explain precisely enough, and add a visual baseline only when pixel-level appearance itself is the durable contract and no existing protected viewport represents it.
 
-- [ ] **Step 5: Run the curated focused unit and custody suite.**
+- [x] **Step 5: Run the curated focused unit and custody suite.**
 
 From `src/client`:
 
@@ -1328,7 +1345,7 @@ npm run media:usual-specialists:check
 
 If sanitisation legitimately removes or merges one of the listed component test files, update this command to the final retained set rather than recreating a file just to satisfy the plan text.
 
-- [ ] **Step 6: Re-prove the retained browser contracts after the test cleanup.**
+- [x] **Step 6: Re-prove the retained browser contracts after the test cleanup.**
 
 From `src/client`:
 
@@ -1339,7 +1356,7 @@ npm run test:e2e:visual -- --skip-build -g "Specialists Index draft keeps the ap
 
 Expected: PASS without snapshot updates. Test cleanup must not weaken or silently rewrite the accepted visual result.
 
-- [ ] **Step 7: Review the final coverage map and test diff as one product artifact.**
+- [x] **Step 7: Review the final coverage map and test diff as one product artifact.**
 
 Read the coverage map and test diff once more. For each retained Index test, answer: "What chapter regression would this catch that another retained test would not explain as clearly?" Remove or consolidate cases with no good answer.
 
@@ -1354,7 +1371,7 @@ git status --short
 
 Expected: the final diff contains a curated test suite, not the full archaeology of the implementation session.
 
-- [ ] **Step 8: Mark Task 4 checklist items complete and stage the complete intended milestone tree.**
+- [x] **Step 8: Mark Task 4 checklist items complete and stage the complete intended milestone tree.**
 
 Mark every completed Task 4 checkbox `[x]` in this plan, then from repository root:
 
@@ -1366,7 +1383,7 @@ git status --short
 
 Expected: only the intended Index milestone, its curated final test suite, active planning/spec updates, generated media/receipts and approved visual baselines are staged.
 
-- [ ] **Step 9: Commit the complete milestone normally.**
+- [x] **Step 9: Commit the complete milestone normally.**
 
 From repository root:
 
@@ -1376,28 +1393,21 @@ git commit -m "feat: retell Index closing sequence"
 
 Expected: the tracked pre-commit hook runs the complete canonical gate against the staged tree and the commit succeeds. Do not use `--no-verify`. If the hook fails, repair the reported focused failures, rerun those focused checks, restage, and retry the normal commit.
 
-- [ ] **Step 10: Close the completed plan without leaving a dirty planning tree.**
+- [x] **Step 10: Close the completed plan under the two-slice custody model.**
 
 After the implementation commit succeeds:
 
 1. capture the implementation commit with `git rev-parse HEAD`;
-2. update milestone 1 in `.agents/plans/usual-specialists-v2/roadmap.md` to `done`, record that implementation commit, set its `Plan File` back to `—`, retain the plan-readiness rating, and note the accepted `index-outcome-folder` asset/provenance plus the `1920+` height proof;
-3. remove this completed implementation-plan file from the tracked tree, because completed plans are historical evidence in Git rather than live repo authority;
-4. keep the Index chapter spec live for the rest of the V2 epic because it carries the active document-world, character-time and causal-close authority; and
-5. regenerate/check the index mesh, then commit the roadmap/plan cleanup normally so the branch is clean before Silk planning begins.
+2. update milestone 1 in `.agents/plans/usual-specialists-v2/roadmap.md` to `done` and record the implementation commit;
+3. mark this plan `completed-awaiting-retirement` and keep it tracked through the completing PR so squash-merged `main` records the execution artifact;
+4. keep the Index chapter spec live for the rest of the V2 epic because it carries the active document-world, character-time and causal-close authority;
+5. mark the accepted outcome image brief `completed-awaiting-retirement` and keep it tracked through the completing PR; and
+6. regenerate/check the index mesh and leave the completing PR clean.
 
-From repository root:
-
-```powershell
-py -3 tools/run.py index-mesh --apply
-py -3 tools/run.py index-mesh --check
-git add .agents
-git diff --cached --check
-git status --short
-git commit -m "plan: close Index milestone"
-```
-
-Expected: the tracked hook passes again for the new closeout diff, the completed plan is absent from the live tree, the roadmap points at the actual implementation commit, and Silk is now the next JIT planning target. Do not write Silk's implementation plan until this committed Index result has been inspected as its real predecessor state.
+The first commit of the next substantive slice after the completing PR merges
+retires this plan under `.agents/doctrine/completed-artifacts.md`. Silk is the
+next chapter design/spec target, but its implementation plan must still be
+written just in time from the actual merged Index predecessor state.
 
 ---
 

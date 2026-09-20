@@ -193,25 +193,7 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
-  const [indexOutcomeCandidates] = await Promise.all([
-    readJson(
-      path.join(
-        specialistsRoot,
-        'index',
-        'candidates',
-        'outcome-folder-frame-review',
-        'candidate-assets.json',
-      ),
-      'Usual Specialists Index outcome candidate manifest',
-    ),
-  ])
-  const candidateManifests = {
-    index: {
-      assets: [
-        ...indexOutcomeCandidates.assets,
-      ],
-    },
-  }
+  const candidateManifests = {}
 
   const provenanceRecords = {}
   const entries = await readdir(provenanceRoot, { withFileTypes: true })

@@ -5,7 +5,7 @@
 - Provenance ID: `index-outcome-folder`
 - Schema version: 1
 - Commission/package: Index closing outcome panel
-- Assets covered: `index-outcome-folder-frame-review`
+- Assets covered: `index-outcome-folder`
 - Rights owner: Harley Bartles
 - Temporary canonical repository: Portfolio
 - Governing chapter spec: `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md`
@@ -13,11 +13,11 @@
 
 ## Status
 
-- Asset status: candidate
-- Selection: page-review
+- Asset status: accepted
+- Selection: current
 - Candidate custody date: 2026-09-18
-- Acceptance status: not yet accepted
-- Role under review: final Index closing consequence panel showing Patch carrying Index's assent onward
+- Acceptance date: 2026-09-20
+- Role: final Index closing consequence panel showing Patch carrying Index's assent onward
 
 ## Original commission intent
 
@@ -27,7 +27,7 @@ The Index close needs one carried-state insert after the research, recognition a
 
 Early generation directions over-specified a large central writing surface and produced document-sized yellow paper plus overly complete folder compositions. Review then tightened the story job to a detail insert: a normal small sticky note is the first read, the manila folder behaves as a cropped material field, the blue insert remains subordinate, and only a partial hand/cuff is needed to establish Patch carrying the state onward. Harley further clarified that a usable generation should not depend on React to rescue a poor composition; any page crop is refinement only.
 
-For the current page-review mount, Harley specified a bounded crop rule: preserve the generated top and right edges exactly, crop only from the left and bottom, and retain a sliver of Patch's teal cuff in the lower-right corner because that colour/body fragment is the identity cue that makes the hand read as Patch's.
+For the page-review mount that preceded acceptance, Harley specified a bounded crop rule: preserve the generated top and right edges exactly, crop only from the left and bottom, and retain a sliver of Patch's teal cuff in the lower-right corner because that colour/body fragment is the identity cue that makes the hand read as Patch's.
 
 ## Accepted execution brief
 
@@ -46,19 +46,15 @@ The governing execution brief is retained at `.agents/image-briefs/usual-special
 
 ## Accepted asset identity
 
-No accepted production asset exists yet under this record.
-
-Current page-review candidate:
-
-- Asset ID: `index-outcome-folder-frame-review`
+- Asset ID: `index-outcome-folder`
 - Original supplied filename: `Codex Image 18 Sept 2026, 13_52_58.png`
 - User-supplied scratch source: `Z:\_agent-scratch\portfolio\usual-specialists-wireframe\v2\Codex Image 18 Sept 2026, 13_52_58.png`
-- Repository candidate source: `src/client/assets/patch/the-usual-specialists/index/candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png`
+- Repository source: `src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png`
 - Dimensions: 1536 × 1024
 - Format: PNG, opaque sRGB
 - Bytes: 2,683,229
 - SHA-256: `5a1a2aa0fa609a6e7e80aa01a44f92824a187decf9cde1adf1a3ded5dcc4da86`
-- Source custody state: byte-identical page-review candidate
+- Source custody state: byte-identical accepted repository master
 
 ## Generation provenance
 
@@ -83,19 +79,17 @@ Current page-review candidate:
 
 ## Iteration history
 
-The image concept went through several composition corrections before the current page-review source. A first materially relevant Codex result made the folder ornate/credential-like and staged it as a hero object; that was rejected. A subsequent plain-manila result corrected the folder material but made the yellow note document-sized and still presented the whole folder; that was rejected. A closer generation reduced the note and moved toward a detail insert but still left visible environmental space around three full folder sides; that was rejected. The current source moves materially closer: the manila surface dominates the field, the note is recognisably sticky-note scale, the blue technical material stays near the right edge, and a partial Patch hand/cuff survives as a carry cue.
+The image concept went through several composition corrections before the accepted source. A first materially relevant Codex result made the folder ornate/credential-like and staged it as a hero object; that was rejected. A subsequent plain-manila result corrected the folder material but made the yellow note document-sized and still presented the whole folder; that was rejected. A closer generation reduced the note and moved toward a detail insert but still left visible environmental space around three full folder sides; that was rejected. The accepted source moves materially closer: the manila surface dominates the field, the note is recognisably sticky-note scale, the blue technical material stays near the right edge, and a partial Patch hand/cuff survives as a carry cue.
 
-Harley selected these exact current bytes for candidate custody and requested a live React mount before deciding acceptance.
+Harley first selected these exact bytes for candidate custody and requested a live React mount before deciding acceptance. The mounted composition was then approved during Index closeout without any pixel change to the source.
 
 ## Acceptance decision
 
-Not accepted yet. On 2026-09-18 Harley explicitly selected `index-outcome-folder-frame-review` for reversible page-review custody and requested it be stood up in React. Acceptance or rejection will follow inspection of the mounted closing sequence.
+Accepted by Harley Bartles on 2026-09-20 during Index closeout after reviewing the mounted closing sequence and stating that there was no further design commentary and the Index chapter could be locked. The accepted master is byte-identical to the page-review candidate selected on 2026-09-18.
 
 ## Known accepted limitations
 
-No limitations are accepted because the asset is not yet accepted.
-
-Current review constraints are:
+The accepted mounting keeps these composition constraints:
 
 - any crop must remove pixels only from the left and bottom;
 - the generated top edge must remain visible/intact;
@@ -113,15 +107,15 @@ React owns the panel crop, placement, scale and responsive relationship to the p
 
 ## Deterministic descendants
 
-The page-review WebP derivative is `src/client/public/media/patch/the-usual-specialists/index-outcome-folder-frame-review.webp`, generated from the byte-identical candidate master by the Usual Specialists media processor. The derivative is a candidate descendant and does not imply source acceptance.
+The production WebP derivative is `src/client/public/media/patch/the-usual-specialists/index-outcome-folder.webp`, generated from the byte-identical accepted master by the Usual Specialists media processor.
 
 ## Missing historical evidence
 
-- Exact provider generation ID for the current candidate; the Codex tool did not supply one.
+- Exact provider generation ID for the accepted generation; the Codex tool did not supply one.
 - Parent generation ID; the Codex tool did not supply one and the operation was a fresh generation rather than an edit.
 - Seed; the Codex tool did not supply one.
 - Provider-internal prompt or transformation, if distinct from the retained assistant-authored tool prompt.
 
 ## Custody history
 
-Codex fresh generation under the corrected Index outcome brief, using the preceding plain-manila candidate and Harley's final crop markup as two explicitly role-bound conditioning references → one tool-returned PNG at `exec-4d5c0c6d-ec07-4951-be92-bdf58f521f9d.png` → user review outside repository custody → Harley supplied the exact scratch PNG and selected it for page review → byte-identical copy into scoped Index candidate custody → deterministic review derivative → React page-review mount pending acceptance.
+Codex fresh generation under the corrected Index outcome brief, using the preceding plain-manila candidate and Harley's final crop markup as two explicitly role-bound conditioning references → one tool-returned PNG at `exec-4d5c0c6d-ec07-4951-be92-bdf58f521f9d.png` → user review outside repository custody → Harley supplied the exact scratch PNG and selected it for page review → byte-identical scoped candidate custody → deterministic review derivative → React page-review mount → explicit Index closeout acceptance on 2026-09-20 → byte-identical promotion to accepted Index source custody → production derivative.

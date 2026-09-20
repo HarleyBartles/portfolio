@@ -290,7 +290,7 @@
                                                          "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
                                                      ]
                                     },
-                   "index-outcome-folder-frame-review":  {
+                   "index-outcome-folder":  {
                                                              "model":  "OpenAI Image 2.5",
                                                              "modelEvidence":  "project-owner-confirmation-2026-09-14",
                                                              "generationId":  null,

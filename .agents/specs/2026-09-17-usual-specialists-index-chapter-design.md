@@ -1,6 +1,7 @@
 # The Usual Specialists V2: Index Chapter Design
 
-**Status:** Settled design, revised 18 September 2026 with Harley-approved editorial changes to the closing research sequence; Index is the next JIT planning target before Silk
+**Status:** Settled and implemented Index design; responsive composition locked
+before the fresh Silk chapter design/spec pass
 
 **Parent page spec:** `2026-09-17-usual-specialists-visual-story-design.md`
 
@@ -116,7 +117,8 @@ legible without staging a separate filing ceremony or explicit handoff action.
 
 Compose it as a tight crop of Patch's hands carrying the folder:
 
-- the yellow assent note is the dominant read and occupies most of the useful frame;
+- the yellow assent note is the dominant first read while retaining ordinary
+  sticky-note scale, roughly 20–30% of the full frame width;
 - only enough manila folder is visible to establish what the note is attached to;
 - one side of the folded blue blueprint/map material is visible spilling/tucking out
   from the folder;
@@ -233,18 +235,19 @@ Preserve the invariant:
 At different widths the evidence may spread sideways, pile vertically or become
 more claustrophobic. The exact desktop overlap geometry is not sacred.
 
-Index uses the page's mobile-first authored boundaries as its primary composition
-vocabulary: default narrow, then `min-width: 390px`, `min-width: 768px`,
-`min-width: 1400px` and `min-width: 1920px`, with geometry frozen above 2560px.
-The `768px` transition is the point where the compact/mostly stacked evidence field
-earns a genuinely two-dimensional medium composition. The `1400px` transition is the
-point where the chapter deliberately spends additional horizontal field to become a
-wider, shallower editorial spread. Those are authored changes, not device labels.
+Index uses the locked mobile-first composition vocabulary implemented in
+`indexResponsive.ts`: default narrow below `600px`, compact at `600px`, walking
+traversal readiness at `700px`, medium at `960px`, arrival crossing at `1200px`,
+upper-wide at `1300px`, wide at `1400px`, return-pair availability at `1600px`, and
+ultrawide at `1920px`. These are authored story/layout transitions rather than device
+labels. Geometry freezes at the authored `2560px` composition above that width.
 
-Existing `900px` and `1600px` implementation thresholds are not protected design
-authority. Either may survive only if live review identifies a specific local
-story/hierarchy capability that begins there and cannot be expressed fluidly inside
-the surrounding authored band.
+The supported floor is `320px`; no layout invariant is promised below it. Preserve
+the accepted `600–959px` behaviour, the proportional `959→960` handoff, vertical
+continuity across `1399→1400`, and the walking-lane ownership when the return pair
+appears at `1600px`. Local fluid or bounded in-band adjustments may refine placement,
+but must not create a new chapter-level composition mode or break those named
+ownership boundaries.
 
 Index is the first chapter to establish the page-level wide-screen cadence. At
 `1920` CSS pixels and above, the complete Index chapter box, including its own top
@@ -252,7 +255,8 @@ and bottom padding, must fit within `1080` CSS pixels of vertical space. Achieve
 by using the available width to make the document field and closing sequence more
 lateral, not by forcing a fixed 1080px height, shrinking readable copy or clipping
 the evidence field. Any future Silk chapter or transition is outside this height
-envelope. Widths above 2560 freeze the 2560 composition and retain the same ceiling.
+envelope. There is no `1080px` chapter-height contract below `1920px`. Widths above
+2560 freeze the 2560 composition and retain the same ceiling.
 
 This wide-screen constraint does not apply when browser zoom reduces the effective
 CSS viewport below 1920px. Actual 200% zoom must continue to receive the appropriate
@@ -383,13 +387,12 @@ At every supported state:
       1080px viewport-height contract while preserving readable type, the full causal
       close and the document-world hierarchy.
 
-## Planning readiness
+## Locked implementation handoff
 
-Index is the active implementation focus. The previous Silk/rope/crossing
-implementation has been removed from the live tree; a future Silk chapter must start
-from the accepted Index output rather than inherit that retired architecture. The
-reusable Silk name lockup is the sole retained implementation piece. Index should
-preserve the accepted document-world control case while giving the field, its
-substrate-owned character beats and the directed closing sequence structural
-ownership that survives responsive reflow. The `1920+` / 1080px chapter-height
-ceiling remains part of the Index proof.
+Index is implemented and its responsive composition is locked. The previous
+Silk/rope/crossing implementation has been removed from the live tree; a future
+Silk chapter must start from the accepted Index boundary rather than inherit
+that retired architecture. The reusable Silk name lockup is the sole retained
+implementation piece. Preserve Index's document-world control case, its
+substrate-owned character beats, the directed closing-sequence relationships,
+and the `1920+` / 1080px chapter-height ceiling as the next chapter is designed.

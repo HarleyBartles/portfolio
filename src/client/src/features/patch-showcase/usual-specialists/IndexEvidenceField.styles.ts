@@ -36,6 +36,17 @@ export const EvidenceField = styled.div`
     padding-top: 0;
   }
 
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
+    /* At the 960px medium entry the Index identity lockup is still close to the
+       compact card lane. Give the card enough vertical clearance there, then
+       continuously return to the authored 40% registration before upper-wide
+       takes ownership at 1300px. */
+    --index-story-top: calc(
+      40%
+      + clamp(0px, calc(45.8824px - 3.5294cqi), 12px)
+    );
+  }
+
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.upperWide} {
     --index-field-height: 740px;
     --index-main-height: 710px;

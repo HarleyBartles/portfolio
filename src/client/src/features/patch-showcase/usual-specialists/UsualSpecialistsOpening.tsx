@@ -31,7 +31,7 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
             <UsualSpecialistsWordmark decorative />
           </SpecialistsWordmarkField>
         </OpeningTitle>
-        <OpeningPrecis>Patch has a route-shaped problem. Six people make it legitimate, testable, lawful, decidable, recoverable and reviewable - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
+        <OpeningPrecis>Patch has a caper and not enough certainty to execute it. Six people turn intent into world knowledge, a reliable route, authority, a decision, recoverability and a durable record - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
       </OpeningLockup>
       <Threshold>
         <ThresholdArt

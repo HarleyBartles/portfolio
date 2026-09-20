@@ -13,7 +13,7 @@ const Panel = styled.div`
 const SourcePlane = styled.div`
   position: absolute;
   inset-inline: 0;
-  top: -8.704%;
+  top: 0;
   width: 100%;
   height: 118.5185%;
   container-type: inline-size;
@@ -70,7 +70,7 @@ export const IndexOutcomePanel = ({ style }: IndexOutcomePanelProps): ReactEleme
     <Panel data-index-closing-beat="assent-outcome" data-index-outcome-crop="top-right" style={style}>
       <SourcePlane>
         <img
-          src={usualSpecialistsAssetPath('index-outcome-folder-frame-review.webp')}
+          src={usualSpecialistsAssetPath('index-outcome-folder.webp')}
           width="1200"
           height="800"
           loading="lazy"

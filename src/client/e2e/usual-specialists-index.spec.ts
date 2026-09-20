@@ -39,6 +39,13 @@ const placementMetrics = async (placement: Locator) => placement.evaluate((eleme
 type Box = NonNullable<Awaited<ReturnType<Locator['boundingBox']>>>
 
 const boxRight = (box: Box): number => box.x + box.width
+const boxBottom = (box: Box): number => box.y + box.height
+
+const overlapArea = (first: Box, second: Box): number => {
+  const width = Math.max(0, Math.min(boxRight(first), boxRight(second)) - Math.max(first.x, second.x))
+  const height = Math.max(0, Math.min(boxBottom(first), boxBottom(second)) - Math.max(first.y, second.y))
+  return width * height
+}
 
 const closeBoxes = async (index: Locator) => {
   const [chapter, office, recognition, retrieval, outcome, graph, closing] = await Promise.all([
@@ -150,6 +157,31 @@ test('The Usual Specialists Index keeps its authored placement ratios without in
   }
 })
 
+test('The Usual Specialists Index story card never covers character models or the Index mark', async ({ page }) => {
+  const index = await openIndex(page, 320)
+  const story = index.locator('[data-index-story-card]')
+  const protectedElements = index.locator('[data-index-traversal], [data-index-lockup]')
+
+  for (const width of [320, 599, 600, 699, 700, 959, 960, 1199, 1200, 1299, 1300, 1399, 1400, 1599, 1600, 1619, 1620, 1919, 1920, 2560] as const) {
+    await settleViewport(page, width)
+    const storyBox = await story.boundingBox()
+    expect(storyBox, `story card box at ${width}px`).not.toBeNull()
+
+    for (let indexPosition = 0; indexPosition < await protectedElements.count(); indexPosition += 1) {
+      const protectedElement = protectedElements.nth(indexPosition)
+      const protectedBox = await protectedElement.boundingBox()
+      if (protectedBox === null) continue
+
+      const traversalLabel = await protectedElement.getAttribute('data-index-traversal')
+      const label = traversalLabel ?? 'Index lockup'
+      expect(
+        overlapArea(storyBox!, protectedBox),
+        `story card overlap with ${label} at ${width}px; story=${JSON.stringify(storyBox)} protected=${JSON.stringify(protectedBox)}`,
+      ).toBe(0)
+    }
+  }
+})
+
 test('The Usual Specialists Index closing sequence preserves its authored compact endpoints and bounded overlapping lockup', async ({ page }) => {
   const index = await openIndex(page, 600)
   const mainDocument = index.locator('[data-index-substrate="desk-diagram"]')
@@ -157,7 +189,15 @@ test('The Usual Specialists Index closing sequence preserves its authored compac
   const recognition = index.locator('[data-index-closing-beat="recognition"]')
   const retrieval = index.locator('[data-index-closing-beat="source-retrieval"]')
   const outcome = index.locator('[data-index-closing-beat="assent-outcome"]')
+  const outcomeImage = outcome.getByRole('img', { name: /Patch carries Index's assent onward/i })
   const closing = index.locator('[data-index-closing-sequence]')
+
+  const [outcomeCropBox, outcomeImageBox] = await Promise.all([outcome.boundingBox(), outcomeImage.boundingBox()])
+  expect(outcomeCropBox).not.toBeNull()
+  expect(outcomeImageBox).not.toBeNull()
+  expect(Math.abs(outcomeImageBox!.y - outcomeCropBox!.y), 'outcome crop preserves generated top edge').toBeLessThanOrEqual(1)
+  expect(Math.abs(boxRight(outcomeImageBox!) - boxRight(outcomeCropBox!)), 'outcome crop preserves generated right edge').toBeLessThanOrEqual(1)
+  expect(boxBottom(outcomeImageBox!), 'outcome crop trims only permitted bottom overscan').toBeGreaterThan(boxBottom(outcomeCropBox!))
 
   for (const [width, expectedStepY, expectedRecognitionY] of [[600, 118, 13], [959, 203, 17]] as const) {
     await settleViewport(page, width)

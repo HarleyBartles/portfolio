@@ -1,6 +1,6 @@
 {
   "generatedBy": "src/client/scripts/process-usual-specialists-assets.mjs",
-  "generationContractSha256": "c90d7a38dcb6fbed7c25b0375407600134f6986537ac9bfc1315fcc68709b7b1",
+  "generationContractSha256": "d59890df24d1e76650f6cd2bf60ae9db91feeab7261cc86883145665d731cc60",
   "derivatives": [
     {
       "id": "safehouse-threshold",
@@ -129,6 +129,24 @@
       "outputSha256": "1273413eb3ba95099661280b1c3cbed4c58a4655a20ad57aefaf1f420235b4c6"
     },
     {
+      "id": "index-outcome-folder",
+      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png",
+      "sourceSha256": "5a1a2aa0fa609a6e7e80aa01a44f92824a187decf9cde1adf1a3ded5dcc4da86",
+      "output": "index-outcome-folder.webp",
+      "path": "src/client/public/media/patch/the-usual-specialists/index-outcome-folder.webp",
+      "width": 1200,
+      "height": 800,
+      "format": "webp",
+      "encoding": {
+        "quality": 82,
+        "alphaQuality": 100,
+        "effort": 6,
+        "smartSubsample": true
+      },
+      "bytes": 111324,
+      "outputSha256": "f96661826c7359169154a6f135edfd981d796f9012d8adf3dbbb788a0ed88ae6"
+    },
+    {
       "id": "index-walk",
       "sourcePath": "src/client/assets/patch/the-usual-specialists/index/index-walk.png",
       "sourceSha256": "d33f60c03c2f7d82bf16de8bb3244fac22c1ddde2f1ee903c2d6b779eec46970",
@@ -253,24 +271,6 @@
       },
       "bytes": 23466,
       "outputSha256": "b50a44b7751cb82845d75bb216a00d1289267a71004875e57edcba3ffe82b5e0"
-    },
-    {
-      "id": "index-outcome-folder-frame-review",
-      "sourcePath": "src/client/assets/patch/the-usual-specialists/index/candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png",
-      "sourceSha256": "5a1a2aa0fa609a6e7e80aa01a44f92824a187decf9cde1adf1a3ded5dcc4da86",
-      "output": "index-outcome-folder-frame-review.webp",
-      "path": "src/client/public/media/patch/the-usual-specialists/index-outcome-folder-frame-review.webp",
-      "width": 1200,
-      "height": 800,
-      "format": "webp",
-      "encoding": {
-        "quality": 82,
-        "alphaQuality": 100,
-        "effort": 6,
-        "smartSubsample": true
-      },
-      "bytes": 111324,
-      "outputSha256": "f96661826c7359169154a6f135edfd981d796f9012d8adf3dbbb788a0ed88ae6"
     }
   ]
 }

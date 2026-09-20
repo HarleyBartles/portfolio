@@ -2,7 +2,7 @@
 
 **Created:** 17 September 2026
 
-**Status:** Index design revision approved; Index is the next JIT planning target before Silk
+**Status:** Index milestone complete; Silk is the next fresh chapter design/spec target
 
 **Preview route:** `/patch/the-usual-specialists/next/`
 
@@ -152,13 +152,13 @@ those limitations.
   spec plus chapter specs, then sequencing the work through a roadmap with one JIT
   plan per active chapter/milestone.
 - No product implementation began under `f7267b6`.
-- Index remains the protected visual control case, but Harley approved a focused
+- Index remains the protected visual control case. Harley approved a focused
   editorial recomposition of its closing research cluster on 18 September 2026.
   Earlier assumptions that Index needed a synthetic folder primitive were explicitly
   rejected after inspecting the live implementation. The real Index
-  opportunity is story clarity: earlier story-card placement, `“Ah. This one.”` as
+  opportunity was story clarity: earlier story-card placement, `“Ah. This one.”` as
   the semantic bridge between research and retrieval, and a new sticky-note-first
-  carried-folder outcome panel. Index is therefore the next JIT planning target.
+  carried-folder outcome panel. That Index milestone is now complete.
 - Silk remains the first substantial chapter redesign. Its old implementation and
   dedicated old chapter spec were removed after the Index checkpoint; the next pass
   consumes the actual Index closing composition and retained Silk identity lockup only.

@@ -40,7 +40,7 @@
                        "width":  1373,
                        "height":  1145,
                        "status":  "accepted",
-                       "selection":  "current",
+                       "selection":  "library",
                        "rightsOwner":  "Harley Bartles",
                        "provenanceRecord":  "src/client/assets/patch/the-usual-specialists/provenance/index-assent-note.md",
                        "legacyLinearDocumentIds":  [
@@ -110,6 +110,18 @@
                                                        "bc91c036-2d34-456f-adfb-1bf81c716070",
                                                        "9a262b0f-1f7c-442c-b189-caa6955f3f39"
                                                    ]
+                   },
+                   {
+                       "id":  "index-outcome-folder",
+                       "originalWireframeFilename":  "Codex Image 18 Sept 2026, 13_52_58.png",
+                       "repositorySourcePath":  "src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png",
+                       "sha256":  "5a1a2aa0fa609a6e7e80aa01a44f92824a187decf9cde1adf1a3ded5dcc4da86",
+                       "width":  1536,
+                       "height":  1024,
+                       "status":  "accepted",
+                       "selection":  "current",
+                       "rightsOwner":  "Harley Bartles",
+                       "provenanceRecord":  "src/client/assets/patch/the-usual-specialists/provenance/index-outcome-folder.md"
                    },
                    {
                        "id":  "index-walk",

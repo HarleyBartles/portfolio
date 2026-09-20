@@ -77,6 +77,55 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._refresh_skills_cmd("check", False),
         )
 
+    @patch.dict("os.environ", {"REPO_STANDARDS_STAGED_SNAPSHOT": "1"})
+    @patch.object(run, "_run")
+    def test_staged_snapshot_skill_refresh_never_advances_marketplace_source(self, run_command) -> None:
+        apply_context = run.Ctx(mode="apply", allow_shared=True)
+
+        run._skills_apply(apply_context)
+
+        self.assertEqual(
+            [
+                call(
+                    [
+                        sys.executable,
+                        ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                        "--apply",
+                        "--allow-shared-checkout",
+                        "--no-roll-marketplace-source",
+                    ],
+                    apply_context,
+                ),
+                call(
+                    [
+                        sys.executable,
+                        ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                        "--check",
+                        "--no-roll-marketplace-source",
+                    ],
+                    apply_context,
+                ),
+            ],
+            run_command.call_args_list,
+        )
+
+    @patch.dict("os.environ", {"REPO_STANDARDS_STAGED_SNAPSHOT": "1"})
+    @patch.object(run, "_run")
+    def test_staged_snapshot_skill_check_uses_pinned_marketplace_source(self, run_command) -> None:
+        check_context = run.Ctx(mode="check", allow_shared=False)
+
+        run._skills_check(check_context)
+
+        run_command.assert_called_once_with(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--check",
+                "--no-roll-marketplace-source",
+            ],
+            check_context,
+        )
+
     @patch("shutil.which", return_value="C:/node/npm.cmd")
     def test_install_deps_apply_uses_the_client_lockfile(self, _which) -> None:
         self.assertEqual(
@@ -177,7 +226,10 @@ class CanonicalRunnerTests(unittest.TestCase):
 
         self.assertEqual(0, result.returncode)
 
-    @patch.dict("os.environ", {"GITHUB_ACTIONS": "true"})
+    @patch.dict(
+        "os.environ",
+        {"GITHUB_ACTIONS": "true", "REPO_STANDARDS_STAGED_SNAPSHOT": "0"},
+    )
     @patch.object(run, "_run")
     def test_gate_checks_public_marketplace_source_and_derived_projection(self, run_command) -> None:
         run._base_ci_check(self.context)
@@ -202,6 +254,7 @@ class CanonicalRunnerTests(unittest.TestCase):
             run_command.call_args_list,
         )
 
+    @patch.dict("os.environ", {"REPO_STANDARDS_STAGED_SNAPSHOT": "0"})
     @patch.object(run, "_run")
     def test_diagnostic_ci_reports_independent_failures_before_rejecting(self, run_command) -> None:
         diagnostic_context = run.Ctx(mode="check", allow_shared=False, diagnostics=True)

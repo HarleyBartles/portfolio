@@ -3,7 +3,6 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   USUAL_SPECIALISTS_ASSETS,
-  USUAL_SPECIALISTS_CANDIDATE_ASSETS,
   USUAL_SPECIALISTS_WEBP_OPTIONS,
   assertDerivativeReceipt,
   assertSourceIdentity,
@@ -44,26 +43,23 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(14)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(15)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('index-high-step.webp')
+    expect(outputs).toContain('index-outcome-folder.webp')
     expect(outputs).toContain('index-return.webp')
     expect(outputs).toContain('patch-return.webp')
     expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
 
-  it('keeps the Index outcome source in page-review candidate custody', () => {
-    expect(USUAL_SPECIALISTS_CANDIDATE_ASSETS).toEqual([
-      expect.objectContaining({
-        id: 'index-outcome-folder-frame-review',
-        sourcePackage: 'index',
-        custody: 'candidate',
-        source: 'candidates/outcome-folder-frame-review/index-outcome-folder-frame-review.png',
-        output: 'index-outcome-folder-frame-review.webp',
-        width: 1200,
-      }),
-    ])
+  it('keeps the accepted Index outcome source in production custody', () => {
+    expect(USUAL_SPECIALISTS_ASSETS).toContainEqual(expect.objectContaining({
+      id: 'index-outcome-folder',
+      source: 'index-outcome-folder.png',
+      output: 'index-outcome-folder.webp',
+      width: 1200,
+    }))
   })
 
   it('rejects source SHA drift', () => {
