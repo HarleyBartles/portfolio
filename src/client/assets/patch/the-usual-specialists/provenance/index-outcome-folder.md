@@ -9,7 +9,7 @@
 - Rights owner: Harley Bartles
 - Temporary canonical repository: Portfolio
 - Governing chapter spec: `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md`
-- Governing generation brief: `.agents/plans/usual-specialists-v2/index-outcome-folder-commission-brief.md`
+- Governing generation brief: `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`
 
 ## Status
 
@@ -33,7 +33,7 @@ For the current page-review mount, Harley specified a bounded crop rule: preserv
 
 Evidence status: `normalized-from-approved-conversation`.
 
-The governing execution brief is retained at `.agents/plans/usual-specialists-v2/index-outcome-folder-commission-brief.md`. Its final direction asks for a fresh 3:2 detail insert in which a normal small square yellow sticky note is the subject, a battered manila folder fills the field and exits multiple frame boundaries, a small sliver of worn blue technical paper remains subordinate at the visible folder edge, and a partial asymmetric Patch hand/teal sleeve establishes carriage without a presentation pose. Generated pixels contain no text; HTML owns the exact assent copy.
+The governing execution brief is retained at `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md` through the completing PR under the repository's completed-artifact lifecycle. Its final direction asks for a fresh 3:2 detail insert in which a normal small square yellow sticky note is the subject, a battered manila folder fills the field and exits multiple frame boundaries, a small sliver of worn blue technical paper remains subordinate at the visible folder edge, and a partial asymmetric Patch hand/teal sleeve establishes carriage without a presentation pose. Generated pixels contain no text; HTML owns the exact assent copy.
 
 ## Reference hierarchy
 

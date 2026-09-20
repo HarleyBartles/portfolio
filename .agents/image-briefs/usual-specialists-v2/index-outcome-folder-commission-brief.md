@@ -1,5 +1,7 @@
 # Index Closing Outcome — Codex Image Generation Brief
 
+Status: `completed-awaiting-retirement`
+
 ## Linked specification
 
 `.agents/specs/2026-09-17-usual-specialists-index-chapter-design.md`

@@ -491,64 +491,30 @@ exists.
 
 ---
 
-## Image Commission Strategy
+## Image Commission Handoff
 
-Only one new image is commissioned in this milestone: the final Index carried-state outcome panel.
+Only one new image is commissioned in this milestone: the final Index
+carried-state outcome panel.
 
-### Intended asset
+The image-generation execution artifact is deliberately separate from this
+implementation plan:
 
+- Brief: `.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`
 - Asset ID: `index-outcome-folder`
 - Repository master: `src/client/assets/patch/the-usual-specialists/index/index-outcome-folder.png`
 - Browser derivative: `src/client/public/media/patch/the-usual-specialists/index-outcome-folder.webp`
-- Preferred master frame: 3:2 landscape, approximately 1536×1024 source pixels; derivative width 1200px.
-- Background/alpha: opaque panel image; no transparency requirement.
-- Text: **none in generated pixels**. The sticky-note face must leave a calm writable area for exact HTML copy.
-- Composition lock for HTML overlay: keep the yellow note centred within roughly the middle 60% of the frame, with its writable face spanning approximately `20%–80%` horizontally and `16%–82%` vertically, and keep its rotation close to `-4deg`. This is a generation constraint so the React overlay can remain deterministic across the accepted asset.
 
-### Reference roles for generation
+This plan owns sequencing: approve the live outcome-slot geometry first,
+generate against that real slot, accept one candidate explicitly, then custody
+and integrate it. The dedicated image brief owns generation direction,
+reference roles, visual invariants, rejection criteria, output shape, and
+generation-time custody instructions. Do not duplicate the image-model prompt
+inside implementation plans.
 
-Use references as conditioning inputs with explicit roles, not as assets to splice blindly:
-
-1. `src/client/assets/patch/the-usual-specialists/index/patch-follow.png` and/or `patch-return.png` — Patch identity, hands/arms, and existing carried-folder physical continuity.
-2. `src/client/assets/patch/the-usual-specialists/index/index-assent-note.png` — yellow paper material, colour, handling, shallow curl/crease language only; do not reuse its current isolated composition.
-3. `src/client/assets/patch/the-usual-specialists/index/index-blue-carrier.png` — blue blueprint/map colour and worn technical-paper material.
-4. `src/client/assets/patch/the-usual-specialists/index/index-observation.png` — Index chapter lighting/material finish so the new panel belongs to the same authored world.
-5. Adventures pre-vis `workbench/issue_48_override_heist_style_framework_v0_3/style-sheets/heist_pitch_folder/02_index_joined.png` at verified revision `13bf77adc63cf5c8f49363cedd5dd392822b8375` — relationship reference only: folder + tucked blue material + yellow assent. It is not geometry authority and must not import its folder drift.
-
-### Commission brief to give the image model
-
-Use this as the authored brief, adapting only the transport syntax required by the current image tool:
-
-> Create one tight 3:2 editorial insert for the Index chapter of The Usual Specialists. Show only Patch's hands/forearms carrying the already-used ordinary manila recruitment folder. Crop close enough that the folder fills almost the entire frame; this is a passing carried-state detail, not a product shot and not a handoff ceremony. A warm yellow adhesive note is stuck to the front of the folder and is the dominant visual read, occupying most of the useful central frame. Keep the note centred in roughly the middle 60% of the image, with its writable face spanning approximately 20%–80% of frame width and 16%–82% of frame height, rotated about 4 degrees counter-clockwise. Keep that face calm and blank so exact HTML handwriting can be overlaid later. From one side of the folder, show only a small but unmistakable portion of the folded worn blue blueprint/map material tucked inside and spilling slightly beyond the edge. The blue paper is supporting evidence, never the hero. Let only enough manila folder remain visible to establish what the note is attached to. Patch's hands should make the folder feel carried, handled and already in motion, not carefully presented. Match the warm practical safehouse/document-world lighting and tactile illustrated realism of the accepted Index observation material. Preserve the ordinary, slightly battered physicality of the existing folder seen with Patch. No face, no full Patch body, no Index, no Silk rope, no extra papers, no additional sticky notes, no logos, no labels, no generated handwriting, no readable words, no route diagram claiming one final route, no magical glow, no detective-noir evidence theatre, no pristine catalogue photography, and no dramatic hero-object pedestal lighting.
-
-### Generation acceptance checks
-
-Accept a candidate only when all are true:
-
-- the yellow note wins the first read at thumbnail size;
-- the folder is identifiable but subordinate;
-- the blue material is visible from one side without becoming a second hero;
-- Patch's hands read naturally and match accepted Patch identity closely enough for the small panel role;
-- the crop feels incidental/in-motion rather than staged;
-- the note has sufficient clean face area for the existing three-line HTML assent layout;
-- there is no generated text or pseudo-text on the note/folder/blueprint that could compete with HTML;
-- the panel still reads when mounted at its smallest intended responsive size;
-- it does not imply that Index hands Patch a special credential or that this is the final operational plan.
-
-If a generated candidate fails, iterate one material defect at a time. Do not broaden the brief or commission alternate story concepts after the live slot is approved.
-
-### Custody/provenance contract
-
-After Harley accepts one candidate:
-
-- save the selected PNG as `index-outcome-folder.png` under the accepted Index package;
-- add one `accepted-assets.json` record with actual SHA-256, dimensions, rights owner `Harley Bartles`, selection `current`, and provenance pointer;
-- add `generation-receipt.json` evidence using the **actual** tool-returned model/generation metadata; when the tool omits a field, record `null` plus the matching explicit missing/not-supplied status rather than inventing a value;
-- use `modelEvidence: "retained-tool-result"` when the generation surface itself supplies the evidence;
-- use `briefStatus: "normalized-from-approved-conversation"` because this plan preserves the approved authored brief;
-- create `src/client/assets/patch/the-usual-specialists/provenance/index-outcome-folder.md` with every heading required by `USUAL_SPECIALISTS_PROVENANCE_HEADINGS`;
-- change the existing `index-assent-note` accepted-manifest selection from `current` to `library`, and update its provenance to state that the isolated note remains accepted historical/library material but was retired from the active Index render on 18 September 2026;
-- keep the old source and derivative under custody rather than deleting them.
+The dedicated brief produced the accepted outcome asset, so it is marked
+`completed-awaiting-retirement`: it remains in the completing PR and retires
+in the first substantive successor slice. A brief that had produced only
+scratch or rejected candidates would remain live while iteration continued.
 
 ---
 
@@ -875,12 +841,16 @@ Do not commit the temporary placeholder state. Proceed directly to Task 2 so the
 - Generated: `src/client/public/media/patch/the-usual-specialists/usual-specialists-derivatives.json`
 
 **Interfaces:**
-- Consumes: Task 1's approved live outcome-slot dimensions and the commission brief/reference hierarchy above.
+- Consumes: Task 1's approved live outcome-slot dimensions and the dedicated image brief.
 - Produces: accepted `index-outcome-folder` source + provenance + deterministic WebP derivative consumed by Task 3's `IndexOutcomePanel`.
 
 - [ ] **Step 1: Generate the panel from the approved brief and references.**
 
-Use the repository image-generation workflow and the exact brief under **Image Commission Strategy**. Bind each reference to its stated role. Request one independently inspectable candidate per generation call unless the current image surface explicitly exposes a different contract.
+Use the repository image-generation workflow and the dedicated brief at
+`.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md`.
+Bind each reference to its stated role. Request one independently inspectable
+candidate per generation call unless the current image surface explicitly
+exposes a different contract.
 
 Do not ask the generator to render `You son of a gun. I'm in!`; the note must remain blank enough for HTML overlay.
 
@@ -1092,7 +1062,7 @@ export const IndexOutcomePanel = ({ style }: IndexOutcomePanelProps) => (
 )
 ```
 
-The generation brief deliberately constrains the blank note face around this percentage overlay. If a candidate cannot support this stable overlay without moving the text outside the note, reject that candidate rather than turning note geometry into caller-controlled props.
+The dedicated generation brief deliberately constrains the blank note face around this percentage overlay. If a candidate cannot support this stable overlay without moving the text outside the note, reject that candidate rather than turning note geometry into caller-controlled props.
 
 - [ ] **Step 4: Replace the temporary outcome slot with `IndexOutcomePanel` and remove the old floating-note React wrapper from the active code path.**
 
