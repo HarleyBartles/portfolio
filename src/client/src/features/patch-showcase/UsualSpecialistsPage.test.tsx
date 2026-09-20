@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { UsualSpecialistsPage } from './UsualSpecialistsPage'
 
 describe('Usual Specialists route-owned story', () => {
-  test('renders the opening and Index only while later Specialist chapters are parked', () => {
+  test('renders the opening and Index only while later Specialist chapters are unmounted', () => {
     render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists/next/']}>
         <UsualSpecialistsPage />
@@ -22,7 +22,6 @@ describe('Usual Specialists route-owned story', () => {
     const nav = story.querySelector<HTMLElement>('[data-specialists-chapter-nav]')
     const indexMilestone = story.querySelector<HTMLElement>('[data-specialists-index-milestone]')
     expect(opening).toBeInTheDocument()
-    expect(story.querySelector('[data-temporary-wireframe-rope="true"]')).not.toBeInTheDocument()
     expect(indexMilestone).not.toBeInTheDocument()
     expect(canvas).not.toBeNull()
     expect(canvas?.children).toHaveLength(3)
@@ -31,10 +30,6 @@ describe('Usual Specialists route-owned story', () => {
     expect(canvas?.children[2]).toBe(index)
     expect(opening!.compareDocumentPosition(nav!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
     expect(nav!.compareDocumentPosition(index!) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
-    expect(story.querySelector('[data-specialists-chapter-crossing]')).not.toBeInTheDocument()
-    expect(story.querySelector('[data-specialists-crossing-lockup]')).not.toBeInTheDocument()
-    expect(story.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
-    expect(story.querySelector('[data-specialists-rope-anchor]')).not.toBeInTheDocument()
     expect(index).toBeInTheDocument()
     expect(story.querySelector('[data-specialist-chapter="silk"], [data-specialist-chapter="writ"], [data-specialist-chapter="klause"], [data-specialist-chapter="rollback"], [data-specialist-chapter="receipt"]')).not.toBeInTheDocument()
     expect(within(story).queryByText('Advanced visual pre-production')).not.toBeInTheDocument()

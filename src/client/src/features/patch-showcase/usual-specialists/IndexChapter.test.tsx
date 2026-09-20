@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { IndexChapter } from './IndexChapter'
 
 describe('Index chapter', () => {
-  test('composes the accepted Index vertical slices without rope or later chapters', () => {
+  test('composes the accepted Index vertical slices without later chapters', () => {
     render(<IndexChapter />)
 
     const chapter = screen.getByRole('region', { name: 'Index' })
@@ -33,7 +33,6 @@ describe('Index chapter', () => {
     expect(evidenceField).not.toContainElement(closingSequence)
     expect(chapter.querySelector('[data-index-commission-composition="commission-evidence"]')).toBeNull()
     expect(storyCard!.compareDocumentPosition(closingSequence!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
-    expect(chapter.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
     expect(document.querySelector('[data-specialist-chapter="silk"]')).toBeNull()
   })
 

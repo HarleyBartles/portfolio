@@ -4,7 +4,6 @@ export const SpecialistsStory = styled.article`
   --specialists-paper: #f2ecdf;
   --specialists-index-paper: var(--specialists-paper);
   --specialists-ink: #20231f;
-  --specialists-rope: #aa302d;
   --specialists-index-ink: #17364d;
   --specialists-gutter: clamp(18px, 3vw, 38px);
   --specialists-max: 1400px;

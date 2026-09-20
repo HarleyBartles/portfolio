@@ -474,183 +474,17 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
   }
 })
 
-test('Specialists Index 2560 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 2560, height: 1080 })
+test('Specialists Index authored references stay locked at the accepted widths', async ({ page }) => {
+  const widths = [320, 599, 600, 699, 700, 959, 1400, 1619, 1920, 2560] as const
+
+  await page.setViewportSize({ width: widths[0], height: 1080 })
   await openStable(page, './patch/the-usual-specialists/next')
   const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-2560-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
 
-test('Specialists Index 1920 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 1920, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-1920-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 1619 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 1619, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-1619-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 1400 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 1400, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-1400-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 599 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 599, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-599-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 600 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 600, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-600-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 699 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 699, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-699-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 700 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 700, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-700-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 959 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 959, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-959-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index 320 authored reference stays locked', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
-  await waitForImages(story)
-  await expect(page).toHaveScreenshot('patch-usual-specialists-index-320-authored.png', {
-    fullPage: true,
-    clip: enclosingClip(
-      await clipBetween(
-        page,
-        '[data-visual-contract="patch-usual-specialists-index-draft"] header',
-        '[data-specialist-chapter="index"]',
-      ),
-    ),
-  })
-})
-
-test('Specialists Index draft keeps the approved composition across protected viewports', async ({ page }) => {
-  for (const width of [1600, 1440, 768] as const) {
-    await page.setViewportSize({ width, height: width <= 390 ? 844 : 1100 })
-    await openStable(page, './patch/the-usual-specialists/next')
-    const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 1080 })
     await waitForImages(story)
-    await expect(page).toHaveScreenshot(`patch-usual-specialists-index-${width}.png`, {
+    await expect.soft(page).toHaveScreenshot(`patch-usual-specialists-index-${width}-authored.png`, {
       fullPage: true,
       clip: enclosingClip(
         await clipBetween(
@@ -662,7 +496,6 @@ test('Specialists Index draft keeps the approved composition across protected vi
     })
   }
 })
-
 test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 })
   await openStable(page, './projects/adventures-of-patch')

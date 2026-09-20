@@ -3,18 +3,15 @@ import { describe, expect, test } from 'vitest'
 import { SpecialistsChapterNav } from './SpecialistsChapterNav'
 
 describe('SpecialistsChapterNav', () => {
-  test('links mounted chapters and leaves future chapter tabs inert', () => {
-    const { container } = render(<SpecialistsChapterNav />)
+  test('links Index and leaves future chapter tabs inert', () => {
+    render(<SpecialistsChapterNav />)
 
     const nav = screen.getByRole('navigation', { name: 'Specialist chapters' })
     expect(within(nav).getByRole('link', { name: 'Index' })).toHaveAttribute('href', '#index')
-    expect(within(nav).getByRole('link', { name: 'Silk' })).toHaveAttribute('href', '#silk')
-    for (const label of ['Writ', 'Klause', 'Rollback', 'Receipt']) {
+    for (const label of ['Silk', 'Writ', 'Klause', 'Rollback', 'Receipt']) {
       expect(within(nav).getByText(label)).not.toHaveAttribute('href')
       expect(within(nav).queryByRole('link', { name: label })).not.toBeInTheDocument()
     }
-    expect(container.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
-    expect(container.querySelector('[data-specialists-crossing-anchor]')).not.toBeInTheDocument()
   })
 
   test('does not expose caller className as a styling seam', () => {

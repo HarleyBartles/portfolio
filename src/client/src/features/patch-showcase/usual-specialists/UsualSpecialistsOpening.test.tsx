@@ -5,7 +5,7 @@ import { UsualSpecialistsOpening } from './UsualSpecialistsOpening'
 import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
 
 describe('Usual Specialists opening', () => {
-  test('renders the opening without rope or anchor hardware', () => {
+  test('renders the six-specialist opening', () => {
     const { container } = render(
       <MemoryRouter basename="/portfolio" initialEntries={['/portfolio/patch/the-usual-specialists']}>
         <UsualSpecialistsOpening />
@@ -19,10 +19,6 @@ describe('Usual Specialists opening', () => {
     expect(container.querySelector('[data-patch-series-lockup]')).toBeInTheDocument()
     expect(pageTitle.querySelector('[data-specialists-wordmark]')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('img', { name: /ordinary apartment safehouse/i })).toHaveAttribute('fetchpriority', 'high')
-    const opening = container.querySelector('header')
-    expect(opening?.querySelector('[data-specialists-rope-piece]')).not.toBeInTheDocument()
-    expect(opening?.querySelector('[data-specialists-rope-anchor]')).not.toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: 'Silk' })).not.toBeInTheDocument()
   })
 
   test('forwards an exceptional style override to the opening root only', () => {

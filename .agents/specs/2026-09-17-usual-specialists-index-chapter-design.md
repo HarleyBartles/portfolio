@@ -251,7 +251,7 @@ Index is the first chapter to establish the page-level wide-screen cadence. At
 and bottom padding, must fit within `1080` CSS pixels of vertical space. Achieve that
 by using the available width to make the document field and closing sequence more
 lateral, not by forcing a fixed 1080px height, shrinking readable copy or clipping
-the evidence field. The Index-to-Silk transition remains outside this height
+the evidence field. Any future Silk chapter or transition is outside this height
 envelope. Widths above 2560 freeze the 2560 composition and retain the same ceiling.
 
 This wide-screen constraint does not apply when browser zoom reduces the effective
@@ -385,9 +385,11 @@ At every supported state:
 
 ## Planning readiness
 
-Index is the active implementation focus. Silk and the red-rope/crossing system are
-deliberately parked for a later Silk refactor and are not part of the current Index
-composition contract. Implementation should preserve the accepted document-world
-control case while giving the field, its substrate-owned character beats and the
-directed closing sequence structural ownership that survives responsive reflow. The
-`1920+` / 1080px chapter-height ceiling remains part of the Index proof.
+Index is the active implementation focus. The previous Silk/rope/crossing
+implementation has been removed from the live tree; a future Silk chapter must start
+from the accepted Index output rather than inherit that retired architecture. The
+reusable Silk name lockup is the sole retained implementation piece. Index should
+preserve the accepted document-world control case while giving the field, its
+substrate-owned character beats and the directed closing sequence structural
+ownership that survives responsive reflow. The `1920+` / 1080px chapter-height
+ceiling remains part of the Index proof.

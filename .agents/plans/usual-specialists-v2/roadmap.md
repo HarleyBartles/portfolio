@@ -95,8 +95,8 @@ just in time.
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Index editorial close | ready | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | `2026-09-18-index-editorial-close.md` | — | — | 9/10 | **Ready for execution.** Preserve the accepted Index document-world control case and the intentional passive Silk-rope intrusion. The stale singular-route copy is already corrected. Recompose the closing cluster so the story card frames it earlier, `“Ah. This one.”` bridges deep research to the found-file beat, the floating sticky-note render retires, and a new tight Patch-hands outcome panel shows the yellow assent note dominant on the carried folder with folded blue material tucked inside. No synthetic Index folder component and no folder hero shot. Establish the page-wide `1920+` chapter-height cadence here: Index must fit within 1080 CSS px at 1920×1080 and 2560×1080. |
-| 2 | Silk | pending | [Silk chapter spec](../../specs/2026-09-17-usual-specialists-silk-chapter-design.md) | — | — | — | — | First major chapter redesign. Black comic takeover, one canonical breakout, causal route-pressure sequence and corridor assent aftermath. Audit old accepted Silk media against the live wireframe rather than carrying old apertures forward by default. |
+| 1 | Index editorial close | done | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | `2026-09-18-index-editorial-close.md` | `9d7cd10` | — | 9/10 | Index responsive estate is locked. The retired Silk/rope/crossing implementation was subsequently removed from the live tree so Index remains an independent foundation. |
+| 2 | Silk | pending | fresh chapter spec required | — | — | — | — | Silk remains specialist #2 and still owns `prove the route`. Start from the accepted Index boundary with a fresh chapter design. Reuse only the retained traced `SILK` name mark plus `PRESSURE | PROVE THE ROUTE` lockup unless new design work explicitly chooses otherwise. |
 | 3 | Writ | pending | [Writ chapter spec](../../specs/2026-09-17-usual-specialists-writ-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: threshold loop, continuous rounds/caseload, object-transparency polyptych, dominant `Absolutely not. On whose authority?` interruption, Writ-supplied bounded authority, and white/yellow/pink triplicate split. JIT plan waits for the actual Silk milestone output. |
 | 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: one stable master field, minimal Klause motion, five-state reduction sequence, page-deletes-itself subtraction grammar, IKEA-white working field, and manila-folder/red-`K` colour payoff. JIT plan waits for the actual Writ milestone output. |
 | 5 | Rollback | pending | [Rollback chapter spec](../../specs/2026-09-17-usual-specialists-rollback-chapter-design.md) | — | — | — | — | Chapter design approved: chamber-side audience position, off-camera failure evidence, rebar-concrete containment pressure, slow amber state cycle, shutter-to-black `What's your Plan B?`, safe-side diagnosis, silent realisation, dog-tag clank and immediate move to the next failure test. No CRT `I'M IN`. JIT plan waits for the actual Klause milestone output. |
@@ -110,7 +110,8 @@ just in time.
 - Index lands the approved editorial close and a materially readable outgoing state;
   Silk consumes that actual accepted result rather than planning against a
   hypothetical Index handoff.
-- Silk establishes the first new chapter-owned wireframe/generation pattern.
+- Silk establishes a fresh chapter-owned wireframe/generation pattern without
+  inheriting the retired Silk/rope implementation estate.
 - Writ must be designed in the actual page state left by Silk, especially the
   termination of the black comic field.
 - Klause consumes Writ's actual authority handoff rather than a hypothetical one.
@@ -153,16 +154,16 @@ those limitations.
 - No product implementation began under `f7267b6`.
 - Index remains the protected visual control case, but Harley approved a focused
   editorial recomposition of its closing research cluster on 18 September 2026.
-  Earlier assumptions that Index needed a synthetic folder primitive or rope cleanup
-  were explicitly rejected after inspecting the live implementation. The real Index
+  Earlier assumptions that Index needed a synthetic folder primitive were explicitly
+  rejected after inspecting the live implementation. The real Index
   opportunity is story clarity: earlier story-card placement, `“Ah. This one.”` as
   the semantic bridge between research and retrieval, and a new sticky-note-first
   carried-folder outcome panel. Index is therefore the next JIT planning target.
-- Silk remains the first substantial chapter redesign, but its planning/execution now
-  waits for the revised Index milestone to land so it can consume the actual closing
-  composition and outgoing state.
-- Writ, Klause, Rollback and Receipt have completed their chapter-design returns. All
-  six local chapter designs are settled; implementation planning still advances just
+- Silk remains the first substantial chapter redesign. Its old implementation and
+  dedicated old chapter spec were removed after the Index checkpoint; the next pass
+  consumes the actual Index closing composition and retained Silk identity lockup only.
+- Writ, Klause, Rollback and Receipt have completed their chapter-design returns.
+  Silk intentionally requires a fresh local design; implementation planning still advances just
   in time from actual predecessor output rather than from hypothetical future page
   state.
 - Do not write all future implementation plans in advance. The point of this

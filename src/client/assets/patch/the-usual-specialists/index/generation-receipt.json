@@ -1,282 +1,312 @@
 {
-  "schemaVersion": 1,
-  "rightsOwner": "Harley Bartles",
-  "assets": {
-    "safehouse-threshold": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": "ebf2767e-3c18-4d72-939b-f47725f8773f",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-09",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:4e5cc96c-aed2-42ea-833d-e2b7cba296ca"]
-    },
-    "opening-rope-start-anchor": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "75919162-bd16-4985-8672-afdea3a2ffb3",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-13",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": ["linear:2d045fac-9b5a-4201-a111-8e880045319a", "chat-on-steroids:2026-09-13-a8750742"]
-    },
-    "index-desktop-base": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": "fe9f06e1-e962-479a-9634-ef89d709ce5e",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-09",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:5ab525cc-6199-46ef-8735-873e6b5b5b13"]
-    },
-    "index-assent-note": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": "1fc00bf8-6ac4-4f94-b6db-4866e3b58d74",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-09",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:4fcfe31f-ccc0-452b-88f2-dcd67bb8230e"]
-    },
-    "index-blue-carrier": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": "8a3cc100-2a4a-4532-88aa-a806c0d9835c",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-09",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:a3fdc811-8316-4e97-8f4a-7c3e43bc1e63"]
-    },
-    "index-graph-paper": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-09",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:a858be3b-5d50-4365-862a-446b6b1ffa90"]
-    },
-    "index-observation": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": null,
-      "generationDateStatus": "missing-from-retained-history",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:2a767060-d3fb-44c6-b12d-aa6f795123f7"]
-    },
-    "index-macguffin": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "retained-linear-provenance",
-      "generationId": "8244e69b-1575-4eed-ac3b-1db78859a95f",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "recovered-from-linear-record",
-      "evidence": ["linear:bc91c036-2d34-456f-adfb-1bf81c716070"]
-    },
-    "index-walk": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": ["linear:a6163be5-3bdd-425a-b144-b00e3a88423d", "chat-on-steroids:2026-09-09-b6bc99a4"]
-    },
-    "index-inspect": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": ["linear:a6163be5-3bdd-425a-b144-b00e3a88423d", "chat-on-steroids:2026-09-09-b6bc99a4"]
-    },
-    "index-high-step": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": ["linear:a6163be5-3bdd-425a-b144-b00e3a88423d", "chat-on-steroids:2026-09-09-b6bc99a4"]
-    },
-    "index-reach-balance": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "sourceCustodyState": "accepted-not-promoted",
-      "sha256": "928db2928caa2700bb48691aacc8dea3fa0da62132c41be4b2e4c45cf4a8e09",
-      "evidence": ["linear:a6163be5-3bdd-425a-b144-b00e3a88423d", "chat-on-steroids:2026-09-09-b6bc99a4"]
-    },
-    "index-return": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "missing-from-retained-history",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": ["linear:a6163be5-3bdd-425a-b144-b00e3a88423d", "chat-on-steroids:2026-09-09-b6bc99a4"]
-    },
-    "patch-follow": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "e4d1de96-8f7b-459f-8d8e-a925384603c2",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "tool-returned-null",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "verbatim-recovered",
-      "evidence": ["linear:72833c08-cbbe-4674-889a-9024c307c415", "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"]
-    },
-    "patch-leaning": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "4d9d73cf-df43-4807-875e-8ffb4669df0d",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "tool-returned-null",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "verbatim-recovered",
-      "evidence": ["linear:72833c08-cbbe-4674-889a-9024c307c415", "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"]
-    },
-    "patch-high-step": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "49950748-ac1d-4be9-9a21-fbe8671b81e2",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "tool-returned-null",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "verbatim-recovered",
-      "sourceCustodyState": "accepted-not-promoted",
-      "sha256": "fdbb36cd0056f213febb8efb8492eaf10fb6a670f2bbb0335d6addbcc5048d88",
-      "evidence": ["linear:72833c08-cbbe-4674-889a-9024c307c415", "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"]
-    },
-    "patch-pause": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "595d5307-b940-448e-86ca-812f8c293717",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "tool-returned-null",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "verbatim-recovered",
-      "sourceCustodyState": "accepted-not-promoted",
-      "sha256": "fb1a861bc28494a34210d7f8249197c99dad8dce6b9428a6a031c159929f26a6",
-      "evidence": ["linear:72833c08-cbbe-4674-889a-9024c307c415", "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"]
-    },
-    "patch-return": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": "8aa8231b-3094-4a21-9c3f-06833f3abcf9",
-      "generationIdStatus": "retained",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "tool-returned-null",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-10",
-      "generationDateStatus": "retained",
-      "briefStatus": "verbatim-recovered",
-      "evidence": ["linear:72833c08-cbbe-4674-889a-9024c307c415", "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"]
-    },
-    "index-outcome-folder-frame-review": {
-      "model": "OpenAI Image 2.5",
-      "modelEvidence": "project-owner-confirmation-2026-09-14",
-      "generationId": null,
-      "generationIdStatus": "missing-from-retained-history",
-      "parentGenerationId": null,
-      "parentGenerationIdStatus": "missing-from-retained-history",
-      "seed": null,
-      "seedStatus": "not-supplied-by-tool",
-      "generationDate": "2026-09-18",
-      "generationDateStatus": "retained",
-      "briefStatus": "normalized-from-approved-conversation",
-      "evidence": [
-        ".agents/plans/usual-specialists-v2/index-outcome-folder-commission-brief.md",
-        "codex-imagegen-output:exec-4d5c0c6d-ec07-4951-be92-bdf58f521f9d.png",
-        "user-supplied-scratch-master:Z:\\_agent-scratch\\portfolio\\usual-specialists-wireframe\\v2\\Codex Image 18 Sept 2026, 13_52_58.png"
-      ]
-    }
-  }
+    "schemaVersion":  1,
+    "rightsOwner":  "Harley Bartles",
+    "assets":  {
+                   "safehouse-threshold":  {
+                                               "model":  "OpenAI Image 2.5",
+                                               "modelEvidence":  "retained-linear-provenance",
+                                               "generationId":  "ebf2767e-3c18-4d72-939b-f47725f8773f",
+                                               "generationIdStatus":  "retained",
+                                               "parentGenerationId":  null,
+                                               "parentGenerationIdStatus":  "missing-from-retained-history",
+                                               "seed":  null,
+                                               "seedStatus":  "missing-from-retained-history",
+                                               "generationDate":  "2026-09-09",
+                                               "generationDateStatus":  "retained",
+                                               "briefStatus":  "recovered-from-linear-record",
+                                               "evidence":  [
+                                                                "linear:4e5cc96c-aed2-42ea-833d-e2b7cba296ca"
+                                                            ]
+                                           },
+                   "index-desktop-base":  {
+                                              "model":  "OpenAI Image 2.5",
+                                              "modelEvidence":  "retained-linear-provenance",
+                                              "generationId":  "fe9f06e1-e962-479a-9634-ef89d709ce5e",
+                                              "generationIdStatus":  "retained",
+                                              "parentGenerationId":  null,
+                                              "parentGenerationIdStatus":  "missing-from-retained-history",
+                                              "seed":  null,
+                                              "seedStatus":  "missing-from-retained-history",
+                                              "generationDate":  "2026-09-09",
+                                              "generationDateStatus":  "retained",
+                                              "briefStatus":  "recovered-from-linear-record",
+                                              "evidence":  [
+                                                               "linear:5ab525cc-6199-46ef-8735-873e6b5b5b13"
+                                                           ]
+                                          },
+                   "index-assent-note":  {
+                                             "model":  "OpenAI Image 2.5",
+                                             "modelEvidence":  "retained-linear-provenance",
+                                             "generationId":  "1fc00bf8-6ac4-4f94-b6db-4866e3b58d74",
+                                             "generationIdStatus":  "retained",
+                                             "parentGenerationId":  null,
+                                             "parentGenerationIdStatus":  "missing-from-retained-history",
+                                             "seed":  null,
+                                             "seedStatus":  "missing-from-retained-history",
+                                             "generationDate":  "2026-09-09",
+                                             "generationDateStatus":  "retained",
+                                             "briefStatus":  "recovered-from-linear-record",
+                                             "evidence":  [
+                                                              "linear:4fcfe31f-ccc0-452b-88f2-dcd67bb8230e"
+                                                          ]
+                                         },
+                   "index-blue-carrier":  {
+                                              "model":  "OpenAI Image 2.5",
+                                              "modelEvidence":  "retained-linear-provenance",
+                                              "generationId":  "8a3cc100-2a4a-4532-88aa-a806c0d9835c",
+                                              "generationIdStatus":  "retained",
+                                              "parentGenerationId":  null,
+                                              "parentGenerationIdStatus":  "missing-from-retained-history",
+                                              "seed":  null,
+                                              "seedStatus":  "missing-from-retained-history",
+                                              "generationDate":  "2026-09-09",
+                                              "generationDateStatus":  "retained",
+                                              "briefStatus":  "recovered-from-linear-record",
+                                              "evidence":  [
+                                                               "linear:a3fdc811-8316-4e97-8f4a-7c3e43bc1e63"
+                                                           ]
+                                          },
+                   "index-graph-paper":  {
+                                             "model":  "OpenAI Image 2.5",
+                                             "modelEvidence":  "retained-linear-provenance",
+                                             "generationId":  null,
+                                             "generationIdStatus":  "missing-from-retained-history",
+                                             "parentGenerationId":  null,
+                                             "parentGenerationIdStatus":  "missing-from-retained-history",
+                                             "seed":  null,
+                                             "seedStatus":  "missing-from-retained-history",
+                                             "generationDate":  "2026-09-09",
+                                             "generationDateStatus":  "retained",
+                                             "briefStatus":  "recovered-from-linear-record",
+                                             "evidence":  [
+                                                              "linear:a858be3b-5d50-4365-862a-446b6b1ffa90"
+                                                          ]
+                                         },
+                   "index-observation":  {
+                                             "model":  "OpenAI Image 2.5",
+                                             "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                             "generationId":  null,
+                                             "generationIdStatus":  "missing-from-retained-history",
+                                             "parentGenerationId":  null,
+                                             "parentGenerationIdStatus":  "missing-from-retained-history",
+                                             "seed":  null,
+                                             "seedStatus":  "missing-from-retained-history",
+                                             "generationDate":  null,
+                                             "generationDateStatus":  "missing-from-retained-history",
+                                             "briefStatus":  "recovered-from-linear-record",
+                                             "evidence":  [
+                                                              "linear:2a767060-d3fb-44c6-b12d-aa6f795123f7"
+                                                          ]
+                                         },
+                   "index-macguffin":  {
+                                           "model":  "OpenAI Image 2.5",
+                                           "modelEvidence":  "retained-linear-provenance",
+                                           "generationId":  "8244e69b-1575-4eed-ac3b-1db78859a95f",
+                                           "generationIdStatus":  "retained",
+                                           "parentGenerationId":  null,
+                                           "parentGenerationIdStatus":  "missing-from-retained-history",
+                                           "seed":  null,
+                                           "seedStatus":  "missing-from-retained-history",
+                                           "generationDate":  "2026-09-10",
+                                           "generationDateStatus":  "retained",
+                                           "briefStatus":  "recovered-from-linear-record",
+                                           "evidence":  [
+                                                            "linear:bc91c036-2d34-456f-adfb-1bf81c716070"
+                                                        ]
+                                       },
+                   "index-walk":  {
+                                      "model":  "OpenAI Image 2.5",
+                                      "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                      "generationId":  null,
+                                      "generationIdStatus":  "missing-from-retained-history",
+                                      "parentGenerationId":  null,
+                                      "parentGenerationIdStatus":  "missing-from-retained-history",
+                                      "seed":  null,
+                                      "seedStatus":  "missing-from-retained-history",
+                                      "generationDate":  "2026-09-10",
+                                      "generationDateStatus":  "retained",
+                                      "briefStatus":  "normalized-from-approved-conversation",
+                                      "evidence":  [
+                                                       "linear:a6163be5-3bdd-425a-b144-b00e3a88423d",
+                                                       "chat-on-steroids:2026-09-09-b6bc99a4"
+                                                   ]
+                                  },
+                   "index-inspect":  {
+                                         "model":  "OpenAI Image 2.5",
+                                         "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                         "generationId":  null,
+                                         "generationIdStatus":  "missing-from-retained-history",
+                                         "parentGenerationId":  null,
+                                         "parentGenerationIdStatus":  "missing-from-retained-history",
+                                         "seed":  null,
+                                         "seedStatus":  "missing-from-retained-history",
+                                         "generationDate":  "2026-09-10",
+                                         "generationDateStatus":  "retained",
+                                         "briefStatus":  "normalized-from-approved-conversation",
+                                         "evidence":  [
+                                                          "linear:a6163be5-3bdd-425a-b144-b00e3a88423d",
+                                                          "chat-on-steroids:2026-09-09-b6bc99a4"
+                                                      ]
+                                     },
+                   "index-high-step":  {
+                                           "model":  "OpenAI Image 2.5",
+                                           "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                           "generationId":  null,
+                                           "generationIdStatus":  "missing-from-retained-history",
+                                           "parentGenerationId":  null,
+                                           "parentGenerationIdStatus":  "missing-from-retained-history",
+                                           "seed":  null,
+                                           "seedStatus":  "missing-from-retained-history",
+                                           "generationDate":  "2026-09-10",
+                                           "generationDateStatus":  "retained",
+                                           "briefStatus":  "normalized-from-approved-conversation",
+                                           "evidence":  [
+                                                            "linear:a6163be5-3bdd-425a-b144-b00e3a88423d",
+                                                            "chat-on-steroids:2026-09-09-b6bc99a4"
+                                                        ]
+                                       },
+                   "index-reach-balance":  {
+                                               "model":  "OpenAI Image 2.5",
+                                               "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                               "generationId":  null,
+                                               "generationIdStatus":  "missing-from-retained-history",
+                                               "parentGenerationId":  null,
+                                               "parentGenerationIdStatus":  "missing-from-retained-history",
+                                               "seed":  null,
+                                               "seedStatus":  "missing-from-retained-history",
+                                               "generationDate":  "2026-09-10",
+                                               "generationDateStatus":  "retained",
+                                               "briefStatus":  "normalized-from-approved-conversation",
+                                               "sourceCustodyState":  "accepted-not-promoted",
+                                               "sha256":  "928db2928caa2700bb48691aacc8dea3fa0da62132c41be4b2e4c45cf4a8e09",
+                                               "evidence":  [
+                                                                "linear:a6163be5-3bdd-425a-b144-b00e3a88423d",
+                                                                "chat-on-steroids:2026-09-09-b6bc99a4"
+                                                            ]
+                                           },
+                   "index-return":  {
+                                        "model":  "OpenAI Image 2.5",
+                                        "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                        "generationId":  null,
+                                        "generationIdStatus":  "missing-from-retained-history",
+                                        "parentGenerationId":  null,
+                                        "parentGenerationIdStatus":  "missing-from-retained-history",
+                                        "seed":  null,
+                                        "seedStatus":  "missing-from-retained-history",
+                                        "generationDate":  "2026-09-10",
+                                        "generationDateStatus":  "retained",
+                                        "briefStatus":  "normalized-from-approved-conversation",
+                                        "evidence":  [
+                                                         "linear:a6163be5-3bdd-425a-b144-b00e3a88423d",
+                                                         "chat-on-steroids:2026-09-09-b6bc99a4"
+                                                     ]
+                                    },
+                   "patch-follow":  {
+                                        "model":  "OpenAI Image 2.5",
+                                        "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                        "generationId":  "e4d1de96-8f7b-459f-8d8e-a925384603c2",
+                                        "generationIdStatus":  "retained",
+                                        "parentGenerationId":  null,
+                                        "parentGenerationIdStatus":  "tool-returned-null",
+                                        "seed":  null,
+                                        "seedStatus":  "not-supplied-by-tool",
+                                        "generationDate":  "2026-09-10",
+                                        "generationDateStatus":  "retained",
+                                        "briefStatus":  "verbatim-recovered",
+                                        "evidence":  [
+                                                         "linear:72833c08-cbbe-4674-889a-9024c307c415",
+                                                         "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
+                                                     ]
+                                    },
+                   "patch-leaning":  {
+                                         "model":  "OpenAI Image 2.5",
+                                         "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                         "generationId":  "4d9d73cf-df43-4807-875e-8ffb4669df0d",
+                                         "generationIdStatus":  "retained",
+                                         "parentGenerationId":  null,
+                                         "parentGenerationIdStatus":  "tool-returned-null",
+                                         "seed":  null,
+                                         "seedStatus":  "not-supplied-by-tool",
+                                         "generationDate":  "2026-09-10",
+                                         "generationDateStatus":  "retained",
+                                         "briefStatus":  "verbatim-recovered",
+                                         "evidence":  [
+                                                          "linear:72833c08-cbbe-4674-889a-9024c307c415",
+                                                          "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
+                                                      ]
+                                     },
+                   "patch-high-step":  {
+                                           "model":  "OpenAI Image 2.5",
+                                           "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                           "generationId":  "49950748-ac1d-4be9-9a21-fbe8671b81e2",
+                                           "generationIdStatus":  "retained",
+                                           "parentGenerationId":  null,
+                                           "parentGenerationIdStatus":  "tool-returned-null",
+                                           "seed":  null,
+                                           "seedStatus":  "not-supplied-by-tool",
+                                           "generationDate":  "2026-09-10",
+                                           "generationDateStatus":  "retained",
+                                           "briefStatus":  "verbatim-recovered",
+                                           "sourceCustodyState":  "accepted-not-promoted",
+                                           "sha256":  "fdbb36cd0056f213febb8efb8492eaf10fb6a670f2bbb0335d6addbcc5048d88",
+                                           "evidence":  [
+                                                            "linear:72833c08-cbbe-4674-889a-9024c307c415",
+                                                            "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
+                                                        ]
+                                       },
+                   "patch-pause":  {
+                                       "model":  "OpenAI Image 2.5",
+                                       "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                       "generationId":  "595d5307-b940-448e-86ca-812f8c293717",
+                                       "generationIdStatus":  "retained",
+                                       "parentGenerationId":  null,
+                                       "parentGenerationIdStatus":  "tool-returned-null",
+                                       "seed":  null,
+                                       "seedStatus":  "not-supplied-by-tool",
+                                       "generationDate":  "2026-09-10",
+                                       "generationDateStatus":  "retained",
+                                       "briefStatus":  "verbatim-recovered",
+                                       "sourceCustodyState":  "accepted-not-promoted",
+                                       "sha256":  "fb1a861bc28494a34210d7f8249197c99dad8dce6b9428a6a031c159929f26a6",
+                                       "evidence":  [
+                                                        "linear:72833c08-cbbe-4674-889a-9024c307c415",
+                                                        "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
+                                                    ]
+                                   },
+                   "patch-return":  {
+                                        "model":  "OpenAI Image 2.5",
+                                        "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                        "generationId":  "8aa8231b-3094-4a21-9c3f-06833f3abcf9",
+                                        "generationIdStatus":  "retained",
+                                        "parentGenerationId":  null,
+                                        "parentGenerationIdStatus":  "tool-returned-null",
+                                        "seed":  null,
+                                        "seedStatus":  "not-supplied-by-tool",
+                                        "generationDate":  "2026-09-10",
+                                        "generationDateStatus":  "retained",
+                                        "briefStatus":  "verbatim-recovered",
+                                        "evidence":  [
+                                                         "linear:72833c08-cbbe-4674-889a-9024c307c415",
+                                                         "linear:88ce5252-5efc-4b48-adf3-cba854beb3b6"
+                                                     ]
+                                    },
+                   "index-outcome-folder-frame-review":  {
+                                                             "model":  "OpenAI Image 2.5",
+                                                             "modelEvidence":  "project-owner-confirmation-2026-09-14",
+                                                             "generationId":  null,
+                                                             "generationIdStatus":  "missing-from-retained-history",
+                                                             "parentGenerationId":  null,
+                                                             "parentGenerationIdStatus":  "missing-from-retained-history",
+                                                             "seed":  null,
+                                                             "seedStatus":  "not-supplied-by-tool",
+                                                             "generationDate":  "2026-09-18",
+                                                             "generationDateStatus":  "retained",
+                                                             "briefStatus":  "normalized-from-approved-conversation",
+                                                             "evidence":  [
+                                                                              ".agents/plans/usual-specialists-v2/index-outcome-folder-commission-brief.md",
+                                                                              "codex-imagegen-output:exec-4d5c0c6d-ec07-4951-be92-bdf58f521f9d.png",
+                                                                              "user-supplied-scratch-master:Z:\\_agent-scratch\\portfolio\\usual-specialists-wireframe\\v2\\Codex Image 18 Sept 2026, 13_52_58.png"
+                                                                          ]
+                                                         }
+               }
 }

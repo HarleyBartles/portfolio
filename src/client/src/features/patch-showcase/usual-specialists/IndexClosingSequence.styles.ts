@@ -9,12 +9,29 @@ export const Composition = styled.div`
   margin-inline: auto;
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
-    --index-medium-composition-left: max(6cqi, calc(50cqi - 520px));
-    --index-medium-retrieval-left: max(35.333333cqi, calc(50cqi - 173.333333px));
-    --index-medium-office-target-left: clamp(0px, calc(44.545455cqi - 427.636364px), 196px);
-    --index-medium-recognition-target-left: clamp(339.1875px, calc(47.304688cqi - 114.9375px), 547.328125px);
-    --index-medium-outcome-target-right: clamp(960px, calc(78.632813cqi + 205.125px), 1305.984375px);
-    max-width: 1040px;
+    position: relative;
+    --index-close-office-left: clamp(0px, calc(44.545455cqi - 427.636364px), 196px);
+    --index-close-cell-width: clamp(352px, calc(18.029119cqi + 178.920455px), 431.328125px);
+    --index-close-outcome-width: clamp(376px, calc(12.574574cqi + 255.284091px), 431.328125px);
+    --index-close-office-retrieval-overlap: clamp(12.806244px, calc(15.271308cqi - 133.798315px), 80px);
+    --index-close-retrieval-outcome-overlap: clamp(104px, calc(114.171953px - .726568cqi), 107.196899px);
+    --index-close-retrieval-left: calc(
+      var(--index-close-office-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-office-retrieval-overlap)
+    );
+    --index-close-outcome-left: calc(
+      var(--index-close-retrieval-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-retrieval-outcome-overlap)
+    );
+    --index-close-retrieval-top: 64px;
+    --index-close-recognition-top: 94px;
+    --index-close-outcome-top: 148px;
+    width: 100cqi;
+    height: clamp(359.5px, calc(7.070313cqi + 291.625px), 390.609375px);
+    max-width: none;
+    margin-left: -6cqi;
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.compact} {
@@ -34,28 +51,54 @@ export const Composition = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
-    position: relative;
-    --index-close-overlap: 80px;
-    --index-close-step-y: 45px;
-    --index-recognition-seam-offset: clamp(
-      -40px,
-      calc(107.9px - 7.707cqi),
-      0px
-    );
+    --index-close-office-left: 0px;
     --index-close-cell-width: min(
       500px,
       calc((100% + (var(--index-close-overlap) * 2)) / 3)
     );
-    height: 380px;
+    --index-close-outcome-width: var(--index-close-cell-width);
+    --index-close-overlap: 80px;
+    --index-close-office-retrieval-overlap: var(--index-close-overlap);
+    --index-close-retrieval-outcome-overlap: 104px;
+    --index-close-retrieval-left: calc(
+      var(--index-close-office-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-office-retrieval-overlap)
+    );
+    --index-close-outcome-left: calc(
+      var(--index-close-retrieval-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-retrieval-outcome-overlap)
+    );
+    --index-close-retrieval-top: clamp(45px, calc(197px - 9.5cqi), 64px);
+    --index-close-recognition-top: clamp(72px, calc(248px - 11cqi), 94px);
+    --index-close-outcome-top: clamp(90px, calc(554px - 29cqi), 148px);
+    width: 100%;
+    height: clamp(380px, calc(468px - 5.5cqi), 390.609375px);
     max-width: 1340px;
+    margin-left: 0;
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
-    position: relative;
+    --index-close-office-left: 0px;
     --index-close-cell-width: 500px;
+    --index-close-outcome-width: 500px;
     --index-close-overlap: 80px;
-    --index-close-step-y: 45px;
-    --index-recognition-seam-offset: -40px;
+    --index-close-office-retrieval-overlap: var(--index-close-overlap);
+    --index-close-retrieval-outcome-overlap: 104px;
+    --index-close-retrieval-left: calc(
+      var(--index-close-office-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-office-retrieval-overlap)
+    );
+    --index-close-outcome-left: calc(
+      var(--index-close-retrieval-left)
+      + var(--index-close-cell-width)
+      - var(--index-close-retrieval-outcome-overlap)
+    );
+    --index-close-retrieval-top: 45px;
+    --index-close-recognition-top: 72px;
+    --index-close-outcome-top: 90px;
     height: 380px;
     max-width: 1280px;
   }
@@ -71,28 +114,16 @@ export const ObservationPlacement = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
-    grid-column: 1 / 6;
-    transform: translateX(calc(
-      var(--index-medium-office-target-left)
-      - var(--index-medium-composition-left)
-    ));
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
     position: absolute;
-    grid-column: 1 / -1;
+    grid-column: 1 / 6;
     top: 0;
-    left: 0;
+    left: var(--index-close-office-left);
     width: var(--index-close-cell-width);
     transform: none;
   }
 
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
-    position: absolute;
+  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
     grid-column: 1 / -1;
-    top: 0;
-    left: 0;
-    width: var(--index-close-cell-width);
   }
 `
 
@@ -114,36 +145,13 @@ export const RecognitionPlacement = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
-    grid-column: 5 / 8;
-    margin-top: 94px;
-    transform: translateX(calc(
-      var(--index-medium-recognition-target-left)
-      - var(--index-medium-retrieval-left)
-    ));
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
     position: absolute;
     grid-column: 1 / -1;
-    top: 72px;
-    left: calc(
-      var(--index-close-cell-width)
-      - var(--index-close-overlap)
-      + var(--index-recognition-seam-offset)
-    );
-    width: 205px;
+    top: var(--index-close-recognition-top);
+    left: var(--index-close-retrieval-left);
+    width: max-content;
     margin-top: 0;
-    transform: none;
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
-    position: absolute;
-    grid-column: 1 / -1;
-    top: 72px;
-    left: calc(var(--index-close-cell-width) - var(--index-close-overlap) - 40px);
-    width: 205px;
-    margin-top: 0;
-    transform: none;
+    transform: translateX(-50%);
   }
 `
 
@@ -161,27 +169,17 @@ export const RetrievalPlacement = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
-    grid-column: 5 / 10;
-    margin-top: 64px;
+    position: absolute;
+    grid-column: 1 / -1;
+    top: var(--index-close-retrieval-top);
+    left: var(--index-close-retrieval-left);
+    width: var(--index-close-cell-width);
+    margin-top: 0;
     transform: none;
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
-    position: absolute;
     grid-column: 1 / -1;
-    top: var(--index-close-step-y);
-    left: calc(var(--index-close-cell-width) - var(--index-close-overlap));
-    width: var(--index-close-cell-width);
-    margin-top: 0;
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
-    position: absolute;
-    grid-column: 1 / -1;
-    top: var(--index-close-step-y);
-    left: calc(var(--index-close-cell-width) - var(--index-close-overlap));
-    width: var(--index-close-cell-width);
-    margin-top: 0;
   }
 `
 
@@ -205,31 +203,17 @@ export const OutcomePlacement = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.medium} {
-    grid-row: 1;
-    grid-column: 8 / 13;
-    margin-top: 148px;
-    transform: translateX(calc(
-      var(--index-medium-outcome-target-right)
-      - (100cqi - var(--index-medium-composition-left))
-    ));
-  }
-
-  @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
     position: absolute;
     grid-column: 1 / -1;
-    top: calc(var(--index-close-step-y) * 2);
-    left: calc((var(--index-close-cell-width) - var(--index-close-overlap)) * 2);
-    width: var(--index-close-cell-width);
+    top: var(--index-close-outcome-top);
+    left: var(--index-close-outcome-left);
+    width: var(--index-close-outcome-width);
     margin-top: 0;
+    margin-inline: 0;
     transform: none;
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.ultrawide} {
-    position: absolute;
     grid-column: 1 / -1;
-    top: calc(var(--index-close-step-y) * 2);
-    left: calc((var(--index-close-cell-width) - var(--index-close-overlap)) * 2);
-    width: var(--index-close-cell-width);
-    margin-top: 0;
   }
 `

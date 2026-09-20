@@ -178,7 +178,7 @@ const readJson = async (filePath, label) => {
 const repositoryPath = (filePath) => path.relative(repositoryRoot, filePath).split(path.sep).join('/')
 
 export const validateUsualSpecialistsProvenance = async () => {
-  const packageNames = ['index', 'rope', 'silk']
+  const packageNames = ['index']
   const acceptedManifests = {}
   const generationReceipts = {}
   for (const packageName of packageNames) {
@@ -193,13 +193,7 @@ export const validateUsualSpecialistsProvenance = async () => {
     )
   }
 
-  const [
-    indexOutcomeCandidates,
-    commission08Candidates,
-    receiptPeekthroughCandidates,
-    receiptHolePeekCutoutCandidates,
-    commission09Candidates,
-  ] = await Promise.all([
+  const [indexOutcomeCandidates] = await Promise.all([
     readJson(
       path.join(
         specialistsRoot,
@@ -210,59 +204,11 @@ export const validateUsualSpecialistsProvenance = async () => {
       ),
       'Usual Specialists Index outcome candidate manifest',
     ),
-    readJson(
-      path.join(
-        specialistsRoot,
-        'silk',
-        'candidates',
-        'commission-08-reaction-frame-review',
-        'candidate-assets.json',
-      ),
-      'Usual Specialists silk Commission 08 candidate manifest',
-    ),
-    readJson(
-      path.join(
-        specialistsRoot,
-        'silk',
-        'candidates',
-        'receipt-peekthrough-frame-review',
-        'candidate-assets.json',
-      ),
-      'Usual Specialists silk receipt peek-through candidate manifest',
-    ),
-    readJson(
-      path.join(
-        specialistsRoot,
-        'silk',
-        'candidates',
-        'receipt-hole-peek-cutout-review',
-        'candidate-assets.json',
-      ),
-      'Usual Specialists silk receipt-hole peek cutout candidate manifest',
-    ),
-    readJson(
-      path.join(
-        specialistsRoot,
-        'silk',
-        'candidates',
-        'commission-09-frame-review',
-        'candidate-assets.json',
-      ),
-      'Usual Specialists silk Commission 09 candidate manifest',
-    ),
   ])
   const candidateManifests = {
     index: {
       assets: [
         ...indexOutcomeCandidates.assets,
-      ],
-    },
-    silk: {
-      assets: [
-        ...commission08Candidates.assets,
-        ...receiptPeekthroughCandidates.assets,
-        ...receiptHolePeekCutoutCandidates.assets,
-        ...commission09Candidates.assets,
       ],
     },
   }

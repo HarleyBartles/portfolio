@@ -4,7 +4,7 @@
 
 **Goal:** Recompose the approved Index chapter so the document world remains the dominant guided-exploratory field, repeated same-character appearances stay legible as successive moments, and the closing sequence reads as research → recognition → found source → assent consequence, while preserving the page-level wide-screen contract in which the complete Index chapter fits within 1080 CSS pixels at 1920px and wider.
 
-**Architecture:** Keep `IndexChapter` as the chapter-level composer. Give the document world one `IndexEvidenceField` owner for the desk field, blue carrier, graph paper, story card and their responsive relationship. Keep traversal figures owned by the substrate/beat they inhabit, and tag repeated Patch/Index appearances by character and moment so browser proof protects temporal separation without forbidding different characters from sharing space. Keep `IndexClosingSequence` as the directed causal slice whose children own their own content while the sequence owns their overlap and responsive placement. Silk and the red-rope/crossing system are parked and absent from the rendered Index page until a later Silk refactor.
+**Architecture:** Keep `IndexChapter` as the chapter-level composer. Give the document world one `IndexEvidenceField` owner for the desk field, blue carrier, graph paper, story card and their responsive relationship. Keep traversal figures owned by the substrate/beat they inhabit, and tag repeated Patch/Index appearances by character and moment so browser proof protects temporal separation without forbidding different characters from sharing space. Keep `IndexClosingSequence` as the directed causal slice whose children own their own content while the sequence owns their overlap and responsive placement. The retired Silk/rope/crossing implementation is not an Index dependency.
 
 **Tech Stack:** React 19.2.7, TypeScript ~6.0.2, styled-components 6.4.4, Vite 8.1.1, Vitest 4.1.10, Playwright 1.61.1, Sharp 0.34.5, repository-owned OpenAI image-generation workflow.
 
@@ -18,7 +18,7 @@
 - Canonical `/patch/the-usual-specialists/` remains the frozen six-specialist legacy route; `lawful-heist` remains 404.
 - Index returns several plausible routes/route fragments and constraints. It does not prove one route.
 - Preserve the accepted Index document-world control case: main desk field, blue carrier, graph paper, traversal figures, and messy-but-readable evidence terrain.
-- Silk and the red-rope/crossing system are deliberately parked and absent from the rendered Index page. Do not reintroduce them as an Index dependency while this milestone is active.
+- Silk is absent from the rendered Index page. Do not introduce future Silk chapter machinery as an Index dependency.
 - Patch's carried folder remains baked into the accepted traversal assets. Do not retrofit `<RecruitmentFolder state="index" />` or re-author those figures.
 - The old free-floating sticky-note render leaves the active composition, but its accepted source asset and provenance remain under repository custody.
 - The new carried-folder outcome panel is an authored image beat, not a standalone folder primitive and not a folder glamour shot.
@@ -566,7 +566,7 @@ After Harley accepts one candidate:
 - Modify: `src/client/src/features/patch-showcase/usual-specialists/IndexChapter.styles.ts`
 - Modify: `src/client/src/features/patch-showcase/usual-specialists/IndexChapter.test.tsx`
 - Delete after replacement: `IndexCommissionComposition.tsx`, `IndexCommissionComposition.styles.ts`, `IndexCommissionComposition.test.tsx`
-- Leave untouched in this task: Silk components, `RopePiece`, traversal image masters, accepted note master/provenance.
+- Historical execution note: Silk/rope implementation was outside this Index task at the time; it was later retired separately after the Index checkpoint.
 
 **Interfaces:**
 - Consumes: existing `IndexObservation`, `IndexStoryCard`, `IndexDeskDocument`, `IndexBlueCarrier`, `IndexGraphPaper`, `IndexTraversal`, `indexQueries`, and the accepted `index-macguffin.webp` derivative.

@@ -78,7 +78,7 @@ export const ClosingSequencePlacement = styled.div`
   }
 
   @container ${INDEX_CONTAINER_NAME} ${indexQueries.wide} {
-    margin-top: -36px;
+    margin-top: clamp(-36px, calc(316px - 22cqi), 8px);
     margin-right: clamp(40px, 5cqi, 80px);
     margin-left: clamp(180px, 14cqi, 260px);
   }

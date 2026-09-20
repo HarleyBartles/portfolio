@@ -1,21 +1,4 @@
-import styled, { css } from 'styled-components'
-import { CHAPTER_CROSSING_HEIGHT } from './chapterCrossingGeometry'
-import {
-  OPENING_ROPE_START_ANCHOR_RENDER_WIDTH,
-  openingIndexConnectionResponsiveCss,
-  openingIndexCrossingTopPortX,
-  openingIndexCrossingTopPortYOffset,
-  openingIndexStartAnchorLeft,
-  openingIndexStartAnchorTop,
-  openingIndexStartAnchorTransform,
-  openingIndexStartPortX,
-} from './openingIndexConnectionGeometry'
-import { SPECIALISTS_CHAPTER_NAV_HEIGHT } from './SpecialistsChapterNav.styles'
-import { SPECIALISTS_ROPE_GEOMETRY } from './specialistsRopeGeometry'
-import { usualSpecialistsAssetPath } from './usualSpecialistsAssets'
-import type { OpeningIndexConnection } from './usualSpecialistsConnections'
-
-const OPENING_INDEX_TRANSITION_HEIGHT = SPECIALISTS_CHAPTER_NAV_HEIGHT + CHAPTER_CROSSING_HEIGHT
+import styled from 'styled-components'
 const OPENING_CONTAINER_NAME = 'specialists-opening'
 const openingQueries = {
   narrow: '(max-width: 389px)',
@@ -35,84 +18,6 @@ export const Opening = styled.header`
   @media ${openingQueries.throughCompact} {
     padding-top: 26px;
   }
-`
-
-export const OpeningRopeLayer = styled.div`
-  --opening-rope-layer-height: calc(clamp(540px, 68vw, 820px) + 72px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
-  position: absolute;
-  z-index: 9;
-  right: 0;
-  bottom: -${OPENING_INDEX_TRANSITION_HEIGHT}px;
-  left: 0;
-  height: var(--opening-rope-layer-height);
-  pointer-events: none;
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
-    --opening-rope-layer-height: calc(762px + ${OPENING_INDEX_TRANSITION_HEIGHT}px);
-  }
-`
-
-export const OpeningRopePlacement = styled.div<{ $connection: OpeningIndexConnection }>`
-  position: absolute;
-  z-index: 0;
-  width: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexRunWidth}px;
-  ${({ $connection }) => openingIndexConnectionResponsiveCss($connection, (placement) => css`
-    --opening-rope-start-x: ${openingIndexStartPortX(placement)};
-    --opening-rope-start-y: ${placement.startPort.yPx}px;
-    --opening-rope-exit-x: ${openingIndexCrossingTopPortX(placement)};
-    --opening-rope-exit-y-offset: ${openingIndexCrossingTopPortYOffset(placement)}px;
-  `)}
-  top: var(--opening-rope-start-y);
-  left: calc(var(--opening-rope-start-x) - ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexRunWidth / 2}px);
-  --opening-rope-delta-x: calc(var(--opening-rope-exit-x) - var(--opening-rope-start-x));
-  --opening-rope-delta-y: calc(var(--opening-rope-layer-height) + var(--opening-rope-exit-y-offset) - var(--opening-rope-start-y));
-  height: hypot(var(--opening-rope-delta-x), var(--opening-rope-delta-y));
-  overflow: visible;
-  transform: rotate(atan2(calc(0px - var(--opening-rope-delta-x)), var(--opening-rope-delta-y)));
-  transform-origin: 50% 0;
-`
-
-export const OpeningTiledRopeMaterial = styled.div`
-  position: absolute;
-  top: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
-  right: 0;
-  bottom: -${SPECIALISTS_ROPE_GEOMETRY.paracord.anchorUnderlap}px;
-  left: 0;
-  width: 100%;
-  background-image: url("${usualSpecialistsAssetPath('rope-taut-straight.webp')}");
-  background-position: center top;
-  background-repeat: repeat-y;
-  background-size: ${SPECIALISTS_ROPE_GEOMETRY.paracord.indexTileTextureWidth}px auto;
-`
-
-const OpeningRopePort = styled.span`
-  position: absolute;
-  left: 50%;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-`
-
-export const OpeningRopeStartPort = styled(OpeningRopePort)`
-  top: 0;
-  transform: translate(-50%, -50%);
-`
-
-export const OpeningRopeExitPort = styled(OpeningRopePort)`
-  bottom: 0;
-  transform: translate(-50%, 50%);
-`
-
-export const OpeningRopeAnchorPlacement = styled.div<{ $connection: OpeningIndexConnection }>`
-  position: absolute;
-  z-index: 1;
-  width: ${OPENING_ROPE_START_ANCHOR_RENDER_WIDTH}px;
-  transform-origin: 50% 50%;
-  ${({ $connection }) => openingIndexConnectionResponsiveCss($connection, (placement) => css`
-    top: ${openingIndexStartAnchorTop(placement)}px;
-    left: ${openingIndexStartAnchorLeft(placement)};
-    transform: ${openingIndexStartAnchorTransform(placement)};
-  `)}
 `
 
 export const OpeningLockup = styled.div`
