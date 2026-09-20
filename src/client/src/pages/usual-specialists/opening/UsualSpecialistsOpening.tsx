@@ -9,7 +9,7 @@ const openingQueries = {
   compact: '(min-width: 390px) and (max-width: 719px)',
   throughCompact: '(max-width: 719px)',
   throughMid: '(max-width: 899px)',
-  wide: '(min-width: 1400px)',
+  wide: '(min-width: 1300px)',
   beyondCeiling: '(min-width: 2561px)',
 } as const
 
@@ -35,15 +35,10 @@ const OpeningLockup = styled.div`
 `
 
 const SeriesLockupField = styled.div`
-  width: min(35%, 390px);
-  margin-left: auto;
+  width: min(46%, 190px);
 
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
-    width: min(42%, 340px);
-  }
-
-  @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughCompact} {
-    width: min(54%, 280px);
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
+    width: min(34%, 110px);
   }
 `
 
@@ -58,10 +53,11 @@ const SpecialistsWordmarkField = styled.span`
   width: 100%;
 `
 
-const OpeningPrecis = styled.p`
+const OpeningSupporting = styled.div`
   width: min(46%, 33rem);
-  margin: 2px 0 0 auto;
-  font-size: clamp(1.05rem, 1.7vw, 1.36rem);
+  margin-left: auto;
+  display: grid;
+  gap: clamp(12px, 1.5vw, 20px);
 
   @container ${OPENING_CONTAINER_NAME} ${openingQueries.throughMid} {
     width: min(62%, 33rem);
@@ -71,6 +67,25 @@ const OpeningPrecis = styled.p`
     width: 82%;
     margin-top: 8px;
   }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.narrow} {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 2px;
+    padding-left: 8%;
+  }
+
+  @container ${OPENING_CONTAINER_NAME} ${openingQueries.wide} {
+    width: min(44%, 36rem);
+    margin-top: -16px;
+    margin-right: clamp(80px, 8vw, 140px);
+  }
+`
+
+const OpeningPrecis = styled.p`
+  width: 100%;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.7vw, 1.36rem);
 `
 
 const Threshold = styled.div`
@@ -106,8 +121,8 @@ const ThresholdCopy = styled.div`
 
   h2 {
     margin: 0 0 12px;
-    font-size: clamp(2.25rem, 4.6vw, 4.9rem);
-    line-height: .91;
+    font-size: clamp(1.9rem, 3.2vw, 3.4rem);
+    line-height: .96;
   }
 
   p {
@@ -130,14 +145,6 @@ const ThresholdCopy = styled.div`
   }
 `
 
-const ThresholdEyebrow = styled.p`
-  margin-bottom: 12px !important;
-  font-size: .75rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-`
-
 type UsualSpecialistsOpeningProps = {
   style?: CSSProperties
 }
@@ -146,16 +153,18 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
   return (
     <Opening style={style}>
       <OpeningLockup>
-        <SeriesLockupField data-patch-series-lockup>
-          <PatchSeriesLockup decorative />
-        </SeriesLockupField>
         <OpeningTitle id="content-page-title">
           <span className="visually-hidden">The Usual Specialists</span>
           <SpecialistsWordmarkField data-specialists-wordmark aria-hidden="true">
             <UsualSpecialistsWordmark decorative />
           </SpecialistsWordmarkField>
         </OpeningTitle>
-        <OpeningPrecis>Patch has a caper and not enough certainty to execute it. Six people turn intent into world knowledge, a reliable route, authority, a decision, recoverability and a durable record - mostly by carrying on with their actual jobs while he talks.</OpeningPrecis>
+        <OpeningSupporting data-specialists-opening-supporting>
+          <SeriesLockupField data-patch-series-lockup>
+            <PatchSeriesLockup decorative />
+          </SeriesLockupField>
+          <OpeningPrecis>Patch built a vault that won’t let him in. Good. It’s doing its job. Lock an agent operating environment down hard enough and eventually legitimate work hits the wall too. Patch still needs a lawful way back in. That route has to be justified, tested, authorised, deliberately chosen, recoverable and recorded.</OpeningPrecis>
+        </OpeningSupporting>
       </OpeningLockup>
       <Threshold>
         <ThresholdArt
@@ -168,9 +177,8 @@ export const UsualSpecialistsOpening = ({ style }: UsualSpecialistsOpeningProps)
           alt="An ordinary apartment safehouse threshold repurposed room by room for the Specialists."
         />
         <ThresholdCopy data-specialists-threshold-copy>
-          <ThresholdEyebrow>The adventure / recruitment pass</ThresholdEyebrow>
-          <h2>One ordinary apartment. Six rooms bent to purpose.</h2>
-          <p>Patch moves through the safehouse with a folder and an unheard pitch. Each Specialist exposes the missing layer by doing the work they already do. The assent marker lands when the role makes itself unavoidable.</p>
+          <h2>Six names on the list</h2>
+          <p>No single agent gets to invent, prove, authorise, choose, recover and record its own exception. Patch needs the specialists who already own those questions. First up: Index.</p>
         </ThresholdCopy>
       </Threshold>
     </Opening>

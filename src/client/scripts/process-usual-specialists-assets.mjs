@@ -11,6 +11,7 @@ const repositoryRoot = path.resolve(clientRoot, '..', '..')
 const specialistsSourceRoot = path.join(clientRoot, 'assets', 'patch', 'the-usual-specialists')
 const acceptedPackageRoots = Object.freeze({
   index: path.join(specialistsSourceRoot, 'index'),
+  'under-construction': path.join(specialistsSourceRoot, 'under-construction'),
 })
 const outputRoot = path.join(clientRoot, 'public', 'media', 'patch', 'the-usual-specialists')
 const receiptPath = path.join(outputRoot, 'usual-specialists-derivatives.json')
@@ -41,6 +42,14 @@ export const USUAL_SPECIALISTS_ASSETS = Object.freeze([
   { id: 'patch-follow', source: 'patch-follow.png', output: 'patch-follow.webp', width: 320, format: 'webp' },
   { id: 'patch-leaning', source: 'patch-leaning.png', output: 'patch-leaning.webp', width: 320, format: 'webp' },
   { id: 'patch-return', source: 'patch-return.png', output: 'patch-return.webp', width: 320, format: 'webp' },
+  {
+    id: 'under-construction-patch-lockup',
+    sourcePackage: 'under-construction',
+    source: 'under-construction-patch-lockup.png',
+    output: 'under-construction-patch-lockup.webp',
+    width: 1200,
+    format: 'webp',
+  },
 ])
 
 const USUAL_SPECIALISTS_PROCESSABLE_ASSETS = USUAL_SPECIALISTS_ASSETS

@@ -43,12 +43,13 @@ describe('Usual Specialists asset processor', () => {
   it('locks the accepted WebP derivative contract', () => {
     const outputs = USUAL_SPECIALISTS_ASSETS.map(({ output }) => output)
 
-    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(15)
+    expect(USUAL_SPECIALISTS_ASSETS).toHaveLength(16)
     expect(outputs).toContain('safehouse-threshold.webp')
     expect(outputs).toContain('index-high-step.webp')
     expect(outputs).toContain('index-outcome-folder.webp')
     expect(outputs).toContain('index-return.webp')
     expect(outputs).toContain('patch-return.webp')
+    expect(outputs).toContain('under-construction-patch-lockup.webp')
     expect(USUAL_SPECIALISTS_ASSETS.every(({ format }) => format === 'webp')).toBe(true)
     expect(USUAL_SPECIALISTS_WEBP_OPTIONS).toEqual({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
   })
@@ -58,6 +59,16 @@ describe('Usual Specialists asset processor', () => {
       id: 'index-outcome-folder',
       source: 'index-outcome-folder.png',
       output: 'index-outcome-folder.webp',
+      width: 1200,
+    }))
+  })
+
+  it('keeps the accepted under-construction lockup in route-level custody', () => {
+    expect(USUAL_SPECIALISTS_ASSETS).toContainEqual(expect.objectContaining({
+      id: 'under-construction-patch-lockup',
+      sourcePackage: 'under-construction',
+      source: 'under-construction-patch-lockup.png',
+      output: 'under-construction-patch-lockup.webp',
       width: 1200,
     }))
   })

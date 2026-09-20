@@ -3,12 +3,17 @@ import { describe, expect, test } from 'vitest'
 import { IndexStoryCard } from './IndexStoryCard'
 
 describe('IndexStoryCard', () => {
-  test('owns the Index story copy and root style override', () => {
+  test('keeps Index focused on lawful-route evidence and provenance', () => {
     const { container } = render(<IndexStoryCard style={{ opacity: 0.5 }} />)
 
     const card = container.querySelector('[data-index-story-card]')
     expect(card).toHaveStyle({ opacity: '0.5' })
-    expect(card).toHaveTextContent('Index is already moving before Patch finishes the pitch. She leads him across maps, revisions and overlapping records, tracing the provenance from source to source until several plausible routes and their constraints emerge clearly enough to test.')
+    expect(card).toHaveTextContent(/pitch barely gets started/i)
+    expect(card).toHaveTextContent(/maps/i)
+    expect(card).toHaveTextContent(/sources overlap/i)
+    expect(card).toHaveTextContent(/revisions disagree/i)
+    expect(card).toHaveTextContent(/lawful routes/i)
+    expect(card).toHaveTextContent(/where they came from/i)
   })
 
   test('does not expose caller className as a styling seam', () => {

@@ -178,7 +178,7 @@ const readJson = async (filePath, label) => {
 const repositoryPath = (filePath) => path.relative(repositoryRoot, filePath).split(path.sep).join('/')
 
 export const validateUsualSpecialistsProvenance = async () => {
-  const packageNames = ['index']
+  const packageNames = ['index', 'under-construction']
   const acceptedManifests = {}
   const generationReceipts = {}
   for (const packageName of packageNames) {

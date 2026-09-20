@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "id": "under-construction-patch-lockup",
+      "originalWireframeFilename": "exec-7cf928e8-6ece-461a-a598-fd5031c24f16.png",
+      "repositorySourcePath": "src/client/assets/patch/the-usual-specialists/under-construction/under-construction-patch-lockup.png",
+      "sha256": "392197a0cf08139f61131eab797a8771ebe90f2570b88e5b7e9d9de030a3b9da",
+      "width": 1536,
+      "height": 1024,
+      "status": "accepted",
+      "selection": "current",
+      "rightsOwner": "Harley Bartles",
+      "provenanceRecord": "src/client/assets/patch/the-usual-specialists/provenance/under-construction-patch-lockup.md"
+    }
+  ]
+}

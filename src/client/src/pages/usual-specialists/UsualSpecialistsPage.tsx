@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { UsualSpecialistsOpening } from './opening/UsualSpecialistsOpening'
 import { IndexChapter } from './index/IndexChapter'
-import { SpecialistsChapterNav } from './navigation/SpecialistsChapterNav'
+import { UnderConstructionNotice } from './under-construction/UnderConstructionNotice'
 
 
 const SpecialistsStory = styled.article`
@@ -28,6 +28,10 @@ const OpeningComposition = styled.div`
   position: relative;
 `
 
+const ConstructionPlacement = styled.div`
+  border-top: 1px solid rgb(32 35 31 / 35%);
+`
+
 type UsualSpecialistsPageProps = {
   style?: CSSProperties
 }
@@ -39,8 +43,10 @@ export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
         <OpeningComposition>
           <UsualSpecialistsOpening />
         </OpeningComposition>
-        <SpecialistsChapterNav />
         <IndexChapter />
+        <ConstructionPlacement data-specialists-chapter-divider>
+          <UnderConstructionNotice />
+        </ConstructionPlacement>
       </SpecialistsCanvas>
     </SpecialistsStory>
   )
