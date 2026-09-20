@@ -303,7 +303,7 @@
                                                              "generationDateStatus":  "retained",
                                                              "briefStatus":  "normalized-from-approved-conversation",
                                                              "evidence":  [
-                                                                              ".agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md",
+                                                                              "git:3a734246efada2ee580bd9faefaf8279fd6ae75d:.agents/image-briefs/usual-specialists-v2/index-outcome-folder-commission-brief.md",
                                                                               "codex-imagegen-output:exec-4d5c0c6d-ec07-4951-be92-bdf58f521f9d.png",
                                                                               "user-supplied-scratch-master:Z:\\_agent-scratch\\portfolio\\usual-specialists-wireframe\\v2\\Codex Image 18 Sept 2026, 13_52_58.png"
                                                                           ]

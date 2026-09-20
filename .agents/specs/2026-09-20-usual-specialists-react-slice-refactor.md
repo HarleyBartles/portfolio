@@ -1,6 +1,8 @@
 # The Usual Specialists React Slice Refactor
 
-**Status:** Design approved in chat; implementation pending
+**Status:** `completed-awaiting-retirement` — implemented in the Index closeout
+slice. Durable page-slice/source-layout rules are promoted to
+`.agents/doctrine/coding-discipline.md`.
 
 ## Goal
 
