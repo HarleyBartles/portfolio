@@ -63,6 +63,11 @@ const loadUsualSpecialistsPreviewRoute = async () => {
   }
 }
 
+const loadPublishedUsualSpecialistsRoute = async () => ({
+  Component: (await import('../pages/usual-specialists/PublishedUsualSpecialistsPage'))
+    .PublishedUsualSpecialistsPage,
+})
+
 const LegacyFairytaleRedirect = () => {
   const { slug } = useParams()
   return (
@@ -116,6 +121,10 @@ export const appRoutes: RouteObject[] = [
       {
         path: 'patch/the-usual-specialists/next',
         lazy: loadUsualSpecialistsPreviewRoute,
+      },
+      {
+        path: 'patch/the-usual-specialists',
+        lazy: loadPublishedUsualSpecialistsRoute,
       },
       {
         path: 'patch/:slug',

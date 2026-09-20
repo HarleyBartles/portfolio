@@ -505,8 +505,8 @@ test('Specialists Index authored references stay locked at the accepted widths',
   const widths = [320, 599, 600, 699, 700, 959, 1400, 1619, 1920, 2560] as const
 
   await page.setViewportSize({ width: widths[0], height: 1080 })
-  await openStable(page, './patch/the-usual-specialists/next')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index-draft"]')
+  await openStable(page, './patch/the-usual-specialists')
+  const story = page.locator('[data-visual-contract="patch-usual-specialists-index"]')
 
   for (const width of widths) {
     await page.setViewportSize({ width, height: 1080 })
@@ -516,7 +516,7 @@ test('Specialists Index authored references stay locked at the accepted widths',
       clip: enclosingClip(
         await clipBetween(
           page,
-          '[data-visual-contract="patch-usual-specialists-index-draft"] header',
+          '[data-visual-contract="patch-usual-specialists-index"] header',
           '[data-specialist-chapter="index"]',
         ),
       ),

@@ -96,31 +96,32 @@ describe('Adventures of Patch routes', () => {
     expect(router.state.location.pathname).toBe('/portfolio/patch/lawful-heist')
   })
 
-  test('keeps the published Usual Specialists experience on its canonical route', async () => {
+  test('publishes the accepted Usual Specialists V2 experience on its canonical route', async () => {
     const router = renderRoute('/patch/the-usual-specialists')
 
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists')
-    expect(await screen.findByRole('heading', { level: 1, name: 'The Usual Specialists' }, { timeout: 15_000 })).toBeVisible()
-    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' }, { timeout: 15_000 })
-    expect(within(story).getAllByRole('article')).toHaveLength(6)
-    expect(within(story).getByText('Advanced visual pre-production')).toBeVisible()
-    expect(within(story).getByRole('img', { name: /completed recruitment folder/i })).toBeVisible()
-    expect(document.querySelector('[data-visual-contract="patch-usual-specialists-index-draft"]')).toBeNull()
+    const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
+    expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
+    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index')
+    expect(story.querySelector('[data-specialist-chapter="index"]')).toBeInTheDocument()
+    expect(story.querySelector('[data-specialists-under-construction]')).toBeInTheDocument()
+    expect(story.querySelector('[data-specialist-chapter="silk"]')).not.toBeInTheDocument()
+    expect(within(story).queryByText('Advanced visual pre-production')).not.toBeInTheDocument()
     expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index')
     expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute(
       'href',
       'https://harleybartles.com/patch/the-usual-specialists',
     )
-    expect(document.querySelector('.content-page-header')).not.toBeNull()
-    expect(document.querySelector('.content-page-body')).not.toBeNull()
+    expect(document.querySelector('.content-page-header')).toBeNull()
+    expect(document.querySelector('.content-page-body')).toBeNull()
   }, 30_000)
 
-  test('serves the in-progress Usual Specialists V2 only on the unlinked preview route', async () => {
+  test('keeps the unlinked Usual Specialists preview alias out of the public index', async () => {
     const router = renderRoute('/patch/the-usual-specialists/next/')
 
     expect(router.state.location.pathname).toBe('/portfolio/patch/the-usual-specialists/next/')
     const story = await screen.findByRole('article', { name: 'The Usual Specialists' }, { timeout: 15_000 })
-    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
+    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index')
     expect(story.querySelector('[data-specialist-chapter="index"]')).toBeInTheDocument()
     expect(story.querySelector('[data-specialist-chapter="silk"]')).not.toBeInTheDocument()
     expect(story.querySelector('[data-specialist-chapter="writ"]')).not.toBeInTheDocument()

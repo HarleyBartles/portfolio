@@ -11,7 +11,7 @@ describe('UsualSpecialistsPreviewPage', () => {
         <MemoryRouter>
           <UsualSpecialistsPreviewPage
             Presentation={() => (
-              <article aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index-draft">
+              <article aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index">
                 <h1>The Usual Specialists</h1>
               </article>
             )}
