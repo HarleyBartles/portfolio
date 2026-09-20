@@ -1,11 +1,11 @@
 ## Scope
 
-Completed planning-artifact custody truth for this repository.
+Completed execution-artifact custody truth for this repository.
 
 ## Doctrine
 
-Completed plans, specifications, roadmaps, checkpoints, and similar execution
-artifacts remain tracked through their completing PR so squash-merged `main`
+Completed plans, specifications, roadmaps, checkpoints, image-generation
+briefs, and similar execution artifacts remain tracked through their completing PR so squash-merged `main`
 records them, then leave the tracked repository in the first commit of the next
 substantive slice. Git history is the immutable record. A completed artifact is not an authority: do not use it as
 a source of canonical command sequences, a template for current
@@ -17,6 +17,16 @@ When it leaves the tracked tree in the successor slice, an optional disposable
 convenience copy may live at
 `<main-checkout>/../_agent-scratch/<repo-name>/completed/<artifact-type>/`
 with no manifest, retention promise, or evidentiary role.
+
+An image-generation brief remains live while generation, correction, candidate
+review, or acceptance is still active. It becomes complete only when it has
+produced the accepted asset or asset set it was intended to produce, or when the
+brief has been explicitly abandoned. Scratch, rejected, or still-under-review
+candidates do not make a brief complete.
+
+Any governed artifact that is abandoned rather than completed must record that
+decision and its reason before retirement. Abandonment is not inferred from
+inactivity, scratch output, rejected candidates, or deletion.
 
 Durable content promotes before removal: enduring architecture decisions
 belong in the repository's declared ADR home; operating rules belong in
