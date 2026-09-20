@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import os
 import shutil
 import subprocess
 import sys
@@ -59,12 +58,7 @@ def _repo_standards_cmd(mode: str, allow_shared: bool) -> list[str]:
     return cmd
 
 
-def _refresh_skills_cmd(
-    mode: str,
-    allow_shared: bool,
-    *,
-    roll_marketplace_source: bool = True,
-) -> list[str]:
+def _refresh_skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
         ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
@@ -72,8 +66,6 @@ def _refresh_skills_cmd(
     ]
     if mode == "apply" and allow_shared:
         cmd.append("--allow-shared-checkout")
-    if not roll_marketplace_source:
-        cmd.append("--no-roll-marketplace-source")
     return cmd
 
 
@@ -155,35 +147,12 @@ def _repo_standards_check(ctx: Ctx) -> None:
 
 
 def _skills_apply(ctx: Ctx) -> None:
-    staged_snapshot = os.environ.get("REPO_STANDARDS_STAGED_SNAPSHOT") == "1"
-    _run(
-        _refresh_skills_cmd(
-            "apply",
-            ctx.allow_shared,
-            roll_marketplace_source=not staged_snapshot,
-        ),
-        ctx,
-    )
-    _run(
-        _refresh_skills_cmd(
-            "check",
-            ctx.allow_shared,
-            roll_marketplace_source=not staged_snapshot,
-        ),
-        ctx,
-    )
+    _run(_refresh_skills_cmd("apply", ctx.allow_shared), ctx)
+    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
 
 
 def _skills_check(ctx: Ctx) -> None:
-    staged_snapshot = os.environ.get("REPO_STANDARDS_STAGED_SNAPSHOT") == "1"
-    _run(
-        _refresh_skills_cmd(
-            "check",
-            ctx.allow_shared,
-            roll_marketplace_source=not staged_snapshot,
-        ),
-        ctx,
-    )
+    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
 
 
 def _mesh_apply(ctx: Ctx) -> None:

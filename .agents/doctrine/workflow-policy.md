@@ -33,9 +33,9 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 
 - A task is not ready just because files changed.
 - Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
-- During implementation, run the smallest focused test slice that proves each repair. When the complete staged change is ready, commit normally and let the tracked pre-commit hook run the complete local gate once against the exact staged tree.
-- Do not run the complete canonical gate immediately before a commit that will run the same gate again. If the hook refuses the commit after its state-safety checks, use its full independent-failure report to make one focused repair sweep, prove those slices, and retry the commit. Playwright may be skipped only when its production-build dependency failed. Do not bypass the hook.
-- A successful normal commit is the local canonical proof for its exact staged tree. Before publishing a PR, verify the branch state so hosted CI is expected to confirm that proof rather than discover predictable failures.
+- During implementation, run the smallest focused test slice that proves the current change or repair. The normal loop is: commit; if the hook fails, fix every independent failure it reports, run only the narrow proofs for those repairs, and commit again; when the hook succeeds, push. Do not insert a separate broad verification phase into that loop.
+- The tracked hook owns the complete local gate for the commit candidate and reports the full independent failure set in one run. Only checks blocked by a failed dependency may be skipped. Do not run the complete canonical gate immediately before a commit that will run it anyway, repeat it immediately after a successful hooked commit, or bypass the hook.
+- A successful normal commit is the local canonical proof for that commit. Hosted CI should confirm the same green state after push rather than act as the first place predictable failures are discovered.
 - Do not present a stale plan, stale README, or stale AGENTS pointer as current truth.
 
 ## Clean finish
