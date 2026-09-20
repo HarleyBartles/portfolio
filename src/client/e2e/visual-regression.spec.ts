@@ -110,18 +110,21 @@ for (const route of nonHomeProof) {
 }
 
 const clipBetween = async (page: Page, firstSelector: string, lastSelector: string) => {
-  await page.evaluate(() => scrollTo(0, 0))
   const [first, last] = await Promise.all([
-    page.locator(firstSelector).boundingBox(),
-    page.locator(lastSelector).boundingBox(),
+    page.locator(firstSelector).evaluate((element) => {
+      const box = element.getBoundingClientRect()
+      return { x: box.x + scrollX, y: box.y + scrollY, width: box.width, height: box.height }
+    }),
+    page.locator(lastSelector).evaluate((element) => {
+      const box = element.getBoundingClientRect()
+      return { x: box.x + scrollX, y: box.y + scrollY, width: box.width, height: box.height }
+    }),
   ])
-  expect(first).not.toBeNull()
-  expect(last).not.toBeNull()
   return {
-    x: Math.min(first!.x, last!.x),
-    y: first!.y,
-    width: Math.max(first!.x + first!.width, last!.x + last!.width) - Math.min(first!.x, last!.x),
-    height: last!.y + last!.height - first!.y,
+    x: Math.min(first.x, last.x),
+    y: first.y,
+    width: Math.max(first.x + first.width, last.x + last.width) - Math.min(first.x, last.x),
+    height: last.y + last.height - first.y,
   }
 }
 
@@ -132,6 +135,30 @@ const enclosingClip = (clip: { x: number; y: number; width: number; height: numb
   const bottom = Math.ceil(clip.y + clip.height - 1e-3)
   return { x, y, width: right - x, height: bottom - y }
 }
+
+test('clipBetween measures document bounds without changing scroll position', async ({ page }) => {
+  await page.setViewportSize({ width: 400, height: 300 })
+  await page.setContent(`
+    <style>
+      body { margin: 0; height: 2000px; }
+      [data-clip-first] { position: absolute; top: 100px; left: 20px; width: 100px; height: 50px; }
+      [data-clip-last] { position: absolute; top: 1500px; left: 10px; width: 200px; height: 100px; }
+    </style>
+    <div data-clip-first></div>
+    <div data-clip-last></div>
+  `)
+  await page.evaluate(() => scrollTo(0, 1000))
+  const scrollYBeforeClip = await page.evaluate(() => scrollY)
+
+  expect(scrollYBeforeClip).toBe(1000)
+  expect(enclosingClip(await clipBetween(page, '[data-clip-first]', '[data-clip-last]'))).toEqual({
+    x: 10,
+    y: 100,
+    width: 200,
+    height: 1500,
+  })
+  expect(await page.evaluate(() => scrollY)).toBe(scrollYBeforeClip)
+})
 
 test('writing index keeps its newest-first editorial composition', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
