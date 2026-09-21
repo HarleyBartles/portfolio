@@ -1,0 +1,17 @@
+{
+  "slug": "adventures-of-patch",
+  "kind": "project",
+  "title": "Adventures of Patch",
+  "status": "active project",
+  "summary": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
+  "tags": [
+    "project",
+    "comics",
+    "automation"
+  ],
+  "relatedSlugs": [
+    "goldilocks",
+    "sorcerers-apprentice",
+    "identity-emporium"
+  ]
+}

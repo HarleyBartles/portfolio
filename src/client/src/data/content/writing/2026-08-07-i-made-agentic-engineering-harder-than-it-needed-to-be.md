@@ -1,7 +1,9 @@
 ---
-title: I made agentic engineering harder than it needed to be
-date: 2026-08-07
-summary: I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.
+title: "I made agentic engineering harder than it needed to be"
+summary: "I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it."
+readingMinutes: 8
+tags: ["writing","agentic-engineering","context"]
+relatedSlugs: []
 ---
 
 # I made agentic engineering harder than it needed to be

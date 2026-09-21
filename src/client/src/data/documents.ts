@@ -139,7 +139,6 @@ export function parseContentSummary(item: unknown): ContentSummary | EditorialWr
     date: source.date === undefined ? undefined : String(source.date),
     readingMinutes:
       typeof source.readingMinutes === 'number' ? source.readingMinutes : undefined,
-    presentation: source.presentation as ContentSummary['presentation'],
     featured: source.featured === true,
     tags: Array.isArray(source.tags) ? source.tags.map(String) : [],
     relatedSlugs: Array.isArray(source.relatedSlugs) ? source.relatedSlugs.map(String) : [],
@@ -166,21 +165,52 @@ function itemToSummary(item: unknown): ContentSummary {
 
 export const navigation: ContentSummary[] = manifest.items.map(itemToSummary)
 
-export function getProjectSummaries(items: readonly ContentSummary[] = navigation): ContentSummary[] {
-  return items.filter((item) => item.kind === 'project')
-}
+const defaultProjectOrder = new Map([
+  ['codex-marketplace', 0],
+  ['agentic-learning-lab', 1],
+  ['wild-bunch', 2],
+  ['adventures-of-patch', 3],
+])
+
+const defaultPatchOrder = new Map([
+  ['goldilocks', 0],
+  ['sorcerers-apprentice', 1],
+  ['identity-emporium', 2],
+  ['tournament-of-reasonable-defaults', 3],
+  ['the-usual-specialists', 4],
+])
+
+const orderSummaries = (
+  items: readonly ContentSummary[],
+  kind: ContentSummary['kind'],
+  order: ReadonlyMap<string, number>,
+): ContentSummary[] => items
+  .filter((item) => item.kind === kind)
+  .toSorted((left, right) => (
+    (order.get(left.slug) ?? Number.MAX_SAFE_INTEGER)
+    - (order.get(right.slug) ?? Number.MAX_SAFE_INTEGER)
+  ))
+
+export const getProjectSummaries = (items: readonly ContentSummary[] = navigation): ContentSummary[] => (
+  orderSummaries(items, 'project', defaultProjectOrder)
+)
+
+export const getPatchSummaries = (items: readonly ContentSummary[] = navigation): ContentSummary[] => (
+  orderSummaries(items, 'patch', defaultPatchOrder)
+)
 
 const manifestItemBySlug = new Map(
   manifest.items.map((item) => [String(item.slug), item as Record<string, unknown>]),
 )
 
 export async function loadDocument(summary: ContentSummary): Promise<ContentDocument> {
-  if (summary.presentation !== undefined) {
+  const manifestItem = manifestItemBySlug.get(summary.slug)
+  const sourcePath = manifestItem === undefined || typeof manifestItem.path !== 'string'
+    ? ''
+    : manifestItem.path
+  if (sourcePath === '') {
     return { summary, markdown: undefined }
   }
-
-  const manifestItem = manifestItemBySlug.get(summary.slug)
-  const sourcePath = manifestItem === undefined ? '' : String(manifestItem.path)
   const loader = markdownLoaders[`./content/${sourcePath}`]
 
   if (loader === undefined) {

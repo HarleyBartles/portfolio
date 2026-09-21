@@ -7,5 +7,5 @@ type PatchPageProps = {
 }
 
 export function PatchPage({ slug }: PatchPageProps): ReactElement {
-  return <ContentPage slug={slug} expectedKind="patch" headerVisual={<PatchStoryBrand storyWordmark={slug === 'the-usual-specialists' ? 'usual-specialists' : undefined} />} />
+  return <ContentPage slug={slug} expectedKind="patch" headerVisual={<PatchStoryBrand />} />
 }

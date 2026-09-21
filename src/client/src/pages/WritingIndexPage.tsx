@@ -22,11 +22,7 @@ export const WritingIndexPage = () => {
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="Writing and Notes | Harley Bartles"
-        description="Notes on engineering practice, agentic systems, and repository design."
-        canonicalPath="/writing"
-      />
+      <DocumentMetadata canonicalPath="/writing" />
       <section className="content-index writing-index" aria-labelledby="writing-index-title">
         <IndexHeader
           eyebrow="Writing / field notes"

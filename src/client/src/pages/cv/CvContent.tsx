@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ActionAnchor, ExternalLink, Eyebrow } from '../../components'
 import { EditorialHeading } from '../../components/editorial'
-import type { ContentSummary } from '../../types'
+import { getContentPath, type ContentSummary } from '../../types'
 import type { EducationRecord as EducationRecordData } from '../../data/professionalProfile'
 
 const Header = styled.header`
@@ -298,7 +298,7 @@ export const CvProjectList = ({
     {projects.map((project) => (
       <Project key={project.slug}>
         <CvSubheading>
-          <ProjectLink to={`/projects/${project.slug}`}>
+          <ProjectLink to={getContentPath(project)}>
             {project.title}
           </ProjectLink>
         </CvSubheading>

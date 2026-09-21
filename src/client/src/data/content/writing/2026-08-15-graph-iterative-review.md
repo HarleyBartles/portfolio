@@ -1,7 +1,9 @@
 ---
-title: If you write a loop, don't be surprised when your agent starts looping
-date: 2026-08-22
-summary: A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.
+title: "If you write a loop, don't be surprised when your agent starts looping"
+summary: "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route."
+readingMinutes: 8
+tags: ["writing","agentic-engineering","review"]
+relatedSlugs: []
 ---
 
 # If you write a loop, don't be surprised when your agent starts looping

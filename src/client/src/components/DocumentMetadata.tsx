@@ -2,12 +2,21 @@ import { useEffect } from 'react'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
 import { buildPublicAssetUrl, buildPublicUrl } from '../data/routes/siteProfile'
 
-type DocumentMetadataProps = {
+type IndexedDocumentMetadataProps = {
+  canonicalPath: string
+  noIndex?: false
+  title?: string
+  description?: string
+}
+
+type NoIndexDocumentMetadataProps = {
   title: string
   description: string
   canonicalPath: string
-  noIndex?: boolean
+  noIndex: true
 }
+
+type DocumentMetadataProps = IndexedDocumentMetadataProps | NoIndexDocumentMetadataProps
 
 function getOrCreateMeta(name: string): HTMLMetaElement {
   const existing = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)
@@ -83,12 +92,17 @@ export const DocumentMetadata = ({
   canonicalPath,
   noIndex = false,
 }: DocumentMetadataProps) => {
-  useEffect(() => {
-    const route = getRouteMetadata(normalizeCanonicalPath(canonicalPath))
+  const normalizedPath = normalizeCanonicalPath(canonicalPath)
+  const route = noIndex ? undefined : getRouteMetadata(normalizedPath)
 
+  if (!noIndex && route === undefined && (title === undefined || description === undefined)) {
+    throw new Error(`Missing generated route metadata for ${canonicalPath}`)
+  }
+
+  useEffect(() => {
     if (noIndex || route === undefined) {
-      document.title = title
-      getOrCreateMeta('description').setAttribute('content', description)
+      document.title = title ?? 'Portfolio | Harley Bartles'
+      getOrCreateMeta('description').setAttribute('content', description ?? 'Portfolio content.')
       getOrCreateMeta('robots').setAttribute('content', 'noindex, nofollow')
       removeHeadElement('link[rel="canonical"]')
       for (const property of ['og:url', 'og:image', 'og:image:alt', 'og:image:width', 'og:image:height', 'og:image:type']) {
@@ -120,7 +134,7 @@ export const DocumentMetadata = ({
     getOrCreateMeta('twitter:description').setAttribute('content', route.description)
     getOrCreateMeta('twitter:image').setAttribute('content', socialImage)
     getOrCreateMeta('twitter:image:alt').setAttribute('content', route.socialImage.alt)
-  }, [canonicalPath, description, title])
+  }, [canonicalPath, description, noIndex, route, title])
 
   return <></>
 }

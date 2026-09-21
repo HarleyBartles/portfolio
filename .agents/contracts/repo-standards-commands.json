@@ -8,6 +8,10 @@
     "**/.provenance.json",
     ".agents/plugins/marketplace.json",
     "codex-marketplace/plugin-roots.json",
-    "codex-marketplace/manifest.json"
+    "codex-marketplace/manifest.json",
+    "src/client/src/data/content/content-manifest.json",
+    "src/client/src/data/routes/route-metadata.generated.json",
+    "src/client/public/robots.txt",
+    "src/client/public/sitemap.xml"
   ]
 }

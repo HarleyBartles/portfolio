@@ -1,6 +1,12 @@
+import { readFileSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+
+const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
+const contentRouteRoots = JSON.parse(
+  readFileSync(path.join(scriptDirectory, '..', 'src', 'data', 'routes', 'content-route-roots.json'), 'utf8'),
+)
 
 const INDEX_ROUTES = [
   ['home', '/', 'home', 'Harley Bartles | Full-stack software engineer', 'Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations.'],
@@ -12,7 +18,6 @@ const INDEX_ROUTES = [
   ['contact', '/contact', 'contact', 'Contact | Harley Bartles', 'Contact Harley Bartles about senior full-stack engineering roles, portfolio work or an interesting engineering problem through the configured privacy-preserving form.'],
 ]
 
-const KIND_ROUTE = { project: 'projects', writing: 'writing', patch: 'patch' }
 const DEFAULT_SOCIAL_IMAGE = {
   path: '/brand/social-card.png',
   alt: 'Harley Bartles, Full-stack software engineer',
@@ -38,8 +43,8 @@ function entry(id, pathValue, kind, title, description) {
 export function buildRouteCatalogue(manifest) {
   const indexEntries = INDEX_ROUTES.map(([id, route, kind, title, description]) => entry(id, route, kind, title, description))
   const contentEntries = manifest.items.flatMap((item) => {
-    const root = KIND_ROUTE[item.kind]
-    return root === undefined ? [] : [entry(`${item.kind}:${item.slug}`, `/${root}/${item.slug}`, item.kind, `${item.title} | Harley Bartles`, item.summary)]
+    const root = contentRouteRoots[item.kind]
+    return root === undefined ? [] : [entry(`${item.kind}:${item.slug}`, `${root}/${item.slug}`, item.kind, `${item.title} | Harley Bartles`, item.summary)]
   })
 
   return [...indexEntries, ...contentEntries].sort((left, right) => left.path.localeCompare(right.path))
@@ -60,7 +65,7 @@ export async function refreshRouteCatalogue({ manifestPath, outputPath, check = 
 
 const scriptPath = process.argv[1] === undefined ? '' : pathToFileURL(path.resolve(process.argv[1])).href
 if (scriptPath === import.meta.url) {
-  const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+  const clientRoot = path.resolve(scriptDirectory, '..')
   const check = process.argv.includes('--check')
   await refreshRouteCatalogue({
     manifestPath: path.join(clientRoot, 'src', 'data', 'content', 'content-manifest.json'),

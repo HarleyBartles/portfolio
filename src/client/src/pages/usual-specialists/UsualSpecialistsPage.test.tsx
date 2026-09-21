@@ -12,7 +12,7 @@ describe('Usual Specialists route-owned story', () => {
     )
 
     const story = screen.getByRole('article', { name: 'The Usual Specialists' })
-    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index-draft')
+    expect(story).toHaveAttribute('data-visual-contract', 'patch-usual-specialists-index')
     expect(story).toHaveAttribute('aria-label', 'The Usual Specialists')
     expect(story).not.toHaveAttribute('aria-labelledby')
     expect(within(story).getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()

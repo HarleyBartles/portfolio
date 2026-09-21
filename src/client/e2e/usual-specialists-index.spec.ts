@@ -1,6 +1,6 @@
 import { expect, test, type Locator, type Page } from '@playwright/test'
 
-const specialistsPreviewPath = './patch/the-usual-specialists/next/'
+const specialistsPath = './patch/the-usual-specialists/'
 
 const settleViewport = async (page: Page, width: number): Promise<void> => {
   await page.setViewportSize({ width, height: 1080 })
@@ -11,7 +11,7 @@ const settleViewport = async (page: Page, width: number): Promise<void> => {
 
 const openIndex = async (page: Page, width: number): Promise<Locator> => {
   await page.setViewportSize({ width, height: 1080 })
-  await page.goto(specialistsPreviewPath)
+  await page.goto(specialistsPath)
   const index = page.getByRole('region', { name: 'Index' })
   await expect(index).toBeVisible()
   return index
@@ -295,7 +295,7 @@ test('The Usual Specialists Index return pair does not own the walking Index lan
 })
 
 test('The Usual Specialists construction copy stays inside the accepted sign face', async ({ page }) => {
-  await page.goto(specialistsPreviewPath)
+  await page.goto(specialistsPath)
 
   const construction = page.locator('[data-specialists-under-construction]')
   const image = construction.getByRole('img', {
@@ -333,7 +333,7 @@ test('The Usual Specialists construction copy stays inside the accepted sign fac
 
 test('The Usual Specialists construction artwork crops its transparent side margins below 600px', async ({ page }) => {
   await page.setViewportSize({ width: 599, height: 1080 })
-  await page.goto(specialistsPreviewPath)
+  await page.goto(specialistsPath)
 
   const lockup = page.locator('[data-specialists-construction-lockup]')
   const artwork = page.locator('[data-specialists-construction-artwork]')
@@ -355,7 +355,7 @@ test('The Usual Specialists construction artwork crops its transparent side marg
 })
 
 test('The Usual Specialists opening keeps the Patch signature subordinate at narrow and wide widths', async ({ page }) => {
-  await page.goto(specialistsPreviewPath)
+  await page.goto(specialistsPath)
 
   const title = page.locator('[data-specialists-wordmark]')
   const supporting = page.locator('[data-specialists-opening-supporting]')

@@ -1,7 +1,9 @@
 ---
-title: '"I just write the code" is not a full sentence'
-date: 2026-08-28
-summary: Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.
+title: "\"I just write the code\" is not a full sentence"
+summary: "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own."
+readingMinutes: 7
+tags: ["writing","software-engineering","engineering-judgement"]
+relatedSlugs: ["why-adrs","the-right-test-isnt-your-favourite-test"]
 ---
 
 Seven and a half years ago, I wanted to write good code. My code, working in the real world, having an effect. That seemed like plenty to be getting on with.

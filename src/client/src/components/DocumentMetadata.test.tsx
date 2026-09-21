@@ -29,11 +29,7 @@ describe('DocumentMetadata', () => {
 
   test('sets a useful title, description, and canonical URL for a public page', () => {
     render(
-      <DocumentMetadata
-        title="Project Stories | Harley Bartles"
-        description="Selected public engineering project stories from Harley Bartles."
-        canonicalPath="/projects"
-      />,
+      <DocumentMetadata canonicalPath="/projects" />,
     )
 
     expect(document.title).toBe('Project Stories | Harley Bartles')
@@ -63,11 +59,7 @@ describe('DocumentMetadata', () => {
 
   test('removes publication identity when a public document becomes a no-index preview', () => {
     const { rerender } = render(
-      <DocumentMetadata
-        title="Project Stories | Harley Bartles"
-        description="Selected public engineering project stories from Harley Bartles."
-        canonicalPath="/projects"
-      />,
+      <DocumentMetadata canonicalPath="/projects" />,
     )
 
     expect(readCanonical()).not.toBeNull()
@@ -101,6 +93,12 @@ describe('DocumentMetadata', () => {
     )
 
     expect(readCanonical()).toBeNull()
+  })
+
+  test('fails closed when an indexable route has no generated metadata', () => {
+    expect(() => render(
+      <DocumentMetadata canonicalPath="/not-registered" />,
+    )).toThrow('Missing generated route metadata for /not-registered')
   })
 })
 

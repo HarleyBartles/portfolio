@@ -16,11 +16,11 @@ describe('content API client', () => {
 
     expect(document.summary.slug).toBe('wild-bunch')
     expect(document.summary.kind).toBe('project')
-    expect(document.summary.presentation).toBe('wild-bunch-case-study')
+    expect(document.summary).not.toHaveProperty('presentation')
     expect(document.markdown).toBeUndefined()
 
     await expect(getContent('agentic-learning-lab')).resolves.toMatchObject({
-      summary: { slug: 'agentic-learning-lab', status: 'Course 1 complete', presentation: 'learning-lab-case-study' },
+      summary: { slug: 'agentic-learning-lab', status: 'Course 1 complete' },
       markdown: undefined,
     })
   })

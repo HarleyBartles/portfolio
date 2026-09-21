@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import { LearningLabImage } from '../case-study/learning-lab/LearningLabImage'
 import { LearningLoop } from '../case-study/learning-lab/LearningLoop'
+import type { ProjectVisualSlug } from './projectVisualRegistry'
 import {
   DecisionDiagramVisual,
   EssayVisual,
@@ -15,14 +16,6 @@ import {
   WildBunchPreviewVisual,
   type ProjectVisualPlacement,
 } from './ProjectVisual.styles'
-
-export type ProjectVisualSlug =
-  | 'codex-marketplace'
-  | 'agentic-learning-lab'
-  | 'adventures-of-patch'
-  | 'wild-bunch'
-  | 'agentic-engineering-vs-vibe-coding'
-  | 'i-made-agentic-engineering-harder-than-it-needed-to-be'
 
 type ProjectVisualProps = {
   slug: ProjectVisualSlug

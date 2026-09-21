@@ -1,0 +1,17 @@
+{
+  "slug": "agentic-learning-lab",
+  "kind": "project",
+  "title": "Agentic Learning Lab",
+  "status": "Course 1 complete",
+  "summary": "A facilitator-led curriculum that helps non-programmers direct, inspect, verify and recover agent work through bounded practical labs.",
+  "tags": [
+    "project",
+    "agentic-engineering",
+    "curriculum"
+  ],
+  "relatedSlugs": [
+    "agentic-engineering-vs-vibe-coding",
+    "why-adrs",
+    "the-right-test-isnt-your-favourite-test"
+  ]
+}

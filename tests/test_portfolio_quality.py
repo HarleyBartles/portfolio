@@ -427,11 +427,8 @@ class PortfolioQualityTests(unittest.TestCase):
             return [str(finding) for finding in validate_portfolio(fixture.root, today=today)]
 
     @staticmethod
-    def use_learning_lab_presentation(fixture: PortfolioFixture) -> Path:
-        source = fixture.content / str(fixture.items[0]["path"])
-        source.unlink()
-        del fixture.items[0]["path"]
-        fixture.items[0]["presentation"] = "learning-lab-case-study"
+    def use_learning_lab_content(fixture: PortfolioFixture) -> Path:
+        fixture.items[0]["slug"] = "agentic-learning-lab"
         fixture.write_manifest()
         return fixture.root / "src/client/src/data/case-studies/learning-lab-evidence.json"
 
@@ -628,43 +625,28 @@ class PortfolioQualityTests(unittest.TestCase):
 
                 self.assertTrue(any("must be a canonical POSIX path" in finding for finding in findings))
 
-    def test_manifest_requires_one_known_body_source_for_every_item(self) -> None:
+    def test_manifest_allows_route_owned_content_without_a_markdown_path(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            source = fixture.content / str(fixture.items[0]["path"])
+            source.unlink()
+            del fixture.items[0]["path"]
+            fixture.write_manifest()
+
+        self.assertEqual([], self.validate(mutate))
+
+    def test_manifest_rejects_rendering_metadata(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             fixture.items[0]["presentation"] = "marketplace-case-study"
             fixture.write_manifest()
 
-        both_sources = self.validate(mutate)
-        self.assertTrue(any("exactly one body source" in finding for finding in both_sources))
+        findings = self.validate(mutate)
+        self.assertTrue(any("must not contain rendering metadata" in finding for finding in findings))
 
-        def missing_source(fixture: PortfolioFixture) -> None:
-            del fixture.items[0]["path"]
-            fixture.write_manifest()
-
-        neither_source = self.validate(missing_source)
-        self.assertTrue(any("exactly one body source" in finding for finding in neither_source))
-
-        def unknown_presentation(fixture: PortfolioFixture) -> None:
-            del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "unknown-case-study"
-            fixture.write_manifest()
-
-        unknown = self.validate(unknown_presentation)
-        self.assertTrue(any("unknown presentation" in finding for finding in unknown))
-
-        def non_project_presentation(fixture: PortfolioFixture) -> None:
-            del fixture.items[1]["path"]
-            fixture.items[1]["presentation"] = "marketplace-case-study"
-            fixture.write_manifest()
-
-        non_project = self.validate(non_project_presentation)
-        self.assertTrue(any("only supported for project content" in finding for finding in non_project))
-
-    def test_presentation_entries_still_validate_shared_metadata(self) -> None:
+    def test_route_owned_entries_still_validate_shared_metadata(self) -> None:
         for field in ("tags", "relatedSlugs"):
             with self.subTest(field=field):
                 def mutate(fixture: PortfolioFixture) -> None:
                     del fixture.items[0]["path"]
-                    fixture.items[0]["presentation"] = "marketplace-case-study"
                     fixture.items[0][field] = "not-an-array"
                     fixture.write_manifest()
 
@@ -672,58 +654,36 @@ class PortfolioQualityTests(unittest.TestCase):
 
                 self.assertTrue(any(f"{field} must be a string array" in finding for finding in findings))
 
-    def test_patch_showcase_accepts_authored_presentations(self) -> None:
-        for presentation in ("patch-identity-emporium", "patch-tournament", "patch-usual-specialists"):
-            with self.subTest(presentation=presentation):
-                def mutate(fixture: PortfolioFixture) -> None:
-                    source = fixture.content / str(fixture.items[0]["path"])
-                    source.unlink()
-                    fixture.items[0].update({
-                        "slug": "patch-story",
-                        "kind": "patch",
-                        "title": "Patch Story",
-                        "status": "visual development",
-                        "summary": "A shaped visual story.",
-                        "presentation": presentation,
-                    })
-                    del fixture.items[0]["path"]
-                    fixture.write_manifest()
+    def test_patch_showcase_accepts_route_owned_content(self) -> None:
+        def mutate(fixture: PortfolioFixture) -> None:
+            source = fixture.content / str(fixture.items[0]["path"])
+            source.unlink()
+            fixture.items[0].update({
+                "slug": "patch-story",
+                "kind": "patch",
+                "title": "Patch Story",
+                "status": "visual development",
+                "summary": "A shaped visual story.",
+            })
+            del fixture.items[0]["path"]
+            fixture.write_manifest()
 
-                findings = self.validate(mutate)
+        self.assertEqual([], self.validate(mutate))
 
-                self.assertEqual(findings, [])
-
-    def test_learning_lab_presentation_requires_project_content_and_evidence(self) -> None:
+    def test_learning_lab_content_requires_evidence(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
-            self.use_learning_lab_presentation(fixture)
+            self.use_learning_lab_content(fixture)
 
         missing_findings = self.validate(missing)
         self.assertTrue(any("cannot load Learning Lab evidence" in finding for finding in missing_findings))
 
         def malformed(fixture: PortfolioFixture) -> None:
-            evidence_path = self.use_learning_lab_presentation(fixture)
+            evidence_path = self.use_learning_lab_content(fixture)
             evidence_path.parent.mkdir(parents=True, exist_ok=True)
             evidence_path.write_text("{", encoding="utf-8")
 
         malformed_findings = self.validate(malformed)
         self.assertTrue(any("cannot load Learning Lab evidence" in finding for finding in malformed_findings))
-
-        def both_sources(fixture: PortfolioFixture) -> None:
-            fixture.items[0]["presentation"] = "learning-lab-case-study"
-            fixture.write_manifest()
-            fixture.write_learning_lab_evidence()
-
-        self.assertTrue(any("exactly one body source" in finding for finding in self.validate(both_sources)))
-
-        def non_project(fixture: PortfolioFixture) -> None:
-            source = fixture.content / str(fixture.items[1]["path"])
-            source.unlink()
-            del fixture.items[1]["path"]
-            fixture.items[1]["presentation"] = "learning-lab-case-study"
-            fixture.write_manifest()
-            fixture.write_learning_lab_evidence()
-
-        self.assertTrue(any("only supported for project content" in finding for finding in self.validate(non_project)))
 
     def test_learning_lab_evidence_rejects_invalid_taxonomy_and_maturity(self) -> None:
         mutations = {
@@ -787,7 +747,7 @@ class PortfolioQualityTests(unittest.TestCase):
         for label, (mutate_evidence, expected) in mutations.items():
             with self.subTest(label=label):
                 def mutate(fixture: PortfolioFixture) -> None:
-                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    evidence_path = self.use_learning_lab_content(fixture)
                     fixture.write_learning_lab_evidence()
                     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
                     mutate_evidence(evidence)
@@ -797,7 +757,7 @@ class PortfolioQualityTests(unittest.TestCase):
 
     def test_learning_lab_delivery_changes_only_from_authored_evidence(self) -> None:
         def stale_planned(fixture: PortfolioFixture) -> None:
-            self.use_learning_lab_presentation(fixture)
+            self.use_learning_lab_content(fixture)
             fixture.write_learning_lab_evidence()
 
         stale = self.validate(stale_planned, today=date(2026, 9, 1))
@@ -811,7 +771,7 @@ class PortfolioQualityTests(unittest.TestCase):
         for label, (mutate_delivery, expected) in started_mutations.items():
             with self.subTest(label=label):
                 def mutate(fixture: PortfolioFixture) -> None:
-                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    evidence_path = self.use_learning_lab_content(fixture)
                     fixture.write_learning_lab_evidence()
                     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
                     evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
@@ -822,7 +782,7 @@ class PortfolioQualityTests(unittest.TestCase):
                 self.assertTrue(any(expected in finding for finding in findings), expected)
 
         def planned_with_started_date(fixture: PortfolioFixture) -> None:
-            evidence_path = self.use_learning_lab_presentation(fixture)
+            evidence_path = self.use_learning_lab_content(fixture)
             fixture.write_learning_lab_evidence()
             evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
             evidence["delivery"]["startedOn"] = "2026-08-23"
@@ -874,7 +834,7 @@ class PortfolioQualityTests(unittest.TestCase):
         for label, (mutate_evidence, expected) in mutations.items():
             with self.subTest(label=label):
                 def mutate(fixture: PortfolioFixture) -> None:
-                    evidence_path = self.use_learning_lab_presentation(fixture)
+                    evidence_path = self.use_learning_lab_content(fixture)
                     fixture.write_learning_lab_evidence()
                     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
                     mutate_evidence(evidence)
@@ -884,13 +844,13 @@ class PortfolioQualityTests(unittest.TestCase):
 
     def test_learning_lab_evidence_accepts_planned_and_started_states(self) -> None:
         def planned(fixture: PortfolioFixture) -> None:
-            self.use_learning_lab_presentation(fixture)
+            self.use_learning_lab_content(fixture)
             fixture.write_learning_lab_evidence()
 
         self.assertEqual([], self.validate(planned, today=date(2026, 8, 24)))
 
         def started(fixture: PortfolioFixture) -> None:
-            evidence_path = self.use_learning_lab_presentation(fixture)
+            evidence_path = self.use_learning_lab_content(fixture)
             fixture.write_learning_lab_evidence()
             evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
             evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23", "display": "23 August 2026"}
@@ -899,7 +859,7 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertEqual([], self.validate(started, today=date(2026, 8, 24)))
 
         def started_without_display(fixture: PortfolioFixture) -> None:
-            evidence_path = self.use_learning_lab_presentation(fixture)
+            evidence_path = self.use_learning_lab_content(fixture)
             fixture.write_learning_lab_evidence()
             evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
             evidence["delivery"] = {"status": "started", "startedOn": "2026-08-23"}
@@ -911,7 +871,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_marketplace_evidence_rejects_invalid_snapshot_and_private_coordinates(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.items[0]["slug"] = "codex-marketplace"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_marketplace_evidence("b" * 40)
@@ -944,7 +904,7 @@ class PortfolioQualityTests(unittest.TestCase):
             fixture = PortfolioFixture(Path(temporary))
             fixture.write()
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.items[0]["slug"] = "codex-marketplace"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_marketplace_evidence("b" * 40)
@@ -964,7 +924,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_marketplace_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.items[0]["slug"] = "codex-marketplace"
             fixture.write_manifest()
 
         missing_findings = self.validate(missing)
@@ -972,7 +932,7 @@ class PortfolioQualityTests(unittest.TestCase):
 
         def malformed(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.items[0]["slug"] = "codex-marketplace"
             fixture.write_manifest()
             evidence_path = fixture.root / "src/client/src/data/case-studies/marketplace-evidence.json"
             evidence_path.parent.mkdir(parents=True, exist_ok=True)
@@ -984,7 +944,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_marketplace_evidence_accepts_explicit_local_boundaries(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "marketplace-case-study"
+            fixture.items[0]["slug"] = "codex-marketplace"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_marketplace_evidence()
@@ -994,7 +954,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_wild_bunch_evidence_is_required_and_must_be_valid_json(self) -> None:
         def missing(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.items[0]["slug"] = "wild-bunch"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
 
@@ -1003,7 +963,7 @@ class PortfolioQualityTests(unittest.TestCase):
 
         def malformed(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.items[0]["slug"] = "wild-bunch"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             evidence_path = fixture.root / "src/client/src/data/case-studies/wild-bunch-evidence.json"
@@ -1016,7 +976,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_wild_bunch_evidence_rejects_invalid_public_coordinates_and_capture_recipe(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.items[0]["slug"] = "wild-bunch"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_wild_bunch_evidence("main")
@@ -1063,7 +1023,7 @@ class PortfolioQualityTests(unittest.TestCase):
             with self.subTest(observed_at=observed_at):
                 def mutate(fixture: PortfolioFixture) -> None:
                     del fixture.items[0]["path"]
-                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.items[0]["slug"] = "wild-bunch"
                     fixture.write_manifest()
                     (fixture.content / "projects/example-project.md").unlink()
                     fixture.write_wild_bunch_evidence()
@@ -1094,7 +1054,7 @@ class PortfolioQualityTests(unittest.TestCase):
             with self.subTest(coordinate=coordinate):
                 def mutate(fixture: PortfolioFixture) -> None:
                     del fixture.items[0]["path"]
-                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.items[0]["slug"] = "wild-bunch"
                     fixture.write_manifest()
                     (fixture.content / "projects/example-project.md").unlink()
                     fixture.write_wild_bunch_evidence()
@@ -1109,7 +1069,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_wild_bunch_evidence_rejects_a_pathless_pinned_representative_link(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.items[0]["slug"] = "wild-bunch"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_wild_bunch_evidence()
@@ -1136,7 +1096,7 @@ class PortfolioQualityTests(unittest.TestCase):
             with self.subTest(encoded_path=encoded_path):
                 def mutate(fixture: PortfolioFixture) -> None:
                     del fixture.items[0]["path"]
-                    fixture.items[0]["presentation"] = "wild-bunch-case-study"
+                    fixture.items[0]["slug"] = "wild-bunch"
                     fixture.write_manifest()
                     (fixture.content / "projects/example-project.md").unlink()
                     fixture.write_wild_bunch_evidence()
@@ -1154,7 +1114,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_wild_bunch_evidence_rejects_empty_capabilities_unpinned_links_and_malformed_images(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
+            fixture.items[0]["slug"] = "wild-bunch"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()
             fixture.write_wild_bunch_evidence()
@@ -1221,15 +1181,6 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("--source-dir", result.stdout + result.stderr)
 
-    def test_wild_bunch_presentation_preserves_the_single_body_source_contract(self) -> None:
-        def mutate(fixture: PortfolioFixture) -> None:
-            fixture.items[0]["presentation"] = "wild-bunch-case-study"
-            fixture.write_manifest()
-
-        findings = self.validate(mutate)
-
-        self.assertTrue(any("exactly one body source" in finding for finding in findings))
-
     def test_patch_evidence_rejects_invalid_production_claims_and_private_coordinates(self) -> None:
         mutations = {
             "short source revision": (
@@ -1274,7 +1225,7 @@ class PortfolioQualityTests(unittest.TestCase):
             with self.subTest(label=label):
                 def mutate(fixture: PortfolioFixture) -> None:
                     del fixture.items[0]["path"]
-                    fixture.items[0]["presentation"] = "patch-pipeline-case-study"
+                    fixture.items[0]["slug"] = "adventures-of-patch"
                     fixture.items[0]["status"] = "active project"
                     fixture.write_manifest()
                     (fixture.content / "projects/example-project.md").unlink()
@@ -1290,7 +1241,7 @@ class PortfolioQualityTests(unittest.TestCase):
     def test_patch_evidence_accepts_the_public_safe_contract(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             del fixture.items[0]["path"]
-            fixture.items[0]["presentation"] = "patch-pipeline-case-study"
+            fixture.items[0]["slug"] = "adventures-of-patch"
             fixture.items[0]["status"] = "active project"
             fixture.write_manifest()
             (fixture.content / "projects/example-project.md").unlink()

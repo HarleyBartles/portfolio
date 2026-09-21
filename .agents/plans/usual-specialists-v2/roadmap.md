@@ -4,7 +4,9 @@
 
 **Status:** Index milestone complete; Silk is the next fresh chapter design/spec target
 
-**Preview route:** `/patch/the-usual-specialists/next/`
+**Published route:** `/patch/the-usual-specialists/`
+
+**Unlinked no-index alias:** `/patch/the-usual-specialists/next/`
 
 **Page design authority:** [The Usual Specialists V2: Page-System Design](../../specs/2026-09-17-usual-specialists-visual-story-design.md)
 
@@ -26,7 +28,7 @@ planning provenance. It has no current execution authority.
 
 ## Epic outcome
 
-Build `/patch/the-usual-specialists/next/` chapter by chapter as one coherent
+Build `/patch/the-usual-specialists/` chapter by chapter as one coherent
 recruitment story:
 
 **Index → Silk → Writ → Klause → Rollback → Receipt → completed folder close**.
@@ -84,8 +86,10 @@ design conflict:
   fits within 1080 CSS pixels. Named inter-chapter seams sit outside that envelope;
   the rule is achieved through chapter-local recomposition rather than a fixed-height
   route shell. Review 1920×1080 and 2560×1080 explicitly.
-- The unlinked V2 preview remains `noindex, nofollow` and non-canonical throughout
-  this roadmap. Canonical cutover is a separate decision.
+- The accepted opening + Index + Under Construction milestone is now canonical.
+  The retained `/patch/the-usual-specialists/next/` alias remains
+  `noindex, nofollow` and non-canonical; future chapters reach the canonical
+  route only after their own review and acceptance.
 
 ## Roadmap sequence
 
@@ -95,13 +99,13 @@ just in time.
 
 | # | Title | Status | Spec File | Plan File | Commit | PR | Rating | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Index editorial close | done | [Index chapter spec](../../specs/2026-09-17-usual-specialists-index-chapter-design.md) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | retired after merge; preserved in Git history | `3a73424` | #67 | 9/10 | Index responsive estate is locked. The retired Silk/rope/crossing implementation was subsequently removed from the live tree so Index remains an independent foundation. |
+| 1 | Index editorial close | done | retired Index chapter spec (preserved in Git history) + [page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | retired after merge; preserved in Git history | `3a73424` | #67 | 9/10 | Index responsive estate is locked. The retired Silk/rope/crossing implementation was subsequently removed from the live tree so Index remains an independent foundation. |
 | 2 | Silk | pending | fresh chapter spec required | — | — | — | — | Silk remains specialist #2 and still owns `prove the route`. Start from the accepted Index boundary with a fresh chapter design. Reuse only the retained traced `SILK` name mark plus `PRESSURE | PROVE THE ROUTE` lockup unless new design work explicitly chooses otherwise. |
 | 3 | Writ | pending | [Writ chapter spec](../../specs/2026-09-17-usual-specialists-writ-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: threshold loop, continuous rounds/caseload, object-transparency polyptych, dominant `Absolutely not. On whose authority?` interruption, Writ-supplied bounded authority, and white/yellow/pink triplicate split. JIT plan waits for the actual Silk milestone output. |
 | 4 | Klause | pending | [Klause chapter spec](../../specs/2026-09-17-usual-specialists-klause-chapter-design.md) | — | — | — | — | Chapter design approved and spec-readiness green: one stable master field, minimal Klause motion, five-state reduction sequence, page-deletes-itself subtraction grammar, IKEA-white working field, and manila-folder/red-`K` colour payoff. JIT plan waits for the actual Writ milestone output. |
 | 5 | Rollback | pending | [Rollback chapter spec](../../specs/2026-09-17-usual-specialists-rollback-chapter-design.md) | — | — | — | — | Chapter design approved: chamber-side audience position, off-camera failure evidence, rebar-concrete containment pressure, slow amber state cycle, shutter-to-black `What's your Plan B?`, safe-side diagnosis, silent realisation, dog-tag clank and immediate move to the next failure test. No CRT `I'M IN`. JIT plan waits for the actual Klause milestone output. |
 | 6 | Receipt | pending | [Receipt chapter spec](../../specs/2026-09-17-usual-specialists-receipt-chapter-design.md) | — | — | — | — | Chapter design approved: already-present thermal record reveal, quiet avuncular alcove, courteous no-pitch-needed interruption, gentlemanly sign-off, staple, Patch's first true rest beat and tea/hospitality release. The final folder field grows directly out of the same tea scene. JIT plan waits for the actual Rollback milestone output. |
-| 7 | Final page close + whole-route proof | pending | [Page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | After all six chapter states exist, prove the approved close in which the folder finally stops on Receipt's table and becomes foreground hero while Patch and Receipt drink tea behind it; reconcile stale homepage Specialists semantics; prove complete source order, folder continuity, responsive/accessibility behaviour and approved visual baselines. Canonical route cutover remains out of scope. |
+| 7 | Final page close + whole-route proof | pending | [Page spec](../../specs/2026-09-17-usual-specialists-visual-story-design.md) | — | — | — | — | After all six chapter states exist, prove the approved close in which the folder finally stops on Receipt's table and becomes foreground hero while Patch and Receipt drink tea behind it; reconcile stale homepage Specialists semantics; prove complete source order, folder continuity, responsive/accessibility behaviour and approved visual baselines. Canonical cutover already occurred for the accepted Index milestone and is not owned by this final close. |
 
 ## Milestone dependency logic
 
@@ -171,7 +175,8 @@ those limitations.
 
 ## Epic non-goals
 
-- No canonical cutover without a separate explicit Harley decision.
+- No route-ownership change away from the published V2 canonical route without a
+  separate explicit Harley decision.
 - No actual caper/vault sequence.
 - No route-wide responsive geometry owner.
 - No generic config-driven specialist renderer.

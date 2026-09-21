@@ -1,0 +1,17 @@
+{
+  "slug": "tournament-of-reasonable-defaults",
+  "kind": "patch",
+  "title": "Tournament of Reasonable Defaults",
+  "status": "visual development",
+  "summary": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
+  "tags": [
+    "patch",
+    "agentic-engineering",
+    "requirements",
+    "acceptance-criteria"
+  ],
+  "relatedSlugs": [
+    "identity-emporium",
+    "adventures-of-patch"
+  ]
+}

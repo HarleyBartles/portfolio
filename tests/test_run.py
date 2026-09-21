@@ -32,11 +32,26 @@ class CanonicalRunnerTests(unittest.TestCase):
         run._base_ci_check(self.context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
+        self.assertIn(run._content_manifest_cmd("check"), commands)
+        self.assertIn(run._route_catalogue_cmd("check"), commands)
         self.assertIn(run._link_hygiene_check_cmd(), commands)
         self.assertIn(run._portfolio_quality_check_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
+
+    @patch.object(run, "_run")
+    def test_ci_apply_regenerates_owned_content_and_route_projections(self, run_command) -> None:
+        apply_context = run.Ctx(mode="apply", allow_shared=False)
+
+        run._ci_apply(apply_context)
+
+        commands = [entry.args[0] for entry in run_command.call_args_list]
+        self.assertIn(run._content_manifest_cmd("apply"), commands)
+        self.assertIn(run._content_manifest_cmd("check"), commands)
+        self.assertIn(run._route_catalogue_cmd("apply"), commands)
+        self.assertIn(run._route_catalogue_cmd("check"), commands)
+        self.assertIn(run._refresh_seo_files_cmd(), commands)
 
     @patch("shutil.which", return_value="C:/node/npm.cmd")
     def test_canonical_client_tests_retry_once_without_changing_focused_test_defaults(self, _which) -> None:

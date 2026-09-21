@@ -38,7 +38,7 @@ type UsualSpecialistsPageProps = {
 
 export const UsualSpecialistsPage = ({ style }: UsualSpecialistsPageProps) => {
   return (
-    <SpecialistsStory aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index-draft" style={style}>
+    <SpecialistsStory aria-label="The Usual Specialists" data-visual-contract="patch-usual-specialists-index" style={style}>
       <SpecialistsCanvas data-specialists-canvas="authored">
         <OpeningComposition>
           <UsualSpecialistsOpening />

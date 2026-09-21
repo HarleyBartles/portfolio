@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { ProjectVisual } from './ProjectVisual'
+import { isProjectVisualSlug } from './projectVisualRegistry'
 
 describe('ProjectVisual', () => {
+  test('owns the supported visual slug registry', () => {
+    expect(isProjectVisualSlug('codex-marketplace')).toBe(true)
+    expect(isProjectVisualSlug('wild-bunch')).toBe(true)
+    expect(isProjectVisualSlug('the-usual-specialists')).toBe(false)
+  })
+
   test('pairs the semantic learning loop with responsive inspection imagery', () => {
     const { container } = render(<ProjectVisual slug="agentic-learning-lab" eager />)
     const visual = container.firstElementChild as HTMLElement

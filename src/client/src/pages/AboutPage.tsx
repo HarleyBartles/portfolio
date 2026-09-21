@@ -124,11 +124,7 @@ export const AboutPage = () => {
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="About | Harley Bartles"
-        description={`Full-stack software engineer with ${experience} of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.`}
-        canonicalPath="/about"
-      />
+      <DocumentMetadata canonicalPath="/about" />
       <AboutArticle
         aria-labelledby="about-title"
         data-type-register="site-sans"

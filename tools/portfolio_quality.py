@@ -257,19 +257,9 @@ def _validate_manifest(
                 findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires a nonempty {field}"))
 
         relative_path = item.get("path")
-        presentation = item.get("presentation")
         has_path = isinstance(relative_path, str)
-        has_presentation = isinstance(presentation, str)
-        if has_path == has_presentation:
-            findings.append(_finding(MANIFEST_PATH, f"'{slug}' requires exactly one body source: Markdown path or presentation"))
-
-        if has_presentation:
-            if presentation not in {"marketplace-case-study", "patch-pipeline-case-study", "wild-bunch-case-study", "learning-lab-case-study", "patch-identity-emporium", "patch-tournament", "patch-usual-specialists"}:
-                findings.append(_finding(MANIFEST_PATH, f"'{slug}' has unknown presentation '{presentation}'"))
-            elif presentation in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "patch":
-                findings.append(_finding(MANIFEST_PATH, f"'{slug}' Patch showcase presentation requires Patch content"))
-            elif presentation not in {"patch-identity-emporium", "patch-tournament", "patch-usual-specialists"} and kind != "project":
-                findings.append(_finding(MANIFEST_PATH, f"'{slug}' presentation is only supported for project content"))
+        if "presentation" in item:
+            findings.append(_finding(MANIFEST_PATH, f"'{slug}' must not contain rendering metadata"))
 
         if has_path:
             if "\\" in relative_path:
@@ -396,13 +386,14 @@ def _validate_manifest(
             relative = markdown_path.relative_to(root)
             findings.append(_finding(relative, "Markdown file is not listed in the manifest"))
 
-    if any(item.get("presentation") == "marketplace-case-study" for item in items):
+    slugs = {item.get("slug") for item in items}
+    if "codex-marketplace" in slugs:
         _validate_marketplace_evidence(root, findings, warnings)
-    if any(item.get("presentation") == "wild-bunch-case-study" for item in items):
+    if "wild-bunch" in slugs:
         _validate_wild_bunch_evidence(root, findings)
-    if any(item.get("presentation") == "patch-pipeline-case-study" for item in items):
+    if "adventures-of-patch" in slugs:
         _validate_patch_evidence(root, findings)
-    if any(item.get("presentation") == "learning-lab-case-study" for item in items):
+    if "agentic-learning-lab" in slugs:
         _validate_learning_lab_evidence(root, findings, today)
 
 

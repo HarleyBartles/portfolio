@@ -16,8 +16,9 @@ import {
   SiteLayout,
   StatePanel,
 } from '../components'
+import { getPatchSummaries, getProjectSummaries } from '../data'
 import { getRouteMetadata } from '../data/routes/routeCatalogue'
-import type { ProjectVisualSlug } from '../features/home/ProjectVisual'
+import { isProjectVisualSlug } from '../features/home/projectVisualRegistry'
 import { ProjectCaseStudyHeader, type ProjectCaseStudyHeaderLayout } from '../features/case-study/ProjectCaseStudyHeader'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
@@ -158,10 +159,8 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
     return <ContentNotFoundState />
   }
 
-  const Presentation = document.summary.presentation === undefined
-    ? undefined
-    : getProjectPresentation(document.summary.presentation)
-  if (document.summary.presentation !== undefined && Presentation === undefined) {
+  const Presentation = getProjectPresentation(document.summary.slug)
+  if (document.markdown === undefined && Presentation === undefined) {
     return <ContentErrorState />
   }
   const writingPresentation = document.summary.kind === 'writing'
@@ -173,15 +172,6 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
     : undefined
 
   const relatedSummaries = navigationQuery.data ?? []
-  const fallbackSlugs =
-    document.summary.kind !== 'writing' && document.summary.relatedSlugs.length === 0 && navigationQuery.isSuccess
-      ? relatedSummaries
-          .filter((item) => item.kind === 'writing' && item.slug !== document.summary.slug)
-          .slice(0, 3)
-          .map((item) => item.slug)
-      : []
-  const slugsToShow =
-    document.summary.relatedSlugs.length > 0 ? document.summary.relatedSlugs : fallbackSlugs
   const relatedNavigationUnavailable =
     document.summary.relatedSlugs.length > 0 && navigationQuery.isError
   const continuationItems: WritingContinuation[] = (writingPresentation?.continuations ?? document.summary.relatedSlugs.map((slug) => ({ slug }))).flatMap((item) => {
@@ -193,31 +183,29 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
       href: getContentPath(related),
     }]
   })
-  const kindItems = relatedSummaries.filter((item) => item.kind === document.summary.kind)
-  const projectVisualSlugs = new Set<ProjectVisualSlug>([
-    'codex-marketplace',
-    'agentic-learning-lab',
-    'adventures-of-patch',
-    'wild-bunch',
-  ])
-  const projectVisualSlug = document.summary.kind === 'project' && projectVisualSlugs.has(document.summary.slug as ProjectVisualSlug)
-    ? document.summary.slug as ProjectVisualSlug
+  const kindItems = document.summary.kind === 'project'
+    ? getProjectSummaries(relatedSummaries)
+    : document.summary.kind === 'patch'
+      ? getPatchSummaries(relatedSummaries)
+      : relatedSummaries.filter((item) => item.kind === document.summary.kind)
+  const projectVisualSlug = document.summary.kind === 'project' && isProjectVisualSlug(document.summary.slug)
+    ? document.summary.slug
     : null
-  const visualContract = writingPresentation === undefined ? document.summary.presentation === 'marketplace-case-study'
+  const visualContract = writingPresentation === undefined ? document.summary.slug === 'codex-marketplace'
     ? 'marketplace-case-study-hero'
-    : document.summary.presentation === 'patch-pipeline-case-study'
+    : document.summary.slug === 'adventures-of-patch'
       ? 'patch-case-study-hero'
-    : document.summary.presentation === 'wild-bunch-case-study'
+    : document.summary.slug === 'wild-bunch'
       ? 'wild-bunch-case-study-hero'
-    : document.summary.presentation === 'learning-lab-case-study'
+    : document.summary.slug === 'agentic-learning-lab'
       ? 'learning-lab-case-study-hero'
       : 'content-page-header' : writingPresentation.visualContract
   const writingHeaderLayout = writingPresentation?.layout ?? 'standard'
-  const projectHeaderLayout: ProjectCaseStudyHeaderLayout = document.summary.presentation === 'learning-lab-case-study'
+  const projectHeaderLayout: ProjectCaseStudyHeaderLayout = document.summary.slug === 'agentic-learning-lab'
     ? 'learning-lab'
-    : document.summary.presentation === 'wild-bunch-case-study'
+    : document.summary.slug === 'wild-bunch'
       ? 'wild-bunch'
-      : document.summary.presentation === 'patch-pipeline-case-study'
+      : document.summary.slug === 'adventures-of-patch'
         ? 'patch'
         : 'standard'
   const routeMetadata = getRouteMetadata(getContentPath(document.summary))
@@ -245,11 +233,7 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title={`${document.summary.title} | Harley Bartles`}
-        description={document.summary.summary}
-        canonicalPath={getContentPath(document.summary)}
-      />
+      <DocumentMetadata canonicalPath={getContentPath(document.summary)} />
       <ContentArticle
         kind={document.summary.kind}
         visualLanguage={document.summary.kind === 'writing' ? 'authored-longform' : document.summary.kind}
@@ -287,7 +271,7 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
         {articleBody}
         {(
           <RelatedContent
-            slugs={slugsToShow}
+            slugs={document.summary.relatedSlugs}
             summaries={relatedSummaries}
             unavailable={relatedNavigationUnavailable}
           />

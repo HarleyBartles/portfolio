@@ -15,19 +15,13 @@ vi.mock('../features/case-study/projectPresentations', async () => {
   }))
 
   return {
-    getProjectPresentation: (presentation: string) => presentation === 'wild-bunch-case-study'
+    getProjectPresentation: (slug: string) => slug === 'wild-bunch'
       ? DeferredWildBunch
-      : presentation === 'patch-pipeline-case-study'
+      : slug === 'adventures-of-patch'
         ? () => React.createElement('p', undefined, 'Patch specialist body')
-        : presentation === 'learning-lab-case-study'
+      : slug === 'agentic-learning-lab'
           ? () => React.createElement('p', undefined, 'Learning Lab specialist body')
-          : presentation === 'patch-usual-specialists'
-            ? () => React.createElement(
-              'section',
-              { 'aria-label': 'The Usual Specialists adventure', 'data-visual-contract': 'patch-usual-specialists' },
-              React.createElement('p', undefined, 'Frozen legacy specialists body'),
-            )
-            : undefined,
+          : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
       default: () => React.createElement('h2', undefined, 'Specialist body ready'),
     }),
@@ -196,30 +190,6 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(screen.queryByRole('status', { name: 'Loading case study presentation' })).not.toBeInTheDocument()
   })
 
-  test('renders the canonical Specialists presentation inside the ordinary content shell', async () => {
-    const router = createMemoryRouter(appRoutes, {
-      basename: '/portfolio',
-      initialEntries: ['/portfolio/patch/the-usual-specialists'],
-    })
-
-    const { container } = render(
-      <QueryClientProvider client={createPortfolioQueryClient()}>
-        <PortfolioThemeProvider>
-          <RouterProvider router={router} />
-        </PortfolioThemeProvider>
-      </QueryClientProvider>,
-    )
-
-    const story = await screen.findByRole('region', { name: 'The Usual Specialists adventure' }, { timeout: 5_000 })
-    expect(screen.getByRole('heading', { level: 1, name: 'The Usual Specialists' })).toBeVisible()
-    expect(within(story).getByText('Frozen legacy specialists body')).toBeVisible()
-    expect(screen.getByText('Harley Bartles')).toBeVisible()
-    expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index')
-    expect(document.head.querySelector('link[rel="canonical"]')).toHaveAttribute('href', 'https://harleybartles.com/patch/the-usual-specialists')
-    expect(container.querySelector('.content-page-header')).not.toBeNull()
-    expect(container.querySelector('.content-page-body')).not.toBeNull()
-  })
-
   test('art directs the Patch header while keeping route copy as selectable HTML', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
@@ -244,6 +214,13 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()
+    const contentNavigation = container.querySelector('.content-navigation') as HTMLElement
+    expect(within(contentNavigation).getByText('Previous')).toBeVisible()
+    expect(within(contentNavigation).getByRole('link', { name: /Wild Bunch/ })).toHaveAttribute(
+      'href',
+      '/portfolio/projects/wild-bunch',
+    )
+    expect(within(contentNavigation).queryByText('Next')).not.toBeInTheDocument()
   })
 
   test('assigns the Learning Lab field-manual hero contract', async () => {

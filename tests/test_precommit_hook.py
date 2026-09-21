@@ -127,6 +127,21 @@ class PreCommitHookTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertRegex(result.stdout, r"^100755\s")
 
+    def test_hook_generated_path_allowlist_covers_owned_content_and_seo_projections(self) -> None:
+        declaration = json.loads(
+            (ROOT / ".agents/contracts/repo-standards-commands.json").read_text(encoding="utf-8")
+        )
+
+        generated = set(declaration["generated_paths"])
+        self.assertTrue(
+            {
+                "src/client/src/data/content/content-manifest.json",
+                "src/client/src/data/routes/route-metadata.generated.json",
+                "src/client/public/robots.txt",
+                "src/client/public/sitemap.xml",
+            }.issubset(generated)
+        )
+
     def test_hook_commands_resolve_the_linked_worktree(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             temporary_root = Path(temporary)
