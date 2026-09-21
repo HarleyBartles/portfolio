@@ -92,6 +92,27 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._refresh_skills_cmd("check", False),
         )
 
+    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": "HEAD"})
+    def test_hosted_skill_refresh_uses_the_committed_marketplace_source(self) -> None:
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--check",
+                "--no-roll-marketplace-source",
+            ],
+            run._refresh_skills_cmd("check", False),
+        )
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--apply",
+                "--no-roll-marketplace-source",
+            ],
+            run._refresh_skills_cmd("apply", False),
+        )
+
     @patch("shutil.which", return_value="C:/node/npm.cmd")
     def test_install_deps_apply_uses_the_client_lockfile(self, _which) -> None:
         self.assertEqual(
