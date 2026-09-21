@@ -82,6 +82,7 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._client_e2e_cmd(),
         )
 
+    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": ""})
     def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
         self.assertEqual(
             [
