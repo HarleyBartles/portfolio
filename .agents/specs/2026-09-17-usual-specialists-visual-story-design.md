@@ -146,10 +146,9 @@ the clean working folder and the fact that every specialist is already busy doin
 the job Patch needs.
 
 Keep the sense of physically entering one ordinary apartment rather than choosing
-from a six-section card catalogue. The chapter navigation remains useful as a
-secondary orientation aid, but it should be visually subordinate to the encounter.
-Do not make the rail the first read or invent a second heavy mobile navigation
-system.
+from a six-section card catalogue. The earlier chapter-navigation rail was retired
+at the accepted Index closeout; do not reintroduce it or invent a substitute
+navigation system around unfinished chapters.
 
 The current `route-shaped problem` premise is obsolete. Patch begins with intent
 and missing operational certainty, not a route that Index merely needs to validate.
@@ -514,8 +513,8 @@ pipeline as reusable identity artwork.
 
 The 21 September cutover decision supersedes the temporary legacy-canonical/V2
 preview seam. `/patch/the-usual-specialists/` is the indexed canonical route for
-the accepted V2 milestone: opening, chapter navigation, Index and Under
-Construction. Later specialist chapters remain absent until their own reviewed
+the accepted V2 milestone: opening, Index and Under Construction. Later
+specialist chapters remain absent until their own reviewed
 milestones land.
 
 `/patch/the-usual-specialists/next/` remains an unlinked `noindex, nofollow`
