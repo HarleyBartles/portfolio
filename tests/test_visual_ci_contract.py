@@ -80,6 +80,19 @@ def step_run_commands(job: str) -> list[str]:
 
 
 class VisualCiContractTests(unittest.TestCase):
+    def test_quality_checkout_detaches_the_commit_for_hosted_hook_parity(self) -> None:
+        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        jobs = mapping_block(workflow, "jobs", 0)
+        quality = mapping_block(jobs, "quality", 2)
+        checkout_steps = [
+            step
+            for step in step_blocks(quality)
+            if "uses: actions/checkout@v4" in step
+        ]
+
+        self.assertEqual(1, len(checkout_steps))
+        self.assertIn("ref: ${{ github.sha }}", checkout_steps[0])
+
     def test_main_pages_upload_reuses_the_build_from_the_tracked_gate(self) -> None:
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         jobs = mapping_block(workflow, "jobs", 0)

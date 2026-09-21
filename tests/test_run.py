@@ -82,6 +82,7 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._client_e2e_cmd(),
         )
 
+    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": ""})
     def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
         self.assertEqual(
             [
@@ -90,6 +91,27 @@ class CanonicalRunnerTests(unittest.TestCase):
                 "--check",
             ],
             run._refresh_skills_cmd("check", False),
+        )
+
+    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": "HEAD"})
+    def test_hosted_skill_refresh_uses_the_committed_marketplace_source(self) -> None:
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--check",
+                "--no-roll-marketplace-source",
+            ],
+            run._refresh_skills_cmd("check", False),
+        )
+        self.assertEqual(
+            [
+                sys.executable,
+                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                "--apply",
+                "--no-roll-marketplace-source",
+            ],
+            run._refresh_skills_cmd("apply", False),
         )
 
     @patch("shutil.which", return_value="C:/node/npm.cmd")

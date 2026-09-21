@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -66,6 +67,8 @@ def _refresh_skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     ]
     if mode == "apply" and allow_shared:
         cmd.append("--allow-shared-checkout")
+    if os.environ.get("REPO_STANDARDS_HOSTED_COMMIT"):
+        cmd.append("--no-roll-marketplace-source")
     return cmd
 
 
