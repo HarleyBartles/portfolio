@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { ProjectVisual, type ProjectVisualSlug } from '../features/home/ProjectVisual'
+import { ProjectVisual } from '../features/home/ProjectVisual'
+import { isProjectVisualSlug } from '../features/home/projectVisualRegistry'
 import styled from 'styled-components'
 import { contentQueries } from '../app/queryClient'
 import { DocumentMetadata, IndexHeader, ProjectIndexEntry, SiteLayout, type ProjectStatusTone } from '../components'
@@ -41,13 +42,6 @@ const projectIndexOrder = new Map([
   ['codex-marketplace', 3],
 ])
 
-const projectVisualSlugs = new Set<ProjectVisualSlug>([
-  'codex-marketplace',
-  'agentic-learning-lab',
-  'adventures-of-patch',
-  'wild-bunch',
-])
-
 const projectStatusTones: Partial<Record<string, ProjectStatusTone>> = {
   'adventures-of-patch': 'active-project',
 }
@@ -66,11 +60,7 @@ export const ProjectIndexPage = () => {
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="Project Stories | Harley Bartles"
-        description="Selected public engineering project stories from Harley Bartles."
-        canonicalPath="/projects"
-      />
+      <DocumentMetadata canonicalPath="/projects" />
       <section className="content-index project-index" aria-labelledby="project-index-title">
         <IndexHeader
           eyebrow="Projects / proof with rough edges intact"
@@ -83,9 +73,7 @@ export const ProjectIndexPage = () => {
         {navigationQuery.isSuccess ? (
           <ProjectGrid className="editorial-index-grid editorial-index-grid--projects">
             {projects.map((item) => {
-              const visualSlug = projectVisualSlugs.has(item.slug as ProjectVisualSlug)
-                ? item.slug as ProjectVisualSlug
-                : undefined
+              const visualSlug = isProjectVisualSlug(item.slug) ? item.slug : undefined
 
               return (
                 <ProjectIndexEntry

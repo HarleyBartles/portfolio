@@ -40,6 +40,20 @@ describe('route document generator', () => {
             title: 'The Usual Specialists',
             summary: 'Six specialists make a lawful override routine.',
           },
+          {
+            slug: 'goldilocks',
+            kind: 'patch',
+            title: 'Goldilocks',
+            summary: 'Just enough guidance.',
+            path: 'fairytales/goldilocks.md',
+          },
+          {
+            slug: 'three-little-pigs',
+            kind: 'patch',
+            title: 'The Three Little Pigs',
+            summary: 'Build resilience before predictable pressure.',
+            path: 'fairytales/three-little-pigs.md',
+          },
         ],
       }),
     )
@@ -94,6 +108,9 @@ describe('route document generator', () => {
     expect(preview).not.toContain('name="twitter:image"')
     expect(result.publicRoutes).not.toContain('/patch/the-usual-specialists/next/')
     expect(result.previewRoutes).toEqual(['/patch/the-usual-specialists/next/'])
+    expect(result.publicRoutes).toContain('/fairytales/goldilocks')
+    expect(result.publicRoutes).toContain('/fairytales/three-little-pigs')
+    expect(result.publicRoutes).not.toContain('/fairytales/sorcerers-apprentice')
     await expect(access(path.join(distRoot, 'patch', 'lawful-heist', 'index.html'))).rejects.toThrow()
     expect(fallback).toContain('<title>Page Not Found | Harley Bartles</title>')
     expect(fallback).not.toContain('rel="canonical"')

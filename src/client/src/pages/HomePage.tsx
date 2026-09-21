@@ -13,11 +13,7 @@ export function HomePage(): ReactElement {
 
   return (
     <SiteLayout surface="home">
-      <DocumentMetadata
-        title="Harley Bartles | Full-stack software engineer"
-        description="Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations."
-        canonicalPath="/"
-      />
+      <DocumentMetadata canonicalPath="/" />
       <HomepageOpening />
       <MarketplaceFeature />
       <WildBunchFeature nextFeature={edition.writing} />

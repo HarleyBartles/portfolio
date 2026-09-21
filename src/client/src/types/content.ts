@@ -1,3 +1,5 @@
+import contentRouteRoots from '../data/routes/content-route-roots.json'
+
 export type ContentKind =
   | 'project'
   | 'practice'
@@ -5,15 +7,6 @@ export type ContentKind =
   | 'learning'
   | 'writing'
   | 'patch'
-
-export type ContentPresentation =
-  | 'marketplace-case-study'
-  | 'wild-bunch-case-study'
-  | 'patch-pipeline-case-study'
-  | 'learning-lab-case-study'
-  | 'patch-identity-emporium'
-  | 'patch-tournament'
-  | 'patch-usual-specialists'
 
 export type WritingHomepageCopy = {
   summary: string
@@ -30,7 +23,6 @@ export type ContentSummary = {
   homepageFeature?: WritingHomepageCopy
   date?: string
   readingMinutes?: number
-  presentation?: ContentPresentation
   featured: boolean
   tags: string[]
   relatedSlugs: string[]
@@ -77,18 +69,7 @@ export type ContentDocument = {
   markdown?: string
 }
 
-export function getContentPath(item: Pick<ContentSummary, 'kind' | 'slug'>): string {
-  if (item.kind === 'project') {
-    return `/projects/${item.slug}`
-  }
-
-  if (item.kind === 'writing') {
-    return `/writing/${item.slug}`
-  }
-
-  if (item.kind === 'patch') {
-    return `/patch/${item.slug}`
-  }
-
-  return `/${item.slug}`
+export const getContentPath = (item: Pick<ContentSummary, 'kind' | 'slug'>): string => {
+  const root = contentRouteRoots[item.kind as keyof typeof contentRouteRoots]
+  return root === undefined ? `/${item.slug}` : `${root}/${item.slug}`
 }

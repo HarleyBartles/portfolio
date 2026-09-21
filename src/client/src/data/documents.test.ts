@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import type { ContentSummary, EditorialWritingSummary } from '../types'
-import { loadDocument, navigation, parseContentSummary, prepareMarkdown } from './documents'
+import { getProjectSummaries, loadDocument, navigation, parseContentSummary, prepareMarkdown } from './documents'
 
 const editorialWritingFixture = {
   slug: 'editorial-fixture',
@@ -65,6 +65,23 @@ describe('prepareMarkdown', () => {
 })
 
 describe('loadDocument', () => {
+  test('keeps the authored default project sequence independent of manifest generation order', () => {
+    expect(getProjectSummaries().map((item) => item.slug)).toEqual([
+      'codex-marketplace',
+      'agentic-learning-lab',
+      'wild-bunch',
+      'adventures-of-patch',
+    ])
+  })
+
+  test('keeps Learning Lab related reading authored instead of deriving it from catalogue order', () => {
+    expect(navigation.find((item) => item.slug === 'agentic-learning-lab')?.relatedSlugs).toEqual([
+      'agentic-engineering-vs-vibe-coding',
+      'why-adrs',
+      'the-right-test-isnt-your-favourite-test',
+    ])
+  })
+
   test('preserves editorial datelines in public navigation', () => {
     expect(navigation.find((item) => item.slug === 'graph-iterative-review')).toMatchObject({ date: '2026-08-15' })
     expect(navigation.find((item) => item.slug === 'why-adrs')).toMatchObject({ date: '2026-08-22' })
@@ -72,33 +89,34 @@ describe('loadDocument', () => {
     expect(navigation.find((item) => item.slug === 'i-just-write-the-code-is-not-a-full-sentence')).toMatchObject({ date: '2026-08-28' })
   })
 
-  test('preserves specialist project presentation discriminators without looking for Markdown', async () => {
+  test('keeps route-owned and specialist content out of Markdown loading without renderer metadata', async () => {
     const marketplace = navigation.find((item) => item.slug === 'codex-marketplace')
     const wildBunch = navigation.find((item) => item.slug === 'wild-bunch')
     const learningLab = navigation.find((item) => item.slug === 'agentic-learning-lab')
     const lawfulHeist = navigation.find((item) => item.slug === 'the-usual-specialists')
 
     expect(marketplace).toBeDefined()
-    expect(marketplace?.presentation).toBe('marketplace-case-study')
     await expect(loadDocument(marketplace!)).resolves.toMatchObject({
-      summary: { presentation: 'marketplace-case-study' },
+      summary: { slug: 'codex-marketplace' },
       markdown: undefined,
     })
 
     expect(wildBunch).toBeDefined()
-    expect(wildBunch?.presentation).toBe('wild-bunch-case-study')
     await expect(loadDocument(wildBunch!)).resolves.toMatchObject({
-      summary: { presentation: 'wild-bunch-case-study' },
+      summary: { slug: 'wild-bunch' },
       markdown: undefined,
     })
 
-    expect(learningLab?.presentation).toBe('learning-lab-case-study')
     await expect(loadDocument(learningLab!)).resolves.toMatchObject({
-      summary: { presentation: 'learning-lab-case-study' },
+      summary: { slug: 'agentic-learning-lab' },
       markdown: undefined,
     })
 
-    expect(lawfulHeist?.presentation).toBe('patch-usual-specialists')
+    expect(lawfulHeist).not.toHaveProperty('presentation')
+    await expect(loadDocument(lawfulHeist!)).resolves.toMatchObject({
+      summary: { slug: 'the-usual-specialists' },
+      markdown: undefined,
+    })
   })
 
   test('continues to load ordinary Markdown documents', async () => {

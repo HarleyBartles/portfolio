@@ -1,3 +1,12 @@
+---
+title: "How The Invisibles’ logo designer influenced The Usual Specialists"
+summary: "Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work."
+readingMinutes: 4
+tags: ["writing","design","typography"]
+relatedSlugs: ["the-usual-specialists","adventures-of-patch"]
+homepageFeature: {"summary":"I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.","inwardLabel":"Read the story","incomingTeaser":"When the caper moves inside the word"}
+---
+
 # How The Invisibles’ logo designer influenced The Usual Specialists
 
 I was looking for a face for [**The Usual Specialists**](/patch/the-usual-specialists). The brief, at first, was pretty crude: solid caper, solid crew, solid word. **SPECIALISTS** needed to look like you could hang a tank off it and it wouldn’t budge. As I remember it, [Eurostile](https://www.myfonts.com/collections/eurostile-font-urw/), [Bank Gothic](https://www.myfonts.com/collections/bank-gothic-font-grouptype) and [Korolev](https://www.myfonts.com/collections/korolev-font-device) were all in the running. [Chassis](https://www.myfonts.com/collections/chassis-font-device) was ahead.

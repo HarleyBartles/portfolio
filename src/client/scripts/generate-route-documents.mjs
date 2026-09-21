@@ -3,12 +3,6 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { buildRouteCatalogue } from './generate-route-catalogue.mjs'
 
-const LEGACY_ROUTES = [
-  { route: '/fairytales', canonicalRoute: '/patch', title: 'Adventures of Patch | Harley Bartles', description: 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.' },
-  { route: '/fairytales/goldilocks', canonicalRoute: '/patch/goldilocks', slug: 'goldilocks' },
-  { route: '/fairytales/sorcerers-apprentice', canonicalRoute: '/patch/sorcerers-apprentice', slug: 'sorcerers-apprentice' },
-]
-
 const escapeHtml = (value) => {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -74,6 +68,21 @@ const renderMetadata = (template, metadata, origin, baseUrl) => {
     .replace('</head>', `    ${socialTags}\n  </head>`)
 }
 
+const buildCompatibilityEntries = (manifest, contentEntries) => {
+  const aliases = [
+    { path: '/fairytales', canonicalPath: '/patch' },
+    ...manifest.items.flatMap((item) => {
+      if (typeof item.path !== 'string' || !item.path.startsWith('fairytales/')) return []
+      return [{ path: `/fairytales/${item.slug}`, canonicalPath: `/patch/${item.slug}` }]
+    }),
+  ]
+
+  return aliases.flatMap(({ path: legacyPath, canonicalPath }) => {
+    const source = contentEntries.find((item) => item.path === canonicalPath)
+    return source === undefined ? [] : [{ ...source, path: legacyPath, canonicalRoute: canonicalPath }]
+  })
+}
+
 export const buildRouteDocuments = async ({
   distRoot,
   manifestPath,
@@ -87,12 +96,7 @@ export const buildRouteDocuments = async ({
   ])
   const manifest = JSON.parse(manifestText)
   const contentEntries = buildRouteCatalogue(manifest)
-  const legacyEntries = LEGACY_ROUTES.flatMap((legacy) => {
-    const source = legacy.slug === undefined
-      ? contentEntries.find((item) => item.path === legacy.canonicalRoute)
-      : contentEntries.find((item) => item.path === legacy.canonicalRoute)
-    return source === undefined ? [] : [{ ...source, path: legacy.route, canonicalRoute: legacy.canonicalRoute }]
-  })
+  const legacyEntries = buildCompatibilityEntries(manifest, contentEntries)
   const publicEntries = [...contentEntries, ...legacyEntries]
   const entries = [...publicEntries, ...previewRoutes]
 

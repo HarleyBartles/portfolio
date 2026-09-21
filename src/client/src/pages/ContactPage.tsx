@@ -6,11 +6,7 @@ import { ContactForm, ContactSurface } from './contact'
 export const ContactPage = () => {
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="Contact | Harley Bartles"
-        description="Contact Harley Bartles about senior full-stack engineering roles, portfolio work or an interesting engineering problem through the configured privacy-preserving form."
-        canonicalPath="/contact"
-      />
+      <DocumentMetadata canonicalPath="/contact" />
       <ContactSurface aria-labelledby="contact-title" data-visual-contract="contact-route">
         <header>
           <EditorialHeading as="h1" wrap="single-line" id="contact-title">

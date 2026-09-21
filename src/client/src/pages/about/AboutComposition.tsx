@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ExternalLink, Eyebrow, PageTitle } from '../../components'
 import { EditorialHeading } from '../../components/editorial'
-import type { ContentSummary } from '../../types'
+import { getContentPath, type ContentSummary } from '../../types'
 
 const Intro = styled.header`
   display: grid;
@@ -353,10 +353,10 @@ export const IndependentWork = ({
     {projects.map((project) => (
       <ProjectRow key={project.slug}>
         <ProjectTitle>
-          <ProjectLink to={`/projects/${project.slug}`}>{project.title}</ProjectLink>
+          <ProjectLink to={getContentPath(project)}>{project.title}</ProjectLink>
         </ProjectTitle>
         <ProjectSummary>{project.summary}</ProjectSummary>
-        <ProfessionalLink to={`/projects/${project.slug}`}>Read the case study</ProfessionalLink>
+        <ProfessionalLink to={getContentPath(project)}>Read the case study</ProfessionalLink>
       </ProjectRow>
     ))}
   </Independent>

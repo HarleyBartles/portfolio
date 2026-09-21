@@ -34,6 +34,8 @@ Use this playbook to select and run the proof appropriate to a Portfolio change.
 - Repository operating model: `py -3 tools/run.py repo-standards --check`.
 - Marketplace projection: `py -3 tools/run.py refresh-skills --check`.
 - Agent/document mesh: `py -3 tools/run.py mesh --check`.
+- Content catalogue projection: `py -3 tools/run.py content-manifest --check`.
+- Route metadata projection: `py -3 tools/run.py route-catalogue --check`.
 - Use the affected package's focused Vitest, Playwright, asset, or build target while iterating.
 - Public deployment proof: `py -3 tools/check_public_routes.py --origin https://harleybartles.github.io/portfolio`.
 

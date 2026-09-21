@@ -1,0 +1,15 @@
+{
+  "slug": "wild-bunch",
+  "kind": "project",
+  "title": "Wild Bunch",
+  "status": "pre-alpha",
+  "summary": "A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on.",
+  "tags": [
+    "project",
+    "dotnet",
+    "ddd"
+  ],
+  "relatedSlugs": [
+    "agentic-engineering-vs-vibe-coding"
+  ]
+}

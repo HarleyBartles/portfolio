@@ -316,11 +316,7 @@ export const PatchIndexPage = () => {
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="Adventures of Patch | Harley Bartles"
-        description="Visual stories that turn agentic-engineering practice into memorable, inspectable lessons."
-        canonicalPath="/patch"
-      />
+      <DocumentMetadata canonicalPath="/patch" />
       <PatchIndex className="content-index patch-index" aria-labelledby="patch-index-title" data-testid="patch-index" data-visual-contract="patch-index">
         <header className="patch-index__header">
           <div className="patch-index__mark"><PatchSeriesLockup /></div>

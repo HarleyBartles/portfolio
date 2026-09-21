@@ -1,7 +1,9 @@
 ---
-title: Agentic engineering and the kindness of vibe coding
-date: 2026-08-01
-summary: Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room.
+title: "Agentic engineering and the kindness of vibe coding"
+summary: "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room."
+readingMinutes: 6
+tags: ["writing","agentic-engineering","vibe-coding"]
+relatedSlugs: ["graph-iterative-review","i-made-agentic-engineering-harder-than-it-needed-to-be","provisioning-is-not-accumulation"]
 ---
 
 # Agentic engineering and the kindness of vibe coding

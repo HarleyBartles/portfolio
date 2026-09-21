@@ -1,7 +1,9 @@
 ---
-title: Provisioning is not accumulation
-date: 2026-08-12
-summary: Capability should be available when the work needs it, without making every agent carry the whole workshop.
+title: "Provisioning is not accumulation"
+summary: "Capability should be available when the work needs it, without making every agent carry the whole workshop."
+readingMinutes: 7
+tags: ["writing","agentic-engineering","provisioning"]
+relatedSlugs: ["goldilocks"]
 ---
 
 I asked an agent a fairly ordinary architecture question: “We’re just talking, no plans or specs yet. What are your thoughts on this?”

@@ -1,14 +1,21 @@
 {
   "items": [
     {
-      "slug": "codex-marketplace",
+      "slug": "adventures-of-patch",
       "kind": "project",
-      "title": "Agent Asset Marketplace",
-      "status": "live",
-      "summary": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
-      "presentation": "marketplace-case-study",
-      "tags": ["project", "agentic-engineering", "skills"],
-      "relatedSlugs": ["provisioning-is-not-accumulation", "i-made-agentic-engineering-harder-than-it-needed-to-be"]
+      "title": "Adventures of Patch",
+      "status": "active project",
+      "summary": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
+      "tags": [
+        "project",
+        "comics",
+        "automation"
+      ],
+      "relatedSlugs": [
+        "goldilocks",
+        "sorcerers-apprentice",
+        "identity-emporium"
+      ]
     },
     {
       "slug": "agentic-learning-lab",
@@ -16,9 +23,32 @@
       "title": "Agentic Learning Lab",
       "status": "Course 1 complete",
       "summary": "A facilitator-led curriculum that helps non-programmers direct, inspect, verify and recover agent work through bounded practical labs.",
-      "presentation": "learning-lab-case-study",
-      "tags": ["project", "agentic-engineering", "curriculum"],
-      "relatedSlugs": []
+      "tags": [
+        "project",
+        "agentic-engineering",
+        "curriculum"
+      ],
+      "relatedSlugs": [
+        "agentic-engineering-vs-vibe-coding",
+        "why-adrs",
+        "the-right-test-isnt-your-favourite-test"
+      ]
+    },
+    {
+      "slug": "codex-marketplace",
+      "kind": "project",
+      "title": "Agent Asset Marketplace",
+      "status": "live",
+      "summary": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
+      "tags": [
+        "project",
+        "agentic-engineering",
+        "skills"
+      ],
+      "relatedSlugs": [
+        "provisioning-is-not-accumulation",
+        "i-made-agentic-engineering-harder-than-it-needed-to-be"
+      ]
     },
     {
       "slug": "wild-bunch",
@@ -26,19 +56,14 @@
       "title": "Wild Bunch",
       "status": "pre-alpha",
       "summary": "A new Western game inspired by a childhood favourite, built around seeded worlds, exact replay and towns that remain themselves when the player rides on.",
-      "presentation": "wild-bunch-case-study",
-      "tags": ["project", "dotnet", "ddd"],
-      "relatedSlugs": ["agentic-engineering-vs-vibe-coding"]
-    },
-    {
-      "slug": "adventures-of-patch",
-      "kind": "project",
-      "title": "Adventures of Patch",
-      "status": "active project",
-      "summary": "Visual stories that turn agentic-engineering practice into memorable, inspectable lessons, built through a controlled creative pipeline.",
-      "presentation": "patch-pipeline-case-study",
-      "tags": ["project", "comics", "automation"],
-      "relatedSlugs": ["goldilocks", "sorcerers-apprentice", "identity-emporium"]
+      "tags": [
+        "project",
+        "dotnet",
+        "ddd"
+      ],
+      "relatedSlugs": [
+        "agentic-engineering-vs-vibe-coding"
+      ]
     },
     {
       "slug": "agentic-engineering-vs-vibe-coding",
@@ -47,62 +72,18 @@
       "date": "2026-08-01",
       "readingMinutes": 6,
       "status": "published",
-      "featured": false,
       "summary": "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room.",
       "path": "writing/2026-08-01-agentic-engineering-vs-vibe-coding.md",
-      "tags": ["writing", "agentic-engineering", "vibe-coding"],
-      "relatedSlugs": ["graph-iterative-review", "i-made-agentic-engineering-harder-than-it-needed-to-be", "provisioning-is-not-accumulation"]
-    },
-    {
-      "slug": "why-adrs",
-      "kind": "writing",
-      "title": "Why ADRs?",
-      "date": "2026-08-22",
-      "readingMinutes": 8,
-      "status": "published",
-      "featured": false,
-      "summary": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
-      "path": "writing/2026-08-22-why-adrs.md",
-      "tags": ["writing", "software-architecture", "decision-records"],
-      "relatedSlugs": []
-    },
-    {
-      "slug": "the-right-test-isnt-your-favourite-test",
-      "kind": "writing",
-      "title": "The right test isn't your favourite test",
-      "date": "2026-08-25",
-      "readingMinutes": 8,
-      "status": "published",
-      "featured": false,
-      "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
-      "path": "writing/2026-08-25-the-right-test-isnt-your-favourite-test.md",
-      "tags": ["writing", "software-engineering", "testing", "agentic-engineering"],
-      "relatedSlugs": []
-    },
-    {
-      "slug": "i-just-write-the-code-is-not-a-full-sentence",
-      "kind": "writing",
-      "title": "\"I just write the code\" is not a full sentence",
-      "date": "2026-08-28",
-      "readingMinutes": 7,
-      "status": "published",
-      "featured": false,
-      "summary": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
-      "path": "writing/2026-08-28-i-just-write-the-code-is-not-a-full-sentence.md",
-      "tags": ["writing", "software-engineering", "engineering-judgement"],
-      "relatedSlugs": ["why-adrs", "the-right-test-isnt-your-favourite-test"]
-    },
-    {
-      "slug": "graph-iterative-review",
-      "kind": "writing",
-      "title": "If you write a loop, don't be surprised when your agent starts looping",
-      "date": "2026-08-15",
-      "readingMinutes": 8,
-      "status": "published",
-      "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
-      "path": "writing/2026-08-15-graph-iterative-review.md",
-      "tags": ["writing", "agentic-engineering", "review"],
-      "relatedSlugs": []
+      "tags": [
+        "writing",
+        "agentic-engineering",
+        "vibe-coding"
+      ],
+      "relatedSlugs": [
+        "graph-iterative-review",
+        "i-made-agentic-engineering-harder-than-it-needed-to-be",
+        "provisioning-is-not-accumulation"
+      ]
     },
     {
       "slug": "i-made-agentic-engineering-harder-than-it-needed-to-be",
@@ -113,7 +94,11 @@
       "status": "published",
       "summary": "I built an agent organisation around a novel that only needed three domains. The cleanup became a public skill with a private repository's war stories behind it.",
       "path": "writing/2026-08-07-i-made-agentic-engineering-harder-than-it-needed-to-be.md",
-      "tags": ["writing", "agentic-engineering", "context"],
+      "tags": [
+        "writing",
+        "agentic-engineering",
+        "context"
+      ],
       "relatedSlugs": []
     },
     {
@@ -125,8 +110,82 @@
       "status": "published",
       "summary": "Capability should be available when the work needs it, without making every agent carry the whole workshop.",
       "path": "writing/2026-08-12-provisioning-is-not-accumulation.md",
-      "tags": ["writing", "agentic-engineering", "provisioning"],
-      "relatedSlugs": ["goldilocks"]
+      "tags": [
+        "writing",
+        "agentic-engineering",
+        "provisioning"
+      ],
+      "relatedSlugs": [
+        "goldilocks"
+      ]
+    },
+    {
+      "slug": "graph-iterative-review",
+      "kind": "writing",
+      "title": "If you write a loop, don't be surprised when your agent starts looping",
+      "date": "2026-08-15",
+      "readingMinutes": 8,
+      "status": "published",
+      "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
+      "path": "writing/2026-08-15-graph-iterative-review.md",
+      "tags": [
+        "writing",
+        "agentic-engineering",
+        "review"
+      ],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "why-adrs",
+      "kind": "writing",
+      "title": "Why ADRs?",
+      "date": "2026-08-22",
+      "readingMinutes": 8,
+      "status": "published",
+      "summary": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
+      "path": "writing/2026-08-22-why-adrs.md",
+      "tags": [
+        "writing",
+        "software-architecture",
+        "decision-records"
+      ],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "the-right-test-isnt-your-favourite-test",
+      "kind": "writing",
+      "title": "The right test isn't your favourite test",
+      "date": "2026-08-25",
+      "readingMinutes": 8,
+      "status": "published",
+      "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
+      "path": "writing/2026-08-25-the-right-test-isnt-your-favourite-test.md",
+      "tags": [
+        "writing",
+        "software-engineering",
+        "testing",
+        "agentic-engineering"
+      ],
+      "relatedSlugs": []
+    },
+    {
+      "slug": "i-just-write-the-code-is-not-a-full-sentence",
+      "kind": "writing",
+      "title": "\"I just write the code\" is not a full sentence",
+      "date": "2026-08-28",
+      "readingMinutes": 7,
+      "status": "published",
+      "summary": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
+      "path": "writing/2026-08-28-i-just-write-the-code-is-not-a-full-sentence.md",
+      "tags": [
+        "writing",
+        "software-engineering",
+        "engineering-judgement"
+      ],
+      "relatedSlugs": [
+        "why-adrs",
+        "the-right-test-isnt-your-favourite-test"
+      ]
     },
     {
       "slug": "how-the-invisibles-logo-designer-influenced-the-usual-specialists",
@@ -142,8 +201,15 @@
         "incomingTeaser": "When the caper moves inside the word"
       },
       "path": "writing/2026-09-03-how-the-invisibles-logo-designer-influenced-the-usual-specialists.md",
-      "tags": ["writing", "design", "typography"],
-      "relatedSlugs": ["the-usual-specialists", "adventures-of-patch"]
+      "tags": [
+        "writing",
+        "design",
+        "typography"
+      ],
+      "relatedSlugs": [
+        "the-usual-specialists",
+        "adventures-of-patch"
+      ]
     },
     {
       "slug": "use-superpowers",
@@ -154,8 +220,14 @@
       "status": "published",
       "summary": "I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.",
       "path": "writing/2026-09-05-use-superpowers.md",
-      "tags": ["writing", "agentic-engineering", "skills"],
-      "relatedSlugs": ["codex-marketplace"]
+      "tags": [
+        "writing",
+        "agentic-engineering",
+        "skills"
+      ],
+      "relatedSlugs": [
+        "codex-marketplace"
+      ]
     },
     {
       "slug": "goldilocks",
@@ -164,8 +236,33 @@
       "status": "published",
       "summary": "Good agent guidance is not maximum context, but enough relevant context for a confident next decision.",
       "path": "fairytales/goldilocks.md",
-      "tags": ["patch", "fairytales", "agentic-engineering", "guidance"],
-      "relatedSlugs": ["sorcerers-apprentice", "identity-emporium"]
+      "tags": [
+        "patch",
+        "fairytales",
+        "agentic-engineering",
+        "guidance"
+      ],
+      "relatedSlugs": [
+        "sorcerers-apprentice",
+        "identity-emporium"
+      ]
+    },
+    {
+      "slug": "identity-emporium",
+      "kind": "patch",
+      "title": "Identity Emporium",
+      "status": "visual development",
+      "summary": "Preparation should guide judgement without becoming a script. Bot takes the costume too literally, Bit rushes past preparation, and Patch starts with the task before choosing how to work.",
+      "tags": [
+        "patch",
+        "agentic-engineering",
+        "preparation"
+      ],
+      "relatedSlugs": [
+        "goldilocks",
+        "sorcerers-apprentice",
+        "adventures-of-patch"
+      ]
     },
     {
       "slug": "sorcerers-apprentice",
@@ -174,28 +271,16 @@
       "status": "published",
       "summary": "Delegation needs a boundary, not just permission.",
       "path": "fairytales/sorcerers-apprentice.md",
-      "tags": ["patch", "fairytales", "agentic-engineering", "delegation"],
-      "relatedSlugs": ["goldilocks", "identity-emporium"]
-    },
-    {
-      "slug": "identity-emporium",
-      "kind": "patch",
-      "title": "Identity Emporium",
-      "status": "visual development",
-      "summary": "Preparation should guide judgement without becoming a script. Bot takes the costume too literally, Bit rushes past preparation, and Patch starts with the task before choosing how to work.",
-      "presentation": "patch-identity-emporium",
-      "tags": ["patch", "agentic-engineering", "preparation"],
-      "relatedSlugs": ["goldilocks", "sorcerers-apprentice", "adventures-of-patch"]
-    },
-    {
-      "slug": "tournament-of-reasonable-defaults",
-      "kind": "patch",
-      "title": "Tournament of Reasonable Defaults",
-      "status": "visual development",
-      "summary": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
-      "presentation": "patch-tournament",
-      "tags": ["patch", "agentic-engineering", "requirements", "acceptance-criteria"],
-      "relatedSlugs": ["identity-emporium", "adventures-of-patch"]
+      "tags": [
+        "patch",
+        "fairytales",
+        "agentic-engineering",
+        "delegation"
+      ],
+      "relatedSlugs": [
+        "goldilocks",
+        "identity-emporium"
+      ]
     },
     {
       "slug": "the-usual-specialists",
@@ -203,9 +288,35 @@
       "title": "The Usual Specialists",
       "status": "published",
       "summary": "Patch built a vault that won’t let him in. Six agents help establish a lawful way back into a locked-down operating environment.",
-      "presentation": "patch-usual-specialists",
-      "tags": ["patch", "agentic-engineering", "authority", "audit", "recovery"],
-      "relatedSlugs": ["tournament-of-reasonable-defaults", "identity-emporium", "adventures-of-patch"]
+      "tags": [
+        "patch",
+        "agentic-engineering",
+        "authority",
+        "audit",
+        "recovery"
+      ],
+      "relatedSlugs": [
+        "tournament-of-reasonable-defaults",
+        "identity-emporium",
+        "adventures-of-patch"
+      ]
+    },
+    {
+      "slug": "tournament-of-reasonable-defaults",
+      "kind": "patch",
+      "title": "Tournament of Reasonable Defaults",
+      "status": "visual development",
+      "summary": "Four plausible interpretations expose the work hidden inside apparently simple instructions.",
+      "tags": [
+        "patch",
+        "agentic-engineering",
+        "requirements",
+        "acceptance-criteria"
+      ],
+      "relatedSlugs": [
+        "identity-emporium",
+        "adventures-of-patch"
+      ]
     }
   ]
 }

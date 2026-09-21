@@ -19,9 +19,6 @@ try:
 except ImportError:
     from site_profile import public_routes, public_url
 
-INDEX_ROUTES = {"/", "/projects", "/writing", "/patch", "/about", "/cv"}
-COMPATIBILITY_ROUTES = {"/fairytales", "/fairytales/goldilocks", "/fairytales/sorcerers-apprentice"}
-
 ANCHOR_RE = re.compile(r'<a\s[^>]*?\bhref\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|\{\s*["\']([^"\']*)["\']\s*\})', re.IGNORECASE)
 ANCHOR_TAG_RE = re.compile(r'<a\b[^>]*>', re.IGNORECASE | re.DOTALL)
 LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)]+)\)')
@@ -106,7 +103,17 @@ def _content_md_paths(manifest: dict) -> set[Path]:
     }
 
 
+def _compatibility_routes(manifest: dict) -> set[str]:
+    fairytale_slugs = {
+        item["slug"]
+        for item in manifest["items"]
+        if isinstance(item.get("path"), str) and item["path"].startswith("fairytales/")
+    }
+    return {"/fairytales", *(f"/fairytales/{slug}" for slug in fairytale_slugs)}
+
+
 def check_markdown_links(manifest: dict, routes: set[str], errors: list[str]) -> None:
+    compatibility_routes = _compatibility_routes(manifest)
     for path in _content_md_paths(manifest):
         text = path.read_text(encoding="utf-8")
         for match in LINK_RE.finditer(text):
@@ -129,7 +136,7 @@ def check_markdown_links(manifest: dict, routes: set[str], errors: list[str]) ->
                     )
                 continue
 
-            if url not in routes and url not in INDEX_ROUTES and url not in COMPATIBILITY_ROUTES:
+            if url not in routes and url not in compatibility_routes:
                 errors.append(
                     f"{path.relative_to(ROOT)}: link '{url}' does not resolve to a known route"
                 )

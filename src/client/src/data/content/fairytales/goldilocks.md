@@ -1,6 +1,8 @@
 ---
-title: Goldilocks - The Right Amount of Guidance
-summary: Good agent guidance is not maximum context, but enough relevant context for a confident next decision.
+title: "Goldilocks - The Right Amount of Guidance"
+summary: "Good agent guidance is not maximum context, but enough relevant context for a confident next decision."
+tags: ["patch","fairytales","agentic-engineering","guidance"]
+relatedSlugs: ["sorcerers-apprentice","identity-emporium"]
 ---
 
 # Goldilocks - The Right Amount of Guidance

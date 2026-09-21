@@ -1,7 +1,9 @@
 ---
-title: The right test isn't your favourite test
-date: 2026-08-27
-summary: The test worth running is the one that can falsify the next thing you are about to trust.
+title: "The right test isn't your favourite test"
+summary: "The test worth running is the one that can falsify the next thing you are about to trust."
+readingMinutes: 8
+tags: ["writing","software-engineering","testing","agentic-engineering"]
+relatedSlugs: []
 ---
 
 I like unit tests. I write a lot of them.

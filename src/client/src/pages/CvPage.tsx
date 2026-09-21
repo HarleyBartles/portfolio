@@ -33,11 +33,7 @@ export const CvPage = () => {
 
   return (
     <SiteLayout>
-      <DocumentMetadata
-        title="CV | Harley Bartles"
-        description="CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation."
-        canonicalPath="/cv"
-      />
+      <DocumentMetadata canonicalPath="/cv" />
       <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
         <CvSheet data-cv-page="1" aria-labelledby="cv-name">
           <CvHeader

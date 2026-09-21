@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate public/robots.txt and public/sitemap.xml from the content manifest."""
+"""Regenerate public/robots.txt and public/sitemap.xml from generated route metadata."""
 
 from __future__ import annotations
 
@@ -7,7 +7,6 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
-MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
 PUBLIC = ROOT / "src" / "client" / "public"
 
 try:

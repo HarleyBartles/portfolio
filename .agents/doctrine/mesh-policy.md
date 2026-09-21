@@ -68,8 +68,11 @@ The `tools/` tree is the repo-local tooling surface.
 - `py -3 tools/run.py index-mesh --apply` owns index generation through the bundled implementation and Portfolio's declarative exclusions.
 - `py -3 tools/run.py mesh --apply` composes `index-mesh` with agent-mesh validation.
 - `py -3 tools/run.py refresh-skills --apply` owns marketplace-derived skill refresh. The older `skills` name remains a compatibility alias, not the standard dispatch target.
+- `py -3 tools/run.py content-manifest --apply` owns `src/client/src/data/content/content-manifest.json`, deriving Markdown entries from content frontmatter and route-owned entries from co-located `*.content.json` source metadata. Rendering choices do not belong in that catalogue.
+- `py -3 tools/run.py route-catalogue --apply` owns `src/client/src/data/routes/route-metadata.generated.json`. The hook also regenerates `src/client/public/robots.txt` and `src/client/public/sitemap.xml` from that route projection.
+- Generated catalogue, route, SEO, and mesh files are projections. Repair their owning source or generator and regenerate them; do not hand-edit the projection to make a check pass.
 - `py -3 tools/run.py ci --check` is the complete combined readiness check. For normal commit work, the tracked hook owns its single execution against the staged tree; direct invocation is reserved for no-commit verification, pipeline diagnosis, or explicit CI-parity work.
-- Prefer the narrow owning generator (`refresh-skills --apply`, `index-mesh --apply`, or `mesh --apply`). Reserve umbrella `ci --apply` for deliberate repair of several generated surfaces, inspect its diff, and let the normal commit hook own complete verification.
+- Prefer the narrow owning generator (`refresh-skills --apply`, `index-mesh --apply`, `mesh --apply`, `content-manifest --apply`, or `route-catalogue --apply`). Reserve umbrella `ci --apply` for deliberate repair of several generated surfaces, inspect its diff, and let the normal commit hook own complete verification.
 
 ## 7. Handoff quality gate
 

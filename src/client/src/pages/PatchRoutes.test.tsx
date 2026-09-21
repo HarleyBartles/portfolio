@@ -87,6 +87,15 @@ describe('Adventures of Patch routes', () => {
     expect(evidence).toHaveTextContent(/Preparation shaped by the task/i)
     expect(within(evidence).getAllByRole('img')).toHaveLength(7)
     expect(screen.getByRole('link', { name: /engineering case study/i })).toHaveAttribute('href', '/portfolio/projects/adventures-of-patch')
+    const contentNavigation = document.querySelector('.content-navigation') as HTMLElement
+    expect(within(contentNavigation).getByRole('link', { name: /The Sorcerer's Apprentice/ })).toHaveAttribute(
+      'href',
+      '/portfolio/patch/sorcerers-apprentice',
+    )
+    expect(within(contentNavigation).getByRole('link', { name: /Tournament of Reasonable Defaults/ })).toHaveAttribute(
+      'href',
+      '/portfolio/patch/tournament-of-reasonable-defaults',
+    )
   })
 
   test('does not preserve the obsolete lawful-heist redirect', async () => {

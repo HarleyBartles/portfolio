@@ -1,6 +1,8 @@
 ---
-title: The Sorcerer's Apprentice - Delegation Without Boundaries
-summary: Delegation needs a boundary, not just permission.
+title: "The Sorcerer's Apprentice - Delegation Without Boundaries"
+summary: "Delegation needs a boundary, not just permission."
+tags: ["patch","fairytales","agentic-engineering","delegation"]
+relatedSlugs: ["goldilocks","identity-emporium"]
 ---
 
 # The Sorcerer's Apprentice - Delegation Without Boundaries

@@ -1,0 +1,16 @@
+{
+  "slug": "codex-marketplace",
+  "kind": "project",
+  "title": "Agent Asset Marketplace",
+  "status": "live",
+  "summary": "A public Codex plugin marketplace that turns recurring engineering guidance into inspectable, reusable assets while keeping repository-specific knowledge local.",
+  "tags": [
+    "project",
+    "agentic-engineering",
+    "skills"
+  ],
+  "relatedSlugs": [
+    "provisioning-is-not-accumulation",
+    "i-made-agentic-engineering-harder-than-it-needed-to-be"
+  ]
+}

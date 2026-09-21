@@ -7,6 +7,9 @@ import {
 import App from '../App'
 import { RouteErrorBoundary } from '../components/runtime'
 import { RouteLoadingStatus } from '../components/RouteLoadingStatus'
+import contentRouteRoots from '../data/routes/content-route-roots.json'
+
+const childRoute = (route: string): string => route.replace(/^\//, '')
 
 const loadProjectRoute = async () => {
   const [{ ProjectPage }, { NotFoundPage }] = await Promise.all([
@@ -71,7 +74,10 @@ const loadPublishedUsualSpecialistsRoute = async () => ({
 const LegacyFairytaleRedirect = () => {
   const { slug } = useParams()
   return (
-    <Navigate to={slug === undefined ? '/patch' : `/patch/${slug}`} replace />
+    <Navigate
+      to={slug === undefined ? contentRouteRoots.patch : `${contentRouteRoots.patch}/${slug}`}
+      replace
+    />
   )
 }
 
@@ -91,43 +97,43 @@ export const appRoutes: RouteObject[] = [
         }),
       },
       {
-        path: 'projects',
+        path: childRoute(contentRouteRoots.project),
         lazy: async () => ({
           Component: (await import('../pages/ProjectIndexPage'))
             .ProjectIndexPage,
         }),
       },
       {
-        path: 'projects/:slug',
+        path: `${childRoute(contentRouteRoots.project)}/:slug`,
         lazy: loadProjectRoute,
       },
       {
-        path: 'writing',
+        path: childRoute(contentRouteRoots.writing),
         lazy: async () => ({
           Component: (await import('../pages/WritingIndexPage'))
             .WritingIndexPage,
         }),
       },
       {
-        path: 'writing/:slug',
+        path: `${childRoute(contentRouteRoots.writing)}/:slug`,
         lazy: loadWritingRoute,
       },
       {
-        path: 'patch',
+        path: childRoute(contentRouteRoots.patch),
         lazy: async () => ({
           Component: (await import('../pages/PatchIndexPage')).PatchIndexPage,
         }),
       },
       {
-        path: 'patch/the-usual-specialists/next',
+        path: `${childRoute(contentRouteRoots.patch)}/the-usual-specialists/next`,
         lazy: loadUsualSpecialistsPreviewRoute,
       },
       {
-        path: 'patch/the-usual-specialists',
+        path: `${childRoute(contentRouteRoots.patch)}/the-usual-specialists`,
         lazy: loadPublishedUsualSpecialistsRoute,
       },
       {
-        path: 'patch/:slug',
+        path: `${childRoute(contentRouteRoots.patch)}/:slug`,
         lazy: loadPatchRoute,
       },
       {

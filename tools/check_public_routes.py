@@ -16,14 +16,8 @@ from typing import Any, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
+DEFAULT_ROUTE_CATALOGUE = ROOT / "src" / "client" / "src" / "data" / "routes" / "route-metadata.generated.json"
 DEFAULT_PREVIEW_ROUTES = ROOT / "src" / "client" / "src" / "data" / "routes" / "preview-routes.json"
-INDEX_ROUTES = ("/", "/about", "/cv", "/fairytales", "/patch", "/projects", "/writing")
-KIND_ROOT = {"project": "projects", "writing": "writing", "patch": "patch"}
-LEGACY_ROUTE_CANONICALS = {
-    "/fairytales": "/patch",
-    "/fairytales/goldilocks": "/patch/goldilocks",
-    "/fairytales/sorcerers-apprentice": "/patch/sorcerers-apprentice",
-}
 UNKNOWN_ROUTE = "/__portfolio-route-smoke__"
 USER_AGENT = "portfolio-public-route-check/1.0"
 
@@ -66,16 +60,31 @@ class FetchResult:
     final_url: str
 
 
-def expected_public_routes(manifest: Mapping[str, Any]) -> list[str]:
-    """Return every public route in deterministic review order."""
-    content_routes = []
+def compatibility_route_canonicals(manifest: Mapping[str, Any]) -> dict[str, str]:
+    aliases = {"/fairytales": "/patch"}
     for item in manifest.get("items", []):
-        root = KIND_ROOT.get(item.get("kind"))
         slug = item.get("slug")
-        if root is not None and isinstance(slug, str) and slug:
-            content_routes.append(f"/{root}/{slug}")
-    legacy_routes = [route for route, canonical in LEGACY_ROUTE_CANONICALS.items() if canonical == "/patch" or canonical in content_routes]
-    return [*INDEX_ROUTES, *sorted(set(content_routes + legacy_routes) - set(INDEX_ROUTES))]
+        source_path = item.get("path")
+        if isinstance(slug, str) and isinstance(source_path, str) and source_path.startswith("fairytales/"):
+            aliases[f"/fairytales/{slug}"] = f"/patch/{slug}"
+    return aliases
+
+
+def expected_public_routes(
+    route_catalogue: Sequence[Mapping[str, Any]],
+    manifest: Mapping[str, Any],
+) -> list[str]:
+    """Return every generated public route plus derived compatibility aliases."""
+    public_routes = {
+        entry["path"]
+        for entry in route_catalogue
+        if entry.get("indexability") == "index" and isinstance(entry.get("path"), str)
+    }
+    compatibility = compatibility_route_canonicals(manifest)
+    public_routes.update(
+        route for route, canonical in compatibility.items() if canonical in public_routes
+    )
+    return sorted(public_routes)
 
 
 def expected_preview_routes(preview_routes: Sequence[Mapping[str, Any]]) -> list[str]:
@@ -186,6 +195,7 @@ def _inspect_preview_html(route: str, result: FetchResult) -> list[str]:
 
 def check_public_routes(
     origin: str,
+    route_catalogue: Sequence[Mapping[str, Any]],
     manifest: Mapping[str, Any],
     *,
     preview_routes: Sequence[Mapping[str, Any]] = (),
@@ -195,7 +205,8 @@ def check_public_routes(
 ) -> list[str]:
     """Return actionable findings for known routes and the custom 404 document."""
     findings: list[str] = []
-    for route in expected_public_routes(manifest):
+    compatibility = compatibility_route_canonicals(manifest)
+    for route in expected_public_routes(route_catalogue, manifest):
         url = _request_url(origin, route)
         try:
             result = _fetch(url, retries=retries, retry_delay=retry_delay, timeout=timeout)
@@ -207,7 +218,7 @@ def check_public_routes(
             qualifier = " redirect response" if 300 <= result.status < 400 else ""
             findings.append(f"{route}: HTTP {result.status}{qualifier}; known routes must return 200")
             continue
-        canonical_route = LEGACY_ROUTE_CANONICALS.get(route, route)
+        canonical_route = compatibility.get(route, route)
         findings.extend(_inspect_html(route, result, _canonical_url(origin, canonical_route), unknown=False))
 
     for route in expected_preview_routes(preview_routes):
@@ -244,6 +255,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--origin", required=True, help="Deployed base URL, including /portfolio")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument("--route-catalogue", type=Path, default=DEFAULT_ROUTE_CATALOGUE)
     parser.add_argument("--retries", type=int, default=2)
     parser.add_argument("--retry-delay", type=float, default=1.0)
     parser.add_argument("--timeout", type=float, default=15.0)
@@ -253,9 +265,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    route_catalogue = json.loads(args.route_catalogue.read_text(encoding="utf-8"))
     preview_routes = json.loads(DEFAULT_PREVIEW_ROUTES.read_text(encoding="utf-8"))
     findings = check_public_routes(
         args.origin,
+        route_catalogue,
         manifest,
         preview_routes=preview_routes,
         retries=max(0, args.retries),
@@ -269,7 +283,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     print(
-        f"[tools/check_public_routes] {len(expected_public_routes(manifest))} public routes, "
+        f"[tools/check_public_routes] {len(expected_public_routes(route_catalogue, manifest))} public routes, "
         f"{len(expected_preview_routes(preview_routes))} preview routes, and custom 404 OK"
     )
     return 0

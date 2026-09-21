@@ -15,11 +15,11 @@ vi.mock('../features/case-study/projectPresentations', async () => {
   }))
 
   return {
-    getProjectPresentation: (presentation: string) => presentation === 'wild-bunch-case-study'
+    getProjectPresentation: (slug: string) => slug === 'wild-bunch'
       ? DeferredWildBunch
-      : presentation === 'patch-pipeline-case-study'
+      : slug === 'adventures-of-patch'
         ? () => React.createElement('p', undefined, 'Patch specialist body')
-      : presentation === 'learning-lab-case-study'
+      : slug === 'agentic-learning-lab'
           ? () => React.createElement('p', undefined, 'Learning Lab specialist body')
           : undefined,
     resolveWildBunchPresentation: () => resolvePresentation?.({
@@ -214,6 +214,13 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(image).toHaveAttribute('loading', 'eager')
     expect(image).toHaveAttribute('fetchpriority', 'high')
     expect(container.querySelector('[data-visual-contract="patch-case-study-hero"] picture source[media="(min-width: 45rem)"]')).not.toBeNull()
+    const contentNavigation = container.querySelector('.content-navigation') as HTMLElement
+    expect(within(contentNavigation).getByText('Previous')).toBeVisible()
+    expect(within(contentNavigation).getByRole('link', { name: /Wild Bunch/ })).toHaveAttribute(
+      'href',
+      '/portfolio/projects/wild-bunch',
+    )
+    expect(within(contentNavigation).queryByText('Next')).not.toBeInTheDocument()
   })
 
   test('assigns the Learning Lab field-manual hero contract', async () => {

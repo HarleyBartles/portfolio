@@ -68,11 +68,22 @@ def serving(responses: dict[str, list[tuple[int, str, bytes, dict[str, str]]]]) 
 
 class PublicRouteTests(unittest.TestCase):
     def setUp(self) -> None:
+        self.route_catalogue = [
+            {'path': '/', 'indexability': 'index'},
+            {'path': '/about', 'indexability': 'index'},
+            {'path': '/cv', 'indexability': 'index'},
+            {'path': '/patch', 'indexability': 'index'},
+            {'path': '/projects', 'indexability': 'index'},
+            {'path': '/writing', 'indexability': 'index'},
+            {'path': '/patch/goldilocks', 'indexability': 'index'},
+            {'path': '/projects/proof-project', 'indexability': 'index'},
+            {'path': '/writing/useful-note', 'indexability': 'index'},
+        ]
         self.manifest = {
             'items': [
                 {'kind': 'project', 'slug': 'proof-project'},
                 {'kind': 'writing', 'slug': 'useful-note'},
-                {'kind': 'patch', 'slug': 'goldilocks'},
+                {'kind': 'patch', 'slug': 'goldilocks', 'path': 'fairytales/goldilocks.md'},
             ]
         }
         self.preview_routes = [{'path': '/patch/the-usual-specialists/next/'}]
@@ -84,7 +95,7 @@ class PublicRouteTests(unittest.TestCase):
             '/fairytales/goldilocks': '/patch/goldilocks',
             '/fairytales/sorcerers-apprentice': '/patch/sorcerers-apprentice',
         }
-        for route in expected_public_routes(self.manifest):
+        for route in expected_public_routes(self.route_catalogue, self.manifest):
             request_path = '/portfolio/' if route == '/' else f'/portfolio{route}'
             canonical_route = legacy_canonicals.get(route, route)
             canonical = origin if canonical_route == '/' else f'{origin}{canonical_route}'
@@ -99,22 +110,22 @@ class PublicRouteTests(unittest.TestCase):
 
     def test_expected_routes_include_indexes_and_manifest_content(self) -> None:
         self.assertEqual(
-            expected_public_routes(self.manifest),
+            expected_public_routes(self.route_catalogue, self.manifest),
             [
                 '/',
                 '/about',
                 '/cv',
                 '/fairytales',
-                '/patch',
-                '/projects',
-                '/writing',
                 '/fairytales/goldilocks',
+                '/patch',
                 '/patch/goldilocks',
+                '/projects',
                 '/projects/proof-project',
+                '/writing',
                 '/writing/useful-note',
             ],
         )
-        self.assertNotIn('/patch/the-usual-specialists/next/', expected_public_routes(self.manifest))
+        self.assertNotIn('/patch/the-usual-specialists/next/', expected_public_routes(self.route_catalogue, self.manifest))
         self.assertEqual(expected_preview_routes(self.preview_routes), ['/patch/the-usual-specialists/next/'])
 
     def test_checker_requests_every_known_route_and_custom_unknown_fallback(self) -> None:
@@ -123,6 +134,7 @@ class PublicRouteTests(unittest.TestCase):
             responses.update(self.valid_responses(origin))
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=self.preview_routes,
                 retries=0,
@@ -156,6 +168,7 @@ class PublicRouteTests(unittest.TestCase):
             responses['/portfolio/writing'] = [(200, 'application/json', b'{}', {})]
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=self.preview_routes,
                 retries=0,
@@ -174,6 +187,7 @@ class PublicRouteTests(unittest.TestCase):
             responses['/portfolio/writing'] = [(200, 'text/html', github_404, {})]
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=self.preview_routes,
                 retries=0,
@@ -193,6 +207,7 @@ class PublicRouteTests(unittest.TestCase):
             ]
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=self.preview_routes,
                 retries=1,
@@ -222,6 +237,7 @@ class PublicRouteTests(unittest.TestCase):
             ]
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=preview_routes,
                 retries=0,
@@ -244,6 +260,7 @@ class PublicRouteTests(unittest.TestCase):
             responses['/portfolio/preview-github-error/'] = [(200, 'text/html', github_404, {})]
             findings = check_public_routes(
                 origin,
+                self.route_catalogue,
                 self.manifest,
                 preview_routes=preview_routes,
                 retries=0,
@@ -252,13 +269,13 @@ class PublicRouteTests(unittest.TestCase):
         self.assertTrue(any('/preview-json/' in finding and 'Content-Type' in finding for finding in findings))
         self.assertTrue(any('/preview-github-error/' in finding and 'GitHub Pages' in finding for finding in findings))
 
-    def test_manifest_file_shape_matches_library_input(self) -> None:
+    def test_generated_catalogue_and_manifest_file_shapes_match_library_input(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             manifest_path = Path(temporary) / 'manifest.json'
             manifest_path.write_text(json.dumps(self.manifest), encoding='utf-8')
             loaded = json.loads(manifest_path.read_text(encoding='utf-8'))
 
-        self.assertEqual(expected_public_routes(loaded), expected_public_routes(self.manifest))
+        self.assertEqual(expected_public_routes(self.route_catalogue, loaded), expected_public_routes(self.route_catalogue, self.manifest))
 
 
 if __name__ == '__main__':

@@ -107,6 +107,15 @@ def _portfolio_quality_check_cmd() -> list[str]:
     return [sys.executable, "tools/check_portfolio_quality.py"]
 
 
+def _content_manifest_cmd(mode: str) -> list[str]:
+    return [sys.executable, "tools/generate_content_manifest.py", f"--{mode}"]
+
+
+def _route_catalogue_cmd(mode: str) -> list[str]:
+    command = "routes:apply" if mode == "apply" else "routes:check"
+    return _client_cmd("run", command)
+
+
 def _refresh_seo_files_cmd() -> list[str]:
     return [sys.executable, "tools/refresh_seo_files.py"]
 
@@ -174,10 +183,30 @@ def _index_mesh_check(ctx: Ctx) -> None:
     _run(_index_mesh_cmd("check", ctx.allow_shared), ctx)
 
 
+def _content_manifest_apply(ctx: Ctx) -> None:
+    _run(_content_manifest_cmd("apply"), ctx)
+    _run(_content_manifest_cmd("check"), ctx)
+
+
+def _content_manifest_check(ctx: Ctx) -> None:
+    _run(_content_manifest_cmd("check"), ctx)
+
+
+def _route_catalogue_apply(ctx: Ctx) -> None:
+    _run(_route_catalogue_cmd("apply"), ctx)
+    _run(_route_catalogue_cmd("check"), ctx)
+
+
+def _route_catalogue_check(ctx: Ctx) -> None:
+    _run(_route_catalogue_cmd("check"), ctx)
+
+
 def _ci_apply(ctx: Ctx) -> None:
     _repo_standards_apply(ctx)
     _skills_apply(ctx)
     _mesh_apply(ctx)
+    _content_manifest_apply(ctx)
+    _route_catalogue_apply(ctx)
     _run(_refresh_seo_files_cmd(), ctx)
 
 
@@ -193,6 +222,8 @@ def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], st
         ("repository standards", _repo_standards_check, None),
         ("installed skills", _skills_check, None),
         ("agent mesh", _mesh_check, None),
+        ("content manifest", _content_manifest_check, None),
+        ("route catalogue", _route_catalogue_check, None),
         ("link hygiene", lambda ctx: _run(_link_hygiene_check_cmd(), ctx), None),
         ("portfolio quality", lambda ctx: _run(_portfolio_quality_check_cmd(), ctx), None),
         ("Python tests", _python_tests_check, None),
@@ -237,6 +268,8 @@ def _base_ci_check(ctx: Ctx) -> None:
     _repo_standards_check(ctx)
     _skills_check(ctx)
     _mesh_check(ctx)
+    _content_manifest_check(ctx)
+    _route_catalogue_check(ctx)
     _run(_link_hygiene_check_cmd(), ctx)
     _run(_portfolio_quality_check_cmd(), ctx)
     _python_tests_check(ctx)
@@ -270,6 +303,8 @@ TARGETS = {
     "skills": {"apply": _skills_apply, "check": _skills_check},
     "index-mesh": {"apply": _index_mesh_apply, "check": _index_mesh_check},
     "mesh": {"apply": _mesh_apply, "check": _mesh_check},
+    "content-manifest": {"apply": _content_manifest_apply, "check": _content_manifest_check},
+    "route-catalogue": {"apply": _route_catalogue_apply, "check": _route_catalogue_check},
     "ci": {"apply": _ci_apply, "check": _ci_check},
     "all": {"apply": _all_apply, "check": _all_check},
 }
