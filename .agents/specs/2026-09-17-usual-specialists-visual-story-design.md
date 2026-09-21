@@ -8,7 +8,9 @@
 
 **Repository base at design-worktree creation:** `f5e89b7ac35a60f7fc6af36412e60708ece00b81`
 
-**Route in scope:** `/patch/the-usual-specialists/next/`
+**Published route:** `/patch/the-usual-specialists/`
+
+**Unlinked no-index alias:** `/patch/the-usual-specialists/next/`
 
 ## Purpose of this specification
 
@@ -45,20 +47,23 @@ They may not silently redesign the page or fill missing chapter design decisions
 
 ## Chapter specifications
 
-The page delegates local chapter design to:
+The page delegates still-live local chapter design to:
 
-- `2026-09-17-usual-specialists-index-chapter-design.md`
 - `2026-09-17-usual-specialists-writ-chapter-design.md`
 - `2026-09-17-usual-specialists-klause-chapter-design.md`
 - `2026-09-17-usual-specialists-rollback-chapter-design.md`
 - `2026-09-17-usual-specialists-receipt-chapter-design.md`
 
-Index, Writ, Klause, Rollback and Receipt have settled local designs. Silk remains
-second in the six-specialist story and still owns `prove the route`, but its previous
-chapter design and implementation were explicitly retired so the next Silk pass can
-start from a clean foundation. Its traced name mark plus `PRESSURE | PROVE THE ROUTE`
-lockup are retained as reusable identity work. JIT implementation plans remain sequential and
-must still consume the actual accepted predecessor milestone output.
+Index has a settled, accepted implementation; its completed
+`2026-09-17-usual-specialists-index-chapter-design.md` specification was retired
+after merge and remains available in Git history rather than as live chapter
+authority. Writ, Klause, Rollback and Receipt retain their settled local design
+specifications. Silk remains second in the six-specialist story and still owns
+`prove the route`, but its previous chapter design and implementation were
+explicitly retired so the next Silk pass can start from a clean foundation. Its
+traced name mark plus `PRESSURE | PROVE THE ROUTE` lockup are retained as reusable
+identity work. JIT implementation plans remain sequential and must still consume
+the actual accepted predecessor milestone output.
 
 ## Page story
 
@@ -505,15 +510,18 @@ authorised for deletion once Index was locked. Git history is their recovery pat
 The traced `silk-wordmark.svg` is intentionally retained outside that retired media
 pipeline as reusable identity artwork.
 
-## Existing route and publication seam
+## Current route and publication seam
 
-The legacy `/patch/the-usual-specialists/` route remains the frozen indexed
-canonical six-specialist presentation until a separate explicit cutover decision.
+The 21 September cutover decision supersedes the temporary legacy-canonical/V2
+preview seam. `/patch/the-usual-specialists/` is the indexed canonical route for
+the accepted V2 milestone: opening, chapter navigation, Index and Under
+Construction. Later specialist chapters remain absent until their own reviewed
+milestones land.
 
-V2 remains only at unlinked `/patch/the-usual-specialists/next/` during this epic,
-with `noindex, nofollow`, no canonical publication identity and no sitemap or
-discovery exposure. Completing a roadmap milestone does not grant cutover
-authority.
+`/patch/the-usual-specialists/next/` remains an unlinked `noindex, nofollow`
+alias of that same published V2 page. It has no independent canonical
+publication identity, sitemap entry or design authority. The retired legacy
+renderer is no longer a publication surface.
 
 ## Superseded and preserved decisions
 
@@ -525,7 +533,7 @@ fresh design pass.
 The system preserves:
 
 - the accepted Index composition as the visual control case;
-- the temporary legacy-canonical/V2-preview route seam;
+- the canonical accepted V2 milestone plus its unlinked no-index `/next/` alias;
 - the mobile-first, content-authored responsive boundary convention established on
   18 September; and
 - the 10 September principle that V2 grows through approved chapter work rather
@@ -570,7 +578,8 @@ plan.
       desktop coordinates.
 - [ ] The completed folder earns the final hero field only after all six assents.
 - [ ] No caper action follows the recruitment payoff.
-- [ ] The preview route remains unpublished until a separate cutover decision.
+- [ ] Each newly added specialist reaches the canonical route only after its own
+      acceptance gate; the retained `/next/` alias remains unlinked and no-index.
 
 ## Readiness and next step
 
