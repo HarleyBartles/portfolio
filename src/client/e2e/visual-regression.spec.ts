@@ -487,6 +487,7 @@ test('Patch index keeps its branded series front door at wide and mobile viewpor
     await page.setViewportSize(viewport)
     await openStable(page, './patch')
     const index = page.locator('[data-visual-contract="patch-index"]')
+    await waitForImages(index)
     await expect(index).toHaveScreenshot(`patch-index-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
   }
 })
