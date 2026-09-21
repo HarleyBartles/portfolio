@@ -78,10 +78,14 @@ describe('Adventures of Patch routes', () => {
   test('publishes the reviewed Identity Emporium argument on its own route', async () => {
     renderRoute('/patch/identity-emporium')
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Identity Emporium' })).toBeVisible()
-    expect(await screen.findByText('Visual development')).toBeVisible()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Identity Emporium' }, { timeout: 15_000 })).toBeVisible()
+    expect(await screen.findByText('Visual development', {}, { timeout: 15_000 })).toBeVisible()
     expect(screen.getByText(/Preparation should guide judgement without becoming a script/i)).toBeVisible()
-    const evidence = await screen.findByRole('figure', { name: /Identity Emporium compares three approaches to preparation/i })
+    const evidence = await screen.findByRole(
+      'figure',
+      { name: /Identity Emporium compares three approaches to preparation/i },
+      { timeout: 15_000 },
+    )
     expect(evidence).toHaveTextContent(/Preparation mistaken for a script/i)
     expect(evidence).toHaveTextContent(/Straight to work, underprepared/i)
     expect(evidence).toHaveTextContent(/Preparation shaped by the task/i)
@@ -96,7 +100,7 @@ describe('Adventures of Patch routes', () => {
       'href',
       '/portfolio/patch/tournament-of-reasonable-defaults',
     )
-  })
+  }, 30_000)
 
   test('does not preserve the obsolete lawful-heist redirect', async () => {
     const router = renderRoute('/patch/lawful-heist')

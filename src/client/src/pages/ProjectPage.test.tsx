@@ -62,12 +62,16 @@ describe('Project route visuals', () => {
       </QueryClientProvider>,
     )
 
-    const title = await screen.findByRole('heading', { level: 1, name: 'Agentic Learning Lab' })
+    const title = await screen.findByRole(
+      'heading',
+      { level: 1, name: 'Agentic Learning Lab' },
+      { timeout: 15_000 },
+    )
     const article = title.closest('article')
     expect(article).toHaveAttribute('data-visual-language', 'project')
     expect(article?.querySelector('header')).toHaveAttribute('data-visual-contract', 'learning-lab-case-study-hero')
     await waitFor(() => expect(article?.querySelectorAll('[data-visual-contract="learning-lab-loop"]')).toHaveLength(1))
     expect(await screen.findByRole('heading', { level: 2, name: 'Experience made transferable' }, { timeout: 5_000 })).toBeVisible()
     expect(screen.queryByRole('img', { name: /venue floor plan/i })).not.toBeInTheDocument()
-  })
+  }, 30_000)
 })

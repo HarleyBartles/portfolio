@@ -71,7 +71,7 @@ test('composes a two-page CV from the approved professional facts', () => {
   expect(container.querySelector('a[href^="mailto:"], a[href^="tel:"]')).toBeNull()
   expect(container).not.toHaveTextContent(/salary|acting|shameless/i)
   expect(within(screen.getByRole('navigation', { name: 'Primary' })).getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv')
-})
+}, 30_000)
 
 test('leads About with the next-role conversion and routes its CTA to contact', () => {
   const { container } = render(

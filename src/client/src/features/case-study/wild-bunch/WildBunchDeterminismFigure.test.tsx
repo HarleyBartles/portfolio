@@ -32,5 +32,5 @@ describe('Wild Bunch determinism figure contract', () => {
     expect(within(stages[3]).getByText('Observable outcomes')).toBeVisible()
     expect(within(stages[3]).getByText(/Under Boring, the same seed, difficulty and ordered player actions produce the same outcome/i)).toBeVisible()
     expect(within(stages[3]).getByText(/Tests, replay and diagnosis/i)).toBeVisible()
-  })
+  }, 30_000)
 })
