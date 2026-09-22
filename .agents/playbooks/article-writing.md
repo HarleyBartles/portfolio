@@ -15,11 +15,9 @@ Use this playbook to take public editorial work from commission through publicat
 - `linear-issue-shaping` and `using-linear-mcp` when the commission is Linear-backed.
 - `verification-before-completion` before publication or readiness claims.
 
-The companion implementation will register a repo-owned article-writing skill to carry the detailed editorial method. Until then, this playbook remains independently usable and does not require or link to an unregistered skill.
-
 ## Composition
 
-The [Portfolio writing policy](../doctrine/writing-policy.md) owns durable editorial law. This playbook owns repository workflow, pass ordering and publication mechanics. The future repo-owned article-writing skill will own the detailed editorial method without duplicating repository commands.
+The [Portfolio writing policy](../doctrine/writing-policy.md) owns durable editorial law. This playbook owns repository workflow, pass ordering and publication mechanics.
 
 Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web review as distinct passes so a smooth sentence cannot hide a weak proposition or structure. For Linear-backed work, retrieve the full issue and every linked document before editing. During normal publication, the tracked commit hook owns the complete local gate.
 
