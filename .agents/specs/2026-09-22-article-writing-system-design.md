@@ -1,6 +1,6 @@
 # Article Writing System Design
 
-Status: approved design
+Status: completed-awaiting-retirement
 Owner: Portfolio repository
 Scope: public editorial writing and the repository workflow used to produce it
 Authority: this specification governs implementation; after implementation, the resulting doctrine is the binding editorial authority

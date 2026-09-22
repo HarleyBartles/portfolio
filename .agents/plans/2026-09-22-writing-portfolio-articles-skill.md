@@ -1,8 +1,8 @@
 # Writing Portfolio Articles Skill Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task by task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task by task. Steps use checkbox (`- [x]`) syntax for tracking.
 
-**Status:** approved and ready for execution
+**Status:** completed-awaiting-retirement
 
 **Goal:** Build and register `/writing-portfolio-articles` as a repo-owned editorial skill with deterministic audit contracts, human-assessed field use and an explicit learning loop.
 
@@ -54,11 +54,11 @@
 - Consumes: `.agents/doctrine/writing-policy.md`, `.agents/playbooks/article-writing.md` and the approved self-improvement model in the spec.
 - Produces: canonical local skill custody and a non-binding learning log that later skill work can consult without turning observations into policy.
 
-- [ ] **Step 1: Scaffold the local skill**
+- [x] **Step 1: Scaffold the local skill**
 
 Use the installed `writing-skills` scaffolder with exact name `writing-portfolio-articles`, local custody and the first-party lane. Inspect the result before editing. Do not edit marketplace-derived source.
 
-- [ ] **Step 2: Declare local custody and refresh projections**
+- [x] **Step 2: Declare local custody and refresh projections**
 
 Add `writing-portfolio-articles` to `repo.local_skills` in `.agents/plugins/marketplace.json`, then run:
 
@@ -71,7 +71,7 @@ py -3 tools/run.py mesh --check
 
 Expected: the local scaffold remains intact, provenance records first-party local custody, and the mesh discovers it. Do not add it to the article-writing playbook yet.
 
-- [ ] **Step 3: Create the field-notes document**
+- [x] **Step 3: Create the field-notes document**
 
 Create `.agents/docs/article-writing-field-notes.md` with:
 
@@ -82,7 +82,7 @@ Create `.agents/docs/article-writing-field-notes.md` with:
 - a rule to record only meaningful corrections, rejections, mixed outcomes, missed issues, surprising successes, useful abstentions, new forms, conflicts or overcorrections;
 - no arbitrary time, count or file-size trigger for consolidation.
 
-- [ ] **Step 4: Encode the promotion ladder**
+- [x] **Step 4: Encode the promotion ladder**
 
 State the durable loop:
 
@@ -98,7 +98,7 @@ field use
 
 One occurrence is recorded, not promoted. Recurrence across materially different work may justify a focused review. A clear conflict with existing authority requires repairing the skill and affected work. Doctrine changes only by Harley's explicit editorial decision. The skill never rewrites itself autonomously.
 
-- [ ] **Step 5: Commit the scaffold and learning contract**
+- [x] **Step 5: Commit the scaffold and learning contract**
 
 ```powershell
 git add .agents/plugins/marketplace.json .agents/skills .agents/docs .agents/INDEX.md
@@ -121,7 +121,7 @@ Expected: the tracked hook passes and the field-notes document is clearly non-bi
 - Consumes: public-content custody discovered from the live repository.
 - Produces: tested functions `discover_public_sources(root: Path) -> tuple[Path, ...]`, `audit_articles(root: Path, thresholds: AuditThresholds) -> CorpusReport`, `audit_public_language(root: Path) -> LanguageReport`, and `main(argv: Sequence[str] | None = None) -> int`.
 
-- [ ] **Step 1: Define synthetic fixture contracts**
+- [x] **Step 1: Define synthetic fixture contracts**
 
 Create minimal invented fixtures that exercise parser and policy mechanics without copying or pinning published articles:
 
@@ -132,19 +132,19 @@ Create minimal invented fixtures that exercise parser and policy mechanics witho
 - contextual `shit` and `piss` examples;
 - ignored generated, dependency, test and `.agents/` copies containing sentinel language.
 
-- [ ] **Step 2: Write failing parsing and stable-output tests**
+- [x] **Step 2: Write failing parsing and stable-output tests**
 
 Assert that frontmatter is excluded from prose counts while declared reading time is captured; ordering is stable by POSIX path and location; headings, one-sentence paragraphs, exact repeated phrases, links and word-count/reading-time observations are reported; facts and heuristics are distinguished; and findings carry locations and context.
 
-- [ ] **Step 3: Write failing language-policy tests**
+- [x] **Step 3: Write failing language-policy tests**
 
 Assert that more than one public `fuck` and each prohibited term produce objective breaches; word-boundary handling avoids substring false positives and covers agreed inflections; `shit` and `piss` produce contextual findings; excluded sources do not affect counts; and no API offers AI probability, authorship classification, rewrite output or a composite quality score.
 
-- [ ] **Step 4: Write the source-set completeness test**
+- [x] **Step 4: Write the source-set completeness test**
 
 Keep supported public source roots and route-owned patterns in one explicit data structure. Test custody classes and discovery roots, not individual articles, so new material in an existing class is included automatically and a new unclassified public content owner fails visibly.
 
-- [ ] **Step 5: Run and record the focused RED**
+- [x] **Step 5: Run and record the focused RED**
 
 ```powershell
 py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
@@ -152,7 +152,7 @@ py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p
 
 Expected: FAIL because the audit implementation does not exist.
 
-- [ ] **Step 6: Preserve the RED evidence without committing failure**
+- [x] **Step 6: Preserve the RED evidence without committing failure**
 
 Record the failing command and relevant failure output in the execution commentary or plan-scoped external scratch, then continue directly to Task 3. Do not commit a deliberately failing repository state.
 
@@ -169,23 +169,23 @@ Record the failing command and relevant failure output in the execution commenta
 - Consumes: Task 2's fixtures and function signatures.
 - Produces: standard-library-only report types and a CLI implementing the deterministic observation contract.
 
-- [ ] **Step 1: Implement report types and discovery**
+- [x] **Step 1: Implement report types and discovery**
 
 Define immutable threshold, finding, article-observation, corpus-report and language-report dataclasses. Keep source roots, exclusions and thresholds explicit and inspectable.
 
-- [ ] **Step 2: Implement article observations**
+- [x] **Step 2: Implement article observations**
 
 Parse Markdown without another dependency. Report source facts: word count, declared reading time, headings, paragraph and sentence-length distributions, one-sentence paragraphs, links and exact repeated phrases. Label a heuristic explicitly only when its approximation is explainable; otherwise omit it.
 
-- [ ] **Step 3: Implement whole-site language inventory**
+- [x] **Step 3: Implement whole-site language inventory**
 
 Scan explicit public-copy custody classes with case-insensitive word-boundary matching. Exit non-zero only for objective breaches. Print contextual findings for `shit` and `piss`; leave non-language 12A review to editorial workflow.
 
-- [ ] **Step 4: Implement CLI modes**
+- [x] **Step 4: Implement CLI modes**
 
 Support `--articles <root>`, `--public-language <root>`, `--format text|json` and `--check`. Check mode returns non-zero only for objective breaches or an incomplete or invalid source-set contract. Help text explains custody, thresholds and the observational boundary.
 
-- [ ] **Step 5: Make the deterministic suite GREEN**
+- [x] **Step 5: Make the deterministic suite GREEN**
 
 ```powershell
 py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
@@ -193,7 +193,7 @@ py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p
 
 Expected: PASS.
 
-- [ ] **Step 6: Run the audit against the live repository**
+- [x] **Step 6: Run the audit against the live repository**
 
 ```powershell
 py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py --articles src/client/src/data/content/writing --format text
@@ -202,7 +202,7 @@ py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py 
 
 Expected: observations rather than verdicts; failure only for an objective breach or source-contract problem.
 
-- [ ] **Step 7: Commit the audit**
+- [x] **Step 7: Commit the audit**
 
 ```powershell
 git add .agents/skills/writing-portfolio-articles/scripts .agents/skills/writing-portfolio-articles/tests
@@ -233,13 +233,13 @@ Expected: the commit contains the contract tests and their passing implementatio
 - Consumes: canonical doctrine, playbook, audit CLI and field-learning contract.
 - Produces: a discoverable progressive-disclosure editorial method without duplicating repository law.
 
-- [ ] **Step 1: Author the compact router**
+- [x] **Step 1: Author the compact router**
 
 Use frontmatter name `writing-portfolio-articles`. The description begins `Use when...` and covers drafting, developmental editing, line editing, corpus-fatigue review and final review.
 
 The router must require doctrine, route mechanics to the playbook, select references by editorial stage, establish centre and form before line editing, keep corpus observations advisory and task-local, require rendered review before publication claims, distinguish editing from publication authority, expose the audit CLI, route material outcomes into the learning procedure, and forbid autonomous self-revision or doctrine promotion.
 
-- [ ] **Step 2: Write references by single responsibility**
+- [x] **Step 2: Write references by single responsibility**
 
 Implement the responsibilities from the spec. Each reference contains the decisions and checks for that stage, a strong example where useful, and links to doctrine rather than copied policy.
 
@@ -251,11 +251,11 @@ Sometimes, shoot the hostage. In Speed, Jack Traven's answer to a gunman using a
 
 Contrast it with a genuinely false sentence boundary and explain effect rather than punctuation count.
 
-- [ ] **Step 3: Write the field-learning procedure**
+- [x] **Step 3: Write the field-learning procedure**
 
 `field-learning.md` owns when and how to consult or add to `.agents/docs/article-writing-field-notes.md`, how to classify likely ownership, and how to return unresolved taste or authority decisions to Harley. It discourages routine invocation logging and forbids autonomous self-modification.
 
-- [ ] **Step 4: Check routing, size and duplication**
+- [x] **Step 4: Check routing, size and duplication**
 
 ```powershell
 $words = (Get-Content .agents/skills/writing-portfolio-articles/SKILL.md -Raw) -split '\s+' | Where-Object { $_ }
@@ -266,7 +266,7 @@ rg -n "BBFC|at most one.*fuck|explicit.*decision" .agents/skills/writing-portfol
 
 Expected: all routes exist without duplicating detailed policy or method.
 
-- [ ] **Step 5: Commit the method**
+- [x] **Step 5: Commit the method**
 
 ```powershell
 git add .agents/skills/writing-portfolio-articles .agents/docs/article-writing-field-notes.md
@@ -288,25 +288,25 @@ git commit -m "feat: add portfolio article writing method"
 - Consumes: the current skill and current live editorial material.
 - Produces: Harley's categorical assessment of aggregate usefulness and only durable refinements justified by use.
 
-- [ ] **Step 1: Select deliberately different live articles**
+- [x] **Step 1: Select deliberately different live articles**
 
 Choose at least three current articles with materially different editorial demands, plus one opportunity where abstention may be correct. Selection happens at execution time because the corpus is fluid. Record paths and the current commit in external scratch for that run only; create no tracked fixtures or permanent trial cards.
 
-- [ ] **Step 2: Apply the skill without editing published source**
+- [x] **Step 2: Apply the skill without editing published source**
 
 For each selection, create a temporary diagnosis and candidate revision in plan-scoped external scratch. Assess the whole article before local sentences. Preserve supplied language, evidence boundaries and deliberate formal choices. Do not commit candidate article rewrites as verification artefacts.
 
-- [ ] **Step 3: Ask Harley for categorical editorial judgement**
+- [x] **Step 3: Ask Harley for categorical editorial judgement**
 
 Present original context, diagnosis, candidate changes, preservation risks and abstentions. Harley classifies each result as `improved`, `improved with damage`, `changed but not improved`, `worse` or `appropriately abstained`.
 
 Discuss proposition, movement, evidence, authorship and voice, rhythm, preservation of the strongest choices, and publication preference. These are prompts for judgement, not numeric scoring dimensions.
 
-- [ ] **Step 4: Repair demonstrated problems at the smallest authority**
+- [x] **Step 4: Repair demonstrated problems at the smallest authority**
 
 Classify each correction as an audit bug, missing skill method, playbook or doctrine conflict needing human authority, article-specific judgement that should not generalise, or candidate lesson needing more evidence. Update only the smallest justified authority, rerun affected deterministic tests, and repeat only the affected live exercise. Do not invent rules merely to force `improved` results.
 
-- [ ] **Step 5: Apply the initial-use gate**
+- [x] **Step 5: Apply the initial-use gate**
 
 Before registration and publication, require:
 
@@ -318,11 +318,11 @@ Before registration and publication, require:
 
 If the gate does not pass, stop with the evidence and unresolved judgement. Do not substitute a score or weaken the gate after seeing results.
 
-- [ ] **Step 6: Record only material learning**
+- [x] **Step 6: Record only material learning**
 
 Add field notes only for outcomes meeting Task 1's recording rule. Keep single observations as observations or candidates, not policy. Leave bulky comparisons and discarded candidates in external scratch.
 
-- [ ] **Step 7: Commit justified refinements when present**
+- [x] **Step 7: Commit justified refinements when present**
 
 ```powershell
 git add .agents/skills/writing-portfolio-articles .agents/docs/article-writing-field-notes.md
@@ -345,11 +345,11 @@ If field use justifies no tracked changes, do not create an empty commit. Otherw
 - Consumes: a locally proved skill that passed the initial-use gate.
 - Produces: active playbook routing, refreshed proof and completion-marked planning artifacts.
 
-- [ ] **Step 1: Activate the route**
+- [x] **Step 1: Activate the route**
 
 Confirm `writing-portfolio-articles` remains declared in `repo.local_skills`, then add `/writing-portfolio-articles` to the playbook's required skills for detailed editorial work.
 
-- [ ] **Step 2: Refresh skill projections and prove preservation**
+- [x] **Step 2: Refresh skill projections and prove preservation**
 
 ```powershell
 py -3 tools/run.py refresh-skills --apply
@@ -358,7 +358,7 @@ py -3 tools/run.py refresh-skills --check
 
 Expected: both pass; the local skill remains intact; provenance records local first-party custody.
 
-- [ ] **Step 3: Regenerate and validate the mesh**
+- [x] **Step 3: Regenerate and validate the mesh**
 
 ```powershell
 py -3 tools/run.py mesh --apply
@@ -367,7 +367,7 @@ py -3 tools/run.py mesh --check
 
 Expected: indexes discover the skill and field-notes document.
 
-- [ ] **Step 4: Verify the complete contract**
+- [x] **Step 4: Verify the complete contract**
 
 ```powershell
 rg -n "writing-portfolio-articles" .agents/plugins/marketplace.json .agents/skills/.provenance.json .agents/skills/INDEX.md .agents/playbooks/article-writing.md
@@ -376,15 +376,15 @@ py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p
 py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py --public-language . --check --format text
 ```
 
-- [ ] **Step 5: Mark governed artifacts complete**
+- [x] **Step 5: Mark governed artifacts complete**
 
 After implementation and review obligations are complete, invoke `completing-planning-artifacts` and mark both article-writing plans and the approved spec with the exact state `completed-awaiting-retirement`. Do not delete them in this PR.
 
-- [ ] **Step 6: Commit through the complete local gate**
+- [x] **Step 6: Commit through the complete local gate**
 
 Stage the intended source and owned projections, then commit normally. The tracked hook is the complete local gate; fix every independent failure and do not repeat `ci --check` immediately after a successful hooked commit.
 
-- [ ] **Step 7: Publish a draft PR and verify it**
+- [x] **Step 7: Publish a draft PR and verify it**
 
 Push the implementation branch, open a draft PR against `main`, attach it to the task, and verify the GitHub-visible head SHA and hosted check state. Do not carry forward a PR number or branch name from this planning slice.
 
