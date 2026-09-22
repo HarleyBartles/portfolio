@@ -17,7 +17,7 @@ The approved system has three layers:
 
 1. A doctrine defining the durable editorial contract.
 2. A playbook defining the repository workflow from commission to publication.
-3. A repo-owned skill carrying the detailed editorial method, references, observational tooling and pressure tests.
+3. A repo-owned skill carrying the detailed editorial method, references, observational tooling and field-learning loop.
 
 The published corpus is evidence about the author's habits. It is neither a golden set nor an authority that can overrule editorial judgement.
 
@@ -380,10 +380,12 @@ The skill should contain:
     authored-voice.md
     corpus-fatigue.md
     final-review.md
+    field-learning.md
   scripts/
     audit_article_corpus.py
   tests/
-    pressure/
+    fixtures/
+    test_audit_article_corpus.py
 ```
 
 `SKILL.md` must be a compact router rather than a duplicate textbook. It should:
@@ -409,6 +411,7 @@ The skill should contain:
 - `authored-voice.md`: perspective, specificity, humour, register and anti-performance guidance.
 - `corpus-fatigue.md`: comparison protocol, AI-fatigue watch classes and safeguards against self-imitation.
 - `final-review.md`: scanning, accessibility, whole-site 12A judgement, rendered checks and handoff evidence.
+- `field-learning.md`: material-outcome logging, lesson classification, promotion boundaries and self-improvement safeguards.
 
 #### Observational audit script
 
@@ -439,32 +442,59 @@ The skill must not build or retain a synthetic model of the author's voice. It m
 
 The system protects authorship by returning decisions to the writer: what is being claimed, why this detail, why this order, why this rhythm, why this ending.
 
-## Skill test design
+## Verification and field-learning design
 
-The skill is code and must ship maintainer tests. Before implementation changes, define and run a clean RED case showing the missing or incorrect behaviour. Then implement the smallest coherent change that makes it GREEN.
+The system separates what software can prove from what editorial judgement must decide.
 
-Pressure tests must cover at least:
+### Deterministic contracts
 
-1. A polished but centreless draft is sent back to proposition and form before sentence edits.
-2. A technical article distinguishes demonstrated fact, recollection and inference.
-3. A list article retains cumulative movement rather than becoming twelve interchangeable answers.
-4. A one-sentence paragraph is challenged but retained when it earns emphasis.
-5. Adjacent related sentences are joined when the full stop falsely separates one thought.
-6. Short sentences and a fragment survive when they create natural cadence and meaning.
-7. A long sentence is divided when conjunction obscures the thought.
-8. A familiar corpus phrase is reported as a possible habit, not automatically banned.
-9. Generic AI-fatigue language triggers a return to evidence and judgement rather than synonym replacement.
-10. A request to imitate the corpus mechanically is refused in favour of current-task authorship.
-11. A swear is retained when it earns its place and the whole-site work remains plausibly 12A.
-12. A second site-wide `fuck` is identified as an objective house-policy breach even when each article appears acceptable alone.
-13. Prohibited language in non-article public copy is detected.
-14. Contextual `shit` or `piss` usage is surfaced for editorial judgement rather than rejected by a fabricated numeric rule.
-15. Potentially relevant non-language 12A content is brought into the review.
-16. The audit refuses to produce an AI probability or prose-quality score.
-17. A new public content source omitted from the language inventory is caught by the source-set contract.
-18. The system does not infer a new classification unit from content volume, reading time or hypothetical journeys without Harley's explicit decision.
+The skill ships maintainer tests for its audit software. Use focused RED-GREEN TDD for deterministic promises only:
 
-Tests should live under the skill's `tests/` directory and remain outside ordinary behavioural invocation.
+- public source discovery and explicit custody classes;
+- stable parsing, ordering, locations and context;
+- exclusions for private, generated, dependency and test material;
+- exact prohibited-term findings and the site-wide `fuck` limit;
+- contextual rather than failing treatment of `shit` and `piss`;
+- absence of automatic rewrites, AI-authorship verdicts and composite quality scores;
+- exact-name local skill registration and routing where repository validators can prove them.
+
+Synthetic fixtures may exercise these mechanics. Published articles must not become fixtures, golden rewrites, pinned snapshots or stable benchmarks.
+
+### Live editorial exercises
+
+Editorial behaviour is assessed by applying the skill to current full articles after the first coherent implementation exists. The corpus is fluid and wholly open to revision, so article selection happens at execution time. Temporary diagnoses and candidate rewrites belong in governed external scratch, not tracked tests.
+
+Select materially different pieces so the skill must deal with different combinations of proposition, form, movement, evidence, voice, rhythm and preservation. Include at least one opportunity where leaving strong material alone may be the right result. Harley classifies each outcome as:
+
+- `improved`;
+- `improved with damage`;
+- `changed but not improved`;
+- `worse`; or
+- `appropriately abstained`.
+
+The discussion considers proposition, movement, evidence, authorship and voice, rhythm, preservation of the strongest choices, and publication preference. These are prompts for editorial judgement, not weighted dimensions in a score.
+
+The initial-use gate requires deterministic contracts to pass, at least three materially different full-article exercises judged `improved`, no unacceptable preservation damage, at least one appropriate abstention, and Harley's judgement that the aggregate influence is worth using again.
+
+### Self-improvement burden
+
+Create `.agents/docs/article-writing-field-notes.md` as a non-binding evidence log. The skill points to it through `field-learning.md`; it does not treat the log as doctrine and does not rewrite itself.
+
+Record a note only for a meaningful correction, rejection, mixed outcome, missed issue, surprising success, useful abstention, new form, conflict or overcorrection. Each entry identifies the article or PR, editorial stage, observation, outcome, human correction, scope, likely owner and promotion evidence. A candidate index keeps active lessons inspectable.
+
+One occurrence is recorded rather than promoted. Recurrence across materially different work may justify renewed live exercise. A clear conflict requires repair to the smallest owning authority and rechecking affected work. Doctrine changes only through Harley's explicit editorial decision. Consolidate the log when it impedes use, not on an arbitrary time, count or size trigger.
+
+The learning loop is:
+
+```text
+field use
+→ human correction or observed success
+→ candidate lesson
+→ classify the likely owner
+→ reproduce against current live work when useful
+→ update the smallest authority
+→ recheck affected work
+```
 
 ## Repository integration
 
@@ -484,10 +514,11 @@ Generated indexes and projections must not be hand-edited.
 
 Implementation is complete only when current evidence shows:
 
-- pressure tests demonstrated the intended RED before implementation and GREEN afterwards;
 - audit-script unit tests cover parsing, exclusions, stable ordering, source-set completeness and objective language-policy failures;
 - the corpus audit runs successfully against the live corpus and its output has been reviewed as observations;
 - the whole-site language inventory runs successfully against the explicit public source set;
+- live editorial exercises meet the initial-use gate without committing corpus snapshots or golden rewrites;
+- material outcomes have been classified and recorded in field notes only where they meet the learning threshold;
 - `py -3 tools/run.py refresh-skills --apply` has refreshed marketplace-derived projections without overwriting the local skill;
 - `py -3 tools/run.py mesh --apply` has regenerated and validated the agent mesh;
 - corresponding check modes are churn-free after apply;
@@ -499,15 +530,16 @@ Do not redundantly run the complete CI command immediately before or after a suc
 
 ## Implementation sequence
 
-1. Establish RED pressure fixtures and audit-script contract tests.
-2. Create the writing doctrine and move canonical editorial policy into it.
-3. Create the article-writing playbook and repository routing.
-4. Implement `/writing-portfolio-articles` and its references.
-5. Implement the observational audit and public-source inventory.
-6. Make pressure and script tests GREEN.
-7. Regenerate skill and mesh projections.
-8. Run focused checks, inspect the diff, and commit through the complete hook.
-9. Open or update the draft PR with the article and writing-system work, then use hosted CI as confirmation.
+1. Create the writing doctrine and article-writing playbook.
+2. Scaffold `/writing-portfolio-articles` and establish its field-learning contract.
+3. Define deterministic audit contracts with focused failing tests.
+4. Implement the observational audit and make those tests pass.
+5. Implement the skill's compact router and focused references.
+6. Exercise the skill on current live work and refine only demonstrated problems.
+7. Pass the human-owned initial-use gate.
+8. Activate the already-declared local skill route and regenerate owned projections.
+9. Run focused checks, inspect the diff, and commit through the complete hook.
+10. Open a draft PR and use hosted CI as confirmation.
 
 The intended editorial sequence is:
 
@@ -532,7 +564,9 @@ truth and material
 - The repository has one canonical writing doctrine, one article-writing playbook and one repo-owned article-writing skill.
 - Their responsibilities are distinct and cross-linked without substantial duplication.
 - The doctrine contains the approved paragraph, sentence, voice, anti-fatigue and anti-overcorrection principles.
-- The skill's pressure tests prove natural editorial judgement rather than maximum sentence conjunction or minimum paragraph count.
+- Deterministic tests prove only deterministic contracts; live editorial exercises and Harley's judgement establish whether the skill improves writing.
+- No published article is pinned as a fixture, snapshot, golden rewrite, benchmark or permanent article-specific trial.
+- The field-learning loop can accumulate material lessons without autonomously changing the skill or doctrine.
 - Corpus comparison is observational and cannot silently become an imitation system or detector.
 - The whole public site is assessed as one 12A-inspired work under the explicit local language policy.
 - The system considers relevant BBFC categories beyond language and makes no certification claim.

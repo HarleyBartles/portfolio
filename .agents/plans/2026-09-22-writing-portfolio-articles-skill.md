@@ -1,100 +1,111 @@
 # Writing Portfolio Articles Skill Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task by task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** discussion draft; do not execute until the human owner approves the pressure-testing protocol in Task 1
+**Status:** approved and ready for execution
 
-**Goal:** Build and register `/writing-portfolio-articles` as a repo-owned editorial skill whose behaviour and audit tooling are demonstrated through RED-GREEN-REFACTOR pressure testing.
+**Goal:** Build and register `/writing-portfolio-articles` as a repo-owned editorial skill with deterministic audit contracts, human-assessed field use and an explicit learning loop.
 
-**Architecture:** Keep `SKILL.md` as a compact router into ten focused editorial references. Use a deterministic Python audit for observable corpus and whole-site language facts, while pressure scenarios test agent judgement that deterministic assertions cannot prove. Exact-name manifest registration establishes local custody; no naming prefix is required.
+**Architecture:** Keep `SKILL.md` as a compact router into focused editorial references. Use a standard-library Python audit only for facts software can establish reliably. Exercise editorial judgement on live work, with Harley deciding whether the skill improved it. Store durable candidate lessons in a non-binding field-notes document; promote them only after recurrence or explicit editorial decision.
 
-**Tech Stack:** Markdown Agent Skill, Python 3 standard library, `unittest`, fresh-context agent pressure scenarios, repository skill refresh and mesh tooling.
+**Tech Stack:** Markdown Agent Skill, Python 3 standard library, `unittest`, repository skill refresh and mesh tooling.
 
 **Spec:** `.agents/specs/2026-09-22-article-writing-system-design.md`
 
-**Execution Strategy:** `subagent-driven-development` — pressure baselines require fresh-context agents, while the audit script and skill references benefit from separate implementer and reviewer attention. Do not begin execution until the Task 1 protocol is approved.
+**Execution Strategy:** `executing-plans` inline. The skill, references, audit and learning loop are tightly coupled, and editorial evaluation requires direct conversation with Harley rather than delegated pass/fail scoring.
 
 ## Global Constraints
 
-- This plan runs after `.agents/plans/2026-09-22-article-writing-doctrine-and-playbook.md` has created the canonical doctrine and playbook.
+- The doctrine and playbook on `main` are the current editorial authorities.
 - The canonical skill path and name are `.agents/skills/writing-portfolio-articles/` and `writing-portfolio-articles`.
-- The skill is local first-party source declared by exact name in `.agents/plugins/marketplace.json`; prefixes are optional and irrelevant to custody.
-- Invoke `writing-skills` and understand `test-driven-development` before authoring any skill text.
-- No skill guidance may be written before the agreed RED baselines have been run and recorded.
+- Exact-name declaration in `.agents/plugins/marketplace.json` establishes local first-party custody; no prefix is required.
+- Invoke `writing-skills` and understand `test-driven-development` before implementation. Apply TDD to deterministic software contracts, not subjective editorial outcomes.
 - `SKILL.md` is a compact router; detailed method belongs in focused references.
+- The article corpus is live editorial material. Do not pin it as a fixture, snapshot, golden rewrite, benchmark or permanent article-specific trial.
 - Corpus analysis is observational. It must not assert AI authorship, score prose quality, rewrite prose, ban a phrase solely by frequency or retain an imitation corpus.
-- Objective policy breaches may fail; contextual `shit`/`piss` and non-language 12A concerns remain findings for editorial judgement.
-- Tests live under the skill's own `tests/` directory and remain outside ordinary behavioural invocation.
+- Objective policy breaches may fail. Contextual `shit` and `piss`, non-language 12A concerns and prose quality remain editorial judgements.
+- Deterministic tests live under the skill's `tests/` directory and remain outside ordinary behavioural invocation.
+- Temporary before-and-after editorial work belongs in branch-scoped external scratch, never as tracked test evidence.
 - Generated skill provenance and indexes are updated only through their owning commands.
 - Use focused tests while iterating; the tracked commit hook owns the complete local gate.
 
 ## Review Focus
 
-- False RED: a control prompt already behaves correctly, so guidance is authored without demonstrated need. Covered by Task 1 control acceptance rule.
-- Evaluator leakage: pressure prompts reveal the desired answer or score keywords instead of behaviour. Covered by Task 1 blind prompt/rubric separation.
-- Mechanical voice enforcement: the audit treats recurrence or sentence length as failure. Covered by Task 3 unit tests.
-- Incomplete public-source inventory: a new route source silently escapes the 12A scan. Covered by Task 3 source-set completeness test.
-- Skill bloat: `SKILL.md` duplicates doctrine, playbook or all references. Covered by Task 4 word-count and routing checks.
+- **Mechanical judgement:** software treats recurrence, sentence length or a heuristic as a prose failure. Covered by Tasks 2 and 3.
+- **Frozen corpus or self-imitation:** tests depend on current article wording or the skill retains a reusable voice model. Prohibited by Tasks 1, 4 and 5.
+- **Unreviewed learning:** one outcome silently becomes skill or doctrine. Prevented by Task 1's promotion ladder.
+- **Incomplete public-source inventory:** a new public custody class escapes the 12A scan. Covered by Task 2's discovery contract.
+- **Performative verification or skill bloat:** editorial quality becomes a score, or the router duplicates its authorities. Covered by Tasks 4 and 5.
 
 ---
 
-### Task 1: Design the Pressure Tests with the Human Owner
+### Task 1: Establish the Skill Scaffold and Field-Learning Contract
 
 **Files:**
 
-- No pressure-test fixture path or evidence format is approved yet.
-- Later tasks may create files under `.agents/skills/writing-portfolio-articles/tests/pressure/` only after this task is revised and approved.
+- Create: `.agents/skills/writing-portfolio-articles/SKILL.md`
+- Create: `.agents/docs/article-writing-field-notes.md`
+- Modify: `.agents/plugins/marketplace.json`
+- Generated: `.agents/skills/.provenance.json`
+- Generated: affected `INDEX.md` files
 
 **Interfaces:**
 
-- Consumes: the eighteen required behaviours below and the RED-GREEN-REFACTOR contract in `writing-skills`.
-- Produces: a later, human-approved amendment defining scenario boundaries, prompts, controls, rubrics, repetition, evidence custody and pass criteria.
+- Consumes: `.agents/doctrine/writing-policy.md`, `.agents/playbooks/article-writing.md` and the approved self-improvement model in the spec.
+- Produces: canonical local skill custody and a non-binding learning log that later skill work can consult without turning observations into policy.
 
-The required behaviours to cover are:
+- [ ] **Step 1: Scaffold the local skill**
 
-1. A polished but centreless draft returns to proposition and form before sentence edits.
-2. A technical article distinguishes demonstrated fact, recollection and inference.
-3. A list article retains cumulative movement rather than becoming interchangeable answers.
-4. A one-sentence paragraph is challenged but retained when it earns emphasis.
-5. Adjacent sentences are joined when a full stop falsely separates one thought.
-6. Short sentences and a fragment survive when they create natural cadence and meaning.
-7. A long sentence is divided when conjunction obscures the thought.
-8. A familiar corpus phrase is reported as a possible habit, not automatically banned.
-9. Generic AI-fatigue language returns to evidence and judgement rather than synonym replacement.
-10. A request to imitate the corpus mechanically is refused in favour of current-task authorship.
-11. An earned swear survives when the whole-site work remains plausibly 12A.
-12. A second site-wide `fuck` is identified as an objective house-policy breach.
-13. Prohibited language in non-article public copy is detected.
-14. Contextual `shit` or `piss` is surfaced for editorial judgement rather than rejected by an invented quota.
-15. Potentially relevant non-language 12A content enters the review.
-16. The audit refuses an AI probability or prose-quality score.
-17. A new public content source omitted from the inventory is caught.
-18. Content volume, reading time and hypothetical journeys do not change the classification unit without Harley's explicit decision.
+Use the installed `writing-skills` scaffolder with exact name `writing-portfolio-articles`, local custody and the first-party lane. Inspect the result before editing. Do not edit marketplace-derived source.
 
-- [ ] **Step 1: Stop before designing fixtures**
+- [ ] **Step 2: Declare local custody and refresh projections**
 
-Do not group behaviours, choose scenario prose, set run counts, define controls, choose a scoring rubric, decide evidence retention or run a RED baseline in this version of the plan.
+Add `writing-portfolio-articles` to `repo.local_skills` in `.agents/plugins/marketplace.json`, then run:
 
-- [ ] **Step 2: Discuss the pressure-test design with the human owner**
+```powershell
+py -3 tools/run.py refresh-skills --apply
+py -3 tools/run.py refresh-skills --check
+py -3 tools/run.py mesh --apply
+py -3 tools/run.py mesh --check
+```
 
-The discussion must settle, at minimum:
+Expected: the local scaffold remains intact, provenance records first-party local custody, and the mesh discovers it. Do not add it to the article-writing playbook yet.
 
-- which behaviours belong together and which require isolated scenarios;
-- what realistic pressures each scenario applies;
-- what the no-skill control receives;
-- what counts as observable RED and GREEN;
-- whether and how many repeated fresh-context runs are needed;
-- how blind evaluation avoids prompt leakage;
-- what evidence belongs in Git and what, if anything, belongs in governed scratch;
-- which behaviours are agent-judgement pressure tests versus deterministic audit unit tests.
+- [ ] **Step 3: Create the field-notes document**
 
-- [ ] **Step 3: Amend this plan with the approved protocol**
+Create `.agents/docs/article-writing-field-notes.md` with:
 
-Only after discussion, replace this task with exact files, prompts, commands, expected RED evidence and GREEN criteria. The amended sequence must run and record RED before scaffolding `SKILL.md`; it may scaffold the local skill directory immediately after RED so later audit tests have their final custody. Re-run the plan-readiness gate before execution.
+- a statement that it is an evidence log, not doctrine or an instruction source by itself;
+- a candidate index near the top with `Candidate`, `Evidence`, `Status` and `Likely owner`;
+- an entry template containing article or PR, editorial stage, observation, outcome, human correction, scope, candidate owner and promotion evidence;
+- statuses `observed`, `candidate`, `promoted`, `rejected` and `superseded`;
+- a rule to record only meaningful corrections, rejections, mixed outcomes, missed issues, surprising successes, useful abstentions, new forms, conflicts or overcorrections;
+- no arbitrary time, count or file-size trigger for consolidation.
 
-- [ ] **Step 4: Keep authoring blocked until approval**
+- [ ] **Step 4: Encode the promotion ladder**
 
-Tasks 4-6 must not execute until the amended Task 1 has produced genuine RED evidence under the approved protocol.
+State the durable loop:
+
+```text
+field use
+→ human correction or observed success
+→ candidate lesson
+→ classify the likely owner
+→ reproduce against current live work when useful
+→ update the smallest authority
+→ recheck affected work
+```
+
+One occurrence is recorded, not promoted. Recurrence across materially different work may justify a focused review. A clear conflict with existing authority requires repairing the skill and affected work. Doctrine changes only by Harley's explicit editorial decision. The skill never rewrites itself autonomously.
+
+- [ ] **Step 5: Commit the scaffold and learning contract**
+
+```powershell
+git add .agents/plugins/marketplace.json .agents/skills .agents/docs .agents/INDEX.md
+git commit -m "chore: scaffold article writing skill"
+```
+
+Expected: the tracked hook passes and the field-notes document is clearly non-binding.
 
 ### Task 2: Specify the Deterministic Audit Contract with Failing Tests
 
@@ -107,64 +118,43 @@ Tasks 4-6 must not execute until the amended Task 1 has produced genuine RED evi
 
 **Interfaces:**
 
-- Consumes: public-content custody in `src/client/src/data/content/` and route-owned public copy sources discovered from the live repository.
+- Consumes: public-content custody discovered from the live repository.
 - Produces: tested functions `discover_public_sources(root: Path) -> tuple[Path, ...]`, `audit_articles(root: Path, thresholds: AuditThresholds) -> CorpusReport`, `audit_public_language(root: Path) -> LanguageReport`, and `main(argv: Sequence[str] | None = None) -> int`.
 
-- [ ] **Step 1: Define fixture contracts and public-source expectations**
+- [ ] **Step 1: Define synthetic fixture contracts**
 
-Create minimal fixtures containing:
+Create minimal invented fixtures that exercise parser and policy mechanics without copying or pinning published articles:
 
-- two articles with frontmatter, headings, links, a repeated exact phrase, varied paragraphs and declared reading times;
+- Markdown with frontmatter, headings, links, varied paragraphs and declared reading time;
+- a repeated exact phrase and one-sentence paragraph;
 - public non-article copy containing a prohibited term;
-- a second public source containing a second `fuck`;
+- two public sources containing `fuck`;
 - contextual `shit` and `piss` examples;
 - ignored generated, dependency, test and `.agents/` copies containing sentinel language.
 
 - [ ] **Step 2: Write failing parsing and stable-output tests**
 
-Tests must assert:
-
-- frontmatter is excluded from prose sentence/paragraph counts but its reading time is captured;
-- article ordering and finding ordering are stable by POSIX path then location;
-- headings, one-sentence paragraphs, repeated phrases, link counts and word-count/reading-time observations are reported;
-- exact counts and heuristic observations are distinguishable in the report model;
-- local context and source locations accompany findings.
+Assert that frontmatter is excluded from prose counts while declared reading time is captured; ordering is stable by POSIX path and location; headings, one-sentence paragraphs, exact repeated phrases, links and word-count/reading-time observations are reported; facts and heuristics are distinguished; and findings carry locations and context.
 
 - [ ] **Step 3: Write failing language-policy tests**
 
-Tests must assert:
+Assert that more than one public `fuck` and each prohibited term produce objective breaches; word-boundary handling avoids substring false positives and covers agreed inflections; `shit` and `piss` produce contextual findings; excluded sources do not affect counts; and no API offers AI probability, authorship classification, rewrite output or a composite quality score.
 
-- more than one public `fuck` yields a failing objective breach;
-- `cunt`, `twat` or `cock` in public copy yields a failing objective breach;
-- ordinary inflections are matched on word boundaries rather than substrings;
-- `shit` and `piss` yield non-failing contextual findings;
-- ignored private/generated/test sources do not affect public counts;
-- no API offers AI probability, authorship classification, rewrite output or composite quality score.
+- [ ] **Step 4: Write the source-set completeness test**
 
-- [ ] **Step 4: Write the source-set completeness RED test**
+Keep supported public source roots and route-owned patterns in one explicit data structure. Test custody classes and discovery roots, not individual articles, so new material in an existing class is included automatically and a new unclassified public content owner fails visibly.
 
-Encode the currently supported public source roots and route-owned source patterns in one explicit data structure. The test must compare discovered supported source classes with the live repository contract and fail when an unclassified public content owner appears.
-
-Do not hard-code a list of every article file; test custody classes and discovery roots so new content inside a known class is included automatically.
-
-- [ ] **Step 5: Run the RED suite**
-
-Run:
+- [ ] **Step 5: Run and record the focused RED**
 
 ```powershell
 py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
 ```
 
-Expected: FAIL because `scripts.audit_article_corpus` and its types do not exist.
+Expected: FAIL because the audit implementation does not exist.
 
-- [ ] **Step 6: Commit the deterministic RED tests**
+- [ ] **Step 6: Preserve the RED evidence without committing failure**
 
-```powershell
-git add .agents/skills/writing-portfolio-articles/tests
-git commit -m "test: define article corpus audit contract"
-```
-
-Expected: the tracked hook passes repository checks while the focused new test remains intentionally RED and is not yet part of the production gate.
+Record the failing command and relevant failure output in the execution commentary or plan-scoped external scratch, then continue directly to Task 3. Do not commit a deliberately failing repository state.
 
 ### Task 3: Implement the Observational Audit
 
@@ -172,67 +162,30 @@ Expected: the tracked hook passes repository checks while the focused new test r
 
 - Create: `.agents/skills/writing-portfolio-articles/scripts/__init__.py`
 - Create: `.agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py`
-- Modify: `.agents/skills/writing-portfolio-articles/tests/test_audit_article_corpus.py` only when a test is proven to encode the wrong agreed contract, never merely to make implementation pass.
+- Modify: `.agents/skills/writing-portfolio-articles/tests/test_audit_article_corpus.py` only when a test is proven to encode the wrong contract.
 
 **Interfaces:**
 
-- Consumes: the fixtures and function signatures from Task 2.
-- Produces: standard-library-only dataclasses and CLI implementing the deterministic observation contract.
+- Consumes: Task 2's fixtures and function signatures.
+- Produces: standard-library-only report types and a CLI implementing the deterministic observation contract.
 
 - [ ] **Step 1: Implement report types and discovery**
 
-Define immutable dataclasses:
-
-```python
-@dataclass(frozen=True)
-class AuditThresholds:
-    repeated_phrase_words: int = 5
-
-@dataclass(frozen=True)
-class Finding:
-    kind: str
-    path: str
-    line: int
-    context: str
-    severity: Literal["observation", "contextual-review", "objective-breach"]
-
-@dataclass(frozen=True)
-class CorpusReport:
-    articles: tuple[ArticleObservation, ...]
-    findings: tuple[Finding, ...]
-
-@dataclass(frozen=True)
-class LanguageReport:
-    occurrences: tuple[Finding, ...]
-    objective_breaches: tuple[Finding, ...]
-```
-
-Keep source roots and exclusions explicit and inspectable.
+Define immutable threshold, finding, article-observation, corpus-report and language-report dataclasses. Keep source roots, exclusions and thresholds explicit and inspectable.
 
 - [ ] **Step 2: Implement article observations**
 
-Parse Markdown without adding a dependency. Report deterministic facts available from source text: word count, declared reading time, headings, paragraph/sentence-length distributions, one-sentence paragraphs, links, repeated exact phrases and repeated opening/closing constructions. Label metaphor/story/phrase-family candidates as heuristic observations only when a deterministic approximation is explainable; otherwise omit them rather than fabricate semantic certainty.
+Parse Markdown without another dependency. Report source facts: word count, declared reading time, headings, paragraph and sentence-length distributions, one-sentence paragraphs, links and exact repeated phrases. Label a heuristic explicitly only when its approximation is explainable; otherwise omit it.
 
 - [ ] **Step 3: Implement whole-site language inventory**
 
-Scan explicit public-copy custody classes, applying case-insensitive word-boundary matching and common inflections. Exit non-zero only for objective breaches. Print contextual findings for `shit`/`piss` and leave non-language 12A review to the human/skill workflow.
+Scan explicit public-copy custody classes with case-insensitive word-boundary matching. Exit non-zero only for objective breaches. Print contextual findings for `shit` and `piss`; leave non-language 12A review to editorial workflow.
 
 - [ ] **Step 4: Implement CLI modes**
 
-Support:
+Support `--articles <root>`, `--public-language <root>`, `--format text|json` and `--check`. Check mode returns non-zero only for objective breaches or an incomplete or invalid source-set contract. Help text explains custody, thresholds and the observational boundary.
 
-```text
---articles <root>
---public-language <root>
---format text|json
---check
-```
-
-`--check` returns non-zero only for objective contract breaches or an incomplete/invalid source-set contract. `--help` documents thresholds, source custody and the observational boundary.
-
-- [ ] **Step 5: Make deterministic tests GREEN**
-
-Run:
+- [ ] **Step 5: Make the deterministic suite GREEN**
 
 ```powershell
 py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
@@ -240,31 +193,29 @@ py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p
 
 Expected: PASS.
 
-- [ ] **Step 6: Audit the live repository**
-
-Run:
+- [ ] **Step 6: Run the audit against the live repository**
 
 ```powershell
 py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py --articles src/client/src/data/content/writing --format text
 py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py --public-language . --check --format text
 ```
 
-Expected: both commands complete; observations are inspectable; exit status reflects only objective breaches/source-contract failures.
+Expected: observations rather than verdicts; failure only for an objective breach or source-contract problem.
 
-- [ ] **Step 7: Commit the GREEN audit**
+- [ ] **Step 7: Commit the audit**
 
 ```powershell
 git add .agents/skills/writing-portfolio-articles/scripts .agents/skills/writing-portfolio-articles/tests
-git commit -m "feat: add observational article corpus audit"
+git commit -m "feat: add observational article audit"
 ```
 
-Expected: the tracked hook passes.
+Expected: the commit contains the contract tests and their passing implementation; the tracked hook passes.
 
-### Task 4: Author the Minimal Skill and Focused References
+### Task 4: Author the Editorial Method
 
 **Files:**
 
-- Create: `.agents/skills/writing-portfolio-articles/SKILL.md`
+- Modify: `.agents/skills/writing-portfolio-articles/SKILL.md`
 - Create: `.agents/skills/writing-portfolio-articles/references/article-forms.md`
 - Create: `.agents/skills/writing-portfolio-articles/references/editorial-brief.md`
 - Create: `.agents/skills/writing-portfolio-articles/references/developmental-edit.md`
@@ -275,203 +226,168 @@ Expected: the tracked hook passes.
 - Create: `.agents/skills/writing-portfolio-articles/references/authored-voice.md`
 - Create: `.agents/skills/writing-portfolio-articles/references/corpus-fatigue.md`
 - Create: `.agents/skills/writing-portfolio-articles/references/final-review.md`
+- Create: `.agents/skills/writing-portfolio-articles/references/field-learning.md`
 
 **Interfaces:**
 
-- Consumes: RED rationalisations from Task 1, canonical `.agents/doctrine/writing-policy.md`, repository `.agents/playbooks/article-writing.md`, and the audit CLI from Task 3.
-- Produces: a discoverable, progressive-disclosure editorial capability that addresses demonstrated failures without duplicating repository law.
+- Consumes: canonical doctrine, playbook, audit CLI and field-learning contract.
+- Produces: a discoverable progressive-disclosure editorial method without duplicating repository law.
 
-- [ ] **Step 1: Verify post-RED local scaffolding**
+- [ ] **Step 1: Author the compact router**
 
-Confirm the amended Task 1 used the installed writing-skills scaffolder after RED with exact local name, `--custody local` and the first-party lane. Inspect the generated files. If no scaffold exists, stop: do not retroactively blur the RED boundary by inventing a different sequence here.
+Use frontmatter name `writing-portfolio-articles`. The description begins `Use when...` and covers drafting, developmental editing, line editing, corpus-fatigue review and final review.
 
-- [ ] **Step 2: Author compact frontmatter and router**
+The router must require doctrine, route mechanics to the playbook, select references by editorial stage, establish centre and form before line editing, keep corpus observations advisory and task-local, require rendered review before publication claims, distinguish editing from publication authority, expose the audit CLI, route material outcomes into the learning procedure, and forbid autonomous self-revision or doctrine promotion.
 
-Use frontmatter name `writing-portfolio-articles`. The description starts with `Use when...` and names drafting, developmental editing, line editing, corpus-fatigue review and final review of Portfolio public articles.
+- [ ] **Step 2: Write references by single responsibility**
 
-`SKILL.md` must:
+Implement the responsibilities from the spec. Each reference contains the decisions and checks for that stage, a strong example where useful, and links to doctrine rather than copied policy.
 
-- require the writing doctrine;
-- route repository mechanics to the article-writing playbook;
-- choose references by the current editorial stage;
-- establish centre and form before line editing;
-- preserve corpus observations as advisory;
-- require rendered review before publication claims;
-- distinguish editing authority from publication authority;
-- expose the audit script through interpreter-based commands;
-- address only failures observed in RED or explicit structural/retrieval requirements.
-
-- [ ] **Step 3: Write references by single responsibility**
-
-Implement the ten reference responsibilities verbatim from the spec. Each reference should contain the decisions and checks needed at that stage, one strong example where useful, and links back to doctrine rather than copied policy.
-
-The `paragraphs-sentences-and-rhythm.md` example must preserve:
+The sentence-and-rhythm reference must preserve:
 
 ```text
 Sometimes, shoot the hostage. In Speed, Jack Traven's answer to a gunman using a hostage as leverage is to shoot the hostage. Problem changed.
 ```
 
-It must contrast that with a genuinely false sentence boundary and explain effect rather than count punctuation.
+Contrast it with a genuinely false sentence boundary and explain effect rather than punctuation count.
 
-- [ ] **Step 4: Check size, links and forbidden duplication**
+- [ ] **Step 3: Write the field-learning procedure**
 
-Run:
+`field-learning.md` owns when and how to consult or add to `.agents/docs/article-writing-field-notes.md`, how to classify likely ownership, and how to return unresolved taste or authority decisions to Harley. It discourages routine invocation logging and forbids autonomous self-modification.
+
+- [ ] **Step 4: Check routing, size and duplication**
 
 ```powershell
 $words = (Get-Content .agents/skills/writing-portfolio-articles/SKILL.md -Raw) -split '\s+' | Where-Object { $_ }
 $words.Count
-rg -n "writing-policy|article-writing|audit_article_corpus" .agents/skills/writing-portfolio-articles/SKILL.md
+rg -n "writing-policy|article-writing|audit_article_corpus|article-writing-field-notes|field-learning" .agents/skills/writing-portfolio-articles/SKILL.md
 rg -n "BBFC|at most one.*fuck|explicit.*decision" .agents/skills/writing-portfolio-articles/SKILL.md
 ```
 
-Expected: `SKILL.md` is a compact router, contains all three routes, and does not duplicate the doctrine's detailed rating policy.
+Expected: all routes exist without duplicating detailed policy or method.
 
-- [ ] **Step 5: Commit the minimal skill**
+- [ ] **Step 5: Commit the method**
 
 ```powershell
-git add .agents/skills/writing-portfolio-articles
-git commit -m "feat: add portfolio article writing skill"
+git add .agents/skills/writing-portfolio-articles .agents/docs/article-writing-field-notes.md
+git commit -m "feat: add portfolio article writing method"
 ```
 
-Expected: the tracked hook passes.
-
-### Task 5: Execute the Approved GREEN and REFACTOR Protocol
+### Task 5: Exercise the Skill on Current Live Work
 
 **Files:**
 
-- Modify: `.agents/skills/writing-portfolio-articles/SKILL.md`
-- Modify: `.agents/skills/writing-portfolio-articles/references/*.md`
-- Modify/Create: the exact pressure-test evidence files approved in the amended Task 1
+- Read: current public articles selected at execution time
+- Write temporarily: plan-scoped external scratch only
+- Modify when justified: `.agents/skills/writing-portfolio-articles/SKILL.md`
+- Modify when justified: `.agents/skills/writing-portfolio-articles/references/*.md`
+- Modify when justified: `.agents/docs/article-writing-field-notes.md`
 
 **Interfaces:**
 
-- Consumes: the approved pressure-test protocol and genuine RED evidence from amended Task 1 plus the authored skill from Task 4.
-- Produces: evidence in the approved custody and the smallest wording refinements needed to close observed loopholes.
+- Consumes: the current skill and current live editorial material.
+- Produces: Harley's categorical assessment of aggregate usefulness and only durable refinements justified by use.
 
-- [ ] **Step 1: Run the approved GREEN cases with the skill**
+- [ ] **Step 1: Select deliberately different live articles**
 
-Execute the scenario, context-isolation, control and evaluation procedure exactly as approved in amended Task 1. Do not add hints or change the test material between RED and GREEN unless the approved design explicitly defines a controlled variant.
+Choose at least three current articles with materially different editorial demands, plus one opportunity where abstention may be correct. Selection happens at execution time because the corpus is fluid. Record paths and the current commit in external scratch for that run only; create no tracked fixtures or permanent trial cards.
 
-- [ ] **Step 2: Apply the approved wording-test procedure**
+- [ ] **Step 2: Apply the skill without editing published source**
 
-Use the approved repetition, comparison and evidence rules from amended Task 1. This plan does not pre-decide whether micro-tests are required or how many runs constitute evidence.
+For each selection, create a temporary diagnosis and candidate revision in plan-scoped external scratch. Assess the whole article before local sentences. Preserve supplied language, evidence boundaries and deliberate formal choices. Do not commit candidate article rewrites as verification artefacts.
 
-- [ ] **Step 3: Refactor only observed loopholes**
+- [ ] **Step 3: Ask Harley for categorical editorial judgement**
 
-When a GREEN run fails, classify the failure before editing:
+Present original context, diagnosis, candidate changes, preservation risks and abstentions. Harley classifies each result as `improved`, `improved with damage`, `changed but not improved`, `worse` or `appropriately abstained`.
 
-- discipline violation: add a prohibition, red flag or rationalisation counter;
-- wrong output shape: add a positive recipe or contract;
-- omitted element: add a required structural slot;
-- conditional behaviour: key the instruction to an observable predicate.
+Discuss proposition, movement, evidence, authorship and voice, rhythm, preservation of the strongest choices, and publication preference. These are prompts for judgement, not numeric scoring dimensions.
 
-Re-run the affected approved test. Do not add speculative rules.
+- [ ] **Step 4: Repair demonstrated problems at the smallest authority**
 
-- [ ] **Step 4: Require full GREEN**
+Classify each correction as an audit bug, missing skill method, playbook or doctrine conflict needing human authority, article-specific judgement that should not generalise, or candidate lesson needing more evidence. Update only the smallest justified authority, rerun affected deterministic tests, and repeat only the affected live exercise. Do not invent rules merely to force `improved` results.
 
-Apply the approved GREEN criterion and evidence format from amended Task 1. Any unresolved failure blocks registration and deployment.
+- [ ] **Step 5: Apply the initial-use gate**
 
-- [ ] **Step 5: Re-run deterministic tests**
+Before registration and publication, require:
 
-Run:
+- all deterministic audit contracts pass;
+- Harley judges at least three materially different full-article exercises `improved`;
+- no accepted exercise carries unacceptable preservation damage;
+- at least one `appropriately abstained` result;
+- Harley judges the aggregate influence worth using again.
+
+If the gate does not pass, stop with the evidence and unresolved judgement. Do not substitute a score or weaken the gate after seeing results.
+
+- [ ] **Step 6: Record only material learning**
+
+Add field notes only for outcomes meeting Task 1's recording rule. Keep single observations as observations or candidates, not policy. Leave bulky comparisons and discarded candidates in external scratch.
+
+- [ ] **Step 7: Commit justified refinements when present**
 
 ```powershell
-py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
+git add .agents/skills/writing-portfolio-articles .agents/docs/article-writing-field-notes.md
+git commit -m "refactor: refine article writing skill from field use"
 ```
 
-Expected: PASS.
+If field use justifies no tracked changes, do not create an empty commit. Otherwise expect only demonstrated method improvements and material learning, with no corpus snapshots or article-specific test artefacts.
 
-- [ ] **Step 6: Commit verified skill refinements**
-
-```powershell
-git add .agents/skills/writing-portfolio-articles
-git commit -m "test: verify article writing skill behaviour"
-```
-
-Expected: tracked pressure evidence and skill text agree; the hook passes.
-
-### Task 6: Register, Refresh and Publish the Local Skill
+### Task 6: Activate, Refresh and Publish the Local Skill
 
 **Files:**
 
-- Modify: `.agents/plugins/marketplace.json`
 - Modify: `.agents/playbooks/article-writing.md`
 - Generated: `.agents/skills/.provenance.json`
-- Generated: `.agents/skills/INDEX.md`
-- Generated: other affected `INDEX.md` files selected by the mesh generator
-- Modify: `.agents/plans/2026-09-22-article-writing-doctrine-and-playbook.md`
-- Modify: `.agents/plans/2026-09-22-writing-portfolio-articles-skill.md`
-- Modify: `.agents/specs/2026-09-22-article-writing-system-design.md`
+- Generated: affected `INDEX.md` files
+- Modify: both article-writing plans and the approved spec when marking them complete
 
 **Interfaces:**
 
-- Consumes: fully GREEN local skill source and the exact-name local custody contract.
-- Produces: installed-skill provenance and mesh that preserve `writing-portfolio-articles`; completion-marked planning artifacts retained through the completing PR.
+- Consumes: a locally proved skill that passed the initial-use gate.
+- Produces: active playbook routing, refreshed proof and completion-marked planning artifacts.
 
-- [ ] **Step 1: Declare exact local custody**
+- [ ] **Step 1: Activate the route**
 
-Add `writing-portfolio-articles` to `repo.local_skills` in `.agents/plugins/marketplace.json`, preserving sorted order if the manifest's validator normalises it.
-
-Add the now-valid `/writing-portfolio-articles` invocation to `.agents/playbooks/article-writing.md` for detailed editorial work, preserving the playbook's ownership of repository mechanics.
+Confirm `writing-portfolio-articles` remains declared in `repo.local_skills`, then add `/writing-portfolio-articles` to the playbook's required skills for detailed editorial work.
 
 - [ ] **Step 2: Refresh skill projections and prove preservation**
-
-Run:
 
 ```powershell
 py -3 tools/run.py refresh-skills --apply
 py -3 tools/run.py refresh-skills --check
 ```
 
-Expected: both pass; `.agents/skills/writing-portfolio-articles/` remains intact; provenance identifies it as local first-party custody rather than marketplace-derived source.
+Expected: both pass; the local skill remains intact; provenance records local first-party custody.
 
 - [ ] **Step 3: Regenerate and validate the mesh**
-
-Run:
 
 ```powershell
 py -3 tools/run.py mesh --apply
 py -3 tools/run.py mesh --check
 ```
 
-Expected: both pass and generated indexes discover the skill.
+Expected: indexes discover the skill and field-notes document.
 
-- [ ] **Step 4: Verify the complete writing-system contract**
-
-Run:
+- [ ] **Step 4: Verify the complete contract**
 
 ```powershell
 rg -n "writing-portfolio-articles" .agents/plugins/marketplace.json .agents/skills/.provenance.json .agents/skills/INDEX.md .agents/playbooks/article-writing.md
+rg -n "article-writing-field-notes|field-learning" .agents/skills/writing-portfolio-articles .agents/docs/article-writing-field-notes.md
 py -3 -m unittest discover -s .agents/skills/writing-portfolio-articles/tests -p "test_*.py" -v
 py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py --public-language . --check --format text
 ```
 
-Expected: registration, provenance, mesh and playbook agree; deterministic tests pass; language audit has no objective breach.
-
 - [ ] **Step 5: Mark governed artifacts complete**
 
-After all agent-owned implementation and review obligations are complete, invoke `completing-planning-artifacts` and change the status of both plans and the approved spec to the exact state `completed-awaiting-retirement`. Do not delete them in this PR.
+After implementation and review obligations are complete, invoke `completing-planning-artifacts` and mark both article-writing plans and the approved spec with the exact state `completed-awaiting-retirement`. Do not delete them in this PR.
 
 - [ ] **Step 6: Commit through the complete local gate**
 
-```powershell
-git add .agents/plugins/marketplace.json .agents/playbooks/article-writing.md .agents/skills/writing-portfolio-articles .agents/skills/.provenance.json .agents/skills/INDEX.md .agents/plans/2026-09-22-article-writing-doctrine-and-playbook.md .agents/plans/2026-09-22-writing-portfolio-articles-skill.md .agents/specs/2026-09-22-article-writing-system-design.md .agents/INDEX.md
-git commit -m "feat: register article writing skill"
-```
+Stage the intended source and owned projections, then commit normally. The tracked hook is the complete local gate; fix every independent failure and do not repeat `ci --check` immediately after a successful hooked commit.
 
-Expected: the tracked hook applies owned projections and passes the complete check gate. Do not separately repeat `ci --check` after the successful commit.
+- [ ] **Step 7: Publish a draft PR and verify it**
 
-- [ ] **Step 7: Push and verify the draft PR**
+Push the implementation branch, open a draft PR against `main`, attach it to the task, and verify the GitHub-visible head SHA and hosted check state. Do not carry forward a PR number or branch name from this planning slice.
 
-```powershell
-git push origin codex/article-writing-foundation
-gh pr view 72 --json url,isDraft,headRefOid,statusCheckRollup
-```
+## Handoff
 
-Expected: PR #72 remains Draft, its head matches local `HEAD`, and hosted checks report their actual draft-aware state. Report the PR URL and full head SHA as publication proof.
-
-## Discussion Gate
-
-The eighteen required behaviours are inventoried in Task 1, but their pressure-test design is intentionally unresolved. The human discussion will decide scenario granularity, pressure construction, controls, repetition, blind evaluation, evidence custody, pass criteria and the boundary between behavioural pressure tests and deterministic unit tests.
-
-After that discussion, amend Task 1 and any dependent steps, then run a fresh plan-readiness review. Until then this plan is suitable for design discussion only and must not be handed to an execution skill.
+This plan is ready for inline execution. Its proof is deliberately lean: deterministic software contracts receive automated tests; editorial judgement is exercised on current live work and decided by Harley; useful field lessons accumulate without freezing the corpus or allowing the skill to rewrite its own authority.
