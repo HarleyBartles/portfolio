@@ -37,7 +37,7 @@ Make the article more intentional without making the edit more visible. Start wi
 
 Read the [Portfolio writing policy](../../doctrine/writing-policy.md) before making editorial decisions. Use the [article-writing playbook](../../playbooks/article-writing.md) for repository workflow, validation and publication. This skill supplies method, not publication authority.
 
-The method is a first-party synthesis informed by the [citation and authority record](assets/authority/CITATIONS.md). Follow that record when a reference is too thin for the editorial problem, sources conflict, the article uses an unfamiliar form, or a proposed rule needs stronger evidence. Use citations as research routes, not borrowed authority: external guidance does not override doctrine, explicit human intent or the article's purpose.
+When the bundled references are too thin, sources conflict, the article uses an unfamiliar form, or a proposed rule needs stronger evidence, start with the [citation and authority record](assets/authority/CITATIONS.md).
 
 ## Route the work
 
