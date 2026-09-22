@@ -230,6 +230,26 @@
       ]
     },
     {
+      "slug": "pop-quiz-hotshot",
+      "kind": "writing",
+      "title": "Pop quiz, hotshot",
+      "date": "2026-09-22",
+      "readingMinutes": 12,
+      "status": "published",
+      "summary": "You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?",
+      "path": "writing/2026-09-22-pop-quiz-hotshot.md",
+      "tags": [
+        "writing",
+        "software-engineering",
+        "engineering-judgement",
+        "interviews"
+      ],
+      "relatedSlugs": [
+        "why-adrs",
+        "the-right-test-isnt-your-favourite-test"
+      ]
+    },
+    {
       "slug": "goldilocks",
       "kind": "patch",
       "title": "Goldilocks - The Right Amount of Guidance",

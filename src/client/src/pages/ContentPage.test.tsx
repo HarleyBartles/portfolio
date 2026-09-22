@@ -142,6 +142,29 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(container.querySelectorAll('[data-metadata-row]')).toHaveLength(1)
   })
 
+  test('renders the Pop quiz standfirst once before the approved opening', async () => {
+    const router = createMemoryRouter(appRoutes, {
+      basename: '/portfolio',
+      initialEntries: ['/portfolio/writing/pop-quiz-hotshot'],
+    })
+
+    render(
+      <QueryClientProvider client={createPortfolioQueryClient()}>
+        <PortfolioThemeProvider>
+          <RouterProvider router={router} />
+        </PortfolioThemeProvider>
+      </QueryClientProvider>,
+    )
+
+    const title = await screen.findByRole('heading', { level: 1, name: 'Pop quiz, hotshot' }, { timeout: 5_000 })
+    const article = title.closest('article') as HTMLElement
+    const standfirst = 'You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?'
+
+    expect(within(article).getAllByText(standfirst)).toHaveLength(1)
+    expect(within(article).getByText('Probably something like this.')).toBeVisible()
+    expect(within(article).getByRole('heading', { level: 2, name: '1. How do you refactor a large, well-tested legacy codebase?' })).toBeVisible()
+  })
+
   test('does not invent continuation links for a writing article without authored choices', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',

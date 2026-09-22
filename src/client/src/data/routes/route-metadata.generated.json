@@ -357,6 +357,23 @@
     "shareAction": "content-end"
   },
   {
+    "id": "writing:pop-quiz-hotshot",
+    "path": "/writing/pop-quiz-hotshot",
+    "kind": "writing",
+    "title": "Pop quiz, hotshot | Harley Bartles",
+    "description": "You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Full-stack software engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
     "id": "writing:provisioning-is-not-accumulation",
     "path": "/writing/provisioning-is-not-accumulation",
     "kind": "writing",
