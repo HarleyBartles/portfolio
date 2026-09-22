@@ -38,11 +38,11 @@ An agent or human using the system can:
 
 ## Authority and source-of-truth boundaries
 
-The implementation must preserve the repository's existing surface roles.
+The completed writing system must preserve these surface roles.
 
 - `.agents/doctrine/writing-policy.md` is the binding source for editorial values, invariants and language policy.
 - `.agents/playbooks/article-writing.md` is the topical repository workflow.
-- `.agents/skills/writing-portfolio-articles/` is the triggerable implementation of the editorial method.
+- `.agents/skills/writing-portfolio-articles/` will become the triggerable implementation of the editorial method when the companion skill plan is implemented.
 - `.agents/specs/2026-09-22-article-writing-system-design.md` records the approved design until its normal planning-artifact retirement.
 - The superseded article-writing proposal was removed after its durable decisions and research references were promoted into this specification, avoiding a competing near-authority.
 - Published articles and other public copy are editorial evidence and audit inputs, not policy.

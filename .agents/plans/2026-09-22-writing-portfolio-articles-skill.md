@@ -464,11 +464,11 @@ Expected: the tracked hook applies owned projections and passes the complete che
 - [ ] **Step 7: Push and verify the draft PR**
 
 ```powershell
-git push origin codex/pop-quiz-hotshot-article
-gh pr view 71 --json url,isDraft,headRefOid,statusCheckRollup
+git push origin codex/article-writing-foundation
+gh pr view 72 --json url,isDraft,headRefOid,statusCheckRollup
 ```
 
-Expected: PR #71 remains Draft, its head matches local `HEAD`, and hosted checks report their actual draft-aware state. Report the PR URL and full head SHA as publication proof.
+Expected: PR #72 remains Draft, its head matches local `HEAD`, and hosted checks report their actual draft-aware state. Report the PR URL and full head SHA as publication proof.
 
 ## Discussion Gate
 
