@@ -48,4 +48,4 @@ Use this runbook to turn a Portfolio idea into a design specification that plann
 
 ## Playbook routing
 
-None.
+- [Article writing](../playbooks/article-writing.md) - when shaping a public article's commission, form or editorial design.

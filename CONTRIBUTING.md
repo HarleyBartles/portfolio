@@ -6,6 +6,7 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 
 - Read root [`AGENTS.md`](./AGENTS.md) for source-of-truth, build, and routing rules.
 - Read [the portfolio design policy](./.agents/doctrine/portfolio-design-policy.md) before changing any visitor-facing presentation, content hierarchy, motion, imagery, typography, claim, or contact behaviour.
+- Read [the portfolio writing policy](./.agents/doctrine/writing-policy.md) before changing public prose.
 - Invoke `/using-superpowers-plus` to route to the correct stage skill.
 - Invoke `/repo-worker-base` for worktree, branch, validation, and publication boundaries.
 - Invoke `/repo-standards` when the task touches repo shape, runbooks, or scaffolds.
@@ -23,5 +24,6 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 - [`.agents/playbooks/code-style.md`](./.agents/playbooks/code-style.md) when code or technical prose conventions apply.
 - [`.agents/playbooks/testing.md`](./.agents/playbooks/testing.md) when validation or test strategy applies.
 - [`.agents/playbooks/security.md`](./.agents/playbooks/security.md) when a security, privacy, credential, trust, or external-mutation concern applies.
+- [`.agents/playbooks/article-writing.md`](./.agents/playbooks/article-writing.md) for public editorial work from commission through publication proof.
 - [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the pull-request workflow and publication proof.
 - [`docs/design-decisions.md`](./docs/design-decisions.md) for the rationale ledger and reconsideration triggers behind material design choices.

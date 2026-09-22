@@ -12,9 +12,9 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/runbooks/` is for workflow guides such as design, planning, implementation, and review.
 - `.agents/runbooks/` is the optional home for repeatable Portfolio procedures that are not skills.
 - `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
-- `.agents/skills/` contains repo-owned skills (unprefixed unless they are a repo-specific
-  override or variant of a shared marketplace skill) and marketplace-derived skills
-  described by `.provenance.json`.
+- `.agents/skills/` contains repo-owned skills whose exact names are declared in
+  `repo.local_skills`, plus marketplace-derived skills described by
+  `.provenance.json`. Naming prefixes are optional and do not establish custody.
 - `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. A completed
   plan remains tracked through its completing PR with the exact
   `completed-awaiting-retirement` marker, then retires in the first commit of the

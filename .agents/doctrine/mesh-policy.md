@@ -35,9 +35,7 @@ This is the agent-facing contract for the documentation and navigation surfaces 
 - `.agents/docs/` contains repo-local non-doctrine guidance docs.
 - `.agents/runbooks/` contains the repo-local runbooks for design, planning, implementation, review, and other workflows.
 - `.agents/plugins/` contains the repo-local plugin manifest and the pinned marketplace source submodule.
-- `.agents/skills/` contains two explicit lanes: tracked local `port-*` skills are
-  repository-owned source, while other skill directories are marketplace-derived
-  output described by `.provenance.json`.
+- `.agents/skills/` contains two explicit lanes: exact names declared in `repo.local_skills` identify repository-owned tracked source, while other skill directories are marketplace-derived output described by `.provenance.json`.
 - `.agents/plans/` contains in-flight, one-shot, and epic plan surfaces. Completion-marked planning artifacts remain tracked through their completing PR and retire in the first commit of the next substantive slice under `.agents/doctrine/completed-artifacts.md`.
 - `.agents/specs/` contains in-flight spec surfaces. Completed specs follow the same two-slice lifecycle after durable decisions are promoted.
 

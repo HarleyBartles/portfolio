@@ -66,4 +66,4 @@ Use this runbook for Portfolio pull-request workflow and publication proof.
 
 ## Playbook routing
 
-None.
+- [Article writing](../playbooks/article-writing.md) - when publishing a proved public article or writing-system change.

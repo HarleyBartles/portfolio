@@ -23,7 +23,7 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `.agents/runbooks/` | Lifecycle-stage workflow runbooks | Authored guidance |
 | `.agents/playbooks/` | Topical workflows available whenever their concern applies | Authored guidance |
 | `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
-| `.agents/skills/<repo-owned>/` | Repo-owned skills (unprefixed unless overriding a marketplace skill) | Tracked local custody |
+| `.agents/skills/<repo-owned>/` | Repo-owned skills whose exact names are declared in `repo.local_skills`; prefixes are optional | Tracked local custody |
 | `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
 | `.agents/plans/` | In-flight and epic plans | Authored plans |
 | `.agents/specs/` | In-flight design specs | Authored specs |

@@ -53,7 +53,7 @@ Truth, evidence, privacy and Harley's author judgement still outrank all three l
 ## Design invariants
 
 - **Proof before pitch.** Projects, articles, and artefacts demonstrate judgement. Repeated claims that Harley is good are not a substitute for inspectable evidence.
-- **Human voice, edited rather than neutralised.** First-person case-study and reflective copy should sound like Harley speaking to a technically literate reader. Use natural contractions by default: `I'm`, `didn't`, `wouldn't`, `that's`. Expand them only when emphasis, contrast, or clarity calls for it. Prefer direct phrasing such as `my memory's incomplete` over the more formal `my memory of it is incomplete`; extra words are not extra clarity. Do not use em dashes in Harley-authored public copy. Join an adjunct with commas or use a plain hyphen when a harder break is genuinely useful. Editing may tighten Harley's cadence, but must not turn it into institutional or generic documentation prose.
+- **Human voice, edited rather than neutralised.** First-person case-study and reflective copy should sound like Harley speaking to a technically literate reader. Editing may tighten Harley's cadence, but must not turn it into institutional or generic documentation prose. Authored public prose follows the canonical [Portfolio writing policy](./writing-policy.md).
 - **Authored hierarchy.** Composition, typography, imagery, and whitespace create a deliberate reading order. Repeated interchangeable cards do not.
 - **Editorial restraint.** Motion explains a hierarchy or state change. It does not autoplay, decorate idle time, scroll-jack, or compete with reading.
 - **Specific imagery.** Prefer owned project artefacts, diagrams, and honest capture briefs. Do not use generic stock imagery, invented screenshots, or illegible full-page thumbnails.
@@ -69,34 +69,6 @@ Truth, evidence, privacy and Harley's author judgement still outrank all three l
 Article asides are shared editorial grammar. Every article aside must use [`EditorialAside`](../../src/client/src/components/editorial/EditorialAside.tsx), imported through `src/client/src/components/editorial` (for writing bodies, `import { EditorialAside } from '../../components/editorial'`). Article prose obeys the reading measure; editorial asides deliberately break it to the right on wide viewports while retaining the prose column’s left edge. The shared responsive grammar is: wide desktop places title and precis in the left lane with the disclosure/body in the right lane; tablet places title and precis side by side, then puts the disclosure on the next row with opened body in the right lane; mobile returns title, precis and disclosure to one left-aligned column. The primitive owns that geometry along with field and rule treatment, title and precis hierarchy, native disclosure behavior, keyboard semantics and responsive handling.
 
 Article-local aside shells or aside presentation styles are not allowed. A genuinely different aside grammar requires an explicit new design decision and approval before implementation. This is the same conceptual rule already embodied by [`EditorialPullQuote`](../../src/client/src/components/editorial/EditorialPullQuote.tsx): a repeated editorial job belongs to its canonical shared primitive, not a new local treatment.
-
-## Editorial voice and AI-tell policy
-
-This policy applies to public page copy, case studies, articles, CV narrative, captions, alt text, headings, and other prose presented as Harley's writing. The goal is recognisable authorship. A detector score is irrelevant.
-
-### Write towards Harley's voice
-
-- Lead with the actual subject, decision, evidence, or consequence.
-- Use the contractions Harley would use when speaking. Prefer the shortest natural version of a thought.
-- Preserve directness, dry humour, technical confidence, and the occasional rough edge. Do not polish every sentence into the same literary cadence.
-- Mix sentence lengths according to the thought. Let a short sentence end the point when it is done.
-- Use specific technical language when it carries meaning. Familiarity does not need to be disguised as tutorial prose.
-- Make contrasts concrete: name the viable alternative, the cost, and the reason for the choice.
-
-### Reject common AI tells
-
-- No em dashes in Harley-authored public copy. Use commas for adjuncts, a full stop for a finished thought, or a plain hyphen for a deliberate hard break.
-- No emoji unless the emoji itself is critical to the medium, quoted material, or the meaning being discussed. Never add decorative emoji to headings, status labels, lists, or calls to action.
-- Do not rely on stock reversal frames such as `That's not X, it's Y`, `It isn't just X, it's Y`, or repeated `not X, but Y` constructions. State the positive claim directly. Keep a contrast only when both sides carry necessary, specific information.
-- Treat model-favourite scaffolding such as `I keep returning to`, `at its core`, `what matters is`, `the real story`, `this is where`, `the bottom line`, and `it is worth noting` as a warning, not a blacklist. Any one of these can be natural in context; the tell is how readily and repeatedly models use the familiar frame to manufacture reflection or emphasis. Check paraphrases and rhetorical function too: changing `the thing I keep returning to` into `the game I wanted to return to` preserves the same familiar posture. Keep the frame only when it sounds specific to Harley and the passage. Otherwise, state the thought directly.
-- Apply that frequency judgement across the whole public corpus. One earned use may be natural; one per article establishes a model-shaped house style, and recurrence across unrelated contexts can falsely present the phrase as part of Harley's vocabulary. Search the site, not only the current draft, and include close semantic variants in the editorial review.
-- Do not add a qualifying tail after a sentence already says enough. The Dustwell map caption needed `the player chooses a town`; the extra proper noun and explanation made it worse.
-- Avoid repeated rhetorical triplets, symmetrical paragraph templates, fake profundity, grand closing summaries, and fragments inserted only to sound emphatic.
-- Do not apologise for honest project state or add defensive credibility claims around evidence that already speaks for itself.
-
-### Editorial review
-
-Read continuous prose aloud. Search for banned punctuation, decorative emoji, stock phrases, and repeated sentence skeletons. When a sentence feels polished but impersonal, cut its final qualification first, then replace abstraction with the concrete actor or decision. Compare the result with Harley's supplied language and preserve factual boundaries. If a genuinely load-bearing voice choice remains uncertain, leave it for Harley's review rather than smoothing it into generic prose.
 
 ## Protected defaults
 
@@ -116,7 +88,7 @@ Do not encode these choices as brittle assertions about exact prose, DOM class n
 A material visual or editorial change is reviewed at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and actual 200% browser zoom. A narrow viewport may automate reflow pressure, but it does not replace the real browser-zoom review. Review asks:
 
 - Is the reading order obvious without relying on animation?
-- Does first-person copy sound natural when read aloud, using the contractions and economical phrasing Harley would use in conversation rather than slipping into formal essay voice?
+- Does public prose satisfy the authored voice, evidence and editorial review contracts in the [Portfolio writing policy](./writing-policy.md)?
 - Does typography create useful contrast while remaining readable?
 - Is every visual specific, legible, and proportionate to the story?
 - Does motion communicate state and stop when reduced motion is requested?

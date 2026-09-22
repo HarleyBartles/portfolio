@@ -17,7 +17,7 @@
 - `/writing-portfolio-articles` is the approved exact local skill name; no prefix is required for repo-local custody.
 - This plan must not create `.agents/skills/writing-portfolio-articles/`, edit `repo.local_skills`, implement audit code or define pressure-test fixtures.
 - `.agents/doctrine/writing-policy.md` becomes the sole detailed editorial authority; `.agents/doctrine/portfolio-design-policy.md` retains only cross-cutting presentation invariants and a pointer.
-- The entire public site is one 12A-inspired work until the explicit 90-minute reconsideration trigger is reached.
+- The entire public site is one 12A-inspired work until Harley explicitly decides otherwise; no automatic duration, volume or journey trigger applies.
 - The policy may enforce objective language edges but must preserve contextual editorial judgement and must not claim BBFC certification.
 - Published work is corpus evidence, not a golden voice dataset.
 - Generated `INDEX.md` files are changed only through `py -3 tools/run.py mesh --apply`.
@@ -152,7 +152,7 @@ Using the spec as the source, write focused sections for:
 9. corpus distinctiveness and the recorded corpus baseline;
 10. AI-fatigue policy;
 11. anti-overcorrection and recovery checks;
-12. the 12A-inspired whole-site house standard and 90-minute trigger.
+12. the 12A-inspired whole-site house standard and its explicit human-owned classification boundary.
 
 Copy all twelve research URLs from the spec into a `Research calibration` section. Say that external sources inform but do not own local policy.
 
@@ -167,14 +167,14 @@ shit and piss = contextual findings, not fabricated numeric failures
 cunt, twat and cock = prohibited public terms
 all relevant BBFC 12A dimensions considered
 no certification claim
-90 minutes of plausible new reading = explicit redesign trigger
 no runtime journey tracking now
+classification changes only through Harley's explicit editorial decision
 ```
 
 Run:
 
 ```powershell
-rg -n "one work|at most one|context|certif|90 minutes|runtime" .agents/doctrine/writing-policy.md
+rg -n "one work|at most one|context|certif|explicit editorial decision|runtime" .agents/doctrine/writing-policy.md
 ```
 
 Expected: every boundary is directly inspectable.
@@ -193,7 +193,7 @@ In `portfolio-design-policy.md`:
 Run:
 
 ```powershell
-rg -n "synthetic profundity|repeated rhetorical triplets|site-wide.*fuck|90 minutes" .agents/doctrine
+rg -n "synthetic profundity|repeated rhetorical triplets|site-wide.*fuck|explicit editorial decision" .agents/doctrine
 ```
 
 Expected: detailed editorial rules occur in `writing-policy.md`, not in a second doctrine file.

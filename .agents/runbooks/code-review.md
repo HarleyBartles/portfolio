@@ -53,3 +53,4 @@ Use this runbook when reviewing a PR, branch, or diff in the Portfolio repositor
 
 - [Code style](../playbooks/code-style.md) - whenever reviewing code structure, React composition, TypeScript, styling implementation, Python, or technical prose.
 - [Testing](../playbooks/testing.md) - whenever reviewing behavior or validation evidence.
+- [Article writing](../playbooks/article-writing.md) - when reviewing public prose, editorial presentation or article evidence.

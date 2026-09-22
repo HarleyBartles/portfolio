@@ -37,6 +37,8 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 - [Contributing](CONTRIBUTING.md)
 - [Security considerations](.agents/playbooks/security.md)
 - [Portfolio design policy](.agents/doctrine/portfolio-design-policy.md)
+- [Portfolio writing policy](.agents/doctrine/writing-policy.md)
+- [Article-writing playbook](.agents/playbooks/article-writing.md)
 - [Design decision ledger](docs/design-decisions.md)
 - [Routing pointers](.devin/rules/INDEX.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
