@@ -7,7 +7,7 @@ import argparse
 import json
 import re
 import sys
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Literal, Sequence
 
@@ -18,6 +18,20 @@ EXCLUDED_NAME_MARKERS = (".test.", ".spec.", ".generated.")
 PUBLIC_SOURCE_CLASSES = (
     ("client-index", Path("src/client/index.html")),
     ("client-source", Path("src/client/src")),
+    ("client-public", Path("src/client/public")),
+)
+NONPUBLIC_CLIENT_OWNERS = frozenset(
+    {"assets", "dist", "e2e", "node_modules", "scripts", "test-results"}
+)
+NONPUBLIC_SRC_FILES = frozenset({"INDEX.md", "README.md"})
+NONPUBLIC_CLIENT_FILES = frozenset(
+    {
+        "INDEX.md",
+        "README.md",
+        "playwright.config.ts",
+        "vite.config.ts",
+        "vitest.config.ts",
+    }
 )
 OBJECTIVE_TERMS = ("fuck", "cunt", "twat", "cock")
 CONTEXTUAL_TERMS = ("shit", "piss")
@@ -44,6 +58,8 @@ class Finding:
     severity: Literal["observation", "contextual-review", "objective-breach"]
     evidence: Literal["fact", "heuristic"] = "fact"
     term: str | None = None
+    related_path: str | None = None
+    related_line: int | None = None
 
 
 @dataclass(frozen=True)
@@ -91,6 +107,47 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
         if unclassified:
             names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified))
             raise SourceContractError(f"Unclassified public source owner: {names}")
+        unclassified_files = tuple(
+            path
+            for path in src_root.iterdir()
+            if path.is_file()
+            and path.suffix.lower() in TEXT_SUFFIXES
+            and path.name not in NONPUBLIC_SRC_FILES
+        )
+        if unclassified_files:
+            names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified_files))
+            raise SourceContractError(f"Unclassified public source file: {names}")
+
+    client_root = root / "src" / "client"
+    classified_client_owners = {
+        relative_owner.relative_to(Path("src/client")).parts[0]
+        for _, relative_owner in PUBLIC_SOURCE_CLASSES
+        if relative_owner != Path("src/client/index.html")
+    }
+    if client_root.exists():
+        unclassified = tuple(
+            path
+            for owner in client_root.iterdir()
+            if owner.is_dir()
+            and owner.name not in classified_client_owners
+            and owner.name not in NONPUBLIC_CLIENT_OWNERS
+            for path in owner.rglob("*")
+            if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES
+        )
+        if unclassified:
+            names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified))
+            raise SourceContractError(f"Unclassified client content owner: {names}")
+        unclassified_files = tuple(
+            path
+            for path in client_root.iterdir()
+            if path.is_file()
+            and path.suffix.lower() in TEXT_SUFFIXES
+            and path.name != "index.html"
+            and path.name not in NONPUBLIC_CLIENT_FILES
+        )
+        if unclassified_files:
+            names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified_files))
+            raise SourceContractError(f"Unclassified client content file: {names}")
 
     sources: list[Path] = []
     for _, relative_owner in PUBLIC_SOURCE_CLASSES:
@@ -153,17 +210,19 @@ def _repeated_phrase_findings(
     relative_path: str,
     paragraphs: tuple[tuple[int, str], ...],
     phrase_words: int,
+    first_seen: dict[tuple[str, ...], tuple[str, int, str]],
+    emitted: set[tuple[tuple[str, ...], str]],
 ) -> tuple[Finding, ...]:
     if phrase_words < 2:
         raise ValueError("repeated_phrase_words must be at least 2")
-    first_seen: dict[tuple[str, ...], tuple[int, str]] = {}
-    emitted: set[tuple[str, ...]] = set()
     findings: list[Finding] = []
     for line, paragraph in paragraphs:
         words = tuple(word.lower() for word in _words(paragraph))
         for index in range(0, len(words) - phrase_words + 1):
             phrase = words[index : index + phrase_words]
-            if phrase in first_seen and phrase not in emitted:
+            emission_key = (phrase, relative_path)
+            if phrase in first_seen and emission_key not in emitted:
+                first_path, first_line, _ = first_seen[phrase]
                 findings.append(
                     Finding(
                         kind="repeated-exact-phrase",
@@ -172,11 +231,14 @@ def _repeated_phrase_findings(
                         context=paragraph,
                         severity="observation",
                         evidence="heuristic",
+                        term=" ".join(phrase),
+                        related_path=first_path,
+                        related_line=first_line,
                     )
                 )
-                emitted.add(phrase)
+                emitted.add(emission_key)
             else:
-                first_seen.setdefault(phrase, (line, paragraph))
+                first_seen.setdefault(phrase, (relative_path, line, paragraph))
     return tuple(findings)
 
 
@@ -184,6 +246,8 @@ def audit_articles(root: Path, thresholds: AuditThresholds) -> CorpusReport:
     root = root.resolve()
     articles: list[ArticleObservation] = []
     findings: list[Finding] = []
+    first_seen_phrases: dict[tuple[str, ...], tuple[str, int, str]] = {}
+    emitted_phrases: set[tuple[tuple[str, ...], str]] = set()
     for path in sorted(root.rglob("*.md"), key=lambda item: item.relative_to(root).as_posix()):
         relative_path = path.relative_to(root).as_posix()
         lines = path.read_text(encoding="utf-8").splitlines()
@@ -229,6 +293,8 @@ def audit_articles(root: Path, thresholds: AuditThresholds) -> CorpusReport:
                 relative_path,
                 paragraphs,
                 thresholds.repeated_phrase_words,
+                first_seen_phrases,
+                emitted_phrases,
             )
         )
     findings.sort(key=lambda finding: (finding.path, finding.line, finding.kind, finding.context))
@@ -246,8 +312,8 @@ def audit_public_language(root: Path) -> LanguageReport:
         relative_path = path.relative_to(root).as_posix()
         for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
             for term in OBJECTIVE_TERMS + CONTEXTUAL_TERMS:
-                severity: Literal["contextual-review", "objective-breach"] = (
-                    "objective-breach" if term in OBJECTIVE_TERMS else "contextual-review"
+                severity: Literal["observation", "contextual-review"] = (
+                    "observation" if term in OBJECTIVE_TERMS else "contextual-review"
                 )
                 for _ in _term_pattern(term).finditer(line):
                     occurrences.append(
@@ -262,11 +328,17 @@ def audit_public_language(root: Path) -> LanguageReport:
                     )
     occurrences.sort(key=lambda finding: (finding.path, finding.line, finding.term or ""))
     fuck_count = sum(finding.term == "fuck" for finding in occurrences)
+    occurrences = [
+        replace(finding, severity="objective-breach")
+        if finding.term in {"cunt", "twat", "cock"}
+        or (finding.term == "fuck" and fuck_count > 1)
+        else finding
+        for finding in occurrences
+    ]
     breaches = tuple(
         finding
         for finding in occurrences
-        if finding.term in {"cunt", "twat", "cock"}
-        or (finding.term == "fuck" and fuck_count > 1)
+        if finding.severity == "objective-breach"
     )
     return LanguageReport(tuple(occurrences), breaches)
 
@@ -296,7 +368,15 @@ def render_corpus_report(report: CorpusReport, output_format: str) -> str:
         for article in report.articles
     ]
     lines.extend(
-        f"{finding.evidence}: {finding.kind} at {finding.path}:{finding.line} | {finding.context}"
+        (
+            f"{finding.evidence}: {finding.kind} at {finding.path}:{finding.line}"
+            + (
+                f"; '{finding.term}' first seen at {finding.related_path}:{finding.related_line}"
+                if finding.related_path and finding.related_line
+                else ""
+            )
+            + f" | {finding.context}"
+        )
         for finding in report.findings
     )
     return "\n".join(lines) if lines else "No Markdown articles found."

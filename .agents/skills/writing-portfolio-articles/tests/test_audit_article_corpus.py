@@ -57,6 +57,15 @@ class ArticleAuditTests(unittest.TestCase):
         self.assertEqual(repeated.evidence, "heuristic")
         self.assertGreater(repeated.line, 0)
         self.assertIn("careful mechanism", repeated.context.lower())
+        cross_article = next(
+            finding
+            for finding in report.findings
+            if finding.kind == "repeated-exact-phrase" and finding.path == "beta.md"
+        )
+        self.assertIn("cross article phrase", cross_article.context.lower())
+        self.assertEqual(cross_article.term, "one cross article phrase")
+        self.assertEqual(cross_article.related_path, "alpha.md")
+        self.assertGreater(cross_article.related_line or 0, 0)
         one_sentence = next(finding for finding in report.findings if finding.kind == "one-sentence-paragraph")
         self.assertEqual(one_sentence.evidence, "fact")
 
@@ -100,6 +109,41 @@ class PublicLanguageAuditTests(unittest.TestCase):
 
             with self.assertRaises(self.audit.SourceContractError):
                 self.audit.discover_public_sources(root)
+
+    def test_unclassified_client_content_owner_fails_discovery(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            shutil.copytree(FIXTURES / "public-copy" / "src", root / "src")
+            unknown = root / "src" / "client" / "published-copy" / "page.md"
+            unknown.parent.mkdir(parents=True)
+            unknown.write_text("Public words.", encoding="utf-8")
+
+            with self.assertRaises(self.audit.SourceContractError):
+                self.audit.discover_public_sources(root)
+
+    def test_unclassified_direct_boundary_files_fail_discovery(self) -> None:
+        for relative_path in (Path("src/public-copy.md"), Path("src/client/published-copy.tsx")):
+            with self.subTest(relative_path=relative_path.as_posix()), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                shutil.copytree(FIXTURES / "public-copy" / "src", root / "src")
+                unknown = root / relative_path
+                unknown.write_text("Public words.", encoding="utf-8")
+
+                with self.assertRaises(self.audit.SourceContractError):
+                    self.audit.discover_public_sources(root)
+
+    def test_single_permitted_fuck_is_not_labelled_as_a_breach(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            page = root / "src" / "client" / "src" / "pages" / "Page.tsx"
+            page.parent.mkdir(parents=True)
+            page.write_text("One earned fuck.", encoding="utf-8")
+            (root / "src" / "client" / "index.html").write_text("<main />", encoding="utf-8")
+
+            report = self.audit.audit_public_language(root)
+            self.assertFalse(report.objective_breaches)
+            self.assertEqual(report.occurrences[0].severity, "observation")
+            self.assertIn("observation: fuck", self.audit.render_language_report(report, "text"))
 
     def test_json_output_is_machine_readable_and_sorted(self) -> None:
         report = self.audit.audit_public_language(FIXTURES / "public-copy")
