@@ -44,11 +44,24 @@ The implementation must preserve the repository's existing surface roles.
 - `.agents/playbooks/article-writing.md` is the topical repository workflow.
 - `.agents/skills/port-writing-articles/` is the triggerable implementation of the editorial method.
 - `.agents/specs/2026-09-22-article-writing-system-design.md` records the approved design until its normal planning-artifact retirement.
-- `.agents/docs/article-writing-proposal.md` is non-binding design research. Once its substance has been promoted into the implemented surfaces, it should be removed rather than retained as a competing near-authority.
+- The superseded article-writing proposal was removed after its durable decisions and research references were promoted into this specification, avoiding a competing near-authority.
 - Published articles and other public copy are editorial evidence and audit inputs, not policy.
 - Deterministic repository code remains under `tools/`; the skill may own a narrowly editorial inspection script when that script is useful only to the skill and is not imported by production code.
 
 The detailed editorial material currently in `.agents/doctrine/portfolio-design-policy.md` should move to the writing doctrine. The design policy should retain only the cross-cutting visual/editorial invariant and a link to the canonical writing policy.
+
+Editorial decisions must respect this order:
+
+1. Truth, safety, privacy, accessibility and legal boundaries.
+2. Explicit human intent.
+3. Accurate claims and honest provenance.
+4. The article's reader promise and central meaning.
+5. Clarity and coherence.
+6. Authorised voice.
+7. Editorial finish.
+8. Fatigue heuristics.
+
+No style repair may strengthen a claim, erase uncertainty, invent a memory or override a deliberate authorial choice without demonstrating a concrete reader cost.
 
 ## Scope
 
@@ -77,6 +90,35 @@ Out of scope:
 - replacing factual, legal, accessibility or design review with a writing pass.
 
 ## Architecture
+
+### Corpus baseline
+
+The published corpus provides a starting observation set for implementation and future review. Its strongest recurring qualities are:
+
+- specific engineering incidents rather than generic advice;
+- willingness to implicate the author in the mistake;
+- concrete technical mechanisms, constraints and consequences;
+- honest distinctions between memory, inference and demonstrated fact;
+- dry humour that usually emerges from the material;
+- strong conceptual titles;
+- endings that often close the opening argument;
+- links that let a sceptical reader inspect the work;
+- technical confidence without pretending every uncertainty is resolved.
+
+Its current watch classes are:
+
+- repeated antithetical constructions such as `not X, but Y` and `X isn't Y; it's Z`;
+- repeated vocabulary around earning or paying rent, boundaries, machinery, shape, trust, evidence, the next engineer and “the work”;
+- aphoristic block quotes with similar frequency and function;
+- recurring claim, anecdote, maxim and qualification section sequences;
+- memorable headings that sometimes underserve a scanning reader;
+- endings that echo the title or opening often enough for the device to become visible;
+- reuse of the LENS and ADR, SQL performance, tap-versus-mop incident response, test-boundary and agent-workflow stories;
+- explanations of lessons already demonstrated by the story;
+- pressure for every section to contain a quotable line;
+- concentrations of short fragments and question sequences that work locally but need whole-piece rhythm review.
+
+These are not defects to purge. Their editorial cost changes with frequency. A repeated story remains useful when a new article reveals a genuinely different facet; otherwise it cannibalises the corpus.
 
 ### 1. Writing doctrine
 
@@ -111,7 +153,11 @@ The form must follow the material. The system should recognise at least:
 - reflective narrative;
 - reported feature;
 - field note;
-- Q&A or list with a cumulative argument.
+- tutorial or explanatory article;
+- design or making-of story;
+- comparative or evaluative piece;
+- interview or Q&A;
+- list with a cumulative argument.
 
 These are working forms, not mandatory page templates. Hybrid forms are permitted when their transitions and reader expectations are controlled deliberately.
 
@@ -134,17 +180,23 @@ Voice comes primarily from perspective, selection, specificity, judgement and rh
 
 The writing may be candid, funny, technical, self-implicating and opinionated. It must not manufacture intimacy, certainty, rebellion or cleverness. It should sound like a person making decisions in prose, not a system averaging familiar editorial gestures.
 
+The currently authorised voice includes contractions, directness, technical specificity, honest rough edges and dry humour. Public prose does not use em dashes. These explicit preferences belong in doctrine; they must not be reverse-engineered into a larger imitation profile.
+
 #### Openings
 
 An opening establishes focus, authority, direction, voice and the writer-reader relationship. It should make a promise that the article keeps.
 
 An opening need not begin with background. It may begin with action, a question, an image, a claim or a contradiction, provided the reader is oriented before confusion becomes work.
 
+Useful opening pressures include a question, contradiction, scene, surprising claim, problem, decision, concrete image or compact statement of stakes. An opening must not manufacture urgency the article cannot repay.
+
 #### Structure and movement
 
 Sections must change the reader's understanding, not merely divide word count. Each section should have a job in the article's movement. Sequence may be chronological, causal, argumentative, thematic or deliberately braided, but the governing logic should be legible.
 
 Scene, evidence, explanation and abstraction should be balanced according to the form. The ending should answer, transform or productively reopen the question established by the beginning; it should not merely stop after the last example.
+
+Section functions may include establishing context, advancing the argument, providing evidence, complicating the claim, testing an objection, changing scale, moving through time, turning toward a consequence, or preparing and delivering the ending. Headings should survive a headings-only read. Transitions may be carried by chronology, consequence, a repeated image, an unresolved question or a change in scale rather than explicit connective phrases.
 
 #### Paragraphs
 
@@ -153,6 +205,8 @@ A paragraph is a unit of thought, movement or dramatic emphasis. During revision
 One-sentence paragraphs are suspicious, not forbidden. They must earn isolation through emphasis, change of pace, transition, revelation or another specific editorial effect. Repeated short paragraphs can become mannerism just as readily as dense blocks can become obstruction.
 
 Paragraph openings should orient a scanning reader without making continuous reading feel schematic.
+
+Useful reasons for a paragraph boundary include a change of subject, time, scene, speaker, claim, evidence, scale, rhetorical function or pace.
 
 #### Sentences and rhythm
 
@@ -168,6 +222,8 @@ The system must explicitly reject both extremes:
 #### Endings
 
 An ending should feel caused by the article. It may resolve, return, widen, sharpen or leave a deliberate afterimage. It should avoid generic uplift, recap-by-default and conclusions that simply restate the standfirst.
+
+It may answer the opening question, return to an opening image with changed meaning, deliver a consequence, leave a bounded unresolved question, offer a decision or next move, or stop on the strongest remaining concrete detail. As a diagnostic, cover the final paragraph and ask whether the article has already ended; if it has, remove the surplus ending.
 
 #### Corpus distinctiveness
 
@@ -190,6 +246,8 @@ AI fatigue is a constant watch class. The review should look beyond banned-word 
 - conspicuous polish without individual judgement;
 - imitation of surface quirks from the author's previous work.
 
+Also watch for synthetic profundity, empty antithesis, generic emotional emphasis, repeated rhetorical triplets, uniform section architecture, explanatory tails after the point has landed, conclusions inflated beyond the evidence, and random variation introduced merely to “sound human.”
+
 The remedy is renewed authorship: recover the proposition, evidence, decisions and consequences. It is not thesaurus substitution or arbitrary roughening.
 
 #### Anti-overcorrection
@@ -197,6 +255,8 @@ The remedy is renewed authorship: recover the proposition, evidence, decisions a
 No local rule is an invitation to perform it everywhere. Sentence conjunction, fragments, one-sentence paragraphs, profanity, anecdotes, headings and rhetorical questions remain subordinate to the article's needs.
 
 An editorial pass should leave the writing more intentional, not more visibly processed.
+
+Every editing pass must include a recovery check: what improved, what meaning or cadence was damaged, whether a supplied formulation was stronger, whether the result became more generic, and whether a local improvement harmed the whole. Revert a change that has no defensible editorial benefit.
 
 #### Language and 12A house standard
 
@@ -223,9 +283,14 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 
 #### Phase A: commission and material
 
+- Retrieve the full issue and linked documents when the article is Linear-backed.
+- Establish whether the material is an idea, notes, a draft, approved copy or a publication edit.
 - Identify the intended reader, occasion and desired change.
 - Gather incidents, evidence, sources, constraints and unresolved questions.
 - Separate known facts from memory and inference.
+- Record the central question and explicit non-scope.
+- Build a lightweight claim-and-evidence ledger for externally checkable claims.
+- Inventory existing articles that use the same stories or arguments.
 - Decide whether there is enough material for the promised reading time and form.
 
 #### Phase B: editorial design
@@ -234,7 +299,9 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 - Choose the form and describe the reader's expected journey.
 - Define the opening's promise and the ending's intended relationship to it.
 - Assign every prospective section a distinct job.
+- Map changes of scale between story, technical detail, argument and reflection.
 - Identify the evidence on which the article turns.
+- Check that the structure can carry the promised reading time without padding.
 
 #### Phase C: drafting
 
@@ -246,6 +313,7 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 #### Phase D: macro edit
 
 - Test proposition, form, order, pacing, omissions and ending.
+- Run distinct proposition, promise, structure, evidence, counterpressure, relevance, repetition and ending passes.
 - Remove sections that repeat rather than advance.
 - Check the article's promise against what it actually delivers.
 - Confirm that the title and standfirst describe the article now on the page.
@@ -253,15 +321,19 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 #### Phase E: meso and micro edit
 
 - Justify every section boundary.
+- Perform a headings-only read and a transition pass.
 - Justify every paragraph boundary against its neighbours.
 - Challenge every full stop without assuming conjunction is preferable.
 - Read aloud for cadence, breath, ambiguity and accidental drumbeat.
-- Inspect transitions, modifiers, verbs, abstractions and unnecessary qualification.
+- Inspect word order and emphasis, specific nouns and strong verbs, pronoun and referent clarity, terminology, acronyms, modifiers, abstractions and unnecessary qualification.
+- Apply the language and whole-site 12A pass.
+- Finish with the anti-overcorrection recovery check.
 
 #### Phase F: voice and fatigue
 
 - Compare with the corpus for repeated habits and accidental self-imitation.
 - Inspect the AI-fatigue watch classes.
+- Classify findings as `preserve`, `observed`, `candidate`, `repair` or `abstain`.
 - Restore specific judgement wherever the prose has become generically polished.
 - Check jokes, profanity and informality for actual editorial work.
 - Keep observations human-reviewable; do not accept an automated quality verdict.
@@ -269,8 +341,11 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 #### Phase G: web article and whole-site review
 
 - Check headings, paragraph openings and links for scanning readers.
+- Read the title and summary without the body, then only the headings, then the first sentence of every paragraph.
 - Check semantics, accessible link text, metadata, dates, reading time and route presentation.
+- Confirm code, quotations and technical terms render correctly.
 - Review the article in its rendered context at relevant viewport sizes.
+- Check that pull quotes, figures and asides earn their interruption.
 - Inventory language across all public copy and apply the site-wide 12A house standard.
 - Consider all other relevant BBFC 12A categories, not language alone.
 - Record whether the 90-minute reconsideration threshold has plausibly been reached.
@@ -348,6 +423,7 @@ The script must:
 - use deterministic parsing and stable output ordering;
 - show source locations and enough local context for human judgement;
 - distinguish exact counts from heuristics;
+- report repeated phrase families and metaphors, reused internal or external stories, pull-quote density, internal-link coverage and article word count against declared reading time where those observations can be made deterministically or are clearly labelled heuristic;
 - make configurable thresholds visible;
 - avoid labelling text as AI-written;
 - avoid automatic rewrites;
@@ -434,6 +510,24 @@ Do not redundantly run the complete CI command immediately before or after a suc
 8. Run focused checks, inspect the diff, and commit through the complete hook.
 9. Open or update the draft PR with the article and writing-system work, then use hosted CI as confirmation.
 
+The intended editorial sequence is:
+
+```text
+truth and material
+→ reader promise
+→ centre
+→ form
+→ structure
+→ evidence
+→ authored draft
+→ developmental edit
+→ line edit
+→ voice and fatigue review
+→ corpus comparison
+→ rendered reading
+→ publication proof
+```
+
 ## Future reconsideration trigger
 
 The 90-minute threshold is deliberately a trigger, not a premature design.
@@ -467,8 +561,12 @@ The design is informed by, but does not delegate authority to, the following ext
 
 - [BBFC 12A rating guidance](https://www.bbfc.co.uk/rating/12) for contextual, whole-work classification.
 - [Purdue OWL revision and paragraph guidance](https://owl.purdue.edu/owl/general_writing/academic_writing/paragraphs_and_paragraphing/index.html) for units of thought and sentence variety.
-- [Poynter writing guidance](https://www.poynter.org/archive/2002/thirty-tools-for-writers/) for voice, leads and practical revision.
-- [Nieman Storyboard](https://niemanstoryboard.org/2021/10/19/nut-grafs-getting-to-the-heart-of-the-story/) for theme, story form and structural movement.
+- [Purdue OWL sentence-structure activity](https://owl.purdue.edu/owl/graduate_writing/introduction_to_writing/documents/revising-and-editing/sentence-structure-activity.pdf) for sentence variety and rhetorical weight.
+- [Poynter writing guidance](https://www.poynter.org/archive/2002/thirty-tools-for-writers/) for voice and practical revision.
+- [Poynter on leads](https://www.poynter.org/reporting-editing/2019/lead-vs-lede-roy-peter-clark-has-the-definitive-answer-at-last/) for the opening's wider editorial job.
+- [Nieman Storyboard on theme and nut grafs](https://niemanstoryboard.org/2021/10/19/nut-grafs-getting-to-the-heart-of-the-story/) for the article's centre.
+- [Nieman Storyboard on feature and narrative forms](https://niemanstoryboard.org/2006/01/09/news-feature-v-narrative-whats-the-difference/) for choosing form rather than imposing a template.
+- [Nieman Storyboard on structure](https://niemanstoryboard.org/2022/02/02/sticking-a-story-together-and-nailing-the-structure/) for movement and endings.
 - [Nielsen Norman Group](https://www.nngroup.com/articles/how-users-read-on-the-web/) for scanning behaviour on the web.
 - [Google Technical Writing](https://developers.google.com/tech-writing/two/editing) for staged self-editing.
 - [ACL Anthology research on linguistic homogenisation](https://aclanthology.org/2025.emnlp-main.1163/) and [related published research](https://pmc.ncbi.nlm.nih.gov/articles/PMC11874169/) for the corpus-level AI-fatigue risk.
