@@ -93,7 +93,7 @@ After every pass, ask what improved, what meaning or cadence was damaged, whethe
 
 The Portfolio uses current British Board of Film Classification 12A guidance as an external calibration point. It does not claim that the site has been submitted to, reviewed by or certified by the BBFC.
 
-The whole public site is treated as one work today because an invested reader could plausibly consume it in a single visit of less than 90 minutes. Review all public routes and copy together, not one article in isolation. The local language boundaries are:
+The whole public site is treated as one work. Review all public routes and copy together, not one article in isolation. The local language boundaries are:
 
 - at most one site-wide use of `fuck`;
 - uses of `shit` and `piss` are contextual editorial findings, not fabricated numeric failures, and must remain infrequent enough for the whole work plausibly to retain a 12A character;
@@ -103,7 +103,7 @@ The whole public site is treated as one work today because an invested reader co
 
 Context, tone, repetition and cumulative effect matter more than counting alone. Review the complete 12A character, including dangerous behaviour, discrimination, drugs, nudity, sex, sexual violence or threat, suicide or self-harm, threat or horror, and violence whenever those categories are relevant.
 
-Do not introduce runtime journey tracking or hypothetical route models now. When an invested reader could plausibly spend 90 minutes reading new public content without rereading material, that threshold triggers an explicit design decision about plausible reader journeys and classification units. The site-wide rule must not silently relax or fragment before that decision.
+This classification changes only through Harley's explicit editorial decision. Content volume, estimated reading time and hypothetical reader journeys do not change it automatically. Do not introduce runtime journey tracking to enforce the house standard.
 
 ## Research calibration
 

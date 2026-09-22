@@ -87,7 +87,6 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 - Check that pull quotes, figures and asides earn their interruption.
 - Inventory language across all public copy and apply the site-wide 12A-inspired house standard.
 - Consider every other relevant BBFC 12A category, not language alone.
-- Record whether the 90-minute reconsideration threshold has plausibly been reached.
 
 ### Phase H: Publication evidence
 
@@ -108,6 +107,7 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 ## Local commands and paths
 
 - Public article source and route ownership are discovered from the live repository rather than assumed from a generic template.
+- For the whole-site language inventory, take the public route set from `src/client/src/data/routes/route-metadata.generated.json`, use `src/client/src/data/content/content-manifest.json` to resolve catalogue-backed copy, then trace route-owned JSX and co-located `*.content.json` sources for the remaining routes. Review rendered public copy against that source set; do not scan private repository prose as though it were site content.
 - Content catalogue: `py -3 tools/run.py content-manifest --apply` then `py -3 tools/run.py content-manifest --check` when article metadata changes.
 - Route catalogue: `py -3 tools/run.py route-catalogue --apply` then `py -3 tools/run.py route-catalogue --check` when public routes change.
 - Agent/document mesh: `py -3 tools/run.py mesh --apply` then `py -3 tools/run.py mesh --check` when authored routing changes.
@@ -126,7 +126,7 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 
 - Do not line-edit before resolving a broken proposition, promise or structure.
 - Do not turn the playbook into a universal article template.
-- Do not duplicate detailed doctrine or the future skill's reference chapters here.
+- Do not duplicate detailed doctrine or long-form editorial reference material here.
 - Do not treat published articles as golden examples or use them to build an imitation profile.
 - Do not let an automated audit rewrite prose, decide quality or silently accept its own findings.
 - Do not review profanity article-by-article when the policy classifies the whole public site as one work.

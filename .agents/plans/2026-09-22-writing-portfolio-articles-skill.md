@@ -69,7 +69,7 @@ The required behaviours to cover are:
 15. Potentially relevant non-language 12A content enters the review.
 16. The audit refuses an AI probability or prose-quality score.
 17. A new public content source omitted from the inventory is caught.
-18. The 90-minute threshold triggers a design decision without inventing journey rules.
+18. Content volume, reading time and hypothetical journeys do not change the classification unit without Harley's explicit decision.
 
 - [ ] **Step 1: Stop before designing fixtures**
 
@@ -321,7 +321,7 @@ Run:
 $words = (Get-Content .agents/skills/writing-portfolio-articles/SKILL.md -Raw) -split '\s+' | Where-Object { $_ }
 $words.Count
 rg -n "writing-policy|article-writing|audit_article_corpus" .agents/skills/writing-portfolio-articles/SKILL.md
-rg -n "BBFC|at most one.*fuck|90 minutes" .agents/skills/writing-portfolio-articles/SKILL.md
+rg -n "BBFC|at most one.*fuck|explicit.*decision" .agents/skills/writing-portfolio-articles/SKILL.md
 ```
 
 Expected: `SKILL.md` is a compact router, contains all three routes, and does not duplicate the doctrine's detailed rating policy.
