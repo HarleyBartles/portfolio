@@ -154,4 +154,20 @@ describe('loadDocument', () => {
       markdown: expect.stringContaining("I didn't know the documentation was me"),
     })
   })
+
+  test('loads Pop quiz, hotshot as the newest published article', async () => {
+    const popQuiz = navigation.find((item) => item.slug === 'pop-quiz-hotshot')
+
+    expect(popQuiz).toMatchObject({
+      kind: 'writing',
+      title: 'Pop quiz, hotshot',
+      date: '2026-09-22',
+      readingMinutes: 12,
+      featured: false,
+    })
+    await expect(loadDocument(popQuiz!)).resolves.toMatchObject({
+      summary: { slug: 'pop-quiz-hotshot' },
+      markdown: expect.stringContaining('Sometimes, shoot the hostage'),
+    })
+  })
 })
