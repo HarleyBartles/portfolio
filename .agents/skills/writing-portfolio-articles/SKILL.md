@@ -2,8 +2,30 @@
 name: writing-portfolio-articles
 description: Use when drafting, revising, developmentally editing, line editing, reviewing voice or fatigue, or performing final review of Portfolio public articles and substantial case-study prose.
 metadata:
-  custody: local
-  lane: first-party
+  source-id: writing-portfolio-articles
+  source-path: .agents/skills/writing-portfolio-articles/SKILL.md
+  provenance-name: Portfolio Article Writing first-party skill
+  source-category: first_party
+  status: active
+  owner: Harley Bartles
+  scope: Editorial method and observational review for Portfolio public articles and substantial case-study prose.
+  use_when:
+    - drafting or substantially revising a Portfolio public article or case-study narrative.
+    - developmental editing, line editing, or final editorial review is required.
+    - authored voice, corpus fatigue, prose rhythm, evidence, or article structure needs judgement.
+  do_not_use_when:
+    - editing private engineering documentation or repository instructions.
+    - publication mechanics are needed without substantive editorial work.
+    - an automated prose-quality verdict, authorship inference, or rewrite score is requested.
+  related_skills:
+    - writing
+    - writing-style
+    - writing-with-clarity
+    - verification-before-completion
+  use_before:
+    - verification-before-completion
+  use_with:
+    - writing
 license: MIT
 ---
 

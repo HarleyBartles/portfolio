@@ -25,6 +25,8 @@ Use this playbook when creating or changing a Portfolio-owned skill or its local
 
 - [`../doctrine/marketplace-custody-policy.md`](../doctrine/marketplace-custody-policy.md) for marketplace/local custody.
 - [`../doctrine/surface-classification-policy.md`](../doctrine/surface-classification-policy.md) for authored surface roles.
+- [`../contracts/skill-frontmatter.md`](../contracts/skill-frontmatter.md) for skill discovery, provenance and relationship metadata.
+- [`../contracts/openai-agent-yaml.md`](../contracts/openai-agent-yaml.md) for Codex wrapper metadata and prompt language.
 
 ## Local commands and paths
 
