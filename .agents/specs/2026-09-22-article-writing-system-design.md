@@ -42,7 +42,7 @@ The implementation must preserve the repository's existing surface roles.
 
 - `.agents/doctrine/writing-policy.md` is the binding source for editorial values, invariants and language policy.
 - `.agents/playbooks/article-writing.md` is the topical repository workflow.
-- `.agents/skills/port-writing-articles/` is the triggerable implementation of the editorial method.
+- `.agents/skills/writing-portfolio-articles/` is the triggerable implementation of the editorial method.
 - `.agents/specs/2026-09-22-article-writing-system-design.md` records the approved design until its normal planning-artifact retirement.
 - The superseded article-writing proposal was removed after its durable decisions and research references were promoted into this specification, avoiding a competing near-authority.
 - Published articles and other public copy are editorial evidence and audit inputs, not policy.
@@ -359,16 +359,16 @@ Create `.agents/playbooks/article-writing.md`. It should route the work through 
 - Push only the commit already proved locally and use hosted CI as confirmation.
 - Report evidence rather than asserting readiness from memory.
 
-The playbook must link to the doctrine and invoke `/port-writing-articles` for detailed editorial work. It must not duplicate the skill's long-form reference material.
+The playbook must link to the doctrine and invoke `/writing-portfolio-articles` for detailed editorial work. It must not duplicate the skill's long-form reference material.
 
 ### 3. Repo-owned skill
 
-Create `.agents/skills/port-writing-articles/` and register it as local custody in `.agents/plugins/marketplace.json` according to repository conventions. The name intentionally follows the repository's `port-*` policy for locally owned skills.
+Create `.agents/skills/writing-portfolio-articles/` and register its exact name as local custody in `.agents/plugins/marketplace.json`. A naming prefix is not required for repository-local skill custody.
 
 The skill should contain:
 
 ```text
-.agents/skills/port-writing-articles/
+.agents/skills/writing-portfolio-articles/
   SKILL.md
   references/
     article-forms.md
@@ -503,7 +503,7 @@ Do not redundantly run the complete CI command immediately before or after a suc
 1. Establish RED pressure fixtures and audit-script contract tests.
 2. Create the writing doctrine and move canonical editorial policy into it.
 3. Create the article-writing playbook and repository routing.
-4. Implement `/port-writing-articles` and its references.
+4. Implement `/writing-portfolio-articles` and its references.
 5. Implement the observational audit and public-source inventory.
 6. Make pressure and script tests GREEN.
 7. Regenerate skill and mesh projections.
