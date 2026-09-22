@@ -1,0 +1,82 @@
+schema_version: 1
+contract: portfolio-local-citation-backed-v1
+reconciled_against: ca311ac63c59d7e959b06c90d79fb13cfba4a3154f48183a5f65cd74dd44ded2
+references:
+- path: references/article-forms.md
+  source_sections:
+  - NIEMAN-FORMS
+  load_when:
+  - choosing or repairing an article's governing form.
+  content_mode: first_party_synthesis
+- path: references/editorial-brief.md
+  source_sections:
+  - NIEMAN-THEME
+  load_when:
+  - turning source material into a bounded editorial commission.
+  content_mode: first_party_synthesis
+- path: references/developmental-edit.md
+  source_sections:
+  - NIEMAN-THEME
+  - NIEMAN-STRUCTURE
+  - GOOGLE-SELF-EDITING
+  load_when:
+  - diagnosing a complete draft before local prose editing.
+  content_mode: first_party_synthesis
+- path: references/evidence-and-claims.md
+  source_sections:
+  - Derivation boundary
+  load_when:
+  - classifying claims, evidence and uncertainty.
+  content_mode: first_party_synthesis
+- path: references/structure-and-movement.md
+  source_sections:
+  - NIEMAN-STRUCTURE
+  - NNG-WEB-READING
+  load_when:
+  - repairing section order, movement, headings or transitions.
+  content_mode: first_party_synthesis
+- path: references/openings-and-endings.md
+  source_sections:
+  - POYNTER-LEADS
+  - POYNTER-TOOLS
+  - NIEMAN-THEME
+  load_when:
+  - opening, orienting or closing an article.
+  content_mode: first_party_synthesis
+- path: references/paragraphs-sentences-and-rhythm.md
+  source_sections:
+  - PURDUE-PARAGRAPHS
+  - PURDUE-SENTENCES
+  - POYNTER-TOOLS
+  load_when:
+  - editing paragraph boundaries, sentence relationships or cadence.
+  content_mode: first_party_synthesis
+- path: references/authored-voice.md
+  source_sections:
+  - Derivation boundary
+  - Reconciliation
+  load_when:
+  - recovering authored voice or resolving a voice uncertainty.
+  content_mode: first_party_synthesis
+- path: references/corpus-fatigue.md
+  source_sections:
+  - EMNLP-HUMAN-LLM
+  - PMC-AI-WRITING
+  - Reconciliation
+  load_when:
+  - reviewing recurrence, homogenisation or AI-fatigue risks.
+  content_mode: first_party_synthesis
+- path: references/final-review.md
+  source_sections:
+  - NNG-WEB-READING
+  - GOOGLE-SELF-EDITING
+  - BBFC-12A
+  load_when:
+  - reviewing the settled article and rendered web object.
+  content_mode: first_party_synthesis
+- path: references/field-learning.md
+  source_sections:
+  - Human review
+  load_when:
+  - recording outcomes or proposing a researched method change.
+  content_mode: first_party_synthesis
