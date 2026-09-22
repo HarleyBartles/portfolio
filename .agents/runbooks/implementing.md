@@ -56,3 +56,4 @@ Use this runbook when executing an approved plan in the Portfolio repository.
 
 - [Code style](../playbooks/code-style.md) - whenever code, component architecture, styling implementation, Python, TypeScript, or technical prose changes.
 - [Testing](../playbooks/testing.md) - whenever behavior changes or validation is required.
+- [Article writing](../playbooks/article-writing.md) - when implementing an approved public article or writing-system plan.

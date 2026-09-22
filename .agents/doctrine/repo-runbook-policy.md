@@ -27,6 +27,7 @@ This repository follows `repo-standards`. Lifecycle stages are runbooks; availab
 
 - `asset.md` at `.agents/playbooks/asset.md` for font, image, icon, and optimization workflow.
 - `generated-image-custody.md` at `.agents/playbooks/generated-image-custody.md` for generated-image custody, provenance, deterministic derivatives, and supersession before page use.
+- `article-writing.md` at `.agents/playbooks/article-writing.md` for public editorial articles from commission through publication proof.
 
 ## Root contributor and review surfaces
 
