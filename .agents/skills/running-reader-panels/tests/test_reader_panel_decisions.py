@@ -144,19 +144,21 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual([call.args[0] for call in sleep.call_args_list], [0.5, 1.0])
 
     def test_temporary_http_failure_retries_but_auth_failure_does_not(self) -> None:
-        attempts = []
+        for status in (503, 529):
+            with self.subTest(status=status):
+                attempts = []
 
-        def temporary(payload: dict, api_key: str) -> dict:
-            attempts.append(1)
-            if len(attempts) == 1:
-                raise DecisionHTTPError(503)
-            return response()
+                def temporary(payload: dict, api_key: str) -> dict:
+                    attempts.append(1)
+                    if len(attempts) == 1:
+                        raise DecisionHTTPError(status)
+                    return response()
 
-        with patch("reader_panel_decisions.time.sleep") as sleep:
-            result = decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=temporary)
+                with patch("reader_panel_decisions.time.sleep") as sleep:
+                    result = decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=temporary)
 
-        self.assertEqual(result.attempts, 2)
-        sleep.assert_called_once_with(0.5)
+                self.assertEqual(result.attempts, 2)
+                sleep.assert_called_once_with(0.5)
 
     def test_transport_classifies_network_failure_as_retryable(self) -> None:
         with patch("reader_panel_decisions.urllib.request.urlopen", side_effect=urllib.error.URLError("offline")):
