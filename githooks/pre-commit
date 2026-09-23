@@ -144,6 +144,10 @@ if command[0] == "@python":
 required_switch = "--apply" if capability == "apply" else "--check"
 if required_switch not in command:
     raise SystemExit(f"declared {capability} command is missing {required_switch}")
+# The hook already owns this staged checkout. Its apply phase may regenerate
+# declared surfaces even when Git is using the main worktree (local or hosted).
+if capability == "apply" and "--allow-shared-checkout" not in command:
+    command.append("--allow-shared-checkout")
 raise SystemExit(subprocess.run(command, cwd=repo_root).returncode)
 PY
 }

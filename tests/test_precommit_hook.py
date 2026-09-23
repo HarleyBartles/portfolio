@@ -118,6 +118,45 @@ class PreCommitHookTests(unittest.TestCase):
         self.assertIn('"check": ["@python", "tools/run.py", "ci", "--check", "--diagnostics"]', declaration)
         self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
 
+    def test_hook_passes_shared_checkout_approval_only_to_declared_apply(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            repo = root / "repo"
+            repo.mkdir()
+            self.assertEqual(run_git(repo, "init").returncode, 0)
+            run_git(repo, "config", "user.name", "Hook Test")
+            run_git(repo, "config", "user.email", "hook-test@example.invalid")
+            tracked = repo / "tracked.txt"
+            tracked.write_text("before\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt")
+            self.assertEqual(run_git(repo, "commit", "-m", "before").returncode, 0)
+
+            runner = root / "declared_runner.py"
+            runner.write_text(
+                "import json, os, sys\n"
+                "from pathlib import Path\n"
+                "with Path(os.environ['OBSERVED_COMMANDS']).open('a', encoding='utf-8') as stream:\n"
+                "    stream.write(json.dumps(sys.argv[1:]) + '\\n')\n",
+                encoding="utf-8",
+            )
+            hook = repo / "githooks/pre-commit"
+            hook.parent.mkdir()
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
+            hook.chmod(0o755)
+            write_command_declaration(repo, runner)
+            run_git(repo, "config", "core.hooksPath", "githooks")
+            tracked.write_text("after\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt", ".agents/contracts/repo-standards-commands.json")
+            observed = root / "commands.jsonl"
+            env = os.environ.copy()
+            env["OBSERVED_COMMANDS"] = str(observed)
+
+            result = run_git(repo, "commit", "-m", "after", env=env)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            commands = [json.loads(line) for line in observed.read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(commands, [["--apply", "--allow-shared-checkout"], ["--check"]])
+
     def test_tracked_hook_is_the_only_hook_authority_and_is_posix_executable(self) -> None:
         self.assertFalse((ROOT / ".githooks/pre-commit").exists())
         tracked_hook = ROOT / "githooks/pre-commit"

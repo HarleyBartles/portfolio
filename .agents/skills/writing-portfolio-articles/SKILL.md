@@ -21,6 +21,7 @@ metadata:
     - writing
     - writing-style
     - writing-with-clarity
+    - running-reader-panels
     - verification-before-completion
   use_before:
     - verification-before-completion
@@ -78,6 +79,10 @@ py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py 
 ```
 
 The audit reports facts and labelled heuristics. It does not rewrite prose, decide quality, infer authorship or replace the whole-site 12A judgement.
+
+## Optional reader panel
+
+Use `running-reader-panels` when a developmental edit would benefit from simulated reader reactions. Interpret its report in the context of the article's purpose and deliberate choices.
 
 ## Field learning
 
