@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import sys
 import unittest
+import urllib.error
 from pathlib import Path
+from unittest.mock import patch
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -10,6 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from reader_panel_decisions import (  # noqa: E402
     DecisionError,
     DecisionHTTPError,
+    DecisionUnavailableError,
+    _http_transport,
     build_request,
     decide,
 )
@@ -108,3 +112,55 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(len(attempts), 1)
         self.assertNotIn("private-key", str(error.exception))
         self.assertNotIn("Visible.", str(error.exception))
+
+    def test_brief_endpoint_outage_recovers_with_bounded_backoff(self) -> None:
+        attempts = []
+
+        def flaky(payload: dict, api_key: str) -> dict:
+            attempts.append(1)
+            if len(attempts) < 3:
+                raise DecisionUnavailableError("Decision endpoint unavailable")
+            return response()
+
+        with patch("reader_panel_decisions.time.sleep") as sleep:
+            result = decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=flaky)
+
+        self.assertEqual(result.attempts, 3)
+        self.assertEqual(len(attempts), 3)
+        self.assertEqual([call.args[0] for call in sleep.call_args_list], [0.5, 1.0])
+
+    def test_persistent_outage_stops_after_three_attempts(self) -> None:
+        attempts = []
+
+        def offline(payload: dict, api_key: str) -> dict:
+            attempts.append(1)
+            raise DecisionUnavailableError("Decision endpoint unavailable")
+
+        with patch("reader_panel_decisions.time.sleep") as sleep, self.assertRaises(DecisionError) as error:
+            decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=offline)
+
+        self.assertEqual(error.exception.attempts, 3)
+        self.assertEqual(len(attempts), 3)
+        self.assertEqual([call.args[0] for call in sleep.call_args_list], [0.5, 1.0])
+
+    def test_temporary_http_failure_retries_but_auth_failure_does_not(self) -> None:
+        attempts = []
+
+        def temporary(payload: dict, api_key: str) -> dict:
+            attempts.append(1)
+            if len(attempts) == 1:
+                raise DecisionHTTPError(503)
+            return response()
+
+        with patch("reader_panel_decisions.time.sleep") as sleep:
+            result = decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=temporary)
+
+        self.assertEqual(result.attempts, 2)
+        sleep.assert_called_once_with(0.5)
+
+    def test_transport_classifies_network_failure_as_retryable(self) -> None:
+        with patch("reader_panel_decisions.urllib.request.urlopen", side_effect=urllib.error.URLError("offline")):
+            with self.assertRaises(DecisionUnavailableError) as error:
+                _http_transport({"model": "probe"}, "private-key")
+        self.assertEqual(str(error.exception), "Decision endpoint unavailable")
+        self.assertNotIn("private-key", str(error.exception))

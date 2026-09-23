@@ -34,6 +34,10 @@ class DecisionError(RuntimeError):
         super().__init__(message)
 
 
+class DecisionUnavailableError(DecisionError):
+    """A transport outage that may clear after a short wait."""
+
+
 class DecisionHTTPError(DecisionError):
     def __init__(self, status: int, retry_after: float = 0):
         self.status = status
@@ -94,8 +98,8 @@ def _http_transport(payload: dict, api_key: str) -> dict:
         except ValueError:
             delay = 0
         raise DecisionHTTPError(error.code, delay) from None
-    except (urllib.error.URLError, TimeoutError) as error:
-        raise DecisionError("Decision endpoint unavailable") from None
+    except (urllib.error.URLError, TimeoutError):
+        raise DecisionUnavailableError("Decision endpoint unavailable") from None
     if len(body) > 1_000_000:
         raise DecisionError("Decision response exceeded size limit")
     try:
@@ -144,7 +148,7 @@ def decide(
     transport: Transport | None = None,
     max_attempts: int = 3,
 ) -> Decision:
-    """Ask one future-blind question; retry only a bounded rate limit."""
+    """Ask one future-blind question with bounded transient-failure retries."""
     if not 1 <= max_attempts <= 3:
         raise DecisionError("Decision attempt limit must be 1–3", attempts=0)
     payload = build_request(profile, article, beat)
@@ -153,9 +157,13 @@ def decide(
         try:
             return replace(_parse_decision(send(payload, api_key)), attempts=attempt)
         except DecisionHTTPError as error:
-            if error.status != 429 or attempt == max_attempts:
+            if error.status not in {408, 429, 500, 502, 503, 504} or attempt == max_attempts:
                 raise DecisionError(f"Decision request failed with HTTP {error.status}", attempts=attempt) from None
-            time.sleep(error.retry_after)
+            time.sleep(max(0.5 * 2 ** (attempt - 1), error.retry_after))
+        except DecisionUnavailableError as error:
+            if attempt == max_attempts:
+                raise DecisionError(str(error), attempts=attempt) from None
+            time.sleep(0.5 * 2 ** (attempt - 1))
         except DecisionError as error:
             raise DecisionError(str(error), attempts=attempt) from None
         except Exception:
