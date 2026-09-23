@@ -40,6 +40,23 @@ class ReaderCohortTests(unittest.TestCase):
         with self.assertRaises(CohortError):
             expand_profiles(sparse)
 
+    def test_curated_archetype_pool_preserves_the_pilot_and_has_distinct_arrival_questions(self) -> None:
+        pilot = load_profiles(ASSETS / "reader-intents-rich.json", None)
+        pool = load_profiles(ASSETS / "reader-archetypes.json", None)
+        self.assertEqual(len(pool), 34)
+        self.assertEqual(pool[:10], pilot)
+        self.assertEqual(len({reader.arrival_intent for reader in pool}), len(pool))
+        self.assertEqual(len({reader.desired_payoff for reader in pool}), len(pool))
+        self.assertTrue(all(reader.drawn_in_by and reader.put_off_by for reader in pool))
+        self.assertTrue(all(not re.search(r"\b(skim|read_closely|leave_lost_interest|stop_satisfied)\b",
+                                          f"{reader.drawn_in_by} {reader.put_off_by}", re.I)
+                            for reader in pool))
+
+    def test_skill_points_to_the_curated_pool_without_replacing_the_default(self) -> None:
+        skill = (ASSETS.parent / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("assets/reader-archetypes.json", skill)
+        self.assertIn("assets/reader-intents-rich.json", skill)
+
     def test_check_sends_nothing_and_apply_writes_reloadable_cohort_off_repo(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / "scratch"
@@ -53,6 +70,22 @@ class ReaderCohortTests(unittest.TestCase):
             self.assertEqual(len(saved), 100)
             self.assertEqual(saved[0].archetype_id, "engineering-peer")
             self.assertEqual(len(json.loads(output.read_text(encoding="utf-8"))), 100)
+
+    def test_ten_named_archetypes_can_be_selected_from_the_larger_pool(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / "scratch"
+            output = workspace / "selected.json"
+            ids = ["junior-engineer", "principal-architect", "platform-engineer",
+                   "test-engineer", "appsec-reviewer", "engineering-director",
+                   "product-manager", "technical-recruiter", "design-reader",
+                   "curious-nontechnical"]
+            arguments = ["--profile-file", str(ASSETS / "reader-archetypes.json"),
+                         "--archetypes", ",".join(ids), "--output", str(output), "--apply"]
+            self.assertEqual(main(arguments, workspace_resolver=lambda: workspace), 0)
+            readers = load_profiles(output, None)
+            self.assertEqual(len(readers), 100)
+            self.assertEqual({reader.archetype_id for reader in readers}, set(ids))
+            self.assertEqual([reader.archetype_id for reader in readers[:10]], [ids[0]] * 10)
 
     def test_apply_rejects_output_outside_scratch(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -59,12 +59,14 @@ def expand_profiles(archetypes: tuple[ReaderProfile, ...]) -> tuple[ReaderProfil
 def main(argv: list[str] | None = None, *, workspace_resolver: Callable[[], Path] = _workspace) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile-file", type=Path, default=DEFAULT_ARCHETYPES)
+    parser.add_argument("--archetypes", help="Comma-separated IDs of exactly ten archetypes from the profile file")
     parser.add_argument("--output", type=Path)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--apply", action="store_true")
     args = parser.parse_args(argv)
-    readers = expand_profiles(load_profiles(args.profile_file, None))
+    selected_ids = tuple(item.strip() for item in args.archetypes.split(",")) if args.archetypes else None
+    readers = expand_profiles(load_profiles(args.profile_file, selected_ids))
     if not args.apply:
         print(f"{len(readers)} distinct readers from 10 archetypes; no file written")
         return 0
