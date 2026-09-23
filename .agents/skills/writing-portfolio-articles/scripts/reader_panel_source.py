@@ -26,6 +26,8 @@ class ReaderProfile:
     arrival_intent: str
     background: str
     desired_payoff: str
+    drawn_in_by: str = ""
+    put_off_by: str = ""
 
 
 @dataclass(frozen=True)
@@ -129,9 +131,9 @@ def load_profiles(path: Path, selected_ids: tuple[str, ...] | None) -> tuple[Rea
     profiles: list[ReaderProfile] = []
     seen: set[str] = set()
     for entry in data:
-        if not isinstance(entry, dict) or set(entry) != {
-            "id", "arrival_intent", "background", "desired_payoff"
-        }:
+        base_fields = {"id", "arrival_intent", "background", "desired_payoff"}
+        optional_fields = {"drawn_in_by", "put_off_by"}
+        if not isinstance(entry, dict) or set(entry) not in (base_fields, base_fields | optional_fields):
             raise SourceError("Reader profile fields are invalid")
         if not all(isinstance(value, str) and value.strip() for value in entry.values()):
             raise SourceError("Reader profile fields must be nonempty text")

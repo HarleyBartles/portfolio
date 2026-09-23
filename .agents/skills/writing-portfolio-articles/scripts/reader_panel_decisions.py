@@ -53,14 +53,17 @@ class Decision:
 
 
 def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
+    reader = {
+        "arrival_intent": profile.arrival_intent,
+        "background": profile.background,
+        "desired_payoff": profile.desired_payoff,
+    }
+    if profile.drawn_in_by and profile.put_off_by:
+        reader.update(drawn_in_by=profile.drawn_in_by, put_off_by=profile.put_off_by)
     return {
         "model": MODEL,
         "state": {
-            "reader": {
-                "arrival_intent": profile.arrival_intent,
-                "background": profile.background,
-                "desired_payoff": profile.desired_payoff,
-            },
+            "reader": reader,
             "article_title": article.title,
             "reader_promise": article.promise,
             "visible_text": beat.visible_prefix,

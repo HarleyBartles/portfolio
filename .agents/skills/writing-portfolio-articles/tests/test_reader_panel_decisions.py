@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from reader_panel_decisions import (  # noqa: E402
     DecisionError,
     DecisionHTTPError,
+    build_request,
     decide,
 )
 from reader_panel_source import Article, Beat, ReaderProfile  # noqa: E402
@@ -32,6 +33,15 @@ def response(choice: str = "skim", cost: float = 0.00001) -> dict:
 
 
 class DecisionTests(unittest.TestCase):
+    def test_sparse_payload_is_unchanged_and_rich_constraints_are_sent(self) -> None:
+        reader = build_request(PROFILE, ARTICLE, ARTICLE.beats[0])["state"]["reader"]
+        self.assertEqual(reader, {"arrival_intent": "evaluate", "background": "engineer",
+                                  "desired_payoff": "a useful mechanism"})
+        rich = ReaderProfile("peer", "evaluate", "engineer", "insight", "evidence", "hype")
+        rich_reader = build_request(rich, ARTICLE, ARTICLE.beats[0])["state"]["reader"]
+        self.assertEqual(rich_reader, reader | {"desired_payoff": "insight",
+                                                "drawn_in_by": "evidence", "put_off_by": "hype"})
+
     def test_request_is_typed_and_future_blind(self) -> None:
         captured = []
 

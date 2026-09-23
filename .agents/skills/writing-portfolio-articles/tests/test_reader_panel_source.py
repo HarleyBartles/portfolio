@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -12,6 +13,28 @@ from reader_panel_source import SourceError, load_profiles, parse_article  # noq
 
 
 class ReaderPanelSourceTests(unittest.TestCase):
+    def test_rich_profiles_keep_the_sparse_ids_and_add_balanced_constraints(self) -> None:
+        assets = Path(__file__).resolve().parents[1] / "assets"
+        sparse = load_profiles(assets / "reader-intents.json", None)
+        rich = load_profiles(assets / "reader-intents-rich.json", None)
+        self.assertEqual([profile.id for profile in rich], [profile.id for profile in sparse])
+        self.assertTrue(all(profile.drawn_in_by and profile.put_off_by for profile in rich))
+        self.assertTrue(all(not profile.drawn_in_by and not profile.put_off_by for profile in sparse))
+
+    def test_optional_reader_constraints_are_a_pair_and_bounded(self) -> None:
+        base = {"id": "peer", "arrival_intent": "review", "background": "engineer", "desired_payoff": "insight"}
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "profiles.json"
+            for extra in ({"drawn_in_by": "evidence"}, {"put_off_by": "hype"},
+                          {"drawn_in_by": "evidence", "put_off_by": " "},
+                          {"drawn_in_by": "x" * 501, "put_off_by": "hype"},
+                          {"drawn_in_by": "evidence", "put_off_by": "hype", "unknown": "x"}):
+                path.write_text(json.dumps([base | extra]), encoding="utf-8")
+                with self.subTest(extra=extra), self.assertRaises(SourceError):
+                    load_profiles(path, None)
+            path.write_text(json.dumps([base | {"drawn_in_by": "evidence", "put_off_by": "hype"}]), encoding="utf-8")
+            self.assertEqual(load_profiles(path, None)[0].drawn_in_by, "evidence")
+
     def test_sections_exclude_future_text_and_fenced_headings(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "article.md"
