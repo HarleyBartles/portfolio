@@ -46,20 +46,13 @@ class ReaderPanelSourceTests(unittest.TestCase):
         with self.assertRaisesRegex(SourceError, "ten readers"):
             validate_cohort(tuple(reader(number, "craft-admirer") for number in range(11)), known)
 
-    def test_quorum_does_not_mix_labelled_and_unlabelled_readers(self) -> None:
+    def test_quorum_rejects_readers_without_an_archetype(self) -> None:
         labelled = ReaderProfile("one", "question", "background", "payoff", "yes", "no", "craft-admirer")
         unlabelled = ReaderProfile("two", "question", "background", "payoff")
         with self.assertRaisesRegex(SourceError, "archetype"):
             validate_cohort((labelled, unlabelled), {"craft-admirer"})
-        self.assertEqual(validate_cohort((unlabelled,), {"craft-admirer"}), (unlabelled,))
-
-    def test_rich_profiles_keep_the_sparse_ids_and_add_balanced_constraints(self) -> None:
-        assets = Path(__file__).resolve().parents[1] / "assets"
-        sparse = load_profiles(assets / "reader-intents.json", None)
-        rich = load_profiles(assets / "reader-intents-rich.json", None)
-        self.assertEqual([profile.id for profile in rich], [profile.id for profile in sparse])
-        self.assertTrue(all(profile.drawn_in_by and profile.put_off_by for profile in rich))
-        self.assertTrue(all(not profile.drawn_in_by and not profile.put_off_by for profile in sparse))
+        with self.assertRaisesRegex(SourceError, "archetype"):
+            validate_cohort((unlabelled,), {"craft-admirer"})
 
     def test_optional_reader_constraints_are_a_pair_and_bounded(self) -> None:
         base = {"id": "peer", "arrival_intent": "review", "background": "engineer", "desired_payoff": "insight"}

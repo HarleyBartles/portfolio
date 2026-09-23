@@ -21,7 +21,7 @@ metadata:
     - writing
     - writing-style
     - writing-with-clarity
-    - running-editorial-reader-panels
+    - running-reader-panels
     - verification-before-completion
   use_before:
     - verification-before-completion
@@ -82,7 +82,7 @@ The audit reports facts and labelled heuristics. It does not rewrite prose, deci
 
 ## Optional reader panel
 
-Use `running-editorial-reader-panels` when a developmental edit would benefit from simulated reader reactions. Interpret its report in the context of the article's purpose and deliberate choices.
+Use `running-reader-panels` when a developmental edit would benefit from simulated reader reactions. Interpret its report in the context of the article's purpose and deliberate choices.
 
 ## Field learning
 

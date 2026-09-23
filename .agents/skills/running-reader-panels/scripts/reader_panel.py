@@ -8,7 +8,7 @@ import json
 import os
 import subprocess
 import sys
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Callable, Mapping
 
@@ -19,7 +19,6 @@ from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 ARTICLE_ROOT = REPO_ROOT / "src/client/src/data/content/writing"
-DEFAULT_PROFILES = Path(__file__).resolve().parents[1] / "assets/reader-intents.json"
 ARCHETYPE_POOL = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
 WORKSPACE_SCRIPT = REPO_ROOT / ".agents/skills/subagent-workspace/scripts/workspace.py"
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
@@ -146,7 +145,7 @@ def main(
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--article", required=True)
     parser.add_argument("--compare")
-    parser.add_argument("--profile-file", type=Path, default=DEFAULT_PROFILES)
+    parser.add_argument("--profile-file", type=Path, required=True)
     parser.add_argument("--profiles", help="Comma-separated profile IDs")
     parser.add_argument("--max-calls", type=int)
     parser.add_argument("--max-usd", type=float)
@@ -162,6 +161,8 @@ def main(
     ids = tuple(item.strip() for item in args.profiles.split(",")) if args.profiles else None
     catalogue_read = args.profile_file.resolve() == ARCHETYPE_POOL.resolve()
     profiles = load_profiles(args.profile_file, ids, max_profiles=None if catalogue_read else 100)
+    if catalogue_read:
+        profiles = tuple(replace(profile, archetype_id=profile.id) for profile in profiles)
     validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
     planned = len(profiles) * sum(len(article.beats) for article in articles)
     estimated_bytes = sum(_payload_size(profile, article, beat)

@@ -1,4 +1,4 @@
-"""Bounded Markdown inputs for the experimental editorial reader panel."""
+"""Bounded Markdown inputs for reader panels."""
 
 from __future__ import annotations
 
@@ -192,10 +192,8 @@ def validate_cohort(
     if not 1 <= len(profiles) <= 100 or len({profile.id for profile in profiles}) != len(profiles):
         raise SourceError("A cohort needs 1–100 readers with distinct IDs")
     labelled = [profile for profile in profiles if profile.archetype_id]
-    if not labelled:
-        return profiles  # Existing unlabelled pilot intents remain usable.
     if len(labelled) != len(profiles):
-        raise SourceError("An archetype-labelled cohort cannot mix readers without an archetype")
+        raise SourceError("Every reader in a cohort needs an archetype")
     allocations: dict[str, int] = {}
     for profile in profiles:
         if profile.archetype_id not in known_archetypes:

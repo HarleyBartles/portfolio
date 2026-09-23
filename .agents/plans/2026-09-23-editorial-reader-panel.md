@@ -4,7 +4,7 @@
 
 **Status:** in-flight; bounded pilot accepted and 100-reader cohort tested
 
-**Execution amendment (23 September 2026):** Harley selected a separate repo-owned skill for the reader panel after the successful 100-reader experiment. Task paths below record the original implementation sequence. The current command, profiles and tests live under `.agents/skills/running-editorial-reader-panels/`; `writing-portfolio-articles` links to it.
+**Execution amendment (23 September 2026):** Harley selected a separate repo-owned skill for the reader panel after the successful 100-reader experiment. Task paths below record the original implementation sequence. The current command, profiles and tests live under `.agents/skills/running-reader-panels/`; `writing-portfolio-articles` links to it.
 
 **Quorum-design amendment (23 September 2026):** The former 140-standing-profile inventory is superseded. The pool expands from fourteen to fifteen motive-led archetypes by sharpening the weary hiring evaluator and adding the jaded architect. For a normal 100-reader panel, an agent records a panel charter, selects and allocates archetypes for the article, authors up to ten article-specific readers per archetype, checks for leading or duplicate profiles, and freezes the cohort before the paid run. Smaller pilots remain valid. The existing Hughes-specific `craft-admirer` ten are a run example, not a universal cohort. Earlier 100-reader results remain historical experiments, not a reusable population.
 
@@ -144,6 +144,6 @@ The implementation tasks above record the original experimental slice. This foll
 
 - [x] Move the Hughes `craft-admirer` ten out of the standing profile catalogue. Retain them only as an identified article-specific run example if useful; do not ship them as default readers for unrelated articles.
 - [x] Update the panel skill and archetype catalogue with the charter, article-brief-to-frozen-cohort method, flexible allocation totalling 100 for a normal full run, a starting cap of ten per archetype, and explicit leading-profile checks. Sharpen the weary hiring evaluator and add the jaded architect; do not impose a fixed archetype inventory size or create 140 standing readers.
-- [x] Add focused validation/tests for a mixed 100-reader cohort, distinct IDs, known parent archetypes, the per-archetype cap, and preservation of the same frozen cohort across paired drafts. Keep smaller legacy pilots usable and CI free of paid calls.
+- [x] Add focused validation/tests for a mixed 100-reader cohort, distinct IDs, known parent archetypes, the per-archetype cap, and preservation of the same frozen cohort across paired drafts. Keep smaller article-specific panels usable and CI free of paid calls.
 - [x] Dry-run a two-archetype unequal allocation and a 100-reader ten-archetype allocation with zero remote calls. Conduct only a bounded paid pilot if it answers a specific editorial question; no paid 100-reader run is required for this contract change.
 - [ ] Stage and commit through the tracked hook, push to the existing draft PR, and verify its head. No public article edit or publication is in scope.

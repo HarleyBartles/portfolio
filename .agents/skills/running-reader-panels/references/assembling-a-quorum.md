@@ -15,7 +15,7 @@ The [weary hiring manager and jaded architect](../../../doctrine/portfolio-desig
 
 ## Write readers within each allocation
 
-For every selected archetype, author up to ten article-specific readers. Use the six JSON fields in the [Hughes run example](../examples/hughes-craft-readers.json): a unique `id`, `archetype_id`, `arrival_intent`, `background`, `desired_payoff`, `drawn_in_by` and `put_off_by`. The profile may name the article's subjects. Change one or more meaningful dimensions across siblings: arrival route, prior familiarity, focal question, tolerance for setup, the evidence they seek, or what makes them disengage. Do not manufacture demographics or ten paraphrases of the same curiosity.
+For every selected archetype, author up to ten article-specific readers. Each JSON object needs these seven fields: `id`, `archetype_id`, `arrival_intent`, `background`, `desired_payoff`, `drawn_in_by` and `put_off_by`. The profile may name the article's subjects. Change one or more meaningful dimensions across siblings: arrival route, prior familiarity, focal question, tolerance for setup, the evidence they seek, or what makes them disengage. Do not manufacture demographics or ten paraphrases of the same curiosity.
 
 Write each reader as an open test. For an article about moving PDF jobs into dedicated workers, an architect reader might ask whether the move fixes job ownership as well as capacity. That reader could stay for a traceable before-and-after mechanism and leave if the piece substitutes a scaling diagram for evidence. Neither reaction is written as already true.
 

@@ -34,6 +34,14 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_cli_requires_an_explicit_reader_cohort(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "article.md"
+            source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
+            with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+                main(["--article", str(source), "--allow-external-source", "--check"],
+                     environ={}, decision_fn=lambda *_: self.fail("unexpected call"))
+
     def test_large_archetype_catalogue_still_allows_a_selected_small_read(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -51,6 +59,7 @@ class ReaderPanelTests(unittest.TestCase):
                       "--profile-file", str(catalogue), "--profiles", "motive-0,motive-1", "--check"],
                      environ={}, decision_fn=lambda *_: self.fail("dry run sent a call"))
         self.assertIn("2 profiles", output.getvalue())
+        self.assertIn("motive-0: 1", output.getvalue())
 
     def test_check_displays_the_selected_archetype_allocation(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -220,9 +229,11 @@ class ReaderPanelTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             source = Path(temporary) / "article.md"
             source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
             for extra, environment in (([], {}), (["--max-calls", "1", "--max-usd", "0.01"], {})):
                 with self.subTest(extra=extra), self.assertRaises(PanelError):
-                    main(["--article", str(source), "--allow-external-source", "--apply", *extra],
+                    main(["--article", str(source), "--allow-external-source", "--apply",
+                          "--profile-file", str(profiles), "--profiles", "story-first", *extra],
                          environ=environment, decision_fn=lambda *_: self.fail("unexpected call"))
 
     def test_report_stays_in_scratch_and_excludes_full_draft_and_secret(self) -> None:
@@ -231,9 +242,11 @@ class ReaderPanelTests(unittest.TestCase):
             source = root / "article.md"
             source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nPRIVATE ARTICLE BODY.\n', encoding="utf-8")
             scratch = root / "scratch"
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
                 result = main(["--article", str(source), "--allow-external-source", "--apply",
+                               "--profile-file", str(profiles), "--profiles", "story-first",
                                "--max-calls", "1", "--max-usd", "0.01"],
                               environ={"OPENROUTER_API_KEY": "PRIVATE KEY"},
                               decision_fn=lambda *_: choice("stop_satisfied"),
@@ -244,6 +257,7 @@ class ReaderPanelTests(unittest.TestCase):
             self.assertNotIn("PRIVATE KEY", report + output.getvalue())
             with self.assertRaises(PanelError):
                 main(["--article", str(source), "--allow-external-source", "--apply",
+                      "--profile-file", str(profiles), "--profiles", "story-first",
                       "--max-calls", "1", "--max-usd", "0.01", "--output", str(root / "unsafe.json")],
                      environ={"OPENROUTER_API_KEY": "PRIVATE KEY"},
                      decision_fn=lambda *_: self.fail("unsafe output should prevent call"),

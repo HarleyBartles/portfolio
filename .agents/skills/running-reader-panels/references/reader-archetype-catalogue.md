@@ -14,12 +14,10 @@ The [working pool](../assets/reader-archetypes.json) currently contains fifteen 
 
 Choose a mix of intended readers, adjacent readers and credible challengers. Record why each is in the panel before seeing outcomes. Do not interpret all departures as defects: an article can make and keep a promise to some readers without serving every motive.
 
-For *Pop quiz, hotshot*, `hiring-evaluator`, `jaded-architect`, `prospective-collaborator`, `practical-borrower`, `model-builder`, `counterexample-hunter` and `fellow-mistake-maker` put different pressure on the same Q&A. For the Rian Hughes/Chassis essay, `story-first`, `craft-admirer`, `cultural-magpie` and `curious-outsider` test narrative, making, reference and accessibility without requiring an engineering job title.
+Pass this pool through `reader_panel.py --profile-file .agents/skills/running-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>` for a small archetype-level read. For a run-specific quorum, an agent authors a frozen JSON file in off-repo scratch and passes it through `--profile-file`. There is no standing cohort or target of ten stored readers per archetype.
 
-Pass this pool through `reader_panel.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>` for a small archetype-level read. For a run-specific quorum, an agent authors a frozen JSON file in off-repo scratch and passes it through `--profile-file`. The [Hughes craft readers](../examples/hughes-craft-readers.json) are an example of article-specific authoring. They are not a standing cohort or a default for another article. There is no target of ten stored readers per archetype.
+## Revise the pool
 
-## Evidence and revision
-
-The pool was rebuilt after contrasting two unlike articles and running a bounded Jev attention experiment. The experiment exposed a parser defect and some useful article-fit differences, but identical attention paths do not establish that profiles are interchangeable, and different paths do not validate a persona. Keep, merge or revise profiles as field use reveals whether they ask materially different editorial questions.
+Keep, merge or revise archetypes according to the editorial questions they bring to different articles. Attention paths can prompt a closer look, but matching paths do not make two motives interchangeable and different paths do not validate an archetype.
 
 [NN/g on persona scope](https://www.nngroup.com/articles/persona-scope/), [proto-personas and research-backed personas](https://www.nngroup.com/articles/persona-types/), and [personas versus archetypes](https://www.nngroup.com/articles/personas-archetypes/) inform this distinction. [Reuters Institute research on personal relevance and sharing](https://reutersinstitute.politics.ox.ac.uk/news/what-do-news-readers-really-want-read-about) is an adjacent reminder that public reading is not only professional evaluation; it does not prove who visits this site.
