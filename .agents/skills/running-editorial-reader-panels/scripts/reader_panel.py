@@ -160,8 +160,9 @@ def main(
     if args.compare:
         articles += (_source(args.compare, args.allow_external_source),)
     ids = tuple(item.strip() for item in args.profiles.split(",")) if args.profiles else None
-    profiles = load_profiles(args.profile_file, ids)
-    validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None)})
+    catalogue_read = args.profile_file.resolve() == ARCHETYPE_POOL.resolve()
+    profiles = load_profiles(args.profile_file, ids, max_profiles=None if catalogue_read else 100)
+    validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
     planned = len(profiles) * sum(len(article.beats) for article in articles)
     estimated_bytes = sum(_payload_size(profile, article, beat)
                           for article in articles for profile in profiles for beat in article.beats)

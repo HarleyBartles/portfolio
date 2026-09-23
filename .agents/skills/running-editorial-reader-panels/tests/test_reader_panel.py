@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -33,6 +34,24 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_large_archetype_catalogue_still_allows_a_selected_small_read(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            article_file = root / "article.md"
+            article_file.write_text('---\nsummary: "A choice."\n---\n# Test article\n\nBody.\n', encoding="utf-8")
+            catalogue = root / "archetypes.json"
+            catalogue.write_text(json.dumps([
+                {"id": f"motive-{number}", "arrival_intent": "read", "background": "reader",
+                 "desired_payoff": "insight", "drawn_in_by": "detail", "put_off_by": "hype"}
+                for number in range(101)
+            ]), encoding="utf-8")
+            output = io.StringIO()
+            with patch("reader_panel.ARCHETYPE_POOL", catalogue), contextlib.redirect_stdout(output):
+                main(["--article", str(article_file), "--allow-external-source",
+                      "--profile-file", str(catalogue), "--profiles", "motive-0,motive-1", "--check"],
+                     environ={}, decision_fn=lambda *_: self.fail("dry run sent a call"))
+        self.assertIn("2 profiles", output.getvalue())
+
     def test_check_displays_the_selected_archetype_allocation(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             source = Path(temporary) / "article.md"

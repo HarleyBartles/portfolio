@@ -13,6 +13,18 @@ from reader_panel_source import ReaderProfile, SourceError, load_profiles, parse
 
 
 class ReaderPanelSourceTests(unittest.TestCase):
+    def test_archetype_catalogue_can_grow_beyond_run_cohort_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "archetypes.json"
+            path.write_text(json.dumps([
+                {"id": f"motive-{number}", "arrival_intent": "read", "background": "reader",
+                 "desired_payoff": "insight", "drawn_in_by": "detail", "put_off_by": "hype"}
+                for number in range(101)
+            ]), encoding="utf-8")
+            self.assertEqual(len(load_profiles(path, None, max_profiles=None)), 101)
+            with self.assertRaisesRegex(SourceError, "1–100"):
+                load_profiles(path, None)
+
     def test_mixed_full_quorum_accepts_ten_per_selected_archetype(self) -> None:
         known = {f"motive-{index}" for index in range(12)}
         readers = tuple(

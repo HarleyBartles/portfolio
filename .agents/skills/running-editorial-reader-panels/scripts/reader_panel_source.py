@@ -147,13 +147,17 @@ def parse_article(path: Path) -> Article:
     return Article(path.resolve(), title, promise, beats, hashlib.sha256(raw).hexdigest())
 
 
-def load_profiles(path: Path, selected_ids: tuple[str, ...] | None) -> tuple[ReaderProfile, ...]:
-    """Load at most 100 distinct, explicitly authored reader intents."""
+def load_profiles(
+    path: Path, selected_ids: tuple[str, ...] | None, *, max_profiles: int | None = 100,
+) -> tuple[ReaderProfile, ...]:
+    """Load distinct authored readers; the archetype catalogue has no cohort cap."""
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as error:
         raise SourceError("Reader profiles must be readable UTF-8 JSON") from error
-    if not isinstance(data, list) or not 1 <= len(data) <= 100:
+    if not isinstance(data, list) or not data:
+        raise SourceError("Reader profiles must contain at least one entry")
+    if max_profiles is not None and len(data) > max_profiles:
         raise SourceError("Reader profiles must contain 1–100 entries")
     profiles: list[ReaderProfile] = []
     seen: set[str] = set()

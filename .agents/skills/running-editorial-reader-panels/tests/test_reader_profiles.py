@@ -18,7 +18,7 @@ from reader_panel_source import load_profiles  # noqa: E402
 
 class StoredReaderProfileTests(unittest.TestCase):
     def test_working_archetypes_have_distinct_motives_and_balanced_constraints(self) -> None:
-        pool = load_profiles(SKILL / "assets/reader-archetypes.json", None)
+        pool = load_profiles(SKILL / "assets/reader-archetypes.json", None, max_profiles=None)
         self.assertGreaterEqual(len(pool), 15)
         self.assertIn("hiring-evaluator", {reader.id for reader in pool})
         self.assertIn("jaded-architect", {reader.id for reader in pool})
