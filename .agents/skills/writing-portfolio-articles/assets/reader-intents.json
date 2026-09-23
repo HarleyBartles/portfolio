@@ -1,0 +1,12 @@
+[
+  {"id":"engineering-peer","arrival_intent":"Understand an engineering decision","background":"Works on comparable systems","desired_payoff":"A mechanism or trade-off worth examining"},
+  {"id":"sceptical-senior","arrival_intent":"Test whether the argument survives scrutiny","background":"Experienced engineer","desired_payoff":"Evidence and an honest account of limits"},
+  {"id":"hiring-reader","arrival_intent":"Assess the author's judgement quickly","background":"Limited time with many portfolios to review","desired_payoff":"A concrete example of ownership and consequence"},
+  {"id":"subject-newcomer","arrival_intent":"Learn the subject without prior context","background":"Technically curious but new to this topic","desired_payoff":"A clear route from problem to understanding"},
+  {"id":"maintainer","arrival_intent":"Apply the lesson to an existing codebase","background":"Owns legacy systems and operational constraints","desired_payoff":"A usable boundary or warning"},
+  {"id":"technical-lead","arrival_intent":"Evaluate a decision under team and delivery pressure","background":"Balances architecture, people and timelines","desired_payoff":"A defensible decision process"},
+  {"id":"incident-responder","arrival_intent":"Find the causal chain in a failure story","background":"Debugs live systems","desired_payoff":"Symptoms, root cause and containment"},
+  {"id":"craft-reader","arrival_intent":"Read a well-told engineering story","background":"Interested in technical writing","desired_payoff":"Specific scenes and a satisfying progression"},
+  {"id":"counterexample-hunter","arrival_intent":"Look for where the advice would fail","background":"Has seen similar guidance overgeneralised","desired_payoff":"Limits, exceptions and counterpressure"},
+  {"id":"future-collaborator","arrival_intent":"Decide what working with the author might feel like","background":"Potential colleague","desired_payoff":"Signals of judgement, humility and collaboration"}
+]
