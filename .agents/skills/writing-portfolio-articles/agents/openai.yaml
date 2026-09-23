@@ -1,0 +1,10 @@
+version: 1
+metadata:
+  skill_name: writing-portfolio-articles
+  source_category: first_party
+interface:
+  display_name: Writing Portfolio Articles
+  short_description: Editorial method and review for authored Portfolio articles.
+  default_prompt: Use writing-portfolio-articles to strengthen the current Portfolio article's centre, structure, evidence, authored voice, rhythm, and final editorial readiness while preserving deliberate choices.
+policy:
+  allow_implicit_invocation: true

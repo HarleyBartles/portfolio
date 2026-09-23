@@ -1,6 +1,8 @@
 # Article Writing Doctrine and Playbook Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+**Status:** completed-awaiting-retirement
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Establish the Portfolio's canonical writing doctrine, repository article-writing workflow and accurate local-skill custody policy without implementing the article-writing skill itself.
 
@@ -46,7 +48,7 @@
 - Consumes: exact-name custody rules in `.agents/skills/writing-skills/references/local-and-marketplace-custody.md` and `.agents/skills/repo-shape/references/repository-shape-standard.md`.
 - Produces: one consistent repository rule: entries in `repo.local_skills` establish local custody by exact name; prefixes are optional naming choices.
 
-- [ ] **Step 1: Record the contradictory RED evidence**
+- [x] **Step 1: Record the contradictory RED evidence**
 
 Run:
 
@@ -56,7 +58,7 @@ rg -n "port-\*|prefixes are optional|local_skills" .agents/doctrine/marketplace-
 
 Expected: the two Portfolio doctrine files identify `port-*` as the local lane while current generic authority says prefixes are optional and custody uses exact manifest entries.
 
-- [ ] **Step 2: Correct marketplace custody doctrine**
+- [x] **Step 2: Correct marketplace custody doctrine**
 
 Replace the `port-*` bullet in `marketplace-custody-policy.md` with this contract:
 
@@ -64,7 +66,7 @@ Replace the `port-*` bullet in `marketplace-custody-policy.md` with this contrac
 - Repo-owned skills are tracked local source when their exact directory/frontmatter name is declared in `repo.local_skills`. A naming prefix is optional and does not establish custody. Refresh tooling must preserve declared local skills and must not overwrite or prune them.
 ```
 
-- [ ] **Step 3: Correct mesh doctrine**
+- [x] **Step 3: Correct mesh doctrine**
 
 Replace the `.agents/skills/` lane description in `mesh-policy.md` so it says:
 
@@ -72,7 +74,7 @@ Replace the `.agents/skills/` lane description in `mesh-policy.md` so it says:
 - `.agents/skills/` contains two explicit lanes: exact names declared in `repo.local_skills` identify repository-owned tracked source, while other skill directories are marketplace-derived output described by `.provenance.json`.
 ```
 
-- [ ] **Step 4: Verify the contradiction is gone**
+- [x] **Step 4: Verify the contradiction is gone**
 
 Run:
 
@@ -90,7 +92,7 @@ py -3 tools/run.py repo-standards --check
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit the policy repair**
+- [x] **Step 5: Commit the policy repair**
 
 ```powershell
 git add .agents/doctrine/marketplace-custody-policy.md .agents/doctrine/mesh-policy.md
@@ -111,7 +113,7 @@ Expected: the tracked hook passes and the commit contains only the two doctrine 
 - Consumes: the complete doctrine contract, corpus baseline, authority order and research links from `.agents/specs/2026-09-22-article-writing-system-design.md`.
 - Produces: a binding `writing-policy.md` read by the playbook and future `/writing-portfolio-articles` skill; a reduced design policy that links to it without restating it.
 
-- [ ] **Step 1: Capture the pre-migration duplication**
+- [x] **Step 1: Capture the pre-migration duplication**
 
 Run:
 
@@ -121,7 +123,7 @@ rg -n "Human voice|Editorial voice|AI-tell|em dashes|rhetorical triplets" .agent
 
 Expected: detailed writing rules currently live in the design policy and no `writing-policy.md` exists.
 
-- [ ] **Step 2: Create the doctrine header and authority boundary**
+- [x] **Step 2: Create the doctrine header and authority boundary**
 
 Create `writing-policy.md` with:
 
@@ -137,7 +139,7 @@ Routed from: `/AGENTS.md`
 
 State explicitly that private engineering documents, commit messages and internal agent artifacts are outside the public-content rating scope.
 
-- [ ] **Step 3: Implement the complete editorial contract**
+- [x] **Step 3: Implement the complete editorial contract**
 
 Using the spec as the source, write focused sections for:
 
@@ -156,7 +158,7 @@ Using the spec as the source, write focused sections for:
 
 Copy all twelve research URLs from the spec into a `Research calibration` section. Say that external sources inform but do not own local policy.
 
-- [ ] **Step 4: Preserve the rating boundary exactly**
+- [x] **Step 4: Preserve the rating boundary exactly**
 
 Verify the doctrine states all of these:
 
@@ -179,7 +181,7 @@ rg -n "one work|at most one|context|certif|explicit editorial decision|runtime" 
 
 Expected: every boundary is directly inspectable.
 
-- [ ] **Step 5: Reduce the design policy without losing cross-cutting authority**
+- [x] **Step 5: Reduce the design policy without losing cross-cutting authority**
 
 In `portfolio-design-policy.md`:
 
@@ -188,7 +190,7 @@ In `portfolio-design-policy.md`:
 - retain visual hierarchy, accessibility, layout, motion, imagery, privacy and performance policy;
 - update the quality-review prose question to point to the writing policy rather than duplicating its mechanics.
 
-- [ ] **Step 6: Prove one detailed authority remains**
+- [x] **Step 6: Prove one detailed authority remains**
 
 Run:
 
@@ -206,7 +208,7 @@ py -3 tools/run.py repo-standards --check
 
 Expected: PASS.
 
-- [ ] **Step 7: Commit the doctrine migration**
+- [x] **Step 7: Commit the doctrine migration**
 
 ```powershell
 git add .agents/doctrine/writing-policy.md .agents/doctrine/portfolio-design-policy.md
@@ -227,7 +229,7 @@ Expected: the tracked hook passes.
 - Consumes: `.agents/doctrine/writing-policy.md` and the eight-phase workflow in the approved spec.
 - Produces: a repository workflow that future article tasks can invoke and that the companion skill can complement without duplicating repository commands.
 
-- [ ] **Step 1: Write the playbook metadata and boundary**
+- [x] **Step 1: Write the playbook metadata and boundary**
 
 Create `article-writing.md` with `When`, `Required skills`, `Composition`, `Doctrine and contracts`, `Local commands and paths`, `Evidence contract`, `Prohibited combinations` and `Runbook routing` sections matching existing playbook conventions.
 
@@ -239,7 +241,7 @@ The boundary must say:
 - Linear-backed articles require the full issue and linked documents before edits;
 - the tracked commit hook owns the complete local gate.
 
-- [ ] **Step 2: Implement phases A through H**
+- [x] **Step 2: Implement phases A through H**
 
 Translate the spec's exact phases into executable checklist form:
 
@@ -254,15 +256,15 @@ Translate the spec's exact phases into executable checklist form:
 
 Preserve the distinct-pass ordering and the complete whole-site 12A review. Do not copy the skill's future reference chapters into the playbook.
 
-- [ ] **Step 3: Keep the first plan independently valid**
+- [x] **Step 3: Keep the first plan independently valid**
 
 Describe the detailed editorial method as companion work without adding a required invocation of an unregistered skill. The companion skill plan owns adding the `/writing-portfolio-articles` invocation after exact-name registration. This plan must leave no dangling skill link and may be reviewed or committed independently.
 
-- [ ] **Step 4: Register the topical playbook category**
+- [x] **Step 4: Register the topical playbook category**
 
 Add `article-writing.md` to `.agents/doctrine/repo-runbook-policy.md` under `Additional repository-specific playbooks`, describing it as the workflow for public editorial articles from commission through publication proof.
 
-- [ ] **Step 5: Verify playbook shape and non-duplication**
+- [x] **Step 5: Verify playbook shape and non-duplication**
 
 Run:
 
@@ -280,7 +282,7 @@ py -3 tools/run.py repo-standards --check
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit the playbook**
+- [x] **Step 6: Commit the playbook**
 
 ```powershell
 git add .agents/playbooks/article-writing.md .agents/doctrine/repo-runbook-policy.md
@@ -305,7 +307,7 @@ Expected: the tracked hook passes.
 - Consumes: the completed writing doctrine and article-writing playbook.
 - Produces: human and agent discovery paths plus a churn-free generated mesh; no dangling route to an unregistered skill.
 
-- [ ] **Step 1: Add concise root routing pointers**
+- [x] **Step 1: Add concise root routing pointers**
 
 Add links in `AGENTS.md` for:
 
@@ -316,11 +318,11 @@ Add links in `AGENTS.md` for:
 
 Do not place editorial rules in the router.
 
-- [ ] **Step 2: Add contributor entry points**
+- [x] **Step 2: Add contributor entry points**
 
 In `CONTRIBUTING.md`, add the writing policy to `Before starting` for public prose changes and the article-writing playbook to `Conventions and verification`.
 
-- [ ] **Step 3: Regenerate and check the mesh**
+- [x] **Step 3: Regenerate and check the mesh**
 
 Run:
 
@@ -331,7 +333,7 @@ py -3 tools/run.py mesh --check
 
 Expected: both commands pass; generated indexes link the new doctrine and playbook.
 
-- [ ] **Step 4: Verify routing and scope**
+- [x] **Step 4: Verify routing and scope**
 
 Run:
 
@@ -350,7 +352,7 @@ git status --short
 
 Expected: no whitespace errors; only intended authored and generated files remain.
 
-- [ ] **Step 5: Commit through the complete local gate**
+- [x] **Step 5: Commit through the complete local gate**
 
 ```powershell
 git add AGENTS.md CONTRIBUTING.md .agents/doctrine/writing-policy.md .agents/doctrine/portfolio-design-policy.md .agents/doctrine/repo-runbook-policy.md .agents/playbooks/article-writing.md .agents/INDEX.md .agents/doctrine/INDEX.md .agents/playbooks/INDEX.md
@@ -359,7 +361,7 @@ git commit -m "docs: route the article writing system"
 
 Expected: the tracked hook materialises the staged tree, applies owned projections, and passes the complete check gate.
 
-- [ ] **Step 6: Verify the independent exit state**
+- [x] **Step 6: Verify the independent exit state**
 
 Verify:
 

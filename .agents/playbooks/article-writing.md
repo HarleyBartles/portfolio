@@ -10,6 +10,7 @@ Use this playbook to take public editorial work from commission through publicat
 
 ## Required skills
 
+- `writing-portfolio-articles` for the detailed editorial method, corpus-fatigue review and final article review.
 - `writing` for drafting and editorial revision.
 - `writing-style` and `writing-with-clarity` for focused prose review when their concerns apply.
 - `linear-issue-shaping` and `using-linear-mcp` when the commission is Linear-backed.
