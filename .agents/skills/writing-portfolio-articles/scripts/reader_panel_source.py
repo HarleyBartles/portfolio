@@ -28,6 +28,7 @@ class ReaderProfile:
     desired_payoff: str
     drawn_in_by: str = ""
     put_off_by: str = ""
+    archetype_id: str = ""
 
 
 @dataclass(frozen=True)
@@ -133,12 +134,15 @@ def load_profiles(path: Path, selected_ids: tuple[str, ...] | None) -> tuple[Rea
     for entry in data:
         base_fields = {"id", "arrival_intent", "background", "desired_payoff"}
         optional_fields = {"drawn_in_by", "put_off_by"}
-        if not isinstance(entry, dict) or set(entry) not in (base_fields, base_fields | optional_fields):
+        cohort_fields = base_fields | optional_fields | {"archetype_id"}
+        if not isinstance(entry, dict) or set(entry) not in (base_fields, base_fields | optional_fields, cohort_fields):
             raise SourceError("Reader profile fields are invalid")
         if not all(isinstance(value, str) and value.strip() for value in entry.values()):
             raise SourceError("Reader profile fields must be nonempty text")
         if not _PROFILE_ID.fullmatch(entry["id"]) or entry["id"] in seen:
             raise SourceError("Reader profile ID is invalid or duplicated")
+        if "archetype_id" in entry and not _PROFILE_ID.fullmatch(entry["archetype_id"]):
+            raise SourceError("Reader archetype ID is invalid")
         if any(len(value) > 500 for value in entry.values()):
             raise SourceError("Reader profile fields must be under 500 characters")
         seen.add(entry["id"])

@@ -88,7 +88,7 @@ def run_panel(
                 observations.append(Observation(
                     article.sha256, article.path.name, beat.index, beat.heading,
                     profile.id, result.choice, result.probabilities,
-                    result.cost_usd, result.input_tokens, result.model,
+                    result.cost_usd, result.input_tokens, result.model, profile.archetype_id,
                 ))
                 if cost >= max_usd:
                     limitations.append("Reported spend reached the cap; remaining decisions were not requested")
@@ -101,9 +101,13 @@ def run_panel(
         "sha256": article.sha256,
         "beats": tuple({"index": beat.index, "heading": beat.heading} for beat in article.beats),
     } for article in articles)
+    cohort_sizes: dict[str, int] = {}
+    for profile in profiles:
+        if profile.archetype_id:
+            cohort_sizes[profile.archetype_id] = cohort_sizes.get(profile.archetype_id, 0) + 1
     return PanelReport(
         article_summaries, tuple(observations), tuple(limitations), calls, cost,
-        tokens, len(articles) == 2 and len(articles[0].beats) == len(articles[1].beats),
+        tokens, len(articles) == 2 and len(articles[0].beats) == len(articles[1].beats), cohort_sizes,
     )
 
 

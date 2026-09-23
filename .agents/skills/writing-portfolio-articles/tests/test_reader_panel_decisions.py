@@ -41,6 +41,9 @@ class DecisionTests(unittest.TestCase):
         rich_reader = build_request(rich, ARTICLE, ARTICLE.beats[0])["state"]["reader"]
         self.assertEqual(rich_reader, reader | {"desired_payoff": "insight",
                                                 "drawn_in_by": "evidence", "put_off_by": "hype"})
+        cohort_reader = ReaderProfile("peer-r01", "evaluate", "engineer", "insight",
+                                      "evidence", "hype", "peer")
+        self.assertEqual(build_request(cohort_reader, ARTICLE, ARTICLE.beats[0])["state"]["reader"], rich_reader)
 
     def test_request_is_typed_and_future_blind(self) -> None:
         captured = []

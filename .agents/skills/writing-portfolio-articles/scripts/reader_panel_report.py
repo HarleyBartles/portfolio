@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from uuid import uuid4
 
@@ -20,6 +20,7 @@ class Observation:
     cost_usd: float
     input_tokens: int | None
     model: str
+    archetype_id: str = ""
 
 
 @dataclass(frozen=True)
@@ -31,6 +32,7 @@ class PanelReport:
     cost_usd: float
     input_tokens: int
     comparable_beats: bool
+    cohort_sizes: dict[str, int] = field(default_factory=dict)
 
 
 def render_panel(report: PanelReport) -> str:
@@ -45,6 +47,16 @@ def render_panel(report: PanelReport) -> str:
                 counts[item.choice] = counts.get(item.choice, 0) + 1
             display = ", ".join(f"{key.replace('_', ' ')}: {count}" for key, count in sorted(counts.items()))
             lines.append(f"  {beat['index']}. {beat['heading']}: {display or 'no decisions'}")
+            archetypes = sorted({item.archetype_id for item in observations if item.archetype_id})
+            for archetype in archetypes:
+                group = [item for item in observations if item.archetype_id == archetype]
+                counts = {}
+                for item in group:
+                    counts[item.choice] = counts.get(item.choice, 0) + 1
+                cohort_size = report.cohort_sizes[archetype]
+                group_display = ", ".join(f"{key.replace('_', ' ')}: {count}"
+                                          for key, count in sorted(counts.items()))
+                lines.append(f"    {archetype} ({len(group)}/{cohort_size} readers responded): {group_display}")
     if len(report.articles) == 2:
         lines.append("A/B trajectories shown separately; " +
                      ("beat indices are comparable." if report.comparable_beats else "beat indices are not aligned."))

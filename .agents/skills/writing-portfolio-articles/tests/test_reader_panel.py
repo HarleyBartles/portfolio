@@ -33,6 +33,31 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_cohort_report_groups_reader_decisions_with_active_denominators(self) -> None:
+        readers = (
+            ReaderProfile("peer-r01", "test", "engineer", "evidence", "proof", "hype", "peer"),
+            ReaderProfile("peer-r02", "test", "engineer", "evidence", "proof", "hype", "peer"),
+            ReaderProfile("lead-r01", "decide", "lead", "trade-off", "cost", "hype", "lead"),
+        )
+
+        def fake(profile, source, beat, max_attempts):
+            if profile.id == "peer-r01" and beat.index == 0:
+                return choice("leave_lost_interest")
+            return choice("read_closely")
+
+        report = run_panel((article("a.md", 2),), readers, decide_fn=fake, max_calls=6, max_usd=1)
+        self.assertEqual(report.observations[0].archetype_id, "peer")
+        rendered = render_panel(report)
+        self.assertIn("peer (1/2 readers responded): read closely: 1", rendered)
+        self.assertIn("lead (1/1 readers responded): read closely: 1", rendered)
+
+    def test_partial_budget_does_not_shrink_cohort_denominator(self) -> None:
+        readers = tuple(ReaderProfile(f"peer-r0{n}", "test", "engineer", "evidence",
+                                      "proof", "hype", "peer") for n in range(1, 4))
+        report = run_panel((article("a.md", 1),), readers,
+                           decide_fn=lambda *_: choice("skim"), max_calls=1, max_usd=1)
+        self.assertIn("peer (1/3 readers responded)", render_panel(report))
+
     def test_terminal_choices_stop_only_their_profile_and_satisfied_is_distinct(self) -> None:
         calls = []
 

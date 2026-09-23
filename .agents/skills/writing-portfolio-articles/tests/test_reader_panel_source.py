@@ -35,6 +35,14 @@ class ReaderPanelSourceTests(unittest.TestCase):
             path.write_text(json.dumps([base | {"drawn_in_by": "evidence", "put_off_by": "hype"}]), encoding="utf-8")
             self.assertEqual(load_profiles(path, None)[0].drawn_in_by, "evidence")
 
+    def test_generated_reader_retains_archetype_identity_without_sending_it_as_persona(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "cohort.json"
+            path.write_text(json.dumps([{ "id": "peer-r01", "archetype_id": "peer",
+                "arrival_intent": "review", "background": "engineer", "desired_payoff": "insight",
+                "drawn_in_by": "evidence", "put_off_by": "hype" }]), encoding="utf-8")
+            self.assertEqual(load_profiles(path, None)[0].archetype_id, "peer")
+
     def test_sections_exclude_future_text_and_fenced_headings(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "article.md"
