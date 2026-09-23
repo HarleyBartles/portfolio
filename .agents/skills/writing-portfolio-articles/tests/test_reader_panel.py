@@ -1,0 +1,164 @@
+from __future__ import annotations
+
+import contextlib
+import io
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+
+from reader_panel import PanelError, main, run_panel  # noqa: E402
+from reader_panel_decisions import Decision, DecisionError  # noqa: E402
+from reader_panel_report import render_panel  # noqa: E402
+from reader_panel_source import Article, Beat, ReaderProfile  # noqa: E402
+
+
+PROFILES = (
+    ReaderProfile("peer", "evaluate", "engineer", "mechanism"),
+    ReaderProfile("newcomer", "learn", "new reader", "context"),
+)
+
+
+def article(name: str, count: int = 3) -> Article:
+    beats = tuple(Beat(n, f"Beat {n}", " ".join(f"Visible {i}." for i in range(n + 1))) for n in range(count))
+    return Article(Path(name), "Title", "Promise", beats, name)
+
+
+def choice(value: str, cost: float = 0.00001) -> Decision:
+    return Decision(value, {value: 1.0}, cost, 30, "typesafe/jev-1.13-20260917")
+
+
+class ReaderPanelTests(unittest.TestCase):
+    def test_terminal_choices_stop_only_their_profile_and_satisfied_is_distinct(self) -> None:
+        calls = []
+
+        def fake(profile, source, beat, max_attempts):
+            calls.append((profile.id, beat.index))
+            if beat.index == 0 and profile.id == "peer":
+                return choice("stop_satisfied")
+            return choice("skim" if beat.index < 2 else "leave_lost_interest")
+
+        report = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=6, max_usd=1)
+        self.assertEqual(calls, [("peer", 0), ("newcomer", 0), ("newcomer", 1), ("newcomer", 2)])
+        self.assertEqual(report.observations[0].choice, "stop_satisfied")
+        self.assertIn("stop satisfied", render_panel(report).lower())
+        self.assertNotIn("winner", render_panel(report).lower())
+
+    def test_a_b_uses_same_profiles_and_never_aligns_unequal_beats(self) -> None:
+        calls = []
+
+        def fake(profile, source, beat, max_attempts):
+            calls.append((source.sha256, profile.id, beat.index, beat.visible_prefix))
+            return choice("read_closely")
+
+        report = run_panel((article("a.md", 2), article("b.md", 3)), PROFILES,
+                           decide_fn=fake, max_calls=10, max_usd=1)
+        self.assertEqual(len(calls), 10)
+        self.assertFalse(report.comparable_beats)
+        self.assertEqual(calls[0][3], "Visible 0.")
+        self.assertNotIn("Visible 1.", calls[0][3])
+        self.assertEqual({profile for name, profile, _, _ in calls if name == "a.md"}, {"peer", "newcomer"})
+        self.assertEqual({profile for name, profile, _, _ in calls if name == "b.md"}, {"peer", "newcomer"})
+
+    def test_call_and_spend_caps_stop_without_extra_paid_call(self) -> None:
+        calls = []
+
+        def fake(profile, source, beat, max_attempts):
+            calls.append(beat.index)
+            return choice("skim", 0.02)
+
+        limited = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=1, max_usd=1)
+        self.assertEqual(len(calls), 1)
+        self.assertTrue(limited.limitations)
+        calls.clear()
+        spent = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=10, max_usd=0.02)
+        self.assertEqual(len(calls), 1)
+        self.assertTrue(spent.limitations)
+        calls.clear()
+        preflight = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=10, max_usd=0.0000000001)
+        self.assertEqual(calls, [])
+        self.assertTrue(preflight.limitations)
+
+    def test_transport_retries_consume_the_wire_call_cap(self) -> None:
+        budgets = []
+
+        def fake(profile, source, beat, max_attempts):
+            budgets.append(max_attempts)
+            return Decision("skim", {"skim": 1.0}, 0.00001, 30,
+                            "typesafe/jev-1.13-20260917", attempts=2)
+
+        report = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=2, max_usd=1)
+        self.assertEqual(budgets, [2])
+        self.assertEqual(report.calls, 2)
+        self.assertTrue(report.limitations)
+
+    def test_decision_failure_is_reported_after_a_possible_paid_attempt(self) -> None:
+        def fails(profile, source, beat, max_attempts):
+            raise DecisionError("Decision response lacked a valid usage cost")
+
+        report = run_panel((article("a.md"),), PROFILES, decide_fn=fails, max_calls=10, max_usd=1)
+        self.assertEqual(report.calls, 1)
+        self.assertEqual(report.observations, ())
+        self.assertIn("usage cost", report.limitations[0])
+
+    def test_check_mode_has_no_key_or_network_and_scales_to_100_profiles(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
+            profiles = root / "profiles.json"
+            profiles.write_text(json.dumps([
+                {"id": f"p{n}", "arrival_intent": "read", "background": "reader", "desired_payoff": "insight"}
+                for n in range(100)
+            ]), encoding="utf-8")
+
+            class NoKey(dict):
+                def get(self, key, default=None):
+                    raise AssertionError("check mode read environment")
+
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = main(["--article", str(source), "--profile-file", str(profiles),
+                               "--allow-external-source", "--check"], environ=NoKey(),
+                              decision_fn=lambda *_: self.fail("check mode sent a call"))
+            self.assertEqual(result, 0)
+            self.assertIn("100 profiles", output.getvalue())
+            self.assertIn("0 remote calls", output.getvalue())
+            self.assertIn("input tokens", output.getvalue())
+
+    def test_apply_requires_key_and_limits_before_a_call(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "article.md"
+            source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
+            for extra, environment in (([], {}), (["--max-calls", "1", "--max-usd", "0.01"], {})):
+                with self.subTest(extra=extra), self.assertRaises(PanelError):
+                    main(["--article", str(source), "--allow-external-source", "--apply", *extra],
+                         environ=environment, decision_fn=lambda *_: self.fail("unexpected call"))
+
+    def test_report_stays_in_scratch_and_excludes_full_draft_and_secret(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nPRIVATE ARTICLE BODY.\n', encoding="utf-8")
+            scratch = root / "scratch"
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = main(["--article", str(source), "--allow-external-source", "--apply",
+                               "--max-calls", "1", "--max-usd", "0.01"],
+                              environ={"OPENROUTER_API_KEY": "PRIVATE KEY"},
+                              decision_fn=lambda *_: choice("stop_satisfied"),
+                              workspace_resolver=lambda: scratch)
+            self.assertEqual(result, 0)
+            report = next(scratch.glob("*.json")).read_text(encoding="utf-8")
+            self.assertNotIn("PRIVATE ARTICLE BODY", report + output.getvalue())
+            self.assertNotIn("PRIVATE KEY", report + output.getvalue())
+            with self.assertRaises(PanelError):
+                main(["--article", str(source), "--allow-external-source", "--apply",
+                      "--max-calls", "1", "--max-usd", "0.01", "--output", str(root / "unsafe.json")],
+                     environ={"OPENROUTER_API_KEY": "PRIVATE KEY"},
+                     decision_fn=lambda *_: self.fail("unsafe output should prevent call"),
+                     workspace_resolver=lambda: scratch)

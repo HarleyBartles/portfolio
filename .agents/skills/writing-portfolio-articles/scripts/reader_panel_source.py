@@ -78,8 +78,16 @@ def parse_article(path: Path) -> Article:
         raise SourceError("Article must be UTF-8") from error
     title = ""
     prose: list[str] = []
+    title_fence_character = ""
+    title_fence_length = 0
     for line in lines:
-        if not title and (match := _TITLE.match(line)):
+        if fence := _FENCE.match(line):
+            marker = fence.group(1)
+            if not title_fence_character:
+                title_fence_character, title_fence_length = marker[0], len(marker)
+            elif marker[0] == title_fence_character and len(marker) >= title_fence_length:
+                title_fence_character, title_fence_length = "", 0
+        if not title_fence_character and not title and (match := _TITLE.match(line)):
             title = match.group(1).strip()
             continue
         prose.append(line)

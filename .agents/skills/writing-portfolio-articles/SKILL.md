@@ -79,6 +79,16 @@ py -3 .agents/skills/writing-portfolio-articles/scripts/audit_article_corpus.py 
 
 The audit reports facts and labelled heuristics. It does not rewrite prose, decide quality, infer authorship or replace the whole-site 12A judgement.
 
+## Optional simulated-reader panel
+
+For a developmental-edit question about where different readers may skim, leave, or stop satisfied, preview the local experiment first:
+
+```powershell
+py -3 .agents/skills/writing-portfolio-articles/scripts/reader_panel.py --article src/client/src/data/content/writing/<draft>.md --check
+```
+
+`--check` sends nothing and does not need a key. A deliberate `--apply` requires `OPENROUTER_API_KEY`, `--max-calls`, and `--max-usd`; it sends article prefixes to OpenRouter's Jev Decisions API and writes a report to off-repo scratch. See `--help` for profile selection, paired drafts and local-source limits. These are correlated simulated decisions, not human readers, retention measurements, a quality score or authority to rewrite or publish. Read the flagged passage and decide editorially whether it needs work; abstain when the panel punishes an intentional slow build or a satisfied ending.
+
 ## Field learning
 
 Consult [article-writing field notes](../../docs/article-writing-field-notes.md) only when a relevant problem recurs. Record material outcomes through the field-learning procedure. The skill may propose a candidate lesson; it cannot revise itself, promote doctrine or silently turn one correction into a rule.

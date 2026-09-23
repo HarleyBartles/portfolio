@@ -8,7 +8,7 @@ import re
 import time
 import urllib.error
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Callable, Literal
 
 from reader_panel_source import Article, Beat, ReaderProfile
@@ -29,6 +29,10 @@ Transport = Callable[[dict, str], dict]
 class DecisionError(RuntimeError):
     """A remote decision failed without exposing request state or credentials."""
 
+    def __init__(self, message: str, attempts: int = 1):
+        self.attempts = attempts
+        super().__init__(message)
+
 
 class DecisionHTTPError(DecisionError):
     def __init__(self, status: int, retry_after: float = 0):
@@ -45,6 +49,7 @@ class Decision:
     cost_usd: float
     input_tokens: int | None
     model: str
+    attempts: int = 1
 
 
 def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
@@ -134,19 +139,22 @@ def decide(
     *,
     api_key: str,
     transport: Transport | None = None,
+    max_attempts: int = 3,
 ) -> Decision:
     """Ask one future-blind question; retry only a bounded rate limit."""
+    if not 1 <= max_attempts <= 3:
+        raise DecisionError("Decision attempt limit must be 1–3", attempts=0)
     payload = build_request(profile, article, beat)
     send = transport or _http_transport
-    for attempt in range(3):
+    for attempt in range(1, max_attempts + 1):
         try:
-            return _parse_decision(send(payload, api_key))
+            return replace(_parse_decision(send(payload, api_key)), attempts=attempt)
         except DecisionHTTPError as error:
-            if error.status != 429 or attempt == 2:
-                raise DecisionError(f"Decision request failed with HTTP {error.status}") from None
+            if error.status != 429 or attempt == max_attempts:
+                raise DecisionError(f"Decision request failed with HTTP {error.status}", attempts=attempt) from None
             time.sleep(error.retry_after)
-        except DecisionError:
-            raise
+        except DecisionError as error:
+            raise DecisionError(str(error), attempts=attempt) from None
         except Exception:
-            raise DecisionError("Decision request failed before validation") from None
+            raise DecisionError("Decision request failed before validation", attempts=attempt) from None
     raise DecisionError("Decision retry limit reached")

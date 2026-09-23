@@ -40,6 +40,15 @@ class ReaderPanelSourceTests(unittest.TestCase):
         self.assertEqual(len(article.beats), 1)
         self.assertEqual(article.beats[0].visible_prefix, "Body.")
 
+    def test_fenced_h1_does_not_replace_article_title(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "article.md"
+            path.write_text(
+                '---\nsummary: "Promise"\n---\n```md\n# Example heading\n```\n# Real title\n\nBody.\n',
+                encoding="utf-8",
+            )
+            self.assertEqual(parse_article(path).title, "Real title")
+
     def test_empty_missing_promise_and_oversize_sources_fail(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "article.md"
