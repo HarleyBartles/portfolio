@@ -126,7 +126,7 @@ def _parse_decision(result: dict) -> Decision:
     cost = usage.get("cost")
     if isinstance(cost, bool) or not isinstance(cost, (int, float)) or not math.isfinite(cost) or cost < 0:
         raise DecisionError("Decision response lacked a valid usage cost")
-    tokens = usage.get("inputTokens")
+    tokens = usage.get("input_tokens", usage.get("inputTokens"))
     if tokens is not None and (isinstance(tokens, bool) or not isinstance(tokens, int) or tokens < 0):
         raise DecisionError("Decision response had invalid token usage")
     return Decision(answer["choice"], probabilities, float(cost), tokens, model)

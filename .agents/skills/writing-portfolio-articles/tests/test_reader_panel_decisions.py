@@ -50,6 +50,12 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(captured[0]["state"]["visible_text"], "Visible.")
         self.assertNotIn("private-key", repr(captured))
 
+    def test_raw_http_usage_uses_snake_case_tokens(self) -> None:
+        value = response()
+        value["usage"] = {"cost": 0.00001, "input_tokens": 87, "output_tokens": 4}
+        result = decide(PROFILE, ARTICLE, ARTICLE.beats[0], api_key="private-key", transport=lambda *_: value)
+        self.assertEqual(result.input_tokens, 87)
+
     def test_malformed_model_answer_cost_and_probabilities_fail_closed(self) -> None:
         for mutation in (
             lambda r: r.update(model="other/model"),

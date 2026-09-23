@@ -1,6 +1,6 @@
 # Editorial Reader Panel Design
 
-Status: approved for planning; implementation remains unstarted
+Status: experimental implementation and bounded pilot complete; editorial judgement pending
 Owner: Portfolio repository
 Scope: an opt-in, local editorial experiment for public article drafts
 
