@@ -13,6 +13,7 @@ from typing import Literal, Sequence
 
 
 TEXT_SUFFIXES = frozenset({".html", ".md", ".ts", ".tsx"})
+AUTHORED_JSON_SUFFIX = ".content.json"
 EXCLUDED_PARTS = frozenset({".agents", "dist", "node_modules", "test", "test-results", "tests"})
 EXCLUDED_NAMES = frozenset({"INDEX.md"})
 EXCLUDED_NAME_MARKERS = (".test.", ".spec.", ".generated.")
@@ -94,6 +95,10 @@ def _is_excluded(path: Path) -> bool:
     )
 
 
+def _is_public_text_candidate(path: Path) -> bool:
+    return path.suffix.lower() in TEXT_SUFFIXES or path.name.endswith(AUTHORED_JSON_SUFFIX)
+
+
 def discover_public_sources(root: Path) -> tuple[Path, ...]:
     root = root.resolve()
     required_index = root / "src" / "client" / "index.html"
@@ -111,7 +116,7 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
             for owner in src_root.iterdir()
             if owner.is_dir() and owner.name not in {"client", "server"}
             for path in owner.rglob("*")
-            if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES
+            if path.is_file() and _is_public_text_candidate(path)
         )
         if unclassified:
             names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified))
@@ -120,7 +125,7 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
             path
             for path in src_root.iterdir()
             if path.is_file()
-            and path.suffix.lower() in TEXT_SUFFIXES
+            and _is_public_text_candidate(path)
             and path.name not in NONPUBLIC_SRC_FILES
         )
         if unclassified_files:
@@ -141,7 +146,7 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
             and owner.name not in classified_client_owners
             and owner.name not in NONPUBLIC_CLIENT_OWNERS
             for path in owner.rglob("*")
-            if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES
+            if path.is_file() and _is_public_text_candidate(path)
         )
         if unclassified:
             names = ", ".join(path.relative_to(root).as_posix() for path in sorted(unclassified))
@@ -150,7 +155,7 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
             path
             for path in client_root.iterdir()
             if path.is_file()
-            and path.suffix.lower() in TEXT_SUFFIXES
+            and _is_public_text_candidate(path)
             and path.name != "index.html"
             and path.name not in NONPUBLIC_CLIENT_FILES
         )
@@ -165,7 +170,7 @@ def discover_public_sources(root: Path) -> tuple[Path, ...]:
         for path in candidates:
             if (
                 path.is_file()
-                and path.suffix.lower() in TEXT_SUFFIXES
+                and _is_public_text_candidate(path)
                 and not _is_excluded(path.relative_to(root))
             ):
                 sources.append(path)

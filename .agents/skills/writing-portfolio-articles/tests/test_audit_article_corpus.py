@@ -112,6 +112,32 @@ class PublicLanguageAuditTests(unittest.TestCase):
             self.assertNotIn("src/client/src/test/setup.ts", occurrence_paths)
             self.assertNotIn("src/client/src/pages/INDEX.md", occurrence_paths)
 
+    def test_discovery_includes_authored_content_json_but_not_generated_or_asset_manifests(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            shutil.copytree(FIXTURES / "public-copy" / "src", root / "src")
+            content_root = root / "src" / "client" / "src" / "data" / "content"
+            content_root.mkdir(parents=True)
+            authored = content_root / "project.content.json"
+            authored.write_text('{"summary": "A second fuck."}', encoding="utf-8")
+            generated = content_root / "route-metadata.generated.json"
+            generated.write_text('{"summary": "fuck fuck"}', encoding="utf-8")
+            asset_manifest = content_root / "derivatives.json"
+            asset_manifest.write_text('{"note": "fuck fuck"}', encoding="utf-8")
+
+            paths = [path.relative_to(root).as_posix() for path in self.audit.discover_public_sources(root)]
+            report = self.audit.audit_public_language(root)
+
+            self.assertIn("src/client/src/data/content/project.content.json", paths)
+            self.assertNotIn("src/client/src/data/content/route-metadata.generated.json", paths)
+            self.assertNotIn("src/client/src/data/content/derivatives.json", paths)
+            authored_occurrences = [
+                finding
+                for finding in report.occurrences
+                if finding.path == "src/client/src/data/content/project.content.json"
+            ]
+            self.assertEqual([finding.term for finding in authored_occurrences], ["fuck"])
+
     def test_language_report_separates_breaches_from_contextual_findings(self) -> None:
         report = self.audit.audit_public_language(FIXTURES / "public-copy")
 
