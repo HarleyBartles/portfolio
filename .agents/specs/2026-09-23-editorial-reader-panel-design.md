@@ -4,7 +4,7 @@ Status: experimental implementation and bounded pilot accepted; 100-reader cohor
 Owner: Portfolio repository
 Scope: an opt-in, local editorial experiment for public article drafts
 
-Reader-profile amendment (23 September 2026): the original small-panel design remains the experimental baseline, but the intended expanded inventory is now 140 individually authored profiles stored on disk, ten for each of fourteen motive-led archetypes. Runtime generation from archetypes is superseded. The current slice pilots only ten `craft-admirer` readers; the remaining 130 are not yet authored.
+Quorum-design amendment (23 September 2026): the original small-panel design remains the experimental baseline. The durable pool contains fourteen motive-led archetypes today, with no fixed upper limit. A normal full panel is 100 article-specific readers, assembled for that article from selected archetypes with no more than ten readers from any one archetype. Smaller pilots remain valid. The ten Hughes-article `craft-admirer` readers demonstrated useful specificity; they are a run cohort, not ten standing readers to reuse unchanged on other articles. The former goal of 140 stored readers is superseded.
 
 ## Purpose
 
@@ -18,9 +18,17 @@ Locate passages where simulated readers with different reasons for arriving at a
 - `--apply` explicitly authorises the bounded remote experiment. It requires the key, a maximum call count, and a maximum estimated spend. The runner preflights each call against its remaining estimated budget, records actual usage/cost, and stops when the cap is reached. Estimates are not a billing guarantee; a dedicated OpenRouter key with its own spend limit is the outside-the-script backstop. Handle a bounded 429 retry without an unbounded loop.
 - Write output only to the repository's canonical off-repo scratch workspace. The report contains article/content hashes, section labels, profile IDs, typed responses, probabilities when supplied, actual usage, and run limitations; it does not copy full drafts or credentials. No panel result is committed as a corpus benchmark.
 
+## Assemble an article-specific quorum
+
+- Select archetypes for the article's reader promise and the questions worth testing. Allocate reader counts deliberately; they may differ by archetype but sum to 100 for a normal full panel. Do not require ten archetypes or equal-sized groups. Add a standing archetype when field use reveals a genuinely different reading motive, not to satisfy an inventory target.
+- An agent authors the allocated readers for this run from each selected archetype and an article brief: title, précis, intended audience and a neutral inventory of subjects. This is an editorial authoring step, not a hidden model call inside the runner. Vary the readers' questions, prior familiarity, attention and plausible reasons to stay or disengage; retain the parent archetype ID. Cap each archetype at ten run readers until meaningful variation knobs justify more.
+- Profiles may name article subjects but must not assert the draft's success, failure or desired Jev decision. Phrase a curiosity as a question or test, not a verdict. Review the cohort for loaded wording, duplicate motives, missing counterpressure and a mix selected only to flatter or condemn the draft. Record the allocation and its rationale.
+- Freeze the exact cohort before sending the first paid call. Store it alongside the run report in canonical off-repo scratch, with an article hash and allocation record. A paired draft or revision comparison reuses that cohort unchanged; changing the cohort creates a new experiment. No article-specific run cohort becomes standing skill inventory merely because one panel was informative.
+- The CLI consumes the frozen JSON through `--profile-file`. Validate unique IDs, known archetype IDs, at most ten readers per archetype and at most 100 overall for an archetype-labelled cohort. Preserve the small legacy/unlabelled pilot path. The report keeps per-archetype denominators and individual trajectories; overall counts are a barometer, not the sole diagnostic.
+
 ## Panel method
 
-- Start with 8–12 manually authored, purpose-based reader profiles: arrival intent, relevant background, and what that reader hopes to gain. Avoid invented demographic authority, caricatured personalities, or a model-generated imitation of actual visitors. The runner accepts a larger validated profile set, up to 100, without requiring that many for ordinary use.
+- Start with a small, manually authored purpose-based cohort when piloting: arrival intent, relevant background, and what each reader hopes to gain. Avoid invented demographic authority, caricatured personalities, or a model-generated imitation of actual visitors. The runner accepts the assembled 100-reader quorum without requiring 100 for a bounded pilot.
 - Split the article at authored level-two Markdown headings. Treat prose before the first such heading as an opening beat. Ignore frontmatter and headings inside fenced code. Reject an empty, malformed, or overlong source instead of silently truncating it.
 - For each active profile and beat, send only the profile, the article's reader promise, and text visible through that beat. Do not leak future sections into an earlier decision. A profile that leaves does not make later decisions; a satisfied stop is separate from lost interest.
 - Ask one direct `choice` question per profile/beat: `read_closely`, `skim`, `leave_lost_interest`, or `stop_satisfied`. Descriptions must distinguish these outcomes. No numerical quality score or generated explanation is requested from Jev.
@@ -31,7 +39,7 @@ Locate passages where simulated readers with different reasons for arriving at a
 
 - Deterministic tests use synthetic Markdown and a fake Decisions transport; they prove parsing, prefix-only visibility, profile/state isolation, terminal choices, budgets, retry limits, response validation, report custody, and no secret leakage. No CI test requires a paid call or a real key.
 - A small live smoke call on current, non-sensitive material proves the actual endpoint/schema before a panel run. Record the observed model, response shape, usage and cost without persisting the secret or full draft.
-- Pilot first with 8–12 profiles on a few current articles or temporary degraded variants. Harley judges whether flagged passages reveal useful reader friction and whether deliberate slow builds or satisfied endings are misclassified. Only after that judgement should a 100-profile run or routine skill/playbook invocation be considered.
+- The original 8–12-reader and 100-reader pilots established feasibility and elicited Harley's editorial judgement. Further field use should test whether article-specific cohorts reveal useful friction and whether deliberate slow builds or satisfied endings are misclassified. A normal full run may use 100 profiles, but routine invocation remains an editorial choice, not an automatic writing or publication gate.
 - Jev is a fast typed decision model, not an independent group of people. Shared model and prompt framing can correlate all 100 outcomes. Low confidence, disagreement, malformed output, missing usage, rate limits, or a privacy concern returns control to the human workflow; none authorises an automatic rewrite or publication decision.
 
 ## References

@@ -6,7 +6,7 @@
 
 **Execution amendment (23 September 2026):** Harley selected a separate repo-owned skill for the reader panel after the successful 100-reader experiment. Task paths below record the original implementation sequence. The current command, profiles and tests live under `.agents/skills/running-editorial-reader-panels/`; `writing-portfolio-articles` links to it.
 
-**Reader-profile amendment (23 September 2026):** The runtime cohort generator and generic ten-lens expansion are superseded. The intended eventual inventory is 140 authored, stored profiles: ten under each of fourteen motive-led archetypes. This slice authors and pilots only the first ten, under `craft-admirer`. Earlier 100-reader cohort results remain historical experiments, not the current profile-production method.
+**Quorum-design amendment (23 September 2026):** The former 140-standing-profile inventory is superseded. Fourteen motive-led archetypes are the current expandable pool. For a normal 100-reader panel, an agent selects and allocates archetypes for the article, authors up to ten article-specific readers per archetype, checks for leading or duplicate profiles, and freezes the cohort before the paid run. Smaller pilots remain valid. The existing Hughes-specific `craft-admirer` ten are a run example, not a universal cohort. Earlier 100-reader results remain historical experiments, not a reusable population.
 
 **Goal:** Build a local, opt-in OpenRouter/Jev reader-panel experiment that maps simulated reader attention across an article without scoring, rewriting, or publishing it.
 
@@ -134,6 +134,16 @@ Author 10–12 distinct, purpose-based starter profiles (engineering peer, scept
 
 ## Handoff boundary
 
-Pilot checkpoint (2026-09-23): the one-call synthetic smoke returned a typed choice from `typesafe/jev-1.13-20260917`, 560 input tokens and $0.00002352 reported cost. A matched seven-beat A/B pilot used ten profiles and 128 wire calls at $0.00723164 reported cost. Replacing only the "What it makes possible" section of a current article with generic filler changed that beat from eight `read_closely` and one `skim` decisions among continuing profiles to nine `skim` decisions. The panel did not decide a winner. Scratch reports and the temporary variant remain off-repo; Harley's editorial judgement is pending.
+Pilot checkpoint (2026-09-23): the one-call synthetic smoke returned a typed choice from `typesafe/jev-1.13-20260917`, 560 input tokens and $0.00002352 reported cost. A matched seven-beat A/B pilot used ten profiles and 128 wire calls at $0.00723164 reported cost. Replacing only the "What it makes possible" section of a current article with generic filler changed that beat from eight `read_closely` and one `skim` decisions among continuing profiles to nine `skim` decisions. The panel did not decide a winner. Scratch reports and the temporary variant remain off-repo. Harley accepted its value as an editorial diagnostic and later approved the article-specific quorum model.
 
-This plan authorises implementation of an opt-in experiment after Harley approves execution. It does not authorise automatic use on every article, a 100-profile production claim, public-site changes, autonomous editorial revisions, or permanent human-retention thresholds. If the live pilot produces an inconclusive or negative editorial outcome, keep the tool experimental and report that result rather than promoting it to the normal writing workflow.
+This plan authorises an opt-in experiment and its approved quorum-design follow-up. It does not authorise automatic use on every article, a claim that 100 simulated readers represent human readership, public-site changes, autonomous editorial revisions, or permanent human-retention thresholds. If later field use produces an inconclusive or negative editorial outcome, report that result rather than treating the panel as a publication gate.
+
+## Current quorum-design follow-up
+
+The implementation tasks above record the original experimental slice. This follow-up is the approved replacement for its stored-reader expansion, not a request to rewrite completed transport or parser work.
+
+- [ ] Move the Hughes `craft-admirer` ten out of the standing profile catalogue. Retain them only as an identified article-specific run example if useful; do not ship them as default readers for unrelated articles.
+- [ ] Update the panel skill and archetype catalogue with the article-brief-to-frozen-cohort method, flexible allocation totalling 100 for a normal full run, a starting cap of ten per archetype, and explicit leading-profile checks. Do not impose a fixed archetype inventory size or create 140 standing readers.
+- [ ] Add focused validation/tests for a mixed 100-reader cohort, distinct IDs, known parent archetypes, the per-archetype cap, and preservation of the same frozen cohort across paired drafts. Keep smaller legacy pilots usable and CI free of paid calls.
+- [ ] Make a dry-run example using at least two differently weighted archetypes and inspect the reported denominators. Conduct only a bounded paid pilot if it answers a specific editorial question; no paid 100-reader run is required for this contract change.
+- [ ] Stage and commit through the tracked hook, push to the existing draft PR, and verify its head. No public article edit or publication is in scope.
