@@ -48,7 +48,7 @@ class ReaderPanelSourceTests(unittest.TestCase):
             path = Path(temporary) / "article.md"
             path.write_text(
                 '---\ntitle: "A story"\nsummary: "A useful promise."\n---\n'
-                '# A story\n\nOpening evidence.\n\n## First\nFirst section.\n'
+                '# A story\n\n' + ('Opening evidence with enough context to judge the invitation. ' * 8) + '\n\n## First\nFirst section.\n'
                 '```md\n## Not a section\n```\n\n## Second\nSecond section.\n',
                 encoding="utf-8",
             )
@@ -63,13 +63,47 @@ class ReaderPanelSourceTests(unittest.TestCase):
         self.assertIn("Second section", article.beats[2].visible_prefix)
         self.assertNotIn("summary:", article.beats[0].visible_prefix)
 
-    def test_article_without_sections_has_one_beat(self) -> None:
+    def test_short_article_without_sections_has_one_beat(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "article.md"
             path.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
             article = parse_article(path)
         self.assertEqual(len(article.beats), 1)
         self.assertEqual(article.beats[0].visible_prefix, "Body.")
+
+    def test_trailing_blank_lines_do_not_create_an_empty_passage(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "article.md"
+            path.write_text('---\nsummary: "Promise"\n---\n# Title\n\n' + ('A substantial paragraph. ' * 70)
+                            + '\n\n\n', encoding="utf-8")
+            article = parse_article(path)
+        self.assertEqual(len(article.beats), 1)
+
+    def test_unheaded_long_form_uses_paragraph_boundaries_for_future_blind_beats(self) -> None:
+        paragraphs = [f"Paragraph {n}. " + (f"Sentence {n} explains a different part of the story. " * 18)
+                      for n in range(1, 5)]
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "article.md"
+            path.write_text('---\nsummary: "Promise"\n---\n# Title\n\n' + '\n\n'.join(paragraphs), encoding="utf-8")
+            article = parse_article(path)
+        self.assertGreater(len(article.beats), 1)
+        self.assertEqual(article.beats[-1].visible_prefix, '\n\n'.join(paragraphs).strip())
+        self.assertIn(paragraphs[0], article.beats[0].visible_prefix)
+        self.assertNotIn(paragraphs[-1], article.beats[0].visible_prefix)
+        self.assertEqual([beat.visible_prefix.count("Paragraph") for beat in article.beats], [2, 4])
+
+    def test_tiny_opening_is_not_a_standalone_abandonment_point(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "article.md"
+            path.write_text('---\nsummary: "Promise"\n---\n# Title\n\nProbably something like this.\n\n'
+                            '## First question\nThe first substantive answer.\n\n## Second question\nAnother answer.\n',
+                            encoding="utf-8")
+            article = parse_article(path)
+        self.assertEqual([beat.heading for beat in article.beats], ["First question", "Second question"])
+        self.assertEqual(article.promise, "Promise\nProbably something like this.")
+        self.assertNotIn("Probably something like this.", article.beats[0].visible_prefix)
+        self.assertIn("The first substantive answer.", article.beats[0].visible_prefix)
+        self.assertNotIn("Another answer.", article.beats[0].visible_prefix)
 
     def test_fenced_h1_does_not_replace_article_title(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

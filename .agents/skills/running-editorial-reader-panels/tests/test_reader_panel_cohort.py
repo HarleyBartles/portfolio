@@ -40,11 +40,11 @@ class ReaderCohortTests(unittest.TestCase):
         with self.assertRaises(CohortError):
             expand_profiles(sparse)
 
-    def test_curated_archetype_pool_preserves_the_pilot_and_has_distinct_arrival_questions(self) -> None:
-        pilot = load_profiles(ASSETS / "reader-intents-rich.json", None)
+    def test_working_archetype_pool_has_distinct_motives_and_balanced_constraints(self) -> None:
         pool = load_profiles(ASSETS / "reader-archetypes.json", None)
-        self.assertEqual(len(pool), 34)
-        self.assertEqual(pool[:10], pilot)
+        self.assertGreaterEqual(len(pool), 10)
+        self.assertIn("story-first", {reader.id for reader in pool})
+        self.assertIn("hiring-evaluator", {reader.id for reader in pool})
         self.assertEqual(len({reader.arrival_intent for reader in pool}), len(pool))
         self.assertEqual(len({reader.desired_payoff for reader in pool}), len(pool))
         self.assertTrue(all(reader.drawn_in_by and reader.put_off_by for reader in pool))
@@ -52,7 +52,7 @@ class ReaderCohortTests(unittest.TestCase):
                                           f"{reader.drawn_in_by} {reader.put_off_by}", re.I)
                             for reader in pool))
 
-    def test_skill_points_to_the_curated_pool_without_replacing_the_default(self) -> None:
+    def test_skill_points_to_the_working_pool_and_retains_the_pilot_baseline(self) -> None:
         skill = (ASSETS.parent / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("assets/reader-archetypes.json", skill)
         self.assertIn("assets/reader-intents-rich.json", skill)
@@ -75,10 +75,9 @@ class ReaderCohortTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / "scratch"
             output = workspace / "selected.json"
-            ids = ["junior-engineer", "principal-architect", "platform-engineer",
-                   "test-engineer", "appsec-reviewer", "engineering-director",
-                   "product-manager", "technical-recruiter", "design-reader",
-                   "curious-nontechnical"]
+            ids = ["story-first", "craft-admirer", "cultural-magpie", "curious-outsider",
+                   "fellow-mistake-maker", "hopeful-maker", "practical-borrower",
+                   "model-builder", "hiring-evaluator", "prospective-collaborator"]
             arguments = ["--profile-file", str(ASSETS / "reader-archetypes.json"),
                          "--archetypes", ",".join(ids), "--output", str(output), "--apply"]
             self.assertEqual(main(arguments, workspace_resolver=lambda: workspace), 0)

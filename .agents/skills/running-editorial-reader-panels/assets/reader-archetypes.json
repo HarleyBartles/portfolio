@@ -1,274 +1,114 @@
 [
   {
-    "id": "engineering-peer",
-    "arrival_intent": "Compare this engineering decision with choices I have faced in my own systems.",
-    "background": "A practising engineer who knows the tools but not this team's constraints.",
-    "desired_payoff": "A mechanism or trade-off I can argue with or adapt, even if I would choose differently.",
-    "drawn_in_by": "The concrete shape of the problem, alternatives that were genuinely available, and what the result changed.",
-    "put_off_by": "A victory lap that hides cost, or implementation detail without the decision it served."
+    "id": "story-first",
+    "arrival_intent": "Follow a true story in which someone encounters a problem and something changes.",
+    "background": "Enjoys essays with people, scenes and consequences; technical fluency is not the reason for reading.",
+    "desired_payoff": "A turn that feels caused by what happened, rather than a lesson pasted onto the end.",
+    "drawn_in_by": "A live situation, specific people and a change in what the author understood.",
+    "put_off_by": "An incident that stops moving so the author can deliver a disguised checklist."
   },
   {
-    "id": "sceptical-senior",
-    "arrival_intent": "Test the author's claims and, if they are weak, catch the slip.",
-    "background": "A senior engineer with enough scar tissue to distrust tidy engineering stories, but enough curiosity to keep checking.",
-    "desired_payoff": "To push on the argument and, if it holds, grudgingly admit that the author knows what he is talking about.",
-    "drawn_in_by": "Falsifiable detail, counterpressure, and limits stated before I have to supply them myself.",
-    "put_off_by": "Borrowed authority, unearned certainty, or a convenient omission that makes the result look inevitable."
+    "id": "craft-admirer",
+    "arrival_intent": "Watch a person make a thing and discover why its final shape works.",
+    "background": "Interested in process and decisions across writing, visual design, software or other crafts.",
+    "desired_payoff": "The constraints, rejected routes and particular choice become visible in the finished object.",
+    "drawn_in_by": "Material details, alternatives and the moment a better question changes the work.",
+    "put_off_by": "A reveal of the final artefact that skips the thinking that made it possible."
   },
   {
-    "id": "hiring-reader",
-    "arrival_intent": "Decide whether this person is worth a longer conversation.",
-    "background": "Reviewing several portfolios with limited time; technically literate but unfamiliar with this project.",
-    "desired_payoff": "A credible instance of ownership, judgement, and consequence I can remember after closing the tab.",
-    "drawn_in_by": "A clear stake early on and specifics that reveal what the author personally noticed or decided.",
-    "put_off_by": "Long setup before the point, inflated impact claims, or a team achievement presented as a solo rescue."
+    "id": "cultural-magpie",
+    "arrival_intent": "Follow a film, comic, type or cultural reference into an unexpected subject.",
+    "background": "Comfortable crossing subjects and interested in connections, not collecting references for their own sake.",
+    "desired_payoff": "The reference changes how the main subject can be seen.",
+    "drawn_in_by": "A vivid connection that survives beyond the opening joke or allusion.",
+    "put_off_by": "A familiar name used as bait and then discarded without affecting the argument."
   },
   {
-    "id": "subject-newcomer",
-    "arrival_intent": "Learn why this problem matters without already knowing the system.",
-    "background": "Comfortable with software ideas, new to the article's particular technology or domain.",
-    "desired_payoff": "Enough context to follow the decision and explain its significance in my own words.",
-    "drawn_in_by": "Terms introduced when needed and examples that let me build a mental picture.",
-    "put_off_by": "Acronyms or internal history treated as common knowledge, or basic concepts explained at exhausting length."
+    "id": "curious-outsider",
+    "arrival_intent": "Understand why an unfamiliar practice or problem matters without becoming a specialist.",
+    "background": "Intelligent reader with little prior knowledge of this article's technical or design domain.",
+    "desired_payoff": "A clear mental picture and a reason to care that can be retold in ordinary language.",
+    "drawn_in_by": "Concrete examples and terms introduced when their meaning becomes necessary.",
+    "put_off_by": "Insider shorthand that makes entry impossible, or a remedial lecture that stalls the story."
   },
   {
-    "id": "maintainer",
-    "arrival_intent": "See whether this lesson would survive contact with my existing codebase.",
-    "background": "Responsible for old systems, migration risk, operational load, and the next engineer's working day.",
-    "desired_payoff": "A boundary, warning, or practical sequence I could use without pretending my constraints disappear.",
-    "drawn_in_by": "Failure modes, reversibility, and the awkward middle between stopping harm and fixing it properly.",
-    "put_off_by": "Clean-slate advice, omitted migration costs, or a fix that merely moves the burden elsewhere."
+    "id": "human-stakes",
+    "arrival_intent": "Find out how a decision affected the people who used, built or inherited the result.",
+    "background": "May know the domain or not; follows consequences to people rather than systems alone.",
+    "desired_payoff": "A credible account of who carried the burden and what became easier or harder.",
+    "drawn_in_by": "Named responsibilities, specific friction and consequences that can be felt.",
+    "put_off_by": "Architecture presented as self-justifying while the people living with it disappear."
   },
   {
-    "id": "technical-lead",
-    "arrival_intent": "Assess how the author made a decision under delivery and team pressure.",
-    "background": "Accountable for technical direction while balancing people, time, and business consequences.",
-    "desired_payoff": "A decision process I could defend to both engineers and stakeholders.",
-    "drawn_in_by": "Visible priorities, trade-offs, who bore the risk, and why the timing of the decision mattered.",
-    "put_off_by": "Architecture as an end in itself or commercial pressure used as a vague excuse."
+    "id": "fellow-mistake-maker",
+    "arrival_intent": "Recognise a fallible decision and learn how the author revised his understanding.",
+    "background": "Has made consequential choices that looked reasonable at the time.",
+    "desired_payoff": "An honest reconstruction of the mistaken belief, its cost and what changed afterward.",
+    "drawn_in_by": "Self-implication and the awkward details that a victory story would omit.",
+    "put_off_by": "Retrospective inevitability or an absent colleague made to carry all the blame."
   },
   {
-    "id": "incident-responder",
-    "arrival_intent": "Reconstruct the failure and see how it was contained.",
-    "background": "Has debugged production incidents and knows early theories are often wrong.",
-    "desired_payoff": "A causal chain from symptom to mechanism, including what bought time before the durable fix.",
-    "drawn_in_by": "Evidence at each turn, discarded hypotheses, and the operational effect of the immediate action.",
-    "put_off_by": "A mystery reveal that withholds useful facts for drama, or a root cause asserted without proof."
+    "id": "hopeful-maker",
+    "arrival_intent": "See whether new tools can help me make something worthwhile without needing permission from experts.",
+    "background": "Builds or wants to build with AI, code or design tools without claiming formal mastery.",
+    "desired_payoff": "A credible path to doing more while recognising where care and competence still matter.",
+    "drawn_in_by": "Respect for imperfect beginnings and examples of growing judgment through making.",
+    "put_off_by": "Gatekeeping, condescension or a demand to master every prerequisite before starting."
   },
   {
-    "id": "craft-reader",
-    "arrival_intent": "Read an engineering story for the pleasure of how it is told as well as what it teaches.",
-    "background": "Reads technical essays and notices pacing, scenes, and whether the author's voice feels inhabited.",
-    "desired_payoff": "A progression that makes the technical turn and the ending feel earned.",
-    "drawn_in_by": "A live question, precise scenes, and changes in understanding rather than repeated summaries.",
-    "put_off_by": "Stock drama, decorative jokes, or a moral stapled onto a story that already made its point."
+    "id": "hype-weary",
+    "arrival_intent": "Find an account of emerging technology that neither sells a miracle nor performs cynicism.",
+    "background": "Has read too many confident claims about AI and wants proportion.",
+    "desired_payoff": "A bounded claim supported by a real mechanism and its limits.",
+    "drawn_in_by": "Specific evidence, costs and moments when the author changed his mind.",
+    "put_off_by": "Grand forecasts, empty buzzwords or anti-hype posturing without an alternative."
+  },
+  {
+    "id": "practical-borrower",
+    "arrival_intent": "Take one usable move from this article into a problem I already have.",
+    "background": "Has a live task and little need for a complete philosophy of the subject.",
+    "desired_payoff": "A next step with enough conditions to know when to try it.",
+    "drawn_in_by": "A concrete move, what it changed and the constraint that made it appropriate.",
+    "put_off_by": "Insight that never becomes actionable, or a universal recipe detached from its case."
+  },
+  {
+    "id": "model-builder",
+    "arrival_intent": "Leave with a way to reason about similar decisions, not merely copy this solution.",
+    "background": "Comfortable with complexity and interested in transferable distinctions.",
+    "desired_payoff": "A decision rule that survives outside the author's exact circumstances.",
+    "drawn_in_by": "Competing options, governing constraints and why one consideration outranked another.",
+    "put_off_by": "A list of tactics with no principle connecting them, or an aphorism with no test."
   },
   {
     "id": "counterexample-hunter",
-    "arrival_intent": "Find the circumstances under which the apparent lesson would fail.",
-    "background": "Has watched useful local solutions harden into bad universal advice.",
-    "desired_payoff": "A claim with an honest domain of validity, not a rule that collapses at the first counterexample.",
-    "drawn_in_by": "Explicit assumptions, competing explanations, and exceptions that sharpen rather than erase the point.",
-    "put_off_by": "Universal language drawn from one case or a counterexample dismissed without engaging its mechanism."
+    "arrival_intent": "Test where the apparent lesson stops being true.",
+    "background": "Enjoys a strong argument enough to push it against difficult cases.",
+    "desired_payoff": "A claim whose boundaries become sharper under pressure.",
+    "drawn_in_by": "Visible assumptions, counterpressure and a concession that improves the argument.",
+    "put_off_by": "A local success inflated into a rule for everyone."
   },
   {
-    "id": "future-collaborator",
-    "arrival_intent": "Imagine what it would be like to solve a hard problem with this author.",
-    "background": "A potential colleague who values candour and shared ownership more than polished heroics.",
-    "desired_payoff": "Signals that this person can reason openly, change course, and give others credit.",
-    "drawn_in_by": "The author's role made clear, colleagues' contributions visible, and mistakes treated as information.",
-    "put_off_by": "Blame shifted onto absent teammates or a flawless-protagonist account of collaborative work."
+    "id": "maintainer-inheritor",
+    "arrival_intent": "Ask what this choice leaves for the next person who must operate or change it.",
+    "background": "Has inherited systems and knows the initial success is not the whole cost.",
+    "desired_payoff": "A candid account of reversibility, handover and the burden after delivery.",
+    "drawn_in_by": "Migration detail, operational consequences and documentation of why a path was chosen.",
+    "put_off_by": "A clean ending at launch that transfers unresolved work to an invisible successor."
   },
   {
-    "id": "junior-engineer",
-    "arrival_intent": "Work out how an experienced engineer recognised what mattered in an unfamiliar problem.",
-    "background": "An early-career engineer who has learned techniques but has had fewer chances to own consequential decisions.",
-    "desired_payoff": "A reasoning move I can practise, with enough context to see why it was chosen.",
-    "drawn_in_by": "The observations that changed the author's mind and the questions asked before committing to a fix.",
-    "put_off_by": "A magic-sounding instinct with no intermediate reasoning, or an unexplained wall of local jargon."
+    "id": "hiring-evaluator",
+    "arrival_intent": "Decide whether this author merits a longer professional conversation.",
+    "background": "Reading several candidates and looking for attributable evidence of judgment.",
+    "desired_payoff": "A memorable instance of what the author noticed, decided and owned.",
+    "drawn_in_by": "Clear personal contribution, constraints and consequences without inflated credit.",
+    "put_off_by": "Vague competence claims, missing outcomes or a team achievement retold as a solo rescue."
   },
   {
-    "id": "midlevel-adopter",
-    "arrival_intent": "Decide whether I could try this practice on my own team without creating a second job.",
-    "background": "A working engineer with delivery responsibilities and limited authority to redesign the team's workflow.",
-    "desired_payoff": "A modest first move, its prerequisites, and a way to tell whether it helped.",
-    "drawn_in_by": "Specific setup costs, failure signals, and changes small enough to try beside existing work.",
-    "put_off_by": "A transformation story that assumes spare time, full autonomy, or a team already convinced."
-  },
-  {
-    "id": "principal-architect",
-    "arrival_intent": "Test whether the local decision respects system boundaries and survives a wider rollout.",
-    "background": "An architect accountable for several systems and for the exceptions that appear at scale.",
-    "desired_payoff": "A clear statement of where the approach holds, where it bends, and who owns the boundary.",
-    "drawn_in_by": "Alternatives, coupling, reversibility, and evidence that the local win did not create distant cost.",
-    "put_off_by": "A design proclaimed generally correct from one team or one incident."
-  },
-  {
-    "id": "open-source-maintainer",
-    "arrival_intent": "Judge whether the proposed agent or engineering practice makes a shared project easier to maintain.",
-    "background": "A maintainer who handles issue triage, review, contributor guidance, and long-lived compatibility.",
-    "desired_payoff": "A practice that improves contribution quality without shifting unseen work onto maintainers.",
-    "drawn_in_by": "Reviewable changes, clear provenance, restrained automation, and explicit upkeep.",
-    "put_off_by": "A throughput claim that counts generated contributions but ignores review and support load."
-  },
-  {
-    "id": "platform-engineer",
-    "arrival_intent": "See what a team would need from the platform to run this agentic workflow safely.",
-    "background": "Builds shared paths for developers while managing identity, deployment, observability, and policy.",
-    "desired_payoff": "A concrete platform boundary and an adoption route that can serve more than one team.",
-    "drawn_in_by": "Ownership of credentials, execution scope, resource limits, and developer experience.",
-    "put_off_by": "A local prototype presented as deployable without showing the platform work it depends on."
-  },
-  {
-    "id": "sre-reliability",
-    "arrival_intent": "Assess what happens to service reliability after the clever solution goes live.",
-    "background": "Operates production services and pays attention to capacity, alerting, rollback, and on-call burden.",
-    "desired_payoff": "A credible account of steady-state operation and how failure will be detected and recovered.",
-    "drawn_in_by": "Runtime limits, observability, incident history, and what changed for the person on call.",
-    "put_off_by": "A successful deployment treated as proof that the system is now reliable."
-  },
-  {
-    "id": "test-engineer",
-    "arrival_intent": "Find the test that could make the author's confidence fail before production does.",
-    "background": "Designs tests around risky assumptions, integration boundaries, and misleading green signals.",
-    "desired_payoff": "An explicit claim, its strongest falsifying check, and what a failure would change.",
-    "drawn_in_by": "Test selection tied to a specific risk, with observed results and acknowledged blind spots.",
-    "put_off_by": "A large test count used as a substitute for showing what was actually put at risk."
-  },
-  {
-    "id": "appsec-reviewer",
-    "arrival_intent": "Understand the authority granted to agents and the paths by which an attacker could misuse it.",
-    "background": "Reviews software permissions, data flows, untrusted inputs, and third-party integrations.",
-    "desired_payoff": "A bounded threat picture with controls proportionate to the actual capabilities.",
-    "drawn_in_by": "Trust boundaries, permission scope, auditability, and a realistic misuse case.",
-    "put_off_by": "A safety claim based on good intentions or a prompt while tool access remains broad."
-  },
-  {
-    "id": "ai-evaluator",
-    "arrival_intent": "Decide whether the claimed agent behaviour was measured in a way I could reproduce or challenge.",
-    "background": "Builds evaluations for model-assisted workflows and expects variation across inputs and runs.",
-    "desired_payoff": "A clear task, baseline, failure criteria, and evidence that the observed improvement generalises enough for its use.",
-    "drawn_in_by": "Representative cases, negative controls, decision traces, and attention to regression.",
-    "put_off_by": "One impressive demonstration promoted into a general capability claim."
-  },
-  {
-    "id": "privacy-data-steward",
-    "arrival_intent": "Check what information the workflow reads, sends, retains, and exposes.",
-    "background": "Responsible for data handling across tools, vendors, logs, and operational processes.",
-    "desired_payoff": "A data-flow boundary I could explain and assess without guessing where content travelled.",
-    "drawn_in_by": "Named inputs and outputs, retention, consent or authority, and limits on secondary use.",
-    "put_off_by": "A description that says data is safe without specifying where it goes."
-  },
-  {
-    "id": "engineering-director",
-    "arrival_intent": "Decide whether this practice changes team outcomes enough to justify its organisational cost.",
-    "background": "Responsible for multiple teams, capability development, delivery health, and uneven adoption.",
-    "desired_payoff": "Evidence of where the practice helps, what conditions it needs, and what managers must support.",
-    "drawn_in_by": "Team-level effects, training burden, failure patterns, and signs of healthy adoption.",
-    "put_off_by": "Personal productivity anecdotes presented as organisational transformation."
-  },
-  {
-    "id": "founder-cto",
-    "arrival_intent": "See whether this engineering choice is proportionate for a small team with little slack.",
-    "background": "Owns technical risk and business survival while still close enough to inspect implementation.",
-    "desired_payoff": "A practical decision that protects the product without building a platform before it is needed.",
-    "drawn_in_by": "Costs, sequencing, reversibility, and the point at which a more elaborate solution becomes justified.",
-    "put_off_by": "Enterprise ceremony with no small-team payoff, or speed celebrated without reckoning with risk."
-  },
-  {
-    "id": "product-manager",
-    "arrival_intent": "Understand which user or business problem the engineering decision actually changed.",
-    "background": "Shapes priorities with engineers and must explain why a technical investment deserves time.",
-    "desired_payoff": "A visible line from constraint to decision to user or business consequence.",
-    "drawn_in_by": "The user journey affected, the trade-off accepted, and evidence of the resulting change.",
-    "put_off_by": "Technical sophistication presented as value without an outcome anyone outside engineering can name."
-  },
-  {
-    "id": "ux-researcher",
-    "arrival_intent": "Look for the human behaviour and context that the technical account might have missed.",
-    "background": "Studies how people use products and how teams interpret evidence about those users.",
-    "desired_payoff": "A credible account of whose needs were observed and which assumptions remain untested.",
-    "drawn_in_by": "Specific users, observed friction, and a willingness to revise the technical framing.",
-    "put_off_by": "A user benefit inferred solely from system metrics or an imagined happy path."
-  },
-  {
-    "id": "finops-practitioner",
-    "arrival_intent": "Determine whether the solution's recurring cost is visible and accountable.",
-    "background": "Works across engineering and finance on variable cloud and AI spending.",
-    "desired_payoff": "A cost model that distinguishes experiment, scale, and ongoing operation.",
-    "drawn_in_by": "Unit costs, workload shape, ownership of spend, and the trade-off against alternatives.",
-    "put_off_by": "Cheap single-call prices used to dismiss aggregate use, waste, or unpredictable demand."
-  },
-  {
-    "id": "ai-procurement-reviewer",
-    "arrival_intent": "Assess whether a tool or provider claim is strong enough to inform a buying decision.",
-    "background": "Reviews supplier evidence, operating costs, contractual exposure, and organisational fit.",
-    "desired_payoff": "A question set and evidence trail for deciding whether adoption is justified.",
-    "drawn_in_by": "Measured capability, data handling, lock-in, support model, and failure conditions.",
-    "put_off_by": "Vendor language repeated as evidence or an internal experiment treated as a purchasing case."
-  },
-  {
-    "id": "technical-recruiter",
-    "arrival_intent": "Find a concise, defensible signal to bring to a hiring manager.",
-    "background": "Sources engineering candidates but cannot personally validate every technical detail.",
-    "desired_payoff": "A memorable account of scope, ownership, and judgement that I can accurately relay.",
-    "drawn_in_by": "Clear role and outcome language backed by concrete examples.",
-    "put_off_by": "Dense internal terminology or a story that never states what the candidate personally did."
-  },
-  {
-    "id": "engineering-educator",
-    "arrival_intent": "Find a case that helps learners practise engineering judgement rather than memorise a rule.",
-    "background": "Teaches or mentors software engineers and looks for authentic decisions with discussable alternatives.",
-    "desired_payoff": "A teachable dilemma whose constraints, evidence, and consequences support more than one initial answer.",
-    "drawn_in_by": "Moments where a reader can pause, choose, then compare their reasoning with the author's.",
-    "put_off_by": "A tidy moral that erases the uncertainty students need to grapple with."
-  },
-  {
-    "id": "career-changer",
-    "arrival_intent": "See what senior engineering work looks like beyond writing code.",
-    "background": "Has related professional experience and is learning the language and responsibilities of software teams.",
-    "desired_payoff": "A concrete picture of the decisions, collaboration, and accountability involved.",
-    "drawn_in_by": "Human stakes, explained concepts, and links between technical choices and work practices.",
-    "put_off_by": "Acronyms and status signals that make the role sound like a closed club."
-  },
-  {
-    "id": "design-reader",
-    "arrival_intent": "Understand how engineering constraints and visual judgement shaped the finished work.",
-    "background": "Arrived through a design, typography, or visual-story article rather than an agentic engineering search.",
-    "desired_payoff": "A specific creative decision and its effect on what a visitor can see or understand.",
-    "drawn_in_by": "References used with discernment, production constraints, and honest account of what changed.",
-    "put_off_by": "Design described only as decoration or technical implementation offered in place of aesthetic reasoning."
-  },
-  {
-    "id": "curious-nontechnical",
-    "arrival_intent": "Make sense of a widely discussed engineering or AI claim without becoming an engineer first.",
-    "background": "Follows technology because it affects work or culture and is willing to learn a useful mechanism.",
-    "desired_payoff": "An explanation I can retell accurately, including where the claim stops.",
-    "drawn_in_by": "A concrete situation, ordinary-language stakes, and terms introduced only when needed.",
-    "put_off_by": "Acronyms doing the argument's work or hype that asks for belief before explanation."
-  },
-  {
-    "id": "developer-advocate",
-    "arrival_intent": "Decide whether this lesson is useful and accurate enough to share with practitioners.",
-    "background": "Explains technical practices publicly and is alert to examples that travel badly out of context.",
-    "desired_payoff": "A portable insight with its conditions attached and a credible example to point to.",
-    "drawn_in_by": "Clear teaching structure, source links, boundary cases, and a claim sized to its evidence.",
-    "put_off_by": "A catchy slogan that outruns the implementation or conceals a sharp edge."
-  },
-  {
-    "id": "domain-expert",
-    "arrival_intent": "Check whether an engineering account respects the rules and consequences of the domain it serves.",
-    "background": "Knows the operational or business domain deeply but does not need to know every software component.",
-    "desired_payoff": "Confidence that the technical decision preserved the domain distinctions that matter.",
-    "drawn_in_by": "Real cases, exceptions, user obligations, and a trace from domain rule to system behaviour.",
-    "put_off_by": "Domain complexity flattened into a convenient toy example."
-  },
-  {
-    "id": "systems-integrator",
-    "arrival_intent": "See whether a local solution survives the boundaries between teams, services, and suppliers.",
-    "background": "Connects existing systems under contractual, technical, and migration constraints.",
-    "desired_payoff": "A sequence for adoption that makes dependencies and ownership visible.",
-    "drawn_in_by": "Interface assumptions, failure handling, cutover plans, and how an old system coexists with the new.",
-    "put_off_by": "A greenfield example offered as though integration work were incidental."
+    "id": "prospective-collaborator",
+    "arrival_intent": "Imagine solving a difficult problem alongside this author.",
+    "background": "Could become a colleague or partner and cares about how disagreement and credit are handled.",
+    "desired_payoff": "A sense that the author can reason openly, change course and make others effective.",
+    "drawn_in_by": "Candid uncertainty, colleagues' contributions and decisions made with rather than over people.",
+    "put_off_by": "Blame shifted onto absent teammates or a flawless-protagonist story."
   }
 ]

@@ -14,6 +14,9 @@ _HEADING = re.compile(r"^## (.+?)\s*$")
 _TITLE = re.compile(r"^# (.+?)\s*$")
 _FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 _PROFILE_ID = re.compile(r"^[a-z][a-z0-9-]{0,63}$")
+_WORDS = re.compile(r"\S+")
+MIN_OPENING_WORDS = 40
+UNHEADED_BEAT_WORDS = 180
 
 
 class SourceError(ValueError):
@@ -111,8 +114,31 @@ def parse_article(path: Path) -> Article:
             continue
         if not fence_character and (heading := _HEADING.match(line)):
             boundaries.append((heading.group(1).strip(), index))
-    if len(boundaries) > 1 and not any(line.strip() for line in prose[: boundaries[1][1]]):
-        boundaries.pop(0)
+    if len(boundaries) == 1:
+        paragraph_start = 0
+        words_since_boundary = 0
+        for index, line in enumerate(prose + [""]):
+            if line.strip():
+                continue
+            if index == paragraph_start:
+                paragraph_start = index + 1
+                continue
+            words_since_boundary += len(_WORDS.findall(" ".join(prose[paragraph_start:index])))
+            paragraph_start = index + 1
+            if words_since_boundary >= UNHEADED_BEAT_WORDS and any(
+                remaining.strip() for remaining in prose[paragraph_start:]
+            ):
+                boundaries.append((f"Passage {len(boundaries) + 1}", paragraph_start))
+                words_since_boundary = 0
+    if len(boundaries) > 1 and _HEADING.match(prose[boundaries[1][1]]) and len(
+        _WORDS.findall(" ".join(prose[: boundaries[1][1]]))
+    ) < MIN_OPENING_WORDS:
+        first_heading = boundaries[1][1]
+        lead_in = "\n".join(prose[:first_heading]).strip()
+        if lead_in:
+            promise = f"{promise}\n{lead_in}"
+        prose = prose[first_heading:]
+        boundaries = [(heading, index - first_heading) for heading, index in boundaries[1:]]
     beats = tuple(
         Beat(index, heading, "\n".join(prose[:next_start]).strip())
         for index, (heading, _) in enumerate(boundaries)

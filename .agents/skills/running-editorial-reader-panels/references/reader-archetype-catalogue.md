@@ -1,34 +1,25 @@
 # Reader archetype catalogue
 
-The [machine-readable pool](../assets/reader-archetypes.json) contains 34 purpose-based archetypes. Its first ten are identical to the original rich pilot set. These are plausible ways into this portfolio's articles, not claims about site traffic. Choose for an article's promise and subject; an honest lack of fit is useful information.
+The [working pool](../assets/reader-archetypes.json) contains fourteen motive-led proto-archetypes. They are editorial hypotheses, not measured audience segments. Select readers for the article's promise and the questions they bring; a legitimate lack of fit is informative. Role, arrival route, prior familiarity, attention and mood can vary within an archetype without creating a new one.
 
-| Reading route | Archetypes and the question they bring |
+| Reading motive | Archetypes and distinct questions |
 | --- | --- |
-| Engineering judgment | `engineering-peer` compares decisions; `sceptical-senior` challenges a claim; `counterexample-hunter` tests its boundary; `principal-architect` tests its reach across systems; `technical-lead` weighs delivery and team pressure. |
-| Learning a practice | `junior-engineer` looks for the reasoning between observations and action; `midlevel-adopter` wants a viable first move; `subject-newcomer` needs context without condescension; `career-changer` wants to understand the work beyond coding; `engineering-educator` seeks a teachable dilemma. |
-| Long-lived software | `maintainer` examines inherited cost; `open-source-maintainer` examines contribution and review load; `systems-integrator` checks boundaries and cutover; `domain-expert` tests whether business rules survived translation into software. |
-| Production and assurance | `incident-responder` reconstructs containment and cause; `sre-reliability` asks how the solution behaves after deployment; `test-engineer` looks for a falsifying check; `appsec-reviewer` traces authority and misuse; `ai-evaluator` examines measurement; `privacy-data-steward` traces data movement; `platform-engineer` asks what shared infrastructure the practice needs. |
-| Organisational adoption | `engineering-director` weighs team outcomes and adoption burden; `founder-cto` weighs proportion and sequencing for a small team; `product-manager` follows value to users; `ux-researcher` checks observed human behaviour; `finops-practitioner` examines recurring cost; `ai-procurement-reviewer` examines evidence for a buying decision. |
-| Professional discovery | `hiring-reader` assesses evidence of ownership; `technical-recruiter` needs a signal they can accurately relay; `future-collaborator` imagines working with the author. |
-| Public and creative discovery | `craft-reader` follows the technical story as writing; `developer-advocate` checks whether a lesson travels safely; `design-reader` follows visual judgment and production; `curious-nontechnical` wants an accurate explanation without needing to become an engineer. |
+| Story and creative discovery | `story-first` asks what changed; `craft-admirer` follows how a thing was made; `cultural-magpie` tests whether a cultural reference changes the subject; `curious-outsider` wants an intelligible way in. |
+| People and fallibility | `human-stakes` follows who carried the consequence; `fellow-mistake-maker` follows how a mistaken belief was revised; `prospective-collaborator` imagines working through disagreement with the author. |
+| New tools and ideas | `hopeful-maker` looks for permission to begin with care; `hype-weary` looks for proportion without reflexive cynicism. |
+| Learning and challenge | `practical-borrower` wants a next move; `model-builder` wants a transferable decision rule; `counterexample-hunter` tests the claim's boundary; `maintainer-inheritor` asks what the next owner must live with. |
+| Professional discovery | `hiring-evaluator` looks for attributable judgment and consequence, not a general impression of seniority. |
 
 ## Select for the article
 
-Write down the article's promised reader and question first. Choose intended readers who should find a payoff, adjacent readers who might plausibly arrive through a link or search, and credible challengers who can expose an unsupported claim. Include one or two readers whose departure would be acceptable. Record the chosen IDs and the reason for each before looking at results; a changed panel can change the apparent verdict.
+Choose a mix of intended readers, adjacent readers and credible challengers. Record why each is in the panel before seeing outcomes. Do not interpret all departures as defects: an article can make and keep a promise to some readers without serving every motive.
 
-For example, *Pop quiz, hotshot* might invite `sceptical-senior`, `hiring-reader`, `technical-recruiter`, `future-collaborator`, `junior-engineer`, and `engineering-educator`. *Why ADRs?* might invite `maintainer`, `principal-architect`, `domain-expert`, `junior-engineer`, and `counterexample-hunter`. A design article has a natural route for `design-reader`, `ux-researcher`, `craft-reader`, and `curious-nontechnical`; a FinOps reader need not be made to enjoy it.
+For *Pop quiz, hotshot*, `hiring-evaluator`, `prospective-collaborator`, `practical-borrower`, `model-builder`, `counterexample-hunter` and `fellow-mistake-maker` put different pressure on the same Q&A. For the Rian Hughes/Chassis essay, `story-first`, `craft-admirer`, `cultural-magpie` and `curious-outsider` test narrative, making, reference and accessibility without requiring an engineering job title.
 
-The panel accepts selected catalogue entries through `reader_panel.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>`. The cohort generator accepts ten selected IDs from the same pool through `reader_panel_cohort.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --archetypes <comma-separated-ids>`. These paths are relative to the repository root.
+Pass this pool through `reader_panel.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>`. A 100-reader cohort currently requires exactly ten selected IDs from this pool; its ten generic lenses are an experimental expansion mechanism, not a claim that the resulting readers differ in a humanly meaningful way.
 
-## Research routes and limits
+## Evidence and revision
 
-These archetypes are first-party editorial hypotheses informed by the portfolio's actual article subjects and by adjacent professional role maps. The sources support the *plausibility of the work and concerns*, not the composition of this site's readership:
+The pool was rebuilt after contrasting two unlike articles and running a bounded Jev attention experiment. The experiment exposed a parser defect and some useful article-fit differences, but identical attention paths do not establish that profiles are interchangeable, and different paths do not validate a persona. Keep, merge or revise profiles as field use reveals whether they ask materially different editorial questions.
 
-- [Stack Overflow 2025 developer roles and learning](https://survey.stackoverflow.co/2025/developers) and [AI use and concerns](https://survey.stackoverflow.co/2025/ai).
-- [CNCF platform builders, enablers, consumers and end users](https://tag-app-delivery.cncf.io/blog/paap-personas/).
-- [NIST AI lifecycle actors, evaluation, human factors, domain expertise and procurement](https://airc.nist.gov/airmf-resources/airmf/appendices/app-a-descriptions-of-ai-actor-tasks/).
-- [FinOps for AI personas](https://www.finops.org/framework/technology-categories/ai/) across engineering, product, finance, procurement and leadership.
-- [DORA's 2025 account of AI and organisational conditions](https://dora.dev/research/2025/dora-report/).
-- [NN/g research on design and research work across product teams](https://www.nngroup.com/articles/designers-product-teams/).
-
-The pool is open to revision. Add an archetype when it brings a distinct arrival question or payoff to articles in the corpus; avoid multiplying job titles whose reading behaviour is the same. The current ten-lens generator is a controlled variation mechanism. It does not yet produce ten independently developed readers within an archetype.
+[NN/g on persona scope](https://www.nngroup.com/articles/persona-scope/), [proto-personas and research-backed personas](https://www.nngroup.com/articles/persona-types/), and [personas versus archetypes](https://www.nngroup.com/articles/personas-archetypes/) inform this distinction. [Reuters Institute research on personal relevance and sharing](https://reutersinstitute.politics.ox.ac.uk/news/what-do-news-readers-really-want-read-about) is an adjacent reminder that public reading is not only professional evaluation; it does not prove who visits this site.
