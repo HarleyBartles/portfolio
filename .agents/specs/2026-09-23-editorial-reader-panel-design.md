@@ -4,6 +4,8 @@ Status: experimental implementation and bounded pilot accepted; 100-reader cohor
 Owner: Portfolio repository
 Scope: an opt-in, local editorial experiment for public article drafts
 
+Reader-profile amendment (23 September 2026): the original small-panel design remains the experimental baseline, but the intended expanded inventory is now 140 individually authored profiles stored on disk, ten for each of fourteen motive-led archetypes. Runtime generation from archetypes is superseded. The current slice pilots only ten `craft-admirer` readers; the remaining 130 are not yet authored.
+
 ## Purpose
 
 Locate passages where simulated readers with different reasons for arriving at an article may lose interest, skim, or stop satisfied. The panel provides a map for human developmental review, not a prediction of human retention, a quality score, a publication gate, or authority to revise prose. It complements the current writing policy, article-writing playbook, and `writing-portfolio-articles` skill without changing their authority order.

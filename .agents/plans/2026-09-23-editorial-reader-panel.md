@@ -6,6 +6,8 @@
 
 **Execution amendment (23 September 2026):** Harley selected a separate repo-owned skill for the reader panel after the successful 100-reader experiment. Task paths below record the original implementation sequence. The current command, profiles and tests live under `.agents/skills/running-editorial-reader-panels/`; `writing-portfolio-articles` links to it.
 
+**Reader-profile amendment (23 September 2026):** The runtime cohort generator and generic ten-lens expansion are superseded. The intended eventual inventory is 140 authored, stored profiles: ten under each of fourteen motive-led archetypes. This slice authors and pilots only the first ten, under `craft-admirer`. Earlier 100-reader cohort results remain historical experiments, not the current profile-production method.
+
 **Goal:** Build a local, opt-in OpenRouter/Jev reader-panel experiment that maps simulated reader attention across an article without scoring, rewriting, or publishing it.
 
 **Architecture:** A repo-owned article-skill command parses one or two Markdown drafts into opening/section beats, validates a small set of purpose-based reader profiles, and sends a prefix-only decision state for each active profile/beat to OpenRouter's Decisions API. Separate source, transport, and orchestration modules keep Markdown handling, paid calls, and aggregation independently testable; a local JSON report goes to canonical off-repo scratch.

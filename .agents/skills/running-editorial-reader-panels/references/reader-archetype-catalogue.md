@@ -16,7 +16,7 @@ Choose a mix of intended readers, adjacent readers and credible challengers. Rec
 
 For *Pop quiz, hotshot*, `hiring-evaluator`, `prospective-collaborator`, `practical-borrower`, `model-builder`, `counterexample-hunter` and `fellow-mistake-maker` put different pressure on the same Q&A. For the Rian Hughes/Chassis essay, `story-first`, `craft-admirer`, `cultural-magpie` and `curious-outsider` test narrative, making, reference and accessibility without requiring an engineering job title.
 
-Pass this pool through `reader_panel.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>`. A 100-reader cohort currently requires exactly ten selected IDs from this pool; its ten generic lenses are an experimental expansion mechanism, not a claim that the resulting readers differ in a humanly meaningful way.
+Pass this pool through `reader_panel.py --profile-file .agents/skills/running-editorial-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>` for an archetype-level read. The first ten authored readers, under `assets/reader-profiles/craft-admirer.json`, can be run directly with `--profile-file`. The intended eventual inventory is ten stored readers per archetype, 140 total; the other thirteen groups are not authored yet. Runtime generation is not the intended way to fill them.
 
 ## Evidence and revision
 
