@@ -1,0 +1,10 @@
+version: 1
+metadata:
+  skill_name: running-editorial-reader-panels
+  source_category: first_party
+interface:
+  display_name: Running Editorial Reader Panels
+  short_description: Bounded simulated reader experiments for article drafts.
+  default_prompt: Use running-editorial-reader-panels to preview a bounded reader experiment, inspect reader reactions across article beats, and interpret the report with editorial judgment.
+policy:
+  allow_implicit_invocation: true

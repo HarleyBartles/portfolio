@@ -15,6 +15,7 @@ Use this playbook to take public editorial work from commission through publicat
 - `writing-style` and `writing-with-clarity` for focused prose review when their concerns apply.
 - `linear-issue-shaping` and `using-linear-mcp` when the commission is Linear-backed.
 - `verification-before-completion` before publication or readiness claims.
+- `running-editorial-reader-panels` when simulated reader reactions would help investigate a draft's pacing or compare versions.
 
 ## Composition
 

@@ -2,7 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** in-flight; implementation and bounded pilot complete, awaiting Harley's editorial judgement
+**Status:** in-flight; bounded pilot accepted and 100-reader cohort tested
+
+**Execution amendment (23 September 2026):** Harley selected a separate repo-owned skill for the reader panel after the successful 100-reader experiment. Task paths below record the original implementation sequence. The current command, profiles and tests live under `.agents/skills/running-editorial-reader-panels/`; `writing-portfolio-articles` links to it.
 
 **Goal:** Build a local, opt-in OpenRouter/Jev reader-panel experiment that maps simulated reader attention across an article without scoring, rewriting, or publishing it.
 

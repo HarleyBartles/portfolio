@@ -1,6 +1,6 @@
 # Editorial Reader Panel Design
 
-Status: experimental implementation and bounded pilot complete; editorial judgement pending
+Status: experimental implementation and bounded pilot accepted; 100-reader cohort tested
 Owner: Portfolio repository
 Scope: an opt-in, local editorial experiment for public article drafts
 
@@ -10,7 +10,7 @@ Locate passages where simulated readers with different reasons for arriving at a
 
 ## Delivery boundary
 
-- Build a local, server-side-only command under the repo-owned article-writing skill. It reads an explicitly named Markdown article and never ships in the Vite site or exposes an API key to browser code.
+- Build a local command in the repo-owned `running-editorial-reader-panels` skill. It reads an explicitly named Markdown article and never ships in the Vite site or exposes an API key to browser code. The writing skill points to the panel when a developmental edit calls for it.
 - Use the user's `OPENROUTER_API_KEY` environment variable to call OpenRouter's Decisions API with the pinned `typesafe/jev-1.13` model. The Jev Community MCP remains available for occasional manual decisions but is not the bulk-panel transport. Do not silently fall back to another model or provider.
 - The command defaults to a read-only `--check` preview, showing the sections, selected profile count, number of decisions, an approximate input-token and model-cost estimate, and the fact that `--apply` sends article text to OpenRouter. It makes no remote calls in check mode.
 - `--apply` explicitly authorises the bounded remote experiment. It requires the key, a maximum call count, and a maximum estimated spend. The runner preflights each call against its remaining estimated budget, records actual usage/cost, and stops when the cap is reached. Estimates are not a billing guarantee; a dedicated OpenRouter key with its own spend limit is the outside-the-script backstop. Handle a bounded 429 retry without an unbounded loop.
