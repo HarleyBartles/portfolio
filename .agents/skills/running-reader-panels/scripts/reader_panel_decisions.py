@@ -157,7 +157,7 @@ def decide(
         try:
             return replace(_parse_decision(send(payload, api_key)), attempts=attempt)
         except DecisionHTTPError as error:
-            if error.status not in {408, 429, 500, 502, 503, 504, 529} or attempt == max_attempts:
+            if error.status not in {408, 429, 500, 502, 503, 504, 524, 529} or attempt == max_attempts:
                 raise DecisionError(f"Decision request failed with HTTP {error.status}", attempts=attempt) from None
             time.sleep(max(0.5 * 2 ** (attempt - 1), error.retry_after))
         except DecisionUnavailableError as error:

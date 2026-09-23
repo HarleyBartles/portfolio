@@ -144,7 +144,7 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual([call.args[0] for call in sleep.call_args_list], [0.5, 1.0])
 
     def test_temporary_http_failure_retries_but_auth_failure_does_not(self) -> None:
-        for status in (503, 529):
+        for status in (503, 524, 529):
             with self.subTest(status=status):
                 attempts = []
 
