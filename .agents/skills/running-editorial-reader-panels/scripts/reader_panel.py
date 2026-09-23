@@ -3,21 +3,24 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
 import sys
+from dataclasses import asdict
 from pathlib import Path
 from typing import Callable, Mapping
 
 from reader_panel_decisions import Decision, DecisionError, build_request, decide
 from reader_panel_report import Observation, PanelReport, render_panel, write_report
-from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article
+from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 ARTICLE_ROOT = REPO_ROOT / "src/client/src/data/content/writing"
 DEFAULT_PROFILES = Path(__file__).resolve().parents[1] / "assets/reader-intents.json"
+ARCHETYPE_POOL = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
 WORKSPACE_SCRIPT = REPO_ROOT / ".agents/skills/subagent-workspace/scripts/workspace.py"
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
 MAX_REQUEST_BYTES = 80_000
@@ -105,9 +108,12 @@ def run_panel(
     for profile in profiles:
         if profile.archetype_id:
             cohort_sizes[profile.archetype_id] = cohort_sizes.get(profile.archetype_id, 0) + 1
+    cohort_bytes = json.dumps([asdict(profile) for profile in profiles], ensure_ascii=False,
+                              sort_keys=True, separators=(",", ":")).encode("utf-8")
     return PanelReport(
         article_summaries, tuple(observations), tuple(limitations), calls, cost,
-        tokens, len(articles) == 2 and len(articles[0].beats) == len(articles[1].beats), cohort_sizes,
+        tokens, len(articles) == 2 and len(articles[0].beats) == len(articles[1].beats),
+        cohort_sizes, hashlib.sha256(cohort_bytes).hexdigest(),
     )
 
 
@@ -155,6 +161,7 @@ def main(
         articles += (_source(args.compare, args.allow_external_source),)
     ids = tuple(item.strip() for item in args.profiles.split(",")) if args.profiles else None
     profiles = load_profiles(args.profile_file, ids)
+    validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None)})
     planned = len(profiles) * sum(len(article.beats) for article in articles)
     estimated_bytes = sum(_payload_size(profile, article, beat)
                           for article in articles for profile in profiles for beat in article.beats)
@@ -164,6 +171,12 @@ def main(
         for article in articles:
             print(f"{article.path.name}: {len(article.beats)} beats: " +
                   ", ".join(beat.heading for beat in article.beats))
+        allocation: dict[str, int] = {}
+        for profile in profiles:
+            if profile.archetype_id:
+                allocation[profile.archetype_id] = allocation.get(profile.archetype_id, 0) + 1
+        if allocation:
+            print("Allocation: " + ", ".join(f"{name}: {count}" for name, count in sorted(allocation.items())))
         print(f"{len(profiles)} profiles; up to {planned} decisions; approximately {estimated_tokens:,.0f} input tokens and ${estimated:.6f} input cost")
         print("0 remote calls. --apply sends article prefixes to OpenRouter; cost and token counts are estimates, not billing guarantees.")
         return 0

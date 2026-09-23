@@ -9,10 +9,38 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from reader_panel_source import SourceError, load_profiles, parse_article  # noqa: E402
+from reader_panel_source import ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort  # noqa: E402
 
 
 class ReaderPanelSourceTests(unittest.TestCase):
+    def test_mixed_full_quorum_accepts_ten_per_selected_archetype(self) -> None:
+        known = {f"motive-{index}" for index in range(12)}
+        readers = tuple(
+            ReaderProfile(f"reader-{group}-{number}", "question", "background", "payoff",
+                          "drawn in", "put off", f"motive-{group}")
+            for group in range(10) for number in range(10)
+        )
+        self.assertEqual(validate_cohort(readers, known), readers)
+
+    def test_quorum_rejects_unknown_or_overallocated_archetype(self) -> None:
+        known = {"craft-admirer"}
+
+        def reader(number: int, archetype: str) -> ReaderProfile:
+            return ReaderProfile(f"reader-{number}", "question", "background", "payoff",
+                                 "drawn in", "put off", archetype)
+
+        with self.assertRaisesRegex(SourceError, "unknown archetype"):
+            validate_cohort((reader(0, "invented"),), known)
+        with self.assertRaisesRegex(SourceError, "ten readers"):
+            validate_cohort(tuple(reader(number, "craft-admirer") for number in range(11)), known)
+
+    def test_quorum_does_not_mix_labelled_and_unlabelled_readers(self) -> None:
+        labelled = ReaderProfile("one", "question", "background", "payoff", "yes", "no", "craft-admirer")
+        unlabelled = ReaderProfile("two", "question", "background", "payoff")
+        with self.assertRaisesRegex(SourceError, "archetype"):
+            validate_cohort((labelled, unlabelled), {"craft-admirer"})
+        self.assertEqual(validate_cohort((unlabelled,), {"craft-admirer"}), (unlabelled,))
+
     def test_rich_profiles_keep_the_sparse_ids_and_add_balanced_constraints(self) -> None:
         assets = Path(__file__).resolve().parents[1] / "assets"
         sparse = load_profiles(assets / "reader-intents.json", None)

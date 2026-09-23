@@ -37,9 +37,9 @@ Headed articles use sections as beats. An unheaded long-form article uses paragr
 
 For a paid run, set `OPENROUTER_API_KEY` in the process environment and pass `--apply --max-calls <count> --max-usd <amount>`. Article prefixes go to OpenRouter's Jev Decisions API. The JSON report is saved in canonical off-repo scratch. Use `--help` for paired drafts, profile files, selection, and source limits.
 
-## Select stored readers
+## Assemble readers for this article
 
-The default ten profiles are concise reader intents retained as a pilot baseline. `assets/reader-intents-rich.json` preserves their richer versions. [The working pool](assets/reader-archetypes.json) contains fourteen motive-led archetypes; [the catalogue guide](references/reader-archetype-catalogue.md) helps select a relevant panel. Ten individually authored [craft-admirer readers](assets/reader-profiles/craft-admirer.json) are the first stored-reader pilot. Pass that file to `reader_panel.py --profile-file` to run them together, or add `--profiles` to select individual IDs. Reader profiles are curated on disk, not generated from archetypes at runtime. The other thirteen archetypes do not yet have stored reader cohorts.
+The default ten concise reader intents and their richer `assets/reader-intents-rich.json` versions remain legacy pilot baselines. For a new article, use the expandable [motive-led archetype pool](assets/reader-archetypes.json), its [catalogue](references/reader-archetype-catalogue.md) and the [quorum-authoring method](references/assembling-a-quorum.md). A reasoning agent chooses the archetype allocation, writes article-specific readers, checks for leading or duplicate profiles, and freezes the charter and cohort JSON in off-repo scratch *before* a paid call. Use `--profile-file` to load that JSON. A normal full panel has 100 readers; the starting cap is ten per archetype. A smaller panel is better than irrelevant padding. The [Hughes craft readers](examples/hughes-craft-readers.json) illustrate one article-specific run, not standing readers for other articles. The runner does not generate readers.
 
 Compare an original and a deliberately weakened passage to check whether the panel detects an obvious loss. Inspect the per-archetype choices and individual trajectories as well as totals. Readers who stop satisfied have not lost interest. Read every flagged passage in context; a slow build or resolved ending may be doing its job. The panel cannot authorize a rewrite or publication.
 
@@ -49,3 +49,4 @@ Compare an original and a deliberately weakened passage to check whether the pan
 - Presenting a dry-run cost estimate as the billed cost.
 - Treating a reaction to deliberate pacing as a defect without reading the passage.
 - Promoting a cohort based on one article or one control run.
+- Writing readers as predictions that the article succeeds or fails, then treating the panel as an independent test.

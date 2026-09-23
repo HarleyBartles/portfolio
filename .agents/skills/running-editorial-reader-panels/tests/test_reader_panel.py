@@ -33,6 +33,40 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_check_displays_the_selected_archetype_allocation(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "article.md"
+            source.write_text('---\nsummary: "A decision."\n---\n# Test article\n\nAn opening.\n', encoding="utf-8")
+            profile_file = Path(temporary) / "cohort.json"
+            profile_file.write_text(json.dumps([
+                {"id": f"craft-{n}", "archetype_id": "craft-admirer", "arrival_intent": "inspect form",
+                 "background": "maker", "desired_payoff": "reason", "drawn_in_by": "detail", "put_off_by": "hype"}
+                for n in range(6)
+            ] + [
+                {"id": f"story-{n}", "archetype_id": "story-first", "arrival_intent": "follow change",
+                 "background": "reader", "desired_payoff": "turn", "drawn_in_by": "scene", "put_off_by": "lecture"}
+                for n in range(4)
+            ]), encoding="utf-8")
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                main(["--article", str(source), "--profile-file", str(profile_file),
+                      "--allow-external-source", "--check"],
+                     environ={}, decision_fn=lambda *_: self.fail("dry run sent a call"))
+        self.assertIn("craft-admirer: 6", output.getvalue())
+        self.assertIn("story-first: 4", output.getvalue())
+
+    def test_report_fingerprints_the_exact_frozen_reader_definitions(self) -> None:
+        first = run_panel((article("a.md", 1),), PROFILES,
+                          decide_fn=lambda *_: choice("skim"), max_calls=2, max_usd=1)
+        paired = run_panel((article("a.md", 1), article("b.md", 1)), PROFILES,
+                           decide_fn=lambda *_: choice("skim"), max_calls=4, max_usd=1)
+        changed = (ReaderProfile("peer", "evaluate", "engineer", "different mechanism"), PROFILES[1])
+        different = run_panel((article("a.md", 1),), changed,
+                              decide_fn=lambda *_: choice("skim"), max_calls=2, max_usd=1)
+        self.assertEqual(first.cohort_sha256, paired.cohort_sha256)
+        self.assertEqual(len(first.cohort_sha256), 64)
+        self.assertNotEqual(first.cohort_sha256, different.cohort_sha256)
+
     def test_cohort_report_groups_reader_decisions_with_active_denominators(self) -> None:
         readers = (
             ReaderProfile("peer-r01", "test", "engineer", "evidence", "proof", "hype", "peer"),
@@ -136,8 +170,15 @@ class ReaderPanelTests(unittest.TestCase):
             source = root / "article.md"
             source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
             profiles = root / "profiles.json"
+            archetypes = (
+                "story-first", "craft-admirer", "cultural-magpie", "curious-outsider",
+                "human-stakes", "fellow-mistake-maker", "hype-weary", "model-builder",
+                "hiring-evaluator", "jaded-architect",
+            )
             profiles.write_text(json.dumps([
-                {"id": f"p{n}", "arrival_intent": "read", "background": "reader", "desired_payoff": "insight"}
+                {"id": f"p{n}", "archetype_id": archetypes[n // 10], "arrival_intent": "read",
+                 "background": "reader", "desired_payoff": "insight",
+                 "drawn_in_by": "evidence", "put_off_by": "hype"}
                 for n in range(100)
             ]), encoding="utf-8")
 
@@ -152,6 +193,7 @@ class ReaderPanelTests(unittest.TestCase):
                               decision_fn=lambda *_: self.fail("check mode sent a call"))
             self.assertEqual(result, 0)
             self.assertIn("100 profiles", output.getvalue())
+            self.assertIn("jaded-architect: 10", output.getvalue())
             self.assertIn("0 remote calls", output.getvalue())
             self.assertIn("input tokens", output.getvalue())
 

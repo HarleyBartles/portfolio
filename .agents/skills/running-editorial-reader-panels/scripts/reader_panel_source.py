@@ -179,3 +179,24 @@ def load_profiles(path: Path, selected_ids: tuple[str, ...] | None) -> tuple[Rea
         raise SourceError("Selected reader profile IDs are empty, duplicated or unknown")
     selected = set(selected_ids)
     return tuple(profile for profile in profiles if profile.id in selected)
+
+
+def validate_cohort(
+    profiles: tuple[ReaderProfile, ...], known_archetypes: set[str],
+) -> tuple[ReaderProfile, ...]:
+    """Check the mechanical boundaries of an agent-authored run cohort."""
+    if not 1 <= len(profiles) <= 100 or len({profile.id for profile in profiles}) != len(profiles):
+        raise SourceError("A cohort needs 1–100 readers with distinct IDs")
+    labelled = [profile for profile in profiles if profile.archetype_id]
+    if not labelled:
+        return profiles  # Existing unlabelled pilot intents remain usable.
+    if len(labelled) != len(profiles):
+        raise SourceError("An archetype-labelled cohort cannot mix readers without an archetype")
+    allocations: dict[str, int] = {}
+    for profile in profiles:
+        if profile.archetype_id not in known_archetypes:
+            raise SourceError(f"Reader {profile.id} has an unknown archetype")
+        allocations[profile.archetype_id] = allocations.get(profile.archetype_id, 0) + 1
+        if allocations[profile.archetype_id] > 10:
+            raise SourceError("An archetype may supply no more than ten readers")
+    return profiles

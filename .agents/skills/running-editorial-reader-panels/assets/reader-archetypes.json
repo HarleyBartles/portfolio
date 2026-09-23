@@ -97,11 +97,19 @@
   },
   {
     "id": "hiring-evaluator",
-    "arrival_intent": "Decide whether this author merits a longer professional conversation.",
-    "background": "Reading several candidates and looking for attributable evidence of judgment.",
-    "desired_payoff": "A memorable instance of what the author noticed, decided and owned.",
-    "drawn_in_by": "Clear personal contribution, constraints and consequences without inflated credit.",
-    "put_off_by": "Vague competence claims, missing outcomes or a team achievement retold as a solo rescue."
+    "arrival_intent": "Decide whether forwarding this author's work for technical scrutiny would be worth the risk.",
+    "background": "A weary hiring manager has reviewed many polished agentic-engineering portfolios; three promising links were dismissed by the architect.",
+    "desired_payoff": "Enough legible, attributable evidence to make a confident forward-or-decline decision.",
+    "drawn_in_by": "A short path from professional claim to inspectable decision, responsibility and consequence.",
+    "put_off_by": "Another fluent pitch that makes the manager risk looking foolish when a technical peer opens the link."
+  },
+  {
+    "id": "jaded-architect",
+    "arrival_intent": "Strip the presentation away and test whether this author understands the engineering underneath.",
+    "background": "A principal engineer or architect has already dismissed three similar forwarded portfolios and expects pattern vocabulary to conceal thin reasoning.",
+    "desired_payoff": "A technical account that survives questions about mechanism, alternatives, cost, evidence and limits—or reveals where it does not.",
+    "drawn_in_by": "Specific decisions and falsifiable detail that remain coherent under hostile scrutiny.",
+    "put_off_by": "Named patterns, polished diagrams or confident outcomes that collapse when asked why this approach was chosen."
   },
   {
     "id": "prospective-collaborator",

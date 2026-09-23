@@ -33,6 +33,7 @@ class PanelReport:
     input_tokens: int
     comparable_beats: bool
     cohort_sizes: dict[str, int] = field(default_factory=dict)
+    cohort_sha256: str = ""
 
 
 def render_panel(report: PanelReport) -> str:
