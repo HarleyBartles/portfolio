@@ -13,7 +13,8 @@ from typing import Literal, Sequence
 
 
 TEXT_SUFFIXES = frozenset({".html", ".md", ".ts", ".tsx"})
-EXCLUDED_PARTS = frozenset({".agents", "dist", "node_modules", "test-results", "tests"})
+EXCLUDED_PARTS = frozenset({".agents", "dist", "node_modules", "test", "test-results", "tests"})
+EXCLUDED_NAMES = frozenset({"INDEX.md"})
 EXCLUDED_NAME_MARKERS = (".test.", ".spec.", ".generated.")
 PUBLIC_SOURCE_CLASSES = (
     ("client-index", Path("src/client/index.html")),
@@ -88,13 +89,21 @@ class LanguageReport:
 
 
 def _is_excluded(path: Path) -> bool:
-    return bool(EXCLUDED_PARTS.intersection(path.parts)) or any(
+    return path.name in EXCLUDED_NAMES or bool(EXCLUDED_PARTS.intersection(path.parts)) or any(
         marker in path.name for marker in EXCLUDED_NAME_MARKERS
     )
 
 
 def discover_public_sources(root: Path) -> tuple[Path, ...]:
     root = root.resolve()
+    required_index = root / "src" / "client" / "index.html"
+    required_source = root / "src" / "client" / "src"
+    if not root.is_dir():
+        raise SourceContractError(f"Public-language repository root does not exist: {root}")
+    if not required_index.is_file() or not required_source.is_dir():
+        raise SourceContractError(
+            "Public-language root must contain src/client/index.html and src/client/src"
+        )
     src_root = root / "src"
     if src_root.exists():
         unclassified = tuple(
@@ -284,6 +293,7 @@ def audit_articles(root: Path, thresholds: AuditThresholds) -> CorpusReport:
                 line=line,
                 context=paragraph,
                 severity="observation",
+                evidence="heuristic",
             )
             for line, paragraph in paragraphs
             if len(_sentences(paragraph)) == 1

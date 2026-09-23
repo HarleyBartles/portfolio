@@ -67,7 +67,7 @@ class ArticleAuditTests(unittest.TestCase):
         self.assertEqual(cross_article.related_path, "alpha.md")
         self.assertGreater(cross_article.related_line or 0, 0)
         one_sentence = next(finding for finding in report.findings if finding.kind == "one-sentence-paragraph")
-        self.assertEqual(one_sentence.evidence, "fact")
+        self.assertEqual(one_sentence.evidence, "heuristic")
 
 
 class PublicLanguageAuditTests(unittest.TestCase):
@@ -83,6 +83,34 @@ class PublicLanguageAuditTests(unittest.TestCase):
             paths,
             ["src/client/index.html", "src/client/src/pages/FixturePage.tsx"],
         )
+
+    def test_discovery_rejects_missing_or_wrongly_scoped_repository_roots(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            missing = Path(temporary) / "missing"
+            with self.assertRaises(self.audit.SourceContractError):
+                self.audit.discover_public_sources(missing)
+
+        with self.assertRaises(self.audit.SourceContractError):
+            self.audit.discover_public_sources(FIXTURES / "corpus")
+
+    def test_discovery_excludes_singular_test_owners_and_generated_indexes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            shutil.copytree(FIXTURES / "public-copy" / "src", root / "src")
+            private_test = root / "src" / "client" / "src" / "test" / "setup.ts"
+            private_test.parent.mkdir(parents=True)
+            private_test.write_text("fuck fuck", encoding="utf-8")
+            generated_index = root / "src" / "client" / "src" / "pages" / "INDEX.md"
+            generated_index.write_text("fuck fuck", encoding="utf-8")
+
+            paths = [path.relative_to(root).as_posix() for path in self.audit.discover_public_sources(root)]
+            report = self.audit.audit_public_language(root)
+
+            self.assertNotIn("src/client/src/test/setup.ts", paths)
+            self.assertNotIn("src/client/src/pages/INDEX.md", paths)
+            occurrence_paths = {finding.path for finding in report.occurrences}
+            self.assertNotIn("src/client/src/test/setup.ts", occurrence_paths)
+            self.assertNotIn("src/client/src/pages/INDEX.md", occurrence_paths)
 
     def test_language_report_separates_breaches_from_contextual_findings(self) -> None:
         report = self.audit.audit_public_language(FIXTURES / "public-copy")
