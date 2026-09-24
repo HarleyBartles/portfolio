@@ -49,6 +49,8 @@ For an optional additional read offered after the article, use version 2. Keep t
 
 `post_article_choice` offers the title and standfirst after the final article beat or when a reader stops satisfied earlier. Readers who leave because they lost interest receive no offer. The choice is `open` or `skip`; only an opener sees the body and answers whether it increased, maintained or decreased satisfaction with the article for their original reading goal. The comparison is to their satisfaction immediately before opening, so it does not require a fabricated numeric score. The `omit` condition provides a paired no-offer article route. Do not place the optional body among the article beats in this mode.
 
+This mode offers the optional read at that point; it does not model a reader spontaneously remembering, noticing or scrolling back to an inline disclosure. If the real page showed an inline invitation earlier, describe this route as a proxy for willingness to take an additional read, not a measurement of return behaviour. The version 1 `reader_choice` route models an inline invitation and a deferred return at the final beat, but does not offer that return to someone who stopped satisfied earlier. If neither route represents the hypothesis, revise the experiment or the harness before making a stronger claim.
+
 An ordinary beat is shown to the reader before an attention decision. An aside has a visible title and standfirst, plus a body hidden by default. The harness never sends that body to a reader who has not opened it.
 
 ## Conditions
@@ -59,6 +61,14 @@ An ordinary beat is shown to the reader before an attention decision. An aside h
 - `reader_choice`: offer `open_now`, `return_later` or `skip` from the invitation alone. A deferer who reaches the end sees the invitation again and chooses `open` or `skip`, including a reader satisfied by the ending. Readers who leave before the aside have no aside choice; those who leave before the end have no return choice. A reader who loses interest at the final beat does not return.
 
 These are separate conditions of one experiment over the same frozen cohort. The choice branch reports self-selection, not a randomised effect of reading the aside. Compare controlled conditions for possible exposure effects, then inspect individual journeys and the page's visual treatment. Keep `stop_satisfied` distinct from `leave_lost_interest`.
+
+## Preflight and reading the report
+
+Write the editorial hypothesis or exploratory question beside the manifest before a paid call. Name a plausible counter-result, the beat or optional-read boundary under test, the readers eligible for each choice, and the conclusion the harness cannot support. This prevents a result from supplying its own question after the fact.
+
+Review a few complete request payloads or trace the exact prompt templates and cumulative visible text with a no-network decision stub. Include a reader who continues, one who stops satisfied early, one who leaves from lost interest, and the applicable aside choices. Check that each instruction describes the reader's actual exposure and position, not merely a convenient branch name. Then run `--check` for hashes, allocation and cost; neither source validation nor cost estimation replaces this route review.
+
+After the run, report attention choices out of readers who reached each beat. For optional material, separately report readers offered the invitation, readers who opened, and openers who reported an effect. Use their motives to explain possible editorial value while stating the self-selection and correlated-simulation limits. Interpret the article first; fix a flawed prompt only with a qualified result or a deliberately new run, never by silently treating the old result as corrected.
 
 ## CLI
 

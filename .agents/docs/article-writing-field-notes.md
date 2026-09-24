@@ -18,12 +18,13 @@ Do not add an entry after every invocation. Record a note only for a meaningful 
 | --- | --- | --- | --- |
 | Opening beat must earn continuation and surface the title promise | Vibe-coding article, PR #75 | promoted by Harley's editorial decision | doctrine, playbook and skill reference |
 | Copy-only edits do not trigger a shell visual review | Vibe-coding article, PR #75 | promoted by Harley's workflow correction | design policy and article playbook |
-| Start reader panels from an editorial hypothesis | Agentic-engineering-harder article, PR #77 | candidate | article playbook and reader-panel skill |
-| Interpret optional reading by motive and actual exposure | Agentic-engineering-harder article, PR #77 | observed | reader-panel skill reference |
-| Review panel prompts before paid runs and discuss results before code closeout | Agentic-engineering-harder article, PR #77 | candidate | reader-panel skill and article playbook |
-| False insistence that a point matters | Agentic-engineering-harder draft, PR #77 | observed | article-writing fatigue reference |
+| Start reader panels from an editorial hypothesis | Agentic-engineering-harder article, PR #77 | promoted by Harley's process-improvement commission | article playbook and reader-panel skill |
+| Interpret optional reading by motive and actual exposure | Agentic-engineering-harder article, PR #77 | promoted by Harley's process-improvement commission | reader-panel skill reference |
+| Review panel prompts before paid runs and discuss results before code closeout | Agentic-engineering-harder article, PR #77 | promoted by Harley's process-improvement commission | reader-panel skill and article playbook |
+| False insistence that a point matters | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | article-writing fatigue reference |
 | Each beat earns the next | Agentic-engineering-harder draft, PR #77 | observed | existing structure-and-movement reference |
-| Optional aside must leave a coherent direct route | Agentic-engineering-harder draft, PR #77 | observed | article-writing web-object review |
+| Optional aside must leave a coherent direct route | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | article-writing web-object review |
+| Text-only panel cannot judge a figure as seen | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | reader-panel skill |
 
 Allowed statuses are `observed`, `candidate`, `promoted`, `rejected` and `superseded`.
 
@@ -68,19 +69,19 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Outcome:** improved locally by removing the importance claims and letting the profile-delivery contrast, the WorkClaw question and the custody categories state their own significance
 - **Human correction:** Harley identified `that mattered`, `that last bit matters`, `that's important` and similar phrases as AI-fatigue language and asked for the draft to be scanned. The pattern is false insistence, not a ban on the word `matter` where it has a concrete meaning.
 - **Scope:** recurring prose diagnostic; each occurrence still needs a contextual reading
-- **Candidate owner:** article-writing fatigue reference if the observation recurs beyond this draft
-- **Promotion evidence:** none yet. This entry records Harley's correction and the focused edit, not a new doctrine rule.
+- **Candidate owner:** article-writing fatigue reference
+- **Promotion evidence:** Harley's correction and the accepted article in PR #77, followed by his commission to promote material process lessons. The reference now names false insistence as a contextual diagnostic, not a banned-word rule.
 
 ### Candidate: each beat earns the next
 
 - **Article or PR:** `i-made-agentic-engineering-harder-than-it-needed-to-be`, PR #77
 - **Editorial stage:** rewrite review after a frozen-cohort core read
 - **Observation:** Six simulated readers stopped satisfied after a beat that combined the retrospective role alternative, the organisation verdict and a personal aside, before the missed-instruction and receipts consequences. Many more stopped satisfied at the concrete cleanup. The two positions have different editorial meanings: a middle beat may close the question before its evidence arrives, while cleanup may be the article's natural conclusion.
-- **Outcome:** the draft was re-ordered to let the missed instruction and accumulating receipts precede the role alternative and verdict; no second paid run has assessed this revision
+- **Outcome:** the draft was re-ordered to let the missed instruction and accumulating receipts precede the role alternative. Later frozen-cohort runs informed removal of the premature second pull quote and a final ending at `why are you here?`
 - **Human correction:** Harley said a satisfied stop is not a negative result but can expose a weak handoff between beats. He wants each beat to earn the reader's time in the next, while allowing an edit to add, restore, move or remove material according to what the article needs.
 - **Scope:** recurring structural diagnostic, not a demand for cliffhangers or universal ending reach
 - **Candidate owner:** existing structure-and-movement reference, which already asks whether each section creates a reason to read the next; no workflow change is proposed from this one application
-- **Promotion evidence:** none needed for a new rule. This records the editorial use of an existing diagnostic and the distinction between early closure and a natural ending.
+- **Promotion evidence:** no new rule needed. The existing structure reference already asks whether each section creates a reason to read the next, and the final-review reference already tests whether the article has ended. The later run found 68 satisfied stops among 95 readers reaching the cleanup question; that is editorial evidence for this article, not a target metric.
 
 ### Candidate: read past an optional aside in both states
 
@@ -90,8 +91,19 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Outcome:** improved by beginning the next section with the author's instructions and the missed-instruction incident, which follows either route
 - **Human correction:** Harley read the article with the aside removed and identified the broken handoff.
 - **Scope:** reusable web-object diagnostic for optional material
-- **Candidate owner:** article-writing web-object review; the playbook already asks whether asides earn their interruption, but this case adds a direct-route transition check for later consideration
-- **Promotion evidence:** none yet. The repair is local; no durable rule has been changed.
+- **Candidate owner:** article-writing web-object review in the playbook and final-review reference
+- **Promotion evidence:** Harley's direct-route correction in PR #77 and his subsequent process-improvement commission. Both the closed and opened reading paths are now explicit review steps.
+
+### Candidate: distinguish a figure from its panel text
+
+- **Article or PR:** `i-made-agentic-engineering-harder-than-it-needed-to-be`, PR #77
+- **Editorial stage:** panel beat preparation and rendered article review
+- **Observation:** The organisation diagram was inline on the page, while the text-only panel received its description and caption. Treating that short substitute as a standalone beat separated it from the surrounding account that gave the figure meaning.
+- **Outcome:** the panel beat was rebuilt with the organisation prose and figure description together; the page was read separately for the diagram's visual contribution and placement.
+- **Human correction:** Harley asked for the description inline within the organisation beat because the harness cannot receive images.
+- **Scope:** recurring limit of text-only panel runs when an article contains a figure
+- **Candidate owner:** reader-panel skill
+- **Promotion evidence:** The accepted PR #77 article and Harley's process-improvement commission. The skill now requires a faithful verbal beat and a separate rendered read for visual claims.
 
 ### Candidate: opening beat earns continuation
 
@@ -124,7 +136,7 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Human correction:** Harley identified the intended scenario: the aside remains collapsed inline, a satisfied reader may return to its visible title and standfirst, and the editorial question is who chooses the extra read and whether that time pays off. He proposed editorial review first, followed by a hypothesis and an experiment designed to challenge it.
 - **Scope:** system-wide candidate for panel design, without requiring every exploratory panel to pretend it has a confirmatory hypothesis
 - **Candidate owner:** article playbook for sequence; reader-panel skill for hypothesis, alternative outcomes and predeclared denominators
-- **Promotion evidence:** none beyond this article. A later article should test whether stating the hypothesis and a plausible counter-result before building the cohort produces a clearer, less article-tailored experiment.
+- **Promotion evidence:** The later seven-beat ending run declared a hypothesis, counter-result and interpretation limits before its paid call. Harley used that result to accept a precise ending edit, then commissioned process promotion. The skill and playbook now require the question and limits up front; a future article can test whether the method generalises.
 
 ### Candidate: read optional-depth results by motive and exposure
 
@@ -135,7 +147,7 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Human correction:** Harley clarified that the aside is staying inline and collapsed unless strong evidence warrants moving it. The purpose of the run was to test whether readers would return for an additional read, not to trial an end-of-article placement. The result supports keeping optional depth available without compelling every reader to take it; it does not justify moving the aside.
 - **Scope:** article-specific outcome with a reusable interpretation technique
 - **Candidate owner:** reader-panel skill reference for reporting offered, opened and post-read effect with their separate denominators, then comparing motives without turning small correlated archetype groups into audience forecasts
-- **Promotion evidence:** none yet. The route also offered the aside to 56 readers who stopped satisfied before the end; its prompt implied they had finished the article. That wording limits the early-stop finding and should not become a general claim about return behaviour.
+- **Promotion evidence:** Harley's interpretation of the optional-read result and later process-improvement commission. The route also offered the aside to 56 readers who stopped satisfied before the end; its prompt implied they had finished the article. No corrected rerun occurred. The skill now requires separate exposure denominators and states that a newly offered extra read does not measure spontaneous return to an inline disclosure.
 
 ### Candidate: review the experiment before paying for it
 
@@ -146,4 +158,4 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Human correction:** Harley asked for the experiment and editorial meaning to lead the work, with prompt and sample-journey review before paid calls and discussion of results before committing harness changes. He stopped a proposed rerun after the flaw was found, then decided the qualified findings were sufficient to move into drafting discussion without another panel.
 - **Scope:** system-wide process candidate for paid simulated-reader experiments
 - **Candidate owner:** reader-panel skill for preflight review of complete prompts and representative routes; article playbook for interpreting results before harness publication work
-- **Promotion evidence:** none yet. The corrected prompt and its test remain uncommitted in this editorial worktree, and no corrected run has occurred. Do not silently replace the original result or describe it as validated.
+- **Promotion evidence:** The corrected prompt and test merged in PR #77, but no corrected rerun occurred. Harley commissioned a process improvement before the next article. The skill now asks for actual-prompt and sample-route inspection before paid calls; the original result remains qualified rather than silently corrected.
