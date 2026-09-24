@@ -86,7 +86,7 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Read the title and summary without the body, then only the headings, then the first sentence of every paragraph.
 - Check semantics, accessible link text, metadata, dates, reading time and route presentation.
 - Confirm that code, quotations and technical terms render correctly.
-- For copy and metadata changes in the unchanged article shell, check the article's semantics and reading order without a full visual re-inspection. When changing the shell or adding a new composition, use the design policy's viewport, keyboard, motion and zoom review. If removing an article-specific visual, check only that no empty slot remains.
+- For copy and metadata changes in the unchanged article shell, check the article's semantics and reading order without a full visual re-inspection. When changing the shell or adding a new composition, use the design policy's viewport, keyboard, motion and zoom review. When removing redundant article-specific header artwork from an otherwise unchanged shell, check that no empty slot remains; review other visual removals according to their effect on the composition.
 - Check that pull quotes, figures and asides earn their interruption.
 - Inventory language across all public copy and apply the site-wide 12A-inspired house standard.
 - Consider every other relevant BBFC 12A category, not language alone.

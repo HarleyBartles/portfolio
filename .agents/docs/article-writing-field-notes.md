@@ -71,7 +71,7 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Editorial stage:** publication review
 - **Observation:** A policy written for material visual or editorial changes caused a full viewport, motion and zoom checklist to be applied to an article rewrite in an unchanged reading shell. That review did not test the editorial claim; the focused rendered check did catch obsolete article-specific artwork.
 - **Outcome:** changed but not improved by the broad checklist
-- **Human correction:** Harley said copy edits do not require shell visual re-inspection. Removal of redundant article-specific art warrants only a focused check for an empty slot.
+- **Human correction:** Harley said copy edits do not require shell visual re-inspection. Removing this redundant header artwork in an otherwise unchanged shell warranted only a focused check for an empty slot.
 - **Scope:** repository workflow and presentation review boundary
 - **Candidate owner:** design policy and article-writing playbook
 - **Promotion evidence:** Harley's explicit correction during PR #75 review.
