@@ -15,19 +15,23 @@ from reader_panel_source import ReaderProfile, SourceError
 
 _ID = re.compile(r"^[a-z][a-z0-9-]{0,63}$")
 CONDITIONS = {"omit", "closed", "force_open", "reader_choice"}
+POST_ARTICLE_CONDITIONS = {"omit", "post_article_choice"}
 ATTENTION = ("read_closely", "skim", "leave_lost_interest", "stop_satisfied")
 ASIDE_CHOICE = ("open_now", "return_later", "skip")
 RETURN_CHOICE = ("open", "skip")
+POST_READ_EFFECT = ("increased", "maintained", "decreased")
 MAX_EXPERIMENT_BYTES = 200_000
 MAX_VISIBLE_BYTES = 80_000
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
 
 
 def validate_experiment(data: dict) -> dict:
-    if not isinstance(data, dict) or set(data) != {
-        "version", "title", "promise", "sources", "beats", "conditions",
-    } or type(data["version"]) is not int or data["version"] != 1:
-        raise SourceError("Experiment manifest requires version 1 and the declared fields")
+    common = {"version", "title", "promise", "sources", "beats", "conditions"}
+    if not isinstance(data, dict) or type(data.get("version")) is not int or data["version"] not in {1, 2}:
+        raise SourceError("Experiment manifest requires version 1 or 2")
+    version = data["version"]
+    if set(data) != (common | ({"optional_read"} if version == 2 else set())):
+        raise SourceError("Experiment manifest fields are invalid")
     if not all(isinstance(data[key], str) and data[key].strip() for key in ("title", "promise")):
         raise SourceError("Experiment title and promise must be nonempty")
     if not isinstance(data["sources"], list) or not isinstance(data["beats"], list) or not data["beats"]:
@@ -35,12 +39,22 @@ def validate_experiment(data: dict) -> dict:
     conditions = data["conditions"]
     if (not isinstance(conditions, list) or not conditions or
             any(not isinstance(item, str) for item in conditions) or
-            len(set(conditions)) != len(conditions) or set(conditions) - CONDITIONS):
+            len(set(conditions)) != len(conditions) or
+            set(conditions) - (POST_ARTICLE_CONDITIONS if version == 2 else CONDITIONS) or
+            (version == 2 and "post_article_choice" not in conditions)):
         raise SourceError("Experiment conditions are invalid")
+    if version == 2:
+        optional = data["optional_read"]
+        if (not isinstance(optional, dict) or set(optional) != {"id", "title", "standfirst", "body"} or
+                not all(isinstance(value, str) and value.strip() for value in optional.values()) or
+                not _ID.fullmatch(optional["id"])):
+            raise SourceError("Optional read fields are invalid")
     seen = set()
     for piece in data["beats"]:
         if not isinstance(piece, dict) or piece.get("kind") not in {"beat", "aside"}:
             raise SourceError("Experiment piece kind is invalid")
+        if version == 2 and piece["kind"] != "beat":
+            raise SourceError("Post-article experiment beats must contain only the article")
         required = {"id", "kind", "text"} if piece["kind"] == "beat" else {
             "id", "kind", "title", "standfirst", "body",
         }
@@ -53,6 +67,8 @@ def validate_experiment(data: dict) -> dict:
         raise SourceError("Experiment must open and end with an ordinary beat")
     if sum(piece["kind"] == "aside" for piece in data["beats"]) > 1:
         raise SourceError("Experiment currently supports one optional aside")
+    if version == 2 and data["optional_read"]["id"] in seen:
+        raise SourceError("Optional read ID must be distinct from article beats")
     return data
 
 
@@ -116,6 +132,7 @@ def run_experiment(
             pending: list[tuple[str, str, str, str]] = []
             journey = {"reader": profile.id, "archetype": profile.archetype_id,
                        "condition": condition, "aside_choice": None, "return_choice": None,
+                       "offer_reason": None, "optional_effect": None,
                        "reached_aside": False, "reached_end": False, "terminal": None,
                        "exposed_pieces": []}
             if progress:
@@ -220,6 +237,20 @@ def run_experiment(
                         journey["exposed_pieces"].append(aside_id + ":body-later")
                         if not attention("return-read"):
                             break
+            if (experiment["version"] == 2 and condition == "post_article_choice" and
+                    not stopped and journey["terminal"] != "leave_lost_interest" and
+                    (journey["reached_end"] or journey["terminal"] == "stop_satisfied")):
+                optional = experiment["optional_read"]
+                journey["offer_reason"] = "reached_end" if journey["reached_end"] else "stop_satisfied"
+                journey["reached_aside"] = True
+                visible += f"\n\n{optional['title']}\n{optional['standfirst']}"
+                journey["exposed_pieces"].append(optional["id"] + ":invitation")
+                answer = ask("post-choice", RETURN_CHOICE)
+                journey["aside_choice"] = answer
+                if answer == "open" and not stopped:
+                    visible += f"\n\n{optional['body']}"
+                    journey["exposed_pieces"].append(optional["id"] + ":body")
+                    journey["optional_effect"] = ask("post-read-effect", POST_READ_EFFECT)
             journeys.append(journey)
     return {"manifest_sha256": manifest_hash, "source_sha256": source_hashes,
             "cohort_sha256": cohort_hash, "conditions": experiment["conditions"],

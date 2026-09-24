@@ -35,6 +35,8 @@ py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-
 
 The reasoning agent chooses the beats and their editorial jobs. Do not let Markdown headings or a parser decide attention boundaries. Check the manifest against the actual article and rendered page before a paid run; the source hashes prevent stale inputs but cannot certify that the route is editorially faithful. Keep the cohort separate so exactly the same readers can assess controlled conditions and later drafts.
 
+When the extra material is offered only after the article, use a version 2 manifest with ordinary article beats and a separate `optional_read`. Offer it to readers who reach the ending or stop satisfied; record their choice and, for openers, the effect on satisfaction with their original reading goal. Keep readers who leave from lost interest out of the offer denominator.
+
 For a paid run, set `OPENROUTER_API_KEY` in the process environment and pass `--apply --max-calls <count> --max-usd <amount>`. Only the text actually exposed on a reader's route goes to OpenRouter's Jev Decisions API. The CLI prints periodic progress while running and saves a JSON report in canonical off-repo scratch. Use `--help` for profile selection and source limits. The older `--article` mode is available for existing flat-text runs but does not model optional content.
 
 ## Assemble readers for this article

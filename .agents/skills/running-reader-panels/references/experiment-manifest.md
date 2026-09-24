@@ -28,6 +28,27 @@ Build the reader cohort and the reading route as separate frozen inputs. The coh
 The first and last entries must be ordinary beats. Use stable IDs across versions for comparable editorial jobs; do not reuse an ID for a different job merely to manufacture a matched result. Source hashes make a stale manifest fail before paid calls. List every file needed to establish the visible copy, including article-specific shell copy when it supplies a figure caption or aside invitation. Read and check the authored text against the rendered page; hashes guard drift, not editorial accuracy.
 The current runner supports one optional aside per experiment.
 
+For an optional additional read offered after the article, use version 2. Keep the `beats` array to ordinary article beats and supply the extra piece separately:
+
+```json
+{
+  "version": 2,
+  "title": "Article title",
+  "promise": "The standfirst or reader promise",
+  "sources": [{"path": "absolute/or/relative/article.md", "sha256": "64 lowercase hex digits"}],
+  "beats": [{"id": "opening", "kind": "beat", "text": "Article opening."}],
+  "optional_read": {
+    "id": "additional-read",
+    "title": "Visible optional title",
+    "standfirst": "Visible invitation",
+    "body": "Hidden until chosen."
+  },
+  "conditions": ["omit", "post_article_choice"]
+}
+```
+
+`post_article_choice` offers the title and standfirst after the final article beat or when a reader stops satisfied earlier. Readers who leave because they lost interest receive no offer. The choice is `open` or `skip`; only an opener sees the body and answers whether it increased, maintained or decreased satisfaction with the article for their original reading goal. The comparison is to their satisfaction immediately before opening, so it does not require a fabricated numeric score. The `omit` condition provides a paired no-offer article route. Do not place the optional body among the article beats in this mode.
+
 An ordinary beat is shown to the reader before an attention decision. An aside has a visible title and standfirst, plus a body hidden by default. The harness never sends that body to a reader who has not opened it.
 
 ## Conditions

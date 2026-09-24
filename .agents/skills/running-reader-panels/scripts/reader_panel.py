@@ -179,23 +179,28 @@ def main(
     if catalogue_read:
         profiles = tuple(replace(profile, archetype_id=profile.id) for profile in profiles)
     validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
-    planned = (len(profiles) * len(experiment["conditions"]) *
-               (len(experiment["beats"]) + 3 * sum(p["kind"] == "aside" for p in experiment["beats"]))
-               if experiment else len(profiles) * sum(len(article.beats) for article in articles))
+    if experiment and experiment["version"] == 2:
+        calls_per_profile = (len(experiment["beats"]) * len(experiment["conditions"]) +
+                             2 * ("post_article_choice" in experiment["conditions"]))
+    elif experiment:
+        calls_per_profile = len(experiment["conditions"]) * (
+            len(experiment["beats"]) + 3 * sum(p["kind"] == "aside" for p in experiment["beats"]))
+    planned = (len(profiles) * calls_per_profile if experiment else
+               len(profiles) * sum(len(article.beats) for article in articles))
     if experiment:
         full_text = "\n\n".join(
             piece["text"] if piece["kind"] == "beat" else
             "\n".join((piece["title"], piece["standfirst"], piece["body"]))
             for piece in experiment["beats"]
         )
+        if experiment["version"] == 2:
+            optional = experiment["optional_read"]
+            full_text += "\n\n" + "\n".join(
+                (optional["title"], optional["standfirst"], optional["body"]))
         estimated_bytes = sum(
             len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
                             "promise": experiment["promise"], "visible_text": full_text},
-                           ensure_ascii=False).encode("utf-8")) * (
-                               len(experiment["beats"]) + 3 * sum(
-                                   piece["kind"] == "aside" for piece in experiment["beats"]
-                               )
-                           ) * len(experiment["conditions"])
+                           ensure_ascii=False).encode("utf-8")) * calls_per_profile
             for profile in profiles
         )
     else:
@@ -207,6 +212,8 @@ def main(
         if experiment:
             print("Experiment: " + ", ".join(experiment["conditions"]))
             print("Beats: " + ", ".join(piece["id"] for piece in experiment["beats"]))
+            if experiment["version"] == 2:
+                print("Optional read after article: " + experiment["optional_read"]["id"])
         for article in articles:
             print(f"{article.path.name}: {len(article.beats)} beats: " +
                   ", ".join(beat.heading for beat in article.beats))
@@ -247,6 +254,9 @@ def main(
                 "return_later": "Continue and consider returning at the end",
                 "skip": "Skip the aside",
                 "open": "Open and read the aside now",
+                "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
+                "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
+                "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
             }
             return {choice: names[choice] for choice in choices}
 

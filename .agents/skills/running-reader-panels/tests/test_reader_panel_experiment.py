@@ -20,6 +20,54 @@ def decision(value: str) -> Decision:
 
 
 class ExperimentTests(unittest.TestCase):
+    def test_post_article_offer_reaches_satisfied_reader_before_ending(self) -> None:
+        experiment = {
+            "version": 2, "title": "Title", "promise": "Promise", "sources": [],
+            "beats": [{"id": "opening", "kind": "beat", "text": "Opening"},
+                      {"id": "ending", "kind": "beat", "text": "Ending"}],
+            "optional_read": {"id": "extra", "title": "Optional read",
+                              "standfirst": "Why you might read it", "body": "Hidden detail"},
+            "conditions": ["omit", "post_article_choice"],
+        }
+        profiles = (ReaderProfile("early", "read", "reader", "payoff"),
+                    ReaderProfile("end", "read", "reader", "payoff"),
+                    ReaderProfile("lost", "read", "reader", "payoff"))
+        seen = []
+
+        def decide(profile, condition, stage, visible, choices, attempts):
+            seen.append((profile.id, condition, stage, visible))
+            if stage == "post-choice":
+                return decision("open" if profile.id == "early" else "skip")
+            if stage == "post-read-effect":
+                return decision("increased")
+            if profile.id == "early" and stage == "opening":
+                return decision("stop_satisfied")
+            if profile.id == "lost" and stage == "opening":
+                return decision("leave_lost_interest")
+            return decision("read_closely")
+
+        report = run_experiment(experiment, profiles, decide_fn=decide, max_calls=30, max_usd=1)
+        by_reader = {(item["reader"], item["condition"]): item for item in report["journeys"]}
+        early = by_reader["early", "post_article_choice"]
+        self.assertFalse(early["reached_end"])
+        self.assertEqual(early["offer_reason"], "stop_satisfied")
+        self.assertEqual(early["aside_choice"], "open")
+        self.assertEqual(early["optional_effect"], "increased")
+        self.assertIn("extra:body", early["exposed_pieces"])
+        self.assertNotIn("ending", early["exposed_pieces"])
+        end = by_reader["end", "post_article_choice"]
+        self.assertTrue(end["reached_end"])
+        self.assertEqual(end["offer_reason"], "reached_end")
+        self.assertEqual(end["aside_choice"], "skip")
+        self.assertIsNone(end["optional_effect"])
+        self.assertNotIn("extra:body", end["exposed_pieces"])
+        lost = by_reader["lost", "post_article_choice"]
+        self.assertIsNone(lost["offer_reason"])
+        self.assertIsNone(lost["aside_choice"])
+        self.assertFalse(any(n == "lost" and stage == "post-choice" for n, _, stage, _ in seen))
+        self.assertFalse(any(condition == "omit" and "Hidden detail" in visible
+                             for _, condition, _, visible in seen))
+
     def test_satisfied_reader_who_reaches_end_can_still_choose_deferred_aside(self) -> None:
         experiment = {
             "version": 1, "title": "Title", "promise": "Promise", "sources": [],

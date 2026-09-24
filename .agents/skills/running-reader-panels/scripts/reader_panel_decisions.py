@@ -137,13 +137,29 @@ class DecisionClient:
                   "desired_payoff": profile.desired_payoff}
         if profile.drawn_in_by and profile.put_off_by:
             reader.update(drawn_in_by=profile.drawn_in_by, put_off_by=profile.put_off_by)
-        instruction = (
-            "At this point in the article, what does this reader do next? "
-            "Choose only from the offered actions. The reader cannot see text beyond visible_text."
-            if stage in {"aside-choice", "return-choice"} else
-            "At this point in the article, what does this reader do next? "
-            "Distinguish lost interest from stopping satisfied."
-        )
+        if stage == "post-read-effect":
+            instruction = (
+                "The reader chose to read the optional additional piece after the article. "
+                "Compared with their satisfaction immediately before opening it, did that reading "
+                "increase, maintain or decrease satisfaction with the article for their original goal? "
+                "Judge the added reading, not whether they would recommend the article."
+            )
+        elif stage == "post-choice":
+            instruction = (
+                "The article has ended for this reader. They can now see only the title and standfirst "
+                "of an optional additional read. Would they open and read it or skip it? "
+                "The reader cannot see its body unless they choose open."
+            )
+        elif stage in {"aside-choice", "return-choice"}:
+            instruction = (
+                "At this point in the article, what does this reader do next? "
+                "Choose only from the offered actions. The reader cannot see text beyond visible_text."
+            )
+        else:
+            instruction = (
+                "At this point in the article, what does this reader do next? "
+                "Distinguish lost interest from stopping satisfied."
+            )
         payload = {
             "model": MODEL,
             "state": {"reader": reader, "article_title": title, "reader_promise": promise,
