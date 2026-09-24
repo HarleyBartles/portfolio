@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -48,6 +49,30 @@ class Article:
     promise: str
     beats: tuple[Beat, ...]
     sha256: str
+    asides: tuple[dict[str, str], ...] = ()
+
+
+def _structured_article(path: Path) -> tuple[dict, list[str], tuple[dict[str, str], ...]]:
+    extractor = Path(__file__).resolve().parents[4] / "src/client/scripts/extract-article-blocks.mjs"
+    result = subprocess.run(["node", str(extractor), str(path)], capture_output=True,
+                            text=True, encoding="utf-8", check=False)
+    if result.returncode != 0:
+        raise SourceError(f"Article block contract failed: {result.stderr.strip()}")
+    document = json.loads(result.stdout)
+    prose: list[str] = []
+    asides: list[dict[str, str]] = []
+    for item in document["blocks"]:
+        if item["kind"] == "prose":
+            prose.extend(item["markdown"].splitlines())
+        elif item["kind"] == "aside":
+            asides.append({"id": item["id"], "title": item["title"],
+                           "standfirst": item["standfirst"], "body": item["markdown"]})
+        elif item["kind"] == "figure":
+            prose.append(f"Figure: {item['description']} Caption: {item['caption']}")
+        elif item["kind"] == "pullquote":
+            prose.append(f"Pull quote: {item['text']}")
+        prose.append("")
+    return document, prose, tuple(asides)
 
 
 def _frontmatter_and_body(source: str) -> tuple[dict[str, str], list[str]]:
@@ -82,7 +107,13 @@ def parse_article(path: Path) -> Article:
         metadata, lines = _frontmatter_and_body(raw.decode("utf-8-sig"))
     except UnicodeError as error:
         raise SourceError("Article must be UTF-8") from error
-    title = ""
+    asides: tuple[dict[str, str], ...] = ()
+    if re.search(r"^:::(aside|figure|pullquote)\b", raw.decode("utf-8-sig"), re.MULTILINE):
+        document, lines, asides = _structured_article(path)
+        metadata["summary"] = document["promise"]
+        title = document["title"]
+    else:
+        title = ""
     prose: list[str] = []
     title_fence_character = ""
     title_fence_length = 0
@@ -144,7 +175,7 @@ def parse_article(path: Path) -> Article:
         for index, (heading, _) in enumerate(boundaries)
         for next_start in [boundaries[index + 1][1] if index + 1 < len(boundaries) else len(prose)]
     )
-    return Article(path.resolve(), title, promise, beats, hashlib.sha256(raw).hexdigest())
+    return Article(path.resolve(), title, promise, beats, hashlib.sha256(raw).hexdigest(), asides)
 
 
 def load_profiles(

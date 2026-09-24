@@ -13,6 +13,51 @@ from reader_panel_source import ReaderProfile, SourceError, load_profiles, parse
 
 
 class ReaderPanelSourceTests(unittest.TestCase):
+    def test_article_blocks_keep_optional_aside_out_of_core_beats(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "article.md"
+            path.write_text('''---
+summary: "A useful promise."
+---
+# A story
+
+Opening stakes.
+
+## The organisation
+
+The organisation grew.
+
+:::figure chart
+visual: agent-organisation-overhead
+description: Will oversees Rooms.
+caption: The reporting lines.
+:::end-figure
+
+:::aside experiment
+title: Optional experiment
+standfirst: Another route.
+disclosure: Read it
+
+## A hidden heading
+
+Hidden body.
+:::end-aside
+
+:::pullquote
+The novel needed work, not a department.
+:::end-pullquote
+
+The main route continues.
+''', encoding="utf-8")
+            article = parse_article(path)
+        self.assertEqual([beat.heading for beat in article.beats], ["Opening", "The organisation"])
+        self.assertEqual(article.asides[0]["id"], "experiment")
+        self.assertEqual(article.asides[0]["body"], "## A hidden heading\n\nHidden body.")
+        self.assertIn("Figure: Will oversees Rooms.", article.beats[-1].visible_prefix)
+        self.assertIn("Pull quote: The novel needed work", article.beats[-1].visible_prefix)
+        self.assertNotIn("Hidden body", article.beats[-1].visible_prefix)
+        self.assertIn("The main route continues", article.beats[-1].visible_prefix)
+
     def test_archetype_catalogue_can_grow_beyond_run_cohort_limit(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "archetypes.json"

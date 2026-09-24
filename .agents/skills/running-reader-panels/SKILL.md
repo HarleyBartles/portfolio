@@ -27,15 +27,17 @@ Use this panel to identify passages worth reading again with editorial judgment.
 
 ## Run a panel
 
-Start with a dry run; it lists beats, estimated calls and estimated input cost without sending text:
+For a new run, author and freeze an [experiment manifest](references/experiment-manifest.md) in off-repo scratch beside the cohort. Its ordered beats describe what readers can actually see, including the visible invitation and hidden body of an optional aside. Choose the conditions before inspecting outcomes. Start with a dry run; it lists beats, estimated calls and estimated input cost without sending text:
 
 ```powershell
-py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --article src/client/src/data/content/writing/<draft>.md --profile-file <cohort.json> --check
+py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-file <experiment.json> --profile-file <cohort.json> --check
 ```
 
-Headed articles use sections as beats. An unheaded long-form article uses paragraph-boundary passages, so lack of headings does not collapse the whole piece into one decision. A very short lead-in before the first heading joins the reader promise instead of becoming a standalone abandonment point. Check the listed beats against the actual article before a paid run; boundaries are a reading aid, not editorial structure.
+The reasoning agent chooses the beats and their editorial jobs. Do not let Markdown headings or a parser decide attention boundaries. Check the manifest against the actual article and rendered page before a paid run; the source hashes prevent stale inputs but cannot certify that the route is editorially faithful. Keep the cohort separate so exactly the same readers can assess controlled conditions and later drafts.
 
-For a paid run, set `OPENROUTER_API_KEY` in the process environment and pass `--apply --max-calls <count> --max-usd <amount>`. Article prefixes go to OpenRouter's Jev Decisions API. The JSON report is saved in canonical off-repo scratch. Use `--help` for paired drafts, profile files, selection, and source limits.
+When the extra material is offered only after the article, use a version 2 manifest with ordinary article beats and a separate `optional_read`. Offer it to readers who reach the ending or stop satisfied; record their choice and, for openers, the effect on satisfaction with their original reading goal. Keep readers who leave from lost interest out of the offer denominator.
+
+For a paid run, set `OPENROUTER_API_KEY` in the process environment and pass `--apply --max-calls <count> --max-usd <amount>`. Only the text actually exposed on a reader's route goes to OpenRouter's Jev Decisions API. The CLI prints periodic progress while running and saves a JSON report in canonical off-repo scratch. Use `--help` for profile selection and source limits. The older `--article` mode is available for existing flat-text runs but does not model optional content.
 
 ## Assemble readers for this article
 
@@ -51,3 +53,5 @@ Compare an original and a deliberately weakened passage to check whether the pan
 - Promoting a cohort based on one article or one control run.
 - Writing readers as predictions that the article succeeds or fails, then treating the panel as an independent test.
 - Keeping draft-dependent readers to preserve a 100-reader total, or repeatedly replacing them until the total reaches 100.
+- Inferring an aside-opening preference from a run that forced every reader to see its body.
+- Comparing the choices of self-selected aside readers as though they were randomly assigned.

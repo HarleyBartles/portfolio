@@ -411,7 +411,9 @@ describe('ContentPage specialist presentation boundary', () => {
 
     const header = await screen.findByRole('region', { name: 'Agent organisation article introduction' }, { timeout: 5_000 })
     expect(header).toHaveAttribute('data-visual-contract', 'agent-organisation-overhead')
-    expect(await within(header).findByRole('figure', undefined, { timeout: 5_000 })).toBeVisible()
+    expect(header.querySelector('figure')).toBeNull()
+    const figure = await screen.findByRole('figure', { name: /Will oversees Rooms and Adventures of Patch/i }, { timeout: 5_000 })
+    expect(figure).toBeVisible()
 
     const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
     expect(within(continuations).getByRole('link', { name: /provision only what the work needs/i })).toHaveAttribute(

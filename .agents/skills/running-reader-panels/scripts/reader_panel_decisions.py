@@ -5,7 +5,6 @@ from __future__ import annotations
 import math
 import re
 from dataclasses import dataclass, replace
-from typing import Literal
 
 import httpx
 from openrouter import OpenRouter, errors as openrouter_errors
@@ -21,7 +20,6 @@ CHOICES = {
     "leave_lost_interest": "The reader abandons the article because interest or relevance has been lost, not because their goal was met.",
     "stop_satisfied": "The reader stops because the article has already delivered what they came for, not because interest was lost.",
 }
-DecisionChoice = Literal["read_closely", "skim", "leave_lost_interest", "stop_satisfied"]
 
 
 class DecisionError(RuntimeError):
@@ -34,7 +32,7 @@ class DecisionError(RuntimeError):
 
 @dataclass(frozen=True)
 class Decision:
-    choice: DecisionChoice
+    choice: str
     probabilities: dict[str, float]
     cost_usd: float
     input_tokens: int | None
@@ -68,18 +66,18 @@ def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
     }
 
 
-def _parse_decision(result: dict) -> Decision:
+def _parse_decision(result: dict, criteria: dict[str, str] = CHOICES) -> Decision:
     model = result.get("model")
     if not isinstance(model, str) or not (
         model == MODEL or re.fullmatch(r"typesafe/jev-1\.13-\d{8}", model)
     ):
         raise DecisionError("Decision response used an unexpected model")
     answer = result.get("answers", {}).get("attention") if isinstance(result.get("answers"), dict) else None
-    if not isinstance(answer, dict) or answer.get("type") != "choice" or answer.get("choice") not in CHOICES:
+    if not isinstance(answer, dict) or answer.get("type") != "choice" or answer.get("choice") not in criteria:
         raise DecisionError("Decision response lacked a valid typed choice")
     probabilities = answer.get("probabilities", {})
     if not isinstance(probabilities, dict) or any(
-        key not in CHOICES or isinstance(value, bool) or not isinstance(value, (int, float))
+        key not in criteria or isinstance(value, bool) or not isinstance(value, (int, float))
         or not math.isfinite(value) or not 0 <= value <= 1
         for key, value in probabilities.items()
     ):
@@ -127,17 +125,63 @@ class DecisionClient:
         self._sdk.__exit__(exc_type, exc_value, traceback)
 
     def decide(self, profile: ReaderProfile, article: Article, beat: Beat, max_attempts: int) -> Decision:
+        return self._call(build_request(profile, article, beat), CHOICES, max_attempts)
+
+    def decide_experiment(
+        self, profile: ReaderProfile, title: str, promise: str, visible_text: str,
+        stage: str, criteria: dict[str, str], max_attempts: int,
+    ) -> Decision:
+        if not criteria or any(not key or not value for key, value in criteria.items()):
+            raise DecisionError("Experiment choice criteria are invalid", attempts=0)
+        reader = {"arrival_intent": profile.arrival_intent, "background": profile.background,
+                  "desired_payoff": profile.desired_payoff}
+        if profile.drawn_in_by and profile.put_off_by:
+            reader.update(drawn_in_by=profile.drawn_in_by, put_off_by=profile.put_off_by)
+        if stage == "post-read-effect":
+            instruction = (
+                "The reader chose to read the optional additional piece after ending their main reading. "
+                "They may have stopped satisfied before the article's final passage. "
+                "Compared with their satisfaction immediately before opening it, did that reading "
+                "increase, maintain or decrease satisfaction with the article for their original goal? "
+                "Judge the added reading, not whether they would recommend the article."
+            )
+        elif stage == "post-choice":
+            instruction = (
+                "This reader has ended their main reading, either at the article's final passage or "
+                "earlier because they were satisfied. They can now see only the title and standfirst "
+                "of an optional additional read. Would they open and read it or skip it? "
+                "The reader cannot see its body unless they choose open."
+            )
+        elif stage in {"aside-choice", "return-choice"}:
+            instruction = (
+                "At this point in the article, what does this reader do next? "
+                "Choose only from the offered actions. The reader cannot see text beyond visible_text."
+            )
+        else:
+            instruction = (
+                "At this point in the article, what does this reader do next? "
+                "Distinguish lost interest from stopping satisfied."
+            )
+        payload = {
+            "model": MODEL,
+            "state": {"reader": reader, "article_title": title, "reader_promise": promise,
+                      "visible_text": visible_text},
+            "questions": {"attention": {"type": "choice", "instructions": instruction,
+                                        "criteria": criteria}},
+        }
+        return self._call(payload, criteria, max_attempts)
+
+    def _call(self, payload: dict, criteria: dict[str, str], max_attempts: int) -> Decision:
         if not 1 <= max_attempts <= 3:
             raise DecisionError("Decision attempt limit must be 1–3", attempts=0)
         self._attempts = 0
         self._max_attempts = max_attempts
-        payload = build_request(profile, article, beat)
         try:
             response = self._sdk.alpha.decisions.create(
                 model=payload["model"], questions=payload["questions"],
                 state=payload["state"], retries=self._retries,
             )
-            return replace(_parse_decision(response.model_dump()), attempts=self._attempts)
+            return replace(_parse_decision(response.model_dump(), criteria), attempts=self._attempts)
         except _WireLimitReached:
             raise DecisionError("Decision retry limit reached", attempts=self._attempts) from None
         except openrouter_errors.OpenRouterError as error:

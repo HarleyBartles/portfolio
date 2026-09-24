@@ -18,7 +18,7 @@ test('renders the canonical pull quote with an optional attribution', () => {
     .join('\n')
 
   expect(styles).toContain('font-size:clamp(1.65rem, 3.2vw, 2.7rem)')
-  expect(styles).toContain('font-weight:600')
+  expect(styles).toContain('font-weight:700')
   expect(styles).toContain('background:color-mix(in srgb, var(--color-accent-soft) 36%, transparent)')
 })
 

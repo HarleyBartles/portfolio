@@ -8,13 +8,17 @@ const Quote = styled.blockquote<{ $typeRegister: 'article-serif' | 'site-sans' }
   background: color-mix(in srgb, ${({ theme }) => theme.color.accentSoft} 36%, transparent);
   padding: var(--space-5) ${({ theme }) => theme.space.lg};
 
+  @media (min-width: 60rem) {
+    width: ${({ $typeRegister, theme }) => $typeRegister === 'article-serif' ? `min(54rem, calc(100vw - ${theme.space.xxl}))` : 'auto'};
+  }
+
   p {
     margin: 0;
     color: ${({ theme }) => theme.color.ink};
     font-family: ${({ $typeRegister, theme }) => $typeRegister === 'article-serif' ? theme.font.display : theme.font.siteSans};
     font-size: clamp(1.65rem, 3.2vw, 2.7rem);
     font-style: italic;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.06;
   }
