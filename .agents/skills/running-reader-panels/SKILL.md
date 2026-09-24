@@ -39,7 +39,7 @@ For a paid run, set `OPENROUTER_API_KEY` in the process environment and pass `--
 
 ## Assemble readers for this article
 
-For a new article, use the expandable [motive-led archetype pool](assets/reader-archetypes.json), its [catalogue](references/reader-archetype-catalogue.md) and the [quorum-authoring method](references/assembling-a-quorum.md). A reasoning agent chooses the archetype allocation, writes article-specific readers, checks for leading or duplicate profiles, and freezes the charter and cohort JSON in off-repo scratch *before* a paid call. Pass that JSON with `--profile-file`; there is no default cohort. A normal full panel has 100 readers; the starting cap is ten per archetype. A smaller panel is better than irrelevant padding. The runner does not generate readers.
+For a new article, use the expandable [motive-led archetype pool](assets/reader-archetypes.json), its [catalogue](references/reader-archetype-catalogue.md) and the [quorum-authoring method](references/assembling-a-quorum.md). Aim for 100 credible readers, with at most ten per archetype. Before a paid call, audit every reader for dependence on the current draft's specific examples, structure or conclusions. Make one repair pass on readers that fail, recheck only those readers, and remove any still tainted. Do not refill or repeat the repair cycle to reach 100: a smaller clean cohort is preferable. Freeze the admitted charter and cohort JSON in off-repo scratch, then pass that JSON with `--profile-file`; there is no default cohort. The runner checks mechanical boundaries, not this editorial admission gate, and does not generate readers.
 
 Compare an original and a deliberately weakened passage to check whether the panel detects an obvious loss. Inspect the per-archetype choices and individual trajectories as well as totals. Readers who stop satisfied have not lost interest. Read every flagged passage in context; a slow build or resolved ending may be doing its job. The panel cannot authorize a rewrite or publication.
 
@@ -50,3 +50,4 @@ Compare an original and a deliberately weakened passage to check whether the pan
 - Treating a reaction to deliberate pacing as a defect without reading the passage.
 - Promoting a cohort based on one article or one control run.
 - Writing readers as predictions that the article succeeds or fails, then treating the panel as an independent test.
+- Keeping draft-dependent readers to preserve a 100-reader total, or repeatedly replacing them until the total reaches 100.
