@@ -6,6 +6,8 @@ An opening establishes focus, authority, direction, voice and the writer-reader 
 
 Ask what the opening promises. Then check whether the body keeps that promise without padding or bait-and-switch urgency. Background belongs first only when the reader needs it first.
 
+Read the title, summary and opening beat without the rest of the article. Ask what earns the next minute of attention, what the reader expects to learn, and where each substantial title promise becomes visible. If an opening revision loses its pull, identify which job went missing before changing sentences. Keep a proven opening when it still fits, but preserve its editorial function rather than treating its words as sacred. A fair paired reader panel can point to a possible loss; it cannot explain the cause or make the decision for the editor.
+
 ## Endings
 
 An ending should feel caused by the article. It may:
