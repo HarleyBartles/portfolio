@@ -2,19 +2,17 @@ import { describe, expect, test } from 'vitest'
 import { getWritingPresentation } from './writingPresentations'
 
 describe('writing presentations', () => {
-  test('registers the authored Vibe presentation', () => {
+  test('keeps Vibe text-led while retaining its authored continuations', () => {
     const presentation = getWritingPresentation('agentic-engineering-vs-vibe-coding')
 
     expect(presentation).toMatchObject({
-      figure: {
-        id: 'vibe-coding-door-road-visual',
-        description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.',
-      },
+      layout: 'standard',
       continuations: [
         { slug: 'graph-iterative-review', contextLabel: 'Follow the review machinery', rationale: 'Follow the review machinery' },
         { slug: 'provisioning-is-not-accumulation', contextLabel: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },
       ],
     })
+    expect(presentation?.figure).toBeUndefined()
   })
 
   test('registers the authored Why ADRs presentation and fails closed for unknown slugs', () => {

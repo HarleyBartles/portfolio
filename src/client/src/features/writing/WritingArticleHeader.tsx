@@ -4,7 +4,6 @@ import { MetadataRow, PageLead, PageTitle } from '../../components'
 
 export type WritingArticleHeaderLayout =
   | 'standard'
-  | 'vibe-door-road'
   | 'decision-memory'
   | 'capability-read-path'
   | 'review-graph-authority'
@@ -25,10 +24,6 @@ const Intro = styled.div`
 `
 
 const HeaderTitle = styled(PageTitle)<{ $layout: WritingArticleHeaderLayout }>`
-  ${({ $layout }) => $layout === 'vibe-door-road' ? css`
-    max-width: 13ch;
-  ` : ''}
-
   ${({ $layout }) => $layout === 'capability-read-path' ? css`
     font-size: clamp(2.7rem, 5.2vw, 4.6rem);
   ` : ''}
@@ -69,20 +64,6 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
     max-width: ${theme.layout.readingMeasure};
   `}
 
-  ${({ $layout, theme }) => $layout === 'vibe-door-road' ? css`
-    @media (min-width: 46.0625rem) {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
-      gap: clamp(${theme.space.xl}, 6vw, ${theme.space.xxxl});
-      align-items: center;
-      padding-bottom: clamp(var(--space-10), 7vw, ${theme.space.xxxl});
-    }
-
-    @media (min-width: 46.0625rem) and (max-width: 64rem) {
-      grid-template-columns: 1fr;
-    }
-
-  ` : ''}
-
   ${({ $layout }) => $layout === 'decision-memory' || $layout === 'capability-read-path' ? css`
     @media (min-width: 60rem) {
       grid-template-columns: minmax(16rem, 0.72fr) minmax(32rem, 1.28fr);
@@ -111,7 +92,7 @@ const Header = styled.header<{ $hasVisual: boolean; $layout: WritingArticleHeade
   ` : ''}
 
   @media (max-width: 64rem) {
-    ${({ $hasVisual, $layout }) => $hasVisual && $layout !== 'review-graph-authority' && $layout !== 'vibe-door-road' ? 'grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);' : ''}
+    ${({ $hasVisual, $layout }) => $hasVisual && $layout !== 'review-graph-authority' ? 'grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);' : ''}
   }
 
   @media (max-width: 46rem) {
