@@ -88,6 +88,8 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Confirm that code, quotations and technical terms render correctly.
 - For copy and metadata changes in the unchanged article shell, check the article's semantics and reading order without a full visual re-inspection. When changing the shell or adding a new composition, use the design policy's viewport, keyboard, motion and zoom review. When removing redundant article-specific header artwork from an otherwise unchanged shell, check that no empty slot remains; review other visual removals according to their effect on the composition.
 - Check that pull quotes, figures and asides earn their interruption.
+- Author editorial instruments at their reading position in the article Markdown. Use `:::aside id` through `:::end-aside` for a collapsed inline aside, `:::figure id` through `:::end-figure` for a figure, and `:::pullquote` through `:::end-pullquote` for a pull quote. The article block parser maps these to React components; the reader-panel source parser uses the same block boundaries and excludes aside bodies from the core read. Do not encode an aside as a heading or rely on a route-specific heading split.
+- An aside declares title, eyebrow, standfirst and disclosure fields before a blank line and its Markdown body. A figure declares description, caption, optional wide layout, and exactly one source: a public image path or a registered ID for an authored React diagram. The source, caption and description live in Markdown even when the illustration is a React component.
 - Inventory language across all public copy and apply the site-wide 12A-inspired house standard.
 - Consider every other relevant BBFC 12A category, not language alone.
 

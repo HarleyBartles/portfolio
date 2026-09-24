@@ -71,10 +71,8 @@ describe('writing presentations', () => {
     expect(presentation).toMatchObject({
       regionLabel: 'Agent organisation article introduction',
       visualContract: 'agent-organisation-overhead',
-      figure: {
-        id: 'agent-organisation-overhead-visual',
-        description: 'Will turned Harley’s intent into a small cross-repository organisation. Chris directed Rooms through three department heads while Patch represented another project under Will.',
-      },
+      layout: 'standard',
     })
+    expect(presentation).not.toHaveProperty('figure')
   })
 })

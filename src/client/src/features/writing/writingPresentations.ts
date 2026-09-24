@@ -76,12 +76,7 @@ const writingPresentations = {
   'i-made-agentic-engineering-harder-than-it-needed-to-be': {
     regionLabel: 'Agent organisation article introduction',
     visualContract: 'agent-organisation-overhead',
-    layout: 'agent-organisation-overhead',
-    figure: {
-      id: 'agent-organisation-overhead-visual',
-      description: 'Will turned Harley’s intent into a small cross-repository organisation. Chris directed Rooms through three department heads while Patch represented another project under Will.',
-      Component: lazy(async () => ({ default: (await import('./ContextComplexityFigure')).ContextComplexityFigure })),
-    },
+    layout: 'standard',
     continuations: [
       { slug: 'provisioning-is-not-accumulation', contextLabel: 'Provision only what the work needs', rationale: 'Provision only what the work needs' },
       { slug: 'graph-iterative-review', contextLabel: 'Engineer the route, not the theatre', rationale: 'Engineer the route, not the theatre' },

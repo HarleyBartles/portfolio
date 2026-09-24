@@ -217,6 +217,9 @@ def main(
         for article in articles:
             print(f"{article.path.name}: {len(article.beats)} beats: " +
                   ", ".join(beat.heading for beat in article.beats))
+            if article.asides:
+                print("Inline asides excluded from core beats: " +
+                      ", ".join(item["id"] for item in article.asides))
         allocation: dict[str, int] = {}
         for profile in profiles:
             if profile.archetype_id:

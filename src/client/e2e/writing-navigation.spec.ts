@@ -412,7 +412,7 @@ test('Context hierarchy reflows from the figure width while retaining readable r
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('./writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', { waitUntil: 'networkidle' })
 
-  const figure = page.locator('[data-visual-contract="agent-organisation-overhead"] figure')
+  const figure = page.getByRole('figure', { name: /Will oversees Rooms and Adventures of Patch/i })
   await expect(figure).toBeVisible()
   const desktopProjects = await figure.locator('section').all()
   const desktopProjectBoxes = await Promise.all(desktopProjects.map((project) => project.boundingBox()))

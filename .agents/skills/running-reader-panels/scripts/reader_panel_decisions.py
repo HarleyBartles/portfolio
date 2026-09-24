@@ -139,14 +139,16 @@ class DecisionClient:
             reader.update(drawn_in_by=profile.drawn_in_by, put_off_by=profile.put_off_by)
         if stage == "post-read-effect":
             instruction = (
-                "The reader chose to read the optional additional piece after the article. "
+                "The reader chose to read the optional additional piece after ending their main reading. "
+                "They may have stopped satisfied before the article's final passage. "
                 "Compared with their satisfaction immediately before opening it, did that reading "
                 "increase, maintain or decrease satisfaction with the article for their original goal? "
                 "Judge the added reading, not whether they would recommend the article."
             )
         elif stage == "post-choice":
             instruction = (
-                "The article has ended for this reader. They can now see only the title and standfirst "
+                "This reader has ended their main reading, either at the article's final passage or "
+                "earlier because they were satisfied. They can now see only the title and standfirst "
                 "of an optional additional read. Would they open and read it or skip it? "
                 "The reader cannot see its body unless they choose open."
             )

@@ -227,9 +227,9 @@ function OrganisationNode({ name, role }: OrganisationNodeProps): ReactElement {
   )
 }
 
-export function ContextComplexityFigure(): ReactElement {
+export function ContextComplexityFigure({ caption, description }: { caption: string; description: string }): ReactElement {
   return (
-    <Figure aria-labelledby="context-org-chart-caption">
+    <Figure aria-label={description}>
       <Canvas aria-hidden="true">
         <Eyebrow>The standing organisation</Eyebrow>
         <RootNode><strong>Will</strong><span>Harley’s will, made concrete</span></RootNode>
@@ -250,9 +250,7 @@ export function ContextComplexityFigure(): ReactElement {
           </Project>
         </Portfolio>
       </Canvas>
-      <Caption id="context-org-chart-caption">
-        Will made Harley’s intent concrete. Under him, Rooms had a Project Director and three department heads; Patch represented another repository. A lot of organisation had gathered around “do some work please”.
-      </Caption>
+      <Caption>{caption}</Caption>
     </Figure>
   )
 }

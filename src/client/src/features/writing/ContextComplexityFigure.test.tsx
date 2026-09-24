@@ -4,9 +4,10 @@ import { ContextComplexityFigure } from './ContextComplexityFigure'
 
 describe('ContextComplexityFigure', () => {
   test('names the factual hierarchy without turning the figure into a roll call', () => {
-    render(<ContextComplexityFigure />)
+    render(<ContextComplexityFigure description="Will oversees Rooms and Patch" caption="The reporting lines across both projects." />)
 
-    expect(screen.getByRole('figure', { name: /Will made Harley’s intent concrete/i })).toBeInTheDocument()
+    expect(screen.getByRole('figure', { name: /Will oversees Rooms and Patch/i })).toBeInTheDocument()
+    expect(screen.getByText('The reporting lines across both projects.')).toBeVisible()
     expect(screen.getByText('Will')).toBeVisible()
     expect(screen.getByText('The standing organisation').closest('[aria-hidden="true"]')).not.toBeNull()
     expect(screen.getByText('Chris')).toBeVisible()

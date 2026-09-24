@@ -22,6 +22,7 @@ import { isProjectVisualSlug } from '../features/home/projectVisualRegistry'
 import { ProjectCaseStudyHeader, type ProjectCaseStudyHeaderLayout } from '../features/case-study/ProjectCaseStudyHeader'
 import { getProjectPresentation } from '../features/case-study/projectPresentations'
 import { getWritingPresentation } from '../features/writing/writingPresentations'
+import { ArticleMarkdown } from '../features/writing/ArticleMarkdown'
 import { getWritingArticleBody, type WritingArticleBody } from '../features/writing/writingArticleBodies'
 import { WritingArticleShell } from '../features/writing/WritingArticleShell'
 import { WritingArticleBodyLoading } from '../features/writing/WritingArticleBodyLoading'
@@ -129,6 +130,8 @@ const ArticleBodyContent = ({ presentation: Presentation, writingBody: WritingBo
   if (WritingBody !== undefined) {
     return <Suspense fallback={<WritingArticleBodyLoading />}><WritingBody markdown={markdown} /></Suspense>
   }
+
+  if (proseRegister === 'article-serif') return <ArticleMarkdown markdown={markdown} />
 
   return <ContentProse layout={proseLayout} register={proseRegister} markdown={markdown} />
 }

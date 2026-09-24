@@ -9,11 +9,25 @@ const markdown = `Opening argument.
 
 The main story continues.
 
-## I tried the packaged version
+:::figure organisation
+visual: agent-organisation-overhead
+description: Will oversees Rooms and Patch.
+caption: The reporting lines across both projects.
+layout: wide
+:::end-figure
+
+:::aside packaged-organisation
+title: The packaged organisation
+eyebrow: Same abstraction, different bill
+standfirst: My hand-rolled version charged repository complexity.
+disclosure: Read the WorkClaw experiment
 
 The WorkClaw experiment stands alone.
+:::end-aside
 
-## A role is not a sign on the wall
+:::pullquote
+The novel needed research, world-building and writing.
+:::end-pullquote
 
 The main argument does not depend on the aside.`
 
@@ -39,7 +53,8 @@ describe('ContextComplexityArticle', () => {
 
     expect(disclosure).toHaveAttribute('open')
     expect(within(aside).getByText('The WorkClaw experiment stands alone.')).toBeInTheDocument()
-    expect(aside.compareDocumentPosition(screen.getByRole('heading', { level: 2, name: 'A role is not a sign on the wall' })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(aside.compareDocumentPosition(screen.getByText('The main argument does not depend on the aside.')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(screen.getByText('The novel needed research, world-building and writing.').closest('blockquote')).toBeInTheDocument()
     expect(screen.queryByRole('heading', { level: 2, name: 'I tried the packaged version' })).not.toBeInTheDocument()
   })
 })

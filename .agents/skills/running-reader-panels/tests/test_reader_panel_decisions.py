@@ -31,6 +31,32 @@ def response(choice: str = "skim", cost: float = 0.00001) -> dict:
 
 
 class DecisionTests(unittest.TestCase):
+    def test_post_read_prompts_allow_early_satisfied_exit(self) -> None:
+        captured = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            payload = json.loads(request.content)
+            captured.append(payload)
+            options = payload["questions"]["attention"]["criteria"]
+            chosen = "open" if "open" in options else "increased"
+            result = response()
+            result["answers"]["attention"]["choice"] = chosen
+            result["answers"]["attention"]["probabilities"] = {chosen: 1.0}
+            return httpx.Response(200, json=result)
+
+        with httpx.Client(transport=httpx.MockTransport(handler)) as http_client:
+            client = DecisionClient("private-key", http_client=http_client)
+            client.decide_experiment(PROFILE, "Title", "Promise", "VISIBLE PREFIX", "post-choice",
+                                     {"open": "Read", "skip": "Skip"}, 3)
+            client.decide_experiment(PROFILE, "Title", "Promise", "VISIBLE PREFIX AND EXTRA",
+                                     "post-read-effect",
+                                     {"increased": "More", "maintained": "Same", "decreased": "Less"}, 3)
+        self.assertTrue(all("stopped satisfied before" in p["questions"]["attention"]["instructions"]
+                            or "earlier because they were satisfied" in
+                            p["questions"]["attention"]["instructions"] for p in captured))
+        self.assertEqual(captured[0]["state"]["visible_text"], "VISIBLE PREFIX")
+        self.assertEqual(captured[1]["state"]["visible_text"], "VISIBLE PREFIX AND EXTRA")
+
     def test_experiment_choice_uses_only_offered_options_and_visible_text(self) -> None:
         captured = []
 
