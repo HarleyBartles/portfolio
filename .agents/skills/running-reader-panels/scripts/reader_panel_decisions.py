@@ -2,19 +2,18 @@
 
 from __future__ import annotations
 
-import json
 import math
 import re
-import time
-import urllib.error
-import urllib.request
 from dataclasses import dataclass, replace
-from typing import Callable, Literal
+from typing import Literal
+
+import httpx
+from openrouter import OpenRouter, errors as openrouter_errors
+from openrouter.utils import BackoffStrategy, RetryConfig
 
 from reader_panel_source import Article, Beat, ReaderProfile
 
 
-ENDPOINT = "https://openrouter.ai/api/alpha/decisions"
 MODEL = "typesafe/jev-1.13"
 CHOICES = {
     "read_closely": "The reader remains interested and reads this beat attentively.",
@@ -23,7 +22,6 @@ CHOICES = {
     "stop_satisfied": "The reader stops because the article has already delivered what they came for, not because interest was lost.",
 }
 DecisionChoice = Literal["read_closely", "skim", "leave_lost_interest", "stop_satisfied"]
-Transport = Callable[[dict, str], dict]
 
 
 class DecisionError(RuntimeError):
@@ -32,14 +30,6 @@ class DecisionError(RuntimeError):
     def __init__(self, message: str, attempts: int = 1):
         self.attempts = attempts
         super().__init__(message)
-
-
-class DecisionHTTPError(DecisionError):
-    def __init__(self, status: int, retry_after: float = 0):
-        self.status = status
-        delay = float(retry_after)
-        self.retry_after = min(max(delay, 0.0), 2.0) if math.isfinite(delay) else 0.0
-        super().__init__(f"Decision endpoint returned HTTP {status}")
 
 
 @dataclass(frozen=True)
@@ -78,35 +68,6 @@ def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
     }
 
 
-def _http_transport(payload: dict, api_key: str) -> dict:
-    request = urllib.request.Request(
-        ENDPOINT,
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=15) as response:
-            body = response.read(1_000_001)
-    except urllib.error.HTTPError as error:
-        try:
-            delay = float(error.headers.get("Retry-After", "0")) if error.headers else 0
-        except ValueError:
-            delay = 0
-        raise DecisionHTTPError(error.code, delay) from None
-    except (urllib.error.URLError, TimeoutError) as error:
-        raise DecisionError("Decision endpoint unavailable") from None
-    if len(body) > 1_000_000:
-        raise DecisionError("Decision response exceeded size limit")
-    try:
-        result = json.loads(body)
-    except (UnicodeError, json.JSONDecodeError):
-        raise DecisionError("Decision endpoint returned invalid JSON") from None
-    if not isinstance(result, dict):
-        raise DecisionError("Decision endpoint returned an invalid object")
-    return result
-
-
 def _parse_decision(result: dict) -> Decision:
     model = result.get("model")
     if not isinstance(model, str) or not (
@@ -135,29 +96,55 @@ def _parse_decision(result: dict) -> Decision:
     return Decision(answer["choice"], probabilities, float(cost), tokens, model)
 
 
-def decide(
-    profile: ReaderProfile,
-    article: Article,
-    beat: Beat,
-    *,
-    api_key: str,
-    transport: Transport | None = None,
-    max_attempts: int = 3,
-) -> Decision:
-    """Ask one future-blind question; retry only a bounded rate limit."""
-    if not 1 <= max_attempts <= 3:
-        raise DecisionError("Decision attempt limit must be 1–3", attempts=0)
-    payload = build_request(profile, article, beat)
-    send = transport or _http_transport
-    for attempt in range(1, max_attempts + 1):
+class _WireLimitReached(Exception):
+    """Stop the SDK before it sends a request beyond the panel's call cap."""
+
+
+class DecisionClient:
+    """Use the OpenRouter SDK while preserving the panel's wire-call accounting."""
+
+    def __init__(self, api_key: str, *, http_client: httpx.Client | None = None):
+        self._attempts = 0
+        self._max_attempts = 0
+        self._http_client = http_client or httpx.Client(follow_redirects=True)
+        self._http_client.event_hooks["request"].append(self._count_request)
+        self._sdk = OpenRouter(api_key=api_key, client=self._http_client, timeout_ms=15_000)
+        self._retries = RetryConfig(
+            "backoff", BackoffStrategy(500, 1_000, 2.0, 1_500, jitter_ms=0), True,
+            status_codes_override=["408", "429", "500", "502", "503", "504", "524", "529"],
+        )
+
+    def _count_request(self, request: httpx.Request) -> None:
+        if self._attempts >= self._max_attempts:
+            raise _WireLimitReached()
+        self._attempts += 1
+
+    def __enter__(self) -> DecisionClient:
+        self._sdk.__enter__()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        self._sdk.__exit__(exc_type, exc_value, traceback)
+
+    def decide(self, profile: ReaderProfile, article: Article, beat: Beat, max_attempts: int) -> Decision:
+        if not 1 <= max_attempts <= 3:
+            raise DecisionError("Decision attempt limit must be 1–3", attempts=0)
+        self._attempts = 0
+        self._max_attempts = max_attempts
+        payload = build_request(profile, article, beat)
         try:
-            return replace(_parse_decision(send(payload, api_key)), attempts=attempt)
-        except DecisionHTTPError as error:
-            if error.status != 429 or attempt == max_attempts:
-                raise DecisionError(f"Decision request failed with HTTP {error.status}", attempts=attempt) from None
-            time.sleep(error.retry_after)
+            response = self._sdk.alpha.decisions.create(
+                model=payload["model"], questions=payload["questions"],
+                state=payload["state"], retries=self._retries,
+            )
+            return replace(_parse_decision(response.model_dump()), attempts=self._attempts)
+        except _WireLimitReached:
+            raise DecisionError("Decision retry limit reached", attempts=self._attempts) from None
+        except openrouter_errors.OpenRouterError as error:
+            raise DecisionError(f"Decision request failed with HTTP {error.status_code}", attempts=self._attempts) from None
+        except httpx.HTTPError:
+            raise DecisionError("Decision endpoint unavailable", attempts=self._attempts) from None
         except DecisionError as error:
-            raise DecisionError(str(error), attempts=attempt) from None
+            raise DecisionError(str(error), attempts=self._attempts) from None
         except Exception:
-            raise DecisionError("Decision request failed before validation", attempts=attempt) from None
-    raise DecisionError("Decision retry limit reached")
+            raise DecisionError("Decision response could not be validated", attempts=self._attempts) from None

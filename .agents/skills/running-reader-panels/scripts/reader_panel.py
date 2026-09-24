@@ -12,7 +12,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Callable, Mapping
 
-from reader_panel_decisions import Decision, DecisionError, build_request, decide
+from reader_panel_decisions import Decision, DecisionClient, DecisionError, build_request
 from reader_panel_report import Observation, PanelReport, render_panel, write_report
 from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort
 
@@ -192,9 +192,13 @@ def main(
     output = args.output.resolve() if args.output else None
     if output and (not args.output.is_absolute() or not output.is_relative_to(workspace)):
         raise PanelError("--output must be an absolute path inside the canonical off-repo scratch workspace")
-    choose = decision_fn or (lambda profile, article, beat, attempts: decide(
-        profile, article, beat, api_key=api_key, max_attempts=attempts))
-    report = run_panel(articles, profiles, decide_fn=choose, max_calls=args.max_calls, max_usd=args.max_usd)
+    if decision_fn is not None:
+        report = run_panel(articles, profiles, decide_fn=decision_fn,
+                           max_calls=args.max_calls, max_usd=args.max_usd)
+    else:
+        with DecisionClient(api_key) as client:
+            report = run_panel(articles, profiles, decide_fn=client.decide,
+                               max_calls=args.max_calls, max_usd=args.max_usd)
     try:
         saved = write_report(report, workspace, output)
     except (OSError, ValueError) as error:
