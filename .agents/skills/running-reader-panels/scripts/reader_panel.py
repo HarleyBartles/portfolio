@@ -180,7 +180,7 @@ def main(
         profiles = tuple(replace(profile, archetype_id=profile.id) for profile in profiles)
     validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
     planned = (len(profiles) * len(experiment["conditions"]) *
-               (len(experiment["beats"]) + 2 * sum(p["kind"] == "aside" for p in experiment["beats"]))
+               (len(experiment["beats"]) + 3 * sum(p["kind"] == "aside" for p in experiment["beats"]))
                if experiment else len(profiles) * sum(len(article.beats) for article in articles))
     if experiment:
         full_text = "\n\n".join(
@@ -192,7 +192,7 @@ def main(
             len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
                             "promise": experiment["promise"], "visible_text": full_text},
                            ensure_ascii=False).encode("utf-8")) * (
-                               len(experiment["beats"]) + 2 * sum(
+                               len(experiment["beats"]) + 3 * sum(
                                    piece["kind"] == "aside" for piece in experiment["beats"]
                                )
                            ) * len(experiment["conditions"])

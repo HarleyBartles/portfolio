@@ -68,6 +68,8 @@ def load_experiment(path: Path) -> dict:
         for item in data["sources"]:
             if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
                 raise SourceError("Experiment source record is invalid")
+            if not isinstance(item["path"], str) or not isinstance(item["sha256"], str):
+                raise SourceError("Experiment source path or hash is invalid")
             source = (path.parent / item["path"]).resolve()
             if not source.is_file() or not re.fullmatch(r"[a-fA-F0-9]{64}", item["sha256"]):
                 raise SourceError("Experiment source path or hash is invalid")

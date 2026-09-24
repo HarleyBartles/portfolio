@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import sys
 import tempfile
 import unittest
@@ -111,3 +113,17 @@ class ExperimentTests(unittest.TestCase):
                                 '"conditions":["omit"]}', encoding="utf-8")
             with self.assertRaisesRegex(SourceError, "source hash"):
                 load_experiment(manifest)
+
+    def test_manifest_rejects_non_string_source_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            manifest = Path(directory) / "experiment.json"
+            for source_record in ({"path": None, "sha256": "0" * 64},
+                                  {"path": "article.md", "sha256": None}):
+                manifest.write_text(json.dumps({
+                    "version": 1, "title": "A", "promise": "B",
+                    "sources": [source_record],
+                    "beats": [{"id": "opening", "kind": "beat", "text": "Text"}],
+                    "conditions": ["omit"],
+                }), encoding="utf-8")
+                with self.assertRaisesRegex(SourceError, "source path or hash"):
+                    load_experiment(manifest)

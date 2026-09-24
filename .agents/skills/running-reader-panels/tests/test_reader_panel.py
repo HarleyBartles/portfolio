@@ -57,6 +57,7 @@ class ReaderPanelTests(unittest.TestCase):
                       "--profiles", "story-first", "--check"],
                      environ={}, decision_fn=lambda *_: self.fail("check mode sent a call"))
             self.assertIn("reader_choice", check_output.getvalue())
+            self.assertIn("up to 12 decisions", check_output.getvalue())
             self.assertIn("0 remote calls", check_output.getvalue())
 
             progress = io.StringIO()
