@@ -24,6 +24,7 @@ Do not add an entry after every invocation. Record a note only for a meaningful 
 | False insistence that a point matters | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | article-writing fatigue reference |
 | Each beat earns the next | Agentic-engineering-harder draft, PR #77 | observed | existing structure-and-movement reference |
 | Optional aside must leave a coherent direct route | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | article-writing web-object review |
+| Text-only panel cannot judge a figure as seen | Agentic-engineering-harder draft, PR #77 | promoted by Harley's process-improvement commission | reader-panel skill |
 
 Allowed statuses are `observed`, `candidate`, `promoted`, `rejected` and `superseded`.
 
@@ -92,6 +93,17 @@ Explain enough to recover the editorial lesson without retaining a phrase bank, 
 - **Scope:** reusable web-object diagnostic for optional material
 - **Candidate owner:** article-writing web-object review in the playbook and final-review reference
 - **Promotion evidence:** Harley's direct-route correction in PR #77 and his subsequent process-improvement commission. Both the closed and opened reading paths are now explicit review steps.
+
+### Candidate: distinguish a figure from its panel text
+
+- **Article or PR:** `i-made-agentic-engineering-harder-than-it-needed-to-be`, PR #77
+- **Editorial stage:** panel beat preparation and rendered article review
+- **Observation:** The organisation diagram was inline on the page, while the text-only panel received its description and caption. Treating that short substitute as a standalone beat separated it from the surrounding account that gave the figure meaning.
+- **Outcome:** the panel beat was rebuilt with the organisation prose and figure description together; the page was read separately for the diagram's visual contribution and placement.
+- **Human correction:** Harley asked for the description inline within the organisation beat because the harness cannot receive images.
+- **Scope:** recurring limit of text-only panel runs when an article contains a figure
+- **Candidate owner:** reader-panel skill
+- **Promotion evidence:** The accepted PR #77 article and Harley's process-improvement commission. The skill now requires a faithful verbal beat and a separate rendered read for visual claims.
 
 ### Candidate: opening beat earns continuation
 
