@@ -21,7 +21,7 @@ Use this playbook to take public editorial work from commission through publicat
 
 The [Portfolio writing policy](../doctrine/writing-policy.md) owns durable editorial law. This playbook owns repository workflow, pass ordering and publication mechanics.
 
-Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web review as distinct passes so a smooth sentence cannot hide a weak proposition or structure. For Linear-backed work, retrieve the full issue and every linked document before editing. During normal publication, the tracked commit hook owns the complete local gate.
+Run Phases A through I in order. Keep macro, meso, micro, voice and web-object review as distinct passes so a smooth sentence cannot hide a weak proposition or structure. For Linear-backed work, retrieve the full issue and every linked document before editing. During normal publication, the tracked commit hook owns the complete local gate.
 
 ### Phase A: Commission and material
 
@@ -57,6 +57,7 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 - Run distinct proposition, promise, structure, evidence, counterpressure, relevance, repetition and ending passes.
 - Remove sections that repeat rather than advance.
 - Check the opening promise against what the article delivers.
+- Review the opening beat on its own with the title and summary: what earns attention, what does the reader expect next, and where does each substantial title promise first become visible? Repair a missing reason to continue before polishing its sentences.
 - Confirm that the title and standfirst describe the article now on the page.
 
 ### Phase E: Meso and micro edit
@@ -85,16 +86,23 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 - Read the title and summary without the body, then only the headings, then the first sentence of every paragraph.
 - Check semantics, accessible link text, metadata, dates, reading time and route presentation.
 - Confirm that code, quotations and technical terms render correctly.
-- Review the article in context at the relevant viewport sizes.
+- For copy and metadata changes in the unchanged article shell, check the article's semantics and reading order without a full visual re-inspection. When changing the shell or adding a new composition, use the design policy's viewport, keyboard, motion and zoom review. When removing redundant article-specific header artwork from an otherwise unchanged shell, check that no empty slot remains; review other visual removals according to their effect on the composition.
 - Check that pull quotes, figures and asides earn their interruption.
 - Inventory language across all public copy and apply the site-wide 12A-inspired house standard.
 - Consider every other relevant BBFC 12A category, not language alone.
 
-### Phase H: Publication evidence
+### Phase H: Accepted-draft retrospective
+
+- Once Harley accepts an article or a decision to preserve it, review the drafting and review process while the evidence is fresh. Name what helped, what misled, what was recovered, and what the method missed. Distinguish editorial judgement from simulated-panel observations.
+- Record a short outcome and a reasoned workflow decision in the article's existing decision record or PR. A decision to leave the method unchanged is a valid result. Do not create a new repository artifact merely to record a routine no-change outcome.
+- For a material candidate lesson, use the skill's field-learning procedure and evidence log. Put an approved durable value in doctrine, a repository step in this playbook, and reusable diagnostic technique in the skill or its references. Do not promote one panel result into a universal rule without editorial reasoning and Harley's decision.
+- Recheck the article and workflow surfaces affected by any change; the retrospective does not hold up an accepted draft to pursue speculative improvements.
+
+### Phase I: Publication evidence
 
 - Run focused content and presentation checks while iterating.
 - Regenerate only the mechanical surfaces affected by the article or writing-system change.
-- Inspect the rendered page and generated diff.
+- Inspect the generated diff. Inspect the rendered page when the change introduces or alters presentation, or when a focused editorial question requires it; copy-only revisions do not require a visual re-inspection.
 - Stage the intended tree and use the tracked pre-commit hook as the complete local gate.
 - Push only the commit already proved locally and use hosted CI as confirmation.
 - Report current evidence rather than asserting readiness from memory.
@@ -119,8 +127,9 @@ Run Phases A through H in order. Keep macro, meso, micro, voice and rendered-web
 - The commission, reader promise, form and non-scope are explicit.
 - Checkable claims have nearby support and preserve the distinction among fact, recollection, inference, interpretation and opinion.
 - Each distinct editorial pass records findings or leaves inspectable changes.
+- Accepted articles have a brief recorded retrospective and a reasoned decision about whether the workflow should change.
 - Corpus comparison remains observational and cannot become an imitation profile or automated verdict.
-- Rendered review covers scanning, semantics, accessibility, responsive presentation and the whole-site 12A-inspired standard.
+- Web-object review covers scanning, semantics, accessibility and the whole-site 12A-inspired standard. Responsive presentation review follows the changed visual surface, not every article-copy edit.
 - Publication proof identifies the exact committed state, focused evidence, tracked-hook result and remote confirmation.
 
 ## Prohibited combinations

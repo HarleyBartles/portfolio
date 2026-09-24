@@ -263,9 +263,12 @@ test('article header keeps its hierarchy on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
 
-  await expect(page.locator('[data-visual-contract="vibe-coding-door-road"]')).toHaveScreenshot(
-    'article-mobile-header.png',
-  )
+  const header = page.locator('[data-visual-contract="vibe-coding-article"]')
+  await expect(header.getByRole('heading', { level: 1, name: 'Agentic engineering and the kindness of vibe coding' })).toBeVisible()
+  await expect(header.getByText('1 August 2026')).toBeVisible()
+  await expect(header.getByText('4 min read')).toBeVisible()
+  await expect(header.locator('figure')).toHaveCount(0)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
 })
 
 test('homepage keeps its authored opening, Wild Bunch, and Specialists movements at wide and portrait viewports', async ({

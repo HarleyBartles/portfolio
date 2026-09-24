@@ -1,7 +1,7 @@
 ---
 title: "Agentic engineering and the kindness of vibe coding"
-summary: "Why vibe coding isn't the enemy of craft, what it makes possible, and why the frontier still needs an engineer in the room."
-readingMinutes: 6
+summary: "Vibe coding can make an idea real enough to try. Agentic engineering helps the same people build it into something others can rely on."
+readingMinutes: 4
 tags: ["writing","agentic-engineering","vibe-coding"]
 relatedSlugs: ["graph-iterative-review","i-made-agentic-engineering-harder-than-it-needed-to-be","provisioning-is-not-accumulation"]
 ---
@@ -10,48 +10,26 @@ relatedSlugs: ["graph-iterative-review","i-made-agentic-engineering-harder-than-
 
 The term "vibe coding" makes me wince slightly, the way any coined phrase does when it names something people were already doing. Some people treat it as the end of craft. Others treat it as a punchline. I think it's a useful label for a generous thing that's also being oversold.
 
-Vibe coding means describing what you want, taking what the model gives you, and moving on. The name is deliberately light, and the lightness is the point. It lets people who aren't engineers make something they can click. That's a door that's been mostly closed until now. The problem isn't the practice. The problem is the assumption that a working demo is a finished product.
+If software isn't your day job and you've got an idea for an app, I hope you try making it with AI. Give someone something to click. Find out whether it makes sense outside your own head. You don't need an engineer's permission to begin. Sometimes making it real enough to try is the whole point.
 
-## Why the bad rap makes sense
+I'm a software engineer. Where I work, agentic engineering is part of how we build apps together: engineers direct AI agents through the work, while Product and QA keep shaping and testing the same app. In a two-day hackathon, Product can use Claude to make a fantastic frontend. That first version gives us something real to build on, but it can also make an answer invented for the demo look like one the app actually knows.
 
-Vibe coding gets a bad rap because the artefacts it produces are fragile. A prototype built by prompting can look finished. The first run works. The colours are in the right place. The form saves. It's easy to confuse that for a product, and the people building these tools aren't always careful to correct the confusion.
+## The first version is still in there
 
-A working demo isn't a durable system. Durability is what happens in the hours nobody is watching: the edge cases, the state, the error paths, the migrations, the observability, the security, the access control. The vibe doesn't cover those, and was never supposed to. The backlash comes from the gap between appearance and reality. The problem isn't that people are vibe coding. The problem is the expectation that a vibe is enough.
+Product can export Claude's frontend code for Devin, a coding agent, to build on. An engineer directs the agent's changes and checks the code against what the app needs to do.
 
-There's also a real loss of dignity in this for engineers. We've spent a long time convincing the world that building software is hard and requires years of training. Vibe coding makes a lot of that look optional. Much of what I did in my first few years can now be done by someone who's never read a runtime manual. If that feels threatening, it's because some of it is. But I don't think that's an insult. It opens a door.
+The app still takes us around four weeks to build, about what it took before Product could make such a good demo in two days. We move quickly between development and QA as features take shape. The hackathon build gives us a starting point and a shared picture. It hasn't answered every question the app will face.
 
-## What it makes possible
+One of those questions found us while we were testing a feature. QA saw 50 on a screen where the database said 10. We looked into why the feature was showing the wrong number.
 
-For most people outside of engineering, software isn't a craft. It's a wall. They've got ideas they can't build, workflows they can't automate, businesses they can't start because the tooling is out of reach. Vibe coding is the first thing in a long time to put a ladder against that wall.
+The app couldn't reach the data through its API. We hadn't built the failure behaviour for that screen yet, and the 50 left in the hackathon wireframe was still there to appear instead. It was useful when we needed a plausible number for a demo. Now it made an unfinished connection look like a strange result from the feature we were testing.
 
-A product manager can turn a hunch into something clickable. A founder can find out if anyone wants it before hiring an engineering team. A domain expert can build a tool that fits their problem, even if the code is rough by engineering standards. Rough code that solves a problem is better than perfect code that never gets written.
+An engineer was leading the build and QA was checking it as we went. That leftover 50 still sent us after the wrong problem for a while.
 
-A fast proof of concept also changes how product and engineering talk. It turns an argument about requirements into a conversation about something concrete. The product person can show the shape instead of describing it. The engineer can respond to it instead of imagining the intent. The prototype becomes a cheap contract that both sides can read.
+## What changes when someone relies on it
 
-## The long road after the vibe
+A side project may have no Product team, no QA team and no four-week build. Its maker may be using AI for the first working version and for every subsequent change. That's a perfectly good way to find out whether the idea works. The 50 becomes a different matter when someone starts depending on the app to tell them the truth.
 
-But a bridge isn't a destination. Once the prototype exists, the long road starts. The fast proof of concept has bought you the right to think about the real version, which is where craft still matters.
+Perhaps the code already handles that well. Perhaps it doesn't. A convincing run through the happy path won't tell you much about the paths nobody thought to demonstrate. An engineer can review the code with you, trace where the data comes from, try what happens when it doesn't arrive and ask what else the early version was allowed to assume. You can learn to do that work yourself, too. The way you made the first version doesn't disqualify you from understanding the next one.
 
-Vibe coding isn't the end of software engineering. It's the beginning of the conversation about what comes after. The model gets you to the first draft. The engineer gets you from the first draft to the hundredth release.
-
-That's where agentic engineering lives. It's not about replacing the engineer. It's about giving the engineer better tools to do the work that used to take most of the time: scaffolding, migration scripts, tests, documentation, review, refactoring, deployment, rollback. The agentic layer accelerates the boring, risky parts so the human can keep the design honest. The frontier isn't "no engineers." The frontier is "engineers with better leverage."
-
-## Why the craft still wins
-
-I'm not a vibe coder. I'm a software engineer, and I work at [Access](https://www.theaccessgroup.com/en-gb/), which is now an AI-first engineering business. That context is why I feel calm about this rather than threatened. I've spent enough time inside real systems to know what they look like after the demo is over. I've shipped code that had to run for a decade, code that had to satisfy auditors, code that had to keep working while the team around it changed. That work isn't glamorous, but it's the work that separates a working prototype from a business that can sleep at night. The agentic tools we're building now will make that work faster, but they won't remove the need for someone who knows what to look for.
-
-The advantage of an engineering background in this new world isn't that I can write more code. It's that I know where the code can lie. I know how a clean state hides a race, how a helpful abstraction leaks across a boundary, how a simple feature becomes a support burden. I know the cheapest code to fix is the code you didn't write. These aren't insights a model can prompt into existence. They come from being bitten repeatedly by the same kinds of bugs.
-
-## The other side of the coin
-
-I want to be fair to the people who are worried about all of this, because I'm one of them sometimes. If getting an AI to do the work becomes the default path, what incentive is there for the next generation to learn the hard, slow, concrete parts of the craft? Are we setting ourselves up for a market where the engineers who can genuinely check the machine become scarce, expensive, and overstretched? It's hard to convince someone to study distributed systems, security, or performance when a prompt can produce something that looks good enough in half an afternoon.
-
-And if fewer people learn those depths, who keeps those checks in place when the AI hands us something that's wrong in a way only a human can spot? The review becomes a formality. The human in the loop becomes a bottleneck to automate away. I'm not sure that's a future I want to inherit.
-
-Then there's the deeper question. If the acceleration keeps going, is there a future where we can completely trust the AI to do the work unsupervised? Maybe. I don't know. I'm not convinced we're there yet, and I'm not sure I want to bet our infrastructure on the hope that we will be. Vibe coding might be the final form of software engineering for some problems. For the ones that matter, I think the final form still includes a human who knows what to distrust.
-
-## The generous thing to do
-
-I think the right response to vibe coding is generosity. Let it be how people get started, how product and engineering stop talking past each other, and how a founder finds out whether the idea is worth building. Then, when it matters, bring in the people who can make it last.
-
-The engineers I admire aren't the ones who mock the vibe. They're the ones who understand what it's for and then quietly do the work that turns a good feeling into a good system. That's the craft, and that's the long road I'm still walking.
+So build the app. Keep using AI, and keep shaping what it becomes. Before other people rely on it, bring an engineer into the work to review what the code actually does. Then keep asking those questions as you build and test. That's how we found out why the screen insisted on 50.

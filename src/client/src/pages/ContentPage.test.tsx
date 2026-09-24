@@ -270,7 +270,7 @@ describe('ContentPage specialist presentation boundary', () => {
     expect(await screen.findByText('Learning Lab specialist body')).toBeVisible()
   })
 
-  test('gives Vibe its authored header figure and continuation navigation without chronological links', async () => {
+  test('gives Vibe a text-led header and authored continuations without chronological links', async () => {
     const router = createMemoryRouter(appRoutes, {
       basename: '/portfolio',
       initialEntries: ['/portfolio/writing/agentic-engineering-vs-vibe-coding'],
@@ -285,10 +285,9 @@ describe('ContentPage specialist presentation boundary', () => {
     )
 
     const header = await screen.findByRole('region', { name: 'Vibe article introduction' }, { timeout: 5_000 })
-    expect(header).toHaveAttribute('data-visual-contract', 'vibe-coding-door-road')
-    expect(header).toHaveClass('content-page-header--visual')
-    await within(header).findByText('The door opens', undefined, { timeout: 5_000 })
-    expect(header.querySelector('figure')).toHaveAccessibleDescription('Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.')
+    expect(header).toHaveAttribute('data-visual-contract', 'vibe-coding-article')
+    expect(header).not.toHaveClass('content-page-header--visual')
+    expect(header.querySelector('figure')).toBeNull()
 
     const continuations = await screen.findByRole('navigation', { name: 'Continue reading' }, { timeout: 5_000 })
     const links = within(continuations).getAllByRole('link')

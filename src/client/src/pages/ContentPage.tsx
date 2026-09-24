@@ -166,7 +166,7 @@ export const ContentPage = ({ slug, expectedKind, headerVisual }: ContentPagePro
   const writingPresentation = document.summary.kind === 'writing'
     ? getWritingPresentation(document.summary.slug)
     : undefined
-  const WritingFigure = writingPresentation?.figure.Component
+  const WritingFigure = writingPresentation?.figure?.Component
   const WritingBody = document.summary.kind === 'writing'
     ? getWritingArticleBody(document.summary.slug)
     : undefined

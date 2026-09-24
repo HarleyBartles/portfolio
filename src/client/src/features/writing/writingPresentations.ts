@@ -17,20 +17,15 @@ export type WritingPresentation = {
   regionLabel: string
   visualContract: string
   layout: WritingArticleHeaderLayout
-  figure: WritingFigure
+  figure?: WritingFigure
   continuations: readonly [WritingContinuation, WritingContinuation]
 }
 
 const writingPresentations = {
   'agentic-engineering-vs-vibe-coding': {
     regionLabel: 'Vibe article introduction',
-    visualContract: 'vibe-coding-door-road',
-    layout: 'vibe-door-road',
-    figure: {
-      id: 'vibe-coding-door-road-visual',
-      description: 'Vibe coding opens the door. Engineering carries the work from a working demo to a durable system.',
-      Component: lazy(async () => ({ default: (await import('./VibeCodingFigure')).VibeCodingFigure })),
-    },
+    visualContract: 'vibe-coding-article',
+    layout: 'standard',
     continuations: [
       { slug: 'graph-iterative-review', contextLabel: 'Follow the review machinery', rationale: 'Follow the review machinery' },
       { slug: 'provisioning-is-not-accumulation', contextLabel: 'Follow the environment boundary', rationale: 'Follow the environment boundary' },

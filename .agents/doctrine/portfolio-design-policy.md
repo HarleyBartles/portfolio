@@ -85,7 +85,7 @@ Do not encode these choices as brittle assertions about exact prose, DOM class n
 
 ## Quality review
 
-A material visual or editorial change is reviewed at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and actual 200% browser zoom. A narrow viewport may automate reflow pressure, but it does not replace the real browser-zoom review. Review asks:
+Changes to shared layout, typography, motion, interaction or a new visual composition are reviewed at 1440, 768, 390, and 320 CSS pixels, keyboard-only, reduced motion, and actual 200% browser zoom. A narrow viewport may automate reflow pressure, but it does not replace the real browser-zoom review for those changes. Article copy and metadata edits within an unchanged shell do not trigger that visual checklist. Removing redundant article-specific header artwork from an otherwise unchanged shell calls for a focused check that no empty slot remains. Other visual removals follow the review required by their effect on the composition. Review asks:
 
 - Is the reading order obvious without relying on animation?
 - Does public prose satisfy the authored voice, evidence and editorial review contracts in the [Portfolio writing policy](./writing-policy.md)?

@@ -7,7 +7,7 @@ test('writing index presents a featured essay and consistent human dates', async
   const featured = page.getByRole('article', { name: /agentic engineering and the kindness of vibe coding/i })
   await expect(featured).toBeVisible()
   await expect(featured.getByText('1 August 2026', { exact: true })).toBeVisible()
-  await expect(featured.getByText('6 min read', { exact: true })).toBeVisible()
+  await expect(featured.getByText('4 min read', { exact: true })).toBeVisible()
 })
 
 test('writing cards align title and précis while keeping metadata as the left-lane footer', async ({ page }) => {

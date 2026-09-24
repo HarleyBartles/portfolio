@@ -64,8 +64,9 @@ Load only the references needed for the current stage. If proposition, reader pr
 2. Choose a form that fits the material.
 3. Diagnose proposition, evidence, movement and ending before local prose.
 4. Edit sections, paragraphs, sentences and words in that order.
-5. Run voice, fatigue, recovery and rendered-reading passes.
+5. Run voice, fatigue, recovery and web-object reading passes. Apply visual checks only when the changed presentation warrants them.
 6. Return consequential voice, taste and authority decisions to Harley.
+7. When Harley accepts the article, record a brief retrospective and decide whether the method needs a change. Use [field learning](references/field-learning.md) for material lessons; record a reasoned no-change decision for routine outcomes.
 
 Corpus observations are advisory and expire with the task. Never construct a phrase bank or imitate prior work mechanically.
 
@@ -86,7 +87,7 @@ Use `running-reader-panels` when a developmental edit would benefit from simulat
 
 ## Field learning
 
-Consult [article-writing field notes](../../docs/article-writing-field-notes.md) only when a relevant problem recurs. Record material outcomes through the field-learning procedure. The skill may propose a candidate lesson; it cannot revise itself, promote doctrine or silently turn one correction into a rule.
+Consult [article-writing field notes](../../docs/article-writing-field-notes.md) only when a relevant problem recurs. After acceptance, record the retrospective outcome in the article's existing decision record or PR. Record material candidates through the field-learning procedure. A skill change or doctrine promotion requires a reasoned owner decision; neither follows automatically from a simulated panel or one edit.
 
 ## Common mistakes
 

@@ -16,7 +16,7 @@ Run this after developmental and line edits are settled.
 - accessible and meaningful link text;
 - dates, metadata, reading time and related routes;
 - figures, pull quotes and asides that earn their interruption;
-- responsive rendering and reading measure;
+- responsive rendering and reading measure when presentation changes, or a focused layout concern arises;
 - claims supported by nearby evidence;
 - the whole public site's 12A character, including relevant non-language categories.
 

@@ -14,13 +14,13 @@ describe('WritingArticleHeader', () => {
           visual={<div data-testid="article-visual">Figure</div>}
           regionLabel="Article introduction"
           visualContract="article-introduction"
-          layout="vibe-door-road"
+          layout="decision-memory"
         />
       </PortfolioThemeProvider>,
     )
 
     const header = screen.getByRole('region', { name: 'Article introduction' })
-    expect(header).toHaveAttribute('data-writing-header-layout', 'vibe-door-road')
+    expect(header).toHaveAttribute('data-writing-header-layout', 'decision-memory')
     expect(header).toHaveAttribute('data-visual-contract', 'article-introduction')
     expect(screen.getByRole('heading', { level: 1, name: 'A durable article' })).toBeVisible()
     expect(screen.getByText('A concise article proposition.')).toBeVisible()

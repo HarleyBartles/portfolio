@@ -41,7 +41,7 @@ The authorised voice includes natural contractions, directness, technical specif
 
 ## Openings, structure and movement
 
-An opening establishes focus, authority, direction, voice and the writer-reader relationship. It may begin with action, a question, an image, a claim, a contradiction, a scene, a problem or a decision, provided it orients the reader before confusion becomes work. It must not manufacture urgency the article cannot repay.
+An opening establishes focus, authority, direction, voice and the writer-reader relationship. The opening beat must earn the reader's next minute: give a reason to care and make the article's promise legible before asking for more attention. A substantial promise in the title should become visible early, even if the full answer comes later. It may begin with action, a question, an image, a claim, a contradiction, a scene, a problem or a decision, provided it orients the reader before confusion becomes work. It must not manufacture urgency the article cannot repay. No particular opening paragraph or title phrase is mandatory; preserve the function, not a template.
 
 Sections change the reader's understanding rather than divide word count. Each section has a job: establishing context, advancing or complicating the argument, providing evidence, testing an objection, changing scale, moving through time, turning towards a consequence, or preparing and delivering the ending. Sequence may be chronological, causal, argumentative, thematic or deliberately braided, but its governing logic should be legible.
 
