@@ -8,13 +8,16 @@ import json
 import os
 import subprocess
 import sys
+import time
 from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Callable, Mapping
+from uuid import uuid4
 
 from reader_panel_decisions import Decision, DecisionClient, DecisionError, build_request
 from reader_panel_report import Observation, PanelReport, render_panel, write_report
 from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort
+from reader_panel_experiment import load_experiment, run_experiment
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
@@ -45,6 +48,7 @@ def run_panel(
     decide_fn: Callable[[ReaderProfile, Article, Beat, int], Decision],
     max_calls: int,
     max_usd: float,
+    progress: Callable[[str], None] | None = None,
 ) -> PanelReport:
     if not articles or not profiles or max_calls < 1 or not 0 < max_usd < float("inf"):
         raise PanelError("A panel requires articles, profiles and positive finite call/spend limits")
@@ -57,9 +61,12 @@ def run_panel(
     for article in articles:
         if stopped:
             break
-        for profile in profiles:
+        for reader_number, profile in enumerate(profiles, 1):
             if stopped:
                 break
+            if progress:
+                progress(f"{article.path.name}: reader {reader_number}/{len(profiles)}, "
+                         f"calls {calls}, cost ${cost:.6f}")
             for beat in article.beats:
                 if calls >= max_calls:
                     limitations.append("Maximum call count reached; remaining decisions were not requested")
@@ -92,6 +99,9 @@ def run_panel(
                     profile.id, result.choice, result.probabilities,
                     result.cost_usd, result.input_tokens, result.model, profile.archetype_id,
                 ))
+                if progress:
+                    progress(f"{article.path.name}: reader {reader_number}/{len(profiles)}, "
+                             f"{beat.heading}, calls {calls}, cost ${cost:.6f}")
                 if cost >= max_usd:
                     limitations.append("Reported spend reached the cap; remaining decisions were not requested")
                     stopped = True
@@ -139,11 +149,13 @@ def main(
     argv: list[str] | None = None,
     *,
     environ: Mapping[str, str] | None = None,
-    decision_fn: Callable[[ReaderProfile, Article, Beat, int], Decision] | None = None,
+    decision_fn: Callable[..., Decision] | None = None,
     workspace_resolver: Callable[[], Path] | None = None,
 ) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--article", required=True)
+    source_mode = parser.add_mutually_exclusive_group(required=True)
+    source_mode.add_argument("--article")
+    source_mode.add_argument("--experiment-file", type=Path)
     parser.add_argument("--compare")
     parser.add_argument("--profile-file", type=Path, required=True)
     parser.add_argument("--profiles", help="Comma-separated profile IDs")
@@ -155,7 +167,10 @@ def main(
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--apply", action="store_true")
     args = parser.parse_args(argv)
-    articles = (_source(args.article, args.allow_external_source),)
+    if args.experiment_file and args.compare:
+        raise PanelError("--compare applies only to article mode")
+    experiment = load_experiment(args.experiment_file) if args.experiment_file else None
+    articles = () if experiment else (_source(args.article, args.allow_external_source),)
     if args.compare:
         articles += (_source(args.compare, args.allow_external_source),)
     ids = tuple(item.strip() for item in args.profiles.split(",")) if args.profiles else None
@@ -164,12 +179,34 @@ def main(
     if catalogue_read:
         profiles = tuple(replace(profile, archetype_id=profile.id) for profile in profiles)
     validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
-    planned = len(profiles) * sum(len(article.beats) for article in articles)
-    estimated_bytes = sum(_payload_size(profile, article, beat)
-                          for article in articles for profile in profiles for beat in article.beats)
+    planned = (len(profiles) * len(experiment["conditions"]) *
+               (len(experiment["beats"]) + 2 * sum(p["kind"] == "aside" for p in experiment["beats"]))
+               if experiment else len(profiles) * sum(len(article.beats) for article in articles))
+    if experiment:
+        full_text = "\n\n".join(
+            piece["text"] if piece["kind"] == "beat" else
+            "\n".join((piece["title"], piece["standfirst"], piece["body"]))
+            for piece in experiment["beats"]
+        )
+        estimated_bytes = sum(
+            len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
+                            "promise": experiment["promise"], "visible_text": full_text},
+                           ensure_ascii=False).encode("utf-8")) * (
+                               len(experiment["beats"]) + 2 * sum(
+                                   piece["kind"] == "aside" for piece in experiment["beats"]
+                               )
+                           ) * len(experiment["conditions"])
+            for profile in profiles
+        )
+    else:
+        estimated_bytes = sum(_payload_size(profile, article, beat)
+                              for article in articles for profile in profiles for beat in article.beats)
     estimated_tokens = estimated_bytes / 4
     estimated = estimated_tokens * PRICE_PER_MILLION_INPUT_TOKENS / 1_000_000
     if not args.apply:
+        if experiment:
+            print("Experiment: " + ", ".join(experiment["conditions"]))
+            print("Beats: " + ", ".join(piece["id"] for piece in experiment["beats"]))
         for article in articles:
             print(f"{article.path.name}: {len(article.beats)} beats: " +
                   ", ".join(beat.heading for beat in article.beats))
@@ -180,7 +217,7 @@ def main(
         if allocation:
             print("Allocation: " + ", ".join(f"{name}: {count}" for name, count in sorted(allocation.items())))
         print(f"{len(profiles)} profiles; up to {planned} decisions; approximately {estimated_tokens:,.0f} input tokens and ${estimated:.6f} input cost")
-        print("0 remote calls. --apply sends article prefixes to OpenRouter; cost and token counts are estimates, not billing guarantees.")
+        print("0 remote calls. --apply sends visible text to OpenRouter; cost and token counts are estimates, not billing guarantees.")
         return 0
     if args.max_calls is None or args.max_usd is None or args.max_calls < 1 or not 0 < args.max_usd < float("inf"):
         raise PanelError("--apply requires positive --max-calls and finite --max-usd limits")
@@ -192,16 +229,58 @@ def main(
     output = args.output.resolve() if args.output else None
     if output and (not args.output.is_absolute() or not output.is_relative_to(workspace)):
         raise PanelError("--output must be an absolute path inside the canonical off-repo scratch workspace")
+    last_progress = 0.0
+    def progress(message: str) -> None:
+        nonlocal last_progress
+        now = time.monotonic()
+        if now - last_progress >= 5:
+            print(f"Panel progress: {message}", file=sys.stderr, flush=True)
+            last_progress = now
+    if experiment:
+        def labels(choices: tuple[str, ...]) -> dict[str, str]:
+            names = {
+                "read_closely": "Continue reading attentively",
+                "skim": "Continue by skimming",
+                "leave_lost_interest": "Leave because interest or relevance was lost",
+                "stop_satisfied": "Stop because the reader's goal was met",
+                "open_now": "Open and read the aside inline now",
+                "return_later": "Continue and consider returning at the end",
+                "skip": "Skip the aside",
+                "open": "Open and read the aside now",
+            }
+            return {choice: names[choice] for choice in choices}
+
+        def run(decide):
+            return run_experiment(experiment, profiles, decide_fn=decide,
+                                  max_calls=args.max_calls, max_usd=args.max_usd, progress=progress)
+
+        if decision_fn is not None:
+            experiment_report = run(decision_fn)
+        else:
+            with DecisionClient(api_key) as client:
+                experiment_report = run(
+                    lambda profile, condition, stage, visible, choices, attempts:
+                    client.decide_experiment(profile, experiment["title"], experiment["promise"],
+                                             visible, stage, labels(choices), attempts))
+        saved = output or workspace / f"reader-experiment-{uuid4().hex}.json"
+        saved.parent.mkdir(parents=True, exist_ok=True)
+        with saved.open("x", encoding="utf-8") as handle:
+            json.dump(experiment_report, handle, ensure_ascii=False, indent=2)
+            handle.write("\n")
+        print(f"Experiment: {len(experiment_report['journeys'])} journeys, "
+              f"{experiment_report['calls']} calls, ${experiment_report['cost_usd']:.8f} reported cost.")
+        print(f"Report: {saved}")
+        return 0
     if decision_fn is not None:
         report = run_panel(articles, profiles, decide_fn=decision_fn,
-                           max_calls=args.max_calls, max_usd=args.max_usd)
+                           max_calls=args.max_calls, max_usd=args.max_usd, progress=progress)
     else:
         with DecisionClient(api_key) as client:
             report = run_panel(articles, profiles, decide_fn=client.decide,
-                               max_calls=args.max_calls, max_usd=args.max_usd)
+                               max_calls=args.max_calls, max_usd=args.max_usd, progress=progress)
     try:
         saved = write_report(report, workspace, output)
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError):
         raise PanelError("Could not save the off-repo panel report") from None
     print(render_panel(report))
     print(f"Report: {saved}")

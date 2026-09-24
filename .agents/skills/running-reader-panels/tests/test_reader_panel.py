@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import io
 import json
 import sys
@@ -34,6 +35,47 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_experiment_cli_checks_manifest_and_reports_live_progress(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("The article source.", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": 1, "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "beats": [{"id": "opening", "kind": "beat", "text": "Opening text."},
+                           {"id": "aside", "kind": "aside", "title": "Optional detail",
+                            "standfirst": "Why it matters", "body": "Hidden material."},
+                           {"id": "ending", "kind": "beat", "text": "Ending text."}],
+                "conditions": ["omit", "reader_choice"],
+            }), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            check_output = io.StringIO()
+            with contextlib.redirect_stdout(check_output):
+                main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                      "--profiles", "story-first", "--check"],
+                     environ={}, decision_fn=lambda *_: self.fail("check mode sent a call"))
+            self.assertIn("reader_choice", check_output.getvalue())
+            self.assertIn("0 remote calls", check_output.getvalue())
+
+            progress = io.StringIO()
+            scratch = root / "scratch"
+            def fake(profile, condition, stage, visible, choices, attempts):
+                if stage == "aside-choice":
+                    return choice("skip")
+                return choice("read_closely")
+            with contextlib.redirect_stderr(progress), contextlib.redirect_stdout(io.StringIO()):
+                main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                      "--profiles", "story-first", "--apply", "--max-calls", "20", "--max-usd", "1"],
+                     environ={"OPENROUTER_API_KEY": "PRIVATE KEY"}, decision_fn=fake,
+                     workspace_resolver=lambda: scratch)
+            self.assertIn("reader 1/1", progress.getvalue())
+            self.assertIn("calls", progress.getvalue())
+            report = json.loads(next(scratch.glob("*.json")).read_text(encoding="utf-8"))
+            self.assertEqual(len(report["journeys"]), 2)
+            self.assertNotIn("Hidden material.", progress.getvalue() + json.dumps(report))
+
     def test_cli_requires_an_explicit_reader_cohort(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             source = Path(temporary) / "article.md"
