@@ -2,6 +2,8 @@
 
 **Status:** approved design for the CV PDF layout slice.
 
+**Lifecycle:** completed-awaiting-retirement
+
 ## Purpose
 
 The generated CV PDF should read as a deliberately composed A4 paper document. Its print layout must keep all content within page bounds, preserve readable type, and make a purposeful two-page composition from the current content.

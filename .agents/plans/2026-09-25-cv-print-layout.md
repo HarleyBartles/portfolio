@@ -1,5 +1,7 @@
 # CV Print Layout Implementation Plan
 
+**Lifecycle:** completed-awaiting-retirement
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Repair the generated CV PDF as a legible, intentionally composed two-page A4 document while keeping print-only page furniture and non-interactive print URLs out of the web view.
@@ -86,4 +88,4 @@
 - [x] **Step 4: Generate and inspect the artifact.** Run `npm run build` from `src/client`, render both generated PDF pages to PNG using Poppler `pdftoppm`, inspect both pages at full resolution, and verify with `pdfinfo` that the artifact is two A4 pages. Expected: no overlap, clipped content, horizontal overflow, or page-furniture leakage; both role groups and all later sections are readable.
 - [x] **Step 5: Run the final focused checks.** Run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts e2e/cv.spec.ts`. Expected: all PDF-generation, screen/print, layout, and visitor-download contracts pass.
 - [x] **Step 6: Review locally.** Run `git diff --check`, stand up the built site/PDF for the user's visual review, and make any requested visual revisions before committing.
-- [ ] **Step 7: Publish after visual approval.** Stage intended files; commit normally and honor the hook stop rule above; push the branch and open a Draft PR with the two rendered pages and validation evidence. Leave the plan marked `completed-awaiting-retirement` and fully checked through the PR handoff.
+- [x] **Step 7: Publish after visual approval.** Stage intended files; commit normally and honor the hook stop rule above; push the branch and open a Draft PR with the two rendered pages and validation evidence. Leave the plan marked `completed-awaiting-retirement` and fully checked through the PR handoff.
