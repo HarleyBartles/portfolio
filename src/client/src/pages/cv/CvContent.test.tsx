@@ -13,8 +13,11 @@ import {
 } from './CvContent'
 
 test('project list renders the order and summaries supplied by its parent', () => {
-  const projects = getProjectSummaries().slice(0, 2).reverse()
-  render(
+  const projects = getProjectSummaries().slice(0, 2).reverse().map((project) => ({
+    ...project,
+    repositoryUrl: `github.com/HarleyBartles/${project.slug}`,
+  }))
+  const { container } = render(
     <PortfolioThemeProvider>
       <MemoryRouter>
         <CvProjectList projects={projects} />
@@ -29,6 +32,11 @@ test('project list renders the order and summaries supplied by its parent', () =
       'href',
       `/projects/${project.slug}`,
     )
+  for (const project of projects) {
+    expect(container.querySelector(`[data-cv-project="${project.slug}"] [data-cv-project-url]`)).toHaveTextContent(
+      project.repositoryUrl,
+    )
+  }
 })
 
 test('CV composition preserves parent links, named sections, education pairing and download actions', () => {
@@ -45,6 +53,7 @@ test('CV composition preserves parent links, named sections, education pairing a
           downloadHref="/cv.pdf"
           downloadLabel="Download PDF"
           downloadAriaLabel="Download CV at the top"
+          printUrls={['fixture.example']}
         />
         <CvSection headingId="profile" title="Profile" divider="none">
           <p>Profile text</p>
