@@ -12,7 +12,7 @@ export function HomePage(): ReactElement {
   const edition = getHomepageEdition()
 
   return (
-    <SiteLayout surface="home">
+    <SiteLayout surface="home" opening="composed">
       <DocumentMetadata canonicalPath="/" />
       <HomepageOpening />
       <MarketplaceFeature />

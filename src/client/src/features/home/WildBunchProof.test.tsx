@@ -32,16 +32,3 @@ test('renders the parent-provided event and state topology in order', () => {
   expect(container.querySelector('[data-wild-replay]')).toBeInTheDocument()
   expect(container.querySelector('[data-wild-state]')).toBeInTheDocument()
 })
-
-test('owns the proof geometry without relying on the route stylesheet', () => {
-  const { container } = render(<WildBunchProof events={eventsFixture} stateNodes={stateFixture} />)
-  const proof = container.querySelector('[data-wild-proof]') as HTMLElement
-  const history = screen.getByRole('heading', { name: 'Immutable event history' }).closest('section') as HTMLElement
-  const cache = container.querySelector('[data-wild-cache]') as HTMLElement
-  const state = container.querySelector('[data-wild-state]') as HTMLElement
-
-  expect(proof).toHaveStyle({ position: 'relative', width: '100%' })
-  expect(history).toHaveStyle({ position: 'absolute', left: '4%', top: '8%', width: '19%', height: '52%' })
-  expect(cache).toHaveStyle({ position: 'absolute', display: 'grid', left: '26%', top: '8%', width: '13%', height: '52%' })
-  expect(state).toHaveStyle({ position: 'absolute', overflow: 'hidden', left: '40%', top: '4%', width: '60%', height: '84%' })
-})

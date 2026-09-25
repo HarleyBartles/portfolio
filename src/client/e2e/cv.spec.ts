@@ -18,7 +18,7 @@ function readMultipartFields(request: Request): Record<string, string> {
   )
 }
 
-test('CV route presents the two-page hiring document and its generated PDF', async ({ page }) => {
+test('CV route presents the hiring document and a valid generated PDF', async ({ page }) => {
   const response = await page.goto('./cv/')
 
   expect(response?.status()).toBe(200)

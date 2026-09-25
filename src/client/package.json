@@ -22,7 +22,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "node scripts/run-e2e.mjs",
-    "test:e2e:visual": "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts"
+    "test:e2e:visual": "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts e2e/home/opening.visual.spec.ts e2e/home/wild-bunch.visual.spec.ts e2e/home/specialists.visual.spec.ts e2e/specialists/index.visual.spec.ts"
   },
   "dependencies": {
     "@fontsource-variable/source-code-pro": "^5.3.0",

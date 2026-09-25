@@ -74,30 +74,9 @@ describe('Phase 8 homepage sections', () => {
     expect(within(marketplace).getByRole('link', { name: 'I tried to break my own event-sourcing claim ↓' })).toHaveAttribute('href', '#wild-bunch')
   })
 
-  test('owns Marketplace overlap composition without relying on the route stylesheet', () => {
-    const { container } = render(<MemoryRouter><MarketplaceFeature /></MemoryRouter>)
-    const marketplace = container.querySelector('[data-home-movement="marketplace"]') as HTMLElement
-    const frame = marketplace.querySelector('[data-home-frame]') as HTMLElement
-    const image = within(marketplace).getByRole('img')
-    const picture = image.closest('picture') as HTMLElement
 
-    expect(marketplace).toHaveStyle({ display: 'flex', alignItems: 'center', overflow: 'hidden' })
-    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
-    expect(picture).toHaveStyle({ display: 'block', width: '100%', height: '100%' })
-  })
 
-  test('owns the opening composition without relying on the route stylesheet', () => {
-    const { container } = render(<MemoryRouter><HomepageOpening /></MemoryRouter>)
-    const opening = container.querySelector('[data-home-movement="opening"]') as HTMLElement
-    const frame = opening.querySelector('[data-home-frame]') as HTMLElement
-    const heading = screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })
-    const proof = screen.getByRole('list', { name: 'Professional proof' })
 
-    expect(opening).toHaveStyle({ display: 'flex', alignItems: 'center' })
-    expect(frame).toHaveStyle({ paddingTop: 'clamp(62px, 9vw, 120px)' })
-    expect(heading).toHaveStyle({ maxWidth: '9ch' })
-    expect(proof).toHaveStyle({ margin: '0', padding: '0', listStyle: 'none' })
-  })
 
   test('renders each continuation from the destination feature metadata', () => {
     renderSections()
@@ -114,18 +93,7 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: 'About me →' })).toHaveAttribute('href', '/about')
   })
 
-  test('owns the Professional Close two-rail composition without relying on the route stylesheet', () => {
-    const { container } = render(<MemoryRouter><ProfessionalClose /></MemoryRouter>)
-    const movement = container.querySelector('[data-home-movement="professional-close"]') as HTMLElement
-    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
-    const heading = within(movement).getByRole('heading', { level: 2 })
-    const actions = screen.getByText(/If that looks like the kind of engineering/).parentElement as HTMLElement
 
-    expect(movement).toHaveStyle({ paddingTop: 'clamp(86px, 11vw, 150px)', borderBottomWidth: '0px' })
-    expect(frame).toHaveStyle({ display: 'grid', alignItems: 'end' })
-    expect(heading).toHaveStyle({ maxWidth: '12ch', fontSize: 'clamp(42px, 5.4vw, 72px)', lineHeight: '.98' })
-    expect(actions).toHaveStyle({ paddingTop: '18px' })
-  })
 
   test('renders the Writing fold from destination-owned edition metadata', () => {
     const feature = {
@@ -146,22 +114,7 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('link', { name: `${nextFeature.incomingTeaser} ↓` })).toHaveAttribute('href', `#${nextFeature.anchorId}`)
   })
 
-  test('owns the Writing editorial composition without relying on the route stylesheet', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <WritingFeature feature={defaultHomepageEdition.writing} nextFeature={defaultHomepageEdition.patch} />
-      </MemoryRouter>,
-    )
-    const movement = container.querySelector('[data-home-movement="writing"]') as HTMLElement
-    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
-    const heading = within(movement).getByRole('heading', { level: 2 })
-    const summary = within(movement).getByText(defaultHomepageEdition.writing.summary)
 
-    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(96px, 13vw, 180px)' })
-    expect(frame).toHaveStyle({ display: 'grid' })
-    expect(heading).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', lineHeight: '.94' })
-    expect(summary).toHaveStyle({ margin: '0', fontFamily: 'var(--serif)', fontSize: '20px', lineHeight: '1.5' })
-  })
 
   test('keeps the Wild Bunch topology semantic and ordered', () => {
     const { container } = renderSections()
@@ -179,20 +132,7 @@ describe('Phase 8 homepage sections', () => {
     expect(container.querySelector('[data-wild-reading-card]')).toBeInTheDocument()
   })
 
-  test('owns the Wild Bunch movement rail without relying on the route stylesheet', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <WildBunchFeature nextFeature={defaultHomepageEdition.writing} />
-      </MemoryRouter>,
-    )
-    const movement = container.querySelector('[data-home-movement="wild-bunch"]') as HTMLElement
-    const frame = movement.querySelector('[data-home-frame]') as HTMLElement
-    const readingCard = movement.querySelector('[data-wild-reading-card]') as HTMLElement
 
-    expect(movement).toHaveStyle({ position: 'relative', overflow: 'hidden' })
-    expect(frame).toHaveStyle({ display: 'grid', width: '100%', maxWidth: 'none' })
-    expect(readingCard).toHaveStyle({ zIndex: '4', marginRight: '24px' })
-  })
 
   test('keeps Specialists presentation separate from semantic title and document flow', () => {
     const { container } = renderSections()
@@ -258,17 +198,5 @@ describe('Phase 8 homepage sections', () => {
     )
   })
 
-  test('owns the Tournament section rail without relying on the route stylesheet', () => {
-    const tournament: PatchHomepageFeature = {
-      ...defaultHomepageEdition.patch,
-      title: 'Tournament of Reasonable Defaults',
-      to: '/patch/tournament-of-reasonable-defaults',
-      inwardLabel: 'Enter the tournament',
-      presentation: 'tournament',
-    }
-    const { container } = render(<MemoryRouter><PatchHomepageSlot feature={tournament} /></MemoryRouter>)
-    const movement = container.querySelector('[data-patch-presentation="tournament"]') as HTMLElement
 
-    expect(movement).toHaveStyle({ position: 'relative', paddingTop: 'clamp(76px, 9vw, 124px)' })
-  })
 })

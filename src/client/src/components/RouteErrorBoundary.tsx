@@ -1,6 +1,6 @@
 import { useRouteError } from 'react-router-dom'
 import { DocumentMetadata } from './DocumentMetadata'
-import { SiteLayout } from './SiteLayout'
+import { SiteLayout } from './site/SiteLayout'
 import { StatePanel } from './StatePanel'
 
 export const RouteErrorBoundary = () => {

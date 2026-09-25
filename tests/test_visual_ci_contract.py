@@ -165,10 +165,16 @@ class VisualCiContractTests(unittest.TestCase):
         self.assertIn("name: playwright-visual-report-windows", visual)
         self.assertEqual(["quality", "visual-regression"], sequence_values(deploy, "needs", 4))
 
-        self.assertEqual(
-            "node scripts/run-e2e.mjs e2e/visual-regression.spec.ts",
-            package["scripts"].get("test:e2e:visual"),
-        )
+        visual_command = package["scripts"].get("test:e2e:visual", "").split()
+        self.assertEqual(["node", "scripts/run-e2e.mjs"], visual_command[:2])
+        for visual_suite in [
+            "e2e/visual-regression.spec.ts",
+            "e2e/home/opening.visual.spec.ts",
+            "e2e/home/wild-bunch.visual.spec.ts",
+            "e2e/home/specialists.visual.spec.ts",
+            "e2e/specialists/index.visual.spec.ts",
+        ]:
+            self.assertIn(visual_suite, visual_command[2:])
         self.assertEqual("node scripts/run-e2e.mjs", package["scripts"].get("test:e2e"))
         self.assertNotIn("preview:e2e", package["scripts"])
         self.assertIn("process.env.PORTFOLIO_E2E_ORIGIN", playwright_config)

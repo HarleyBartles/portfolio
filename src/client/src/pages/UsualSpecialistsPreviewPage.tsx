@@ -15,7 +15,7 @@ if (previewRoute === undefined) {
 }
 
 export const UsualSpecialistsPreviewPage = ({ Presentation }: UsualSpecialistsPreviewPageProps) => (
-  <SiteLayout mainFrame="full">
+  <SiteLayout mainFrame="full" opening="composed">
     <DocumentMetadata
       title={previewRoute.title}
       description={previewRoute.description}

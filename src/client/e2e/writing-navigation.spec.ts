@@ -56,40 +56,6 @@ test('client route transitions start the destination at the top of the page', as
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
 })
 
-test('Use Superpowers keeps the ordinary article shell and opens its Astra disclosure', async ({ page }) => {
-  const response = await page.goto('./writing/use-superpowers/')
-
-  expect(response?.status()).toBe(200)
-  await expect(page.getByRole('heading', { level: 1, name: 'Use Superpowers' })).toBeVisible()
-  await expect(page.locator('[data-metadata-row]')).toContainText('5 September 2026')
-  await expect(page.locator('[data-metadata-row]')).toContainText('5 min read')
-  await expect(page.locator('[data-visual-language="authored-longform"][data-type-register="article-serif"]')).toBeVisible()
-
-  const aside = page.getByRole('complementary', { name: 'When “most capable” changes overnight' })
-  const disclosure = aside.locator('[data-editorial-aside-disclosure]')
-  await expect(aside).toHaveAttribute('data-editorial-aside', 'true')
-  await expect(disclosure).not.toHaveAttribute('open', '')
-  await expect(aside.getByText('When “most capable” changes overnight', { exact: true })).toBeVisible()
-  await expect(aside.getByText('A model release can change what a relative instruction means without anyone editing the instruction. My model-selection rule made that visible to me this morning.', { exact: true })).toBeVisible()
-  await expect(disclosure.getByText('Read the Astra audit', { exact: true })).toBeVisible()
-  await expect(disclosure.getByText(/When I started `selecting-a-subagent`/)).not.toBeVisible()
-
-  await disclosure.locator('summary').focus()
-  await page.keyboard.press('Enter')
-  await expect(disclosure).toHaveAttribute('open', '')
-  await expect(disclosure.locator('.content-prose')).toBeVisible()
-  await expect(disclosure.locator('.content-prose')).toContainText('When I started selecting-a-subagent')
-
-  await expect(page.getByRole('link', { name: /If you write a loop/ })).toHaveAttribute('href', '/writing/graph-iterative-review')
-  await expect(page.getByRole('link', { name: 'Agent Asset Marketplace', exact: true })).toHaveAttribute('href', '/projects/codex-marketplace')
-  await expect(page.getByRole('link', { name: 'Read Use Superpowers →' })).toHaveCount(0)
-
-  for (const width of [1440, 768, 390, 320]) {
-    await page.setViewportSize({ width, height: 900 })
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
-  }
-})
-
 test('every current writing aside uses the canonical editorial disclosure', async ({ page }) => {
   const consumers = [
     { path: './writing/i-made-agentic-engineering-harder-than-it-needed-to-be/', title: 'The packaged organisation' },

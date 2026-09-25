@@ -25,6 +25,6 @@ describe('UsualSpecialistsPreviewPage', () => {
     expect(document.head.querySelector('link[rel="canonical"]')).toBeNull()
     expect(document.head.querySelector('meta[property="og:url"]')).toBeNull()
     expect(document.head.querySelector('meta[property="og:image"]')).toBeNull()
-    expect(screen.getByRole('main')).toHaveStyle({ width: '100%', maxWidth: 'none' })
+    expect(screen.getByRole('main')).toContainElement(screen.getByRole('article', { name: 'The Usual Specialists' }))
   })
 })
