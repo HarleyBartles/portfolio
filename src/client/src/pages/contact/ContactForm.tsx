@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import styled from 'styled-components'
 import { professionalProfile } from '../../data'
-import { ActionButton, Eyebrow } from '../../components/content/PublicationPrimitives'
+import { ActionButton } from '../../components/content/PublicationPrimitives'
 import { ExternalLink } from '../../components/ExternalLink'
 
 type ContactFormProps = {
@@ -78,9 +78,6 @@ const Warning = styled.span`
   display: block;
   margin-top: var(--space-2);
 `
-const DisconnectedEyebrow = styled(Eyebrow)`
-  margin-bottom: var(--space-4);
-`
 const Disconnected = styled.aside`
   align-self: start;
   border: 1px solid var(--color-ink);
@@ -113,16 +110,13 @@ export const ContactForm = ({ endpoint }: ContactFormProps) => {
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle')
 
   if (!isSafeEndpoint(endpoint)) {
-    const { github, linkedin } = professionalProfile.publicLinks
+    const { linkedin } = professionalProfile.publicLinks
 
     return (
       <Disconnected aria-labelledby="contact-disconnected-title">
-        <DisconnectedEyebrow>Delivery status / disconnected</DisconnectedEyebrow>
-        <h3 id="contact-disconnected-title">Contact delivery is not connected yet.</h3>
+        <h3 id="contact-disconnected-title">The contact form is unavailable.</h3>
         <p>
-          I will not publish a personal address or pretend a form goes somewhere when it does not. For now, the honest
-          routes are my <ExternalLink href={github.href}>GitHub profile</ExternalLink> and{' '}
-          <ExternalLink href={linkedin.href}>{linkedin.label}</ExternalLink>.
+          You can contact me on <ExternalLink href={linkedin.href}>LinkedIn</ExternalLink>.
         </p>
       </Disconnected>
     )

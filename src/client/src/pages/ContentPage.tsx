@@ -67,7 +67,7 @@ const ContentLoadingState = () => {
         canonicalPath="/"
         noIndex
       />
-      <StatePanel id="content-loading-title" title="Preparing the portfolio" announcement="status" routeLoading messages={['Loading portfolio content.']} />
+      <StatePanel id="content-loading-title" title="Loading…" announcement="status" routeLoading messages={[]} />
     </SiteLayout>
   )
 }
@@ -101,7 +101,7 @@ const ContentNotFoundState = () => {
         canonicalPath="/"
         noIndex
       />
-      <StatePanel id="content-not-found-title" title="Page not found" messages={['This portfolio story is not available.']} actions={[{ label: 'Return to the homepage', to: '/' }]} />
+      <StatePanel id="content-not-found-title" title="Page not found" messages={[]} actions={[{ label: 'Return to the homepage', to: '/' }]} />
     </SiteLayout>
   )
 }

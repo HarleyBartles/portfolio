@@ -63,7 +63,6 @@ test('CV composition preserves parent links, named sections, education pairing a
           ]}
         />
         <CvDownloadFooter
-          prompt="Keep a copy."
           downloadHref="/cv.pdf"
           downloadLabel="Download PDF"
           downloadAriaLabel="Download CV at the end"

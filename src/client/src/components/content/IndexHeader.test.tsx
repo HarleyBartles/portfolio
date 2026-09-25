@@ -8,14 +8,14 @@ test.each(['single', 'split'] as const)('renders the %s index hierarchy without 
     <PortfolioThemeProvider>
       <IndexHeader
         eyebrow="Writing / field notes"
-        title="Writing and Notes"
+        title="Writing"
         summary="Notes from building systems in public."
         layout={layout}
       />
     </PortfolioThemeProvider>,
   )
 
-  expect(screen.getByRole('heading', { level: 1, name: 'Writing and Notes' })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { level: 1, name: 'Writing' })).toBeInTheDocument()
   expect(screen.getByText('Writing / field notes')).toBeInTheDocument()
   expect(screen.getByText('Notes from building systems in public.')).toBeInTheDocument()
   expect(screen.getByRole('heading').parentElement?.parentElement).toHaveAttribute('data-index-layout', layout)

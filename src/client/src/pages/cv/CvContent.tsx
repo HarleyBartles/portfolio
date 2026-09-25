@@ -394,9 +394,7 @@ export const CvEducationList = ({
 
 const DownloadFooter = styled.footer`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-6);
+  justify-content: flex-end;
   width: min(100%, 58rem);
   margin: var(--space-10) auto 0;
   border-top: 2px solid var(--color-ink);
@@ -410,26 +408,16 @@ const DownloadFooter = styled.footer`
     padding-inline: 0;
   }
 `
-const DownloadPrompt = styled.p`
-  margin: 0;
-  font-family: var(--font-site-sans);
-  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-  font-weight: 650;
-  letter-spacing: -0.02em;
-`
 export const CvDownloadFooter = ({
-  prompt,
   downloadHref,
   downloadLabel,
   downloadAriaLabel,
 }: {
-  prompt: string
   downloadHref: string
   downloadLabel: string
   downloadAriaLabel: string
 }) => (
   <DownloadFooter>
-    <DownloadPrompt>{prompt}</DownloadPrompt>
     <Controls $position="footer" aria-label={downloadAriaLabel}>
       <ActionAnchor href={downloadHref} download>
         {downloadLabel}

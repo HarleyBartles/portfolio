@@ -32,7 +32,7 @@ describe('DocumentMetadata', () => {
       <DocumentMetadata canonicalPath="/projects" />,
     )
 
-    expect(document.title).toBe('Project Stories | Harley Bartles')
+    expect(document.title).toBe('Projects | Harley Bartles')
     expect(readMeta('description')).toHaveAttribute(
       'content',
       'Selected public engineering project stories from Harley Bartles.',
@@ -41,7 +41,7 @@ describe('DocumentMetadata', () => {
       'href',
       'https://harleybartles.com/projects',
     )
-    expect(readProperty('og:title')).toHaveAttribute('content', 'Project Stories | Harley Bartles')
+    expect(readProperty('og:title')).toHaveAttribute('content', 'Projects | Harley Bartles')
     expect(readProperty('og:description')).toHaveAttribute(
       'content',
       'Selected public engineering project stories from Harley Bartles.',

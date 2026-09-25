@@ -35,7 +35,7 @@ const orientationAreas = [
   },
   {
     id: 'writing-and-notes',
-    label: 'Writing and Notes',
+    label: 'Writing',
     href: '/writing',
     findItem: (items) => items.find((item) => item.kind === 'writing'),
   },

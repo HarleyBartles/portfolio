@@ -47,7 +47,7 @@ export const RelatedContent = ({
     return (
       <RelatedSection className="related-content" aria-labelledby="related-content-title">
         <SectionTitle id="related-content-title">Related content</SectionTitle>
-        <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
+        <p role="status">Related content couldn’t be loaded.</p>
       </RelatedSection>
     )
   }

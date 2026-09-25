@@ -48,7 +48,7 @@ export const WritingArticleShell = ({
       {continuationsUnavailable ? (
         <WritingContinuationsUnavailable className="writing-continuations" aria-labelledby="writing-continuations-title">
           <ContinuationHeading id="writing-continuations-title">Continue reading</ContinuationHeading>
-          <p role="status">Related links are temporarily unavailable while supporting navigation reloads.</p>
+          <p role="status">Related articles couldn’t be loaded.</p>
         </WritingContinuationsUnavailable>
       ) : <WritingContinuations items={continuations} />}
       <ShareAction title={share.title} path={share.path} />

@@ -213,7 +213,7 @@ describe('Phase 8 homepage sections', () => {
     const { container } = render(<MemoryRouter><PatchHomepageSlot feature={defaultHomepageEdition.patch} /></MemoryRouter>)
     const patch = container.querySelector('[data-patch-presentation="usual-specialists"]') as HTMLElement
     const hero = within(patch).getByRole('img', { name: /completed recruitment folder/i }).closest('figure') as HTMLElement
-    const fallback = within(patch).getByText('Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.')
+    const fallback = within(patch).getByText('Recruitment folder for the six specialists.')
 
     fireEvent.error(within(hero).getByRole('img'))
 
