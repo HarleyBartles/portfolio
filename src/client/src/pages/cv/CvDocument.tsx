@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const CvDocument = styled.article`
   max-width: 72rem;
-  padding-block: clamp(3rem, 7vw, 6rem);
+  padding-block-end: clamp(3rem, 7vw, 6rem);
 `
 
 export const CvSheet = styled.section`
@@ -10,7 +10,7 @@ export const CvSheet = styled.section`
   margin-inline: auto;
   border: 0;
   background: transparent;
-  padding: clamp(${({ theme }) => theme.space.xl}, 5vw, var(--space-16));
+  padding: 0 clamp(${({ theme }) => theme.space.xl}, 5vw, var(--space-16)) clamp(${({ theme }) => theme.space.xl}, 5vw, var(--space-16));
 
   & + & {
     margin-top: ${({ theme }) => theme.space.xxl};

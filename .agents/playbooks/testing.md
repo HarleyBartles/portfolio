@@ -16,10 +16,23 @@ Use this playbook to select and run the proof appropriate to a Portfolio change.
 
 ## Composition
 
-1. Read the validation doctrine and identify the smallest focused check that proves the current change.
-2. Use TDD when the implementation workflow requires a red-green-refactor loop.
-3. Use Playwright for browser-layout or integration behavior that cannot be proven in component tests.
-4. Run the complete canonical gate once through the tracked commit hook when the intended tree is staged.
+1. Before a TDD cycle, state the visitor or system behavior, a plausible failure, and the layer that owns it under the [test ownership policy](../doctrine/validation-policy.md#test-ownership).
+2. Write the smallest test at that layer, observe a meaningful red result, then implement and refactor. For a refactor with existing adequate coverage, use that coverage instead of adding a change-detector test.
+3. Add a second test type only if it detects a different failure. Run focused checks while iterating, then let the tracked commit hook run the complete gate once against the intended staged tree.
+
+## Which test to write
+
+| Contract | Primary test | Example |
+| --- | --- | --- |
+| Pure rule or transformation | Unit test | Route or content data maps to the right output. |
+| Component behavior or semantics | Component test | The menu button exposes its expanded state and controls the link list. |
+| Visitor task across a page or route | Playwright journey | At mobile width, a visitor opens the menu and reaches Projects. |
+| Rendered spatial relationship | Browser layout check | The header controls remain usable without overlap or horizontal overflow at 320px. |
+| Keyboard or accessibility behavior | Focused accessibility check | Escape closes the menu and focus returns to its trigger. |
+| Approved art direction | Selective visual regression | A representative authored composition changes unexpectedly. |
+| Built or published artifact | Build or publication check | A PDF has a valid response and signature; a public route resolves. |
+
+Prefer roles, names, outcomes, and measurable relationships. Exact CSS declarations, source strings, class names, every pixel of a full page, and repeated assertions of the same contract are poor TDD targets. A visual baseline needs an explicit visual owner and reviewed update path.
 
 ## Doctrine and contracts
 

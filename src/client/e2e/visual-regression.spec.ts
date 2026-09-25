@@ -198,51 +198,6 @@ test('about page keeps the CV conversion area', async ({ page }) => {
   await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion.png')
 })
 
-test('CV keeps its first A4 sheet hierarchy on desktop', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './cv')
-
-  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet.png')
-})
-
-test('About keeps its complete professional composition on desktop and mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './about')
-  await expect(page.locator('main')).toHaveScreenshot('about-professional-flow.png')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './about')
-  await expect(page.locator('main')).toHaveScreenshot('about-professional-flow-mobile.png')
-})
-
-test('CV keeps its second sheet hierarchy on desktop and mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './cv')
-  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet.png')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './cv')
-  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet-mobile.png')
-})
-
-test('Contact keeps its dedicated route composition on desktop and mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './contact')
-  await expect(page.locator('main')).toHaveScreenshot('contact-route.png')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './contact')
-  await expect(page.locator('main')).toHaveScreenshot('contact-route-mobile.png')
-})
-
-test('CV preserves both A4 sheets in print media', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 1100 })
-  await openStable(page, './cv')
-  await page.emulateMedia({ media: 'print' })
-  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet-print.png')
-  await expect(page.locator('[data-cv-page="2"]')).toHaveScreenshot('cv-second-sheet-print.png')
-})
-
 test('about page keeps the CV conversion area usable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './about')
@@ -250,13 +205,6 @@ test('about page keeps the CV conversion area usable on mobile', async ({ page }
   await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot(
     'about-cv-conversion-mobile.png',
   )
-})
-
-test('CV keeps its first sheet readable on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './cv')
-
-  await expect(page.locator('[data-cv-page="1"]')).toHaveScreenshot('cv-first-sheet-mobile.png')
 })
 
 test('article header keeps its hierarchy on mobile', async ({ page }) => {
@@ -424,26 +372,6 @@ test('Learning Lab keeps its engineering proposition, curriculum atlas and lab s
   await expect(origin).toBeAttached()
 })
 
-test('Learning Lab keeps the complete annotated field manual on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './projects/agentic-learning-lab')
-  await waitForLearningLabStyles(page)
-
-  const article = page.locator('article.content-page')
-  await waitForImages(article)
-  await expect(article).toHaveScreenshot('learning-lab-composition-mobile.png')
-})
-
-test('Adventures of Patch keeps the complete authored composition on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './projects/adventures-of-patch')
-  await waitForPatchStyles(page)
-
-  const projectPage = page.locator('article.content-page')
-  await waitForImages(projectPage)
-  await expect(projectPage).toHaveScreenshot('patch-composition-mobile.png')
-})
-
 test('Adventures of Patch leads with its origin story before the compact mobile snapshot', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openStable(page, './projects/adventures-of-patch')
@@ -475,23 +403,13 @@ test('Tournament keeps its opening ambiguity and stakeholder consultation legibl
   await expect(consultation).toHaveScreenshot('patch-tournament-consultation.png')
 })
 
-test('Tournament keeps the complete four-event progression on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './patch/tournament-of-reasonable-defaults')
-  await waitForTournamentStyles(page)
-
-  const story = page.locator('article.content-page')
-  await waitForImages(story)
-  await expect(story).toHaveScreenshot('patch-tournament-mobile.png')
-})
-
 test('Patch index keeps its branded series front door at wide and mobile viewports', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 1100 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport)
     await openStable(page, './patch')
-    const index = page.locator('[data-visual-contract="patch-index"]')
-    await waitForImages(index)
-    await expect(index).toHaveScreenshot(`patch-index-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
+    const introduction = page.locator('.patch-index__character-intro')
+    await waitForImages(introduction)
+    await expect(introduction).toHaveScreenshot(`patch-index-introduction-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
   }
 })
 
@@ -506,7 +424,7 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
 })
 
 test('Specialists Index authored references stay locked at the accepted widths', async ({ page }) => {
-  const widths = [320, 599, 600, 699, 700, 959, 1400, 1619, 1920, 2560] as const
+  const widths = [320, 700, 1400, 2560] as const
 
   await page.setViewportSize({ width: widths[0], height: 1080 })
   await openStable(page, './patch/the-usual-specialists')

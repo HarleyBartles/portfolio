@@ -11,7 +11,7 @@ type ContentArticleProps = {
 
 const Article = styled.article`
   max-width: 76rem;
-  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-block-end: clamp(4rem, 9vw, 7rem);
 `
 
 export const ContentArticle = ({ kind, visualLanguage, register, children }: ContentArticleProps) => (

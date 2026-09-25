@@ -6,6 +6,7 @@ import { SiteHeader } from './SiteHeader'
 
 export type SiteSurface = 'home' | 'interior'
 export type SiteMainFrame = 'contained' | 'full'
+export type SiteOpening = 'standard' | 'composed'
 
 const SiteShell = styled.div<{ $surface: SiteSurface }>`
   min-height: 100vh;
@@ -38,17 +39,26 @@ const SiteShell = styled.div<{ $surface: SiteSurface }>`
     `}
 `
 
-const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface; $mainFrame: SiteMainFrame }>`
+const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface; $mainFrame: SiteMainFrame; $opening: SiteOpening }>`
+  ${({ $opening }) => $opening === 'standard' ? 'padding-block-start: clamp(4rem, 9vw, 7rem);' : ''}
   ${({ $surface, $mainFrame }) => $surface === 'home' || $mainFrame === 'full' ? `
     width: 100%;
     max-width: none;
   ` : ''}
+
+  @media print {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
 `
 
-export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contained' }: {
+export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contained', opening = 'standard' }: {
   children: ReactNode
   surface?: SiteSurface
   mainFrame?: SiteMainFrame
+  opening?: SiteOpening
 }) => {
   return (
     <SiteShell
@@ -57,8 +67,8 @@ export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contai
       data-testid="site-shell"
       $surface={surface}
     >
-      <SiteHeader showName={surface === 'interior'} />
-      <Main className="site-main" id="main-content" data-site-frame $surface={surface} $mainFrame={mainFrame}>{children}</Main>
+      <SiteHeader />
+      <Main className="site-main" id="main-content" data-site-frame data-site-opening={opening} $surface={surface} $mainFrame={mainFrame} $opening={opening}>{children}</Main>
       <SiteFooter />
     </SiteShell>
   )

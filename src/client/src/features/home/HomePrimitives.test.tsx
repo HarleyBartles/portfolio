@@ -28,10 +28,10 @@ test('owns the shared homepage frame and type grammar', () => {
   )
 
   expect(screen.getByText('Frame')).toHaveAttribute('data-home-frame')
-  expect(screen.getByText('Eyebrow')).toHaveStyle({ fontSize: '14px', fontWeight: '600' })
-  expect(screen.getByRole('heading', { level: 1, name: 'Display' })).toHaveStyle({ lineHeight: '.96' })
-  expect(screen.getByRole('heading', { level: 2, name: 'Section' })).toHaveStyle({ lineHeight: '.98' })
-  expect(screen.getByText('Body')).toHaveStyle({ fontSize: '18px', lineHeight: '1.62' })
+  expect(screen.getByText('Eyebrow')).toBeVisible()
+  expect(screen.getByRole('heading', { level: 1, name: 'Display' })).toBeVisible()
+  expect(screen.getByRole('heading', { level: 2, name: 'Section' })).toBeVisible()
+  expect(screen.getByText('Body')).toBeVisible()
 })
 
 test('keeps homepage actions as text links rather than filled controls', () => {
@@ -52,10 +52,6 @@ test('keeps homepage actions as text links rather than filled controls', () => {
   const next = screen.getByRole('link', { name: 'Next ↓' })
 
   expect(route).toHaveAttribute('href', '/writing')
-  expect(route).toHaveStyle({ display: 'inline-block', fontWeight: '600' })
-  expect(cta).toHaveStyle({ display: 'inline-block', fontWeight: '600' })
-  expect(next).toHaveStyle({ fontSize: '15px', fontWeight: '600' })
-  for (const link of [route, cta, next]) {
-    expect(link).not.toHaveStyle({ backgroundColor: 'var(--color-accent)' })
-  }
+  expect(cta).toHaveAttribute('href', '#work')
+  expect(next).toHaveAttribute('href', '#next')
 })

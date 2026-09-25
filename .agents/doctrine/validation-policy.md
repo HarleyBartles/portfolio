@@ -25,6 +25,16 @@ Use this reference when deciding what to verify for repo-starter work.
 - The deployed product is static GitHub Pages output. Validation follows the live React/Vite architecture and must not retain a server toolchain after the runtime server has been removed.
 - Build-owned preview servers must use task-owned process and port lifecycles, release them on success and failure, and never terminate an unrelated listener merely to make validation pass.
 
+## Test ownership
+
+- Start from a plausible failure and the observable contract it would break. Give that contract one primary test owner at the cheapest layer that can prove it. Add another layer only when it catches a distinct failure.
+- Unit tests own pure rules and transformations. Component tests own rendered semantics, state, and public component choices. Neither should repeat the implementation through source-text, class-name, or literal CSS assertions.
+- Playwright journeys own tasks a visitor can complete across the site. Use accessible controls and assert the outcome, including the menu interaction required at a narrow viewport. A journey should not prescribe incidental DOM structure or exact spacing.
+- Browser layout checks own relationships that need a real renderer, such as no overlap or horizontal overflow, usable controls, and deliberately shared alignment. Accessibility checks own semantic and keyboard behavior that general journeys or automated scans do not already cover.
+- Visual regression is reserved for representative, approved compositions whose appearance is itself the contract. Choose a narrow region and viewport that can reveal a meaningful unintended change; review baseline updates as design changes. Do not use pixel comparison for behavior or geometry that the DOM can express more directly, or to approve known-broken output.
+- Build and publication checks own generated routes, assets, documents, budgets, and deployed availability. Do not recast those contracts as page screenshots.
+- A test is worth retaining when it can fail for a real regression and still pass after a legitimate redesign that preserves its contract. Delete duplicate or tautological checks instead of moving their assertions to another layer.
+
 ## Proof
 
 - Do not report validation as passed unless the command output was actually observed.

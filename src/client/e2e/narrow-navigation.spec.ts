@@ -9,6 +9,10 @@ test('primary navigation remains keyboard-reachable in a 195 CSS-pixel viewport'
   await expect(page.locator('.site-shell--interior .site-identity-name')).toHaveText('Harley Bartles')
   await expect(page.locator('.site-shell--interior .site-header')).toHaveCount(1)
   await expect(page.locator('.site-shell--interior [data-route-context]')).toHaveCount(0)
+  const menu = page.getByRole('button', { name: 'Menu' })
+  await expect(menu).toBeVisible()
+  await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link')).toHaveCount(0)
+  await menu.click()
   await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link')).toHaveCount(6)
   const pageWidth = await page.evaluate(() => ({
     fits: document.documentElement.scrollWidth <= document.documentElement.clientWidth,

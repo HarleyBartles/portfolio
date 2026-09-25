@@ -460,7 +460,7 @@ test('Wild Bunch splits the canonical UUID evenly only under genuine narrow pres
   }
 })
 
-test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {
+test('Wild Bunch remains usable at supported narrow widths with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const width of [390, 320, 360]) {
     await page.setViewportSize({ width, height: 844 })
@@ -469,20 +469,12 @@ test('Wild Bunch remains usable at narrow and zoom-proxy widths with reduced mot
     await expect(page.getByText(/wrong name on the crime: yours/i)).toBeVisible()
     await expectNoHorizontalOverflow(page)
 
-    if (width === 390) {
-      const primaryNavigation = page.getByRole('navigation', { name: 'Primary' })
-      const [projects, writing, patch, about] = await Promise.all(
-        ['Projects', 'Writing', 'Patch', 'About'].map((name) => primaryNavigation.getByRole('link', { name, exact: true }).boundingBox()),
-      )
-
-      expect(projects).not.toBeNull()
-      expect(writing).not.toBeNull()
-      expect(patch).not.toBeNull()
-      expect(about).not.toBeNull()
-      expect(Math.abs(projects!.y - writing!.y)).toBeLessThan(1)
-      expect(Math.abs(projects!.y - patch!.y)).toBeLessThan(1)
-      expect(Math.abs(projects!.y - about!.y)).toBeLessThan(1)
-    }
+    const menu = page.getByRole('button', { name: 'Menu' })
+    await menu.click()
+    await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Projects' }).click()
+    await expect(page).toHaveURL(/\/projects\/?$/)
+    await expect(page.getByRole('heading', { level: 1, name: 'Projects' })).toBeVisible()
+    await expectNoHorizontalOverflow(page)
   }
 })
 
@@ -722,7 +714,7 @@ test('Identity Emporium role kits share one deliberate image frame', async ({ pa
   }
 })
 
-test('Adventures of Patch remains complete at narrow and zoom-proxy widths with reduced motion', async ({ page }) => {
+test('Adventures of Patch remains complete at supported narrow widths with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const response = await page.goto(patchPath)
   expect(response?.status()).toBe(200)

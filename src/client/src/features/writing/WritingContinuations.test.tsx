@@ -37,17 +37,6 @@ test('uses a sans section heading to name a grid of whole-object destination lin
   const taxonomy = within(patchLink).getByText('Patch story')
 
   expect(navigation).toHaveAttribute('aria-labelledby', heading.id)
-  expect(heading).toHaveStyle({
-    fontFamily: 'var(--font-site-sans)',
-    fontSize: 'var(--type-section-size)',
-    textTransform: 'none',
-  })
-  expect(taxonomy).toHaveStyle({
-    fontFamily: 'var(--font-site-sans)',
-    fontSize: 'var(--type-metadata-size)',
-    fontWeight: '600',
-  })
-  expect(taxonomy).not.toHaveAttribute('data-eyebrow')
   expect(patchLink).toHaveAttribute('href', '/patch/the-usual-specialists')
   expect(patchLink).toContainElement(taxonomy)
   expect(patchLink).toContainElement(within(patchLink).getByText('The Usual Specialists'))

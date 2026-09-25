@@ -52,65 +52,6 @@ test('production typography is self-hosted and available without a font CDN', as
   expect(successfulFontResponses.every((url) => new URL(url).origin === appOrigin)).toBe(true)
 })
 
-test('interior typography maps content roles to the accepted Source families', async ({ page }) => {
-  await page.goto('./about')
-  await expect(page.locator('main h1')).toBeVisible()
-  await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
-
-  await page.goto('./writing/why-adrs/')
-  const article = page.locator('article[data-content-kind="writing"]')
-  await expect(article).toBeVisible()
-  await expect(article.locator('.content-prose').first()).toHaveCSS('font-family', /Source Serif 4/)
-
-  await page.goto('./projects/codex-marketplace/')
-  await expect(page.locator('code').first()).toHaveCSS('font-family', /Source Code Pro/)
-})
-
-test('homepage typography uses the shared Source families rather than legacy font roles', async ({ page }) => {
-  await page.goto('./')
-  await expect(page.locator('main h1')).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(page.locator('.site-header nav a').first()).toHaveCSS('font-family', /Source Code Pro/)
-  await expect(page.locator('[data-home-movement="writing"] h2')).toHaveCSS('font-family', /Source Serif 4/)
-})
-
-test('interior shared controls, captions, and professional metadata do not inherit the homepage utility language', async ({ page }) => {
-  await page.goto('./about')
-  const nextRole = page.locator('[data-visual-contract="about-cv-conversion"]')
-  await expect(nextRole.getByRole('link', { name: 'Read the CV' })).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(nextRole.getByRole('link', { name: 'Get in touch' })).toHaveCSS('background-color', 'rgb(31, 36, 31)')
-  await expect(page.locator('[data-professional-rail="chronology"] [data-eyebrow]')).toHaveCSS('color', 'rgb(98, 94, 85)')
-
-  await page.goto('./cv')
-  await expect(page.locator('[data-cv-role]').first()).toHaveCSS('color', 'rgb(98, 94, 85)')
-
-  await page.goto('./projects/wild-bunch/')
-  const caption = page.locator('[data-visual-contract="wild-bunch-concept-art"] figcaption')
-  await expect(caption).toHaveCSS('font-family', /Source Sans 3/)
-  await expect(caption).toHaveCSS('font-weight', '400')
-  await expect(caption).toHaveCSS('letter-spacing', 'normal')
-  await expect(caption).toHaveCSS('text-transform', 'none')
-  await expect(caption).toHaveCSS('color', 'rgb(255, 250, 240)')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('./projects/wild-bunch/')
-  await expect(page.locator('[data-visual-contract="wild-bunch-concept-art"] figcaption')).toHaveCSS('line-height', '21px')
-})
-
-test('interior project heroes use the accepted material treatments with a local Wild Bunch edge blend', async ({ page }) => {
-  await page.goto('./projects/wild-bunch/')
-  const edgeBlend = await page.locator('[data-visual-contract="wild-bunch-concept-art"] picture').evaluate((picture) =>
-    getComputedStyle(picture, '::after').backgroundImage,
-  )
-  expect(edgeBlend).toContain('linear-gradient')
-
-  await page.goto('./projects/agentic-learning-lab/')
-  await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(230, 234, 235)')
-
-  await page.goto('./projects/adventures-of-patch/')
-  await expect(page.locator('[data-project-case-study-layout]')).toHaveCSS('background-color', 'rgb(251, 248, 238)')
-})
-
 test('interior routes remain usable with Source font requests blocked', async ({ page }) => {
   const interceptedSourceFonts = new Set<string>()
   await page.route(/\/assets\/source-(?:sans-3|serif-4|code-pro)-[^/?]+\.woff2(?:\?.*)?$/, (route) => {

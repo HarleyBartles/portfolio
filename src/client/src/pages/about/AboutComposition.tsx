@@ -11,7 +11,7 @@ const Intro = styled.header`
   gap: clamp(var(--space-8), 5vw, var(--space-12));
   align-items: start;
   box-sizing: border-box;
-  padding-block: var(--space-8) var(--space-10);
+  padding-block: 0 var(--space-10);
   @media (max-width: 68rem) {
     grid-template-columns: 1fr;
   }

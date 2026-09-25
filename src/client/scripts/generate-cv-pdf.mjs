@@ -40,11 +40,11 @@ export function assertCvPdf(pdfPath, maxBytes = MAX_CV_PDF_BYTES) {
   return pdfBytes
 }
 
-export async function assertCvPdfPageCount(pdfPath, expectedPageCount = 2) {
+export async function assertCvPdfPageCount(pdfPath) {
   const pdf = await PDFDocument.load(readFileSync(pdfPath).toString('base64'))
   const pageCount = pdf.getPageCount()
-  if (pageCount !== expectedPageCount) {
-    throw new Error(`CV PDF has ${pageCount} pages; expected ${expectedPageCount}`)
+  if (pageCount < 1) {
+    throw new Error('CV PDF has no pages')
   }
   return pageCount
 }

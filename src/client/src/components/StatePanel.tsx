@@ -18,7 +18,7 @@ type StatePanelProps = {
 
 const Panel = styled.section`
   max-width: 44rem;
-  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-block-end: clamp(4rem, 9vw, 7rem);
 
   h1 {
     max-width: 10ch;

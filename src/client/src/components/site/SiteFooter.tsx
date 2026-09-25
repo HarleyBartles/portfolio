@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { ExternalLink } from './ExternalLink'
+import { ExternalLink } from '../ExternalLink'
 import { SiteFrame } from './SiteFrame'
 
 const Footer = styled(SiteFrame).attrs({ as: 'footer' })`
   border-top: 1px solid rgb(31 36 31 / 22%);
   padding-block: ${({ theme }) => theme.space.xl};
   color: ${({ theme }) => theme.color.muted};
+
+  @media print {
+    display: none !important;
+  }
 `
 
 const FooterLinks = styled.ul`
@@ -16,11 +20,24 @@ const FooterLinks = styled.ul`
   padding: 0;
   list-style: none;
 
-  a {
-    color: ${({ theme }) => theme.color.ink};
-    font-family: ${({ theme }) => theme.font.code};
-    font-size: .78rem;
-    font-weight: 700;
+  @media (max-width: 30rem) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 ${({ theme }) => theme.space.md};
+
+  }
+`
+
+const FooterLink = styled(Link)`
+  color: ${({ theme }) => theme.color.ink};
+  font-family: ${({ theme }) => theme.font.code};
+  font-size: .78rem;
+  font-weight: 700;
+
+  @media (max-width: 30rem) {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
   }
 `
 
@@ -34,12 +51,12 @@ export const SiteFooter = () => {
   return (
     <Footer className="site-footer" data-site-frame>
       <FooterLinks className="footer-links" aria-label="Footer links">
-        <li><ExternalLink href="https://github.com/HarleyBartles">GitHub</ExternalLink></li>
-        <li><Link to="/projects">Projects</Link></li>
-        <li><Link to="/writing">Writing</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/cv">CV</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+        <li><ExternalLink appearance="footer" href="https://github.com/HarleyBartles">GitHub</ExternalLink></li>
+        <li><FooterLink to="/projects">Projects</FooterLink></li>
+        <li><FooterLink to="/writing">Writing</FooterLink></li>
+        <li><FooterLink to="/about">About</FooterLink></li>
+        <li><FooterLink to="/cv">CV</FooterLink></li>
+        <li><FooterLink to="/contact">Contact</FooterLink></li>
       </FooterLinks>
       <FooterCopyright className="footer-copyright">© 2026 Harley Bartles.</FooterCopyright>
     </Footer>

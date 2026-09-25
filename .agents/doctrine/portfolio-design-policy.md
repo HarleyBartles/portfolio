@@ -66,6 +66,10 @@ Truth, evidence, privacy and Harley's author judgement still outrank all three l
 
 ## Shared editorial primitives
 
+### Page opening inset
+
+The site header's closing rule and the first visible content on an ordinary route are separated by one shared responsive inset owned by `SiteLayout`. Page sections, article wrappers, and headings must not add another top margin or padding to that opening. They may own spacing after their first visible element. A route with a deliberately composed opening can use `opening="composed"` and own its opening geometry; this is an explicit visual decision, not a workaround for stacked spacing.
+
 Article asides are shared editorial grammar. Every article aside must use [`EditorialAside`](../../src/client/src/components/editorial/EditorialAside.tsx), imported through `src/client/src/components/editorial` (for writing bodies, `import { EditorialAside } from '../../components/editorial'`). Article prose obeys the reading measure; editorial asides deliberately break it to the right on wide viewports while retaining the prose column’s left edge. The shared responsive grammar is: wide desktop places title and precis in the left lane with the disclosure/body in the right lane; tablet places title and precis side by side, then puts the disclosure on the next row with opened body in the right lane; mobile returns title, precis and disclosure to one left-aligned column. The primitive owns that geometry along with field and rule treatment, title and precis hierarchy, native disclosure behavior, keyboard semantics and responsive handling.
 
 Article-local aside shells or aside presentation styles are not allowed. A genuinely different aside grammar requires an explicit new design decision and approval before implementation. This is the same conceptual rule already embodied by [`EditorialPullQuote`](../../src/client/src/components/editorial/EditorialPullQuote.tsx): a repeated editorial job belongs to its canonical shared primitive, not a new local treatment.

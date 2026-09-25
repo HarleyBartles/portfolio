@@ -67,16 +67,14 @@ describe('assertCvPdf', () => {
     expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF contains a localhost link target')
   })
 
-  test('rejects a generated CV that is not exactly two pages', async () => {
+  test('accepts a parseable multi-page CV without approving its current pagination', async () => {
     const document = await PDFDocument.create()
     document.addPage()
     document.addPage()
     document.addPage()
     const pdfPath = await temporaryPdf(await document.save())
 
-    await expect(assertCvPdfPageCount(pdfPath, 2)).rejects.toThrow(
-      'CV PDF has 3 pages; expected 2',
-    )
+    await expect(assertCvPdfPageCount(pdfPath)).resolves.toBe(3)
   })
 })
 

@@ -2,10 +2,10 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, test } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
-import { ErrorPage } from '../pages/ErrorPage'
-import { LoadingPage } from '../pages/LoadingPage'
-import { NotFoundPage } from '../pages/NotFoundPage'
-import { PortfolioThemeProvider } from './PortfolioThemeProvider'
+import { ErrorPage } from '../../pages/ErrorPage'
+import { LoadingPage } from '../../pages/LoadingPage'
+import { NotFoundPage } from '../../pages/NotFoundPage'
+import { PortfolioThemeProvider } from '../PortfolioThemeProvider'
 import { SiteLayout } from './SiteLayout'
 
 describe('SiteLayout', () => {
@@ -37,13 +37,10 @@ describe('SiteLayout', () => {
 
     expect(screen.getByTestId('site-shell')).toHaveAttribute('data-site-surface', 'interior')
     expect(screen.getByText('Harley Bartles')).toBeVisible()
-    expect(screen.getByRole('main')).toHaveStyle({
-      width: '100%',
-      maxWidth: 'none',
-    })
+    expect(screen.getByRole('main')).toHaveTextContent('Route-owned story')
   })
 
-  test('uses the home surface without a visible site identity', () => {
+  test('uses the home surface with the shared site identity', () => {
     render(
       <PortfolioThemeProvider>
         <MemoryRouter>
@@ -55,20 +52,10 @@ describe('SiteLayout', () => {
     )
 
     const shell = screen.getByTestId('site-shell')
-    const main = screen.getByRole('main')
 
     expect(shell).toHaveAttribute('data-site-surface', 'home')
-    expect(screen.queryByText('Harley Bartles')).not.toBeInTheDocument()
-    expect(shell).toHaveStyle({
-      background: 'var(--color-interior-canvas)',
-      color: '#172127',
-      fontFamily: 'var(--font-site-sans)',
-      overflowX: 'hidden',
-    })
-    expect(main).toHaveStyle({
-      width: '100%',
-      maxWidth: 'none',
-    })
+    expect(screen.getByText('Harley Bartles')).toBeVisible()
+    expect(screen.getByRole('main')).toHaveTextContent('Home')
   })
 
   test('renders semantic page landmarks with understandable navigation', async () => {

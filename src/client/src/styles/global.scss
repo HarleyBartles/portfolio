@@ -228,7 +228,7 @@ ul {
 }
 
 .content-index {
-  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-block-end: clamp(4rem, 9vw, 7rem);
 }
 
 .content-index {
@@ -318,19 +318,6 @@ ul {
     line-height: 1.3;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
-  }
-
-  .site-header,
-  .site-footer,
-  .skip-link {
-    display: none !important;
-  }
-
-  main {
-    width: auto;
-    max-width: none;
-    margin: 0;
-    padding: 0;
   }
 
   a {

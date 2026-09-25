@@ -21,21 +21,6 @@ const expectNoHorizontalOverflow = async (page: Page): Promise<void> => {
   expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
 }
 
-const clamp = (minimum: number, value: number, maximum: number): number => Math.min(maximum, Math.max(minimum, value))
-
-const placementMetrics = async (placement: Locator) => placement.evaluate((element) => {
-  if (!(element instanceof HTMLElement) || !(element.parentElement instanceof HTMLElement)) {
-    throw new Error('Index placement owner is missing')
-  }
-  return {
-    display: getComputedStyle(element).display,
-    topRatio: element.offsetTop / element.parentElement.clientHeight,
-    leftRatio: element.offsetLeft / element.parentElement.clientWidth,
-    width: element.offsetWidth,
-    widthRatio: element.offsetWidth / element.parentElement.clientWidth,
-  }
-})
-
 type Box = NonNullable<Awaited<ReturnType<Locator['boundingBox']>>>
 
 const boxRight = (box: Box): number => box.x + box.width
@@ -93,67 +78,6 @@ test('The Usual Specialists Index uses only the locked responsive modes at its a
       expect(chapterBox).not.toBeNull()
       expect(chapterBox!.height, `Index chapter height at ${width}px`).toBeLessThanOrEqual(1080)
     }
-  }
-})
-
-test('The Usual Specialists Index keeps its authored placement ratios without inspecting image pixels', async ({ page }) => {
-  const index = await openIndex(page, 599)
-  const highStepPlacement = index.locator('[data-index-traversal="index-high-step"]').locator('..')
-  const storyPlacement = index.locator('[data-index-story-card]').locator('..')
-  const evidence = index.locator('[data-index-evidence-field]')
-  const researchLockup = index.locator('[data-index-research-lockup]')
-  const graph = researchLockup.locator('[data-index-substrate="graph-paper"]')
-  const pair = researchLockup.locator('[data-index-inspection-pair]')
-
-  let highStep = await placementMetrics(highStepPlacement)
-  expect(highStep.topRatio).toBeCloseTo(-0.225, 2)
-  expect(highStep.leftRatio).toBeCloseTo(0.64, 2)
-  expect(highStep.width).toBe(74)
-
-  await settleViewport(page, 600)
-  highStep = await placementMetrics(highStepPlacement)
-  expect(highStep.topRatio).toBeCloseTo(-0.1685, 2)
-  expect(highStep.leftRatio).toBeCloseTo(0.663, 2)
-  expect(highStep.width).toBe(74)
-
-  for (const [width, expectedGraphWidthRatio, expectedGraphLeftRatio] of [
-    [599, 1.14, -0.106],
-    [600, 1.34, -0.106],
-    [960, 2.08, -0.31],
-    [1920, 2.08, -0.31],
-  ] as const) {
-    await settleViewport(page, width)
-    const graphMetrics = await placementMetrics(graph)
-    const pairMetrics = await placementMetrics(pair)
-    expect(graphMetrics.widthRatio, `graph width ratio at ${width}px`).toBeCloseTo(expectedGraphWidthRatio, 2)
-    expect(graphMetrics.leftRatio, `graph left ratio at ${width}px`).toBeCloseTo(expectedGraphLeftRatio, 2)
-    expect(pairMetrics.widthRatio, `inspection pair width ratio at ${width}px`).toBeCloseTo(0.44, 2)
-    expect(pairMetrics.leftRatio, `inspection pair left ratio at ${width}px`).toBeCloseTo(-0.0355, 2)
-  }
-
-  for (const width of [600, 1299] as const) {
-    await settleViewport(page, width)
-    const [storyBox, evidenceBox] = await Promise.all([storyPlacement.boundingBox(), evidence.boundingBox()])
-    expect(storyBox).not.toBeNull()
-    expect(evidenceBox).not.toBeNull()
-    expect((storyBox!.y - evidenceBox!.y) / evidenceBox!.height, `story top ratio at ${width}px`).toBeCloseTo(0.40, 2)
-    expect((evidenceBox!.x + evidenceBox!.width - storyBox!.x - storyBox!.width) / evidenceBox!.width, `story right ratio at ${width}px`).toBeCloseTo(0.04, 2)
-    expect(storyBox!.width, `story width at ${width}px`).toBeCloseTo(Math.min(evidenceBox!.width * 0.56, 544), 0)
-  }
-
-  for (const width of [1300, 1920] as const) {
-    await settleViewport(page, width)
-    const [storyBox, evidenceBox] = await Promise.all([storyPlacement.boundingBox(), evidence.boundingBox()])
-    expect(storyBox).not.toBeNull()
-    expect(evidenceBox).not.toBeNull()
-    const expectedTop = width >= 1920 ? 58 : 68
-    const expectedRight = width >= 1920
-      ? clamp(130, evidenceBox!.width * 0.07, 180)
-      : clamp(54, evidenceBox!.width * 0.05, 96)
-    const expectedWidth = width >= 1920 ? 520 : clamp(400, evidenceBox!.width * 0.29, 480)
-    expect(storyBox!.y - evidenceBox!.y, `story top at ${width}px`).toBeCloseTo(expectedTop, 0)
-    expect(evidenceBox!.x + evidenceBox!.width - storyBox!.x - storyBox!.width, `story right inset at ${width}px`).toBeCloseTo(expectedRight, 0)
-    expect(storyBox!.width, `story width at ${width}px`).toBeCloseTo(expectedWidth, 0)
   }
 })
 
