@@ -42,7 +42,7 @@ const PatchIndex = styled.section`
     grid-template-columns: minmax(18rem, 32rem) minmax(0, 34rem);
     gap: clamp(var(--space-8), 6vw, var(--space-16));
     align-items: end;
-    padding-block: clamp(var(--space-8), 5vw, var(--space-16));
+    padding-block-end: clamp(var(--space-8), 5vw, var(--space-16));
     border-bottom: 1px solid var(--color-border);
   }
 

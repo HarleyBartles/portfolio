@@ -1,27 +1,8 @@
 import { expect, test, type Page } from '@playwright/test'
+import { openStable, waitForImages } from './visual-support'
 
 test.use({ reducedMotion: 'reduce' })
 test.skip(process.platform !== 'win32', 'Visual baselines are authored and compared on Windows only')
-
-const openStable = async (page: Page, path: string): Promise<void> => {
-  await page.addInitScript(() => {
-    Math.random = () => 0.314159
-  })
-  await page.goto(path, { waitUntil: 'networkidle' })
-  await expect(page.locator('main')).toBeVisible()
-  await page.evaluate(async () => document.fonts.ready)
-  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
-  await page.locator('.skip-link').evaluate((element) => element.setAttribute('hidden', ''))
-}
-
-const waitForImages = async (region: ReturnType<Page['locator']>): Promise<void> => {
-  for (const image of await region.locator('img').all()) {
-    if (!(await image.isVisible())) continue
-    await image.scrollIntoViewIfNeeded()
-    await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
-  }
-  await region.scrollIntoViewIfNeeded()
-}
 
 const waitForWildBunchStyles = async (page: Page): Promise<void> => {
   const figure = page.getByRole('figure', {
@@ -49,66 +30,6 @@ const waitForLearningLabStyles = async (page: Page): Promise<void> => {
   await expect.poll(() => safety.evaluate((element) => getComputedStyle(element).display)).toMatch(/^(grid|flex)$/)
 }
 
-const nonHomeProof = [
-  {
-    path: './projects/wild-bunch',
-    contract: 'wild-bunch-case-study-hero',
-    register: 'site-sans',
-  },
-  {
-    path: './writing/why-adrs',
-    contract: 'decision-memory',
-    register: 'article-serif',
-  },
-  { path: './about', contract: 'about-current-work', register: 'site-sans' },
-] as const
-
-const proofViewports = [
-  { width: 1440, height: 1100 },
-  { width: 390, height: 844 },
-  { width: 320, height: 844 },
-  { width: 360, height: 844 },
-] as const
-
-for (const route of nonHomeProof) {
-  for (const viewport of proofViewports) {
-    test(`${route.path} preserves its non-home contract at ${viewport.width}x${viewport.height}`, async ({ page }) => {
-      await page.setViewportSize(viewport)
-      await page.goto(route.path, { waitUntil: 'networkidle' })
-      await expect(page.locator('main h1')).toBeVisible()
-      await expect(page.locator(`[data-visual-contract="${route.contract}"]`)).toBeVisible()
-      await expect(page.locator(`[data-type-register="${route.register}"]`).first()).toBeVisible()
-
-      expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
-
-      const contractFollowsHeading = await page.evaluate((contract) => {
-        const heading = document.querySelector('main h1')
-        const surface = document.querySelector(`[data-visual-contract="${contract}"]`)
-        if (heading === null || surface === null) return false
-        return (
-          heading === surface ||
-          surface.contains(heading) ||
-          heading.contains(surface) ||
-          Boolean(heading.compareDocumentPosition(surface) & Node.DOCUMENT_POSITION_FOLLOWING)
-        )
-      }, route.contract)
-      expect(contractFollowsHeading).toBe(true)
-
-      await page.keyboard.press('Tab')
-      const focused = page.locator(':focus')
-      await expect(focused).toBeVisible()
-      expect(
-        await focused.evaluate((element) => {
-          const style = getComputedStyle(element)
-          return (
-            (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0) || style.boxShadow !== 'none'
-          )
-        }),
-      ).toBe(true)
-    })
-  }
-}
-
 const clipBetween = async (page: Page, firstSelector: string, lastSelector: string) => {
   const [first, last] = await Promise.all([
     page.locator(firstSelector).evaluate((element) => {
@@ -128,14 +49,6 @@ const clipBetween = async (page: Page, firstSelector: string, lastSelector: stri
   }
 }
 
-const enclosingClip = (clip: { x: number; y: number; width: number; height: number }) => {
-  const x = Math.floor(clip.x + 1e-3)
-  const y = Math.floor(clip.y + 1e-3)
-  const right = Math.ceil(clip.x + clip.width - 1e-3)
-  const bottom = Math.ceil(clip.y + clip.height - 1e-3)
-  return { x, y, width: right - x, height: bottom - y }
-}
-
 test('clipBetween measures document bounds without changing scroll position', async ({ page }) => {
   await page.setViewportSize({ width: 400, height: 300 })
   await page.setContent(`
@@ -151,7 +64,7 @@ test('clipBetween measures document bounds without changing scroll position', as
   const scrollYBeforeClip = await page.evaluate(() => scrollY)
 
   expect(scrollYBeforeClip).toBe(1000)
-  expect(enclosingClip(await clipBetween(page, '[data-clip-first]', '[data-clip-last]'))).toEqual({
+  expect(await clipBetween(page, '[data-clip-first]', '[data-clip-last]')).toEqual({
     x: 10,
     y: 100,
     width: 200,
@@ -160,95 +73,9 @@ test('clipBetween measures document bounds without changing scroll position', as
   expect(await page.evaluate(() => scrollY)).toBe(scrollYBeforeClip)
 })
 
-test('writing index keeps its newest-first editorial composition', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './writing')
-
-  await expect(page.locator('[data-visual-contract="writing-peer-list"]')).toHaveScreenshot('writing-peer-list.png')
-})
-
-test('writing continuations keep their earned destination-object hierarchy', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists')
-
-  const continuations = page.getByRole('navigation', { name: 'Continue reading' })
-  const choices = continuations.getByRole('link')
-  await expect(continuations).toHaveScreenshot('writing-continuations.png')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists')
-  await expect(continuations).toHaveScreenshot('writing-continuations-mobile.png')
-
-  await choices.first().focus()
-  await expect(choices.first()).toBeFocused()
-  expect(await choices.first().evaluate((element) => getComputedStyle(element).outlineWidth)).toBe('3px')
-})
-
-test('about page keeps the current-work argument', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './about')
-
-  await expect(page.locator('[data-visual-contract="about-current-work"]')).toHaveScreenshot('about-current-work.png')
-})
-
-test('about page keeps the CV conversion area', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './about')
-
-  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot('about-cv-conversion.png')
-})
-
-test('about page keeps the CV conversion area usable on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './about')
-
-  await expect(page.locator('[data-visual-contract="about-cv-conversion"]')).toHaveScreenshot(
-    'about-cv-conversion-mobile.png',
-  )
-})
-
-test('article header keeps its hierarchy on mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './writing/agentic-engineering-vs-vibe-coding')
-
-  const header = page.locator('[data-visual-contract="vibe-coding-article"]')
-  await expect(header.getByRole('heading', { level: 1, name: 'Agentic engineering and the kindness of vibe coding' })).toBeVisible()
-  await expect(header.getByText('1 August 2026')).toBeVisible()
-  await expect(header.getByText('4 min read')).toBeVisible()
-  await expect(header.locator('figure')).toHaveCount(0)
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
-})
-
-test('homepage keeps its authored opening, Wild Bunch, and Specialists movements at wide and portrait viewports', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './')
-  await expect(page.locator('[data-visual-contract="homepage-opening"]')).toHaveScreenshot('homepage-opening-wide.png')
-
-  const wildBunch = page.locator('[data-visual-contract="homepage-wild-bunch"]')
-  await waitForImages(wildBunch)
-  await expect(wildBunch).toHaveScreenshot('homepage-wild-bunch-wide.png')
-
-  const specialists = page.locator('[data-visual-contract="homepage-specialists"]')
-  await waitForImages(specialists)
-  await expect(specialists).toHaveScreenshot('homepage-specialists-wide.png')
-  await expect(specialists.locator('[data-patch-series-lockup]')).toHaveScreenshot('homepage-specialists-lockup-wide.png')
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './')
-  await waitForImages(wildBunch)
-  await expect(wildBunch).toHaveScreenshot('homepage-wild-bunch-portrait.png')
-  await waitForImages(specialists)
-  await expect(specialists.locator('[data-patch-series-lockup]')).toHaveScreenshot('homepage-specialists-lockup-portrait.png')
-})
-
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/codex-marketplace')
-  await expect(page.locator('[data-visual-contract="marketplace-case-study-hero"]')).toHaveScreenshot(
-    'marketplace-case-study-hero.png',
-  )
   await expect(page.locator('[data-visual-contract="marketplace-distribution-map"]')).toHaveScreenshot(
     'marketplace-distribution-map.png',
   )
@@ -275,7 +102,7 @@ test('Wild Bunch keeps its town hero and controlled-determinism evidence on desk
   await expect(determinism).toHaveScreenshot('wild-bunch-determinism.png')
 })
 
-test('Wild Bunch keeps event history and product evidence legible on desktop', async ({ page }) => {
+test('Wild Bunch keeps its event-history figure legible on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/wild-bunch')
   await waitForWildBunchStyles(page)
@@ -285,9 +112,6 @@ test('Wild Bunch keeps event history and product evidence legible on desktop', a
   })
   await expect(eventFlow).toHaveScreenshot('wild-bunch-event-flow.png')
 
-  const productEvidence = page.locator('.wild-bunch-product-evidence')
-  await waitForImages(productEvidence)
-  await expect(productEvidence).toHaveScreenshot('wild-bunch-product-evidence.png')
 })
 
 test('Wild Bunch keeps its stacked composition legible on mobile', async ({ page }) => {
@@ -317,7 +141,7 @@ test('Adventures of Patch keeps its hero and accountable origin on desktop', asy
   await expect(origin).toHaveScreenshot('patch-origin.png')
 })
 
-test('Adventures of Patch keeps its production system and showcase handoff legible on desktop', async ({ page }) => {
+test('Adventures of Patch keeps its production-system composition on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/adventures-of-patch')
   await waitForPatchStyles(page)
@@ -327,66 +151,20 @@ test('Adventures of Patch keeps its production system and showcase handoff legib
   })
   await expect(production).toHaveScreenshot('patch-production-system.png')
 
-  const handoff = page.getByRole('region', {
-    name: 'The stories have their own home',
-  })
-  await expect(handoff).toHaveScreenshot('patch-showcase-handoff.png')
 })
 
-test('Adventures of Patch keeps its evidence boundary and controlled-production close distinct on desktop', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 1100 })
-  await openStable(page, './projects/adventures-of-patch')
-  await waitForPatchStyles(page)
-
-  await expect(page.getByRole('region', { name: 'What reaches the public record' })).toHaveScreenshot(
-    'patch-evidence-boundary.png',
-  )
-  await expect(page.getByRole('region', { name: 'Controlled creative production' })).toHaveScreenshot(
-    'patch-controlled-production.png',
-  )
-})
-
-test('Learning Lab keeps its engineering proposition, curriculum atlas and lab system on desktop', async ({ page }) => {
+test('Learning Lab keeps its hero-to-origin composition on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 2000 })
   await openStable(page, './projects/agentic-learning-lab')
   await waitForLearningLabStyles(page)
 
   const hero = page.locator('[data-visual-contract="learning-lab-case-study-hero"]')
-  const origin = page.locator('.learning-lab-origin')
   await waitForImages(hero)
   await expect(page).toHaveScreenshot('learning-lab-hero-origin.png', {
     clip: await clipBetween(page, '[data-visual-contract="learning-lab-case-study-hero"]', '.learning-lab-origin'),
   })
 
-  await expect(page.locator('[data-visual-contract="learning-lab-atlas"]')).toHaveScreenshot(
-    'learning-lab-curriculum-atlas.png',
-  )
 
-  const representatives = page.locator('.representative-labs')
-  await waitForImages(representatives)
-  await expect(page.locator('[data-visual-contract="learning-lab-system"]')).toHaveScreenshot(
-    'learning-lab-lab-system.png',
-  )
-  await expect(origin).toBeAttached()
-})
-
-test('Adventures of Patch leads with its origin story before the compact mobile snapshot', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await openStable(page, './projects/adventures-of-patch')
-  await waitForPatchStyles(page)
-
-  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
-  const origin = page.getByRole('region', {
-    name: 'The day the database disappeared',
-  })
-  const [snapshotBox, originBox] = await Promise.all([snapshot.boundingBox(), origin.boundingBox()])
-
-  expect(snapshotBox).not.toBeNull()
-  expect(originBox).not.toBeNull()
-  expect(snapshotBox?.height).toBeLessThanOrEqual(650)
-  expect(snapshotBox?.y).toBeGreaterThanOrEqual((originBox?.y ?? 0) + (originBox?.height ?? 0))
 })
 
 test('Tournament keeps its opening ambiguity and stakeholder consultation legible on desktop', async ({ page }) => {
@@ -421,36 +199,4 @@ test('Identity Emporium keeps its evidence composition at wide and mobile viewpo
     const identity = page.locator('[data-visual-contract="patch-identity-emporium"]')
     await expect(identity).toHaveScreenshot(`patch-identity-emporium-${viewport.width === 1440 ? 'wide' : 'mobile'}.png`)
   }
-})
-
-test('Specialists Index authored references stay locked at the accepted widths', async ({ page }) => {
-  const widths = [320, 700, 1400, 2560] as const
-
-  await page.setViewportSize({ width: widths[0], height: 1080 })
-  await openStable(page, './patch/the-usual-specialists')
-  const story = page.locator('[data-visual-contract="patch-usual-specialists-index"]')
-
-  for (const width of widths) {
-    await page.setViewportSize({ width, height: 1080 })
-    await waitForImages(story)
-    await expect.soft(page).toHaveScreenshot(`patch-usual-specialists-index-${width}-authored.png`, {
-      fullPage: true,
-      clip: enclosingClip(
-        await clipBetween(
-          page,
-          '[data-visual-contract="patch-usual-specialists-index"] header',
-          '[data-specialist-chapter="index"]',
-        ),
-      ),
-    })
-  }
-})
-test('Adventures of Patch preserves the compact snapshot at 320px without horizontal overflow', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 844 })
-  await openStable(page, './projects/adventures-of-patch')
-  await waitForPatchStyles(page)
-
-  const snapshot = page.getByRole('region', { name: 'Project snapshot' })
-  await expect(snapshot).toBeVisible()
-  expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
 })

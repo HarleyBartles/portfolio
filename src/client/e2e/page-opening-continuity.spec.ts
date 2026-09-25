@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 
 const openings = [
   { path: '/projects', selector: '#project-index-title' },
+  { path: '/patch', selector: '.patch-index__mark' },
   { path: '/writing', selector: '#writing-index-title' },
   { path: '/contact', selector: '#contact-title' },
   { path: '/about', selector: '[data-visual-contract="about-intro"] [data-eyebrow]' },

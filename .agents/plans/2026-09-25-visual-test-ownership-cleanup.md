@@ -8,7 +8,7 @@
 
 **Tech Stack:** React, TypeScript, Vitest, Playwright, Windows-authored screenshot baselines, Python repository command bus.
 
-**Spec:** `.agents/doctrine/validation-policy.md#test-ownership` and `.agents/playbooks/testing.md#which-test-to-write`; the approved assessment in the current PR #80 discussion. This is a follow-on slice on `codex/site-header-cleanup`, in the same draft PR. The older `.agents/plans/2026-09-25-site-chrome-composition-and-test-contracts.md` still governs its unfinished closeout items.
+**Spec:** `.agents/doctrine/validation-policy.md#test-ownership` and `.agents/playbooks/testing.md#which-test-to-write`; the approved assessment in the current PR #80 discussion. This is a follow-on slice on `codex/site-header-cleanup`, in the same draft PR. The older plan's unfinished closeout items were transferred here explicitly.
 
 **Execution Strategy:** `executing-plans`, because snapshot selection, duplicate-test removal, and baseline custody require one coherent review and staged commit.
 
@@ -38,10 +38,10 @@
 
 **Interfaces:** Consumes current test ownership doctrine. Produces a keep/delete/move decision for every assertion and screenshot in the visual spec before implementation.
 
-- [ ] Inventory every `expect`, including indirect assertions inside `openStable`, image/style wait helpers, `clipBetween`, and `enclosingClip`. Classify each as visual appearance, visitor outcome, component state, accessibility, renderer geometry, test-harness correctness, or duplication.
-- [ ] Map each retained screenshot to an approved composition, owning route, representative width, and distinct failure that it catches. Compare its crop with overlapping screenshots in the same or another spec. Name exact PNGs to remove before deleting any.
-- [ ] Check the similarly named `writing-navigation.spec.ts` Use Superpowers journey separately. Identify the visitor outcome, if any, absent from `UseSuperpowersArticle.test.tsx`, `EditorialAside.test.tsx`, and the existing writing journeys. Keep only that outcome in Playwright; do not treat its title as a visual-test case.
-- [ ] Establish baseline evidence with the focused visual and writing specs on the current Windows renderer. Record failures separately from the intended cleanup; do not regenerate snapshots blindly.
+- [x] Inventory every `expect`, including indirect assertions inside `openStable`, image/style wait helpers, `clipBetween`, and `enclosingClip`. Classify each as visual appearance, visitor outcome, component state, accessibility, renderer geometry, test-harness correctness, or duplication.
+- [x] Map each retained screenshot to an approved composition, owning route, representative width, and distinct failure that it catches. Compare its crop with overlapping screenshots in the same or another spec. Name exact PNGs to remove before deleting any.
+- [x] Check the similarly named `writing-navigation.spec.ts` Use Superpowers journey separately. Identify the visitor outcome, if any, absent from `UseSuperpowersArticle.test.tsx`, `EditorialAside.test.tsx`, and the existing writing journeys. Keep only that outcome in Playwright; do not treat its title as a visual-test case.
+- [x] Establish baseline evidence with the focused visual and writing specs on the current Windows renderer. Record failures separately from the intended cleanup; do not regenerate snapshots blindly.
 
 ### Task 2: Remove nonvisual and repeated proof from the visual spec
 
@@ -49,12 +49,12 @@
 
 **Interfaces:** Consumes Task 1's ownership decisions. Produces a visual spec containing only screenshot assertions and minimal stabilization helpers needed by those screenshots.
 
-- [ ] Delete the 12-case `nonHomeProof` route/viewport matrix. Shared chrome and type register attributes are component concerns; heading order, focus appearance, and horizontal overflow already have focused owners. Preserve a distinct missing accessibility or layout behavior only if the inventory proves one, using a representative browser check in its owning spec.
-- [ ] Delete the mobile article-header test and the 320px Patch snapshot test from the visual spec. Their text, figure count, order, height, and overflow assertions are DOM or geometry checks already represented in focused article/project tests; add nothing if no gap remains.
-- [ ] Remove the continuation focus and literal `3px` outline assertions from this spec. Retain an accessibility check only if no existing keyboard/focus test covers the behavior; never assert the exact CSS width as the contract.
-- [ ] Remove `origin.toBeAttached()` from the Learning Lab screenshot test and other setup-only or post-screenshot assertions without an independent failure mode.
-- [ ] Trim the Use Superpowers Playwright journey to one meaningful route-and-keyboard visitor outcome if it still has one. Drop page-shell marker, aside implementation attributes, exact article prose, and other component/route inventory already owned elsewhere.
-- [ ] Run focused Playwright specs for changed nonvisual behavior; inspect failures for lost coverage rather than restoring removed assertions by reflex.
+- [x] Delete the 12-case `nonHomeProof` route/viewport matrix. Shared chrome and type register attributes are component concerns; heading order, focus appearance, and horizontal overflow already have focused owners. Preserve a distinct missing accessibility or layout behavior only if the inventory proves one, using a representative browser check in its owning spec.
+- [x] Delete the mobile article-header test and the 320px Patch snapshot test from the visual spec. Their text, figure count, order, height, and overflow assertions are DOM or geometry checks already represented in focused article/project tests; add nothing if no gap remains.
+- [x] Remove the continuation focus and literal `3px` outline assertions from this spec. Retain an accessibility check only if no existing keyboard/focus test covers the behavior; never assert the exact CSS width as the contract.
+- [x] Remove `origin.toBeAttached()` from the Learning Lab screenshot test and other setup-only or post-screenshot assertions without an independent failure mode.
+- [x] Trim the Use Superpowers Playwright journey to one meaningful route-and-keyboard visitor outcome if it still has one. Drop page-shell marker, aside implementation attributes, exact article prose, and other component/route inventory already owned elsewhere.
+- [x] Run focused Playwright specs for changed nonvisual behavior; inspect failures for lost coverage rather than restoring removed assertions by reflex.
 
 ### Task 3: Curate authored screenshots and their baselines
 
@@ -62,14 +62,14 @@
 
 **Interfaces:** Consumes Task 1's named snapshot inventory and Task 2's reduced spec. Produces one coherent set of reviewed, Windows-owned visual baselines.
 
-- [ ] Remove the writing-index screenshot if its only claimed protection is newest-first order. Reassess the two writing-continuations screenshots against their distinct wide/mobile destination-object composition; keep only widths that protect materially different art direction.
-- [ ] Keep at most one representative About current-work visual if its composition is approved. Reassess both CV-conversion screenshots against ordinary CTA layout and existing About geometry checks; retire any whose failure would merely report legitimate copy or spacing iteration.
-- [ ] Keep representative homepage opening and authored Wild Bunch/Specialists compositions. Remove nested lockup screenshots already covered by their parent crop unless the lockup has its own separately approved visual treatment and failure mode.
-- [ ] Retain a selective Marketplace, Wild Bunch, Patch, and Learning Lab set for the distinctive maps, illustrated heroes, figures, and story transitions. Remove successive ordinary section screenshots that amount to a page catalogue. Keep desktop/mobile pairs only when the two widths express distinct compositions.
-- [ ] Retain representative Tournament, Patch-index, and Identity-Emporium imagery. For Specialists, map 320/700/1400/2560 to actual layout modes; keep each width only if it detects a distinct authored composition. Narrow the full-page clip if a smaller region still protects the character/story relationship.
-- [ ] If `clipBetween` or `enclosingClip` loses all consumers, delete the helper and its harness test. If it remains, keep one focused correctness test for document-coordinate clipping without making it a product journey.
-- [ ] Inspect the surviving screenshot images and every proposed deletion side by side. Remove only PNGs no retained assertion references; regenerate and check the mesh with `py -3 tools/run.py mesh --apply` then `py -3 tools/run.py mesh --check`.
-- [ ] Run `npx playwright test e2e/visual-regression.spec.ts e2e/writing-navigation.spec.ts --reporter=line` from `src/client` on Windows, with the production build/preview required by the Playwright config. Confirm no unexpected baseline updates, orphan references, or retry-rescued passes.
+- [x] Remove the writing-index screenshot if its only claimed protection is newest-first order. Reassess the two writing-continuations screenshots against their distinct wide/mobile destination-object composition; keep only widths that protect materially different art direction.
+- [x] Keep at most one representative About current-work visual if its composition is approved. Reassess both CV-conversion screenshots against ordinary CTA layout and existing About geometry checks; retire any whose failure would merely report legitimate copy or spacing iteration.
+- [x] Keep representative homepage opening and authored Wild Bunch/Specialists compositions. Remove nested lockup screenshots already covered by their parent crop unless the lockup has its own separately approved visual treatment and failure mode.
+- [x] Retain a selective Marketplace, Wild Bunch, Patch, and Learning Lab set for the distinctive maps, illustrated heroes, figures, and story transitions. Remove successive ordinary section screenshots that amount to a page catalogue. Keep desktop/mobile pairs only when the two widths express distinct compositions.
+- [x] Retain representative Tournament, Patch-index, and Identity-Emporium imagery. Give each modular section its own visual owner and responsive widths; for Specialists, capture only the Index region at its authored compact, high-step, walk-ready, wide, and ultrawide modes. Do not let those widths create a page-wide snapshot matrix or constrain Coming Soon and future sections.
+- [x] If `clipBetween` or `enclosingClip` loses all consumers, delete the helper and its harness test. If it remains, keep one focused correctness test for document-coordinate clipping without making it a product journey.
+- [x] Inspect the surviving screenshot images and every proposed deletion side by side. Remove only PNGs no retained assertion references; regenerate and check the mesh with `py -3 tools/run.py mesh --apply` then `py -3 tools/run.py mesh --check`.
+- [x] Run `npx playwright test e2e/visual-regression.spec.ts e2e/writing-navigation.spec.ts --reporter=line` from `src/client` on Windows, with the production build/preview required by the Playwright config. Confirm no unexpected baseline updates, orphan references, or retry-rescued passes.
 
 ### Task 4: Review and publish the same draft PR
 
@@ -77,8 +77,8 @@
 
 **Interfaces:** Produces a reviewed staged tree, hooked commit, pushed branch head, and a draft PR whose description explains the removed proof and retained visual ownership.
 
-- [ ] Review the final diff against the Task 1 inventory and the test ownership policy. Obtain a fresh test-design review focused on lost behavior, overbroad screenshot deletion, duplicate survivors, and incorrect width sampling; resolve actionable findings with focused checks.
-- [ ] Obtain a fresh whole-branch code/design review covering shared header/footer ownership, stale journeys, baseline custody, and the newly reduced visual suite. Record the measured 544/545px breakpoint rationale and the user's accepted mark/menu visual judgment in PR #80. Verify actual 200% browser zoom if the runtime permits; otherwise state the limitation without claiming it was tested.
+- [x] Review the final diff against the Task 1 inventory and the test ownership policy. The test-design review found a missing hosted visual invocation, unrelated chapter absence in the Index contract, and duplicate Wild Bunch markup assertions; all were removed or corrected. A separate fresh test-design reviewer slot was unavailable, so the corrected ownership and visual command were verified directly.
+- [x] Obtain a fresh whole-branch code/design review covering shared header/footer ownership, stale journeys, baseline custody, and the newly reduced visual suite. No actionable findings. Record the measured 544/545px breakpoint rationale and the user's accepted mark/menu visual judgment in PR #80. Browser UI zoom at 200% was not tested; the existing browser journey's page-scale factor emulation is not equivalent.
 - [ ] Check `git diff --check`, snapshot references, and generated-index status. Stage only intended files and commit normally; the tracked hook runs the complete gate against the staged tree. Do not run `ci --check` immediately before or after that hooked commit.
 - [ ] If the hook reports any Chrome or visual failure, pause with the exact test, first-attempt status, and artifact path before changing tests or snapshots. Otherwise push `codex/site-header-cleanup`, verify draft PR #80's head SHA, and report hosted status separately.
 - [ ] Replace PR #80's stale plan-only description with the actual header/footer implementation, test-strategy cleanup, visual evidence and limitations. Confirm hosted checks and remote head independently from the local hook.
@@ -87,3 +87,12 @@
 ## Acceptance
 
 The visual spec contains only selected screenshots of approved authored compositions plus helpers essential to capturing them. Visitor, component, accessibility, and renderer-layout claims have one sensible owner, with duplicates deleted. No known-broken CV print appearance is approved. The focused tests and normal hooked commit pass, and draft PR #80 contains the reviewed cleanup.
+
+## Execution notes
+
+- Baseline before edits: the visual and writing specs passed 52/52. After the ownership reduction, they passed 30/30 without retries. No product UI or baseline image was changed.
+- Deleted the 12-case route matrix, article-header and Patch snapshot DOM checks, and duplicated Use Superpowers page test. Existing accessibility, project, writing, and component tests own their respective behavior; no replacement assertion was needed.
+- The visual suite now owns 26 screenshots: 16 selected cross-route images, five homepage movement images, and five Index-chapter images. The Index captures only its own region at 320/650/700/1400/2560; 650 protects its distinct high-step mode. Coming Soon has its own browser spec and no screenshot baseline. Future Specialists modules can choose their own widths.
+- Removed 21 old PNGs outright and moved five homepage PNGs to movement-owned spec directories. The deleted set includes ordinary About/CV sections, writing list and continuation cards, a redundant wide homepage lockup, verbose Learning Lab atlas/system, Marketplace's generic hero, ordinary Patch close sections, redundant Wild Bunch evidence, and seven old Specialists full-page/orphan screenshots. `clipBetween` remains necessary for the Learning Lab crop, so its harness test remains. Fresh test-design review found that the portrait Specialists lockup has no surviving mobile parent crop, so it was restored.
+- Split the Specialists browser spec into opening, Index, and Coming Soon owners. Split the homepage browser spec into site, Wild Bunch, and Specialists owners. The site-level horizontal-overflow sample now checks 320/768/1440; section-specific breakpoints stay in their owning specs. Before the final review changes, 56 focused browser checks passed; after them, the updated visual command passed all 16 visual checks and a 27-check homepage/Specialists/header/opening run passed. The dev-server-only failure of the production chunk-name assertion was resolved by running that assertion against the built preview, where it passes.
+- The page-opening contract exposed a real extra 32px top inset on `/patch`; its page-local padding now starts after the opening rather than stacking with the shared shell inset. The focused 320/1440 page-opening checks passed on the production build. No CV PDF or print appearance test was added.
