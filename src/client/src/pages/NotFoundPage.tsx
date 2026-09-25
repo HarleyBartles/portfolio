@@ -9,7 +9,7 @@ export const NotFoundPage = () => {
         canonicalPath="/"
         noIndex
       />
-      <StatePanel id="not-found-title" title="Page not found" messages={['This portfolio page is not available yet.']} actions={[{ label: 'Return to the homepage', to: '/' }]} />
+      <StatePanel id="not-found-title" title="Page not found" messages={[]} actions={[{ label: 'Return to the homepage', to: '/' }]} />
     </SiteLayout>
   )
 }

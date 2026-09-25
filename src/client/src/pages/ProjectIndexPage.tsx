@@ -63,9 +63,7 @@ export const ProjectIndexPage = () => {
       <DocumentMetadata canonicalPath="/projects" />
       <section className="content-index project-index" aria-labelledby="project-index-title">
         <IndexHeader
-          eyebrow="Projects / proof with rough edges intact"
-          title="Project Stories"
-          summary="Public systems, teaching work, experiments, and visual pipelines, framed by what each one is for, what works now, and what it costs."
+          title="Projects"
           headingId="project-index-title"
         />
         {navigationQuery.isLoading ? <LoadingPage shell={false} /> : null}

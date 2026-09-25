@@ -226,6 +226,6 @@ test('semantic content and Specialists fallback survive failed homepage media', 
 
   await expect(page.getByRole('heading', { level: 2, name: 'A strong system, changed by using it.' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'The Usual Specialists' })).toBeAttached()
-  await expect(page.getByText('Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.')).toBeVisible()
+  await expect(page.getByText('Recruitment folder for the six specialists.')).toBeVisible()
   await expect(page.getByRole('link', { name: 'Meet the crew →' })).toBeVisible()
 })

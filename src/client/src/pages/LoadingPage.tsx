@@ -6,7 +6,7 @@ type LoadingPageProps = {
 
 export const LoadingPage = ({ shell = true }: LoadingPageProps) => {
   const content = (
-    <StatePanel id="loading-title" title="Preparing the portfolio" headingLevel={shell ? 1 : 2} announcement="status" routeLoading messages={['Loading portfolio navigation.']} />
+    <StatePanel id="loading-title" title="Loading…" headingLevel={shell ? 1 : 2} announcement="status" routeLoading messages={[]} />
   )
 
   if (!shell) {

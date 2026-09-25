@@ -10,8 +10,8 @@ const contentRouteRoots = JSON.parse(
 
 const INDEX_ROUTES = [
   ['home', '/', 'home', 'Harley Bartles | Full-stack software engineer', 'Full-stack software engineer building reliable agentic systems, public tools, and memorable visual explanations.'],
-  ['projects', '/projects', 'index', 'Project Stories | Harley Bartles', 'Selected public engineering project stories from Harley Bartles.'],
-  ['writing', '/writing', 'index', 'Writing and Notes | Harley Bartles', 'Notes on engineering practice, agentic systems, and repository design.'],
+  ['projects', '/projects', 'index', 'Projects | Harley Bartles', 'Selected public engineering project stories from Harley Bartles.'],
+  ['writing', '/writing', 'index', 'Writing | Harley Bartles', 'Notes on engineering practice, agentic systems, and repository design.'],
   ['patch', '/patch', 'index', 'Adventures of Patch | Harley Bartles', 'Visual stories that turn agentic-engineering practice into memorable, inspectable lessons.'],
   ['about', '/about', 'about', 'About | Harley Bartles', 'Full-stack software engineer with 7+ years of professional experience, currently the sole engineer responsible for Access Checks at The Access Group. Career, independent work, current study and hiring details.'],
   ['cv', '/cv', 'cv', 'CV | Harley Bartles', 'CV for Harley Bartles, a full-stack software engineer with 7+ years in production systems across .NET, React, Python and AI-assisted automation.'],

@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import { Eyebrow, PageLead, PageTitle } from './PublicationPrimitives'
 
 type IndexHeaderProps = {
-  eyebrow: string
+  eyebrow?: string
   title: string
-  summary: string
+  summary?: string
   layout?: 'single' | 'split'
   headingId?: string
 }
@@ -41,13 +41,14 @@ const Summary = styled(PageLead)<{ $layout: 'single' | 'split' }>`
 `
 
 export const IndexHeader = ({ eyebrow, title, summary, layout = 'single', headingId = 'index-header-title' }: IndexHeaderProps) => {
+  const effectiveLayout = summary ? layout : 'single'
   return (
-    <Header className={`index-intro${layout === 'split' ? ' index-intro--split' : ''}`} data-index-layout={layout} $layout={layout}>
+    <Header className={`index-intro${effectiveLayout === 'split' ? ' index-intro--split' : ''}`} data-index-layout={effectiveLayout} $layout={effectiveLayout}>
       <Copy>
-        <HeaderEyebrow>{eyebrow}</HeaderEyebrow>
+        {eyebrow ? <HeaderEyebrow>{eyebrow}</HeaderEyebrow> : null}
         <PageTitle id={headingId} register="site-sans">{title}</PageTitle>
       </Copy>
-      <Summary className="content-summary" $layout={layout}>{summary}</Summary>
+      {summary ? <Summary className="content-summary" $layout={effectiveLayout}>{summary}</Summary> : null}
     </Header>
   )
 }

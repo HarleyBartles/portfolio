@@ -24,7 +24,6 @@ const cvCopy = {
   eyebrow: 'Curriculum vitae',
   downloadLabel: 'Download PDF',
   headerDownloadAriaLabel: 'Download CV at the top',
-  footerPrompt: 'Keep a copy.',
   footerDownloadAriaLabel: 'Download CV at the end',
 } as const
 
@@ -176,7 +175,6 @@ export const CvPage = () => {
           </CvSection>
         </CvSheet>
         <CvDownloadFooter
-          prompt={cvCopy.footerPrompt}
           downloadHref={pdfHref}
           downloadLabel={cvCopy.downloadLabel}
           downloadAriaLabel={cvCopy.footerDownloadAriaLabel}

@@ -45,7 +45,7 @@ export const defaultHomepageEdition: HomepageEdition = {
     to: '/patch/the-usual-specialists',
     inwardLabel: 'Meet the crew',
     incomingTeaser: 'Meet The Usual Specialists',
-    closingTeaser: "Then tell me what you're building",
+    closingTeaser: "Tell me what you're building",
     presentation: 'usual-specialists',
   },
 }

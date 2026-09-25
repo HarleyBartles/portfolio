@@ -28,7 +28,6 @@ test('renders article header, body, continuations and one share section in order
   expect(screen.queryByText('writing')).not.toBeInTheDocument()
   expect(screen.getByTestId('article-body')).toBeInTheDocument()
   expect(screen.getByRole('link', { name: /ContinueThe next article/ })).toHaveAttribute('href', '/writing/next')
-  expect(screen.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeInTheDocument()
-  expect(screen.getAllByRole('region')).toHaveLength(2)
+  expect(screen.getByRole('button', { name: 'Copy article link' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { level: 1 }).compareDocumentPosition(screen.getByTestId('article-body')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })

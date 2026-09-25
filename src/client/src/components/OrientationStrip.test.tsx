@@ -17,7 +17,7 @@ describe('OrientationStrip', () => {
     render(<MemoryRouter><OrientationStrip items={[project, writing]} /></MemoryRouter>)
 
     expect(screen.getByRole('link', { name: 'Projects' })).toBeVisible()
-    expect(screen.getByRole('link', { name: 'Writing and Notes' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Writing' })).toBeVisible()
     expect(screen.queryByRole('link', { name: 'Experience' })).not.toBeInTheDocument()
   })
 })

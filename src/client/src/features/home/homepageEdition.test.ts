@@ -28,7 +28,7 @@ describe('homepageEdition', () => {
         to: '/patch/the-usual-specialists',
         inwardLabel: 'Meet the crew',
         incomingTeaser: 'Meet The Usual Specialists',
-        closingTeaser: "Then tell me what you're building",
+        closingTeaser: "Tell me what you're building",
         presentation: 'usual-specialists',
       },
     })
@@ -44,7 +44,7 @@ describe('homepageEdition', () => {
       to: '/patch/tournament-of-reasonable-defaults',
       inwardLabel: 'Enter the tournament',
       incomingTeaser: 'Bring reasonable defaults to the tournament',
-      closingTeaser: "Then tell me what you're building",
+      closingTeaser: "Tell me what you're building",
       presentation: 'tournament',
     }
 

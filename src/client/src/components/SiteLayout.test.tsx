@@ -132,7 +132,7 @@ describe('SiteLayout', () => {
     )
 
     const loadingStatus = screen.getByRole('status')
-    expect(loadingStatus).toHaveTextContent(/loading portfolio navigation/i)
+    expect(loadingStatus).toHaveTextContent(/loading/i)
     expect(loadingStatus.closest('section')).toHaveAttribute('data-route-loading')
     expect(screen.getByRole('alert')).toHaveTextContent(/could not load the portfolio content/i)
     expect(screen.getByRole('heading', { name: /page not found/i })).toBeInTheDocument()

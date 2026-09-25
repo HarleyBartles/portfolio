@@ -59,7 +59,9 @@ export const StatePanel = ({
 
   return (
     <Panel aria-labelledby={id} data-route-loading={routeLoading ? '' : undefined}>
-      <Heading id={id}>{title}</Heading>
+      {messages.length === 0 && announcement !== 'none' ? (
+        <div role={announcement}><Heading id={id}>{title}</Heading></div>
+      ) : <Heading id={id}>{title}</Heading>}
       {messages.map((message, index) => (
         <p key={message} role={index === 0 && announcement !== 'none' ? announcement : undefined}>{message}</p>
       ))}

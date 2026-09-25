@@ -86,7 +86,7 @@ describe('route document generator', () => {
     )
     const fallback = await readFile(path.join(distRoot, '404.html'), 'utf8')
 
-    expect(projects).toContain('<title>Project Stories | Harley Bartles</title>')
+    expect(projects).toContain('<title>Projects | Harley Bartles</title>')
     expect(projects).toContain('https://harleybartles.com/projects')
     expect(projects.match(/rel="canonical"/g)).toHaveLength(1)
     expect(projects.match(/property="og:title"/g)).toHaveLength(1)

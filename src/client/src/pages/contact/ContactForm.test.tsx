@@ -21,13 +21,8 @@ describe('ContactForm', () => {
     (endpoint) => {
       renderContactForm(endpoint)
 
-      expect(screen.getByText('Delivery status / disconnected')).toHaveAttribute('data-eyebrow')
-      expect(screen.getByText(/contact delivery is not connected yet/i)).toBeVisible()
-      expect(screen.getByRole('link', { name: /github profile/i })).toHaveAttribute(
-        'href',
-        'https://github.com/HarleyBartles',
-      )
-      expect(screen.getByRole('link', { name: 'LinkedIn: Harley Bartles (opens in a new tab)' })).toHaveAttribute(
+      expect(screen.getByText('The contact form is unavailable.')).toBeVisible()
+      expect(screen.getByRole('link', { name: 'LinkedIn (opens in a new tab)' })).toHaveAttribute(
         'href',
         'https://www.linkedin.com/in/harley-bartles-92326110/',
       )

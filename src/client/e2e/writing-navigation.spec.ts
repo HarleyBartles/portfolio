@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test('writing index presents a featured essay and consistent human dates', async ({ page }) => {
   await page.goto('./writing/')
 
-  await expect(page.getByRole('heading', { level: 1, name: 'Writing and Notes' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Writing' })).toBeVisible()
   const featured = page.getByRole('article', { name: /agentic engineering and the kindness of vibe coding/i })
   await expect(featured).toBeVisible()
   await expect(featured.getByText('1 August 2026', { exact: true })).toBeVisible()
@@ -330,7 +330,7 @@ test('PORT-10 uses the complete writing shell with a coherent article and link c
   await expect(continuations.getByRole('link', { name: /The Usual Specialists/ })).toHaveAttribute('href', '/patch/the-usual-specialists')
   await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
   await expect(continuations.getByRole('link', { name: /Adventures of Patch/ })).toHaveAttribute('href', '/projects/adventures-of-patch')
-  await expect(page.getByRole('heading', { level: 2, name: 'Keep the receipt' })).toBeVisible()
+  await expect(page.getByRole('button', { name: /Share this article|Copy article link/ })).toBeVisible()
 
   const figures = page.getByRole('figure')
   await expect(figures).toHaveCount(2)

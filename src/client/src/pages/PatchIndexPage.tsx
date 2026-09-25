@@ -328,7 +328,6 @@ export const PatchIndexPage = () => {
         </header>
         <section className="patch-index__character-intro" aria-labelledby="patch-introducing-title">
           <div className="patch-index__character-copy">
-            <Eyebrow>Meet your guide</Eyebrow>
             <h2 id="patch-introducing-title">Introducing Patch</h2>
             <p>Patch is my recurring guide to the bits of agentic engineering that are easier to remember as a story than as a rule.</p>
             <p>He gets sent into bad briefs, questionable defaults, over-eager delegation and the other places where an agent needs useful human judgement.</p>
@@ -354,9 +353,7 @@ export const PatchIndexPage = () => {
           <>
             <section className="patch-index__group" aria-labelledby="patch-adventures-title">
               <div className="patch-index__group-heading">
-                <Eyebrow>Long form</Eyebrow>
                 <h2 id="patch-adventures-title">Adventures</h2>
-                <p>Broader worlds with room for the failure mode, the joke and the engineering consequence.</p>
               </div>
               {specialistsWorld !== undefined && heist !== undefined ? (
                 <article className="patch-index__lead-adventure" aria-label="The Usual Specialists">
@@ -402,9 +399,7 @@ export const PatchIndexPage = () => {
 
             <section className="patch-index__group patch-index__fairytales" aria-labelledby="patch-fairytales-title">
               <div className="patch-index__group-heading">
-                <Eyebrow>Short tales</Eyebrow>
                 <h2 id="patch-fairytales-title">Patch fairytales</h2>
-                <p>Smaller one-page lessons built around a familiar story and one useful intervention.</p>
               </div>
               <FairytaleGrid className="editorial-index-grid editorial-index-grid--fairytales">
                 {fairytales.map((item, index) => <PatchStoryIndexEntry item={item} index={index} key={item.slug} media={fairytaleMedia[item.slug]} />)}

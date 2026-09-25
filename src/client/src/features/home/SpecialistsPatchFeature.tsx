@@ -52,7 +52,7 @@ export function SpecialistsPatchFeature({ feature }: { feature: PatchHomepageFea
         <EyeDetail $mediaFailed={mediaFailed}><DetailCrop><img src={homepageAssetPath('specialists-silk.webp')} width="1983" height="793" loading="lazy" alt="Silk's eyes open in restrained surprise when the lawful route survives her pressure test." onError={failMedia} /></DetailCrop></EyeDetail>
         <LockdownDetail $mediaFailed={mediaFailed}><DetailCrop><img src={homepageAssetPath('specialists-rollback.webp')} width="1536" height="1024" loading="lazy" alt="Rollback's heavy gloved hand presses the amber lockdown control." onError={failMedia} /></DetailCrop></LockdownDetail>
         <ReceiptDetail $mediaFailed={mediaFailed}><DetailCrop><img src={homepageAssetPath('specialists-receipt.webp')} width="1448" height="1086" loading="lazy" alt="Receipt takes a fresh audit record as it emerges from the printer." onError={failMedia} /></DetailCrop></ReceiptDetail>
-        <MediaFallback $mediaFailed={mediaFailed}>Completed recruitment folder. Six specialists, six distinct assent marks, and one lawful route into the story.</MediaFallback>
+        <MediaFallback $mediaFailed={mediaFailed}>Recruitment folder for the six specialists.</MediaFallback>
       </HeistMovement>
     </SpecialistsMovement>
   )
