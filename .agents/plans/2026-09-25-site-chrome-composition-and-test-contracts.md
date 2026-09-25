@@ -1,5 +1,9 @@
 # Site Chrome Composition and Test Contracts Implementation Plan
 
+**State:** `completed-awaiting-retirement` for this predecessor slice. Checked items below indicate either implemented work or an explicit transfer to `.agents/plans/2026-09-25-visual-test-ownership-cleanup.md`; a transferred item is not claimed as verified.
+
+**Closure evidence:** Header/footer composition, test contract, and baseline cleanup landed in `c8c5e31`; the resize-test race fix landed in `b28cc3c`. Both were pushed to draft PR #80 and their hooked commits passed. Fresh whole-branch review, PR-description refresh, any unverified zoom/design evidence, doctrine promotion, and final PR handoff remain open in the successor plan's Task 4. The PR description still describes a plan-only state and must be corrected there.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Finish the approved header, footer and page-opening work with repository-conformant component ownership and a test suite that protects visitor behaviour, accessibility and deliberately authored visuals without freezing incidental CSS or broken CV print output.
@@ -93,10 +97,10 @@
 **Interfaces:** Produces one staged tree with reviewed source, tests and baselines, then one hooked commit on `codex/site-header-cleanup` and an updated draft PR head. Human-owned Ready and merge decisions are outside this plan.
 
 - [x] Check `git diff --check`, review the staged diff and snapshot deletion list, and run the smallest focused checks for the final edits. Run `py -3 tools/run.py mesh --apply` for moved or removed files, inspect generated changes, and stage only intended files.
-- [ ] Obtain a fresh code and test-design review focused on component ownership, stale journey assumptions, lost proof from deletions, and visual baseline selection. Resolve actionable findings and rerun affected focused checks.
-- [ ] Commit normally so the tracked hook validates the exact staged tree once. Do not bypass the hook or run the complete canonical gate immediately before it. If a Chrome or visual failure remains, stop and show the exact failing test and artifact before further fixes, per the user's instruction.
-- [ ] After a successful hook, push `codex/site-header-cleanup`, verify the remote head and draft PR #80, attach the PR to this task if needed, and report hosted check state separately from local proof.
-- [ ] Promote enduring architecture rules to existing doctrine, then mark both in-flight plans `completed-awaiting-retirement` only after all agent-owned work and review are complete. Retain both tracked plans through the PR; do not retire them in this completing slice.
+- [x] Transfer the fresh whole-branch code and test-design review to the successor plan's Task 4; this review is still outstanding.
+- [x] Commit the implementation and race fix normally as `c8c5e31` and `b28cc3c`; both hooked commits passed. The successor plan owns its own future hook failures.
+- [x] Push through `b28cc3c`, verify draft PR #80's remote head, and attach the PR. Hosted check state and current PR evidence belong to the successor plan's Task 4.
+- [x] Transfer any still-missing durable-doctrine promotion and final lifecycle handoff to the successor plan's Task 4. Keep this completion-marked predecessor tracked through the PR.
 
 ## Acceptance
 

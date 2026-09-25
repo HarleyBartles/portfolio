@@ -1,5 +1,9 @@
 # Site Header Navigation Implementation Plan
 
+**State:** `completed-awaiting-retirement` for this predecessor slice. Checked boxes below mean implemented or explicitly transferred; they do not certify unobserved evidence.
+
+**Closure evidence and transfers:** The reviewed menu, shared identity, footer reflow and page-opening implementation landed in `c8c5e31`; the resize journey was stabilized in `b28cc3c`. Both commits were pushed to draft PR #80 and passed their hooks. The user's mobile visual review accepted the menu and footer. The original RED run against the pre-implementation header, a documented loaded-font breakpoint measurement, actual 200% browser zoom, fresh whole-branch code/design review, and an accurate PR description are not established by this plan. The current successor `.agents/plans/2026-09-25-visual-test-ownership-cleanup.md` Task 4 owns the remaining review, measurement, zoom limitation, and PR evidence. Do not invent historical RED evidence.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task by task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Use one site header on every route, keeping the mark, Harley Bartles name and primary navigation on one balanced row, and give the shared footer a deliberate narrow layout.
@@ -52,10 +56,10 @@
 
 **Interfaces:** Consumes the approved design contract. Produces browser assertions against the existing `.site-header`, `.site-mark` and `nav[aria-label="Primary"]` hooks, plus accessible menu-button state.
 
-- [ ] Record the current experimental diff and the loaded-font geometry for home and `/projects` near the proposed switch. Choose one threshold with visible clearance for the wider interior identity; document the measured reason in the implementation/PR, not an arbitrary device category.
-- [ ] Write focused Playwright assertions for the inline state just above and compact state just below that threshold on home and interior routes: no wrap or overlap above; mark/name and button aligned left/right below; closed links hidden; full-width ordered rows when open. Keep the existing 737/736 continuity check and adapt it to the final composition. Assess border continuity by visual review, not a brittle pixel equality assertion.
-- [ ] Add interaction coverage for button Enter/Space, `aria-expanded`, closed Tab order, Escape and focus return, route selection, and compact-to-wide-to-compact resize. Use the existing 195px test as a genuine narrow-layout check, updated for the new menu behavior.
-- [ ] Run `npx playwright test e2e/header-continuity.spec.ts e2e/narrow-navigation.spec.ts` from `src/client` against an owned dev server with `PORTFOLIO_E2E_ORIGIN` and `PORTFOLIO_E2E_EXTERNAL_SERVER=true`. Confirm the new behavior checks fail against the pre-implementation header for the intended reasons.
+- [x] Implement one 34rem switch with visible clearance on home and `/projects`; transfer the missing documented loaded-font measurement and PR rationale to the successor plan's Task 4.
+- [x] Write focused Playwright assertions for the inline state just above and compact state just below that threshold on home and interior routes: no wrap or overlap above; mark/name and button aligned left/right below; closed links hidden; full-width ordered rows when open. Keep the existing 737/736 continuity check and adapt it to the final composition. Assess border continuity by visual review, not a brittle pixel equality assertion.
+- [x] Add interaction coverage for button Enter/Space, `aria-expanded`, closed Tab order, Escape and focus return, route selection, and compact-to-wide-to-compact resize. Use the existing 195px test as a genuine narrow-layout check, updated for the new menu behavior.
+- [x] Run the focused header and narrow-navigation checks against the implemented header. The requested pre-implementation RED run was not recorded and cannot be reconstructed as historical evidence; close that obsolete step explicitly.
 
 ### Task 2: Implement the two header compositions
 
@@ -63,12 +67,12 @@
 
 **Interfaces:** Consumes the Task 1 browser contract. Produces one `SiteHeader` with a wide inline `PrimaryNav` and compact menu button/list exposing the same six routes once in the accessibility tree at any viewport.
 
-- [ ] Reconcile the earlier fluid-gutter and link-gap experiment with the chosen threshold. Keep header frame changes local where possible. Remove the old 30rem stacking behavior and prevent the wide link row from wrapping.
-- [ ] Implement the compact button opposite the shared mark/name identity. Remove the `showName` and interior/home link-style split from `SiteHeader`. Inspect `public/brand/hb-mark.svg`: its outlined rect uses a 64-unit viewBox, x/y 2, width/height 60, and a 3-unit stroke. Match its *rendered* outer square with the menu button's visible border at the displayed scale; use the existing ink and focus language. Give the icon an accessible name through the button.
-- [ ] Implement controlled disclosure state with `aria-expanded` and a stable `aria-controls` target. Render/hide one shared ordered link list so closed links are inaccessible and untabbable. Close on Escape with focus returned to the button, on route selection, and on transition to wide layout. Keep the expanded list below the top row as an editorial sheet with one closing rule.
-- [ ] Give the shared footer a two-column link grid at the content-derived narrow threshold, preserving link order, visible focus and one copyright row. Add focused 481/480/390/320px browser evidence; do not add footer collapse controls.
-- [ ] Run the focused Playwright tests and `npm test -- src/components/SiteLayout.test.tsx` from `src/client` until green. Fix any layout, interaction or accessibility defect found by those checks.
-- [ ] Review ready-page screenshots for home and `/projects` at 1440, 768, threshold +1/-1, 390 and 320 CSS pixels, with the compact menu closed/open. Compare the two visible square outlines for apparent size, stroke, edge position and balance against the whole header, then show the first candidate for user visual judgement before treating that treatment as final. Check keyboard-only use, reduced motion and actual 200% browser zoom; report any capability limit honestly.
+- [x] Reconcile the earlier fluid-gutter and link-gap experiment with the chosen threshold. Keep header frame changes local where possible. Remove the old 30rem stacking behavior and prevent the wide link row from wrapping.
+- [x] Implement the compact button opposite the shared mark/name identity. Remove the `showName` and interior/home link-style split from `SiteHeader`. Inspect `public/brand/hb-mark.svg`: its outlined rect uses a 64-unit viewBox, x/y 2, width/height 60, and a 3-unit stroke. Match its *rendered* outer square with the menu button's visible border at the displayed scale; use the existing ink and focus language. Give the icon an accessible name through the button.
+- [x] Implement controlled disclosure state with `aria-expanded` and a stable `aria-controls` target. Render/hide one shared ordered link list so closed links are inaccessible and untabbable. Close on Escape with focus returned to the button, on route selection, and on transition to wide layout. Keep the expanded list below the top row as an editorial sheet with one closing rule.
+- [x] Give the shared footer a two-column link grid at the content-derived narrow threshold, preserving link order, visible focus and one copyright row. Add focused 481/480/390/320px browser evidence; do not add footer collapse controls.
+- [x] Run the focused Playwright tests and `npm test -- src/components/SiteLayout.test.tsx` from `src/client` until green. Fix any layout, interaction or accessibility defect found by those checks.
+- [x] Show and iterate the compact candidate with the user; the menu and footer received visual acceptance. Transfer any undocumented square-outline comparison and actual 200% browser-zoom proof or limitation to the successor plan's Task 4.
 
 ### Task 3: Validate and hand off the header change
 
@@ -76,10 +80,10 @@
 
 **Interfaces:** Consumes the finished source and proof from Tasks 1-2. Produces a reviewable branch and explicit evidence.
 
-- [ ] Run the smallest relevant browser/accessibility and build checks needed to resolve remaining risks; inspect `git diff --check` and the final diff. Do not add tautological or change-detector tests.
-- [ ] Regenerate the repository mesh for added/retired planning and test files with `py -3 tools/run.py mesh --apply`, inspect its diff, and let the normal hook validate the staged commit. Do not hand-edit generated indexes.
-- [ ] Obtain a fresh code/design review against the approved contract; correct actionable findings and repeat focused checks when the implementation changes.
-- [ ] After the user has seen and judged the first compact visual candidate, commit through the tracked hook, push, and prepare a draft PR with before/after visual evidence, the chosen breakpoint measurement, interaction proof and any unverified zoom limitation. Mark this plan `completed-awaiting-retirement` only after agent-owned implementation and review obligations are complete.
+- [x] Run the smallest relevant browser/accessibility and build checks needed to resolve remaining risks; inspect `git diff --check` and the final diff. Do not add tautological or change-detector tests.
+- [x] Regenerate the repository mesh for added/retired planning and test files with `py -3 tools/run.py mesh --apply`, inspect its diff, and let the normal hook validate the staged commit. Do not hand-edit generated indexes.
+- [x] Transfer the still-unverified fresh whole-branch code/design review to the successor plan's Task 4; no review is claimed here.
+- [x] Commit and push the visually accepted implementation through the tracked hook. Transfer the stale PR description, breakpoint measurement, and zoom evidence or limitation to the successor plan's Task 4; mark this predecessor `completed-awaiting-retirement` by explicit transfer.
 
 ## Acceptance
 
