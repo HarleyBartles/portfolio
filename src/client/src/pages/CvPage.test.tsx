@@ -60,8 +60,20 @@ test('composes a two-page CV from the approved professional facts', () => {
   expect(
     within(responsibilities).getByText(/As Web Manager I defined requirements/),
   ).toBeVisible()
-  expect(screen.getByText(/SQL Server \/ MySQL/)).toBeVisible()
-  expect(screen.getByText('Earlier production experience', { exact: false }).parentElement).not.toHaveTextContent('SQL Server')
+  const technicalSkills = screen.getByRole('heading', { level: 2, name: 'Technical skills' }).closest('section')
+  expect(technicalSkills).not.toBeNull()
+  if (technicalSkills === null) return
+  const skillGroup = (label: string) => within(technicalSkills).getByText(label, { exact: true }).closest('p')
+  expect(skillGroup('Languages')).toHaveTextContent('C#')
+  expect(skillGroup('Languages')).toHaveTextContent('Python')
+  expect(skillGroup('Frameworks & libraries')).toHaveTextContent('React Native')
+  expect(skillGroup('Frameworks & libraries')).toHaveTextContent('Redux')
+  expect(skillGroup('Cloud & delivery')).toHaveTextContent('Azure DevOps')
+  expect(skillGroup('Cloud & delivery')).toHaveTextContent('TeamCity')
+  expect(skillGroup('Data & integration')).toHaveTextContent('SQL Server / MySQL')
+  expect(skillGroup('Data & integration')).toHaveTextContent('GraphQL')
+  expect(skillGroup('Testing')).toHaveTextContent('browser')
+  expect(skillGroup('Testing')).toHaveTextContent('Playwright')
   expect(screen.queryByRole('link', { name: 'Return to About' })).not.toBeInTheDocument()
   const downloadLinks = screen.getAllByRole('link', { name: 'Download PDF' })
   expect(downloadLinks).toHaveLength(2)

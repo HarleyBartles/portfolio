@@ -12,6 +12,7 @@ export {
   CvSkillLabel,
   CvEducationList,
   CvSectionTitle,
+  CvSubsectionTitle,
   CvDownloadFooter,
 } from './CvContent'
 export type { CvLink } from './CvContent'

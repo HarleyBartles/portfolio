@@ -312,12 +312,16 @@ ul {
 @media print {
   html,
   body {
-    background: var(--color-surface);
+    background: transparent;
     color: var(--color-ink);
     font-size: 9.25pt;
     line-height: 1.3;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+
+  html {
+    background: transparent;
   }
 
   a {

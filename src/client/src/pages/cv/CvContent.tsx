@@ -15,7 +15,10 @@ const Header = styled.header`
   border-bottom: 2px solid var(--color-ink);
   padding-bottom: var(--space-8);
   @media print {
-    gap: 6mm;
+    grid-template-areas: 'identity headline' 'details details';
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 8mm;
+    row-gap: 3mm;
     padding-bottom: 4mm;
   }
   @media (max-width: 46rem) {
@@ -33,11 +36,15 @@ const Name = styled.h1`
   letter-spacing: -0.06em;
   line-height: 0.86;
   @media print {
-    font-size: 3.25rem;
+    font-size: 30pt;
+    line-height: 0.95;
   }
 `
 const HeaderEyebrow = styled(Eyebrow)`
   margin-bottom: 1em;
+  @media print {
+    margin-bottom: 2mm;
+  }
 `
 const Headline = styled.p`
   grid-area: headline;
@@ -47,8 +54,9 @@ const Headline = styled.p`
   letter-spacing: -0.02em;
   line-height: 1.1;
   @media print {
-    font-size: 1.15rem;
-    line-height: 1.05;
+    align-self: end;
+    font-size: 14pt;
+    line-height: 1.15;
   }
 `
 const Details = styled.div`
@@ -57,6 +65,8 @@ const Details = styled.div`
   color: var(--color-muted);
   font-size: 0.95rem;
   @media print {
+    display: grid;
+    grid-template-columns: 1fr;
     font-size: 8pt;
     line-height: 1.25;
   }
@@ -71,14 +81,17 @@ const Links = styled.ul`
   padding: 0;
   list-style: none;
   @media print {
-    gap: 1mm 3mm;
-    margin: 2mm 0 0;
-    a[href^='https']::after {
-      content: ' (' attr(href) ')';
-      font-family: var(--font-site-sans);
-      font-size: 6.25pt;
-      overflow-wrap: anywhere;
-    }
+    display: none;
+  }
+`
+const PrintUrls = styled.p`
+  display: none;
+  @media print {
+    display: block;
+    margin: 1.5mm 0 0;
+    font-family: var(--font-site-sans);
+    font-size: 7.5pt;
+    overflow-wrap: anywhere;
   }
 `
 const Controls = styled.nav<{ $position: 'header' | 'footer' }>`
@@ -115,6 +128,7 @@ export const CvHeader = ({
   downloadHref,
   downloadLabel,
   downloadAriaLabel,
+  printUrls,
 }: {
   headingId: string
   eyebrow: string
@@ -125,6 +139,7 @@ export const CvHeader = ({
   downloadHref: string
   downloadLabel: string
   downloadAriaLabel: string
+  printUrls: readonly string[]
 }) => (
   <Header data-cv-header>
     <Identity>
@@ -139,6 +154,7 @@ export const CvHeader = ({
     <Headline data-cv-headline>{headline}</Headline>
     <Details data-cv-details>
       <Availability data-cv-availability>{availability}</Availability>
+      <PrintUrls data-cv-print-urls>{printUrls.join(' · ')}</PrintUrls>
       <Links aria-label="Professional links">
         {links.map((link) => (
           <li key={link.href}>
@@ -211,6 +227,12 @@ export const CvSectionTitle = styled(EditorialHeading)`
     font-size: 1.45rem;
   }
 `
+export const CvSubsectionTitle = styled(CvSectionTitle)`
+  margin-top: var(--space-4);
+  @media print {
+    margin-top: 3mm;
+  }
+`
 export const CvSection = ({
   headingId,
   title,
@@ -253,6 +275,7 @@ export const CvRole = styled.p.attrs<{ 'data-cv-role'?: string }>({
   }
 `
 export const CvRunningTitle = styled.p`
+  display: none;
   margin: 0 0 var(--space-5);
   color: var(--color-muted);
   font-family: var(--font-site-sans);
@@ -260,6 +283,9 @@ export const CvRunningTitle = styled.p`
   font-weight: 700;
   letter-spacing: 0;
   text-transform: none;
+  @media print {
+    display: block;
+  }
 `
 const Projects = styled.div`
   display: grid;
@@ -280,6 +306,18 @@ const Project = styled.section`
     break-inside: avoid;
   }
 `
+const ProjectRepository = styled.p`
+  display: none;
+  @media print {
+    display: block;
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-site-sans);
+    font-size: 7.5pt;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+`
 const ProjectLink = styled(Link)`
   color: var(--color-ink);
 `
@@ -289,20 +327,22 @@ const ProjectSummary = styled(CvParagraph)`
     margin-bottom: 2mm;
   }
 `
+export type CvProjectSummary = ContentSummary & Readonly<{ repositoryUrl: string }>
 export const CvProjectList = ({
   projects,
 }: {
-  projects: readonly ContentSummary[]
+  projects: readonly CvProjectSummary[]
 }) => (
   <Projects>
     {projects.map((project) => (
-      <Project key={project.slug}>
+      <Project key={project.slug} data-cv-project={project.slug}>
         <CvSubheading>
           <ProjectLink to={getContentPath(project)}>
             {project.title}
           </ProjectLink>
         </CvSubheading>
         <ProjectSummary>{project.summary}</ProjectSummary>
+        <ProjectRepository data-cv-project-url>{project.repositoryUrl}</ProjectRepository>
       </Project>
     ))}
   </Projects>

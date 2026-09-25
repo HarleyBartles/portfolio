@@ -8,7 +8,7 @@ export type SiteSurface = 'home' | 'interior'
 export type SiteMainFrame = 'contained' | 'full'
 export type SiteOpening = 'standard' | 'composed'
 
-const SiteShell = styled.div<{ $surface: SiteSurface }>`
+const SiteShell = styled.div<{ $surface: SiteSurface; $printSurface: 'site' | 'paper' }>`
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -37,6 +37,12 @@ const SiteShell = styled.div<{ $surface: SiteSurface }>`
       font-family: ${theme.font.siteSans};
       overflow-x: hidden;
     `}
+
+  @media print {
+    min-height: 0;
+    display: block;
+    ${({ $printSurface }) => $printSurface === 'paper' ? 'background: transparent;' : ''}
+  }
 `
 
 const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface; $mainFrame: SiteMainFrame; $opening: SiteOpening }>`
@@ -54,9 +60,10 @@ const Main = styled(SiteFrame).attrs({ as: 'main' })<{ $surface: SiteSurface; $m
   }
 `
 
-export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contained', opening = 'standard' }: {
+export const SiteLayout = ({ children, surface = 'interior', printSurface = 'site', mainFrame = 'contained', opening = 'standard' }: {
   children: ReactNode
   surface?: SiteSurface
+  printSurface?: 'site' | 'paper'
   mainFrame?: SiteMainFrame
   opening?: SiteOpening
 }) => {
@@ -66,6 +73,7 @@ export const SiteLayout = ({ children, surface = 'interior', mainFrame = 'contai
       data-site-surface={surface}
       data-testid="site-shell"
       $surface={surface}
+      $printSurface={printSurface}
     >
       <SiteHeader />
       <Main className="site-main" id="main-content" data-site-frame data-site-opening={opening} $surface={surface} $mainFrame={mainFrame} $opening={opening}>{children}</Main>

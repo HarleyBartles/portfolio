@@ -9,17 +9,33 @@ import {
   CvRunningTitle,
   CvProjectList,
   CvParagraph,
-  CvSubheading,
   CvList,
   CvSkillParagraph,
   CvSkillLabel,
   CvEducationList,
-  CvSectionTitle,
+  CvSubsectionTitle,
   CvDownloadFooter,
 } from './cv'
 
 const pdfHref = `${import.meta.env.BASE_URL}harley-bartles-cv.pdf`
 const projectStories = getProjectSummaries()
+const projectRepositoryUrls: Readonly<Record<string, string>> = {
+  'codex-marketplace': 'https://github.com/HarleyBartles/agent-asset-marketplace',
+  'agentic-learning-lab': 'https://github.com/HarleyBartles/agentic-learning-lab',
+  'wild-bunch': 'https://github.com/HarleyBartles/wild-bunch',
+  'adventures-of-patch': 'https://github.com/HarleyBartles/adventures-of-patch',
+}
+const cvProjectStories = projectStories.map((project) => {
+  const repositoryUrl = projectRepositoryUrls[project.slug]
+  if (repositoryUrl === undefined) {
+    throw new Error(`Missing CV repository URL for project: ${project.slug}`)
+  }
+  const url = new URL(repositoryUrl)
+  return {
+    ...project,
+    repositoryUrl: `${url.hostname.replace(/^www\./, '')}${url.pathname.replace(/\/$/, '')}`,
+  }
+})
 const cvCopy = {
   eyebrow: 'Curriculum vitae',
   downloadLabel: 'Download PDF',
@@ -29,9 +45,13 @@ const cvCopy = {
 
 export const CvPage = () => {
   const { github, linkedin } = professionalProfile.publicLinks
+  const printUrls = [professionalProfile.publicLinks.portfolio.href, github.href, linkedin.href].map((href) => {
+    const url = new URL(href)
+    return `${url.hostname.replace(/^www\./, '')}${url.pathname.replace(/\/$/, '')}`
+  })
 
   return (
-    <SiteLayout>
+    <SiteLayout printSurface="paper">
       <DocumentMetadata canonicalPath="/cv" />
       <CvDocument aria-labelledby="cv-name" data-type-register="site-sans">
         <CvSheet data-cv-page="1" aria-labelledby="cv-name">
@@ -50,6 +70,7 @@ export const CvPage = () => {
             downloadHref={pdfHref}
             downloadLabel={cvCopy.downloadLabel}
             downloadAriaLabel={cvCopy.headerDownloadAriaLabel}
+            printUrls={printUrls}
           />
 
           <CvSection headingId="cv-profile-title" title="Profile" divider="none">
@@ -60,8 +81,7 @@ export const CvPage = () => {
             </CvParagraph>
           </CvSection>
 
-          <CvSection headingId="cv-access-title" title="Professional experience">
-            <CvSubheading>The Access Group</CvSubheading>
+          <CvSection headingId="cv-access-title" title="The Access Group">
             <CvRole>Software Engineer · September 2021 – present</CvRole>
             <CvParagraph>
               I joined Recruitment CRM, volunteered for a move to Access Screening in January 2023, then moved into
@@ -97,10 +117,6 @@ export const CvPage = () => {
               </li>
             </CvList>
           </CvSection>
-        </CvSheet>
-
-        <CvSheet data-cv-page="2" aria-label="CV page 2">
-          <CvRunningTitle>Harley Bartles · CV · 2 / 2</CvRunningTitle>
           <CvSection
             headingId="cv-barbican-title"
             title="Barbican Insurance Group → Arch Capital Group"
@@ -127,7 +143,6 @@ export const CvPage = () => {
               </li>
             </CvList>
           </CvSection>
-
           <CvSection headingId="cv-brand-title" title="Brand Addition">
             <CvRole>
               2005–2015: order administration → Account Executive → Account Manager → Team Manager
@@ -150,27 +165,36 @@ export const CvPage = () => {
               </li>
             </CvList>
           </CvSection>
+        </CvSheet>
 
+        <CvSheet data-cv-page="2" aria-label="CV page 2">
+          <CvRunningTitle>Harley Bartles · CV · 2 / 2</CvRunningTitle>
           <CvSection headingId="cv-independent-title" title="Independent engineering projects">
-            <CvProjectList projects={projectStories} />
+            <CvProjectList projects={cvProjectStories} />
           </CvSection>
 
           <CvSection headingId="cv-education-title" title="Technical skills">
             <div>
               <CvSkillParagraph>
-                <CvSkillLabel>Current</CvSkillLabel> C# / .NET · Azure · Azure Functions · Azure DevOps · AWS · React ·
-                TypeScript / JavaScript · Python / Django · SQL Server / MySQL · REST APIs · Git / GitHub
+                <CvSkillLabel>Languages</CvSkillLabel> C# · TypeScript / JavaScript · Python
+              </CvSkillParagraph>
+              <CvSkillParagraph>
+                <CvSkillLabel>Frameworks &amp; libraries</CvSkillLabel> .NET · React · Django · React Native · Redux · Angular
+              </CvSkillParagraph>
+              <CvSkillParagraph>
+                <CvSkillLabel>Cloud &amp; delivery</CvSkillLabel> Azure · Azure Functions · Azure DevOps · AWS · TeamCity ·
+                Octopus Deploy · TFS · Git / GitHub
+              </CvSkillParagraph>
+              <CvSkillParagraph>
+                <CvSkillLabel>Data &amp; integration</CvSkillLabel> SQL Server / MySQL · REST APIs · GraphQL · SignalR ·
+                RabbitMQ / message brokers
               </CvSkillParagraph>
               <CvSkillParagraph>
                 <CvSkillLabel>Testing</CvSkillLabel> Unit · application · integration · browser · xUnit · NUnit · pytest
                 · Django/unittest · FakeItEasy · Playwright · Jest
               </CvSkillParagraph>
-              <CvSkillParagraph>
-                <CvSkillLabel>Earlier production experience</CvSkillLabel> React Native · Redux · GraphQL · SignalR ·
-                RabbitMQ / message brokers · Angular · TeamCity · Octopus Deploy · TFS
-              </CvSkillParagraph>
             </div>
-            <CvSectionTitle wrap="display">Education and current study</CvSectionTitle>
+            <CvSubsectionTitle wrap="display">Education and current study</CvSubsectionTitle>
             <CvEducationList records={professionalProfile.education} />
           </CvSection>
         </CvSheet>

@@ -14,11 +14,13 @@
 
 ## Global Constraints
 
-- Keep the generated document A4 and use the page-one/page-two content composition in the approved spec.
+- Keep the generated document A4 and use the page-one/page-two content composition in the approved spec, with Brand Addition on page one to use the available whitespace.
 - Treat two pages as an editorial intention for the current content. If it cannot fit legibly, stop with rendered evidence and decide whether a third page is earned; do not shrink type merely to meet a page count.
 - Keep the page-two running title and page count out of the web CV.
-- Print the three approved bare URLs as non-interactive text; omit Contact and all PDF link annotations.
-- Preserve all current CV copy, facts, project descriptions, education, and web destinations.
+- Print the three approved contact URLs and each project's bare GitHub repository URL as non-interactive text; omit Contact and all PDF link annotations.
+- Leave the PDF page background unpainted. Do not print a mineral/tinted surface or decorative colour fill.
+- Use the same heading treatment for Access Group, Barbican/Arch, and Brand Addition.
+- Preserve CV facts, project descriptions, education, and web destinations. Group the existing technical skills by domain under peer headings: Languages, Frameworks & libraries, Cloud & delivery, Data & integration, and Testing.
 - Use browser geometry and rendered PDF inspection for fit. Do not add a pixel snapshot for the PDF.
 - If the tracked commit hook reports a Chrome Playwright or visual-regression failure, stop and report its exact evidence before changing tests or snapshots.
 
@@ -61,11 +63,11 @@
 
 **Interfaces:** Consumes the approved print information rules. Produces a print-only running title and bare URL row, explicit shrink-safe header tracks, and a PDF generation step that strips link targets before Chromium creates the artifact.
 
-- [ ] **Step 1: Write failing behavior tests.** In `cv-layout.spec.ts`, add browser checks that the running title is absent in screen media and present in print media; print shows the three bare URLs as text, omits the Contact destination, and the print header's identity, role, availability, and URL row remain within the header bounds without overlap. In `generate-cv-pdf.test.ts`, test that PDF print preparation removes `href` targets while preserving visible link text.
-- [ ] **Step 2: Run the focused tests and confirm the intended failures.** From `src/client`, run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts`. Expected: the current running title is visible on screen, the current print links expand to long URLs, and href targets remain.
-- [ ] **Step 3: Implement the print/screen split.** Render print URLs as plain text without protocol or trailing slash, hide the web-only links and Contact row in print, suppress the running title in screen media, and give the print header explicit two-column identity/role tracks plus a full-width details row. After switching the generator to print media, remove `href` from all remaining anchors so project text also prints without PDF link annotations; remove link-rewriting code that is no longer needed.
-- [ ] **Step 4: Verify focused behavior.** Re-run both commands. Expected: screen CV navigation remains usable with no running title; print presents plain URLs and a print-only running title; the measured header geometry has no overlap; href removal preserves readable anchor text.
-- [ ] **Step 5: Refactor only after green.** Keep print-only values and formatting owned by the CV page slice; avoid source-text or CSS-literal assertions.
+- [x] **Step 1: Write failing behavior tests.** In `cv-layout.spec.ts`, add browser checks that the running title is absent in screen media and present in print media; print shows the three bare URLs as text, omits the Contact destination, and the print header's identity, role, availability, and URL row remain within the header bounds without overlap. In `generate-cv-pdf.test.ts`, test that PDF print preparation removes `href` targets while preserving visible link text.
+- [x] **Step 2: Run the focused tests and confirm the intended failures.** From `src/client`, run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts`. Expected: the current running title is visible on screen, the current print links expand to long URLs, and href targets remain.
+- [x] **Step 3: Implement the print/screen split.** Render print URLs as plain text without protocol or trailing slash, hide the web-only links and Contact row in print, suppress the running title in screen media, and give the print header explicit two-column identity/role tracks plus a full-width details row. After switching the generator to print media, remove `href` from all remaining anchors so project text also prints without PDF link annotations; remove link-rewriting code that is no longer needed.
+- [x] **Step 4: Verify focused behavior.** Re-run both commands. Expected: screen CV navigation remains usable with no running title; print presents plain URLs and a print-only running title; the measured header geometry has no overlap; href removal preserves readable anchor text.
+- [x] **Step 5: Refactor only after green.** Keep print-only values and formatting owned by the CV page slice; avoid source-text or CSS-literal assertions.
 
 ### Task 3: Rebalance the role split and enforce rendered A4 fit
 
@@ -76,11 +78,12 @@
 - Test: `src/client/scripts/generate-cv-pdf.test.ts`
 - Generated: `src/client/public/harley-bartles-cv.pdf`
 
-**Interfaces:** Consumes Task 2's print-only header and link handling. Produces the agreed page-one/page-two content split, a generated two-page artifact with no link annotations, and a fit check that rejects content extending beyond either page sheet.
+**Interfaces:** Consumes Task 2's print-only header and link handling. Produces the agreed page-one/page-two content split, with Brand Addition at the end of page one; a generated two-page artifact with no link annotations; and a fit check that rejects content extending beyond either page sheet.
 
-- [ ] **Step 1: Write failing rendered-layout tests.** Assert that the Access Group and Barbican/Arch sections are contained by page 1, Brand Addition and the remaining sections are contained by page 2, and each print sheet's content stays within its A4 sheet bounds. Assert generated PDF output has two pages and no link annotations, using PDF structure rather than pixel comparisons.
-- [ ] **Step 2: Run the focused tests and confirm the intended failures.** From `src/client`, run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts`. Expected: the current role placement and page-two overflow violate the agreed composition and fit contract.
-- [ ] **Step 3: Recompose and guard fit.** Move Barbican/Arch to page 1 after Access Group, leave Brand Addition and later material on page 2, and add a generator assertion over rendered sheet bounds before PDF export. Require exactly two A4 pages for this approved content arrangement; report measured evidence if the content cannot fit legibly instead of shrinking type or silently adding a sheet.
-- [ ] **Step 4: Generate and inspect the artifact.** Run `npm run build` from `src/client`, render both generated PDF pages to PNG using Poppler `pdftoppm`, inspect both pages at full resolution, and verify with `pdfinfo` that the artifact is two A4 pages. Expected: no overlap, clipped content, horizontal overflow, or page-furniture leakage; both role groups and all later sections are readable.
-- [ ] **Step 5: Run the final focused checks.** Run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts e2e/cv.spec.ts`. Expected: all PDF-generation, screen/print, layout, and visitor-download contracts pass.
-- [ ] **Step 6: Review and publish.** Review the complete branch against the spec and current design policy; run `git diff --check`; stage intended files; commit normally and honor the hook stop rule above; push the branch and open a Draft PR with the two rendered pages and validation evidence. Leave the plan marked `completed-awaiting-retirement` and fully checked through the PR handoff.
+- [x] **Step 1: Write rendered-layout tests.** Assert that the Access Group, Barbican/Arch, and Brand Addition sections are contained by page 1, the independent projects and remaining sections are contained by page 2, each project shows its bare GitHub repository URL, and each print sheet's content stays within its A4 sheet bounds. Assert generated PDF output has two pages and no link annotations, using PDF structure rather than pixel comparisons.
+- [x] **Step 2: Establish the baseline failure.** The pre-change generated PDF had three pages, with page 3 containing only the final education entry; Barbican/Arch began on page 2. The new Playwright placement/fit assertions and strict PDF page-count guard cover these failures.
+- [x] **Step 3: Recompose and guard fit.** Move Barbican/Arch to page 1 after Access Group and Brand Addition after Barbican/Arch; leave independent projects and later material on page 2. Add a generator assertion over rendered sheet bounds before PDF export. Require exactly two A4 pages for this approved content arrangement; report measured evidence if the content cannot fit legibly instead of shrinking type or silently adding a sheet.
+- [x] **Step 4: Generate and inspect the artifact.** Run `npm run build` from `src/client`, render both generated PDF pages to PNG using Poppler `pdftoppm`, inspect both pages at full resolution, and verify with `pdfinfo` that the artifact is two A4 pages. Expected: no overlap, clipped content, horizontal overflow, or page-furniture leakage; both role groups and all later sections are readable.
+- [x] **Step 5: Run the final focused checks.** Run `npm test -- scripts/generate-cv-pdf.test.ts` and `npm run test:e2e -- e2e/cv-layout.spec.ts e2e/cv.spec.ts`. Expected: all PDF-generation, screen/print, layout, and visitor-download contracts pass.
+- [x] **Step 6: Review locally.** Run `git diff --check`, stand up the built site/PDF for the user's visual review, and make any requested visual revisions before committing.
+- [ ] **Step 7: Publish after visual approval.** Stage intended files; commit normally and honor the hook stop rule above; push the branch and open a Draft PR with the two rendered pages and validation evidence. Leave the plan marked `completed-awaiting-retirement` and fully checked through the PR handoff.

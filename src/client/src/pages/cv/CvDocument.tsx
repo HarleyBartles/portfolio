@@ -3,6 +3,14 @@ import styled from 'styled-components'
 export const CvDocument = styled.article`
   max-width: 72rem;
   padding-block-end: clamp(3rem, 7vw, 6rem);
+  @media print {
+    max-width: none;
+    padding: 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 `
 
 export const CvSheet = styled.section`
@@ -30,7 +38,7 @@ export const CvSheet = styled.section`
     min-height: 297mm;
     margin: 0;
     border: 0;
-    background: ${({ theme }) => theme.color.surface};
+    background: transparent;
     padding: 9mm 12mm;
     break-after: page;
     break-inside: avoid;

@@ -2,13 +2,14 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument, PDFName } from 'pdf-lib'
 // @ts-expect-error The production build utility is intentionally plain ESM for direct Node execution.
 import {
   assertCvPdf,
+  assertCvPdfHasNoLinkAnnotations,
   assertCvPdfPageCount,
   generateCvPdf,
-  rewritePreviewLinksForPdf,
+  removePdfLinkTargets,
 } from './generate-cv-pdf.mjs'
 
 const temporaryRoots: string[] = []
@@ -61,24 +62,56 @@ describe('assertCvPdf', () => {
     expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF is 524289 bytes; budget is 524288 bytes')
   })
 
-  test('rejects a PDF containing a localhost link target', async () => {
-    const pdfPath = await temporaryPdf(Buffer.from('%PDF\n/URI (http://127.0.0.1:4173/portfolio/about#contact)'))
+  test('accepts the composed two-page CV', async () => {
+    const document = await PDFDocument.create()
+    document.addPage()
+    document.addPage()
+    const pdfPath = await temporaryPdf(await document.save())
 
-    expect(() => assertCvPdf(pdfPath)).toThrow('CV PDF contains a localhost link target')
+    await expect(assertCvPdfPageCount(pdfPath)).resolves.toBe(2)
   })
 
-  test('accepts a parseable multi-page CV without approving its current pagination', async () => {
+  test('rejects a CV whose content creates an unapproved extra page', async () => {
     const document = await PDFDocument.create()
     document.addPage()
     document.addPage()
     document.addPage()
     const pdfPath = await temporaryPdf(await document.save())
 
-    await expect(assertCvPdfPageCount(pdfPath)).resolves.toBe(3)
+    await expect(assertCvPdfPageCount(pdfPath)).rejects.toThrow('CV PDF must have exactly 2 pages, received 3')
+  })
+
+  test('rejects a generated PDF containing a clickable link annotation', async () => {
+    const document = await PDFDocument.create()
+    const page = document.addPage()
+    page.node.set(PDFName.of('Annots'), document.context.obj([
+      { Type: 'Annot', Subtype: 'Link', Rect: [0, 0, 1, 1] },
+    ]))
+    const pdfPath = await temporaryPdf(await document.save())
+
+    await expect(assertCvPdfHasNoLinkAnnotations(pdfPath)).rejects.toThrow(
+      'CV PDF contains 1 link annotation(s)',
+    )
   })
 })
 
 describe('generateCvPdf', () => {
+  test('removes PDF link targets while preserving the printed link labels', async () => {
+    document.body.innerHTML = [
+      '<a href="https://harleybartles.com/projects">Agent Asset Marketplace</a>',
+      '<a href="/contact">Contact</a>',
+    ].join('')
+    const page = {
+      evaluate: vi.fn(async (callback: () => void) => callback()),
+    }
+
+    await removePdfLinkTargets(page)
+
+    expect(document.body.textContent).toBe('Agent Asset MarketplaceContact')
+    expect(document.querySelectorAll('a[href]')).toHaveLength(0)
+    expect(document.querySelectorAll('a')).toHaveLength(2)
+  })
+
   test('uses and closes the same owned preview server when generation fails', async () => {
     const preview = { origin: 'http://127.0.0.1:43125', server: { name: 'preview' } }
     const closeOwnedPreview = vi.fn(async () => {})
@@ -112,28 +145,14 @@ describe('generateCvPdf', () => {
     ])
   })
 
-  test('rewrites preview-server links to the canonical public origin before printing', async () => {
-    document.head.innerHTML = '<link rel="canonical" href="https://harleybartles.com/cv">'
-    document.body.innerHTML = '<a href="http://127.0.0.1:4173/about#contact">Contact</a>'
-    const page = {
-      evaluate: vi.fn(async (callback: (origin: string) => string[], origin: string) => callback(origin)),
-    }
-
-    await rewritePreviewLinksForPdf(page, 'http://127.0.0.1:4173')
-
-    expect(document.querySelector('a')).toHaveAttribute(
-      'href',
-      'https://harleybartles.com/about#contact',
-    )
-  })
-
   test('requires two ordered CV pages and closes every resource after success', async () => {
     const pdfPath = await temporaryPdf(Buffer.alloc(0))
     const preview = { origin: 'http://127.0.0.1:4175', server: { name: 'preview' } }
     const startOwnedPreview = vi.fn(async () => preview)
     const closeOwnedPreview = vi.fn(async () => {})
-    const rewriteLinksForPdf = vi.fn(async () => {})
+    const assertNoLinkAnnotations = vi.fn(async () => {})
     const assertPdfPageCount = vi.fn(async () => 2)
+    const assertSheetsFit = vi.fn(async () => {})
     const { browser, page } = browserFixture(['1', '2'])
 
     await generateCvPdf({
@@ -141,14 +160,16 @@ describe('generateCvPdf', () => {
       startOwnedPreview,
       launchBrowser: vi.fn(async () => browser),
       closeOwnedPreview,
-      rewriteLinksForPdf,
       assertPdfPageCount,
+      assertNoLinkAnnotations,
+      assertSheetsFit,
     })
 
     expect(page.goto).toHaveBeenCalledWith('http://127.0.0.1:4175/cv/', { waitUntil: 'networkidle' })
-    expect(page.evaluate).toHaveBeenCalledOnce()
-    expect(rewriteLinksForPdf).toHaveBeenCalledWith(page, 'http://127.0.0.1:4175')
+    expect(page.evaluate).toHaveBeenCalledTimes(2)
     expect(page.emulateMedia).toHaveBeenCalledWith({ media: 'print' })
+    expect(assertNoLinkAnnotations).toHaveBeenCalledWith(pdfPath)
+    expect(assertSheetsFit).toHaveBeenCalledWith(page)
     expect(page.pdf).toHaveBeenCalledWith(expect.objectContaining({
       format: 'A4',
       outline: true,
