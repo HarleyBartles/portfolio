@@ -80,6 +80,7 @@ test('compact menu supports keyboard dismissal, route selection and resize', asy
   await expect(button).toHaveAttribute('aria-expanded', 'true')
   await page.setViewportSize({ width: 768, height: 832 })
   await expect(button).toBeHidden()
+  await expect(page.locator('button[aria-controls="site-primary-navigation"]')).toHaveAttribute('aria-expanded', 'false')
   await page.setViewportSize({ width: 390, height: 832 })
   await expect(button).toHaveAttribute('aria-expanded', 'false')
   await button.click()
