@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hashlib
 import json
 import os
+import statistics
 import subprocess
 import sys
 import time
@@ -14,10 +16,12 @@ from pathlib import Path
 from typing import Callable, Mapping
 from uuid import uuid4
 
-from reader_panel_decisions import Decision, DecisionClient, DecisionError, build_request
+from reader_panel_decisions import (EXPERIMENT_CHOICE_LABELS, Decision, DecisionClient,
+                                    DecisionError, build_request, render_experiment_request)
 from reader_panel_report import Observation, PanelReport, render_panel, write_report
 from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort
-from reader_panel_experiment import load_experiment, run_experiment
+from reader_panel_experiment import (compile_experiment, load_experiment, run_experiment,
+                                     run_experiment_async)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
@@ -26,6 +30,8 @@ ARCHETYPE_POOL = Path(__file__).resolve().parents[1] / "assets/reader-archetypes
 WORKSPACE_SCRIPT = REPO_ROOT / ".agents/skills/subagent-workspace/scripts/workspace.py"
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
 MAX_REQUEST_BYTES = 80_000
+def _labels(choices: tuple[str, ...]) -> dict[str, str]:
+    return {choice: EXPERIMENT_CHOICE_LABELS[choice] for choice in choices}
 
 
 class PanelError(ValueError):
@@ -152,6 +158,8 @@ def main(
     decision_fn: Callable[..., Decision] | None = None,
     workspace_resolver: Callable[[], Path] | None = None,
 ) -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
     parser = argparse.ArgumentParser(description=__doc__)
     source_mode = parser.add_mutually_exclusive_group(required=True)
     source_mode.add_argument("--article")
@@ -163,13 +171,32 @@ def main(
     parser.add_argument("--max-usd", type=float)
     parser.add_argument("--allow-external-source", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--concurrency", type=int,
+                        help="Maximum concurrent journeys for experiment manifests (default: 4; flat article mode is serial)")
+    parser.add_argument("--resume", type=Path)
+    parser.add_argument("--reconciled-unpriced-usd", type=float,
+                        help="Provider-billing total for unresolved failed attempts in the resumed checkpoint")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--apply", action="store_true")
+    mode.add_argument("--trace-choices", type=Path,
+                      help="Run a scripted, zero-network route trace from a JSON choice script")
     args = parser.parse_args(argv)
+    concurrency = 4 if args.concurrency is None else args.concurrency
+    if not 1 <= concurrency <= 32:
+        raise PanelError("--concurrency must be between 1 and 32")
+    if args.article and args.concurrency is not None and concurrency != 1:
+        raise PanelError("--concurrency applies only to experiment manifests; flat article mode is serial")
     if args.experiment_file and args.compare:
         raise PanelError("--compare applies only to article mode")
+    if args.trace_choices and not args.experiment_file:
+        raise PanelError("--trace-choices requires --experiment-file")
     experiment = load_experiment(args.experiment_file) if args.experiment_file else None
+    if args.resume and (not args.apply or not experiment or experiment["version"] != 3):
+        raise PanelError("--resume requires --apply with a version 3 experiment")
+    if args.reconciled_unpriced_usd is not None and not args.resume:
+        raise PanelError("--reconciled-unpriced-usd requires --resume with a version 3 checkpoint")
+    compiled_experiment = compile_experiment(experiment) if experiment else None
     articles = () if experiment else (_source(args.article, args.allow_external_source),)
     if args.compare:
         articles += (_source(args.compare, args.allow_external_source),)
@@ -182,12 +209,35 @@ def main(
     if experiment and experiment["version"] == 2:
         calls_per_profile = (len(experiment["beats"]) * len(experiment["conditions"]) +
                              2 * ("post_article_choice" in experiment["conditions"]))
+    elif experiment and experiment["version"] == 3:
+        route = compiled_experiment["route"]
+        core_count = sum(piece["kind"] == "beat" for piece in route)
+        optional_count = sum(piece["kind"] == "optional_read" for piece in route)
+        calls_per_profile = sum(
+            core_count + optional_count * ({"omit": 0, "inline": 2, "read_now_or_defer": 4}[
+                condition["optional_reads"]])
+            for condition in compiled_experiment["conditions"]
+        )
     elif experiment:
         calls_per_profile = len(experiment["conditions"]) * (
             len(experiment["beats"]) + 3 * sum(p["kind"] == "aside" for p in experiment["beats"]))
     planned = (len(profiles) * calls_per_profile if experiment else
                len(profiles) * sum(len(article.beats) for article in articles))
-    if experiment:
+    if experiment and experiment["version"] == 3:
+        full_text = "\n\n".join(
+            piece["text"] if piece["kind"] == "beat" else
+            "\n".join((piece.get("eyebrow", ""), piece["title"], piece["standfirst"],
+                        piece["reading_time"], piece.get("preview", ""),
+                        piece.get("disclosure_label", ""), piece["body"]))
+            for piece in compiled_experiment["route"]
+        )
+        estimated_bytes = sum(
+            len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
+                            "promise": experiment["promise"], "visible_text": full_text},
+                           ensure_ascii=False).encode("utf-8")) * calls_per_profile
+            for profile in profiles
+        )
+    elif experiment:
         full_text = "\n\n".join(
             piece["text"] if piece["kind"] == "beat" else
             "\n".join((piece["title"], piece["standfirst"], piece["body"]))
@@ -208,8 +258,52 @@ def main(
                               for article in articles for profile in profiles for beat in article.beats)
     estimated_tokens = estimated_bytes / 4
     estimated = estimated_tokens * PRICE_PER_MILLION_INPUT_TOKENS / 1_000_000
+    if args.trace_choices:
+        if not experiment:
+            raise PanelError("--trace-choices requires an experiment manifest")
+        try:
+            script = json.loads(args.trace_choices.read_text(encoding="utf-8"))
+            choices_data = script["choices"]
+            if not isinstance(choices_data, list):
+                raise ValueError
+            scripted = {}
+            for item in choices_data:
+                key = (item["reader"], item["condition"], item["stage"])
+                if set(item) != {"reader", "condition", "stage", "choice"} or key in scripted:
+                    raise ValueError
+                scripted[key] = item["choice"]
+        except (OSError, UnicodeError, json.JSONDecodeError, KeyError, TypeError, ValueError):
+            raise PanelError("Choice script must contain unique reader/condition/stage choices") from None
+        trace_requests = []
+
+        def trace_decision(profile, condition, stage, visible, choices, attempts):
+            key = (profile.id, condition, stage)
+            choice = scripted.pop(key, None)
+            if choice not in choices:
+                raise PanelError(f"Choice script lacks a valid choice for {profile.id}/{condition}/{stage}")
+            trace_requests.append({"reader": profile.id, "condition": condition, "stage": stage,
+                                  "offered_choices": list(choices),
+                                  "request": render_experiment_request(
+                                      profile, experiment["title"], experiment["promise"], visible,
+                                      stage, _labels(choices))})
+            return Decision(choice, {choice: 1.0}, 0.0, 0, "typesafe/jev-1.13-20260917")
+
+        trace_report = run_experiment(experiment, profiles, decide_fn=trace_decision,
+                                      max_calls=max(1, len(scripted)), max_usd=1.0, concurrency=1)
+        if scripted:
+            raise PanelError("Choice script contains choices for branches the journey did not reach")
+        if trace_report["incomplete_journeys"]:
+            raise PanelError("Choice script did not complete every selected reader-condition journey")
+        print(json.dumps({"requests": trace_requests, "report": trace_report}, ensure_ascii=False, indent=2))
+        print("0 remote calls; requests rendered by the same builder used by the SDK client.")
+        return 0
     if not args.apply:
-        if experiment:
+        if experiment and experiment["version"] == 3:
+            print("Experiment: " + ", ".join(item["id"] for item in compiled_experiment["conditions"]))
+            print("Route: " + ", ".join(
+                piece["id"] + (" (optional read)" if piece["kind"] == "optional_read" else "")
+                for piece in compiled_experiment["route"]))
+        elif experiment:
             print("Experiment: " + ", ".join(experiment["conditions"]))
             print("Beats: " + ", ".join(piece["id"] for piece in experiment["beats"]))
             if experiment["version"] == 2:
@@ -239,6 +333,18 @@ def main(
     output = args.output.resolve() if args.output else None
     if output and (not args.output.is_absolute() or not output.is_relative_to(workspace)):
         raise PanelError("--output must be an absolute path inside the canonical off-repo scratch workspace")
+    if args.resume and (not args.resume.is_absolute() or not args.resume.resolve().is_relative_to(workspace)):
+        raise PanelError("--resume must name a checkpoint inside the canonical off-repo scratch workspace")
+    resume_checkpoint = None
+    if args.resume:
+        try:
+            resume_checkpoint = json.loads(args.resume.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            raise PanelError("--resume checkpoint must be readable UTF-8 JSON") from None
+    saved = output or workspace / (
+        f"reader-experiment-resumed-{uuid4().hex}.json" if args.resume else
+        f"reader-experiment-{uuid4().hex}.json")
+    checkpoint_path = args.resume or saved.with_name(saved.stem + ".partial.json")
     last_progress = 0.0
     def progress(message: str) -> None:
         nonlocal last_progress
@@ -247,42 +353,67 @@ def main(
             print(f"Panel progress: {message}", file=sys.stderr, flush=True)
             last_progress = now
     if experiment:
-        def labels(choices: tuple[str, ...]) -> dict[str, str]:
-            names = {
-                "read_closely": "Continue reading attentively",
-                "skim": "Continue by skimming",
-                "leave_lost_interest": "Leave because interest or relevance was lost",
-                "stop_satisfied": "Stop because the reader's goal was met",
-                "open_now": "Open and read the aside inline now",
-                "return_later": "Continue and consider returning at the end",
-                "skip": "Skip the aside",
-                "open": "Open and read the aside now",
-                "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
-                "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
-                "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
-            }
-            return {choice: names[choice] for choice in choices}
-
         def run(decide):
             return run_experiment(experiment, profiles, decide_fn=decide,
-                                  max_calls=args.max_calls, max_usd=args.max_usd, progress=progress)
+                                  max_calls=args.max_calls, max_usd=args.max_usd, progress=progress,
+                                  concurrency=concurrency)
 
-        if decision_fn is not None:
+        if decision_fn is not None and experiment["version"] == 3:
+            async def fake_async(*args):
+                return await asyncio.to_thread(decision_fn, *args)
+            try:
+                experiment_report = asyncio.run(run_experiment_async(
+                    experiment, profiles, decide_fn=fake_async,
+                    max_calls=args.max_calls, max_usd=args.max_usd,
+                    concurrency=concurrency, progress=progress,
+                    resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path,
+                    reconciled_unpriced_usd=args.reconciled_unpriced_usd))
+            except ValueError as error:
+                raise PanelError(str(error)) from None
+        elif decision_fn is not None:
             experiment_report = run(decision_fn)
         else:
-            with DecisionClient(api_key) as client:
-                experiment_report = run(
-                    lambda profile, condition, stage, visible, choices, attempts:
-                    client.decide_experiment(profile, experiment["title"], experiment["promise"],
-                                             visible, stage, labels(choices), attempts))
-        saved = output or workspace / f"reader-experiment-{uuid4().hex}.json"
+            async def apply_async():
+                async with DecisionClient(api_key) as client:
+                    async def decide_stage(profile, condition, stage, visible, choices, attempts):
+                        return await client.decide_experiment_async(
+                            profile, experiment["title"], experiment["promise"], visible,
+                            stage, _labels(choices), attempts)
+                    return await run_experiment_async(
+                        experiment, profiles, decide_fn=decide_stage,
+                        max_calls=args.max_calls, max_usd=args.max_usd,
+                        concurrency=concurrency, progress=progress,
+                        resume_checkpoint=resume_checkpoint,
+                        checkpoint_path=checkpoint_path,
+                        reconciled_unpriced_usd=args.reconciled_unpriced_usd)
+            try:
+                experiment_report = asyncio.run(apply_async())
+            except ValueError as error:
+                raise PanelError(str(error)) from None
         saved.parent.mkdir(parents=True, exist_ok=True)
         with saved.open("x", encoding="utf-8") as handle:
             json.dump(experiment_report, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
+        expected_journeys = len(profiles) * len(compiled_experiment["conditions"])
+        if (experiment["version"] == 3 and
+                sum(item.get("completed") is True for item in experiment_report["journeys"]) == expected_journeys):
+            checkpoint_path.unlink(missing_ok=True)
         print(f"Experiment: {len(experiment_report['journeys'])} journeys, "
-              f"{experiment_report['calls']} calls, ${experiment_report['cost_usd']:.8f} reported cost.")
+              f"{experiment_report['calls']} calls, ${experiment_report['cost_usd']:.8f} settled cost.")
+        if experiment_report.get("cost_reconciliation_required"):
+            print(f"Cost reconciliation required: {experiment_report['unpriced_attempts']} failed attempts; "
+                  f"provisional estimate ${experiment_report['unpriced_cost_estimate_usd']:.8f}.", file=sys.stderr)
+        performance = experiment_report["performance"]
+        latencies = sorted(performance["decision_latencies_seconds"])
+        if latencies:
+            p95_index = min(len(latencies) - 1, (95 * len(latencies) + 99) // 100 - 1)
+            print(f"Performance: {experiment_report['wall_time_seconds']:.2f}s elapsed, "
+                  f"{performance['wire_retries']} retries, peak {performance['max_active_requests']} active, "
+                  f"decision latency median {statistics.median(latencies):.2f}s / "
+                  f"p95 {latencies[p95_index]:.2f}s.")
         print(f"Report: {saved}")
+        if checkpoint_path.exists():
+            print(f"Checkpoint: {checkpoint_path}")
         return 0
     if decision_fn is not None:
         report = run_panel(articles, profiles, decide_fn=decision_fn,

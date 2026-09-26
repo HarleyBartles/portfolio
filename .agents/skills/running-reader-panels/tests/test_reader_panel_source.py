@@ -21,7 +21,7 @@ summary: "A useful promise."
 ---
 # A story
 
-Opening stakes.
+Opening stakes. This longer passage establishes enough context for the reader to understand the article before the first section begins. It gives the opening a separate beat so the parser can preserve its position as part of the article route, rather than folding it into the summary promise.
 
 ## The organisation
 

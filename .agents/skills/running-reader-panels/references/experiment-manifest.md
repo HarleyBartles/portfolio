@@ -1,82 +1,86 @@
 # Author a reading experiment
 
-Build the reader cohort and the reading route as separate frozen inputs. The cohort JSON contains the admitted reader profiles. The experiment JSON contains an ordered `beats` array and the conditions to run. The harness executes that route; it does not decide where an article should pause or what an aside means.
+Build the reader cohort and the experiment manifest as separate frozen inputs. The cohort JSON contains the admitted reader profiles. The manifest supplies an ordered route, any visible previews and hidden optional bodies, named conditions, source hashes, and the route-policy choices. The reasoning agent writes the beats and hypotheses; the harness does not infer editorial boundaries from Markdown headings.
 
-## Input shape
+## Current manifest: version 3
 
 ```json
 {
-  "version": 1,
+  "version": 3,
   "title": "Article title",
   "promise": "The standfirst or reader promise",
-  "sources": [{"path": "absolute/or/relative/article.md", "sha256": "64 lowercase hex digits"}],
-  "beats": [
-    {"id": "opening", "kind": "beat", "text": "Text visible through the first editorial pause."},
+  "sources": [
+    {"path": "absolute/or/relative/article.md", "sha256": "64 lowercase hex digits"},
+    {"path": "absolute/or/relative/article-shell.tsx", "sha256": "64 lowercase hex digits"}
+  ],
+  "route": [
+    {"id": "opening", "kind": "beat", "text": "An authored editorial beat."},
     {
       "id": "optional-example",
-      "kind": "aside",
-      "title": "Visible aside title",
-      "standfirst": "Visible standfirst and invitation",
-      "body": "Text hidden until opened."
+      "kind": "optional_read",
+      "eyebrow": "Optional visible eyebrow",
+      "title": "Visible title",
+      "standfirst": "Visible invitation",
+      "reading_time": "About 45 seconds",
+      "disclosure_label": "The button or link label for opening the hidden body",
+      "preview": "Optional text shown beside the invitation, such as a figure description and caption. Omit or use an empty string when there is none.",
+      "body": "Hidden detail revealed only after an open choice."
     },
-    {"id": "ending", "kind": "beat", "text": "The next passage through the end."}
+    {"id": "ending", "kind": "beat", "text": "The next editorial beat."}
   ],
-  "conditions": ["omit", "closed", "force_open", "reader_choice"]
+  "conditions": [
+    {"id": "core_only", "optional_reads": "omit"},
+    {"id": "asides_in_flow", "optional_reads": "inline"},
+    {"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}
+  ]
 }
 ```
 
-The first and last entries must be ordinary beats. Use stable IDs across versions for comparable editorial jobs; do not reuse an ID for a different job merely to manufacture a matched result. Source hashes make a stale manifest fail before paid calls. List every file needed to establish the visible copy, including article-specific shell copy when it supplies a figure caption or aside invitation. Read and check the authored text against the rendered page; hashes guard drift, not editorial accuracy.
-The current runner supports one optional aside per experiment.
+The three named conditions have fixed policies. `core_only` omits every optional invitation and body. `asides_in_flow` shows each invitation, preview and full body at its authored route position. `optional_with_defer` shows the invitation and preview at that position, asks `read_now` or `defer_to_end`, then offers each unread body once at the end of the reader's journey. The inline choice explicitly promises another choice at the end. There is no inline skip option.
 
-For an optional additional read offered after the article, use version 2. Keep the `beats` array to ordinary article beats and supply the extra piece separately:
+Every unread optional read is offered at journey end, including an item whose invitation was never reached because the reader left early. The event ledger distinguishes `first_offer_unseen` from `deferred_reoffer`. The end offer shows the title, standfirst and reading time. Only after `read` does the body enter visible text. After each such read, ask whether it increased, maintained or decreased satisfaction with the article for the reader's original goal. The original core outcome is recorded first and does not change after optional reading.
+
+Each route item uses a stable ID. An optional read may have an `eyebrow`, `preview` and `disclosure_label` for the visible elements surrounding its hidden body. A preview can describe material placed outside a collapsed disclosure, such as a diagram. Describe visual content accurately and include its caption. The panel can test the verbal description, not the image's visual explanation or placement. Keep the React article shell source in `sources` when it supplies the actual eyebrow, title, standfirst, preview, disclosure label or order. Hashes catch source drift; they do not establish that the manifest faithfully represents the page.
+
+## Existing formats
+
+Version 1 manifests with a `beats` array and string conditions (`omit`, `closed`, `force_open`, `reader_choice`) remain supported. Version 2 manifests with `optional_read` after the article and `post_article_choice` remain supported. The runner compiles these inputs to the same ordered route engine; their legacy choices and report fields retain their meanings. New experiments should use version 3 and stable item IDs.
+
+## Validate and trace before a paid run
+
+Start from a fresh editorial review. State the editorial question, a plausible result and counter-result, which readers can answer it, and what a simulation cannot establish. Freeze the cohort before making predictions. For a deliberate hypothesis, specify what observation would challenge the hypothesis; exploratory questions may remain open.
+
+Use `--check` to validate source hashes, route shape, conditions, cohort, estimated maximum calls and input cost without a remote call. Then run `--trace-choices <choices.json>` to inspect exact requests and exposures with scripted decisions and no network. Choice scripts use this shape:
 
 ```json
 {
-  "version": 2,
-  "title": "Article title",
-  "promise": "The standfirst or reader promise",
-  "sources": [{"path": "absolute/or/relative/article.md", "sha256": "64 lowercase hex digits"}],
-  "beats": [{"id": "opening", "kind": "beat", "text": "Article opening."}],
-  "optional_read": {
-    "id": "additional-read",
-    "title": "Visible optional title",
-    "standfirst": "Visible invitation",
-    "body": "Hidden until chosen."
-  },
-  "conditions": ["omit", "post_article_choice"]
+  "choices": [
+    {"reader": "reader-01", "condition": "optional_with_defer", "stage": "opening", "choice": "read_closely"},
+    {"reader": "reader-01", "condition": "optional_with_defer", "stage": "optional-example:inline-choice", "choice": "defer_to_end"}
+  ]
 }
 ```
 
-`post_article_choice` offers the title and standfirst after the final article beat or when a reader stops satisfied earlier. Readers who leave because they lost interest receive no offer. The choice is `open` or `skip`; only an opener sees the body and answers whether it increased, maintained or decreased satisfaction with the article for their original reading goal. The comparison is to their satisfaction immediately before opening, so it does not require a fabricated numeric score. The `omit` condition provides a paired no-offer article route. Do not place the optional body among the article beats in this mode.
-
-This mode offers the optional read at that point; it does not model a reader spontaneously remembering, noticing or scrolling back to an inline disclosure. If the real page showed an inline invitation earlier, describe this route as a proxy for willingness to take an additional read, not a measurement of return behaviour. The version 1 `reader_choice` route models an inline invitation and a deferred return at the final beat, but does not offer that return to someone who stopped satisfied earlier. If neither route represents the hypothesis, revise the experiment or the harness before making a stronger claim.
-
-An ordinary beat is shown to the reader before an attention decision. An aside has a visible title and standfirst, plus a body hidden by default. The harness never sends that body to a reader who has not opened it.
-
-## Conditions
-
-- `omit`: remove the invitation and body.
-- `closed`: show the invitation, keep the body closed.
-- `force_open`: show the invitation and body in place.
-- `reader_choice`: offer `open_now`, `return_later` or `skip` from the invitation alone. A deferer who reaches the end sees the invitation again and chooses `open` or `skip`, including a reader satisfied by the ending. Readers who leave before the aside have no aside choice; those who leave before the end have no return choice. A reader who loses interest at the final beat does not return.
-
-These are separate conditions of one experiment over the same frozen cohort. The choice branch reports self-selection, not a randomised effect of reading the aside. Compare controlled conditions for possible exposure effects, then inspect individual journeys and the page's visual treatment. Keep `stop_satisfied` distinct from `leave_lost_interest`.
-
-## Preflight and reading the report
-
-Write the editorial hypothesis or exploratory question beside the manifest before a paid call. Name a plausible counter-result, the beat or optional-read boundary under test, the readers eligible for each choice, and the conclusion the harness cannot support. This prevents a result from supplying its own question after the fact.
-
-Review a few complete request payloads or trace the exact prompt templates and cumulative visible text with a no-network decision stub. Include a reader who continues, one who stops satisfied early, one who leaves from lost interest, and the applicable aside choices. Check that each instruction describes the reader's actual exposure and position, not merely a convenient branch name. Then run `--check` for hashes, allocation and cost; neither source validation nor cost estimation replaces this route review.
-
-After the run, report attention choices out of readers who reached each beat. For optional material, separately report readers offered the invitation, readers who opened, and openers who reported an effect. Use their motives to explain possible editorial value while stating the self-selection and correlated-simulation limits. Interpret the article first; fix a flawed prompt only with a qualified result or a deliberately new run, never by silently treating the old result as corrected.
+Trace the actual decision routes of interest: continue, skim, stop satisfied, leave from lost interest, read inline, defer and later open, defer and later skip, and an exit before an invitation. Confirm visible text, choice wording, body boundaries and terminal offer origins. Use a complete script for the selected reader-condition journeys; the trace rejects missing, invalid, duplicate, unreachable or incomplete choices. Every prompt in a trace is rendered by the same builder as live SDK requests.
 
 ## CLI
 
 ```powershell
 py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-file <experiment.json> --profile-file <frozen-cohort.json> --check
-py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-file <experiment.json> --profile-file <frozen-cohort.json> --apply --max-calls <count> --max-usd <amount>
+py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-file <experiment.json> --profile-file <frozen-cohort.json> --trace-choices <choices.json>
+py -3 .agents/skills/running-reader-panels/scripts/reader_panel.py --experiment-file <experiment.json> --profile-file <frozen-cohort.json> --apply --max-calls <count> --max-usd <amount> --concurrency 4
 ```
 
-`--check` lists the ordered beats, conditions, allocation and an upper estimate without a remote call. An apply run prints periodic progress to stderr and saves a text-free report in canonical off-repo scratch. The report records condition, reader, choices, exposed beat IDs, terminal reason, source and cohort fingerprints, calls and reported cost. Stop to inspect the authored route before paying for decisions.
+`--concurrency` bounds independent reader-condition journeys. The questions within one journey remain sequential, because each answer controls what that reader sees next. The default is a conservative four concurrent requests; use 1 for a serial run, and a value from 1 to 32 for a different bound. OpenRouter's Python SDK async Decisions call uses the same SDK retry policy, including bounded retries and `Retry-After` handling. Attempts are counted per request, and the harness reserves global call and estimated-spend capacity before dispatch. Costs are estimates until OpenRouter reports usage. If an attempted request fails without usage, the report marks its calls unpriced, records a provisional estimate and stops dispatching.
 
-The older `--article` mode remains for existing flat-text runs. Its heading-based boundaries do not model a page with optional content or article-specific presentation.
+Progress output reports the current reader, condition, decision stage, cumulative wire calls and cost, and active requests. The final report includes total elapsed time, per-decision latency, retry count and peak concurrency. A synthetic scheduler benchmark can verify overlap but cannot establish provider latency, retry rates or a best Jev concurrency; tune concurrency from a bounded live run when those measurements matter.
+
+Apply runs save a report and an atomic partial checkpoint in canonical off-repo scratch. If interrupted, continue with `--apply --resume <partial-report>` and adequate call and spend caps. Resume accepts only a matching source, manifest, frozen cohort, model and rendered-prompt fingerprint. It skips completed journeys; an in-flight journey without a completed checkpoint is rerun from its start. Incomplete journeys remain in checkpoint state and are excluded from report journeys and observations. If the checkpoint has failed attempts without returned usage, first reconcile their actual total in provider billing and pass `--reconciled-unpriced-usd <amount>`; without that value resume is refused. Optional-read summaries include an aggregate across conditions and denominator-bearing breakdowns by condition, core outcome and archetype. Reports are text-free: they store identifiers, choices, exposure events, usage and outcomes, not the article body or credentials.
+
+The older `--article` mode remains available for flat-text runs; it has no authored optional-read route and runs serially. It is not a substitute for a manifest when the page has asides, diagrams, pull quotes or other authored boundaries.
+
+## Read results as an experiment
+
+The choice condition describes self-selection, not a randomized effect of reading an aside. Compare `core_only` and `asides_in_flow` as distinct routes over the same frozen cohort, then inspect the choice condition separately. Report the eligible denominator for each claim: readers reaching the inline invitation, choosing `read_now`, deferring, getting an unseen first offer, getting a deferred re-offer, reading later, skipping later, and answering an effect question are different groups. Break down the paths by condition, core outcome and archetype. Keep `stop_satisfied` distinct from `leave_lost_interest`; neither outcome is changed by the optional read.
+
+Read the experiment editorially before ordering a code review or deciding on another run. Describe what the paths suggest about the article and its readers, distinguish observed choices from inference, and state the design and simulation limits. A paid 100-reader run is a separate editorial action; preparing or tracing an experiment does not authorize it.

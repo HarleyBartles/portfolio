@@ -1,18 +1,22 @@
 from __future__ import annotations
 
+import asyncio
 import json
-
-import sys
 import tempfile
+import sys
+import time
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from reader_panel_experiment import load_experiment, run_experiment  # noqa: E402
+from reader_panel_experiment import (compile_experiment, load_experiment, run_experiment,
+                                     run_experiment_async)  # noqa: E402
 from reader_panel_source import ReaderProfile, SourceError  # noqa: E402
-from reader_panel_decisions import Decision  # noqa: E402
+from reader_panel_decisions import (Decision, DecisionError,
+                                    EXPERIMENT_CHOICE_LABELS)  # noqa: E402
 
 
 def decision(value: str) -> Decision:
@@ -20,6 +24,299 @@ def decision(value: str) -> Decision:
 
 
 class ExperimentTests(unittest.TestCase):
+    def test_resume_skips_completed_journeys_and_rejects_fingerprint_drift(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"}],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+        }
+        readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(2))
+        calls = []
+
+        async def decide(profile, condition, stage, visible, choices, attempts):
+            calls.append(profile.id)
+            return decision("skim")
+
+        with tempfile.TemporaryDirectory() as temporary:
+            checkpoint_path = Path(temporary) / "partial.json"
+            first = asyncio.run(run_experiment_async(experiment, readers, decide_fn=decide,
+                max_calls=1, max_usd=1, concurrency=1, checkpoint_path=checkpoint_path))
+            self.assertEqual(sum(journey["completed"] for journey in first["journeys"]), 1)
+            checkpoint = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+            self.assertEqual(checkpoint["usage"]["calls"], 1)
+            calls.clear()
+            resumed = asyncio.run(run_experiment_async(experiment, readers, decide_fn=decide,
+                max_calls=4, max_usd=1, concurrency=2, resume_checkpoint=checkpoint,
+                checkpoint_path=checkpoint_path))
+            self.assertEqual(calls, ["reader-1"])
+            self.assertEqual(sum(journey["completed"] for journey in resumed["journeys"]), 2)
+            changed = dict(experiment, title="Changed title")
+            with self.assertRaisesRegex(ValueError, "does not match"):
+                asyncio.run(run_experiment_async(changed, readers, decide_fn=decide,
+                    max_calls=4, max_usd=1, concurrency=1, resume_checkpoint=checkpoint))
+            with patch.dict(EXPERIMENT_CHOICE_LABELS, {"read_closely": "Changed prompt text"}):
+                with self.assertRaisesRegex(ValueError, "does not match"):
+                    asyncio.run(run_experiment_async(experiment, readers, decide_fn=decide,
+                        max_calls=4, max_usd=1, concurrency=1, resume_checkpoint=checkpoint))
+
+    def test_async_runner_overlaps_independent_journeys_without_oversubscribing_calls(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"},
+                      {"id": "ending", "kind": "beat", "text": "Ending"}],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+        }
+        readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(8))
+        state = {"active": 0, "maximum": 0}
+
+        async def decide(profile, condition, stage, visible, choices, attempts):
+            state["active"] += 1
+            state["maximum"] = max(state["maximum"], state["active"])
+            await asyncio.sleep(0.01)
+            state["active"] -= 1
+            return decision("skim")
+
+        report = asyncio.run(run_experiment_async(experiment, readers, decide_fn=decide,
+                        max_calls=5, max_usd=1, concurrency=4))
+        self.assertGreater(state["maximum"], 1)
+        self.assertLessEqual(report["calls"], 5)
+        self.assertEqual(report["calls"], 5)
+        self.assertEqual(report["performance"]["max_active_requests"], state["maximum"])
+        self.assertEqual(report["performance"]["completed_decisions"], len(report["observations"]))
+        self.assertTrue(all(item["latency_seconds"] >= 0 for item in report["observations"]))
+        self.assertGreaterEqual(report["wall_time_seconds"], 0)
+        self.assertGreater(report["incomplete_journeys"], 0)
+        self.assertTrue(all(journey["completed"] for journey in report["journeys"]))
+        self.assertEqual(len(report["observations"]), 0)
+
+    def test_sync_decisions_remain_serial_even_when_concurrency_is_requested(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"}],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+        }
+        readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(4))
+        state = {"active": 0, "maximum": 0}
+
+        def decide(profile, condition, stage, visible, choices, attempts):
+            state["active"] += 1
+            state["maximum"] = max(state["maximum"], state["active"])
+            time.sleep(0.01)
+            state["active"] -= 1
+            return decision("skim")
+
+        report = run_experiment(experiment, readers, decide_fn=decide,
+                                max_calls=20, max_usd=1, concurrency=4)
+        self.assertEqual(state["maximum"], 1)
+        self.assertEqual(report["performance"]["max_active_requests"], 1)
+
+    def test_failed_async_decisions_mark_unpriced_attempts_and_reserve_them(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"}],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+        }
+        readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(2))
+        attempts = []
+
+        async def fail(profile, condition, stage, visible, choices, max_attempts):
+            attempts.append(profile.id)
+            raise DecisionError("endpoint timeout", attempts=2)
+
+        report = asyncio.run(run_experiment_async(experiment, readers, decide_fn=fail,
+            max_calls=6, max_usd=1, concurrency=1))
+        self.assertEqual(attempts, ["reader-0"])
+        self.assertEqual(report["calls"], 2)
+        self.assertTrue(report["cost_reconciliation_required"])
+        self.assertEqual(report["unpriced_attempts"], 2)
+        self.assertGreater(report["unpriced_cost_estimate_usd"], 0)
+        self.assertEqual(report["incomplete_journeys"], 2)
+        self.assertEqual(report["journeys"], [])
+
+    def test_resume_requires_and_applies_provider_cost_reconciliation(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"}],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+        }
+        readers = (ReaderProfile("reader", "read", "reader", "payoff"),)
+
+        async def fail(profile, condition, stage, visible, choices, attempts):
+            raise DecisionError("endpoint timeout", attempts=2)
+
+        async def recover(profile, condition, stage, visible, choices, attempts):
+            return decision("skim")
+
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "checkpoint.json"
+            asyncio.run(run_experiment_async(experiment, readers, decide_fn=fail,
+                max_calls=4, max_usd=1, concurrency=1, checkpoint_path=path))
+            checkpoint = json.loads(path.read_text(encoding="utf-8"))
+            with self.assertRaisesRegex(ValueError, "provider-billing reconciliation"):
+                asyncio.run(run_experiment_async(experiment, readers, decide_fn=recover,
+                    max_calls=4, max_usd=1, concurrency=1, resume_checkpoint=checkpoint))
+            resumed = asyncio.run(run_experiment_async(experiment, readers, decide_fn=recover,
+                max_calls=4, max_usd=1, concurrency=1, resume_checkpoint=checkpoint,
+                reconciled_unpriced_usd=0.00003))
+            self.assertEqual(resumed["calls"], 3)
+            self.assertEqual(resumed["reported_cost_usd"], 0.00001)
+            self.assertEqual(resumed["reconciled_unpriced_cost_usd"], 0.00003)
+            self.assertEqual(resumed["cost_usd"], 0.00004)
+            self.assertFalse(resumed["cost_reconciliation_required"])
+
+    def test_optional_summary_breaks_down_completed_journeys_by_outcome_and_archetype(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [
+                {"id": "opening", "kind": "beat", "text": "Opening"},
+                {"id": "extra", "kind": "optional_read", "title": "Extra",
+                 "standfirst": "Invitation", "reading_time": "30 seconds", "body": "Hidden"},
+                {"id": "ending", "kind": "beat", "text": "Ending"},
+            ],
+            "conditions": [{"id": "core_only", "optional_reads": "omit"},
+                           {"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}],
+        }
+        readers = (
+            ReaderProfile("satisfied", "read", "reader", "payoff", archetype_id="craft-admirer"),
+            ReaderProfile("finished", "read", "reader", "payoff", archetype_id="hiring-evaluator"),
+        )
+
+        def decide(profile, condition, stage, visible, choices, attempts):
+            if profile.id == "satisfied" and stage == "opening":
+                return decision("stop_satisfied")
+            if stage.endswith("inline-choice"):
+                return decision("defer_to_end")
+            if stage.endswith("terminal-choice"):
+                return decision("skip")
+            return decision("read_closely")
+
+        report = run_experiment(experiment, readers, decide_fn=decide, max_calls=20, max_usd=1)
+        summary = next(item for item in report["optional_summary"]
+                       if item["condition"] == "optional_with_defer")
+        self.assertEqual(summary["eligible_journeys"], 2)
+        by_outcome = {item["value"]: item for item in summary["breakdowns"]["core_outcome"]}
+        self.assertEqual(set(by_outcome), {"stop_satisfied", "reached_end"})
+        self.assertEqual(by_outcome["stop_satisfied"]["eligible_journeys"], 1)
+        self.assertEqual(by_outcome["stop_satisfied"]["first_offer_unseen"], 1)
+        by_archetype = {item["value"]: item for item in summary["breakdowns"]["archetype"]}
+        self.assertEqual(set(by_archetype), {"craft-admirer", "hiring-evaluator"})
+        self.assertEqual(by_archetype["hiring-evaluator"]["deferred"], 1)
+        combined = next(item for item in report["optional_summary"] if item["condition"] == "combined")
+        self.assertEqual(combined["eligible_journeys"], 4)
+        self.assertEqual(combined["deferred"], 1)
+        self.assertEqual({item["eligible_journeys"] for item in combined["breakdowns"]["core_outcome"]}, {2})
+        self.assertEqual({item["eligible_journeys"] for item in combined["breakdowns"]["archetype"]}, {2})
+
+    def test_version_three_compiles_two_optional_reads_and_three_policy_conditions(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [
+                {"id": "opening", "kind": "beat", "text": "Opening"},
+                {"id": "sql", "kind": "optional_read", "title": "SQL", "standfirst": "SQL invitation",
+                 "reading_time": "30 seconds", "preview": "SQL visible preview", "body": "SQL body"},
+                {"id": "middle", "kind": "beat", "text": "Middle"},
+                {"id": "webhook", "kind": "optional_read", "title": "Webhook",
+                 "standfirst": "Webhook invitation", "reading_time": "30 seconds", "body": "Webhook body"},
+                {"id": "ending", "kind": "beat", "text": "Ending"},
+            ],
+            "conditions": [
+                {"id": "core_only", "optional_reads": "omit"},
+                {"id": "asides_in_flow", "optional_reads": "inline"},
+                {"id": "optional_with_defer", "optional_reads": "read_now_or_defer"},
+            ],
+        }
+        compiled = compile_experiment(experiment)
+        self.assertEqual([piece["id"] for piece in compiled["route"]],
+                         ["opening", "sql", "middle", "webhook", "ending"])
+        self.assertEqual(sum(piece["kind"] == "optional_read" for piece in compiled["route"]), 2)
+        self.assertEqual([item["id"] for item in compiled["conditions"]],
+                         ["core_only", "asides_in_flow", "optional_with_defer"])
+
+    def test_legacy_experiment_compiles_to_same_canonical_route(self) -> None:
+        legacy = {
+            "version": 1, "title": "Title", "promise": "Promise", "sources": [],
+            "beats": [{"id": "opening", "kind": "beat", "text": "Opening"},
+                      {"id": "extra", "kind": "aside", "title": "Extra",
+                       "standfirst": "Invitation", "body": "Hidden"},
+                      {"id": "ending", "kind": "beat", "text": "Ending"}],
+            "conditions": ["omit", "reader_choice"],
+        }
+        compiled = compile_experiment(legacy)
+        self.assertEqual([piece["kind"] for piece in compiled["route"]],
+                         ["beat", "optional_read", "beat"])
+        self.assertEqual([item["id"] for item in compiled["conditions"]], ["omit", "reader_choice"])
+
+    def test_two_aside_route_offers_unseen_and_deferred_reads_after_core_exit(self) -> None:
+        experiment = {
+            "version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [
+                {"id": "opening", "kind": "beat", "text": "Opening"},
+                {"id": "sql", "kind": "optional_read", "title": "SQL", "standfirst": "SQL offer",
+                 "reading_time": "30 seconds", "body": "SQL SECRET"},
+                {"id": "middle", "kind": "beat", "text": "Middle"},
+                {"id": "webhook", "kind": "optional_read", "title": "Webhook",
+                 "standfirst": "Webhook offer", "reading_time": "30 seconds", "body": "WEBHOOK SECRET"},
+                {"id": "ending", "kind": "beat", "text": "Ending"},
+            ],
+            "conditions": [{"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}],
+        }
+        profile = ReaderProfile("one", "read", "reader", "payoff")
+        requests = []
+
+        def decide(profile, condition, stage, visible, choices, attempts):
+            requests.append((stage, visible, choices))
+            if stage == "opening":
+                return decision("leave_lost_interest")
+            if stage.endswith("terminal-choice"):
+                return decision("read" if stage.startswith("sql:") else "skip")
+            if stage.endswith("read-effect"):
+                return decision("increased")
+            return decision("defer_to_end")
+
+        report = run_experiment(experiment, (profile,), decide_fn=decide, max_calls=20, max_usd=1)
+        journey = report["journeys"][0]
+        offers = [event for event in journey["events"] if event["type"] == "terminal_offer"]
+        self.assertEqual([(event["item_id"], event["origin"]) for event in offers],
+                         [("sql", "first_offer_unseen"), ("webhook", "first_offer_unseen")])
+        self.assertEqual(journey["core_outcome"], "leave_lost_interest")
+        self.assertTrue(journey["completed"])
+        summary = report["optional_summary"]
+        per_condition = [item for item in summary if item["condition"] != "combined"]
+        self.assertEqual([item["eligible_journeys"] for item in per_condition], [1, 1])
+        combined = [item for item in summary if item["condition"] == "combined"]
+        self.assertEqual([item["eligible_journeys"] for item in combined], [1, 1])
+        self.assertEqual([item["first_offer_unseen"] for item in per_condition + combined], [1, 1, 1, 1])
+        self.assertIn("increased", [event.get("effect") for event in journey["events"]])
+        self.assertNotIn("SQL SECRET", next(visible for stage, visible, _ in requests
+                                             if stage == "sql:terminal-choice"))
+        sql_terminal_visible = next(visible for stage, visible, _ in requests
+                                    if stage == "sql:terminal-choice")
+        self.assertIn("SQL offer", sql_terminal_visible)
+        self.assertNotIn("SQL visible preview", sql_terminal_visible)
+        self.assertNotIn("WEBHOOK SECRET", next(visible for stage, visible, _ in requests
+                                                 if stage == "webhook:terminal-choice"))
+
+    def test_optional_inline_preview_is_visible_before_body_choice(self) -> None:
+        experiment = {"version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"},
+                      {"id": "aside", "kind": "optional_read", "title": "Aside",
+                       "standfirst": "Invitation", "reading_time": "30 seconds",
+                       "preview": "FIGURE DESCRIPTION", "body": "HIDDEN BODY"},
+                      {"id": "ending", "kind": "beat", "text": "Ending"}],
+            "conditions": [{"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}]}
+        profile = ReaderProfile("one", "read", "reader", "payoff")
+        requests = []
+
+        def decide(profile, condition, stage, visible, choices, attempts):
+            requests.append((stage, visible))
+            return decision({"aside:inline-choice": "defer_to_end", "ending": "stop_satisfied",
+                             "aside:terminal-choice": "skip"}.get(stage, "read_closely"))
+
+        run_experiment(experiment, (profile,), decide_fn=decide, max_calls=10, max_usd=1)
+        inline = next(visible for stage, visible in requests if stage == "aside:inline-choice")
+        self.assertIn("FIGURE DESCRIPTION", inline)
+        self.assertNotIn("HIDDEN BODY", inline)
+
     def test_post_article_offer_reaches_satisfied_reader_before_ending(self) -> None:
         experiment = {
             "version": 2, "title": "Title", "promise": "Promise", "sources": [],
