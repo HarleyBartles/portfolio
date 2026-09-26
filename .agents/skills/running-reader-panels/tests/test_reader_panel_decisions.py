@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import sys
 import unittest
@@ -31,6 +32,60 @@ def response(choice: str = "skim", cost: float = 0.00001) -> dict:
 
 
 class DecisionTests(unittest.TestCase):
+    def test_sync_context_closes_its_async_transport_client(self) -> None:
+        async_client = httpx.AsyncClient(transport=httpx.MockTransport(lambda _: httpx.Response(200)))
+        sync_client = httpx.Client(transport=httpx.MockTransport(lambda _: httpx.Response(200)))
+        with DecisionClient("private-key", http_client=sync_client, async_http_client=async_client):
+            self.assertFalse(async_client.is_closed)
+        self.assertTrue(async_client.is_closed)
+
+    def test_async_sdk_calls_keep_retry_attempt_counts_request_local(self) -> None:
+        counts = {"A": 0, "B": 0}
+
+        async def handler(request: httpx.Request) -> httpx.Response:
+            payload = json.loads(request.content)
+            key = payload["state"]["visible_text"]
+            counts[key] += 1
+            if key == "A" and counts[key] == 1:
+                return httpx.Response(529, json={"error": "busy"})
+            value = response("skim")
+            value["answers"]["attention"]["probabilities"] = {"skim": 1.0}
+            return httpx.Response(200, json=value)
+
+        async def run() -> tuple[Decision, Decision]:
+            async_http_client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+            async with DecisionClient("private-key", async_http_client=async_http_client) as client:
+                with patch("openrouter.utils.retries.asyncio.sleep", new_callable=unittest.mock.AsyncMock):
+                    return await asyncio.gather(*(
+                        client.decide_experiment_async(
+                            PROFILE, "Title", "Promise", key, "opening", {"skim": "Scan"}, 3,
+                        ) for key in ("A", "B")
+                    ))
+
+        first, second = asyncio.run(run())
+        self.assertEqual((first.attempts, second.attempts), (2, 1))
+        self.assertEqual(counts, {"A": 2, "B": 1})
+
+    def test_optional_with_defer_promises_an_end_offer_and_names_terminal_context(self) -> None:
+        captured = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            payload = json.loads(request.content)
+            captured.append(payload)
+            answer = next(iter(payload["questions"]["attention"]["criteria"]))
+            value = response(answer)
+            value["answers"]["attention"]["probabilities"] = {answer: 1.0}
+            return httpx.Response(200, json=value)
+
+        with httpx.Client(transport=httpx.MockTransport(handler)) as http_client:
+            client = DecisionClient("private-key", http_client=http_client)
+            client.decide_experiment(PROFILE, "Title", "Promise", "Invitation", "sql:inline-choice",
+                                     {"read_now": "Read", "defer_to_end": "Continue"}, 1)
+            client.decide_experiment(PROFILE, "Title", "Promise", "Article end", "sql:terminal-choice",
+                                     {"read": "Read", "skip": "Skip"}, 1)
+        self.assertIn("offered this reading again at the end", captured[0]["questions"]["attention"]["instructions"])
+        self.assertIn("origin of this offer is recorded separately", captured[1]["questions"]["attention"]["instructions"])
+
     def test_post_read_prompts_allow_early_satisfied_exit(self) -> None:
         captured = []
 

@@ -35,6 +35,149 @@ def choice(value: str, cost: float = 0.00001) -> Decision:
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_apply_adapts_manifest_decisions_to_sdk_titles_and_choice_criteria(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.txt"
+            source.write_text("private article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": 3, "title": "Article title", "promise": "Article promise",
+                "sources": [{"path": "source.txt", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening passage."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+            }), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            scratch = root / "scratch"
+            calls = []
+
+            class FakeClient:
+                async def __aenter__(self):
+                    return self
+
+                async def __aexit__(self, *_args):
+                    return None
+
+                async def decide_experiment_async(self, profile, title, promise, visible, stage,
+                                                  criteria, max_attempts):
+                    calls.append((profile.id, title, promise, visible, stage, criteria, max_attempts))
+                    return choice("read_closely")
+
+            with patch("reader_panel.DecisionClient", return_value=FakeClient()):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    result = main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                                   "--profiles", "story-first", "--apply", "--max-calls", "3",
+                                   "--max-usd", "1", "--concurrency", "1"],
+                                  environ={"OPENROUTER_API_KEY": "test"},
+                                  workspace_resolver=lambda: scratch)
+        self.assertEqual(result, 0)
+        self.assertEqual(calls[0][1:5], ("Article title", "Article promise", "\n\nOpening passage.", "opening"))
+        self.assertEqual(set(calls[0][5]), {"read_closely", "skim", "leave_lost_interest", "stop_satisfied"})
+        self.assertEqual(calls[0][6], 3)
+
+    def test_flat_article_mode_rejects_manifest_concurrency_setting(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("---\ntitle: Title\nsummary: Promise\n---\nOpening paragraph.", encoding="utf-8")
+            profiles = root / "cohort.json"
+            profiles.write_text(json.dumps([{
+                "id": "reader", "archetype_id": "story-first", "arrival_intent": "read",
+                "background": "reader", "desired_payoff": "insight", "drawn_in_by": "detail",
+                "put_off_by": "hype",
+            }]), encoding="utf-8")
+            with self.assertRaisesRegex(PanelError, "applies only to experiment manifests"):
+                main(["--article", str(source), "--profile-file", str(profiles), "--check",
+                      "--concurrency", "2"], environ={})
+
+    def test_cli_resume_uses_the_partial_checkpoint_and_only_runs_unfinished_journeys(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("Article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": 3, "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+            }), encoding="utf-8")
+            profiles = root / "cohort.json"
+            profiles.write_text(json.dumps([
+                {"id": f"reader-{n}", "archetype_id": "story-first", "arrival_intent": "read",
+                 "background": "reader", "desired_payoff": "insight", "drawn_in_by": "detail",
+                 "put_off_by": "hype"} for n in (1, 2)
+            ]), encoding="utf-8")
+            scratch = root / "scratch"
+            partial = scratch / "first.partial.json"
+            calls = []
+            decide = lambda profile, *_: calls.append(profile.id) or choice("skim")
+            args = ["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                    "--max-usd", "1", "--apply"]
+            with contextlib.redirect_stdout(io.StringIO()):
+                main([*args, "--max-calls", "1", "--output", str(scratch / "first.json")],
+                     environ={"OPENROUTER_API_KEY": "test"}, decision_fn=decide,
+                     workspace_resolver=lambda: scratch)
+            self.assertEqual(calls, ["reader-1"])
+            self.assertTrue(partial.exists())
+            with contextlib.redirect_stdout(io.StringIO()):
+                main([*args, "--max-calls", "3", "--resume", str(partial)],
+                     environ={"OPENROUTER_API_KEY": "test"}, decision_fn=decide,
+                     workspace_resolver=lambda: scratch)
+        self.assertEqual(calls, ["reader-1", "reader-2"])
+        self.assertFalse(partial.exists())
+
+    def test_scripted_trace_uses_the_sdk_request_renderer_without_network(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("Article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": 3, "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
+                          {"id": "ending", "kind": "beat", "text": "Ending."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+            }), encoding="utf-8")
+            script = root / "choices.json"
+            script.write_text(json.dumps({"choices": [
+                {"reader": "story-first", "condition": "core_only", "stage": "opening", "choice": "skim"},
+                {"reader": "story-first", "condition": "core_only", "stage": "ending", "choice": "stop_satisfied"},
+            ]}), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                               "--profiles", "story-first", "--trace-choices", str(script)],
+                              environ={}, decision_fn=lambda *_: self.fail("trace attempted a network call"))
+        self.assertEqual(result, 0)
+        self.assertIn('"visible_text": "\\n\\nOpening."', output.getvalue())
+        self.assertIn("0 remote calls", output.getvalue())
+
+    def test_scripted_trace_rejects_an_incomplete_reader_journey(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("Article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": 3, "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
+                          {"id": "ending", "kind": "beat", "text": "Ending."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"}],
+            }), encoding="utf-8")
+            script = root / "choices.json"
+            script.write_text(json.dumps({"choices": [
+                {"reader": "story-first", "condition": "core_only", "stage": "opening", "choice": "skim"},
+            ]}), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            with self.assertRaisesRegex(PanelError, "did not complete every"):
+                main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                      "--profiles", "story-first", "--trace-choices", str(script)],
+                     environ={}, decision_fn=lambda *_: self.fail("trace attempted a network call"))
+
     def test_experiment_cli_checks_manifest_and_reports_live_progress(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -73,8 +216,11 @@ class ReaderPanelTests(unittest.TestCase):
                      workspace_resolver=lambda: scratch)
             self.assertIn("reader 1/1", progress.getvalue())
             self.assertIn("calls", progress.getvalue())
+            self.assertIn("active", progress.getvalue())
             report = json.loads(next(scratch.glob("*.json")).read_text(encoding="utf-8"))
             self.assertEqual(len(report["journeys"]), 2)
+            self.assertIn("latency_seconds", report["observations"][0])
+            self.assertIn("wall_time_seconds", report)
             self.assertNotIn("Hidden material.", progress.getvalue() + json.dumps(report))
 
     def test_cli_requires_an_explicit_reader_cohort(self) -> None:
