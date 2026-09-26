@@ -38,20 +38,23 @@ class PanelError(ValueError):
     """A panel run is invalid or exceeds its explicit operating boundary."""
 
 
-def _payload_size(profile: ReaderProfile, article: Article, beat: Beat) -> int:
-    return len(json.dumps(build_request(profile, article, beat), ensure_ascii=False).encode("utf-8"))
+def _payload_size(profile: ReaderProfile, article: Article, beat: Beat,
+                  history: tuple[dict, ...] = ()) -> int:
+    return len(json.dumps(build_request(profile, article, beat, history),
+                          ensure_ascii=False).encode("utf-8"))
 
 
-def estimate_cost(profile: ReaderProfile, article: Article, beat: Beat) -> float:
+def estimate_cost(profile: ReaderProfile, article: Article, beat: Beat,
+                  history: tuple[dict, ...] = ()) -> float:
     """Approximate only: one input token per four UTF-8 bytes."""
-    return (_payload_size(profile, article, beat) / 4) * PRICE_PER_MILLION_INPUT_TOKENS / 1_000_000
+    return (_payload_size(profile, article, beat, history) / 4) * PRICE_PER_MILLION_INPUT_TOKENS / 1_000_000
 
 
 def run_panel(
     articles: tuple[Article, ...],
     profiles: tuple[ReaderProfile, ...],
     *,
-    decide_fn: Callable[[ReaderProfile, Article, Beat, int], Decision],
+    decide_fn: Callable[..., Decision],
     max_calls: int,
     max_usd: float,
     progress: Callable[[str], None] | None = None,
@@ -70,6 +73,7 @@ def run_panel(
         for reader_number, profile in enumerate(profiles, 1):
             if stopped:
                 break
+            history: list[dict] = []
             if progress:
                 progress(f"{article.path.name}: reader {reader_number}/{len(profiles)}, "
                          f"calls {calls}, cost ${cost:.6f}")
@@ -78,18 +82,19 @@ def run_panel(
                     limitations.append("Maximum call count reached; remaining decisions were not requested")
                     stopped = True
                     break
-                if _payload_size(profile, article, beat) > MAX_REQUEST_BYTES:
+                prior = tuple(history)
+                if _payload_size(profile, article, beat, prior) > MAX_REQUEST_BYTES:
                     limitations.append("A request exceeded the 80 KB state limit; remaining decisions were not requested")
                     stopped = True
                     break
                 remaining_calls = max_calls - calls
                 max_attempts = min(3, remaining_calls)
-                if cost + estimate_cost(profile, article, beat) * max_attempts > max_usd:
+                if cost + estimate_cost(profile, article, beat, prior) * max_attempts > max_usd:
                     limitations.append("Estimated spend cap reached before the next request")
                     stopped = True
                     break
                 try:
-                    result = decide_fn(profile, article, beat, max_attempts)
+                    result = decide_fn(profile, article, beat, max_attempts, prior)
                 except DecisionError as error:
                     calls += error.attempts
                     limitations.append(f"Decision attempt failed: {error}; remaining decisions were not requested")
@@ -105,6 +110,8 @@ def run_panel(
                     profile.id, result.choice, result.probabilities,
                     result.cost_usd, result.input_tokens, result.model, profile.archetype_id,
                 ))
+                history.append({"item_id": str(beat.index), "stage": beat.heading,
+                                "choice": result.choice})
                 if progress:
                     progress(f"{article.path.name}: reader {reader_number}/{len(profiles)}, "
                              f"{beat.heading}, calls {calls}, cost ${cost:.6f}")
@@ -276,7 +283,7 @@ def main(
             raise PanelError("Choice script must contain unique reader/condition/stage choices") from None
         trace_requests = []
 
-        def trace_decision(profile, condition, stage, visible, choices, attempts):
+        def trace_decision(profile, condition, stage, visible, choices, attempts, history):
             key = (profile.id, condition, stage)
             choice = scripted.pop(key, None)
             if choice not in choices:
@@ -285,7 +292,7 @@ def main(
                                   "offered_choices": list(choices),
                                   "request": render_experiment_request(
                                       profile, experiment["title"], experiment["promise"], visible,
-                                      stage, _labels(choices))})
+                                      stage, _labels(choices), history)})
             return Decision(choice, {choice: 1.0}, 0.0, 0, "typesafe/jev-1.13-20260917")
 
         trace_report = run_experiment(experiment, profiles, decide_fn=trace_decision,
@@ -375,10 +382,11 @@ def main(
         else:
             async def apply_async():
                 async with DecisionClient(api_key) as client:
-                    async def decide_stage(profile, condition, stage, visible, choices, attempts):
+                    async def decide_stage(profile, condition, stage, visible, choices, attempts,
+                                           history):
                         return await client.decide_experiment_async(
                             profile, experiment["title"], experiment["promise"], visible,
-                            stage, _labels(choices), attempts)
+                            stage, _labels(choices), attempts, history)
                     return await run_experiment_async(
                         experiment, profiles, decide_fn=decide_stage,
                         max_calls=args.max_calls, max_usd=args.max_usd,

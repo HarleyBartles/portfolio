@@ -63,6 +63,8 @@ Use `--check` to validate source hashes, route shape, conditions, cohort, estima
 
 Trace the actual decision routes of interest: continue, skim, stop satisfied, leave from lost interest, read inline, defer and later open, defer and later skip, and an exit before an invitation. Confirm visible text, choice wording, body boundaries and terminal offer origins. Use a complete script for the selected reader-condition journeys; the trace rejects missing, invalid, duplicate, unreachable or incomplete choices. Every prompt in a trace is rendered by the same builder as live SDK requests.
 
+The request state includes `reading_history`, an ordered list of this reader's earlier item IDs, decision stages and choices. Check that the current decision is absent, that skim and close-read choices survive into later beats, and that a deferred end offer explicitly recalls the reader's choice. A first offer for an unseen aside has no prior deferral to recall.
+
 ## CLI
 
 ```powershell

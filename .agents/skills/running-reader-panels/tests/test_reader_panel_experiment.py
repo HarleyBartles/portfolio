@@ -33,7 +33,7 @@ class ExperimentTests(unittest.TestCase):
         readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(2))
         calls = []
 
-        async def decide(profile, condition, stage, visible, choices, attempts):
+        async def decide(profile, condition, stage, visible, choices, attempts, history):
             calls.append(profile.id)
             return decision("skim")
 
@@ -69,7 +69,7 @@ class ExperimentTests(unittest.TestCase):
         readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(8))
         state = {"active": 0, "maximum": 0}
 
-        async def decide(profile, condition, stage, visible, choices, attempts):
+        async def decide(profile, condition, stage, visible, choices, attempts, history):
             state["active"] += 1
             state["maximum"] = max(state["maximum"], state["active"])
             await asyncio.sleep(0.01)
@@ -98,7 +98,7 @@ class ExperimentTests(unittest.TestCase):
         readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(4))
         state = {"active": 0, "maximum": 0}
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             state["active"] += 1
             state["maximum"] = max(state["maximum"], state["active"])
             time.sleep(0.01)
@@ -119,7 +119,7 @@ class ExperimentTests(unittest.TestCase):
         readers = tuple(ReaderProfile(f"reader-{n}", "read", "reader", "payoff") for n in range(2))
         attempts = []
 
-        async def fail(profile, condition, stage, visible, choices, max_attempts):
+        async def fail(profile, condition, stage, visible, choices, max_attempts, history):
             attempts.append(profile.id)
             raise DecisionError("endpoint timeout", attempts=2)
 
@@ -141,10 +141,10 @@ class ExperimentTests(unittest.TestCase):
         }
         readers = (ReaderProfile("reader", "read", "reader", "payoff"),)
 
-        async def fail(profile, condition, stage, visible, choices, attempts):
+        async def fail(profile, condition, stage, visible, choices, attempts, history):
             raise DecisionError("endpoint timeout", attempts=2)
 
-        async def recover(profile, condition, stage, visible, choices, attempts):
+        async def recover(profile, condition, stage, visible, choices, attempts, history):
             return decision("skim")
 
         with tempfile.TemporaryDirectory() as temporary:
@@ -181,7 +181,7 @@ class ExperimentTests(unittest.TestCase):
             ReaderProfile("finished", "read", "reader", "payoff", archetype_id="hiring-evaluator"),
         )
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             if profile.id == "satisfied" and stage == "opening":
                 return decision("stop_satisfied")
             if stage.endswith("inline-choice"):
@@ -263,7 +263,7 @@ class ExperimentTests(unittest.TestCase):
         profile = ReaderProfile("one", "read", "reader", "payoff")
         requests = []
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             requests.append((stage, visible, choices))
             if stage == "opening":
                 return decision("leave_lost_interest")
@@ -296,6 +296,28 @@ class ExperimentTests(unittest.TestCase):
         self.assertNotIn("WEBHOOK SECRET", next(visible for stage, visible, _ in requests
                                                  if stage == "webhook:terminal-choice"))
 
+    def test_later_questions_receive_the_readers_prior_choices(self) -> None:
+        experiment = {"version": 3, "title": "Title", "promise": "Promise", "sources": [],
+            "route": [{"id": "opening", "kind": "beat", "text": "Opening"},
+                      {"id": "aside", "kind": "optional_read", "title": "Aside",
+                       "standfirst": "Invitation", "reading_time": "2 minutes", "body": "Hidden"},
+                      {"id": "ending", "kind": "beat", "text": "Ending"}],
+            "conditions": [{"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}]}
+        requests = {}
+
+        def decide(profile, condition, stage, visible, choices, attempts, history):
+            requests[stage] = list(history)
+            return decision({"opening": "skim", "aside:inline-choice": "defer_to_end",
+                             "aside:terminal-choice": "skip"}.get(stage, "read_closely"))
+
+        run_experiment(experiment, (ReaderProfile("one", "read", "reader", "payoff"),),
+                       decide_fn=decide, max_calls=10, max_usd=1)
+        self.assertEqual(requests["opening"], [])
+        self.assertEqual(requests["aside:inline-choice"], [
+            {"item_id": "opening", "stage": "opening", "choice": "skim"}])
+        self.assertIn({"item_id": "aside", "stage": "aside:inline-choice",
+                       "choice": "defer_to_end"}, requests["aside:terminal-choice"])
+
     def test_optional_inline_preview_is_visible_before_body_choice(self) -> None:
         experiment = {"version": 3, "title": "Title", "promise": "Promise", "sources": [],
             "route": [{"id": "opening", "kind": "beat", "text": "Opening"},
@@ -307,7 +329,7 @@ class ExperimentTests(unittest.TestCase):
         profile = ReaderProfile("one", "read", "reader", "payoff")
         requests = []
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             requests.append((stage, visible))
             return decision({"aside:inline-choice": "defer_to_end", "ending": "stop_satisfied",
                              "aside:terminal-choice": "skip"}.get(stage, "read_closely"))
@@ -331,7 +353,7 @@ class ExperimentTests(unittest.TestCase):
                     ReaderProfile("lost", "read", "reader", "payoff"))
         seen = []
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             seen.append((profile.id, condition, stage, visible))
             if stage == "post-choice":
                 return decision("open" if profile.id == "early" else "skip")
@@ -378,7 +400,7 @@ class ExperimentTests(unittest.TestCase):
         }
         profile = ReaderProfile("one", "read", "reader", "payoff")
         seen = []
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             seen.append(stage)
             return decision({
                 "aside-choice": "return_later", "ending": "stop_satisfied",
@@ -404,7 +426,7 @@ class ExperimentTests(unittest.TestCase):
         profile = ReaderProfile("one", "read", "reader", "payoff")
         seen = []
 
-        def decide(profile, condition, stage, visible, choices, attempts):
+        def decide(profile, condition, stage, visible, choices, attempts, history):
             seen.append(stage)
             return decision("leave_lost_interest")
 
@@ -428,7 +450,7 @@ class ExperimentTests(unittest.TestCase):
         profiles = tuple(ReaderProfile(name, "read", "reader", "payoff") for name in ("now", "later", "skip"))
         seen = []
 
-        def decide(profile, condition, stage, visible, choices, max_attempts):
+        def decide(profile, condition, stage, visible, choices, max_attempts, history):
             seen.append((profile.id, condition, stage, visible))
             if stage == "aside-choice":
                 return decision({"now": "open_now", "later": "return_later", "skip": "skip"}[profile.id])

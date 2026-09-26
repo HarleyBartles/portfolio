@@ -185,7 +185,7 @@ def run_experiment(
     experiment: dict,
     profiles: tuple[ReaderProfile, ...],
     *,
-    decide_fn: Callable[[ReaderProfile, str, str, str, tuple[str, ...], int], Decision],
+    decide_fn: Callable[..., Decision],
     max_calls: int,
     max_usd: float,
     progress: Callable[[str], None] | None = None,
@@ -326,11 +326,15 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
 
             def ask(stage: str, choices: tuple[str, ...], *, event_item: str = "") -> str | None:
                 nonlocal calls, cost, unpriced_attempts, unpriced_cost_estimate, tokens, retries, stopped
+                history = tuple({"item_id": event["item_id"], "stage": event["stage"],
+                                 "choice": event["choice"]} for event in events
+                                if event["type"] == "choice")
                 if calls >= max_calls:
                     limits.append("Maximum call count reached")
                     stopped = True
                     return None
-                request_bytes = len(visible.encode("utf-8")) + sum(
+                request_bytes = len(visible.encode("utf-8")) + len(json.dumps(
+                    history, ensure_ascii=False).encode("utf-8")) + sum(
                     len(value.encode("utf-8")) for value in (
                         profile.arrival_intent, profile.background, profile.desired_payoff,
                         profile.drawn_in_by, profile.put_off_by, experiment["title"], experiment["promise"],
@@ -347,7 +351,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     return None
                 try:
                     request_started = time.perf_counter()
-                    answer = decide_fn(profile, condition_id, stage, visible, choices, attempts)
+                    answer = decide_fn(profile, condition_id, stage, visible, choices, attempts, history)
                     latency_seconds = time.perf_counter() - request_started
                 except DecisionError as error:
                     latency_seconds = time.perf_counter() - request_started
@@ -660,7 +664,11 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
 
         async def ask(stage: str, choices: tuple[str, ...], *, event_item: str = "") -> str | None:
             nonlocal interrupted
-            request_bytes = len(visible.encode("utf-8")) + sum(
+            history = tuple({"item_id": event["item_id"], "stage": event["stage"],
+                             "choice": event["choice"]} for event in events
+                            if event["type"] == "choice")
+            request_bytes = len(visible.encode("utf-8")) + len(json.dumps(
+                history, ensure_ascii=False).encode("utf-8")) + sum(
                 len(value.encode("utf-8")) for value in (
                     profile.arrival_intent, profile.background, profile.desired_payoff,
                     profile.drawn_in_by, profile.put_off_by, experiment["title"], experiment["promise"],
@@ -705,10 +713,11 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                 request_started = time.perf_counter()
                 try:
                     if inspect.iscoroutinefunction(decide_fn):
-                        result = await decide_fn(profile, condition_id, stage, visible, choices, attempts)
+                        result = await decide_fn(profile, condition_id, stage, visible, choices, attempts,
+                                                 history)
                     else:
                         result = await asyncio.to_thread(
-                            decide_fn, profile, condition_id, stage, visible, choices, attempts)
+                            decide_fn, profile, condition_id, stage, visible, choices, attempts, history)
                 except DecisionError as error:
                     latency_seconds = time.perf_counter() - request_started
                     async with budget_lock:

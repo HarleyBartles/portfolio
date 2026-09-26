@@ -59,8 +59,9 @@ class ReaderPanelTests(unittest.TestCase):
                     return None
 
                 async def decide_experiment_async(self, profile, title, promise, visible, stage,
-                                                  criteria, max_attempts):
-                    calls.append((profile.id, title, promise, visible, stage, criteria, max_attempts))
+                                                  criteria, max_attempts, history):
+                    calls.append((profile.id, title, promise, visible, stage, criteria,
+                                  max_attempts, history))
                     return choice("read_closely")
 
             with patch("reader_panel.DecisionClient", return_value=FakeClient()):
@@ -153,6 +154,10 @@ class ReaderPanelTests(unittest.TestCase):
                               environ={}, decision_fn=lambda *_: self.fail("trace attempted a network call"))
         self.assertEqual(result, 0)
         self.assertIn('"visible_text": "\\n\\nOpening."', output.getvalue())
+        traced = json.loads(output.getvalue().split("\n0 remote calls", 1)[0])
+        self.assertEqual(traced["requests"][0]["request"]["state"]["reading_history"], [])
+        self.assertEqual(traced["requests"][1]["request"]["state"]["reading_history"], [
+            {"item_id": "opening", "stage": "opening", "choice": "skim"}])
         self.assertIn("0 remote calls", output.getvalue())
 
     def test_scripted_trace_rejects_an_incomplete_reader_journey(self) -> None:
@@ -205,7 +210,7 @@ class ReaderPanelTests(unittest.TestCase):
 
             progress = io.StringIO()
             scratch = root / "scratch"
-            def fake(profile, condition, stage, visible, choices, attempts):
+            def fake(profile, condition, stage, visible, choices, attempts, history):
                 if stage == "aside-choice":
                     return choice("skip")
                 return choice("read_closely")
@@ -301,7 +306,7 @@ class ReaderPanelTests(unittest.TestCase):
             ReaderProfile("lead-r01", "decide", "lead", "trade-off", "cost", "hype", "lead"),
         )
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             if profile.id == "peer-r01" and beat.index == 0:
                 return choice("leave_lost_interest")
             return choice("read_closely")
@@ -322,14 +327,16 @@ class ReaderPanelTests(unittest.TestCase):
     def test_terminal_choices_stop_only_their_profile_and_satisfied_is_distinct(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
-            calls.append((profile.id, beat.index))
+        def fake(profile, source, beat, max_attempts, history):
+            calls.append((profile.id, beat.index, history))
             if beat.index == 0 and profile.id == "peer":
                 return choice("stop_satisfied")
             return choice("skim" if beat.index < 2 else "leave_lost_interest")
 
         report = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=6, max_usd=1)
-        self.assertEqual(calls, [("peer", 0), ("newcomer", 0), ("newcomer", 1), ("newcomer", 2)])
+        self.assertEqual([(reader, index) for reader, index, _ in calls],
+                         [("peer", 0), ("newcomer", 0), ("newcomer", 1), ("newcomer", 2)])
+        self.assertEqual(calls[2][2], ({"item_id": "0", "stage": "Beat 0", "choice": "skim"},))
         self.assertEqual(report.observations[0].choice, "stop_satisfied")
         self.assertIn("stop satisfied", render_panel(report).lower())
         self.assertNotIn("winner", render_panel(report).lower())
@@ -337,7 +344,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_a_b_uses_same_profiles_and_never_aligns_unequal_beats(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             calls.append((source.sha256, profile.id, beat.index, beat.visible_prefix))
             return choice("read_closely")
 
@@ -353,7 +360,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_call_and_spend_caps_stop_without_extra_paid_call(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             calls.append(beat.index)
             return choice("skim", 0.02)
 
@@ -372,7 +379,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_transport_retries_consume_the_wire_call_cap(self) -> None:
         budgets = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             budgets.append(max_attempts)
             return Decision("skim", {"skim": 1.0}, 0.00001, 30,
                             "typesafe/jev-1.13-20260917", attempts=2)
@@ -383,7 +390,7 @@ class ReaderPanelTests(unittest.TestCase):
         self.assertTrue(report.limitations)
 
     def test_decision_failure_is_reported_after_a_possible_paid_attempt(self) -> None:
-        def fails(profile, source, beat, max_attempts):
+        def fails(profile, source, beat, max_attempts, history):
             raise DecisionError("Decision response lacked a valid usage cost")
 
         report = run_panel((article("a.md"),), PROFILES, decide_fn=fails, max_calls=10, max_usd=1)
