@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import asyncio
 import contextvars
+import hashlib
+import inspect
+import json
 import math
 import re
 from dataclasses import dataclass, replace
@@ -22,6 +25,30 @@ CHOICES = {
     "leave_lost_interest": "The reader abandons the article because interest or relevance has been lost, not because their goal was met.",
     "stop_satisfied": "The reader stops because the article has already delivered what they came for, not because interest was lost.",
 }
+EXPERIMENT_CHOICE_LABELS = {
+    "read_closely": "Continue reading attentively",
+    "skim": "Continue by skimming",
+    "leave_lost_interest": "Leave because interest or relevance was lost",
+    "stop_satisfied": "Stop because the reader's goal was met",
+    "open_now": "Open and read the aside inline now",
+    "return_later": "Continue and consider returning at the end",
+    "read_now": "Read this optional piece now, then continue the article",
+    "defer_to_end": "Continue with the article and choose whether to read it at the end",
+    "skip": "Skip the optional reading",
+    "open": "Open and read the aside now",
+    "read": "Read this optional piece now",
+    "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
+    "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
+    "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
+}
+
+
+def experiment_prompt_fingerprint() -> str:
+    contract = {"model": MODEL, "choice_labels": EXPERIMENT_CHOICE_LABELS,
+                "base_criteria": CHOICES,
+                "renderer_source": inspect.getsource(render_experiment_request)}
+    encoded = json.dumps(contract, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 class DecisionError(RuntimeError):

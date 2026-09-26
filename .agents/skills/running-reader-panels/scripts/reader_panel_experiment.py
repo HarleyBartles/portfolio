@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 from typing import Callable
 
-from reader_panel_decisions import Decision, DecisionError
+from reader_panel_decisions import Decision, DecisionError, experiment_prompt_fingerprint
 from reader_panel_source import ReaderProfile, SourceError
 
 
@@ -198,7 +198,7 @@ def run_experiment(
     if not 1 <= concurrency <= 32:
         raise ValueError("Concurrency must be between 1 and 32")
     canonical = compile_experiment(experiment)
-    if concurrency > 1 or inspect.iscoroutinefunction(decide_fn):
+    if inspect.iscoroutinefunction(decide_fn):
         return asyncio.run(_run_v3_async(canonical, profiles, decide_fn=decide_fn,
                                          max_calls=max_calls, max_usd=max_usd,
                                          concurrency=concurrency, progress=progress))
@@ -210,15 +210,75 @@ async def run_experiment_async(experiment: dict, profiles: tuple[ReaderProfile, 
                                decide_fn, max_calls: int, max_usd: float,
                                concurrency: int = 4, progress=None,
                                resume_checkpoint: dict | None = None,
-                               checkpoint_path: Path | None = None) -> dict:
+                               checkpoint_path: Path | None = None,
+                               reconciled_unpriced_usd: float | None = None) -> dict:
     validate_experiment(experiment)
     if not profiles or max_calls < 1 or not 0 < max_usd < math.inf or not 1 <= concurrency <= 32:
         raise ValueError("Experiment requires readers, finite limits and concurrency from 1 to 32")
     canonical = compile_experiment(experiment)
     return await _run_v3_async(canonical, profiles, decide_fn=decide_fn,
-                               max_calls=max_calls, max_usd=max_usd,
-                               concurrency=concurrency, progress=progress,
-                               resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path)
+                                max_calls=max_calls, max_usd=max_usd,
+                                concurrency=concurrency, progress=progress,
+                                resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path,
+                                reconciled_unpriced_usd=reconciled_unpriced_usd)
+
+
+def _optional_metrics(journeys: list[dict], item_id: str) -> dict:
+    events = [event for journey in journeys for event in journey["events"]
+              if event.get("item_id") == item_id]
+
+    def count(event_type: str, key: str | None = None, value: str | None = None) -> int:
+        return sum(event["type"] == event_type and (key is None or event.get(key) == value)
+                   for event in events)
+
+    return {
+        "eligible_journeys": len(journeys),
+        "inline_invitation_reach": count("invitation", "origin", "inline"),
+        "read_now": count("inline_choice", "choice", "read_now"),
+        "deferred": count("inline_choice", "choice", "defer_to_end"),
+        "first_offer_unseen": count("terminal_offer", "origin", "first_offer_unseen"),
+        "deferred_reoffer": count("terminal_offer", "origin", "deferred_reoffer"),
+        "later_reads": sum(event["type"] == "body_opened" and
+                            event.get("origin") in {"first_offer_unseen", "deferred_reoffer"}
+                            for event in events),
+        "later_skips": count("choice", "choice", "skip"),
+        "effects": {effect: sum(event["type"] == "optional_read_effect" and
+                                event.get("effect") == effect for event in events)
+                    for effect in POST_READ_EFFECT},
+    }
+
+
+def _optional_summaries(experiment: dict, journeys: list[dict]) -> list[dict]:
+    summaries = []
+    def append_summary(condition_id: str, piece: dict, selected: list[dict]) -> None:
+        outcome_values = ("reached_end", "stop_satisfied", "leave_lost_interest")
+        outcome_breakdowns = [
+            {"value": outcome, **_optional_metrics(
+                [journey for journey in selected if journey["core_outcome"] == outcome], piece["id"])}
+            for outcome in outcome_values
+            if any(journey["core_outcome"] == outcome for journey in selected)
+        ]
+        archetype_values = sorted({journey["archetype"] or "unassigned" for journey in selected})
+        archetype_breakdowns = [
+            {"value": archetype, **_optional_metrics(
+                [journey for journey in selected
+                 if (journey["archetype"] or "unassigned") == archetype], piece["id"])}
+            for archetype in archetype_values
+        ]
+        summaries.append({"condition": condition_id, "aside_id": piece["id"],
+                          **_optional_metrics(selected, piece["id"]),
+                          "breakdowns": {"core_outcome": outcome_breakdowns,
+                                         "archetype": archetype_breakdowns}})
+
+    for condition in experiment["conditions"]:
+        for piece in experiment["route"]:
+            if piece["kind"] == "optional_read":
+                append_summary(condition["id"], piece,
+                               [journey for journey in journeys if journey["condition"] == condition["id"]])
+    for piece in experiment["route"]:
+        if piece["kind"] == "optional_read":
+            append_summary("combined", piece, journeys)
+    return summaries
 
 
 def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
@@ -226,6 +286,8 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
     run_started = time.perf_counter()
     calls = 0
     cost = 0.0
+    unpriced_attempts = 0
+    unpriced_cost_estimate = 0.0
     tokens = 0
     retries = 0
     latencies: list[float] = []
@@ -263,7 +325,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                 events.append({"type": "content_exposed", "item_id": item_id, "kind": kind})
 
             def ask(stage: str, choices: tuple[str, ...], *, event_item: str = "") -> str | None:
-                nonlocal calls, cost, tokens, retries, stopped
+                nonlocal calls, cost, unpriced_attempts, unpriced_cost_estimate, tokens, retries, stopped
                 if calls >= max_calls:
                     limits.append("Maximum call count reached")
                     stopped = True
@@ -279,7 +341,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     return None
                 estimate = request_bytes / 4 * PRICE_PER_MILLION_INPUT_TOKENS / 1_000_000
                 attempts = min(3, max_calls - calls)
-                if cost + estimate * attempts > max_usd:
+                if cost + unpriced_cost_estimate + estimate * attempts > max_usd:
                     limits.append("Estimated spend cap reached before next request")
                     stopped = True
                     return None
@@ -292,6 +354,9 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     latencies.append(latency_seconds)
                     calls += error.attempts
                     retries += max(0, error.attempts - 1)
+                    if error.attempts:
+                        unpriced_attempts += error.attempts
+                        unpriced_cost_estimate += estimate * error.attempts
                     limits.append(f"Decision attempt failed: {error}")
                     stopped = True
                     return None
@@ -313,7 +378,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                                "choice": answer.choice})
                 if progress:
                     progress(f"{condition_id}: reader {reader_number}/{len(profiles)}, {stage}, "
-                             f"calls {calls}, cost ${cost:.6f}")
+                             f"calls {calls}, cost ${cost:.6f}, active 1")
                 if cost >= max_usd:
                     limits.append("Reported spend reached the cap")
                     stopped = True
@@ -447,52 +512,37 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     journey["optional_effect"] = ask("post-read-effect", POST_READ_EFFECT, event_item=piece["id"])
             journey["completed"] = journey["core_outcome"] is not None and not stopped
             journeys.append(journey)
-    optional_summary = []
-    for condition in experiment["conditions"]:
-        for piece in experiment["route"]:
-            if piece["kind"] != "optional_read":
-                continue
-            selected = [journey for journey in journeys
-                        if journey["condition"] == condition["id"] and journey["completed"]]
-            events = [event for journey in selected for event in journey["events"]
-                      if event.get("item_id") == piece["id"]]
-            def count(event_type: str, value_key: str | None = None, value: str | None = None) -> int:
-                return sum(event["type"] == event_type and
-                           (value_key is None or event.get(value_key) == value) for event in events)
-            optional_summary.append({
-                "condition": condition["id"], "aside_id": piece["id"],
-                "eligible_journeys": len(selected),
-                "inline_invitation_reach": count("invitation", "origin", "inline"),
-                "read_now": count("inline_choice", "choice", "read_now"),
-                "deferred": count("inline_choice", "choice", "defer_to_end"),
-                "first_offer_unseen": count("terminal_offer", "origin", "first_offer_unseen"),
-                "deferred_reoffer": count("terminal_offer", "origin", "deferred_reoffer"),
-                "later_reads": sum(event["type"] == "body_opened" and
-                                    event.get("origin") in {"first_offer_unseen", "deferred_reoffer"}
-                                    for event in events),
-                "later_skips": count("choice", "choice", "skip"),
-                "effects": {effect: sum(event["type"] == "optional_read_effect" and
-                                        event.get("effect") == effect for event in events)
-                            for effect in POST_READ_EFFECT},
-            })
+    completed_journeys = [journey for journey in journeys if journey["completed"]]
+    completed_keys = {(journey["reader"], journey["condition"]) for journey in completed_journeys}
+    observations = [item for item in observations if (item["reader"], item["condition"]) in completed_keys]
+    optional_summary = _optional_summaries(experiment, completed_journeys)
     return {"manifest_sha256": manifest_hash, "source_sha256": source_hashes,
             "cohort_sha256": cohort_hash,
             "conditions": [item["id"] for item in experiment["conditions"]],
-            "journeys": journeys, "observations": observations,
+            "journeys": completed_journeys, "total_journeys": len(profiles) * len(experiment["conditions"]),
+            "incomplete_journeys": len(profiles) * len(experiment["conditions"]) - len(completed_journeys),
+            "observations": observations,
             "optional_summary": optional_summary, "limitations": limits,
             "calls": calls, "cost_usd": cost, "input_tokens": tokens,
+            "reported_cost_usd": cost, "unpriced_attempts": unpriced_attempts,
+            "unpriced_cost_estimate_usd": round(unpriced_cost_estimate, 10),
+            "cost_reconciliation_required": unpriced_attempts > 0,
+            "reconciled_unpriced_cost_usd": 0.0,
             "wall_time_seconds": round(time.perf_counter() - run_started, 6),
             "performance": _performance_summary(observations, latencies, retries, 1)}
 
 
 async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                         max_calls: int, max_usd: float, concurrency: int, progress=None,
-                        resume_checkpoint: dict | None = None, checkpoint_path: Path | None = None) -> dict:
+                        resume_checkpoint: dict | None = None, checkpoint_path: Path | None = None,
+                        reconciled_unpriced_usd: float | None = None) -> dict:
     """Run independent reader-condition journeys concurrently with reserved global caps."""
     run_started = time.perf_counter()
     semaphore = asyncio.Semaphore(concurrency)
     budget_lock = asyncio.Lock()
-    budget = {"calls": 0, "reserved_calls": 0, "cost": 0.0, "reserved_cost": 0.0,
+    budget = {"calls": 0, "reserved_calls": 0, "cost": 0.0, "reported_cost": 0.0,
+              "reconciled_unpriced_cost": 0.0, "unpriced_attempts": 0,
+              "unpriced_cost_estimate": 0.0, "reserved_cost": 0.0,
               "tokens": 0, "retries": 0, "latencies": [], "stopped": False,
               "active_requests": 0, "max_active_requests": 0}
     limits: list[str] = []
@@ -502,7 +552,7 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
     manifest_hash = hashlib.sha256(json.dumps(experiment, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
     cohort_hash = hashlib.sha256(json.dumps([vars(p) for p in profiles], ensure_ascii=False,
                                            sort_keys=True).encode()).hexdigest()
-    prompt_hash = hashlib.sha256(b"reader-panel-v3-prompts-2026-09").hexdigest()
+    prompt_hash = experiment_prompt_fingerprint()
     fingerprint = hashlib.sha256(json.dumps({"manifest": manifest_hash, "sources": source_hashes,
         "cohort": cohort_hash, "model": "typesafe/jev-1.13", "prompt": prompt_hash},
         sort_keys=True).encode()).hexdigest()
@@ -533,6 +583,24 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
             raise ValueError("Resume checkpoint contains a malformed completed journey")
     budget["calls"] = prior_usage.get("calls", 0)
     budget["cost"] = float(prior_usage.get("cost_usd", 0.0))
+    budget["reported_cost"] = float(prior_usage.get("reported_cost_usd", budget["cost"]))
+    budget["unpriced_attempts"] = prior_usage.get("unpriced_attempts", 0)
+    budget["unpriced_cost_estimate"] = float(prior_usage.get("unpriced_cost_estimate_usd", 0.0))
+    budget["reconciled_unpriced_cost"] = float(prior_usage.get("reconciled_unpriced_cost_usd", 0.0))
+    if type(budget["unpriced_attempts"]) is not int or budget["unpriced_attempts"] < 0:
+        raise ValueError("Resume checkpoint unpriced attempt count is invalid")
+    if budget["unpriced_attempts"] and reconciled_unpriced_usd is None:
+        raise ValueError("Unpriced failed attempts require provider-billing reconciliation before resume; pass --reconciled-unpriced-usd")
+    if reconciled_unpriced_usd is not None:
+        if (isinstance(reconciled_unpriced_usd, bool) or
+                not isinstance(reconciled_unpriced_usd, (int, float)) or
+                not math.isfinite(reconciled_unpriced_usd) or reconciled_unpriced_usd < 0 or
+                not budget["unpriced_attempts"]):
+            raise ValueError("Reconciled unpriced cost must be finite, nonnegative and match pending failed attempts")
+        budget["cost"] += reconciled_unpriced_usd
+        budget["reconciled_unpriced_cost"] += reconciled_unpriced_usd
+        budget["unpriced_attempts"] = 0
+        budget["unpriced_cost_estimate"] = 0.0
     budget["tokens"] = prior_usage.get("input_tokens", 0)
     budget["retries"] = prior_usage.get("retries", 0)
     budget["latencies"] = list(prior_usage.get("latencies_seconds", []))
@@ -547,6 +615,10 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                 "cohort_sha256": cohort_hash, "model": "typesafe/jev-1.13",
                 "prompt_sha256": prompt_hash,
                 "usage": {"calls": budget["calls"], "cost_usd": budget["cost"],
+                          "reported_cost_usd": budget["reported_cost"],
+                          "reconciled_unpriced_cost_usd": budget["reconciled_unpriced_cost"],
+                          "unpriced_attempts": budget["unpriced_attempts"],
+                          "unpriced_cost_estimate_usd": budget["unpriced_cost_estimate"],
                           "input_tokens": budget["tokens"], "retries": budget["retries"],
                           "latencies_seconds": budget["latencies"]},
                 "completed_journeys": completed}
@@ -613,7 +685,8 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                                 return None
                         else:
                             reserve_cost = estimate * attempts
-                            if budget["cost"] + budget["reserved_cost"] + reserve_cost > max_usd:
+                            if (budget["cost"] + budget["unpriced_cost_estimate"] +
+                                    budget["reserved_cost"] + reserve_cost > max_usd):
                                 if budget["reserved_calls"]:
                                     wait_for_budget = True
                                 else:
@@ -644,6 +717,8 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                         budget["active_requests"] -= 1
                         budget["calls"] += error.attempts
                         budget["retries"] += max(0, error.attempts - 1)
+                        budget["unpriced_attempts"] += error.attempts
+                        budget["unpriced_cost_estimate"] += estimate * error.attempts
                         budget["latencies"].append(latency_seconds)
                         usage["calls"] += error.attempts
                         budget["stopped"] = True
@@ -663,6 +738,7 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                     budget["retries"] += result.attempts - 1
                     budget["latencies"].append(latency_seconds)
                     budget["cost"] += result.cost_usd
+                    budget["reported_cost"] += result.cost_usd
                     budget["tokens"] += result.input_tokens or 0
                     usage["calls"] += result.attempts
                     usage["cost_usd"] += result.cost_usd
@@ -828,10 +904,8 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
             if f"{profile.id}/{condition['id']}" not in completed_keys]
     results = await asyncio.gather(*(run_journey(number, profile, condition)
                                      for number, profile, condition in jobs))
-    journeys = [record["journey"] for record in completed.values()] + [
-        journey for journey, _ in results if not journey["completed"]]
+    journeys = [record["journey"] for record in completed.values()]
     observations = [item for record in completed.values() for item in record["observations"]]
-    observations += [item for journey, local in results if not journey["completed"] for item in local]
     journeys.sort(key=lambda item: (next(n for n, p in enumerate(profiles) if p.id == item["reader"]),
                                     next(n for n, c in enumerate(experiment["conditions"])
                                          if c["id"] == item["condition"])))
@@ -840,8 +914,7 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
         for piece in experiment["route"]:
             if piece["kind"] != "optional_read":
                 continue
-            selected = [journey for journey in journeys if journey["condition"] == condition["id"] and
-                        journey["completed"]]
+            selected = [journey for journey in journeys if journey["condition"] == condition["id"]]
             events = [event for journey in selected for event in journey["events"]
                       if event.get("item_id") == piece["id"]]
             def count(event_type: str, key: str | None = None, value: str | None = None) -> int:
@@ -858,12 +931,23 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                 "later_skips": count("choice", "choice", "skip"),
                 "effects": {effect: sum(event["type"] == "optional_read_effect" and
                                         event.get("effect") == effect for event in events)
-                            for effect in POST_READ_EFFECT}})
+                            for effect in POST_READ_EFFECT},
+                "breakdowns": _optional_summaries(
+                    {"route": experiment["route"], "conditions": [condition]}, selected)[0]["breakdowns"]})
+    optional_summary.extend(item for item in _optional_summaries(experiment, journeys)
+                            if item["condition"] == "combined")
+    total_journeys = len(profiles) * len(experiment["conditions"])
     return {"manifest_sha256": manifest_hash, "source_sha256": source_hashes,
             "cohort_sha256": cohort_hash, "conditions": [c["id"] for c in experiment["conditions"]],
-            "journeys": journeys, "observations": observations,
+            "journeys": journeys, "observations": observations, "total_journeys": total_journeys,
+            "incomplete_journeys": total_journeys - len(journeys),
             "optional_summary": optional_summary, "limitations": limits,
             "calls": budget["calls"], "cost_usd": budget["cost"], "input_tokens": budget["tokens"],
+            "reported_cost_usd": budget["reported_cost"],
+            "reconciled_unpriced_cost_usd": budget["reconciled_unpriced_cost"],
+            "unpriced_attempts": budget["unpriced_attempts"],
+            "unpriced_cost_estimate_usd": round(budget["unpriced_cost_estimate"], 10),
+            "cost_reconciliation_required": budget["unpriced_attempts"] > 0,
             "checkpoint_fingerprint": fingerprint,
             "wall_time_seconds": round(time.perf_counter() - run_started, 6),
             "performance": _performance_summary(observations, budget["latencies"], budget["retries"],

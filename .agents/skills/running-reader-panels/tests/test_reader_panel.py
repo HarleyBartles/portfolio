@@ -231,6 +231,16 @@ class ReaderPanelTests(unittest.TestCase):
                 main(["--article", str(source), "--allow-external-source", "--check"],
                      environ={}, decision_fn=lambda *_: self.fail("unexpected call"))
 
+    def test_cost_reconciliation_flag_requires_resume_checkpoint(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "article.md"
+            source.write_text('---\nsummary: "Promise"\n---\n# Title\n\nBody.\n', encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            with self.assertRaisesRegex(PanelError, "requires --resume"):
+                main(["--article", str(source), "--allow-external-source", "--profile-file", str(profiles),
+                      "--reconciled-unpriced-usd", "0.01", "--check"], environ={},
+                     decision_fn=lambda *_: self.fail("unexpected call"))
+
     def test_large_archetype_catalogue_still_allows_a_selected_small_read(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

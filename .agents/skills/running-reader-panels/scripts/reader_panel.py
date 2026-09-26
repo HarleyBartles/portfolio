@@ -16,8 +16,8 @@ from pathlib import Path
 from typing import Callable, Mapping
 from uuid import uuid4
 
-from reader_panel_decisions import (Decision, DecisionClient, DecisionError, build_request,
-                                    render_experiment_request)
+from reader_panel_decisions import (EXPERIMENT_CHOICE_LABELS, Decision, DecisionClient,
+                                    DecisionError, build_request, render_experiment_request)
 from reader_panel_report import Observation, PanelReport, render_panel, write_report
 from reader_panel_source import Article, Beat, ReaderProfile, SourceError, load_profiles, parse_article, validate_cohort
 from reader_panel_experiment import (compile_experiment, load_experiment, run_experiment,
@@ -30,26 +30,8 @@ ARCHETYPE_POOL = Path(__file__).resolve().parents[1] / "assets/reader-archetypes
 WORKSPACE_SCRIPT = REPO_ROOT / ".agents/skills/subagent-workspace/scripts/workspace.py"
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
 MAX_REQUEST_BYTES = 80_000
-CHOICE_LABELS = {
-    "read_closely": "Continue reading attentively",
-    "skim": "Continue by skimming",
-    "leave_lost_interest": "Leave because interest or relevance was lost",
-    "stop_satisfied": "Stop because the reader's goal was met",
-    "open_now": "Open and read the aside inline now",
-    "return_later": "Continue and consider returning at the end",
-    "read_now": "Read this optional piece now, then continue the article",
-    "defer_to_end": "Continue with the article and choose whether to read it at the end",
-    "skip": "Skip the optional reading",
-    "open": "Open and read the aside now",
-    "read": "Read this optional piece now",
-    "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
-    "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
-    "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
-}
-
-
 def _labels(choices: tuple[str, ...]) -> dict[str, str]:
-    return {choice: CHOICE_LABELS[choice] for choice in choices}
+    return {choice: EXPERIMENT_CHOICE_LABELS[choice] for choice in choices}
 
 
 class PanelError(ValueError):
@@ -192,6 +174,8 @@ def main(
     parser.add_argument("--concurrency", type=int,
                         help="Maximum concurrent journeys for experiment manifests (default: 4; flat article mode is serial)")
     parser.add_argument("--resume", type=Path)
+    parser.add_argument("--reconciled-unpriced-usd", type=float,
+                        help="Provider-billing total for unresolved failed attempts in the resumed checkpoint")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--apply", action="store_true")
@@ -210,6 +194,8 @@ def main(
     experiment = load_experiment(args.experiment_file) if args.experiment_file else None
     if args.resume and (not args.apply or not experiment or experiment["version"] != 3):
         raise PanelError("--resume requires --apply with a version 3 experiment")
+    if args.reconciled_unpriced_usd is not None and not args.resume:
+        raise PanelError("--reconciled-unpriced-usd requires --resume with a version 3 checkpoint")
     compiled_experiment = compile_experiment(experiment) if experiment else None
     articles = () if experiment else (_source(args.article, args.allow_external_source),)
     if args.compare:
@@ -306,7 +292,7 @@ def main(
                                       max_calls=max(1, len(scripted)), max_usd=1.0, concurrency=1)
         if scripted:
             raise PanelError("Choice script contains choices for branches the journey did not reach")
-        if any(not journey["completed"] for journey in trace_report["journeys"]):
+        if trace_report["incomplete_journeys"]:
             raise PanelError("Choice script did not complete every selected reader-condition journey")
         print(json.dumps({"requests": trace_requests, "report": trace_report}, ensure_ascii=False, indent=2))
         print("0 remote calls; requests rendered by the same builder used by the SDK client.")
@@ -380,7 +366,8 @@ def main(
                     experiment, profiles, decide_fn=fake_async,
                     max_calls=args.max_calls, max_usd=args.max_usd,
                     concurrency=concurrency, progress=progress,
-                    resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path))
+                    resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path,
+                    reconciled_unpriced_usd=args.reconciled_unpriced_usd))
             except ValueError as error:
                 raise PanelError(str(error)) from None
         elif decision_fn is not None:
@@ -397,7 +384,8 @@ def main(
                         max_calls=args.max_calls, max_usd=args.max_usd,
                         concurrency=concurrency, progress=progress,
                         resume_checkpoint=resume_checkpoint,
-                        checkpoint_path=checkpoint_path)
+                        checkpoint_path=checkpoint_path,
+                        reconciled_unpriced_usd=args.reconciled_unpriced_usd)
             try:
                 experiment_report = asyncio.run(apply_async())
             except ValueError as error:
@@ -411,7 +399,10 @@ def main(
                 sum(item.get("completed") is True for item in experiment_report["journeys"]) == expected_journeys):
             checkpoint_path.unlink(missing_ok=True)
         print(f"Experiment: {len(experiment_report['journeys'])} journeys, "
-              f"{experiment_report['calls']} calls, ${experiment_report['cost_usd']:.8f} reported cost.")
+              f"{experiment_report['calls']} calls, ${experiment_report['cost_usd']:.8f} settled cost.")
+        if experiment_report.get("cost_reconciliation_required"):
+            print(f"Cost reconciliation required: {experiment_report['unpriced_attempts']} failed attempts; "
+                  f"provisional estimate ${experiment_report['unpriced_cost_estimate_usd']:.8f}.", file=sys.stderr)
         performance = experiment_report["performance"]
         latencies = sorted(performance["decision_latencies_seconds"])
         if latencies:
