@@ -15,7 +15,7 @@ Use this playbook to take public editorial work from commission through publicat
 - `writing-style` and `writing-with-clarity` for focused prose review when their concerns apply.
 - `linear-issue-shaping` and `using-linear-mcp` when the commission is Linear-backed.
 - `verification-before-completion` before publication or readiness claims.
-- `running-reader-panels` when simulated reader reactions would help investigate a draft's pacing or compare versions.
+- `simulated-reader-polling` when a structured poll can investigate a specific editorial question about a draft's pacing, audience routes or controlled version comparison. Choose the cohort for that question; there is no standard panel size.
 
 ## Composition
 
@@ -60,6 +60,7 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Review the opening beat on its own with the title and summary: what earns attention, what does the reader expect next, and where does each substantial title promise first become visible? Repair a missing reason to continue before polishing its sentences.
 - Confirm that the title and standfirst describe the article now on the page.
 - Before a paid reader panel, turn the editorial review into a question about the article. State the expected result, a plausible counter-result, the relevant reader exposure groups and what the simulation cannot decide. An exploratory run can name an open question instead of pretending to test a prediction.
+- When the question is whether a reader scanning the page will enter through a heading, pull quote or collapsed aside, use the scanner route in the reader-panel manifest. Show only the visible invitation before the reader chooses, map each entry to its beat or aside, and compare surfaces over the same frozen cohort. Treat selection as self-chosen evidence about appeal, not as proof that the entry caused later reading.
 - After a panel, read the trajectories by motive and actual exposure alongside the article before changing its copy, rerunning the experiment or closing out harness work. A satisfied stop may reveal a premature verdict in the middle or a natural ending at the close; neither is a lost-interest exit.
 
 ### Phase E: Meso and micro edit

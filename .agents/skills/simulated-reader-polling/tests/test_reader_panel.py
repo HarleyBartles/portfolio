@@ -31,10 +31,95 @@ def article(name: str, count: int = 3) -> Article:
 
 
 def choice(value: str, cost: float = 0.00001) -> Decision:
-    return Decision(value, {value: 1.0}, cost, 30, "typesafe/jev-1.13-20260917")
+    return Decision(value, {value: 1.0}, cost, 1, "typesafe/jev-1.13-20260917")
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_scanner_trace_renders_dynamic_pull_quote_choices_without_aside_body(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": "0.0.5", "reader_flow": "scan_entry", "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [
+                    {"id": "opening", "kind": "beat", "text": "Opening prose."},
+                    {"id": "story", "kind": "beat", "text": "Story prose."},
+                    {"id": "extra", "kind": "optional_read", "eyebrow": "Extra eyebrow",
+                     "title": "Extra", "standfirst": "Invitation.",
+                     "reading_time": "One minute", "preview": "Visible figure lines.",
+                     "disclosure_label": "Explore the case", "body": "SECRET BODY."},
+                    {"id": "ending", "kind": "beat", "text": "Ending prose."},
+                ],
+                "scan_surface": [
+                    {"id": "heading-opening", "kind": "heading", "target": "opening", "text": "Title"},
+                    {"id": "heading-story", "kind": "heading", "target": "story", "text": "Story"},
+                    {"id": "quote-story", "kind": "pull_quote", "target": "story", "text": "A hook."},
+                    {"id": "aside-extra", "kind": "aside", "target": "extra", "eyebrow": "Extra eyebrow",
+                     "title": "Extra", "standfirst": "Invitation.",
+                     "preview": "Visible figure lines.", "disclosure_label": "Explore the case"},
+                    {"id": "heading-ending", "kind": "heading", "target": "ending", "text": "Ending"},
+                ],
+                "conditions": [
+                    {"id": "headings-only", "scan_features": ["heading"], "optional_reads": "omit"},
+                    {"id": "full-surface", "scan_features": ["heading", "pull_quote", "aside"],
+                     "optional_reads": "omit"},
+                ],
+            }), encoding="utf-8")
+            script = root / "choices.json"
+            script.write_text(json.dumps({"choices": [
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-entry-0",
+                 "choice": "entry--heading-story"},
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-attention:story",
+                 "choice": "read_closely"},
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-navigation:story",
+                 "choice": "stop_satisfied"},
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-entry-0",
+                 "choice": "entry--quote-story"},
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-attention:story",
+                 "choice": "read_closely"},
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-navigation:story",
+                 "choice": "stop_satisfied"},
+            ]}), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                               "--profiles", "story-first", "--trace-choices", str(script)],
+                              environ={}, decision_fn=lambda *_: self.fail("trace sent a remote call"))
+        self.assertEqual(result, 0)
+        traced = json.loads(output.getvalue().split("\n0 remote calls", 1)[0])
+        first_requests = {request["condition"]: request["request"] for request in traced["requests"]
+                          if request["stage"] == "scan-entry-0"}
+        self.assertEqual(set(first_requests), {"headings-only", "full-surface"})
+        control = first_requests["headings-only"]
+        control_visible = control["state"]["visible_text"]
+        self.assertEqual(control_visible, "\n\nTitle\nPromise\n\nStory\n\nEnding")
+        self.assertNotIn("A hook.", control_visible)
+        self.assertNotIn("Extra eyebrow", control_visible)
+        first = first_requests["full-surface"]
+        visible = first["state"]["visible_text"]
+        self.assertEqual(visible, "\n\nTitle\nPromise\n\nStory\n\nA hook.\n\nExtra eyebrow\nExtra\nInvitation.\nVisible figure lines.\nExplore the case\n\nEnding")
+        self.assertNotIn("SECRET BODY.", first["state"]["visible_text"])
+        self.assertNotIn("Pull quote:", visible)
+        self.assertNotIn("Section:", visible)
+        self.assertNotIn("Additional read:", visible)
+        criteria = first["questions"]["attention"]["criteria"]
+        self.assertEqual(criteria["entry--heading-opening"], "Title")
+        self.assertEqual(criteria["entry--quote-story"], "A hook.")
+        self.assertEqual(criteria["entry--aside-extra"], "Extra eyebrow\nExtra\nInvitation.\nVisible figure lines.\nExplore the case")
+        self.assertNotIn("Follow this pull quote", criteria["entry--quote-story"])
+        expected_instruction = (
+            "The reader is scanning the article title, promise, and entries shown here before reading "
+            "any body text. Which entry would this reader choose first? Use only the entries offered. "
+            "Reading_history records this reader's previous choices in order; use it to keep their "
+            "journey consistent."
+        )
+        self.assertEqual(control["questions"]["attention"]["instructions"], expected_instruction)
+        self.assertEqual(first["questions"]["attention"]["instructions"], expected_instruction)
+
     def test_apply_adapts_manifest_decisions_to_sdk_titles_and_choice_criteria(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -42,7 +127,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("private article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Article title", "promise": "Article promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Article title", "promise": "Article promise",
                 "sources": [{"path": "source.txt", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening passage."}],
                 "conditions": [{"id": "core_only", "optional_reads": "omit"}],
@@ -59,8 +144,9 @@ class ReaderPanelTests(unittest.TestCase):
                     return None
 
                 async def decide_experiment_async(self, profile, title, promise, visible, stage,
-                                                  criteria, max_attempts):
-                    calls.append((profile.id, title, promise, visible, stage, criteria, max_attempts))
+                                                  criteria, max_attempts, history):
+                    calls.append((profile.id, title, promise, visible, stage, criteria,
+                                  max_attempts, history))
                     return choice("read_closely")
 
             with patch("reader_panel.DecisionClient", return_value=FakeClient()):
@@ -97,7 +183,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."}],
                 "conditions": [{"id": "core_only", "optional_reads": "omit"}],
@@ -134,7 +220,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
                           {"id": "ending", "kind": "beat", "text": "Ending."}],
@@ -153,6 +239,10 @@ class ReaderPanelTests(unittest.TestCase):
                               environ={}, decision_fn=lambda *_: self.fail("trace attempted a network call"))
         self.assertEqual(result, 0)
         self.assertIn('"visible_text": "\\n\\nOpening."', output.getvalue())
+        traced = json.loads(output.getvalue().split("\n0 remote calls", 1)[0])
+        self.assertEqual(traced["requests"][0]["request"]["state"]["reading_history"], [])
+        self.assertEqual(traced["requests"][1]["request"]["state"]["reading_history"], [
+            {"item_id": "opening", "stage": "opening", "choice": "skim"}])
         self.assertIn("0 remote calls", output.getvalue())
 
     def test_scripted_trace_rejects_an_incomplete_reader_journey(self) -> None:
@@ -162,7 +252,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
                           {"id": "ending", "kind": "beat", "text": "Ending."}],
@@ -185,13 +275,14 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("The article source.", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 1, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
-                "beats": [{"id": "opening", "kind": "beat", "text": "Opening text."},
-                           {"id": "aside", "kind": "aside", "title": "Optional detail",
-                            "standfirst": "Why it matters", "body": "Hidden material."},
-                           {"id": "ending", "kind": "beat", "text": "Ending text."}],
-                "conditions": ["omit", "reader_choice"],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening text."},
+                          {"id": "aside", "kind": "optional_read", "title": "Optional detail",
+                           "standfirst": "Why it matters", "reading_time": "30 seconds", "body": "Hidden material."},
+                          {"id": "ending", "kind": "beat", "text": "Ending text."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"},
+                               {"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}],
             }), encoding="utf-8")
             profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
             check_output = io.StringIO()
@@ -199,15 +290,19 @@ class ReaderPanelTests(unittest.TestCase):
                 main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
                       "--profiles", "story-first", "--check"],
                      environ={}, decision_fn=lambda *_: self.fail("check mode sent a call"))
-            self.assertIn("reader_choice", check_output.getvalue())
-            self.assertIn("up to 12 decisions", check_output.getvalue())
+            self.assertIn("optional_with_defer", check_output.getvalue())
+            self.assertIn("up to 8 decisions", check_output.getvalue())
             self.assertIn("0 remote calls", check_output.getvalue())
 
             progress = io.StringIO()
             scratch = root / "scratch"
-            def fake(profile, condition, stage, visible, choices, attempts):
-                if stage == "aside-choice":
+            def fake(profile, condition, stage, visible, choices, attempts, history):
+                if stage == "aside:inline-choice":
+                    return choice("defer_to_end")
+                if stage == "aside:terminal-choice":
                     return choice("skip")
+                if stage == "aside:read-effect":
+                    return choice("maintained")
                 return choice("read_closely")
             with contextlib.redirect_stderr(progress), contextlib.redirect_stdout(io.StringIO()):
                 main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
@@ -301,7 +396,7 @@ class ReaderPanelTests(unittest.TestCase):
             ReaderProfile("lead-r01", "decide", "lead", "trade-off", "cost", "hype", "lead"),
         )
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             if profile.id == "peer-r01" and beat.index == 0:
                 return choice("leave_lost_interest")
             return choice("read_closely")
@@ -322,14 +417,16 @@ class ReaderPanelTests(unittest.TestCase):
     def test_terminal_choices_stop_only_their_profile_and_satisfied_is_distinct(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
-            calls.append((profile.id, beat.index))
+        def fake(profile, source, beat, max_attempts, history):
+            calls.append((profile.id, beat.index, history))
             if beat.index == 0 and profile.id == "peer":
                 return choice("stop_satisfied")
             return choice("skim" if beat.index < 2 else "leave_lost_interest")
 
         report = run_panel((article("a.md"),), PROFILES, decide_fn=fake, max_calls=6, max_usd=1)
-        self.assertEqual(calls, [("peer", 0), ("newcomer", 0), ("newcomer", 1), ("newcomer", 2)])
+        self.assertEqual([(reader, index) for reader, index, _ in calls],
+                         [("peer", 0), ("newcomer", 0), ("newcomer", 1), ("newcomer", 2)])
+        self.assertEqual(calls[2][2], ({"item_id": "0", "stage": "Beat 0", "choice": "skim"},))
         self.assertEqual(report.observations[0].choice, "stop_satisfied")
         self.assertIn("stop satisfied", render_panel(report).lower())
         self.assertNotIn("winner", render_panel(report).lower())
@@ -337,7 +434,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_a_b_uses_same_profiles_and_never_aligns_unequal_beats(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             calls.append((source.sha256, profile.id, beat.index, beat.visible_prefix))
             return choice("read_closely")
 
@@ -353,7 +450,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_call_and_spend_caps_stop_without_extra_paid_call(self) -> None:
         calls = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             calls.append(beat.index)
             return choice("skim", 0.02)
 
@@ -372,7 +469,7 @@ class ReaderPanelTests(unittest.TestCase):
     def test_transport_retries_consume_the_wire_call_cap(self) -> None:
         budgets = []
 
-        def fake(profile, source, beat, max_attempts):
+        def fake(profile, source, beat, max_attempts, history):
             budgets.append(max_attempts)
             return Decision("skim", {"skim": 1.0}, 0.00001, 30,
                             "typesafe/jev-1.13-20260917", attempts=2)
@@ -383,7 +480,7 @@ class ReaderPanelTests(unittest.TestCase):
         self.assertTrue(report.limitations)
 
     def test_decision_failure_is_reported_after_a_possible_paid_attempt(self) -> None:
-        def fails(profile, source, beat, max_attempts):
+        def fails(profile, source, beat, max_attempts, history):
             raise DecisionError("Decision response lacked a valid usage cost")
 
         report = run_panel((article("a.md"),), PROFILES, decide_fn=fails, max_calls=10, max_usd=1)
@@ -391,7 +488,7 @@ class ReaderPanelTests(unittest.TestCase):
         self.assertEqual(report.observations, ())
         self.assertIn("usage cost", report.limitations[0])
 
-    def test_check_mode_has_no_key_or_network_and_scales_to_100_profiles(self) -> None:
+    def test_check_mode_has_no_key_or_network_and_accepts_cohort_above_100(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             source = root / "article.md"
@@ -403,10 +500,10 @@ class ReaderPanelTests(unittest.TestCase):
                 "hiring-evaluator", "jaded-architect",
             )
             profiles.write_text(json.dumps([
-                {"id": f"p{n}", "archetype_id": archetypes[n // 10], "arrival_intent": "read",
+                {"id": f"p{n}", "archetype_id": archetypes[n // 12], "arrival_intent": "read",
                  "background": "reader", "desired_payoff": "insight",
                  "drawn_in_by": "evidence", "put_off_by": "hype"}
-                for n in range(100)
+                for n in range(120)
             ]), encoding="utf-8")
 
             class NoKey(dict):
@@ -419,8 +516,8 @@ class ReaderPanelTests(unittest.TestCase):
                                "--allow-external-source", "--check"], environ=NoKey(),
                               decision_fn=lambda *_: self.fail("check mode sent a call"))
             self.assertEqual(result, 0)
-            self.assertIn("100 profiles", output.getvalue())
-            self.assertIn("jaded-architect: 10", output.getvalue())
+            self.assertIn("120 profiles", output.getvalue())
+            self.assertIn("jaded-architect: 12", output.getvalue())
             self.assertIn("0 remote calls", output.getvalue())
             self.assertIn("input tokens", output.getvalue())
 

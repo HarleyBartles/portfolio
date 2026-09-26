@@ -22,58 +22,39 @@ _ID = re.compile(r"^[a-z][a-z0-9-]{0,63}$")
 CONDITIONS = {"omit", "closed", "force_open", "reader_choice"}
 POST_ARTICLE_CONDITIONS = {"omit", "post_article_choice"}
 ATTENTION = ("read_closely", "skim", "leave_lost_interest", "stop_satisfied")
+SCAN_ATTENTION = ("read_closely", "skim")
 ASIDE_CHOICE = ("open_now", "return_later", "skip")
 RETURN_CHOICE = ("open", "skip")
 POST_READ_EFFECT = ("increased", "maintained", "decreased")
 MAX_EXPERIMENT_BYTES = 200_000
 MAX_VISIBLE_BYTES = 80_000
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
+CURRENT_MANIFEST_VERSION = "0.0.5"
 
 
 def validate_experiment(data: dict) -> dict:
-    common = {"version", "title", "promise", "sources", "beats", "conditions"}
-    if not isinstance(data, dict) or type(data.get("version")) is not int or data["version"] not in {1, 2, 3}:
-        raise SourceError("Experiment manifest requires version 1, 2 or 3")
-    version = data["version"]
-    if version == 3:
-        return _validate_v3(data)
-    if set(data) != (common | ({"optional_read"} if version == 2 else set())):
-        raise SourceError("Experiment manifest fields are invalid")
+    if not isinstance(data, dict) or data.get("version") != CURRENT_MANIFEST_VERSION:
+        raise SourceError(f"Only manifest version {CURRENT_MANIFEST_VERSION} is supported")
+    flow = data.get("reader_flow")
+    required = {"version", "reader_flow", "title", "promise", "sources", "route", "conditions"}
+    if flow == "scan_entry":
+        required.add("scan_surface")
+    elif flow != "article_route":
+        raise SourceError("Manifest reader_flow must be article_route or scan_entry")
+    if set(data) != required:
+        raise SourceError("Current experiment manifest fields are invalid")
     if not all(isinstance(data[key], str) and data[key].strip() for key in ("title", "promise")):
         raise SourceError("Experiment title and promise must be nonempty")
-    if not isinstance(data["sources"], list) or not isinstance(data["beats"], list) or not data["beats"]:
-        raise SourceError("Experiment requires source records and reading beats")
-    conditions = data["conditions"]
-    if (not isinstance(conditions, list) or not conditions or
-            any(not isinstance(item, str) for item in conditions) or
-            len(set(conditions)) != len(conditions) or
-            set(conditions) - (POST_ARTICLE_CONDITIONS if version == 2 else CONDITIONS) or
-            (version == 2 and "post_article_choice" not in conditions)):
-        raise SourceError("Experiment conditions are invalid")
-    if version == 2:
-        optional = data["optional_read"]
-        if (not isinstance(optional, dict) or set(optional) != {"id", "title", "standfirst", "body"} or
-                not all(isinstance(value, str) and value.strip() for value in optional.values()) or
-                not _ID.fullmatch(optional["id"])):
-            raise SourceError("Optional read fields are invalid")
-    seen = set()
-    for piece in data["beats"]:
-        if not isinstance(piece, dict) or piece.get("kind") not in {"beat", "aside"}:
-            raise SourceError("Experiment piece kind is invalid")
-        if version == 2 and piece["kind"] != "beat":
-            raise SourceError("Post-article experiment beats must contain only the article")
-        required = {"id", "kind", "text"} if piece["kind"] == "beat" else {
-            "id", "kind", "title", "standfirst", "body",
-        }
-        if set(piece) != required or not _ID.fullmatch(str(piece["id"])) or piece["id"] in seen:
-            raise SourceError("Experiment piece fields or ID are invalid")
-        if not all(isinstance(piece[key], str) and piece[key].strip() for key in required - {"id", "kind"}):
-            raise SourceError("Experiment piece text must be nonempty")
-        seen.add(piece["id"])
-    if data["beats"][0]["kind"] != "beat" or data["beats"][-1]["kind"] != "beat":
-        raise SourceError("Experiment must open and end with an ordinary beat")
-    if version == 2 and data["optional_read"]["id"] in seen:
-        raise SourceError("Optional read ID must be distinct from article beats")
+    if not isinstance(data["sources"], list) or not isinstance(data["route"], list) or not data["route"]:
+        raise SourceError("Experiment requires source records and an ordered route")
+    seen: set[str] = set()
+    route = [_validate_route_piece(piece, seen) for piece in data["route"]]
+    if route[0]["kind"] != "beat" or route[-1]["kind"] != "beat":
+        raise SourceError("Experiment route must open and end with an ordinary beat")
+    if flow == "article_route":
+        _validate_article_conditions(data["conditions"])
+    else:
+        _validate_scan_surface(data)
     return data
 
 
@@ -97,62 +78,105 @@ def _validate_route_piece(piece: object, seen: set[str]) -> dict:
     return piece
 
 
-def _validate_v3(data: dict) -> dict:
-    if set(data) != {"version", "title", "promise", "sources", "route", "conditions"}:
-        raise SourceError("Version 3 experiment manifest fields are invalid")
-    if not all(isinstance(data[key], str) and data[key].strip() for key in ("title", "promise")):
-        raise SourceError("Experiment title and promise must be nonempty")
-    if not isinstance(data["sources"], list) or not isinstance(data["route"], list) or not data["route"]:
-        raise SourceError("Experiment requires source records and an ordered route")
-    seen: set[str] = set()
-    route = [_validate_route_piece(piece, seen) for piece in data["route"]]
-    if route[0]["kind"] != "beat" or route[-1]["kind"] != "beat":
-        raise SourceError("Experiment route must open and end with an ordinary beat")
-    conditions = data["conditions"]
+def _validate_article_conditions(conditions: object) -> None:
     if not isinstance(conditions, list) or not conditions:
-        raise SourceError("Experiment conditions are invalid")
+        raise SourceError("Article-route conditions are invalid")
     ids: set[str] = set()
+    policies = {"core_only": "omit", "asides_in_flow": "inline",
+                "optional_with_defer": "read_now_or_defer"}
     for condition in conditions:
         if (not isinstance(condition, dict) or set(condition) != {"id", "optional_reads"} or
-                condition.get("id") not in {"core_only", "asides_in_flow", "optional_with_defer"} or
-                condition.get("optional_reads") not in {"omit", "inline", "read_now_or_defer"} or
-                condition["id"] in ids):
-            raise SourceError("Version 3 condition policy is invalid")
-        expected = {"core_only": "omit", "asides_in_flow": "inline",
-                    "optional_with_defer": "read_now_or_defer"}[condition["id"]]
-        if condition["optional_reads"] != expected:
-            raise SourceError("Version 3 condition ID does not match its optional-read policy")
+                condition.get("id") not in policies or condition.get("id") in ids or
+                condition.get("optional_reads") != policies[condition.get("id")]):
+            raise SourceError("Article-route condition ID and optional-read policy are invalid")
         ids.add(condition["id"])
-    return data
 
 
-def compile_experiment(data: dict) -> dict:
-    """Compile legacy and current manifests into the canonical ordered route."""
-    validate_experiment(data)
-    if data["version"] == 3:
-        route = [({**piece, "preview": piece.get("preview", ""),
-                   "eyebrow": piece.get("eyebrow", ""),
-                   "disclosure_label": piece.get("disclosure_label", "")} if piece["kind"] == "optional_read" else piece)
-                 for piece in data["route"]]
-        return {"version": 3, "title": data["title"], "promise": data["promise"],
-                "sources": data["sources"], "route": route,
-                "conditions": data["conditions"]}
-    route = []
-    for piece in data["beats"]:
-        if piece["kind"] == "beat":
-            route.append({"id": piece["id"], "kind": "beat", "text": piece["text"]})
+def _validate_scan_surface(data: dict) -> None:
+    """Validate an authored scan surface and the route targets it can open."""
+    route = data["route"]
+    if not isinstance(data.get("scan_surface"), list) or not data["scan_surface"]:
+        raise SourceError("Scan experiment requires an authored scan surface")
+    conditions = data["conditions"]
+    if not isinstance(conditions, list) or not conditions:
+        raise SourceError("Scanner conditions are invalid")
+    by_id = {piece["id"]: piece for piece in route}
+    entry_ids: set[str] = set()
+    heading_targets: list[str] = []
+    surfaced_targets: set[str] = set()
+    for entry in data["scan_surface"]:
+        if not isinstance(entry, dict):
+            raise SourceError("Scan surface entries must be objects")
+        kind = entry.get("kind")
+        expected = ({"id", "kind", "target", "text"} if kind in {"heading", "pull_quote"}
+                    else {"id", "kind", "target", "title", "standfirst"}
+                    if kind == "aside" else set())
+        target_id = entry.get("target")
+        target_piece = by_id.get(target_id) if isinstance(target_id, str) else None
+        if kind == "aside" and target_piece is not None:
+            visible_fields = {field for field in ("eyebrow", "preview", "disclosure_label")
+                              if target_piece.get(field)}
+            expected |= visible_fields
+        if (not expected or set(entry) != expected or
+                not isinstance(entry.get("id"), str) or not _ID.fullmatch(entry["id"]) or
+                entry["id"] in entry_ids or not isinstance(entry.get("target"), str) or
+                entry["target"] not in by_id):
+            raise SourceError("Scan surface entry fields, ID or target are invalid")
+        if kind in {"heading", "pull_quote"}:
+            if by_id[entry["target"]]["kind"] != "beat" or not isinstance(entry["text"], str) or not entry["text"].strip():
+                raise SourceError("Headings and pull quotes must target a beat and contain text")
+            if kind == "heading":
+                heading_targets.append(entry["target"])
         else:
-            route.append({"id": piece["id"], "kind": "optional_read", "title": piece["title"],
-                          "standfirst": piece["standfirst"], "reading_time": "unspecified",
-                          "eyebrow": "", "preview": "", "disclosure_label": "", "body": piece["body"]})
-    if data["version"] == 2:
-        route.append({**data["optional_read"], "kind": "optional_read", "reading_time": "unspecified",
-                      "eyebrow": "", "preview": "", "disclosure_label": ""})
-        policies = [{"id": name, "optional_reads": name} for name in data["conditions"]]
-    else:
-        policies = [{"id": name, "optional_reads": name} for name in data["conditions"]]
-    return {"version": data["version"], "title": data["title"], "promise": data["promise"],
-            "sources": data["sources"], "route": route, "conditions": policies}
+            target = by_id[entry["target"]]
+            if (target["kind"] != "optional_read" or
+                    not all(isinstance(entry[key], str) and entry[key].strip()
+                            for key in ("title", "standfirst")) or
+                    entry["title"] != target["title"] or entry["standfirst"] != target["standfirst"] or
+                    any(entry[field] != target[field] for field in
+                        ("eyebrow", "preview", "disclosure_label") if field in entry)):
+                raise SourceError("Aside entries must show their target's exact visible invitation fields")
+        entry_ids.add(entry["id"])
+        surfaced_targets.add(entry["target"])
+    beat_ids = {piece["id"] for piece in route if piece["kind"] == "beat"}
+    optional_ids = {piece["id"] for piece in route if piece["kind"] == "optional_read"}
+    if set(heading_targets) != beat_ids or len(heading_targets) != len(beat_ids):
+        raise SourceError("Every article beat must have exactly one heading entry on the scan surface")
+    if surfaced_targets != beat_ids | optional_ids:
+        raise SourceError("Every beat and optional read must appear on the scan surface")
+    conditions = data["conditions"]
+    if not isinstance(conditions, list) or not conditions:
+        raise SourceError("Scanner conditions are invalid")
+    condition_ids: set[str] = set()
+    condition_ids: set[str] = set()
+    for condition in conditions:
+        if (not isinstance(condition, dict) or
+                set(condition) != {"id", "scan_features", "optional_reads"} or
+                not isinstance(condition.get("id"), str) or not _ID.fullmatch(condition["id"]) or
+                condition["id"] in condition_ids or not isinstance(condition["scan_features"], list) or
+                any(not isinstance(feature, str) for feature in condition["scan_features"]) or
+                len(set(condition["scan_features"])) != len(condition["scan_features"]) or
+                set(condition["scan_features"]) - {"heading", "pull_quote", "aside"} or
+                "heading" not in condition["scan_features"] or
+                condition.get("optional_reads") not in {"omit", "inline", "read_now_or_defer"}):
+            raise SourceError("Scanner conditions require a unique ID, heading feature and optional-read policy")
+        if condition["id"] in condition_ids:
+            raise SourceError("Scanner condition IDs must be unique")
+        condition_ids.add(condition["id"])
+def compile_experiment(data: dict) -> dict:
+    """Normalize the single supported manifest contract for execution."""
+    validate_experiment(data)
+    route = [({**piece, "preview": piece.get("preview", ""),
+               "eyebrow": piece.get("eyebrow", ""),
+               "disclosure_label": piece.get("disclosure_label", "")}
+              if piece["kind"] == "optional_read" else piece) for piece in data["route"]]
+    canonical = {"version": CURRENT_MANIFEST_VERSION, "reader_flow": data["reader_flow"],
+                 "title": data["title"], "promise": data["promise"],
+                 "sources": data["sources"], "route": route,
+                 "conditions": data["conditions"]}
+    if data["reader_flow"] == "scan_entry":
+        canonical["scan_surface"] = data["scan_surface"]
+    return canonical
 
 
 def load_experiment(path: Path) -> dict:
@@ -185,24 +209,30 @@ def run_experiment(
     experiment: dict,
     profiles: tuple[ReaderProfile, ...],
     *,
-    decide_fn: Callable[[ReaderProfile, str, str, str, tuple[str, ...], int], Decision],
+    decide_fn: Callable[..., Decision],
     max_calls: int,
     max_usd: float,
     progress: Callable[[str], None] | None = None,
     concurrency: int = 1,
 ) -> dict:
-    """Run legacy or current authoring formats through one canonical route engine."""
+    """Run the current authoring format through one canonical route engine."""
     validate_experiment(experiment)
     if not profiles or max_calls < 1 or not 0 < max_usd < math.inf:
         raise ValueError("Experiment requires readers and positive finite limits")
     if not 1 <= concurrency <= 32:
         raise ValueError("Concurrency must be between 1 and 32")
     canonical = compile_experiment(experiment)
-    if inspect.iscoroutinefunction(decide_fn):
-        return asyncio.run(_run_v3_async(canonical, profiles, decide_fn=decide_fn,
+    if canonical.get("reader_flow") == "scan_entry" and not inspect.iscoroutinefunction(decide_fn):
+        async def scan_decide(*args):
+            return await asyncio.to_thread(decide_fn, *args)
+        return asyncio.run(_run_experiment_async_engine(canonical, profiles, decide_fn=scan_decide,
                                          max_calls=max_calls, max_usd=max_usd,
                                          concurrency=concurrency, progress=progress))
-    return _run_v3(canonical, profiles, decide_fn=decide_fn, max_calls=max_calls,
+    if inspect.iscoroutinefunction(decide_fn):
+        return asyncio.run(_run_experiment_async_engine(canonical, profiles, decide_fn=decide_fn,
+                                         max_calls=max_calls, max_usd=max_usd,
+                                         concurrency=concurrency, progress=progress))
+    return _run_experiment_sync_engine(canonical, profiles, decide_fn=decide_fn, max_calls=max_calls,
                    max_usd=max_usd, progress=progress)
 
 
@@ -216,7 +246,7 @@ async def run_experiment_async(experiment: dict, profiles: tuple[ReaderProfile, 
     if not profiles or max_calls < 1 or not 0 < max_usd < math.inf or not 1 <= concurrency <= 32:
         raise ValueError("Experiment requires readers, finite limits and concurrency from 1 to 32")
     canonical = compile_experiment(experiment)
-    return await _run_v3_async(canonical, profiles, decide_fn=decide_fn,
+    return await _run_experiment_async_engine(canonical, profiles, decide_fn=decide_fn,
                                 max_calls=max_calls, max_usd=max_usd,
                                 concurrency=concurrency, progress=progress,
                                 resume_checkpoint=resume_checkpoint, checkpoint_path=checkpoint_path,
@@ -281,7 +311,106 @@ def _optional_summaries(experiment: dict, journeys: list[dict]) -> list[dict]:
     return summaries
 
 
-def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
+def _scan_summaries(experiment: dict, journeys: list[dict]) -> list[dict]:
+    summaries = []
+    for condition in experiment["conditions"]:
+        selected = [journey for journey in journeys if journey["condition"] == condition["id"]]
+        no_entry = [journey for journey in selected if not any(
+            event.get("type") == "scan_entry_selected" for event in journey["events"])]
+        entries = []
+        for entry in experiment["scan_surface"]:
+            if entry["kind"] not in condition["scan_features"]:
+                continue
+            selected_events = [event for journey in selected for event in journey["events"]
+                               if event.get("type") == "scan_entry_selected" and
+                               event.get("entry_id") == entry["id"]]
+            attention_events = [event for journey in selected for event in journey["events"]
+                                if event.get("type") == "scan_entry_attention" and
+                                event.get("entry_id") == entry["id"]]
+            navigation_events = [event for journey in selected for event in journey["events"]
+                                 if event.get("type") == "scan_navigation" and
+                                 event.get("entry_id") == entry["id"]]
+            entry_outcomes = [event for journey in selected for event in journey["events"]
+                              if event.get("type") == "scan_entry_outcome" and
+                              event.get("entry_id") == entry["id"]]
+            archetypes = sorted({journey["archetype"] or "unassigned" for journey in selected})
+            by_archetype = []
+            for archetype in archetypes:
+                group = [journey for journey in selected
+                         if (journey["archetype"] or "unassigned") == archetype]
+                by_archetype.append({
+                    "archetype": archetype,
+                    "eligible_journeys": len(group),
+                    "selected": sum(any(event.get("type") == "scan_entry_selected" and
+                                         event.get("entry_id") == entry["id"]
+                                         for event in journey["events"]) for journey in group),
+                    "read_closely": sum(any(event.get("type") == "scan_entry_attention" and
+                                             event.get("entry_id") == entry["id"] and
+                                             event.get("choice") == "read_closely"
+                                             for event in journey["events"]) for journey in group),
+                    "skim": sum(any(event.get("type") == "scan_entry_attention" and
+                                    event.get("entry_id") == entry["id"] and
+                                    event.get("choice") == "skim"
+                                    for event in journey["events"]) for journey in group),
+                    "read_from_opening": sum(any(event.get("type") == "scan_navigation" and
+                                                  event.get("entry_id") == entry["id"] and
+                                                  event.get("choice") == "read_from_opening"
+                                                  for event in journey["events"]) for journey in group),
+                    "continue_forward": sum(any(event.get("type") == "scan_navigation" and
+                                                event.get("entry_id") == entry["id"] and
+                                                event.get("choice") == "continue_forward"
+                                                for event in journey["events"]) for journey in group),
+                    "scan_again": sum(any(event.get("type") == "scan_navigation" and
+                                          event.get("entry_id") == entry["id"] and
+                                          event.get("choice") == "scan_again"
+                                          for event in journey["events"]) for journey in group),
+                    "stop_satisfied": sum(any(event.get("type") == "scan_entry_outcome" and
+                                              event.get("entry_id") == entry["id"] and
+                                              event.get("outcome") == "stop_satisfied"
+                                              for event in journey["events"]) for journey in group),
+                    "leave_lost_interest": sum(any(event.get("type") == "scan_entry_outcome" and
+                                                    event.get("entry_id") == entry["id"] and
+                                                    event.get("outcome") == "leave_lost_interest"
+                                                    for event in journey["events"]) for journey in group),
+                })
+            entries.append({
+                "entry_id": entry["id"], "kind": entry["kind"], "target_id": entry["target"],
+                "eligible_journeys": len(selected), "selected": len(selected_events),
+                "read_closely": sum(event.get("choice") == "read_closely" for event in attention_events),
+                "skim": sum(event.get("choice") == "skim" for event in attention_events),
+                "reached_end": sum(journey["reached_end"] and any(
+                    event.get("type") == "scan_entry_selected" and event.get("entry_id") == entry["id"]
+                    for event in journey["events"]) for journey in selected),
+                "stop_satisfied": sum(event.get("outcome") == "stop_satisfied" for event in entry_outcomes),
+                "leave_lost_interest": sum(event.get("outcome") == "leave_lost_interest"
+                                            for event in entry_outcomes),
+                "read_from_opening": sum(event.get("choice") == "read_from_opening" for event in navigation_events),
+                "continue_forward": sum(event.get("choice") == "continue_forward" for event in navigation_events),
+                "scan_again": sum(event.get("choice") == "scan_again" for event in navigation_events),
+                "by_archetype": by_archetype,
+            })
+        summaries.append({
+            "condition": condition["id"], "eligible_journeys": len(selected),
+            "no_entry_exit": {
+                "eligible_journeys": len(no_entry),
+                "stop_satisfied": sum(item["terminal"] == "stop_satisfied" for item in no_entry),
+                "leave_lost_interest": sum(item["terminal"] == "leave_lost_interest" for item in no_entry),
+                "by_archetype": [
+                    {"archetype": archetype, "eligible_journeys": len([
+                        item for item in no_entry if (item["archetype"] or "unassigned") == archetype]),
+                     "stop_satisfied": sum(item["terminal"] == "stop_satisfied" for item in no_entry
+                                           if (item["archetype"] or "unassigned") == archetype),
+                     "leave_lost_interest": sum(item["terminal"] == "leave_lost_interest" for item in no_entry
+                                                if (item["archetype"] or "unassigned") == archetype)}
+                    for archetype in sorted({item["archetype"] or "unassigned" for item in no_entry})
+                ],
+            },
+            "entries": entries,
+        })
+    return summaries
+
+
+def _run_experiment_sync_engine(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
             max_calls: int, max_usd: float, progress=None) -> dict:
     run_started = time.perf_counter()
     calls = 0
@@ -293,6 +422,9 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
     latencies: list[float] = []
     stopped = False
     limits: list[str] = []
+    if experiment.get("reader_flow") == "scan_entry":
+        limits.append("Scanner panels model the authored text surface and simulated entry choices; "
+                      "they do not assess rendered visual hierarchy, spatial layout or human eye movement.")
     observations: list[dict] = []
     journeys: list[dict] = []
     source_hashes = [item["sha256"] for item in experiment["sources"]]
@@ -326,11 +458,15 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
 
             def ask(stage: str, choices: tuple[str, ...], *, event_item: str = "") -> str | None:
                 nonlocal calls, cost, unpriced_attempts, unpriced_cost_estimate, tokens, retries, stopped
+                history = tuple({"item_id": event["item_id"], "stage": event["stage"],
+                                 "choice": event["choice"]} for event in events
+                                if event["type"] == "choice")
                 if calls >= max_calls:
                     limits.append("Maximum call count reached")
                     stopped = True
                     return None
-                request_bytes = len(visible.encode("utf-8")) + sum(
+                request_bytes = len(visible.encode("utf-8")) + len(json.dumps(
+                    history, ensure_ascii=False).encode("utf-8")) + sum(
                     len(value.encode("utf-8")) for value in (
                         profile.arrival_intent, profile.background, profile.desired_payoff,
                         profile.drawn_in_by, profile.put_off_by, experiment["title"], experiment["promise"],
@@ -347,7 +483,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     return None
                 try:
                     request_started = time.perf_counter()
-                    answer = decide_fn(profile, condition_id, stage, visible, choices, attempts)
+                    answer = decide_fn(profile, condition_id, stage, visible, choices, attempts, history)
                     latency_seconds = time.perf_counter() - request_started
                 except DecisionError as error:
                     latency_seconds = time.perf_counter() - request_started
@@ -361,7 +497,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                     stopped = True
                     return None
                 if answer.choice not in choices or not 1 <= answer.attempts <= attempts:
-                    raise ValueError("Experiment decision did not match offered choices or attempt limit")
+                    raise ValueError(f"Experiment decision for {stage} did not match offered choices or attempt limit")
                 calls += answer.attempts
                 retries += answer.attempts - 1
                 cost += answer.cost_usd
@@ -532,7 +668,7 @@ def _run_v3(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
             "performance": _performance_summary(observations, latencies, retries, 1)}
 
 
-async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
+async def _run_experiment_async_engine(experiment: dict, profiles: tuple[ReaderProfile, ...], *, decide_fn,
                         max_calls: int, max_usd: float, concurrency: int, progress=None,
                         resume_checkpoint: dict | None = None, checkpoint_path: Path | None = None,
                         reconciled_unpriced_usd: float | None = None) -> dict:
@@ -546,6 +682,9 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
               "tokens": 0, "retries": 0, "latencies": [], "stopped": False,
               "active_requests": 0, "max_active_requests": 0}
     limits: list[str] = []
+    if experiment.get("reader_flow") == "scan_entry":
+        limits.append("Scanner panels model the authored text surface and simulated entry choices; "
+                      "they do not assess rendered visual hierarchy, spatial layout or human eye movement.")
     source_hashes = [item["sha256"] for item in experiment["sources"]]
     final_beat_id = next(item["id"] for item in reversed(experiment["route"])
                          if item["kind"] == "beat")
@@ -660,7 +799,11 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
 
         async def ask(stage: str, choices: tuple[str, ...], *, event_item: str = "") -> str | None:
             nonlocal interrupted
-            request_bytes = len(visible.encode("utf-8")) + sum(
+            history = tuple({"item_id": event["item_id"], "stage": event["stage"],
+                             "choice": event["choice"]} for event in events
+                            if event["type"] == "choice")
+            request_bytes = len(visible.encode("utf-8")) + len(json.dumps(
+                history, ensure_ascii=False).encode("utf-8")) + sum(
                 len(value.encode("utf-8")) for value in (
                     profile.arrival_intent, profile.background, profile.desired_payoff,
                     profile.drawn_in_by, profile.put_off_by, experiment["title"], experiment["promise"],
@@ -705,10 +848,11 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                 request_started = time.perf_counter()
                 try:
                     if inspect.iscoroutinefunction(decide_fn):
-                        result = await decide_fn(profile, condition_id, stage, visible, choices, attempts)
+                        result = await decide_fn(profile, condition_id, stage, visible, choices, attempts,
+                                                 history)
                     else:
                         result = await asyncio.to_thread(
-                            decide_fn, profile, condition_id, stage, visible, choices, attempts)
+                            decide_fn, profile, condition_id, stage, visible, choices, attempts, history)
                 except DecisionError as error:
                     latency_seconds = time.perf_counter() - request_started
                     async with budget_lock:
@@ -733,7 +877,7 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                     budget["active_requests"] -= 1
                     if result.choice not in choices or not 1 <= result.attempts <= attempts:
                         budget["stopped"] = True
-                        raise ValueError("Experiment decision did not match offered choices or attempt limit")
+                        raise ValueError(f"Experiment decision for {stage} did not match offered choices or attempt limit")
                     budget["calls"] += result.attempts
                     budget["retries"] += result.attempts - 1
                     budget["latencies"].append(latency_seconds)
@@ -761,7 +905,98 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                              f"calls {calls_now}, cost ${cost_now:.6f}, active {active_now}")
                 return result.choice
 
-        for piece in experiment["route"]:
+        route_plan = experiment["route"]
+        if experiment.get("reader_flow") == "scan_entry":
+            route_plan = []
+            route_by_id = {piece["id"]: piece for piece in experiment["route"]}
+            route_position = {piece["id"]: index for index, piece in enumerate(experiment["route"])}
+            visited_targets: set[str] = set()
+            features = set(condition["scan_features"])
+            while not interrupted and not journey["terminal"]:
+                entries = [entry for entry in experiment["scan_surface"]
+                           if entry["kind"] in features and entry["target"] not in visited_targets]
+                if not entries:
+                    break
+                surface = [f"{experiment['title']}\n{experiment['promise']}"]
+                for entry in entries:
+                    if entry["kind"] == "heading":
+                        if entry["target"] == experiment["route"][0]["id"] and entry["text"] == experiment["title"]:
+                            continue
+                        surface.append(entry["text"])
+                    elif entry["kind"] == "pull_quote":
+                        surface.append(entry["text"])
+                    else:
+                        aside_text = "\n".join(value for value in (
+                            entry.get("eyebrow", ""), entry["title"], entry["standfirst"],
+                            entry.get("preview", ""), entry.get("disclosure_label", "")) if value)
+                        surface.append(aside_text)
+                expose(f"scan-surface-{len(visited_targets) + 1}", "scan_surface", "\n\n".join(surface))
+                events.append({"type": "scan_surface_shown", "entry_ids": [entry["id"] for entry in entries],
+                               "features": sorted(features)})
+                scan_choices = tuple(f"entry--{entry['id']}" for entry in entries) + (
+                    "stop_satisfied", "leave_lost_interest")
+                selected = await ask(f"scan-entry-{len(visited_targets)}", scan_choices,
+                                     event_item="scan-surface")
+                if selected in {"stop_satisfied", "leave_lost_interest"}:
+                    journey["terminal"] = selected
+                    break
+                if selected is None:
+                    break
+                entry = next(entry for entry in entries if selected == f"entry--{entry['id']}")
+                piece = route_by_id[entry["target"]]
+                visited_targets.add(piece["id"])
+                journey["scan_entry"] = entry["id"]
+                events.append({"type": "scan_entry_selected", "entry_id": entry["id"],
+                               "entry_kind": entry["kind"], "target_id": piece["id"],
+                               "target_kind": piece["kind"]})
+                if piece["kind"] == "beat":
+                    expose(piece["id"], "beat", piece["text"])
+                    if piece["id"] == final_beat_id:
+                        journey["reached_end"] = True
+                else:
+                    journey["reached_aside"] = True
+                    expose(piece["id"] + ":body-scan", "optional_body", piece["body"])
+                    events.append({"type": "body_opened", "item_id": piece["id"],
+                                   "origin": "scan_entry"})
+                attention = await ask(f"scan-attention:{piece['id']}", SCAN_ATTENTION,
+                                      event_item=piece["id"])
+                if attention is None:
+                    break
+                events.append({"type": "scan_entry_attention", "entry_id": entry["id"],
+                               "target_id": piece["id"], "choice": attention})
+                navigation = ["stop_satisfied", "leave_lost_interest"]
+                if any(route_position[item["id"]] < route_position[piece["id"]]
+                       for item in experiment["route"] if item["id"] not in visited_targets):
+                    navigation.append("read_from_opening")
+                if any(route_position[item["id"]] > route_position[piece["id"]]
+                       for item in experiment["route"] if item["id"] not in visited_targets):
+                    navigation.append("continue_forward")
+                if any(entry["kind"] in features and entry["target"] not in visited_targets
+                       for entry in experiment["scan_surface"]):
+                    navigation.append("scan_again")
+                next_move = await ask(f"scan-navigation:{piece['id']}", tuple(navigation),
+                                      event_item=piece["id"])
+                if next_move in {"stop_satisfied", "leave_lost_interest"}:
+                    journey["terminal"] = next_move
+                    events.append({"type": "scan_entry_outcome", "entry_id": entry["id"],
+                                   "target_id": piece["id"], "outcome": next_move})
+                    break
+                if next_move == "scan_again":
+                    events.append({"type": "scan_navigation", "item_id": piece["id"],
+                                   "entry_id": entry["id"], "choice": next_move})
+                    continue
+                if next_move == "read_from_opening":
+                    route_plan = [item for item in experiment["route"]
+                                  if item["id"] not in visited_targets]
+                elif next_move == "continue_forward":
+                    route_plan = [item for item in experiment["route"]
+                                  if route_position[item["id"]] > route_position[piece["id"]]
+                                  and item["id"] not in visited_targets]
+                events.append({"type": "scan_navigation", "item_id": piece["id"],
+                               "entry_id": entry["id"], "choice": next_move})
+                break
+
+        for piece in route_plan:
             if interrupted or journey["terminal"]:
                 break
             if piece["kind"] == "beat":
@@ -830,7 +1065,8 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
             events.append({"type": "core_outcome", "outcome": "reached_end"})
         if policy == "read_now_or_defer" and not interrupted:
             opened_inline = {event["item_id"] for event in events
-                             if event["type"] == "body_opened" and event["origin"] == "inline"}
+                             if event["type"] == "body_opened" and
+                             event["origin"] in {"inline", "scan_entry"}}
             for piece in experiment["route"]:
                 if piece["kind"] != "optional_read" or piece["id"] in opened_inline:
                     continue
@@ -852,7 +1088,8 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                     events.append({"type": "body_opened", "item_id": piece["id"], "origin": origin})
                     effect = await ask(piece["id"] + ":read-effect", POST_READ_EFFECT, event_item=piece["id"])
                     events.append({"type": "optional_read_effect", "item_id": piece["id"], "effect": effect})
-        elif policy == "reader_choice" and journey["reached_end"] and journey["terminal"] != "leave_lost_interest":
+        elif (policy == "reader_choice" and experiment.get("reader_flow") != "scan_entry" and
+              journey["reached_end"] and journey["terminal"] != "leave_lost_interest"):
             for piece in experiment["route"]:
                 if piece["kind"] != "optional_read" or not any(
                         event["type"] == "inline_choice" and event["item_id"] == piece["id"] and
@@ -871,8 +1108,9 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                     answer = await ask("return-read", ATTENTION, event_item=piece["id"])
                     if answer in {"leave_lost_interest", "stop_satisfied"}:
                         break
-        elif policy == "post_article_choice" and journey["terminal"] != "leave_lost_interest" and (
-                journey["reached_end"] or journey["terminal"] == "stop_satisfied"):
+        elif (policy == "post_article_choice" and experiment.get("reader_flow") != "scan_entry" and
+              journey["terminal"] != "leave_lost_interest" and (
+                  journey["reached_end"] or journey["terminal"] == "stop_satisfied")):
             piece = next(piece for piece in experiment["route"] if piece["kind"] == "optional_read")
             journey["offer_reason"] = "reached_end" if journey["reached_end"] else "stop_satisfied"
             expose(piece["id"] + ":terminal-invitation", "terminal_invitation",
@@ -910,38 +1148,42 @@ async def _run_v3_async(experiment: dict, profiles: tuple[ReaderProfile, ...], *
                                     next(n for n, c in enumerate(experiment["conditions"])
                                          if c["id"] == item["condition"])))
     optional_summary = []
-    for condition in experiment["conditions"]:
-        for piece in experiment["route"]:
-            if piece["kind"] != "optional_read":
-                continue
-            selected = [journey for journey in journeys if journey["condition"] == condition["id"]]
-            events = [event for journey in selected for event in journey["events"]
-                      if event.get("item_id") == piece["id"]]
-            def count(event_type: str, key: str | None = None, value: str | None = None) -> int:
-                return sum(event["type"] == event_type and
-                           (key is None or event.get(key) == value) for event in events)
-            optional_summary.append({"condition": condition["id"], "aside_id": piece["id"],
-                "eligible_journeys": len(selected), "inline_invitation_reach": count("invitation", "origin", "inline"),
-                "read_now": count("inline_choice", "choice", "read_now"),
-                "deferred": count("inline_choice", "choice", "defer_to_end"),
-                "first_offer_unseen": count("terminal_offer", "origin", "first_offer_unseen"),
-                "deferred_reoffer": count("terminal_offer", "origin", "deferred_reoffer"),
-                "later_reads": sum(event["type"] == "body_opened" and event.get("origin") in
-                                   {"first_offer_unseen", "deferred_reoffer"} for event in events),
-                "later_skips": count("choice", "choice", "skip"),
-                "effects": {effect: sum(event["type"] == "optional_read_effect" and
-                                        event.get("effect") == effect for event in events)
-                            for effect in POST_READ_EFFECT},
-                "breakdowns": _optional_summaries(
-                    {"route": experiment["route"], "conditions": [condition]}, selected)[0]["breakdowns"]})
-    optional_summary.extend(item for item in _optional_summaries(experiment, journeys)
-                            if item["condition"] == "combined")
+    if experiment.get("reader_flow") != "scan_entry":
+        for condition in experiment["conditions"]:
+            for piece in experiment["route"]:
+                if piece["kind"] != "optional_read":
+                    continue
+                selected = [journey for journey in journeys if journey["condition"] == condition["id"]]
+                events = [event for journey in selected for event in journey["events"]
+                          if event.get("item_id") == piece["id"]]
+                def count(event_type: str, key: str | None = None, value: str | None = None) -> int:
+                    return sum(event["type"] == event_type and
+                               (key is None or event.get(key) == value) for event in events)
+                optional_summary.append({"condition": condition["id"], "aside_id": piece["id"],
+                    "eligible_journeys": len(selected), "inline_invitation_reach": count("invitation", "origin", "inline"),
+                    "read_now": count("inline_choice", "choice", "read_now"),
+                    "deferred": count("inline_choice", "choice", "defer_to_end"),
+                    "first_offer_unseen": count("terminal_offer", "origin", "first_offer_unseen"),
+                    "deferred_reoffer": count("terminal_offer", "origin", "deferred_reoffer"),
+                    "later_reads": sum(event["type"] == "body_opened" and event.get("origin") in
+                                       {"first_offer_unseen", "deferred_reoffer"} for event in events),
+                    "later_skips": count("choice", "choice", "skip"),
+                    "effects": {effect: sum(event["type"] == "optional_read_effect" and
+                                            event.get("effect") == effect for event in events)
+                                for effect in POST_READ_EFFECT},
+                    "breakdowns": _optional_summaries(
+                        {"route": experiment["route"], "conditions": [condition]}, selected)[0]["breakdowns"]})
+        optional_summary.extend(item for item in _optional_summaries(experiment, journeys)
+                                if item["condition"] == "combined")
+    scan_summary = (_scan_summaries(experiment, journeys)
+                    if experiment.get("reader_flow") == "scan_entry" else [])
     total_journeys = len(profiles) * len(experiment["conditions"])
     return {"manifest_sha256": manifest_hash, "source_sha256": source_hashes,
             "cohort_sha256": cohort_hash, "conditions": [c["id"] for c in experiment["conditions"]],
             "journeys": journeys, "observations": observations, "total_journeys": total_journeys,
             "incomplete_journeys": total_journeys - len(journeys),
-            "optional_summary": optional_summary, "limitations": limits,
+            "optional_summary": optional_summary, "scan_summary": scan_summary,
+            "limitations": limits,
             "calls": budget["calls"], "cost_usd": budget["cost"], "input_tokens": budget["tokens"],
             "reported_cost_usd": budget["reported_cost"],
             "reconciled_unpriced_cost_usd": budget["reconciled_unpriced_cost"],

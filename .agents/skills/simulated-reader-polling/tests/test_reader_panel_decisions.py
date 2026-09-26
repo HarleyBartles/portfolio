@@ -83,8 +83,14 @@ class DecisionTests(unittest.TestCase):
                                      {"read_now": "Read", "defer_to_end": "Continue"}, 1)
             client.decide_experiment(PROFILE, "Title", "Promise", "Article end", "sql:terminal-choice",
                                      {"read": "Read", "skip": "Skip"}, 1)
+            client.decide_experiment(PROFILE, "Title", "Promise", "Article end", "sql:terminal-choice",
+                                     {"read": "Read", "skip": "Skip"}, 1,
+                                     ({"item_id": "sql", "stage": "sql:inline-choice",
+                                       "choice": "defer_to_end"},))
         self.assertIn("offered this reading again at the end", captured[0]["questions"]["attention"]["instructions"])
-        self.assertIn("origin of this offer is recorded separately", captured[1]["questions"]["attention"]["instructions"])
+        self.assertIn("first offer", captured[1]["questions"]["attention"]["instructions"])
+        self.assertIn("chose to continue", captured[2]["questions"]["attention"]["instructions"])
+        self.assertEqual(captured[2]["state"]["reading_history"][0]["choice"], "defer_to_end")
 
     def test_post_read_prompts_allow_early_satisfied_exit(self) -> None:
         captured = []

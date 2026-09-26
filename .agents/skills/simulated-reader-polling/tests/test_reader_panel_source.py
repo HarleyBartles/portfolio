@@ -58,7 +58,7 @@ The main route continues.
         self.assertNotIn("Hidden body", article.beats[-1].visible_prefix)
         self.assertIn("The main route continues", article.beats[-1].visible_prefix)
 
-    def test_archetype_catalogue_can_grow_beyond_run_cohort_limit(self) -> None:
+    def test_profile_file_has_no_fixed_run_cohort_limit(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "archetypes.json"
             path.write_text(json.dumps([
@@ -67,19 +67,16 @@ The main route continues.
                 for number in range(101)
             ]), encoding="utf-8")
             self.assertEqual(len(load_profiles(path, None, max_profiles=None)), 101)
-            with self.assertRaisesRegex(SourceError, "1–100"):
-                load_profiles(path, None)
+            self.assertEqual(len(load_profiles(path, None)), 101)
 
-    def test_mixed_full_quorum_accepts_ten_per_selected_archetype(self) -> None:
-        known = {f"motive-{index}" for index in range(12)}
-        readers = tuple(
-            ReaderProfile(f"reader-{group}-{number}", "question", "background", "payoff",
-                          "drawn in", "put off", f"motive-{group}")
-            for group in range(10) for number in range(10)
-        )
+    def test_cohort_can_have_more_than_ten_profiles_for_an_archetype(self) -> None:
+        known = {"craft-admirer"}
+        readers = tuple(ReaderProfile(f"reader-{number}", "question", "background", "payoff",
+                                      "drawn in", "put off", "craft-admirer")
+                        for number in range(120))
         self.assertEqual(validate_cohort(readers, known), readers)
 
-    def test_quorum_rejects_unknown_or_overallocated_archetype(self) -> None:
+    def test_cohort_rejects_unknown_archetype(self) -> None:
         known = {"craft-admirer"}
 
         def reader(number: int, archetype: str) -> ReaderProfile:
@@ -88,10 +85,9 @@ The main route continues.
 
         with self.assertRaisesRegex(SourceError, "unknown archetype"):
             validate_cohort((reader(0, "invented"),), known)
-        with self.assertRaisesRegex(SourceError, "ten readers"):
-            validate_cohort(tuple(reader(number, "craft-admirer") for number in range(11)), known)
+        self.assertEqual(len(validate_cohort(tuple(reader(number, "craft-admirer") for number in range(11)), known)), 11)
 
-    def test_quorum_rejects_readers_without_an_archetype(self) -> None:
+    def test_cohort_rejects_readers_without_an_archetype(self) -> None:
         labelled = ReaderProfile("one", "question", "background", "payoff", "yes", "no", "craft-admirer")
         unlabelled = ReaderProfile("two", "question", "background", "payoff")
         with self.assertRaisesRegex(SourceError, "archetype"):
@@ -224,5 +220,4 @@ The main route continues.
                 ) + "]",
                 encoding="utf-8",
             )
-            with self.assertRaises(SourceError):
-                load_profiles(path, None)
+            self.assertEqual(len(load_profiles(path, None)), 101)

@@ -40,6 +40,9 @@ EXPERIMENT_CHOICE_LABELS = {
     "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
     "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
     "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
+    "scan_again": "Return to the section list and choose another unread section",
+    "read_from_opening": "Go back to the beginning and read the remaining article in order",
+    "continue_forward": "Continue from this section through the rest of the article",
 }
 
 
@@ -69,7 +72,8 @@ class Decision:
     attempts: int = 1
 
 
-def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
+def build_request(profile: ReaderProfile, article: Article, beat: Beat,
+                  history: tuple[dict, ...] = ()) -> dict:
     reader = {
         "arrival_intent": profile.arrival_intent,
         "background": profile.background,
@@ -84,11 +88,12 @@ def build_request(profile: ReaderProfile, article: Article, beat: Beat) -> dict:
             "article_title": article.title,
             "reader_promise": article.promise,
             "visible_text": beat.visible_prefix,
+            "reading_history": list(history),
         },
         "questions": {
             "attention": {
                 "type": "choice",
-                "instructions": "At this point in the article, what does this reader do next? Distinguish lost interest from stopping satisfied.",
+                "instructions": "At this point in the article, what does this reader do next? Use reading_history for their previous choices. Distinguish lost interest from stopping satisfied.",
                 "criteria": CHOICES,
             }
         },
@@ -174,26 +179,31 @@ class DecisionClient:
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
         await self._sdk.__aexit__(exc_type, exc_value, traceback)
 
-    def decide(self, profile: ReaderProfile, article: Article, beat: Beat, max_attempts: int) -> Decision:
-        return self._call(build_request(profile, article, beat), CHOICES, max_attempts)
+    def decide(self, profile: ReaderProfile, article: Article, beat: Beat, max_attempts: int,
+               history: tuple[dict, ...] = ()) -> Decision:
+        return self._call(build_request(profile, article, beat, history), CHOICES, max_attempts)
 
     def decide_experiment(
         self, profile: ReaderProfile, title: str, promise: str, visible_text: str,
         stage: str, criteria: dict[str, str], max_attempts: int,
+        history: tuple[dict, ...] = (),
     ) -> Decision:
         if not criteria or any(not key or not value for key, value in criteria.items()):
             raise DecisionError("Experiment choice criteria are invalid", attempts=0)
-        payload = render_experiment_request(profile, title, promise, visible_text, stage, criteria)
+        payload = render_experiment_request(profile, title, promise, visible_text, stage, criteria,
+                                            history)
         return self._call(payload, criteria, max_attempts)
 
     async def decide_experiment_async(
         self, profile: ReaderProfile, title: str, promise: str, visible_text: str,
         stage: str, criteria: dict[str, str], max_attempts: int,
+        history: tuple[dict, ...] = (),
     ) -> Decision:
         if not criteria or any(not key or not value for key, value in criteria.items()):
             raise DecisionError("Experiment choice criteria are invalid", attempts=0)
         # Share the same payload renderer used by the synchronous SDK call.
-        payload = render_experiment_request(profile, title, promise, visible_text, stage, criteria)
+        payload = render_experiment_request(profile, title, promise, visible_text, stage, criteria,
+                                            history)
         return await self._call_async(payload, criteria, max_attempts)
 
     def _call(self, payload: dict, criteria: dict[str, str], max_attempts: int) -> Decision:
@@ -246,7 +256,7 @@ class DecisionClient:
 
 def render_experiment_request(
     profile: ReaderProfile, title: str, promise: str, visible_text: str,
-    stage: str, criteria: dict[str, str],
+    stage: str, criteria: dict[str, str], history: tuple[dict, ...] = (),
 ) -> dict:
     """Render the reader-facing request shared by live transport and offline trace."""
     reader = {"arrival_intent": profile.arrival_intent, "background": profile.background,
@@ -267,16 +277,39 @@ def render_experiment_request(
             "offered this reading again at the end of their journey, including if they stop early."
         )
     elif stage.endswith(":terminal-choice"):
-        instruction = (
-            "The reader has reached the end of their article journey. This optional reading was not opened "
-            "inline. They can read its body now or skip it. The origin of this offer is recorded separately; "
-            "do not infer that they saw an earlier invitation unless visible_text shows it."
-        )
+        deferred = any(item["stage"] == stage.replace(":terminal-choice", ":inline-choice")
+                       and item["choice"] == "defer_to_end" for item in history)
+        if deferred:
+            instruction = (
+                "Earlier, this reader chose to continue with the article and decide whether to read this "
+                "optional piece at the end. That moment has arrived. Would they read it now or skip it?"
+            )
+        else:
+            instruction = (
+                "The reader has ended their article journey. This is their first offer of this optional "
+                "piece; they had not reached its inline invitation. Would they read it now or skip it?"
+            )
     elif stage in {"post-choice"}:
         instruction = (
             "This reader has ended their main reading, including if they stopped satisfied before the final passage, "
             "and can see only the title and standfirst of an optional "
             "additional read. Would they open and read it or skip it? The body remains hidden unless opened."
+        )
+    elif stage.startswith("scan-entry-"):
+        instruction = (
+            "The reader is scanning the article title, promise, and entries shown here before reading "
+            "any body text. Which entry would this reader choose first? Use only the entries offered."
+        )
+    elif stage.startswith("scan-attention:"):
+        instruction = (
+            "The reader opened the selected section and has seen its full text. Decide whether they "
+            "read this section closely or skimmed it. Do not infer that they read other sections."
+        )
+    elif stage.startswith("scan-navigation:"):
+        instruction = (
+            "The reader has read the selected section and made the attention choice shown in "
+            "reading_history. Choose their next move from the offered actions. They can move through "
+            "unread sections, return to the section list, stop satisfied, or leave after losing interest."
         )
     elif stage in {"aside-choice", "return-choice"}:
         instruction = "Choose only from the offered actions. The reader cannot see text beyond visible_text."
@@ -285,7 +318,9 @@ def render_experiment_request(
             "At this point in the article, what does this reader do next? "
             "Distinguish lost interest from stopping satisfied."
         )
+    instruction += " Reading_history records this reader's previous choices in order; use it to keep their journey consistent."
     return {"model": MODEL, "state": {"reader": reader, "article_title": title,
-            "reader_promise": promise, "visible_text": visible_text},
+            "reader_promise": promise, "visible_text": visible_text,
+            "reading_history": list(history)},
             "questions": {"attention": {"type": "choice", "instructions": instruction,
             "criteria": criteria}}}

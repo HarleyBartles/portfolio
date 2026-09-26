@@ -179,7 +179,7 @@ def parse_article(path: Path) -> Article:
 
 
 def load_profiles(
-    path: Path, selected_ids: tuple[str, ...] | None, *, max_profiles: int | None = 100,
+    path: Path, selected_ids: tuple[str, ...] | None, *, max_profiles: int | None = None,
 ) -> tuple[ReaderProfile, ...]:
     """Load distinct authored readers; the archetype catalogue has no cohort cap."""
     try:
@@ -189,7 +189,7 @@ def load_profiles(
     if not isinstance(data, list) or not data:
         raise SourceError("Reader profiles must contain at least one entry")
     if max_profiles is not None and len(data) > max_profiles:
-        raise SourceError("Reader profiles must contain 1–100 entries")
+        raise SourceError(f"Reader profiles must contain at least one entry and no more than {max_profiles}")
     profiles: list[ReaderProfile] = []
     seen: set[str] = set()
     for entry in data:
@@ -220,8 +220,8 @@ def validate_cohort(
     profiles: tuple[ReaderProfile, ...], known_archetypes: set[str],
 ) -> tuple[ReaderProfile, ...]:
     """Check the mechanical boundaries of an agent-authored run cohort."""
-    if not 1 <= len(profiles) <= 100 or len({profile.id for profile in profiles}) != len(profiles):
-        raise SourceError("A cohort needs 1–100 readers with distinct IDs")
+    if not profiles or len({profile.id for profile in profiles}) != len(profiles):
+        raise SourceError("A cohort needs at least one reader and distinct IDs")
     labelled = [profile for profile in profiles if profile.archetype_id]
     if len(labelled) != len(profiles):
         raise SourceError("Every reader in a cohort needs an archetype")
@@ -230,6 +230,4 @@ def validate_cohort(
         if profile.archetype_id not in known_archetypes:
             raise SourceError(f"Reader {profile.id} has an unknown archetype")
         allocations[profile.archetype_id] = allocations.get(profile.archetype_id, 0) + 1
-        if allocations[profile.archetype_id] > 10:
-            raise SourceError("An archetype may supply no more than ten readers")
     return profiles
