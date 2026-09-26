@@ -47,23 +47,35 @@ class ReaderPanelTests(unittest.TestCase):
                 "route": [
                     {"id": "opening", "kind": "beat", "text": "Opening prose."},
                     {"id": "story", "kind": "beat", "text": "Story prose."},
-                    {"id": "extra", "kind": "optional_read", "title": "Extra", "standfirst": "Invitation.",
-                     "reading_time": "One minute", "body": "SECRET BODY."},
+                    {"id": "extra", "kind": "optional_read", "eyebrow": "Extra eyebrow",
+                     "title": "Extra", "standfirst": "Invitation.",
+                     "reading_time": "One minute", "preview": "Visible figure lines.",
+                     "disclosure_label": "Explore the case", "body": "SECRET BODY."},
                     {"id": "ending", "kind": "beat", "text": "Ending prose."},
                 ],
                 "scan_surface": [
-                    {"id": "heading-opening", "kind": "heading", "target": "opening", "text": "Opening"},
+                    {"id": "heading-opening", "kind": "heading", "target": "opening", "text": "Title"},
                     {"id": "heading-story", "kind": "heading", "target": "story", "text": "Story"},
                     {"id": "quote-story", "kind": "pull_quote", "target": "story", "text": "A hook."},
-                    {"id": "aside-extra", "kind": "aside", "target": "extra", "title": "Extra",
-                     "standfirst": "Invitation."},
+                    {"id": "aside-extra", "kind": "aside", "target": "extra", "eyebrow": "Extra eyebrow",
+                     "title": "Extra", "standfirst": "Invitation.",
+                     "preview": "Visible figure lines.", "disclosure_label": "Explore the case"},
                     {"id": "heading-ending", "kind": "heading", "target": "ending", "text": "Ending"},
                 ],
-                "conditions": [{"id": "full-surface", "scan_features": ["heading", "pull_quote", "aside"],
-                                "optional_reads": "omit"}],
+                "conditions": [
+                    {"id": "headings-only", "scan_features": ["heading"], "optional_reads": "omit"},
+                    {"id": "full-surface", "scan_features": ["heading", "pull_quote", "aside"],
+                     "optional_reads": "omit"},
+                ],
             }), encoding="utf-8")
             script = root / "choices.json"
             script.write_text(json.dumps({"choices": [
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-entry-0",
+                 "choice": "entry--heading-story"},
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-attention:story",
+                 "choice": "read_closely"},
+                {"reader": "story-first", "condition": "headings-only", "stage": "scan-navigation:story",
+                 "choice": "stop_satisfied"},
                 {"reader": "story-first", "condition": "full-surface", "stage": "scan-entry-0",
                  "choice": "entry--quote-story"},
                 {"reader": "story-first", "condition": "full-surface", "stage": "scan-attention:story",
@@ -79,11 +91,34 @@ class ReaderPanelTests(unittest.TestCase):
                               environ={}, decision_fn=lambda *_: self.fail("trace sent a remote call"))
         self.assertEqual(result, 0)
         traced = json.loads(output.getvalue().split("\n0 remote calls", 1)[0])
-        first = traced["requests"][0]["request"]
-        self.assertIn("A hook.", first["state"]["visible_text"])
+        first_requests = {request["condition"]: request["request"] for request in traced["requests"]
+                          if request["stage"] == "scan-entry-0"}
+        self.assertEqual(set(first_requests), {"headings-only", "full-surface"})
+        control = first_requests["headings-only"]
+        control_visible = control["state"]["visible_text"]
+        self.assertEqual(control_visible, "\n\nTitle\nPromise\n\nStory\n\nEnding")
+        self.assertNotIn("A hook.", control_visible)
+        self.assertNotIn("Extra eyebrow", control_visible)
+        first = first_requests["full-surface"]
+        visible = first["state"]["visible_text"]
+        self.assertEqual(visible, "\n\nTitle\nPromise\n\nStory\n\nA hook.\n\nExtra eyebrow\nExtra\nInvitation.\nVisible figure lines.\nExplore the case\n\nEnding")
         self.assertNotIn("SECRET BODY.", first["state"]["visible_text"])
-        self.assertEqual(first["questions"]["attention"]["criteria"]["entry--quote-story"],
-                         "Follow this pull quote into Story: A hook.")
+        self.assertNotIn("Pull quote:", visible)
+        self.assertNotIn("Section:", visible)
+        self.assertNotIn("Additional read:", visible)
+        criteria = first["questions"]["attention"]["criteria"]
+        self.assertEqual(criteria["entry--heading-opening"], "Title")
+        self.assertEqual(criteria["entry--quote-story"], "A hook.")
+        self.assertEqual(criteria["entry--aside-extra"], "Extra eyebrow\nExtra\nInvitation.\nVisible figure lines.\nExplore the case")
+        self.assertNotIn("Follow this pull quote", criteria["entry--quote-story"])
+        expected_instruction = (
+            "The reader is scanning the article title, promise, and entries shown here before reading "
+            "any body text. Which entry would this reader choose first? Use only the entries offered. "
+            "Reading_history records this reader's previous choices in order; use it to keep their "
+            "journey consistent."
+        )
+        self.assertEqual(control["questions"]["attention"]["instructions"], expected_instruction)
+        self.assertEqual(first["questions"]["attention"]["instructions"], expected_instruction)
 
     def test_apply_adapts_manifest_decisions_to_sdk_titles_and_choice_criteria(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

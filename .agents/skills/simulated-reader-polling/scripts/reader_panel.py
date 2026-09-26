@@ -39,14 +39,12 @@ def _labels(choices: tuple[str, ...], experiment: dict | None = None) -> dict[st
             if not choice.startswith("entry--"):
                 continue
             entry = entries[choice.removeprefix("entry--")]
-            if entry["kind"] == "heading":
-                labels[choice] = f"Enter section: {entry['text']}"
-            elif entry["kind"] == "pull_quote":
-                heading = next(item["text"] for item in experiment["scan_surface"]
-                               if item["kind"] == "heading" and item["target"] == entry["target"])
-                labels[choice] = f"Follow this pull quote into {heading}: {entry['text']}"
+            if entry["kind"] in {"heading", "pull_quote"}:
+                labels[choice] = entry["text"]
             else:
-                labels[choice] = f"Open aside: {entry['title']}. {entry['standfirst']}"
+                labels[choice] = "\n".join(value for value in (
+                    entry.get("eyebrow", ""), entry["title"], entry["standfirst"],
+                    entry.get("preview", ""), entry.get("disclosure_label", "")) if value)
     return labels
 
 

@@ -297,9 +297,8 @@ def render_experiment_request(
         )
     elif stage.startswith("scan-entry-"):
         instruction = (
-            "The reader is scanning the article's title, promise, section headings, pull quotes and "
-            "visible aside invitations. Choose the specific item that would draw this reader into "
-            "its section first. They have not read any section body yet. Use only entries still offered."
+            "The reader is scanning the article title, promise, and entries shown here before reading "
+            "any body text. Which entry would this reader choose first? Use only the entries offered."
         )
     elif stage.startswith("scan-attention:"):
         instruction = (

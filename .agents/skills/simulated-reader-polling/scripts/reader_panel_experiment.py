@@ -108,9 +108,15 @@ def _validate_scan_surface(data: dict) -> None:
         if not isinstance(entry, dict):
             raise SourceError("Scan surface entries must be objects")
         kind = entry.get("kind")
-        expected = {"id", "kind", "target", "text"} if kind in {"heading", "pull_quote"} else {
-            "id", "kind", "target", "title", "standfirst"
-        } if kind == "aside" else set()
+        expected = ({"id", "kind", "target", "text"} if kind in {"heading", "pull_quote"}
+                    else {"id", "kind", "target", "title", "standfirst"}
+                    if kind == "aside" else set())
+        target_id = entry.get("target")
+        target_piece = by_id.get(target_id) if isinstance(target_id, str) else None
+        if kind == "aside" and target_piece is not None:
+            visible_fields = {field for field in ("eyebrow", "preview", "disclosure_label")
+                              if target_piece.get(field)}
+            expected |= visible_fields
         if (not expected or set(entry) != expected or
                 not isinstance(entry.get("id"), str) or not _ID.fullmatch(entry["id"]) or
                 entry["id"] in entry_ids or not isinstance(entry.get("target"), str) or
@@ -126,8 +132,10 @@ def _validate_scan_surface(data: dict) -> None:
             if (target["kind"] != "optional_read" or
                     not all(isinstance(entry[key], str) and entry[key].strip()
                             for key in ("title", "standfirst")) or
-                    entry["title"] != target["title"] or entry["standfirst"] != target["standfirst"]):
-                raise SourceError("Aside entries must show their target's exact title and standfirst")
+                    entry["title"] != target["title"] or entry["standfirst"] != target["standfirst"] or
+                    any(entry[field] != target[field] for field in
+                        ("eyebrow", "preview", "disclosure_label") if field in entry)):
+                raise SourceError("Aside entries must show their target's exact visible invitation fields")
         entry_ids.add(entry["id"])
         surfaced_targets.add(entry["target"])
     beat_ids = {piece["id"] for piece in route if piece["kind"] == "beat"}
@@ -909,15 +917,19 @@ async def _run_experiment_async_engine(experiment: dict, profiles: tuple[ReaderP
                            if entry["kind"] in features and entry["target"] not in visited_targets]
                 if not entries:
                     break
-                surface = [f"{experiment['title']}\n{experiment['promise']}",
-                           "Choose a place to enter this article:"]
+                surface = [f"{experiment['title']}\n{experiment['promise']}"]
                 for entry in entries:
                     if entry["kind"] == "heading":
-                        surface.append(f"Section: {entry['text']}")
+                        if entry["target"] == experiment["route"][0]["id"] and entry["text"] == experiment["title"]:
+                            continue
+                        surface.append(entry["text"])
                     elif entry["kind"] == "pull_quote":
-                        surface.append(f"Pull quote: {entry['text']}")
+                        surface.append(entry["text"])
                     else:
-                        surface.append(f"Additional read: {entry['title']}\n{entry['standfirst']}")
+                        aside_text = "\n".join(value for value in (
+                            entry.get("eyebrow", ""), entry["title"], entry["standfirst"],
+                            entry.get("preview", ""), entry.get("disclosure_label", "")) if value)
+                        surface.append(aside_text)
                 expose(f"scan-surface-{len(visited_targets) + 1}", "scan_surface", "\n\n".join(surface))
                 events.append({"type": "scan_surface_shown", "entry_ids": [entry["id"] for entry in entries],
                                "features": sorted(features)})
