@@ -21,6 +21,19 @@ Use this playbook when creating or changing a Portfolio-owned skill or its local
 3. Register the exact local skill name in `.agents/plugins/marketplace.json`.
 4. Refresh installed-skill provenance and regenerate the mesh.
 
+## Compose the skill body as a router
+
+Treat `SKILL.md` as the entry point that helps an agent choose and follow the relevant path, not as a dump of every procedure, exception and reference fact the skill owns. The body should answer: when does this skill apply, what should the agent do first, which path fits this task, and what should it load next?
+
+- Keep always-needed scope, principles, sequencing, safety gates and interpretation rules in `SKILL.md`.
+- Give each substantial task path a clear trigger and a short direction. Use language such as “When a study compares optional reads, load `references/<optional-read-guide>.md` before writing the manifest.”
+- Move detailed procedures, schemas, option inventories, large examples and conditional workflows into task-named files under `references/`. Link directly from `SKILL.md` to the relevant reference and say when to load it; do not require agents to read every reference for every task.
+- Keep reference links one level deep where possible. Do not build a chain of references that forces agents to discover the next step by reading unrelated material.
+- Use a short routing table when several paths or modes are easy to confuse. Otherwise, direct headings and conditional instructions are clearer than a flowchart.
+- Keep a skill self-contained when its guidance is short and applies on every invocation. Split content to reduce irrelevant loading and improve navigation, not just to meet a line-count target.
+
+Before calling the body finished, test navigation with representative tasks: can an agent identify the applicable path from the body, load only the needed reference, and continue without guessing? Also check that each reference's title and opening say what task it covers and when to use it. The [progressive disclosure guidance in `writing-skills`](../skills/writing-skills/anthropic-best-practices.md) gives the broader rationale and patterns.
+
 ## Doctrine and contracts
 
 - [`../doctrine/marketplace-custody-policy.md`](../doctrine/marketplace-custody-policy.md) for marketplace/local custody.

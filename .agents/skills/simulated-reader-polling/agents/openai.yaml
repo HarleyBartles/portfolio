@@ -1,0 +1,10 @@
+version: 1
+metadata:
+  skill_name: simulated-reader-polling
+  source_category: first_party
+interface:
+  display_name: Running Reader Panels
+  short_description: Structured polls of simulated readers for article drafts.
+  default_prompt: Use simulated-reader-polling to design a poll around an editorial question, select a suitable cohort, inspect responses, and interpret results with editorial judgment.
+policy:
+  allow_implicit_invocation: true

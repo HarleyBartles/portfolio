@@ -30,8 +30,24 @@ ARCHETYPE_POOL = Path(__file__).resolve().parents[1] / "assets/reader-archetypes
 WORKSPACE_SCRIPT = REPO_ROOT / ".agents/skills/subagent-workspace/scripts/workspace.py"
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042
 MAX_REQUEST_BYTES = 80_000
-def _labels(choices: tuple[str, ...]) -> dict[str, str]:
-    return {choice: EXPERIMENT_CHOICE_LABELS[choice] for choice in choices}
+def _labels(choices: tuple[str, ...], experiment: dict | None = None) -> dict[str, str]:
+    labels = {choice: EXPERIMENT_CHOICE_LABELS[choice] for choice in choices
+              if choice in EXPERIMENT_CHOICE_LABELS}
+    if experiment and experiment.get("reader_flow") == "scan_entry":
+        entries = {entry["id"]: entry for entry in experiment["scan_surface"]}
+        for choice in choices:
+            if not choice.startswith("entry--"):
+                continue
+            entry = entries[choice.removeprefix("entry--")]
+            if entry["kind"] == "heading":
+                labels[choice] = f"Enter section: {entry['text']}"
+            elif entry["kind"] == "pull_quote":
+                heading = next(item["text"] for item in experiment["scan_surface"]
+                               if item["kind"] == "heading" and item["target"] == entry["target"])
+                labels[choice] = f"Follow this pull quote into {heading}: {entry['text']}"
+            else:
+                labels[choice] = f"Open aside: {entry['title']}. {entry['standfirst']}"
+    return labels
 
 
 class PanelError(ValueError):
@@ -199,24 +215,21 @@ def main(
     if args.trace_choices and not args.experiment_file:
         raise PanelError("--trace-choices requires --experiment-file")
     experiment = load_experiment(args.experiment_file) if args.experiment_file else None
-    if args.resume and (not args.apply or not experiment or experiment["version"] != 3):
-        raise PanelError("--resume requires --apply with a version 3 experiment")
+    if args.resume and (not args.apply or not experiment):
+        raise PanelError("--resume requires --apply with an experiment manifest")
     if args.reconciled_unpriced_usd is not None and not args.resume:
-        raise PanelError("--reconciled-unpriced-usd requires --resume with a version 3 checkpoint")
+        raise PanelError("--reconciled-unpriced-usd requires --resume with an experiment checkpoint")
     compiled_experiment = compile_experiment(experiment) if experiment else None
     articles = () if experiment else (_source(args.article, args.allow_external_source),)
     if args.compare:
         articles += (_source(args.compare, args.allow_external_source),)
     ids = tuple(item.strip() for item in args.profiles.split(",")) if args.profiles else None
     catalogue_read = args.profile_file.resolve() == ARCHETYPE_POOL.resolve()
-    profiles = load_profiles(args.profile_file, ids, max_profiles=None if catalogue_read else 100)
+    profiles = load_profiles(args.profile_file, ids)
     if catalogue_read:
         profiles = tuple(replace(profile, archetype_id=profile.id) for profile in profiles)
     validate_cohort(profiles, {profile.id for profile in load_profiles(ARCHETYPE_POOL, None, max_profiles=None)})
-    if experiment and experiment["version"] == 2:
-        calls_per_profile = (len(experiment["beats"]) * len(experiment["conditions"]) +
-                             2 * ("post_article_choice" in experiment["conditions"]))
-    elif experiment and experiment["version"] == 3:
+    if experiment and experiment["reader_flow"] == "article_route":
         route = compiled_experiment["route"]
         core_count = sum(piece["kind"] == "beat" for piece in route)
         optional_count = sum(piece["kind"] == "optional_read" for piece in route)
@@ -226,11 +239,16 @@ def main(
             for condition in compiled_experiment["conditions"]
         )
     elif experiment:
-        calls_per_profile = len(experiment["conditions"]) * (
-            len(experiment["beats"]) + 3 * sum(p["kind"] == "aside" for p in experiment["beats"]))
+        route = compiled_experiment["route"]
+        core_count = sum(piece["kind"] == "beat" for piece in route)
+        optional_count = sum(piece["kind"] == "optional_read" for piece in route)
+        calls_per_profile = sum(
+            3 * len(compiled_experiment["scan_surface"]) + core_count + optional_count *
+            {"omit": 0, "inline": 2, "read_now_or_defer": 4}[condition["optional_reads"]]
+            for condition in compiled_experiment["conditions"])
     planned = (len(profiles) * calls_per_profile if experiment else
                len(profiles) * sum(len(article.beats) for article in articles))
-    if experiment and experiment["version"] == 3:
+    if experiment:
         full_text = "\n\n".join(
             piece["text"] if piece["kind"] == "beat" else
             "\n".join((piece.get("eyebrow", ""), piece["title"], piece["standfirst"],
@@ -238,22 +256,10 @@ def main(
                         piece.get("disclosure_label", ""), piece["body"]))
             for piece in compiled_experiment["route"]
         )
-        estimated_bytes = sum(
-            len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
-                            "promise": experiment["promise"], "visible_text": full_text},
-                           ensure_ascii=False).encode("utf-8")) * calls_per_profile
-            for profile in profiles
-        )
-    elif experiment:
-        full_text = "\n\n".join(
-            piece["text"] if piece["kind"] == "beat" else
-            "\n".join((piece["title"], piece["standfirst"], piece["body"]))
-            for piece in experiment["beats"]
-        )
-        if experiment["version"] == 2:
-            optional = experiment["optional_read"]
+        if experiment["reader_flow"] == "scan_entry":
             full_text += "\n\n" + "\n".join(
-                (optional["title"], optional["standfirst"], optional["body"]))
+                " ".join(str(entry.get(key, "")) for key in ("text", "title", "standfirst"))
+                for entry in compiled_experiment["scan_surface"])
         estimated_bytes = sum(
             len(json.dumps({"reader": asdict(profile), "title": experiment["title"],
                             "promise": experiment["promise"], "visible_text": full_text},
@@ -292,7 +298,7 @@ def main(
                                   "offered_choices": list(choices),
                                   "request": render_experiment_request(
                                       profile, experiment["title"], experiment["promise"], visible,
-                                      stage, _labels(choices), history)})
+                                      stage, _labels(choices, compiled_experiment), history)})
             return Decision(choice, {choice: 1.0}, 0.0, 0, "typesafe/jev-1.13-20260917")
 
         trace_report = run_experiment(experiment, profiles, decide_fn=trace_decision,
@@ -305,16 +311,15 @@ def main(
         print("0 remote calls; requests rendered by the same builder used by the SDK client.")
         return 0
     if not args.apply:
-        if experiment and experiment["version"] == 3:
+        if experiment:
             print("Experiment: " + ", ".join(item["id"] for item in compiled_experiment["conditions"]))
             print("Route: " + ", ".join(
                 piece["id"] + (" (optional read)" if piece["kind"] == "optional_read" else "")
                 for piece in compiled_experiment["route"]))
-        elif experiment:
-            print("Experiment: " + ", ".join(experiment["conditions"]))
-            print("Beats: " + ", ".join(piece["id"] for piece in experiment["beats"]))
-            if experiment["version"] == 2:
-                print("Optional read after article: " + experiment["optional_read"]["id"])
+            if experiment["reader_flow"] == "scan_entry":
+                print("Scan surface: " + ", ".join(
+                    f"{entry['kind']}:{entry['id']}->{entry['target']}"
+                    for entry in compiled_experiment["scan_surface"]))
         for article in articles:
             print(f"{article.path.name}: {len(article.beats)} beats: " +
                   ", ".join(beat.heading for beat in article.beats))
@@ -360,12 +365,7 @@ def main(
             print(f"Panel progress: {message}", file=sys.stderr, flush=True)
             last_progress = now
     if experiment:
-        def run(decide):
-            return run_experiment(experiment, profiles, decide_fn=decide,
-                                  max_calls=args.max_calls, max_usd=args.max_usd, progress=progress,
-                                  concurrency=concurrency)
-
-        if decision_fn is not None and experiment["version"] == 3:
+        if decision_fn is not None:
             async def fake_async(*args):
                 return await asyncio.to_thread(decision_fn, *args)
             try:
@@ -377,8 +377,6 @@ def main(
                     reconciled_unpriced_usd=args.reconciled_unpriced_usd))
             except ValueError as error:
                 raise PanelError(str(error)) from None
-        elif decision_fn is not None:
-            experiment_report = run(decision_fn)
         else:
             async def apply_async():
                 async with DecisionClient(api_key) as client:
@@ -386,7 +384,7 @@ def main(
                                            history):
                         return await client.decide_experiment_async(
                             profile, experiment["title"], experiment["promise"], visible,
-                            stage, _labels(choices), attempts, history)
+                            stage, _labels(choices, compiled_experiment), attempts, history)
                     return await run_experiment_async(
                         experiment, profiles, decide_fn=decide_stage,
                         max_calls=args.max_calls, max_usd=args.max_usd,
@@ -403,7 +401,7 @@ def main(
             json.dump(experiment_report, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
         expected_journeys = len(profiles) * len(compiled_experiment["conditions"])
-        if (experiment["version"] == 3 and
+        if (experiment and
                 sum(item.get("completed") is True for item in experiment_report["journeys"]) == expected_journeys):
             checkpoint_path.unlink(missing_ok=True)
         print(f"Experiment: {len(experiment_report['journeys'])} journeys, "

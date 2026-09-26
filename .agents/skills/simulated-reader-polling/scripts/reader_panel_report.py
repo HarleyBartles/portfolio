@@ -37,7 +37,7 @@ class PanelReport:
 
 
 def render_panel(report: PanelReport) -> str:
-    lines = ["Simulated reader decisions under this setup; not real-reader retention."]
+    lines = ["Poll results for the selected profiles and conditions."]
     for article in report.articles:
         lines.append(f"Article {article['name']} ({article['sha256'][:12]})")
         for beat in article["beats"]:

@@ -1,6 +1,8 @@
 # Reader archetype catalogue
 
-The [working pool](../assets/reader-archetypes.json) currently contains fifteen motive-led proto-archetypes and can grow when a genuinely different reading motive appears. They are editorial hypotheses, not measured audience segments. Select archetypes for the article's promise and the questions they bring; a legitimate lack of fit is informative. Role, arrival route, prior familiarity, attention and mood can vary within an archetype without creating a new one. Use the [quorum-authoring method](assembling-a-quorum.md) to choose an allocation and author article-specific readers.
+Load this reference when choosing the durable reading motives that an article-specific cohort should represent.
+
+The [working pool](../assets/reader-archetypes.json) currently contains fifteen motive-led proto-archetypes and can grow when a genuinely different reading motive appears. They are editorial hypotheses, not measured audience segments. Select archetypes for the article's promise and the questions they bring; a legitimate lack of fit is informative. Role, arrival route, prior familiarity, attention and mood can vary within an archetype without creating a new one. Use the [cohort-authoring method](assembling-a-cohort.md) to choose an allocation and author article-specific readers.
 
 | Reading motive | Archetypes and distinct questions |
 | --- | --- |
@@ -14,7 +16,7 @@ The [working pool](../assets/reader-archetypes.json) currently contains fifteen 
 
 Choose a mix of intended readers, adjacent readers and credible challengers. Record why each is in the panel before seeing outcomes. Do not interpret all departures as defects: an article can make and keep a promise to some readers without serving every motive.
 
-Pass this pool through `reader_panel.py --profile-file .agents/skills/running-reader-panels/assets/reader-archetypes.json --profiles <comma-separated-ids>` for a small archetype-level read. For a run-specific quorum, an agent authors a frozen JSON file in off-repo scratch and passes it through `--profile-file`. There is no standing cohort or target of ten stored readers per archetype.
+The JSON pool can be passed through `reader_panel.py --profile-file .agents/skills/simulated-reader-polling/assets/reader-archetypes.json --profiles <comma-separated-ids>` for an exploratory archetype-level poll. For a study cohort, author and freeze a separate JSON file in off-repo scratch and pass it through `--profile-file`. There is no standing cohort or target count per archetype; choose the allocation to answer the poll question.
 
 ## Revise the pool
 

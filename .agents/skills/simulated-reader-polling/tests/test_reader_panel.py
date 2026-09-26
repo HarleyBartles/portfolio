@@ -31,10 +31,60 @@ def article(name: str, count: int = 3) -> Article:
 
 
 def choice(value: str, cost: float = 0.00001) -> Decision:
-    return Decision(value, {value: 1.0}, cost, 30, "typesafe/jev-1.13-20260917")
+    return Decision(value, {value: 1.0}, cost, 1, "typesafe/jev-1.13-20260917")
 
 
 class ReaderPanelTests(unittest.TestCase):
+    def test_scanner_trace_renders_dynamic_pull_quote_choices_without_aside_body(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "article.md"
+            source.write_text("article source", encoding="utf-8")
+            manifest = root / "experiment.json"
+            manifest.write_text(json.dumps({
+                "version": "0.0.5", "reader_flow": "scan_entry", "title": "Title", "promise": "Promise",
+                "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
+                "route": [
+                    {"id": "opening", "kind": "beat", "text": "Opening prose."},
+                    {"id": "story", "kind": "beat", "text": "Story prose."},
+                    {"id": "extra", "kind": "optional_read", "title": "Extra", "standfirst": "Invitation.",
+                     "reading_time": "One minute", "body": "SECRET BODY."},
+                    {"id": "ending", "kind": "beat", "text": "Ending prose."},
+                ],
+                "scan_surface": [
+                    {"id": "heading-opening", "kind": "heading", "target": "opening", "text": "Opening"},
+                    {"id": "heading-story", "kind": "heading", "target": "story", "text": "Story"},
+                    {"id": "quote-story", "kind": "pull_quote", "target": "story", "text": "A hook."},
+                    {"id": "aside-extra", "kind": "aside", "target": "extra", "title": "Extra",
+                     "standfirst": "Invitation."},
+                    {"id": "heading-ending", "kind": "heading", "target": "ending", "text": "Ending"},
+                ],
+                "conditions": [{"id": "full-surface", "scan_features": ["heading", "pull_quote", "aside"],
+                                "optional_reads": "omit"}],
+            }), encoding="utf-8")
+            script = root / "choices.json"
+            script.write_text(json.dumps({"choices": [
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-entry-0",
+                 "choice": "entry--quote-story"},
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-attention:story",
+                 "choice": "read_closely"},
+                {"reader": "story-first", "condition": "full-surface", "stage": "scan-navigation:story",
+                 "choice": "stop_satisfied"},
+            ]}), encoding="utf-8")
+            profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
+                               "--profiles", "story-first", "--trace-choices", str(script)],
+                              environ={}, decision_fn=lambda *_: self.fail("trace sent a remote call"))
+        self.assertEqual(result, 0)
+        traced = json.loads(output.getvalue().split("\n0 remote calls", 1)[0])
+        first = traced["requests"][0]["request"]
+        self.assertIn("A hook.", first["state"]["visible_text"])
+        self.assertNotIn("SECRET BODY.", first["state"]["visible_text"])
+        self.assertEqual(first["questions"]["attention"]["criteria"]["entry--quote-story"],
+                         "Follow this pull quote into Story: A hook.")
+
     def test_apply_adapts_manifest_decisions_to_sdk_titles_and_choice_criteria(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -42,7 +92,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("private article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Article title", "promise": "Article promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Article title", "promise": "Article promise",
                 "sources": [{"path": "source.txt", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening passage."}],
                 "conditions": [{"id": "core_only", "optional_reads": "omit"}],
@@ -98,7 +148,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."}],
                 "conditions": [{"id": "core_only", "optional_reads": "omit"}],
@@ -135,7 +185,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
                           {"id": "ending", "kind": "beat", "text": "Ending."}],
@@ -167,7 +217,7 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("Article source", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 3, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
                 "route": [{"id": "opening", "kind": "beat", "text": "Opening."},
                           {"id": "ending", "kind": "beat", "text": "Ending."}],
@@ -190,13 +240,14 @@ class ReaderPanelTests(unittest.TestCase):
             source.write_text("The article source.", encoding="utf-8")
             manifest = root / "experiment.json"
             manifest.write_text(json.dumps({
-                "version": 1, "title": "Title", "promise": "Promise",
+                "version": "0.0.5", "reader_flow": "article_route", "title": "Title", "promise": "Promise",
                 "sources": [{"path": "article.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}],
-                "beats": [{"id": "opening", "kind": "beat", "text": "Opening text."},
-                           {"id": "aside", "kind": "aside", "title": "Optional detail",
-                            "standfirst": "Why it matters", "body": "Hidden material."},
-                           {"id": "ending", "kind": "beat", "text": "Ending text."}],
-                "conditions": ["omit", "reader_choice"],
+                "route": [{"id": "opening", "kind": "beat", "text": "Opening text."},
+                          {"id": "aside", "kind": "optional_read", "title": "Optional detail",
+                           "standfirst": "Why it matters", "reading_time": "30 seconds", "body": "Hidden material."},
+                          {"id": "ending", "kind": "beat", "text": "Ending text."}],
+                "conditions": [{"id": "core_only", "optional_reads": "omit"},
+                               {"id": "optional_with_defer", "optional_reads": "read_now_or_defer"}],
             }), encoding="utf-8")
             profiles = Path(__file__).resolve().parents[1] / "assets/reader-archetypes.json"
             check_output = io.StringIO()
@@ -204,15 +255,19 @@ class ReaderPanelTests(unittest.TestCase):
                 main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
                       "--profiles", "story-first", "--check"],
                      environ={}, decision_fn=lambda *_: self.fail("check mode sent a call"))
-            self.assertIn("reader_choice", check_output.getvalue())
-            self.assertIn("up to 12 decisions", check_output.getvalue())
+            self.assertIn("optional_with_defer", check_output.getvalue())
+            self.assertIn("up to 8 decisions", check_output.getvalue())
             self.assertIn("0 remote calls", check_output.getvalue())
 
             progress = io.StringIO()
             scratch = root / "scratch"
             def fake(profile, condition, stage, visible, choices, attempts, history):
-                if stage == "aside-choice":
+                if stage == "aside:inline-choice":
+                    return choice("defer_to_end")
+                if stage == "aside:terminal-choice":
                     return choice("skip")
+                if stage == "aside:read-effect":
+                    return choice("maintained")
                 return choice("read_closely")
             with contextlib.redirect_stderr(progress), contextlib.redirect_stdout(io.StringIO()):
                 main(["--experiment-file", str(manifest), "--profile-file", str(profiles),
@@ -398,7 +453,7 @@ class ReaderPanelTests(unittest.TestCase):
         self.assertEqual(report.observations, ())
         self.assertIn("usage cost", report.limitations[0])
 
-    def test_check_mode_has_no_key_or_network_and_scales_to_100_profiles(self) -> None:
+    def test_check_mode_has_no_key_or_network_and_accepts_cohort_above_100(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             source = root / "article.md"
@@ -410,10 +465,10 @@ class ReaderPanelTests(unittest.TestCase):
                 "hiring-evaluator", "jaded-architect",
             )
             profiles.write_text(json.dumps([
-                {"id": f"p{n}", "archetype_id": archetypes[n // 10], "arrival_intent": "read",
+                {"id": f"p{n}", "archetype_id": archetypes[n // 12], "arrival_intent": "read",
                  "background": "reader", "desired_payoff": "insight",
                  "drawn_in_by": "evidence", "put_off_by": "hype"}
-                for n in range(100)
+                for n in range(120)
             ]), encoding="utf-8")
 
             class NoKey(dict):
@@ -426,8 +481,8 @@ class ReaderPanelTests(unittest.TestCase):
                                "--allow-external-source", "--check"], environ=NoKey(),
                               decision_fn=lambda *_: self.fail("check mode sent a call"))
             self.assertEqual(result, 0)
-            self.assertIn("100 profiles", output.getvalue())
-            self.assertIn("jaded-architect: 10", output.getvalue())
+            self.assertIn("120 profiles", output.getvalue())
+            self.assertIn("jaded-architect: 12", output.getvalue())
             self.assertIn("0 remote calls", output.getvalue())
             self.assertIn("input tokens", output.getvalue())
 

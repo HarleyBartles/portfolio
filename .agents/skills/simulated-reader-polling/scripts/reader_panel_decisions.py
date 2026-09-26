@@ -40,6 +40,9 @@ EXPERIMENT_CHOICE_LABELS = {
     "increased": "The optional reading increased satisfaction with the article for this reader's original goal",
     "maintained": "The optional reading maintained satisfaction with the article for this reader's original goal",
     "decreased": "The optional reading decreased satisfaction with the article for this reader's original goal",
+    "scan_again": "Return to the section list and choose another unread section",
+    "read_from_opening": "Go back to the beginning and read the remaining article in order",
+    "continue_forward": "Continue from this section through the rest of the article",
 }
 
 
@@ -291,6 +294,23 @@ def render_experiment_request(
             "This reader has ended their main reading, including if they stopped satisfied before the final passage, "
             "and can see only the title and standfirst of an optional "
             "additional read. Would they open and read it or skip it? The body remains hidden unless opened."
+        )
+    elif stage.startswith("scan-entry-"):
+        instruction = (
+            "The reader is scanning the article's title, promise, section headings, pull quotes and "
+            "visible aside invitations. Choose the specific item that would draw this reader into "
+            "its section first. They have not read any section body yet. Use only entries still offered."
+        )
+    elif stage.startswith("scan-attention:"):
+        instruction = (
+            "The reader opened the selected section and has seen its full text. Decide whether they "
+            "read this section closely or skimmed it. Do not infer that they read other sections."
+        )
+    elif stage.startswith("scan-navigation:"):
+        instruction = (
+            "The reader has read the selected section and made the attention choice shown in "
+            "reading_history. Choose their next move from the offered actions. They can move through "
+            "unread sections, return to the section list, stop satisfied, or leave after losing interest."
         )
     elif stage in {"aside-choice", "return-choice"}:
         instruction = "Choose only from the offered actions. The reader cannot see text beyond visible_text."
