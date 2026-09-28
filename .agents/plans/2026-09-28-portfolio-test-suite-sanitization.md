@@ -144,25 +144,25 @@ These standalone runs total 219.446 s and are not the wall time of the tracked h
 - [x] **Step 1: Map each existing workflow assertion to a failure.** Kept the temporary-Git commit cases for suite invocation/failure collection, linked-worktree resolution, submodule mismatch, staged content, and patch recovery. The two remaining source/data checks duplicated `repo-standards` shape validation; earlier command/guidance and YAML checks are already retired.
 - [x] **Step 2: Remove source-signage and command-spelling assertions.** Removed the tracked-hook file/mode mirror and generated-path list mirror. The repository standards checker validates hook custody/executable shape; live generated-surface checks validate the projections. No YAML parser or prose scan replaces the removed assertions.
 - [x] **Step 3: Keep the real authority boundary.** Retained all temporary-repository behavior cases for dirty/mismatched submodules, apply-only shared-checkout routing, staged snapshot validation, linked-worktree execution, independent failure collection, build-dependent skip, and recovery preservation.
-- [ ] **Step 4: Run focused Python discovery.** `py -3 -m unittest discover -s tests -p 'test_precommit_hook.py' -v`. Run on both OS families only if the edit changes an OS-specific behavior path.
-- [ ] **Step 5: Commit through the tracked hook.** Record why any remaining static workflow assertion cannot be proved by an executable owner.
+- [x] **Step 4: Run focused Python discovery.** `py -3 -m unittest discover -s tests -p 'test_precommit_hook.py' -v` passed all 7 behavioral cases on Windows.
+- [x] **Step 5: Commit through the tracked hook.** Committed as `09bb6d9`; the full hook passed (83 Python, 311 Vitest, build, and 178 Playwright journeys in 142.951s). No static workflow assertion remains in this suite.
 
 ### Task 5: Replace data pinning with custody and output evidence
 
 **Files:**
 - Modify: `src/client/scripts/process-usual-specialists-assets.test.ts`
 - Modify: `src/client/scripts/process-patch-assets.test.ts`
-- Modify: `src/client/scripts/process-learning-lab-assets.test.ts`
+- Delete: `src/client/scripts/process-learning-lab-assets.test.ts`
 - Modify: `src/client/src/features/case-study/learning-lab/learningLabEvidence.test.ts`
 - Modify: `src/client/src/styles/portfolioTheme.test.ts`
 - Inspect: `src/client/scripts/validate-usual-specialists-provenance.test.ts`, `src/client/scripts/css-token-references.test.ts`, the corresponding processors and committed receipts
 
 **Interfaces:** Consumes Task 3's inventory. Produces one test owner for each source identity, receipt integrity, output format/dimensions, provenance rejection, and theme-provider behavior.
 
-- [ ] **Step 1: Retire the implementation-text mutation.** Remove the `renderDerivative` source-name assertion and exact `.resize(...)` string replacement in `process-usual-specialists-assets.test.ts`. Keep receipt/hash validation only where it actually proves the committed derivative contract, plus rejection of changed source identity and missing/extra receipts.
-- [ ] **Step 2: Audit exported-constant mirrors.** In `process-patch-assets.test.ts`, `learningLabEvidence.test.ts`, and `portfolioTheme.test.ts`, remove fixed lists of source paths, counts, titles, token strings, and dated revisions when they merely repeat the same module's data. Keep assertions that run a processor or provider against controlled inputs and observe validity, rejection, or rendered use. Preserve historically pinned evidence only where the authoritative custody record expressly makes it immutable and the test reads the resulting artifact.
-- [ ] **Step 3: Preserve objective asset rules.** Check that existing processor and provenance tests still reject a wrong SHA, absent receipt entry, invalid dimensions/format, or an untraced accepted source. Keep `css-token-references.test.ts` only if its undefined-token failure is not already caught by an owning lint/build check; if retained, describe it as an objective static validator rather than a test of particular token names.
-- [ ] **Step 4: Run focused Vitest.** `npm.cmd --prefix src/client run test -- scripts/process-usual-specialists-assets.test.ts scripts/process-patch-assets.test.ts scripts/process-learning-lab-assets.test.ts scripts/validate-usual-specialists-provenance.test.ts src/features/case-study/learning-lab/learningLabEvidence.test.ts src/styles/portfolioTheme.test.ts` on Windows, with `npm --prefix` on POSIX. Run the narrow affected asset `--check` command if a custody validator or receipt contract changed.
+- [x] **Step 1: Retire the implementation-text mutation.** Removed the renderer source-name assertion, exact `.resize(...)` replacement, and duplicated live receipt hash check. Kept controlled source identity, format/dimension, receipt membership, and validation short-circuit behavior in `process-usual-specialists-assets.test.ts`; `media:usual-specialists:check` remains the owner for committed output/hash/renderer receipt consistency.
+- [x] **Step 2: Audit exported-constant mirrors.** Removed the Patch derivative definition mirror, Learning Lab asset test file (its assertions mirrored exported constants or the check target), fixed Learning Lab source/date/course/title values, and theme token mirror. Kept Patch builder output against controlled dimensions, custody rejection, Learning Lab evidence internal consistency, and a rendered theme-provider integration assertion. No date/revision snapshot is treated as immutable by this test.
+- [x] **Step 3: Preserve objective asset rules.** Processor tests still reject wrong SHA, missing/extra/stale receipt entries, bad dimensions/format, untracked or untraced sources, and unaccepted generated inputs. `media:learning-lab:check` and `media:usual-specialists:check` compare actual source/output identity and metadata in build. Kept `css-token-references.test.ts`: build does not detect undefined CSS custom-property references, so this is an independent static validation rule.
+- [x] **Step 4: Run focused Vitest.** The modified processor, provenance, Learning Lab evidence, theme provider, and CSS token validator passed (6 files, 26 tests). Both `media:usual-specialists:check` and `media:learning-lab:check` pass against the committed receipts and output files.
 - [ ] **Step 5: Commit through the tracked hook.** The commit message and review notes identify which safety checks remain and which constant mirrors disappeared.
 
 ### Task 6: Move substantive validators out of `tools/` and give them suite ownership
