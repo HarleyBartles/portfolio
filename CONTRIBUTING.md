@@ -26,4 +26,4 @@ This repo follows the `repo-standards` and `repo-worker-base` baselines. For the
 - [`.agents/playbooks/security.md`](./.agents/playbooks/security.md) when a security, privacy, credential, trust, or external-mutation concern applies.
 - [`.agents/playbooks/article-writing.md`](./.agents/playbooks/article-writing.md) for public editorial work from commission through publication proof.
 - [`.agents/runbooks/pr.md`](./.agents/runbooks/pr.md) for the pull-request workflow and publication proof.
-- [`docs/design-decisions.md`](./docs/design-decisions.md) for the rationale ledger and reconsideration triggers behind material design choices.
+- [`docs/decisions/README.md`](./docs/decisions/README.md) for dated decision records and reconsideration triggers behind material design choices.

@@ -108,7 +108,7 @@ This policy should prevent unintentional regression without blocking a stronger 
 1. names the audience or product problem being solved;
 2. explains how the new direction better serves the invariants;
 3. includes appropriate before/after visual evidence;
-4. adds a dated entry to `docs/design-decisions.md` with a reconsideration trigger;
+4. adds a dated record to `docs/decisions/` with a reconsideration trigger and marks superseded decisions;
 5. updates objective guards when the public contract intentionally changes; and
 6. passes the canonical validation and review gates.
 

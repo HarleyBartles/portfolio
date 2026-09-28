@@ -27,7 +27,7 @@ engineering scrutiny.
 
 The active [portfolio design policy](../../doctrine/portfolio-design-policy.md)
 continues to govern every phase. This roadmap sequences change; it does not
-replace the policy, the [design-decision ledger](../../../docs/design-decisions.md),
+replace the policy, the [decision records](../../../docs/decisions/README.md),
 or live repository evidence.
 
 ## Weary-skeptic hiring rubric
@@ -106,7 +106,7 @@ read, in order:
 1. this roadmap and its latest Handoff Notes;
 2. the active approved phase specification;
 3. the current repository and merged predecessor work;
-4. the portfolio design policy and design-decision ledger; and
+4. the portfolio design policy and relevant decision records; and
 5. the relevant repository runbooks and skills.
 
 Sol writes the JIT implementation plan; no other agent assumes that phase
@@ -139,7 +139,7 @@ Terra.
 
 Before Terra begins material creative work, Sol records a phase-specific
 creative-review brief in the JIT plan. Sol derives it from the approved phase
-outcome, non-goals, protected defaults, design policy, decision ledger, and
+outcome, non-goals, protected defaults, design policy, decision records, and
 current repository truth. The brief names the audience, intended response,
 constraints and protected defaults, factual and privacy boundaries,
 distinctive design intent, failure modes, observable acceptance signals, and

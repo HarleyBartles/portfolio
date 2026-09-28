@@ -6,7 +6,7 @@ What audience or product problem does this change solve, and what should be bett
 
 - Relevant portfolio design principle or protected default:
 - Intentional departure, if any:
-- Design-decision ledger entry, if the direction materially changes:
+- Decision record in `docs/decisions/`, if the direction materially changes:
 
 ## Evidence
 
