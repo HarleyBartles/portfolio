@@ -85,8 +85,20 @@ def _markdown_item(root: Path, path: Path) -> dict[str, Any]:
         }
         if metadata.get("featured") is True:
             item["featured"] = True
-        if isinstance(metadata.get("homepageFeature"), dict):
-            item["homepageFeature"] = metadata["homepageFeature"]
+        homepage_feature = metadata.get("homepageFeature")
+        if item["status"] == "published":
+            required = ("summary", "inwardLabel", "incomingTeaser")
+            if not isinstance(homepage_feature, dict) or any(
+                not isinstance(homepage_feature.get(field), str)
+                or not homepage_feature[field].strip()
+                for field in required
+            ):
+                raise ValueError(
+                    f"{relative}: published writing needs homepageFeature with "
+                    "summary, inwardLabel, and incomingTeaser"
+                )
+        if isinstance(homepage_feature, dict):
+            item["homepageFeature"] = homepage_feature
         return item
     if relative.startswith("fairytales/"):
         return {

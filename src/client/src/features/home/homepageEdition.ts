@@ -1,3 +1,6 @@
+import { navigation } from '../../data'
+import { getContentPath, type ContentSummary } from '../../types'
+
 export type HomepageFeatureBase = {
   anchorId: 'writing' | 'patch'
   title: string
@@ -27,30 +30,16 @@ export type HomepageEdition = {
   patch: PatchHomepageFeature
 }
 
-export const defaultHomepageEdition: HomepageEdition = {
-  id: 'phase-8-first-edition',
-  writing: {
-    kind: 'writing',
-    anchorId: 'writing',
-    title: 'I made agentic engineering harder than it needed to be',
-    summary: 'I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?',
-    to: '/writing/i-made-agentic-engineering-harder-than-it-needed-to-be',
-    inwardLabel: 'Read the article',
-    incomingTeaser: 'When the process becomes the problem',
-  },
-  patch: {
-    kind: 'patch',
-    anchorId: 'patch',
-    title: 'The Usual Specialists',
-    to: '/patch/the-usual-specialists',
-    inwardLabel: 'Meet the crew',
-    incomingTeaser: 'Meet The Usual Specialists',
-    closingTeaser: "Tell me what you're building",
-    presentation: 'usual-specialists',
-  },
+const patchFeature: PatchHomepageFeature = {
+  kind: 'patch',
+  anchorId: 'patch',
+  title: 'The Usual Specialists',
+  to: '/patch/the-usual-specialists',
+  inwardLabel: 'Meet the crew',
+  incomingTeaser: 'Meet The Usual Specialists',
+  closingTeaser: "Tell me what you're building",
+  presentation: 'usual-specialists',
 }
-
-export const homepageEditions: readonly HomepageEdition[] = [defaultHomepageEdition]
 
 export function createWritingHomepageFeature(summary: ContentSummary): WritingHomepageFeature | undefined {
   if (summary.kind !== 'writing' || summary.homepageFeature === undefined) return undefined
@@ -66,7 +55,22 @@ export function createWritingHomepageFeature(summary: ContentSummary): WritingHo
   }
 }
 
-export function getHomepageEdition(id = defaultHomepageEdition.id): HomepageEdition {
-  return homepageEditions.find((edition) => edition.id === id) ?? defaultHomepageEdition
+export const homepageEditions: readonly HomepageEdition[] = navigation
+  .filter((item) => item.kind === 'writing' && item.status === 'published')
+  .toSorted((left, right) => (left.date ?? '').localeCompare(right.date ?? ''))
+  .map((item) => {
+    const writing = createWritingHomepageFeature(item)
+    if (writing === undefined) throw new Error(`Published article ${item.slug} needs homepage copy`)
+    return { id: item.slug, writing, patch: patchFeature }
+  })
+
+export const defaultHomepageEdition = homepageEditions[0]
+
+const firstEditionDay = Date.UTC(2026, 8, 28) / 86_400_000
+
+export function getHomepageEdition(at: Date = new Date()): HomepageEdition {
+  if (homepageEditions.length === 0) throw new Error('No published articles for the homepage')
+  const day = Math.floor(at.getTime() / 86_400_000)
+  const index = ((day - firstEditionDay) % homepageEditions.length + homepageEditions.length) % homepageEditions.length
+  return homepageEditions[index]
 }
-import { getContentPath, type ContentSummary } from '../../types'

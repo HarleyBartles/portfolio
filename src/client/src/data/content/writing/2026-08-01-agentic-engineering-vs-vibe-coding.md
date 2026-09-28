@@ -4,6 +4,7 @@ summary: "Vibe coding can make an idea real enough to try. Agentic engineering h
 readingMinutes: 4
 tags: ["writing","agentic-engineering","vibe-coding"]
 relatedSlugs: ["graph-iterative-review","i-made-agentic-engineering-harder-than-it-needed-to-be","provisioning-is-not-accumulation"]
+homepageFeature: {"summary":"Vibe coding can make an idea real enough to try. Agentic engineering helps the same people build it into something others can rely on.","inwardLabel":"Is vibe coding the end of craft?","incomingTeaser":"Give someone something to click."}
 ---
 
 # Agentic engineering and the kindness of vibe coding

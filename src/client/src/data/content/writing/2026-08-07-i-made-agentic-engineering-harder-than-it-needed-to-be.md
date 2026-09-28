@@ -4,6 +4,7 @@ summary: "A novel acquired a project director, three department heads and roughl
 readingMinutes: 6
 tags: ["writing", "agentic-engineering", "context"]
 relatedSlugs: []
+homepageFeature: {"summary":"I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?","inwardLabel":"Read the article","incomingTeaser":"When the process becomes the problem"}
 ---
 
 # I made agentic engineering harder than it needed to be

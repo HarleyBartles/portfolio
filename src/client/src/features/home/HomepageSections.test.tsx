@@ -38,7 +38,7 @@ describe('Phase 8 homepage sections', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', '/writing/use-superpowers')
     expect(screen.getByRole('link', { name: /Follow the trail/ })).toHaveAttribute('href', '/projects/wild-bunch')
-    expect(screen.getByRole('link', { name: /Read the article/ })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
+    expect(screen.getByRole('link', { name: `${defaultHomepageEdition.writing.inwardLabel} →` })).toHaveAttribute('href', defaultHomepageEdition.writing.to)
     expect(screen.getByRole('link', { name: /Meet the crew/ })).toHaveAttribute('href', defaultHomepageEdition.patch.to)
     expect(container.querySelectorAll('[data-home-frame]').length).toBeGreaterThan(0)
   }, 10_000)

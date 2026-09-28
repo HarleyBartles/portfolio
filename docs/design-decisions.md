@@ -374,3 +374,10 @@ Reconsider if the Adventures of Patch series develops a governed brand repositor
 **Consequence:** Public discovery, metadata, sitemap and related-content surfaces point to the accepted V2 milestone without pretending the unfinished specialist chapters exist. The roadmap continues from Silk on top of the published Index foundation, and each later chapter can extend the canonical page only after its own review and acceptance. The retained `/next/` alias is compatibility/preview infrastructure, not a second edition or design authority.
 
 **Reconsider when:** Harley explicitly changes canonical route ownership, or the retained no-index alias no longer serves a useful compatibility or review purpose. Ordinary later-chapter design and implementation do not reopen this route-ownership decision.
+## 2026-09-28 - Daily homepage Writing edition
+
+**Context:** The selected homepage edition pinned one Writing article while the published article corpus grew. The homepage already has a fixed six-movement composition and a Patch story with its own presentation.
+
+**Decision:** Rotate only the Writing movement through every published article in publication order, one article per GMT day, then wrap. Published articles carry authored homepage summary, incoming teaser and link label in their own frontmatter. A new published article enters the rotation through the generated content catalogue. Keep The Usual Specialists fixed in Patch.
+
+**Consequence:** Every article gets a day on the homepage without maintaining a second selection list. Publication requires homepage copy, and the edition stays the same for all readers on a given GMT day.

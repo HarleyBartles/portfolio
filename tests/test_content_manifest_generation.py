@@ -28,6 +28,7 @@ summary: A note whose catalogue metadata lives with the article.
 readingMinutes: 3
 tags: ["writing", "example"]
 relatedSlugs: ["example-project"]
+homepageFeature: {"summary":"Example home summary.","inwardLabel":"Open the note","incomingTeaser":"An example note"}
 ---
 
 # Example note
@@ -74,6 +75,11 @@ relatedSlugs: ["example-project"]
                             "readingMinutes": 3,
                             "status": "published",
                             "summary": "A note whose catalogue metadata lives with the article.",
+                            "homepageFeature": {
+                                "summary": "Example home summary.",
+                                "inwardLabel": "Open the note",
+                                "incomingTeaser": "An example note",
+                            },
                             "path": "writing/2026-09-21-example-note.md",
                             "tags": ["writing", "example"],
                             "relatedSlugs": ["example-project"],

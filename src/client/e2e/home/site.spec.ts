@@ -7,7 +7,7 @@ const movementHeadings = [
   'Engineering the whole problem, not just the code.',
   'A strong system, changed by using it.',
   "I only get to call the replay exact because it's falsifiable.",
-  'I made agentic engineering harder than it needed to be',
+  'Agentic engineering and the kindness of vibe coding',
   'The Usual Specialists',
   "I've shown you how I work.",
 ] as const
@@ -25,7 +25,8 @@ test('shared masthead mark has no route-surface fill', async ({ page }) => {
   expect(mark).not.toContain('fill="#fffaf0"')
 })
 
-test('homepage presents the accepted deterministic edition in editorial order', async ({ page }) => {
+test('homepage presents the daily edition in editorial order', async ({ page }) => {
+  await page.clock.setFixedTime(new Date('2026-09-28T12:00:00Z'))
   await page.goto('./')
 
   await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
@@ -40,10 +41,10 @@ test('homepage presents the accepted deterministic edition in editorial order', 
 
   await expect(page.getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', /writing\/use-superpowers$/)
   await expect(page.getByRole('link', { name: 'Follow the trail →' })).toHaveAttribute('href', /projects\/wild-bunch$/)
-  await expect(page.getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', /writing\/i-made-agentic-engineering-harder-than-it-needed-to-be$/)
+  await expect(page.getByRole('link', { name: 'Is vibe coding the end of craft? →' })).toHaveAttribute('href', /writing\/agentic-engineering-vs-vibe-coding$/)
   await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
   await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'When the process becomes the problem ↓' })).toHaveAttribute('href', '#writing')
+  await expect(page.getByRole('link', { name: 'Give someone something to click. ↓' })).toHaveAttribute('href', '#writing')
   await expect(page.getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
 })
 
@@ -70,6 +71,7 @@ test('homepage route stays lazy on unrelated direct routes', async ({ context })
 })
 
 test('homepage anchor landings, reduced motion, and accepted breakpoint edges remain usable', async ({ page }) => {
+  await page.clock.setFixedTime(new Date('2026-09-28T12:00:00Z'))
   await page.emulateMedia({ reducedMotion: 'reduce' })
 
   for (const width of homepageWidths) {

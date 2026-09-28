@@ -8,7 +8,7 @@ Across the site, use a cool-mineral substrate as shared ground. Source Sans 3 ca
 
 The shared composition grammar favours a disciplined rectilinear grid, artifact-first evidence, relationship-led cadence and a quiet reading flow. Individual routes may own different arrangements when their content earns them; interruptions such as rails, fields and asymmetry are evidence-led decisions, not route quotas or a boundary between separate visual systems.
 
-Within that same site-wide system, the homepage owns a deterministic six-movement editorial composition with no autoplay. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
+Within that same site-wide system, the homepage owns a deterministic six-movement editorial composition with no autoplay. The Writing movement features one published article per GMT day, rotating through the full corpus in publication order. Each article owns its homepage summary, incoming teaser and link label; the Patch movement stays fixed. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
 
 ## Purpose and audience
 
