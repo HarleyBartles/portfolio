@@ -4,6 +4,7 @@ summary: "Engineering responsibility expands around implementation, without turn
 readingMinutes: 7
 tags: ["writing","software-engineering","engineering-judgement"]
 relatedSlugs: ["why-adrs","the-right-test-isnt-your-favourite-test"]
+homepageFeature: {"summary":"Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.","inwardLabel":"Finish the sentence","incomingTeaser":"Where does the job stop?"}
 ---
 
 Seven and a half years ago, I wanted to write good code. My code, working in the real world, having an effect. That seemed like plenty to be getting on with.

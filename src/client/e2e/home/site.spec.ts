@@ -1,4 +1,19 @@
 import { expect, test } from '@playwright/test'
+import { readFileSync } from 'node:fs'
+
+type DailyArticle = {
+  slug: string
+  kind: string
+  status: string
+  date: string
+  title: string
+  homepageFeature: { summary: string; inwardLabel: string; incomingTeaser: string }
+}
+
+const manifest = JSON.parse(readFileSync(new URL('../../src/data/content/content-manifest.json', import.meta.url), 'utf8')) as { items: DailyArticle[] }
+const publishedArticles = manifest.items
+  .filter((item) => item.kind === 'writing' && item.status === 'published')
+  .toSorted((left, right) => left.date.localeCompare(right.date))
 
 const movementOrder = ['opening', 'marketplace', 'wild-bunch', 'writing', 'patch', 'professional-close']
 const homepageWidths = [320, 768, 1440] as const
@@ -7,7 +22,6 @@ const movementHeadings = [
   'Engineering the whole problem, not just the code.',
   'A strong system, changed by using it.',
   "I only get to call the replay exact because it's falsifiable.",
-  'I made agentic engineering harder than it needed to be',
   'The Usual Specialists',
   "I've shown you how I work.",
 ] as const
@@ -25,7 +39,13 @@ test('shared masthead mark has no route-surface fill', async ({ page }) => {
   expect(mark).not.toContain('fill="#fffaf0"')
 })
 
-test('homepage presents the accepted deterministic edition in editorial order', async ({ page }) => {
+test('homepage presents one article per GMT day without moving the other features', async ({ page }) => {
+  const now = new Date()
+  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 12))
+  const daysSinceFirstEdition = Math.floor((today.getTime() - Date.UTC(2026, 8, 28)) / 86_400_000)
+  const todayIndex = ((daysSinceFirstEdition % publishedArticles.length) + publishedArticles.length) % publishedArticles.length
+  const expectedArticle = publishedArticles[todayIndex]
+  await page.clock.setFixedTime(today)
   await page.goto('./')
 
   await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
@@ -40,11 +60,33 @@ test('homepage presents the accepted deterministic edition in editorial order', 
 
   await expect(page.getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', /writing\/use-superpowers$/)
   await expect(page.getByRole('link', { name: 'Follow the trail →' })).toHaveAttribute('href', /projects\/wild-bunch$/)
-  await expect(page.getByRole('link', { name: 'Read the article →' })).toHaveAttribute('href', /writing\/i-made-agentic-engineering-harder-than-it-needed-to-be$/)
   await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
   await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'When the process becomes the problem ↓' })).toHaveAttribute('href', '#writing')
   await expect(page.getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
+
+  const writing = page.locator('[data-home-movement="writing"]')
+  const articleLink = writing.locator('a[href*="/writing/"]')
+  await expect(articleLink).toHaveCount(1)
+  await expect(writing.getByRole('heading')).toHaveText(expectedArticle.title)
+  await expect(writing.getByText(expectedArticle.homepageFeature.summary, { exact: true })).toBeVisible()
+  await expect(articleLink).toHaveText(`${expectedArticle.homepageFeature.inwardLabel} →`)
+  await expect(articleLink).toHaveAttribute('href', new RegExp(`/writing/${expectedArticle.slug}$`))
+  await expect(page.locator('[data-home-movement="wild-bunch"] a[href="#writing"]'))
+    .toHaveText(`${expectedArticle.homepageFeature.incomingTeaser} ↓`)
+  const firstArticle = await articleLink.getAttribute('href')
+
+  await page.clock.setFixedTime(new Date(today.getTime() + 86_400_000))
+  await page.goto('./')
+
+  const nextArticle = await articleLink.getAttribute('href')
+  const nextTitle = await writing.getByRole('heading').textContent()
+  const followingArticle = publishedArticles[(todayIndex + 1) % publishedArticles.length]
+  expect(nextArticle).toMatch(new RegExp(`/writing/${followingArticle.slug}$`))
+  expect(nextArticle).not.toBe(firstArticle)
+  expect(nextTitle).toBe(followingArticle.title)
+  await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
+  await articleLink.click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(nextTitle!.trim())
 })
 
 test('homepage route stays lazy on unrelated direct routes', async ({ context }) => {
@@ -81,6 +123,7 @@ test('homepage anchor landings, reduced motion, and accepted breakpoint edges re
     for (const heading of movementHeadings) {
       await expect(page.getByRole('heading', { name: heading })).toBeAttached()
     }
+    await expect(page.locator('[data-home-movement="writing"]').getByRole('heading')).toBeAttached()
   }
 
   await page.setViewportSize({ width: 390, height: 844 })

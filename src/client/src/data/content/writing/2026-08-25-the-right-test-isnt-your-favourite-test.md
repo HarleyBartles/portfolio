@@ -4,6 +4,7 @@ summary: "The test worth running is the one that can falsify the next thing you 
 readingMinutes: 8
 tags: ["writing","software-engineering","testing","agentic-engineering"]
 relatedSlugs: []
+homepageFeature: {"summary":"The test worth running is the one that can falsify the next thing you are about to trust.","inwardLabel":"Move the observation point","incomingTeaser":"Local green doesn’t prove the build."}
 ---
 
 I like unit tests. I write a lot of them.

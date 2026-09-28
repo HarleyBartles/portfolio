@@ -18,7 +18,7 @@ from PIL import Image
 CONTENT_ROOT = Path("src/client/src/data/content")
 MANIFEST_PATH = CONTENT_ROOT / "content-manifest.json"
 PUBLIC_ROOT = Path("src/client/public")
-CUSTODY_PATH = Path("docs/asset-custody.md")
+CUSTODY_DIR = Path("docs/asset-custody")
 MARKETPLACE_EVIDENCE_PATH = Path("src/client/src/data/case-studies/marketplace-evidence.json")
 WILD_BUNCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/wild-bunch-evidence.json")
 PATCH_EVIDENCE_PATH = Path("src/client/src/data/case-studies/patch-evidence.json")
@@ -170,7 +170,6 @@ PATCH_CUSTODY_BY_FAMILY = {
     "identityMechanic": "Patch mechanic role-kit hero derivative.",
     "identityChef": "Patch chef role-kit hero derivative.",
 }
-CUSTODY_ASSET_PATH_RE = re.compile(r"`(src/client/(?:public|src)/[^`\r\n]+)`")
 DECORATIVE_EMOJI_RE = re.compile(r"[\u2600-\u27BF\U0001F1E6-\U0001FAFF]")
 # Add a path only when the emoji itself is necessary to the quoted material or medium.
 PUBLIC_VOICE_EMOJI_EXEMPT_PATHS: frozenset[Path] = frozenset()
@@ -403,6 +402,32 @@ def _read_json(path: Path, findings: list[Finding], label: str) -> Any | None:
     except (OSError, json.JSONDecodeError) as exc:
         findings.append(_finding(path, f"cannot load {label}: {exc}"))
         return None
+
+
+def _custody_asset_paths(root: Path, findings: list[Finding]) -> set[str]:
+    ledger_files = sorted((root / CUSTODY_DIR).glob("*.json"))
+    if not ledger_files:
+        findings.append(_finding(CUSTODY_DIR, "asset custody ledgers are missing"))
+        return set()
+
+    paths: set[str] = set()
+    for ledger_file in ledger_files:
+        ledger = _read_json(ledger_file, findings, "asset custody ledger")
+        if not isinstance(ledger, dict) or not isinstance(ledger.get("assetPaths"), list):
+            findings.append(_finding(ledger_file, "asset custody ledger needs an assetPaths array"))
+            continue
+        for index, value in enumerate(ledger["assetPaths"], start=1):
+            if (
+                not isinstance(value, str)
+                or not value.startswith("src/client/")
+                or "\\" in value
+                or ".." in PurePosixPath(value).parts
+                or PurePosixPath(value).suffix.lower() not in PUBLIC_ASSET_SUFFIXES
+            ):
+                findings.append(_finding(ledger_file, f"assetPaths item {index} must be a canonical client asset path"))
+                continue
+            paths.add(value)
+    return paths
 
 
 def _is_https_url(value: Any) -> bool:
@@ -831,7 +856,7 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
     if not isinstance(images, list):
         findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, "images must be an array"))
     else:
-        custody = (root / CUSTODY_PATH).read_text(encoding="utf-8") if (root / CUSTODY_PATH).is_file() else ""
+        custody_paths = _custody_asset_paths(root, [])
         for index, image in enumerate(images, start=1):
             if not isinstance(image, dict):
                 findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} must be an object"))
@@ -839,8 +864,8 @@ def _validate_wild_bunch_evidence(root: Path, findings: list[Finding]) -> None:
             path = image.get("path")
             if not isinstance(path, str) or not path.startswith("src/client/public/media/wild-bunch/"):
                 findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} path must be a public custody path"))
-            elif f"`{path}`" not in custody:
-                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} path is missing from docs/asset-custody.md"))
+            elif path not in custody_paths:
+                findings.append(_finding(WILD_BUNCH_EVIDENCE_PATH, f"image {index} path is missing from asset custody ledgers"))
             width, height = image.get("width"), image.get("height")
             if (
                 not isinstance(width, int)
@@ -1043,7 +1068,7 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
         if isinstance(entry, dict) and isinstance(entry.get("path"), str)
     } if isinstance(receipt_images, list) else {}
     media = evidence.get("media")
-    custody = (root / CUSTODY_PATH).read_text(encoding="utf-8") if (root / CUSTODY_PATH).is_file() else ""
+    custody_paths = _custody_asset_paths(root, [])
     if not isinstance(media, list) or not media:
         findings.append(_finding(PATCH_EVIDENCE_PATH, "media must be a nonempty array"))
     else:
@@ -1057,8 +1082,8 @@ def _validate_patch_evidence(root: Path, findings: list[Finding]) -> None:
             path = item.get("path")
             if not isinstance(path, str) or not path.startswith("src/client/public/media/patch/"):
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path must be a Patch public custody path"))
-            elif f"`{path}`" not in custody:
-                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path is missing from docs/asset-custody.md"))
+            elif path not in custody_paths:
+                findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} path is missing from asset custody ledgers"))
             receipt_item = receipt_by_path.get(path)
             if receipt_item is None:
                 findings.append(_finding(PATCH_EVIDENCE_PATH, f"media record {index} is missing from the derivative receipt"))
@@ -1154,13 +1179,7 @@ def _validate_public_voice(root: Path, findings: list[Finding]) -> None:
 
 
 def _validate_assets(root: Path, findings: list[Finding]) -> None:
-    custody_path = root / CUSTODY_PATH
-    custody = custody_path.read_text(encoding="utf-8") if custody_path.is_file() else ""
-    custody_paths = {
-        path
-        for path in CUSTODY_ASSET_PATH_RE.findall(custody)
-        if Path(path).suffix.lower() in PUBLIC_ASSET_SUFFIXES
-    }
+    custody_paths = _custody_asset_paths(root, findings)
     asset_paths: set[str] = set()
 
     for asset_root in (root / PUBLIC_ROOT, root / PRODUCTION_ROOT):
@@ -1171,7 +1190,7 @@ def _validate_assets(root: Path, findings: list[Finding]) -> None:
             relative_text = relative.as_posix()
             asset_paths.add(relative_text)
             if relative_text not in custody_paths:
-                findings.append(_finding(relative, "asset is missing from docs/asset-custody.md"))
+                findings.append(_finding(relative, "asset is missing from asset custody ledgers"))
             if path.suffix.lower() in RASTER_IMAGE_SUFFIXES and path.stat().st_size > MAX_IMAGE_BYTES:
                 findings.append(
                     _finding(relative, f"image is {path.stat().st_size} bytes and exceeds {MAX_IMAGE_BYTES} bytes")

@@ -9,31 +9,16 @@ import { patchHomepagePresentations } from './PatchHomepageSlot'
 import { navigation } from '../../data'
 
 describe('homepageEdition', () => {
-  test('pins the accepted first production edition without runtime randomness', () => {
-    expect(defaultHomepageEdition).toEqual({
-      id: 'phase-8-first-edition',
-      writing: {
-        kind: 'writing',
-        anchorId: 'writing',
-        title: 'I made agentic engineering harder than it needed to be',
-        summary: 'I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?',
-        to: '/writing/i-made-agentic-engineering-harder-than-it-needed-to-be',
-        inwardLabel: 'Read the article',
-        incomingTeaser: 'When the process becomes the problem',
-      },
-      patch: {
-        kind: 'patch',
-        anchorId: 'patch',
-        title: 'The Usual Specialists',
-        to: '/patch/the-usual-specialists',
-        inwardLabel: 'Meet the crew',
-        incomingTeaser: 'Meet The Usual Specialists',
-        closingTeaser: "Tell me what you're building",
-        presentation: 'usual-specialists',
-      },
-    })
-    expect(getHomepageEdition()).toBe(defaultHomepageEdition)
-    expect(getHomepageEdition('unknown')).toBe(defaultHomepageEdition)
+  test('gives each published article a GMT day before repeating', () => {
+    const published = navigation.filter((item) => item.kind === 'writing' && item.status === 'published')
+    const firstDay = Date.parse('2026-09-28T00:00:00Z')
+    const selected = published.map((_, offset) => getHomepageEdition(new Date(firstDay + offset * 86_400_000)))
+
+    expect(selected.map((edition) => edition.id)).toEqual(published.map((item) => item.slug))
+    expect(new Set(selected.map((edition) => edition.patch))).toEqual(new Set([defaultHomepageEdition.patch]))
+    expect(getHomepageEdition(new Date('2026-09-28T23:59:59Z'))).toBe(selected[0])
+    expect(getHomepageEdition(new Date('2026-09-29T00:00:00Z'))).toBe(selected[1])
+    expect(getHomepageEdition(new Date(firstDay + published.length * 86_400_000))).toBe(selected[0])
   })
 
   test('lets a destination feature replace the teaser shown by its predecessor', () => {
@@ -53,7 +38,7 @@ describe('homepageEdition', () => {
     expect(patchHomepagePresentations[tournament.presentation]).not.toBe(patchHomepagePresentations[defaultHomepageEdition.patch.presentation])
   })
 
-  test('can compose PORT-10 into a future edition without rotating the active edition', () => {
+  test('composes authored article copy into its homepage edition', () => {
     const port10 = navigation.find((item) => item.slug === 'how-the-invisibles-logo-designer-influenced-the-usual-specialists')
 
     expect(createWritingHomepageFeature(port10!)).toEqual({
@@ -62,9 +47,9 @@ describe('homepageEdition', () => {
       title: 'How The Invisibles’ logo designer influenced The Usual Specialists',
       summary: 'I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.',
       to: '/writing/how-the-invisibles-logo-designer-influenced-the-usual-specialists',
-      inwardLabel: 'Read the story',
+      inwardLabel: 'Stop shopping for fonts',
       incomingTeaser: 'When the caper moves inside the word',
     })
-    expect(getHomepageEdition()).toBe(defaultHomepageEdition)
+    expect(getHomepageEdition(new Date('2026-10-05T12:00:00Z')).writing).toEqual(createWritingHomepageFeature(port10!))
   })
 })

@@ -26,7 +26,7 @@ Use this runbook to turn a Portfolio idea into a design specification that plann
 - [`../doctrine/portfolio-design-policy.md`](../doctrine/portfolio-design-policy.md) for active visitor-facing design policy.
 - [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for spec custody.
 - [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) when the design fixes component or code architecture boundaries.
-- `docs/design-decisions.md` for current rationale and reconsideration triggers.
+- `docs/decisions/README.md` for decision history and reconsideration triggers.
 
 ## Local commands and paths
 

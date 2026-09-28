@@ -22,7 +22,7 @@ Run the smallest focused checks that prove the slice while iterating. The normal
 
 ## Design quality
 
-Before changing presentation, content hierarchy, motion, imagery, typography, public claims, or contact behaviour, read [the active portfolio design policy](.agents/doctrine/portfolio-design-policy.md). Completed design specs provide history; the active policy and [design decision ledger](docs/design-decisions.md) govern current work and its intentional evolution.
+Before changing presentation, content hierarchy, motion, imagery, typography, public claims, or contact behaviour, read [the active portfolio design policy](.agents/doctrine/portfolio-design-policy.md) and relevant [decision records](docs/decisions/README.md). The policy governs current work; the records preserve rationale and subsequent changes.
 
 ## Routing pointers
 
@@ -39,7 +39,7 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 - [Portfolio design policy](.agents/doctrine/portfolio-design-policy.md)
 - [Portfolio writing policy](.agents/doctrine/writing-policy.md)
 - [Article-writing playbook](.agents/playbooks/article-writing.md)
-- [Design decision ledger](docs/design-decisions.md)
+- [Decision records](docs/decisions/README.md)
 - [Routing pointers](.devin/rules/INDEX.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
 - [Mesh policy](.agents/doctrine/mesh-policy.md)

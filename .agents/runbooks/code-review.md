@@ -27,7 +27,7 @@ Use this runbook when reviewing a PR, branch, or diff in the Portfolio repositor
 - [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for routing and navigation changes.
 - [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for branch, PR, and ready-state rules.
 - [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for required proof.
-- [`../doctrine/portfolio-design-policy.md`](../doctrine/portfolio-design-policy.md) and `docs/design-decisions.md` for visitor-facing work.
+- [`../doctrine/portfolio-design-policy.md`](../doctrine/portfolio-design-policy.md) and `docs/decisions/README.md` for visitor-facing work.
 
 ## Local commands and paths
 

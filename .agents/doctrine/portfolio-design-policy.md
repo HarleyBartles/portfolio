@@ -8,7 +8,7 @@ Across the site, use a cool-mineral substrate as shared ground. Source Sans 3 ca
 
 The shared composition grammar favours a disciplined rectilinear grid, artifact-first evidence, relationship-led cadence and a quiet reading flow. Individual routes may own different arrangements when their content earns them; interruptions such as rails, fields and asymmetry are evidence-led decisions, not route quotas or a boundary between separate visual systems.
 
-Within that same site-wide system, the homepage owns a deterministic six-movement editorial composition with no autoplay. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
+Within that same site-wide system, the homepage owns a deterministic six-movement editorial composition with no autoplay. The Writing movement features one published article per GMT day, rotating through the full corpus in publication order. Each article owns its homepage summary, incoming teaser and link label; the Patch movement stays fixed. Its asymmetry follows real editorial relationships rather than acting as a house treatment. Warm paper, copper punctuation and the earlier shuffled feature deck are historical inputs, not protected defaults and not a fallback visual language.
 
 ## Purpose and audience
 
@@ -108,7 +108,7 @@ This policy should prevent unintentional regression without blocking a stronger 
 1. names the audience or product problem being solved;
 2. explains how the new direction better serves the invariants;
 3. includes appropriate before/after visual evidence;
-4. adds a dated entry to `docs/design-decisions.md` with a reconsideration trigger;
+4. adds a dated record to `docs/decisions/` with a reconsideration trigger and marks superseded decisions;
 5. updates objective guards when the public contract intentionally changes; and
 6. passes the canonical validation and review gates.
 

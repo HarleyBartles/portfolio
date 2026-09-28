@@ -4,7 +4,7 @@ summary: "Chassis was already winning when I noticed Rian Hughes had designed it
 readingMinutes: 4
 tags: ["writing","design","typography"]
 relatedSlugs: ["the-usual-specialists","adventures-of-patch"]
-homepageFeature: {"summary":"I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.","inwardLabel":"Read the story","incomingTeaser":"When the caper moves inside the word"}
+homepageFeature: {"summary":"I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.","inwardLabel":"Stop shopping for fonts","incomingTeaser":"When the caper moves inside the word"}
 ---
 
 # How The Invisibles’ logo designer influenced The Usual Specialists

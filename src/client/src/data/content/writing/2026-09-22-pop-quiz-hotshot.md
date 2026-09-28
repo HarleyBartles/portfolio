@@ -4,6 +4,7 @@ summary: "You have a senior engineer in front of you and 12 minutes to your next
 readingMinutes: 12
 tags: ["writing","software-engineering","engineering-judgement","interviews"]
 relatedSlugs: ["why-adrs","the-right-test-isnt-your-favourite-test"]
+homepageFeature: {"summary":"You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?","inwardLabel":"shoot the hostage","incomingTeaser":"Twelve minutes. Ask away."}
 ---
 
 # Pop quiz, hotshot

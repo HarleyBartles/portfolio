@@ -4,6 +4,7 @@ summary: "Capability should be available when the work needs it, without making 
 readingMinutes: 7
 tags: ["writing","agentic-engineering","provisioning"]
 relatedSlugs: ["goldilocks"]
+homepageFeature: {"summary":"I built an agent guidance mesh that passed validation. In one runtime, I watched agents negotiate my rules before answering simple questions. I thinned the instructions they carried and kept the useful capabilities available when the work called for them.","inwardLabel":"What I stopped making agents carry","incomingTeaser":"Still just talking. Off it went again."}
 ---
 
 I asked an agent a fairly ordinary architecture question: “We’re just talking, no plans or specs yet. What are your thoughts on this?”

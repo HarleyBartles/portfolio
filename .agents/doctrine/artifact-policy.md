@@ -7,6 +7,7 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - Root `README.md` is for humans.
 - Root `AGENTS.md` is for routing pointers and repo-wide guidance.
 - `INDEX.md` files are generated navigation surfaces.
+- `docs/decisions/` holds numbered decision records. `docs/asset-custody/` holds themed JSON ledgers and their human guide for durable asset provenance. The `docs/` tree is not a plan archive.
 - `.agents/docs/` is for durable non-doctrine guidance such as workflow guides.
 - `.agents/doctrine/` is for durable doctrine such as policies, contracts, and rule sets.
 - `.agents/runbooks/` is for workflow guides such as design, planning, implementation, and review.

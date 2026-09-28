@@ -4,6 +4,7 @@ summary: "A review graph can guide agents through complex work. Mine exposed the
 readingMinutes: 8
 tags: ["writing","agentic-engineering","review"]
 relatedSlugs: []
+homepageFeature: {"summary":"A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.","inwardLabel":"Would you trust it?","incomingTeaser":"The graph stranded the agent."}
 ---
 
 # If you write a loop, don't be surprised when your agent starts looping

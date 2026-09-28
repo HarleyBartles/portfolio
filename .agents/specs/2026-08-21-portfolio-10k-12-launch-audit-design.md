@@ -245,8 +245,8 @@ The JIT plan must inspect the landed repository. Expected surfaces include:
 - Vitest and Playwright suites, including all configured browsers;
 - generated sitemap, robots, route documents, and social assets;
 - contact-provider activation evidence and CV artefact;
-- `docs/asset-custody.md`;
-- `docs/design-decisions.md`;
+- `docs/asset-custody/README.md` and its ledgers;
+- `docs/decisions/README.md` and relevant ADRs;
 - the README public roadmap and explicit deferrals;
 - the new dated launch-audit report; and
 - only those source files required for bounded audit defect repairs.
@@ -299,7 +299,7 @@ planned, implemented, reviewed, or accepted earlier work.
 
 GPT-5.6 Sol is the sole main phase orchestrator. Sol reads the roadmap, this
 approved phase specification, current repository truth, the portfolio design
-policy, design-decision ledger, and relevant runbooks; writes the JIT
+policy, relevant decision records, and runbooks; writes the JIT
 implementation plan; selects `/subagent-driven-development`; and maintains the
 whole-plan view, task sequencing, integration, evidence, handoff readiness,
 and completion drive.
@@ -317,7 +317,7 @@ Terra.
 
 Before Terra begins material creative work, Sol records a phase-specific
 creative-review brief in the JIT plan. Sol derives it from the approved phase
-outcome, non-goals, protected defaults, design policy, decision ledger, and
+outcome, non-goals, protected defaults, design policy, decision records, and
 current repository truth. The brief names the audience, intended response,
 constraints and protected defaults, factual and privacy boundaries,
 distinctive design intent, failure modes, observable acceptance signals, and

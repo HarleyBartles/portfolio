@@ -133,7 +133,7 @@ describe('loadDocument', () => {
       summary: 'Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.',
       homepageFeature: {
         summary: 'I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.',
-        inwardLabel: 'Read the story',
+        inwardLabel: 'Stop shopping for fonts',
         incomingTeaser: 'When the caper moves inside the word',
       },
     })

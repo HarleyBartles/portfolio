@@ -12,7 +12,7 @@ An asset is usable only when its source, rights, identity, transformation path, 
 
 ## Read first
 
-- [`../../../docs/asset-custody.md`](../../../docs/asset-custody.md) for current production custody records.
+- [`../../../docs/asset-custody/README.md`](../../../docs/asset-custody/README.md) for current production custody ledgers.
 - [`../../playbooks/asset.md`](../../playbooks/asset.md) for the repository asset workflow.
 - [`../../playbooks/generated-image-custody.md`](../../playbooks/generated-image-custody.md) when a generated image is selected for iteration or production use.
 

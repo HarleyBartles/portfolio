@@ -4,6 +4,7 @@ summary: "I use obra/superpowers as a strong base system. superpowers-plus is my
 readingMinutes: 5
 tags: ["writing","agentic-engineering","skills"]
 relatedSlugs: ["codex-marketplace"]
+homepageFeature: {"summary":"I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.","inwardLabel":"You probably don’t need mine.","incomingTeaser":"It’s so good I changed it."}
 ---
 
 Seriously, use [Superpowers](https://github.com/obra/superpowers). I like Superpowers. I [use the hell out of it](https://github.com/HarleyBartles/portfolio/tree/main/.agents/plans/completed). It helped me build pretty much everything you see here.

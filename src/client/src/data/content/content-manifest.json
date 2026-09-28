@@ -73,6 +73,11 @@
       "readingMinutes": 4,
       "status": "published",
       "summary": "Vibe coding can make an idea real enough to try. Agentic engineering helps the same people build it into something others can rely on.",
+      "homepageFeature": {
+        "summary": "Vibe coding can make an idea real enough to try. Agentic engineering helps the same people build it into something others can rely on.",
+        "inwardLabel": "Is vibe coding the end of craft?",
+        "incomingTeaser": "Give someone something to click."
+      },
       "path": "writing/2026-08-01-agentic-engineering-vs-vibe-coding.md",
       "tags": [
         "writing",
@@ -93,6 +98,11 @@
       "readingMinutes": 6,
       "status": "published",
       "summary": "A novel acquired a project director, three department heads and roughly 300 agent-facing documents. I had to work out what deserved to stay.",
+      "homepageFeature": {
+        "summary": "I built an agent organisation around a novel, then filled the repository with roughly 300 agent-facing documents until returning to the work meant accepting a cleanup project first. I kept the real boundaries and removed the theatre, with one question for every surviving surface: why are you here?",
+        "inwardLabel": "Read the article",
+        "incomingTeaser": "When the process becomes the problem"
+      },
       "path": "writing/2026-08-07-i-made-agentic-engineering-harder-than-it-needed-to-be.md",
       "tags": [
         "writing",
@@ -109,6 +119,11 @@
       "readingMinutes": 7,
       "status": "published",
       "summary": "Capability should be available when the work needs it, without making every agent carry the whole workshop.",
+      "homepageFeature": {
+        "summary": "I built an agent guidance mesh that passed validation. In one runtime, I watched agents negotiate my rules before answering simple questions. I thinned the instructions they carried and kept the useful capabilities available when the work called for them.",
+        "inwardLabel": "What I stopped making agents carry",
+        "incomingTeaser": "Still just talking. Off it went again."
+      },
       "path": "writing/2026-08-12-provisioning-is-not-accumulation.md",
       "tags": [
         "writing",
@@ -127,6 +142,11 @@
       "readingMinutes": 8,
       "status": "published",
       "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
+      "homepageFeature": {
+        "summary": "A review graph can guide agents through complex work. Mine exposed the harder job: making the graph trustworthy enough to own the route.",
+        "inwardLabel": "Would you trust it?",
+        "incomingTeaser": "The graph stranded the agent."
+      },
       "path": "writing/2026-08-15-graph-iterative-review.md",
       "tags": [
         "writing",
@@ -143,6 +163,11 @@
       "readingMinutes": 8,
       "status": "published",
       "summary": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
+      "homepageFeature": {
+        "summary": "Losing the reasoning behind a complex insurance system taught me what an ADR owes the engineer who inherits it.",
+        "inwardLabel": "Leave the reasoning in the system",
+        "incomingTeaser": "I knew the system. I couldn’t transfer it."
+      },
       "path": "writing/2026-08-22-why-adrs.md",
       "tags": [
         "writing",
@@ -159,6 +184,11 @@
       "readingMinutes": 8,
       "status": "published",
       "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
+      "homepageFeature": {
+        "summary": "The test worth running is the one that can falsify the next thing you are about to trust.",
+        "inwardLabel": "Move the observation point",
+        "incomingTeaser": "Local green doesn’t prove the build."
+      },
       "path": "writing/2026-08-25-the-right-test-isnt-your-favourite-test.md",
       "tags": [
         "writing",
@@ -176,6 +206,11 @@
       "readingMinutes": 7,
       "status": "published",
       "summary": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
+      "homepageFeature": {
+        "summary": "Engineering responsibility expands around implementation, without turning every adjacent discipline into yours to own.",
+        "inwardLabel": "Finish the sentence",
+        "incomingTeaser": "Where does the job stop?"
+      },
       "path": "writing/2026-08-28-i-just-write-the-code-is-not-a-full-sentence.md",
       "tags": [
         "writing",
@@ -197,7 +232,7 @@
       "summary": "Chassis was already winning when I noticed Rian Hughes had designed it. His name sent me back to 1992, then into the word itself, where The Usual Specialists suddenly had somewhere to work.",
       "homepageFeature": {
         "summary": "I chose Chassis before I noticed Rian Hughes designed it. His name sent me back to 2000 AD in 1992, then forward again to a wordmark big enough to stage the caper inside.",
-        "inwardLabel": "Read the story",
+        "inwardLabel": "Stop shopping for fonts",
         "incomingTeaser": "When the caper moves inside the word"
       },
       "path": "writing/2026-09-03-how-the-invisibles-logo-designer-influenced-the-usual-specialists.md",
@@ -219,6 +254,11 @@
       "readingMinutes": 5,
       "status": "published",
       "summary": "I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.",
+      "homepageFeature": {
+        "summary": "I use obra/superpowers as a strong base system. superpowers-plus is my plugin around the way I actually work.",
+        "inwardLabel": "You probably don’t need mine.",
+        "incomingTeaser": "It’s so good I changed it."
+      },
       "path": "writing/2026-09-05-use-superpowers.md",
       "tags": [
         "writing",
@@ -237,6 +277,11 @@
       "readingMinutes": 12,
       "status": "published",
       "summary": "You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?",
+      "homepageFeature": {
+        "summary": "You have a senior engineer in front of you and 12 minutes to your next meeting. What do you ask?",
+        "inwardLabel": "shoot the hostage",
+        "incomingTeaser": "Twelve minutes. Ask away."
+      },
       "path": "writing/2026-09-22-pop-quiz-hotshot.md",
       "tags": [
         "writing",
