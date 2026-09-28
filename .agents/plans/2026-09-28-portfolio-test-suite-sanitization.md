@@ -123,14 +123,14 @@ These standalone runs total 219.446 s and are not the wall time of the tracked h
 - Modify: `src/client/src/features/home/homepageEdition.test.ts`
 - Delete: `tests/test_phase6_closeout.py`
 - Delete: `src/client/src/pages/usual-specialists/architecture.test.ts`
-- Inspect: all 144 current `test_*.py`, `*.test.ts(x)`, and `*.spec.ts` files under `tests/` and `src/client/`
+- Inspect: all 134 current `test_*.py`, `*.test.ts(x)`, and `*.spec.ts` files under `tests/` and `src/client/` (the inventory was captured before this task's two planned deletions)
 
 **Interfaces:** Consumes the ownership rules above. Produces a per-file retain, narrow, split, or retire decision in the working plan during execution; later tasks use those decisions. No product interface changes.
 
-- [ ] **Step 1: Record the baseline inventory.** List all test files and their line counts using `rg --files tests src/client` and a line-count script. In the canonical off-repo scratch workspace, record each file's primary observable contract and plausible failure. Flag files whose only contract is an old implementation step, exact copy, source spelling, or a duplicate covered elsewhere. Summarize decisions in the PR, not a permanent test ledger.
-- [ ] **Step 2: Remove the literal self-check.** In `homepageEdition.test.ts`, delete the assertions of `tournament.incomingTeaser` and `tournament.to` against the same literals assigned in that test. Keep the GMT date-selection behavior. Retain the presentation-choice assertion only if a separate test actually renders the alternate presentation; otherwise retire that whole fixture test and rely on `HomepageSections.test.tsx`'s rendered presentation case.
-- [ ] **Step 3: Retire completed-slice sentinels.** Delete `test_phase6_closeout.py` because PR #29/#30 roadmap text and a historical custody-command phrase are not ongoing product behavior. Delete `architecture.test.ts` because empty legacy paths and a filename convention are source-shape checks. Preserve the architectural rule in `.agents/doctrine/coding-discipline.md`, which already states it.
-- [ ] **Step 4: Check the affected owners.** Run `npm.cmd --prefix src/client run test -- src/features/home/homepageEdition.test.ts src/features/home/HomepageSections.test.tsx` on Windows, or `npm --prefix` on POSIX. Run `py -3 -m unittest discover -s tests -p 'test_precommit_hook.py' -v` only if a referenced hook contract was touched. Record the removed tests and the owner for any retained invariant.
+- [x] **Step 1: Record the baseline inventory.** Recorded 134 files and 9,888 lines in the canonical external scratch inventory, with each file's first declared observable cases, plausible failure, size, and plan-scoped disposition. The full map remains scratch evidence, not a repository test ledger.
+- [x] **Step 2: Remove the literal self-check.** Removed the homepage fixture that compared fields to the same literals. GMT edition selection remains in `homepageEdition.test.ts`; the alternate Tournament presentation and CTA are rendered in `HomepageSections.test.tsx`.
+- [x] **Step 3: Retire completed-slice sentinels.** Deleted `test_phase6_closeout.py` (historic PR/phase and command spelling) and `architecture.test.ts` (empty-path and filename/source-organization checks). The incremental route-slice and no-React-in-styles-module guidance remains in `.agents/doctrine/coding-discipline.md`.
+- [x] **Step 4: Check the affected owners.** Focused Vitest passed: 2 files, 13 tests. The removed cases protect no ongoing contract; the rendered Tournament selection remains owned by `HomepageSections.test.tsx`.
 - [ ] **Step 5: Commit this coherent removal with the normal hook.** Stage only the test deletions and edits, regenerate indexes with `py -3 tools/run.py index-mesh --apply`, inspect the diff, and commit.
 
 ### Task 4: Give repository workflow checks behavioral owners

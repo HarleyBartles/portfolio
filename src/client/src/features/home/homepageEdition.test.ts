@@ -3,9 +3,7 @@ import {
   createWritingHomepageFeature,
   defaultHomepageEdition,
   getHomepageEdition,
-  type PatchHomepageFeature,
 } from './homepageEdition'
-import { patchHomepagePresentations } from './PatchHomepageSlot'
 import { navigation } from '../../data'
 
 describe('homepageEdition', () => {
@@ -19,23 +17,6 @@ describe('homepageEdition', () => {
     expect(getHomepageEdition(new Date('2026-09-28T23:59:59Z'))).toBe(selected[0])
     expect(getHomepageEdition(new Date('2026-09-29T00:00:00Z'))).toBe(selected[1])
     expect(getHomepageEdition(new Date(firstDay + published.length * 86_400_000))).toBe(selected[0])
-  })
-
-  test('lets a destination feature replace the teaser shown by its predecessor', () => {
-    const tournament: PatchHomepageFeature = {
-      kind: 'patch',
-      anchorId: 'patch',
-      title: 'Tournament of Reasonable Defaults',
-      to: '/patch/tournament-of-reasonable-defaults',
-      inwardLabel: 'Enter the tournament',
-      incomingTeaser: 'Bring reasonable defaults to the tournament',
-      closingTeaser: "Tell me what you're building",
-      presentation: 'tournament',
-    }
-
-    expect(tournament.incomingTeaser).toBe('Bring reasonable defaults to the tournament')
-    expect(tournament.to).toBe('/patch/tournament-of-reasonable-defaults')
-    expect(patchHomepagePresentations[tournament.presentation]).not.toBe(patchHomepagePresentations[defaultHomepageEdition.patch.presentation])
   })
 
   test('composes authored article copy into its homepage edition', () => {
