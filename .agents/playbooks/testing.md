@@ -42,15 +42,16 @@ Prefer roles, names, outcomes, and measurable relationships. Exact CSS declarati
 
 ## Local commands and paths
 
-- Full validation: `py -3 tools/run.py ci --check`.
-- Do not run `py -3 tools/run.py ci --check` immediately before a normal commit; stage the intended tree and let the tracked pre-commit hook run that complete gate once against the exact staged snapshot.
+- Independent check suites: `py -3 tools/run.py repo-checks --check`, `repository-validation --check`, `python-tests --check`, `vitest-tests --check`, `production-build --check`, and `playwright-tests --check`.
+- The tracked pre-commit hook composes these named checks against the exact staged snapshot. Hosted CI keeps repository checks in hook parity and runs each remaining suite as its own step; `ci --check` remains an optional manual aggregate.
+- Do not run the full aggregate immediately before a normal commit; stage the intended tree and let the tracked hook run the complete gate once.
 - Repository operating model: `py -3 tools/run.py repo-standards --check`.
 - Marketplace projection: `py -3 tools/run.py refresh-skills --check`.
 - Agent/document mesh: `py -3 tools/run.py mesh --check`.
 - Content catalogue projection: `py -3 tools/run.py content-manifest --check`.
 - Route metadata projection: `py -3 tools/run.py route-catalogue --check`.
 - Use the affected package's focused Vitest, Playwright, asset, or build target while iterating.
-- Public deployment proof: `py -3 tools/check_public_routes.py --origin https://harleybartles.github.io/portfolio`.
+- Public deployment proof: `py -3 -m tests.validation.deployed_routes --origin https://harleybartles.github.io/portfolio`.
 
 ## Evidence contract
 

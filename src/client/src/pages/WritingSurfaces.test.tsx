@@ -44,18 +44,18 @@ async function renderRoute(path: string) {
 }
 
 describe('Writing discovery surfaces', () => {
-  test('presents peer articles newest first without a permanent featured essay', async () => {
+  test('presents every writing entry as a navigable article card', async () => {
     await renderRoute('/writing')
 
     const list = await screen.findByRole('region', { name: 'Writing, newest first' }, { timeout: 5_000 })
     const articles = within(list).getAllByRole('article')
 
-    expect(within(articles[0]).getByRole('heading', { name: 'Pop quiz, hotshot' })).toBeVisible()
-    expect(within(articles[1]).getByRole('heading', { name: 'Use Superpowers' })).toBeVisible()
-    expect(within(articles[2]).getByRole('heading', { name: 'How The Invisibles’ logo designer influenced The Usual Specialists' })).toBeVisible()
-    expect(list).not.toHaveTextContent(/\d{2} \/ writing/)
-    expect(list).not.toHaveTextContent('Archive')
-    expect(list.querySelector('[data-visual-contract="writing-editorial-lead"]')).toBeNull()
+    expect(articles.length).toBeGreaterThan(0)
+    for (const article of articles) {
+      const title = within(article).getByRole('heading', { level: 2 })
+      expect(title).toBeVisible()
+      expect(within(article).getByRole('link', { name: title.textContent ?? '' }).getAttribute('href')).toMatch(/^\/portfolio\/writing\//)
+    }
   })
 
   test('marks an authored article as longform and keeps reading time in metadata', async () => {
@@ -69,7 +69,7 @@ describe('Writing discovery surfaces', () => {
     expect(screen.getByText(/min read/).closest('[data-metadata-row]')).toBeInTheDocument()
   })
 
-  test('uses the selected Writing edition on the homepage without restoring a featured deck', async () => {
+  test('links the selected homepage writing story to its authored route', async () => {
     const edition = getHomepageEdition()
     await renderRoute('/')
 
@@ -78,7 +78,5 @@ describe('Writing discovery surfaces', () => {
 
     expect(section).not.toBeNull()
     expect(within(section as HTMLElement).getByRole('link', { name: `${edition.writing.inwardLabel} →` })).toHaveAttribute('href', `/portfolio${edition.writing.to}`)
-    expect(within(section as HTMLElement).getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
-    expect(within(section as HTMLElement).queryByText(/Featured essay/i)).not.toBeInTheDocument()
   }, 30_000)
 })

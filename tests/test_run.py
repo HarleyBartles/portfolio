@@ -27,18 +27,6 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._client_cmd("run", "build"),
         )
 
-    @patch.object(run, "_run")
-    def test_base_ci_gate_runs_repository_and_client_product_checks(self, run_command) -> None:
-        run._base_ci_check(self.context)
-
-        commands = [entry.args[0] for entry in run_command.call_args_list]
-        self.assertIn(run._content_manifest_cmd("check"), commands)
-        self.assertIn(run._route_catalogue_cmd("check"), commands)
-        self.assertIn(run._link_hygiene_check_cmd(), commands)
-        self.assertIn(run._portfolio_quality_check_cmd(), commands)
-        self.assertIn(run._tests_cmd(), commands)
-        self.assertIn(run._client_unit_tests_cmd(), commands)
-        self.assertIn(run._client_cmd("run", "build"), commands)
 
     @patch.object(run, "_run")
     def test_ci_apply_regenerates_owned_content_and_route_projections(self, run_command) -> None:
@@ -53,34 +41,8 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._route_catalogue_cmd("check"), commands)
         self.assertIn(run._refresh_seo_files_cmd(), commands)
 
-    @patch("shutil.which", return_value="C:/node/npm.cmd")
-    def test_canonical_client_tests_retry_once_without_changing_focused_test_defaults(self, _which) -> None:
-        self.assertEqual(
-            [
-                "C:/node/npm.cmd",
-                "--prefix",
-                "src/client",
-                "test",
-                "--",
-                "--run",
-                "--retry=1",
-                "--reporter=verbose",
-            ],
-            run._client_unit_tests_cmd(),
-        )
-        self.assertEqual(
-            [
-                "C:/node/npm.cmd",
-                "--prefix",
-                "src/client",
-                "run",
-                "test:e2e",
-                "--",
-                "--skip-build",
-                "--retries=1",
-            ],
-            run._client_e2e_cmd(),
-        )
+
+
 
     @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": ""})
     def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
@@ -224,58 +186,8 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._skills_cmd("check", False), commands)
         self.assertIn(run._mesh_validate_cmd(), commands)
 
-    @patch.object(run, "_run")
-    @patch.object(run, "_base_ci_check")
-    def test_complete_ci_adds_browser_journeys_after_fast_gate(
-        self,
-        base_ci_check,
-        run_command,
-    ) -> None:
-        run._ci_check(self.context)
 
-        base_ci_check.assert_called_once_with(self.context)
-        self.assertEqual(
-            [call(run._client_e2e_cmd(), self.context)],
-            run_command.call_args_list,
-        )
 
-    @patch.object(run, "_run")
-    def test_diagnostic_ci_reports_independent_failures_before_rejecting(self, run_command) -> None:
-        diagnostic_context = run.Ctx(mode="check", allow_shared=False, diagnostics=True)
-        failed_commands = {
-            tuple(run._repo_standards_cmd("check", False)),
-            tuple(run._link_hygiene_check_cmd()),
-            tuple(run._client_cmd("run", "build")),
-        }
-
-        def run_with_failures(command: list[str], _ctx: run.Ctx) -> None:
-            if tuple(command) in failed_commands:
-                raise subprocess.CalledProcessError(1, command)
-
-        run_command.side_effect = run_with_failures
-
-        with self.assertRaises(run.DiagnosticCheckError) as raised:
-            run._ci_check(diagnostic_context)
-
-        commands = [entry.args[0] for entry in run_command.call_args_list]
-        self.assertIn(run._skills_cmd("check", False), commands)
-        self.assertIn(run._mesh_validate_cmd(), commands)
-        self.assertIn(run._portfolio_quality_check_cmd(), commands)
-        self.assertIn(run._tests_cmd(), commands)
-        self.assertIn(run._client_unit_tests_cmd(), commands)
-        self.assertNotIn(run._client_e2e_cmd(), commands)
-        self.assertEqual(
-            ["repository standards", "link hygiene", "production build"],
-            [result.name for result in raised.exception.failures],
-        )
-        self.assertEqual(
-            "production build",
-            raised.exception.skipped[0].blocked_by,
-        )
-
-    def test_precommit_is_not_a_separate_command_surface(self) -> None:
-        self.assertNotIn("precommit", run.TARGETS)
-        self.assertIn("ci", run.TARGETS)
 
 
 if __name__ == "__main__":

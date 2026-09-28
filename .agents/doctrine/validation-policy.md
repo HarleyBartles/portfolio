@@ -2,21 +2,21 @@
 
 Use this reference when deciding what to verify for repo-starter work.
 
-## Canonical validation command
+## Suite commands and gates
 
-- `py -3 tools/run.py ci --check` is the repo's complete local and hosted CI verification command. For normal commit work, the tracked hook owns its single local execution against the staged tree.
-- The tracked pre-commit hook enforces `py -3 tools/run.py ci --check`, including Playwright browser journeys. A commit that passes locally should reach hosted CI for confirmation, not predictable failure discovery.
-- Focused repository, Python, client, build, and browser checks remain the iteration tools. There is no separate `precommit` runner target; the hook owns staged-tree orchestration around `ci --apply` and `ci --check --diagnostics`.
-- Do not run the complete command immediately before a normal hooked commit or immediately after it passes. Invoke it directly only when no commit will follow, when diagnosing the complete pipeline, or when explicitly proving CI parity.
-- The canonical gate gives Vitest and Playwright one visible framework-native retry. It does not retry deterministic checks or the gate as a whole. A retry-rescued test remains actionable nondeterminism evidence.
-- The canonical Playwright phase consumes the production build already proved by the preceding build step. Standalone browser commands retain their own build prerequisite.
+- `repo-checks`, `repository-validation`, `python-tests`, `vitest-tests`, `production-build`, and `playwright-tests` are independently callable check-only targets in `tools/run.py`.
+- The tracked pre-commit hook runs each declared target against the staged snapshot, reports independent failures together, and skips Playwright only when its build dependency fails.
+- Hosted CI keeps the hook's repository checks and runs repository validation, Python, Vitest, production build, and Playwright in separately named sequential steps. Each independent step still runs after a preceding failure; Playwright runs only after a successful production build. Deploy remains gated on the complete required jobs.
+- `ci --check` is an optional manual aggregate. Do not run it immediately before a normal hooked commit or immediately after it passes. Use direct suite commands while iterating and the hook for the complete local gate.
+- Vitest and Playwright retain their visible framework-native retry. A retry-rescued test remains actionable nondeterminism evidence.
+- The Playwright target consumes the production build proved by the preceding build step. Standalone browser commands retain their own build prerequisite.
 
 ## Validation principles
 
 - Use the smallest validation set that proves the slice you changed.
 - If a change affects docs or navigation, verify the mesh.
 - If a change affects doctrine or the agents mesh, verify doctrine reachability with the agent mesh validator.
-- If a change affects the `tools/` runner, verify it still runs on both `ci --apply` and `ci --check`.
+- If a change affects the `tools/` runner, verify the affected named command and `ci --apply` when apply behavior is in scope.
 - When you need cross-platform parity evidence, run the matching command in each environment or shell family separately. Do not make that the default minimum for one agent run.
 - Exact copied skill trees under `.agents/skills/` are validated by `tools/run.py refresh-skills --check`; exclude them from whitespace diff checks so upstream formatting does not generate false failures.
 - Automated gates protect objective contracts: executable behaviour, route integrity, accessibility, privacy, asset custody, and budgets. They do not freeze exact prose, CSS classes, component structure, or every visual value.

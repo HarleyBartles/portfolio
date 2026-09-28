@@ -102,12 +102,8 @@ def _tests_cmd() -> list[str]:
     return [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]
 
 
-def _link_hygiene_check_cmd() -> list[str]:
-    return [sys.executable, "tools/check_link_hygiene.py"]
-
-
-def _portfolio_quality_check_cmd() -> list[str]:
-    return [sys.executable, "tools/check_portfolio_quality.py"]
+def _repository_validation_cmd() -> list[str]:
+    return [sys.executable, "-m", "tests.validation.repository_validation"]
 
 
 def _content_manifest_cmd(mode: str) -> list[str]:
@@ -220,6 +216,35 @@ def _python_tests_check(ctx: Ctx) -> None:
         print("[tools/run] no Python tests under tests/; skipping test step")
 
 
+def _vitest_tests_check(ctx: Ctx) -> None:
+    _run(_client_unit_tests_cmd(), ctx)
+
+
+def _production_build_check(ctx: Ctx) -> None:
+    _run(_client_cmd("run", "build"), ctx)
+
+
+def _playwright_tests_check(ctx: Ctx) -> None:
+    _run(_client_e2e_cmd(), ctx)
+
+
+def _repository_checks_check(ctx: Ctx) -> None:
+    _diagnostic_check_steps(
+        [
+            ("repository standards", _repo_standards_check, None),
+            ("installed skills", _skills_check, None),
+            ("agent mesh", _mesh_check, None),
+            ("content manifest", _content_manifest_check, None),
+            ("route catalogue", _route_catalogue_check, None),
+        ],
+        ctx,
+    )
+
+
+def _repository_validation_check(ctx: Ctx) -> None:
+    _run(_repository_validation_cmd(), ctx)
+
+
 def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], str | None]]:
     steps = [
         ("repository standards", _repo_standards_check, None),
@@ -227,23 +252,26 @@ def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], st
         ("agent mesh", _mesh_check, None),
         ("content manifest", _content_manifest_check, None),
         ("route catalogue", _route_catalogue_check, None),
-        ("link hygiene", lambda ctx: _run(_link_hygiene_check_cmd(), ctx), None),
-        ("portfolio quality", lambda ctx: _run(_portfolio_quality_check_cmd(), ctx), None),
+        ("repository validation", lambda ctx: _run(_repository_validation_cmd(), ctx), None),
         ("Python tests", _python_tests_check, None),
-        ("client unit tests", lambda ctx: _run(_client_unit_tests_cmd(), ctx), None),
-        ("production build", lambda ctx: _run(_client_cmd("run", "build"), ctx), None),
+        ("client unit tests", _vitest_tests_check, None),
+        ("production build", _production_build_check, None),
     ]
     if include_e2e:
-        steps.append(("Playwright journeys", lambda ctx: _run(_client_e2e_cmd(), ctx), "production build"))
+        steps.append(("Playwright journeys", _playwright_tests_check, "production build"))
     return steps
 
 
 def _diagnostic_check(ctx: Ctx, include_e2e: bool) -> None:
+    _diagnostic_check_steps(_check_steps(include_e2e), ctx)
+
+
+def _diagnostic_check_steps(steps: list[tuple[str, Callable[[Ctx], None], str | None]], ctx: Ctx) -> None:
     failures: list[DiagnosticResult] = []
     skipped: list[DiagnosticResult] = []
     failed_names: set[str] = set()
 
-    for name, action, blocked_by in _check_steps(include_e2e):
+    for name, action, blocked_by in steps:
         if blocked_by in failed_names:
             skipped.append(DiagnosticResult(name, blocked_by))
             print(f"[tools/run] {name}: skipped because {blocked_by} failed")
@@ -273,11 +301,10 @@ def _base_ci_check(ctx: Ctx) -> None:
     _mesh_check(ctx)
     _content_manifest_check(ctx)
     _route_catalogue_check(ctx)
-    _run(_link_hygiene_check_cmd(), ctx)
-    _run(_portfolio_quality_check_cmd(), ctx)
+    _run(_repository_validation_cmd(), ctx)
     _python_tests_check(ctx)
-    _run(_client_unit_tests_cmd(), ctx)
-    _run(_client_cmd("run", "build"), ctx)
+    _vitest_tests_check(ctx)
+    _production_build_check(ctx)
 
 
 def _ci_check(ctx: Ctx) -> None:
@@ -285,7 +312,7 @@ def _ci_check(ctx: Ctx) -> None:
         _diagnostic_check(ctx, include_e2e=True)
         return
     _base_ci_check(ctx)
-    _run(_client_e2e_cmd(), ctx)
+    _playwright_tests_check(ctx)
 
 
 def _all_apply(ctx: Ctx) -> None:
@@ -308,6 +335,12 @@ TARGETS = {
     "mesh": {"apply": _mesh_apply, "check": _mesh_check},
     "content-manifest": {"apply": _content_manifest_apply, "check": _content_manifest_check},
     "route-catalogue": {"apply": _route_catalogue_apply, "check": _route_catalogue_check},
+    "repo-checks": {"check": _repository_checks_check},
+    "repository-validation": {"check": _repository_validation_check},
+    "python-tests": {"check": _python_tests_check},
+    "vitest-tests": {"check": _vitest_tests_check},
+    "production-build": {"check": _production_build_check},
+    "playwright-tests": {"check": _playwright_tests_check},
     "ci": {"apply": _ci_apply, "check": _ci_check},
     "all": {"apply": _all_apply, "check": _all_check},
 }
@@ -355,8 +388,13 @@ def main() -> int:
         if not shared_checkout.approve_mutation(ROOT, SCRIPT_NAME, args.allow_shared_checkout):
             return 1
 
+    step = TARGETS[args.target].get(mode)
+    if step is None:
+        print(f"[tools/run] target '{args.target}' supports --check only", file=sys.stderr)
+        return 2
+
     try:
-        _run_steps(args.target, ctx, TARGETS[args.target][mode])
+        _run_steps(args.target, ctx, step)
     except (subprocess.CalledProcessError, DiagnosticCheckError) as exc:
         print(f"[tools/run] target '{args.target}' failed: {exc}", file=sys.stderr)
         return 1

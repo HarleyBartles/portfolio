@@ -1,6 +1,21 @@
 {
   "apply": ["@python", "tools/run.py", "ci", "--apply"],
-  "check": ["@python", "tools/run.py", "ci", "--check", "--diagnostics"],
+  "check": [
+    ["@python", "tools/run.py", "repo-checks", "--check"],
+    ["@python", "tools/run.py", "repository-validation", "--check"],
+    ["@python", "tools/run.py", "python-tests", "--check"],
+    ["@python", "tools/run.py", "vitest-tests", "--check"],
+    ["@python", "tools/run.py", "production-build", "--check"],
+    ["@python", "tools/run.py", "playwright-tests", "--check"]
+  ],
+  "check_metadata": [
+    {"name": "repository checks"},
+    {"name": "repository validation", "hosted_step": true},
+    {"name": "Python tests", "hosted_step": true},
+    {"name": "Vitest tests", "hosted_step": true},
+    {"name": "production build", "hosted_step": true},
+    {"name": "Playwright journeys", "requires": "production build", "hosted_step": true}
+  ],
   "generated_paths": [
     ".agents/skills/**",
     "**/INDEX.md",

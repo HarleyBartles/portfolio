@@ -14,13 +14,12 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "src" / "client" / "src" / "data" / "content" / "content-manifest.json"
 DEFAULT_ROUTE_CATALOGUE = ROOT / "src" / "client" / "src" / "data" / "routes" / "route-metadata.generated.json"
 DEFAULT_PREVIEW_ROUTES = ROOT / "src" / "client" / "src" / "data" / "routes" / "preview-routes.json"
 UNKNOWN_ROUTE = "/__portfolio-route-smoke__"
 USER_AGENT = "portfolio-public-route-check/1.0"
-
 
 class DocumentMetadataParser(HTMLParser):
     def __init__(self) -> None:
@@ -51,14 +50,12 @@ class DocumentMetadataParser(HTMLParser):
         if self.in_title:
             self.title_parts.append(data)
 
-
 @dataclass(frozen=True)
 class FetchResult:
     status: int
     content_type: str
     body: bytes
     final_url: str
-
 
 def compatibility_route_canonicals(manifest: Mapping[str, Any]) -> dict[str, str]:
     aliases = {"/fairytales": "/patch"}
@@ -68,7 +65,6 @@ def compatibility_route_canonicals(manifest: Mapping[str, Any]) -> dict[str, str
         if isinstance(slug, str) and isinstance(source_path, str) and source_path.startswith("fairytales/"):
             aliases[f"/fairytales/{slug}"] = f"/patch/{slug}"
     return aliases
-
 
 def expected_public_routes(
     route_catalogue: Sequence[Mapping[str, Any]],
@@ -86,7 +82,6 @@ def expected_public_routes(
     )
     return sorted(public_routes)
 
-
 def expected_preview_routes(preview_routes: Sequence[Mapping[str, Any]]) -> list[str]:
     """Return deployed preview routes without promoting them to public routes."""
     return [
@@ -95,16 +90,13 @@ def expected_preview_routes(preview_routes: Sequence[Mapping[str, Any]]) -> list
         if isinstance(route.get("path"), str) and route["path"]
     ]
 
-
 def _request_url(origin: str, route: str) -> str:
     base = origin.rstrip("/")
     return f"{base}/" if route == "/" else f"{base}{route}"
 
-
 def _canonical_url(origin: str, route: str) -> str:
     base = origin.rstrip("/")
     return base if route == "/" else f"{base}{route}"
-
 
 def _read_response(response: Any, status: int | None = None) -> FetchResult:
     content_type = response.headers.get_content_type() if response.headers is not None else ""
@@ -114,7 +106,6 @@ def _read_response(response: Any, status: int | None = None) -> FetchResult:
         body=response.read(2_000_000),
         final_url=response.geturl(),
     )
-
 
 def _fetch(url: str, *, retries: int, retry_delay: float, timeout: float) -> FetchResult:
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
@@ -141,13 +132,11 @@ def _fetch(url: str, *, retries: int, retry_delay: float, timeout: float) -> Fet
     assert last_error is not None
     raise last_error
 
-
 def _looks_like_github_error(body: str) -> bool:
     lowered = body.lower()
     return "github pages" in lowered and (
         "page not found" in lowered or "there is no github pages site here" in lowered
     )
-
 
 def _inspect_html(route: str, result: FetchResult, expected_canonical: str, *, unknown: bool) -> list[str]:
     findings: list[str] = []
@@ -170,7 +159,6 @@ def _inspect_html(route: str, result: FetchResult, expected_canonical: str, *, u
         )
     return findings
 
-
 def _inspect_preview_html(route: str, result: FetchResult) -> list[str]:
     findings: list[str] = []
     if result.content_type != "text/html":
@@ -191,7 +179,6 @@ def _inspect_preview_html(route: str, result: FetchResult) -> list[str]:
     if parser.canonical is not None:
         findings.append(f"{route}: preview route must not declare a canonical URL")
     return findings
-
 
 def check_public_routes(
     origin: str,
@@ -250,7 +237,6 @@ def check_public_routes(
         findings.extend(_inspect_html(UNKNOWN_ROUTE, unknown_result, _canonical_url(origin, "/"), unknown=True))
     return findings
 
-
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--origin", required=True, help="Deployed base URL, including /portfolio")
@@ -260,7 +246,6 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--retry-delay", type=float, default=1.0)
     parser.add_argument("--timeout", type=float, default=15.0)
     return parser.parse_args(argv)
-
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
@@ -277,17 +262,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         timeout=args.timeout,
     )
     if findings:
-        print("[tools/check_public_routes] public route failures:", file=sys.stderr)
+        print("[deployed-route-smoke] public route failures:", file=sys.stderr)
         for finding in findings:
             print(f"  - {finding}", file=sys.stderr)
         return 1
 
     print(
-        f"[tools/check_public_routes] {len(expected_public_routes(route_catalogue, manifest))} public routes, "
+        f"[deployed-route-smoke] {len(expected_public_routes(route_catalogue, manifest))} public routes, "
         f"{len(expected_preview_routes(preview_routes))} preview routes, and custom 404 OK"
     )
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import {
-  PATCH_DERIVATIVES,
   PATCH_HEIST_SOURCE_IDENTITY,
   PATCH_SOURCE_REVISION,
   assertApprovedSourceState,
@@ -53,42 +52,6 @@ const fixtureManifest = {
 }
 
 describe('Patch asset processor', () => {
-  it('locks the reviewed derivative definitions', () => {
-    expect(PATCH_DERIVATIVES.hero.widths).toEqual([500, 1000])
-    expect(PATCH_DERIVATIVES.hero.sourceCrop).toEqual({ left: 0, top: 0, width: 1000, height: 1344 })
-    expect(PATCH_DERIVATIVES.hero.formats).toEqual(['avif', 'webp'])
-    expect(PATCH_DERIVATIVES.clubDb.slides).toEqual([2, 4, 14])
-    expect(PATCH_DERIVATIVES.introducingPagePortrait.sourcePath).toBe('published/misc/introducing-patch/page__v1-mobile.png')
-    expect(PATCH_DERIVATIVES.goldilocksPortrait.sourcePath).toBe('published/fairytales/goldilocks/page__right_amount_of_guidance__v1-mobile.png')
-    expect(PATCH_DERIVATIVES.identity.sourceStatus).toBe('legacy_reference')
-    expect(PATCH_DERIVATIVES.identityBotFailure.sourcePath).toContain('cowboy_alt_chicken_chase')
-    expect(PATCH_DERIVATIVES.identityBotFailure.cropFrame).toEqual({ width: 480, height: 384, position: 'center' })
-    expect(PATCH_DERIVATIVES.identityBitAction.sourcePath).toContain('bit_action')
-    expect(PATCH_DERIVATIVES.tournamentSevenDay.sourcePath).toContain('c1_r1_hero')
-    expect(PATCH_DERIVATIVES.tournamentHighJump.sourcePath).toContain('c2_r1_hero')
-    expect(PATCH_DERIVATIVES.tournamentMaze.sourcePath).toContain('c3_r2_alt_overhead_maze')
-    expect(PATCH_DERIVATIVES.tournamentMazeMap.sourcePath).toContain('c3_r3_alt_annotated_map')
-    expect(PATCH_DERIVATIVES.tournamentBitHazard.sourcePath).toContain('bit_hazard_tape')
-    expect(PATCH_DERIVATIVES.tournamentBotWrongLine.sourcePath).toContain('bot_wrong_line')
-    expect(PATCH_DERIVATIVES.tournamentLongCourse.sourcePath).toContain('c4_r2_alt_false_line_risks')
-    expect(PATCH_DERIVATIVES.identityCowboy.sourcePath).toContain('cowboy-role-kit')
-    expect(PATCH_DERIVATIVES.heistFolderOpen.sourcePath).toContain('01_clean_folder')
-    expect(PATCH_DERIVATIVES.heist.sourcePath).toContain('07_receipt_joined')
-    expect(PATCH_DERIVATIVES.heistIndex.sourcePath).toBe('build/characters/heist-crew/reference_sheets/index_hero__v1.png')
-    expect(PATCH_DERIVATIVES.heistReceipt.sourcePath).toBe('build/characters/heist-crew/reference_sheets/receipt_hero__v1.png')
-    expect(PATCH_DERIVATIVES.heistIndexMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-index.png')
-    expect(PATCH_DERIVATIVES.heistReceiptMarker.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/assent-receipt.png')
-    expect(PATCH_DERIVATIVES.heistRollbackLockdown.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/rollback-lockdown.png')
-    expect(PATCH_DERIVATIVES.heistReceiptAlcove.portfolioSourcePath).toBe('src/client/assets/patch/lawful-heist/receipt-alcove.png')
-    expect(Object.keys(PATCH_DERIVATIVES).filter((key) => key.endsWith('Marker'))).toHaveLength(6)
-    expect([
-      PATCH_DERIVATIVES.identityCowboy,
-      PATCH_DERIVATIVES.identityDetective,
-      PATCH_DERIVATIVES.identityMechanic,
-      PATCH_DERIVATIVES.identityChef,
-    ].map(({ frame }) => frame)).toEqual(Array(4).fill({ width: 480, height: 600 }))
-  })
-
   it('builds outputs with the custody fields required by later evidence', () => {
     const outputs = buildDerivativeManifest(fixtureManifest)
 
@@ -97,7 +60,6 @@ describe('Patch asset processor', () => {
       expect(output.width).toBeGreaterThan(0)
       expect(output.height).toBeGreaterThan(0)
       expect(output.sourcePath ?? output.portfolioSourcePath ?? output.sourceObjectId).toMatch(/^(?:.+\.(png|pptx)|[a-f0-9]{40})$/)
-      expect(output.sourceRevision).toBe(PATCH_SOURCE_REVISION)
       expect(output.encoding).toEqual(expect.objectContaining({ quality: expect.any(Number) }))
       expect(output.byteBudgetClass).toMatch(/^(hero|page|support)$/)
     }

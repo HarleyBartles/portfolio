@@ -10,7 +10,7 @@ What audience or product problem does this change solve, and what should be bett
 
 ## Evidence
 
-- [ ] Latest normal commit passed the tracked hook's complete `ci --check` gate (or a manual run is explained because no commit followed)
+- [ ] Latest normal commit passed the tracked hook's complete staged-tree gate, composed from separately named suites (or a manual run is explained because no commit followed)
 - [ ] Changed routes and direct-route behaviour checked
 - [ ] Claims, statuses, links, and asset custody checked
 - [ ] No plaintext personal email address, phone number, or private path added

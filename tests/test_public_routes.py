@@ -9,7 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Iterator
 
-from tools.check_public_routes import check_public_routes, expected_preview_routes, expected_public_routes
+from tests.validation.deployed_routes import check_public_routes, expected_preview_routes, expected_public_routes
 
 
 def page(title: str, canonical: str) -> bytes:
