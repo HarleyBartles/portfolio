@@ -21,7 +21,7 @@ class Phase6CloseoutTests(unittest.TestCase):
         )
 
     def test_learning_lab_custody_uses_the_root_command_bus_shape(self) -> None:
-        custody = (ROOT / "docs/asset-custody.md").read_text(encoding="utf-8")
+        custody = (ROOT / "docs/asset-custody/learning-lab.json").read_text(encoding="utf-8")
 
         self.assertIn(
             "`npm.cmd --prefix src/client run media:learning-lab:check`",

@@ -1,0 +1,65 @@
+{
+  "family": "typography",
+  "groups": [
+    {
+      "title": "Typography",
+      "details": [
+        {
+          "kind": "prose",
+          "text": "The site self-hosts Latin WOFF2 variable-font subsets through Fontsource npm packages. Every face uses `font-display: swap`; fallback stacks remain in `src/client/src/styles/_tokens.scss`. The packages retain their licence files and attribution metadata in `node_modules`, and the exact resolved versions are locked in `src/client/package-lock.json`."
+        }
+      ],
+      "records": [
+        {
+          "title": "Source Sans 3",
+          "details": [
+            {
+              "kind": "facts",
+              "items": [
+                "Dependency: `@fontsource-variable/source-sans-3` 5.3.0; upstream font version v17.",
+                "File used: `source-sans-3-latin-wght-normal.woff2`.",
+                "Source and attribution: Google Fonts / Adobe, `github.com/adobe-fonts/source-sans`.",
+                "Licence: SIL Open Font License 1.1.",
+                "Use and fallback: shared site voice; Segoe UI, Arial, then generic sans-serif.",
+                "Added: 2026-09-03."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Source Serif 4",
+          "details": [
+            {
+              "kind": "facts",
+              "items": [
+                "Dependency: `@fontsource-variable/source-serif-4` 5.3.0; upstream font version v14.",
+                "Files used: `source-serif-4-latin-wght-normal.woff2` and `source-serif-4-latin-wght-italic.woff2`.",
+                "Source and attribution: Google Fonts; metadata attribution is Google Inc.",
+                "Licence: SIL Open Font License 1.1.",
+                "Use and fallback: body and long-form reading; Iowan Old Style then generic serif.",
+                "Added: 2026-08-21."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Source Code Pro",
+          "details": [
+            {
+              "kind": "facts",
+              "items": [
+                "Dependency: `@fontsource-variable/source-code-pro` 5.3.0; upstream font version v14.",
+                "File used: `source-code-pro-latin-wght-normal.woff2`.",
+                "Source and attribution: Google Fonts / Adobe, `github.com/adobe-fonts/source-code-pro`.",
+                "Licence: SIL Open Font License 1.1.",
+                "Use and fallback: code, diffs, technical evidence and compact utility text; Cascadia Code, SFMono-Regular, then generic monospace.",
+                "Added: 2026-09-03."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assetPaths": []
+}

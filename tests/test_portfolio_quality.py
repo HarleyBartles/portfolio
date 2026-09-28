@@ -99,14 +99,21 @@ class PortfolioFixture:
         asset = self.public / "media/example.webp"
         asset.parent.mkdir(parents=True, exist_ok=True)
         asset.write_bytes(b"RIFF-owned-image")
-        self.docs.mkdir(parents=True, exist_ok=True)
-        (self.docs / "asset-custody.md").write_text(
-            "- Public file: `src/client/public/media/example.webp`\n",
-            encoding="utf-8",
-        )
+        self.write_custody(["src/client/public/media/example.webp"])
         source = self.root / "src/client/src/example.ts"
         source.parent.mkdir(parents=True, exist_ok=True)
         source.write_text("export const label = 'safe'\n", encoding="utf-8")
+
+    def write_custody(self, paths: list[str]) -> None:
+        ledger = self.docs / "asset-custody/fixture.json"
+        ledger.parent.mkdir(parents=True, exist_ok=True)
+        ledger.write_text(json.dumps({"family": "fixture", "groups": [], "assetPaths": paths}), encoding="utf-8")
+
+    def add_custody_path(self, path: str) -> None:
+        ledger = self.docs / "asset-custody/fixture.json"
+        data = json.loads(ledger.read_text(encoding="utf-8"))
+        data["assetPaths"].append(path)
+        ledger.write_text(json.dumps(data), encoding="utf-8")
 
     def write_manifest(self) -> None:
         self.content.mkdir(parents=True, exist_ok=True)
@@ -210,11 +217,7 @@ class PortfolioFixture:
         asset = self.root / asset_path
         asset.parent.mkdir(parents=True, exist_ok=True)
         Image.new("RGB", (1, 1), "white").save(asset, "WEBP")
-        custody_path = self.docs / "asset-custody.md"
-        custody_path.write_text(
-            custody_path.read_text(encoding="utf-8") + f"- Public file: `{asset_path}`\n",
-            encoding="utf-8",
-        )
+        self.add_custody_path(asset_path)
         evidence = {
             "observedAt": "2026-08-24",
             "repositoryUrl": "https://github.com/HarleyBartles/adventures-of-patch",
@@ -1285,31 +1288,22 @@ class PortfolioQualityTests(unittest.TestCase):
         findings = self.validate(mutate)
 
         self.assertTrue(any("exceeds 409600 bytes" in finding for finding in findings))
-        self.assertTrue(any("missing from docs/asset-custody.md" in finding for finding in findings))
+        self.assertTrue(any("missing from asset custody ledgers" in finding for finding in findings))
 
-    def test_asset_custody_requires_an_exact_backticked_public_path(self) -> None:
+    def test_asset_custody_requires_an_exact_public_path(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
-            custody = fixture.docs / "asset-custody.md"
-            custody.write_text(
-                "- Public file: `src/client/public/media/example.webp.backup`\n",
-                encoding="utf-8",
-            )
+            fixture.write_custody(["src/client/public/media/example.webp.backup"])
 
         findings = self.validate(mutate)
 
-        self.assertTrue(any("missing from docs/asset-custody.md" in finding for finding in findings))
+        self.assertTrue(any("missing from asset custody ledgers" in finding for finding in findings))
 
     def test_asset_custody_rejects_stale_records_and_covers_source_imports(self) -> None:
         def mutate(fixture: PortfolioFixture) -> None:
             imported = fixture.root / "src/client/src/media/imported.png"
             imported.parent.mkdir(parents=True, exist_ok=True)
             imported.write_bytes(b"source-import")
-            custody = fixture.docs / "asset-custody.md"
-            custody.write_text(
-                custody.read_text(encoding="utf-8")
-                + "- Public file: `src/client/public/media/missing.png`\n",
-                encoding="utf-8",
-            )
+            fixture.add_custody_path("src/client/public/media/missing.png")
 
         findings = self.validate(mutate)
 

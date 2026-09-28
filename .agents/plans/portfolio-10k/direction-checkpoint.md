@@ -360,7 +360,7 @@ Useful source material already exists:
 - The portfolio repository itself contains build, validation, accessibility,
   route, asset-custody, and publication evidence.
 
-Any imported asset still follows `docs/asset-custody.md`. Source availability
+Any imported asset still follows `docs/asset-custody/README.md` and its ledgers. Source availability
 does not automatically grant a composition, crop, or deployment decision.
 
 ## Provisional £10k workstreams

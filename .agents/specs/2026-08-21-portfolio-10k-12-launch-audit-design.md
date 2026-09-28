@@ -245,7 +245,7 @@ The JIT plan must inspect the landed repository. Expected surfaces include:
 - Vitest and Playwright suites, including all configured browsers;
 - generated sitemap, robots, route documents, and social assets;
 - contact-provider activation evidence and CV artefact;
-- `docs/asset-custody.md`;
+- `docs/asset-custody/README.md` and its ledgers;
 - `docs/decisions/README.md` and relevant ADRs;
 - the README public roadmap and explicit deferrals;
 - the new dated launch-audit report; and

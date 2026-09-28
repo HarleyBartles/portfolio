@@ -22,7 +22,7 @@ Use this playbook when adding, changing, generating, attributing, replacing, or 
 
 ## Doctrine and contracts
 
-- `docs/asset-custody.md` is the current production custody record.
+- `docs/asset-custody/README.md` explains the current production custody ledgers.
 - [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) constrains artifact placement.
 
 ## Local commands and paths

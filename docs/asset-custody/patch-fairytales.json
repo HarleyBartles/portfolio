@@ -1,0 +1,51 @@
+{
+  "family": "patch-fairytales",
+  "groups": [
+    {
+      "title": "Patch Fairytales",
+      "details": [],
+      "records": [
+        {
+          "title": "Goldilocks â€” The Right Amount of Guidance",
+          "details": [
+            {
+              "kind": "facts",
+              "items": [
+                "Public files:",
+                "  `src/client/public/fairytales/goldilocks/page-640.webp` â€” `640 Ã— 360`, 39,154 bytes.",
+                "  `src/client/public/fairytales/goldilocks/page-1200.webp` â€” `1200 Ã— 675`, 105,172 bytes.",
+                "Source repository/file: portfolio copy of the Harley-owned Adventures of Patch output, formerly `page__right_amount_of_guidance__v1.png` at `2400 Ã— 1350`, 1,568,600 bytes.",
+                "Transformation: Lanczos resize and quality-86 WebP export.",
+                "Added: 2026-08-21.",
+                "Accessibility: the detail page provides a concise alt description and a separate three-scene transcript."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The Sorcerer's Apprentice â€” Delegation Without Boundaries",
+          "details": [
+            {
+              "kind": "facts",
+              "items": [
+                "Public files:",
+                "  `src/client/public/fairytales/sorcerers-apprentice/page-640.webp` â€” `640 Ã— 360`, 61,638 bytes.",
+                "  `src/client/public/fairytales/sorcerers-apprentice/page-1200.webp` â€” `1200 Ã— 675`, 165,046 bytes.",
+                "Source repository/file: portfolio copy of the Harley-owned Adventures of Patch output, formerly `page__delegation_without_boundaries__v1.png` at `2400 Ã— 1350`, 4,491,081 bytes.",
+                "Transformation: Lanczos resize and quality-86 WebP export.",
+                "Added: 2026-08-21.",
+                "Accessibility: the detail page provides a concise alt description and a separate scene transcript."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assetPaths": [
+    "src/client/public/fairytales/goldilocks/page-1200.webp",
+    "src/client/public/fairytales/goldilocks/page-640.webp",
+    "src/client/public/fairytales/sorcerers-apprentice/page-1200.webp",
+    "src/client/public/fairytales/sorcerers-apprentice/page-640.webp"
+  ]
+}

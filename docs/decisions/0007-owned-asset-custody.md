@@ -5,7 +5,7 @@
 
 **Context:** Project-native imagery improves specificity, but copied or oversized assets can create ownership, performance, and future-maintenance uncertainty.
 
-**Decision:** Deploy only optimized owned derivatives and record provenance, transformation, dimensions, byte size, and alt-text intent in `docs/asset-custody.md`.
+**Decision:** Deploy only optimized owned derivatives and record provenance, transformation, dimensions, byte size, and alt-text intent in the asset custody records, now at `docs/asset-custody/`.
 
 **Consequence:** New imagery must have an auditable source and a purposeful responsive representation.
 
