@@ -1,6 +1,6 @@
 # Portfolio £10k Direction Checkpoint
 
-**Status:** Approved roadmap input
+**Status:** Active roadmap input; retire with the completed epic
 
 **Recorded:** 21 August 2026
 
@@ -14,8 +14,8 @@ and the move from Team Manager to Web Manager.
 **Repository baseline:** `e0af0fda29de6ee2b0e244f951b7aa5af1b6202a`
 
 This document preserves the product, positioning, evidence, and editorial
-decisions made after the first premium-design pass. It is the durable input to
-the next design spec and `/working-with-epics` roadmap. It is not itself an
+decisions made after the first premium-design pass. It is an active input to
+the portfolio £10k roadmap and its remaining phases. It is not itself an
 implementation plan, an approved set of final website words, or a freeze on
 future visual development.
 

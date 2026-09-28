@@ -1,7 +1,7 @@
 # Portfolio £10k Quality — Roadmap
 
 This is the live control document for the next portfolio-quality epic. It turns
-the approved [direction checkpoint](../../../docs/portfolio-10k-direction-checkpoint.md)
+the approved [direction checkpoint](direction-checkpoint.md)
 into consecutive, independently reviewable releases without pretending the
 implementation details can be planned months in advance.
 

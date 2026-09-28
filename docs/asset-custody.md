@@ -280,7 +280,7 @@ These crops remove application-shell chrome while preserving the product surface
 ### Iterative Review version-one graph
 
 - Public file: `src/client/public/images/writing/review-graph-v1.svg`.
-- Source: `docs/assets/review-graph-v1.mmd`, a faithful Mermaid capture of `codex-marketplace/plugins/superpowers-plus/skills/iterative-review/references/review-state-graph.md` at first-party Marketplace revision `70dd30e2e65fd8f7aa89796a1a037da14235dd2a`. The capture preserves every node and transition in that source graph; its dark treatment is a portfolio presentation choice, not a claim about the runtime.
+- Source: `src/client/src/features/writing/review-graph-v1.mmd`, a faithful Mermaid capture of `codex-marketplace/plugins/superpowers-plus/skills/iterative-review/references/review-state-graph.md` at first-party Marketplace revision `70dd30e2e65fd8f7aa89796a1a037da14235dd2a`. The capture preserves every node and transition in that source graph; its dark treatment is a portfolio presentation choice, not a claim about the runtime.
 - Rights: Harley Bartles' first-party Marketplace workflow source, published from the public repository; authorised for this portfolio article.
 - Transformation: rendered locally on 2026-08-27 with `@mermaid-js/mermaid-cli` 11.12.0. The retained source is the Mermaid input; the public output is static SVG with the portfolio's ink, surface and border palette, `2428.17 Ã— 1544` view box, 61,984 bytes, SHA-256 `8427a3c8494755c6eb9a4964c4599bd06d7875013c31e67c06a8aaf102ee0879`.
 - Alt and fallback: the concise alt identifies the initial orderly route and the later knot around repair, metrics, triage and final review. The figure caption and article text carry the argument if the image cannot load.
