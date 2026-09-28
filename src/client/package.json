@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:wild-bunch-concept:check && npm run media:wild-bunch-evidence-crops:check && npm run media:learning-lab:check && npm run media:usual-specialists:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs",
+    "build": "npm run routes:check && npm run media:wild-bunch:check && npm run media:wild-bunch-concept:check && npm run media:wild-bunch-evidence-crops:check && npm run media:learning-lab:check && npm run media:usual-specialists:check && tsc -b && vite build && node scripts/generate-route-documents.mjs && node scripts/generate-cv-pdf.mjs && node scripts/check-build-budget.mjs && node scripts/check-route-chunk-isolation.mjs",
     "routes:apply": "node scripts/generate-route-catalogue.mjs",
     "routes:check": "node scripts/generate-route-catalogue.mjs --check",
     "media:wild-bunch:apply": "node scripts/process-wild-bunch-captures.mjs --apply",

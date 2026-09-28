@@ -36,22 +36,6 @@ test('homepage edition changes across a GMT day and its article link reaches tha
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(nextTitle!)
 })
 
-test('direct routes load only their own page bundle', async ({ page }) => {
-  const requestedScripts = new Set<string>()
-  page.on('request', (request) => {
-    if (request.resourceType() === 'script') requestedScripts.add(new URL(request.url()).pathname)
-  })
-
-  await page.goto('./about', { waitUntil: 'networkidle' })
-  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  expect([...requestedScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(false)
-
-  requestedScripts.clear()
-  await page.goto('./', { waitUntil: 'networkidle' })
-  await expect(page.getByRole('heading', { level: 1, name: movementHeadings[0] })).toBeVisible()
-  expect([...requestedScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(true)
-})
-
 test('home journeys keep movement order and aligned frames usable with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
 

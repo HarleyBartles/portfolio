@@ -1,26 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-test('direct article routes load only the selected specialist body chunk', async ({ page }) => {
-  const scriptRequests = new Set<string>()
-  page.on('request', (request) => {
-    if (request.resourceType() === 'script') scriptRequests.add(new URL(request.url()).pathname)
-  })
-
-  await page.goto('./writing/i-just-write-the-code-is-not-a-full-sentence/')
-  await expect(page.getByRole('heading', { level: 1, name: '"I just write the code" is not a full sentence' })).toBeVisible()
-  expect([...scriptRequests].some((path) => path.includes('ProductOwnershipArticle-'))).toBe(true)
-  for (const chunk of ['TestingEvidenceArticle-', 'ContextComplexityArticle-', 'RianHughesArticle-', 'UseSuperpowersArticle-']) {
-    expect([...scriptRequests].some((path) => path.includes(chunk))).toBe(false)
-  }
-
-  scriptRequests.clear()
-  await page.goto('./writing/why-adrs/')
-  await expect(page.getByRole('heading', { level: 1, name: 'Why ADRs?' })).toBeVisible()
-  for (const chunk of ['TestingEvidenceArticle-', 'ProductOwnershipArticle-', 'ContextComplexityArticle-', 'RianHughesArticle-', 'UseSuperpowersArticle-']) {
-    expect([...scriptRequests].some((path) => path.includes(chunk))).toBe(false)
-  }
-})
-
 test('Why ADRs keeps its decision memory and pull quote readable at desktop and mobile sizes', async ({ page }) => {
   await page.setViewportSize({ width: 1600, height: 1000 })
   await page.goto('./writing/why-adrs/')
