@@ -79,6 +79,23 @@ Measured on the same Windows host on 28 September 2026 after exposing each comma
 
 These standalone runs total 219.446 s and are not the wall time of the tracked hook, which also applies and checks generated surfaces and starts one process per declared phase. The Playwright result is a compaction signal for journey review, not permission to drop protected behavior.
 
+### Post-sanitation standalone timings
+
+Measured on 28 September 2026 on the same warm Windows host, after the final About/Home and command-runner sweep. Each local suite uses the named command that the hook and hosted quality job invoke. The browser suite and visual job each use one Chromium worker; the visual job includes its build. The public-route command targets the current live site, not this unmerged branch.
+
+| Suite/phase | Exact command | Wall clock | Result |
+| --- | --- | ---: | --- |
+| Mechanical and repository checks | `py -3 tools/run.py repo-checks --check` | **4.855 s** | Exit 0 |
+| Repository validation | `py -3 tools/run.py repository-validation --check` | **0.492 s** | Exit 0; validators passed |
+| Python | `py -3 tools/run.py python-tests --check` | **27.485 s** | Exit 0; 81 tests passed |
+| Vitest | `py -3 tools/run.py vitest-tests --check` | **30.283 s** | Exit 0; 291 tests in 107 files passed |
+| Production build | `py -3 tools/run.py production-build --check` | **13.393 s** | Exit 0; production build and generated PDF checks passed |
+| Playwright journeys | `py -3 tools/run.py playwright-tests --check` | **99.732 s** | Exit 0; 130 journeys passed with one worker |
+| Hosted Windows visual job | `npm.cmd --prefix src/client run test:e2e:visual` | **44.282 s** | Exit 0; 15 visual tests passed, Playwright reported 28.8 s |
+| Post-deploy public-route smoke | `py -3 -m tests.validation.deployed_routes --origin https://harleybartles.com/` | **21.140 s** | Exit 0; 29 public routes, one preview route, and custom 404 passed |
+
+The first six independent local phases total **176.240 s**, down **43.206 s (19.7%)** from the 219.446 s separated pre-cleanup total. The Playwright phase alone fell by **42.775 s (30.0%)** while retaining named visitor journeys and reducing the discovered suite from 178 to 130 tests. The separate visual job stayed near its 41.417 s baseline and retains all 15 visual journeys; its browser portion was 28.8 s versus 27.9 s before sanitation. These are standalone phase totals, not the composed hook or hosted pipeline duration. The live smoke time is network-sensitive and does not measure this branch's deployment.
+
 ---
 
 ### Task 1: Make test suites independent commands in the local gate
@@ -252,9 +269,9 @@ These standalone runs total 219.446 s and are not the wall time of the tracked h
 
 **Interfaces:** Consumes all earlier task outcomes. Produces a suite with a named primary owner for every retained invariant, no unaccounted test-file move, and no product-source change.
 
-- [ ] **Step 1: Recheck the full file inventory.** Classify any test or validator not touched in Tasks 3-9 against the same four smells: tautology, source-change detection, completed implementation residue, and duplicated/TDD sprawl. Remove a remaining smell only when the contract has another owner or does not protect an ongoing invariant. Leave objective safety checks in place.
-- [ ] **Step 2: Review the diff for contract loss.** Compare pre- and post-cleanup test names, not totals as a success metric. For each deleted case, record the surviving owner or why the assertion was worthless. Verify no production code, generated manifests, authored content, image assets, or visual baselines changed.
-- [ ] **Step 3: Run narrow proof for any final corrections.** Choose the affected named Vitest, Python, or Playwright suite command from the preceding tasks. Run `py -3 tools/run.py index-mesh --check` after regeneration. Stage and commit normally; the tracked hook owns the complete local gate.
+- [x] **Step 1: Recheck the full file inventory.** Classify any test or validator not touched in Tasks 3-9 against the same four smells: tautology, source-change detection, completed implementation residue, and duplicated/TDD sprawl. Remove a remaining smell only when the contract has another owner or does not protect an ongoing invariant. Leave objective safety checks in place. The remaining large Python modules each own one cohesive contract: tracked-hook staged-tree safety, command-bus dispatch, and deployed-route verification. Split command-bus suite composition into `tests/test_run_suites.py`; keep the hook and deployed-route files intact because their cases share one fixture and one safety boundary.
+- [x] **Step 2: Review the diff for contract loss.** Compare pre- and post-cleanup test names, not totals as a success metric. For each deleted case, record the surviving owner or why the assertion was worthless. Verify no production code, generated manifests, authored content, image assets, or visual baselines changed. The final About/Home sweep removes obsolete copy absences and SVG source spelling checks; component tests own static composition, while browser journeys retain route conversion, responsive readability, daily edition change/navigation, route chunk isolation, anchor landings, reduced motion, and shared frame alignment. The self-set CDP scale-factor assertion was tautological and protected no invariant; responsive layout remains asserted at phone, tablet, and desktop widths.
+- [x] **Step 3: Run narrow proof for any final corrections.** Choose the affected named Vitest, Python, or Playwright suite command from the preceding tasks. Run `py -3 tools/run.py index-mesh --check` after regeneration. Stage and commit normally; the tracked hook owns the complete local gate. Final focused proofs passed: the six About/Home browser journeys and 19 command-runner unit tests, with all 83 generated indexes current.
 - [ ] **Step 4: Obtain a fresh whole-branch review.** Ask the reviewer to challenge lost coverage, accidental change detectors, oversized new files, cross-platform discovery, and assertion duplication. Correct findings and obtain a fresh review after corrections.
 - [ ] **Step 5: Close the plan only when the code and evidence are complete.** Promote any enduring rule change to `.agents/doctrine/validation-policy.md` or `.agents/playbooks/testing.md`; otherwise leave those files untouched. Mark this plan `completed-awaiting-retirement` in the completing PR, commit through the hook, and hand off the reviewable branch with exact test and hosted-CI evidence. Human approval and merge are outside this checklist.
 

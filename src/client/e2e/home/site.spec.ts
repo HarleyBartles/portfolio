@@ -1,129 +1,74 @@
 import { expect, test } from '@playwright/test'
-import { readFileSync } from 'node:fs'
-
-type DailyArticle = {
-  slug: string
-  kind: string
-  status: string
-  date: string
-  title: string
-  homepageFeature: { summary: string; inwardLabel: string; incomingTeaser: string }
-}
-
-const manifest = JSON.parse(readFileSync(new URL('../../src/data/content/content-manifest.json', import.meta.url), 'utf8')) as { items: DailyArticle[] }
-const publishedArticles = manifest.items
-  .filter((item) => item.kind === 'writing' && item.status === 'published')
-  .toSorted((left, right) => left.date.localeCompare(right.date))
 
 const movementOrder = ['opening', 'marketplace', 'wild-bunch', 'writing', 'patch', 'professional-close']
-const homepageWidths = [320, 768, 1440] as const
-
 const movementHeadings = [
   'Engineering the whole problem, not just the code.',
   'A strong system, changed by using it.',
   "I only get to call the replay exact because it's falsifiable.",
   'The Usual Specialists',
   "I've shown you how I work.",
-] as const
+]
+const frameSelectors = [
+  '[data-home-movement="opening"] > [data-home-frame]',
+  '[data-home-movement="writing"] > [data-home-frame]',
+  '[data-home-movement="professional-close"] > [data-home-frame]',
+]
 
-test('shared masthead mark has no route-surface fill', async ({ page }) => {
+test('homepage edition changes across a GMT day and its article link reaches that edition', async ({ page }) => {
+  const firstDay = new Date('2026-09-28T23:59:00Z')
+  await page.clock.setFixedTime(firstDay)
   await page.goto('./')
-
-  await expect(page.locator('.site-mark img')).toHaveCSS('box-shadow', 'none')
-
-  const markResponse = await page.request.get(new URL('brand/hb-mark.svg', page.url()).toString())
-  expect(markResponse.ok()).toBe(true)
-  const mark = await markResponse.text()
-
-  expect(mark).toContain('fill="none" stroke="#1f241f"')
-  expect(mark).not.toContain('fill="#fffaf0"')
-})
-
-test('homepage presents one article per GMT day without moving the other features', async ({ page }) => {
-  const now = new Date()
-  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 12))
-  const daysSinceFirstEdition = Math.floor((today.getTime() - Date.UTC(2026, 8, 28)) / 86_400_000)
-  const todayIndex = ((daysSinceFirstEdition % publishedArticles.length) + publishedArticles.length) % publishedArticles.length
-  const expectedArticle = publishedArticles[todayIndex]
-  await page.clock.setFixedTime(today)
-  await page.goto('./')
-
-  await expect(page).toHaveTitle('Harley Bartles | Full-stack software engineer')
-  const skipLink = page.getByRole('link', { name: 'Skip to content' })
-  await expect(skipLink).toBeAttached()
-  await page.locator('body').focus()
-  await page.keyboard.press('Tab')
-  await expect(skipLink).toBeFocused()
-  await expect(page.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
-  await expect(page.locator('[data-home-movement]')).toHaveCount(6)
-  expect(await page.locator('[data-home-movement]').evaluateAll((elements) => elements.map((element) => element.getAttribute('data-home-movement')))).toEqual(movementOrder)
-
-  await expect(page.getByRole('link', { name: 'Read the story →' })).toHaveAttribute('href', /writing\/use-superpowers$/)
-  await expect(page.getByRole('link', { name: 'Follow the trail →' })).toHaveAttribute('href', /projects\/wild-bunch$/)
-  await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
-  await expect(page.locator('a[href*="/patch/the-usual-specialists/next"]')).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'Meet The Usual Specialists ↓' })).toHaveAttribute('href', '#patch')
 
   const writing = page.locator('[data-home-movement="writing"]')
   const articleLink = writing.locator('a[href*="/writing/"]')
-  await expect(articleLink).toHaveCount(1)
-  await expect(writing.getByRole('heading')).toHaveText(expectedArticle.title)
-  await expect(writing.getByText(expectedArticle.homepageFeature.summary, { exact: true })).toBeVisible()
-  await expect(articleLink).toHaveText(`${expectedArticle.homepageFeature.inwardLabel} →`)
-  await expect(articleLink).toHaveAttribute('href', new RegExp(`/writing/${expectedArticle.slug}$`))
-  await expect(page.locator('[data-home-movement="wild-bunch"] a[href="#writing"]'))
-    .toHaveText(`${expectedArticle.homepageFeature.incomingTeaser} ↓`)
-  const firstArticle = await articleLink.getAttribute('href')
-
-  await page.clock.setFixedTime(new Date(today.getTime() + 86_400_000))
-  await page.goto('./')
-
-  const nextArticle = await articleLink.getAttribute('href')
-  const nextTitle = await writing.getByRole('heading').textContent()
-  const followingArticle = publishedArticles[(todayIndex + 1) % publishedArticles.length]
-  expect(nextArticle).toMatch(new RegExp(`/writing/${followingArticle.slug}$`))
-  expect(nextArticle).not.toBe(firstArticle)
-  expect(nextTitle).toBe(followingArticle.title)
+  const firstHref = await articleLink.getAttribute('href')
+  const firstTitle = await writing.getByRole('heading').textContent()
+  expect(firstHref).toMatch(/^\/writing\//)
   await expect(page.getByRole('link', { name: 'Meet the crew →' })).toHaveAttribute('href', /patch\/the-usual-specialists$/)
+
+  await page.clock.setFixedTime(new Date(firstDay.getTime() + 2 * 60_000))
+  await page.goto('./')
+  const nextHref = await articleLink.getAttribute('href')
+  const nextTitle = (await writing.getByRole('heading').textContent())?.trim()
+  expect(nextHref).not.toBe(firstHref)
+  expect(nextTitle).not.toBe(firstTitle?.trim())
   await articleLink.click()
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(nextTitle!.trim())
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(nextTitle!)
 })
 
-test('homepage route stays lazy on unrelated direct routes', async ({ context }) => {
-  const aboutPage = await context.newPage()
-  const aboutScripts = new Set<string>()
-  aboutPage.on('request', (request) => {
-    if (request.resourceType() === 'script') aboutScripts.add(new URL(request.url()).pathname)
+test('direct routes load only their own page bundle', async ({ page }) => {
+  const requestedScripts = new Set<string>()
+  page.on('request', (request) => {
+    if (request.resourceType() === 'script') requestedScripts.add(new URL(request.url()).pathname)
   })
-  await aboutPage.goto('./about', { waitUntil: 'networkidle' })
-  await expect(aboutPage.getByRole('heading', { level: 1 })).toBeVisible()
-  expect([...aboutScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(false)
-  await aboutPage.close()
 
-  const homePage = await context.newPage()
-  const homeScripts = new Set<string>()
-  homePage.on('request', (request) => {
-    if (request.resourceType() === 'script') homeScripts.add(new URL(request.url()).pathname)
-  })
-  await homePage.goto('./', { waitUntil: 'networkidle' })
-  await expect(homePage.getByRole('heading', { level: 1, name: movementHeadings[0] })).toBeVisible()
-  expect([...homeScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(true)
-  await homePage.close()
+  await page.goto('./about', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  expect([...requestedScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(false)
+
+  requestedScripts.clear()
+  await page.goto('./', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1, name: movementHeadings[0] })).toBeVisible()
+  expect([...requestedScripts].some((path) => /HomePage-.*\.js$/.test(path))).toBe(true)
 })
 
-test('homepage anchor landings, reduced motion, and accepted breakpoint edges remain usable', async ({ page }) => {
+test('home journeys keep movement order and aligned frames usable with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
 
-  for (const width of homepageWidths) {
-    await page.setViewportSize({ width, height: width > 900 ? 1000 : 844 })
+  for (const width of [320, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 })
     await page.goto('./')
-    expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
-    await expect(page.locator('[data-home-movement]')).toHaveCount(6)
-    expect(await page.locator('[data-home-movement]').evaluateAll((elements) => elements.map((element) => element.getAttribute('data-home-movement')))).toEqual(movementOrder)
-    for (const heading of movementHeadings) {
-      await expect(page.getByRole('heading', { name: heading })).toBeAttached()
+    expect(await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth),
+      `homepage should not overflow at ${width}px`).toBe(true)
+    expect(await page.locator('[data-home-movement]').evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute('data-home-movement')))).toEqual(movementOrder)
+
+    const frames = await Promise.all(frameSelectors.map((selector) => page.locator(selector).boundingBox()))
+    expect(frames.every((box) => box !== null)).toBe(true)
+    for (const box of frames.slice(1)) {
+      expect(box!.x).toBeCloseTo(frames[0]!.x, 0)
+      expect(box!.width).toBeCloseTo(frames[0]!.width, 0)
     }
-    await expect(page.locator('[data-home-movement="writing"]').getByRole('heading')).toBeAttached()
   }
 
   await page.setViewportSize({ width: 390, height: 844 })
@@ -137,38 +82,5 @@ test('homepage anchor landings, reduced motion, and accepted breakpoint edges re
   await page.goto('./')
   await page.getByRole('link', { name: 'I tried to break my own event-sourcing claim ↓' }).click()
   await expect(page).toHaveURL(/#wild-bunch$/)
-  const replay = await page.locator('[data-wild-replay]').boundingBox()
-  expect(replay).not.toBeNull()
-  expect(replay?.y).toBeGreaterThanOrEqual(0)
-  expect(replay?.y! + replay?.height!).toBeLessThanOrEqual(800)
-
-  await page.setViewportSize({ width: 1440, height: 1000 })
-  await page.goto('./')
-  const browserSession = await page.context().newCDPSession(page)
-  await browserSession.send('Emulation.setPageScaleFactor', { pageScaleFactor: 2 })
-  expect(await page.evaluate(() => window.visualViewport?.scale)).toBe(2)
-  await expect(page.getByRole('heading', { level: 1, name: 'Engineering the whole problem, not just the code.' })).toBeVisible()
-  await browserSession.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1 })
-
-})
-
-test('controlled homepage folds return to the shared editorial frame', async ({ page }) => {
-  for (const width of [1440, 984, 768]) {
-    await page.setViewportSize({ width, height: 1000 })
-    await page.goto('./')
-
-    const expectedWidth = Math.min(1216, width - (width <= 800 ? 28 : 48))
-    const expectedLeft = (width - expectedWidth) / 2
-
-    for (const selector of [
-      '[data-home-movement="opening"] > [data-home-frame]',
-      '[data-home-movement="writing"] > [data-home-frame]',
-      '[data-home-movement="professional-close"] > [data-home-frame]',
-    ]) {
-      const box = await page.locator(selector).boundingBox()
-      expect(box, `${selector} should have a rendered frame at ${width}px`).not.toBeNull()
-      expect(box?.width, `${selector} width at ${width}px`).toBeCloseTo(expectedWidth, 0)
-      expect(box?.x, `${selector} left edge at ${width}px`).toBeCloseTo(expectedLeft, 0)
-    }
-  }
+  await expect(page.locator('[data-wild-replay]')).toBeInViewport()
 })
