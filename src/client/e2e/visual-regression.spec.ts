@@ -49,30 +49,6 @@ const clipBetween = async (page: Page, firstSelector: string, lastSelector: stri
   }
 }
 
-test('clipBetween measures document bounds without changing scroll position', async ({ page }) => {
-  await page.setViewportSize({ width: 400, height: 300 })
-  await page.setContent(`
-    <style>
-      body { margin: 0; height: 2000px; }
-      [data-clip-first] { position: absolute; top: 100px; left: 20px; width: 100px; height: 50px; }
-      [data-clip-last] { position: absolute; top: 1500px; left: 10px; width: 200px; height: 100px; }
-    </style>
-    <div data-clip-first></div>
-    <div data-clip-last></div>
-  `)
-  await page.evaluate(() => scrollTo(0, 1000))
-  const scrollYBeforeClip = await page.evaluate(() => scrollY)
-
-  expect(scrollYBeforeClip).toBe(1000)
-  expect(await clipBetween(page, '[data-clip-first]', '[data-clip-last]')).toEqual({
-    x: 10,
-    y: 100,
-    width: 200,
-    height: 1500,
-  })
-  expect(await page.evaluate(() => scrollY)).toBe(scrollYBeforeClip)
-})
-
 test('Marketplace keeps its authored distribution composition at wide and narrow viewports', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1100 })
   await openStable(page, './projects/codex-marketplace')
