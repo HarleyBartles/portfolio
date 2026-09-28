@@ -9,7 +9,7 @@ test('The Usual Specialists Index uses only the locked responsive modes at its a
   const indexReturn = index.locator('[data-index-traversal="index-return"]')
   const patchReturn = index.locator('[data-index-traversal="patch-return"]')
 
-  for (const width of [320, 599, 600, 699, 700, 959, 960, 1199, 1200, 1299, 1300, 1599, 1600, 1919, 1920, 2560] as const) {
+  for (const width of [320, 599, 600, 699, 700, 959, 960, 1199, 1200, 1299, 1300, 1599, 1600, 1919, 1920, 2560, 2880] as const) {
     await settleViewport(page, width)
 
     expect(await highStep.isVisible(), `high-step visibility at ${width}px`).toBe(width < 700)
@@ -22,6 +22,14 @@ test('The Usual Specialists Index uses only the locked responsive modes at its a
       const chapterBox = await index.boundingBox()
       expect(chapterBox).not.toBeNull()
       expect(chapterBox!.height, `Index chapter height at ${width}px`).toBeLessThanOrEqual(1080)
+    }
+
+    if (width >= 2560) {
+      const canvas = page.locator('[data-specialists-canvas="authored"]')
+      const canvasBox = await canvas.boundingBox()
+      expect(canvasBox).not.toBeNull()
+      expect(canvasBox!.width, `authored canvas width at ${width}px`).toBeCloseTo(2560, 0)
+      expect(canvasBox!.x, `authored canvas offset at ${width}px`).toBeCloseTo((width - 2560) / 2, 0)
     }
   }
 })
