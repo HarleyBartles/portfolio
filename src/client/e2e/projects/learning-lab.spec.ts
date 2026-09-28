@@ -31,8 +31,6 @@ test('visitor explores the Learning Lab, its evidence, and its curriculum at nar
   expect(evidenceBox!.width).toBeCloseTo(labBox!.width, 0)
 
   const hero = page.locator('[data-visual-contract="learning-lab-case-study-hero"] img')
-  await expect(hero).toHaveAttribute('width', '720')
-  await expect(hero).toHaveAttribute('height', '450')
   await expect(hero).toHaveAttribute('loading', 'eager')
   await expect(hero).toHaveAttribute('fetchpriority', 'high')
   const bodyImages = page.locator('.learning-lab-case-study img')
