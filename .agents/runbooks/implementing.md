@@ -35,7 +35,7 @@ Use this runbook when executing an approved plan in the Portfolio repository.
 
 - Root routing: `AGENTS.md`.
 - In-flight plans: `.agents/plans/`.
-- Run focused checks while editing; the normal tracked commit hook owns the complete `py -3 tools/run.py ci --check` gate for the staged tree.
+- Run the relevant named suite while editing; the normal tracked commit hook composes all named suites against the staged tree.
 - Regenerate the mesh in the same change when authored routing or navigation changes.
 
 ## Evidence contract

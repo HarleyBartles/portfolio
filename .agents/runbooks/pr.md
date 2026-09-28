@@ -36,7 +36,7 @@ Use this runbook for Portfolio pull-request workflow and publication proof.
 ## Local commands and paths
 
 - PR template: `.github/pull_request_template.md`.
-- Canonical complete local gate: `py -3 tools/run.py ci --check`, normally run by the tracked pre-commit hook.
+- Canonical local gate: the tracked pre-commit hook runs the separately named repository checks, validation, Python, Vitest, build, and Playwright suites against the staged snapshot. Hosted CI exposes those suites as individual steps.
 - Hosted quality gate: `Portfolio / Portfolio quality gate`.
 - Public deployment proof: `Portfolio / Verify public routes`.
 

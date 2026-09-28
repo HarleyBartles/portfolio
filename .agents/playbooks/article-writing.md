@@ -126,7 +126,7 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Content catalogue: `py -3 tools/run.py content-manifest --apply` then `py -3 tools/run.py content-manifest --check` when article metadata changes.
 - Route catalogue: `py -3 tools/run.py route-catalogue --apply` then `py -3 tools/run.py route-catalogue --check` when public routes change.
 - Agent/document mesh: `py -3 tools/run.py mesh --apply` then `py -3 tools/run.py mesh --check` when authored routing changes.
-- Complete local gate: stage the intended tree and commit normally; do not run `py -3 tools/run.py ci --check` immediately before the commit.
+- Complete local gate: stage the intended tree and commit normally; the tracked hook runs the separately named suites against that snapshot.
 
 ## Evidence contract
 

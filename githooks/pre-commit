@@ -130,6 +130,7 @@ fi
 run_declared() {
   "${PYTHON[@]}" - "$COMMAND_DECLARATION" "$1" "$REPO_ROOT" <<'PY'
 import json
+import os
 import subprocess
 import sys
 import time
@@ -187,6 +188,9 @@ skipped = []
 for vector, details in zip(vectors, metadata, strict=True):
     name = details["name"]
     dependency = details.get("requires")
+    if os.environ.get("REPO_STANDARDS_HOSTED_COMMIT") and details.get("hosted_step"):
+        print(f"[pre-commit] DEFER {name}: hosted CI runs it as a separate step", flush=True)
+        continue
     if dependency in failed:
         print(f"[pre-commit] SKIP {name}: requires {dependency}", flush=True)
         skipped.append((name, dependency))

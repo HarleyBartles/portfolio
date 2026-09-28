@@ -10,11 +10,11 @@
   ],
   "check_metadata": [
     {"name": "repository checks"},
-    {"name": "repository validation"},
-    {"name": "Python tests"},
-    {"name": "Vitest tests"},
-    {"name": "production build"},
-    {"name": "Playwright journeys", "requires": "production build"}
+    {"name": "repository validation", "hosted_step": true},
+    {"name": "Python tests", "hosted_step": true},
+    {"name": "Vitest tests", "hosted_step": true},
+    {"name": "production build", "hosted_step": true},
+    {"name": "Playwright journeys", "requires": "production build", "hosted_step": true}
   ],
   "generated_paths": [
     ".agents/skills/**",
