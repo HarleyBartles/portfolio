@@ -82,6 +82,50 @@ class CanonicalRunnerTests(unittest.TestCase):
             run._client_e2e_cmd(),
         )
 
+    @patch.object(run, "_run")
+    def test_named_suite_targets_dispatch_independently(self, run_command) -> None:
+        targets = {
+            "repo-checks": (
+                run._repository_checks_check,
+                [
+                    run._repo_standards_cmd("check", False),
+                    run._refresh_skills_cmd("check", False),
+                    run._index_mesh_cmd("check", False),
+                    run._mesh_validate_cmd(),
+                    run._content_manifest_cmd("check"),
+                    run._route_catalogue_cmd("check"),
+                ],
+            ),
+            "repository-validation": (
+                run._repository_validation_check,
+                [run._link_hygiene_check_cmd(), run._portfolio_quality_check_cmd()],
+            ),
+            "python-tests": (run._python_tests_check, [run._tests_cmd()]),
+            "vitest-tests": (run._vitest_tests_check, [run._client_unit_tests_cmd()]),
+            "production-build": (run._production_build_check, [run._client_cmd("run", "build")]),
+            "playwright-tests": (run._playwright_tests_check, [run._client_e2e_cmd()]),
+        }
+
+        for target, (action, expected_commands) in targets.items():
+            with self.subTest(target=target):
+                run_command.reset_mock()
+                action(self.context)
+                self.assertEqual(
+                    expected_commands,
+                    [entry.args[0] for entry in run_command.call_args_list],
+                )
+
+    def test_named_suite_target_failure_becomes_a_nonzero_command_result(self) -> None:
+        def fail(_context: run.Ctx) -> None:
+            raise subprocess.CalledProcessError(7, ["suite"])
+
+        target_map = dict(run.TARGETS)
+        target_map["python-tests"] = {"check": fail}
+        with patch.object(run, "TARGETS", target_map), patch.object(
+            sys, "argv", ["tools/run.py", "python-tests", "--check"]
+        ):
+            self.assertEqual(1, run.main())
+
     @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": ""})
     def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
         self.assertEqual(

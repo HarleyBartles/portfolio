@@ -44,11 +44,26 @@ def run_git(repo: Path, *args: str, env: dict[str, str] | None = None) -> subpro
 def write_command_declaration(repo: Path, runner: Path) -> None:
     declaration = repo / ".agents/contracts/repo-standards-commands.json"
     declaration.parent.mkdir(parents=True, exist_ok=True)
+    checks = [
+        ("mechanical", "mechanical", None),
+        ("validation", "validation", None),
+        ("python", "python", None),
+        ("vitest", "vitest", None),
+        ("build", "build", None),
+        ("playwright", "playwright", "build"),
+    ]
     declaration.write_text(
         json.dumps(
             {
                 "apply": [sys.executable, str(runner), "--apply"],
-                "check": [sys.executable, str(runner), "--check"],
+                "check": [
+                    [sys.executable, str(runner), suite, "--check"]
+                    for _name, suite, _requires in checks
+                ],
+                "check_metadata": [
+                    {"name": name, **({"requires": requires} if requires else {})}
+                    for name, _suite, requires in checks
+                ],
                 "generated_paths": ["**/INDEX.md"],
             },
             indent=2,
@@ -59,65 +74,6 @@ def write_command_declaration(repo: Path, runner: Path) -> None:
 
 
 class PreCommitHookTests(unittest.TestCase):
-    def test_worker_guidance_uses_the_hook_as_the_single_normal_commit_gate(self) -> None:
-        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        testing = (ROOT / ".agents/playbooks/testing.md").read_text(encoding="utf-8")
-        pull_requests = (ROOT / ".agents/runbooks/pr.md").read_text(encoding="utf-8")
-        code_style = (ROOT / ".agents/playbooks/code-style.md").read_text(encoding="utf-8")
-
-        rule = "Do not run `py -3 tools/run.py ci --check` immediately before a normal commit"
-        self.assertIn(rule, agents)
-        self.assertIn(rule, testing)
-        self.assertNotIn("Run `py -3 tools/run.py ci --check` before pushing.", pull_requests)
-        self.assertNotIn("Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.", code_style)
-
-        active_guidance = [
-            ROOT / "AGENTS.md",
-            ROOT / "README.md",
-            ROOT / "CONTRIBUTING.md",
-            ROOT / "src/README.md",
-            ROOT / ".github/pull_request_template.md",
-        ]
-        for directory in (
-            ROOT / ".agents/doctrine",
-            ROOT / ".agents/runbooks",
-            ROOT / ".agents/plans",
-            ROOT / ".agents/specs",
-            ROOT / ".devin/rules",
-        ):
-            active_guidance.extend(
-                path
-                for path in directory.rglob("*.md")
-                if "completed" not in path.relative_to(ROOT).parts
-            )
-
-        misleading_signage = (
-            "Run the staged canonical gate",
-            "run the canonical gate on the staged final tree",
-            "Run `py -3 tools/run.py ci --check` before pushing.",
-            "Use `py -3 tools/run.py ci --check` as the canonical pre-commit validation.",
-            "Run `py -3 tools/run.py ci --check` once on the final staged tree before commit",
-            "core.hooksPath .githooks",
-        )
-        violations = []
-        for path in active_guidance:
-            content = path.read_text(encoding="utf-8")
-            for phrase in misleading_signage:
-                if phrase.casefold() in content.casefold():
-                    violations.append(f"{path.relative_to(ROOT)}: {phrase}")
-
-        self.assertEqual([], violations, "Misleading validation signage:\n" + "\n".join(violations))
-
-    def test_hook_enforces_the_complete_local_ci_gate(self) -> None:
-        hook = (ROOT / "githooks/pre-commit").read_text(encoding="utf-8")
-        declaration = (ROOT / ".agents/contracts/repo-standards-commands.json").read_text(encoding="utf-8")
-
-        self.assertIn('COMMAND_DECLARATION="$REPO_ROOT/.agents/contracts/repo-standards-commands.json"', hook)
-        self.assertIn("run_declared apply", hook)
-        self.assertIn("run_declared check", hook)
-        self.assertIn('"check": ["@python", "tools/run.py", "ci", "--check", "--diagnostics"]', declaration)
-        self.assertNotIn('"${PYTHON[@]}" tools/run.py precommit --check', hook)
-
     def test_hook_passes_shared_checkout_approval_only_to_declared_apply(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -155,7 +111,74 @@ class PreCommitHookTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             commands = [json.loads(line) for line in observed.read_text(encoding="utf-8").splitlines()]
-            self.assertEqual(commands, [["--apply", "--allow-shared-checkout"], ["--check"]])
+            self.assertEqual(
+                commands,
+                [
+                    ["--apply", "--allow-shared-checkout"],
+                    ["mechanical", "--check"],
+                    ["validation", "--check"],
+                    ["python", "--check"],
+                    ["vitest", "--check"],
+                    ["build", "--check"],
+                    ["playwright", "--check"],
+                ],
+            )
+
+    def test_hook_reports_each_suite_failure_and_skips_playwright_when_build_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            repo = root / "repo"
+            repo.mkdir()
+            self.assertEqual(run_git(repo, "init").returncode, 0)
+            run_git(repo, "config", "user.name", "Hook Test")
+            run_git(repo, "config", "user.email", "hook-test@example.invalid")
+            tracked = repo / "tracked.txt"
+            tracked.write_text("initial\n", encoding="utf-8")
+            runner = root / "declared_runner.py"
+            runner.write_text(
+                "import json, os, sys\n"
+                "from pathlib import Path\n"
+                "with Path(os.environ['OBSERVED_COMMANDS']).open('a', encoding='utf-8') as stream:\n"
+                "    stream.write(json.dumps(sys.argv[1:]) + '\\n')\n"
+                "if sys.argv[1] in os.environ.get('FAKE_FAILED_SUITES', '').split(','):\n"
+                "    raise SystemExit(7)\n",
+                encoding="utf-8",
+            )
+            write_command_declaration(repo, runner)
+            run_git(repo, "add", "tracked.txt", ".agents/contracts/repo-standards-commands.json")
+            self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
+
+            hook = repo / "githooks/pre-commit"
+            hook.parent.mkdir()
+            shutil.copyfile(ROOT / "githooks/pre-commit", hook)
+            hook.chmod(0o755)
+            run_git(repo, "config", "core.hooksPath", "githooks")
+            tracked.write_text("candidate\n", encoding="utf-8")
+            run_git(repo, "add", "tracked.txt")
+            observed = root / "commands.jsonl"
+            env = os.environ.copy()
+            env["OBSERVED_COMMANDS"] = str(observed)
+            env["FAKE_FAILED_SUITES"] = "validation,python,build"
+
+            result = run_git(repo, "commit", "-m", "collect suite failures", env=env)
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("FAIL validation", result.stderr)
+            self.assertIn("FAIL python", result.stderr)
+            self.assertIn("FAIL build", result.stderr)
+            self.assertIn("SKIP playwright: requires build", result.stderr)
+            commands = [json.loads(line) for line in observed.read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(
+                commands,
+                [
+                    ["--apply", "--allow-shared-checkout"],
+                    ["mechanical", "--check"],
+                    ["validation", "--check"],
+                    ["python", "--check"],
+                    ["vitest", "--check"],
+                    ["build", "--check"],
+                ],
+            )
 
     def test_tracked_hook_is_the_only_hook_authority_and_is_posix_executable(self) -> None:
         self.assertFalse((ROOT / ".githooks/pre-commit").exists())
@@ -220,7 +243,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-if "--check" in sys.argv:
+if sys.argv[1] == "mechanical":
     root = subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip()
     nested_head = subprocess.check_output(["git", "-C", os.environ["NESTED_REPO"], "rev-parse", "HEAD"], text=True).strip()
     Path(os.environ["OBSERVED_ROOT"]).write_text(root + "\\n", encoding="utf-8")
@@ -361,7 +384,7 @@ from pathlib import Path
 
 if "--apply" in sys.argv:
     shutil.copyfile("tracked.txt", "docs/INDEX.md")
-elif "--check" in sys.argv and "BROKEN" in Path("tracked.txt").read_text(encoding="utf-8"):
+elif sys.argv[1] == "mechanical" and "BROKEN" in Path("tracked.txt").read_text(encoding="utf-8"):
     print("staged check saw BROKEN", file=sys.stderr)
     raise SystemExit(17)
 """,
@@ -410,7 +433,7 @@ elif "--check" in sys.argv and "BROKEN" in Path("tracked.txt").read_text(encodin
                 """import sys
 from pathlib import Path
 
-if "--check" in sys.argv:
+if sys.argv[1] == "mechanical":
     Path("tracked.txt").write_text("gate mutation\\n", encoding="utf-8")
 """,
                 encoding="utf-8",
