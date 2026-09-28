@@ -102,12 +102,8 @@ def _tests_cmd() -> list[str]:
     return [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]
 
 
-def _link_hygiene_check_cmd() -> list[str]:
-    return [sys.executable, "tools/check_link_hygiene.py"]
-
-
-def _portfolio_quality_check_cmd() -> list[str]:
-    return [sys.executable, "tools/check_portfolio_quality.py"]
+def _repository_validation_cmd() -> list[str]:
+    return [sys.executable, "-m", "tests.validation.repository_validation"]
 
 
 def _content_manifest_cmd(mode: str) -> list[str]:
@@ -246,13 +242,7 @@ def _repository_checks_check(ctx: Ctx) -> None:
 
 
 def _repository_validation_check(ctx: Ctx) -> None:
-    _diagnostic_check_steps(
-        [
-            ("link hygiene", lambda current: _run(_link_hygiene_check_cmd(), current), None),
-            ("portfolio quality", lambda current: _run(_portfolio_quality_check_cmd(), current), None),
-        ],
-        ctx,
-    )
+    _run(_repository_validation_cmd(), ctx)
 
 
 def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], str | None]]:
@@ -262,8 +252,7 @@ def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], st
         ("agent mesh", _mesh_check, None),
         ("content manifest", _content_manifest_check, None),
         ("route catalogue", _route_catalogue_check, None),
-        ("link hygiene", lambda ctx: _run(_link_hygiene_check_cmd(), ctx), None),
-        ("portfolio quality", lambda ctx: _run(_portfolio_quality_check_cmd(), ctx), None),
+        ("repository validation", lambda ctx: _run(_repository_validation_cmd(), ctx), None),
         ("Python tests", _python_tests_check, None),
         ("client unit tests", _vitest_tests_check, None),
         ("production build", _production_build_check, None),
@@ -312,8 +301,7 @@ def _base_ci_check(ctx: Ctx) -> None:
     _mesh_check(ctx)
     _content_manifest_check(ctx)
     _route_catalogue_check(ctx)
-    _run(_link_hygiene_check_cmd(), ctx)
-    _run(_portfolio_quality_check_cmd(), ctx)
+    _run(_repository_validation_cmd(), ctx)
     _python_tests_check(ctx)
     _vitest_tests_check(ctx)
     _production_build_check(ctx)

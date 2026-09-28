@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import unittest
 
-from tools import check_link_hygiene, refresh_seo_files
+from tests.validation import link_hygiene as check_link_hygiene
+from tools import refresh_seo_files
 
 
 class SeoRouteTests(unittest.TestCase):

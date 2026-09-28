@@ -34,8 +34,7 @@ class CanonicalRunnerTests(unittest.TestCase):
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._content_manifest_cmd("check"), commands)
         self.assertIn(run._route_catalogue_cmd("check"), commands)
-        self.assertIn(run._link_hygiene_check_cmd(), commands)
-        self.assertIn(run._portfolio_quality_check_cmd(), commands)
+        self.assertIn(run._repository_validation_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertIn(run._client_cmd("run", "build"), commands)
@@ -98,7 +97,7 @@ class CanonicalRunnerTests(unittest.TestCase):
             ),
             "repository-validation": (
                 run._repository_validation_check,
-                [run._link_hygiene_check_cmd(), run._portfolio_quality_check_cmd()],
+                [run._repository_validation_cmd()],
             ),
             "python-tests": (run._python_tests_check, [run._tests_cmd()]),
             "vitest-tests": (run._vitest_tests_check, [run._client_unit_tests_cmd()]),
@@ -288,7 +287,7 @@ class CanonicalRunnerTests(unittest.TestCase):
         diagnostic_context = run.Ctx(mode="check", allow_shared=False, diagnostics=True)
         failed_commands = {
             tuple(run._repo_standards_cmd("check", False)),
-            tuple(run._link_hygiene_check_cmd()),
+            tuple(run._repository_validation_cmd()),
             tuple(run._client_cmd("run", "build")),
         }
 
@@ -304,12 +303,11 @@ class CanonicalRunnerTests(unittest.TestCase):
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._skills_cmd("check", False), commands)
         self.assertIn(run._mesh_validate_cmd(), commands)
-        self.assertIn(run._portfolio_quality_check_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertNotIn(run._client_e2e_cmd(), commands)
         self.assertEqual(
-            ["repository standards", "link hygiene", "production build"],
+            ["repository standards", "repository validation", "production build"],
             [result.name for result in raised.exception.failures],
         )
         self.assertEqual(

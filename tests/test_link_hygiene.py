@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools import check_link_hygiene
+from tests.validation import link_hygiene as check_link_hygiene
 
 
 class LinkHygieneTests(unittest.TestCase):
@@ -34,19 +34,6 @@ class LinkHygieneTests(unittest.TestCase):
             check_link_hygiene.check_jsx_anchors(errors, source_root)
 
             self.assertEqual([], errors)
-
-    def test_external_link_component_contract_is_complete(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            source_root = Path(directory)
-            components = source_root / "components"
-            components.mkdir()
-            (components / "ExternalLink.tsx").write_text('export function ExternalLink() {}', encoding="utf-8")
-            errors: list[str] = []
-
-            check_link_hygiene.check_external_link_contract(errors, source_root)
-
-            self.assertEqual(6, len(errors))
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -51,7 +51,7 @@ Prefer roles, names, outcomes, and measurable relationships. Exact CSS declarati
 - Content catalogue projection: `py -3 tools/run.py content-manifest --check`.
 - Route metadata projection: `py -3 tools/run.py route-catalogue --check`.
 - Use the affected package's focused Vitest, Playwright, asset, or build target while iterating.
-- Public deployment proof: `py -3 tools/check_public_routes.py --origin https://harleybartles.github.io/portfolio`.
+- Public deployment proof: `py -3 -m tests.validation.deployed_routes --origin https://harleybartles.github.io/portfolio`.
 
 ## Evidence contract
 
