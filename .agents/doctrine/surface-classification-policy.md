@@ -4,7 +4,7 @@ Status: active policy
 Owner: Portfolio repository
 Scope: repository-wide agent and documentation surfaces
 Routed from: `/.devin/rules/agents-doctrine.md`
-Generic baseline: installed `repo-worker-base` and its references
+Generic baseline: repository workflow capabilities available in the current agent runtime
 
 Use this policy when deciding what kind of surface a rule, guide, or note should live on.
 
@@ -17,7 +17,6 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `README.md` | Human-facing purpose and orientation | Human documentation |
 | `AGENTS.md` | Root repo router | Agent router |
 | `.devin/rules/*.md` | Conditional scope triggers for lazy-loaded runbook and doctrine | Agent rules |
-| `INDEX.md` | Generated traversal and containment navigation | Mesh generator |
 | `.agents/doctrine/` | Binding Portfolio policies, contracts, and invariants | Authored doctrine |
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
 | `.agents/runbooks/` | Lifecycle-stage workflow runbooks | Authored guidance |
@@ -32,8 +31,7 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `tools/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
 
 `README.md` files are not agent routers. `AGENTS.md` files are not doctrine
-containers. `INDEX.md` files are not policy. One rule has one canonical
-authority.
+containers. One rule has one canonical authority.
 
 ## Classification and anti-sprawl
 

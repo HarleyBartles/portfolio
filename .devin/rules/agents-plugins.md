@@ -13,8 +13,8 @@ When working in this scope:
 
 - MUST READ `.agents/plugins/marketplace.json`
 - MUST READ `.agents/doctrine/workflow-policy.md`
-- MUST READ `.agents/doctrine/mesh-policy.md`
+- MUST READ `.agents/doctrine/marketplace-custody-policy.md`
 - MUST READ `.agents/playbooks/marketplace-generation.md`
-- MUST INVOKE `/using-superpowers-plus` to route to the correct skill
+- MUST FOLLOW `.agents/playbooks/marketplace-generation.md` for subscription and refresh changes
 
 This file is a conditional rule trigger. It does not contain the doctrine; it only tells the runtime when to load the doctrine and runbook.

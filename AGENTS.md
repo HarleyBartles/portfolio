@@ -18,7 +18,7 @@ The site exists to present Harley as a software engineer through:
 
 ## Build and test commands
 
-Run the smallest focused checks that prove the slice while iterating. The normal publication loop is deliberately cheap: stage -> commit -> if the hook fails, fix every independent failure it reports and run only the narrow checks that prove those repairs -> commit again -> when the hook succeeds, push -> let hosted CI confirm the already-proven commit. The tracked pre-commit hook is the complete local gate, composed of separately named repository checks, validation, Python tests, Vitest, build, and Playwright journeys; it reports independent failures together and skips only checks blocked by a failed dependency. Hosted CI runs those same suites as separate steps, while its hook-parity step runs the shared repository checks. Do not run the full `ci --check` aggregate immediately before a normal commit or repeat the complete gate after a successful hooked commit. Run suites directly while iterating, or run the aggregate only when no commit will follow or when diagnosing parity. Regenerate only the mechanical surface that changed: `refresh-skills --apply` for marketplace-derived skills, `index-mesh --apply` for index generation, `content-manifest --apply` for the generated content catalogue, and `route-catalogue --apply` for generated route metadata; `mesh --apply` composes index generation with agent-mesh validation. `content-manifest.json`, `route-metadata.generated.json`, `public/robots.txt`, and `public/sitemap.xml` are generated projections owned by the normal hook and must not be hand-edited. Reserve umbrella `ci --apply` for deliberate repair of several mechanical surfaces, inspect its diff, then rely on the normal commit hook for complete verification.
+Run focused checks while iterating. The tracked pre-commit hook is the complete local gate against the staged snapshot, composed from separately named repository checks, repository validation, Python tests, Vitest, build, and Playwright journeys. It reports independent failures and skips only checks blocked by a failed dependency. Hosted CI runs the same suites as separate steps. Do not run the full `ci --check` aggregate immediately before a normal commit or repeat the complete gate after a successful hooked commit. Run suites directly while iterating, or run the aggregate only when no commit will follow or when diagnosing parity. Use `repo-standards --apply` to apply the explicitly selected repository standards, `refresh-skills --apply` to refresh declared plugin and Portfolio-owned skill projections from the pinned Marketplace source, `content-manifest --apply` for the generated content catalogue, and `route-catalogue --apply` for generated route metadata. `content-manifest.json`, `route-metadata.generated.json`, `public/robots.txt`, and `public/sitemap.xml` are generated projections owned by the normal hook and must not be hand-edited. Reserve umbrella `ci --apply` for deliberate repair of several mechanical surfaces, inspect its diff, then rely on the normal commit hook for complete verification.
 
 ## Design quality
 
@@ -40,15 +40,15 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 - [Portfolio writing policy](.agents/doctrine/writing-policy.md)
 - [Article-writing playbook](.agents/playbooks/article-writing.md)
 - [Decision records](docs/decisions/README.md)
-- [Routing pointers](.devin/rules/INDEX.md)
+- [Routing pointers](.agents/doctrine/AGENTS.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
-- [Mesh policy](.agents/doctrine/mesh-policy.md)
+- [Operating standards](.agents/contracts/operating-standards.json)
+- [Agent guidance policy](.agents/doctrine/agent-guidance-policy.md)
 - [Workflow and worktree doctrine](.agents/doctrine/workflow-policy.md)
 - [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)
-- [Doctrine](.agents/doctrine/INDEX.md)
-- [Runbooks](.agents/runbooks/INDEX.md)
-- [Playbooks](.agents/playbooks/INDEX.md)
-- [Repo mesh index](.agents/INDEX.md)
+- [Doctrine](.agents/doctrine/AGENTS.md)
+- [Runbooks](.agents/runbooks/AGENTS.md)
+- [Playbooks](.agents/playbooks/AGENTS.md)
 - [Maintenance responsibility](AGENTS.md)
 
 ## Maintenance responsibility

@@ -1,6 +1,6 @@
 # Repository Runbook and Playbook Policy
 
-This repository follows `repo-standards`. Lifecycle stages are runbooks; available topical workflows are playbooks.
+This repository adopts the standards declared in `.agents/contracts/operating-standards.json`. Lifecycle stages are runbooks; available topical workflows are playbooks.
 
 ## Standard runbooks
 
@@ -22,12 +22,9 @@ This repository follows `repo-standards`. Lifecycle stages are runbooks; availab
 | skill-authoring.md | `.agents/playbooks/skill-authoring.md` | optional |
 | marketplace-generation.md | `.agents/playbooks/marketplace-generation.md` | optional |
 | repo-doctrine.md | `.agents/playbooks/repo-doctrine.md` | optional |
-
-## Additional repository-specific playbooks
-
-- `asset.md` at `.agents/playbooks/asset.md` for font, image, icon, and optimization workflow.
-- `generated-image-custody.md` at `.agents/playbooks/generated-image-custody.md` for generated-image custody, provenance, deterministic derivatives, and supersession before page use.
-- `article-writing.md` at `.agents/playbooks/article-writing.md` for public editorial articles from commission through publication proof.
+| article-writing.md | `.agents/playbooks/article-writing.md` | required |
+| asset.md | `.agents/playbooks/asset.md` | required |
+| generated-image-custody.md | `.agents/playbooks/generated-image-custody.md` | required |
 
 ## Root contributor and review surfaces
 

@@ -1,6 +1,6 @@
 # Runbooks
 
-This directory contains only Portfolio lifecycle-stage runbooks. `using-superpowers-plus` selects the stage owner; the stage skill reads its matching runbook.
+This directory contains Portfolio lifecycle-stage runbooks. An available workflow capability selects the stage owner; the stage workflow reads its matching runbook.
 
 ## Read When
 
@@ -16,4 +16,4 @@ This directory contains only Portfolio lifecycle-stage runbooks. `using-superpow
 
 - Keep lifecycle orchestration here; durable invariants belong in doctrine and conditional topical workflows belong in playbooks.
 - A runbook may route to a playbook, but a playbook does not require a runbook route to be available.
-- Keep declared runbook/playbook edges reciprocal and regenerate the mesh after authored routing changes.
+- Keep declared runbook/playbook edges reciprocal and update authored routing pointers when their destinations change.

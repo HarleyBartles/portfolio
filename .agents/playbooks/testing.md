@@ -7,12 +7,23 @@ Use this playbook to select and run the proof appropriate to a Portfolio change.
 - Behavior changes, validation is required, or a completion claim depends on executable evidence.
 - Browser behavior, visual regression, accessibility, generated surfaces, marketplace projections, or public routes are in scope.
 
-## Required skills
+## Required capabilities
 
-- `verification-before-completion` for evidence-backed completion claims.
-- `test-driven-development` when implementing behavior or tested refactors.
-- `playwright-testing` for browser behavior or visual-regression work.
-- `repository-validation` for repository-focused checks and complete-gate semantics.
+- Choose tests that prove user-visible or repository-owned behavior at the cheapest reliable layer.
+- Verify implementation against evidence and report skipped checks and their impact.
+- Exercise browser behavior and visual regression when those are part of the changed contract.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 
@@ -47,7 +58,7 @@ Prefer roles, names, outcomes, and measurable relationships. Exact CSS declarati
 - Do not run the full aggregate immediately before a normal commit; stage the intended tree and let the tracked hook run the complete gate once.
 - Repository operating model: `py -3 tools/run.py repo-standards --check`.
 - Marketplace projection: `py -3 tools/run.py refresh-skills --check`.
-- Agent/document mesh: `py -3 tools/run.py mesh --check`.
+- Authored repository guidance: `py -3 tools/run.py repo-standards --check` and the repository validation command when links or routing change.
 - Content catalogue projection: `py -3 tools/run.py content-manifest --check`.
 - Route metadata projection: `py -3 tools/run.py route-catalogue --check`.
 - Use the affected package's focused Vitest, Playwright, asset, or build target while iterating.

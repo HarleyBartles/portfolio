@@ -15,6 +15,6 @@ When working in this scope:
 - MUST READ `.agents/runbooks/implementing.md` for implementation
 - MUST READ `.agents/runbooks/code-review.md` for review
 - MUST READ `.agents/runbooks/pr.md` for PR workflow
-- MUST INVOKE `/repo-standards` for repo-shape and runbook routing
+- MUST FOLLOW `.agents/doctrine/repo-runbook-policy.md` and the selected repository standards
 
 This file is a conditional rule trigger. It does not contain the doctrine; it only tells the runtime when to load the runbooks and skills.

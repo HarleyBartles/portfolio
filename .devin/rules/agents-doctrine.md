@@ -15,10 +15,9 @@ When working in this scope:
 - MUST READ `.agents/doctrine/validation-policy.md`
 - MUST READ `.agents/doctrine/coding-discipline.md`
 - MUST READ `.agents/doctrine/script-contract-policy.md`
-- MUST READ `.agents/doctrine/mesh-policy.md`
+- MUST READ `.agents/doctrine/agent-guidance-policy.md`
 - MUST READ `.agents/doctrine/surface-classification-policy.md`
 - MUST READ `.agents/doctrine/non-repo-locations-policy.md`
 - MUST READ `.agents/doctrine/marketplace-custody-policy.md`
-- MUST INVOKE `/base-doctrine`
 
 This file is a conditional rule trigger. It does not contain the doctrine; it only tells the runtime when to load the doctrine and skill.

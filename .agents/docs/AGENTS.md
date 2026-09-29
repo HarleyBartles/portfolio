@@ -11,10 +11,10 @@ This directory holds repo-local non-doctrine reference material and routing surf
 - Use before deciding where artifacts belong: [`.agents/doctrine/artifact-policy.md`](../doctrine/artifact-policy.md).
 - Use before deciding what to validate: [`.agents/doctrine/validation-policy.md`](../doctrine/validation-policy.md).
 - Use before scope or architecture decisions: [`.agents/doctrine/coding-discipline.md`](../doctrine/coding-discipline.md).
-- Use when you need the navigation contract for docs and indexes: [`.agents/doctrine/mesh-policy.md`](../doctrine/mesh-policy.md).
+- Use when changing authored routers or scoped guidance: [`.agents/doctrine/agent-guidance-policy.md`](../doctrine/agent-guidance-policy.md).
 
 ## Working Rules
 
 - Keep doctrine in the doctrine directory, not in this file.
 - Keep the routing pointers short and current.
-- If a guidance file moves, update this router and regenerate the mesh in the same change.
+- If a guidance file moves, update this router and the root `AGENTS.md` routing table in the same change.

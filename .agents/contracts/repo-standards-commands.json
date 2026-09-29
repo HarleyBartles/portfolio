@@ -18,8 +18,7 @@
   ],
   "generated_paths": [
     ".agents/skills/**",
-    "**/INDEX.md",
-    "**/INDEX.json",
+    ".agents/standards/**",
     "**/.provenance.json",
     ".agents/plugins/marketplace.json",
     "codex-marketplace/plugin-roots.json",

@@ -67,8 +67,6 @@ class SuiteCompositionTests(unittest.TestCase):
                 [
                     run._repo_standards_cmd("check", False),
                     run._refresh_skills_cmd("check", False),
-                    run._index_mesh_cmd("check", False),
-                    run._mesh_validate_cmd(),
                     run._content_manifest_cmd("check"),
                     run._route_catalogue_cmd("check"),
                 ],
@@ -138,7 +136,6 @@ class SuiteCompositionTests(unittest.TestCase):
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._skills_cmd("check", False), commands)
-        self.assertIn(run._mesh_validate_cmd(), commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertNotIn(run._client_e2e_cmd(), commands)

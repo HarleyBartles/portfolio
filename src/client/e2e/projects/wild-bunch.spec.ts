@@ -99,10 +99,17 @@ test('visitor inspects Wild Bunch evidence, then uses the story on a narrow scre
     expect(layout.fitsWithoutScrolling, `UUID fits at ${width}px`).toBe(true)
     if (expectedLines === 2) expect(layout.lineWidthDifference).toBeLessThan(20)
     if (width <= 390) {
-      const status = page.locator('[data-project-case-study-status] .content-status')
-      const imageBox = await visual.getByRole('img').boundingBox()
-      const statusBox = await status.boundingBox()
-      const mobileCaption = await caption.boundingBox()
+      const { imageBox, statusBox, mobileCaption } = await visual.evaluate((figure) => {
+        const image = figure.querySelector('img')
+        const caption = figure.querySelector('figcaption')
+        const status = document.querySelector('[data-project-case-study-status] .content-status')
+        const rect = (element: Element | null) => {
+          if (element === null) return null
+          const { x, y, width: boxWidth, height } = element.getBoundingClientRect()
+          return { x, y, width: boxWidth, height }
+        }
+        return { imageBox: rect(image), statusBox: rect(status), mobileCaption: rect(caption) }
+      })
       expect(statusBox).not.toBeNull()
       expect(imageBox).not.toBeNull()
       expect(mobileCaption).not.toBeNull()

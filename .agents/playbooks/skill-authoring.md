@@ -7,19 +7,29 @@ Use this playbook when creating or changing a Portfolio-owned skill or its local
 - Authoring, revising, renaming, or retiring a repo-owned skill.
 - Changing the `repo.local_skills` declaration or the local skill projection boundary.
 
-## Required skills
+## Required capabilities
 
-- `writing-skills` for skill creation, editing, and validation.
-- `repo-agent-assets` for local-skill declarations and installed-skill projection rules.
-- `refreshing-installed-skills` for generated projection/provenance refresh.
-- `generating-agent-mesh` after skill-surface changes.
+- Design, write, and validate a reusable skill with clear triggers, boundaries, and executable behavior.
+- Maintain repository-owned skill declarations and provenance when skill custody changes.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 
 1. Confirm canonical custody and naming from repository doctrine.
 2. Author the skill in its repo-owned source directory through `writing-skills`.
 3. Register the exact local skill name in `.agents/plugins/marketplace.json`.
-4. Refresh installed-skill provenance and regenerate the mesh.
+4. Refresh the declared skill projection and provenance, then validate authored routing if skill guidance moved.
 
 ## Compose the skill body as a router
 
@@ -46,11 +56,11 @@ Before calling the body finished, test navigation with representative tasks: can
 - Repo-owned skills live under `.agents/skills/<declared-local-name>/` according to current custody policy.
 - Local skill inventory: `.agents/plugins/marketplace.json` under `repo.local_skills`.
 - Refresh projection/provenance: `py -3 tools/run.py refresh-skills --apply`.
-- Refresh navigation after skill changes: `py -3 tools/run.py mesh --apply`.
+- Validate adopted repository standards and authored links after skill changes.
 
 ## Evidence contract
 
-- Skill source, manifest declaration, installed provenance, and mesh agree.
+- Skill source, manifest declaration, installed provenance, and authored links agree.
 - Marketplace refresh does not overwrite repo-owned skill custody.
 - The authored skill passes the validation required by `writing-skills` and repository checks.
 

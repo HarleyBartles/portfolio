@@ -1,16 +1,10 @@
 {
-  "manifestSha": "bab1d5d7e62604349baed097ea6bb317db112a32",
+  "manifestSha": "ae148c5c7f7b86d759b1d0db6e837abf23cbcb9f",
   "syncedPlugins": [
-    "agent-operating-model",
-    "repo-worker-pack",
-    "superpowers-plus",
-    "mcp-usage-pack",
     "frontend-pack",
-    "language-patterns-pack",
-    "unslop-plus",
-    "writing-pack"
+    "language-patterns-pack"
   ],
-  "syncedSkills": 61,
+  "syncedSkills": 8,
   "localSkills": [
     "applying-portfolio-typography",
     "applying-portfolio-visual-language",
@@ -28,10 +22,10 @@
   ],
   "marketplace": {
     "source": "HarleyBartles/agent-asset-marketplace",
-    "sourcePath": "codex-marketplace/plugins"
+    "sourcePath": "dist/plugins"
   },
   "localPlugins": [],
   "marketplaceFile": ".agents/plugins/marketplace.json",
   "vendorProfiles": [],
-  "syncedAt": "2026-09-28T14:52:31.720307"
+  "syncedAt": "2026-09-29T15:44:44.650854"
 }

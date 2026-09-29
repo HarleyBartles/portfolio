@@ -7,13 +7,24 @@ Use this runbook when executing an approved plan in the Portfolio repository.
 - Executing an approved implementation plan.
 - Repairing plan drift discovered during implementation without broadening scope.
 
-## Required skills
+## Required capabilities
 
-- `using-superpowers-plus` for routing.
-- `executing-plans` or `subagent-driven-development` according to the approved execution lane.
-- `repo-worker-base` for worktree, source-custody, validation, and publication boundaries.
-- `test-driven-development` for feature, bug-fix, behavior, and tested-refactor work.
-- `verification-before-completion` before completion or passing claims.
+- Execute an approved plan in order with behavior-first implementation and focused verification.
+- Manage repository source custody, branch state, validation, and completion evidence.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+- `applying-portfolio-visual-language` for visitor-facing visual work.
+- `asset-custody` when adding, selecting, transforming, or removing owned assets.
+- `writing-portfolio-articles` when implementing an approved public article or writing-system change.
 
 ## Composition
 
@@ -26,7 +37,7 @@ Use this runbook when executing an approved plan in the Portfolio repository.
 ## Doctrine and contracts
 
 - [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) for code scope and architecture invariants.
-- [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for navigation and generated mesh rules.
+- [`../doctrine/agent-guidance-policy.md`](../doctrine/agent-guidance-policy.md) for authored routing and guidance changes.
 - [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for artifact placement.
 - [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for validation expectations.
 - [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for branch, readiness, and publication rules.
@@ -36,7 +47,7 @@ Use this runbook when executing an approved plan in the Portfolio repository.
 - Root routing: `AGENTS.md`.
 - In-flight plans: `.agents/plans/`.
 - Run the relevant named suite while editing; the normal tracked commit hook composes all named suites against the staged tree.
-- Regenerate the mesh in the same change when authored routing or navigation changes.
+- Update authored routers and validate their links in the same change when guidance moves.
 
 ## Evidence contract
 

@@ -4,7 +4,7 @@ Status: active policy
 Owner: Portfolio repository
 Scope: canonical locations outside the repo tree for isolated work and scratch artifacts
 Routed from: `/.devin/rules/agents-doctrine.md`
-Generic baseline: installed `repo-worker-base` and its references
+Generic baseline: repository workflow capabilities available in the current agent runtime
 
 Use this policy when creating or using worktrees and scratch space.
 

@@ -7,10 +7,22 @@ Use this playbook when a generated image is selected for Portfolio page iteratio
 - A generated image moves from transient tool/chat output into repository-backed review or production custody.
 - An accepted generated source is superseded or receives deterministic descendants.
 
-## Required skills
+## Required capabilities
+
+- Preserve source identity, rights, provenance, deterministic derivatives, and supersession for generated imagery.
+- Verify asset custody and derivative output before production use.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
 
 - `asset-custody` for source custody and deterministic derivative handling.
-- `verification-before-completion` before custody or provenance completion claims.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 

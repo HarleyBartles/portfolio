@@ -4,7 +4,7 @@ Status: active policy
 Owner: Portfolio repository
 Scope: git workflow, worktrees, branches, scratch, publication, and task readiness
 Routed from: `/.devin/rules/agents-doctrine.md`
-Generic baseline: installed `repo-worker-base` and its references
+Generic baseline: repository work capabilities available in the current agent runtime
 
 Use this policy when managing git workflow, worktrees, scratch, claiming completion, or deciding whether a task is ready to hand off.
 
@@ -24,15 +24,15 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
 - Only publish the PR when all work is done and the latest normal commit has passed the tracked hook's complete staged-tree gate, composed from separately named suites. Hosted CI runs the same suites in distinct steps and confirms rather than rediscovering local failures.
-- GitHub Actions initializes the pinned public marketplace-source submodule and validates that source, the committed derived skills, provenance, and mesh agree. Do not weaken this check based on the marketplace repository's former private status.
-- For marketplace or derived-skill work, do not publish until the manifest, submodule, derived skills, provenance, and mesh validation all agree.
+- GitHub Actions initializes the pinned public marketplace-source submodule and validates the selected standards, source pin, skill projections, provenance, and authored repository guidance.
+- For marketplace or derived-skill work, do not publish until the manifest, submodule, selected standards, derived skills, and provenance agree.
 - Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.
 - If a task asks for direct `main` work, use it only for that task and keep the proof explicit.
 
 ## Readiness
 
 - A task is not ready just because files changed.
-- Before claiming ready, verify the expected docs, mesh, and validation state for the slice you touched.
+- Before claiming ready, verify the expected authored guidance and validation state for the slice you touched.
 - During implementation, run the smallest focused test slice that proves the current change or repair. The normal loop is: commit; if the hook fails, fix every independent failure it reports, run only the narrow proofs for those repairs, and commit again; when the hook succeeds, push. Do not insert a separate broad verification phase into that loop.
 - The tracked hook owns the complete local gate for the commit candidate and reports the full independent failure set in one run. Only checks blocked by a failed dependency may be skipped. Do not run the complete canonical gate immediately before a commit that will run it anyway, repeat it immediately after a successful hooked commit, or bypass the hook.
 - A successful normal commit is the local canonical proof for that commit. Hosted CI should confirm the same green state after push rather than act as the first place predictable failures are discovered.
@@ -52,7 +52,7 @@ The repo is ready for normal website implementation only when:
 - no stale `.agents/docs/guides/` routing or compatibility tree remains;
 - all active doctrine is routed and all authored links resolve;
 - local-only and generated custody boundaries are validated;
-- the marketplace gitlink is current and does not receive mesh output;
-- refresh and mesh check modes are churn-free;
+- the marketplace gitlink is current and its contents are not modified by consumer tooling;
+- refresh and selected-standard check modes are churn-free;
 - the platform-appropriate preflight and tests pass;
 - the final PR body and validation evidence are honest.

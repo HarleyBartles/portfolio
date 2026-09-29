@@ -7,11 +7,22 @@ Use this playbook whenever a Portfolio change introduces security, privacy, cred
 - Reviewing or changing secrets, credentials, public content, contact behavior, dependencies, submodules, marketplace source, or deployable output.
 - Performing destructive, permission-sensitive, or externally mutating actions.
 
-## Required skills
+## Required capabilities
 
-- `risk-gates` for scope, authority, privacy, and safety decisions.
-- `connector-safety` for connector or external mutations.
-- `requesting-code-review` when security concerns are part of a formal review.
+- Assess privacy, security, authority, and external-mutation risks in the affected work.
+- Safely use an external connector when connector or account state is part of the task.
+
+## Optional capabilities
+
+- Obtain an independent security review when the change creates a material security boundary.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 

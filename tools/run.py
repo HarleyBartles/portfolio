@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import os
 import shutil
 import subprocess
 import sys
@@ -50,52 +49,31 @@ def _run(cmd: list[str], ctx: Ctx) -> None:
 def _repo_standards_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
-        ".agents/skills/repo-standards/scripts/repo_standards.py",
+        ".agents/standards/_runtime/repo_standards.py",
         f"--{mode}",
-        "--yes",
     ]
-    if mode == "apply" and allow_shared:
-        cmd.append("--allow-shared-checkout")
+    if mode == "apply":
+        cmd.append("--yes")
+        if allow_shared:
+            cmd.append("--allow-shared-checkout")
     return cmd
 
 
 def _refresh_skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     cmd = [
         sys.executable,
-        ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+        ".agents/plugins/marketplace-source/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
         f"--{mode}",
     ]
     if mode == "apply" and allow_shared:
         cmd.append("--allow-shared-checkout")
-    if os.environ.get("REPO_STANDARDS_HOSTED_COMMIT"):
-        cmd.append("--no-roll-marketplace-source")
+    cmd.append("--no-roll-marketplace-source")
     return cmd
 
 
 def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
     """Compatibility alias for the pre-standard command name."""
     return _refresh_skills_cmd(mode, allow_shared)
-
-
-def _index_mesh_cmd(mode: str, allow_shared: bool) -> list[str]:
-    cmd = [
-        sys.executable,
-        ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py",
-        f"--{mode}",
-        "--exclusions",
-        "tools/index_mesh_exclusions.json",
-    ]
-    if mode == "apply" and allow_shared:
-        cmd.append("--allow-shared-checkout")
-    return cmd
-
-
-def _mesh_validate_cmd() -> list[str]:
-    return [
-        sys.executable,
-        ".agents/skills/generating-agent-mesh/scripts/validate_agent_mesh.py",
-        "--check",
-    ]
 
 
 def _tests_cmd() -> list[str]:
@@ -154,32 +132,48 @@ def _repo_standards_check(ctx: Ctx) -> None:
     _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
 
 
+def _run_refresh_skills(mode: str, ctx: Ctx) -> None:
+    # The pinned refresh utility still resolves its vendor-profile deployer
+    # from a marketplace-root path. Expose the pinned source script at that
+    # legacy lookup path only for the duration of refresh; no skill is copied
+    # into the consumer's installed skill tree.
+    bridge_root = ROOT / "skills"
+    if bridge_root.exists():
+        raise RuntimeError("temporary marketplace skill bridge path already exists")
+    source_script = (
+        ROOT
+        / ".agents"
+        / "plugins"
+        / "marketplace-source"
+        / "skills"
+        / "repo-shape"
+        / "scripts"
+        / "deploy_vendor_profiles.py"
+    )
+    if not source_script.is_file():
+        raise FileNotFoundError(f"pinned vendor-profile deployer not found: {source_script}")
+    bridge_script = bridge_root / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
+    try:
+        bridge_script.parent.mkdir(parents=True)
+        shutil.copy2(source_script, bridge_script)
+        _run(_refresh_skills_cmd(mode, ctx.allow_shared), ctx)
+    finally:
+        if bridge_script.exists():
+            bridge_script.unlink()
+        for directory in (bridge_script.parent, bridge_script.parent.parent, bridge_root):
+            try:
+                directory.rmdir()
+            except OSError:
+                break
+
+
 def _skills_apply(ctx: Ctx) -> None:
-    _run(_refresh_skills_cmd("apply", ctx.allow_shared), ctx)
-    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
+    _run_refresh_skills("apply", ctx)
+    _run_refresh_skills("check", ctx)
 
 
 def _skills_check(ctx: Ctx) -> None:
-    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
-
-
-def _mesh_apply(ctx: Ctx) -> None:
-    _index_mesh_apply(ctx)
-    _run(_mesh_validate_cmd(), ctx)
-
-
-def _mesh_check(ctx: Ctx) -> None:
-    _index_mesh_check(ctx)
-    _run(_mesh_validate_cmd(), ctx)
-
-
-def _index_mesh_apply(ctx: Ctx) -> None:
-    _run(_index_mesh_cmd("apply", ctx.allow_shared), ctx)
-    _run(_index_mesh_cmd("check", ctx.allow_shared), ctx)
-
-
-def _index_mesh_check(ctx: Ctx) -> None:
-    _run(_index_mesh_cmd("check", ctx.allow_shared), ctx)
+    _run_refresh_skills("check", ctx)
 
 
 def _content_manifest_apply(ctx: Ctx) -> None:
@@ -203,7 +197,6 @@ def _route_catalogue_check(ctx: Ctx) -> None:
 def _ci_apply(ctx: Ctx) -> None:
     _repo_standards_apply(ctx)
     _skills_apply(ctx)
-    _mesh_apply(ctx)
     _content_manifest_apply(ctx)
     _route_catalogue_apply(ctx)
     _run(_refresh_seo_files_cmd(), ctx)
@@ -233,7 +226,6 @@ def _repository_checks_check(ctx: Ctx) -> None:
         [
             ("repository standards", _repo_standards_check, None),
             ("installed skills", _skills_check, None),
-            ("agent mesh", _mesh_check, None),
             ("content manifest", _content_manifest_check, None),
             ("route catalogue", _route_catalogue_check, None),
         ],
@@ -249,7 +241,6 @@ def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], st
     steps = [
         ("repository standards", _repo_standards_check, None),
         ("installed skills", _skills_check, None),
-        ("agent mesh", _mesh_check, None),
         ("content manifest", _content_manifest_check, None),
         ("route catalogue", _route_catalogue_check, None),
         ("repository validation", lambda ctx: _run(_repository_validation_cmd(), ctx), None),
@@ -298,7 +289,6 @@ def _base_ci_check(ctx: Ctx) -> None:
         return
     _repo_standards_check(ctx)
     _skills_check(ctx)
-    _mesh_check(ctx)
     _content_manifest_check(ctx)
     _route_catalogue_check(ctx)
     _run(_repository_validation_cmd(), ctx)
@@ -331,8 +321,6 @@ TARGETS = {
     },
     "refresh-skills": {"apply": _skills_apply, "check": _skills_check},
     "skills": {"apply": _skills_apply, "check": _skills_check},
-    "index-mesh": {"apply": _index_mesh_apply, "check": _index_mesh_check},
-    "mesh": {"apply": _mesh_apply, "check": _mesh_check},
     "content-manifest": {"apply": _content_manifest_apply, "check": _content_manifest_check},
     "route-catalogue": {"apply": _route_catalogue_apply, "check": _route_catalogue_check},
     "repo-checks": {"check": _repository_checks_check},
