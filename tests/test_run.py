@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import subprocess
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import call, patch
@@ -44,23 +43,21 @@ class CanonicalRunnerTests(unittest.TestCase):
 
 
 
-    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": ""})
-    def test_standard_skill_refresh_target_uses_the_bundled_implementation(self) -> None:
+    def test_repo_standards_uses_the_deployed_consumer_dispatcher(self) -> None:
         self.assertEqual(
             [
                 sys.executable,
-                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                ".agents/standards/_runtime/repo_standards.py",
                 "--check",
             ],
-            run._refresh_skills_cmd("check", False),
+            run._repo_standards_cmd("check", False),
         )
 
-    @patch.dict("os.environ", {"REPO_STANDARDS_HOSTED_COMMIT": "HEAD"})
-    def test_hosted_skill_refresh_uses_the_committed_marketplace_source(self) -> None:
+    def test_skill_refresh_always_uses_the_pinned_submodule_utility(self) -> None:
         self.assertEqual(
             [
                 sys.executable,
-                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                ".agents/plugins/marketplace-source/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
                 "--check",
                 "--no-roll-marketplace-source",
             ],
@@ -69,11 +66,12 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertEqual(
             [
                 sys.executable,
-                ".agents/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
+                ".agents/plugins/marketplace-source/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
                 "--apply",
+                "--allow-shared-checkout",
                 "--no-roll-marketplace-source",
             ],
-            run._refresh_skills_cmd("apply", False),
+            run._refresh_skills_cmd("apply", True),
         )
 
     @patch("shutil.which", return_value="C:/node/npm.cmd")
@@ -105,69 +103,6 @@ class CanonicalRunnerTests(unittest.TestCase):
             run_command.call_args_list,
         )
 
-    def test_portfolio_index_mesh_target_uses_bundled_code_with_local_policy(self) -> None:
-        self.assertEqual(
-            [
-                sys.executable,
-                ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py",
-                "--check",
-                "--exclusions",
-                "tools/index_mesh_exclusions.json",
-            ],
-            run._index_mesh_cmd("check", False),
-        )
-
-    @patch.object(run, "_run")
-    def test_mesh_composes_the_standard_index_target_and_validation(self, run_command) -> None:
-        run._mesh_check(self.context)
-
-        self.assertEqual(
-            [
-                call(run._index_mesh_cmd("check", False), self.context),
-                call(run._mesh_validate_cmd(), self.context),
-            ],
-            run_command.call_args_list,
-        )
-
-    def test_portfolio_mesh_policy_excludes_noncanonical_generated_surfaces(self) -> None:
-        generator = ROOT / ".agents/skills/generating-agent-mesh/scripts/generate_index_mesh.py"
-        exclusions = ROOT / "tools/index_mesh_exclusions.json"
-
-        with tempfile.TemporaryDirectory() as tmp:
-            repo = Path(tmp)
-            tracked = (
-                repo / "githooks/pre-commit",
-                repo / "src/client/public/media/hero.png",
-                repo / "src/client/src/data/content/project.md",
-                repo / "docs/guide.md",
-            )
-            for path in tracked:
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text("fixture\n", encoding="utf-8")
-            subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
-            subprocess.run(["git", "add", "."], cwd=repo, check=True)
-
-            result = subprocess.run(
-                [
-                    sys.executable,
-                    str(generator),
-                    "--apply",
-                    "--repo-root",
-                    str(repo),
-                    "--exclusions",
-                    str(exclusions),
-                ],
-                cwd=repo,
-                capture_output=True,
-                text=True,
-            )
-
-            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-            self.assertTrue((repo / "docs/INDEX.md").is_file())
-            self.assertFalse((repo / "githooks/INDEX.md").exists())
-            self.assertFalse((repo / "src/client/public/INDEX.md").exists())
-            self.assertFalse((repo / "src/client/src/data/content/INDEX.md").exists())
-
     def test_playwright_mcp_diagnostics_do_not_dirty_the_checkout(self) -> None:
         result = subprocess.run(
             ["git", "check-ignore", "-q", ".playwright-mcp/session.yml"],
@@ -184,7 +119,6 @@ class CanonicalRunnerTests(unittest.TestCase):
         commands = [entry.args[0] for entry in run_command.call_args_list]
         self.assertIn(run._repo_standards_cmd("check", False), commands)
         self.assertIn(run._skills_cmd("check", False), commands)
-        self.assertIn(run._mesh_validate_cmd(), commands)
 
 
 

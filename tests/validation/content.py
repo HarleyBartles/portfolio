@@ -200,8 +200,6 @@ def _validate_manifest(
             findings.append(_finding(MANIFEST_PATH, "editorial writing requires exactly one indexLead"))
 
     for markdown_path in content_root.rglob("*.md"):
-        if markdown_path.name == "INDEX.md":
-            continue
         if markdown_path.resolve() not in manifest_paths:
             relative = markdown_path.relative_to(root)
             findings.append(_finding(relative, "Markdown file is not listed in the manifest"))

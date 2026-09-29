@@ -198,7 +198,7 @@ export const validateUsualSpecialistsProvenance = async () => {
   const provenanceRecords = {}
   const entries = await readdir(provenanceRoot, { withFileTypes: true })
   for (const entry of entries) {
-    if (!entry.isFile() || !entry.name.endsWith('.md') || ['README.md', 'INDEX.md'].includes(entry.name)) continue
+    if (!entry.isFile() || !entry.name.endsWith('.md') || entry.name === 'README.md') continue
     const filePath = path.join(provenanceRoot, entry.name)
     provenanceRecords[repositoryPath(filePath)] = await readFile(filePath, 'utf8')
   }

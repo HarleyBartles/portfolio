@@ -561,12 +561,42 @@ def _clean_orphan_skills(
     return cleaned_any
 
 
-NON_PROFILE_MD_NAMES = {"INDEX.md"}
+def _clean_empty_skill_projection(check_mode: bool, local_skill_names: list[str]) -> bool:
+    """Remove marketplace projections and provenance when no plugin is subscribed."""
+    changed = _clean_orphan_skills(
+        check_mode=check_mode,
+        synced_skill_names=set(),
+        local_skill_names=local_skill_names,
+    )
+
+    if PROVENANCE_PATH.exists():
+        if check_mode:
+            print(f"CHECK: Would remove marketplace skill provenance: {PROVENANCE_PATH.relative_to(ROOT)}")
+        else:
+            PROVENANCE_PATH.unlink()
+            print(f"Removed marketplace skill provenance: {PROVENANCE_PATH.relative_to(ROOT)}")
+        changed = True
+
+    if AGENTS_SKILLS_PATH.is_dir():
+        preserved_entries = [
+            entry
+            for entry in AGENTS_SKILLS_PATH.iterdir()
+            if _is_local_skill_dir(entry, local_skill_names) or (entry != PROVENANCE_PATH and not entry.is_dir())
+        ]
+        if not preserved_entries:
+            if check_mode:
+                print(f"CHECK: Would remove empty skill projection directory: {AGENTS_SKILLS_PATH.relative_to(ROOT)}")
+            else:
+                AGENTS_SKILLS_PATH.rmdir()
+                print(f"Removed empty skill projection directory: {AGENTS_SKILLS_PATH.relative_to(ROOT)}")
+            changed = True
+
+    return changed
 
 
 def _is_vendor_profile_file(path: Path) -> bool:
     """Return True for a `.md` file that should be treated as a vendor profile."""
-    return path.is_file() and path.suffix.lower() == ".md" and path.name not in NON_PROFILE_MD_NAMES
+    return path.is_file() and path.suffix.lower() == ".md"
 
 
 def _vendor_profile_source_dir(plugin: dict[str, Any]) -> Path | None:
@@ -613,7 +643,7 @@ def _provenance_state(
         "localSkills": local_skills,
         "marketplace": {
             "source": _marketplace_source_slug(ROOT),
-            "sourcePath": "codex-marketplace/plugins",
+            "sourcePath": "dist/plugins",
         },
         "localPlugins": local_plugins,
         "marketplaceFile": ".agents/plugins/marketplace.json",
@@ -795,6 +825,13 @@ def main(argv: list[str] | None = None) -> int:
     installed_plugins = _get_installed_plugins(config)
 
     if not installed_plugins:
+        projection_changed = _clean_empty_skill_projection(
+            check_mode=args.check,
+            local_skill_names=local_skill_names,
+        )
+        if args.check and (projection_changed or marketplace_source_drift is not None):
+            print("CHECK: Empty marketplace skill selection is not clean")
+            return 1
         print("No plugins with INSTALLED_BY_DEFAULT policy found")
         return 0
 
@@ -831,14 +868,15 @@ def main(argv: list[str] | None = None) -> int:
             }
         )
 
-    # Delegate vendor profile deployment to repo-shape and capture whether any
-    # work is needed. A newly enabled plugin is not installed yet, so bootstrap
-    # from its canonical source on that first refresh.
-    deploy_script = ROOT / ".agents" / "skills" / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
+    # The marketplace source repository keeps the deployer in canonical source;
+    # consumers may bootstrap it from the packaged plugin before installation.
+    deploy_script = ROOT / "skills" / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
+    if not deploy_script.is_file():
+        deploy_script = ROOT / ".agents" / "skills" / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
     if not deploy_script.is_file():
         deploy_script = (
             ROOT
-            / "codex-marketplace"
+            / "dist"
             / "plugins"
             / "agent-operating-model"
             / "skills"

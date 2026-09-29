@@ -3,7 +3,7 @@ name: typescript
 description: Use when writing or reviewing TypeScript type design, generics, module resolution, or compiler configuration. Do not use when the work is JavaScript runtime debugging or framework-specific UI composition.
 metadata:
   source-id: typescript
-  source-path: codex-marketplace/plugins/language-patterns-pack/skills/typescript/SKILL.md
+  source-path: skills/typescript/SKILL.md
   provenance-name: Typescript first-party skill
   source-category: first_party
   status: active

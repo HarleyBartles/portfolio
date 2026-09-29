@@ -1,22 +1,21 @@
 # Contributing
 
-This repo follows the `repo-standards` and `repo-worker-base` baselines. For the canonical repo layout and runbook standard, see `.agents/doctrine/repo-runbook-policy.md`.
+This repository adopts the standards listed in `.agents/contracts/operating-standards.json`. Repository-specific policy and procedures are routed from `AGENTS.md` and `.agents/doctrine/repo-runbook-policy.md`.
 
 ## Before starting
 
 - Read root [`AGENTS.md`](./AGENTS.md) for source-of-truth, build, and routing rules.
 - Read [the portfolio design policy](./.agents/doctrine/portfolio-design-policy.md) before changing any visitor-facing presentation, content hierarchy, motion, imagery, typography, claim, or contact behaviour.
 - Read [the portfolio writing policy](./.agents/doctrine/writing-policy.md) before changing public prose.
-- Invoke `/using-superpowers-plus` to route to the correct stage skill.
-- Invoke `/repo-worker-base` for worktree, branch, validation, and publication boundaries.
-- Invoke `/repo-standards` when the task touches repo shape, runbooks, or scaffolds.
+- Follow the applicable lifecycle runbook and repository policies; optional ambient skills may support the work but are not repository dependencies.
+- Use `py -3 tools/run.py repo-standards --check` to inspect adopted repository standards; use `--apply --allow-shared-checkout` only when intentionally applying them in the main checkout.
 
 ## Workflow routing
 
-- **Design:** read [`.agents/runbooks/design.md`](./.agents/runbooks/design.md), then invoke `/brainstorming`.
-- **Planning:** read [`.agents/runbooks/planning.md`](./.agents/runbooks/planning.md), then invoke `/writing-plans`.
-- **Implementation:** read [`.agents/runbooks/implementing.md`](./.agents/runbooks/implementing.md), then invoke `/executing-plans` or `/subagent-driven-development`.
-- **Review:** read [`.agents/runbooks/code-review.md`](./.agents/runbooks/code-review.md), then invoke `/requesting-code-review`.
+- **Design:** follow [`.agents/runbooks/design.md`](./.agents/runbooks/design.md).
+- **Planning:** follow [`.agents/runbooks/planning.md`](./.agents/runbooks/planning.md).
+- **Implementation:** follow [`.agents/runbooks/implementing.md`](./.agents/runbooks/implementing.md).
+- **Review:** follow [`.agents/runbooks/code-review.md`](./.agents/runbooks/code-review.md).
 
 ## Conventions and verification
 

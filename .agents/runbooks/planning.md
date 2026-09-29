@@ -7,14 +7,22 @@ Use this runbook to turn an approved Portfolio design or bounded goal into an ex
 - Writing a single implementation plan from an approved design or sufficiently specified task.
 - Writing a roadmap when the goal requires several consecutive implementation plans.
 
-## Required skills
+## Required capabilities
 
-- `using-superpowers-plus` for routing.
-- `repo-worker-base` for fresh-base and isolated-worktree hygiene.
-- `completing-planning-artifacts` for successor-slice retirement of completion-marked artifacts.
-- `writing-plans` for a single executable plan.
-- `writing-roadmaps` for an epic-sized sequence of plans.
-- `handoff-gates` before planning-to-execution handoff.
+- Turn an approved specification or bounded goal into an executable, dependency-aware implementation plan or roadmap.
+- Manage planning artifacts through their repository lifecycle and define concrete task exits and proof.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 
@@ -27,7 +35,7 @@ Use this runbook to turn an approved Portfolio design or bounded goal into an ex
 ## Doctrine and contracts
 
 - [`../doctrine/artifact-policy.md`](../doctrine/artifact-policy.md) for plan custody.
-- [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for repository navigation surfaces.
+- [`../doctrine/agent-guidance-policy.md`](../doctrine/agent-guidance-policy.md) for authored repository routers and guidance.
 - [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for expected proof.
 - [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) when the plan touches code architecture.
 
@@ -35,7 +43,7 @@ Use this runbook to turn an approved Portfolio design or bounded goal into an ex
 
 - In-flight planning artifacts live in `.agents/plans/`, `.agents/specs/`, and `.agents/roadmaps/`, including appropriate epic subfolders.
 - Completed planning artifacts follow `.agents/doctrine/completed-artifacts.md`.
-- Regenerate planning navigation with `py -3 tools/run.py mesh --apply`; verify it with `py -3 tools/run.py mesh --check`.
+- Keep plan links resolvable and update the authored root or scoped router when planning surfaces move.
 - Plans name focused validation commands and generated-surface apply/check commands explicitly where needed.
 
 ## Evidence contract

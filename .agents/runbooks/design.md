@@ -7,12 +7,22 @@ Use this runbook to turn a Portfolio idea into a design specification that plann
 - Shaping a new visitor-facing or repository-facing design before implementation planning.
 - Revising an existing design contract where human taste, hierarchy, interaction, or architecture must be resolved first.
 
-## Required skills
+## Required capabilities
 
-- `using-superpowers-plus` for routing.
-- `brainstorming` for the design stage and its baseline.
-- `applying-portfolio-visual-language` for visitor-facing presentation.
-- `handoff-gates` before design-to-planning handoff.
+- Shape an unresolved product or repository problem into an evidence-backed design specification with clear scope, decisions, and acceptance evidence.
+- Assess Portfolio presentation, accessibility, and content hierarchy when the design affects a visitor-facing surface.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+- `applying-portfolio-visual-language` when the design changes visitor-facing presentation.
 
 ## Composition
 
@@ -31,7 +41,7 @@ Use this runbook to turn a Portfolio idea into a design specification that plann
 ## Local commands and paths
 
 - Specs live under `.agents/specs/` while active.
-- Inspect `README.md`, `AGENTS.md`, `.agents/INDEX.md`, and the relevant doctrine/index surfaces when repo structure is part of the design.
+- Inspect `README.md`, `AGENTS.md`, local `AGENTS.md` routers, and relevant doctrine when repository structure is part of the design.
 - Verify exact file names, commands, source/derived boundaries, and current implementation facts from the live repo rather than memory.
 
 ## Evidence contract

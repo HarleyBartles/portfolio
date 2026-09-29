@@ -8,14 +8,22 @@ Use this playbook to take public editorial work from commission through publicat
 - Changing titles, standfirsts, summaries, headings, captions, alt text or route copy as part of an editorial commission.
 - Assessing an article against the published corpus or the whole-site 12A-inspired house standard.
 
-## Required skills
+## Required capabilities
 
-- `writing-portfolio-articles` for the detailed editorial method, corpus-fatigue review and final article review.
-- `writing` for drafting and editorial revision.
-- `writing-style` and `writing-with-clarity` for focused prose review when their concerns apply.
-- `linear-issue-shaping` and `using-linear-mcp` when the commission is Linear-backed.
-- `verification-before-completion` before publication or readiness claims.
-- `simulated-reader-polling` when a structured poll can investigate a specific editorial question about a draft's pacing, audience routes or controlled version comparison. Choose the cohort for that question; there is no standard panel size.
+- Develop and revise portfolio articles using the authored voice, evidence, metadata, and editorial policy.
+- Review prose for clarity, style, factual support, and reader-facing structure.
+
+## Optional capabilities
+
+- Conduct a bounded simulated-reader poll when a specific editorial question would benefit from one.
+
+## Required repository-owned skills
+
+- `writing-portfolio-articles` for the Portfolio article workflow and final article review.
+
+## Optional repository-owned skills
+
+- `simulated-reader-polling` when a structured poll is selected for a specific question.
 
 ## Composition
 
@@ -125,7 +133,7 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Public article source and route ownership are discovered from the live repository rather than assumed from a generic template.
 - Content catalogue: `py -3 tools/run.py content-manifest --apply` then `py -3 tools/run.py content-manifest --check` when article metadata changes.
 - Route catalogue: `py -3 tools/run.py route-catalogue --apply` then `py -3 tools/run.py route-catalogue --check` when public routes change.
-- Agent/document mesh: `py -3 tools/run.py mesh --apply` then `py -3 tools/run.py mesh --check` when authored routing changes.
+- Authored routing: update the relevant `AGENTS.md` or `.devin/rules/` pointer and run `py -3 tools/run.py repo-standards --check` when guidance changes.
 - Complete local gate: stage the intended tree and commit normally; the tracked hook runs the separately named suites against that snapshot.
 
 ## Evidence contract

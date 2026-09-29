@@ -2,7 +2,11 @@
 
 ## What it checks
 
-`repo-standards/scripts/validate_skill_scripts.py` walks every installed skill Python script under `.agents/skills/*/scripts/*.py` and verifies this contract:
+`repo-standards/scripts/validate_skill_scripts.py` walks every skill Python script under `<root>/*/scripts/*.py` and verifies this contract. By default, `<root>` is `.agents/skills` for consumer repositories. Marketplace source CI passes `--root skills` so canonical scripts are checked without requiring installed copies:
+
+```bash
+py -3 skills/repo-shape/scripts/validate_skill_scripts.py --root skills --check
+```
 
 - `--help` exits `0` and contains a `usage:` line.
 - `--help` declares the script classification: `read-only`, `mutating`, or `mixed`.
@@ -16,14 +20,14 @@ Run it as part of the consumer's canonical repository-standards or CI check. CI 
 
 1. Run the failing script with `--help` and `--check` locally:
    ```bash
-   py -3 codex-marketplace/plugins/<plugin-pack>/skills/<skill-name>/scripts/<script>.py --help
-   py -3 codex-marketplace/plugins/<plugin-pack>/skills/<skill-name>/scripts/<script>.py --check
+   py -3 dist/plugins/<plugin-pack>/skills/<skill-name>/scripts/<script>.py --help
+   py -3 dist/plugins/<plugin-pack>/skills/<skill-name>/scripts/<script>.py --check
    ```
 2. Add `argparse` with `--help`, `--check`, and (for mixed scripts) `--apply`.
 3. Keep `--check` as the default mode and document the classification in the help text.
 4. Re-run the validator:
    ```bash
-   py -3 codex-marketplace/plugins/agent-operating-model/skills/repo-shape/scripts/validate_skill_scripts.py
+   py -3 dist/plugins/agent-operating-model/skills/repo-shape/scripts/validate_skill_scripts.py
    ```
 
 ## Deferred scripts

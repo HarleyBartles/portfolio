@@ -3,7 +3,7 @@ name: using-deepwiki-mcp
 description: Use when you need high-level orientation, conventions, architecture, or cross-repo context for a GitHub repo and need to choose the right DeepWiki MCP tool and question phrasing.
 metadata:
   source-id: using-deepwiki-mcp
-  source-path: codex-marketplace/plugins/mcp-usage-pack/skills/using-deepwiki-mcp/SKILL.md
+  source-path: skills/using-deepwiki-mcp/SKILL.md
   provenance-name: Using DeepWiki MCP first-party skill
   source-category: first_party
   status: active
@@ -22,6 +22,10 @@ license: MIT
 # Using DeepWiki MCP
 
 Use this skill to decide when and how to call the `deepwiki` MCP server for a GitHub repo, with good question phrasing, current-repo detection, multi-repo support, and safe verification.
+
+## Runtime availability
+
+Inspect the tools exposed in the current runtime before calling this server. This skill and its plugin do not need to be subscribed to by the repository. If DeepWiki is absent, use another documented source only when it can answer the same question; otherwise report that the requested orientation capability is unavailable. Do not claim that a missing server was queried.
 
 ## When to use
 

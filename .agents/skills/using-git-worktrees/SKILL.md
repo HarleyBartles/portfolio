@@ -3,7 +3,7 @@ name: using-git-worktrees
 description: Use when feature work or plan execution needs an isolated Git workspace.
 metadata:
   source-id: using-git-worktrees
-  source-path: codex-marketplace/plugins/superpowers-plus/skills/using-git-worktrees/SKILL.md
+  source-path: skills/using-git-worktrees/SKILL.md
   provenance-name: Using Git Worktrees first-party skill
   source-category: first_party
   status: active
@@ -30,6 +30,10 @@ license: MIT
 This marketplace-maintained derivative is based on `obra/superpowers` v6.4.1 commit `5bf4e78011075bcfc0dc295f0724994cd123ee71` under the MIT License. Upstream source is not vendored; this directory contains the maintained Superpowers+ implementation.
 
 # Using Git Worktrees
+
+## Bundled helper paths
+
+Resolve the worktree helper under this skill's directory supplied by the active runtime. In examples, `<runtime-skill-path-for-using-git-worktrees>` means that location, not a consumer `.agents/skills/` projection.
 
 ## Overview
 
@@ -77,13 +81,13 @@ Honor any existing declared preference without asking. If the user declines cons
 
 ## Step 1: Create Isolated Workspace
 
-Use the bundled `new_worktree.py` script for every new worktree. It creates the worktree at the canonical sibling root (`../_agent-worktrees/<repo-name>/<branch>`), installs dependencies, and refreshes installed skills. A native Codex worktree tool may instead choose its own app directory and violate the consumer's location policy. Do not use it as an alternate creation path.
+Use the bundled `new_worktree.py` script for every new worktree. It creates the worktree at the canonical sibling root (`../_agent-worktrees/<repo-name>/<branch>`), installs dependencies, and refreshes marketplace skills only when the consumer has declared them. A native Codex worktree tool may instead choose its own app directory and violate the consumer's location policy. Do not use it as an alternate creation path.
 
 From the main checkout, preview and then create:
 
 ```text
-py -3 .agents/skills/using-git-worktrees/scripts/new_worktree.py --check <branch>
-py -3 .agents/skills/using-git-worktrees/scripts/new_worktree.py --apply <branch>
+py -3 <runtime-skill-path-for-using-git-worktrees>/scripts/new_worktree.py --check <branch>
+py -3 <runtime-skill-path-for-using-git-worktrees>/scripts/new_worktree.py --apply <branch>
 ```
 
 The preview exits nonzero when the worktree does not exist yet; read its proposed path. After creation, verify the returned path, branch, and Git registration against the consumer's policy before editing. If the script cannot create the canonical worktree, stop and report the blocker instead of choosing another creator or working in the shared checkout. Worktree and branch retirement belongs to `finishing-a-development-branch`.

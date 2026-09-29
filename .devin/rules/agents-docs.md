@@ -10,7 +10,7 @@ globs:
 
 When working in this scope:
 
-- MUST READ `.agents/doctrine/mesh-policy.md`
+- MUST READ `.agents/doctrine/agent-guidance-policy.md`
 - MUST READ `.agents/doctrine/artifact-policy.md`
 - MUST READ `.agents/doctrine/workflow-policy.md`
 - MUST READ `.agents/doctrine/coding-discipline.md`

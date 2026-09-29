@@ -3,7 +3,7 @@ name: repo-standards
 description: Use when aligning several repository operating-model concerns or deciding which focused repository standard owns a requested change.
 metadata:
   source-id: repo-standards
-  source-path: codex-marketplace/plugins/agent-operating-model/skills/repo-standards/SKILL.md
+  source-path: skills/repo-standards/SKILL.md
   provenance-name: Repo Standards router first-party skill
   source-category: first_party
   status: active
@@ -12,6 +12,10 @@ license: MIT
 ---
 
 # Repo Standards
+
+Agent Operating Model is an ambient catalog. Its presence does not mean the consumer adopts any of its standards. Help the repository choose only the standards it wants, including none; keep repository-owned standards in the repository's own composition. Run checks and scaffolds only for the explicitly declared composition.
+
+The catalog is packaged with `repo-shape` at `references/operating-standards-catalog.json`. Treat its entries as available choices; a repository adopts a standard only through its own explicit composition declaration.
 
 Route the request to the smallest owning capability:
 

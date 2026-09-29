@@ -12,10 +12,7 @@ For the repository layout and runbook standard, see `.agents/doctrine/repo-runbo
 
 ## Workflow routing
 
-After `/using-superpowers-plus` has routed to the review stage, invoke:
-
-- `/repo-standards` if the review touches repo shape or scaffolds.
-- `/requesting-code-review` for the review workflow and reviewer dispatch.
+Inspect `.agents/contracts/operating-standards.json` and run the selected standards check when the review touches repository shape or scaffolds. Follow the review workflow and reviewer dispatch guidance in `.agents/runbooks/code-review.md`.
 
 ## First-class review concerns
 

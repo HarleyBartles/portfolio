@@ -3,7 +3,7 @@ name: cleanup-custody
 description: Use when a workspace or repository surface needs a custody decision about whether to keep it live, move it to cold store or governed trash, delete it now, or route it to an owning authority.
 metadata:
   source-id: cleanup-custody
-  source-path: codex-marketplace/plugins/repo-worker-pack/skills/cleanup-custody/SKILL.md
+  source-path: skills/cleanup-custody/SKILL.md
   provenance-name: Cleanup Custody first-party skill
   source-category: first_party
   status: active
@@ -49,11 +49,11 @@ Require these lanes for issue-backed cleanup or self-check work:
 - `worker_claim_vs_observed_state`
 - `judgment`
 
-If an ordinary repo tree, canary, sentinel, index, gitlink, or other observable marker still contradicts the issue goal, block GREEN/PASS and route the correction.
+If an ordinary repo tree, canary, sentinel, gitlink, or other observable marker still contradicts the issue goal, block GREEN/PASS and route the correction.
 
 ## Governed-trash sentinel rule
 
-When governed trash is involved, require a repo-local `GovernedTrash/INDEX.md` sentinel posture or the repository's established equivalent. Any governed-trash add, remove, or clear action must refresh and publish the sentinel before GREEN.
+When governed trash is involved, require a repo-local `GovernedTrash/README.md` sentinel posture or the repository's established equivalent. Any governed-trash add, remove, or clear action must refresh and publish the sentinel before GREEN.
 
 Do not treat the sentinel as deletion authority. It is custody inventory and publication proof for trash handling.
 

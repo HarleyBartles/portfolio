@@ -10,7 +10,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/agent-operating-model"
+        "path": "dist/plugins/agent-operating-model"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -24,7 +24,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/repo-worker-pack"
+        "path": "dist/plugins/repo-worker-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -38,7 +38,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/superpowers-plus"
+        "path": "dist/plugins/superpowers-plus"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -52,7 +52,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/mcp-usage-pack"
+        "path": "dist/plugins/mcp-usage-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -66,7 +66,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/frontend-pack"
+        "path": "dist/plugins/frontend-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -80,7 +80,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/language-patterns-pack"
+        "path": "dist/plugins/language-patterns-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -94,7 +94,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/unslop-plus"
+        "path": "dist/plugins/unslop-plus"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",
@@ -108,7 +108,7 @@
         "source": "github",
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
-        "path": "codex-marketplace/plugins/writing-pack"
+        "path": "dist/plugins/writing-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",

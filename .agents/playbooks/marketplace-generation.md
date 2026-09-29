@@ -8,20 +8,30 @@ Use this playbook when changing Portfolio's marketplace subscriptions, marketpla
 - Advancing `.agents/plugins/marketplace-source`.
 - Refreshing marketplace-derived skills or their provenance.
 
-## Required skills
+## Required capabilities
 
-- `repo-agent-assets` for plugin subscriptions, local-skill declarations, projections, and provenance.
-- `refreshing-installed-skills` for installation/refresh mechanics.
-- `repo-worker-base` for source, worktree, and validation boundaries.
-- `generating-agent-mesh` when the installed skill inventory changes navigation.
+- Maintain plugin declarations, repository-owned skill declarations, pinned sources, and generated skill projections.
+- Refresh and verify the installed skill projection from the repository-pinned Marketplace source.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 
 1. Confirm the canonical marketplace source and target commit/plugin subscription.
 2. Update `.agents/plugins/marketplace.json` and the marketplace-source gitlink deliberately.
 3. Refresh derived skills through the repository command; never edit projections directly.
-4. Regenerate the mesh when the installed skill surface changes.
-5. Check manifest, gitlink, projections, provenance, and mesh together before commit.
+4. Update authored routers if a skill surface or guidance path changes.
+5. Check the manifest, pinned source, declared standards, projections, and provenance before commit.
 
 ## Doctrine and contracts
 
@@ -35,11 +45,11 @@ Use this playbook when changing Portfolio's marketplace subscriptions, marketpla
 - Marketplace source: `.agents/plugins/marketplace-source`.
 - Initialize source if needed: `git submodule update --init --checkout -- .agents/plugins/marketplace-source`.
 - Refresh projection: `py -3 tools/run.py refresh-skills --apply`.
-- Focused checks: `py -3 tools/run.py refresh-skills --check` and `py -3 tools/run.py mesh --check`.
+- Focused checks: `py -3 tools/run.py refresh-skills --check` and `py -3 tools/run.py repo-standards --check`.
 
 ## Evidence contract
 
-- Manifest, pinned marketplace commit, derived skills, `.agents/skills/.provenance.json`, and mesh agree.
+- Manifest, pinned marketplace commit, declared standards, selected skill projections, and `.agents/skills/.provenance.json` agree.
 - No marketplace-derived skill was manually authored in Portfolio.
 - Refresh/check modes are churn-free before closeout.
 

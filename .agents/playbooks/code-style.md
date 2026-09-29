@@ -7,14 +7,23 @@ Use this playbook for Portfolio code conventions and for composing language/fram
 - Writing or reviewing React, TypeScript, JavaScript, Python, styling, or technical prose.
 - Making structural component changes where repository architecture invariants apply.
 
-## Required skills
+## Required capabilities
 
-- `react` for React component architecture and composition.
-- `typescript` for TypeScript-specific type design, generics, module resolution, or compiler configuration.
-- `web-styling` for CSS, SCSS, and styled-components choices or refactors.
-- `python` for Python changes.
-- `writing-with-clarity` for human-facing technical prose.
-- `test-driven-development` when behavior changes or a refactor requires executable protection.
+- Choose and review maintainable React, TypeScript, Python, and web styling patterns for the affected code.
+- Select behavior-focused tests before implementation when a change needs executable protection.
+- Write concise, clear technical prose for human readers.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 
@@ -32,7 +41,7 @@ Use this playbook for Portfolio code conventions and for composing language/fram
 
 - Inspect the language-specific project files before changing code, for example `src/client/package.json`, `src/client/tsconfig*.json`, or `tools/run.py`.
 - In React, TypeScript, JavaScript, and Node scripts, prefer named `const` arrow functions over function declarations, including exports, unless declaration-specific semantics are required.
-- Keep documentation and routing surfaces current; regenerate `INDEX.md` navigation through the owning mesh command after structural changes.
+- Keep documentation and authored routing surfaces current after structural changes.
 
 ## Evidence contract
 

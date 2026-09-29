@@ -3,7 +3,7 @@ name: repo-shape
 description: Use when checking, creating, or repairing the required agent-facing files, directories, manifests, pointers, and structural contracts of a repository.
 metadata:
   source-id: repo-shape
-  source-path: codex-marketplace/plugins/agent-operating-model/skills/repo-shape/SKILL.md
+  source-path: skills/repo-shape/SKILL.md
   provenance-name: Repo Shape first-party skill
   source-category: first_party
   status: active
@@ -23,6 +23,8 @@ license: MIT
 This skill owns the portable repository surface model and the check/apply coordinator. Use `repo-standards` to route broad operating-model work and `repo-composition` for runbook or playbook semantics.
 
 Each repo supplies a thin overlay at `.agents/doctrine/repo-runbook-policy.md` that records local mappings and shape exceptions. `repo-composition` owns the meaning of runbooks, playbooks, and their graph.
+
+If a repo retires generated `INDEX.md` or `INDEX.json` files, remove the tracked outputs and their generation/check commands from local runners, hooks, and hosted CI. Do not add a replacement subscription or generated inventory. Keep binding routes in `AGENTS.md`, and let runbooks and playbooks remain directly addressable by their declared local paths.
 
 ## Read when
 

@@ -3,7 +3,7 @@ name: using-playwright-mcp
 description: Use when working with the Playwright MCP server, choosing the right browser tool call, or falling back to non-MCP Playwright surfaces when the MCP does not cover the task.
 metadata:
   source-id: using-playwright-mcp
-  source-path: codex-marketplace/plugins/mcp-usage-pack/skills/using-playwright-mcp/SKILL.md
+  source-path: skills/using-playwright-mcp/SKILL.md
   provenance-name: Using Playwright MCP first-party skill
   source-category: first_party
   status: active
@@ -18,6 +18,10 @@ license: MIT
 # Using Playwright MCP
 
 Use this skill to pick the right `mcp-playwright` tool for browser automation or web inspection, and to fall back safely to other Playwright surfaces when the MCP does not have what you need.
+
+## Runtime availability
+
+Inspect the tools exposed in the current runtime before calling MCP. This capability is available independently of repository subscriptions. If the MCP surface is absent or lacks the needed action, use a documented Playwright alternative only when it is actually available; otherwise report the missing capability and stop the dependent browser action.
 
 ## Router
 

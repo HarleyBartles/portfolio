@@ -8,16 +8,22 @@ Use this runbook for Portfolio pull-request workflow and publication proof.
 - Opening, updating, or publishing a pull request.
 - Establishing remote publication proof for repository work.
 
-## Required skills
+## Required capabilities
 
-- `using-superpowers-plus` for routing.
-- `repo-worker-base` for worktree, branch, validation, and publication boundaries.
-- `publishing-source` for the commit/push/publication decision.
-- `requesting-code-review` for final review dispatch.
-- `receiving-code-review` for review-response handling.
-- `using-github-mcp` for hosted PR and remote-check evidence.
-- `verification-before-completion` before a green or ready claim.
-- `completing-planning-artifacts` for completing-slice promotion and lifecycle marking.
+- Commit and publish a completed branch as a draft pull request and verify its exact remote head and checks.
+- Inspect GitHub pull-request state and report publication evidence accurately.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+None.
 
 ## Composition
 

@@ -64,7 +64,7 @@ def write_command_declaration(repo: Path, runner: Path) -> None:
                     {"name": name, **({"requires": requires} if requires else {})}
                     for name, _suite, requires in checks
                 ],
-                "generated_paths": ["**/INDEX.md"],
+                "generated_paths": ["**/generated-output.md"],
             },
             indent=2,
         )
@@ -349,7 +349,7 @@ exit 0
 
             tracked = repo / "tracked.txt"
             tracked.write_text("initial\n", encoding="utf-8")
-            generated = repo / "docs/INDEX.md"
+            generated = repo / "docs/generated-output.md"
             generated.parent.mkdir()
             generated.write_text("initial\n", encoding="utf-8")
             runner = temporary_root / "declared_runner.py"
@@ -359,7 +359,7 @@ import sys
 from pathlib import Path
 
 if "--apply" in sys.argv:
-    shutil.copyfile("tracked.txt", "docs/INDEX.md")
+    shutil.copyfile("tracked.txt", "docs/generated-output.md")
 elif sys.argv[1] == "mechanical" and "BROKEN" in Path("tracked.txt").read_text(encoding="utf-8"):
     print("staged check saw BROKEN", file=sys.stderr)
     raise SystemExit(17)
@@ -367,7 +367,7 @@ elif sys.argv[1] == "mechanical" and "BROKEN" in Path("tracked.txt").read_text(e
                 encoding="utf-8",
             )
             write_command_declaration(repo, runner)
-            run_git(repo, "add", "tracked.txt", "docs/INDEX.md", ".agents/contracts/repo-standards-commands.json")
+            run_git(repo, "add", "tracked.txt", "docs/generated-output.md", ".agents/contracts/repo-standards-commands.json")
             self.assertEqual(run_git(repo, "commit", "-m", "initial").returncode, 0)
 
             hook = repo / ".git/hooks/pre-commit"
@@ -390,7 +390,7 @@ elif sys.argv[1] == "mechanical" and "BROKEN" in Path("tracked.txt").read_text(e
             self.assertEqual(untracked.read_text(encoding="utf-8"), "keep me\n")
             staged = run_git(repo, "show", ":tracked.txt")
             self.assertEqual(staged.stdout, "BROKEN staged content\n")
-            generated_from_staged = run_git(repo, "show", ":docs/INDEX.md")
+            generated_from_staged = run_git(repo, "show", ":docs/generated-output.md")
             self.assertEqual(generated_from_staged.stdout, "BROKEN staged content\n")
 
     def test_hook_preserves_patch_when_unstaged_restore_fails(self) -> None:

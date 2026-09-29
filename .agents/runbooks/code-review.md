@@ -7,12 +7,23 @@ Use this runbook when reviewing a PR, branch, or diff in the Portfolio repositor
 - Reviewing implementation before publication or merge.
 - Reviewing structural, behavioral, documentation, or visitor-facing changes.
 
-## Required skills
+## Required capabilities
 
-- `using-superpowers-plus` for routing.
-- `requesting-code-review` for the review stage and its baseline.
-- `repo-worker-base` for repository-state and evidence boundaries.
-- `verification-before-completion` before any green, complete, or ready claim.
+- Independently review a change for user-facing behavior, correctness, security, maintainability, and evidence.
+- Tie findings to changed behavior and distinguish confirmed defects from uncertainty.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
+
+None.
+
+## Optional repository-owned skills
+
+- `applying-portfolio-visual-language` when the review changes or judges visitor-facing presentation.
+- `writing-portfolio-articles` when reviewing public prose, editorial presentation, or article evidence.
 
 ## Composition
 
@@ -24,7 +35,7 @@ Use this runbook when reviewing a PR, branch, or diff in the Portfolio repositor
 ## Doctrine and contracts
 
 - [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) for scope and architecture invariants when code structure changes.
-- [`../doctrine/mesh-policy.md`](../doctrine/mesh-policy.md) for routing and navigation changes.
+- [`../doctrine/agent-guidance-policy.md`](../doctrine/agent-guidance-policy.md) for authored routing changes.
 - [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for branch, PR, and ready-state rules.
 - [`../doctrine/validation-policy.md`](../doctrine/validation-policy.md) for required proof.
 - [`../doctrine/portfolio-design-policy.md`](../doctrine/portfolio-design-policy.md) and `docs/decisions/README.md` for visitor-facing work.
@@ -33,7 +44,7 @@ Use this runbook when reviewing a PR, branch, or diff in the Portfolio repositor
 
 - Root routing: `AGENTS.md`.
 - Review entry point: `REVIEW.md`.
-- Generated `INDEX.md` files must be current when the file tree or routing changes.
+- Authored routers must point to live guidance when the file tree or routing changes.
 - Visual changes require the viewport, accessibility, reduced-motion, zoom, and regression evidence defined by Portfolio policy and tests.
 
 ## Evidence contract

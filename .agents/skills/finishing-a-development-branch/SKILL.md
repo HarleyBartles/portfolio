@@ -3,7 +3,7 @@ name: finishing-a-development-branch
 description: Use when implementation is complete and needs integration, or when a PR merged externally and its exact branch head and worktree need retirement.
 metadata:
   source-id: finishing-a-development-branch
-  source-path: codex-marketplace/plugins/superpowers-plus/skills/finishing-a-development-branch/SKILL.md
+  source-path: skills/finishing-a-development-branch/SKILL.md
   provenance-name: Finishing A Development Branch first-party skill
   source-category: first_party
   status: active
@@ -31,6 +31,10 @@ license: MIT
 This marketplace-maintained derivative is based on `obra/superpowers` v6.4.1 commit `5bf4e78011075bcfc0dc295f0724994cd123ee71` under the MIT License. Upstream source is not vendored; this directory contains the maintained Superpowers+ implementation.
 
 # Finishing a Development Branch
+
+## Bundled helper paths
+
+Resolve the helper script under this skill's directory supplied by the active runtime. In examples, `<runtime-skill-path-for-finishing-a-development-branch>` means that runtime-provided skill directory. Never infer that this skill is installed under a consumer repository's `.agents/skills/` path.
 
 ## Overview
 
@@ -211,8 +215,8 @@ git branch -D <feature-branch>
 **If the host does not own workspace cleanup:** Run the bundled helper from the main checkout. It resolves registered worktrees by full branch ref or absolute path, routinely discards non-authoritative submodule checkout residue, and preserves consumer-owned dirty files unless destructive force was explicitly authorized:
 
 ```bash
-py -3 .agents/skills/finishing-a-development-branch/scripts/remove_worktree.py --check "$WORKTREE_PATH"
-py -3 .agents/skills/finishing-a-development-branch/scripts/remove_worktree.py --apply "$WORKTREE_PATH"
+py -3 <runtime-skill-path-for-finishing-a-development-branch>/scripts/remove_worktree.py --check "$WORKTREE_PATH"
+py -3 <runtime-skill-path-for-finishing-a-development-branch>/scripts/remove_worktree.py --apply "$WORKTREE_PATH"
 ```
 
 **If removal is refused** (`contains modified or untracked files`): the worktree holds files that exist nowhere else — uncommitted plans, notes, or scratch work. Never `--force` on your own initiative. Show your human partner what is at stake and ask:

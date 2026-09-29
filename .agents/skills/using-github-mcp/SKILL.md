@@ -3,7 +3,7 @@ name: using-github-mcp
 description: Use when choosing the right GitHub or Git surface for a task, picking between the GitHub MCP server, gh CLI, REST API, GraphQL, or plain git commands.
 metadata:
   source-id: using-github-mcp
-  source-path: codex-marketplace/plugins/mcp-usage-pack/skills/using-github-mcp/SKILL.md
+  source-path: skills/using-github-mcp/SKILL.md
   provenance-name: Using GitHub MCP first-party skill
   source-category: first_party
   status: active
@@ -18,6 +18,10 @@ license: MIT
 # Using GitHub MCP
 
 Use this skill to pick the right GitHub or Git surface from the task intent, then open the matching reference.
+
+## Runtime availability
+
+Inspect the tools exposed in the current runtime before choosing MCP. This guidance is available independently of repository subscriptions. If a needed MCP operation is absent, use the documented `gh`, REST, GraphQL, or Git alternative only when that surface is available and suitable; otherwise report the missing capability and stop the dependent action.
 
 ## Router
 
@@ -38,4 +42,4 @@ Use this skill to pick the right GitHub or Git surface from the task intent, the
 
 If you need exact current repository state, prefer `gh api` or `gh api graphql`. If the intent is still unclear after the first pass, open `references/surface-map.md` and return to the use-case file that matches the object you are touching.
 
-Before changing a PR's draft state (opening, flipping to ready, or reopening), consult `.agents/runbooks/pr.md` `## Draft PR policy` for the repo-specific and consumer-canonical rules.
+Before changing a PR's draft state, discover and follow the consuming repository's declared PR policy at its own path. If no applicable local policy is declared, use the portable policy in the pull-request guidance.

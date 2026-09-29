@@ -7,11 +7,22 @@ Use this playbook when adding, changing, generating, attributing, replacing, or 
 - Working with fonts, images, icons, screenshots, diagrams, or other static assets.
 - Changing an asset's source identity, rights, deterministic derivative, or production consumer.
 
-## Required skills
+## Required capabilities
+
+- Establish asset identity, rights, provenance, transformation history, and supersession before use.
+- Assess web typography loading, fallback, and rendering when font behavior changes.
+
+## Optional capabilities
+
+None.
+
+## Required repository-owned skills
 
 - `asset-custody` for source identity, rights, transformation, and removal decisions.
+
+## Optional repository-owned skills
+
 - `typography-for-the-web` when font selection, loading, fallback, or type behavior changes.
-- `verification-before-completion` before custody or production-readiness claims.
 
 ## Composition
 

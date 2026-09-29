@@ -18,4 +18,4 @@ This directory contains Portfolio topical workflows. A playbook is available whe
 - Playbooks compose skills, doctrine, contracts, commands, and evidence for one topical concern.
 - Playbooks may compose other playbooks when the graph remains acyclic.
 - Declared runbook/playbook edges must agree on both sides; `Runbook routing: None.` is valid for a directly invoked playbook.
-- Regenerate the repository mesh after authored routing or file-layout changes.
+- Update authored routing pointers after guidance or file-layout changes.

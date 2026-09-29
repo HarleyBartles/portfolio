@@ -3,7 +3,7 @@ name: using-linear-mcp
 description: Use when working with the Linear connector surface, choosing the right tool call, or finding create/update tools exposed under `save_*` rather than `create_*` or `update_*`.
 metadata:
   source-id: using-linear-mcp
-  source-path: codex-marketplace/plugins/mcp-usage-pack/skills/using-linear-mcp/SKILL.md
+  source-path: skills/using-linear-mcp/SKILL.md
   provenance-name: Using Linear MCP first-party skill
   source-category: first_party
   status: active
@@ -18,6 +18,10 @@ license: MIT
 # Using Linear MCP
 
 Use this skill to pick the right Linear connector surface from the task intent, then open the matching reference.
+
+## Runtime availability
+
+Inspect the tools exposed in the current runtime before calling Linear. The consuming repository does not need a Linear plugin subscription. If a required Linear tool is absent, report the missing capability and stop the dependent Linear action; do not assume repository configuration can expose an unavailable tool.
 
 ## Router
 
