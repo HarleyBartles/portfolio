@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use `executing-plans` for this tightly coupled migration. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** `in-progress`
+**Status:** `completed-awaiting-retirement`
 
 **Goal:** Move Portfolio from copied ambient plugin skills and generated index mesh to a pinned, opt-in standards composition while preserving the repository safeguards we rely on.
 
@@ -84,7 +84,7 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 - [x] Preserve all 13 names in `repo.local_skills` and their authored source. Do not copy ambient plugin skills into a fallback directory.
 - [x] Run the pinned refresh utility through the new runner. Confirm it removes stale ambient plugin projections and their provenance records while preserving local skills and intentional unrelated plugin projections.
 - [x] Verify an empty ambient plugin subscription set is accepted by the local pinned refresh check; hosted CI verification remains pending.
-- [ ] Rerun the tracked hook and hosted CI after this unsubscribe commit; the final exact branch head must pass without ambient skill projections.
+- [x] The follow-up tracked hook passed; hosted quality and visual-regression jobs passed for commit `e27bd07` in workflow run `36585796987`.
 
 **Exit:** No ambient skill projection is installed or required, and every retained skill has explicit Portfolio-owned or non-ambient plugin custody.
 
@@ -103,7 +103,9 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 - [ ] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance after the follow-up changes.
 - [x] Run `py -3 tools/run.py ci --apply` and inspect generated changes; the first cutover commit passed the normal tracked hook as the complete staged-tree gate. The follow-up commit must pass the same hook.
 - [x] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
-- [ ] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI all agree. Hosted CI must pass on the exact published branch head before claiming completion.
-- [ ] Complete a fresh review of the whole branch after any corrections; update current repository doctrine and mark this plan `completed-awaiting-retirement` only when the migration and review are complete.
+- [x] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, and tracked hook agree; hosted CI passed on `e27bd07` (workflow run `36585796987`). A final hosted run will validate this completion-record commit.
+- [x] Complete the final branch review after corrections; current doctrine reflects the selected standards and authored routing policy. Mark this plan `completed-awaiting-retirement` while retaining it through the completing PR.
 
 **Exit:** The consumer runner, hook, hosted CI, plugin refresh policy, standards composition, and authored guidance agree; all stated safeguards have an identified and passing owner.
+
+**Review record:** The final source review found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. Hosted quality and Windows visual-regression jobs passed for `e27bd07`; run the same workflow against the completion-record commit before closing this slice.
