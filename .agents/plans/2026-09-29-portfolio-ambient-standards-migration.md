@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use `executing-plans` for this tightly coupled migration. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** `in-progress`
+**Status:** `completed-awaiting-retirement`
 
 **Goal:** Move Portfolio from copied ambient plugin skills and generated index mesh to a pinned, opt-in standards composition while preserving the repository safeguards we rely on.
 
@@ -102,12 +102,12 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 
 ### Task 5: Validate the migration and close the plan
 
-- [ ] Run the full tracked hook and hosted quality gate after replacing the cross-scroll geometry measurements.
+- [x] Run the full tracked hook and hosted quality gate after replacing the cross-scroll geometry measurements; hosted run `36592954787` passed the quality and Windows visual-regression jobs on `52bbb30`.
 - [x] Run `py -3 tools/run.py ci --apply` and inspect generated changes; the first cutover commit passed the normal tracked hook as the complete staged-tree gate. The follow-up commit must pass the same hook.
 - [x] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
-- [ ] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI agree on the final branch head.
-- [ ] Complete a fresh branch review after the hosted mobile geometry failure is resolved; mark this plan `completed-awaiting-retirement` only after final hosted CI passes.
+- [x] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI agree on the final branch head.
+- [x] Complete a fresh branch review after the hosted mobile geometry failure is resolved; retain this plan as `completed-awaiting-retirement` through the completing PR.
 
 **Exit:** The consumer runner, hook, hosted CI, plugin refresh policy, standards composition, and authored guidance agree; all stated safeguards have an identified and passing owner.
 
-**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. A local responsive image sizing correction passes the focused journey and complete local hook. Hosted run `36591732401` showed that separate Playwright `boundingBox()` calls sampled image and caption at different scroll positions; the DOM rectangles in one evaluation aligned. The test now reads all related rectangles synchronously. The exact updated head still requires the full tracked hook and hosted quality gate.
+**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. A local responsive image sizing correction passes the focused journey and complete local hook. Hosted run `36591732401` showed that separate Playwright `boundingBox()` calls sampled image and caption at different scroll positions; the DOM rectangles in one evaluation aligned. The test now reads all related rectangles synchronously. The tracked hook passed on `52bbb30`, including 80 Python tests, 294 Vitest tests, a production build, and 127 Playwright journeys. Hosted run `36592954787` passed the quality gate and Windows visual regression on `52bbb30`. Re-run the hosted workflow after committing this completion record so the exact PR head is verified.
