@@ -85,7 +85,7 @@ Eventually I stopped wanting to open the repository. I spent roughly a fortnight
 
 “Keep the repo tidy” wasn't enough. Neither was “delete anything that looks stale.” I sorted the material into live guidance, retained history, disposable residue and things ambiguous enough to stop and ask about.
 
-That became [`cleanup-custody`](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/skills/cleanup-custody/SKILL.md). A surface needs a reason to remain live, a reason to be retained elsewhere or a reason to leave. When the answer depends on authority the worker doesn't have, cleanup stops rather than guessing.
+That became [`cleanup-custody`](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/skills/cleanup-custody/SKILL.md). A surface needs a reason to remain live, a reason to be retained elsewhere or a reason to leave. When the answer depends on authority the worker doesn't have, cleanup stops rather than guessing.
 
 The submodules went. The standing Will, Chris, Albert, Brian, Derek and Patch organisation went. Research, world-building and writing stayed. Reports and proof artefacts with no current consumer left because Git already held the history. I thinned out the routing and moved procedures I actually repeated into skills.
 
