@@ -5,62 +5,6 @@
   },
   "plugins": [
     {
-      "name": "agent-operating-model",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/agent-operating-model"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "repo-worker-pack",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/repo-worker-pack"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "superpowers-plus",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/superpowers-plus"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Coding"
-    },
-    {
-      "name": "mcp-usage-pack",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/mcp-usage-pack"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
       "name": "frontend-pack",
       "source": {
         "source": "github",
@@ -81,34 +25,6 @@
         "owner": "HarleyBartles",
         "repo": "agent-asset-marketplace",
         "path": "dist/plugins/language-patterns-pack"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "unslop-plus",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/unslop-plus"
-      },
-      "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "writing-pack",
-      "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/writing-pack"
       },
       "policy": {
         "installation": "INSTALLED_BY_DEFAULT",

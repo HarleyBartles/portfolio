@@ -80,10 +80,10 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 
 ### Task 3: Unsubscribe ambient plugins and preserve genuine Portfolio skills
 
-- [ ] Update the marketplace configuration to remove all six ambient subscriptions: Agent Operating Model, Superpowers+, Repo Worker Pack, MCP Usage Pack, Unslop+, and Writing Pack. Retain unrelated plugin subscriptions only where Portfolio intentionally uses them.
-- [ ] Preserve all 13 names in `repo.local_skills` and their authored source. Do not copy ambient plugin skills into a fallback directory.
-- [ ] Run the pinned refresh utility through the new runner. Confirm it removes stale ambient plugin projections and their provenance records while preserving local skills and intentional unrelated plugin projections.
-- [ ] Verify an empty ambient plugin subscription set is accepted by the refresh check and by the hosted runner, even if Portfolio retains non-ambient subscriptions.
+- [x] Update the marketplace configuration to remove all six ambient subscriptions: Agent Operating Model, Superpowers+, Repo Worker Pack, MCP Usage Pack, Unslop+, and Writing Pack. Retain unrelated plugin subscriptions only where Portfolio intentionally uses them.
+- [x] Preserve all 13 names in `repo.local_skills` and their authored source. Do not copy ambient plugin skills into a fallback directory.
+- [x] Run the pinned refresh utility through the new runner. Confirm it removes stale ambient plugin projections and their provenance records while preserving local skills and intentional unrelated plugin projections.
+- [x] Verify an empty ambient plugin subscription set is accepted by the local pinned refresh check; hosted CI verification remains pending.
 - [ ] Rerun the tracked hook and hosted CI after this unsubscribe commit; the final exact branch head must pass without ambient skill projections.
 
 **Exit:** No ambient skill projection is installed or required, and every retained skill has explicit Portfolio-owned or non-ambient plugin custody.
@@ -91,18 +91,18 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 ### Task 4: Repair repository guidance and command contracts
 
 - [x] Update root `AGENTS.md`, `.agents/doctrine/agent-guidance-policy.md` (replace the retired mesh policy with authored navigation policy), marketplace custody policy, workflow policy, runbooks, playbooks, to remove index-mesh and ambient-subscription assumptions.
-- [ ] Replace exact ambient skill requirements in portable runbooks/playbooks with capability requirements; preserve exact names only for the declared Portfolio-owned skills.
-- [ ] Preserve clear authored routing from `AGENTS.md`, `.devin/rules/`, and relevant README/CONTRIBUTING/REVIEW surfaces without generated indexes.
-- [ ] Remove stale references to generated `INDEX.md` navigation, mesh validation, old installed-skill script paths, and mesh agreement from current guidance and hook/CI metadata.
-- [ ] Keep Markdown formatting and useful broken-link checks under their selected standard or Portfolio-owned repository validation, with clear ownership and no duplicate mesh validator.
+- [x] Replace exact ambient skill requirements in portable runbooks/playbooks with capability requirements; preserve exact names only for the declared Portfolio-owned skills.
+- [x] Preserve clear authored routing from `AGENTS.md`, `.devin/rules/`, and relevant README/CONTRIBUTING/REVIEW surfaces without generated indexes.
+- [x] Remove stale references to generated `INDEX.md` navigation, mesh validation, old installed-skill script paths, and mesh agreement from current guidance and hook/CI metadata.
+- [x] Keep Markdown formatting and useful broken-link checks under their selected standard or Portfolio-owned repository validation, with clear ownership and no duplicate mesh validator.
 
 **Exit:** Current guidance describes the new policy and every operative instruction has a live owner and valid authored link.
 
 ### Task 5: Validate the migration and close the plan
 
-- [ ] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance.
-- [ ] Run `py -3 tools/run.py ci --apply` and inspect generated changes; then use the normal tracked commit hook as the complete staged-tree gate. Do not run the full aggregate immediately before or after a successful hooked commit.
-- [ ] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
+- [ ] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance after the follow-up changes.
+- [x] Run `py -3 tools/run.py ci --apply` and inspect generated changes; the first cutover commit passed the normal tracked hook as the complete staged-tree gate. The follow-up commit must pass the same hook.
+- [x] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
 - [ ] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI all agree. Hosted CI must pass on the exact published branch head before claiming completion.
 - [ ] Complete a fresh review of the whole branch after any corrections; update current repository doctrine and mark this plan `completed-awaiting-retirement` only when the migration and review are complete.
 

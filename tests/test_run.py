@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import call, patch
@@ -73,6 +74,48 @@ class CanonicalRunnerTests(unittest.TestCase):
             ],
             run._refresh_skills_cmd("apply", True),
         )
+
+    def test_refresh_bridge_exposes_only_the_pinned_deployer_temporarily(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_script = (
+                root
+                / ".agents/plugins/marketplace-source/skills/repo-shape/scripts/deploy_vendor_profiles.py"
+            )
+            source_script.parent.mkdir(parents=True)
+            source_script.write_text("print('pinned')\n", encoding="utf-8")
+            observed = []
+
+            def inspect_bridge(command, context):
+                bridge = root / "skills/repo-shape/scripts/deploy_vendor_profiles.py"
+                observed.append((bridge.read_text(encoding="utf-8"), command, context))
+            with (
+                patch.object(run, "ROOT", root),
+                patch.object(run, "_run", side_effect=inspect_bridge) as run_command,
+            ):
+                run._run_refresh_skills("check", self.context)
+            self.assertEqual("print('pinned')\n", observed[0][0])
+            self.assertEqual(run._refresh_skills_cmd("check", False), observed[0][1])
+            self.assertIs(self.context, observed[0][2])
+            run_command.assert_called_once()
+            self.assertFalse((root / "skills").exists())
+
+    def test_refresh_bridge_is_cleaned_when_the_refresh_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_script = (
+                root
+                / ".agents/plugins/marketplace-source/skills/repo-shape/scripts/deploy_vendor_profiles.py"
+            )
+            source_script.parent.mkdir(parents=True)
+            source_script.write_text("print('pinned')\n", encoding="utf-8")
+            with (
+                patch.object(run, "ROOT", root),
+                patch.object(run, "_run", side_effect=RuntimeError("refresh failed")),
+            ):
+                with self.assertRaisesRegex(RuntimeError, "refresh failed"):
+                    run._run_refresh_skills("apply", self.context)
+            self.assertFalse((root / "skills").exists())
 
     @patch("shutil.which", return_value="C:/node/npm.cmd")
     def test_install_deps_apply_uses_the_client_lockfile(self, _which) -> None:

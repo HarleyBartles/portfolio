@@ -132,13 +132,48 @@ def _repo_standards_check(ctx: Ctx) -> None:
     _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
 
 
+def _run_refresh_skills(mode: str, ctx: Ctx) -> None:
+    # The pinned refresh utility still resolves its vendor-profile deployer
+    # from a marketplace-root path. Expose the pinned source script at that
+    # legacy lookup path only for the duration of refresh; no skill is copied
+    # into the consumer's installed skill tree.
+    bridge_root = ROOT / "skills"
+    if bridge_root.exists():
+        raise RuntimeError("temporary marketplace skill bridge path already exists")
+    source_script = (
+        ROOT
+        / ".agents"
+        / "plugins"
+        / "marketplace-source"
+        / "skills"
+        / "repo-shape"
+        / "scripts"
+        / "deploy_vendor_profiles.py"
+    )
+    if not source_script.is_file():
+        raise FileNotFoundError(f"pinned vendor-profile deployer not found: {source_script}")
+    bridge_script = bridge_root / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
+    try:
+        bridge_script.parent.mkdir(parents=True)
+        shutil.copy2(source_script, bridge_script)
+        _run(_refresh_skills_cmd(mode, ctx.allow_shared), ctx)
+    finally:
+        if bridge_script.exists():
+            bridge_script.unlink()
+        for directory in (bridge_script.parent, bridge_script.parent.parent, bridge_root):
+            try:
+                directory.rmdir()
+            except OSError:
+                break
+
+
 def _skills_apply(ctx: Ctx) -> None:
-    _run(_refresh_skills_cmd("apply", ctx.allow_shared), ctx)
-    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
+    _run_refresh_skills("apply", ctx)
+    _run_refresh_skills("check", ctx)
 
 
 def _skills_check(ctx: Ctx) -> None:
-    _run(_refresh_skills_cmd("check", ctx.allow_shared), ctx)
+    _run_refresh_skills("check", ctx)
 
 
 def _content_manifest_apply(ctx: Ctx) -> None:
