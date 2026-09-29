@@ -86,7 +86,7 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 - [x] Verify an empty ambient plugin subscription set is accepted by the local pinned refresh check; the final hosted workflow confirms the checked-in refresh state without ambient skill projections.
 - [x] The follow-up tracked hook passed; hosted quality and visual-regression jobs passed for commit `e27bd07` in workflow run `36585796987`.
 - [x] The completion-record commit `ab9550f` passed the tracked hook and Windows visual-regression job. Its hosted Playwright job failed the existing Wild Bunch mobile caption/image-boundary assertion twice; the test and affected source were unchanged from `main`.
-- [x] Apply mobile intrinsic image sizing and verify the existing narrow-screen journey locally. The first hosted rerun still failed the caption/image-boundary assertion, so diagnose its Linux browser geometry before considering the correction complete.
+- [x] Apply mobile intrinsic image sizing and verify the existing narrow-screen journey locally; hosted diagnostics proved separately timed `locator.boundingBox()` calls observed different scroll positions. Measure image, caption and status rectangles in one page evaluation so they share a coordinate frame.
 
 **Exit:** No ambient skill projection is installed or required, and every retained skill has explicit Portfolio-owned or non-ambient plugin custody.
 
@@ -102,7 +102,7 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 
 ### Task 5: Validate the migration and close the plan
 
-- [x] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance; the final tracked hook and hosted quality gate pass.
+- [ ] Run the full tracked hook and hosted quality gate after replacing the cross-scroll geometry measurements.
 - [x] Run `py -3 tools/run.py ci --apply` and inspect generated changes; the first cutover commit passed the normal tracked hook as the complete staged-tree gate. The follow-up commit must pass the same hook.
 - [x] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
 - [ ] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI agree on the final branch head.
@@ -110,4 +110,4 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 
 **Exit:** The consumer runner, hook, hosted CI, plugin refresh policy, standards composition, and authored guidance agree; all stated safeguards have an identified and passing owner.
 
-**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. A local responsive image sizing correction passes the focused journey and complete local hook, but hosted run `36590313150` still fails the mobile caption/image-boundary assertion in Linux Chromium on commit `dfe5201`; Windows visual regression and the remaining quality checks pass. Added temporary geometry diagnostics to identify the discrepancy before another correction.
+**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. A local responsive image sizing correction passes the focused journey and complete local hook. Hosted run `36591732401` showed that separate Playwright `boundingBox()` calls sampled image and caption at different scroll positions; the DOM rectangles in one evaluation aligned. The test now reads all related rectangles synchronously. The exact updated head still requires the full tracked hook and hosted quality gate.
