@@ -103,6 +103,25 @@ test('visitor inspects Wild Bunch evidence, then uses the story on a narrow scre
       const imageBox = await visual.getByRole('img').boundingBox()
       const statusBox = await status.boundingBox()
       const mobileCaption = await caption.boundingBox()
+      console.log('mobile geometry', width, { imageBox, statusBox, mobileCaption }, await visual.getByRole('img').evaluate((image) => {
+        const picture = image.parentElement
+        const figure = image.closest('figure')
+        const rect = (element: Element | null) => element === null ? null : (() => {
+          const { x, y, width: boxWidth, height } = element.getBoundingClientRect()
+          return { x, y, width: boxWidth, height }
+        })()
+        return {
+          source: (image as HTMLImageElement).currentSrc,
+          figure: rect(figure), picture: rect(picture), image: rect(image), caption: rect(figure?.querySelector('figcaption') ?? null),
+          figureHeight: getComputedStyle(figure!).height,
+          pictureHeight: getComputedStyle(picture!).height,
+          imageHeight: getComputedStyle(image).height,
+          imageCssHeight: getComputedStyle(image).getPropertyValue('height'),
+          viewportWidth: innerWidth,
+          scrollY,
+          devicePixelRatio,
+        }
+      }))
       expect(statusBox).not.toBeNull()
       expect(imageBox).not.toBeNull()
       expect(mobileCaption).not.toBeNull()
