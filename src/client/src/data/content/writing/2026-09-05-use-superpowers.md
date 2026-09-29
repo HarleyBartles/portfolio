@@ -23,7 +23,7 @@ I liked the idea enough to [raise it upstream](https://github.com/obra/superpowe
 
 The issue was eventually closed. The maintainer agreed there was a genuine gap, but preferred narrow, skill-local checks over a general orientation skill without RED/GREEN evals. They were right not to take it. I was right to keep it.
 
-I still wanted a clean line between upstream and my changes, so I kept an immutable Superpowers snapshot and applied mine through [adaptation overlays](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md). As those changes accumulated, preserving that line needed projection tooling, provenance records, drift handling and, eventually, a tool to heal the overlays when upstream moved underneath them.
+I still wanted a clean line between upstream and my changes, so I kept an immutable Superpowers snapshot and applied mine through [adaptation overlays](https://github.com/HarleyBartles/agent-asset-marketplace/blob/59746904a5e8f787cc53a7d4c42833de0068d439/.agents/plans/completed/2026-07-26-update-superpowers-plus-to-v6-2-0.md). As those changes accumulated, preserving that line needed projection tooling, provenance records, drift handling and, eventually, a tool to heal the overlays when upstream moved underneath them.
 
 By then, my clean line between upstream and my changes had acquired enough machinery to become clownshoes.\*
 
@@ -39,7 +39,7 @@ That became Handoff Gates. The target is 9/10. Miss it and the agent gets one bo
 
 The floor keeps me honest too. If I give an agent a proposition with no useful points of reference and say, “just sketch a quick outline, don’t worry about how it gets done”, I want it to be allowed to answer: “I can do that, but the next agent will have to invent half of it. Six out of ten.” The human doesn’t get a special exemption from the handoff rule.
 
-Handoff Gates now sits across brainstorming, planning, execution and review. Given the timing, it was probably what finally made the overlay arrangement too cumbersome. By the end of July, [my own design record](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/.agents/specs/completed/2026-07-31-superpowers-plus-first-party-design.md) described the adapted skills as “effectively first-party authorship with extra indirection.”
+Handoff Gates now sits across brainstorming, planning, execution and review. Given the timing, it was probably what finally made the overlay arrangement too cumbersome. By the end of July, [my own design record](https://github.com/HarleyBartles/agent-asset-marketplace/blob/59746904a5e8f787cc53a7d4c42833de0068d439/.agents/specs/completed/2026-07-31-superpowers-plus-first-party-design.md) described the adapted skills as “effectively first-party authorship with extra indirection.”
 
 I froze those outputs as first-party derived skills, kept the upstream snapshot as provenance and retired the overlays. Some skills are basically unchanged; some have been hacked up. It isn’t perfect, probably never will be. It works.
 
@@ -51,7 +51,7 @@ Superpowers already asked clarifying questions during brainstorming. I hoisted t
 
 `iterative-review` decomposes demanding review for weaker models into bounded, fresh-context passes so the frontier reviewer can remain an independent final audit rather than doing most of the discovery work. It’s still a work in progress; [If you write a loop, don’t be surprised when your agent starts looping](/writing/graph-iterative-review) tells that story properly.
 
-They sit alongside the familiar Superpowers workflow in a [bundle of 22 skills](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/superpowers-plus/references/bundle-manifest.json). Brainstorming, planning, execution, TDD, debugging, worktrees, review and verification are still there. The decisions I kept making around them no longer need to be rediscovered every session.
+They sit alongside the familiar Superpowers workflow in a [bundle of 22 skills](https://github.com/HarleyBartles/agent-asset-marketplace/blob/59746904a5e8f787cc53a7d4c42833de0068d439/codex-marketplace/plugins/superpowers-plus/references/bundle-manifest.json). Brainstorming, planning, execution, TDD, debugging, worktrees, review and verification are still there. The decisions I kept making around them no longer need to be rediscovered every session.
 
 > **When “most capable” changes overnight**
 >
@@ -69,7 +69,7 @@ They sit alongside the familiar Superpowers workflow in a [bundle of 22 skills](
 >
 > Maybe that’s exactly what you want. Maybe you already override it in `AGENTS.md`. Maybe you’ve never looked at which model gets selected because it hasn’t given you a reason to care.
 >
-> I care. My [Codex review mapping names Sol](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/codex-marketplace/plugins/superpowers-plus/skills/selecting-a-subagent/references/codex-multi-agent-v2-profile.md) for `reviewer-strong`, with explicit reasoning levels. Astra appearing in the picker doesn’t rewrite that choice. I’ll decide where Astra belongs.
+> I care. My [Codex review mapping names Sol](https://github.com/HarleyBartles/agent-asset-marketplace/blob/main/skills/selecting-a-subagent/references/codex-multi-agent-v2-profile.md) for `reviewer-strong`, with explicit reasoning levels. Astra appearing in the picker doesn’t rewrite that choice. I’ll decide where Astra belongs.
 >
 > You don’t need my plugin to make that decision. One local instruction may be enough.
 

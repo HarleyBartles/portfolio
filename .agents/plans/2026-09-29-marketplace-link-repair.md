@@ -1,8 +1,8 @@
 # Marketplace Link Repair Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` (recommended) or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
-**Status:** active
+**Status:** `completed-awaiting-retirement`
 
 **Goal:** Repair all five broken Marketplace links found across the 26 published Portfolio routes and publish a draft PR.
 
@@ -43,12 +43,12 @@
 - Consumes: the five live-audited broken URLs and verified GitHub replacement blobs.
 - Produces: five resolving article destinations with unchanged visible copy, plus a verified draft PR.
 
-- [ ] Replace `blob/main/.agents/skills/cleanup-custody/SKILL.md` with `blob/main/skills/cleanup-custody/SKILL.md`.
-- [ ] In the two planning-document URLs, replace `blob/main/` with `blob/59746904a5e8f787cc53a7d4c42833de0068d439/` and retain their original file paths.
-- [ ] Pin the bundle-manifest URL to the same historical SHA and retain its original `codex-marketplace/plugins/superpowers-plus/references/bundle-manifest.json` path; verify its 22 entries.
-- [ ] Replace the review-mapping path with `blob/main/skills/selecting-a-subagent/references/codex-multi-agent-v2-profile.md`; verify `reviewer-strong` still names Sol.
-- [ ] Verify every Marketplace destination in the edited source with HTTP and GitHub API, and check the five rendered anchors on both local direct routes. Expected: all destinations resolve, labels are unchanged.
-- [ ] Run `py -3 -m tests.validation.link_hygiene`; expected: no link-hygiene failures. Existing baseline: `py -3 -m unittest tests.test_link_hygiene`.
-- [ ] Obtain a fresh prepared-diff review and resolve any actionable findings.
-- [ ] Mark this plan `completed-awaiting-retirement`, commit normally, and observe the complete tracked hook passing.
-- [ ] Push and create a draft PR using the repository template; verify its exact head SHA and hosted check state, and attach it to this chat.
+- [x] Replace `blob/main/.agents/skills/cleanup-custody/SKILL.md` with `blob/main/skills/cleanup-custody/SKILL.md`.
+- [x] In the two planning-document URLs, replace `blob/main/` with `blob/59746904a5e8f787cc53a7d4c42833de0068d439/` and retain their original file paths.
+- [x] Pin the bundle-manifest URL to the same historical SHA and retain its original `codex-marketplace/plugins/superpowers-plus/references/bundle-manifest.json` path; verify its 22 entries.
+- [x] Replace the review-mapping path with `blob/main/skills/selecting-a-subagent/references/codex-multi-agent-v2-profile.md`; verify `reviewer-strong` still names Sol.
+- [x] Verify every Marketplace destination in the edited source with HTTP and GitHub API, and check the five rendered anchors on both local direct routes. Expected: all destinations resolve, labels are unchanged.
+- [x] Run `py -3 -m tests.validation.link_hygiene`; expected: no link-hygiene failures. Existing baseline: `py -3 -m unittest tests.test_link_hygiene`.
+- [x] Obtain a fresh prepared-diff review and resolve any actionable findings.
+- [x] Mark this plan `completed-awaiting-retirement`, commit normally, and observe the complete tracked hook passing.
+- [x] Push and create a draft PR using the repository template; verify its exact head SHA and hosted check state, and attach it to this chat.
