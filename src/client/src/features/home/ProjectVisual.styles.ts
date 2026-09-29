@@ -202,11 +202,19 @@ export const WildBunchConceptVisual = styled.figure<{ $placement: ProjectVisualP
       aspect-ratio: auto;
 
       ${({ $placement }) => $placement !== 'index' && css`
+        height: auto;
+
         &::after {
           display: none;
         }
       `}
     }
+
+    ${({ $placement }) => $placement !== 'index' && css`
+      img {
+        height: auto;
+      }
+    `}
   }
 `
 
