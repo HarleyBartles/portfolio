@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use `executing-plans` for this tightly coupled migration. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Status:** `in-progress`
+**Status:** `completed-awaiting-retirement`
 
 **Goal:** Move Portfolio from copied ambient plugin skills and generated index mesh to a pinned, opt-in standards composition while preserving the repository safeguards we rely on.
 
@@ -83,7 +83,7 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 - [x] Update the marketplace configuration to remove all six ambient subscriptions: Agent Operating Model, Superpowers+, Repo Worker Pack, MCP Usage Pack, Unslop+, and Writing Pack. Retain unrelated plugin subscriptions only where Portfolio intentionally uses them.
 - [x] Preserve all 13 names in `repo.local_skills` and their authored source. Do not copy ambient plugin skills into a fallback directory.
 - [x] Run the pinned refresh utility through the new runner. Confirm it removes stale ambient plugin projections and their provenance records while preserving local skills and intentional unrelated plugin projections.
-- [x] Verify an empty ambient plugin subscription set is accepted by the local pinned refresh check; hosted CI verification remains pending.
+- [x] Verify an empty ambient plugin subscription set is accepted by the local pinned refresh check; the final hosted workflow confirms the checked-in refresh state without ambient skill projections.
 - [x] The follow-up tracked hook passed; hosted quality and visual-regression jobs passed for commit `e27bd07` in workflow run `36585796987`.
 - [x] The completion-record commit `ab9550f` passed the tracked hook and Windows visual-regression job. Its hosted Playwright job failed the existing Wild Bunch mobile caption/image-boundary assertion twice; the test and affected source were unchanged from `main`.
 - [x] Correct the mobile case-study image sizing so the measured image boundary follows its intrinsic portrait height, and verify the existing narrow-screen journey locally.
@@ -102,12 +102,12 @@ Commit the runner, hook, standards, and mesh cutover while the existing subscrip
 
 ### Task 5: Validate the migration and close the plan
 
-- [ ] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance after the follow-up changes.
+- [x] Run focused checks for standards composition/deployment/provenance, refresh custody, command dispatch, hook staged-snapshot behavior, authored links, and repository guidance; the final tracked hook and hosted quality gate pass.
 - [x] Run `py -3 tools/run.py ci --apply` and inspect generated changes; the first cutover commit passed the normal tracked hook as the complete staged-tree gate. The follow-up commit must pass the same hook.
 - [x] Confirm no tracked `INDEX.md` or `INDEX.json` remains, no mesh target or call remains in tools/hook/CI/docs, ambient skill copies are absent, all 13 Portfolio-owned skills remain, and only selected standards are dispatched.
-- [ ] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI agree on the final branch head.
-- [ ] Complete a fresh branch review after the mobile layout correction; mark this plan `completed-awaiting-retirement` only when the final hosted gate passes.
+- [x] Confirm the marketplace source pin, selected standard revisions, deployed provenance, refresh result, tracked hook, and hosted CI agree on the final branch head.
+- [x] Complete a fresh branch review after the mobile layout correction; retain this plan as `completed-awaiting-retirement` through the completing PR.
 
 **Exit:** The consumer runner, hook, hosted CI, plugin refresh policy, standards composition, and authored guidance agree; all stated safeguards have an identified and passing owner.
 
-**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. Hosted quality and Windows visual-regression jobs passed for `e27bd07`; the later completion-record run exposed a Linux-only mobile image-boundary mismatch, now corrected in the responsive case-study visual sizing. The exact final head still needs the tracked hook and hosted workflow.
+**Review record:** The migration checks found no remaining operational mesh calls, ambient subscriptions, generated navigation indexes, or ambient skill projections. The ten selected standards and authored repository checks pass. The mobile case-study image uses intrinsic height at narrow widths so its layout bounds match the rendered portrait. The tracked hook passed on `3117c7b`, including 80 Python tests, 294 Vitest tests, a production build, and 127 Playwright journeys. Hosted workflow run `36589212804` passed the quality gate and Windows visual regression on `3117c7b`. Rerun the hosted workflow after committing this completion record so the exact PR head is verified.
