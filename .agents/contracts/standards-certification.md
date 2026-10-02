@@ -8,7 +8,7 @@ Portfolio self-certifies the selected Agent Operating Model standards below. Eac
 
 **Preserve:** Codex and Devin declare the same two Git subdirectory plugins, frontend-pack and language-patterns-pack, from the Marketplace repository. The twelve skills under `.agents/skills/` remain Portfolio-authored. AOM standard pins remain independent immutable commits.
 
-**Drift control:** `tools/check_plugin_subscriptions.py` validates dependency source/path/ref shape and matching Codex and Devin bindings; `tools/check_local_skills.py` validates local skill names and any wrappers. The tracked pre-commit hook and hosted CI run these checks. The remaining twelve tracked skill directories were assessed as Portfolio-maintained sources; the removed eight projections are absent.
+**Drift control:** `tools/check_plugin_subscriptions.py` validates dependency source/path/ref shape and matching Codex and Devin bindings; `tools/check_local_skills.py` validates local skill names, nonblank `Use when` trigger descriptions, and any wrappers. The tracked pre-commit hook and hosted CI run these checks. The remaining twelve tracked skill directories were assessed as Portfolio-maintained sources; the removed eight projections are absent.
 
 **Evidence boundary:** These checks establish declaration structure and skill metadata shape, not skill authorship, access, trust, authentication, installation, or runtime availability. Skill ownership is a repository custody assessment. Codex discovery and update behavior are verified separately against the published task branch before publication; Devin runtime installation is not exercised in this environment.
 

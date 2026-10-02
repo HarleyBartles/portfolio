@@ -129,7 +129,6 @@ def _ci_apply(ctx: Ctx) -> None:
     _content_manifest_apply(ctx)
     _route_catalogue_apply(ctx)
     _run(_refresh_seo_files_cmd(), ctx)
-    _repository_asset_checks(ctx)
 
 
 def _python_tests_check(ctx: Ctx) -> None:

@@ -92,6 +92,9 @@ def check_skills(root: Path = ROOT) -> list[str]:
             frontmatter = yaml.safe_load(parts[1])
             if not isinstance(frontmatter, dict) or frontmatter.get("name") != name:
                 raise ValueError("frontmatter name must match its repository-owned directory")
+            description = frontmatter.get("description")
+            if not isinstance(description, str) or not description.strip() or not description.startswith("Use when "):
+                raise ValueError("frontmatter description must be a nonblank Use when trigger sentence")
             metadata = frontmatter.get("metadata", {})
             if not isinstance(metadata, dict):
                 raise ValueError("metadata must be a mapping")
@@ -115,7 +118,7 @@ def main() -> int:
     if findings:
         print("\n".join(f"ERROR: {finding}" for finding in findings))
         return 1
-    print("OK local authored skill names and optional wrappers are consistent")
+    print("OK local authored skill names, trigger descriptions, and optional wrappers are consistent")
     return 0
 
 

@@ -121,7 +121,7 @@ class AgentAssetChecksTests(unittest.TestCase):
             skill = root / ".agents/skills/example-skill"
             (skill / "agents").mkdir(parents=True)
             (skill / "SKILL.md").write_text(
-                "---\nname: example-skill\nmetadata:\n  source-id: example-skill\n  source-path: .agents/skills/example-skill/SKILL.md\n  source-category: first_party\n---\n# Example\n",
+                "---\nname: example-skill\ndescription: Use when the example skill is relevant.\nmetadata:\n  source-id: example-skill\n  source-path: .agents/skills/example-skill/SKILL.md\n  source-category: first_party\n---\n# Example\n",
                 encoding="utf-8",
             )
             (skill / "agents/openai.yaml").write_text(
@@ -138,7 +138,10 @@ class AgentAssetChecksTests(unittest.TestCase):
             root = Path(directory)
             skill = root / ".agents/skills/generating-images"
             (skill / "agents").mkdir(parents=True)
-            (skill / "SKILL.md").write_text("---\nname: generating-images\n---\n", encoding="utf-8")
+            (skill / "SKILL.md").write_text(
+                "---\nname: generating-images\ndescription: Use when creating or editing images.\n---\n",
+                encoding="utf-8",
+            )
             (skill / "agents/openai.yaml").write_text(
                 "version: 1\nmetadata:\n  skill_name: generating-images\n  source_category: skills-with-source\n"
                 "interface:\n  display_name: Generating Images\n  short_description: Image skill\n"
@@ -148,6 +151,22 @@ class AgentAssetChecksTests(unittest.TestCase):
             )
 
             self.assertEqual([], check_local_skills.check_skills(root))
+
+    def test_local_skill_check_requires_discoverable_trigger_description(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            skill = root / ".agents/skills/example-skill"
+            skill.mkdir(parents=True)
+            for description in (None, "", "An example skill"):
+                field = "" if description is None else f"description: {description}\n"
+                (skill / "SKILL.md").write_text(
+                    f"---\nname: example-skill\n{field}---\n",
+                    encoding="utf-8",
+                )
+
+                findings = check_local_skills.check_skills(root)
+
+                self.assertTrue(any("description" in finding and "Use when" in finding for finding in findings))
 
 
 if __name__ == "__main__":

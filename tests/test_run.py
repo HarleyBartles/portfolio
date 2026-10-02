@@ -40,6 +40,7 @@ class CanonicalRunnerTests(unittest.TestCase):
         self.assertIn(run._route_catalogue_cmd("apply"), commands)
         self.assertIn(run._route_catalogue_cmd("check"), commands)
         self.assertIn(run._refresh_seo_files_cmd(), commands)
+        self.assertTrue(set(map(tuple, run._repository_asset_check_commands())).isdisjoint(map(tuple, commands)))
         self.assertTrue(all("repo_standards.py" not in " ".join(command) for command in commands))
         self.assertTrue(all("refresh_installed_skills.py" not in " ".join(command) for command in commands))
 
