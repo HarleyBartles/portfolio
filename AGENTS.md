@@ -18,7 +18,7 @@ The site exists to present Harley as a software engineer through:
 
 ## Build and test commands
 
-Run focused checks while iterating. The tracked pre-commit hook is the complete local gate against the staged snapshot, composed from separately named repository checks, repository validation, Python tests, Vitest, build, and Playwright journeys. It reports independent failures and skips only checks blocked by a failed dependency. Hosted CI runs the same suites as separate steps. Do not run the full `ci --check` aggregate immediately before a normal commit or repeat the complete gate after a successful hooked commit. Run suites directly while iterating, or run the aggregate only when no commit will follow or when diagnosing parity. Use `repo-standards --apply` to apply the explicitly selected repository standards, `refresh-skills --apply` to refresh declared plugin and Portfolio-owned skill projections from the pinned Marketplace source, `content-manifest --apply` for the generated content catalogue, and `route-catalogue --apply` for generated route metadata. `content-manifest.json`, `route-metadata.generated.json`, `public/robots.txt`, and `public/sitemap.xml` are generated projections owned by the normal hook and must not be hand-edited. Reserve umbrella `ci --apply` for deliberate repair of several mechanical surfaces, inspect its diff, then rely on the normal commit hook for complete verification.
+Run focused checks while iterating. The tracked pre-commit hook is the complete local gate against the staged snapshot, composed from separately named repository checks, repository validation, Python tests, Vitest, build, and Playwright journeys. It reports independent failures and skips only checks blocked by a failed dependency. Hosted CI runs the same suites as separate steps. Do not run the full `ci --check` aggregate immediately before a normal commit or repeat the complete gate after a successful hooked commit. Run suites directly while iterating, or run the aggregate only when no commit will follow or when diagnosing parity. Run `py -3 tools/run.py repo-checks --check` for the repository-owned AOM certification and local skill checks, `content-manifest --apply` for the generated content catalogue, and `route-catalogue --apply` for generated route metadata. `content-manifest.json`, `route-metadata.generated.json`, `public/robots.txt`, and `public/sitemap.xml` are generated projections owned by the normal hook and must not be hand-edited. Reserve umbrella `ci --apply` for deliberate repair of several mechanical surfaces, inspect its diff, then rely on the normal commit hook for complete verification.
 
 ## Design quality
 
@@ -28,7 +28,7 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 
 ## Routing pointers
 
-- [Repository purpose](AGENTS.md) — this file
+- [Repository purpose](AGENTS.md) - this file
 - [Source-of-truth split](AGENTS.md)
 - [Publication proof](.agents/runbooks/pr.md)
 - [Build and test commands](AGENTS.md)
@@ -45,6 +45,7 @@ Before changing presentation, content hierarchy, motion, imagery, typography, pu
 - [Routing pointers](.agents/doctrine/AGENTS.md)
 - [Marketplace plugin selection](.agents/plugins/marketplace.json)
 - [Operating standards](.agents/contracts/operating-standards.json)
+- [AOM certification](.agents/contracts/standards-certification.md)
 - [Agent guidance policy](.agents/doctrine/agent-guidance-policy.md)
 - [Workflow and worktree doctrine](.agents/doctrine/workflow-policy.md)
 - [Repo runbook policy](.agents/doctrine/repo-runbook-policy.md)

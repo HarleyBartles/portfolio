@@ -1,0 +1,18 @@
+{
+  "requiredPlugins": [
+    {
+      "source": "git-subdir",
+      "url": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
+      "path": "dist/plugins/frontend-pack",
+      "ref": "main"
+    },
+    {
+      "source": "git-subdir",
+      "url": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
+      "path": "dist/plugins/language-patterns-pack",
+      "ref": "main"
+    }
+  ],
+  "optionalPlugins": [],
+  "forbiddenPlugins": []
+}

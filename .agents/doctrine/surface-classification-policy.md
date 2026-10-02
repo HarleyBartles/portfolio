@@ -21,13 +21,11 @@ Use the smallest set of surfaces justified by a current reader or consumer.
 | `.agents/docs/` | Non-binding agent reference material | Authored docs |
 | `.agents/runbooks/` | Lifecycle-stage workflow runbooks | Authored guidance |
 | `.agents/playbooks/` | Topical workflows available whenever their concern applies | Authored guidance |
-| `.agents/plugins/` | Plugin manifest and pinned marketplace source | Manifest and gitlink |
-| `.agents/skills/<repo-owned>/` | Repo-owned skills whose exact names are declared in `repo.local_skills`; prefixes are optional | Tracked local custody |
-| `.agents/skills/<other>/` | Marketplace-derived skills | Pinned source and provenance |
+| `.agents/plugins/` | Repository plugin catalog | Authored dependency declaration |
+| `.agents/skills/<skill>/` | Portfolio-authored skills | Tracked local custody |
 | `.agents/plans/` | In-flight and epic plans | Authored plans |
 | `.agents/specs/` | In-flight design specs | Authored specs |
 | `_agent-scratch/<repo-name>/completed/` | Optional disposable convenience copies of completed planning artifacts | Non-evidentiary scratch |
-| `.agents/sdd/` | Legacy ignored local SDD workspace; new SDD output goes off-repo | Ignored workspace |
 | `tools/` | Deterministic generation, refresh, validation, and safety tooling | Tool-owned behavior |
 
 `README.md` files are not agent routers. `AGENTS.md` files are not doctrine
@@ -40,7 +38,7 @@ containers. One rule has one canonical authority.
 - Put topical workflow composition in `.agents/playbooks/`; playbooks may be invoked directly or routed from runbooks.
 - Put a triggerable, composable Portfolio capability in `.agents/skills/` under a repo-owned name only when a real repeated use case justifies it.
 - Put implementation of a capability in repository code or `tools/`, not in an installed skill tree.
-- Keep in-flight plans/specs and artifacts marked `completed-awaiting-retirement` in their tracked homes. On completion, promote durable decisions and retain the marked artifacts through the completing PR; the next substantive slice retires them in its first commit. Use the off-repo scratch workspace described by `.agents/doctrine/non-repo-locations-policy.md` only for optional convenience copies.
+- Keep in-flight plans/specs in their tracked homes. On completion, promote durable decisions and retain artifacts through the completing PR; a later substantive slice retires them when current evidence supports it. Markers can aid discovery but do not establish completion. Use the off-repo scratch workspace described by `.agents/doctrine/non-repo-locations-policy.md` only for optional convenience copies.
 
 Do not create parallel `policies/`, `contracts/`, `reports/`, `receipts/`,
 `reference/`, or actor/domain taxonomies without a separately

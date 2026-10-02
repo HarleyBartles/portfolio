@@ -23,6 +23,7 @@ class SuiteCompositionTests(unittest.TestCase):
         run._base_ci_check(self.context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
+        self.assertEqual(run._repository_asset_check_commands(), commands[:4])
         self.assertIn(run._content_manifest_cmd("check"), commands)
         self.assertIn(run._route_catalogue_cmd("check"), commands)
         self.assertIn(run._repository_validation_cmd(), commands)
@@ -65,8 +66,7 @@ class SuiteCompositionTests(unittest.TestCase):
             "repo-checks": (
                 run._repository_checks_check,
                 [
-                    run._repo_standards_cmd("check", False),
-                    run._refresh_skills_cmd("check", False),
+                    *run._repository_asset_check_commands(),
                     run._content_manifest_cmd("check"),
                     run._route_catalogue_cmd("check"),
                 ],
@@ -120,7 +120,7 @@ class SuiteCompositionTests(unittest.TestCase):
     def test_diagnostic_ci_reports_independent_failures_before_rejecting(self, run_command) -> None:
         diagnostic_context = run.Ctx(mode="check", allow_shared=False, diagnostics=True)
         failed_commands = {
-            tuple(run._repo_standards_cmd("check", False)),
+            tuple(run._repository_asset_check_commands()[0]),
             tuple(run._repository_validation_cmd()),
             tuple(run._client_cmd("run", "build")),
         }
@@ -135,12 +135,12 @@ class SuiteCompositionTests(unittest.TestCase):
             run._ci_check(diagnostic_context)
 
         commands = [entry.args[0] for entry in run_command.call_args_list]
-        self.assertIn(run._skills_cmd("check", False), commands)
+        self.assertIn(run._repository_asset_check_commands()[3], commands)
         self.assertIn(run._tests_cmd(), commands)
         self.assertIn(run._client_unit_tests_cmd(), commands)
         self.assertNotIn(run._client_e2e_cmd(), commands)
         self.assertEqual(
-            ["repository standards", "repository validation", "production build"],
+            ["agent guidance", "repository validation", "production build"],
             [result.name for result in raised.exception.failures],
         )
         self.assertEqual(

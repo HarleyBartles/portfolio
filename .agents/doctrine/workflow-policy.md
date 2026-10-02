@@ -24,8 +24,8 @@ For the Git-derived location algorithm, see [non-repo-locations-policy.md](./non
 - Raise a draft PR for work that is meant to be reviewed or handed off through GitHub.
 - Keep the draft PR fresh with the actual branch state and validation status.
 - Only publish the PR when all work is done and the latest normal commit has passed the tracked hook's complete staged-tree gate, composed from separately named suites. Hosted CI runs the same suites in distinct steps and confirms rather than rediscovering local failures.
-- GitHub Actions initializes the pinned public marketplace-source submodule and validates the selected standards, source pin, skill projections, provenance, and authored repository guidance.
-- For marketplace or derived-skill work, do not publish until the manifest, submodule, selected standards, derived skills, and provenance agree.
+- The tracked hook and GitHub Actions validate v2 standard records, certification routes, native plugin declarations, local authored skills, and the repository's generated content projections.
+- For plugin declaration or AOM standard changes, publish only when source pins, implementation, certification, and local drift checks agree.
 - Do not claim a merge, publish, or closeout happened unless the repo and the remote state prove it.
 - If a task asks for direct `main` work, use it only for that task and keep the proof explicit.
 
@@ -52,7 +52,7 @@ The repo is ready for normal website implementation only when:
 - no stale `.agents/docs/guides/` routing or compatibility tree remains;
 - all active doctrine is routed and all authored links resolve;
 - local-only and generated custody boundaries are validated;
-- the marketplace gitlink is current and its contents are not modified by consumer tooling;
-- refresh and selected-standard check modes are churn-free;
+- the v2 operating-standard subscriptions have resolvable certification anchors, and their repository-owned certification has current evidence;
+- native Codex and Devin plugin declarations agree with the repository's selected plugin catalog;
 - the platform-appropriate preflight and tests pass;
 - the final PR body and validation evidence are honest.

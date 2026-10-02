@@ -1,7 +1,5 @@
-# Skill Frontmatter Contract
+# Portfolio Skill Frontmatter Contract
 
-Portfolio-owned skills declared in `repo.local_skills` adopt the pinned marketplace [Skill Frontmatter Contract](../plugins/marketplace-source/.agents/contracts/skill-frontmatter.md) without a separate local schema.
+Portfolio-authored skills in `.agents/skills/` use the local metadata shape established by current authored skills. The checker verifies each skill directory and frontmatter name agree and validates optional Codex wrappers. The existing article-writing behavior tests enforce the fuller article skill metadata contract.
 
-Every new local skill must satisfy that contract before registration. Existing local skills adopt it when substantively changed; unrelated work does not require a repository-wide metadata migration.
-
-For local first-party custody, `metadata.source-path` names the canonical `.agents/skills/<name>/SKILL.md` path, `metadata.source-category` is `first_party`, and provenance describes the Portfolio-owned source truth. The exact skill name remains declared in `.agents/plugins/marketplace.json`; naming prefixes do not establish custody.
+When editing a skill, preserve useful attribution and source notes already present. Do not import metadata or code from an installed plugin or user-level cache into the repository.

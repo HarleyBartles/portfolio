@@ -1,17 +1,16 @@
-# Marketplace Generation Playbook
+# Repository Plugin Subscription Playbook
 
-Use this playbook when changing Portfolio's marketplace subscriptions, marketplace source pin, or derived skill projection.
+Use this playbook when changing the repository plugin catalog or its native harness bindings.
 
 ## When
 
-- Adding, removing, or changing installed plugins.
-- Advancing `.agents/plugins/marketplace-source`.
-- Refreshing marketplace-derived skills or their provenance.
+- Adding, removing, or changing a repository plugin dependency.
+- Updating Codex or Devin repository-level plugin bindings.
 
 ## Required capabilities
 
-- Maintain plugin declarations, repository-owned skill declarations, pinned sources, and generated skill projections.
-- Refresh and verify the installed skill projection from the repository-pinned Marketplace source.
+- Keep declared dependencies consistent across the repository catalog and supported harnesses.
+- Distinguish dependency declaration from authentication, trust, installation, and runtime availability.
 
 ## Optional capabilities
 
@@ -27,37 +26,37 @@ None.
 
 ## Composition
 
-1. Confirm the canonical marketplace source and target commit/plugin subscription.
-2. Update `.agents/plugins/marketplace.json` and the marketplace-source gitlink deliberately.
-3. Refresh derived skills through the repository command; never edit projections directly.
-4. Update authored routers if a skill surface or guidance path changes.
-5. Check the manifest, pinned source, declared standards, projections, and provenance before commit.
+1. Confirm the plugin source repository, plugin-relative path, and update policy.
+2. Update `.agents/plugins/marketplace.json` and native `.codex/config.toml` and `.devin/config.json` bindings together.
+3. Keep `.agents/skills/` for Portfolio-authored skills; do not add installed plugin skill projections.
+4. Run the local declaration and authored-skill checks, then update routed guidance when ownership or paths change.
+5. Verify runtime discovery separately in each harness when the change requires availability evidence.
 
 ## Doctrine and contracts
 
-- [`../doctrine/marketplace-custody-policy.md`](../doctrine/marketplace-custody-policy.md) for source/projection custody.
-- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for publication and refresh requirements.
-- [`../doctrine/surface-classification-policy.md`](../doctrine/surface-classification-policy.md) for generated versus authored surfaces.
+- [`../doctrine/marketplace-custody-policy.md`](../doctrine/marketplace-custody-policy.md) for dependency and authored-skill custody.
+- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for publication requirements.
+- [`../doctrine/surface-classification-policy.md`](../doctrine/surface-classification-policy.md) for authored surfaces.
 
 ## Local commands and paths
 
-- Plugin manifest: `.agents/plugins/marketplace.json`.
-- Marketplace source: `.agents/plugins/marketplace-source`.
-- Initialize source if needed: `git submodule update --init --checkout -- .agents/plugins/marketplace-source`.
-- Refresh projection: `py -3 tools/run.py refresh-skills --apply`.
-- Focused checks: `py -3 tools/run.py refresh-skills --check` and `py -3 tools/run.py repo-standards --check`.
+- Plugin catalog: `.agents/plugins/marketplace.json`.
+- Codex binding: `.codex/config.toml`.
+- Devin binding: `.devin/config.json`.
+- Declaration check: `py -3 tools/check_plugin_subscriptions.py`.
+- Authored skills check: `py -3 tools/check_local_skills.py`.
 
 ## Evidence contract
 
-- Manifest, pinned marketplace commit, declared standards, selected skill projections, and `.agents/skills/.provenance.json` agree.
-- No marketplace-derived skill was manually authored in Portfolio.
-- Refresh/check modes are churn-free before closeout.
+- The catalog and native bindings describe the same dependencies.
+- Local checks establish structure only; report runtime availability from actual harness evidence.
+- AOM standard pins in `.agents/contracts/operating-standards.json` remain independent of plugin payload refs.
 
 ## Prohibited combinations
 
-- Do not edit `.agents/skills/<marketplace-owned>/` directly.
-- Do not update the manifest without refreshing projections and provenance.
-- Do not claim a marketplace update from an uncommitted or unverified submodule checkout.
+- Do not store installed plugin skills or submodule-sourced projections in `.agents/skills/`.
+- Do not claim installation or runtime access from declaration checks.
+- Do not tie AOM standard updates to plugin payload updates.
 
 ## Runbook routing
 

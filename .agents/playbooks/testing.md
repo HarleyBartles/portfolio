@@ -56,9 +56,9 @@ Prefer roles, names, outcomes, and measurable relationships. Exact CSS declarati
 - Independent check suites: `py -3 tools/run.py repo-checks --check`, `repository-validation --check`, `python-tests --check`, `vitest-tests --check`, `production-build --check`, and `playwright-tests --check`.
 - The tracked pre-commit hook composes these named checks against the exact staged snapshot. Hosted CI keeps repository checks in hook parity and runs each remaining suite as its own step; `ci --check` remains an optional manual aggregate.
 - Do not run the full aggregate immediately before a normal commit; stage the intended tree and let the tracked hook run the complete gate once.
-- Repository operating model: `py -3 tools/run.py repo-standards --check`.
-- Marketplace projection: `py -3 tools/run.py refresh-skills --check`.
-- Authored repository guidance: `py -3 tools/run.py repo-standards --check` and the repository validation command when links or routing change.
+- Repository operating model: `py -3 tools/run.py repo-checks --check`.
+- Local skill structure: `py -3 tools/check_local_skills.py`.
+- Authored repository guidance: `py -3 tools/run.py repo-checks --check` and the repository validation command when links or routing change.
 - Content catalogue projection: `py -3 tools/run.py content-manifest --check`.
 - Route metadata projection: `py -3 tools/run.py route-catalogue --check`.
 - Use the affected package's focused Vitest, Playwright, asset, or build target while iterating.

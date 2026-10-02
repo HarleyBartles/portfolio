@@ -15,7 +15,7 @@ Use this policy when adding, moving, or revising repository guidance.
 - `.agents/docs/` owns non-binding repository references.
 - `.agents/runbooks/` composes lifecycle stages. `.agents/playbooks/` composes topical workflows.
 - `README.md` files are human-facing; they are not agent-routing surfaces.
-- `.agents/skills/` contains declared Portfolio-owned skills and any selected plugin projections. Ambient plugin availability is not a repository subscription.
+- `.agents/skills/` contains Portfolio-authored skills. Repository plugin dependencies are declared through native harness configuration; ambient plugin availability does not create a repository dependency.
 
 ## Authored routing
 
@@ -24,10 +24,12 @@ Use this policy when adding, moving, or revising repository guidance.
 - A router points to the canonical policy or workflow. It does not duplicate that content.
 - Keep runbook-to-playbook routes valid and reciprocal when the playbook declares a runbook route.
 - Preserve direct discovery through `AGENTS.md`, local `AGENTS.md` routers, `.devin/rules/`, and authored README links.
+- Keep the root `AGENTS.md` within 80 lines and scoped `AGENTS.md` files within 32 lines. The margins preserve space for genuine routing changes; a budget pass does not establish semantic usefulness.
 
 ## Validation
 
-- The selected `root-agent-router`, `runbook-composition`, and `playbook-composition` standards validate their declared surfaces.
-- Portfolio repository validation checks authored Markdown links and repository-specific guidance constraints.
+- `tools/check_agent_guidance.py` checks the line budgets and local links in `AGENTS.md` routers; reviewers assess whether the guidance routes safely and remains useful.
+- Runbook and playbook authors maintain their lifecycle and concern categories, inbound routes, and references under their respective v2 subscriptions.
+- Portfolio repository validation checks authored Markdown in its public content surface.
 - There is no generated repository navigation index. Update authored routers directly when the file structure or routing changes.
 - The root `AGENTS.md` is the primary repository-wide router. Do not create a replacement generated index or an unowned navigation catalogue.

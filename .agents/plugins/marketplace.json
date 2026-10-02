@@ -7,13 +7,13 @@
     {
       "name": "frontend-pack",
       "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/frontend-pack"
+        "source": "git-subdir",
+        "url": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
+        "path": "./dist/plugins/frontend-pack",
+        "ref": "main"
       },
       "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
+        "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
@@ -21,32 +21,16 @@
     {
       "name": "language-patterns-pack",
       "source": {
-        "source": "github",
-        "owner": "HarleyBartles",
-        "repo": "agent-asset-marketplace",
-        "path": "dist/plugins/language-patterns-pack"
+        "source": "git-subdir",
+        "url": "https://github.com/HarleyBartles/agent-asset-marketplace.git",
+        "path": "./dist/plugins/language-patterns-pack",
+        "ref": "main"
       },
       "policy": {
-        "installation": "INSTALLED_BY_DEFAULT",
+        "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
     }
-  ],
-  "repo": {
-    "local_skills": [
-      "applying-portfolio-typography",
-      "applying-portfolio-visual-language",
-      "asset-custody",
-      "design-tokens",
-      "designing-premium-sites",
-      "directing-visual-stories",
-      "evaluating-design-references",
-      "generating-images",
-      "motion-patterns",
-      "typography-for-the-web",
-      "web-layout",
-      "writing-portfolio-articles"
-    ]
-  }
+  ]
 }

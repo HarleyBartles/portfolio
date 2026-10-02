@@ -133,7 +133,7 @@ Run Phases A through I in order. Keep macro, meso, micro, voice and web-object r
 - Public article source and route ownership are discovered from the live repository rather than assumed from a generic template.
 - Content catalogue: `py -3 tools/run.py content-manifest --apply` then `py -3 tools/run.py content-manifest --check` when article metadata changes.
 - Route catalogue: `py -3 tools/run.py route-catalogue --apply` then `py -3 tools/run.py route-catalogue --check` when public routes change.
-- Authored routing: update the relevant `AGENTS.md` or `.devin/rules/` pointer and run `py -3 tools/run.py repo-standards --check` when guidance changes.
+- Authored routing: update the relevant `AGENTS.md` or `.devin/rules/` pointer and run `py -3 tools/run.py repo-checks --check` when guidance changes.
 - Complete local gate: stage the intended tree and commit normally; the tracked hook runs the separately named suites against that snapshot.
 
 ## Evidence contract

@@ -46,34 +46,13 @@ def _run(cmd: list[str], ctx: Ctx) -> None:
     subprocess.run(cmd, cwd=ROOT, check=True)
 
 
-def _repo_standards_cmd(mode: str, allow_shared: bool) -> list[str]:
-    cmd = [
-        sys.executable,
-        ".agents/standards/_runtime/repo_standards.py",
-        f"--{mode}",
+def _repository_asset_check_commands() -> list[list[str]]:
+    return [
+        [sys.executable, "tools/check_agent_guidance.py", "--check"],
+        [sys.executable, "tools/check_operating_standards.py", "--check"],
+        [sys.executable, "tools/check_plugin_subscriptions.py", "--check"],
+        [sys.executable, "tools/check_local_skills.py", "--check"],
     ]
-    if mode == "apply":
-        cmd.append("--yes")
-        if allow_shared:
-            cmd.append("--allow-shared-checkout")
-    return cmd
-
-
-def _refresh_skills_cmd(mode: str, allow_shared: bool) -> list[str]:
-    cmd = [
-        sys.executable,
-        ".agents/plugins/marketplace-source/skills/refreshing-installed-skills/scripts/refresh_installed_skills.py",
-        f"--{mode}",
-    ]
-    if mode == "apply" and allow_shared:
-        cmd.append("--allow-shared-checkout")
-    cmd.append("--no-roll-marketplace-source")
-    return cmd
-
-
-def _skills_cmd(mode: str, allow_shared: bool) -> list[str]:
-    """Compatibility alias for the pre-standard command name."""
-    return _refresh_skills_cmd(mode, allow_shared)
 
 
 def _tests_cmd() -> list[str]:
@@ -123,57 +102,9 @@ def _install_deps_check(ctx: Ctx) -> None:
     _run(_install_deps_cmd("check"), ctx)
 
 
-def _repo_standards_apply(ctx: Ctx) -> None:
-    _run(_repo_standards_cmd("apply", ctx.allow_shared), ctx)
-    _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
-
-
-def _repo_standards_check(ctx: Ctx) -> None:
-    _run(_repo_standards_cmd("check", ctx.allow_shared), ctx)
-
-
-def _run_refresh_skills(mode: str, ctx: Ctx) -> None:
-    # The pinned refresh utility still resolves its vendor-profile deployer
-    # from a marketplace-root path. Expose the pinned source script at that
-    # legacy lookup path only for the duration of refresh; no skill is copied
-    # into the consumer's installed skill tree.
-    bridge_root = ROOT / "skills"
-    if bridge_root.exists():
-        raise RuntimeError("temporary marketplace skill bridge path already exists")
-    source_script = (
-        ROOT
-        / ".agents"
-        / "plugins"
-        / "marketplace-source"
-        / "skills"
-        / "repo-shape"
-        / "scripts"
-        / "deploy_vendor_profiles.py"
-    )
-    if not source_script.is_file():
-        raise FileNotFoundError(f"pinned vendor-profile deployer not found: {source_script}")
-    bridge_script = bridge_root / "repo-shape" / "scripts" / "deploy_vendor_profiles.py"
-    try:
-        bridge_script.parent.mkdir(parents=True)
-        shutil.copy2(source_script, bridge_script)
-        _run(_refresh_skills_cmd(mode, ctx.allow_shared), ctx)
-    finally:
-        if bridge_script.exists():
-            bridge_script.unlink()
-        for directory in (bridge_script.parent, bridge_script.parent.parent, bridge_root):
-            try:
-                directory.rmdir()
-            except OSError:
-                break
-
-
-def _skills_apply(ctx: Ctx) -> None:
-    _run_refresh_skills("apply", ctx)
-    _run_refresh_skills("check", ctx)
-
-
-def _skills_check(ctx: Ctx) -> None:
-    _run_refresh_skills("check", ctx)
+def _repository_asset_checks(ctx: Ctx) -> None:
+    for command in _repository_asset_check_commands():
+        _run(command, ctx)
 
 
 def _content_manifest_apply(ctx: Ctx) -> None:
@@ -195,8 +126,6 @@ def _route_catalogue_check(ctx: Ctx) -> None:
 
 
 def _ci_apply(ctx: Ctx) -> None:
-    _repo_standards_apply(ctx)
-    _skills_apply(ctx)
     _content_manifest_apply(ctx)
     _route_catalogue_apply(ctx)
     _run(_refresh_seo_files_cmd(), ctx)
@@ -224,8 +153,10 @@ def _playwright_tests_check(ctx: Ctx) -> None:
 def _repository_checks_check(ctx: Ctx) -> None:
     _diagnostic_check_steps(
         [
-            ("repository standards", _repo_standards_check, None),
-            ("installed skills", _skills_check, None),
+            ("agent guidance", lambda check_ctx: _run(_repository_asset_check_commands()[0], check_ctx), None),
+            ("AOM subscriptions", lambda check_ctx: _run(_repository_asset_check_commands()[1], check_ctx), None),
+            ("plugin subscriptions", lambda check_ctx: _run(_repository_asset_check_commands()[2], check_ctx), None),
+            ("local skills", lambda check_ctx: _run(_repository_asset_check_commands()[3], check_ctx), None),
             ("content manifest", _content_manifest_check, None),
             ("route catalogue", _route_catalogue_check, None),
         ],
@@ -239,8 +170,10 @@ def _repository_validation_check(ctx: Ctx) -> None:
 
 def _check_steps(include_e2e: bool) -> list[tuple[str, Callable[[Ctx], None], str | None]]:
     steps = [
-        ("repository standards", _repo_standards_check, None),
-        ("installed skills", _skills_check, None),
+        ("agent guidance", lambda ctx: _run(_repository_asset_check_commands()[0], ctx), None),
+        ("AOM subscriptions", lambda ctx: _run(_repository_asset_check_commands()[1], ctx), None),
+        ("plugin subscriptions", lambda ctx: _run(_repository_asset_check_commands()[2], ctx), None),
+        ("local skills", lambda ctx: _run(_repository_asset_check_commands()[3], ctx), None),
         ("content manifest", _content_manifest_check, None),
         ("route catalogue", _route_catalogue_check, None),
         ("repository validation", lambda ctx: _run(_repository_validation_cmd(), ctx), None),
@@ -287,8 +220,7 @@ def _base_ci_check(ctx: Ctx) -> None:
     if ctx.diagnostics:
         _diagnostic_check(ctx, include_e2e=False)
         return
-    _repo_standards_check(ctx)
-    _skills_check(ctx)
+    _repository_asset_checks(ctx)
     _content_manifest_check(ctx)
     _route_catalogue_check(ctx)
     _run(_repository_validation_cmd(), ctx)
@@ -315,12 +247,6 @@ def _all_check(ctx: Ctx) -> None:
 
 TARGETS = {
     "install-deps": {"apply": _install_deps_apply, "check": _install_deps_check},
-    "repo-standards": {
-        "apply": _repo_standards_apply,
-        "check": _repo_standards_check,
-    },
-    "refresh-skills": {"apply": _skills_apply, "check": _skills_check},
-    "skills": {"apply": _skills_apply, "check": _skills_check},
     "content-manifest": {"apply": _content_manifest_apply, "check": _content_manifest_check},
     "route-catalogue": {"apply": _route_catalogue_apply, "check": _route_catalogue_check},
     "repo-checks": {"check": _repository_checks_check},
