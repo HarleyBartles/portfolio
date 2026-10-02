@@ -22,6 +22,8 @@ Run focused checks while iterating. The tracked pre-commit hook is the complete 
 
 ## Design quality
 
+Optional editorial polling uses an available Sheg installation and its skills, as described in the [article-writing playbook](.agents/playbooks/article-writing.md). The former repository-owned reader-panel prototype is retired.
+
 Before changing presentation, content hierarchy, motion, imagery, typography, public claims, or contact behaviour, read [the active portfolio design policy](.agents/doctrine/portfolio-design-policy.md) and relevant [decision records](docs/decisions/README.md). The policy governs current work; the records preserve rationale and subsequent changes.
 
 ## Routing pointers

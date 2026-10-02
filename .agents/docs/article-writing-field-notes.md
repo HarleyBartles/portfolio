@@ -8,6 +8,8 @@ Nearest router: `/AGENTS.md`
 
 ## Purpose
 
+References below to the reader-panel skill record the former Portfolio prototype and its historical owners. That prototype is retired. Current optional polling follows the article-writing playbook through an available Sheg installation; these notes do not describe Sheg's capabilities or contracts.
+
 Record the outcomes that may help the article-writing skill improve over time. Consult these notes when a current article presents a relevant problem, but verify every candidate against the article in front of you and the current writing doctrine.
 
 Do not add an entry after every invocation. Record a note only for a meaningful correction, rejection, mixed outcome, missed issue, surprising success, useful abstention, new form, conflict or overcorrection.

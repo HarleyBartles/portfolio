@@ -7,8 +7,7 @@
   "matureLabCount": 10,
   "delivery": {
     "status": "planned",
-    "target": "2026-09",
-    "display": "September 2026"
+    "display": "Planned"
   },
   "licensing": {
     "freelyLicensed": true,

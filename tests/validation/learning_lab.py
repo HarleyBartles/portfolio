@@ -95,18 +95,19 @@ def _validate_learning_lab_evidence(root: Path, findings: list[Finding], today: 
     else:
         delivery_status = delivery.get("status")
         if delivery_status == "planned":
-            target = delivery.get("target")
-            try:
-                if not isinstance(target, str) or date.fromisoformat(f"{target}-01").strftime("%Y-%m") != target:
-                    raise ValueError
-            except ValueError:
-                findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery target must be YYYY-MM"))
-            else:
-                if target < today.strftime("%Y-%m"):
-                    findings.append(_finding(
-                        LEARNING_LAB_EVIDENCE_PATH,
-                        f"delivery planned state is stale after {target}",
-                    ))
+            if "target" in delivery:
+                target = delivery["target"]
+                try:
+                    if not isinstance(target, str) or date.fromisoformat(f"{target}-01").strftime("%Y-%m") != target:
+                        raise ValueError
+                except ValueError:
+                    findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery target must be YYYY-MM"))
+                else:
+                    if target < today.strftime("%Y-%m"):
+                        findings.append(_finding(
+                            LEARNING_LAB_EVIDENCE_PATH,
+                            f"delivery planned state is stale after {target}",
+                        ))
             if not isinstance(delivery.get("display"), str) or not delivery["display"].strip():
                 findings.append(_finding(LEARNING_LAB_EVIDENCE_PATH, "planned delivery requires display text"))
             if "startedOn" in delivery:
