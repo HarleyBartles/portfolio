@@ -25,7 +25,7 @@ export type LearningLabEvidence = Readonly<{
   sourceChangeUrl: string
   integrityRunUrl: string
   matureLabCount: number
-  delivery: Readonly<{ status: 'planned'; target: string; display: string }> | Readonly<{ status: 'started'; startedOn: string; display: string }>
+  delivery: Readonly<{ status: 'planned'; target?: string; display: string }> | Readonly<{ status: 'started'; startedOn: string; display: string }>
   licensing: Readonly<{
     freelyLicensed: boolean
     policyPath: string

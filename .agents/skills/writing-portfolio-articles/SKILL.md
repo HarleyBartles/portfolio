@@ -21,7 +21,6 @@ metadata:
     - writing
     - writing-style
     - writing-with-clarity
-    - simulated-reader-polling
     - verification-before-completion
   use_before:
     - verification-before-completion
@@ -83,7 +82,7 @@ The audit reports facts and labelled heuristics. It does not rewrite prose, deci
 
 ## Optional reader panel
 
-Use `simulated-reader-polling` when a developmental edit would benefit from structured reader polls. Let the editorial question determine the audience, cohort size and conditions; interpret results in the context of the article's purpose and deliberate choices.
+When a developmental edit would benefit from structured reader polls, use an available Sheg installation and its study-design and polling skills. Let the editorial question determine the audience, cohort size and conditions; interpret results in the context of the article's purpose and deliberate choices. Sheg is optional and externally installed; this repository does not supply a polling harness or require a plugin subscription. Continue editorial review without a poll when it is unavailable.
 
 ## Field learning
 

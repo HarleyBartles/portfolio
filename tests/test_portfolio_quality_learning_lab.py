@@ -52,6 +52,14 @@ class PortfolioLearningLabTests(PortfolioQualityCase):
 
     def test_learning_lab_delivery_changes_only_from_authored_evidence(self) -> None:
 
+        def undated_planned(fixture: PortfolioFixture) -> None:
+            evidence_path = use_learning_lab_content(fixture)
+            write_learning_lab_evidence(fixture)
+            evidence = json.loads(evidence_path.read_text(encoding='utf-8'))
+            evidence['delivery'] = {'status': 'planned', 'display': 'Planned'}
+            evidence_path.write_text(json.dumps(evidence), encoding='utf-8')
+        self.assertEqual([], self.validate(undated_planned, today=date(2030, 1, 1)))
+
         def stale_planned(fixture: PortfolioFixture) -> None:
             use_learning_lab_content(fixture)
             write_learning_lab_evidence(fixture)
