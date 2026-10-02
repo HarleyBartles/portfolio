@@ -1,6 +1,6 @@
 # OpenAI Agent YAML Contract
 
-Portfolio-owned skills declared in `repo.local_skills` adopt the pinned marketplace [OpenAI Agent YAML Contract](../plugins/marketplace-source/.agents/contracts/openai-agent-yaml.md) without a separate local schema.
+Portfolio-authored skills may include an `agents/openai.yaml` wrapper. This local contract preserves the repository’s current wrapper behavior without requiring a Marketplace submodule.
 
 Every new local skill must provide a conforming `agents/openai.yaml` before registration. Existing local skills adopt it when substantively changed; unrelated work does not require a repository-wide wrapper migration.
 

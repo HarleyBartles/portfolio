@@ -8,7 +8,7 @@ This repository adopts the standards listed in `.agents/contracts/operating-stan
 - Read [the portfolio design policy](./.agents/doctrine/portfolio-design-policy.md) before changing any visitor-facing presentation, content hierarchy, motion, imagery, typography, claim, or contact behaviour.
 - Read [the portfolio writing policy](./.agents/doctrine/writing-policy.md) before changing public prose.
 - Follow the applicable lifecycle runbook and repository policies; optional ambient skills may support the work but are not repository dependencies.
-- Use `py -3 tools/run.py repo-standards --check` to inspect adopted repository standards; use `--apply --allow-shared-checkout` only when intentionally applying them in the main checkout.
+- Use `py -3 tools/run.py repo-checks --check` to inspect repository-owned AOM certification, plugin declarations, authored guidance, and local skills.
 
 ## Workflow routing
 

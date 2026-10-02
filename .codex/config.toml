@@ -1,0 +1,10 @@
+[marketplaces.portfolio]
+source_type = "git"
+source = "https://github.com/HarleyBartles/portfolio.git"
+ref = "main"
+
+[plugins."frontend-pack@portfolio"]
+enabled = true
+
+[plugins."language-patterns-pack@portfolio"]
+enabled = true

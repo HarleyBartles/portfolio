@@ -1,16 +1,16 @@
 # Skill Authoring Playbook
 
-Use this playbook when creating or changing a Portfolio-owned skill or its local registration.
+Use this playbook when creating or changing a Portfolio-owned skill or its local wrapper and routing.
 
 ## When
 
 - Authoring, revising, renaming, or retiring a repo-owned skill.
-- Changing the `repo.local_skills` declaration or the local skill projection boundary.
+- Changing the local skill ownership boundary or an optional Codex wrapper.
 
 ## Required capabilities
 
 - Design, write, and validate a reusable skill with clear triggers, boundaries, and executable behavior.
-- Maintain repository-owned skill declarations and provenance when skill custody changes.
+- Preserve authored source notes and maintain local metadata and wrapper contracts when skill custody changes.
 
 ## Optional capabilities
 
@@ -28,8 +28,8 @@ None.
 
 1. Confirm canonical custody and naming from repository doctrine.
 2. Author the skill in its repo-owned source directory through `writing-skills`.
-3. Register the exact local skill name in `.agents/plugins/marketplace.json`.
-4. Refresh the declared skill projection and provenance, then validate authored routing if skill guidance moved.
+3. Keep the skill authored in `.agents/skills/`; plugin dependencies are declared separately and do not project skills here.
+4. Validate local metadata and any wrapper, then validate authored routing if skill guidance moved.
 
 ## Compose the skill body as a router
 
@@ -54,14 +54,14 @@ Before calling the body finished, test navigation with representative tasks: can
 ## Local commands and paths
 
 - Repo-owned skills live under `.agents/skills/<declared-local-name>/` according to current custody policy.
-- Local skill inventory: `.agents/plugins/marketplace.json` under `repo.local_skills`.
-- Refresh projection/provenance: `py -3 tools/run.py refresh-skills --apply`.
-- Validate adopted repository standards and authored links after skill changes.
+- Local authored skills: `.agents/skills/`.
+- Check names and wrappers: `py -3 tools/check_local_skills.py`.
+- Check standards and plugin subscriptions: `py -3 tools/run.py repo-checks --check`.
 
 ## Evidence contract
 
-- Skill source, manifest declaration, installed provenance, and authored links agree.
-- Marketplace refresh does not overwrite repo-owned skill custody.
+- Skill source, metadata, optional wrapper, and authored links agree.
+- Repository plugin changes do not overwrite or project into local skill custody.
 - The authored skill passes the validation required by `writing-skills` and repository checks.
 
 ## Prohibited combinations

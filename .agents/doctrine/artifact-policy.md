@@ -11,23 +11,20 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - `.agents/doctrine/` is for durable doctrine such as policies, contracts, and rule sets.
 - `.agents/runbooks/` is for workflow guides such as design, planning, implementation, and review.
 - `.agents/runbooks/` is the optional home for repeatable Portfolio procedures that are not skills.
-- `.agents/plugins/` is for the repo-local plugin manifest and pinned marketplace source.
-- `.agents/skills/` contains repo-owned skills whose exact names are declared in
-  `repo.local_skills`, plus marketplace-derived skills described by
-  `.provenance.json`. Naming prefixes are optional and do not establish custody.
+- `.agents/plugins/` contains the repository plugin catalog. Native harness bindings live in `.codex/config.toml` and `.devin/config.json`.
+- `.agents/skills/` contains Portfolio-authored skills only. Native plugin dependencies do not project plugin-owned skills into this directory.
 - `.agents/plans/` holds in-flight, one-shot, and epic plan surfaces. A completed
-  plan remains tracked through its completing PR with the exact
-  `completed-awaiting-retirement` marker, then retires in the first commit of the
-  next substantive slice under `.agents/doctrine/completed-artifacts.md`.
+  plan remains tracked through its completing PR, then retires in the first commit of the
+  next substantive slice under `.agents/doctrine/completed-artifacts.md`, when current evidence supports retirement.
 - `.agents/image-briefs/` holds active repository-bound image-generation briefs.
   Image briefs are generation execution inputs, not implementation plans, and
   must not be filed under `.agents/plans/`. Keep a brief live while generation
-  or iteration is still active. Mark it `completed-awaiting-retirement` only
+  or iteration is still active. Treat it as complete only
   when it has produced the accepted asset or asset set it was intended to
-  produce, or when the brief has been explicitly abandoned. Scratch, rejected,
+  produce, or when the brief has been explicitly abandoned. A marker may aid discovery but does not establish completion. Scratch, rejected,
   or still-under-review candidates do not make a brief disposable. Keep a
   completed brief tracked through the completing PR, then retire it in the
-  first commit of the next substantive slice under
+  first commit of a later substantive slice when the evidence supports removal, under
   `.agents/doctrine/completed-artifacts.md`.
 - `.agents/plans/<epic-name>/` holds a multi-plan epic roadmap and its plans while the
   epic is in flight. Completed child plans follow the same two-slice lifecycle unless
@@ -38,9 +35,6 @@ Use this reference when creating repo artifacts, temporary notes, or planning ou
 - Optional convenience copies of completed planning artifacts may live only in the
   central disposable `_agent-scratch/<repo-name>/completed/` store described by
   `.agents/doctrine/completed-artifacts.md`; they are not evidence.
-- `.agents/sdd/` is a legacy, ignored local-only workspace. New SDD outputs and
-  temporary execution artifacts live outside the repo tree per
-  `.agents/doctrine/non-repo-locations-policy.md`.
 
 ## Scratch Files
 

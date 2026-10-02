@@ -1,20 +1,20 @@
-# Marketplace and Skill Custody Policy
+# Repository Plugin and Skill Custody Policy
 
 Status: active policy
 Owner: Portfolio repository
-Scope: plugin marketplace, derived skills, and local skill custody
+Scope: repository plugin dependencies and Portfolio-authored skills
 Routed from: `/.devin/rules/agents-doctrine.md`
 Generic baseline: repository source-custody capabilities available in the current agent runtime
 
-Use this policy when working with the repo-local plugin marketplace, the pinned marketplace source, or the derived skill tree.
+Use this policy when changing the native plugin declarations or authored skill tree.
 
 ## Source and generated custody
 
-- `.agents/plugins/marketplace.json` declares the selected plugin set.
-- `.agents/plugins/marketplace-source` is the pinned source for refresh and deployed standards.
-- Selected non-ambient plugin skills are projected from that source by the refresh utility and recorded in `.agents/skills/.provenance.json`.
-- Do not hand-edit marketplace-derived skills.
-- Repo-owned skills are tracked local source when their exact directory/frontmatter name is declared in `repo.local_skills`. A naming prefix is optional and does not establish custody. Refresh tooling must preserve declared local skills and must not overwrite or prune them.
+- `.agents/plugins/marketplace.json`, `.codex/config.toml`, and `.devin/config.json` declare and bind repository plugin dependencies for supported harnesses.
+- Dependencies use Git repositories and plugin-relative paths. `ref = "main"` opts a plugin payload into that source branch. The AOM standard definitions in `.agents/contracts/operating-standards.json` use separate immutable commit pins.
+- `.agents/skills/` contains Portfolio-authored skills only. The skill directory and frontmatter name identify each source. There is no required installed-skill inventory or copied plugin skill projection.
+- Codex and Devin configuration declares intended dependencies. Access, trust, authentication, and runtime availability depend on the harness and host and are verified separately.
 - Portfolio code and tests must not import executable implementation from `.agents/skills/` or a user-level skill cache.
-- Ambient plugins are not subscribed to or copied into this repository. Portfolio-owned skills remain under their declared local names.
-- The marketplace refresh uses the pinned submodule utility. Hosted validation can execute it without Codex or ambient plugin installation.
+- Ambient workflow plugins are independent of these repository plugin dependencies and AOM standard selections.
+- `tools/check_plugin_subscriptions.py` validates declaration shape and harness bindings. It does not prove that a fresh clone can install or run the plugins.
+- `tools/check_local_skills.py` validates authored skill names and any checked-in Codex wrappers. Agents changing an authored skill preserve the full local frontmatter and wrapper contracts.

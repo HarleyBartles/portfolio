@@ -10,10 +10,9 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_ROOT = ROOT / ".agents" / "skills" / "writing-portfolio-articles"
-MARKETPLACE_TOOLS = ROOT / ".agents" / "plugins" / "marketplace-source" / "tools"
-sys.path.insert(0, str(MARKETPLACE_TOOLS))
+sys.path.insert(0, str(ROOT / "tools"))
 
-import skill_validation  # noqa: E402
+import check_local_skills  # noqa: E402
 
 
 def load_frontmatter() -> dict[str, object]:
@@ -26,8 +25,8 @@ def load_frontmatter() -> dict[str, object]:
 
 
 class LocalSkillMetadataContractTests(unittest.TestCase):
-    def test_article_skill_frontmatter_passes_the_pinned_marketplace_contract(self) -> None:
-        skill_validation.validate_skill_markdown_frontmatter(SKILL_ROOT)
+    def test_article_skill_frontmatter_passes_the_portfolio_owned_contract(self) -> None:
+        check_local_skills.validate_skill_markdown_frontmatter(SKILL_ROOT)
         frontmatter = load_frontmatter()
         metadata = frontmatter["metadata"]
 

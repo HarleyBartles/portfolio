@@ -1,5 +1,5 @@
 # Agent Skills Routing
 
-Portfolio-owned skills in this directory are maintained here. Marketplace skill subscriptions are declared in `.agents/plugins/marketplace.json` and refreshed from the pinned `.agents/plugins/marketplace-source` submodule with `py -3 tools/run.py refresh-skills --apply`. Ambient plugins are not copied into this repository.
+`.agents/skills/` contains Portfolio-authored skills only. Repository plugin dependencies use native Codex and Devin declarations; ambient plugins do not create repository dependencies.
 
-Use `.agents/doctrine/marketplace-custody-policy.md` when deciding skill ownership, and preserve the source and provenance rules documented there.
+Use `.agents/doctrine/marketplace-custody-policy.md` when deciding skill ownership. Preserve local source and wrapper behavior documented there.

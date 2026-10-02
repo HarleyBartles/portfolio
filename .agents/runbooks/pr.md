@@ -30,7 +30,7 @@ None.
 1. Verify the task branch and worktree state against current repository policy, then follow the routed portable publication and review skills.
 2. Commit normally; let the tracked pre-commit hook prove the exact staged tree once.
 3. Push the focused branch and open or update a draft PR into `main` unless current human authority says otherwise.
-4. Before fully reviewable handoff, use the `completing-planning-artifacts` completing-slice lane: promote enduring content, mark governed artifacts `completed-awaiting-retirement`, retain them in the PR, and verify the published head contains them.
+4. Before fully reviewable handoff, promote enduring content, retain completed artifacts through the PR that completes them, and verify the published head contains them. Markers can aid discovery but do not establish completion; assess retirement from current evidence in a later substantive slice.
 5. Verify hosted checks and remote head state before publication claims. Human-owned Ready and merge actions remain PR state, not unfinished agent plan work.
 
 ## Doctrine and contracts

@@ -1,10 +1,10 @@
 # Security Playbook
 
-Use this playbook whenever a Portfolio change introduces security, privacy, credential, submodule-trust, or external-mutation concerns.
+Use this playbook whenever a Portfolio change introduces security, privacy, credential, dependency-trust, or external-mutation concerns.
 
 ## When
 
-- Reviewing or changing secrets, credentials, public content, contact behavior, dependencies, submodules, marketplace source, or deployable output.
+- Reviewing or changing secrets, credentials, public content, contact behavior, dependencies, plugin sources, or deployable output.
 - Performing destructive, permission-sensitive, or externally mutating actions.
 
 ## Required capabilities
@@ -34,11 +34,11 @@ None.
 ## Doctrine and contracts
 
 - [`../doctrine/coding-discipline.md`](../doctrine/coding-discipline.md) for scope boundaries.
-- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for marketplace-source and publication requirements.
+- [`../doctrine/workflow-policy.md`](../doctrine/workflow-policy.md) for dependency and publication requirements.
 
 ## Local commands and paths
 
-- Review `.gitmodules`, `.agents/plugins/marketplace.json`, and the marketplace-source gitlink when plugin/source trust changes.
+- Review `.agents/plugins/marketplace.json` and native harness bindings when plugin/source trust changes.
 - Treat `src/client/dist/` as the complete deployable product when checking for source maps, private paths, credentials, or runtime-only configuration.
 - Review public content under `src/client/src/data/content/` for private filesystem paths, internal URLs, or unpublished contact details.
 

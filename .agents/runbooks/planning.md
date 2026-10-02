@@ -49,7 +49,7 @@ None.
 ## Evidence contract
 
 - Each task names exact file targets, execution order, and proof.
-- Eligible predecessor completion-marked artifacts are retired in the first commit of the eventual substantive PR before the new slice's substantive edits.
+- Assess predecessor artifacts from current source, delivery, and successor-use evidence. Markers are discovery hints, never proof; retire eligible artifacts in the first commit of the eventual substantive PR before new substantive edits.
 - The implementer does not need to invent missing commands, architecture, custody, or artifact locations.
 - Deferred work and non-goals remain explicit.
 

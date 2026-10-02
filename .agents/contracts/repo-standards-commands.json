@@ -1,7 +1,12 @@
 {
   "apply": ["@python", "tools/run.py", "ci", "--apply"],
   "check": [
-    ["@python", "tools/run.py", "repo-checks", "--check"],
+    ["@python", "tools/check_agent_guidance.py", "--check"],
+    ["@python", "tools/check_operating_standards.py", "--check"],
+    ["@python", "tools/check_plugin_subscriptions.py", "--check"],
+    ["@python", "tools/check_local_skills.py", "--check"],
+    ["@python", "tools/run.py", "content-manifest", "--check"],
+    ["@python", "tools/run.py", "route-catalogue", "--check"],
     ["@python", "tools/run.py", "repository-validation", "--check"],
     ["@python", "tools/run.py", "python-tests", "--check"],
     ["@python", "tools/run.py", "vitest-tests", "--check"],
@@ -9,7 +14,12 @@
     ["@python", "tools/run.py", "playwright-tests", "--check"]
   ],
   "check_metadata": [
-    {"name": "repository checks"},
+    {"name": "agent guidance"},
+    {"name": "AOM subscriptions"},
+    {"name": "plugin subscriptions"},
+    {"name": "local skills"},
+    {"name": "content manifest"},
+    {"name": "route catalogue"},
     {"name": "repository validation", "hosted_step": true},
     {"name": "Python tests", "hosted_step": true},
     {"name": "Vitest tests", "hosted_step": true},
@@ -17,12 +27,6 @@
     {"name": "Playwright journeys", "requires": "production build", "hosted_step": true}
   ],
   "generated_paths": [
-    ".agents/skills/**",
-    ".agents/standards/**",
-    "**/.provenance.json",
-    ".agents/plugins/marketplace.json",
-    "codex-marketplace/plugin-roots.json",
-    "codex-marketplace/manifest.json",
     "src/client/src/data/content/content-manifest.json",
     "src/client/src/data/routes/route-metadata.generated.json",
     "src/client/public/robots.txt",
