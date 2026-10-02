@@ -53,7 +53,7 @@ Before calling the body finished, test navigation with representative tasks: can
 
 ## Local commands and paths
 
-- Repo-owned skills live under `.agents/skills/<declared-local-name>/` according to current custody policy.
+- Repo-owned skills live under `.agents/skills/<skill-name>/`; the directory and frontmatter name must match.
 - Local authored skills: `.agents/skills/`.
 - Check names and wrappers: `py -3 tools/check_local_skills.py`.
 - Check standards and plugin subscriptions: `py -3 tools/run.py repo-checks --check`.
@@ -67,7 +67,7 @@ Before calling the body finished, test navigation with representative tasks: can
 ## Prohibited combinations
 
 - Do not hand-edit marketplace-derived skills as though they were local source.
-- Do not create an undeclared local skill directory.
+- Do not add a separate local skill inventory; the authored directory is the source of truth.
 - Do not use installed projection state as canonical source truth.
 
 ## Runbook routing
