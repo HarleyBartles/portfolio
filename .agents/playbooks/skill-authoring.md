@@ -42,7 +42,7 @@ Treat `SKILL.md` as the entry point that helps an agent choose and follow the re
 - Use a short routing table when several paths or modes are easy to confuse. Otherwise, direct headings and conditional instructions are clearer than a flowchart.
 - Keep a skill self-contained when its guidance is short and applies on every invocation. Split content to reduce irrelevant loading and improve navigation, not just to meet a line-count target.
 
-Before calling the body finished, test navigation with representative tasks: can an agent identify the applicable path from the body, load only the needed reference, and continue without guessing? Also check that each reference's title and opening say what task it covers and when to use it. The [progressive disclosure guidance in `writing-skills`](../skills/writing-skills/anthropic-best-practices.md) gives the broader rationale and patterns.
+Before calling the body finished, test navigation with representative tasks: can an agent identify the applicable path from the body, load only the needed reference, and continue without guessing? Also check that each reference's title and opening say what task it covers and when to use it. The `/writing-skills` skill provides broader progressive-disclosure rationale and patterns.
 
 ## Doctrine and contracts
 
