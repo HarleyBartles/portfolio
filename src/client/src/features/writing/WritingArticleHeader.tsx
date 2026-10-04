@@ -44,6 +44,7 @@ const HeaderMetadata = styled(MetadataRow)`
 
 const Summary = styled(PageLead)`
   margin: ${({ theme }) => theme.space.lg} 0 0;
+  white-space: pre-line;
 `
 
 const Visual = styled.div`

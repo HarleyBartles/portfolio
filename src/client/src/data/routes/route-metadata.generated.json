@@ -357,6 +357,23 @@
     "shareAction": "content-end"
   },
   {
+    "id": "writing:introducing-sheg",
+    "path": "/writing/introducing-sheg",
+    "kind": "writing",
+    "title": "Introducing Sheg | Harley Bartles",
+    "description": "Less than a month ago, Jev landed and changed the conversation about what we could build with fast, cheap decisions. I’ve been putting it to work on something closer to home: my writing.\nMeet Sheg.",
+    "indexability": "index",
+    "openGraphType": "article",
+    "socialImage": {
+      "path": "/brand/social-card.png",
+      "alt": "Harley Bartles, Full-stack software engineer",
+      "width": 1200,
+      "height": 630,
+      "mimeType": "image/png"
+    },
+    "shareAction": "content-end"
+  },
+  {
     "id": "writing:pop-quiz-hotshot",
     "path": "/writing/pop-quiz-hotshot",
     "kind": "writing",
