@@ -68,3 +68,5 @@ Sheg currently supports Codex. Tell your agent to install [Sheg](https://github.
 
 Sheg will teach your agent how to build a study. Just bring the material and the quizzical brain.
 
+*Also published on [Medium](https://medium.com/@hbartles81/introducing-sheg-4720e281beba).*
+
