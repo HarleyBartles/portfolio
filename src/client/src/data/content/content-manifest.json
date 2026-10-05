@@ -295,6 +295,30 @@
       ]
     },
     {
+      "slug": "introducing-sheg",
+      "kind": "writing",
+      "title": "Introducing Sheg",
+      "date": "2026-10-04",
+      "readingMinutes": 5,
+      "status": "published",
+      "summary": "Less than a month ago, Jev landed and changed the conversation about what we could build with fast, cheap decisions. I’ve been putting it to work on something closer to home: my writing.\nMeet Sheg.",
+      "homepageFeature": {
+        "summary": "Bring your material and a question. Sheg helps your agent investigate it through varied reader perspectives.",
+        "inwardLabel": "Meet Sheg",
+        "incomingTeaser": "Bring the quizzical brain."
+      },
+      "path": "writing/2026-10-04-introducing-sheg.md",
+      "tags": [
+        "writing",
+        "sheg",
+        "system-one",
+        "agentic-engineering"
+      ],
+      "relatedSlugs": [
+        "agentic-engineering-vs-vibe-coding"
+      ]
+    },
+    {
       "slug": "goldilocks",
       "kind": "patch",
       "title": "Goldilocks - The Right Amount of Guidance",
