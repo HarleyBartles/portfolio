@@ -34,6 +34,8 @@ I had one. QA had found a screen showing 50 while the database said 10: a hackat
 
 I wanted that workflow available beyond this repository, for other material and other questions.
 
+It’s built with Node.js, TypeScript and SQLite, with MCP and CLI entrypoints sharing the same study engine.
+
 The name has the same intonation as Jev, but its own identity. It sounds friendly to me, a bit like Shaggy from Scooby-Doo. I’m rather pleased with it.
 
 Sheg helped put this example here. We asked 24 simulated respondents to compare three positions: here, one paragraph up and one paragraph down. Sixteen preferred it here; three would have cut it altogether.
