@@ -1,6 +1,6 @@
 # Meet Sheg: article design
 
-Status: article design and final prose approved by Harley on 2026-10-04. The article remains a draft pending the Sheg v0.3.0 release and publication-time verification.
+Status: article design and final prose approved by Harley. Ready for publication following the Sheg v0.3.0 release.
 Issue: [PORT-20](https://linear.app/harleys-workspace/issue/PORT-20/write-meet-sheg-launch-article-after-v030).
 Working branch: `codex/port-20-meet-sheg`.
 
